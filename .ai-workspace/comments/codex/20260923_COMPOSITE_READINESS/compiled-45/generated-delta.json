@@ -1,0 +1,145 @@
+[
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "436b777567a7a5c5cf226a9399abd6500689c1d1c87d3a4fef79742bd3b5d395"
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "4801dc03f74830b3857bd21d62435d7da8d849c1fa9da8beaddc1e8d9ae055a2"
+    }
+  },
+  {
+    "path": "contracts/qualification/authority-inputs.json",
+    "before": {
+      "path": "contracts/qualification/authority-inputs.json",
+      "bytes": 28061,
+      "sha256": "1c7254fdcdf2a97395c0a61d2a288876d65370442f5c47e76a8aa3771ec9fb4e"
+    },
+    "after": {
+      "path": "contracts/qualification/authority-inputs.json",
+      "bytes": 28062,
+      "sha256": "876eae395b482a4f7b092cd2be7812eb31304d5a4dcd2084b6b713875b2bbaea"
+    }
+  },
+  {
+    "path": "contracts/qualification/coverage.json",
+    "before": {
+      "path": "contracts/qualification/coverage.json",
+      "bytes": 11476,
+      "sha256": "a009baadcc1bb87c4f4fb75d8bccf28778437f6d35e2800d01ae24d21d832c2f"
+    },
+    "after": {
+      "path": "contracts/qualification/coverage.json",
+      "bytes": 11476,
+      "sha256": "50858f58f82321739221caea32599b0e84791752d8288454a8092f529db1ce11"
+    }
+  },
+  {
+    "path": "contracts/qualification/law-basis.json",
+    "before": {
+      "path": "contracts/qualification/law-basis.json",
+      "bytes": 28469,
+      "sha256": "b7d303088a8c7c99a84e83d2b3c79a433bae32d98cafbb48e867b33629cacb6e"
+    },
+    "after": {
+      "path": "contracts/qualification/law-basis.json",
+      "bytes": 28470,
+      "sha256": "a9741887138d9ba4536a26e2400c239c1f6dcdcb83bd5d46a9a354e2708ca80f"
+    }
+  },
+  {
+    "path": "contracts/qualification/rule-catalog.json",
+    "before": {
+      "path": "contracts/qualification/rule-catalog.json",
+      "bytes": 1770926,
+      "sha256": "070dc5a6044b180ae5f72cc901872e6e0a79a37040d856769eca0f4155ca64bc"
+    },
+    "after": {
+      "path": "contracts/qualification/rule-catalog.json",
+      "bytes": 1781690,
+      "sha256": "73917e03b0257b26b742d384182361b7ceb879a3d448736c840a1b331e689ca8"
+    }
+  },
+  {
+    "path": "contracts/qualification/sources/PRODUCT.md",
+    "before": {
+      "path": "contracts/qualification/sources/PRODUCT.md",
+      "bytes": 71660,
+      "sha256": "34fef921b93abfaaab3e0beffde2d4c9cc5506b8109944bb1fb981a3a8445631"
+    },
+    "after": {
+      "path": "contracts/qualification/sources/PRODUCT.md",
+      "bytes": 81200,
+      "sha256": "bb0c211a3fe04be9b3d8a12779387f6b26e3e0d0bd2bf513cf7fe826c8ba5176"
+    }
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-CCALL.md",
+    "before": {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-CCALL.md",
+      "bytes": 8083,
+      "sha256": "00a482c6c34655f7fac23858cc6544e3f65facf2bda4b2ec21166026d1bd7949"
+    },
+    "after": {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-CCALL.md",
+      "bytes": 8926,
+      "sha256": "3db608b13aa61e13d68ecef484561d90aa3e1dfee3cba4b36fce1d913cd87502"
+    }
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-CONTINUATION.md",
+    "before": {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-CONTINUATION.md",
+      "bytes": 5154,
+      "sha256": "0525b68ef606855193419cee6f638808129f7a445a461810e96440ee51eaeda5"
+    },
+    "after": {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-CONTINUATION.md",
+      "bytes": 6196,
+      "sha256": "1dddbe439f4b0f9e6021f3282741e02b4660648e998d602fb21c6986b5dd4ff1"
+    }
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "before": {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "bytes": 10274,
+      "sha256": "3739d64e335d0eb04dd4cfb0dc362783c33dde1ed846651db56a28cde2eda9bb"
+    },
+    "after": {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "bytes": 12093,
+      "sha256": "4dca668bf7c11987cf9a79e320d828e783e99b43591b0e408bc325e178d65f15"
+    }
+  },
+  {
+    "path": "contracts/qualification/sources/REQ-R-ABG3-PROJECTION.md",
+    "before": {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-PROJECTION.md",
+      "bytes": 9406,
+      "sha256": "e552c7f43583aafd16a4c0b4c4ca70af2afb9be21b21ab3adb754a709dc905e6"
+    },
+    "after": {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-PROJECTION.md",
+      "bytes": 10959,
+      "sha256": "697531863470181bbacc2b64abc6ee1508c3681c48173c781ad8effe07ea59cf"
+    }
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "3a50cff127905665361571803c241091f683e7c6ef45eacfa98987038a5f1161"
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "4a434e072c96ee5db12784d95e69e38251cec9d58925f895bd2431037063aee3"
+    }
+  }
+]

@@ -1,0 +1,192 @@
+{
+  "kind": "native_semantic_revision_suffix_readback",
+  "run": {
+    "digest": "sha256:a9def8c64a39ad28593a7c0d3b24e654ce80724eb97a737fd7e6573669d9f091",
+    "ref": "run://abiogenesis/bda0672d02c1586aefa388da2c5cd2f0e3673b202a49ed97a4019a3a4b6c6ec3"
+  },
+  "result": {
+    "digest": "sha256:a09b0bd40dbdbc9e507dc0f34f4f7dcc80226a693b70c696f456e105aa30203d",
+    "ref": "result://abiogenesis/a09b0bd40dbdbc9e507dc0f34f4f7dcc80226a693b70c696f456e105aa30203d"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:b4ae8dc8b9819ca96dc379070b30e33437ca7e059c791c138c702e0b685a90c0",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:2b98525a32d67b03b1465d12b1cfd5831c31d658ff3a78f2fafeeecddce34db5",
+    "prefixLength": 623146192,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "publicReads": [
+    {
+      "memberKey": "run_result",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 44925.381958000005,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/suffix-01/read-run_result.json",
+      "resultDigest": "sha256:c05c2d00472030bfd3a5f9e17765f3b1e83547c48ea6654b2f0cc7b111907172"
+    },
+    {
+      "memberKey": "run_replay",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 46074.096833,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/suffix-01/read-run_replay.json",
+      "resultDigest": "sha256:fd166090b7b97e0b56e8544940db3d5e67a0d9461cdb28097e2ab16e9d05d904"
+    }
+  ],
+  "installedAfter": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/7aa123cdd0909118b2f0f535c8646c74b938fb538f44308171072af4b486f7dc/3820d44d5ff0b03f99feeda868c313f84bda614f6a4fe271cdb7c12d5025e50d",
+      "productContentDigest": "sha256:7aa123cdd0909118b2f0f535c8646c74b938fb538f44308171072af4b486f7dc"
+    },
+    {
+      "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/3820d44d5ff0b03f99feeda868c313f84bda614f6a4fe271cdb7c12d5025e50d",
+      "productContentDigest": "sha256:279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380"
+    }
+  ],
+  "inputDigest": "sha256:2cefd13f114ea2fe1f8dbbcd5557cf06acbec12a5f3ee08d5d39f000144b3998",
+  "duplicateSdkProjection": false,
+  "status": "unqualified_missing_independent_coverage",
+  "applicationCoverage": "non_closing",
+  "remainingGaps": [
+    "full_source_semantic_completeness_unassessed",
+    "application_requirements_not_closed",
+    "proof_depth_and_strength_unassessed"
+  ],
+  "terminalResult": {
+    "digest": "sha256:a09b0bd40dbdbc9e507dc0f34f4f7dcc80226a693b70c696f456e105aa30203d",
+    "ref": "result://abiogenesis/a09b0bd40dbdbc9e507dc0f34f4f7dcc80226a693b70c696f456e105aa30203d"
+  },
+  "valueDigest": "sha256:893e34b4b22fd8987f73c4fefd99b4911ead9017b7aa96dfb0bf0f8699ed91f1",
+  "artifacts": [
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/specification/project-conformance.md",
+      "bytes": 1182,
+      "digest": "sha256:148e9bb1fd6dd2c39121e3e141e8a46b22cae5912e670cc04f3a2b0ec7799a3a",
+      "subjectRef": "worksite-subject://abiogenesis/33c232b98d7c1555cd2da25bace52a1bdd87f29b9a60e36f89910a88a7ea2774",
+      "observationRef": "worksite-observation://abiogenesis/50d205dba9c87379f7ac8aecf8e2ba62c63abc1c9d77c57c831c44b7869280db"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/design/implementation-design.md",
+      "bytes": 946,
+      "digest": "sha256:2a5acf0f055983bf757cf1324669be609ddedddb753db03e4e2897e6fc370ee3",
+      "subjectRef": "worksite-subject://abiogenesis/cd99a6da8467ca11eb8342d820cf40cb13a673fda60e1ab4a850cfb89152eb6d",
+      "observationRef": "worksite-observation://abiogenesis/34b858a6375bd8f1bf95384d936cf3892d7eda565fa0956ad8e1a96b0d34b33f"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/package.json",
+      "bytes": 42,
+      "digest": "sha256:609158e6c5fbc237939fa3ddf7faab80ab690bdc0c8d584414a885130103c4e8",
+      "subjectRef": "worksite-subject://abiogenesis/0e1c6664caf594895d2273ba57ad9361f6e80df4a9a193ef3439605e01e6c30a",
+      "observationRef": "worksite-observation://abiogenesis/148ef63628b5f6502da54db412762be51eb0ee65170d766a220450b9b3fd6d13"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/src/hello.mjs",
+      "bytes": 108,
+      "digest": "sha256:e62ab9f36107d91297bcb4433418a4a1911d2081724ea141bc848d1d8acde924",
+      "subjectRef": "worksite-subject://abiogenesis/ac4b2564aed29d4d0ff12695cf1ff365d2c7ce58c2c01ef12d7a0ddad0bbb9f0",
+      "observationRef": "worksite-observation://abiogenesis/94c1ae47db47ae504a92af9459cb79d1a81017f3ae773d365686721567a5b84f"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/design/test-design.md",
+      "bytes": 1104,
+      "digest": "sha256:17fcb06fcf2253a475b296772b8a15569522be2632b9c398c63181d56bef90df",
+      "subjectRef": "worksite-subject://abiogenesis/aebcccca7730ffece01dd85d622ec4f097233daa71a683e0d354814cb754a0ab",
+      "observationRef": "worksite-observation://abiogenesis/17c2fd581134dc81403d6dd04dac4b14a1dbc92798335d4bc3b47fcfe2aa8b9d"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/test/component/hello.test.mjs",
+      "bytes": 312,
+      "digest": "sha256:4eefc99756ee34640b1e2c8baecb9ff4fa199d8d014d6ed935fe5bec7a9f031b",
+      "subjectRef": "worksite-subject://abiogenesis/2bcbe1564eadd0c550bd08a9537b15eb45c867ea98a0efd4c5051e6d5b9cf562",
+      "observationRef": "worksite-observation://abiogenesis/9e55d76ec31b0e36804b4624d4d6d7c53741404c8913f023e87239a2b6981df1"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/test/uat/hello.uat.test.mjs",
+      "bytes": 354,
+      "digest": "sha256:42bf7e724edf073aeb23f0e9b1d5dabf66a63ce444c51c3502303fd9d3332e82",
+      "subjectRef": "worksite-subject://abiogenesis/1971e19164995444dccc0b52f9e7ee53e95fd9e3d5b1d56f25f2ed4874f6258a",
+      "observationRef": "worksite-observation://abiogenesis/a2a556db9d393281b93e87b939ce03b9d12ab195afdc90e84b4375288eef313d"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/test-execution-plan.json",
+      "bytes": 300,
+      "digest": "sha256:c69ed6ca8f50ba55e59ff4a841856cb977a63ebdf6d2c98b81e35ba62af4ed7d",
+      "subjectRef": "worksite-subject://abiogenesis/aeddc88039e2152180d4f788c4e82a9b0d38e86dd2f341c4fdf9308c13eb6d19",
+      "observationRef": "worksite-observation://abiogenesis/d3135ed33374ed25fead6ff40c5b1d6d4a14f54b0b1373083021c7d040e1154f"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/verification/check-inventory.mjs",
+      "bytes": 5704,
+      "digest": "sha256:327d0fdbc5a67ddf7e3a4b6eee6d770a7f4f57402423abebb5ce75df18c2a517",
+      "subjectRef": "worksite-subject://abiogenesis/6d0484daeeb3468cc91f25b4226652b10d572f77073f1d7cf5437228e56169d6",
+      "observationRef": "worksite-observation://abiogenesis/4c2e2154342fa7eb3b357ee51514eb36d74a14475e2f351d268779c34df66215"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/verification/check-package.mjs",
+      "bytes": 1908,
+      "digest": "sha256:ef9d65362094704dd1a8927e2abf4ac99e8660ffb650793b7b7843b4dba1552a",
+      "subjectRef": "worksite-subject://abiogenesis/ceeff2f2bfe056beb10c01a41e3ca1fa81f42dae7ffc38ec78dad3f039891ab6",
+      "observationRef": "worksite-observation://abiogenesis/c1d54cf6391b02469de98b5d368521b9b6849b34c8151db01ee0e85f2e83d6ab"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/verification/check-documents.mjs",
+      "bytes": 3770,
+      "digest": "sha256:21537559351303205f7264f78b6c400059057cc85a1d323c99c18029356218dd",
+      "subjectRef": "worksite-subject://abiogenesis/721504983961e01dbb5430e427c2a086d5cfd34f718b40f385fc1928ea552c07",
+      "observationRef": "worksite-observation://abiogenesis/d7d824184e0f82b5c8b66de9ded33938e49c98bd50cf9b73f1a6eb43b9175fba"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/verification/check-verifier-structure.mjs",
+      "bytes": 4853,
+      "digest": "sha256:59296f62425a051fab2ed5e6e9de942921da5165faab9c5fc68d1f54c090fbc7",
+      "subjectRef": "worksite-subject://abiogenesis/5af529ef5bad0b38e82dc62ef369320f0fdb2ac0e06f43427a8a46f0f5c200c3",
+      "observationRef": "worksite-observation://abiogenesis/ea691f77c3d0df848af167f36b496bef7687c4a07756245ac3658bea36fc7e9c"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/verification/check-plan.mjs",
+      "bytes": 4384,
+      "digest": "sha256:dadf87cd9c1b7e410451c74ece70574a31966098a3954b53949da9b3e5bbd746",
+      "subjectRef": "worksite-subject://abiogenesis/05bd03a80ba9f7e64faacd32c9bee6d743ee8f7ec940b22aeaa5ff04d4b8cc24",
+      "observationRef": "worksite-observation://abiogenesis/7f738a00f7004ecf473800d1a93e3368207c820218bb1e54819a5d1ca377ade1"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/js-sdlc-bootstrap/subject-js-sdlc-bootstrap/verification/check-derivation.mjs",
+      "bytes": 4654,
+      "digest": "sha256:491e7edbefd97b322fe6bd514c147d7448b6c2ef0e7fee94c5b2c1d260059668",
+      "subjectRef": "worksite-subject://abiogenesis/1458a13ab19e40a01bb1fb59bf101f647843504cded8393e02ed3be1a3fb6158",
+      "observationRef": "worksite-observation://abiogenesis/f180ad6bbf4e398fb8dd2986e852f7e5407c526aa366ccd3173727f2b57ecd83"
+    }
+  ],
+  "assessments": [
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/intent@5",
+      "assetRef": "semantic-job-asset://abiogenesis/9f9c337f3df0d254747a496e15ef01663c42cd6274368164f8cee900338c4c0a",
+      "disposition": "satisfied"
+    },
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/product@5",
+      "assetRef": "semantic-job-asset://abiogenesis/0f5e3bf0a1e555a1b418b15cc3236ff76dffedbf8c5378b6cf01c39caaa16560",
+      "disposition": "satisfied"
+    },
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/requirements@5",
+      "assetRef": "semantic-job-asset://abiogenesis/7a978d3cd06835c9a42a81e7ae4fc0c0fd6c5de2d8a4e0ac2880faaa7db45c8f",
+      "disposition": "satisfied"
+    },
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/design@5",
+      "assetRef": "semantic-job-asset://abiogenesis/8bbebc0580adc5eed26f2570cce0dab311f688ebf91403cd3a660ff6fb2b35fc",
+      "disposition": "satisfied"
+    },
+    {
+      "stageRef": "stage://odd-glc/generic-lifecycle/evidence@5",
+      "assetRef": "semantic-job-asset://abiogenesis/8942da3b1c5ef0faf0742e644a6f0b925c2d8caf65ea4c39f8d2a4d993e88b4d",
+      "disposition": "satisfied"
+    }
+  ],
+  "boundary": "Ordinary Public terminal Result/replay, typed revision/job conservation and existing oracle/artifact checks; no duplicate SDK reconstruction or application acceptance inferred from native completion."
+}

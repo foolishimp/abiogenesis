@@ -32,8 +32,13 @@ accepted and packaged. Native42 proves the repaired installed intake, accepts
 revised Design, and completes construction and nine command runs. Evidence-author
 preparation then refuses the context bound. T-287 selects lossless context
 sharing and the missing operational recovery case so the declared Evidence-only
-suffix can consume valid completed work. Its source, proof and continuation
-disposition remain T-287-owned. T-287 owns the
+suffix can consume valid completed work. Native44 completes that recovery with satisfied stage assessments, fresh Public
+readback and exact conservation of completed work. Independent review supports
+the application behavior and content; the selected S06 witness still requires
+prospectively declared predecessor inputs and its evaluator records. T-043 owns
+that consumer work, reusing valid artifacts and execution evidence. The current
+qualification source bindings and exact core45 package are accepted; complete
+qualification remains open. T-287 owns the
 bounded grants, proof and disposition. Preserve valid
 work and triage any further delivery failure against the end-to-end calculus
 before selecting its owning repair. Native39 remains historical closed-failed

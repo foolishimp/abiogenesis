@@ -1,0 +1,30 @@
+{
+  "node": {
+    "invokedPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "selectedLink": "/opt/homebrew/bin/node",
+    "version": "v24.7.0",
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "bytes": 86104016
+  },
+  "npm": {
+    "invokedPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+    "selectedLink": "/opt/homebrew/bin/npm",
+    "version": "11.5.1",
+    "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+    "packageMetadataSha256": "e14cc7eeb538420c8f6f2a05fbcd7d748ee7dd2bb0e3bec07cb7355f16e5b484",
+    "inventory": "npm-toolchain-inventory.json",
+    "inventorySha256": "57422b62fb01ddb84b3d55259bc2c929aa0038d28cdc5edf422a2216909168dc"
+  },
+  "path": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+  "typescript": "5.9.2",
+  "nodeTypes": "24.3.0",
+  "cache": "Existing local cache bytes were read/integrity-checked only. Native recipe seeds a new verification/.npm-cache from these 16 exact tarball inputs using ordinary npm cache add, then npm ci --offline --ignore-scripts. No global cache write or copied node_modules.",
+  "git": {
+    "invokedPath": "/usr/bin/git",
+    "resolvedDeveloperTool": "/Applications/Xcode.app/Contents/Developer/usr/bin/git",
+    "version": "git version 2.50.1 (Apple Git-155)",
+    "sha256": "e64103dcf6e7686a5dc58e44d380d65eb298a94210c1a00558558890da355750",
+    "scope": "disposable component fixtures only; operating-system tool selection remains an external readiness premise"
+  },
+  "reverifiedAt": "2026-09-23T02:05:38.513168+00:00"
+}

@@ -1,0 +1,20 @@
+{
+  "kind": "observed_native_context_volume",
+  "recordingRole": "Writer /root",
+  "at": "2026-09-26T09:52:45.551920+00:00",
+  "prompt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/preparation/invocation/archives/fp-3ed508af6bc3b094-prompt.txt",
+  "promptSha256": "53c8cb72f8c88f891066f40c9fe3d083a9d6e432001e4e4f133de0c2e6a11ab4",
+  "promptBytes": 971231,
+  "sectionBodyBytes": {
+    "role": 114518,
+    "source": 6711,
+    "obligations": 126797,
+    "predecessors": 1586,
+    "worksite": 6181,
+    "evidence": 150851,
+    "task": 560931,
+    "response": 3563
+  },
+  "scope": "Actual native44 Evidence author prompt; source includes its presentation wrapper. Byte volume is not token use or measured semantic work.",
+  "disposition": "Retain proportionality red flag under existing NATIVE-EVIDENCE-CONTEXT-01; actual outcome still pending. Does not establish that every supplied body is redundant or authorize a new cleanup scope."
+}

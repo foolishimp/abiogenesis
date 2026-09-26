@@ -1,0 +1,45 @@
+{
+  "classification": "qualification_source_authority_currentness",
+  "status": "future_owner_reentry_only_not_executed",
+  "sourceOriginal": "specification/PRODUCT.md",
+  "affectedBindings": [
+    "build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md"
+  ],
+  "ownerSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+    "sha256": "65ce8a6ea4c052be321a38acbf24fec3104d8e312faf1cbf498905c128745778",
+    "bytes": 12768
+  },
+  "stageOwner": "stageQualificationAuthorities(repo, release)",
+  "stageCommand": {
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "executable": "node",
+    "args": [
+      "scripts/generate-qualification-rule-catalog.mjs",
+      "--stage-authorities",
+      "/Users/jim/src/apps/abiogenesis",
+      "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.1"
+    ]
+  },
+  "followOnExistingOwner": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "sha256": "2963cabc8531ae0e1d5688706e4d4af9d46fcad14a0e1d4c5931bfdb606bfd7a",
+      "bytes": 41833
+    },
+    "command": [
+      "node",
+      "scripts/generate-product-manifest.mjs"
+    ],
+    "existingRecipeCommandId": "command://abiogenesis/rc1-qual056/generate"
+  },
+  "derivedBindings": [
+    "contracts/qualification/rule-catalog.json",
+    "contracts/qualification/law-basis.json",
+    "contracts/qualification/coverage.json",
+    "contracts/schemas/self-conformance.schema.json",
+    "product-toolchain-manifest.json"
+  ],
+  "scope": "Existing explicit staging refreshes all selected frozen authority inputs; ordinary reproduction only consumes frozen inputs. Executive must select a bounded successor and actual affected bindings/package correspondence. No mutation to accepted core44 or running native44, no assumption that ordinary generation alone refreshes original sources."
+}

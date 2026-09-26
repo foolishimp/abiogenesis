@@ -1,0 +1,1068 @@
+{
+  "sourceCommit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+  "repoSourceCount": 87,
+  "sourceSelectionUnchanged": true,
+  "sources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "2c13b1fd28f3aaa624d941537a858f67ca8784f0710f490522147f57964c4051",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "stdo_abiogenesis.json"
+      },
+      "priorFrozenDigest": "sha256:2c13b1fd28f3aaa624d941537a858f67ca8784f0710f490522147f57964c4051",
+      "frozenCopy": "contracts/qualification/sources/stdo_abiogenesis.json",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/INTENT.md",
+      "bytes": 13626,
+      "sha256": "04c8675ecf6779e9bf9048fe56b3cd84d8421093fc3072216dabb9235d217299",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/INTENT.md"
+      },
+      "priorFrozenDigest": "sha256:04c8675ecf6779e9bf9048fe56b3cd84d8421093fc3072216dabb9235d217299",
+      "frozenCopy": "contracts/qualification/sources/INTENT.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "bytes": 81200,
+      "sha256": "bb0c211a3fe04be9b3d8a12779387f6b26e3e0d0bd2bf513cf7fe826c8ba5176",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/PRODUCT.md"
+      },
+      "priorFrozenDigest": "sha256:34fef921b93abfaaab3e0beffde2d4c9cc5506b8109944bb1fb981a3a8445631",
+      "frozenCopy": "contracts/qualification/sources/PRODUCT.md",
+      "changedFromFrozen": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/00-starter.md",
+      "bytes": 306,
+      "sha256": "bc6fae43aa6fdaf0fd56a6245eefa83b233ed2cac3f9177efe3873b1e5ac7e84",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/00-starter.md"
+      },
+      "priorFrozenDigest": "sha256:bc6fae43aa6fdaf0fd56a6245eefa83b233ed2cac3f9177efe3873b1e5ac7e84",
+      "frozenCopy": "contracts/qualification/sources/00-starter.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/README.md",
+      "bytes": 6573,
+      "sha256": "f2268bea4df0f9c6aa30d401c0ba0d03ebc586ddd7c84fa1f3c0cdf249d0484d",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/README.md"
+      },
+      "priorFrozenDigest": "sha256:f2268bea4df0f9c6aa30d401c0ba0d03ebc586ddd7c84fa1f3c0cdf249d0484d",
+      "frozenCopy": "contracts/qualification/sources/specification__requirements__README.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/README.md",
+      "bytes": 3069,
+      "sha256": "421300265888d2332b80fefcd7931006fcb38d1be9cb4cae710348f3da98a44d",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/README.md"
+      },
+      "priorFrozenDigest": "sha256:421300265888d2332b80fefcd7931006fcb38d1be9cb4cae710348f3da98a44d",
+      "frozenCopy": "contracts/qualification/sources/specification__requirements__abg__README.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-ASSURANCE.md",
+      "bytes": 10341,
+      "sha256": "fe8b38aa68686d3a14dd53db2e9cebc36163a99b16b6ccf76d4c8052a9cbb361",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-ASSURANCE.md"
+      },
+      "priorFrozenDigest": "sha256:fe8b38aa68686d3a14dd53db2e9cebc36163a99b16b6ccf76d4c8052a9cbb361",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-ASSURANCE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-BINDING.md",
+      "bytes": 7543,
+      "sha256": "af6538e5bf717feeefc90a8becedac9f3556fc77ea4c149443fa2a9c4d5f3175",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-BINDING.md"
+      },
+      "priorFrozenDigest": "sha256:af6538e5bf717feeefc90a8becedac9f3556fc77ea4c149443fa2a9c4d5f3175",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-BINDING.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-CCALL.md",
+      "bytes": 8926,
+      "sha256": "3db608b13aa61e13d68ecef484561d90aa3e1dfee3cba4b36fce1d913cd87502",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-CCALL.md"
+      },
+      "priorFrozenDigest": "sha256:00a482c6c34655f7fac23858cc6544e3f65facf2bda4b2ec21166026d1bd7949",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-CCALL.md",
+      "changedFromFrozen": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+      "bytes": 6196,
+      "sha256": "1dddbe439f4b0f9e6021f3282741e02b4660648e998d602fb21c6986b5dd4ff1",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md"
+      },
+      "priorFrozenDigest": "sha256:0525b68ef606855193419cee6f638808129f7a445a461810e96440ee51eaeda5",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-CONTINUATION.md",
+      "changedFromFrozen": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-CONVERGENCE.md",
+      "bytes": 2695,
+      "sha256": "03aa87426b46e9d58f81cadd926d98973a5c113a603195b0a73eb0586b57f902",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-CONVERGENCE.md"
+      },
+      "priorFrozenDigest": "sha256:03aa87426b46e9d58f81cadd926d98973a5c113a603195b0a73eb0586b57f902",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-CONVERGENCE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-CORRECTION.md",
+      "bytes": 1164,
+      "sha256": "d1d663f3011c127d85ac73440edb6d9c133c6e88f5f2291ebded68439b8c3edb",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-CORRECTION.md"
+      },
+      "priorFrozenDigest": "sha256:d1d663f3011c127d85ac73440edb6d9c133c6e88f5f2291ebded68439b8c3edb",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-CORRECTION.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "bytes": 16630,
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-EVENTS.md"
+      },
+      "priorFrozenDigest": "sha256:0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-EVENTS.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md",
+      "bytes": 13365,
+      "sha256": "5ff1c91698d5ba71f81bada072ecdc008cf1ef74e216af3b15126e56c7d666b1",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md"
+      },
+      "priorFrozenDigest": "sha256:5ff1c91698d5ba71f81bada072ecdc008cf1ef74e216af3b15126e56c7d666b1",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-FN-COMPOSITION.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-FP-CONSCIOUSNESS.md",
+      "bytes": 20151,
+      "sha256": "3bbde7990ad1d5e779b75d2f592598f12471e93fed66ba487070c1d4d85aaeb6",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-FP-CONSCIOUSNESS.md"
+      },
+      "priorFrozenDigest": "sha256:3bbde7990ad1d5e779b75d2f592598f12471e93fed66ba487070c1d4d85aaeb6",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-FP-CONSCIOUSNESS.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-FRAME.md",
+      "bytes": 1422,
+      "sha256": "36b200e1fc89e4b0a9c3f922e674c854505090fa911558d1b956b2350e287d51",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-FRAME.md"
+      },
+      "priorFrozenDigest": "sha256:36b200e1fc89e4b0a9c3f922e674c854505090fa911558d1b956b2350e287d51",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-FRAME.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-GRAPHCALL.md",
+      "bytes": 1546,
+      "sha256": "7dfcdf946e649d846a42e640438598e13f119bfbfec3c2ab0ccf836a7dd9a045",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-GRAPHCALL.md"
+      },
+      "priorFrozenDigest": "sha256:7dfcdf946e649d846a42e640438598e13f119bfbfec3c2ab0ccf836a7dd9a045",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-GRAPHCALL.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-HANDLERS.md",
+      "bytes": 6120,
+      "sha256": "11b1c61ecb52c11b2bbc047c019792139b9a80367f881bbddd5826a8e4189000",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-HANDLERS.md"
+      },
+      "priorFrozenDigest": "sha256:11b1c61ecb52c11b2bbc047c019792139b9a80367f881bbddd5826a8e4189000",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-HANDLERS.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "bytes": 12093,
+      "sha256": "4dca668bf7c11987cf9a79e320d828e783e99b43591b0e408bc325e178d65f15",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md"
+      },
+      "priorFrozenDigest": "sha256:3739d64e335d0eb04dd4cfb0dc362783c33dde1ed846651db56a28cde2eda9bb",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "changedFromFrozen": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-INTERPRET.md",
+      "bytes": 7680,
+      "sha256": "5c2a1cf2de4686deac3ba97863d88483bfa8aab5cd9141cda2f1f7b9dfecf7de",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md"
+      },
+      "priorFrozenDigest": "sha256:5c2a1cf2de4686deac3ba97863d88483bfa8aab5cd9141cda2f1f7b9dfecf7de",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-INTERPRET.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-ITERATION.md",
+      "bytes": 6335,
+      "sha256": "39259a007bbe83cf57b16f042dd83018146d47831e45a767d4c22cb85e810e84",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-ITERATION.md"
+      },
+      "priorFrozenDigest": "sha256:39259a007bbe83cf57b16f042dd83018146d47831e45a767d4c22cb85e810e84",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-ITERATION.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-JOB-WORKER.md",
+      "bytes": 1207,
+      "sha256": "0b2c2105ea5b1808214f282672b2974d0faf43b0872022e0d9a64844bb716f15",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-JOB-WORKER.md"
+      },
+      "priorFrozenDigest": "sha256:0b2c2105ea5b1808214f282672b2974d0faf43b0872022e0d9a64844bb716f15",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-JOB-WORKER.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-LEAFTASK.md",
+      "bytes": 1588,
+      "sha256": "d54227e3c548004f8b80d76efd5d0283f52e5ce2d411c2addc4dce691adb08ce",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-LEAFTASK.md"
+      },
+      "priorFrozenDigest": "sha256:d54227e3c548004f8b80d76efd5d0283f52e5ce2d411c2addc4dce691adb08ce",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-LEAFTASK.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-LINEAGE.md",
+      "bytes": 1437,
+      "sha256": "968f97fd609aee04fed41160c65991683f0b113a1a3cb0b13898bc0017407fdc",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-LINEAGE.md"
+      },
+      "priorFrozenDigest": "sha256:968f97fd609aee04fed41160c65991683f0b113a1a3cb0b13898bc0017407fdc",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-LINEAGE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md",
+      "bytes": 11203,
+      "sha256": "a10a8edcd84e1e15115b1c66110ab0d66a5a34e61d0e849d4a375752675bf63e",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md"
+      },
+      "priorFrozenDigest": "sha256:a10a8edcd84e1e15115b1c66110ab0d66a5a34e61d0e849d4a375752675bf63e",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-PAYLOAD.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-PLUGIN-SEAMS.md",
+      "bytes": 6517,
+      "sha256": "ad3b105c013f74d60bc32a2e4a56ec65e91d25a011ce0722f84a9f7e22947381",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-PLUGIN-SEAMS.md"
+      },
+      "priorFrozenDigest": "sha256:ad3b105c013f74d60bc32a2e4a56ec65e91d25a011ce0722f84a9f7e22947381",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-PLUGIN-SEAMS.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-POLICY.md",
+      "bytes": 2343,
+      "sha256": "c6e41fb43aaede4a1e28e229bb93e8b8ccbddc48d84372390a1bbdbad5f480f6",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-POLICY.md"
+      },
+      "priorFrozenDigest": "sha256:c6e41fb43aaede4a1e28e229bb93e8b8ccbddc48d84372390a1bbdbad5f480f6",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-POLICY.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "bytes": 10959,
+      "sha256": "697531863470181bbacc2b64abc6ee1508c3681c48173c781ad8effe07ea59cf",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md"
+      },
+      "priorFrozenDigest": "sha256:e552c7f43583aafd16a4c0b4c4ca70af2afb9be21b21ab3adb754a709dc905e6",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-PROJECTION.md",
+      "changedFromFrozen": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-PROVENANCE.md",
+      "bytes": 1542,
+      "sha256": "ef0caf7118426de7fcae3cdb1073e721cd770a85a7d7c58dec257f02f011efcb",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-PROVENANCE.md"
+      },
+      "priorFrozenDigest": "sha256:ef0caf7118426de7fcae3cdb1073e721cd770a85a7d7c58dec257f02f011efcb",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-PROVENANCE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md",
+      "bytes": 21645,
+      "sha256": "372c99dc400cb5f6206ff4e1f9e3b47cc3ce0cf786700e6b2817cb82f97ddf22",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md"
+      },
+      "priorFrozenDigest": "sha256:372c99dc400cb5f6206ff4e1f9e3b47cc3ce0cf786700e6b2817cb82f97ddf22",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md",
+      "bytes": 15697,
+      "sha256": "78f19a03963a4f83540f25a5ae49490cabcbd200f219669dfd9a13ec72f44519",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md"
+      },
+      "priorFrozenDigest": "sha256:78f19a03963a4f83540f25a5ae49490cabcbd200f219669dfd9a13ec72f44519",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-RETRY.md",
+      "bytes": 3157,
+      "sha256": "4fd1f4798487eb072d8afbe3e9aa8f70fedf425d681ae244eaba9c8874434307",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-RETRY.md"
+      },
+      "priorFrozenDigest": "sha256:4fd1f4798487eb072d8afbe3e9aa8f70fedf425d681ae244eaba9c8874434307",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-RETRY.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-RUN.md",
+      "bytes": 2917,
+      "sha256": "b7e548eebae47b078b5d54a7838692f736a2956321673bc62b58bd9608d03bd8",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-RUN.md"
+      },
+      "priorFrozenDigest": "sha256:b7e548eebae47b078b5d54a7838692f736a2956321673bc62b58bd9608d03bd8",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-RUN.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "bytes": 7453,
+      "sha256": "70a601490542b36b7e474bfd14f7dfd510a4cbe72fb37f16b49cd35d2f240eed",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md"
+      },
+      "priorFrozenDigest": "sha256:70a601490542b36b7e474bfd14f7dfd510a4cbe72fb37f16b49cd35d2f240eed",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-SELECTION-APPLICATION.md",
+      "bytes": 2201,
+      "sha256": "70b1e781d2e91bfaa08785cb4f39d21a3ab588a49ec3150943c18968c7f113b4",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-SELECTION-APPLICATION.md"
+      },
+      "priorFrozenDigest": "sha256:70b1e781d2e91bfaa08785cb4f39d21a3ab588a49ec3150943c18968c7f113b4",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-SELECTION-APPLICATION.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-SELFHOSTING.md",
+      "bytes": 4840,
+      "sha256": "edcac76a57069c7d5b0aa2776546c3f404eb6774260f818ddfb99dc715fdfaae",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-SELFHOSTING.md"
+      },
+      "priorFrozenDigest": "sha256:edcac76a57069c7d5b0aa2776546c3f404eb6774260f818ddfb99dc715fdfaae",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-SELFHOSTING.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
+      "bytes": 9837,
+      "sha256": "f8104e0e932ad352e03c74df3a7cb26b8b20b9111116851c817c6a9a72159c71",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-SUPERVISOR-WITNESS.md"
+      },
+      "priorFrozenDigest": "sha256:f8104e0e932ad352e03c74df3a7cb26b8b20b9111116851c817c6a9a72159c71",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md",
+      "bytes": 9354,
+      "sha256": "fe64f74f2c1bd08a9104c83f0d2d34899da8424e11b11bb98ed6cc59390efc96",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md"
+      },
+      "priorFrozenDigest": "sha256:fe64f74f2c1bd08a9104c83f0d2d34899da8424e11b11bb98ed6cc59390efc96",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-TRANSPORT.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-TUNER.md",
+      "bytes": 7626,
+      "sha256": "fadea8385f24f9f4576406eff83c70eead0586f247661fab57f7dfb602012088",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-TUNER.md"
+      },
+      "priorFrozenDigest": "sha256:fadea8385f24f9f4576406eff83c70eead0586f247661fab57f7dfb602012088",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-TUNER.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-WORKER.md",
+      "bytes": 2386,
+      "sha256": "a4c1646e81e1f831cdd663d25347f07280b4602be577e9e0d594a499de4499ea",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/abg/REQ-R-ABG3-WORKER.md"
+      },
+      "priorFrozenDigest": "sha256:a4c1646e81e1f831cdd663d25347f07280b4602be577e9e0d594a499de4499ea",
+      "frozenCopy": "contracts/qualification/sources/REQ-R-ABG3-WORKER.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/README.md",
+      "bytes": 3023,
+      "sha256": "3738823cf9e27c5dd6bec9cb0f400f52f9339b38b5aa1324ee93b19e7fa7333b",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/README.md"
+      },
+      "priorFrozenDigest": "sha256:3738823cf9e27c5dd6bec9cb0f400f52f9339b38b5aa1324ee93b19e7fa7333b",
+      "frozenCopy": "contracts/qualification/sources/specification__requirements__gtl__README.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-ASSET-SURFACE.md",
+      "bytes": 4068,
+      "sha256": "eeef3aa0369f7eefb18f79e79e66a727365520800c0c194bfba7fb2ae7db5c25",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-ASSET-SURFACE.md"
+      },
+      "priorFrozenDigest": "sha256:eeef3aa0369f7eefb18f79e79e66a727365520800c0c194bfba7fb2ae7db5c25",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-ASSET-SURFACE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-ATTRS.md",
+      "bytes": 1391,
+      "sha256": "9204569254a620bb78974512df974e16edfece2ea72dff47a07c14e1bd396807",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-ATTRS.md"
+      },
+      "priorFrozenDigest": "sha256:9204569254a620bb78974512df974e16edfece2ea72dff47a07c14e1bd396807",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-ATTRS.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md",
+      "bytes": 14789,
+      "sha256": "4d76d0697ff5932d71a89b915f1cf079480d05429862b8d6a25c5dcb2cf46cf8",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md"
+      },
+      "priorFrozenDigest": "sha256:4d76d0697ff5932d71a89b915f1cf079480d05429862b8d6a25c5dcb2cf46cf8",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-C-ALGEBRA.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-COMPOSE.md",
+      "bytes": 2702,
+      "sha256": "d6614b9a9e992fa3d8c07a977f9edeec83ac5c8893a60e859f1cc0a86342a89c",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-COMPOSE.md"
+      },
+      "priorFrozenDigest": "sha256:d6614b9a9e992fa3d8c07a977f9edeec83ac5c8893a60e859f1cc0a86342a89c",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-COMPOSE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-COMPUTE-NOTATION.md",
+      "bytes": 12477,
+      "sha256": "0c0f325ca423cbec7d7fc97a362f330e7dfb2d90e7024519cc0389c89dac2fcd",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-COMPUTE-NOTATION.md"
+      },
+      "priorFrozenDigest": "sha256:0c0f325ca423cbec7d7fc97a362f330e7dfb2d90e7024519cc0389c89dac2fcd",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-COMPUTE-NOTATION.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+      "bytes": 2305,
+      "sha256": "4971345537f797ef29718c0c32b6c9b31a054f1c5f28a423f6dd4adc02d3bb4b",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md"
+      },
+      "priorFrozenDigest": "sha256:4971345537f797ef29718c0c32b6c9b31a054f1c5f28a423f6dd4adc02d3bb4b",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-CONTEXT.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md",
+      "bytes": 7701,
+      "sha256": "9cb518d14808535181b107d14a92d126f4b40b117343764582235eb318451675",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md"
+      },
+      "priorFrozenDigest": "sha256:9cb518d14808535181b107d14a92d126f4b40b117343764582235eb318451675",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-CONTRACT-LAW-API.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-EVALUATOR.md",
+      "bytes": 3326,
+      "sha256": "42036bb55c3aad49e6bc215e02842e1841de3b3a999653182becc6ff28b85069",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-EVALUATOR.md"
+      },
+      "priorFrozenDigest": "sha256:42036bb55c3aad49e6bc215e02842e1841de3b3a999653182becc6ff28b85069",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-EVALUATOR.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-GRAPH.md",
+      "bytes": 2507,
+      "sha256": "bd45b6b6d8ccb0b0c349d93427404344c04459c3ac1068877b3779a2c4917f93",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPH.md"
+      },
+      "priorFrozenDigest": "sha256:bd45b6b6d8ccb0b0c349d93427404344c04459c3ac1068877b3779a2c4917f93",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-GRAPH.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT.md",
+      "bytes": 3525,
+      "sha256": "212283db05bab5ecf94f5bd92eb2ff81c478476a62228c07771b3eb865ba4606",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT.md"
+      },
+      "priorFrozenDigest": "sha256:212283db05bab5ecf94f5bd92eb2ff81c478476a62228c07771b3eb865ba4606",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "bytes": 6880,
+      "sha256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md"
+      },
+      "priorFrozenDigest": "sha256:f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-GRAPHVECTOR.md",
+      "bytes": 7386,
+      "sha256": "a8ae2a4496762081396ec42a514f6d3c422fd7fb0f8227cb6fab0eed4bde0da4",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPHVECTOR.md"
+      },
+      "priorFrozenDigest": "sha256:a8ae2a4496762081396ec42a514f6d3c422fd7fb0f8227cb6fab0eed4bde0da4",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-GRAPHVECTOR.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-HOF.md",
+      "bytes": 5096,
+      "sha256": "8a39633b575ac4cf8b0f9d1ae2f9546cb22ea3e4c858ebd101b6ba9bd60c556c",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-HOF.md"
+      },
+      "priorFrozenDigest": "sha256:8a39633b575ac4cf8b0f9d1ae2f9546cb22ea3e4c858ebd101b6ba9bd60c556c",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-HOF.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-HOOKS.md",
+      "bytes": 6742,
+      "sha256": "fc31e5211472bf6e929fba23288605a5e74af57fac8f469c07dc3c1586c2adc0",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-HOOKS.md"
+      },
+      "priorFrozenDigest": "sha256:fc31e5211472bf6e929fba23288605a5e74af57fac8f469c07dc3c1586c2adc0",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-HOOKS.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-IDENTITY.md",
+      "bytes": 1605,
+      "sha256": "7235fc6d099971608994cabc98bcd4c5016f8f8b959904ace2e05a5564913249",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-IDENTITY.md"
+      },
+      "priorFrozenDigest": "sha256:7235fc6d099971608994cabc98bcd4c5016f8f8b959904ace2e05a5564913249",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-IDENTITY.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-INTERFACE.md",
+      "bytes": 1379,
+      "sha256": "e69bcd76af46eca21ee161f9f0128dd7e4cc531debbdbd9c6a346b43fbc4fe2f",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-INTERFACE.md"
+      },
+      "priorFrozenDigest": "sha256:e69bcd76af46eca21ee161f9f0128dd7e4cc531debbdbd9c6a346b43fbc4fe2f",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-INTERFACE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-JOB.md",
+      "bytes": 2019,
+      "sha256": "9e4efc269a0b856810116c70e6b9ed26ed2b61e4ebc4c3f309aaf5a74e5ca40b",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-JOB.md"
+      },
+      "priorFrozenDigest": "sha256:9e4efc269a0b856810116c70e6b9ed26ed2b61e4ebc4c3f309aaf5a74e5ca40b",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-JOB.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+      "bytes": 18615,
+      "sha256": "105ec61dedecd0183b3e678b8aec10ebd60104864e6bcf295b9a38490e43912e",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md"
+      },
+      "priorFrozenDigest": "sha256:105ec61dedecd0183b3e678b8aec10ebd60104864e6bcf295b9a38490e43912e",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE.md",
+      "bytes": 2862,
+      "sha256": "fdf36c5ed1a8272e8a253237c96719f5555d3fe84e38c3086e925815221e4412",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-LANGUAGE.md"
+      },
+      "priorFrozenDigest": "sha256:fdf36c5ed1a8272e8a253237c96719f5555d3fe84e38c3086e925815221e4412",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-LANGUAGE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LAWS.md",
+      "bytes": 9060,
+      "sha256": "8281ee62fe6139caf7e2f2245d2414f7993253f0bad3471bb3e6df00003c5d8f",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-LAWS.md"
+      },
+      "priorFrozenDigest": "sha256:8281ee62fe6139caf7e2f2245d2414f7993253f0bad3471bb3e6df00003c5d8f",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-LAWS.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-MODULE.md",
+      "bytes": 1531,
+      "sha256": "c1b1f7644f59776854103b3f0bfab515e88ed444363b6f81f9bfc4cb83e0d27c",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-MODULE.md"
+      },
+      "priorFrozenDigest": "sha256:c1b1f7644f59776854103b3f0bfab515e88ed444363b6f81f9bfc4cb83e0d27c",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-MODULE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-NODE.md",
+      "bytes": 4053,
+      "sha256": "d2e7d99595799498120a0a5b68a06067ed7269c387c4383310e3b59880885054",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-NODE.md"
+      },
+      "priorFrozenDigest": "sha256:d2e7d99595799498120a0a5b68a06067ed7269c387c4383310e3b59880885054",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-NODE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-OPERATOR.md",
+      "bytes": 1287,
+      "sha256": "e327338bf8b9a49f1184e838b604eee6e7ff34811685bb609524fec3f9807549",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-OPERATOR.md"
+      },
+      "priorFrozenDigest": "sha256:e327338bf8b9a49f1184e838b604eee6e7ff34811685bb609524fec3f9807549",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-OPERATOR.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-RECURSE.md",
+      "bytes": 1677,
+      "sha256": "448addbc9f1b94f9b19be063c7068a59ed6b1f2d7fa3c222413ee450d371883c",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-RECURSE.md"
+      },
+      "priorFrozenDigest": "sha256:448addbc9f1b94f9b19be063c7068a59ed6b1f2d7fa3c222413ee450d371883c",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-RECURSE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md",
+      "bytes": 6346,
+      "sha256": "9bf74b1fc99629e8f8b2499bf3f7954ee5077df0c0a76cc7cb372c5e2696c4e1",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md"
+      },
+      "priorFrozenDigest": "sha256:9bf74b1fc99629e8f8b2499bf3f7954ee5077df0c0a76cc7cb372c5e2696c4e1",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-ROLE.md",
+      "bytes": 1429,
+      "sha256": "6ef4b749ba5fa87f0ffabb4d0345b4f4a0c6e81517fb18608309e3d5ec89eb75",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-ROLE.md"
+      },
+      "priorFrozenDigest": "sha256:6ef4b749ba5fa87f0ffabb4d0345b4f4a0c6e81517fb18608309e3d5ec89eb75",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-ROLE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-RULE.md",
+      "bytes": 1722,
+      "sha256": "e52d418e515d23a534848000f85900c326bc19a57e03c71708bcf37427b6c2cb",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-RULE.md"
+      },
+      "priorFrozenDigest": "sha256:e52d418e515d23a534848000f85900c326bc19a57e03c71708bcf37427b6c2cb",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-RULE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+      "bytes": 1554,
+      "sha256": "5ce5ccbf8871786ee63520006e1e2fbf423cb98c58f4abd5ba6306fe6972ab66",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md"
+      },
+      "priorFrozenDigest": "sha256:5ce5ccbf8871786ee63520006e1e2fbf423cb98c58f4abd5ba6306fe6972ab66",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-SUBSTITUTE.md",
+      "bytes": 1531,
+      "sha256": "33519b9b578a792a72b9f059f8dc28b385497d28825e150a566e613b8909703a",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-SUBSTITUTE.md"
+      },
+      "priorFrozenDigest": "sha256:33519b9b578a792a72b9f059f8dc28b385497d28825e150a566e613b8909703a",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-SUBSTITUTE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-SUBWORK.md",
+      "bytes": 1398,
+      "sha256": "ed4bc476d481b3406d9049087440e7ddd6926c249284a48a51e16fa60d5469de",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-SUBWORK.md"
+      },
+      "priorFrozenDigest": "sha256:ed4bc476d481b3406d9049087440e7ddd6926c249284a48a51e16fa60d5469de",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-SUBWORK.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-SYNTHESIS.md",
+      "bytes": 2053,
+      "sha256": "a421c652fa49f71177ebac25b17e9a31a4b1b362ce81fc14f5f44322b24b6000",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-SYNTHESIS.md"
+      },
+      "priorFrozenDigest": "sha256:a421c652fa49f71177ebac25b17e9a31a4b1b362ce81fc14f5f44322b24b6000",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-SYNTHESIS.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/gtl/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+      "bytes": 5892,
+      "sha256": "810a1d30eaba36232919e2a88360d6bce87040b5da22e2cb1ec5a460fe0899cf",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/gtl/REQ-L-GTL3-TEMPORAL-PROPERTIES.md"
+      },
+      "priorFrozenDigest": "sha256:810a1d30eaba36232919e2a88360d6bce87040b5da22e2cb1ec5a460fe0899cf",
+      "frozenCopy": "contracts/qualification/sources/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/mapping/README.md",
+      "bytes": 515,
+      "sha256": "f51ebafa63c9e49d64ef212851e99879c770d85436a5717b10644993a889b47f",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/mapping/README.md"
+      },
+      "priorFrozenDigest": "sha256:f51ebafa63c9e49d64ef212851e99879c770d85436a5717b10644993a889b47f",
+      "frozenCopy": "contracts/qualification/sources/specification__requirements__mapping__README.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "bytes": 5954,
+      "sha256": "c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md"
+      },
+      "priorFrozenDigest": "sha256:c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "frozenCopy": "contracts/qualification/sources/REQ-M-GTL3-CAPABILITY.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/mapping/REQ-M-GTL3-MAPPING.md",
+      "bytes": 1495,
+      "sha256": "17d2856c53ef46e447ba85b6d98057af4b14dac397fa03e47f461c5e4c65cced",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/mapping/REQ-M-GTL3-MAPPING.md"
+      },
+      "priorFrozenDigest": "sha256:17d2856c53ef46e447ba85b6d98057af4b14dac397fa03e47f461c5e4c65cced",
+      "frozenCopy": "contracts/qualification/sources/REQ-M-GTL3-MAPPING.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md",
+      "bytes": 5307,
+      "sha256": "a19da2e0ab2d7b5aa705bbd7fd84b8fc858a411d6c023dd4deba6b316959ec0b",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md"
+      },
+      "priorFrozenDigest": "sha256:a19da2e0ab2d7b5aa705bbd7fd84b8fc858a411d6c023dd4deba6b316959ec0b",
+      "frozenCopy": "contracts/qualification/sources/REQ-M-GTL3-PROGRAM-TRAVERSAL.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/mapping/REQ-M-GTL3-PROVENANCE.md",
+      "bytes": 1888,
+      "sha256": "f6015a9a4eb0c34ec8b376de4ad2ccf18c698c1e73f50c81da25f6e8ad8a57c9",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/mapping/REQ-M-GTL3-PROVENANCE.md"
+      },
+      "priorFrozenDigest": "sha256:f6015a9a4eb0c34ec8b376de4ad2ccf18c698c1e73f50c81da25f6e8ad8a57c9",
+      "frozenCopy": "contracts/qualification/sources/REQ-M-GTL3-PROVENANCE.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/README.md",
+      "bytes": 1141,
+      "sha256": "e777272a024d69540fec847591ab3f9132a5ab01e456f566adb4ff76be1a43b3",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/product/README.md"
+      },
+      "priorFrozenDigest": "sha256:e777272a024d69540fec847591ab3f9132a5ab01e456f566adb4ff76be1a43b3",
+      "frozenCopy": "contracts/qualification/sources/specification__requirements__product__README.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-CATALOG.md",
+      "bytes": 13757,
+      "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/product/REQ-P-CATALOG.md"
+      },
+      "priorFrozenDigest": "sha256:a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9",
+      "frozenCopy": "contracts/qualification/sources/REQ-P-CATALOG.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-CONSENSUS.md",
+      "bytes": 16255,
+      "sha256": "9e16808a05ca078fded2854073d6280c1ae7f3ff173be7354ecb20d76123a52d",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/product/REQ-P-CONSENSUS.md"
+      },
+      "priorFrozenDigest": "sha256:9e16808a05ca078fded2854073d6280c1ae7f3ff173be7354ecb20d76123a52d",
+      "frozenCopy": "contracts/qualification/sources/REQ-P-CONSENSUS.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-INSTALL.md",
+      "bytes": 21741,
+      "sha256": "1882675ef5f4dd33a8dd4ee5d80ff33203d243fb30ec65b125057b7db081b98f",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/product/REQ-P-INSTALL.md"
+      },
+      "priorFrozenDigest": "sha256:1882675ef5f4dd33a8dd4ee5d80ff33203d243fb30ec65b125057b7db081b98f",
+      "frozenCopy": "contracts/qualification/sources/REQ-P-INSTALL.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-POLICY.md",
+      "bytes": 33842,
+      "sha256": "806dfd0a0895acce9e817e0193ea93eb58e983a19a176a54ec36cd91c62154be",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/product/REQ-P-POLICY.md"
+      },
+      "priorFrozenDigest": "sha256:806dfd0a0895acce9e817e0193ea93eb58e983a19a176a54ec36cd91c62154be",
+      "frozenCopy": "contracts/qualification/sources/REQ-P-POLICY.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+      "bytes": 19406,
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md"
+      },
+      "priorFrozenDigest": "sha256:b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4",
+      "frozenCopy": "contracts/qualification/sources/REQ-P-PUBLIC-CONTRACTS.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 33727,
+      "sha256": "ee198c089c4f0344ed04605a902d186c750805a78ef67cac2940957d8aabec33",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/product/REQ-P-QUAL.md"
+      },
+      "priorFrozenDigest": "sha256:ee198c089c4f0344ed04605a902d186c750805a78ef67cac2940957d8aabec33",
+      "frozenCopy": "contracts/qualification/sources/REQ-P-QUAL.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md",
+      "bytes": 13957,
+      "sha256": "e84443f27e54e533a907565b84db7422657dd8b748d5753157649826a8f0d747",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/product/REQ-P-SCENARIOS.md"
+      },
+      "priorFrozenDigest": "sha256:e84443f27e54e533a907565b84db7422657dd8b748d5753157649826a8f0d747",
+      "frozenCopy": "contracts/qualification/sources/REQ-P-SCENARIOS.md",
+      "changedFromFrozen": false
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "bytes": 6687,
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "immutableSource": {
+        "commit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+        "path": "specification/requirements/product/REQ-P-SELF-CONFORMANCE.md"
+      },
+      "priorFrozenDigest": "sha256:4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "frozenCopy": "contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+      "changedFromFrozen": false
+    }
+  ],
+  "exactStdoManifest": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.1/manifest.json",
+    "bytes": 12434,
+    "sha256": "5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64"
+  },
+  "generators": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "bytes": 12768,
+      "sha256": "65ce8a6ea4c052be321a38acbf24fec3104d8e312faf1cbf498905c128745778"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 41833,
+      "sha256": "2963cabc8531ae0e1d5688706e4d4af9d46fcad14a0e1d4c5931bfdb606bfd7a"
+    }
+  ]
+}

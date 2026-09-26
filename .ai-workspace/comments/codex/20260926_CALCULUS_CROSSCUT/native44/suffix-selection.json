@@ -1,0 +1,46 @@
+{
+  "status": "SELECTED_ONE_INSTALLED_NATIVE_SUFFIX",
+  "role": "Writer /root recording Executive selection",
+  "recordedAt": "2026-09-26T09:45:24.601342+00:00",
+  "source": "intake-disposition.json",
+  "selected": {
+    "programRef": "program://odd-glc/native-semantic-revision/from-evidence@5",
+    "startRef": "program://odd-glc/native-semantic-revision/from-evidence@5/start",
+    "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-evidence@5"
+  },
+  "selectionChoice": {
+    "entryRole": "author",
+    "mode": "stage_revision",
+    "selectedStageRef": "stage://odd-glc/generic-lifecycle/evidence@5"
+  },
+  "sourceIntakeRun": {
+    "digest": "sha256:9c834e2719c2218a3f1aced242a2200a520eff3f4e29df00433ab1f1ab5b7825",
+    "ref": "run://abiogenesis/df26948c5f0f714a6f770dcb6b326cabe892435705fa8d1ce68d31d42df2f93c"
+  },
+  "inputDigest": "sha256:2cefd13f114ea2fe1f8dbbcd5557cf06acbec12a5f3ee08d5d39f000144b3998",
+  "coreCommit": "29da18bc",
+  "transport": {
+    "kind": "odd_glc_full_sandbox_transport",
+    "schemaVersion": "1",
+    "configuration": {
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "expectedVersion": "2.1.280 (Claude Code)",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "extraArgs": [
+        "--max-budget-usd",
+        "8"
+      ],
+      "inactivityMs": 300000,
+      "absoluteMs": 900000,
+      "terminationGraceMs": 1000,
+      "wholeRunMs": 5400000
+    },
+    "resolvedCommand": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "executableDigest": "sha256:387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d",
+    "reportedVersion": "2.1.280 (Claude Code)",
+    "transportDigest": "sha256:5317a423d9511968c5f2f262acdc00b51c228a080e034b8447319b09926970ef"
+  },
+  "preserved": "native42 original job/source/oracle, four accepted stages, construction Result and nine command outcomes",
+  "stop": "First terminal outcome; no automatic retry or changed scope."
+}

@@ -1,0 +1,4 @@
+{
+  "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'sha256:bb0c211a3fe04be9b3d8a12779387f6b26e3e0d0bd2bf513cf7fe826c8ba5176'\n- 'sha256:34fef921b93abfaaab3e0beffde2d4c9cc5506b8109944bb1fb981a3a8445631'\n",
+  "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'sha256:bb0c211a3fe04be9b3d8a12779387f6b26e3e0d0bd2bf513cf7fe826c8ba5176'\n- 'sha256:34fef921b93abfaaab3e0beffde2d4c9cc5506b8109944bb1fb981a3a8445631'\n\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core44-preparation-01/prepare.mjs:118:175"
+}

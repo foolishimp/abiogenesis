@@ -1,0 +1,19 @@
+{
+  "predecessor": "compiled-44",
+  "unchanged": 5222,
+  "changed": 11,
+  "changedPaths": [
+    "contracts/capabilities/capability-definition-graph.json",
+    "contracts/qualification/authority-inputs.json",
+    "contracts/qualification/coverage.json",
+    "contracts/qualification/law-basis.json",
+    "contracts/qualification/rule-catalog.json",
+    "contracts/qualification/sources/PRODUCT.md",
+    "contracts/qualification/sources/REQ-R-ABG3-CCALL.md",
+    "contracts/qualification/sources/REQ-R-ABG3-CONTINUATION.md",
+    "contracts/qualification/sources/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "contracts/qualification/sources/REQ-R-ABG3-PROJECTION.md",
+    "product-toolchain-manifest.json"
+  ],
+  "outsideAcceptedScope": []
+}

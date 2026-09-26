@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "git",
+    "diff",
+    "--check",
+    "--",
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-CCALL.md",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-CONTINUATION.md",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-R-ABG3-PROJECTION.md",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+  ],
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": ""
+}

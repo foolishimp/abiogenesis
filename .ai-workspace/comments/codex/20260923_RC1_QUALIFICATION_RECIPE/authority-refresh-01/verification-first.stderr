@@ -1,0 +1,2 @@
+TypeError: product.parseProductManifest is not a function
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/authority-refresh-01/verify-refresh.mjs:34:87

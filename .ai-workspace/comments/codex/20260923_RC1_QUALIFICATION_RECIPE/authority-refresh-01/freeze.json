@@ -1,0 +1,163 @@
+{
+  "status": "CLOSED_SOURCE_GENERATION_READY",
+  "result": "candidate_ready",
+  "frameResult": "satisfied",
+  "actor": "/root/rc1_recipe44",
+  "decisionConsumer": "/root",
+  "frame": "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-end-to-end-interface-integration-frame",
+  "sourceBaseCommit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+  "subjectInventorySha256": "da0e489c28bfe533ef6e3f97fb7bfeb3868545e7f1597677be92ad19e2db5f09",
+  "sourceDeltaSha256": "8fbe1eb6c9b577c8bfd14f3ee7c754b9febcd8c326bcded48379637525b89f6e",
+  "subjectMembers": 1562,
+  "derivedChanges": 11,
+  "elapsedWorkSeconds": 518.258845,
+  "closedAt": "2026-09-26T10:19:38.258845+00:00",
+  "files": [
+    {
+      "path": "activation.md",
+      "sha256": "91f95a4c4f8942339565aee310abe7b8cd3f7f02f145d819a0ee399b22ee836c",
+      "bytes": 3297
+    },
+    {
+      "path": "checks.json",
+      "sha256": "86d658c0f73ca87ddb693ba71a450c6f70b4c1bb171838f0e04f3c9cbf363f07",
+      "bytes": 1299
+    },
+    {
+      "path": "closure.json",
+      "sha256": "c7abafa03bfa15d5f8974e684b56452b5d0d39daf476c1d1ca08f330eff25998",
+      "bytes": 397
+    },
+    {
+      "path": "delta.json",
+      "sha256": "8fbe1eb6c9b577c8bfd14f3ee7c754b9febcd8c326bcded48379637525b89f6e",
+      "bytes": 6162
+    },
+    {
+      "path": "diff-check.json",
+      "sha256": "4985319ea1c0aba9a0f297eea03369179265fc6bf9570140b4e7740a2acb556b",
+      "bytes": 1131
+    },
+    {
+      "path": "dry-run-cache.json",
+      "sha256": "4a8cd5e48b130199164e6599cd333ad6e37c6ebf9d53addaa9f8a5e3b23ef2ac",
+      "bytes": 1116
+    },
+    {
+      "path": "first-failure.json",
+      "sha256": "a5286ddc33557767c83cbefd2fe1a792e00f5a4754c7e78a84a0804cc95832fd",
+      "bytes": 294
+    },
+    {
+      "path": "generate-manifest.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "generate-manifest.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "generation-receipts.json",
+      "sha256": "a88266895996166093a642ae510861a2a0ddb62f0a8b1ff2f14f9b40f7d8b951",
+      "bytes": 1298
+    },
+    {
+      "path": "next-package-rebind.md",
+      "sha256": "f41dafb0fcf43b592baea4b045be40ced23d128b3d660d0eb68557a08cbba31b",
+      "bytes": 1951
+    },
+    {
+      "path": "original-source-bindings.json",
+      "sha256": "2f6a8b51f74064aca05253c754785025e6e4b2bb8562c074bb893995ed7b0d0f",
+      "bytes": 53683
+    },
+    {
+      "path": "preflight.json",
+      "sha256": "a6b2e72b9b1a5404829b632c5f6b9abd61577ad343c0b3881c9b696305f737c6",
+      "bytes": 1157
+    },
+    {
+      "path": "preimages.json",
+      "sha256": "640f4a3268121f66b3056be03590178058c24bee13cb45264be6a166d0be4c49",
+      "bytes": 187959
+    },
+    {
+      "path": "preservation-before.json",
+      "sha256": "5f8e7b246d88f5d025d1af3f9d66eba53c5fce0761f8d7b022baa53bd2502095",
+      "bytes": 193477
+    },
+    {
+      "path": "ready-unbound.json",
+      "sha256": "45848f92668012612e5a4e5e61597cf0ea74aec0ad6b7fc44310cfe276d9aaa0",
+      "bytes": 2387
+    },
+    {
+      "path": "return.md",
+      "sha256": "f3800fe9e9d458271f1f3966ae052d45f0acf0bfbc6aa384d2df342d315427ba",
+      "bytes": 4249
+    },
+    {
+      "path": "run-generation.py",
+      "sha256": "63847b3baf5d678fe4b241418dafb38ed340dbd36419fa96eb2d5bbe56524599",
+      "bytes": 1360
+    },
+    {
+      "path": "stage-authorities.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "stage-authorities.stdout",
+      "sha256": "dd924147333eddd9e1e19713aa9dc3d80ab9b1e040c8044e89c55530bf8b013c",
+      "bytes": 1140
+    },
+    {
+      "path": "subject-members.json",
+      "sha256": "da0e489c28bfe533ef6e3f97fb7bfeb3868545e7f1597677be92ad19e2db5f09",
+      "bytes": 391533
+    },
+    {
+      "path": "successor-identity.json",
+      "sha256": "3723b63473f903dae7d77cc311234dad6561432a083a6739f91ab692b9b3308e",
+      "bytes": 1452
+    },
+    {
+      "path": "verification-correction.md",
+      "sha256": "2cfd185de246da7dbe0148e6df47c71d638c91f971518af8f3842ff34e2bc26e",
+      "bytes": 497
+    },
+    {
+      "path": "verification-first.stderr",
+      "sha256": "a2ffea2ae5a1f87f72e58e995900da02541679b116316868a9e09668d9abcfd0",
+      "bytes": 213
+    },
+    {
+      "path": "verification-first.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "verification.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "verification.stdout",
+      "sha256": "fb2dda831e22cc779bc782ce848561adefc0d60437346cd21a7a6755bc96f94c",
+      "bytes": 975
+    },
+    {
+      "path": "verify-refresh-first.mjs",
+      "sha256": "5060e1823b976c76fadb7e83c985a033e424002af32e608e3cb1e4962502a32e",
+      "bytes": 9063
+    },
+    {
+      "path": "verify-refresh.mjs",
+      "sha256": "cf791b543d5fe71988dfe0438814900a85c6a959a1cef54b670bd2c7b94a66c1",
+      "bytes": 9190
+    }
+  ],
+  "rule": "Exact current source successor is base commit plus delta, with1562 subject members hash-bound; all preparation files except this freeze are included. No further edits after this freeze. Package selection and all qualification claims remain open."
+}

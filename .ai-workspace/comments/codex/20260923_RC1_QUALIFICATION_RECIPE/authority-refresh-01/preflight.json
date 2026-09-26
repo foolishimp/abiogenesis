@@ -1,0 +1,24 @@
+{
+  "status": "PASSED_EXACT_SOURCE_AND_PREIMAGES",
+  "repoSourceCount": 87,
+  "changedOriginals": [
+    "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+    "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-CCALL.md",
+    "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+    "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+    "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md"
+  ],
+  "preimageMembers": 402,
+  "preservedMembers": 1067,
+  "originalProduct": {
+    "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+    "bytes": 81200,
+    "sha256": "bb0c211a3fe04be9b3d8a12779387f6b26e3e0d0bd2bf513cf7fe826c8ba5176"
+  },
+  "stageSourceSelectionUnchanged": true,
+  "acceptedArtifact": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-44/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10186487,
+    "sha256": "f89e8037921d086505ed7c067720b942948b6326d4cacbb34ede0b2007e97da3"
+  }
+}

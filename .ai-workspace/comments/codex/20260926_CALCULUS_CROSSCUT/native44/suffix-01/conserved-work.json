@@ -1,0 +1,18 @@
+{
+  "status": "PRESERVED_COMPLETED_WORK_AND_NEW_EVIDENCE_ASSESSMENT",
+  "sourceProducer": {
+    "resultRef": "result://abiogenesis/528aa9a5bc315cd088b822a5284a7e27bcbfc5866bb2b1dc7cc6f7054e70652d",
+    "valueDigest": "sha256:03e5a0bdea479e006ea766f761f44e83f3f4d2fc0cc55dd1ec55c7013722a92d"
+  },
+  "evidenceDigest": "sha256:8e5e8f0477c9479a8b6968812b118126d50b5f53dd6a57945a33cd78b7197adc",
+  "constructionResultRef": "result://abiogenesis/e14ee1f3df7ac6292eba353ccf7b9cb000c5c25d4f49e0d997577b22ea61bb36",
+  "executionResultRef": "result://abiogenesis/5f743236d9c21a82eb4da9d1fff8590403ae087db386f1a32d7d6c39b46ac8f5",
+  "preservedAcceptedAssets": [
+    "semantic-job-asset://abiogenesis/9f9c337f3df0d254747a496e15ef01663c42cd6274368164f8cee900338c4c0a",
+    "semantic-job-asset://abiogenesis/0f5e3bf0a1e555a1b418b15cc3236ff76dffedbf8c5378b6cf01c39caaa16560",
+    "semantic-job-asset://abiogenesis/7a978d3cd06835c9a42a81e7ae4fc0c0fd6c5de2d8a4e0ac2880faaa7db45c8f",
+    "semantic-job-asset://abiogenesis/8bbebc0580adc5eed26f2570cce0dab311f688ebf91403cd3a660ff6fb2b35fc"
+  ],
+  "newEvidenceAsset": "semantic-job-asset://abiogenesis/8942da3b1c5ef0faf0742e644a6f0b925c2d8caf65ea4c39f8d2a4d993e88b4d",
+  "boundary": "Consumes the fresh Public terminal value retained by read-suffix.mjs. Proves exact original evidence and accepted-asset conservation; historical effects retain their old identities."
+}

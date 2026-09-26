@@ -1,0 +1,10 @@
+{
+  "command": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-45/package-once.py"
+  ],
+  "elapsedSeconds": 6.3313630828633904,
+  "exitCode": 0,
+  "stdoutSha256": "eb282da6e442ded5465186488979779694addf76c9d582b572f453c2b1104f85",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

@@ -1,0 +1,18 @@
+{
+  "origin": "existing manifest generator npm pack --dry-run --ignore-scripts --json",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/authority-refresh-01/npm-cache/_cacache/content-v2/sha512/f3/77/45973d6c141d7b2db6c2e51368494c252fd849752a2fa3e775d327d52921836af66803514019152303260f558abbc5f4047e10ddb02111534ad9169ce7bf",
+      "bytes": 9640508,
+      "sha256": "5968a6fd47199f58f07909ba2bbd8dfcb9baadabe3725e1b8fdc5172582252c1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/authority-refresh-01/npm-cache/_cacache/index-v5/87/76/bad5ad37b64f1e3264df88899e4feb512b4673d0d89bd63bbe5216ef5e93",
+      "bytes": 286,
+      "sha256": "4de448b166ca5389dca082874d52a0c996866cd037c761287acc021abcf1e442"
+    }
+  ],
+  "totalBytes": 9640794,
+  "disposition": "Identity recorded; disposable cache removed after successful generation. No candidate package archive selected, no .tgz emitted to tenant/artifacts and no install.",
+  "includesGzipPackMaterial": true
+}

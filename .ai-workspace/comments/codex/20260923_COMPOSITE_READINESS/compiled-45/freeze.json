@@ -1,0 +1,169 @@
+{
+  "status": "CLOSED_ACCEPTED_PACKAGE",
+  "files": [
+    {
+      "path": "accepted-source.json",
+      "bytes": 392082,
+      "sha256": "6698b895f08a8ceffdee3d615511d49bdc00b892977b7595b361f5cb2c7c4dc3"
+    },
+    {
+      "path": "archive-members.json",
+      "bytes": 928686,
+      "sha256": "7914b19139b539f0a4725eba200f9ecddf2cf08e07ba9316ccf4a53dd14303e7"
+    },
+    {
+      "path": "artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10193316,
+      "sha256": "969af38b1d2dd3dc0df758c1c29e27e87190b5362f6b90ffcd1580c2805c94a9"
+    },
+    {
+      "path": "bootstrap-install.json",
+      "bytes": 640,
+      "sha256": "caa9eaaf4f693106e23ad10445284b3deb26a5d7804adc3ba1f7e2c6783fe0ab"
+    },
+    {
+      "path": "bootstrap-install.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "bootstrap-install.stdout",
+      "bytes": 23,
+      "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547"
+    },
+    {
+      "path": "build-inputs.json",
+      "bytes": 375040,
+      "sha256": "ab7c2325653c1a22d7b11142bbc7cb2134387d70c069501be3c6c131266bf6cf"
+    },
+    {
+      "path": "build-reuse.json",
+      "bytes": 374,
+      "sha256": "bfa7620d59053f0ba1e4bd7ae2fc0e131d2a353598dc2ab73d240dc2de2f1c39"
+    },
+    {
+      "path": "conservation.json",
+      "bytes": 735,
+      "sha256": "0ea81863b29c3886936be85e486ad5586e802ec32439d4369ea67d3c3e969e6a"
+    },
+    {
+      "path": "executive-disposition.json",
+      "bytes": 3433,
+      "sha256": "6200f7ea0003bfbbbaf42d371e61055850b6b8e3c682b585a6ed278b7bdb6de9"
+    },
+    {
+      "path": "executive-selection.json",
+      "bytes": 887,
+      "sha256": "c2932610a8d317c11da8f55517721e26f8e8d29d314faf15e7ae9a6951581099"
+    },
+    {
+      "path": "generated-delta.json",
+      "bytes": 5033,
+      "sha256": "acc827259cf4688b41534427dc29a2c9fcfb0a9ec833ed053dc9d782042c65cb"
+    },
+    {
+      "path": "pack.json",
+      "bytes": 537,
+      "sha256": "e94bffac5e72824854093c55f3bb9b68aa1c9f10c3a64a2d513f86f134a6d96b"
+    },
+    {
+      "path": "pack.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "pack.stdout",
+      "bytes": 688758,
+      "sha256": "9e800fb74aa0f217a3c47cf62183560c5ca74a234fbcd9c175e70aec0cb9a02c"
+    },
+    {
+      "path": "package-correspondence.json",
+      "bytes": 833,
+      "sha256": "7afdc10fb28ddd274a525453bce45e22ef88d65eceaa7f81dd04cf64f90c339a"
+    },
+    {
+      "path": "package-driver.json",
+      "bytes": 391,
+      "sha256": "248b40535e0a433328c415c97df426e3ac763b2c88b395d9860bcab43cdc0076"
+    },
+    {
+      "path": "package-driver.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "package-driver.stdout",
+      "bytes": 1653,
+      "sha256": "eb282da6e442ded5465186488979779694addf76c9d582b572f453c2b1104f85"
+    },
+    {
+      "path": "package-identity.json",
+      "bytes": 582,
+      "sha256": "554e3fcd18f92118d384084ec05089dbb0c2cf414694144b67fa92d5894f7fc4"
+    },
+    {
+      "path": "package-once.py",
+      "bytes": 4034,
+      "sha256": "4d7d87905175a1b6b68b93cbab79ea76c01879cacefbb0fe69a17f84fe6cc45b"
+    },
+    {
+      "path": "package-readiness.json",
+      "bytes": 2539,
+      "sha256": "bb95aad8d994604d3868cb3b6f6fde29012d42f1d3baa36cc8664ce9bf4ced57"
+    },
+    {
+      "path": "product-verification-request.json",
+      "bytes": 1022,
+      "sha256": "9bb6507a75da968d41ceb77814f69d95946b228e0d288fec1c0d1bf0107a589d"
+    },
+    {
+      "path": "product-verification-summary.json",
+      "bytes": 3942,
+      "sha256": "3b6f5a07c67995e26167f2ca315180b0d9f45d405426bed7e2fab4be7dabd9ab"
+    },
+    {
+      "path": "product-verification-timing.json",
+      "bytes": 227,
+      "sha256": "900d2fefaf21efb31e01de8de63e5409551ab9893cea5b6bc7684fb52d058934"
+    },
+    {
+      "path": "return.md",
+      "bytes": 1211,
+      "sha256": "259569e91be34249070f4c84e5cf07eab080788022d192a84f3b73a7acb10316"
+    },
+    {
+      "path": "selected-core.json",
+      "bytes": 986,
+      "sha256": "1fd31c916581edb7fac59bd380a82289b1c304c798db7aebcf257b38bb05e732"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 392,
+      "sha256": "f50f1e2cb772eb7475a7b8b4b82e9d7417cf067d5b1fcf9f76345b86213b6943"
+    },
+    {
+      "path": "verification.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "verification.stdout",
+      "bytes": 930,
+      "sha256": "3cdc7075b493a73e4851e2a952755c79bb87b2d8e1682b514c400f84ed4c3201"
+    },
+    {
+      "path": "verify-installed.mjs",
+      "bytes": 3590,
+      "sha256": "164199b36293aeaa12e36949c71c1037793f6cb11e0c9c1f7d3eec25220eadec"
+    }
+  ],
+  "selectedBasis": {
+    "artifactDigest": "sha256:969af38b1d2dd3dc0df758c1c29e27e87190b5362f6b90ffcd1580c2805c94a9",
+    "productContentDigest": "sha256:8810012f001c785ebd9d1c6db92e7b110f1a457dff4a4515e68e2da255698f7d",
+    "manifestDigest": "sha256:988df4e52119a1822f7acb9201aeb6b3ede493c7d55b8d5cf04d8d20021e5964",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.1"
+  },
+  "limits": "Package correspondence only; all qualification and S06 gates remain distinct."
+}

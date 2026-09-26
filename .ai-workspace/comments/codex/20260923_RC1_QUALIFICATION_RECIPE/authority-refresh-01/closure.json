@@ -1,0 +1,13 @@
+{
+  "status": "CLOSED_SOURCE_GENERATION_READY",
+  "result": "candidate_ready",
+  "frameResult": "satisfied",
+  "sourceCommit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+  "closedAt": "2026-09-26T10:19:38.258845+00:00",
+  "elapsedWorkSeconds": 518.258845,
+  "decisionConsumer": "/root",
+  "changedFiles": 11,
+  "subjectMembers": 1562,
+  "nativeRuntimeClaim": null,
+  "qualificationClaim": null
+}

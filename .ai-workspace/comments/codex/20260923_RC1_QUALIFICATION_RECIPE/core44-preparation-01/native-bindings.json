@@ -1,0 +1,74 @@
+{
+  "status": "closed_preparation_incomplete_current_source_binding_refused",
+  "ready": [
+    {
+      "id": "accepted_candidate",
+      "result": "ready",
+      "evidence": "candidate-selection.json; accepted 5233-member correspondence reused; artifact digest freshly matched without archive expansion."
+    },
+    {
+      "id": "provisional_source_inputs",
+      "result": "ready_as_mechanical_inputs_only",
+      "evidence": "366 protected source inputs: 310 reused and 56 changed, 16 unchanged dependency archives; zero copied source bodies; input-manifest.json. Governing original relation remains refused."
+    },
+    {
+      "id": "provisional_inventory",
+      "result": "ready_as_incomplete_preparation_only",
+      "evidence": "1732 tenant members, 4 added/160 changed/0 removed under predecessor source-selection domains; 902 expected generated members reuse accepted archive inventory. Not a complete qualification inventory."
+    },
+    {
+      "id": "unchanged_controls",
+      "result": "ready",
+      "evidence": "13 commands,14 predicates,22 lint files,five selected test commands/30 titles; AST and existing recipe schema/configuration checks completed before first failure; toolchain identity checks reached 2314 files."
+    },
+    {
+      "id": "retained_owner_routes",
+      "result": "ready_as_existing_routes",
+      "evidence": "Original observed-root-C2 helpers, producer acquisition/context return locators, F11/sole AF22 routes; no runtime result inferred."
+    },
+    {
+      "id": "coverage_domain",
+      "result": "ready_as_source_linked_domain_only",
+      "evidence": "16 claims/66 behaviors exactly equal predecessor; current-source applicability and independent sufficiency unbound."
+    }
+  ],
+  "unbound": [
+    {
+      "id": "current_product_original_binding",
+      "value": null,
+      "reason": "CORE44-QUALIFICATION-PRODUCT-BINDING-01; packaged Product digest 34fef921 differs from accepted bb0c211a. Rebind stops before qualification inventory/basis creation."
+    },
+    {
+      "id": "final_complete_qualification_subject",
+      "value": null,
+      "reason": "Final source/control/release-claim/ticket/execution-contract completeness and original construction attribution not selected; Q07 remains incomplete."
+    },
+    {
+      "id": "qualification_install_workspace_and_tenant",
+      "value": null,
+      "reason": "No admitted qualification installedProduct, WorkspaceBinding, ProductSet, lock, catalog, Program/locus, execution basis, capabilities or tenant manifest bound. Native44/Hello coordinates not borrowed."
+    },
+    {
+      "id": "observed_root_c2_result",
+      "value": null,
+      "reason": "No staging, observed producer task, selected actor/executor, C/J, Result, occurrence, declaration proof, source/currentness or complete command evidence; executionSelectionRef absent."
+    },
+    {
+      "id": "native_steel_thread_and_behavioral_evidence",
+      "value": null,
+      "reason": "Real native44 result and Executive disposition remain dependencies; no active journal/worksite or 242MB readback-basis accessed; actual selected producer evidence and independent adequacy not bound."
+    },
+    {
+      "id": "assessment_scopes_and_independence",
+      "value": null,
+      "reason": "Actual author/assessor identity, declaration/peer slots and independent native J/O absent."
+    },
+    {
+      "id": "self_conformance_and_qualification",
+      "value": null,
+      "reason": "Complete real-tree F11 and seven seeded negatives under SELF008\u2013010; required positive/nearest-negative evidence; complete selected lifecycle/targeted revision; whole F11 and sole AF22 all open."
+    }
+  ],
+  "retainedRequirements": "QUAL056/057C\u2013064C, SELF008\u2013010; existing F11 and sole AF22",
+  "historicalScope": "Historical core18/Q07/Hello and prior failed Runs remain unchanged; no producing artifact relabeling or Data Mapper credit."
+}

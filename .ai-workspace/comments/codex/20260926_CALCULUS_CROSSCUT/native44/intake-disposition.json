@@ -1,0 +1,30 @@
+{
+  "status": "CLOSED_ACCEPTED_NATIVE_INTAKE",
+  "role": "Writer recording Executive disposition",
+  "sourceReadback": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/intake-01/intake-readback.json",
+  "sourceReadbackSha256": "274e92ee4bf402fd72a67e1c3273f81d3d885489eda3e56efd646cb9233162a8",
+  "run": {
+    "digest": "sha256:9c834e2719c2218a3f1aced242a2200a520eff3f4e29df00433ab1f1ab5b7825",
+    "ref": "run://abiogenesis/df26948c5f0f714a6f770dcb6b326cabe892435705fa8d1ce68d31d42df2f93c"
+  },
+  "result": {
+    "digest": "sha256:665ba48120b286cffbd0faab726fc772f1e2247793b8e770ebf011597b1da6ab",
+    "ref": "result://abiogenesis/665ba48120b286cffbd0faab726fc772f1e2247793b8e770ebf011597b1da6ab"
+  },
+  "selectionChoice": {
+    "entryRole": "author",
+    "mode": "stage_revision",
+    "selectedStageRef": "stage://odd-glc/generic-lifecycle/evidence@5"
+  },
+  "selected": {
+    "programRef": "program://odd-glc/native-semantic-revision/from-evidence@5",
+    "startRef": "program://odd-glc/native-semantic-revision/from-evidence@5/start",
+    "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-evidence@5"
+  },
+  "nativeElapsedSeconds": 123.95,
+  "publicReadElapsedMs": [
+    34716.284542,
+    35003.856167
+  ],
+  "claim": "Actual operational recovery selection and public lookup accepted; completed construction/execution remain inputs to the selected suffix. Evidence author/assessor and lifecycle terminal remain open."
+}

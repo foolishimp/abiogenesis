@@ -1,0 +1,2838 @@
+{
+  "candidate": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-44/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-44/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:f89e8037921d086505ed7c067720b942948b6326d4cacbb34ede0b2007e97da3",
+      "productContentDigest": "sha256:7aa123cdd0909118b2f0f535c8646c74b938fb538f44308171072af4b486f7dc",
+      "manifestDigest": "sha256:3df648293dc01b5282ad20fddaac9368610ae9ffb417a8f6a32af367b2daf2ff",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "acceptedArchiveInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-44/archive-members.json",
+    "bytes": 928685,
+    "sha256": "e2920c627984c9422ba42d476c7ae4fc021b5502869e848b6464c70cbfb7acf8"
+  },
+  "members": [
+    {
+      "path": "build/toolchain/lib.d.ts",
+      "sha256": "a7297ff837fcdf174a9524925966429eb8e5feecc2cc55cc06574e6b092c1eaa",
+      "bytes": 992,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.decorators.d.ts",
+      "sha256": "8e7f8264d0fb4c5339605a15daadb037bf238c10b654bb3eee14208f860a32ea",
+      "bytes": 13192,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.decorators.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.decorators.legacy.d.ts",
+      "sha256": "782dec38049b92d4e85c1585fbea5474a219c6984a35b004963b00beb1aab538",
+      "bytes": 1326,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.decorators.legacy.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.dom.asynciterable.d.ts",
+      "sha256": "d7a3c8b952931daebdfc7a2897c53c0a1c73624593fa070e46bd537e64dcd20a",
+      "bytes": 1887,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.dom.asynciterable.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.dom.d.ts",
+      "sha256": "080941d9f9ff9307f7e27a83bcd888b7c8270716c39af943532438932ec1d0b9",
+      "bytes": 1874901,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.dom.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.dom.iterable.d.ts",
+      "sha256": "2e80ee7a49e8ac312cc11b77f1475804bee36b3b2bc896bead8b6e1266befb43",
+      "bytes": 29802,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.dom.iterable.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2015.collection.d.ts",
+      "sha256": "dc2df20b1bcdc8c2d34af4926e2c3ab15ffe1160a63e58b7e09833f616efff44",
+      "bytes": 5229,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.collection.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2015.core.d.ts",
+      "sha256": "c57796738e7f83dbc4b8e65132f11a377649c00dd3eee333f672b8f0a6bea671",
+      "bytes": 22866,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.core.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2015.d.ts",
+      "sha256": "45b7ab580deca34ae9729e97c13cfd999df04416a79116c3bfb483804f85ded4",
+      "bytes": 1241,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2015.generator.d.ts",
+      "sha256": "515d0b7b9bea2e31ea4ec968e9edd2c39d3eebf4a2d5cbd04e88639819ae3b71",
+      "bytes": 2557,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.generator.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2015.iterable.d.ts",
+      "sha256": "0559b1f683ac7505ae451f9a96ce4c3c92bdc71411651ca6ddb0e88baaaad6a3",
+      "bytes": 18200,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.iterable.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2015.promise.d.ts",
+      "sha256": "0dc1e7ceda9b8b9b455c3a2d67b0412feab00bd2f66656cd8850e8831b08b537",
+      "bytes": 3200,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.promise.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2015.proxy.d.ts",
+      "sha256": "ce691fb9e5c64efb9547083e4a34091bcbe5bdb41027e310ebba8f7d96a98671",
+      "bytes": 5251,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.proxy.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2015.reflect.d.ts",
+      "sha256": "8d697a2a929a5fcb38b7a65594020fcef05ec1630804a33748829c5ff53640d0",
+      "bytes": 6493,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.reflect.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2015.symbol.d.ts",
+      "sha256": "4ff2a353abf8a80ee399af572debb8faab2d33ad38c4b4474cff7f26e7653b8d",
+      "bytes": 1649,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.symbol.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2015.symbol.wellknown.d.ts",
+      "sha256": "fb0f136d372979348d59b3f5020b4cdb81b5504192b1cacff5d1fbba29378aa1",
+      "bytes": 11010,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2015.symbol.wellknown.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2016.array.include.d.ts",
+      "sha256": "d15bea3d62cbbdb9797079416b8ac375ae99162a7fba5de2c6c505446486ac0a",
+      "bytes": 5204,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2016.array.include.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2016.d.ts",
+      "sha256": "3facaf05f0c5fc569c5649dd359892c98a85557e3e0c847964caeb67076f4d75",
+      "bytes": 965,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2016.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2016.full.d.ts",
+      "sha256": "807e0e0bdc67605dd28efe18f20ab5fcd75d944ef95936120702335f9379094b",
+      "bytes": 1032,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2016.full.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2016.intl.d.ts",
+      "sha256": "68d18b664c9d32a7336a70235958b8997ebc1c3b8505f4f1ae2b7e7753b87618",
+      "bytes": 1484,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2016.intl.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2017.arraybuffer.d.ts",
+      "sha256": "eb3d66c8327153d8fa7dd03f9c58d351107fe824c79e9b56b462935176cdf12a",
+      "bytes": 915,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.arraybuffer.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2017.d.ts",
+      "sha256": "e44bb8bbac7f10ecc786703fe0a6a4b952189f908707980ba8f3c8975a760962",
+      "bytes": 1162,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2017.date.d.ts",
+      "sha256": "38f0219c9e23c915ef9790ab1d680440d95419ad264816fa15009a8851e79119",
+      "bytes": 1916,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.date.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2017.full.d.ts",
+      "sha256": "1d242d5c24cf285c88bc4fb93c5ff903de8319064e282986edeb6247ba028d5e",
+      "bytes": 1032,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.full.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2017.intl.d.ts",
+      "sha256": "4de680d5bb41c17f7f68e0419412ca23c98d5749dcaaea1896172f06435891fc",
+      "bytes": 1449,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.intl.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2017.object.d.ts",
+      "sha256": "69ab18c3b76cd9b1be3d188eaf8bba06112ebbe2f47f6c322b5105a6fbc45a2e",
+      "bytes": 2473,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.object.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2017.sharedmemory.d.ts",
+      "sha256": "a680117f487a4d2f30ea46f1b4b7f58bef1480456e18ba53ee85c2746eeca012",
+      "bytes": 7209,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.sharedmemory.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2017.string.d.ts",
+      "sha256": "2f11ff796926e0832f9ae148008138ad583bd181899ab7dd768a2666700b1893",
+      "bytes": 2378,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.string.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2017.typedarrays.d.ts",
+      "sha256": "954296b30da6d508a104a3a0b5d96b76495c709785c1d11610908e63481ee667",
+      "bytes": 1542,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2017.typedarrays.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2018.asyncgenerator.d.ts",
+      "sha256": "ac9538681b19688c8eae65811b329d3744af679e0bdfa5d842d0e32524c73e1c",
+      "bytes": 2692,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2018.asyncgenerator.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2018.asynciterable.d.ts",
+      "sha256": "0a969edff4bd52585473d24995c5ef223f6652d6ef46193309b3921d65dd4376",
+      "bytes": 2257,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2018.asynciterable.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2018.d.ts",
+      "sha256": "5e1c4c362065a6b95ff952c0eab010f04dcd2c3494e813b493ecfd4fcb9fc0d8",
+      "bytes": 1088,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2018.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2018.full.d.ts",
+      "sha256": "95f1023b824c2c511c48f1201e2d1188bcb0ca1138a309a870b956d2e92e44ab",
+      "bytes": 1074,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2018.full.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2018.intl.d.ts",
+      "sha256": "9e9fbd7030c440b33d021da145d3232984c8bb7916f277e8ffd3dc2e3eae2bdb",
+      "bytes": 3021,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2018.intl.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2018.promise.d.ts",
+      "sha256": "811ec78f7fefcabbda4bfa93b3eb67d9ae166ef95f9bff989d964061cbf81a0c",
+      "bytes": 1353,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2018.promise.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2018.regexp.d.ts",
+      "sha256": "717937616a17072082152a2ef351cb51f98802fb4b2fdabd32399843875974ca",
+      "bytes": 1232,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2018.regexp.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2019.array.d.ts",
+      "sha256": "d7e7d9b7b50e5f22c915b525acc5a49a7a6584cf8f62d0569e557c5cfc4b2ac2",
+      "bytes": 3163,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2019.array.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2019.d.ts",
+      "sha256": "68d73b4a11549f9c0b7d352d10e91e5dca8faa3322bfb77b661839c42b1ddec7",
+      "bytes": 1071,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2019.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2019.full.d.ts",
+      "sha256": "08f6861df84fba9719c14d5adc3ba40be9f0c687639e6c4df3c05b9301b8ff94",
+      "bytes": 1074,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2019.full.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2019.intl.d.ts",
+      "sha256": "74f7fa2d027d5b33eb0471c8e82a6c87216223181ec31247c357a3e8e2fddc5b",
+      "bytes": 958,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2019.intl.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2019.object.d.ts",
+      "sha256": "71c37f4c9543f31dfced6c7840e068c5a5aacb7b89111a4364b1d5276b852557",
+      "bytes": 1473,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2019.object.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2019.string.d.ts",
+      "sha256": "576711e016cf4f1804676043e6a0a5414252560eb57de9faceee34d79798c850",
+      "bytes": 1528,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2019.string.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2019.symbol.d.ts",
+      "sha256": "89c1b1281ba7b8a96efc676b11b264de7a8374c5ea1e6617f11880a13fc56dc6",
+      "bytes": 1006,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2019.symbol.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2020.bigint.d.ts",
+      "sha256": "d6d7ae4d1f1f3772e2a3cde568ed08991a8ae34a080ff1151af28b7f798e22ca",
+      "bytes": 38185,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.bigint.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2020.d.ts",
+      "sha256": "5efce4fc3c29ea84e8928f97adec086e3dc876365e0982cc8479a07954a3efd4",
+      "bytes": 1201,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2020.date.d.ts",
+      "sha256": "063600664504610fe3e99b717a1223f8b1900087fab0b4cad1496a114744f8df",
+      "bytes": 2956,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.date.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2020.full.d.ts",
+      "sha256": "1305d1e76ca44e30fb8b2b8075fa522b83f60c0bcf5d4326a9d2cf79b53724f8",
+      "bytes": 1074,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.full.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2020.intl.d.ts",
+      "sha256": "639e512c0dfc3fad96a84caad71b8834d66329a1f28dc95e3946c9b58176c73a",
+      "bytes": 22438,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.intl.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2020.number.d.ts",
+      "sha256": "368af93f74c9c932edd84c58883e736c9e3d53cec1fe24c0b0ff451f529ceab1",
+      "bytes": 1587,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.number.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2020.promise.d.ts",
+      "sha256": "934019d7e3c81950f9a8426d093458b65d5aff2c7c1511233c0fd5b941e608ab",
+      "bytes": 1803,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.promise.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2020.sharedmemory.d.ts",
+      "sha256": "52ada8e0b6e0482b728070b7639ee42e83a9b1c22d205992756fe020fd9f4a47",
+      "bytes": 5128,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.sharedmemory.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2020.string.d.ts",
+      "sha256": "3bdefe1bfd4d6dee0e26f928f93ccc128f1b64d5d501ff4a8cf3c6371200e5e6",
+      "bytes": 2556,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.string.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2020.symbol.wellknown.d.ts",
+      "sha256": "59fb2c069260b4ba00b5643b907ef5d5341b167e7d1dbf58dfd895658bda2867",
+      "bytes": 1606,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2020.symbol.wellknown.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2021.d.ts",
+      "sha256": "feecb1be483ed332fad555aff858affd90a48ab19ba7272ee084704eb7167569",
+      "bytes": 1036,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2021.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2021.full.d.ts",
+      "sha256": "4a66df3ab5de5cfcda11538cffddd67ff6a174e003788e270914c1e0248483cf",
+      "bytes": 1074,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2021.full.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2021.intl.d.ts",
+      "sha256": "965f36eae237dd74e6cca203a43e9ca801ce38824ead814728a2807b1910117d",
+      "bytes": 8245,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2021.intl.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2021.promise.d.ts",
+      "sha256": "af3dd424cf267428f30ccfc376f47a2c0114546b55c44d8c0f1d57d841e28d74",
+      "bytes": 2262,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2021.promise.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2021.string.d.ts",
+      "sha256": "995c005ab91a498455ea8dfb63aa9f83fa2ea793c3d8aa344be4a1678d06d399",
+      "bytes": 1592,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2021.string.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2021.weakref.d.ts",
+      "sha256": "959d36cddf5e7d572a65045b876f2956c973a586da58e5d26cde519184fd9b8a",
+      "bytes": 3171,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2021.weakref.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2022.array.d.ts",
+      "sha256": "3925a6c820dcb1a06506c90b1577db1fdbf7705d65b62b99dce4be75c637e26b",
+      "bytes": 4676,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.array.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2022.d.ts",
+      "sha256": "ee7bad0c15b58988daa84371e0b89d313b762ab83cb5b31b8a2d1162e8eb41c2",
+      "bytes": 1108,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2022.error.d.ts",
+      "sha256": "0a3d63ef2b853447ec4f749d3f368ce642264246e02911fcb1590d8c161b8005",
+      "bytes": 2379,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.error.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2022.full.d.ts",
+      "sha256": "3cbad9a1ba4453443026ed38e4b8be018abb26565fa7c944376463ad9df07c41",
+      "bytes": 1074,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.full.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2022.intl.d.ts",
+      "sha256": "8cdf8847677ac7d20486e54dd3fcf09eda95812ac8ace44b4418da1bbbab6eb8",
+      "bytes": 7692,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.intl.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2022.object.d.ts",
+      "sha256": "8444af78980e3b20b49324f4a16ba35024fef3ee069a0eb67616ea6ca821c47a",
+      "bytes": 1085,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.object.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2022.regexp.d.ts",
+      "sha256": "b4b67b1a91182421f5df999988c690f14d813b9850b40acd06ed44691f6727ad",
+      "bytes": 1331,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.regexp.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2022.string.d.ts",
+      "sha256": "3287d9d085fbd618c3971944b65b4be57859f5415f495b33a6adc994edd2f004",
+      "bytes": 1155,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2022.string.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2023.array.d.ts",
+      "sha256": "df83c2a6c73228b625b0beb6669c7ee2a09c914637e2d35170723ad49c0f5cd4",
+      "bytes": 40236,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2023.array.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2023.collection.d.ts",
+      "sha256": "436aaf437562f276ec2ddbee2f2cdedac7664c1e4c1d2c36839ddd582eeb3d0a",
+      "bytes": 900,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2023.collection.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2023.d.ts",
+      "sha256": "27bdc30a0e32783366a5abeda841bc22757c1797de8681bbe81fbc735eeb1c10",
+      "bytes": 999,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2023.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2023.full.d.ts",
+      "sha256": "785921608325fa246b450f05b238f4b3ed659f1099af278ce9ebbc9416a13f1d",
+      "bytes": 1074,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2023.full.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2023.intl.d.ts",
+      "sha256": "8e3c06ea092138bf9fa5e874a1fdbc9d54805d074bee1de31b99a11e2fec239d",
+      "bytes": 2645,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2023.intl.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2024.arraybuffer.d.ts",
+      "sha256": "87dc0f382502f5bbce5129bdc0aea21e19a3abbc19259e0b43ae038a9fc4e326",
+      "bytes": 2637,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2024.arraybuffer.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2024.collection.d.ts",
+      "sha256": "b1cb28af0c891c8c96b2d6b7be76bd394fddcfdb4709a20ba05a7c1605eea0f9",
+      "bytes": 1224,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2024.collection.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2024.d.ts",
+      "sha256": "8fd575e12870e9944c7e1d62e1f5a73fcf23dd8d3a321f2a2c74c20d022283fe",
+      "bytes": 1166,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2024.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2024.full.d.ts",
+      "sha256": "b3e9cef4eed59f8a2249ed834ba4aabe9d0d4e9037d4679487fa17dad99004a3",
+      "bytes": 1074,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2024.full.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2024.object.d.ts",
+      "sha256": "2fef54945a13095fdb9b84f705f2b5994597640c46afeb2ce78352fab4cb3279",
+      "bytes": 1259,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2024.object.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2024.promise.d.ts",
+      "sha256": "ac77cb3e8c6d3565793eb90a8373ee8033146315a3dbead3bde8db5eaf5e5ec6",
+      "bytes": 1389,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2024.promise.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2024.regexp.d.ts",
+      "sha256": "56e4ed5aab5f5920980066a9409bfaf53e6d21d3f8d020c17e4de584d29600ad",
+      "bytes": 1073,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2024.regexp.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2024.sharedmemory.d.ts",
+      "sha256": "4ece9f17b3866cc077099c73f4983bddbcb1dc7ddb943227f1ec070f529dedd1",
+      "bytes": 3077,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2024.sharedmemory.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es2024.string.d.ts",
+      "sha256": "0a6282c8827e4b9a95f4bf4f5c205673ada31b982f50572d27103df8ceb8013c",
+      "bytes": 1194,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es2024.string.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es5.d.ts",
+      "sha256": "c430d44666289dae81f30fa7b2edebf186ecc91a2d4c71266ea6ae76388792e1",
+      "bytes": 218439,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es5.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.es6.d.ts",
+      "sha256": "df039a67536fe2acc3affdcbfb645892f842db36fe599e8e652e2f0c640a90d1",
+      "bytes": 1032,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.es6.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.esnext.array.d.ts",
+      "sha256": "1c9319a09485199c1f7b0498f2988d6d2249793ef67edda49d1e584746be9032",
+      "bytes": 1791,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.esnext.array.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.esnext.collection.d.ts",
+      "sha256": "e3a2a0cee0f03ffdde24d89660eba2685bfbdeae955a6c67e8c4c9fd28928eeb",
+      "bytes": 3878,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.esnext.collection.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.esnext.d.ts",
+      "sha256": "2ab096661c711e4a81cc464fa1e6feb929a54f5340b46b0a07ac6bbf857471f0",
+      "bytes": 1282,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.esnext.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.esnext.decorators.d.ts",
+      "sha256": "d4b1d2c51d058fc21ec2629fff7a76249dec2e36e12960ea056e3ef89174080f",
+      "bytes": 1070,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.esnext.decorators.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.esnext.disposable.d.ts",
+      "sha256": "51ad4c928303041605b4d7ae32e0c1ee387d43a24cd6f1ebf4a2699e1076d4fa",
+      "bytes": 6806,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.esnext.disposable.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.esnext.error.d.ts",
+      "sha256": "73f78680d4c08509933daf80947902f6ff41b6230f94dd002ae372620adb0f60",
+      "bytes": 1029,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.esnext.error.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.esnext.float16.d.ts",
+      "sha256": "4245fee526a7d1754529d19227ecbf3be066ff79ebb6a380d78e41648f2f224d",
+      "bytes": 20355,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.esnext.float16.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.esnext.full.d.ts",
+      "sha256": "bde31fd423cd93b0eff97197a3f66df7c93e8c0c335cbeb113b7ff1ac35c23f4",
+      "bytes": 1074,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.esnext.full.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.esnext.intl.d.ts",
+      "sha256": "811c71eee4aa0ac5f7adf713323a5c41b0cf6c4e17367a34fbce379e12bbf0a4",
+      "bytes": 893,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.esnext.intl.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.esnext.iterator.d.ts",
+      "sha256": "22adec94ef7047a6c9d1af3cb96be87a335908bf9ef386ae9fd50eeb37f44c47",
+      "bytes": 8676,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.esnext.iterator.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.esnext.promise.d.ts",
+      "sha256": "60037901da1a425516449b9a20073aa03386cce92f7a1fd902d7602be3a7c2e9",
+      "bytes": 1658,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.esnext.promise.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.esnext.sharedmemory.d.ts",
+      "sha256": "c5239f5c01bcfa9cd32f37c496cf19c61d69d37e48be9de612b541aac915805b",
+      "bytes": 1067,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.esnext.sharedmemory.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.scripthost.d.ts",
+      "sha256": "cd034f499c6cdca722b60c04b5b1b78e058487a7085a8e0d6fb50809947ee573",
+      "bytes": 9451,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.scripthost.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.webworker.asynciterable.d.ts",
+      "sha256": "ca417afee74054e99d5a8252b35bef26ca6e2942d67d343fce6b42fc9f432993",
+      "bytes": 1887,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.webworker.asynciterable.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.webworker.d.ts",
+      "sha256": "6d08cde2bfb6ff909efbf7cb7d6d55be412cf4b9f48fd0430185986973fa91f5",
+      "bytes": 609557,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.webworker.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.webworker.importscripts.d.ts",
+      "sha256": "80e18897e5884b6723488d4f5652167e7bb5024f946743134ecc4aa4ee731f89",
+      "bytes": 1041,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.webworker.importscripts.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/lib.webworker.iterable.d.ts",
+      "sha256": "d6c6331ce67c41b2ad5bfb0c8c022403980b479a377a44da8f16b61120418f66",
+      "bytes": 22768,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/lib.webworker.iterable.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/LICENSE",
+      "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383",
+      "bytes": 1141,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/LICENSE",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/README.md",
+      "sha256": "7d0a7f7de4edf308d0f9eef8deb1e21a01b5a397cce4f24373e433d2c735264d",
+      "bytes": 1582,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/README.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/assert/strict.d.ts",
+      "sha256": "7394959e5a741b185456e1ef5d64599c36c60a323207450991e7a42e08911419",
+      "bytes": 201,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/assert/strict.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/assert.d.ts",
+      "sha256": "bbcfd9cd76d92c3ee70475270156755346c9086391e1b9cb643d072e0cf576b8",
+      "bytes": 44778,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/assert.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/async_hooks.d.ts",
+      "sha256": "72c1f5e0a28e473026074817561d1bc9647909cf253c8d56c41d1df8d95b85f7",
+      "bytes": 26208,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/async_hooks.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/buffer.buffer.d.ts",
+      "sha256": "d802f0e6b5188646d307f070d83512e8eb94651858de8a82d1e47f60fb6da4e2",
+      "bytes": 22411,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/buffer.buffer.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/buffer.d.ts",
+      "sha256": "003ec918ec442c3a4db2c36dc0c9c766977ea1c8bcc1ca7c2085868727c3d3f6",
+      "bytes": 88304,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/buffer.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/child_process.d.ts",
+      "sha256": "a6310806c6aa3154773976dd083a15659d294700d9ad8f6b8a2e10c3dc461ff1",
+      "bytes": 65938,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/child_process.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/cluster.d.ts",
+      "sha256": "c4e8e8031808b158cfb5ac5c4b38d4a26659aec4b57b6a7e2ba0a141439c208c",
+      "bytes": 28016,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/cluster.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/compatibility/iterators.d.ts",
+      "sha256": "d153a11543fd884b596587ccd97aebbeed950b26933ee000f94009f1ab142848",
+      "bytes": 1303,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/compatibility/iterators.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/console.d.ts",
+      "sha256": "2c91d8366ff2506296191c26fd97cc1990bab3ee22576275d28b654a21261a44",
+      "bytes": 21249,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/console.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/constants.d.ts",
+      "sha256": "5524481e56c48ff486f42926778c0a3cce1cc85dc46683b92b1271865bcf015a",
+      "bytes": 816,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/constants.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/crypto.d.ts",
+      "sha256": "db39d9a16e4ddcd8a8f2b7b3292b362cc5392f92ad7ccd76f00bccf6838ac7de",
+      "bytes": 190906,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/crypto.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/dgram.d.ts",
+      "sha256": "289e9894a4668c61b5ffed09e196c1f0c2f87ca81efcaebdf6357cfb198dac14",
+      "bytes": 27991,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/dgram.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/diagnostics_channel.d.ts",
+      "sha256": "25a1105595236f09f5bce42398be9f9ededc8d538c258579ab662d509aa3b98e",
+      "bytes": 25224,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/diagnostics_channel.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/dns/promises.d.ts",
+      "sha256": "a2e2bbde231b65c53c764c12313897ffdfb6c49183dd31823ee2405f2f7b5378",
+      "bytes": 21107,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/dns/promises.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/dns.d.ts",
+      "sha256": "5078cd62dbdf91ae8b1dc90b1384dec71a9c0932d62bdafb1a811d2a8e26bef2",
+      "bytes": 36886,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/dns.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/dom-events.d.ts",
+      "sha256": "71450bbc2d82821d24ca05699a533e72758964e9852062c53b30f31c36978ab8",
+      "bytes": 3023,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/dom-events.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/domain.d.ts",
+      "sha256": "ad1cc0ed328f3f708771272021be61ab146b32ecf2b78f3224959ff1e2cd2a5c",
+      "bytes": 7812,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/domain.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/events.d.ts",
+      "sha256": "62f572306e0b173cc5dfc4c583471151f16ef3779cf27ab96922c92ec82a3bc8",
+      "bytes": 43144,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/events.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/fs/promises.d.ts",
+      "sha256": "2617f1d06b32c7b4dfd0a5c8bc7b5de69368ec56788c90f3d7f3e3d2f39f0253",
+      "bytes": 55102,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/fs/promises.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/fs.d.ts",
+      "sha256": "622b67a408a881e15ab38043547563b9d29ca4b46f5b7a7e4a4fc3123d25d19f",
+      "bytes": 188677,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/fs.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/globals.d.ts",
+      "sha256": "f4b4faedc57701ae727d78ba4a83e466a6e3bdcbe40efbf913b17e860642897c",
+      "bytes": 13770,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/globals.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/globals.typedarray.d.ts",
+      "sha256": "c0671b50bb99cc7ad46e9c68fa0e7f15ba4bc898b59c31a17ea4611fab5095da",
+      "bytes": 818,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/globals.typedarray.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/http.d.ts",
+      "sha256": "bd8b644c5861b94926687618ec2c9e60ad054d334d6b7eb4517f23f53cb11f91",
+      "bytes": 91395,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/http.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/http2.d.ts",
+      "sha256": "bcbabfaca3f6b8a76cb2739e57710daf70ab5c9479ab70f5351c9b4932abf6bd",
+      "bytes": 129324,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/http2.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/https.d.ts",
+      "sha256": "77fced47f495f4ff29bb49c52c605c5e73cd9b47d50080133783032769a9d8a6",
+      "bytes": 24807,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/https.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/index.d.ts",
+      "sha256": "a51f786b9f3c297668f8f322a6c58f85d84948ef69ade32069d5d63ec917221c",
+      "bytes": 4000,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/index.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/inspector.d.ts",
+      "sha256": "966dd0793b220e22344c944e0f15afafdc9b0c9201b6444ea0197cd176b96893",
+      "bytes": 211032,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/inspector.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/module.d.ts",
+      "sha256": "c54f0b30a787b3df16280f4675bd3d9d17bf983ae3cd40087409476bc50b922d",
+      "bytes": 40390,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/module.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/net.d.ts",
+      "sha256": "0f5cda0282e1d18198e2887387eb2f026372ebc4e11c4e4516fef8a19ee4d514",
+      "bytes": 47571,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/net.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/os.d.ts",
+      "sha256": "e99b0e71f07128fc32583e88ccd509a1aaa9524c290efb2f48c22f9bf8ba83b1",
+      "bytes": 18949,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/os.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/package.json",
+      "sha256": "89cb280743d8e75899ce6848e2d6502b47b0409e403a7fbc956a2d0aec9cb182",
+      "bytes": 4509,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/package.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/path.d.ts",
+      "sha256": "76957a6d92b94b9e2852cf527fea32ad2dc0ef50f67fe2b14bd027c9ceef2d86",
+      "bytes": 8235,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/path.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/perf_hooks.d.ts",
+      "sha256": "5e9f8c1e042b0f598a9be018fc8c3cb670fe579e9f2e18e3388b63327544fe16",
+      "bytes": 39055,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/perf_hooks.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/process.d.ts",
+      "sha256": "a8a99a5e6ed33c4a951b67cc1fd5b64fd6ad719f5747845c165ca12f6c21ba16",
+      "bytes": 106429,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/process.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/punycode.d.ts",
+      "sha256": "a58a15da4c5ba3df60c910a043281256fa52d36a0fcdef9b9100c646282e88dd",
+      "bytes": 5479,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/punycode.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/querystring.d.ts",
+      "sha256": "b36beffbf8acdc3ebc58c8bb4b75574b31a2169869c70fc03f82895b93950a12",
+      "bytes": 7125,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/querystring.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/readline/promises.d.ts",
+      "sha256": "70b57b5529051497e9f6482b76d91c0dcbb103d9ead8a0549f5bab8f65e5d031",
+      "bytes": 6427,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/readline/promises.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/readline.d.ts",
+      "sha256": "de263f0089aefbfd73c89562fb7254a7468b1f33b61839aafc3f035d60766cb4",
+      "bytes": 25878,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/readline.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/repl.d.ts",
+      "sha256": "8c81fd4a110490c43d7c578e8c6f69b3af01717189196899a6a44f93daa57a3a",
+      "bytes": 19901,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/repl.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/sea.d.ts",
+      "sha256": "1013eb2e2547ad8c100aca52ef9df8c3f209edee32bb387121bb3227f7c00088",
+      "bytes": 6195,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/sea.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/sqlite.d.ts",
+      "sha256": "e07c573ac1971ea89e2c56ff5fd096f6f7bba2e6dbcd5681d39257c8d954d4a8",
+      "bytes": 34754,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/sqlite.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/stream/consumers.d.ts",
+      "sha256": "125d792ec6c0c0f657d758055c494301cc5fdb327d9d9d5960b3f129aff76093",
+      "bytes": 1593,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/stream/consumers.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/stream/promises.d.ts",
+      "sha256": "37ba7b45141a45ce6e80e66f2a96c8a5ab1bcef0fc2d0f56bb58df96ec67e972",
+      "bytes": 2971,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/stream/promises.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/stream/web.d.ts",
+      "sha256": "dba28a419aec76ed864ef43e5f577a5c99a010c32e5949fe4e17a4d57c58dd11",
+      "bytes": 29915,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/stream/web.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/stream.d.ts",
+      "sha256": "363eedb495912790e867da6ff96e81bf792c8cfe386321e8163b71823a35719a",
+      "bytes": 85270,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/stream.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/string_decoder.d.ts",
+      "sha256": "ea713aa14a670b1ea0fbaaca4fd204e645f71ca7653a834a8ec07ee889c45de6",
+      "bytes": 2827,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/string_decoder.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/test.d.ts",
+      "sha256": "07199a85560f473f37363d8f1300fac361cda2e954caf8a40221f83a6bfa7ade",
+      "bytes": 109841,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/test.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/timers/promises.d.ts",
+      "sha256": "ae86f30d5d10e4f75ce8dcb6e1bd3a12ecec3d071a21e8f462c5c85c678efb41",
+      "bytes": 3780,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/timers/promises.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/timers.d.ts",
+      "sha256": "9705cd157ffbb91c5cab48bdd2de5a437a372e63f870f8a8472e72ff634d47c1",
+      "bytes": 14570,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/timers.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/tls.d.ts",
+      "sha256": "982efeb2573605d4e6d5df4dc7e40846bda8b9e678e058fc99522ab6165c479e",
+      "bytes": 57848,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/tls.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/trace_events.d.ts",
+      "sha256": "e03460fe72b259f6d25ad029f085e4bedc3f90477da4401d8fbc1efa9793230e",
+      "bytes": 8926,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/trace_events.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/ts5.6/buffer.buffer.d.ts",
+      "sha256": "109b9c280e8848c08bf4a78fff1fed0750a6ca1735671b5cf08b71bae5448c03",
+      "bytes": 21731,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/ts5.6/buffer.buffer.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/ts5.6/compatibility/float16array.d.ts",
+      "sha256": "394fda71d5d6bd00a372437dff510feab37b92f345861e592f956d6995e9c1ce",
+      "bytes": 3811,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/ts5.6/compatibility/float16array.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/ts5.6/globals.typedarray.d.ts",
+      "sha256": "c564fc7c6f57b43ebe0b69bc6719d38ff753f6afe55dadf2dba36fb3558f39b6",
+      "bytes": 484,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/ts5.6/globals.typedarray.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/ts5.6/index.d.ts",
+      "sha256": "525882f5d67944cd6fa0ef70b8e7ade7757cb10d94b80968eb777d1a8ace4a52",
+      "bytes": 4268,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/ts5.6/index.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/ts5.7/compatibility/float16array.d.ts",
+      "sha256": "cebfeedf63623d54f7423d58cae1ec204c0d8d97a66d5fb17579e26a902085e1",
+      "bytes": 3872,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/ts5.7/compatibility/float16array.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/ts5.7/index.d.ts",
+      "sha256": "e0c3dfdf18f717e2591d10bee809a21ebe558f63128e5aaf2880b0b0bd984848",
+      "bytes": 4255,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/ts5.7/index.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/tty.d.ts",
+      "sha256": "4286a3a6619514fca656089aee160bb6f2e77f4dd53dc5a96b26a0b4fc778055",
+      "bytes": 10053,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/tty.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/url.d.ts",
+      "sha256": "c9231cf03fd7e8cfd78307eecbd24ff3f0fa55d0f6d1108c4003c124d168adc4",
+      "bytes": 44705,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/url.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/util.d.ts",
+      "sha256": "2d5d50cd0667d9710d4d2f6e077cc4e0f9dc75e106cccaea59999b36873c5a0d",
+      "bytes": 90416,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/util.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/v8.d.ts",
+      "sha256": "784490137935e1e38c49b9289110e74a1622baf8a8907888dcbe9e476d7c5e44",
+      "bytes": 38674,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/v8.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/vm.d.ts",
+      "sha256": "42180b657831d1b8fead051698618b31da623fb71ff37f002cb9d932cfa775f1",
+      "bytes": 47245,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/vm.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/wasi.d.ts",
+      "sha256": "4f98d6fb4fe7cbeaa04635c6eaa119d966285d4d39f0eb55b2654187b0b27446",
+      "bytes": 7935,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/wasi.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/worker_threads.d.ts",
+      "sha256": "f8529fe0645fd9af7441191a4961497cc7638f75a777a56248eac6a079bb275d",
+      "bytes": 37894,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/worker_threads.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/@types/node/zlib.d.ts",
+      "sha256": "4445f6ce6289c5b2220398138da23752fd84152c5c95bb8b58dedefc1758c036",
+      "bytes": 25877,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/@types/node/zlib.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/LICENSE",
+      "sha256": "a6db8096b2707bc0102d256917d4d33f298ba36d8c3f25de067a2b5bb379db27",
+      "bytes": 1090,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/LICENSE",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/README.md",
+      "sha256": "c8cced6ec588c55b07e35733258cb7d6b63e3426ee7490aa9267aab4bda0fb20",
+      "bytes": 455,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/README.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/agent.d.ts",
+      "sha256": "af13e99445f37022c730bfcafcdc1761e9382ce1ea02afb678e3130b01ce5676",
+      "bytes": 1251,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/agent.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/api.d.ts",
+      "sha256": "54c3e2371e3d016469ad959697fd257e5621e16296fa67082c2575d0bf8eced0",
+      "bytes": 1599,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/api.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/balanced-pool.d.ts",
+      "sha256": "b41767d372275c154c7ea6c9d5449d9a741b8ce080f640155cc88ba1763e35b3",
+      "bytes": 957,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/balanced-pool.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/cache-interceptor.d.ts",
+      "sha256": "beb8233b2c220cfa0feea31fbe9218d89fa02faa81ef744be8dce5acb89bb1fd",
+      "bytes": 4120,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/cache-interceptor.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/cache.d.ts",
+      "sha256": "c46e079fe54c76f95c67fb89081b3e399da2c7d109e7dca8e4b58d83e332e605",
+      "bytes": 1251,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/cache.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/client-stats.d.ts",
+      "sha256": "68834d631c8838c715f225509cfc3927913b9cc7a4870460b5b60c8dbdb99baf",
+      "bytes": 456,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/client-stats.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/client.d.ts",
+      "sha256": "4bc0794175abedf989547e628949888c1085b1efcd93fc482bccd77ee27f8b7c",
+      "bytes": 5049,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/client.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/connector.d.ts",
+      "sha256": "c6fd2c5a395f2432786c9cb8deb870b9b0e8ff7e22c029954fabdd692bff6195",
+      "bytes": 1029,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/connector.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/content-type.d.ts",
+      "sha256": "2e85db9e6fd73cfa3d7f28e0ab6b55417ea18931423bd47b409a96e4a169e8e6",
+      "bytes": 561,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/content-type.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/cookies.d.ts",
+      "sha256": "59af37caec41ecf7b2e76059c9672a49e682c1a2aa6f9d7dc78878f53aa284d6",
+      "bytes": 696,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/cookies.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/diagnostics-channel.d.ts",
+      "sha256": "7c10a32ae6f3962672e6869ee2c794e8055d8225ef35c91c0228e354b4e5d2d3",
+      "bytes": 1583,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/diagnostics-channel.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/dispatcher.d.ts",
+      "sha256": "2c9875466123715464539bfd69bcaccb8ff6f3e217809428e0d7bd6323416d01",
+      "bytes": 15750,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/dispatcher.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/env-http-proxy-agent.d.ts",
+      "sha256": "1e30c045732e7db8f7a82cf90b516ebe693d2f499ce2250a977ec0d12e44a529",
+      "bytes": 675,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/env-http-proxy-agent.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/errors.d.ts",
+      "sha256": "3c8e93af4d6ce21eb4c8d005ad6dc02e7b5e6781f429d52a35290210f495a674",
+      "bytes": 4767,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/errors.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/eventsource.d.ts",
+      "sha256": "8bd86b8e8f6a6aa6c49b71e14c4ffe1211a0e97c80f08d2c8cc98838006e4b88",
+      "bytes": 1648,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/eventsource.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/fetch.d.ts",
+      "sha256": "e525f9e67f5ddba7b5548430211cae2479070b70ef1fd93550c96c10529457bd",
+      "bytes": 5607,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/fetch.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/formdata.d.ts",
+      "sha256": "ccf4552357ce3c159ef75f0f0114e80401702228f1898bdc9402214c9499e8c0",
+      "bytes": 5004,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/formdata.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/global-dispatcher.d.ts",
+      "sha256": "ea6bc8de8b59f90a7a3960005fd01988f98fd0784e14bc6922dde2e93305ec7d",
+      "bytes": 275,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/global-dispatcher.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/global-origin.d.ts",
+      "sha256": "36107995674b29284a115e21a0618c4c2751b32a8766dd4cb3ba740308b16d59",
+      "bytes": 176,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/global-origin.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/h2c-client.d.ts",
+      "sha256": "1cd673d367293fc5cb31cd7bf03d598eb368e4f31f39cf2b908abbaf120ab85a",
+      "bytes": 3747,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/h2c-client.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/handlers.d.ts",
+      "sha256": "6c8e442ba33b07892169a14f7757321e49ab0f1032d676d321a1fdab8a67d40c",
+      "bytes": 442,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/handlers.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/header.d.ts",
+      "sha256": "23cd712e2ce083d68afe69224587438e5914b457b8acf87073c22494d706a3d0",
+      "bytes": 3336,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/header.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/index.d.ts",
+      "sha256": "99f569b42ea7e7c5fe404b2848c0893f3e1a56e0547c1cd0f74d5dbb9a9de27e",
+      "bytes": 3752,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/index.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/interceptors.d.ts",
+      "sha256": "78b29846349d4dfdd88bd6650cc5d2baaa67f2e89dc8a80c8e26ef7995386583",
+      "bytes": 1771,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/interceptors.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/mock-agent.d.ts",
+      "sha256": "9666f2f84b985b62400d2e5ab0adae9ff44de9b2a34803c2c5bd3c8325b17dc0",
+      "bytes": 3448,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/mock-agent.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/mock-call-history.d.ts",
+      "sha256": "0b6e25234b4eec6ed96ab138d96eb70b135690d7dd01f3dd8a8ab291c35a683a",
+      "bytes": 5558,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/mock-call-history.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/mock-client.d.ts",
+      "sha256": "da52342062e70c77213e45107921100ba9f9b3a30dd019444cf349e5fb3470c4",
+      "bytes": 1001,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/mock-client.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/mock-errors.d.ts",
+      "sha256": "40b463c6766ca1b689bfcc46d26b5e295954f32ad43e37ee6953c0a677e4ae2b",
+      "bytes": 336,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/mock-errors.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/mock-interceptor.d.ts",
+      "sha256": "3825bf209f1662dfd039010a27747b73d0ef379f79970b1d05601ec8e8a4249f",
+      "bytes": 3897,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/mock-interceptor.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/mock-pool.d.ts",
+      "sha256": "e9ace91946385d29192766bf783b8460c7dbcbfc63284aa3c9cae6de5155c8bc",
+      "bytes": 973,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/mock-pool.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/package.json",
+      "sha256": "3235a70e0936b193bd993a1f48221f2ada41bc5ae48eb84735f5aa83c30236e5",
+      "bytes": 1193,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/package.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/patch.d.ts",
+      "sha256": "addf417b9eb3f938fddf8d81e96393a165e4be0d4a8b6402292f9c634b1cb00d",
+      "bytes": 599,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/patch.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/pool-stats.d.ts",
+      "sha256": "914a0ae30d96d71915fc519ccb4efbf2b62c0ddfb3a3fc6129151076bc01dc60",
+      "bytes": 663,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/pool-stats.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/pool.d.ts",
+      "sha256": "33e981bf6376e939f99bd7f89abec757c64897d33c005036b9a10d9587d80187",
+      "bytes": 1485,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/pool.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/proxy-agent.d.ts",
+      "sha256": "249b9cab7f5d628b71308c7d9bb0a808b50b091e640ba3ed6e2d0516f4a8d91d",
+      "bytes": 806,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/proxy-agent.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/readable.d.ts",
+      "sha256": "487b694c3de27ddf4ad107d4007ad304d29effccf9800c8ae23c2093638d906a",
+      "bytes": 1900,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/readable.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/retry-agent.d.ts",
+      "sha256": "499e5b055a5aba1e1998f7311a6c441a369831c70905cc565ceac93c28083d53",
+      "bytes": 233,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/retry-agent.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/retry-handler.d.ts",
+      "sha256": "84b736594d8760f43400202859cda55607663090a43445a078963031d47e25e7",
+      "bytes": 2967,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/retry-handler.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/util.d.ts",
+      "sha256": "5d0375ca7310efb77e3ef18d068d53784faf62705e0ad04569597ae0e755c401",
+      "bytes": 623,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/util.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/utility.d.ts",
+      "sha256": "cdcf9ea426ad970f96ac930cd176d5c69c6c24eebd9fc580e1572d6c6a88f62c",
+      "bytes": 245,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/utility.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/webidl.d.ts",
+      "sha256": "0ae0d50d9c5785435b3db22bbd269b6d4438480727399ac9ef3f9c5b4b747e14",
+      "bytes": 6904,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/webidl.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/node_modules/undici-types/websocket.d.ts",
+      "sha256": "e38d4fdf79e1eadd92ed7844c331dbaa40f29f21541cfee4e1acff4db09cda33",
+      "bytes": 4623,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/node_modules/undici-types/websocket.d.ts",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/typescript.LICENSE.txt",
+      "sha256": "a7d00bfd54525bc694b6e32f64c7ebcf5e6b7ae3657be5cc12767bce74654a47",
+      "bytes": 9197,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/typescript.LICENSE.txt",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "build/toolchain/typescript.cjs",
+      "sha256": "e5f1f6b3e82228a89873cc7b941b2465185e839c0692860f83e3e63e53f94c2b",
+      "bytes": 9111680,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/build/toolchain/typescript.cjs",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "sha256": "436b777567a7a5c5cf226a9399abd6500689c1d1c87d3a4fef79742bd3b5d395",
+      "bytes": 197474,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/capabilities/capability-definition-graph.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-functions/adapter-projection.json",
+      "sha256": "36b232bc10b96c825f001f1df59bcd46b5306971503bb9cc2cabbe32882d033b",
+      "bytes": 69025,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-functions/adapter-projection.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/catalog/admit/operation-contract.json",
+      "sha256": "2eb64ce5ed9c432d87c0e4793f52af4ff934d052073705de2464b9834f6fed49",
+      "bytes": 5941,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/catalog/admit/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/catalog/apply/operation-contract.json",
+      "sha256": "ed422bb2b1b5e0e81e8aa9789d09f85fe8551625c35b18521458c08d99e9562d",
+      "bytes": 10721,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/catalog/apply/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/catalog/view/operation-contract.json",
+      "sha256": "8250f440badebf108d2d914b40ae6a6aeea95f3f8778a0515ed62c60a91a2315",
+      "bytes": 6053,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/catalog/view/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/conformance/evaluate/operation-contract.json",
+      "sha256": "f188d917a17ccd1805cb0613e46e2bde4105e91e510eb64a21667838bbba75dd",
+      "bytes": 6207,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/conformance/evaluate/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/interaction/respond/operation-contract.json",
+      "sha256": "a142d480e8820aeec1bc5f735db9a34112ba2828106439f1dd7e0845f58bdec8",
+      "bytes": 30349,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/interaction/respond/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/product/install/operation-contract.json",
+      "sha256": "0968851857ce4446c94cc32fb5366d2bd82274295f65878043dcb3945fae8add",
+      "bytes": 5954,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/product/install/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/product/materialize/operation-contract.json",
+      "sha256": "2a175cbc36068ea473a299578246fc9d3155b580cddad908346c8b54ae8850b2",
+      "bytes": 11023,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/product/materialize/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/product/resolve/operation-contract.json",
+      "sha256": "f6fbf8ae444ef4562a23065c6f9e0023a9e3252e3045fa191d2feb81259b2e80",
+      "bytes": 6080,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/product/resolve/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/product/verify/operation-contract.json",
+      "sha256": "452642f8869bc9e60b2d396b4a15ec81b24bf9407cbcad99b815567cf2e42c29",
+      "bytes": 5952,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/product/verify/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/project/read/operation-contract.json",
+      "sha256": "9a5552c40802db69cecc2eba37fc1d1ca1cb8810c25be366fdc76114fbcb6f75",
+      "bytes": 114486,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/project/read/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/release/snapshot/operation-contract.json",
+      "sha256": "db4c6a26ac9301b6c11861e152268e54ac080bf0733b69c618d1a4eea26e4e31",
+      "bytes": 11097,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/release/snapshot/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/result/assess/operation-contract.json",
+      "sha256": "d0eceec93bafb804b5e49d3fd6c71068f98019505e3ab8a6fd7310f058d7ba50",
+      "bytes": 6871,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/result/assess/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/run/continue/operation-contract.json",
+      "sha256": "93123c72ba4f5ab04e6d0c60b8794a524b3f8c2cc51afa414ba18207a3fedac3",
+      "bytes": 12809,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/run/continue/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/run/invoke/operation-contract.json",
+      "sha256": "094af8f940b5a9712a9526df3f0a1c0f633204b556753c6e67a0e199b7ecf13b",
+      "bytes": 12327,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/run/invoke/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/witness/admit/operation-contract.json",
+      "sha256": "044ef92519e1b305efdc73bcf43cead6c2b08078fe14794ca645d22fc7679cd8",
+      "bytes": 29041,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/witness/admit/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/workspace/bind/operation-contract.json",
+      "sha256": "33a2eb3d627c75da6410539aad7fc13316b9ebcc33e4449f803ca9f1aa3d8cc9",
+      "bytes": 6006,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/workspace/bind/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/workspace/create/operation-contract.json",
+      "sha256": "321e68bcde0cde4722b448e1bd11bb41ce6c6263639bd79ab0128c75b76e35d1",
+      "bytes": 10823,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/workspace/create/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/public-operations/workspace/open/operation-contract.json",
+      "sha256": "e087e423f8fc0babd8627e8c51b738516dedf62214a8474576b8f3d4153ecfdf",
+      "bytes": 6009,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/public-operations/workspace/open/operation-contract.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/authority-inputs.json",
+      "sha256": "1c7254fdcdf2a97395c0a61d2a288876d65370442f5c47e76a8aa3771ec9fb4e",
+      "bytes": 28061,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/authority-inputs.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/coverage.json",
+      "sha256": "a009baadcc1bb87c4f4fb75d8bccf28778437f6d35e2800d01ae24d21d832c2f",
+      "bytes": 11476,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/coverage.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/law-basis.json",
+      "sha256": "b7d303088a8c7c99a84e83d2b3c79a433bae32d98cafbb48e867b33629cacb6e",
+      "bytes": 28469,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/law-basis.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/rule-catalog.json",
+      "sha256": "070dc5a6044b180ae5f72cc901872e6e0a79a37040d856769eca0f4155ca64bc",
+      "bytes": 1770926,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/rule-catalog.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/00-starter.md",
+      "sha256": "bc6fae43aa6fdaf0fd56a6245eefa83b233ed2cac3f9177efe3873b1e5ac7e84",
+      "bytes": 306,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/00-starter.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/AXIOMATIC_CALCULUS.md",
+      "sha256": "cbe2edb928d3e75e23446f6d525baea664966e8d5920e6fa389cbaa4af8f1f8d",
+      "bytes": 37849,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/AXIOMATIC_CALCULUS.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/IDENTITY_METHOD.md",
+      "sha256": "e65b875464cc93a3f9186d915ad88603755de34bac6f27072562ed34c13f64cd",
+      "bytes": 11350,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/IDENTITY_METHOD.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/INTENT.md",
+      "sha256": "04c8675ecf6779e9bf9048fe56b3cd84d8421093fc3072216dabb9235d217299",
+      "bytes": 13626,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/INTENT.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/ODD_METHOD.md",
+      "sha256": "b33dd5b868e66e27c583b3237e93421ab12d502b38368bf075973c1bf7faef2d",
+      "bytes": 71327,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/ODD_METHOD.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/PRODUCT.md",
+      "sha256": "34fef921b93abfaaab3e0beffde2d4c9cc5506b8109944bb1fb981a3a8445631",
+      "bytes": 71660,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/PRODUCT.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REFERENCE_FRAME_METHOD.md",
+      "sha256": "6e9148d7c8eff847abf172315b0e282e4477f3d40866b28f7fef21c41cb067e7",
+      "bytes": 55118,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REFERENCE_FRAME_METHOD.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/RELEASE_METHOD.md",
+      "sha256": "582bc15451855670495e559db3ae6a89ba37edaa3656f33499d02220cbdb141c",
+      "bytes": 26086,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/RELEASE_METHOD.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-ASSET-SURFACE.md",
+      "sha256": "eeef3aa0369f7eefb18f79e79e66a727365520800c0c194bfba7fb2ae7db5c25",
+      "bytes": 4068,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-ASSET-SURFACE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-ATTRS.md",
+      "sha256": "9204569254a620bb78974512df974e16edfece2ea72dff47a07c14e1bd396807",
+      "bytes": 1391,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-ATTRS.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-C-ALGEBRA.md",
+      "sha256": "4d76d0697ff5932d71a89b915f1cf079480d05429862b8d6a25c5dcb2cf46cf8",
+      "bytes": 14789,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-C-ALGEBRA.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-COMPOSE.md",
+      "sha256": "d6614b9a9e992fa3d8c07a977f9edeec83ac5c8893a60e859f1cc0a86342a89c",
+      "bytes": 2702,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-COMPOSE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-COMPUTE-NOTATION.md",
+      "sha256": "0c0f325ca423cbec7d7fc97a362f330e7dfb2d90e7024519cc0389c89dac2fcd",
+      "bytes": 12477,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-COMPUTE-NOTATION.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-CONTEXT.md",
+      "sha256": "4971345537f797ef29718c0c32b6c9b31a054f1c5f28a423f6dd4adc02d3bb4b",
+      "bytes": 2305,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-CONTEXT.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-CONTRACT-LAW-API.md",
+      "sha256": "9cb518d14808535181b107d14a92d126f4b40b117343764582235eb318451675",
+      "bytes": 7701,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-CONTRACT-LAW-API.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-EVALUATOR.md",
+      "sha256": "42036bb55c3aad49e6bc215e02842e1841de3b3a999653182becc6ff28b85069",
+      "bytes": 3326,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-EVALUATOR.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-GRAPH.md",
+      "sha256": "bd45b6b6d8ccb0b0c349d93427404344c04459c3ac1068877b3779a2c4917f93",
+      "bytes": 2507,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-GRAPH.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT.md",
+      "sha256": "212283db05bab5ecf94f5bd92eb2ff81c478476a62228c07771b3eb865ba4606",
+      "bytes": 3525,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "sha256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373",
+      "bytes": 6880,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-GRAPHVECTOR.md",
+      "sha256": "a8ae2a4496762081396ec42a514f6d3c422fd7fb0f8227cb6fab0eed4bde0da4",
+      "bytes": 7386,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-GRAPHVECTOR.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-HOF.md",
+      "sha256": "8a39633b575ac4cf8b0f9d1ae2f9546cb22ea3e4c858ebd101b6ba9bd60c556c",
+      "bytes": 5096,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-HOF.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-HOOKS.md",
+      "sha256": "fc31e5211472bf6e929fba23288605a5e74af57fac8f469c07dc3c1586c2adc0",
+      "bytes": 6742,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-HOOKS.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-IDENTITY.md",
+      "sha256": "7235fc6d099971608994cabc98bcd4c5016f8f8b959904ace2e05a5564913249",
+      "bytes": 1605,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-IDENTITY.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-INTERFACE.md",
+      "sha256": "e69bcd76af46eca21ee161f9f0128dd7e4cc531debbdbd9c6a346b43fbc4fe2f",
+      "bytes": 1379,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-INTERFACE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-JOB.md",
+      "sha256": "9e4efc269a0b856810116c70e6b9ed26ed2b61e4ebc4c3f309aaf5a74e5ca40b",
+      "bytes": 2019,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-JOB.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+      "sha256": "105ec61dedecd0183b3e678b8aec10ebd60104864e6bcf295b9a38490e43912e",
+      "bytes": 18615,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-LANGUAGE.md",
+      "sha256": "fdf36c5ed1a8272e8a253237c96719f5555d3fe84e38c3086e925815221e4412",
+      "bytes": 2862,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-LANGUAGE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-LAWS.md",
+      "sha256": "8281ee62fe6139caf7e2f2245d2414f7993253f0bad3471bb3e6df00003c5d8f",
+      "bytes": 9060,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-LAWS.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-MODULE.md",
+      "sha256": "c1b1f7644f59776854103b3f0bfab515e88ed444363b6f81f9bfc4cb83e0d27c",
+      "bytes": 1531,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-MODULE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-NODE.md",
+      "sha256": "d2e7d99595799498120a0a5b68a06067ed7269c387c4383310e3b59880885054",
+      "bytes": 4053,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-NODE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-OPERATOR.md",
+      "sha256": "e327338bf8b9a49f1184e838b604eee6e7ff34811685bb609524fec3f9807549",
+      "bytes": 1287,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-OPERATOR.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-RECURSE.md",
+      "sha256": "448addbc9f1b94f9b19be063c7068a59ed6b1f2d7fa3c222413ee450d371883c",
+      "bytes": 1677,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-RECURSE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md",
+      "sha256": "9bf74b1fc99629e8f8b2499bf3f7954ee5077df0c0a76cc7cb372c5e2696c4e1",
+      "bytes": 6346,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-ROLE.md",
+      "sha256": "6ef4b749ba5fa87f0ffabb4d0345b4f4a0c6e81517fb18608309e3d5ec89eb75",
+      "bytes": 1429,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-ROLE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-RULE.md",
+      "sha256": "e52d418e515d23a534848000f85900c326bc19a57e03c71708bcf37427b6c2cb",
+      "bytes": 1722,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-RULE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+      "sha256": "5ce5ccbf8871786ee63520006e1e2fbf423cb98c58f4abd5ba6306fe6972ab66",
+      "bytes": 1554,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-SUBSTITUTE.md",
+      "sha256": "33519b9b578a792a72b9f059f8dc28b385497d28825e150a566e613b8909703a",
+      "bytes": 1531,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-SUBSTITUTE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-SUBWORK.md",
+      "sha256": "ed4bc476d481b3406d9049087440e7ddd6926c249284a48a51e16fa60d5469de",
+      "bytes": 1398,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-SUBWORK.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-SYNTHESIS.md",
+      "sha256": "a421c652fa49f71177ebac25b17e9a31a4b1b362ce81fc14f5f44322b24b6000",
+      "bytes": 2053,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-SYNTHESIS.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+      "sha256": "810a1d30eaba36232919e2a88360d6bce87040b5da22e2cb1ec5a460fe0899cf",
+      "bytes": 5892,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-M-GTL3-CAPABILITY.md",
+      "sha256": "c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "bytes": 5954,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-M-GTL3-CAPABILITY.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-M-GTL3-MAPPING.md",
+      "sha256": "17d2856c53ef46e447ba85b6d98057af4b14dac397fa03e47f461c5e4c65cced",
+      "bytes": 1495,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-M-GTL3-MAPPING.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-M-GTL3-PROGRAM-TRAVERSAL.md",
+      "sha256": "a19da2e0ab2d7b5aa705bbd7fd84b8fc858a411d6c023dd4deba6b316959ec0b",
+      "bytes": 5307,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-M-GTL3-PROGRAM-TRAVERSAL.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-M-GTL3-PROVENANCE.md",
+      "sha256": "f6015a9a4eb0c34ec8b376de4ad2ccf18c698c1e73f50c81da25f6e8ad8a57c9",
+      "bytes": 1888,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-M-GTL3-PROVENANCE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-P-CATALOG.md",
+      "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9",
+      "bytes": 13757,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-P-CATALOG.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-P-CONSENSUS.md",
+      "sha256": "9e16808a05ca078fded2854073d6280c1ae7f3ff173be7354ecb20d76123a52d",
+      "bytes": 16255,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-P-CONSENSUS.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-P-INSTALL.md",
+      "sha256": "1882675ef5f4dd33a8dd4ee5d80ff33203d243fb30ec65b125057b7db081b98f",
+      "bytes": 21741,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-P-INSTALL.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-P-POLICY.md",
+      "sha256": "806dfd0a0895acce9e817e0193ea93eb58e983a19a176a54ec36cd91c62154be",
+      "bytes": 33842,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-P-POLICY.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-P-PUBLIC-CONTRACTS.md",
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4",
+      "bytes": 19406,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-P-PUBLIC-CONTRACTS.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-P-QUAL.md",
+      "sha256": "ee198c089c4f0344ed04605a902d186c750805a78ef67cac2940957d8aabec33",
+      "bytes": 33727,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-P-QUAL.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-P-SCENARIOS.md",
+      "sha256": "e84443f27e54e533a907565b84db7422657dd8b748d5753157649826a8f0d747",
+      "bytes": 13957,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-P-SCENARIOS.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "bytes": 6687,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-ASSURANCE.md",
+      "sha256": "fe8b38aa68686d3a14dd53db2e9cebc36163a99b16b6ccf76d4c8052a9cbb361",
+      "bytes": 10341,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-ASSURANCE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-BINDING.md",
+      "sha256": "af6538e5bf717feeefc90a8becedac9f3556fc77ea4c149443fa2a9c4d5f3175",
+      "bytes": 7543,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-BINDING.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-CCALL.md",
+      "sha256": "00a482c6c34655f7fac23858cc6544e3f65facf2bda4b2ec21166026d1bd7949",
+      "bytes": 8083,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-CCALL.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-CONTINUATION.md",
+      "sha256": "0525b68ef606855193419cee6f638808129f7a445a461810e96440ee51eaeda5",
+      "bytes": 5154,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-CONTINUATION.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-CONVERGENCE.md",
+      "sha256": "03aa87426b46e9d58f81cadd926d98973a5c113a603195b0a73eb0586b57f902",
+      "bytes": 2695,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-CONVERGENCE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-CORRECTION.md",
+      "sha256": "d1d663f3011c127d85ac73440edb6d9c133c6e88f5f2291ebded68439b8c3edb",
+      "bytes": 1164,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-CORRECTION.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-EVENTS.md",
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+      "bytes": 16630,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-EVENTS.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-FN-COMPOSITION.md",
+      "sha256": "5ff1c91698d5ba71f81bada072ecdc008cf1ef74e216af3b15126e56c7d666b1",
+      "bytes": 13365,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-FN-COMPOSITION.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-FP-CONSCIOUSNESS.md",
+      "sha256": "3bbde7990ad1d5e779b75d2f592598f12471e93fed66ba487070c1d4d85aaeb6",
+      "bytes": 20151,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-FP-CONSCIOUSNESS.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-FRAME.md",
+      "sha256": "36b200e1fc89e4b0a9c3f922e674c854505090fa911558d1b956b2350e287d51",
+      "bytes": 1422,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-FRAME.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-GRAPHCALL.md",
+      "sha256": "7dfcdf946e649d846a42e640438598e13f119bfbfec3c2ab0ccf836a7dd9a045",
+      "bytes": 1546,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-GRAPHCALL.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-HANDLERS.md",
+      "sha256": "11b1c61ecb52c11b2bbc047c019792139b9a80367f881bbddd5826a8e4189000",
+      "bytes": 6120,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-HANDLERS.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "sha256": "3739d64e335d0eb04dd4cfb0dc362783c33dde1ed846651db56a28cde2eda9bb",
+      "bytes": 10274,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-INTERPRET.md",
+      "sha256": "5c2a1cf2de4686deac3ba97863d88483bfa8aab5cd9141cda2f1f7b9dfecf7de",
+      "bytes": 7680,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-INTERPRET.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-ITERATION.md",
+      "sha256": "39259a007bbe83cf57b16f042dd83018146d47831e45a767d4c22cb85e810e84",
+      "bytes": 6335,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-ITERATION.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-JOB-WORKER.md",
+      "sha256": "0b2c2105ea5b1808214f282672b2974d0faf43b0872022e0d9a64844bb716f15",
+      "bytes": 1207,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-JOB-WORKER.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-LEAFTASK.md",
+      "sha256": "d54227e3c548004f8b80d76efd5d0283f52e5ce2d411c2addc4dce691adb08ce",
+      "bytes": 1588,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-LEAFTASK.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-LINEAGE.md",
+      "sha256": "968f97fd609aee04fed41160c65991683f0b113a1a3cb0b13898bc0017407fdc",
+      "bytes": 1437,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-LINEAGE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-PAYLOAD.md",
+      "sha256": "a10a8edcd84e1e15115b1c66110ab0d66a5a34e61d0e849d4a375752675bf63e",
+      "bytes": 11203,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-PAYLOAD.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-PLUGIN-SEAMS.md",
+      "sha256": "ad3b105c013f74d60bc32a2e4a56ec65e91d25a011ce0722f84a9f7e22947381",
+      "bytes": 6517,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-PLUGIN-SEAMS.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-POLICY.md",
+      "sha256": "c6e41fb43aaede4a1e28e229bb93e8b8ccbddc48d84372390a1bbdbad5f480f6",
+      "bytes": 2343,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-POLICY.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-PROJECTION.md",
+      "sha256": "e552c7f43583aafd16a4c0b4c4ca70af2afb9be21b21ab3adb754a709dc905e6",
+      "bytes": 9406,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-PROJECTION.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-PROVENANCE.md",
+      "sha256": "ef0caf7118426de7fcae3cdb1073e721cd770a85a7d7c58dec257f02f011efcb",
+      "bytes": 1542,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-PROVENANCE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md",
+      "sha256": "372c99dc400cb5f6206ff4e1f9e3b47cc3ce0cf786700e6b2817cb82f97ddf22",
+      "bytes": 21645,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md",
+      "sha256": "78f19a03963a4f83540f25a5ae49490cabcbd200f219669dfd9a13ec72f44519",
+      "bytes": 15697,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-RETRY.md",
+      "sha256": "4fd1f4798487eb072d8afbe3e9aa8f70fedf425d681ae244eaba9c8874434307",
+      "bytes": 3157,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-RETRY.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-RUN.md",
+      "sha256": "b7e548eebae47b078b5d54a7838692f736a2956321673bc62b58bd9608d03bd8",
+      "bytes": 2917,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-RUN.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "sha256": "70a601490542b36b7e474bfd14f7dfd510a4cbe72fb37f16b49cd35d2f240eed",
+      "bytes": 7453,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-SELECTION-APPLICATION.md",
+      "sha256": "70b1e781d2e91bfaa08785cb4f39d21a3ab588a49ec3150943c18968c7f113b4",
+      "bytes": 2201,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-SELECTION-APPLICATION.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-SELFHOSTING.md",
+      "sha256": "edcac76a57069c7d5b0aa2776546c3f404eb6774260f818ddfb99dc715fdfaae",
+      "bytes": 4840,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-SELFHOSTING.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
+      "sha256": "f8104e0e932ad352e03c74df3a7cb26b8b20b9111116851c817c6a9a72159c71",
+      "bytes": 9837,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-TRANSPORT.md",
+      "sha256": "fe64f74f2c1bd08a9104c83f0d2d34899da8424e11b11bb98ed6cc59390efc96",
+      "bytes": 9354,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-TRANSPORT.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-TUNER.md",
+      "sha256": "fadea8385f24f9f4576406eff83c70eead0586f247661fab57f7dfb602012088",
+      "bytes": 7626,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-TUNER.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/REQ-R-ABG3-WORKER.md",
+      "sha256": "a4c1646e81e1f831cdd663d25347f07280b4602be577e9e0d594a499de4499ea",
+      "bytes": 2386,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-WORKER.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/SPEC_METHOD.md",
+      "sha256": "ff93375a862cd3c31b27a2cc79f8f6a4111586ca7e31e5514b8af88d3fbb99e3",
+      "bytes": 156900,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/SPEC_METHOD.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/STDO_REFERENCE_FRAME_BASELINE.md",
+      "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+      "bytes": 133684,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/STDO_REFERENCE_FRAME_BASELINE.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/specification__requirements__README.md",
+      "sha256": "f2268bea4df0f9c6aa30d401c0ba0d03ebc586ddd7c84fa1f3c0cdf249d0484d",
+      "bytes": 6573,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/specification__requirements__README.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/specification__requirements__abg__README.md",
+      "sha256": "421300265888d2332b80fefcd7931006fcb38d1be9cb4cae710348f3da98a44d",
+      "bytes": 3069,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/specification__requirements__abg__README.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/specification__requirements__gtl__README.md",
+      "sha256": "3738823cf9e27c5dd6bec9cb0f400f52f9339b38b5aa1324ee93b19e7fa7333b",
+      "bytes": 3023,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/specification__requirements__gtl__README.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/specification__requirements__mapping__README.md",
+      "sha256": "f51ebafa63c9e49d64ef212851e99879c770d85436a5717b10644993a889b47f",
+      "bytes": 515,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/specification__requirements__mapping__README.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/specification__requirements__product__README.md",
+      "sha256": "e777272a024d69540fec847591ab3f9132a5ab01e456f566adb4ff76be1a43b3",
+      "bytes": 1141,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/specification__requirements__product__README.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/stdo_abiogenesis.json",
+      "sha256": "2c13b1fd28f3aaa624d941537a858f67ca8784f0710f490522147f57964c4051",
+      "bytes": 4277,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/stdo_abiogenesis.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/qualification/sources/stdo_bootstrap.md",
+      "sha256": "5e63a0f13665fe5b0bcacdeff1514cb36194079d076065f6227af73ca691aca7",
+      "bytes": 5772,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/stdo_bootstrap.md",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/consensus.schema.json",
+      "sha256": "e22d187ba0d9ee378361f4e473a52cb688be94b771e7f19dc88f29c7a520c76f",
+      "bytes": 49465,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/consensus.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/native-runtime-observation.json",
+      "sha256": "d76acd79b8162e3c93a53aba13427ddb9a545cf8c071b36f4c760408ea3de0be",
+      "bytes": 141535,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/native-runtime-observation.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/native-semantic-assessment.schema.json",
+      "sha256": "90d3300edd3c77c3259ce1ba54684e78c490af5e4f20978dcd38be0dd865519b",
+      "bytes": 1736,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/native-semantic-assessment.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/catalog/admit/refusal.schema.json",
+      "sha256": "18d013dca6cdb16183ba799089490caac5d1b53effa81fd6bfe474bfd85d0efb",
+      "bytes": 725,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/catalog/admit/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/catalog/admit/request.schema.json",
+      "sha256": "5da0970ea9e6e6ed38f0047f9526a725a9b34910af0ad5e5e7e2410540219478",
+      "bytes": 1365,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/catalog/admit/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/catalog/admit/result.schema.json",
+      "sha256": "598b7d3de5ed7f1a4bfca387c864e7ad33c78c2047b5aa68704951ac6c59f107",
+      "bytes": 13611,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/catalog/admit/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/catalog/apply/refusal.schema.json",
+      "sha256": "858d9d250f9afcd2a2164d4e570f710bcee745a33913c2197ab43095d648ab28",
+      "bytes": 1386,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/catalog/apply/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/catalog/apply/request.schema.json",
+      "sha256": "edba5b2dd033106d15bf18a88a843ded955a80d43184041f7b75bdb6ae926d71",
+      "bytes": 3545,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/catalog/apply/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/catalog/apply/result.schema.json",
+      "sha256": "da788300113ca3a20558467453b68a4c9a741811a317793888a6d41c3f16781b",
+      "bytes": 2401,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/catalog/apply/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/catalog/view/refusal.schema.json",
+      "sha256": "baeb940338e7bc97100832daba2fa670cd6752181e21f0e52f3a8a128b18cd52",
+      "bytes": 701,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/catalog/view/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/catalog/view/request.schema.json",
+      "sha256": "088411083b9e8b1b882b78b787c5d7d3e631e51e80dca2eb57ec428ea4c1c028",
+      "bytes": 662,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/catalog/view/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/catalog/view/result.schema.json",
+      "sha256": "c2622f523c18ea1e50d41f44d2870997fa9d55cefc92fcd1a9b84f96e4d33422",
+      "bytes": 1014,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/catalog/view/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/conformance/evaluate/refusal.schema.json",
+      "sha256": "7afa0104f0bbfd458f906616645947d778b2d59780e00898a453826e29dc7158",
+      "bytes": 720,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/conformance/evaluate/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/conformance/evaluate/request.schema.json",
+      "sha256": "87ab02fa41ca83d246e7f5f0edca44204f68f320a4168b01d9111b82a2c38566",
+      "bytes": 1357,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/conformance/evaluate/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/conformance/evaluate/result.schema.json",
+      "sha256": "a89da735aadc43d4e1ce1ceb78cbf141508579c52f469707ef23e9b8b3084eff",
+      "bytes": 2357,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/conformance/evaluate/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/interaction/respond/non-terminal.schema.json",
+      "sha256": "e7d93b87fe0cb90ce2fe359ac4897da19f300ba3b959f93e2c155f2c98089c8b",
+      "bytes": 12336,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/interaction/respond/non-terminal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/interaction/respond/refusal.schema.json",
+      "sha256": "89ab71cd74a77fc087d0a3fb39ce630c593636e2ddcbbd4d377f8dceed21d6db",
+      "bytes": 3204,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/interaction/respond/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/interaction/respond/request.schema.json",
+      "sha256": "6e3f7fb145b4c0bf8d6b54ab39887182d52ccddd72f1c86296eb867d41e85911",
+      "bytes": 7746,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/interaction/respond/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/interaction/respond/result.schema.json",
+      "sha256": "82bfe652617a3c2ead8f268cc913696a3ed96c884ae0df5ae7912034ea80560e",
+      "bytes": 727,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/interaction/respond/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/product/install/refusal.schema.json",
+      "sha256": "d30281cde9f8a6dd4a5e9edab3f1575687fc8ecf2f5ba6c5582a44b48e434446",
+      "bytes": 809,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/product/install/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/product/install/request.schema.json",
+      "sha256": "47e48cd7b12aaed0275c5feb3bc6bb634fd3265d7c900168c5d58822f5c4635d",
+      "bytes": 1417,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/product/install/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/product/install/result.schema.json",
+      "sha256": "e5bf884bbf5c753b6ddd35d99f0ba46a7791b4444923554328f73dcbb8e96b47",
+      "bytes": 1614,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/product/install/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/product/materialize/refusal.schema.json",
+      "sha256": "1b4d054341a27d77393fa0d4c0739491ca0e802146254bc88d420e1e97951bed",
+      "bytes": 1386,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/product/materialize/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/product/materialize/request.schema.json",
+      "sha256": "e657556aee48619f0aae8c062ef60053a0639f86f0c9a272635b0492bd45773f",
+      "bytes": 2423,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/product/materialize/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/product/materialize/result.schema.json",
+      "sha256": "15f2397b6b95f7ca933d0ad0fce024439c2650e0c4791bf9b1000f2687c89b25",
+      "bytes": 4104,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/product/materialize/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/product/resolve/refusal.schema.json",
+      "sha256": "72b8416be8b507460c603b8d3774cf2ccc37b079b34e8cf6ace8e5ecc6acffbe",
+      "bytes": 699,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/product/resolve/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/product/resolve/request.schema.json",
+      "sha256": "ae837b7e3514f76f2ca75d1a813f61272cc46d1cf0fe70a393440b43d93e3ead",
+      "bytes": 1493,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/product/resolve/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/product/resolve/result.schema.json",
+      "sha256": "60e7992334278412dbd821e9edbc58a910c195d6bd39341811727062cd38f092",
+      "bytes": 11803,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/product/resolve/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/product/verify/refusal.schema.json",
+      "sha256": "a5111c906e0ecc9a2342f043c8b00455336ad8cf0c77be6b9aba5b653a5c07a2",
+      "bytes": 821,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/product/verify/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/product/verify/request.schema.json",
+      "sha256": "fcbd3e3d26e9b010ab8d6a8e517c3ed33aac0606c2b4081f028ead6f273727d3",
+      "bytes": 4896,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/product/verify/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/product/verify/result.schema.json",
+      "sha256": "2f082b0c0cf3d97479f5fc9ab58d6c0143ee69e1bc5852760481cfa133d95055",
+      "bytes": 23435,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/product/verify/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/project/read/refusal.schema.json",
+      "sha256": "85affe0a651f7f33b92f067791024a746134ea6ce26f5b423942161377ad2764",
+      "bytes": 15032,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/project/read/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/project/read/request.schema.json",
+      "sha256": "9f7883c39eda0d1c4a2e6a78d9c0fc865745e96844bd898fae4aadb1d8963e4a",
+      "bytes": 26087,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/project/read/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/project/read/result.schema.json",
+      "sha256": "aef039061e465894ed89da7cef4794daab5fdc2421cf047aed2bc1961487a60c",
+      "bytes": 132361,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/project/read/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/release/snapshot/refusal.schema.json",
+      "sha256": "d3ac22b01db1951972d52bf1dd0d55ff41f2d449faac759ae47fb20017fdc6d5",
+      "bytes": 5812,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/release/snapshot/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/release/snapshot/request.schema.json",
+      "sha256": "553b03dd35899282f6d729be7510a82b83d170f4e95704a0cb892c275c9435a7",
+      "bytes": 10637,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/release/snapshot/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/release/snapshot/result.schema.json",
+      "sha256": "dded3da7b987fd1ac7948d933616613b6263c7f3dedf0908e07cb6d340943038",
+      "bytes": 6922,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/release/snapshot/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/result/assess/non-terminal.schema.json",
+      "sha256": "9b2a210ba695d3055afbd82e5230aae1b1c5fd1a8cb1c27477db72204b69ad13",
+      "bytes": 1326,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/result/assess/non-terminal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/result/assess/refusal.schema.json",
+      "sha256": "ab0e699f76b03164c3f14fa234fe8a664630751673c78c30547f2a378967e968",
+      "bytes": 753,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/result/assess/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/result/assess/request.schema.json",
+      "sha256": "50523048c2169bb51dded7fbfd2a30a4254c182658c128b2396e5e1a6c38b87e",
+      "bytes": 4464,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/result/assess/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/result/assess/result.schema.json",
+      "sha256": "fbafe193485f9bae8bdcaab8753890a332a7455414bff39fa09e50d3171a36c1",
+      "bytes": 1308,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/result/assess/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/run/continue/non-terminal.schema.json",
+      "sha256": "9a911b93212cedece4b5d7d571441868af7a9e1e44bba0d54a6a24ef68c6297d",
+      "bytes": 2637,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/run/continue/non-terminal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/run/continue/refusal.schema.json",
+      "sha256": "e5a4a6192cc1019ff600dc0156dd3097562e52b4a251651842ac823c1caf2296",
+      "bytes": 1440,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/run/continue/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/run/continue/request.schema.json",
+      "sha256": "7ecd9a210f69b264dc9752d2030f0122903763561bc49e6953ae767f8ba98157",
+      "bytes": 2796,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/run/continue/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/run/continue/result.schema.json",
+      "sha256": "a5c59f92e5bc3846bb77d0eedb6bd4c58474287e99b6e8baedce434cfcb0381f",
+      "bytes": 3416,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/run/continue/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/run/invoke/non-terminal.schema.json",
+      "sha256": "7ecdaa4bd26e648e792e2c2dd53389b4e23eb6e465ace39a88ddbd5ea0323df8",
+      "bytes": 3571,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/run/invoke/non-terminal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/run/invoke/refusal.schema.json",
+      "sha256": "5463ab4468f8b33912edc2e878c36e477a7d0a33ac6defd1af03aaeb44dfd9e8",
+      "bytes": 1376,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/run/invoke/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/run/invoke/request.schema.json",
+      "sha256": "8f26a680331fb0b084996d228289fc20d4e5fec99db38a8c86d4165f663b840c",
+      "bytes": 5330,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/run/invoke/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/run/invoke/result.schema.json",
+      "sha256": "c3241e75a87d7cc04424cf871ca7bdf2a2b044820935d546bcab77016a112114",
+      "bytes": 10071,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/run/invoke/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/witness/admit/refusal.schema.json",
+      "sha256": "56b0331cb9e7a883c1b2c5ed2844fa56e6138123bd4000356c30d28a117213e6",
+      "bytes": 3760,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/witness/admit/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/witness/admit/request.schema.json",
+      "sha256": "8868f57a9a925c748c6da0ae95530df1fa9b1e36f2fb7750c5a9dae559dce13c",
+      "bytes": 12922,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/witness/admit/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/witness/admit/result.schema.json",
+      "sha256": "d5a08854d6e904703fa3ef1a592f959d1df02ce2998028c15ad566a5e5a260c8",
+      "bytes": 5702,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/witness/admit/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/workspace/bind/refusal.schema.json",
+      "sha256": "13114562670e8120959019b4542d4da9428d92493aa1a864de50f9814439302e",
+      "bytes": 744,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/workspace/bind/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/workspace/bind/request.schema.json",
+      "sha256": "b778628d42bb69f69cdc257d4997ea2a5127038525231a42378ea24db0e6e55c",
+      "bytes": 1431,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/workspace/bind/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/workspace/bind/result.schema.json",
+      "sha256": "8e33f250a094bd57cc2b8f238be125d5b2949618f5c5d34bf453a4985083a58a",
+      "bytes": 1681,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/workspace/bind/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/workspace/create/refusal.schema.json",
+      "sha256": "7a1cfe145ccd47e14030fa1b17db545971705df13f17e278afb137b99cd1b61d",
+      "bytes": 1384,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/workspace/create/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/workspace/create/request.schema.json",
+      "sha256": "0ffa5b260cdc57af2e1da4c860ac895aa31f836cad63b4091e4cb5ee9519d8e0",
+      "bytes": 1216,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/workspace/create/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/workspace/create/result.schema.json",
+      "sha256": "d9369d0e218580a1d12c11981a13413867aed4fa42c75e2b7e252be80c2378a7",
+      "bytes": 2340,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/workspace/create/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/workspace/open/refusal.schema.json",
+      "sha256": "40e5e0523c844f1b4fbaaf84ad865facaf5a9d20e18000f86f11f473bc76d04a",
+      "bytes": 677,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/workspace/open/refusal.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/workspace/open/request.schema.json",
+      "sha256": "083d439d22f59b431eddc4144e96229eced3b2cf18011c7665362dd7e29e509e",
+      "bytes": 656,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/workspace/open/request.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/operations/workspace/open/result.schema.json",
+      "sha256": "59ea5e6de053732025eac0039cb6ec5716c295ba08be43269912802bf9a871ff",
+      "bytes": 1220,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/operations/workspace/open/result.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/product-toolchain-manifest.schema.json",
+      "sha256": "c61e0db09ea7d5b0bf182dd802cdac4ea27abe4899cfc8897c563b2dddc356ca",
+      "bytes": 7622,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/product-toolchain-manifest.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/public-contract-catalog.schema.json",
+      "sha256": "b8bc5a722f6a216e03cfe0a91bc606a7986c1bee6c2dbbd437f16d7a75af18de",
+      "bytes": 19274,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/public-contract-catalog.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/public-operation.schema.json",
+      "sha256": "59738888a90f40765f6f9a602aa7da1a6fd595a52d26023bd7baaa2ff64d5f27",
+      "bytes": 2855619,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/public-operation.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/schemas/self-conformance.schema.json",
+      "sha256": "916a087f4b3c6490c9f5ea649cb91012be7769c18f05cf306c1c04409afcd48a",
+      "bytes": 605420,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/schemas/self-conformance.schema.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/vocabularies/consensus-fh-decision.json",
+      "sha256": "8a21a0da4558242013186667e42487373c1584340bbb9b6ccd4abe2a5b9ae809",
+      "bytes": 179,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/vocabularies/consensus-fh-decision.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/vocabularies/consensus-round-outcome.json",
+      "sha256": "1ce4c83aecc57abb7c0b2367d9b3e7b9e9dc0b2bfa9c0e5e1f74ceeb35f7f0c1",
+      "bytes": 204,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/vocabularies/consensus-round-outcome.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/vocabularies/review-ruling-kind.json",
+      "sha256": "5acf0968ee02689ff4ce3fb77deb69e6bfab5a16e5045c0415cb6887342ee738",
+      "bytes": 236,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/vocabularies/review-ruling-kind.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "contracts/worksite/command-execution-context.inventory.json",
+      "sha256": "3f696b3e1e34b3775988315d2a238baac67cb6c47ec66807ad766ce6691acbd8",
+      "bytes": 255,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/worksite/command-execution-context.inventory.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "sha256": "3a50cff127905665361571803c241091f683e7c6ef45eacfa98987038a5f1161",
+      "bytes": 2384496,
+      "preimage": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "preimageBasis": "accepted core44 installed bytes matched; no copy"
+    }
+  ],
+  "count": 402,
+  "scope": "all existing contracts/, build/toolchain/ and manifest preimages; actual delta narrows effects"
+}

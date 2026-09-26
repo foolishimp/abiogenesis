@@ -1,0 +1,8 @@
+{
+  "status": "REUSED_EXACT_FROZEN_BUILD",
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/authority-refresh-01",
+  "newCompile": false,
+  "newManifestGeneration": false,
+  "newTests": false,
+  "evidence": "Closed existing-owner authority refresh and exact runtime conservation; qualification remains separate."
+}

@@ -1,0 +1,93 @@
+{
+  "status": "CLOSED_ACCEPTED_BOUNDED_RUNTIME_RECOVERY_APPLICATION_QUALIFICATION_OPEN",
+  "recordingRole": "Writer /root recording Executive disposition",
+  "recordedAt": "2026-09-26T10:12:11.587920+00:00",
+  "candidate": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-44/selected-core.json",
+  "sourceCommit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+  "run": {
+    "digest": "sha256:a9def8c64a39ad28593a7c0d3b24e654ce80724eb97a737fd7e6573669d9f091",
+    "ref": "run://abiogenesis/bda0672d02c1586aefa388da2c5cd2f0e3673b202a49ed97a4019a3a4b6c6ec3"
+  },
+  "result": {
+    "digest": "sha256:a09b0bd40dbdbc9e507dc0f34f4f7dcc80226a693b70c696f456e105aa30203d",
+    "ref": "result://abiogenesis/a09b0bd40dbdbc9e507dc0f34f4f7dcc80226a693b70c696f456e105aa30203d"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:b4ae8dc8b9819ca96dc379070b30e33437ca7e059c791c138c702e0b685a90c0",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:2b98525a32d67b03b1465d12b1cfd5831c31d658ff3a78f2fafeeecddce34db5",
+    "prefixLength": 623146192,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "timingSeconds": {
+    "intake": 123.95,
+    "suffix": 1178.5,
+    "evidenceAuthorReported": 649.993,
+    "evidenceAssessorReported": 386.859,
+    "outsideReportedActorDurations": 141.648,
+    "resultRead": 44.925381958,
+    "replayRead": 46.074096833000006
+  },
+  "timingLimit": "Observed timings, not isolated CPU benchmark; remainder is not wholly assigned to one framework owner.",
+  "accepted": [
+    "actual declared Evidence-only continuation",
+    "five stage assessments satisfied",
+    "fresh Public Result and replay",
+    "exact original job/source, four accepted assets and all construction/execution evidence conserved"
+  ],
+  "applicationStatus": "unqualified_missing_independent_coverage",
+  "applicationCoverage": "non_closing",
+  "remainingGaps": [
+    "full_source_semantic_completeness_unassessed",
+    "application_requirements_not_closed",
+    "proof_depth_and_strength_unassessed"
+  ],
+  "proofBindings": [
+    {
+      "path": "suffix-01/suffix-readback.json",
+      "sha256": "ba1b76d7d1f984f6f63258c0ffc2f979092e67bf96074deb041e7fd58bd9a625",
+      "bytes": 12785
+    },
+    {
+      "path": "suffix-01/conserved-work.json",
+      "sha256": "5e2cb46c695d13f5defaf18de46a12665986bc487975a0eb399de4b5870a3fec",
+      "bytes": 1398
+    },
+    {
+      "path": "suffix-01/ordinary-outcome-projection.json",
+      "sha256": "6af167d99de23b3b7f3be39ee74c7b3c0f537633a0dc4cf147f0b14fcf7b23a9",
+      "bytes": 42571
+    },
+    {
+      "path": "suffix-01/suffix-terminal-value.json",
+      "sha256": "c60f7662f4ed6371e55289dbbb4efd951afe722d15e80f9280741e710e7cf348",
+      "bytes": 6471675
+    },
+    {
+      "path": "suffix-01/live-receipt.json",
+      "sha256": "f9287097a10642bedc8ce3707c7fda18c9dad404197c5383771885b2844f87d6",
+      "bytes": 9306615
+    },
+    {
+      "path": "suffix-01/read-run_result.json",
+      "sha256": "c05c2d00472030bfd3a5f9e17765f3b1e83547c48ea6654b2f0cc7b111907172",
+      "bytes": 6091075
+    },
+    {
+      "path": "suffix-01/read-run_replay.json",
+      "sha256": "fd166090b7b97e0b56e8544940db3d5e67a0d9461cdb28097e2ab16e9d05d904",
+      "bytes": 6090732
+    }
+  ],
+  "next": [
+    "independent selected-scenario coverage review in native44/application-review-01",
+    "existing qualification authority refresh after core44-preparation invalid-basis finding"
+  ],
+  "releaseStatus": "not qualified, published or human accepted"
+}

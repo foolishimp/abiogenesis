@@ -2,10 +2,10 @@
 
 **Product ID**: PROD-001
 **Version target**: 5.0.0
-**Updated**: 2026-09-21
+**Updated**: 2026-09-26
 **Status**: Active - accepted by T-283 F_H closure
 **Derives from**: INT-001 through INT-007
-**Change authority**: T-283 `intent_reprice`; T-287 D1-AUTH-ABG lifecycle, owner-directed 5.0/5.1 boundary and STDO run-environment `product_reprice`
+**Change authority**: T-283 `intent_reprice`; T-287 D1-AUTH-ABG lifecycle, owner-directed 5.0/5.1 boundary, STDO run-environment and [execution-calculus Product re-entry](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#execution-calculus-product-re-entry)
 **Acceptance receipt**:
 `.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md`
 **Method adoption authority**: direct Product-owner `F_H` ruling and bounded
@@ -556,7 +556,7 @@ admit invocation and exact basis
   -> invoke the declared F_D | F_P | F_H seam
   -> admit result and evidence
   -> emit canonical ABG events
-  -> replay the current state
+  -> incrementally derive current state from the admitted events
   -> evaluate the declared boundary
   -> bind continuation or terminal truth
 ```
@@ -575,6 +575,183 @@ A command, log entry, file, worker response, or fixture assertion is not an ABG
 event merely because it exists. Runtime truth begins only at the owning
 admission boundary. Replay derives state from admitted events; callers and
 fixtures do not author the result they later claim to observe.
+
+## Execution And Context Calculus
+
+This section governs the behavioral relations shared by traversal, context,
+admission, recovery and proof. Its symbols describe existing Product subjects;
+they introduce no carrier schema, task aggregate, controller, store or executor.
+Downstream Products declare their lifecycle and domain completion conditions.
+ABG preserves their admitted relationships without imposing a particular SDLC.
+
+These semantic relations are independent of technology and deployment topology.
+Build-tenant design owns their technological realization and operational-risk
+mechanisms within the supported Product scope.
+
+### Task, Basis And Progressing State
+
+| Symbol | Subject |
+|---|---|
+| `T` | Selected task: supplied input, requested outcome, permitted scope and completion condition. |
+| `P` | Admitted GTL Program: topology, computations, contracts, policies and transition rules. |
+| `B` | Exact execution basis, including the graph-entry input and selected invocation authority. |
+| `S` | Derived runtime state: active/pending traversal positions, their current input refs, admitted assets/evidence and observation dispositions. |
+| `W` | Mutable physical workspace; an observation of it is a separate immutable subject. |
+| `L` | Committed ABG event history, interpreted against its exact declarations and referenced evidence. |
+
+One task may require several declared computations. Sequential handoffs and
+role or stage boundaries within the same invocation preserve its basis unless
+the declared re-entry changes it. A declared child traversal has its own graph
+call, frame, basis and entry input, with its associated Run, causal parent and foldback
+relations. Such decomposition does not itself create another user task, new
+intent or workspace authority. `B` remains fixed for the identity it names;
+changed authority follows binding/re-entry law and preserves the prior identity
+and cause. For a linear path, write `S_k = (k, x_k, A_k, O_k)`; a branched or
+recursive traversal retains each position, current value and parent relations.
+
+```text
+B.entryInput = x_0
+first(B, x_0) -> admitted result x_1
+second(B, x_1) -> admitted result x_2
+```
+
+At a composed handoff, the consumer's actual input is the producer's admitted
+output through the declared transfer or transformation. Authentication uses
+the current traversal input and its causal producer, not the unchanged graph
+entry. Equal bytes alone do not establish producer identity or permission.
+Nested calls preserve their declared entry and foldback relations; they do not
+turn every sequential handoff into a child call.
+
+### Execution, Admission And Advancement
+
+```text
+call_k                 = prepare(P, B, S_k)
+context_k              = contextFor(call_k, S_k)
+(raw_k, W_next, facts_k) = execute(call_k, context_k, W_k)
+outcome_k              = admit(call_k, raw_k, facts_k)
+S_next                 = advance(P, S_k, outcome_k)
+```
+
+These are semantic relations, not a mandated procedure or event census.
+Preparation establishes the exact current input, contracts and permitted
+effects. HoG traverses the declared computation; the declared owner performs
+its effects; ABG admits results and evidence and owns runtime continuation.
+`F_D`, `F_P` and `F_H` retain their distinct authorities. Refusal, failure,
+hold and unresolved outcomes follow their declared routes. Probabilistic or
+human responses remain candidate material until admitted.
+
+Execution failure does not imply `W_next = W_k`. Performed effects and their
+observations remain attributable even when result admission or later work
+fails. An unavailable post-effect observation withdraws dependent currentness
+over the potentially affected scope, preserves unaffected facts, and records
+unknown state; it fabricates neither rollback nor a successor observation.
+
+### Role-Specific Context
+
+For an already selected computation, `F` denotes its declared evaluation/work
+frame: role, question, criteria, scope, required inputs and response contract.
+It is distinct from an ABG runtime `Frame` aggregate. Reference-frame meaning
+remains with its owning declaration and evaluator; these equations do not
+introduce a deterministic interpreter of open-world frame meaning.
+
+```text
+selected_k = select(F_k, currentInput_k, admittedAssets_k,
+                    applicableObservations_k, governingMaterial_k)
+context_k  = render(F_k, selected_k)
+resolve(render(selected_k)) = selected_k       [for exact shared presentation]
+```
+
+Selection and validation compute declared dependencies, domains, identities,
+ordering, permissions, freshness and bounds. Unknown required material produces
+a typed gap. Whether the declared material and criteria are semantically
+sufficient remains a separately warranted judgment; schema validity, hashes
+and prompt-size compliance cannot establish it.
+
+Instructions and response contracts agree on the selected role. Where a
+Program separates construction from independent assessment, its assessor
+evaluates the exact candidate without being assigned replacement authorship.
+Selected material preserves its source, qualifications, uncertainty, version,
+accepted/rejected disposition and supporting dependencies. Bodies may be shared
+through exact references resolvable within the actor's admitted context/access;
+an inaccessible locator does not supply required content. Repeated whole bodies
+require a declared presentation need. Historical runtime carriers enter the
+prompt only through the selected material relation, never merely because they
+enclose that material. Context is a projection, not execution authority.
+
+### Live State, Recovery And Valid Reuse
+
+```text
+L_next = L ++ newlyCommittedEvents
+S_next = foldStep(S, newlyCommittedEvents)
+recover(P, L, referencedEvidence) == committedRuntimeState(S)
+```
+
+The owning live runtime maintains this incremental projection. Ordinary internal
+handoffs use its established state; they do not reconstruct or reauthenticate
+the accumulated history merely
+because control crosses a function or role boundary. Cold acquisition,
+recovery, requested historical reads and actual invalidation retain their
+necessary reconstruction. Derived state is discardable and reproducible from
+the one admitted history; it is never an independent authority. Recovery does
+not establish that historical observations still describe the current `W`.
+
+Recovery restores the actual continuation position, current inputs, admitted
+completed work and unresolved obligations. If a producer succeeds and its
+consumer cannot start, the result remains available at the consumer boundary
+with its existing assessment status. Recovery neither reruns valid completed
+work solely to recreate that boundary nor invents the missing assessment.
+Replacement Runs preserve causal linkage without transplanting Run identity,
+continuation aggregates, actor provenance or historical execution facts.
+
+```text
+reusable(a) = admitted(a)
+              AND dependenciesRemainValid(a)
+              AND applicableToCurrentUse(a)
+```
+
+Owners consume established facts with their exact subject, basis, scope,
+provenance and invalidation conditions. Reuse preserves each owner's complete
+admission responsibility and any independently required judgment. Changed
+dependencies invalidate the affected relations; unknown affectedness remains
+explicit. Changed subjects, authority or evidence bases require their applicable
+checks before reliance or effect. Internal call boundaries alone create no new
+semantic proof obligation.
+
+### Outcome And Computational Proportionality
+
+```text
+complete(T, S) = declaredCompletionCondition_T(admittedEvidence(S))
+validResponse != satisfiedStage != completedTask
+cost(T) = initialization + sum(selection + rendering + execution
+          + admission + persistence) + recovery
+```
+
+Completion requires the selected outcome and its declared evidence and
+judgments. A terminal transport response, successful parse or local fixture
+does not substitute for that condition. The framework governs the worker's
+input, output, effects and evidence boundary; its internal solution strategy
+does not acquire a framework lifecycle.
+
+Framework work is attributable to the rules, relevant data extent and effects
+being processed. Ordinary handoff cost does not grow with unrelated history
+without a named governing dependency. A necessary whole-history operation
+identifies that dependency and its extent. No universal time limit, read
+multiplier, token quota or per-operation benchmark is introduced by this law.
+
+Qualification follows the actual declared composition: progressing values
+differ from graph entry, producer results survive consumer-preparation failure,
+live and cold projections agree at the same committed boundary, role/context
+qualifications survive sharing, and unknown physical state stays unknown.
+Fixtures preserve these relations; a newly invented basis or substituted
+producer cannot qualify the real handoff. These are obligations within the
+existing S02/S03/S06 and qualification scopes, not a new feature family or a
+claim that current realization has passed.
+
+The detailed acceptance owners are
+[C-call](requirements/abg/REQ-R-ABG3-CCALL.md),
+[instruction assembly](requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md),
+[projection](requirements/abg/REQ-R-ABG3-PROJECTION.md) and
+[continuation](requirements/abg/REQ-R-ABG3-CONTINUATION.md).
 
 ## Installed Product And Catalog
 

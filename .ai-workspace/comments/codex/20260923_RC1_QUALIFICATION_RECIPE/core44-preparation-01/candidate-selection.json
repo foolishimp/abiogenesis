@@ -1,0 +1,73 @@
+{
+  "status": "accepted_core44_coordinates_bound_qualification_source_binding_refused",
+  "sourceCommit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+  "core": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-44/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-44/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:f89e8037921d086505ed7c067720b942948b6326d4cacbb34ede0b2007e97da3",
+      "productContentDigest": "sha256:7aa123cdd0909118b2f0f535c8646c74b938fb538f44308171072af4b486f7dc",
+      "manifestDigest": "sha256:3df648293dc01b5282ad20fddaac9368610ae9ffb417a8f6a32af367b2daf2ff",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "coreSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-44/selected-core.json",
+    "sha256": "25cc14add8bf259375e8a31908cb31fe5be5c63ed3caccbc9475d9e6fb55df5a",
+    "bytes": 986
+  },
+  "acceptedCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-44/package-correspondence.json",
+    "sha256": "24daf7b7a516cb1e00b51898333b18006666f62a25f3b5b4014fd088b06587fa",
+    "bytes": 833
+  },
+  "archiveMemberInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-44/archive-members.json",
+    "sha256": "e2920c627984c9422ba42d476c7ae4fc021b5502869e848b6464c70cbfb7acf8",
+    "bytes": 928685
+  },
+  "coreAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-44/return.md",
+    "sha256": "a092e03da4b1cafcf14196e87977de3d90342781aa18a28ff08810cb642fbfa4",
+    "bytes": 747
+  },
+  "sourceDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/evidence-context-02/disposition.json",
+    "sha256": "f73458501449a6ff25ff5cca503da81f9ec3cff251872fc801fdef0f3059b350",
+    "bytes": 819
+  },
+  "executiveSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/executive-selection.json",
+    "sha256": "b138a7fa306f23b4e0d6014cec171f4d7775c685223cecaef469bd2b8cd027ba",
+    "bytes": 6420
+  },
+  "consumer": {
+    "packageVersion": "0.2.0-dev.16",
+    "artifactDigest": "sha256:3ca34c270eff38076c6b005559b67ced6dcc88bf87d99d9bc7d5887b118c7d8e",
+    "productContentDigest": "sha256:279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380",
+    "manifestDigest": "sha256:35372ceb02644d77c936cb4ba1f89c9a328e23d6ea9bec1d8fc520dfef2d1226",
+    "selection": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/preparation/selection.json",
+      "sha256": "efdab65511b22b0579f1b1b014d0b186260299b861d94ea02ec003235592f634",
+      "bytes": 5852
+    },
+    "basis": {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev16/package-basis.json",
+      "sha256": "2e1e6337d9eb1b07a4467fbe3fb28e65778b0e563c7cea0ba021837dc013efd3",
+      "bytes": 3087
+    },
+    "scope": "RC4/dev16 unchanged witness dependency; not ABI candidate membership or qualification credit"
+  },
+  "lawBasis": {
+    "ref": "qualification-law://abiogenesis/ef42ec32f28b3e81a63841624bfdc89a0fdd0996c9154a422527c039350b85eb",
+    "digest": "sha256:ef42ec32f28b3e81a63841624bfdc89a0fdd0996c9154a422527c039350b85eb"
+  },
+  "coverageCatalog": {
+    "ref": "qualification-coverage://abiogenesis/482b5d4f3f7cd904bdfeda9b625482ecf0294a95c8a009ad356d6b4523d73513",
+    "digest": "sha256:482b5d4f3f7cd904bdfeda9b625482ecf0294a95c8a009ad356d6b4523d73513"
+  },
+  "nativeOutcome": "not acquired; current steel-thread result and Executive selection remain dependencies"
+}

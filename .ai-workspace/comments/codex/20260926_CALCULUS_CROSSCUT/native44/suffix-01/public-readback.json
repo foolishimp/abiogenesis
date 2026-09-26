@@ -1,0 +1,31 @@
+{
+  "prefix": {
+    "coordinateDigest": "sha256:b4ae8dc8b9819ca96dc379070b30e33437ca7e059c791c138c702e0b685a90c0",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:2b98525a32d67b03b1465d12b1cfd5831c31d658ff3a78f2fafeeecddce34db5",
+    "prefixLength": 623146192,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "publicReads": [
+    {
+      "memberKey": "run_result",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 44925.381958000005,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/suffix-01/read-run_result.json",
+      "resultDigest": "sha256:c05c2d00472030bfd3a5f9e17765f3b1e83547c48ea6654b2f0cc7b111907172"
+    },
+    {
+      "memberKey": "run_replay",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 46074.096833,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/suffix-01/read-run_replay.json",
+      "resultDigest": "sha256:fd166090b7b97e0b56e8544940db3d5e67a0d9461cdb28097e2ab16e9d05d904"
+    }
+  ]
+}

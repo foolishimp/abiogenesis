@@ -1,0 +1,28 @@
+{
+  "status": "SOURCE_GENERATION_SUCCESSOR_NO_ARCHIVE",
+  "sourceBaseCommit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+  "delta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/authority-refresh-01/delta.json",
+    "sha256": "8fbe1eb6c9b577c8bfd14f3ee7c754b9febcd8c326bcded48379637525b89f6e",
+    "bytes": 6162
+  },
+  "productContentDigest": "sha256:8810012f001c785ebd9d1c6db92e7b110f1a457dff4a4515e68e2da255698f7d",
+  "manifestDigest": "sha256:988df4e52119a1822f7acb9201aeb6b3ede493c7d55b8d5cf04d8d20021e5964",
+  "manifestFile": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "4a434e072c96ee5db12784d95e69e38251cec9d58925f895bd2431037063aee3",
+    "bytes": 2384496
+  },
+  "lawBasis": {
+    "ref": "qualification-law://abiogenesis/c368db4f65cc311e8101324a10a3dfcfd4a715cb85abb2964924fdaeb5d57098",
+    "digest": "sha256:c368db4f65cc311e8101324a10a3dfcfd4a715cb85abb2964924fdaeb5d57098"
+  },
+  "coverageCatalog": {
+    "ref": "qualification-coverage://abiogenesis/e972238030471db5f8fbf0a4d704dbb53a5a1ffe2735587dbaacfe6923173e04",
+    "digest": "sha256:e972238030471db5f8fbf0a4d704dbb53a5a1ffe2735587dbaacfe6923173e04"
+  },
+  "artifact": null,
+  "installedProduct": null,
+  "qualificationBasis": null,
+  "predecessorArchive": "sha256:f89e8037921d086505ed7c067720b942948b6326d4cacbb34ede0b2007e97da3"
+}

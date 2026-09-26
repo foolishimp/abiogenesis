@@ -1,0 +1,13 @@
+{
+  "actor": "/root",
+  "roleForEffects": "Writer",
+  "task": "T-287/LIFE01 current qualification binding successor",
+  "frame": "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-end-to-end-interface-integration-frame",
+  "changeClass": "realization_refactor_derived_binding_package",
+  "acceptedReturn": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/authority-refresh-01/return.md",
+  "acceptedFreezeSha256": "b344bc5670e83c418c31132a8f6264e31e7a08121e26c068b6c7564ae03fa7b3",
+  "grant": "One existing npm pack, offline install and exact Product verification; writes only compiled-45 and disposable bootstrap/cache effects. No compile, generator, tests, paid calls or publication.",
+  "runtimeChange": false,
+  "scenarioAcceptance": "open_native44_review_findings_retained",
+  "qualification": "unbound"
+}

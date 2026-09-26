@@ -2,8 +2,9 @@
 
 **Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability
+**Product behavior**: [Execution And Context Calculus](../../PRODUCT.md#execution-and-context-calculus); T-287 owner-directed Product/requirement re-entry.
 **Date**: 2026-07-01
-**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-CONTRACT-LAW-API.md](../gtl/REQ-L-GTL3-CONTRACT-LAW-API.md), [REQ-L-GTL3-NODE.md](../gtl/REQ-L-GTL3-NODE.md), [REQ-L-GTL3-ASSET-SURFACE.md](../gtl/REQ-L-GTL3-ASSET-SURFACE.md), [REQ-L-GTL3-COMPUTE-NOTATION.md](../gtl/REQ-L-GTL3-COMPUTE-NOTATION.md), [REQ-R-ABG3-BINDING.md](REQ-R-ABG3-BINDING.md), [REQ-R-ABG3-TRANSPORT.md](REQ-R-ABG3-TRANSPORT.md), [REQ-R-ABG3-PAYLOAD.md](REQ-R-ABG3-PAYLOAD.md), [REQ-R-ABG3-FN-COMPOSITION.md](REQ-R-ABG3-FN-COMPOSITION.md), [REQ-R-ABG3-INTERPRET.md](REQ-R-ABG3-INTERPRET.md), [REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md](REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md), [REQ-R-ABG3-SAGA-FRONTIER.md](REQ-R-ABG3-SAGA-FRONTIER.md)
+**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.1-rc.1/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.1-rc.1/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md), [REQ-L-GTL3-CONTRACT-LAW-API.md](../gtl/REQ-L-GTL3-CONTRACT-LAW-API.md), [REQ-L-GTL3-NODE.md](../gtl/REQ-L-GTL3-NODE.md), [REQ-L-GTL3-ASSET-SURFACE.md](../gtl/REQ-L-GTL3-ASSET-SURFACE.md), [REQ-L-GTL3-COMPUTE-NOTATION.md](../gtl/REQ-L-GTL3-COMPUTE-NOTATION.md), [REQ-R-ABG3-BINDING.md](REQ-R-ABG3-BINDING.md), [REQ-R-ABG3-TRANSPORT.md](REQ-R-ABG3-TRANSPORT.md), [REQ-R-ABG3-PAYLOAD.md](REQ-R-ABG3-PAYLOAD.md), [REQ-R-ABG3-FN-COMPOSITION.md](REQ-R-ABG3-FN-COMPOSITION.md), [REQ-R-ABG3-INTERPRET.md](REQ-R-ABG3-INTERPRET.md), [REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md](REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md), [REQ-R-ABG3-SAGA-FRONTIER.md](REQ-R-ABG3-SAGA-FRONTIER.md)
 
 ---
 
@@ -22,13 +23,13 @@ creating a product-local prompt shell or duplicate prompt carrier.
 
 **REQ-R-ABG3-INSTRUCTION-ASSEMBLY-003**: The instruction validator shall derive source and target node-type truth, response-contract truth, proof-obligation truth, authority-slot truth, renderer truth, active-regime truth, and required carrier classes from existing admitted GTL/ABG carriers before runtime dispatch.
 
-**REQ-R-ABG3-INSTRUCTION-ASSEMBLY-004**: The instruction validator shall be F_D-owned for source trace, type coverage, response-contract derivation, proof/authority/renderer derivation, relevance, compression, proportionality, runtime-slot bindability, non-duplication, and non-tautology. F_P may propose wording, rubric clarity, or policy critique only as admitted evidence for F_D validation.
+**REQ-R-ABG3-INSTRUCTION-ASSEMBLY-004**: The instruction validator shall be F_D-owned for source trace, type coverage, response-contract derivation, proof/authority/renderer derivation, declared dependency selection, exact compression relations, declared proportionality predicates, runtime-slot bindability, non-duplication, and declared non-tautology predicates. These predicates shall satisfy -004A. Semantic relevance, adequacy of the selected criteria and contextual sufficiency remain judgments of their declared F_P or F_H owner. Proposals and judgments enter through admission; mechanical validation of their shape and basis shall not be represented as proof of their semantic correctness.
 
 **REQ-R-ABG3-INSTRUCTION-ASSEMBLY-004A**: Any instruction-assembly decision claimed as F_D shall be a total function over a known algebra and admitted inputs. The known algebra shall declare carrier types, operators, predicates, ordering, output domain, and typed rejection or gap cases before execution. The total function shall map every valid input state to exactly one valid output or one typed rejection or gap, without implicit fallback, runtime invention, or F_P judgment.
 
 **REQ-R-ABG3-INSTRUCTION-ASSEMBLY-005**: An F_P dispatch shall not occur without an admitted prompt materialization plan, an immutable runtime-bound instruction envelope, and a replayable prompt manifest or equivalent projection that preserves the materialization-plan ref, bound runtime refs, renderer identity, response contract, and rendered prompt digest.
 
-**REQ-R-ABG3-INSTRUCTION-ASSEMBLY-006**: Relevance and compression shall be deterministic dependency-resolution decisions over the selected graph function, selected vector, node types, asset surfaces, selected composition, payload/evidence ledgers, requirement/residual/continuation truth when present, and declared policy refs. The F_P worker shall not decide which carrier truth is relevant to its own prompt.
+**REQ-R-ABG3-INSTRUCTION-ASSEMBLY-006**: Assembly shall compute dependency selection and exact compression over the selected graph function, selected vector, node types, asset surfaces, selected composition, payload/evidence ledgers, requirement/residual/continuation truth when present, and declared policy refs. This establishes compliance with the declared selection policy, not semantic completeness of that policy. The dispatched worker shall not silently replace its own governing selection; a proposal to change that selection follows the declared policy owner and admission path.
 
 **REQ-R-ABG3-INSTRUCTION-ASSEMBLY-007**: Proportionality shall affect dispatch. A P0 deterministic edge that can be discharged through admitted F_D truth shall not render an F_P prompt, emit `fp_dispatch_requested`, or invoke an F_P worker.
 
@@ -46,9 +47,9 @@ creating a product-local prompt shell or duplicate prompt carrier.
 
 **REQ-R-ABG3-INSTRUCTION-ASSEMBLY-014**: Worker transport success, worker self-report, prompt shape, or parseable response shape shall not become closure truth. ABG shall admit or reject worker responses against the response contract derived from the selected target carrier and asset surface before any assurance, continuation, residual, or closure projection consumes the response.
 
-**REQ-R-ABG3-INSTRUCTION-ASSEMBLY-015**: When the instruction validator uses an F_P validation or review traversal over a candidate prompt materialization plan, the F_P result shall be admitted only as validation evidence. It shall not approve the plan, decide relevance, decide compression, decide proportionality, admit runtime binding truth, select traversal, render final prompts, admit worker responses, or close dispatch assurance without subsequent F_D validation.
+**REQ-R-ABG3-INSTRUCTION-ASSEMBLY-015**: When the instruction validator uses an F_P review traversal over a candidate prompt materialization plan, the result shall enter as attributed judgment evidence. It shall not directly approve dispatch, bind runtime truth, select traversal, render final prompts or admit responses. Subsequent F_D validation shall establish the declared structural, identity, dependency and admission predicates; the review's semantic judgment retains its own basis and uncertainty and does not become a deterministic theorem.
 
-**REQ-R-ABG3-INSTRUCTION-ASSEMBLY-016**: The instruction validator shall reject F_P dispatch for build, test, proof, release, deployment, or target artifact work when dependency sufficiency for the selected target is unknown. Dependency sufficiency shall be an F_D decision over admitted dependency graph projection, prerequisite closure, obligation lineage, proof policy, and typed prerequisite-gap truth. A dependency-disambiguation traversal may dispatch before sufficiency is known only when its selected vector is explicitly scoped to produce candidate dependency nodes, candidate dependency edges, or typed prerequisite gaps; such dispatch shall not claim target artifact, proof, release, or closure satisfaction.
+**REQ-R-ABG3-INSTRUCTION-ASSEMBLY-016**: The instruction validator shall reject F_P dispatch for build, test, proof, release, deployment, or target artifact work when required dependency sufficiency for the selected target is unknown. F_D shall establish declared prerequisite closure over admitted dependency graph projection, obligation lineage, proof policy and typed prerequisite gaps; any required semantic sufficiency judgment shall be separately supplied by its declared owner. A dependency-disambiguation traversal may dispatch before sufficiency is known only when explicitly scoped to produce candidate dependency nodes, candidate dependency edges or typed prerequisite gaps; it shall not claim target artifact, proof, release or closure satisfaction.
 
 **REQ-R-ABG3-INSTRUCTION-ASSEMBLY-017**: Every F_P dispatch is governed by instruction assembly law. Absent, unresolved, unadmitted, or non-matching instruction-assembly startup at an F_P boundary shall resolve to blocked before worker invocation, plugin invocation, evaluator invocation, response admission, assurance projection, continuation projection, residual projection, or closure projection.
 
@@ -78,3 +79,20 @@ change authority, requirements, acceptance conditions, graph topology or the
 existing Worker, Evaluator and Consequence ownership. Semantic interpretation
 and assessment remain with their declared actors; a corpus-access tool or
 mechanical validator shall not assume those judgments.
+
+**REQ-R-ABG3-INSTRUCTION-ASSEMBLY-021**: The supplied instructions, current
+input, question, rubric and output contract shall agree on the selected role.
+An independently assessing role shall receive the exact candidate and shall
+not be assigned replacement authorship by shared instruction text.
+
+**REQ-R-ABG3-INSTRUCTION-ASSEMBLY-022**: Exact shared presentation shall
+resolve to the selected typed material with its ordering, source, version,
+qualifications, dependencies and assessment disposition preserved. Required
+bodies shall be accessible through the actor's admitted context/access.
+Repeated complete bodies require a declared presentation need; an enclosing
+history or runtime carrier is not itself a reason to render its whole body.
+
+**REQ-R-ABG3-INSTRUCTION-ASSEMBLY-023**: Context correspondence, presentation
+fidelity and semantic sufficiency shall remain distinct qualification claims.
+Schema, identity and size checks shall not close semantic sufficiency or prove
+that a stochastic evaluator gives the same judgment after a presentation change.

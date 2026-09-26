@@ -1,0 +1,48 @@
+{
+  "elapsedMs": 0.3473749999975553,
+  "receipt": {
+    "kind": "abg_event_resource_receipt",
+    "schemaVersion": "5.0.0",
+    "acquisitionKind": "reopen",
+    "entryPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "prefixLength": 543053092,
+      "prefixDigest": "sha256:ec16115faf53f5e674b7f9cfee8063fbee166f06e3df19386e72327d652153f3",
+      "storeIdentity": {
+        "device": 16777230,
+        "inode": 459405010,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+      },
+      "coordinateDigest": "sha256:8af7884f1467430bc9f053fd2b2a537ba5bd1354f3b2886468f403a0f66dc397"
+    },
+    "closeHandoff": {
+      "prefix": {
+        "kind": "durable_prefix_coordinate",
+        "schemaVersion": "5.0.0",
+        "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "prefixLength": 543053092,
+        "prefixDigest": "sha256:ec16115faf53f5e674b7f9cfee8063fbee166f06e3df19386e72327d652153f3",
+        "storeIdentity": {
+          "device": 16777230,
+          "inode": 459405010,
+          "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+        },
+        "coordinateDigest": "sha256:8af7884f1467430bc9f053fd2b2a537ba5bd1354f3b2886468f403a0f66dc397"
+      },
+      "reopenAuthority": {
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0",
+        "eventLogPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+        "device": 16777230,
+        "inode": 459405010,
+        "eventLogDigest": "sha256:ec16115faf53f5e674b7f9cfee8063fbee166f06e3df19386e72327d652153f3",
+        "durableByteLength": 543053092,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+        "authorityDigest": "sha256:f3e37ff6bd4c08cdb3de41353f15d2b979722e2e80cb69d6ee46f52c6d45f2b3"
+      }
+    },
+    "receiptDigest": "sha256:acd3f9f9aed7bb8c9590f764ec4dc67a592fdadf0f0cc3194777c084a231d9cf"
+  }
+}

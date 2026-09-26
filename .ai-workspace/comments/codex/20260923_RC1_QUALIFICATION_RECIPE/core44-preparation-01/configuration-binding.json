@@ -1,0 +1,1543 @@
+{
+  "commands": [
+    {
+      "kind": "worksite_declared_command",
+      "schemaVersion": "5.0.0",
+      "ordinal": 0,
+      "commandId": "command://abiogenesis/rc1-qual056/stage",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "recipe/recipe-stage.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": [
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "HOME",
+          "value": "verification/.home"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_cache",
+          "value": "verification/.npm-cache"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_globalconfig",
+          "value": "verification/.global.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_userconfig",
+          "value": "verification/.user.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "TMPDIR",
+          "value": "verification/.tmp"
+        }
+      ],
+      "timeoutMs": 30000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "kind": "worksite_declared_command",
+      "schemaVersion": "5.0.0",
+      "ordinal": 1,
+      "commandId": "command://abiogenesis/rc1-qual056/seed-npm-cache",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+        "cache",
+        "add",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "dependency-inputs/00.tgz",
+        "dependency-inputs/01.tgz",
+        "dependency-inputs/02.tgz",
+        "dependency-inputs/03.tgz",
+        "dependency-inputs/04.tgz",
+        "dependency-inputs/05.tgz",
+        "dependency-inputs/06.tgz",
+        "dependency-inputs/07.tgz",
+        "dependency-inputs/08.tgz",
+        "dependency-inputs/09.tgz",
+        "dependency-inputs/10.tgz",
+        "dependency-inputs/11.tgz",
+        "dependency-inputs/12.tgz",
+        "dependency-inputs/13.tgz",
+        "dependency-inputs/14.tgz",
+        "dependency-inputs/15.tgz"
+      ],
+      "relativeCwd": ".",
+      "environment": [
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "HOME",
+          "value": "verification/.home"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_cache",
+          "value": "verification/.npm-cache"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_globalconfig",
+          "value": "verification/.global.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_userconfig",
+          "value": "verification/.user.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "TMPDIR",
+          "value": "verification/.tmp"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "kind": "worksite_declared_command",
+      "schemaVersion": "5.0.0",
+      "ordinal": 2,
+      "commandId": "command://abiogenesis/rc1-qual056/locked-dependencies",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+        "ci",
+        "--offline",
+        "--ignore-scripts",
+        "--include=dev",
+        "--no-audit",
+        "--no-fund"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "HOME",
+          "value": ".home"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "TMPDIR",
+          "value": ".tmp"
+        }
+      ],
+      "timeoutMs": 120000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "kind": "worksite_declared_command",
+      "schemaVersion": "5.0.0",
+      "ordinal": 3,
+      "commandId": "command://abiogenesis/rc1-qual056/clean",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "scripts/clean.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "HOME",
+          "value": ".home"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "TMPDIR",
+          "value": ".tmp"
+        }
+      ],
+      "timeoutMs": 15000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "kind": "worksite_declared_command",
+      "schemaVersion": "5.0.0",
+      "ordinal": 4,
+      "commandId": "command://abiogenesis/rc1-qual056/compile",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "HOME",
+          "value": ".home"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "TMPDIR",
+          "value": ".tmp"
+        }
+      ],
+      "timeoutMs": 120000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "kind": "worksite_declared_command",
+      "schemaVersion": "5.0.0",
+      "ordinal": 5,
+      "commandId": "command://abiogenesis/rc1-qual056/generate",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "HOME",
+          "value": ".home"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "TMPDIR",
+          "value": ".tmp"
+        }
+      ],
+      "timeoutMs": 180000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "kind": "worksite_declared_command",
+      "schemaVersion": "5.0.0",
+      "ordinal": 6,
+      "commandId": "command://abiogenesis/rc1-qual056/lint",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "scripts/lint-verification.mjs",
+        ".recipe/verification-recipe.json"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "HOME",
+          "value": ".home"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "TMPDIR",
+          "value": ".tmp"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "kind": "worksite_declared_command",
+      "schemaVersion": "5.0.0",
+      "ordinal": 7,
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qual056-material",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "HOME",
+          "value": ".home"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "TMPDIR",
+          "value": ".tmp"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "kind": "worksite_declared_command",
+      "schemaVersion": "5.0.0",
+      "ordinal": 8,
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "HOME",
+          "value": ".home"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "TMPDIR",
+          "value": ".tmp"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "kind": "worksite_declared_command",
+      "schemaVersion": "5.0.0",
+      "ordinal": 9,
+      "commandId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-observed-worksite-command.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "HOME",
+          "value": ".home"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "TMPDIR",
+          "value": ".tmp"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "kind": "worksite_declared_command",
+      "schemaVersion": "5.0.0",
+      "ordinal": 10,
+      "commandId": "command://abiogenesis/rc1-qual056/t287-release-acceptance",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "HOME",
+          "value": ".home"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "TMPDIR",
+          "value": ".tmp"
+        }
+      ],
+      "timeoutMs": 90000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "kind": "worksite_declared_command",
+      "schemaVersion": "5.0.0",
+      "ordinal": 11,
+      "commandId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--import",
+        "./.recipe/test-environment.mjs",
+        "--test",
+        "--test-concurrency=1",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "--test-name-pattern=^(?:M5\\ GTL\\ exposes\\ exactly\\ seven\\ direct\\ C\\ constructors|M5\\ C\\.compose\\ is\\ canonical,\\ flat,\\ and\\ identity\\-eliding|M5\\ native\\ constructors\\ refuse\\ invalid\\ batch,\\ retry,\\ and\\ F_H\\ realization|M5\\ whole\\-program\\ validation\\ refuses\\ forged\\ or\\ widened\\ graph\\-edge\\ declarations|M5\\ raw\\ admission\\ and\\ validator\\ reject\\ invented\\ or\\ contradictory\\ C\\ data|M4\\ Hello\\ World\\ remains\\ one\\ valid\\ direct\\ C\\.of\\ Program|M5\\ whole\\-root\\ validation\\ keeps\\ F_H\\ interaction\\ keys\\ out\\ of\\ executable\\ resolution)$",
+        "test_env/tests/m5-c-algebra-validation.test.mjs"
+      ],
+      "relativeCwd": "verification",
+      "environment": [
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "HOME",
+          "value": ".home"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_cache",
+          "value": ".npm-cache"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_globalconfig",
+          "value": ".global.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_userconfig",
+          "value": ".user.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "TMPDIR",
+          "value": ".tmp"
+        }
+      ],
+      "timeoutMs": 60000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "kind": "worksite_declared_command",
+      "schemaVersion": "5.0.0",
+      "ordinal": 12,
+      "commandId": "command://abiogenesis/rc1-qual056/compare",
+      "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "args": [
+        "recipe/compare-generated.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": [
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "HOME",
+          "value": "verification/.home"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LANG",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "LC_ALL",
+          "value": "C"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_audit",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_cache",
+          "value": "verification/.npm-cache"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_fund",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_globalconfig",
+          "value": "verification/.global.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_ignore_scripts",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_logs_max",
+          "value": "0"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_offline",
+          "value": "true"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_update_notifier",
+          "value": "false"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "npm_config_userconfig",
+          "value": "verification/.user.npmrc"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "PATH",
+          "value": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+        },
+        {
+          "kind": "worksite_command_environment_entry",
+          "schemaVersion": "5.0.0",
+          "name": "TMPDIR",
+          "value": "verification/.tmp"
+        }
+      ],
+      "timeoutMs": 30000,
+      "terminationGraceMs": 1000,
+      "expectedReports": [
+        {
+          "kind": "worksite_expected_report",
+          "schemaVersion": "5.0.0",
+          "ordinal": 0,
+          "reportIdentity": "report://abiogenesis/rc1-qual056/generated-comparison",
+          "relativePath": "verification/reports/generated-comparison.json"
+        }
+      ]
+    }
+  ],
+  "predicates": [
+    {
+      "kind": "worksite_outcome_predicate",
+      "schemaVersion": "5.0.0",
+      "ordinal": 0,
+      "predicateId": "command://abiogenesis/rc1-qual056/stage/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/stage",
+        "equals": 0
+      }
+    },
+    {
+      "kind": "worksite_outcome_predicate",
+      "schemaVersion": "5.0.0",
+      "ordinal": 1,
+      "predicateId": "command://abiogenesis/rc1-qual056/seed-npm-cache/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/seed-npm-cache",
+        "equals": 0
+      }
+    },
+    {
+      "kind": "worksite_outcome_predicate",
+      "schemaVersion": "5.0.0",
+      "ordinal": 2,
+      "predicateId": "command://abiogenesis/rc1-qual056/locked-dependencies/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/locked-dependencies",
+        "equals": 0
+      }
+    },
+    {
+      "kind": "worksite_outcome_predicate",
+      "schemaVersion": "5.0.0",
+      "ordinal": 3,
+      "predicateId": "command://abiogenesis/rc1-qual056/clean/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/clean",
+        "equals": 0
+      }
+    },
+    {
+      "kind": "worksite_outcome_predicate",
+      "schemaVersion": "5.0.0",
+      "ordinal": 4,
+      "predicateId": "command://abiogenesis/rc1-qual056/compile/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/compile",
+        "equals": 0
+      }
+    },
+    {
+      "kind": "worksite_outcome_predicate",
+      "schemaVersion": "5.0.0",
+      "ordinal": 5,
+      "predicateId": "command://abiogenesis/rc1-qual056/generate/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/generate",
+        "equals": 0
+      }
+    },
+    {
+      "kind": "worksite_outcome_predicate",
+      "schemaVersion": "5.0.0",
+      "ordinal": 6,
+      "predicateId": "command://abiogenesis/rc1-qual056/lint/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/lint",
+        "equals": 0
+      }
+    },
+    {
+      "kind": "worksite_outcome_predicate",
+      "schemaVersion": "5.0.0",
+      "ordinal": 7,
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-qual056-material/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-qual056-material",
+        "equals": 0
+      }
+    },
+    {
+      "kind": "worksite_outcome_predicate",
+      "schemaVersion": "5.0.0",
+      "ordinal": 8,
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction",
+        "equals": 0
+      }
+    },
+    {
+      "kind": "worksite_outcome_predicate",
+      "schemaVersion": "5.0.0",
+      "ordinal": 9,
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command",
+        "equals": 0
+      }
+    },
+    {
+      "kind": "worksite_outcome_predicate",
+      "schemaVersion": "5.0.0",
+      "ordinal": 10,
+      "predicateId": "command://abiogenesis/rc1-qual056/t287-release-acceptance/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/t287-release-acceptance",
+        "equals": 0
+      }
+    },
+    {
+      "kind": "worksite_outcome_predicate",
+      "schemaVersion": "5.0.0",
+      "ordinal": 11,
+      "predicateId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation",
+        "equals": 0
+      }
+    },
+    {
+      "kind": "worksite_outcome_predicate",
+      "schemaVersion": "5.0.0",
+      "ordinal": 12,
+      "predicateId": "command://abiogenesis/rc1-qual056/compare/exit",
+      "predicateKind": "process_exit",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/compare",
+        "equals": 0
+      }
+    },
+    {
+      "kind": "worksite_outcome_predicate",
+      "schemaVersion": "5.0.0",
+      "ordinal": 13,
+      "predicateId": "predicate://abiogenesis/rc1-qual056/generated-equality",
+      "predicateKind": "stdout_exact",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/rc1-qual056/compare",
+        "equals": "inventory matches\n"
+      }
+    }
+  ],
+  "allowedWriteTerritories": [
+    {
+      "kind": "worksite_command_write_territory",
+      "schemaVersion": "5.0.0",
+      "territoryRef": "worksite-command-write-territory://abiogenesis/a0a9bb9efb7b5edd655a822443f5ab8b00bf492e8c39722ef21489348fca1f3c",
+      "territoryDigest": "sha256:a0a9bb9efb7b5edd655a822443f5ab8b00bf492e8c39722ef21489348fca1f3c",
+      "ordinal": 0,
+      "pathKind": "subtree",
+      "relativePath": "verification",
+      "purpose": "execution_evidence"
+    }
+  ],
+  "claim": "normalized existing constructor output only; A/W/grant supplied by component fixture, no runtime authority"
+}

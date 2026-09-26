@@ -1,0 +1,40 @@
+[
+  {
+    "name": "stage-authorities",
+    "argv": [
+      "/opt/homebrew/bin/node",
+      "scripts/generate-qualification-rule-catalog.mjs",
+      "--stage-authorities",
+      "/Users/jim/src/apps/abiogenesis",
+      "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.1"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "startedAt": "2026-09-26T10:13:58.785168+00:00",
+    "elapsedSeconds": 0.09890362480655313,
+    "exitCode": 0,
+    "stdout": "stage-authorities.stdout",
+    "stderr": "stage-authorities.stderr",
+    "actorCalls": 0,
+    "installPerformed": false,
+    "candidateArchiveSelected": false,
+    "packageTgzEmitted": false
+  },
+  {
+    "name": "generate-manifest",
+    "argv": [
+      "/opt/homebrew/bin/node",
+      "scripts/generate-product-manifest.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "startedAt": "2026-09-26T10:13:58.884392+00:00",
+    "elapsedSeconds": 12.842898875009269,
+    "exitCode": 0,
+    "stdout": "generate-manifest.stdout",
+    "stderr": "generate-manifest.stderr",
+    "actorCalls": 0,
+    "installPerformed": false,
+    "candidateArchiveSelected": false,
+    "packageTgzEmitted": false,
+    "npmDryRunCacheMaterial": "dry-run-cache.json"
+  }
+]

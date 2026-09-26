@@ -1,0 +1,304 @@
+{
+  "status": "unchanged_source_linked_coverage_not_executable_roster",
+  "source": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/coverage.json",
+    "sha256": "a009baadcc1bb87c4f4fb75d8bccf28778437f6d35e2800d01ae24d21d832c2f",
+    "bytes": 11476
+  },
+  "catalogRef": "qualification-coverage://abiogenesis/482b5d4f3f7cd904bdfeda9b625482ecf0294a95c8a009ad356d6b4523d73513",
+  "catalogDigest": "sha256:482b5d4f3f7cd904bdfeda9b625482ecf0294a95c8a009ad356d6b4523d73513",
+  "claims": [
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/ABI5-ROOT-001@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-058"
+      ],
+      "behaviors": [
+        "ABG5-S01/R1",
+        "ABG5-S01/R2",
+        "ABG5-S01/R3",
+        "ABG5-S01/R4",
+        "ABG5-S01/R5",
+        "ABG5-S01/R6",
+        "ABG5-S01/R7",
+        "ABG5-S01/R8",
+        "ABG5-S01/R9",
+        "ABG5-S01/R10"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/compute@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064",
+        "repo://abiogenesis/specification/PRODUCT.md#conservation-proof",
+        "repo://abiogenesis/specification/PRODUCT.md#50-and-51-release-boundaries"
+      ],
+      "behaviors": [
+        "traversal/compute/F_D",
+        "traversal/compute/F_P",
+        "traversal/compute/F_H",
+        "traversal/compute/mixed"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/structural@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064",
+        "repo://abiogenesis/specification/PRODUCT.md#conservation-proof",
+        "repo://abiogenesis/specification/PRODUCT.md#50-and-51-release-boundaries"
+      ],
+      "behaviors": [
+        "traversal/structural/atomic_call",
+        "traversal/structural/flat_composition",
+        "traversal/structural/edge_program",
+        "traversal/structural/adaptive_declared_selection",
+        "traversal/structural/batch",
+        "traversal/structural/transparent_child_traversal",
+        "traversal/structural/graph_recursion",
+        "traversal/structural/retry"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/consequence@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064",
+        "repo://abiogenesis/specification/PRODUCT.md#conservation-proof",
+        "repo://abiogenesis/specification/PRODUCT.md#50-and-51-release-boundaries"
+      ],
+      "behaviors": [
+        "traversal/consequence/same_edge_retry",
+        "traversal/consequence/depth_traversal",
+        "traversal/consequence/graph_span_reentry",
+        "traversal/consequence/public_start_reentry",
+        "traversal/consequence/ticket_traversal",
+        "traversal/consequence/fh_input_required",
+        "traversal/consequence/escalation_or_reprice",
+        "traversal/consequence/gap_stop",
+        "traversal/consequence/non_admit"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064",
+        "repo://abiogenesis/specification/PRODUCT.md#conservation-proof",
+        "repo://abiogenesis/specification/PRODUCT.md#50-and-51-release-boundaries"
+      ],
+      "behaviors": [
+        "traversal/disposition/advance_vector",
+        "traversal/disposition/close",
+        "traversal/disposition/retry_same_edge",
+        "traversal/disposition/repair",
+        "traversal/disposition/re_enter",
+        "traversal/disposition/yield_continuation",
+        "traversal/disposition/inspect_runtime_archive",
+        "traversal/disposition/reprice",
+        "traversal/disposition/human_assurance_required",
+        "traversal/disposition/escalate",
+        "traversal/disposition/gap_stop",
+        "traversal/disposition/block",
+        "traversal/disposition/non_admit"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/public@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064",
+        "repo://abiogenesis/specification/PRODUCT.md#conservation-proof",
+        "repo://abiogenesis/specification/PRODUCT.md#50-and-51-release-boundaries"
+      ],
+      "behaviors": [
+        "traversal/public/advancing_the_next_lawful_work",
+        "traversal/public/targeting_a_published_GraphFunction",
+        "traversal/public/targeting_a_published_asset",
+        "traversal/public/bounded_traversal_until",
+        "traversal/public/direct_or_lawfully_proxied",
+        "traversal/public/direct_or_supervised_root_control"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/fibre-substitution@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064"
+      ],
+      "behaviors": [
+        "shape-preserving-fibre-substitution"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/complete-C-algebra@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064"
+      ],
+      "behaviors": [
+        "C.of",
+        "C.identity",
+        "C.compose",
+        "C.edge",
+        "C.workflow",
+        "C.batch",
+        "C.retry"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/malformed-GTL@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064"
+      ],
+      "behaviors": [
+        "malformed-GTL"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/malformed-FP@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064"
+      ],
+      "behaviors": [
+        "malformed-FP"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/public-operator-loop@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-059"
+      ],
+      "behaviors": [
+        "ABG5-S02/operator-loop"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/self-conformance@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-060"
+      ],
+      "behaviors": [
+        "whole-subject-self-conformance"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/native-projection@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-063"
+      ],
+      "behaviors": [
+        "native-public-projection"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/selected-downstream-lifecycle@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-062",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md#REQ-P-SCENARIOS-013",
+        "repo://abiogenesis/specification/PRODUCT.md#50-and-51-release-boundaries"
+      ],
+      "behaviors": [
+        "ABG5-S06/complete-selected-contract"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/ABG5-S02@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md#REQ-P-SCENARIOS-009"
+      ],
+      "behaviors": [
+        "ABG5-S02/failure-truth"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    },
+    {
+      "coverageRef": "qualification-coverage-claim://abiogenesis/ABG5-S03@5",
+      "requirementRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md#REQ-P-SCENARIOS-010",
+        "repo://abiogenesis/specification/PRODUCT.md#50-and-51-release-boundaries"
+      ],
+      "behaviors": [
+        "ABG5-S03/retained-human-boundary"
+      ],
+      "evidenceRoles": [
+        "execution_evidence",
+        "behavioral_coverage",
+        "release_applicability"
+      ]
+    }
+  ],
+  "claimCount": 16,
+  "behaviorCount": 66,
+  "evidenceBindings": null,
+  "independentApplicabilityAndSufficiency": null,
+  "warning": "Current Product-original source binding is refused; unchanged coverage membership does not establish current-source adequacy."
+}

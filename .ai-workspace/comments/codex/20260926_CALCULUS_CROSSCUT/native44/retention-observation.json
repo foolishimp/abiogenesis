@@ -1,0 +1,24 @@
+{
+  "time": "2026-09-26T10:39:33.356843+00:00",
+  "ticketItem": "CALLER-DURABLE-CONTEXT-01 / LIFE-01",
+  "method": "Read-only file-size census before writing this observation; no content hashing or runtime execution.",
+  "directory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44",
+  "observedFiles": 5404,
+  "observedBytes": 1466366547,
+  "largeRepeatedProjectionSizes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/preparation/readback-basis.json",
+      "bytes": 289109084
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/intake-01/readback-basis.json",
+      "bytes": 289109084
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/suffix-01/readback-basis.json",
+      "bytes": 289109084
+    }
+  ],
+  "scope": "Directory includes installed copies, setup responses, logs and evidence. Equal lengths alone do not prove equal bytes. Not a latency attribution or additional runtime event volume.",
+  "disposition": "Existing caller debt retained; no new release gate or cleanup activation."
+}

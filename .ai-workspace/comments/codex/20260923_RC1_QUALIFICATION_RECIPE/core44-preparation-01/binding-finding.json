@@ -1,0 +1,46 @@
+{
+  "id": "CORE44-QUALIFICATION-PRODUCT-BINDING-01",
+  "disposition": "bounded_dependency_return_no_repair",
+  "frameResult": "invalid_basis",
+  "affectedClaim": "Same-current-source qualification preparation for core44",
+  "sourceCommit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+  "selectedArtifact": "sha256:f89e8037921d086505ed7c067720b942948b6326d4cacbb34ede0b2007e97da3",
+  "packagedAuthorityInputs": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/authority-inputs.json",
+    "sha256": "1c7254fdcdf2a97395c0a61d2a288876d65370442f5c47e76a8aa3771ec9fb4e",
+    "bytes": 28061
+  },
+  "packagedProductSource": {
+    "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite44-install-vtvq2ib9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/PRODUCT.md",
+    "sha256": "34fef921b93abfaaab3e0beffde2d4c9cc5506b8109944bb1fb981a3a8445631",
+    "bytes": 71660
+  },
+  "packagedEntry": {
+    "ref": "repo://abiogenesis/specification/PRODUCT.md",
+    "path": "contracts/qualification/sources/PRODUCT.md",
+    "digest": "sha256:34fef921b93abfaaab3e0beffde2d4c9cc5506b8109944bb1fb981a3a8445631",
+    "byteCount": 71660
+  },
+  "acceptedOriginal": {
+    "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+    "sha256": "bb0c211a3fe04be9b3d8a12779387f6b26e3e0d0bd2bf513cf7fe826c8ba5176",
+    "bytes": 81200
+  },
+  "acceptedOriginalMatchesCommit": true,
+  "firstFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core44-preparation-01/first-failure.json",
+    "sha256": "d77ff8c38c2d73898bd18b8b0fe28c4dc86fd121dd0111e46952fcaa9fff8812",
+    "bytes": 651
+  },
+  "expected": "Selected packaged qualification governing Product source and digest correspond to accepted immutable Product original.",
+  "actual": "Packaged Product source and authority-input entry agree internally on older bytes, but differ from the accepted immutable source original.",
+  "governingRequirements": [
+    "REQ-P-QUAL-057A",
+    "REQ-P-QUAL-057B",
+    "REQ-P-QUAL-057D",
+    "REQ-P-SELF-CONFORMANCE-010"
+  ],
+  "dependency": "Executive disposition and existing qualification-source/package owner must supply an accepted exact subject whose packaged governing sources agree with its selected immutable Product source; or an explicit existing lawful translation/selection that establishes the relation. No stale-source substitution or private rewrite inside preparation.",
+  "limits": "No execution of the recipe or whole qualification occurred. This rejects only a current-source qualification binding, not the accepted core44 bounded source/package repair, native continuation or historical evidence. No new repair or higher-RC selection is made.",
+  "smallestExistingReentry": "existing-owner-route.json"
+}

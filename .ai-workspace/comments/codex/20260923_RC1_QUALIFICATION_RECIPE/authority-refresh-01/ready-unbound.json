@@ -1,0 +1,49 @@
+{
+  "status": "candidate_ready_bounded_source_generation_only",
+  "ready": [
+    {
+      "id": "current_authority_sources",
+      "result": "95 original/copy joins, including87 immutable29da repository originals and8 exact STDO members; five stale copies refreshed."
+    },
+    {
+      "id": "derived_bindings",
+      "result": "11 changed owner-generated files; rule/catalog/law/coverage/schema/source-span and manifest correspondence checks pass; no generated member additions/removals."
+    },
+    {
+      "id": "conserved_runtime_and_domain",
+      "result": "250 runtime sources,500 emissions,317 design members conserved;16 claims/66 behaviors and self-conformance schema unchanged."
+    },
+    {
+      "id": "exact_source_successor",
+      "result": "Base29da plus delta.json and subject-members.json; new content/manifest/law/coverage identities recorded; no selected candidate archive."
+    }
+  ],
+  "unbound": [
+    {
+      "id": "executive_source_disposition",
+      "value": null,
+      "reason": "Worker source readiness returns to Executive; no acceptance decision authored."
+    },
+    {
+      "id": "successor_package_and_install",
+      "value": null,
+      "reason": "No candidate package selected or installed. Existing core44 artifact/install stays unchanged; later ordinary package operation binds this exact successor."
+    },
+    {
+      "id": "recipe_rebind",
+      "value": null,
+      "reason": "Core44 invalid-basis preparation is immutable. After exact successor package selection, rebind its existing13/14 and5/30 recipe controls and complete source/auxiliary/law/output relations in a new successor."
+    },
+    {
+      "id": "complete_qualification",
+      "value": null,
+      "reason": "Complete qualification inventory/basis, construction attribution, admitted native install/workspace/tenant, actual observed-root-C2 result and executionSelectionRef, independent assessment scopes, complete real-tree F11/negative/behavioral/lifecycle evidence and soleAF22 remain unbound."
+    },
+    {
+      "id": "scenario_independent_review",
+      "value": null,
+      "reason": "Executive reports native44 complete; full scenario coverage review is separately underway and is not acquired or claimed here."
+    }
+  ],
+  "noNewClaims": "No new Product/requirement/design law, coverage claim, executable roster, test selector or qualification gate was authored."
+}

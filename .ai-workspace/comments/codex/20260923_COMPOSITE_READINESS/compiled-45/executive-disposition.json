@@ -1,0 +1,64 @@
+{
+  "status": "CLOSED_ACCEPTED_PACKAGE_QUALIFICATION_OPEN",
+  "actor": "/root",
+  "decisionRole": "Executive",
+  "recordingRole": "Writer",
+  "time": "2026-09-26T10:37:32.091361+00:00",
+  "selected": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite45-install-8cwe1b61/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-45/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-45/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:969af38b1d2dd3dc0df758c1c29e27e87190b5362f6b90ffcd1580c2805c94a9",
+      "productContentDigest": "sha256:8810012f001c785ebd9d1c6db92e7b110f1a457dff4a4515e68e2da255698f7d",
+      "manifestDigest": "sha256:988df4e52119a1822f7acb9201aeb6b3ede493c7d55b8d5cf04d8d20021e5964",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/authority-refresh-01/freeze.json",
+    "sha256": "b344bc5670e83c418c31132a8f6264e31e7a08121e26c068b6c7564ae03fa7b3"
+  },
+  "memberCorrespondence": {
+    "status": "exact",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-45/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:969af38b1d2dd3dc0df758c1c29e27e87190b5362f6b90ffcd1580c2805c94a9",
+    "archiveBytes": 10193316,
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite45-install-8cwe1b61/node_modules/@abiogenesis/typescript-tenant",
+    "bootstrapRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite45-install-8cwe1b61",
+    "archiveMembers": 5233,
+    "sourceMatches": 5233,
+    "installedMatches": 5233,
+    "extraInstalledMembers": 0,
+    "scripts": "disabled",
+    "network": "npm offline",
+    "archiveMembersSha256": "7914b19139b539f0a4725eba200f9ecddf2cf08e07ba9316ccf4a53dd14303e7"
+  },
+  "conservation": {
+    "predecessor": "compiled-44",
+    "unchanged": 5222,
+    "changed": 11,
+    "changedPaths": [
+      "contracts/capabilities/capability-definition-graph.json",
+      "contracts/qualification/authority-inputs.json",
+      "contracts/qualification/coverage.json",
+      "contracts/qualification/law-basis.json",
+      "contracts/qualification/rule-catalog.json",
+      "contracts/qualification/sources/PRODUCT.md",
+      "contracts/qualification/sources/REQ-R-ABG3-CCALL.md",
+      "contracts/qualification/sources/REQ-R-ABG3-CONTINUATION.md",
+      "contracts/qualification/sources/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "contracts/qualification/sources/REQ-R-ABG3-PROJECTION.md",
+      "product-toolchain-manifest.json"
+    ],
+    "outsideAcceptedScope": []
+  },
+  "limits": [
+    "runtime unchanged from core44; no compile/generator/test repetition",
+    "S06 consumer predecessor/evaluator proof obligations remain open",
+    "qualification recipe rebind and complete qualification remain open",
+    "no RC publication or installed-RC qualification"
+  ]
+}

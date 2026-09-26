@@ -1,0 +1,157 @@
+{
+  "tests": [
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qual056-material",
+      "files": [
+        "test_env/tests/t287-qual056-material.test.mjs"
+      ],
+      "selectedTitles": [
+        "real Node report conserves complete multi-file, nested-suite and ordinary test outcomes",
+        "real skip, todo, failure, import error, process crash and cancellation never yield green material",
+        "missing, truncated, duplicated, malformed, mismatched and signalled reports retain non-green outcomes",
+        "finite lint checks actual selected MJS and JSON and reports failures without executing tests",
+        "observed C2 material binds exact inventory, recipe, policy and command bodies; snapshot copies unchanged",
+        "selected zero-exit stdout contradiction fails while exact match and indeterminate predicates retain their meaning",
+        "F11 conserves selected passed, failed and incomplete predicates through native summary and AF22"
+      ],
+      "expectedTestCount": 7,
+      "selectionKind": "whole_file",
+      "premises": "component lower-native/authority/source fixtures; no native Run or actual human acceptance",
+      "supportPaths": [
+        "test_env/support/isolated-compiled-copy.mjs",
+        "test_env/support/malformed-gtl-native-fixture.mjs",
+        "test_env/support/r10-private-owner-harness.mjs",
+        "test_env/support/steel-consumer-resolution.mjs",
+        "test_env/support/t287-generic-job-worksite.mjs",
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/t287-observed-worksite-command.test.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ]
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction",
+      "files": [
+        "test_env/tests/t287-qualification-contraction.test.mjs"
+      ],
+      "selectedTitles": [
+        "actual execution evidence is authenticated once, with foreign, substituted, aliased and ambiguous producers refused",
+        "green execution cannot replace independent coverage judgment; shared evidence must actually be in each selected task",
+        "whole native F11 assessment feeds sole AF22 directly; development/foreign/missing/duplicate evidence remains non-green",
+        "AF22 shares its exact owner through separate installed realization, success validation and cloned judgment; cold and changed bases stay checked"
+      ],
+      "expectedTestCount": 4,
+      "selectionKind": "whole_file",
+      "premises": "component lower-native/authority/source fixtures; no native Run or actual human acceptance",
+      "supportPaths": [
+        "test_env/support/isolated-compiled-copy.mjs",
+        "test_env/support/malformed-gtl-native-fixture.mjs",
+        "test_env/support/r10-private-owner-harness.mjs",
+        "test_env/support/steel-consumer-resolution.mjs",
+        "test_env/support/t287-generic-job-worksite.mjs",
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/t287-observed-worksite-command.test.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ]
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command",
+      "files": [
+        "test_env/tests/t287-observed-worksite-command.test.mjs"
+      ],
+      "selectedTitles": [
+        "observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol",
+        "observed C2 refuses foreign, absent, duplicate, mixed and writable source claims",
+        "observed root source gate binds actual input and refuses stale, crossed and child authority",
+        "later admitted failed native residue invalidates observed inputs without requiring physical mismatch",
+        "changed physical observed source refuses before archive creation or command dispatch",
+        "observed C2 result, native acknowledgment and closure bind the same task without turning red execution green"
+      ],
+      "expectedTestCount": 6,
+      "selectionKind": "whole_file",
+      "premises": "component lower-native/authority/source fixtures; no native Run or actual human acceptance",
+      "supportPaths": [
+        "test_env/support/isolated-compiled-copy.mjs",
+        "test_env/support/malformed-gtl-native-fixture.mjs",
+        "test_env/support/r10-private-owner-harness.mjs",
+        "test_env/support/steel-consumer-resolution.mjs",
+        "test_env/support/t287-generic-job-worksite.mjs",
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/t287-observed-worksite-command.test.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ]
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-release-acceptance",
+      "files": [
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ],
+      "selectedTitles": [
+        "original O/source correspondence rejects generated-only, missing, altered, foreign and conditional decisions",
+        "release join requires installed green non-bypassed qualification and exact admitted publication/current ruling",
+        "physical accept and withhold addenda preserve immutable RC refs/package/snapshot and retain partial effects",
+        "shared artifact commit preserves write/admission/close facts without manufacturing success",
+        "tapped owner returns the declared result or withholding refusal through one artifact/close consequence",
+        "fresh-process release projection conserves original O and distinguishes accepted, withheld and incomplete"
+      ],
+      "expectedTestCount": 6,
+      "selectionKind": "whole_file",
+      "premises": "component lower-native/authority/source fixtures; no native Run or actual human acceptance",
+      "supportPaths": [
+        "test_env/support/isolated-compiled-copy.mjs",
+        "test_env/support/malformed-gtl-native-fixture.mjs",
+        "test_env/support/r10-private-owner-harness.mjs",
+        "test_env/support/steel-consumer-resolution.mjs",
+        "test_env/support/t287-generic-job-worksite.mjs",
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/t287-observed-worksite-command.test.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ]
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation",
+      "files": [
+        "test_env/tests/m5-c-algebra-validation.test.mjs"
+      ],
+      "selectedTitles": [
+        "M5 GTL exposes exactly seven direct C constructors",
+        "M5 C.compose is canonical, flat, and identity-eliding",
+        "M5 native constructors refuse invalid batch, retry, and F_H realization",
+        "M5 whole-program validation refuses forged or widened graph-edge declarations",
+        "M5 raw admission and validator reject invented or contradictory C data",
+        "M4 Hello World remains one valid direct C.of Program",
+        "M5 whole-root validation keeps F_H interaction keys out of executable resolution"
+      ],
+      "expectedTestCount": 7,
+      "selectionKind": "exact_names",
+      "premises": "component lower-native/authority/source fixtures; no native Run or actual human acceptance",
+      "supportPaths": [
+        "test_env/support/isolated-compiled-copy.mjs",
+        "test_env/support/malformed-gtl-native-fixture.mjs",
+        "test_env/support/r10-private-owner-harness.mjs",
+        "test_env/support/steel-consumer-resolution.mjs",
+        "test_env/support/t287-generic-job-worksite.mjs",
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/t287-observed-worksite-command.test.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs"
+      ]
+    }
+  ],
+  "totalSelectedTitles": 30,
+  "status": "prepared_not_run",
+  "prohibitedInputs": [
+    "ABI5_OWNER_HISTORY",
+    "ABI5_RELEASE_RETAINED_INSTALL_COORDINATE",
+    "ABI5_STEEL02_RESOLVER_PROOF_PATH",
+    "provider credentials or native endpoints"
+  ]
+}

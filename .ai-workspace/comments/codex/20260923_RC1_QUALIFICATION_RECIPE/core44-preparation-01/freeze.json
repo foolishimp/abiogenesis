@@ -1,0 +1,179 @@
+{
+  "status": "CLOSED_RE_ENTRY_REQUESTED_INVALID_BASIS",
+  "actor": "/root/rc1_recipe44",
+  "decisionConsumer": "/root",
+  "frame": "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-end-to-end-interface-integration-frame",
+  "exactSourceCommit": "29da18bca003ead4045f5061b495f17e76b5fa33",
+  "exactArtifactDigest": "sha256:f89e8037921d086505ed7c067720b942948b6326d4cacbb34ede0b2007e97da3",
+  "finding": "CORE44-QUALIFICATION-PRODUCT-BINDING-01",
+  "closedAt": "2026-09-26T10:07:20.219380+00:00",
+  "elapsedWorkSeconds": 560.21938,
+  "files": [
+    {
+      "path": "activation.md",
+      "sha256": "0186658749990ce17168f1dc4393832b40a176292cd11747734b452213de804a",
+      "bytes": 2576
+    },
+    {
+      "path": "binding-finding.json",
+      "sha256": "98666bce3d0e660106cb396d9cff61d6d2933baf1699bfe76276ca2b3849cd80",
+      "bytes": 2923
+    },
+    {
+      "path": "candidate-selection.json",
+      "sha256": "bfbfd58551d45e4fe57840704705055e6cd68f78bf14fc12b6a62aad445f90a2",
+      "bytes": 4335
+    },
+    {
+      "path": "checks.json",
+      "sha256": "42ccd7cef1bcb0132e6099bfba1e0798040cbcc07496f64d85a831b3b5126dd9",
+      "bytes": 1712
+    },
+    {
+      "path": "command-domains.json",
+      "sha256": "6fcf90f8f3f07365c4236804e73eee1a51050e581ee1bca55c92e94e0d5f4fac",
+      "bytes": 19680
+    },
+    {
+      "path": "compare-generated.mjs",
+      "sha256": "5853d79e35d8be6347caa7f21576450bcc611e23f23cebbe85da4c767426a945",
+      "bytes": 1988
+    },
+    {
+      "path": "config.json",
+      "sha256": "68f66f1cc2e9fac75061d7200e9e262a52d34aa86a0f76d8bcb28dd002fcca13",
+      "bytes": 20048
+    },
+    {
+      "path": "configuration-binding.json",
+      "sha256": "7714564b9ebcd13d81641be507bb1977ca531c7ce884bdbb7e9a7a9cd5698d0a",
+      "bytes": 47747
+    },
+    {
+      "path": "coverage-domain.json",
+      "sha256": "e8338ba49ff52cf459ea4cebe6a0135da8fcc550e5c2da4d3757afd881620536",
+      "bytes": 10707
+    },
+    {
+      "path": "execution-request.md",
+      "sha256": "ca8b68dd62cf4485d9078bcd844cff16f5962f58a9542de153fbbcee2eead92d",
+      "bytes": 2526
+    },
+    {
+      "path": "existing-owner-route.json",
+      "sha256": "0dfa640abfaeab871d308208575bbb6bb6acbe75e53eb67abefb4542d75e2561",
+      "bytes": 2116
+    },
+    {
+      "path": "expected-output-inventory.json",
+      "sha256": "336b03b060e4fa5d19bc782f77c4db6bd02f95477090865cb31cdb87fadb0d94",
+      "bytes": 165478
+    },
+    {
+      "path": "final-checks.json",
+      "sha256": "ee37e630ab3466da54106e34c2b00c82cc2010e6ae982c78ce8b95e73055b25f",
+      "bytes": 361
+    },
+    {
+      "path": "first-failure.json",
+      "sha256": "d77ff8c38c2d73898bd18b8b0fe28c4dc86fd121dd0111e46952fcaa9fff8812",
+      "bytes": 651
+    },
+    {
+      "path": "input-manifest.json",
+      "sha256": "30de12b55a15436309295b387270a5d9d468f2d655fd9427c23176fe4be5f5f7",
+      "bytes": 224012
+    },
+    {
+      "path": "inventory-delta.json",
+      "sha256": "dac680e4f2ddc235226b205c1344f4d1ffb257c298563f98de135c7409e8d37b",
+      "bytes": 65980
+    },
+    {
+      "path": "lint-population.json",
+      "sha256": "c4712d1cb6a8793295763dc715f624017d9fa5f18498bf32633a7f30ad8dacb9",
+      "bytes": 2240
+    },
+    {
+      "path": "native-bindings.json",
+      "sha256": "514ec28a78cf8110ff7a3945007c411c267d313ff548ae152386384ac9bbc8c5",
+      "bytes": 3907
+    },
+    {
+      "path": "npm-toolchain-inventory.json",
+      "sha256": "57422b62fb01ddb84b3d55259bc2c929aa0038d28cdc5edf422a2216909168dc",
+      "bytes": 414341
+    },
+    {
+      "path": "preparation.stderr",
+      "sha256": "2692314e25e3cedf9fd97cf4d19d8e7795d1d7b12c33de8a207b235270bf223b",
+      "bytes": 666
+    },
+    {
+      "path": "preparation.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "prepare.mjs",
+      "sha256": "208132104a4ae9d5d2deac06f6c19d9714cb72d193970bf48bd87e9dcb6a20bc",
+      "bytes": 18237
+    },
+    {
+      "path": "recipe-stage.mjs",
+      "sha256": "de17486b1af297a006a7667bfc12f00add60134b3144e9be523d7fee8c50d075",
+      "bytes": 1449
+    },
+    {
+      "path": "recipe.mjs",
+      "sha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68",
+      "bytes": 3442
+    },
+    {
+      "path": "release-claims.json",
+      "sha256": "d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0",
+      "bytes": 2228
+    },
+    {
+      "path": "return.md",
+      "sha256": "a958652933c0c6837c0d40da8ea8c08f9ac0bb1045ede50297aa94f9de4f9f9a",
+      "bytes": 4654
+    },
+    {
+      "path": "reuse-selection.json",
+      "sha256": "5a538c1d285e04fb26fa09cd22f18a8d62597c4659d4d996255282e66b853108",
+      "bytes": 8725
+    },
+    {
+      "path": "source-input-delta.json",
+      "sha256": "1dbbadca7e147e64f5b284bc35aedfb59617dd07fafc0d943b3b2d24c4e8dc84",
+      "bytes": 32976
+    },
+    {
+      "path": "source-inventory.json",
+      "sha256": "43b1941aab7030f96eb24eaddbaa99f3c62e71d62b8c200ddd2e436cd4cc9e54",
+      "bytes": 300005
+    },
+    {
+      "path": "test-environment.mjs",
+      "sha256": "93913ad5f1574d7d38c7b2435e2e7d9b5c3e492518adb616ece83485c7d65208",
+      "bytes": 533
+    },
+    {
+      "path": "test-selection.json",
+      "sha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f",
+      "bytes": 8553
+    },
+    {
+      "path": "toolchain.json",
+      "sha256": "280717ffa7a67ee694613b1c6fcb52b73e72c0b80309d7fe1ba0cd55f156f64e",
+      "bytes": 1571
+    },
+    {
+      "path": "verification-recipe.json",
+      "sha256": "fefedb8881b397b5b1c3e25906db42bf34fd894a59f3474304aa0f992e127ee7",
+      "bytes": 86324
+    }
+  ],
+  "freezeRule": "All preparation files except this self-describing freeze; external accepted/reused subjects are bound by exact locator/digest in the covered records. No editing after freeze."
+}
