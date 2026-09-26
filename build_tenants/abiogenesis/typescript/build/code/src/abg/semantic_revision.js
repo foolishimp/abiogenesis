@@ -76,11 +76,13 @@ function nativeCause(value) {
 /** Additional source-class selection over an already authenticated leaf. CCall's
  * existing admission owns the exact sole evidence, frame/order/input and absence
  * of dispatch relation; this does not turn arbitrary exception text into a cause. */
-function operationalAuthorFailure(prefix, state, lifecycle) {
-    if (state.cCall.implementationRef !== ids.authorImplementationRef || state.cCall.regime !== "F_P" ||
+function operationalPreparationFailure(prefix, state, lifecycle) {
+    const role = state.cCall.implementationRef === ids.authorImplementationRef ? "author" :
+        state.cCall.implementationRef === ids.assessorImplementationRef ? "assessor" : null;
+    if (role === null || state.cCall.regime !== "F_P" ||
         state.result.resultClass !== "failure" || state.judgment.judgment !== "blocked" || state.result.evidenceRefs.length !== 1)
         return null;
-    const stages = lifecycle.stages.filter(stage => stage.authorLocusRef === state.cCall.programLocusRef);
+    const stages = lifecycle.stages.filter(stage => (role === "author" ? stage.authorLocusRef : stage.assessorLocusRef) === state.cCall.programLocusRef);
     if (stages.length !== 1)
         return null;
     const events = indexedRuntimeEvents(prefix, "aggregate:c_call:" + state.cCall.cCallRef);
@@ -103,12 +105,12 @@ function operationalAuthorFailure(prefix, state, lifecycle) {
     catch {
         return null;
     }
-    if (!recordJob(refusal) || refusal.kind !== "native_instruction_assembly_refusal" || refusal.role !== "author" ||
+    if (!recordJob(refusal) || refusal.kind !== "native_instruction_assembly_refusal" || refusal.role !== role ||
         refusal.policy !== stages[0].assembly.ruleRef ||
         !["unknown_dependency", "unavailable_required_content", "stale_basis", "unsupported_selection", "declared_bound_overflow"].includes(String(refusal.cause)) ||
         !Array.isArray(refusal.unresolvedRefs) || !refusal.unresolvedRefs.every(ref => typeof ref === "string"))
         return null;
-    return { stageRef: stages[0].declarationRef, evidenceRef: payload.evidenceRef, evidenceAdmissionEventRef: rows[0].eventId,
+    return { role, stageRef: stages[0].declarationRef, evidenceRef: payload.evidenceRef, evidenceAdmissionEventRef: rows[0].eventId,
         ownerObservation: observation, refusal };
 }
 function contextCorresponds(a, b) {
@@ -138,7 +140,7 @@ function nativeIntakeFacts(basis, input, onRefusal) {
         if (lifecycle === undefined)
             return refuse("original_job_or_lifecycle_mismatch");
         const operational = new Map(leaves.flatMap(({ state }) => {
-            const failure = operationalAuthorFailure(prefix, state, lifecycle);
+            const failure = operationalPreparationFailure(prefix, state, lifecycle);
             return failure === null ? [] : [[state.cCall.cCallRef, failure]];
         }));
         const causes = leaves.filter(({ state }) => {
@@ -163,10 +165,20 @@ function nativeIntakeFacts(basis, input, onRefusal) {
             return refuse("construction_source_mismatch");
         const parents = leaves.filter(({ state, event }) => {
             const envelope = jobEnvelope(state.result.value);
-            if (event.admissionOrdinal >= cause.event.admissionOrdinal || state.result.resultClass !== "success" || state.judgment.judgment !== "advance" ||
-                envelope === null || !envelope.assets.every(asset => asset.assessment?.disposition === "satisfied"))
+            if (event.admissionOrdinal >= cause.event.admissionOrdinal || state.result.resultClass !== "success" || state.judgment.judgment !== "advance" || envelope === null)
                 return false;
-            const last = envelope.assets.at(-1), exactProducer = last === undefined ? state.cCall.implementationRef === SEMANTIC_STAGE_IDS.jobIntakeImplementationRef :
+            const last = envelope.assets.at(-1);
+            if (operationalFailure?.role === "assessor") {
+                const stage = envelope.declaration.stages[envelope.assets.length - 1];
+                return stage?.declarationRef === operationalFailure.stageRef && envelope.evidence === null &&
+                    last?.stageRef === stage.declarationRef && last.assessment === null &&
+                    envelope.assets.slice(0, -1).every(asset => asset.assessment?.disposition === "satisfied") &&
+                    state.cCall.implementationRef === ids.authorImplementationRef && state.cCall.programLocusRef === stage.authorLocusRef &&
+                    last.source.cCallRef === state.cCall.cCallRef && causeBasis !== null && same(state.result.value, causeBasis.rawInputValue);
+            }
+            if (!envelope.assets.every(asset => asset.assessment?.disposition === "satisfied"))
+                return false;
+            const exactProducer = last === undefined ? state.cCall.implementationRef === SEMANTIC_STAGE_IDS.jobIntakeImplementationRef :
                 state.cCall.cCallRef === (last.assessment.source.nativeWork?.adapterCCallRef ?? last.assessment.source.cCallRef) || state.cCall.implementationRef === ids.projectionImplementationRef;
             if (!exactProducer)
                 return false;
@@ -302,7 +314,7 @@ function nativeJobRevisionSubject(basis, input, readPhysical) {
         if (current.context === null || !semanticJobContextMatches(basis, current, current.context) ||
             readPhysical && current.evidence === null && !semanticJobContextCurrent(basis, current))
             return null;
-        const operationalFailure = causes.length === 1 ? operationalAuthorFailure(owner.prefix, causes[0], owner.lifecycle) : null;
+        const operationalFailure = causes.length === 1 ? operationalPreparationFailure(owner.prefix, causes[0], owner.lifecycle) : null;
         return { owner, request, parent, envelope, nativeWorksite, acquisition: acquired, construction, operationalFailure,
             priorWorksite: null, currentWorksite: null, origins: construction === null ? [] : [construction],
             causes: causes.filter((c) => c !== null),
@@ -327,7 +339,8 @@ export function projectNativeSemanticRevisionRequest(basis, input) {
     const selected = decision.previous.result.value;
     const selectionChoice = selected.mode === "construction_repair"
         ? { mode: selected.mode, selectedStageRef: null }
-        : { mode: selected.mode, selectedStageRef: selected.selectedStageRef };
+        : { mode: selected.mode, selectedStageRef: selected.selectedStageRef,
+            ...(subject.operationalFailure === null ? {} : { entryRole: subject.operationalFailure.role }) };
     return deepFreeze({ kind: "semantic_revision_request", schemaVersion: "5.0.0", parent: subject.request.parent,
         causes: subject.request.causes, selection: resultCoordinate(decision.previous), selectionChoice, currentWorksite: null,
         nativeWorksite: { ...subject.nativeWorksite, acquisition: resultCoordinate(subject.acquisition) } });
@@ -486,7 +499,7 @@ export function jobRevisionSelectionMatchesBasis(basis, input, output) {
         return active !== null && output.nativePhase === phase &&
             (subject.operationalFailure === null || output.mode === "stage_revision" && output.selectedStageRef === subject.operationalFailure.stageRef) &&
             (active.length === 0 || output.selectedObligationRefs.length > 0 || phase === "preconstruction" &&
-                subject.operationalFailure !== null && selectedStage === subject.envelope.assets.length) &&
+                subject.operationalFailure !== null && selectedStage === subject.envelope.assets.length - (subject.operationalFailure.role === "assessor" ? 1 : 0)) &&
             output.selectedObligationRefs.every(r => active.some(v => v.binding.obligationRef === r)) &&
             (phase === "preconstruction" ? output.mode === "stage_revision" && output.selectedTargetRefs.length === 0 && selectedStage >= 0 && selectedStage <= subject.envelope.assets.length :
                 output.selectedTargetRefs.every(r => semanticJobRevisionNativeTargets(subject.envelope).some(t => t.relativePath === r))) &&
@@ -514,10 +527,14 @@ export function projectSemanticJobRevision(basis, input, readPhysical = true) {
         if (basis.graphFunction.declarations["abg.semantic_native_revision_entry"] !== entry)
             return null;
         const operationalFailure = subject.operationalFailure;
+        const entryRole = operationalFailure?.role ?? "author";
+        if ((basis.graphFunction.declarations["abg.semantic_native_revision_entry_role"] ?? "author") !== entryRole ||
+            (input.selectionChoice?.mode === "stage_revision" ? input.selectionChoice.entryRole ?? "author" : "author") !== entryRole)
+            return null;
         const operationalFailedStage = operationalFailure === null ? undefined :
             subject.owner.lifecycle.stages.find(stage => stage.declarationRef === operationalFailure.stageRef);
         return isSemanticJobEnvelope(parent) || isSemanticJobRevisionEnvelope(parent)
-            ? deriveSemanticJobRevision(parent, input, selection, null, null, subject.counterevidenceAssets, jobEnvelope(subject.causes[0]?.result.value) ?? undefined, operationalFailedStage) : null;
+            ? deriveSemanticJobRevision(parent, input, selection, null, null, subject.counterevidenceAssets, jobEnvelope(subject.causes[0]?.result.value) ?? undefined, operationalFailedStage, entryRole) : null;
     }
     return isSemanticJobEnvelope(parent) || isSemanticJobRevisionEnvelope(parent)
         ? deriveSemanticJobRevision(parent, input, decision.result.value, subject.currentWorksite, subject.priorWorksite) : null;

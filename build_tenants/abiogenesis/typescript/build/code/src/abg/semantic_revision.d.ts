@@ -40,13 +40,14 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
     acquisition: import("./c_call.js").RehydratedAdmittedCCallState;
     construction: import("./c_call.js").RehydratedAdmittedCCallState | null;
     operationalFailure: {
-        stageRef: string;
-        evidenceRef: JsonValue | undefined;
-        evidenceAdmissionEventRef: string;
-        ownerObservation: {
+        readonly role: "author" | "assessor";
+        readonly stageRef: string;
+        readonly evidenceRef: JsonValue | undefined;
+        readonly evidenceAdmissionEventRef: string;
+        readonly ownerObservation: {
             readonly [key: string]: JsonValue;
         };
-        refusal: Record<string, JsonValue>;
+        readonly refusal: Record<string, JsonValue>;
     } | null;
     priorWorksite: null;
     currentWorksite: null;

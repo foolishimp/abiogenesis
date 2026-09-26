@@ -1,0 +1,84 @@
+{
+  "kind": "wip_checkpoint_transport",
+  "repository": "/Users/jim/src/apps/abiogenesis",
+  "headAtPreparation": "8b167264524bfae2c17a7d2a49491597f3c62ee0",
+  "scope": "Incremental WIP preservation only; accepted source, installed successes/failures and proposals retain their separate proof scopes; no release or qualification claim.",
+  "partLimit": 51380224,
+  "originalsModified": false,
+  "counts": {
+    "archive_backed": 261,
+    "direct_git": 18
+  },
+  "archiveMemberCount": 263,
+  "archiveMemberBytes": 479463921,
+  "transportBytes": 66934399,
+  "assets": [
+    {
+      "id": "raw-3092d51178ad0f2aa7ea356802d8e385884d1879b82ebf4d7d09607bfb28bfc5",
+      "kind": "exact_original_compressed_file",
+      "byteLength": 10173557,
+      "sha256": "3092d51178ad0f2aa7ea356802d8e385884d1879b82ebf4d7d09607bfb28bfc5",
+      "parts": [
+        {
+          "path": "payloads/raw-3092d51178ad0f2aa7ea356802d8e385884d1879b82ebf4d7d09607bfb28bfc5.part0000",
+          "byteLength": 10173557,
+          "sha256": "3092d51178ad0f2aa7ea356802d8e385884d1879b82ebf4d7d09607bfb28bfc5"
+        }
+      ]
+    },
+    {
+      "id": "family-0000",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS",
+      "byteLength": 485955,
+      "sha256": "b57a25484387fa2ff310776ef47f5838f7751662da8e9e0e13cd0ac0c21dd232",
+      "parts": [
+        {
+          "path": "payloads/family-0000.tar.gz.part0000",
+          "byteLength": 485955,
+          "sha256": "b57a25484387fa2ff310776ef47f5838f7751662da8e9e0e13cd0ac0c21dd232"
+        }
+      ]
+    },
+    {
+      "id": "family-0001",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260923_WIP_CHECKPOINT",
+      "byteLength": 768,
+      "sha256": "42cbec88a532a6fa2281569d6aae2e3d9fd95b9cadf1f3947ea8b35de0585118",
+      "parts": [
+        {
+          "path": "payloads/family-0001.tar.gz.part0000",
+          "byteLength": 768,
+          "sha256": "42cbec88a532a6fa2281569d6aae2e3d9fd95b9cadf1f3947ea8b35de0585118"
+        }
+      ]
+    },
+    {
+      "id": "family-0002",
+      "kind": "tar_gzip",
+      "sourceFamily": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME",
+      "byteLength": 56274119,
+      "sha256": "31fc868613cc76e6932b7d359e2c834d300d3ed3d9e9040a9fd77adc5c27f1d3",
+      "parts": [
+        {
+          "path": "payloads/family-0002.tar.gz.part0000",
+          "byteLength": 51380224,
+          "sha256": "948c197a26adc29e2938427b36207928f48b8335f88fe5c0527d501cfd6e0afb"
+        },
+        {
+          "path": "payloads/family-0002.tar.gz.part0001",
+          "byteLength": 4893895,
+          "sha256": "96b763b02d3aa04dc7460e939d2ed7d9b72714156b84b6738929494590629e77"
+        }
+      ]
+    }
+  ],
+  "indexSha256": "8987574c01a96ec9a22f9eff1e4e8dbb66e01039e4750f168340a0e1bfb4d425",
+  "reconciliationSha256": "424f6f5f36258ab87fe0f7345ba8ac2e09723eb567e0b318263c341df46f84b2",
+  "pendingActiveEvidence": [
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native39-continuation-01",
+    ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/context-review-01"
+  ],
+  "credentialShapeFindingCount": 0
+}

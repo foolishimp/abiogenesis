@@ -17,16 +17,16 @@
 - updated_at: 2026-09-26
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: NATIVE_D2_01_CORE38_PRESERVED_STEEL_THREAD
-- current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-38/selected-core.json
-- current_candidate_archive_sha256: 84f8b93aaa922e06db5569eeb8ed0f1064e1256f4007f81552c640de46d90813
+- current_activation: NATIVE_D2_01_CORE39_ASSESSMENT_FIRST_STEEL_THREAD
+- current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-39/selected-core.json
+- current_candidate_archive_sha256: 3092d51178ad0f2aa7ea356802d8e385884d1879b82ebf4d7d09607bfb28bfc5
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/return.md
 - current_accepted_archive_sha256: 64093fb74a474c7e246333975c556c4cb34797326dbc81d1c5929455a69498bb
-- current_worker_return: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/semantic-result-materialization-repair-01/return.md
-- current_candidate_scope: core38_shared_materializer_source_review_package_accepted_native_pending
-- current_live_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01
-- current_live_execution_status: ACTIVE_native38_exact_prepared_sequence_selected
-- current_activation_status: native38_setup_witness_intake12_admitted_suffix8_selected
+- current_worker_return: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/implementation-01/return.md
+- current_candidate_scope: core39_assessment_first_HOW_source_component_review_package_accepted_native_pending
+- current_live_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native39-continuation-01
+- current_live_execution_status: ACTIVE_native39_exact_prepared_assessment_first_sequence_selected
+- current_activation_status: source_review_package_caller_conjoined_native39_released
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#admission-boundary-execution-checklist'
@@ -48,7 +48,7 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: complete_preserved_native38_steel_thread_then_current_candidate_qualification
+- next_bounded_task: complete_preserved_native39_assessment_first_steel_thread_then_current_qualification
 - next_bounded_task_status: active_return_at_real_terminal_or_first_refusal
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
@@ -642,8 +642,9 @@ Current RC1 opportunities remain under Executive-owned T-287 disposition for one
 | Opportunity | Evidence / status | Next bounded scope |
 |---|---|---|
 | D2-ACQUISITION-PROVENANCE-01 | Core36 exposed an enclosing child Result versus its acquisition leaf. | Bounded repair closed: existing provenance owner reused in0328f698…/reviewee45eca0…; core37 installed intake779b7f6f… returns actual request62aea2ac…, fresh Result/replay agree and choose declared Design suffix. Direct/nested/wrong-coordinate component checks retained. Full D2 remains separate and open. |
-| NATIVE-D2-RESULT-ENVELOPE-01 | Core37 Design provider succeeds but envelope admission refuses80343. Retained-input diagnosis proves raw-versus-expanded mismatch in the existing matcher; whole historical envelope/preceding clauses remain unproved. | Existing materializer reused in6a3e6307…/subject84b12bc5…, independently reviewede6d7e9bd…; compile and2 completion→matcher checks pass. Exact core38 package49305fee… and native38 selected as installed discriminator. No raw-output promotion, schema change or exclusive-cause claim. |
-| RUN-SCOPE-REFUSAL-01 | Successor02 owned diagnostica8b867d7…: refusal completion re-entered an admitted sparse Run subset as a global gap-free prefix and masked the original refusal. | Source/component repaira16d007b… and review991c12a1… accepted. Core36 installed event72914 now retains original refusal Evidence72915→Result72917→blocked J72919, with no runtime exception; fresh Result/replay agree at329857339B/70d2a920…. Bounded masking repair closed; separate composed-acquisition refusal remains open. |
+| NATIVE-D2-RESULT-ENVELOPE-01 | Core37 exposed raw-versus-expanded mismatch; whole historical envelope remains unproved. | Bounded correction closed at core38 installed author Resulta281897b…/advance J443fb850… (return1ac59f89…). Existing materializer/source review/component proof conserved. Design remains unassessed; separate assessor preparation and full D2 remain open. |
+| NATIVE-D2-ASSESSOR-PREPARATION-01 | Core38 admits authored Design, then assessor assembly exceeds declared1048576B before dispatch. Existing intake recognizes author preparation only and requires satisfied parent assets; the new Design has assessment:null. | Open, next bounded design slice: exact retained-input size diagnosis and lossless existing projection; preserve authored asset through declared assessment-first suffix under S03/S06. No cap increase, repeat author or invented assessment. Root disposition owns scope; return1ac59f89…/Public diagnostic retained. |
+| RUN-SCOPE-REFUSAL-01 | Successor02 owned diagnostica8b867d7…: refusal completion re-entered an admitted sparse Run subset as a global gap-free prefix and masked the original refusal. | Source/component repaira16d007b… and review991c12a1… accepted. Core36 installed event72914 now retains original refusal Evidence72915→Result72917→blocked J72919, with no runtime exception; fresh Result/replay agree at329857339B/70d2a920…. Bounded masking repair closed; separate full D2 completion remains open. |
 | CALLER-PUBLIC-DIAGNOSTIC-01 | The successor02 helper omitted a retained Public data:application/json;charset=utf-8 body; local standards-compliant decoding recovered the existing exception without another runtime read. Runtime evidence itself was retained. | Caller-only diagnostic debt; use the existing complete media-type decoder when that caller is next changed. No new native diagnostic owner or release gate. |
 | NW-F11-SCOPE-COST-01 | Earlier scoped representation and selected-subject context remain accepted. Producer contexts, per-rule domains and the [acquisition successor](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/return.md) have independent source/component acceptance and are included in accepted compiled-01. | Forty-two aggregate compiled checks include affected F11 checks; this is bounded component evidence. Actual independent J, complete applicable coverage and sole AF22 remain open; no native qualification is inferred. |
 | S02-RECURSION-RESTORATION-01 | The original dd767 recursion failure stays historical. Accepted restoration is included in e4e61fbe; [S02 continuation-04](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-04/return.md) now passes actual recursive child/foldback and related selected outcomes. | Continuation17's seven outcomes and continuation15 nested-compose stay accepted at their recorded candidates. Mixed18 is CLOSED_MIXED_NATIVE_HOLD_AND_FRESH_READBACK_SATISFIED (held-readback-disposition 0aee6149…): native hold, fresh held status/replay, not_ready Result and pending interaction agree. The old result-only caller assertion remains caller evidence; no rerun is needed to erase it. This is not a core34 scenario qualification pass. Current-subject S02 and semantic-negative applicability remain in the existing qualification path. Root consumes readiness return a2099be5…. |

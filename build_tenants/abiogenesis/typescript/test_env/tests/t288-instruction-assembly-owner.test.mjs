@@ -718,3 +718,68 @@ test('semantic result matcher follows the exact native compact Design materializ
   exercise(initial,input.current.declaration.stages[0],'author',first.candidate);
   t.diagnostic(JSON.stringify({scope:'actual retained input/response plus disclosed component authentication/actor rows; not live admission',inputDigest:hash(input),rawDigest:hash(raw),expandedDigest:hash(expanded),rejectedEnvelopeReconstructed:false}));
 });
+
+const retainedNative38 = process.env.ABI5_NATIVE38_DIRECTORY;
+const assessmentSuccessorPath = process.env.ABI5_ASSESSMENT_SUCCESSOR_OUTPUT;
+test('assessment-first actual successor preserves typed retained terms and full pending candidate under the unchanged bound', {skip: !retainedNative38 || !assessmentSuccessorPath}, async t=>{
+  const {canonicalJson}=await load('shared/canonical_json'),{sha256Bytes}=await load('shared/digests');
+  const read=path=>JSON.parse(fs.readFileSync(path,'utf8'));
+  const input=read(assessmentSuccessorPath),retained=read(join(retainedNative38,'first-cause-suffix/87788-c_call_result_admitted.jsonl')).payload;
+  assert.equal(hash(retained.value),retained.valueDigest);assert.deepEqual(input.current.assets,retained.value.current.assets);assert.deepEqual(input.current.job,retained.value.current.job);
+  const stage=input.current.declaration.stages[input.current.assets.length-1],pending=input.current.assets.at(-1);
+  assert.equal(pending.assetRef,'semantic-job-asset://abiogenesis/75ddeb06787466432665bddc2f5b51e6d6c29cdeede6b894a1a60fadbdaad5df');assert.equal(pending.assessment,null);
+  const parsePrompt=name=>{const parts=fs.readFileSync(join(retainedNative38,'preparation/invocation/archives',name+'-prompt.txt'),'utf8').split(/^## (\w+)\n/m);return Object.fromEntries(Array.from({length:(parts.length-1)/2},(_,i)=>[parts[i*2+1],JSON.parse(parts[i*2+2])]));};
+  const author=parsePrompt('fp-d63439a0a2870c79'),selector=parsePrompt('fp-5ad0d2741602da0e');
+  const publication=read(join(retainedDesignDirectory,'publication-01/prospective-publication.json'));
+  const oldCall=read(join(retainedNative38,'first-cause-suffix/87794-c_call_opened.jsonl'));
+  const matches=publication.runEnvironments.flatMap(e=>e.roles).filter(r=>r.graphFunctionRef===oldCall.graphFunctionRef&&r.programLocusRef===stage.assessorLocusRef&&r.role==='assessor');
+  assert(matches.length);assert(matches.every(r=>hash(r)===hash(matches[0])));let role=matches[0];const exactRole=role;
+  const allContent=[...author.role.environment.sourceContent,...selector.task.runEnvironment.sourceContent];
+  const sourceContent=role.sourceBindings.filter((b,i,rows)=>rows.findIndex(x=>hash(x)===hash(b))===i).map(b=>{
+    const row=allContent.find(x=>Object.entries(b).every(([k,v])=>x[k]===v));assert(row);assert.equal(sha256Bytes(Buffer.from(row.text)),b.spanDigest);return row;
+  });
+  const call={...oldCall.payload,graphFunctionRef:'graph-function://odd-glc/native-semantic-revision/stage-3-assessment@5',inputContractRef:R.envelopeContractRef,implementationRef:R.assessorImplementationRef};
+  let supplied=input;
+  const owner={role:'assessor',stage,lifecycle:input.current.declaration,events:[],call,inputDigest:hash(input),inputRef:'component:assessment-first-input',execution:{invocationAdmissionRef:'component:assessor-role',programRef:'program://odd-glc/native-semantic-revision/from-design-assessment@5',basisRef:'component:assessor-basis',basisDigest:hash('component:assessor-basis')}};
+  const stdo=()=>({invocationAdmissionRef:owner.execution.invocationAdmissionRef,environmentRef:'component:exact-retained-role',environmentDigest:hash(role),evidenceDigest:hash('component-role-evidence'),role:'assessor',policy:role.policy,contextPolicy:role.contextPolicy,contextPolicyDigest:hash(role.contextPolicy),frameRefs:role.frameRefs,sourceContent,accessContent:author.evidence.environmentAccess});
+  // Exact retained source spans/role policy and the actual composed successor;
+  // execution, role admission, currentness and leaf authority remain explicit
+  // component premises. No installed admission, physical acquisition or actor.
+  const renderer=await component('abg/instruction_assembly',{
+    './execution_basis.js':{constructNativeInstructionAssemblyBasis:b=>b},
+    './semantic_job.js':{authenticateSemanticJobBasis:()=>owner},
+    './semantic_revision.js':{semanticJobRevisionInputMatchesBasis:()=>true,projectJobRevisionSubject:()=>({currentWorksite:null,origins:[]})},
+    './stdo_environment.js':{projectRunEnvironmentRoleEvidence:stdo},
+    '../gtl/c_algebra.js':{cLeafTerms:()=>[{programLocusRef:call.programLocusRef}]},
+    '../gtl/stdo_run_environment.js':{nativeContextLeafFamily:()=> 'assessor'},
+  });
+  const basis={publication,graphFunction:{template:{nodes:[{term:{}}]}},cCall:call,predecessorPrefix:{component:true}};
+  const assemble=()=>renderer.evaluateNativeInstructionAssembly(basis,supplied);
+  const assembly=assemble();assert.equal(assembly.kind,'native_instruction_assembly',JSON.stringify(assembly));
+  const sections=assembly.envelope.sections,link=sections.task.revisionContext.retainedTerms;
+  assert.deepEqual(link,{presentationRef:'#/obligations/retainedTerms',materialDigest:hash(input.revisionBasis.retainedTerms)});
+  const resolveLink=(row,view)=>{if(row.presentationRef===undefined)return row;const value=row.presentationRef.slice(2).split('/').reduce((v,k)=>v?.[k],view);assert(value,'reference target exists');assert.equal(hash(value),row.materialDigest,'reference identity');return value;};
+  assert.deepEqual(resolveLink(link,sections),input.revisionBasis.retainedTerms);
+  assert.deepEqual(sections.task.historicalAssets,input.revisionBasis.historicalAssets);
+  assert.deepEqual(sections.predecessors.map(row=>resolveLink(row,sections)),input.current.assets);
+  assert.equal(sections.task.currentCandidateRef,pending.assetRef);
+  assert.equal(sections.predecessors.map(row=>resolveLink(row,sections)).at(-1).assessment,null);
+  assert.equal(sections.task.historicalAssets.filter(a=>a.stageRef===input.current.declaration.stages[2].declarationRef).length,2,'both accepted/rejected Requirements versions survive');
+  const variants=sections.task.historicalAssets.filter(a=>a.stageRef===input.current.declaration.stages[2].declarationRef);assert.deepEqual(variants.map(a=>a.assessment.disposition),['falsified','satisfied']);
+  assert.equal(assembly.manifest.contextDispositions.revisionRetainedTerms,'complete_ordered_terms_shared_with_obligations_by_exact_value');
+  assert.throws(()=>resolveLink({...link,materialDigest:hash('wrong')},sections));assert.throws(()=>resolveLink({...link,presentationRef:'#/obligations/missing'},sections));
+  const restored=structuredClone(sections);restored.task.revisionContext.retainedTerms=resolveLink(link,sections);
+  assert.deepEqual(restored.task.revisionContext.retainedTerms,input.revisionBasis.retainedTerms);
+  // Ordinary opaque job data remains byte-identical; carrier-shaped domain
+  // negatives remain covered by the existing opaque-values test.
+  assert.deepEqual(sections.task.taskData,input.current.job.taskData);
+  role={...exactRole,contextPolicy:{...exactRole.contextPolicy,selectors:exactRole.contextPolicy.selectors.filter(s=>s!=='current_candidate')}};assert.equal(assemble().cause,'unavailable_required_content');role=exactRole;
+  supplied={...input,current:{...input.current,context:null}};assert.equal(assemble().cause,'unavailable_required_content');supplied=input;
+  role={...exactRole,policy:{...exactRole.policy,text:exactRole.policy.text+'x'.repeat(stage.assembly.maxPromptBytes)}};assert.equal(assemble().cause,'declared_bound_overflow');role=exactRole;
+  const size=Buffer.byteLength(assembly.request.prompt);assert.equal(size,assembly.manifest.promptByteCount);assert(size<=stage.assembly.maxPromptBytes);
+  const report={scope:'actual composed assessment-first successor; disclosed component authentication/role/currentness premises',retainedInputDigest:hash(retained.value),successorDigest:hash(input),promptBytes:size,maxPromptBytes:stage.assembly.maxPromptBytes,headroomBytes:stage.assembly.maxPromptBytes-size,
+    historicalAssets:input.revisionBasis.historicalAssets.length,retainedTerms:input.revisionBasis.retainedTerms.length,retainedTermsBytes:Buffer.byteLength(canonicalJson(input.revisionBasis.retainedTerms)),pendingAssetRef:pending.assetRef,
+    sections:Object.fromEntries(Object.entries(sections).map(([key,value])=>[key,Buffer.byteLength(canonicalJson(value))]))};
+  if(process.env.ABI5_ASSESSMENT_MEASUREMENT_OUTPUT)fs.writeFileSync(process.env.ABI5_ASSESSMENT_MEASUREMENT_OUTPUT,JSON.stringify(report,null,2)+'\n');
+  t.diagnostic(JSON.stringify(report));
+});

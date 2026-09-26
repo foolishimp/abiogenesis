@@ -42,12 +42,13 @@ export function constructSemanticRevisionGraphFunction(input) {
         return nativeConstructionGraph(input);
     const stage = input.stage, nodeRef = `${input.graphFunctionRef}/node`, role = stage === undefined ? input.role : "assessor";
     const inputRef = inputs(role), outputRef = input.rootOutput === true ? ids.outputContractRef : outputs(role);
-    const computation = stage === undefined ? leaf(nodeRef, input.role) : C.compose(leaf(stage.authorLocusRef, "author"), leaf(stage.assessorLocusRef, "assessor"));
+    const computation = stage === undefined ? leaf(nodeRef, input.role) : input.stageEntryRole === "assessor" ? leaf(stage.assessorLocusRef, "assessor") : C.compose(leaf(stage.authorLocusRef, "author"), leaf(stage.assessorLocusRef, "assessor"));
     return deepFreeze({ kind: "graph_function", name: input.graphFunctionRef, version: "5.0.0", effects: [], tags: ["semantic-revision"],
         environment: { requires: [inputRef], provides: [outputRef], carries: stage === undefined ? [] : [old.workerContractRef] }, inputs: [inputRef], outputs: [outputRef],
         declarations: { "abg.compute_regime": stage === undefined ? "F_D" : "F_P", "abg.closure_contract": input.closureContractRef,
             ...(role === "nativeIntake" ? {} : { "abg.semantic_revision_history": ids.historicalOwnerDependencyRef }),
             ...(input.nativeEntry === undefined ? {} : { "abg.semantic_native_revision_entry": input.nativeEntry }),
+            ...(input.nativeEntryRole === undefined ? {} : { "abg.semantic_native_revision_entry_role": input.nativeEntryRole }),
             ...(input.childClosureContractRef === undefined ? {} : { "abg.child_closure_contract": input.childClosureContractRef }), "abg.failure_contract": old.failureContractRef,
             "abg.evidence_contract": old.evidenceContractRef, "abg.judgment_contract": old.judgmentContractRef,
             "abg.judgment_predicate": ids[`${role}PredicateRef`], "abg.transition_contract": old.transitionContractRef,

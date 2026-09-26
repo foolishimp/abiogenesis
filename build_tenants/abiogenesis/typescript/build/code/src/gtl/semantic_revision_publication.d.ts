@@ -8,6 +8,8 @@ export declare function constructSemanticRevisionGraphFunction(input: {
     readonly childClosureContractRef?: string;
     readonly role: "projection" | "bridge" | "evidenceInput" | "terminal" | "nativeIntake" | "nativeRequest" | "nativeConstruction" | "nativeExecution" | "nativeEvidence";
     readonly nativeEntry?: string;
+    readonly nativeEntryRole?: "author" | "assessor";
+    readonly stageEntryRole?: "author" | "assessor";
     readonly stage?: SemanticStageDeclaration;
     readonly rootOutput?: boolean;
 }): Readonly<GraphFunction>;

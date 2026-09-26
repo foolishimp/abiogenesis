@@ -49,21 +49,32 @@ consumers use that one admitted acquisition and exact referenced leaves within
 its basis, without repeating failure discovery.
 
 A separately admitted preconstruction operational arm may use a lifecycle
-author's genuine undispatched preparation failure. Existing CCall outcome
-authentication must retain the sole undispatched evidence, blocked J, exact
-input and declared author locus; the retained diagnostic must be the existing
-typed native instruction-assembly refusal for that stage, not arbitrary thrown
-text, dispatched actor failure or semantic falsification. Its input must equal
-the unique earlier advancing assessed predecessor in the same source Run and
-original job/root. The failed declared stage is the only operational selection
-alternative; all already-assessed assets and their active obligations survive.
-The ordinary native intake, independent selector, authenticated request and
-whole published from-stage suffix remain the only progression route. Original
-failure and operational reason stay explicit; no unsatisfied assessment is
-invented. Missing/ambiguous evidence, crossed input/locus/root, changed physical
-context or missing binding cover refuses through the existing owner channel.
-This applies Product S03/S06 and CONTINUATION-001/004/008/014 to the existing
-source-pressure relation; it changes no Public/schema or Product operation.
+author or assessor's genuine undispatched preparation failure. Existing CCall
+outcome authentication retains the sole undispatched evidence, blocked J,
+exact input, implementation, role/locus, frame and order; the diagnostic is the
+existing typed native instruction-assembly refusal for that stage and role,
+not arbitrary thrown text, dispatched actor failure or semantic falsification.
+An author's input equals the unique earlier advancing assessed predecessor.
+An assessor's input equals the unique earlier advancing authored Result of
+that declared stage: its final asset retains exact candidate bytes, original
+author provenance and assessment:null, with all prior assets satisfied. Both
+retain the same source Run and original job/root/lifecycle. The operational
+alternative is only that failed stage and role; all obligations survive and no
+unsatisfied assessment is invented. Missing/ambiguous producer, crossed input,
+wrong locus/order/root, stale context or absent binding cover refuses.
+
+F_D derives the entry role from those authenticated facts, never actor prose.
+The existing terminal-readable request's stage selectionChoice may include
+entryRole: author or assessor; historical absence means author-first only.
+Admission regenerates this role and the declared suffix projection checks it.
+The raw selector gains no role choice. Assessment-first derivation preserves
+the exact pending authored asset separately from unaffected accepted
+preservedAssetRefs; it does not call that candidate accepted. Its whole
+published suffix starts with the existing assessor, then follows ordinary
+later stages/construction/C2/Evidence under HoG. A non-satisfied assessment
+stops before effects; no caller stage loop, repeated author, local resume
+controller or output salvage is introduced. This applies Product S03/S06 and
+CONTINUATION-001/004/008/014 without a new Product or Public operation.
 
 The existing F_P selection receives authenticated alternatives, complete
 source, current context, obligations and counterevidence through a deterministic
@@ -90,7 +101,8 @@ arm selects only an existing stage at or before the refused stage, with no
 target references; the operational arm selects only its actual failed stage; postconstruction also admits construction repair and exact
 historical Design paths. F_D request construction binds the admitted selection
 and intake Results into the existing terminal-readable SemanticRevisionRequest.
-Its `selectionChoice` contains the admitted `mode` and `selectedStageRef`, so
+Its `selectionChoice` contains the admitted `mode`, `selectedStageRef` and
+owner-derived operational entry role when present, so
 the caller can select the exact declared suffix from the serialized terminal
 value and public Program data alone, even when several stages were eligible.
 Request admission regenerates that projection; suffix derivation compares it
@@ -106,7 +118,9 @@ mode/stage. HoG traverses the suffix; no caller stage loop is introduced.
 Stage author/assessor presentation also conserves each typed byte body once:
 observed file identities retain original encoding/digest/length and a verified
 text view, without also displaying base64. Opaque application JSON is untouched.
-Revision task metadata references the one task historical-assets array; full
+Revision task metadata references the one task historical-assets array and,
+only in the job view containing obligations.retainedTerms, its identical complete
+retained-terms array through the existing local reference/digest form; full
 admitted envelopes remain unchanged. Distinct accepted and rejected semantics,
 full source, required inventory and role policy remain present. The original
 assembly byte bound and required-content refusals still apply.

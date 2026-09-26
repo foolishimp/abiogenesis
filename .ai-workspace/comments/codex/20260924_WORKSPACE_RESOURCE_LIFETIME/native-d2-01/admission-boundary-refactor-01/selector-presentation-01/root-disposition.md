@@ -1243,3 +1243,123 @@ commit/push with remote equality. Exclude active native38 and original runtime,
 readback-basis and dependency resources. No build/test/native repeat or release
 claim. The native Worker retains sole runtime ownership. Resume Executive after
 push; core38 installed correction and whole D2 remain pending.
+
+
+## Native38 assessor preparation and preserved authored-result re-entry
+
+Root accepts native38 return1ac59f89…/subject828a0758… at its recorded scope:
+core38 admits authored Design Resulta281897b… and advance J443fb850…. The shared
+materializer correction passes this installed boundary. Design asset75ddeb06… is
+unassessed, not independently accepted. Assessor preparation then refuses the
+unchanged1048576-byte assembly bound before dispatch; genuine failed Run31c1969a…
+closes at399209962B/d9d7086a…. Exact failed draft bytes are unknown. No raw actor
+output is promoted, prior Run changed or whole D2 completion claimed.
+
+Existing HOW51–66 selects author-only operational preparation re-entry, while
+current intake requires an assessed predecessor or an actual failed assessment.
+The observed assessor preparation phase lacks both. Root selects bounded
+design_reframe at T287_D2_REQUIREMENT_LIFECYCLE_DESIGN and existing GLC composition
+owners under unchanged Product S03/S06: prepare and independently assess the exact
+already-admitted authored asset, retaining original source/job/oracle, assessed
+Requirements, obligations, basis/currentness and history. No repeat author, invented
+assessment, caller-controlled stage loop, new executor/registry or cap increase.
+
+The existing astra/xhigh Worker is selected for one coherent design-and-diagnosis
+return under F/assessor-preparation-repair-01. Reproduce the assessor assembly
+from retained admitted input through its existing owner, measure actual member/
+duplicate contributions, and propose the smallest lossless projection correction.
+Map the existing failure/parent/entry relation for author and assessor preparation
+and propose declared assessment-first whole-suffix traversal preserving this exact
+authored asset. Reuse current owners and finite focused positive/negative cases;
+identify exact HOW/code territory and any unresolved constraint. Canonical source/
+HOW mutation, tests/build/package/provider/runtime effects are not yet selected.
+Return the bounded proposal for one applicable independent max review; Root can
+then admit implementation without another owner permission roundtrip. This is the
+next delivery slice, not a generic continuation or context-system redesign.
+
+Root also consumes inventory preparation review011c4105…/refs4580f759…: recorded
+core38 build/source/output membership matches; nine applicable governance/caller
+controls, genuine construction attribution and scoped independent F11 judgments
+remain to bind. Reuse that review at qualification. It neither qualifies core38
+nor gates this correction. Root writes paired current status and this disposition
+only, then resumes Executive. T288/T289 remain closed; Data Mapper remains held.
+
+
+## Assessment-first HOW acceptance and implementation
+
+Root accepts proposal61bd9c69…/model6e6546b5… after independent max
+review48174e03…/refs15232d76…. This is the operative bounded HOW decision under
+unchanged S03/S06, not source or installed qualification. Existing operational
+preparation intake gains the authenticated assessor phase and exact authored
+parent; owner-derived optional entryRole makes ordinary public suffix selection
+unambiguous. Historical omission selects author-first only. Raw selector output
+acquires no role authority. Exact authored asset/assessment:null, original source/
+job/oracle, prior accepted stages and genuine current binding/cover remain.
+
+Select existing astra/xhigh Worker implementation in the proposal's four ABI
+owners, existing GLC declaration/lookup, the two owning HOW documents, focused
+existing tests and normal required emissions/contract adapters. Any wider owner
+redesign returns before mutation. Reuse the typed local material-reference
+mechanic for the retainedTerms duplicate only. Actual assessment-first derived
+successor assembly must fit the unchanged1048576B bound without source/asset
+loss; old-input994474B is not that proof. No repeat author, invented assessment,
+new execution family/controller, discarded evidence or larger controls.
+
+Self-check the one end-to-end component relation and its nearest negatives plus
+existing affected author/semantic/postconstruction controls. Compile once after
+coherent implementation; reuse valid proof and rerun only after actual changes
+or failures. Freeze the exact source/HOW/test/emission delta and concise return.
+Normal compiled39 plus necessary GLC dev16 package/Program verification and
+ordinary assessment-first native39 caller preparation are conditionally selected
+after that freeze, parallel to one independent max source review. Preserve exact
+source Run31c1969a…/399209962B/d9d7086a… and its original job/root ancestry; use
+existing Public root-read/witness ownership for any actual changed binding, never
+forensic leaves as caller inputs. Caller/package preparation performs no live
+actor attempt. Root conjoins closed source review, package and caller before any
+new runtime sequence. Native38 and all earlier runs stay immutable. Root updates
+paired status as Writer then resumes Executive.
+
+
+## Core39 acceptance and assessor-first native execution
+
+Root is active after the reported session authentication interruption. Consume
+sourcef27f533c…/subject3fc4382d…, independent source review7cf52735…/refscb723ed6…,
+core39 package13d56a77…/archive3092d511…, dev16 package96e7c537…/archive3ca34c27…
+and caller eb1f9fc5…/subjectb2f3f153…/correspondenced825713e…. Accept the bounded
+HOW/source/component/package conjunction. Actual namespace discovery21 descriptors
+and all12 Programs/four assessment-first entries pass; the stale component loader
+fixture remains a failed fixture, not a green-suite claim. The derived component
+assessor fits994022/1048576B; native future context and assessment remain unproved.
+
+Release exact prepared operationcf9e9074… under existing xhigh Worker ownership:
+nine genuine current core39/dev16 setup calls and resolution, existing Public
+source-root read for native38 Run31c1969a… at399209962B/d9d7086a…, actual changed-
+binding witness, one $12 native intake, fresh Result/replay, and only its actual
+returned owner-derived choice through installed public complete-suffix lookup.
+The next suffix is assessment-first for retained authored Design75ddeb06…; it
+remains assessment:null until independent satisfaction. HoG owns progression.
+Original74ac/3b04 source/job/root/oracle ancestry, accepted Requirements and all
+prior Runs/workspace remain. A source mismatch or different refusal is returned,
+not worked around with an old root, selector result or repeat author.
+
+All limits stay CLI2.1.280/Opus5.5/xhigh, intake$12, suffix$8 per occurrence,
+idle300s/absolute900s/grace1s, native90min/read10min/default heap, one intake and
+suffix ceiling12, explicit live enable. No automatic retry, control change,
+application editing or raw-output promotion. Use ordinary fresh terminal Public
+Result/replay/evidence; an opaque first cause may use one exact new-suffix seek
+with the existing physical/currentness checks, separately labelled forensic.
+Return actual actor/admission boundaries and terminal/cause. This grants runtime
+execution, not D2 acceptance, qualification or publication. Root records paired
+current status as Writer and resumes Executive.
+
+
+## Checkpoint33 during native39
+
+Root activates Writer for the accepted assessment-first source/HOW/test/emission
+delta and normal metadata, paired current tracking, closed native38, measured
+proposal/source/reviews, core39/dev16 packages, inventory preparation review and
+prior checkpoint32 post-push receipts. Use the existing lossless transport and
+exact-path commit/push with remote equality. Exclude active native39 and original
+physical runtime/readback/dependency resources. No source/build/test/native repeat,
+new qualification claim or release cut. The existing Worker retains sole native39
+ownership. Resume Executive after the checkpoint.
