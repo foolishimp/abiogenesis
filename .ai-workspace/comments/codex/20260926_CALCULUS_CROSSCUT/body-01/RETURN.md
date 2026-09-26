@@ -1,0 +1,23 @@
+Product Frame: fixed fifteen-family ABG5, GOAL035/T287/LIFE01. GTL declares, HoG traverses, owners effect, ABG admits and replay projects. Rank 7 is the selected `realization_refactor` under immutable STDO2.5.1RC1 Interface Integration plus Computational Whole-Path, Owner, Conservation and Reuse; Product Live State/Valid Reuse and PAYLOAD-004 govern. The trusted-desktop tenant policy and GLC RC4 selection remain unchanged.
+
+**Writer CLOSED — CALCULUS-BODY-01 implemented and self-checked; independent review pending.** No Product, physical encoding, persisted carrier, cache owner or runtime authority was added.
+
+The first cause was the existing cold decoder restoring an already validated immutable body, followed by `event_store.ts` serializing and parsing that complete candidate again. The correction is confined to `build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts:2199–2242,3179–3184`: its private projector defaults to caller detachment; only `decodeHistoricalEvents`, after store-owned `JSON.parse` and existing codec resolution, selects the already-detached path. `deepFreeze` freezes each new envelope and preserves the earlier deeply frozen body identity. Raw caller admission still performs complete detachment.
+
+Envelope shape/contract checks, native profile stamps, cause membership/uniqueness/scope, admission ordinals, payload digest, event identity and complete reconstructed logical-event comparison remain common and unchanged. `event_body_encoding.ts` and its earlier-inline-source/digest/slot checks are byte-identical to the predecessor. No cross-acquisition body cache or implicit interning was introduced.
+
+The deleted operation is the redundant complete-candidate serialization/parse copy on cold reconstruction. Production source has a net **+5 lines**, for the private source discriminator, call argument and explanation; this is not a source-line contraction claim. `preimages.json` and `core40-to-candidate.diff` bind the exact preceding canonical core40 source/test bytes and the bounded change. Other repairs and all frozen predecessors were preserved.
+
+**Checks:** Root performed the single shared tsc emission and manifest generation, both exit 0. This worker ran syntax/whitespace checks and `node --test test_env/tests/t287-event-body-encoding.test.mjs`: **7/7 pass, zero failures/skips, 833.6 ms**. `body-tests.log` is the complete focused output.
+
+The real event-store fixture proves:
+
+- Strict object identity reuse for basis→basis, Result→Result and Result→basis references within one cold acquisition, including cold reopen and a fresh Node process. New event/payload envelopes remain distinct and the complete nested values are deeply frozen.
+- Cold reference and inline logs retain equal logical events and replay. Separate cold acquisitions reconstruct distinct source identities; independently inline equal values are not interned; the reused body is neither the original caller object nor the live store's object.
+- Mutating independently supplied caller input, including nested data and the candidate's cause array, does not mutate admitted events or persisted history.
+- Deleting the referenced source in a fixture copy, missing/forward/crossed/foreign references, wrong source payload/body digest or slot, reference-to-reference, mixed inline/reference records and unknown codec vocabulary all refuse. Altered event identity, ordinal, profile stamp, payload digest, missing/duplicate causes or envelope correlation also refuse.
+- Existing physical-cut/F_H predecessor-digest correspondence, historical-inline append, literal marker data, small inline values and durable-batch rollback/reopen checks remain green.
+
+The fixture contains nine logical events, three physical body references and two earlier inline body sources. Its 93,629 encoded bytes versus 220,249 expanded bytes describe the existing codec on this fixture, not a new storage saving from rank 7. The proof supplies lower callable/evidence semantics and is scoped to the codec/event-store/cold-reopen composition; it is not installed Program, F_H actor or native delivery qualification. No whole-history profiling, performance gain, CPU/RSS estimate or large-history claim is made.
+
+`freeze.json` binds the changed source/test and emitted store files, unchanged codec dependency, preimages/diff and this evidence. The shared manifest remains Root-owned and is excluded from this bounded freeze. No installed/native/provider run, whole-path composition rerun, native-history read or mutation, commit, publication or repeat author occurred. Native40/Design-assessor disposition remains with Executive. No Writer process remains running.

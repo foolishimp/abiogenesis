@@ -1,0 +1,33 @@
+{
+  "archive": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/checkpoint-01/closed-repair-evidence.tar.gz",
+  "sha256": "945990b588ec443bb7bae53f163a8ebdc1007ed49406fdd91017ae7a36d9d5cd",
+  "bytes": 151470062,
+  "members": 250,
+  "sourceBytes": 995919145,
+  "completeClosedSelection": true,
+  "activeNative41Excluded": true,
+  "priorUntrackedEvidenceOutsideSelectionPreserved": true,
+  "parts": [
+    {
+      "path": "closed-repair-evidence.tar.gz.part01",
+      "bytes": 41943040,
+      "sha256": "546830ca2a012d774f63fa0f2b30fe398ffe298b035995c7f81912a02bb9f459"
+    },
+    {
+      "path": "closed-repair-evidence.tar.gz.part02",
+      "bytes": 41943040,
+      "sha256": "84d8070ffd9f7c5d38fdc5c930a4e99739ee4c10541f60e3eb0993897d3be321"
+    },
+    {
+      "path": "closed-repair-evidence.tar.gz.part03",
+      "bytes": 41943040,
+      "sha256": "3545cb7c5bcdb840d73790f51a44394ab63d16520b271fb362fc073a58a9f030"
+    },
+    {
+      "path": "closed-repair-evidence.tar.gz.part04",
+      "bytes": 25640942,
+      "sha256": "da0d02cf7a3852946f7a099631eeaff35101e08831ef7ead151fc0f5a57d2e6d"
+    }
+  ],
+  "publishedForm": "Concatenate numbered parts in order; combined SHA256 equals archive sha256. Unsplit local archive is preserved but not committed."
+}

@@ -691,6 +691,7 @@ export function evaluateExecutableCCall(
           inputRef: retained?.input.admissionRef ?? admitted.admitted.result.resultRef,
           inputDigest: retained?.input.subjectDigest ?? admitted.admitted.result.valueDigest,
         },
+        Abg.projectRuntimePrefixesAtDurablePrefix(admitted.successorPrefix, input.stop.cursor.runId).authorityPrefix,
       );
       if (derived?.kind === "traversal_refusal") {
         return failCCall(

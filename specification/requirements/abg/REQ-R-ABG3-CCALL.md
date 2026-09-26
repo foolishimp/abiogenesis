@@ -1,6 +1,7 @@
 # REQ-R-ABG3-CCALL — The Uniform C-Call Envelope
 
 **Status**: Active - accepted by T-283 F_H closure
+**Product behavior**: [Execution And Context Calculus](../../PRODUCT.md#execution-and-context-calculus); T-287 owner-directed Product/requirement re-entry.
 **Realizes**: T-200 (design §2 as amended §8)
 **Derives from**: REQ-R-ABG3-* dispatch census (T-190), REQ-L-GTL3-TEMPORAL-PROPERTIES (T-192), REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH (T-188), T-195 C3/C4 adjudications, T-030 emergence boundary law.
 
@@ -128,6 +129,16 @@ structure around it.
   facts. ABG records the selected locus, regime, implementation, judgment, and
   continuation as runtime truth. A private runtime ladder, adapter selector,
   hidden fallback, or generated program is prohibited.
+
+- **-018 Current-input conservation.** Each call shall consume the current
+  input selected by its actual traversal position. Sequential composition
+  preserves the admitted producer-to-consumer transfer, including any declared
+  transformation, under the existing execution basis. Admission and recovery
+  shall not substitute that basis's graph-entry input for a progressed value
+  or establish provenance by payload equality alone. Nested entry and foldback
+  retain their separately declared causal relations. Proof fixtures shall
+  exercise those actual relationships, including a successor value different
+  from entry, rather than invent a new basis to make the comparison pass.
 
 ## Non-closure
 

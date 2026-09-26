@@ -11,9 +11,7 @@ import {
 } from "../gtl/c_algebra.js";
 import {
   deriveCEnclosingRetryTopology,
-  deriveCContinuationTarget,
   deriveCSourceContinuation,
-  resolveEnclosingCBatchRef,
   resolveEnclosingCRetryContexts,
   resolveCProgramTermAtSourcePath,
   type CEnclosingRetryContext,
@@ -100,6 +98,7 @@ import {
 } from "./replay.js";
 import {
   constructTraversalCursorCandidate,
+  deriveAdmittedCContinuationTarget,
   hasAdmittedTraversalCursorAtPrefix,
   isInteractionResumeCursorSuccessorAtPrefix,
   isTraversalCursorCandidate,
@@ -2714,15 +2713,7 @@ function deriveHistoricalContinuationCursor(
     cursorDigest: Sha256Digest;
   }>,
 ): TraversalCursorCandidate | null {
-  const continuation = deriveCContinuationTarget(graph, {
-    nodeRef: source.currentNodeRef,
-    termPath: source.termPath,
-    taskOrdinal: source.taskOrdinal,
-    attempt: source.attempt,
-    retryPath: source.retryPath,
-    inputRef: source.inputRef,
-    inputDigest: source.inputDigest,
-  }, completedInput);
+  const continuation = deriveAdmittedCContinuationTarget(prefix, graph, source, completedInput);
   if (
     continuation.kind === "c_source_path_refusal" ||
     continuation.disposition !== "advance" ||
@@ -5850,15 +5841,7 @@ function planCompletedRetryProgressFromHistory(
             inputRef: retained?.input.admissionRef ?? completion.result.resultRef,
             inputDigest: retained?.input.subjectDigest ?? completion.result.valueDigest,
           };
-  const continuation = deriveCContinuationTarget(graph, {
-    nodeRef: sourceCursor.currentNodeRef,
-    termPath: sourceCursor.termPath,
-    taskOrdinal: sourceCursor.taskOrdinal,
-    attempt: sourceCursor.attempt,
-    retryPath: sourceCursor.retryPath,
-    inputRef: sourceCursor.inputRef,
-    inputDigest: sourceCursor.inputDigest,
-  }, completedInput);
+  const continuation = deriveAdmittedCContinuationTarget(prefix, graph, sourceCursor, completedInput);
   const sourceTopology = deriveCEnclosingRetryTopology(graph, {
     nodeRef: sourceCursor.currentNodeRef,
     termPath: sourceCursor.termPath,

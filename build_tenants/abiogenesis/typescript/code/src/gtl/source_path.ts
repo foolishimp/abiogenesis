@@ -471,12 +471,26 @@ function enclosingCBatchContext(
   return null;
 }
 
+/** The batch being advanced may enclose a completed inner batch. Its next
+ * task path, rather than the nearest batch around the last leaf, identifies it. */
+export function continuationCBatchContext(
+  template: Readonly<GraphTemplate>, nodeRef: string, sourcePath: CSourcePath,
+): ReturnType<typeof enclosingCBatchContext> {
+  const next = deriveCSourceContinuation(template, nodeRef, sourcePath);
+  if (next.kind === "c_source_path_refusal") return next;
+  if (next.relation !== "batch_next" || next.targetPath === null) return null;
+  const enclosing = enclosingCBatchContext(template, nodeRef, next.targetPath);
+  return enclosing === null || "kind" in enclosing ? enclosing
+    : { ...enclosing, sourceTaskOrdinal: enclosing.sourceTaskOrdinal - 1 };
+}
+
 export function deriveCBatchTaskInput(
   graph: Readonly<GtlGraph>,
   source: Readonly<CBatchInputSource>,
   relation: "enter_batch" | "advance_member",
   batchRef: string,
   targetTaskOrdinal: number,
+  batchEntryInput?: Readonly<{ inputRef: string; inputDigest: Sha256Digest }>,
 ): CBatchTaskInput | CSourcePathRefusal {
   if (
     batchRef.length === 0 ||
@@ -511,7 +525,7 @@ export function deriveCBatchTaskInput(
     }
     taskCount = sourceTerm.tasks.length;
   } else {
-    const enclosing = enclosingCBatchContext(
+    const enclosing = continuationCBatchContext(
       graph.template,
       source.nodeRef,
       source.termPath,
@@ -538,7 +552,6 @@ export function deriveCBatchTaskInput(
     }
     if (
       enclosing.batchRef !== batchRef ||
-      source.taskOrdinal !== enclosing.sourceTaskOrdinal ||
       declared.relation !== "batch_next" ||
       declared.targetTaskOrdinal !== targetTaskOrdinal ||
       targetTaskOrdinal !== enclosing.sourceTaskOrdinal + 1
@@ -566,14 +579,18 @@ export function deriveCBatchTaskInput(
     (candidate) => candidate.batchRef === batchRef,
   );
   if (bindings.length === 0 && materializations.length === 0) {
+    const directTask = source.termPath.at(-2) === "tasks";
+    if (relation === "advance_member" && batchEntryInput === undefined && !directTask) {
+      return refusal("invalid_source_path", "nested C.batch continuation requires its enclosing batch entry input");
+    }
     return Object.freeze({
       kind: "c_batch_task_input" as const,
       schemaVersion: "5.0.0" as const,
       disposition: "shared_batch_input" as const,
       batchRef,
       taskOrdinal: targetTaskOrdinal,
-      inputRef: source.inputRef,
-      inputDigest: source.inputDigest,
+      inputRef: batchEntryInput?.inputRef ?? source.inputRef,
+      inputDigest: batchEntryInput?.inputDigest ?? source.inputDigest,
     });
   }
   if (
@@ -874,6 +891,7 @@ export function deriveCContinuationTarget(
     inputDigest: Sha256Digest;
   }>,
   completed: Readonly<{ inputRef: string; inputDigest: Sha256Digest }>,
+  batchEntryInput?: Readonly<{ inputRef: string; inputDigest: Sha256Digest }>,
 ): CContinuationTarget | CSourcePathRefusal {
   const declared = deriveCSourceContinuation(
     graph.template,
@@ -912,20 +930,21 @@ export function deriveCContinuationTarget(
   let inputRef = completed.inputRef;
   let inputDigest = completed.inputDigest;
   if (declared.relation === "batch_next") {
-    const batchRef = resolveEnclosingCBatchRef(
+    const context = continuationCBatchContext(
       graph.template,
       source.nodeRef,
       source.termPath,
     );
-    if (typeof batchRef !== "string" || declared.targetTaskOrdinal === null) {
+    if (context === null || "kind" in context || declared.targetTaskOrdinal === null) {
       return refusal("term_path_missing", "C.batch continuation lacks its exact member");
     }
     const batchInput = deriveCBatchTaskInput(
       graph,
       source,
       "advance_member",
-      batchRef,
+      context.batchRef,
       declared.targetTaskOrdinal,
+      batchEntryInput,
     );
     if (batchInput.kind === "c_source_path_refusal") return batchInput;
     inputRef = batchInput.inputRef;
@@ -983,6 +1002,7 @@ export function deriveCStructuralTarget(
   graph: Readonly<GtlGraph>,
   source: CTraversalSource,
   routeKind: "advance" | "retry",
+  batchEntryInput?: Readonly<{ inputRef: string; inputDigest: Sha256Digest }>,
 ): CTraversalTarget | CSourcePathRefusal | null {
   const term = resolveCProgramTermAtSourcePath(
     graph.template,
@@ -1026,7 +1046,7 @@ export function deriveCStructuralTarget(
     }
     case "c_identity": {
       if (routeKind !== "advance") return null;
-      const continuation = deriveCContinuationTarget(graph, source, source);
+      const continuation = deriveCContinuationTarget(graph, source, source, batchEntryInput);
       if (
         continuation.kind === "c_source_path_refusal" ||
         continuation.disposition === "terminal" ||

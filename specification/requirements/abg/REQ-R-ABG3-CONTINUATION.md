@@ -2,8 +2,9 @@
 
 **Status**: Active
 **Category**: Constraint / Guarantee
+**Product behavior**: [Execution And Context Calculus](../../PRODUCT.md#execution-and-context-calculus); T-287 owner-directed Product/requirement re-entry.
 **Date**: 2026-04-05
-**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.1-rc.1/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.1-rc.1/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
@@ -54,3 +55,17 @@ read models shall not directly select continuation action.
 **REQ-R-ABG3-CONTINUATION-013**: A newer `ObservationSnapshot` under the same immutable workspace binding and `ExecutionBasis` may stale prior model, gap, target-binding, priority, or next-action projections and shall rerun the affected `synthesizeModel`, `evalGap`, and `evaluateNext` functions. Observation freshness alone shall not create a basis fork or require a new workspace binding.
 
 **REQ-R-ABG3-CONTINUATION-014**: A changed workspace authority basis, workspace binding, product/install/catalog authority, declared root, or other execution authority on a continued spine shall require a separately admitted binding when applicable and an exact covering declaration reprice naming the crossed basis pair. Without that reprice, continuation shall fail closed as typed `basis_fork_detected` before traversal, materialization, or closure.
+
+**REQ-R-ABG3-CONTINUATION-015**: Recovery shall restore the actual pending
+traversal position and current input through the admitted causal producer,
+conserving completed work, assessment status and unresolved obligations. A
+consumer-preparation failure shall not require a successful producer to rerun
+solely to recreate its output, substitute graph-entry input for progressed
+input, or invent consumer assessment. -003/-004 govern replacement-Run identity;
+-014 governs any changed authority basis.
+
+**REQ-R-ABG3-CONTINUATION-016**: Reuse shall depend on the retained result's
+admission, dependency validity and applicability to the current use. Recovery
+shall reacquire required mutable observations and refresh affected support on
+material invalidation, preserving unaffected completed work and separately
+required independent judgment. Unknown affectedness shall remain explicit.

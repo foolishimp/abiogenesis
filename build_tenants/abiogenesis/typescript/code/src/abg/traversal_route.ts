@@ -16,10 +16,8 @@ import {
   recursionTerminationDecision,
 } from "../gtl/graph_applications.js";
 import {
-  deriveCContinuationTarget,
   deriveCRetryTarget,
   deriveCSourceContinuation,
-  deriveCStructuralTarget,
   resolveCProgramLocus,
   resolveCProgramTermAtSourcePath,
 } from "../gtl/source_path.js";
@@ -115,6 +113,8 @@ import {
 } from "./traversal_transition.js";
 import {
   constructTraversalCursorCandidate,
+  deriveAdmittedCContinuationTarget,
+  deriveAdmittedCStructuralTarget,
   hasAdmittedTraversalCursorAtPrefix,
   isTraversalCursorCandidate,
   traversalCursorAdmissionEventRefAtPrefix,
@@ -2875,12 +2875,13 @@ function hasSameCursorLineage(
 }
 
 function isDeclaredStructuralTarget(
+  prefix: ValidatedRuntimeEventPrefix,
   graph: Readonly<GtlGraph>,
   source: TraversalCursorCandidate,
   target: TraversalCursorCandidate,
   routeKind: TraversalRouteKind,
 ): boolean {
-  const declared = declaredStructuralTargetCursor(graph, source, routeKind);
+  const declared = declaredStructuralTargetCursor(prefix, graph, source, routeKind);
   return declared !== null &&
     isTraversalCursorCandidate(target) &&
     target.cursorRef === declared.cursorRef &&
@@ -2888,24 +2889,13 @@ function isDeclaredStructuralTarget(
 }
 
 function declaredStructuralTargetCursor(
+  prefix: ValidatedRuntimeEventPrefix,
   graph: Readonly<GtlGraph>,
   source: TraversalCursorCandidate,
   routeKind: TraversalRouteKind,
 ): TraversalCursorCandidate | null {
   if (routeKind !== "advance" && routeKind !== "retry") return null;
-  const target = deriveCStructuralTarget(
-    graph,
-    {
-      nodeRef: source.currentNodeRef,
-      termPath: source.termPath,
-      taskOrdinal: source.taskOrdinal,
-      attempt: source.attempt,
-      retryPath: source.retryPath,
-      inputRef: source.inputRef,
-      inputDigest: source.inputDigest,
-    },
-    routeKind,
-  );
+  const target = deriveAdmittedCStructuralTarget(prefix, graph, source, routeKind);
   if (target === null || target.kind === "c_source_path_refusal") return null;
   return constructTraversalCursorCandidate({
     programRef: source.programRef,
@@ -2964,6 +2954,7 @@ export function projectDeclaredStructuralAdvanceAtPrefix(
       event.eventId === sourceAdmissionEventRef
     );
   const targetCursor = declaredStructuralTargetCursor(
+    authorityPrefix,
     graph,
     sourceCursor,
     "advance",
@@ -2990,7 +2981,7 @@ export function projectDeclaredStructuralAdvanceAtPrefix(
     traversalCursorAdmissionEventRefAtPrefix(prefix, targetCursor) !==
       route.admissionEventRef ||
     !hasAdmittedTraversalCursorAtPrefix(prefix, targetCursor) ||
-    !isDeclaredStructuralTarget(graph, sourceCursor, targetCursor, "advance")
+    !isDeclaredStructuralTarget(authorityPrefix, graph, sourceCursor, targetCursor, "advance")
   ) return null;
   return deepFreeze({
     kind: "declared_structural_advance_projection" as const,
@@ -3125,6 +3116,7 @@ function hasStructuralIdentityRouteEvidence(
       evidence.completedProgresses.map((progress) => progress.progressRef),
     ) &&
     isDeclaredStructuralTarget(
+      authorityPrefix,
       graph,
       sourceCursor,
       targetCursor,
@@ -3476,6 +3468,7 @@ function hasInteractionResumeRouteEvidence(
     ]) &&
     candidate.contractRef === evidence.cCall.transitionContractRef &&
     isDeclaredInteractionResumeTarget(
+      prefix,
       graph,
       sourceCursor,
       targetCursor,
@@ -3698,6 +3691,7 @@ function hasFanOutRouteEvidence(
 }
 
 function isDeclaredContinuationTarget(
+  prefix: ValidatedRuntimeEventPrefix,
   graph: Readonly<GtlGraph>,
   source: TraversalCursorCandidate,
   target: TraversalCursorCandidate | null,
@@ -3711,15 +3705,7 @@ function isDeclaredContinuationTarget(
     inputDigest: Sha256Digest;
   }>,
 ): boolean {
-  const continuation = deriveCContinuationTarget(graph, {
-    nodeRef: source.currentNodeRef,
-    termPath: source.termPath,
-    taskOrdinal: source.taskOrdinal,
-    attempt: source.attempt,
-    retryPath: source.retryPath,
-    inputRef: source.inputRef,
-    inputDigest: source.inputDigest,
-  }, completed);
+  const continuation = deriveAdmittedCContinuationTarget(prefix, graph, source, completed);
   if (continuation.kind === "c_source_path_refusal") return false;
   if (continuation.disposition === "terminal") {
     return candidate.routeKind === "terminal" &&
@@ -3847,13 +3833,14 @@ function hasGraphSpanReentryRouteEvidence(
 }
 
 function isDeclaredInteractionResumeTarget(
+  prefix: ValidatedRuntimeEventPrefix,
   graph: Readonly<GtlGraph>,
   source: TraversalCursorCandidate,
   target: TraversalCursorCandidate | null,
   candidate: RouteCandidate,
   resume: FhInteractionResumeAdmission,
 ): boolean {
-  return isDeclaredContinuationTarget(graph, source, target, candidate, {
+  return isDeclaredContinuationTarget(prefix, graph, source, target, candidate, {
     inputRef: resume.successorInputRef,
     inputDigest: resume.successorInputDigest,
   });
@@ -4355,6 +4342,7 @@ function admitRoute(
       candidate.targetCursorDigest !== null ||
       terminalCompleted === null ||
       !isDeclaredContinuationTarget(
+        authorityPrefix,
         graph,
         sourceCursor,
         null,
@@ -4412,6 +4400,7 @@ function admitRoute(
         candidate.consumedAvailabilityRefs.length !== 0 ||
         candidate.contractRef !== null ||
         !isDeclaredStructuralTarget(
+          authorityPrefix,
           graph,
           sourceCursor,
           targetCursor,
@@ -4511,6 +4500,7 @@ function admitRoute(
           authorityPrefix,
         ) ||
         !isDeclaredContinuationTarget(
+          authorityPrefix,
           graph,
           sourceCursor,
           targetCursor,

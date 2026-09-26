@@ -13,10 +13,13 @@ import { replayValidatedRuntimeEventPrefix } from "../../build/code/src/abg/repl
 import { projectExactExecutionBasisAtPrefix } from "../../build/code/src/abg/invocation_execution_truth.js";
 import { canonicalJson } from "../../build/code/src/shared/canonical_json.js";
 import { sha256Canonical, sha256Bytes } from "../../build/code/src/shared/digests.js";
+import { isDeeplyFrozen } from "../../build/code/src/shared/immutable.js";
 
 const time = "2026-09-22T00:00:00.000Z";
-const input = { kind: "body_fixture_input", text: "selected complete input; ".repeat(1500) };
-const output = { kind: "body_fixture_output", text: "original result and evidence; ".repeat(1500) };
+const input = { kind: "body_fixture_input", text: "selected complete input; ".repeat(1500),
+  metadata: { sources: ["source://body-fixture/input"] } };
+const output = { kind: "body_fixture_output", text: "original result and evidence; ".repeat(1500),
+  evidence: { items: [{ ref: "evidence://body-fixture/result" }] } };
 const encode = rows => Buffer.from(rows.map(canonicalJson).join("\n") + "\n");
 const decodeRows = bytes => bytes.toString().trimEnd().split("\n").map(JSON.parse);
 const replay = events => replayValidatedRuntimeEventPrefix(selectValidatedRuntimeEventPrefix(events));
@@ -65,6 +68,17 @@ function seed(store) {
   result(store, "parent-foldback", output);
   storeOwner.admitRuntimeEvent(store, basis(output, "result-consumer"));
 }
+function assertSharedColdBodies(events) {
+  const [root, child, consumer] = events.filter(event => event.kind === "basis_admitted");
+  const [childResult, parentResult] = events.filter(event => event.kind === "c_call_result_admitted");
+  assert.equal(child.payload.rawInputValue, root.payload.rawInputValue, "basis reference reuses its earlier parsed body");
+  assert.equal(parentResult.payload.value, childResult.payload.value, "Result reference reuses its earlier parsed body");
+  assert.equal(consumer.payload.rawInputValue, childResult.payload.value, "cross-slot reference retains the exact admitted Result body");
+  assert.notEqual(child, root, "body sharing does not share event envelopes");
+  assert.notEqual(child.payload, root.payload, "each envelope retains its own payload fields");
+  assert.notEqual(parentResult.payload, childResult.payload);
+  assert.ok(isDeeplyFrozen(events), "new envelopes and reused nested bodies remain deeply immutable");
+}
 async function openInlineCopy(t, dir, events, authority) {
   const eventLogPath = join(dir, "historical-inline.jsonl"), bytes = encode(events);
   await writeFile(eventLogPath, bytes);
@@ -85,9 +99,16 @@ test("native body encoding retains distinct admissions, exact logical replay, co
   assert.equal(rows.filter(row => row.kind === "basis_admitted").length, 1);
   assert.equal(rows.filter(row => row.kind === "c_call_result_admitted").length, 1);
   assert.equal(new Set(events.map(event => event.eventId)).size, events.length);
-  assert.deepEqual(storeOwner.validateHistoricalEvents(bytes), events);
-  assert.deepEqual(storeOwner.validateHistoricalEvents(inline), events);
-  assert.deepEqual(replay(storeOwner.validateHistoricalEvents(bytes)), replay(storeOwner.validateHistoricalEvents(inline)));
+  const cold = storeOwner.validateHistoricalEvents(bytes), coldInline = storeOwner.validateHistoricalEvents(inline);
+  assert.deepEqual(cold, events); assert.deepEqual(coldInline, events);
+  assertSharedColdBodies(cold);
+  assert.notEqual(cold[0].payload.rawInputValue, input, "cold reuse starts from the detached parsed source, not caller input");
+  assert.notEqual(cold[0].payload.rawInputValue, events[0].payload.rawInputValue, "cold reconstruction does not borrow live identities");
+  assert.notEqual(coldInline[0].payload.rawInputValue, coldInline[1].payload.rawInputValue,
+    "independently inline values are not implicitly interned");
+  assert.notEqual(storeOwner.validateHistoricalEvents(bytes)[0].payload.rawInputValue, cold[0].payload.rawInputValue,
+    "separate cold acquisitions reconstruct their own source bodies");
+  assert.deepEqual(replay(cold), replay(coldInline));
   for (const event of events.filter(event => event.kind === "basis_admitted")) {
     const projected = projectExactExecutionBasisAtPrefix(selectValidatedRuntimeEventPrefix(events), event.basisId);
     assert.ok(projected); assert.deepEqual(projected.rawInputValue, event.payload.rawInputValue);
@@ -98,6 +119,7 @@ test("native body encoding retains distinct admissions, exact logical replay, co
   const reopened = storeOwner.reopenEventStore(JSON.parse(JSON.stringify(closed.reopenAuthority)));
   assert.equal(reopened.kind, "reopened_event_store_context");
   t.after(() => reopened.store.closeDurableLog()); assert.deepEqual(reopened.store.readAll(), events);
+  assertSharedColdBodies(reopened.store.readAll());
   const expanded = await openInlineCopy(t, f.dir, events, closed.reopenAuthority);
   assert.notEqual(expanded.prefix.prefixDigest, reopened.prefix.prefixDigest);
   assert.deepEqual(replay(expanded.store.readAll()), replay(reopened.store.readAll()));
@@ -106,17 +128,21 @@ test("native body encoding retains distinct admissions, exact logical replay, co
   assert.deepEqual(expanded.store.readAll(), reopened.store.readAll());
   assert.equal(decodeRows(await readFile(expanded.eventLogPath)).at(-1).kind, "abg_admitted_body_reference_record");
   const fresh = execFileSync(process.execPath, ["--input-type=module", "-e", `
+    import assert from 'node:assert/strict';
     import {readFileSync} from 'node:fs';
     import {validateHistoricalEvents} from './build/code/src/abg/event_store.js';
     import {selectValidatedRuntimeEventPrefix} from './build/code/src/abg/event_prefix.js';
     import {replayValidatedRuntimeEventPrefix} from './build/code/src/abg/replay.js';
     import {sha256Canonical} from './build/code/src/shared/digests.js';
+    import {isDeeplyFrozen} from './build/code/src/shared/immutable.js';
     const values=process.argv.slice(1).map(path=>validateHistoricalEvents(readFileSync(path)));
+    (${assertSharedColdBodies.toString()})(values[0]);
     console.log(JSON.stringify(values.map(events=>({events:sha256Canonical(events),replay:sha256Canonical(replayValidatedRuntimeEventPrefix(selectValidatedRuntimeEventPrefix(events)))}))));
   `, f.eventLogPath, expanded.eventLogPath], { cwd: new URL("../..", import.meta.url), encoding: "utf8" });
   const [a,b] = JSON.parse(fresh); assert.deepEqual(a,b);
   t.diagnostic(JSON.stringify({ physicalBytes: bytes.length, expandedBytes: inline.length,
-    savedBytes: inline.length - bytes.length, logicalEvents: events.length, freshProcessReplayEqual: true }));
+    savedBytes: inline.length - bytes.length, logicalEvents: events.length, freshProcessReplayEqual: true,
+    exactColdBodyReuse: ["basis-to-basis", "result-to-result", "result-to-basis"], deeplyFrozen: true }));
 });
 
 test("physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences", async t => {
@@ -149,6 +175,7 @@ test("nearest malformed body references refuse before logical history is exposed
   const refIndexes = rows.flatMap((row,index) => row.kind === "abg_admitted_body_reference_record" ? [index] : []);
   const first = refIndexes[0], last = refIndexes.at(-1);
   const mutations = {
+    deletedSource: r => { r.splice(0, 1); },
     missing: r => { r[first].bodyReference.sourceEventRef = "event://missing"; },
     forward: r => { r[first].bodyReference.sourceEventRef = r.at(-1).event.eventId; },
     wrongPayload: r => { r[first].bodyReference.sourcePayloadDigest = sha256Canonical("wrong"); },
@@ -171,6 +198,38 @@ test("nearest malformed body references refuse before logical history is exposed
   assert.notEqual(changed[first].bodyReference.sourceEventRef, foreign.eventId);
   assert.throws(() => storeOwner.validateHistoricalEvents(encode(changed)), /body reference/);
   assert.throws(() => storeOwner.admitRuntimeEvent(f.store, rows[first]), /candidate|kind|shape|contract/);
+});
+
+test("reused cold bodies still require each new envelope identity, stamp, cause and logical digest", async t => {
+  const f = await resource(t); seed(f.store);
+  const rows = decodeRows(await readFile(f.eventLogPath));
+  const first = rows.findIndex(row => row.kind === "abg_admitted_body_reference_record");
+  const mutations = {
+    eventId: [event => { event.eventId = "event://changed"; }, /inconsistent history/],
+    ordinal: [event => { event.admissionOrdinal += 1; }, /admission ordinal/],
+    payloadDigest: [event => { event.payloadDigest = sha256Canonical("changed"); }, /inconsistent history/],
+    stamp: [event => { event.eventContractDigest = sha256Canonical("changed"); }, /event stamp/],
+    missingCause: [event => { event.causationEventRefs = ["event://missing"]; }, /causation refs/],
+    duplicateCause: [event => { event.causationEventRefs = [rows[0].eventId, rows[0].eventId]; }, /causation refs/],
+    changedEnvelope: [event => { event.correlationId = "correlation://changed"; }, /inconsistent history/],
+  };
+  for (const [name, [mutate, refusal]] of Object.entries(mutations)) {
+    const changed = structuredClone(rows); mutate(changed[first].event);
+    assert.throws(() => storeOwner.validateHistoricalEvents(encode(changed)), refusal, name);
+  }
+});
+
+test("independently supplied mutable raw input remains detached at event admission", async t => {
+  const f = await resource(t), supplied = structuredClone(input), candidate = basis(supplied, "mutable-ingress");
+  const admitted = storeOwner.admitRuntimeEvent(f.store, candidate);
+  assert.notEqual(admitted.payload.rawInputValue, supplied);
+  assert.notEqual(admitted.payload.rawInputValue.metadata, supplied.metadata);
+  supplied.text = "changed after admission"; supplied.metadata.sources.push("source://unadmitted");
+  candidate.causationEventRefs.push("event://unadmitted");
+  assert.deepEqual(admitted.payload.rawInputValue, input);
+  assert.deepEqual(admitted.causationEventRefs, []);
+  assert.ok(isDeeplyFrozen(admitted));
+  assert.deepEqual(storeOwner.validateHistoricalEvents(await readFile(f.eventLogPath)), f.store.readAll());
 });
 
 test("literal marker-shaped Product data and small duplicate values remain unambiguous", async t => {

@@ -144,6 +144,9 @@ function isDeclaredCompletion(
       inputDigest: sourceCursor.inputDigest,
     },
     completedInput,
+    // HoG already carries the selected target input. ABG authenticates that
+    // reference against the enclosing entry; this proposal owns no history.
+    targetCursor ?? undefined,
   );
   if (declared.kind === "c_source_path_refusal") return false;
   if (declared.disposition === "terminal") return targetCursor === null;

@@ -21,6 +21,21 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 ### Current delivery objective
 
+The owner-selected T-287
+[execution-calculus Product re-entry](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#execution-calculus-product-re-entry)
+is documented and independently reviewed. Product and its existing requirement
+owners govern state, context and recovery. The owner now selects T-287's
+[forced-ranked repairs](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#forced-ranked-calculus-repairs),
+with coherent input transfer, recovery and role/context repairs accepted in
+their recorded scopes. Ranks 7–8 are accepted and packaged. Native40 completed Design assessment
+and closed blocked with supported semantic counterevidence and matching fresh
+Public reads. T-287 selects the existing correction path on the reviewed core41,
+from that actual result; its admitted selector owns the repair stage. T-287 owns
+the bounded grants, proof and disposition. Preserve valid
+work and triage any further delivery failure against the end-to-end calculus
+before selecting its owning repair. Native39 remains historical closed-failed
+evidence.
+
 Complete the preserved native correction steel thread from its original source
 and oracle through affected lifecycle work, construction, real execution,
 independent assessment and fresh Public readback. Reuse valid completed work;
@@ -72,10 +87,10 @@ to actual governing/shared evidence and contrary evidence; unknown applicability
 is not a waiver or a new automatic campaign. Recorded costs remain observed
 complexity red flags, not isolated benchmarks, causal attribution or an OOM cure.
 
-Executive interpretation of the existing owner scope: one live owner maintains
-incremental admitted state and appends events; reconstruction belongs to genuine
-cold acquisition/recovery when state is absent. This records scope interpretation,
-not a hardcoded mode or new Product law.
+The [Product execution calculus](PRODUCT.md#execution-and-context-calculus)
+owns incremental live state, reconstruction, current-input conservation and
+role-specific context. T-287 tracks conformance; Goals selects the delivery
+outcome without maintaining a separate behavioral rule.
 
 Predecessor readiness ABI `2b9e540…` / GLC `8fd1de6…` and the paired successor10 selection remain historical. The earlier one-launch GLC steel thread was selected under [historical Root disposition](../.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-11/root-disposition.json); its closed Design-assessment refusal retains its historical scope. [Historical successor10 selection](../.ai-workspace/comments/codex/20260923_WIP_CHECKPOINT/successor-10/root-disposition.json).
 

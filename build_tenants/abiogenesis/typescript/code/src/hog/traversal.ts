@@ -13,6 +13,8 @@ import {
 } from "../abg/traversal_route.js";
 import {
   constructTraversalCursorCandidate,
+  deriveAdmittedCContinuationTarget,
+  deriveAdmittedCStructuralTarget,
   hasAdmittedTraversalCursorAtPrefix,
   isTraversalCursorCandidate,
   type TraversalCursorCandidate,
@@ -30,6 +32,7 @@ import { isInteractionCLeaf } from "../gtl/c_algebra.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import {
   deriveCContinuationTarget,
+  deriveCSourceContinuation,
   deriveCRetryTarget,
   deriveCStructuralTarget,
   rootCSourcePath,
@@ -236,6 +239,7 @@ export function deriveStructuralTargetCursor(
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursor,
   term: Readonly<CProgramNode>,
+  prefix?: ValidatedRuntimeEventPrefix,
 ): TraversalCursor | TraversalRefusal | null {
   const source = cursorCoordinate(sourceCursor);
   const declaredTerm = resolveTraversalTerm(graph, sourceCursor);
@@ -253,7 +257,7 @@ export function deriveStructuralTargetCursor(
     return null;
   }
   const routeKind = term.kind === "c_retry" ? "retry" as const : "advance" as const;
-  const target = deriveCStructuralTarget(
+  const target = prefix === undefined ? deriveCStructuralTarget(
     graph,
     {
       ...source,
@@ -261,7 +265,7 @@ export function deriveStructuralTargetCursor(
       inputDigest: sourceCursor.inputDigest,
     },
     routeKind,
-  );
+  ) : deriveAdmittedCStructuralTarget(prefix, graph, sourceCursor, routeKind);
   if (target?.kind === "c_source_path_refusal") {
     return refusal("locus_missing", target.message);
   }
@@ -295,15 +299,16 @@ export function deriveCompletedTraversalCursor(
   graph: Readonly<GtlGraph>,
   sourceCursor: TraversalCursor,
   completedInput: TraversalInputBasis,
+  prefix?: ValidatedRuntimeEventPrefix,
 ): TraversalCursor | TraversalRefusal | null {
   const term = resolveTraversalTerm(graph, sourceCursor);
   if (term.kind === "traversal_refusal") return term;
   const source = cursorCoordinate(sourceCursor);
-  const continuation = deriveCContinuationTarget(
+  const continuation = prefix === undefined ? deriveCContinuationTarget(
     graph,
     { ...source, inputRef: sourceCursor.inputRef, inputDigest: sourceCursor.inputDigest },
     completedInput,
-  );
+  ) : deriveAdmittedCContinuationTarget(prefix, graph, sourceCursor, completedInput);
   if (continuation.kind === "c_source_path_refusal") {
     return refusal("locus_missing", continuation.message);
   }
@@ -377,19 +382,7 @@ export function deriveInteractionSuccessorInputCarrierRef(
       "F_H successor carrier requires the exact held c_of F_H interaction term",
     );
   }
-  const continuation = deriveCContinuationTarget(
-    graph,
-    {
-      nodeRef: heldCursor.currentNodeRef,
-      termPath: heldCursor.termPath,
-      taskOrdinal: heldCursor.taskOrdinal,
-      attempt: heldCursor.attempt,
-      retryPath: heldCursor.retryPath,
-      inputRef: heldCursor.inputRef,
-      inputDigest: heldCursor.inputDigest,
-    },
-    heldCursor,
-  );
+  const continuation = deriveCSourceContinuation(graph.template, heldCursor.currentNodeRef, heldCursor.termPath);
   if (continuation.kind === "c_source_path_refusal") {
     throw new TypeError(
       `F_H successor carrier derivation refused: ${continuation.code}: ${continuation.message}`,
@@ -398,8 +391,8 @@ export function deriveInteractionSuccessorInputCarrierRef(
   if (continuation.disposition === "terminal") return null;
   const target = resolveCProgramTermAtSourcePath(
     graph.template,
-    continuation.nodeRef!,
-    continuation.termPath!,
+    continuation.targetPath![1]!,
+    continuation.targetPath!,
   );
   if (target.kind === "c_source_path_refusal") {
     throw new TypeError(

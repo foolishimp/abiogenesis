@@ -1,0 +1,13 @@
+{
+  "scope": "T287_CALCULUS_REPAIR_01 ranks 2-3 context source/component readiness",
+  "base": "420336a50b8fbec42ab244521cfa4d8a0351c4af",
+  "files": {
+    "specification/PRODUCT.md": "bb0c211a3fe04be9b3d8a12779387f6b26e3e0d0bd2bf513cf7fe826c8ba5176",
+    "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md": "4dca668bf7c11987cf9a79e320d828e783e99b43591b0e408bc325e178d65f15",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts": "a491c4912b30651b563de1788fb57d7e6d99dbf838fb1eaac768f0335d15cff0",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts": "b0513a0f392643c1c476f7f190649d72e0df100fd17385a07213a85f203a5dfe",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs": "3418d3aabd1166d90c95cda1101c10f3892f6b77fb2f272e804e335ce9da6d07",
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js": "bdd73d3561181a55b5436222abd2eee1223651ebc93eb02a7173570ad907cbf5",
+    "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.js": "488b6e6cf76c0e50ed7844b329a2974fae491b848a459d0e7b5d8aa8ffbc41eb"
+  }
+}

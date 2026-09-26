@@ -406,6 +406,124 @@ export declare function projectSemanticJobActorContext(envelope: SemanticJobEnve
     }[];
     omitted: string[];
 }>;
+/** One assembly's contract and context share the same established binding
+ * projection. Standalone entrypoints above still establish their own input;
+ * callers cannot supply a fabricated precomputed binding set. */
+export declare function projectSemanticJobActorMaterial(envelope: SemanticJobEnvelope, stageRef: string, role: "author" | "assessor", retainedTerms?: readonly RequirementTerm[], executionLimits?: WorksiteCommandExecutionLimits): {
+    active: readonly SemanticJobBindingVersion[];
+    contract: Readonly<{
+        contractDigest: `sha256:${string}`;
+        kind: string;
+        schemaVersion: string;
+        stageRef: string;
+        role: "author" | "assessor";
+        sourceMemberRefs: string[];
+        quoteRule: string;
+        requirementRefs: string[];
+        obligationRefs: string[];
+        predecessorStatementRefs: string[];
+        currentCandidate: {
+            assetRef: string;
+            statementRefs: string[];
+        } | null;
+        templateRefs: string[];
+        criteria: string[];
+        capabilities: readonly ("requirement_refinement" | "worksite_design" | "application_assessment")[];
+        bindingRule: {
+            candidate: string;
+            existing: string;
+            activation: string;
+            previousVersions: {
+                requirementRef: string;
+                versionRef: string;
+            }[];
+            newPreviousVersionRef: null;
+        };
+        design: {
+            dependencyRule: string;
+            readinessRule: string;
+            executionCapacity?: {
+                selectedLimits: WorksiteCommandExecutionLimits;
+                budgetRule: Readonly<{
+                    aggregation: "sum";
+                    commandFields: readonly ["timeoutMs", "terminationGraceMs"];
+                    httpResponseFields: {
+                        readonly launch: readonly ["timeoutMs", "terminationGraceMs"];
+                        readonly request: readonly ["timeoutMs"];
+                    };
+                    ownerAllowanceMs: number;
+                    limitComparison: "required_budget_strictly_less_than_each_limit";
+                    limitOrdering: "absolute_strictly_greater_than_inactivity";
+                }>;
+                currentCandidate: {
+                    commandBudgetMs: number;
+                    httpProbeBudgetMs: number;
+                    requiredExecutionBudgetMs: number;
+                    compatible: boolean;
+                } | null;
+            };
+            groundedRequirementRefs: string[];
+            active: {
+                requirementRef: string;
+                obligationRef: string;
+                versionRef: string;
+            }[];
+            targetRoles: string[];
+            scope: {
+                readonly readRoots: readonly string[];
+                readonly writeRoots: readonly string[];
+                readonly parentWriteRoots: readonly string[];
+                readonly evidenceWriteRoots: readonly string[];
+                readonly executableCapabilities: readonly SemanticJobExecutionCapability[];
+            };
+            bounds: {
+                readonly maxSourceMembers: number;
+                readonly maxSourceBytes: number;
+                readonly maxContextFiles: number;
+                readonly maxContextBytes: number;
+                readonly maxTargets: number;
+                readonly maxCommands: number;
+            };
+            coverageRules: string[];
+            pathRule: string;
+            commandRule: string;
+        };
+    }>;
+    context: Readonly<{
+        predecessors: {
+            assetRef: string;
+            assetDigest: `sha256:${string}`;
+            stageRef: string;
+            candidate: SemanticJobAssetCandidate;
+            groundedTerms: readonly RequirementTerm[];
+            assessment: {
+                disposition: "satisfied" | "falsified" | "indeterminate";
+                assessmentDigest: `sha256:${string}`;
+            } | null;
+        }[];
+        currentCandidate: {
+            assetRef: string;
+            assetDigest: `sha256:${string}`;
+            stageRef: string;
+            candidate: SemanticJobAssetCandidate;
+            groundedTerms: readonly RequirementTerm[];
+            assessment: {
+                disposition: "satisfied" | "falsified" | "indeterminate";
+                assessmentDigest: `sha256:${string}`;
+            } | null;
+        } | null;
+        activeBindings: {
+            versionRef: string;
+            versionDigest: `sha256:${string}`;
+            templateRef: string;
+            previousVersionRef: string | null;
+            binding: GtlContractFulfillmentBinding;
+            policy: SemanticProofPolicy;
+            shape: SemanticProofShape;
+        }[];
+        omitted: string[];
+    }>;
+} | null;
 /** Prompt-only sharing of identical bodies already visible in the same prompt.
  * The conserved context, validator domains and C1 projection remain unchanged. */
 export declare function projectSemanticJobPromptContext(envelope: SemanticJobEnvelope, context: ReturnType<typeof projectSemanticJobActorContext>): Readonly<{

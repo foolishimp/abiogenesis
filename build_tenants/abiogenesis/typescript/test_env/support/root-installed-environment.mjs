@@ -13,6 +13,13 @@ import {
 
 const execFileAsync = promisify(execFile);
 
+// Optional coarse accounting for an already-required installed composition.
+// These wall intervals include I/O and child waits; they are not CPU profiles.
+function accountSetupPhase(options, name, started) {
+  if (options.setupAccounting !== undefined)
+    options.setupAccounting.wallMs[name] = performance.now() - started;
+}
+
 function selectedFrozenArtifact(options) {
   const explicit = options.frozenArtifact ?? null;
   const environment = process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH === undefined &&
@@ -152,6 +159,7 @@ export async function setupInstalledRootCatalog(
   let bootstrapPackage;
   let consumerRoot;
   let installedRoot;
+  let phaseStarted = performance.now();
   if (frozenArtifact === null) {
     const artifacts = join(scratch, "artifacts");
     await mkdir(artifacts);
@@ -161,12 +169,20 @@ export async function setupInstalledRootCatalog(
       { cwd: packageRoot, maxBuffer: 10 * 1024 * 1024 },
     );
     const [packResult] = JSON.parse(stdout);
+    accountSetupPhase(options, "provisioning_pack", phaseStarted);
+    if (options.setupAccounting !== undefined) options.setupAccounting.volumes = {
+      archiveBytes: packResult.size, archiveUnpackedBytes: packResult.unpackedSize,
+      archiveMemberCount: packResult.entryCount,
+      installedTreeBytes: null,
+    };
     artifactPath = join(artifacts, packResult.filename);
+    phaseStarted = performance.now();
     const bootstrapRoot = join(scratch, "bootstrap");
     await mkdir(bootstrapRoot);
     await execFileAsync("tar", ["-xzf", artifactPath, "-C", bootstrapRoot]);
     bootstrapPackage = join(bootstrapRoot, "package");
     consumerRoot = join(scratch, "consumer");
+    accountSetupPhase(options, "provisioning_extract", phaseStarted);
   } else {
     artifactPath = frozenArtifact.artifactPath;
     bootstrapPackage = join(
@@ -177,6 +193,7 @@ export async function setupInstalledRootCatalog(
     );
     consumerRoot = join(scratch, "consumer");
   }
+  phaseStarted = performance.now();
   const bootstrapProduct = await import(
     `${pathToFileURL(join(bootstrapPackage, "build/code/src/product/index.js")).href}?artifact=${Date.now()}`
   );
@@ -227,6 +244,8 @@ export async function setupInstalledRootCatalog(
     true,
     "additional installed Products must be one exact prepared array",
   );
+  accountSetupPhase(options, "bootstrap_owner_loading_and_candidate_preparation", phaseStarted);
+  phaseStarted = performance.now();
   const verified = await bootstrapProduct.verifyProduct({
     artifactPath,
     artifactRef: basename(artifactPath),
@@ -246,6 +265,8 @@ export async function setupInstalledRootCatalog(
   const verifiedProducts = [verified, ...additionalVerified];
   const lock = bootstrapProduct.constructResolvedProductLock(verifiedProducts);
   assert.equal(lock.kind, "resolved_product_lock", JSON.stringify(lock));
+  accountSetupPhase(options, "provisioning_verify_artifact", phaseStarted);
+  phaseStarted = performance.now();
   const installCandidate = await bootstrapProduct.installProduct({
     artifactPath,
     targetRoot: consumerRoot,
@@ -253,6 +274,8 @@ export async function setupInstalledRootCatalog(
     resolvedLock: lock,
   });
   assert.equal(installCandidate.disposition, "materialized", JSON.stringify(installCandidate));
+  accountSetupPhase(options, "provisioning_install", phaseStarted);
+  phaseStarted = performance.now();
   assert.equal(
     bootstrapProduct.isProductInstallCandidate(installCandidate, lock),
     true,
@@ -263,6 +286,8 @@ export async function setupInstalledRootCatalog(
     true,
     "frozen installed root bytes differ from the verified Product",
   );
+  accountSetupPhase(options, "provisioning_installed_content_check", phaseStarted);
+  phaseStarted = performance.now();
   const additionalInstallCandidates = [];
   for (const [index, prepared] of additionalProducts.entries()) {
     const candidate = await bootstrapProduct.installProduct({
@@ -284,9 +309,11 @@ export async function setupInstalledRootCatalog(
     );
     additionalInstallCandidates.push(candidate);
   }
+  accountSetupPhase(options, "provisioning_additional_products", phaseStarted);
   const installCandidates = [installCandidate, ...additionalInstallCandidates];
   installedRoot = installCandidate.installedRoot;
   const nonce = Date.now();
+  phaseStarted = performance.now();
   const product = await import(`${pathToFileURL(join(installedRoot, "build/code/src/product/index.js")).href}?env=${nonce}`);
   const abg = await import(`${pathToFileURL(join(installedRoot, "build/code/src/abg/index.js")).href}?env=${nonce}`);
   const gtl = await import(`${pathToFileURL(join(installedRoot, "build/code/src/gtl/index.js")).href}?env=${nonce}`);
@@ -301,6 +328,8 @@ export async function setupInstalledRootCatalog(
     `${pathToFileURL(join(installedRoot, "build/code/src/implementation/index.js")).href}?env=${nonce}`
   );
   const validator = await import(`${pathToFileURL(join(installedRoot, "build/code/src/validator/index.js")).href}?env=${nonce}`);
+  accountSetupPhase(options, "installed_owner_loading", phaseStarted);
+  phaseStarted = performance.now();
   const acquired = abg.createNewEmptyAppendSink({
     kind: "new_empty_append_sink_request",
     schemaVersion: "5.0.0",
@@ -387,6 +416,8 @@ export async function setupInstalledRootCatalog(
     JSON.stringify(workspaceBindingResult),
   );
   const workspaceBinding = workspaceBindingResult.value;
+  accountSetupPhase(options, "environment_install_and_workspace_admission", phaseStarted);
+  phaseStarted = performance.now();
   const publication = constructRootPublication(
     gtl,
     {
@@ -493,6 +524,7 @@ export async function setupInstalledRootCatalog(
     ],
   );
   assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
+  accountSetupPhase(options, "execution_preparation_publication_program_and_catalog", phaseStarted);
 
   return {
     scratch,
@@ -553,6 +585,7 @@ export async function setupInstalledRootInvocation(
     packageRoot,
     options,
   );
+  let phaseStarted = performance.now();
   const {
     product,
     abg,
@@ -601,6 +634,8 @@ export async function setupInstalledRootInvocation(
   const program = executionResolution.program;
   const graphFunction = executionResolution.graphFunction;
   const programValidation = executionResolution.programValidation;
+  accountSetupPhase(options, "execution_preparation_resolution_and_program_validation", phaseStarted);
+  phaseStarted = performance.now();
   assert.equal(program.programRef, catalogProgram.programRef);
   assert.equal(graphFunction.name, catalogGraphFunction.name);
   assert.equal(
@@ -737,6 +772,7 @@ export async function setupInstalledRootInvocation(
     JSON.stringify(invocationAdmissionReceipt),
   );
   const invocationAdmission = invocationAdmissionReceipt.admission;
+  accountSetupPhase(options, "execution_preparation_invocation_admission", phaseStarted);
   return {
     ...environment,
     durablePrefix: invocationAdmissionReceipt.successorPrefix,
@@ -768,6 +804,7 @@ export async function setupInstalledRootResolution(
     packageRoot,
     options,
   );
+  const phaseStarted = performance.now();
   const {
     product,
     gtl,
@@ -902,6 +939,7 @@ export async function setupInstalledRootResolution(
       JSON.stringify(resolutionValidation),
     );
   }
+  accountSetupPhase(options, "execution_preparation_graph_and_implementation_resolution", phaseStarted);
   return {
     ...environment,
     node,
@@ -927,6 +965,7 @@ export async function setupInstalledRootExecutionBasis(
     packageRoot,
     options,
   );
+  const phaseStarted = performance.now();
   const {
     abg,
     store,
@@ -1025,6 +1064,7 @@ export async function setupInstalledRootExecutionBasis(
     executionResolution: environment.executionResolution,
     semanticsProjection,
   });
+  accountSetupPhase(options, "execution_preparation_basis_and_leaf_port", phaseStarted);
   return {
     ...environment,
     graph,

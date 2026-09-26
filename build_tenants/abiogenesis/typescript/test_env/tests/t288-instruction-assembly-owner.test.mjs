@@ -12,6 +12,28 @@ const { deepFreeze } = await load('shared/immutable');
 const { SEMANTIC_STAGE_IDS: S } = await load('gtl/semantic_stage_identity');
 const { SEMANTIC_REVISION_IDS: R } = await load('gtl/semantic_revision_identity');
 
+// Independent inverse of the renderer's known typed sharing slots. Opaque
+// candidate/application JSON is never traversed for reference-shaped fields.
+function revisionPresentation(sections) {
+  const at = ref => ref.slice(2).split('/').reduce((value,key)=>value?.[key],sections);
+  const terms = value => {
+    if(Array.isArray(value))return value;
+    const rows=at(value.presentationRef);assert(Array.isArray(rows),'term source exists');
+    const selected=value.indices===undefined?rows:value.indices.map(index=>{assert(Number.isInteger(index)&&index>=0&&index<rows.length);return rows[index];});
+    assert.equal(hash(selected),value.materialDigest);return selected;
+  };
+  const asset = value => {
+    const body=value.presentationRef===undefined?value:at(value.presentationRef);assert(body,'asset source exists');
+    const expanded={...body,groundedTerms:terms(body.groundedTerms)};
+    if(value.presentationRef!==undefined)assert.equal(hash(expanded),value.materialDigest);
+    return expanded;
+  };
+  const history=sections.task.historicalAssets.map(asset);
+  assert.equal(hash(history),sections.task.revisionContext.historicalAssets.materialDigest);
+  return {at,terms,asset,history,predecessors:sections.predecessors.map(asset),
+    groundedRequirements:terms(sections.obligations.groundedRequirements)};
+}
+
 const selectorPrompt = process.env.ABI5_NATIVE_D2_SELECTOR_PROMPT;
 test('native revision decision view conserves retained selector material without duplicate byte bodies or evaluator-only data', {
   skip: !selectorPrompt,
@@ -594,18 +616,15 @@ test('actual derived revision successor shares complete typed assets under the u
   assert.equal(hash(input),before,'completion preserves the exact input');
   t.diagnostic(JSON.stringify({scope:'DR01 component completion, upstream admission/role premises supplied; no failed-output reuse',revisionRequirementDomain:contract.requirementRefs.length,ordinaryRequirementDomain:ordinary.requirementRefs.length,
     exactRetainedPromptContractCompared:Boolean(retainedPrompt),typedResponseBytes:Buffer.byteLength(canonicalJson(response)),canonicalResponseBytes:Buffer.byteLength(canonicalJson(canonical))}));
-  assert.deepEqual(sections.task.historicalAssets,input.revisionBasis.historicalAssets);
+  const material=revisionPresentation(sections);
+  assert.deepEqual(material.history,input.revisionBasis.historicalAssets);
+  assert.deepEqual(material.groundedRequirements,input.current.assets.flatMap(a=>a.groundedTerms));
   assert.deepEqual(sections.task.revisionContext.historicalAssets,{presentationRef:'#/task/historicalAssets',materialDigest:hash(input.revisionBasis.historicalAssets)});
-  const versions=sections.task.historicalAssets.filter(a=>a.stageRef===input.current.assets.at(-1).stageRef);
+  const versions=material.history.filter(a=>a.stageRef===input.current.assets.at(-1).stageRef);
   assert.equal(versions.length,2);assert.deepEqual(versions.map(a=>a.assessment.disposition),['falsified','satisfied']);
   assert.notEqual(versions[0].assetDigest,versions[1].assetDigest,'distinct rejected and accepted versions are never collapsed');
-  for(const asset of [...parent.revisionBasis.historicalAssets,...parent.current.assets])assert(sections.task.historicalAssets.some(h=>hash(h)===hash(asset)));
-  const resolveMaterial=row=>{
-    if(row.presentationRef===undefined)return row;
-    assert.match(row.presentationRef,/^#\/task\/historicalAssets\/\d+$/);
-    const material=row.presentationRef.slice(2).split('/').reduce((value,key)=>value[key],sections);
-    assert(material);assert.equal(hash(material),row.materialDigest);return material;
-  };
+  for(const asset of [...parent.revisionBasis.historicalAssets,...parent.current.assets])assert(material.history.some(h=>hash(h)===hash(asset)));
+  const resolveMaterial=material.asset;
   assert.deepEqual(sections.predecessors.map(resolveMaterial),input.current.assets.filter(a=>stage.predecessorStageRefs.includes(a.stageRef)));
   assert(sections.predecessors.every(row=>row.presentationRef),'all identical current predecessors share exact complete history material');
   assert(!sections.predecessors.map(resolveMaterial).some(asset=>asset.assessment.disposition!=='satisfied'));
@@ -615,8 +634,13 @@ test('actual derived revision successor shares complete typed assets under the u
     if(original.state!=='file'){assert.deepEqual(shown,original);continue;}
     const {bytes,encoding,...identity}=original,{textView,sourceEncoding,...shownIdentity}=shown;
     assert.deepEqual(shownIdentity,identity);assert.equal(sourceEncoding,encoding);
-    assert.deepEqual(Buffer.from(textView.text),Buffer.from(bytes,'base64'));assert.equal(textView.digest,original.digest);assert.equal(textView.byteLength,original.byteLength);
+    if(textView.disposition==='typed_json_value'){
+      assert.deepEqual(material.at(textView.presentationRef),JSON.parse(Buffer.from(bytes,'base64').toString('utf8')));
+      assert.equal(hash(material.at(textView.presentationRef)),textView.materialDigest);
+    }else assert.deepEqual(Buffer.from(textView.text),Buffer.from(bytes,'base64'));
+    assert.equal(textView.digest,original.digest);assert.equal(textView.byteLength,original.byteLength);
   }
+  assert.match(sections.role.native,/Propose the necessary implementation/,'author retains its construction duty');
   const actualBytes=Buffer.byteLength(assembly.request.prompt);assert.equal(assembly.manifest.promptByteCount,actualBytes);assert(actualBytes<=stage.assembly.maxPromptBytes);
   t.diagnostic(JSON.stringify({scope:'actual pure Product successor; upstream authentication/currentness/role evidence and future coordinates supplied',parentInputDigest:hash(parent),componentSuccessorDigest:hash(input),
     promptBytes:actualBytes,maxPromptBytes:stage.assembly.maxPromptBytes,headroomBytes:stage.assembly.maxPromptBytes-actualBytes,
@@ -760,19 +784,61 @@ test('assessment-first actual successor preserves typed retained terms and full 
   assert.deepEqual(link,{presentationRef:'#/obligations/retainedTerms',materialDigest:hash(input.revisionBasis.retainedTerms)});
   const resolveLink=(row,view)=>{if(row.presentationRef===undefined)return row;const value=row.presentationRef.slice(2).split('/').reduce((v,k)=>v?.[k],view);assert(value,'reference target exists');assert.equal(hash(value),row.materialDigest,'reference identity');return value;};
   assert.deepEqual(resolveLink(link,sections),input.revisionBasis.retainedTerms);
-  assert.deepEqual(sections.task.historicalAssets,input.revisionBasis.historicalAssets);
-  assert.deepEqual(sections.predecessors.map(row=>resolveLink(row,sections)),input.current.assets);
+  const material=revisionPresentation(sections);
+  assert.deepEqual(material.history,input.revisionBasis.historicalAssets);
+  assert.deepEqual(material.predecessors,input.current.assets);
+  assert.deepEqual(material.groundedRequirements,input.current.assets.flatMap(a=>a.groundedTerms));
   assert.equal(sections.task.currentCandidateRef,pending.assetRef);
-  assert.equal(sections.predecessors.map(row=>resolveLink(row,sections)).at(-1).assessment,null);
+  assert.equal(material.predecessors.at(-1).assessment,null);
   assert.equal(sections.task.historicalAssets.filter(a=>a.stageRef===input.current.declaration.stages[2].declarationRef).length,2,'both accepted/rejected Requirements versions survive');
   const variants=sections.task.historicalAssets.filter(a=>a.stageRef===input.current.declaration.stages[2].declarationRef);assert.deepEqual(variants.map(a=>a.assessment.disposition),['falsified','satisfied']);
   assert.equal(assembly.manifest.contextDispositions.revisionRetainedTerms,'complete_ordered_terms_shared_with_obligations_by_exact_value');
+  assert.match(sections.role.native,/Assess whether the given Design/);
+  assert.doesNotMatch(sections.role.native,/Propose the necessary implementation|Declare existing files|Derive requirements from ordinary/);
+  assert.equal(assembly.request.responseJsonSchema.properties.kind.const,'semantic_stage_assessment_candidate');
+  const job=await load('product/semantic_job'),limits=input.revisionBasis.request.nativeWorksite?.commandExecutionLimits;
+  const combined=job.projectSemanticJobActorMaterial(input.current,stage.declarationRef,'assessor',input.revisionBasis.retainedTerms,limits);
+  assert.deepEqual(combined.contract,job.projectSemanticJobActorContract(input.current,stage.declarationRef,'assessor',input.revisionBasis.retainedTerms,limits));
+  assert.deepEqual(combined.context,job.projectSemanticJobActorContext(input.current,stage.declarationRef,'assessor'));
+  assert.deepEqual(combined.active,job.projectSemanticJobBindings(input.current));
+  const malformed=structuredClone(input.current);malformed.bindingVersions[0].versionDigest=hash('wrong');
+  assert.equal(job.projectSemanticJobActorMaterial(malformed,stage.declarationRef,'assessor'),null);
+  assert.throws(()=>job.projectSemanticJobActorContract(malformed,stage.declarationRef,'assessor'));
+  let observedShared=0;
+  for(let i=0;i<input.current.context.entries.length;i++){
+    const original=input.current.context.entries[i],shown=sections.worksite.observation.entries[i];
+    if(original.state!=='file'){assert.deepEqual(shown,original);continue;}
+    const {bytes,encoding,...identity}=original,{textView,sourceEncoding,...shownIdentity}=shown;
+    assert.deepEqual(shownIdentity,identity);assert.equal(sourceEncoding,encoding);
+    assert.equal(textView.digest,original.digest);assert.equal(textView.byteLength,original.byteLength);
+    if(textView.disposition==='typed_json_value'){
+      observedShared++;const candidate=material.at(textView.presentationRef);
+      assert.deepEqual(candidate,JSON.parse(Buffer.from(bytes,'base64').toString('utf8')));assert.equal(hash(candidate),textView.materialDigest);
+    }else if(textView.text!==null)assert.deepEqual(Buffer.from(textView.text),Buffer.from(bytes,'base64'));
+  }
+  assert.equal(observedShared,3,'three actual observed candidates share their exact typed history values');
+  const rejectedObserved=sections.worksite.observation.entries.find(e=>e.relativePath==='semantic-assets/stage-2.json');
+  assert(rejectedObserved);assert.equal(material.at(rejectedObserved.textView.presentationRef.replace(/\/candidate$/,'')).assessment.disposition,'falsified');
   assert.throws(()=>resolveLink({...link,materialDigest:hash('wrong')},sections));assert.throws(()=>resolveLink({...link,presentationRef:'#/obligations/missing'},sections));
   const restored=structuredClone(sections);restored.task.revisionContext.retainedTerms=resolveLink(link,sections);
   assert.deepEqual(restored.task.revisionContext.retainedTerms,input.revisionBasis.retainedTerms);
   // Ordinary opaque job data remains byte-identical; carrier-shaped domain
   // negatives remain covered by the existing opaque-values test.
   assert.deepEqual(sections.task.taskData,input.current.job.taskData);
+  // A duplicate JSON key must stay complete text even if JSON.parse would
+  // silently pick the same final value. Unknown material is never aliased.
+  const fileIndex=sections.worksite.observation.entries.findIndex(e=>e.state==='file'&&e.textView.disposition==='typed_json_value');
+  const original=input.current.context.entries[fileIndex],candidate=material.at(sections.worksite.observation.entries[fileIndex].textView.presentationRef);
+  for(const text of [JSON.stringify({...candidate,extra:'unmatched'}),'{"kind":"discarded",'+JSON.stringify(candidate).slice(1)]){
+    supplied=structuredClone(input);const bytes=Buffer.from(text);
+    supplied.current.context.entries[fileIndex]={...original,bytes:bytes.toString('base64'),digest:sha256Bytes(bytes),byteLength:bytes.length};
+    const {kind,schemaVersion,observationRef,observationDigest,...body}=supplied.current.context;
+    supplied.current.context.observationDigest=hash(body);
+    supplied.current.context.observationRef='worksite-context-observation://abiogenesis/'+hash(body).slice(7);
+    const different=assemble();assert.equal(different.kind,'native_instruction_assembly');
+    assert.equal(different.envelope.sections.worksite.observation.entries[fileIndex].textView.text,text);
+  }
+  supplied=input;
   role={...exactRole,contextPolicy:{...exactRole.contextPolicy,selectors:exactRole.contextPolicy.selectors.filter(s=>s!=='current_candidate')}};assert.equal(assemble().cause,'unavailable_required_content');role=exactRole;
   supplied={...input,current:{...input.current,context:null}};assert.equal(assemble().cause,'unavailable_required_content');supplied=input;
   role={...exactRole,policy:{...exactRole.policy,text:exactRole.policy.text+'x'.repeat(stage.assembly.maxPromptBytes)}};assert.equal(assemble().cause,'declared_bound_overflow');role=exactRole;

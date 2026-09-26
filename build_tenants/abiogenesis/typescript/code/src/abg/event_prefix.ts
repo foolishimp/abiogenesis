@@ -434,10 +434,26 @@ class RuntimeEventIndex {
       if (typeof event.basisId === "string") keys.push("basis:" + event.basisId);
       if (typeof event.graphCallId === "string") keys.push("graph-call:" + event.graphCallId);
       if (typeof event.payload === "object" && event.payload !== null && !Array.isArray(event.payload)) {
+        const payload = event.payload as Readonly<Record<string, JsonValue>>;
         for (const field of ["resultRef", "parentCCallRef", "cursorRef", "routeRef"] as const) {
-          const value = (event.payload as Readonly<Record<string, JsonValue>>)[field];
+          const value = payload[field];
           if (typeof value === "string") keys.push("payload:" + field + ":" + value);
         }
+        const cursorRef = event.kind === "traversal_cursor_entered" ? payload.cursorRef
+          : event.kind === "traversal_route_admitted" ? payload.targetCursorRef
+          : event.kind === "fh_interaction_resume_admitted" ? payload.successorCursorRef : undefined;
+        if (typeof cursorRef === "string") keys.push("cursor-origin:" + cursorRef);
+        const bound = payload.boundInput;
+        const reentry = payload.graphSpanReentryProjection;
+        const inputRef = event.kind === "c_call_result_admitted" ? payload.resultRef
+          : event.kind === "fh_interaction_resume_admitted" ? payload.successorInputRef
+          : event.kind === "fan_out_completion_admitted" ? payload.outputVectorRef
+          : event.kind === "retry_attempt_opened" ? payload.inputRef
+          : event.kind === "traversal_route_admitted" && typeof bound === "object" && bound !== null && !Array.isArray(bound)
+            ? (bound as Readonly<Record<string, JsonValue>>).admissionRef
+          : event.kind === "traversal_route_admitted" && typeof reentry === "object" && reentry !== null && !Array.isArray(reentry)
+            ? (reentry as Readonly<Record<string, JsonValue>>).targetInputRef : undefined;
+        if (typeof inputRef === "string") keys.push("input-origin:" + inputRef);
       }
       if (event.parentAggregateId !== undefined && event.parentAggregateId !== event.aggregateId)
         keys.push("related:" + event.parentAggregateId);

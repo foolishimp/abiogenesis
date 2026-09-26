@@ -321,8 +321,15 @@ export interface SemanticJobContractIssue {
  * projection; native validators consume the same domains, not prompt copies. */
 export function projectSemanticJobActorContract(envelope: SemanticJobEnvelope, stageRef: string,
   role: "author" | "assessor", retainedTerms: readonly RequirementTerm[] = [], executionLimits?: WorksiteCommandExecutionLimits) {
-  const stage = envelope.declaration.stages.find(s => s.declarationRef === stageRef), active = projectSemanticJobBindings(envelope);
-  if (stage === undefined || active === null) throw new TypeError("unknown semantic actor contract");
+  const active = projectSemanticJobBindings(envelope);
+  if (active === null) throw new TypeError("unknown semantic actor contract");
+  return semanticJobActorContract(envelope, stageRef, role, retainedTerms, executionLimits, active);
+}
+function semanticJobActorContract(envelope: SemanticJobEnvelope, stageRef: string,
+  role: "author" | "assessor", retainedTerms: readonly RequirementTerm[], executionLimits: WorksiteCommandExecutionLimits | undefined,
+  active: readonly SemanticJobBindingVersion[]) {
+  const stage = envelope.declaration.stages.find(s => s.declarationRef === stageRef);
+  if (stage === undefined) throw new TypeError("unknown semantic actor contract");
   const current = role === "assessor" ? envelope.assets.find(a => a.stageRef === stageRef) : undefined;
   const incoming = envelope.assets.filter(a => a.stageRef !== stageRef);
   const limits = executionLimits ?? nativeSemanticCommandExecutionLimits(envelope);
@@ -354,16 +361,32 @@ export function projectSemanticJobActorContract(envelope: SemanticJobEnvelope, s
 export function projectSemanticJobActorContext(envelope: SemanticJobEnvelope, stageRef: string, role: "author" | "assessor") {
   const stage = envelope.declaration.stages.find(s => s.declarationRef === stageRef);
   if (stage === undefined) throw new TypeError("unknown semantic context stage");
+  const active = projectSemanticJobBindings(envelope);
+  if (active === null) throw new TypeError("invalid active binding projection");
+  return semanticJobActorContext(envelope, stage, role, active);
+}
+function semanticJobActorContext(envelope: SemanticJobEnvelope, stage: SemanticJobEnvelope["declaration"]["stages"][number],
+  role: "author" | "assessor", active: readonly SemanticJobBindingVersion[]) {
   const semanticAsset = (a: SemanticJobAsset) => ({ assetRef: a.assetRef, assetDigest: a.assetDigest, stageRef: a.stageRef,
     candidate: a.candidate, groundedTerms: a.groundedTerms, assessment: a.assessment === null ? null : {
       disposition: a.assessment.disposition, assessmentDigest: hash(a.assessment.candidate) } });
-  const active = projectSemanticJobBindings(envelope);
-  if (active === null) throw new TypeError("invalid active binding projection");
   return deepFreeze({ predecessors: envelope.assets.filter(a => stage.predecessorStageRefs.includes(a.stageRef)).map(semanticAsset),
-    currentCandidate: role === "assessor" ? semanticAsset(envelope.assets.find(a => a.stageRef === stageRef)!) : null,
+    currentCandidate: role === "assessor" ? semanticAsset(envelope.assets.find(a => a.stageRef === stage.declarationRef)!) : null,
     activeBindings: active.map(b => ({ versionRef: b.versionRef, versionDigest: b.versionDigest, templateRef: b.templateRef,
       previousVersionRef: b.previousVersionRef, binding: b.binding, policy: b.policy, shape: b.shape })),
     omitted: ["actor_transport_provenance_bodies", "superseded_binding_bodies", "undeclared_predecessor_bodies"] });
+}
+
+/** One assembly's contract and context share the same established binding
+ * projection. Standalone entrypoints above still establish their own input;
+ * callers cannot supply a fabricated precomputed binding set. */
+export function projectSemanticJobActorMaterial(envelope: SemanticJobEnvelope, stageRef: string,
+  role: "author" | "assessor", retainedTerms: readonly RequirementTerm[] = [], executionLimits?: WorksiteCommandExecutionLimits) {
+  const active = projectSemanticJobBindings(envelope);
+  const stage = envelope.declaration.stages.find(s => s.declarationRef === stageRef);
+  if (active === null || stage === undefined) return null;
+  return { active, contract: semanticJobActorContract(envelope, stageRef, role, retainedTerms, executionLimits, active),
+    context: semanticJobActorContext(envelope, stage, role, active) };
 }
 
 /** Prompt-only sharing of identical bodies already visible in the same prompt.

@@ -1,0 +1,7 @@
+CLOSED caller preparation — core40 / unchanged dev16; no runtime executed by this preparation.
+
+Nine predecessor scripts pass syntax in 0.202s. The code delta is five core identity/output-label substitutions; all other caller logic is unchanged. Selection changes only current core, local input/close paths, actual physical close digest and authority text. Source input bytes, source Run31c / 399,209,962 B cut, pending Design, original workspace/job/oracle and native transport controls remain unchanged. Current physical entry is the genuine native39 terminal close at 402,875,828 B; its device/inode/size match. No history content was scanned.
+
+Core40 selection SHA256 0ff087181dce6a799a5d94a39f70486129c9b5e7425be8eafe0fb1f31c5282a3; caller subject c3a491b68acf24256cf5132fec9e1efc3464d2e5d945f1f6edcd49bf537b1073; correspondence a8ea7479c9486b5b93bc16c29280e6e762d1883ecd1e267d864379d42a35e9e8. Existing source reviews and exact package verification are conjoined by Executive. Consumer dev16 requires the unchanged ABG Product/version and contracts/capabilities; ordinary current verification/resolution must establish the actual pair. No consumer rebuild is needed.
+
+Prepared route: current Product setup/resolution → original Run Public root → genuine W0/current-binding witness → one intake → fresh Result/replay → only an admitted returned choice selects the whole declared suffix → terminal Public readback. This caller does not select a semantic stage or repeat the author. Runtime effects require the separate Executive activation record.

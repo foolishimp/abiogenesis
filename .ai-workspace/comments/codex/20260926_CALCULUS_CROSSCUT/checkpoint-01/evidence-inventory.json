@@ -1,0 +1,1503 @@
+{
+  "scope": "Closed ranks and native40 repair evidence, exact files; original directory roots recorded. Native41 remains active and excluded. Installed package trees are reproducible from preserved archives and omitted. Symlinks preserved, not dereferenced.",
+  "members": [
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/accepted-source.json",
+      "kind": "file",
+      "bytes": 19957,
+      "sha256": "f468278f1219843a268f066761c15dd0f11d7efcb8f1f5b1d5df2ba6ee1c81ae"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/archive-members.json",
+      "kind": "file",
+      "bytes": 928685,
+      "sha256": "cc24301be2919a07ea358f9d3317064bd7429dfc274c03a4d319ed271145bdab"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "kind": "file",
+      "bytes": 10181697,
+      "sha256": "4ce1f74d1f71291bdb3fee2fedbf752a4c34212c87734e8ffb12014b61cc1a19"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/bootstrap-install.json",
+      "kind": "file",
+      "bytes": 638,
+      "sha256": "34db51214a876c8e9ebe428dcca796e06236118845de87139974aa571f7ac379"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/bootstrap-install.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/bootstrap-install.stdout",
+      "kind": "file",
+      "bytes": 23,
+      "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/build-inputs.json",
+      "kind": "file",
+      "bytes": 42177,
+      "sha256": "a7ffdf1bfa5dc1e19009ba4893ac8e8dc00bed1b8b7253712dea7d8ca00cf27e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/build-reuse.json",
+      "kind": "file",
+      "bytes": 376,
+      "sha256": "62f891319e02d55d8ac32a831a5784c2c3e9d5084218c9accfc389e42ba9b4c7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/conservation.json",
+      "kind": "file",
+      "bytes": 1173,
+      "sha256": "8b4bab0bbe49771f31de2ce9bd49ee3166873748cb00bceabe4cc73cd1380d1b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/generated-delta.json",
+      "kind": "file",
+      "bytes": 9836,
+      "sha256": "7e501a9ae0780487fc57d03795d95cd108cde86d44244f2cab9c721592161af5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/pack.json",
+      "kind": "file",
+      "bytes": 537,
+      "sha256": "17d9ee20e687f1e6fc7a6f781d1600351220f11e412b5249751136609c1c9f31"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/pack.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/pack.stdout",
+      "kind": "file",
+      "bytes": 688757,
+      "sha256": "6d6e3874fbaf8be659f804aa14c5bbac1900235fa8f502e005c4c72173270255"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/package-correspondence.json",
+      "kind": "file",
+      "bytes": 833,
+      "sha256": "f9eea930e52195ac48bbfd8c9fe5e81e553e299b7a489200870134378489e599"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/package-identity.json",
+      "kind": "file",
+      "bytes": 582,
+      "sha256": "5773539d9b70ddf980af04b5bb82faeca7ab4c442ad24dd6a49783adc81c0d7b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/package-once.py",
+      "kind": "file",
+      "bytes": 4034,
+      "sha256": "53734da008832bf0250820f476162aa5b5fb95f48e9df8816560d1564d73753c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/package-readiness.json",
+      "kind": "file",
+      "bytes": 2195,
+      "sha256": "517061119e91153df17b3dced44267d7935823dae322623bfde2c9ad20bb6b5a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/product-verification-request.json",
+      "kind": "file",
+      "bytes": 1022,
+      "sha256": "b1c787046a687347565b608ac33fa71ad2dcdfd65de9cf904afa503f8022a3d1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/product-verification-summary.json",
+      "kind": "file",
+      "bytes": 3942,
+      "sha256": "5c6d0a632b6cbd169976f5076ab6bf729300f6edb40f6e096e9fa9e4b9a646af"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/product-verification-timing.json",
+      "kind": "file",
+      "bytes": 233,
+      "sha256": "c47e203c8e5d17396322865fe1ec5e712589caff6fbd3ce17a1e6803198059da"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/return.md",
+      "kind": "file",
+      "bytes": 1544,
+      "sha256": "eb20a5f40b62ac57f4b47fa81140b94b8dfef85b173a1ee00e027d2ec053f472"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/selected-core.json",
+      "kind": "file",
+      "bytes": 986,
+      "sha256": "0ff087181dce6a799a5d94a39f70486129c9b5e7425be8eafe0fb1f31c5282a3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/source-delta.json",
+      "kind": "file",
+      "bytes": 3708,
+      "sha256": "905c89e61a65affbe38ecf324991009cdafa233add50b971276e74b13b64e387"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/verification.stderr",
+      "kind": "file",
+      "bytes": 777,
+      "sha256": "b30b7ff8cd6935a714b9724d7ba306b722c9f90015ef0e0aa8e67d55e7e63398"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/verification.stdout",
+      "kind": "file",
+      "bytes": 930,
+      "sha256": "47dd1db7b86258b63574685f934cad1cc520f2485961a4b39917439b0e0b0a60"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/verify-installed.mjs",
+      "kind": "file",
+      "bytes": 3607,
+      "sha256": "0aff981da97d49625f0183b6588a71205b6e7dead01e7c718d88377c3398cc55"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/accepted-source-before-derived-projection.json",
+      "kind": "file",
+      "bytes": 10048,
+      "sha256": "3addf9473be3abd6cbbccd26862a7e20b394f510881bbd003eeaa91b1099388e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/accepted-source.json",
+      "kind": "file",
+      "bytes": 10407,
+      "sha256": "b47e308344825c079534239c50d0abcd81a1f3f6c2f65dd56145c6a91c7ab6e9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/archive-members.json",
+      "kind": "file",
+      "bytes": 928685,
+      "sha256": "995832f48133986f0663b36b982c236f34e92e02b1b215da14afc64962345c56"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "kind": "file",
+      "bytes": 10181626,
+      "sha256": "15f9bb0788e6b8844f3bb01950c727b209d5d4a2ba2549c34a60a1d89453b7fd"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/bootstrap-install.json",
+      "kind": "file",
+      "bytes": 640,
+      "sha256": "1c3ee855fe0ab4ddd3e2b30bfc5c64b922f29595a616ce20c99c97c07927f509"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/bootstrap-install.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/bootstrap-install.stdout",
+      "kind": "file",
+      "bytes": 23,
+      "sha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/build-inputs.json",
+      "kind": "file",
+      "bytes": 42177,
+      "sha256": "1d6f40e1985dc6ed2642638d8f24348776d3c7470bb031741c9228a375f1a638"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/build-reuse.json",
+      "kind": "file",
+      "bytes": 839,
+      "sha256": "87544f9a93fffee7d7b364ab5f3c6010bee5fc658b19f6311140857e0cbf9439"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/conservation.json",
+      "kind": "file",
+      "bytes": 445,
+      "sha256": "d7cd5af3eaf4a3fb0dabac50c9b347ac25dea4010442e7e3feef5a3d24cd791d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/derived-capability-delta.json",
+      "kind": "file",
+      "bytes": 75759,
+      "sha256": "70232ce133dc26ac3e3bdbcf298e465da53865ce7f7e429d2459b9d12bd995b8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/generated-delta.json",
+      "kind": "file",
+      "bytes": 1754,
+      "sha256": "f2c7204142ce2ad0ae370dd2dd930f55d9438a87dde0e134a4609b6668a75924"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/pack.json",
+      "kind": "file",
+      "bytes": 537,
+      "sha256": "8280e59d36a0a2cb36534f6076cccf486c2bdba5e4abbd791967ceb098434397"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/pack.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/pack.stdout",
+      "kind": "file",
+      "bytes": 688757,
+      "sha256": "f78d723746a3521187dd728ac5f6d259b7bbcf2bd1a9d1dd74e5bb15cdb87cd7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/package-correspondence.json",
+      "kind": "file",
+      "bytes": 833,
+      "sha256": "076e319d6d4edba6ec2da4b5623829248bf41a7fdd519bde1a7edc47c6cc8e38"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/package-identity.json",
+      "kind": "file",
+      "bytes": 582,
+      "sha256": "078064df9b4efaa1c49308484e08597385fa8f1f5d0d340507b187917f4c3b42"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/package-once.py",
+      "kind": "file",
+      "bytes": 4034,
+      "sha256": "0c19e23082a48559ec1774b4c6d3c7f205d761455ad79b706607809eedd0a08f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/package-readiness.json",
+      "kind": "file",
+      "bytes": 2881,
+      "sha256": "2cd5b22493c64a6f19a88e8a8203e7b7fec2ffcc55f6a5ddaf2625bf9bdf6d26"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/product-verification-request.json",
+      "kind": "file",
+      "bytes": 1022,
+      "sha256": "e04bc4ba894b1e191ff0d2f243cbad594d72e7dfc3a7ff408bdd4d65a35adf0c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/product-verification-summary.json",
+      "kind": "file",
+      "bytes": 3942,
+      "sha256": "810ef5c890ce16c5bda1af59a7395b2798710c51ba26ee249554797f3fe41b42"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/product-verification-timing.json",
+      "kind": "file",
+      "bytes": 226,
+      "sha256": "d303d48bcddb57249d7824c5c5f52829c1fc68bfed36c4e79d8b02602abb7707"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/return.md",
+      "kind": "file",
+      "bytes": 1671,
+      "sha256": "073c8924533e9be4e4df764030754e10f1aaaa1be18b174efb3594215c11c336"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/selected-core.json",
+      "kind": "file",
+      "bytes": 986,
+      "sha256": "a710ce4ea6cf9d3b34fa39f6a56e49da411c966423cb08486c13559325ec31ec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/source-delta.json",
+      "kind": "file",
+      "bytes": 440,
+      "sha256": "5af8ba79887725f06c8d47bdee6445032ae9e45f8e33cd4dc240b4c313b0fb7d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/verification.stderr",
+      "kind": "file",
+      "bytes": 777,
+      "sha256": "a07ca3bbee58188f92c9f1fc00e4197bf3123670d35aa72ddae851f8f7493346"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/verification.stdout",
+      "kind": "file",
+      "bytes": 930,
+      "sha256": "4c858949547ec513cf6607ade8414b3207dddd64f5dfd772ba0dd9095e5b0ab0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/verify-installed.mjs",
+      "kind": "file",
+      "bytes": 3573,
+      "sha256": "c9b35f37c38d3e5c98643af48110666e217e717d837b76897b6ef840feeeee57"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/RETURN.md",
+      "kind": "file",
+      "bytes": 2700,
+      "sha256": "52415ed679b607e99d6580804e789786fb8db6dc361110a11da73c176e20221d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/after-assemblies.json",
+      "kind": "file",
+      "bytes": 3059,
+      "sha256": "3665a268e88fdb1fd3f9b11ff1a506bfd71cbc9699bfa6ff1dcdbaa297816a90"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/after-checks.log",
+      "kind": "file",
+      "bytes": 2605,
+      "sha256": "88e93c0e40d7c0bbac833807df9cbe42142c91979d6e52f45faf6837be14a414"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/before-assemblies.json",
+      "kind": "file",
+      "bytes": 3059,
+      "sha256": "3665a268e88fdb1fd3f9b11ff1a506bfd71cbc9699bfa6ff1dcdbaa297816a90"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/before-checks.log",
+      "kind": "file",
+      "bytes": 2606,
+      "sha256": "ab8e4baa895aaaf8d4b986b955c4449ccc3675122462433db1d3553cd5c4cfc7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/before-fixture-failure.log",
+      "kind": "file",
+      "bytes": 5203,
+      "sha256": "75423aa7471321e47c55b77d70cf5b5f3e2a20db5af1f9b92f96031c5f64f89b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/check-config.json",
+      "kind": "file",
+      "bytes": 1714,
+      "sha256": "89925fe83be8f6fdd1a26b32279077ffe90e4d0899576c9811ab088bf7b89dea"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/checks-fixture-failure.json",
+      "kind": "file",
+      "bytes": 96,
+      "sha256": "595d6014aadb46135151b1aa6f7a2243f0821a9647f4813cb1b57a77992444fa"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/checks.json",
+      "kind": "file",
+      "bytes": 189,
+      "sha256": "aac1c269a2e9022555d6de8da3d036562779f8385d29e765ef080451f1d716ab"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/component-regression.mjs",
+      "kind": "file",
+      "bytes": 84473,
+      "sha256": "38f6f8c03875d3c63b4aa7b395697a887707c33e398f741b49e06c118be309df"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/freeze.json",
+      "kind": "file",
+      "bytes": 4062,
+      "sha256": "a3a1efcb31fe8173395c37f42253662a045e8bbf5a4e38ea75d7286d2b6ced3b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/measurement.json",
+      "kind": "file",
+      "bytes": 756,
+      "sha256": "fb78610917faa216dd3902284be9990e15335cfbd100eadf183b2ccc7edaca46"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/preimage.json",
+      "kind": "file",
+      "bytes": 625,
+      "sha256": "660092dc940c30c9825699efb577658f85ea60d3b3af28f1cb8b393f82926a3b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/preimages/instruction_assembly.js",
+      "kind": "file",
+      "bytes": 86688,
+      "sha256": "bdd73d3561181a55b5436222abd2eee1223651ebc93eb02a7173570ad907cbf5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/preimages/instruction_assembly.ts",
+      "kind": "file",
+      "bytes": 88807,
+      "sha256": "a491c4912b30651b563de1788fb57d7e6d99dbf838fb1eaac768f0335d15cff0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/preimages/t288-instruction-assembly-owner.test.mjs",
+      "kind": "file",
+      "bytes": 81222,
+      "sha256": "3418d3aabd1166d90c95cda1101c10f3892f6b77fb2f272e804e335ce9da6d07"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/source.diff",
+      "kind": "file",
+      "bytes": 21114,
+      "sha256": "cc67f82d0fc6d4925a6315623a9ae68ca5371f0f6fce07a83127d58a7a12e579"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/worksite-checks.log",
+      "kind": "file",
+      "bytes": 405,
+      "sha256": "37a61ffb54510b477b4fb5ebeacd35421f2aa43e5a7feaaa710e9d8b5bd47842"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/worksite-equivalence.json",
+      "kind": "file",
+      "bytes": 1019,
+      "sha256": "6cb7eda49b57ea096ca52821850045692330306fe93e3212c99c5237f65681b5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/worksite-regression.mjs",
+      "kind": "file",
+      "bytes": 10202,
+      "sha256": "be7122ba0d4a14bc442554e05cb8e6d5f988b26db9bc731eedb6937b787e01cf"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/RETURN.md",
+      "kind": "file",
+      "bytes": 4681,
+      "sha256": "6d7dcafc0403f8ba9d71cd871adf2a693c1a5fe3f15c7b5da38fc9c83b52097b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/body-tests.log",
+      "kind": "file",
+      "bytes": 1109,
+      "sha256": "d01540bbc307ad39fa0fe204673aeac686b4d6d3943b7aa16a6adc75a99b2316"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/checks.json",
+      "kind": "file",
+      "bytes": 1450,
+      "sha256": "31139df9cab2dabaf906d2279cdde37454fa9996fe900bce7f08b2c76dcf88c2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/core40-to-candidate.diff",
+      "kind": "file",
+      "bytes": 11548,
+      "sha256": "2455c05457881a9227f96225ea4d4253760dab26ea80129bc60fb84903530c91"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/freeze.json",
+      "kind": "file",
+      "bytes": 4418,
+      "sha256": "feaddf748d4c1a07ffd15d9eb20985096f099daa80b9a3a946d57c422c8139e7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/preimage-event_body_encoding.ts",
+      "kind": "file",
+      "bytes": 4110,
+      "sha256": "69bc0ba9c39364fe4200420e7e8ca93ec4e707203ef7160ad8c438c73137fdc9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/preimage-event_store.ts",
+      "kind": "file",
+      "bytes": 169755,
+      "sha256": "ee930b198e178c24fc99c96d8a11fedd6f58766beabcb564432fd828a1423fa6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/preimage-t287-event-body-encoding.test.mjs",
+      "kind": "file",
+      "bytes": 15391,
+      "sha256": "349225c0e1c0f06fb1c2a7970f7f3b366fdce54a5f0297441804a6b865cdb2e7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/preimages.json",
+      "kind": "file",
+      "bytes": 950,
+      "sha256": "eaa2c9284fde1f598558634f07164af93ee0ae8d21e874ed2c26d4d8f3c06473"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/context-01/checks.json",
+      "kind": "file",
+      "bytes": 1482,
+      "sha256": "d2db070677aa2444087a80fe0307e133413085d9ce9f1de05bd7754b11f05efe"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/context-01/checks.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/context-01/checks.stdout",
+      "kind": "file",
+      "bytes": 2221,
+      "sha256": "b0f92ff54f2f0fe9126c09501908b934165f085340100511ddfaafcbc15628b9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/context-01/freeze.json",
+      "kind": "file",
+      "bytes": 1166,
+      "sha256": "325b50eb60c48bc7cba45c3df5352b69ad026fb544779de24d02f0d37faffc56"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/context-01/measurement.json",
+      "kind": "file",
+      "bytes": 799,
+      "sha256": "0bd6a5afae365bd39dc4e4531f47565032281772b12d1aa46dde07e2b70e9051"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/context-01/return.md",
+      "kind": "file",
+      "bytes": 3115,
+      "sha256": "de0d14c3094a125790ecaded78571133230e00f9231365945f302fac765ebf1c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/context-01/review.md",
+      "kind": "file",
+      "bytes": 5966,
+      "sha256": "e509e5b725138e42643e3a17c77d7fddb44dd53437b242689aaa38af9ed0ed99"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/caller.diff",
+      "kind": "file",
+      "bytes": 4339,
+      "sha256": "fcd2ae70e7ba52cdcaeffc9c22fc37e86145aa20ead64b8bf3fc9c25350297a5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/correspondence.json",
+      "kind": "file",
+      "bytes": 4147,
+      "sha256": "a8ea7479c9486b5b93bc16c29280e6e762d1883ecd1e267d864379d42a35e9e8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/execution-selection.json",
+      "kind": "file",
+      "bytes": 5401,
+      "sha256": "b442e90da03b04ee17ecc753ce136686f492c3c2c595f14ae606eb8fab3eefc5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/construct.mjs",
+      "kind": "file",
+      "bytes": 4320,
+      "sha256": "860e59780e6f11e84cf7e0107752a8aaf054fef27ea9acd3781db2e9e1203a45"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/construction.stderr",
+      "kind": "file",
+      "bytes": 777,
+      "sha256": "08a39ab010e08028715158592eefea09430a297b3e1441d9365b5d23d42e0c5d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/construction.stdout",
+      "kind": "file",
+      "bytes": 220,
+      "sha256": "0b14414a61b1c793aa5591c32cbc0e1ff6b81ef874acc91b29cdff95c4f89fdc"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/constructor-checks.json",
+      "kind": "file",
+      "bytes": 2452,
+      "sha256": "a4adec302a08fcc688991ba74ed76babd2a71d3b0df4edae98e55ba4cee09504"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/execution.stderr",
+      "kind": "file",
+      "bytes": 777,
+      "sha256": "7217757cd5f22cae74e33152a93b718018cfe6fec609cf9d02e26747e9dfddf9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/execution.stdout",
+      "kind": "file",
+      "bytes": 413281,
+      "sha256": "9aa97e398c6d0817d6d0163dd2ef5e90daf57950156c3fb4bade56934bb20bc4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/intake-readback.json",
+      "kind": "file",
+      "bytes": 3749,
+      "sha256": "fc689a133fd3e4d8b4dd29ee45350948aa94e50ef6dcb9234578b51f6c837c6c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/intake-start.jsonl",
+      "kind": "file",
+      "bytes": 28068526,
+      "sha256": "79f76f1d63d3a067e4ea79935310de63b382c2e6616e16c03307dc416b5668cb"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/intake-terminal-request.json",
+      "kind": "file",
+      "bytes": 295553,
+      "sha256": "534d14456c7e45b176a2d3a1ad6e84d25d7ba04077111274641555a362dc1c87"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/live-attempt.json",
+      "kind": "file",
+      "bytes": 1911,
+      "sha256": "178d6c2245edfd11ebb5582d30a295a8e7eaa1056e057ada5d79fdac10bb4332"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/live-receipt.json",
+      "kind": "file",
+      "bytes": 416048,
+      "sha256": "11879f40ae31f255025219034a8cf0ddb7339c7cb731bb0eb1b09abb204449f1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/live-start.jsonl",
+      "kind": "file",
+      "bytes": 20259012,
+      "sha256": "15a9a3920129a778bc9cdeeaf6d9a372d8cb25e6bfbab189165280bac58f973c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/live-stderr.log",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/native-prepared.json",
+      "kind": "file",
+      "bytes": 6089,
+      "sha256": "4179f9425bb4d84c6a5eae405b3b1a47b712292d8864a4fbd6cf799100c670a7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/public-readback.json",
+      "kind": "file",
+      "bytes": 1511,
+      "sha256": "89e0b55d6b9aa8a6e96d0fedc8ed0707d593d59ce694b71b6a1b3ee9a58bad7f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/read-intake.mjs",
+      "kind": "file",
+      "bytes": 6212,
+      "sha256": "2952fedfba80ab3891998cde8599c6bada1f93dfbab3ee81556b9d399dee40a5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/read-run_replay.boundary.json",
+      "kind": "file",
+      "bytes": 349,
+      "sha256": "7166f1653b322f0b2addce2c7eaeacd623f35bf5941902e1067a61e91b44809e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/read-run_replay.json",
+      "kind": "file",
+      "bytes": 299323,
+      "sha256": "c8ef8d9f8e5f86f200d075d004d3bf7ba65a3eff2635e49b6718bfc3fa44fe64"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/read-run_replay.jsonl",
+      "kind": "file",
+      "bytes": 9818,
+      "sha256": "b50f465ae2c7f553b05e9ac3b1b9f8fa4ba2bffdbd8fb1ba153af55e63d1376a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/read-run_replay.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/read-run_result.boundary.json",
+      "kind": "file",
+      "bytes": 349,
+      "sha256": "be2e72d9fc67cc8840ca4d564b4c9d640a31fd8005f30e7e17f24e28310eefbb"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/read-run_result.json",
+      "kind": "file",
+      "bytes": 299666,
+      "sha256": "a74926c13f6b3a500410418d07b920af90fd54adfc3795ad4c28850243b8863d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/read-run_result.jsonl",
+      "kind": "file",
+      "bytes": 9779,
+      "sha256": "4777a73837d743dad67f0a787ea8392365927bb6e41de33330d9beb5f41245c1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/read-run_result.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/readback-basis.json",
+      "kind": "symlink",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/readback-basis.json"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/readback.stderr",
+      "kind": "file",
+      "bytes": 777,
+      "sha256": "933ba882c901cbc86a73a52665179851932da8f6547674c3f94ff50fa4ad702a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/readback.stdout",
+      "kind": "file",
+      "bytes": 4029,
+      "sha256": "f2b70a3e90ef3b3df39e4847e49b9ffd7141e67cdd6dfdcf3d59ef3e27f32c18"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-01/run.mjs",
+      "kind": "file",
+      "bytes": 451,
+      "sha256": "45d73da54245993fb5acf2ab00e4c2f4986d4dccc9b7166350f95cb0f85d1fca"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/intake-disposition.json",
+      "kind": "file",
+      "bytes": 2242,
+      "sha256": "fbed4271d99356751b42c8eacc351c88ad92766eb9ef4946adf2b39cf08b996d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/caller-subject.json",
+      "kind": "file",
+      "bytes": 2957,
+      "sha256": "c3a491b68acf24256cf5132fec9e1efc3464d2e5d945f1f6edcd49bf537b1073"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/calls/00-verify-core40.json",
+      "kind": "file",
+      "bytes": 25709584,
+      "sha256": "1866a9b8904b4730199217605000bd7e5f0becc43c397d8ea08d4f97f8003079"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/calls/01-verify-dev16.json",
+      "kind": "file",
+      "bytes": 13171319,
+      "sha256": "65012e650eb7b127024840f4b913cb5a861bf5319bc9c3e61854060a0a5a4274"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/calls/02-resolve-core40-dev16.json",
+      "kind": "file",
+      "bytes": 26383222,
+      "sha256": "70ed7afa533fea04b1a5abb316cb92abb091d592a3ecc6a0fcb5062649e83639"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/calls/03-install-core40.json",
+      "kind": "file",
+      "bytes": 29319813,
+      "sha256": "d2e3de2faed8222c945314a2c9597113fd987009a2865824cafcfac567638767"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/calls/04-install-dev16.json",
+      "kind": "file",
+      "bytes": 16780382,
+      "sha256": "0d38363cbb285573d3c727a34c4de7129e1715c183fdaf34eb300e3084403a1d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/calls/05-bootstrap-native-d2-intake-bind-existing-workspace.json",
+      "kind": "file",
+      "bytes": 20217524,
+      "sha256": "8d42a7bb226191f537d0eba5c050a1f6fbefd97ce5ce0eaccec11b83990fe7b4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/calls/06-catalog.json",
+      "kind": "file",
+      "bytes": 35470046,
+      "sha256": "4f965399029dfacc1a2b43484ff0ee0d106506daf9c71ae2645dbc80574db330"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/calls/07-view.json",
+      "kind": "file",
+      "bytes": 40485495,
+      "sha256": "c18d7ea521fc669c563b7dc660c343b5c409e1b6a92a5ae40165aa80ba316fea"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/calls/08-intake-conformance.json",
+      "kind": "file",
+      "bytes": 45455390,
+      "sha256": "c10d1f6c49ee172a485c4e7205f7bbb6fa2f962c46c1d1511afc73d517d17b18"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/entry-close.json",
+      "kind": "file",
+      "bytes": 1438,
+      "sha256": "5ff96369864dc551cb798c79ab8fb8cb261c9bb08f8f0036769579ee4e678bec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/execution-resolution.json",
+      "kind": "file",
+      "bytes": 94490,
+      "sha256": "7b615150105d26bb819e7cab6c424b10efbc2b7d186986fa430d665b18f936de"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/execution.stderr",
+      "kind": "file",
+      "bytes": 1585,
+      "sha256": "b4454c7a5d93d582f5f02c47f2ce6eb653e269fe52dc586570c9f404f9adf8dc"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/execution.stdout",
+      "kind": "file",
+      "bytes": 957,
+      "sha256": "a6b1832cf6ee3099d477d650cd821eb6be1efb29952ffb742b8112de1d54c7c3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/intake-start.jsonl",
+      "kind": "file",
+      "bytes": 28068526,
+      "sha256": "7d23227ea16b2cb2ee0eb203ac3469c2d830ffaddf3f552e4908de47327b2c23"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/invocation/archives/fp-794017cab8238718-output.txt",
+      "kind": "file",
+      "bytes": 19377,
+      "sha256": "8c130d8386a1d0f33216b48f7469aa8aa1f47bb037b0ebb9e7172cf9888f9f9e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/invocation/archives/fp-794017cab8238718-prompt.txt",
+      "kind": "file",
+      "bytes": 713666,
+      "sha256": "e89db55b8416611d007c57915d731080f4ebeba180a7583a2d8242d3fe88f1b7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/invocation/archives/fp-794017cab8238718-stderr.log",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/invocation/archives/fp-794017cab8238718-stdout.log",
+      "kind": "file",
+      "bytes": 862235,
+      "sha256": "f455faca551413ed24d8b749e73348e3126a7662c603853c1d71fe19d1566a0f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/invocation/archives/fp-794017cab8238718-transport.json",
+      "kind": "file",
+      "bytes": 953956,
+      "sha256": "12d706d484c122c158e92a0ab9ce58edc05497233b053f96489851e585ab6e8c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/invocation/archives/fp-befccc563b166c8e-output.txt",
+      "kind": "file",
+      "bytes": 1332,
+      "sha256": "b2ee02cc01f87d63958abedcaebd56dfad573d6969dfdc13bc62f91d214b91a2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/invocation/archives/fp-befccc563b166c8e-prompt.txt",
+      "kind": "file",
+      "bytes": 999092,
+      "sha256": "19e0f6f1f2fd221c86cf569f0d72e849b209e3bf32ba94a4d7aab8bad54d8b93"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/invocation/archives/fp-befccc563b166c8e-stderr.log",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/invocation/archives/fp-befccc563b166c8e-stdout.log",
+      "kind": "file",
+      "bytes": 128754,
+      "sha256": "01ec9a74d70e3644abdc8ce3085bb40ba05388aa8ec4d8d9226e2cd126ad01d7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/invocation/archives/fp-befccc563b166c8e-transport.json",
+      "kind": "file",
+      "bytes": 145112,
+      "sha256": "c3f1442f87c982bfb59fb14d98fa1d8a3b699b613fccb7c66d8560d15c23df66"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/native-intake-input.json",
+      "kind": "file",
+      "bytes": 1018,
+      "sha256": "8079cd3cedb518ec43b83da2b83c0686e0b8b6ccb7303ba2148e973a0c0a4c7d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/prepare.mjs",
+      "kind": "file",
+      "bytes": 19207,
+      "sha256": "b955ae0a0b564958d6acda904cca79a9afd6b314566514bd50e8de082ea5c3b7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/prepared.json",
+      "kind": "file",
+      "bytes": 12084,
+      "sha256": "89bb3834515b8fe2656d18340246f15ec9cdeff19a179f7cd1dfc4217e87ae75"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/readback-basis.json",
+      "kind": "file",
+      "bytes": 242323417,
+      "sha256": "f9f7ad09288c637f5270d136224a98beb293f04e2d35bcf4077f595d9e8ca604"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/receipts/00-verify-core40.json",
+      "kind": "file",
+      "bytes": 257095,
+      "sha256": "5aafcf3b1f9f0d064d0e267a05ee37c64e6b695a4ed7b1b41c7cafc4fdc9f75c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/receipts/01-verify-dev16.json",
+      "kind": "file",
+      "bytes": 1966,
+      "sha256": "09bb804f80396856a2742a634902283d97391ddd5a9fae1cd8260f8fe239e33e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/receipts/02-resolve-core40-dev16.json",
+      "kind": "file",
+      "bytes": 5400,
+      "sha256": "9de36ca76555b319ea886be5cc4d1dfca56c00ee5e185e251eb540ea442b5922"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/receipts/03-install-core40.json",
+      "kind": "file",
+      "bytes": 6063,
+      "sha256": "36d24d685a66fc2a2c64ced94dbd88427322e9dddd1438ae6150a446d19202d8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/receipts/04-install-dev16.json",
+      "kind": "file",
+      "bytes": 6062,
+      "sha256": "d3cdbdd88b99934e7a6ca147f5a13ff946dc0790733eeee48e18dd396e0b0f8f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/receipts/05-bootstrap-native-d2-intake-bind-existing-workspace.json",
+      "kind": "file",
+      "bytes": 6976,
+      "sha256": "ed02bca0e8bda5b9acb3c603d368fc95e24ee671f695c830cb24d30b2e87df31"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/receipts/06-catalog.json",
+      "kind": "file",
+      "bytes": 365853,
+      "sha256": "f630bd4c7a691898446e22007567e5b5fa340808f940e71e7156ebb981193088"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/receipts/07-view.json",
+      "kind": "file",
+      "bytes": 1719,
+      "sha256": "26dcaea24c7a7d13b4dc37db4aaeef6212f7f11903f52a96fdaed36e0f722450"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/receipts/08-intake-conformance.json",
+      "kind": "file",
+      "bytes": 2479,
+      "sha256": "c9b2cd6038fb4b42efc87b5e1e62c5699d4d4551df62bc2ec4745401abea9f0c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/selection.json",
+      "kind": "file",
+      "bytes": 8677,
+      "sha256": "b0af6d6c1a733e0ced0df6aa3bd40beebe3692794611cf2af206c6703d3f7be0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/setup-resource-close.json",
+      "kind": "file",
+      "bytes": 2578,
+      "sha256": "11174474f709b1a485473603fb983873f3c350f7a14327ad48acfa77289b89ef"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/setup-resource-entry.json",
+      "kind": "file",
+      "bytes": 887,
+      "sha256": "b52c041e360d1f39e7f1a1428fd5d19a2b699667d0a15f2dfe94a5cbaeac06e0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/timings/bootstrap-native-d2-intake-bind-existing-workspace.json",
+      "kind": "file",
+      "bytes": 288,
+      "sha256": "2abfcea60f2d26cc7d3c91aafbbceae596fd87f62bde7d0c8b7a673bb3350c9c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/timings/catalog.json",
+      "kind": "file",
+      "bytes": 287,
+      "sha256": "69cdc6c4c5afeb258d96269ef24e0a3c4850ebd184b1959c124260ad7dcba4b2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/timings/execution-resolution.json",
+      "kind": "file",
+      "bytes": 86,
+      "sha256": "cee46392bcbe2962996d9f2accd9b290db22ebf0f6ee1bed9da396a532129a03"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/timings/install-core40.json",
+      "kind": "file",
+      "bytes": 292,
+      "sha256": "54d440d3f225b1071e4eb295532aed573b112d64cd19d7acd14aa0bfcf50ca2d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/timings/install-dev16.json",
+      "kind": "file",
+      "bytes": 292,
+      "sha256": "a15bf5998ee91df1f97e51866ea74386decc4b2071991090772484091c4e6f9f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/timings/intake-conformance.json",
+      "kind": "file",
+      "bytes": 301,
+      "sha256": "fe2f84c8cfe943342a6b554b4d6f8676c578bf6fce7173f241e57809f229cad8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/timings/nominal-verification-0.json",
+      "kind": "file",
+      "bytes": 70,
+      "sha256": "64cc677bc70dd1cda3932ff1dbe132131f93381e02d2c77f1d953c8f97f4c2bf"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/timings/nominal-verification-1.json",
+      "kind": "file",
+      "bytes": 80,
+      "sha256": "123a4c09df00b24965d7eb5f0d4dfa81d3fe8500afdecc43ea3260bedb3221e4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/timings/resolve-core40-dev16.json",
+      "kind": "file",
+      "bytes": 292,
+      "sha256": "1ba97b3f99e6cfc2c745068e17987d5a885dbd744a10092528a0ef8e62a9f343"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/timings/verify-core40.json",
+      "kind": "file",
+      "bytes": 290,
+      "sha256": "6d98e83404b3aa34a741e43d8fcabe1876a1e6569b2b84aa9a4d27d6fa731a69"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/timings/verify-dev16.json",
+      "kind": "file",
+      "bytes": 289,
+      "sha256": "d9b9ff8b95c202105e54d2464df86846dec282e2b80474f88895373471ff63f3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/timings/view.json",
+      "kind": "file",
+      "bytes": 290,
+      "sha256": "4e31adba205d87cee192f7320b3449de0d68681ae6ed0d87b09cf0d066465af6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/worksite-conservation.json",
+      "kind": "file",
+      "bytes": 2079,
+      "sha256": "b69a29a6a8d44f4a5054f14b08519ed95f301e55135d4eb670acca1ffb61a4f9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/return.md",
+      "kind": "file",
+      "bytes": 1566,
+      "sha256": "6d7f4a9009d4a340996b6689d61f61cb09fdbb9ee6e92e7c9ab27437f945e4ad"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/calls/00-selected-suffix-view.json",
+      "kind": "file",
+      "bytes": 40486053,
+      "sha256": "98de0b1c9e8eb3ce422cec8c2d5aa43147562955ed78c631dff2c65183d2b200"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/calls/01-selected-suffix-conformance.json",
+      "kind": "file",
+      "bytes": 45516555,
+      "sha256": "9b96fa73ad61d1895d9108d29f54381a266d6dd5115ef5737078265fbc4df58b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/execution-resolution.json",
+      "kind": "file",
+      "bytes": 95228,
+      "sha256": "3dbe8ab80f720f32e920a82c4788f7c9081a1a5719b920ba6f826450a97ec03c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/execution.stderr",
+      "kind": "file",
+      "bytes": 777,
+      "sha256": "f03d079167b4c064f00b9ca44f7c2955c9ad873b547f056ce5af612a3f7af122"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/execution.stdout",
+      "kind": "file",
+      "bytes": 711471,
+      "sha256": "86eed365ee2815adfb1eb35027935bf9b8b5320d9e47ade057d06daf66ba11cb"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/live-attempt.json",
+      "kind": "file",
+      "bytes": 1910,
+      "sha256": "a0ac7c5d171e3018252ee3ab6a7e9f780782067965ba0cb558750524a7eedc64"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/live-receipt.json",
+      "kind": "file",
+      "bytes": 714238,
+      "sha256": "981f5ee6e5d2edfd16c68354557cefaa43ff14a02d46bb2a02cf77bccf04dbfc"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/live-start.jsonl",
+      "kind": "file",
+      "bytes": 20886028,
+      "sha256": "198497d973e4432dac6e53f2a6304c6287d5e3af88669b8d5ba0a61bb24f5a05"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/live-stderr.log",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/native-prepared.json",
+      "kind": "file",
+      "bytes": 6081,
+      "sha256": "e168b2de686daa42349f7a05b8a1789ecc4a6b203a02cbda1a522f05abad949b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/preparation.stderr",
+      "kind": "file",
+      "bytes": 946,
+      "sha256": "86f2a2037355336eb6a869500bde5f89e3483717c9e632296f34b873c36e4efd"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/preparation.stdout",
+      "kind": "file",
+      "bytes": 403,
+      "sha256": "95defc85f15a8b5c12efa78e6f52eca4a76824c329334ce852f5da10b1ada0de"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/prepare.mjs",
+      "kind": "file",
+      "bytes": 10729,
+      "sha256": "47f8fe843bb460ec05d6bdf56512572f18d7a989c16a48fb1f47ee86142928d2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/prepared.json",
+      "kind": "file",
+      "bytes": 4821,
+      "sha256": "b1b9484d88b0aa42886c56db887c0a7e98e5653cd5b8add93970ce623ba93fa3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/public-readback.json",
+      "kind": "file",
+      "bytes": 1553,
+      "sha256": "094e7a1bbe8bfb303291a1c2660322ac45f90f0f4498c1d557bfd938d0a91eb9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/read-evidence.mjs",
+      "kind": "file",
+      "bytes": 4071,
+      "sha256": "d29327c1f940b47b01d0e486c899334bc7eaf708ce8276fb39bc3744fb65988a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/read-run_replay.boundary.json",
+      "kind": "file",
+      "bytes": 349,
+      "sha256": "e7cb1be1c7b79f4d259fc1ea084331045e81ee8b6f8734bffeac7b445bfc3b02"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/read-run_replay.json",
+      "kind": "file",
+      "bytes": 3709,
+      "sha256": "c8b4cf1a2154833b6c065a566c0ac132edc3afec4a9f3bcaeb8a6356bac66681"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/read-run_replay.jsonl",
+      "kind": "file",
+      "bytes": 9818,
+      "sha256": "ab8b6fb35c160370c929d7a352ce8e0f14ae0fbf393c5da4531cce37c09c85dc"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/read-run_replay.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/read-run_result.boundary.json",
+      "kind": "file",
+      "bytes": 387,
+      "sha256": "aad1a92549d8ba9032a292c2f7e18d153fd5cefd267d3393cd08ddd313b215a2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/read-run_result.json",
+      "kind": "file",
+      "bytes": 2744,
+      "sha256": "58017a24101738b389f308f0dace068a6d6ae1159c9ae78674820e340ed908d1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/read-run_result.jsonl",
+      "kind": "file",
+      "bytes": 9779,
+      "sha256": "286c84a57573e5ceb831f8fe98b10b68f145e0566d45ffad462afeac828a1154"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/read-run_result.process-failure.json",
+      "kind": "file",
+      "bytes": 445,
+      "sha256": "441feb01bc6241c26afddf8a6758be498f73fef565f3a39fa51b49ae3190dc90"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/read-run_result.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/read-suffix.mjs",
+      "kind": "file",
+      "bytes": 7543,
+      "sha256": "a9787444b8ad212583868fbe76d7e34fa9929b7cd21867f9b25b136adeeb75ac"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/readback-basis.json",
+      "kind": "file",
+      "bytes": 242323417,
+      "sha256": "e77d9b588d62c92e3779a561f9c76f696723123a6b5a06d81432b2c8d7b6e649"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/readback.stderr",
+      "kind": "file",
+      "bytes": 777,
+      "sha256": "5279a2a707a45d1fb63a359daf65f8b1b788b43c42d688f7146321fc18a20bb9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/readback.stdout",
+      "kind": "file",
+      "bytes": 3291,
+      "sha256": "d8ece936acc27d5bad9d7a98dcc9b345e70ca8fb65025ca60bc58c8e0b73c594"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/receipts/00-selected-suffix-view.json",
+      "kind": "file",
+      "bytes": 1998,
+      "sha256": "d33640e547b2ef6585d1ed6372cef4f6cdb744c40c61cd95081de3ca0df77b36"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/receipts/01-selected-suffix-conformance.json",
+      "kind": "file",
+      "bytes": 2495,
+      "sha256": "35e38a8b4d93a4be53e988a2d73a09a173fd337fc61b35f992e9f287a87f262f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/run.mjs",
+      "kind": "file",
+      "bytes": 451,
+      "sha256": "729bb33d9c69fa7d320efdcc6e099ff1981f7976c3da62f5260b3b12d4bc1992"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/setup-resource-close.json",
+      "kind": "file",
+      "bytes": 2577,
+      "sha256": "d86ccd70c5079da8a0e8f0fca314dba39ab006e1684890635adea10546c9de4c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/setup-resource-entry.json",
+      "kind": "file",
+      "bytes": 887,
+      "sha256": "809718484d1d36167be8a4d99f67274e77b9a62ec51af57d1e0cfdd0edd48d9f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/suffix-readback.json",
+      "kind": "file",
+      "bytes": 2897,
+      "sha256": "f25fb9d0daa6391764940d87b8aba25784675bc7d8a8361266b11939700429f3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/suffix-start.jsonl",
+      "kind": "file",
+      "bytes": 28723988,
+      "sha256": "484890122b3ec2ef33eb88528659647445c3033e22238038c0df7c50e70481d9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/timings/execution-resolution.json",
+      "kind": "file",
+      "bytes": 86,
+      "sha256": "f1e2bb742d5966e3cb5c7fee65d09608fb3c9192c74b99f199744101c4bb7938"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/timings/selected-suffix-conformance.json",
+      "kind": "file",
+      "bytes": 152,
+      "sha256": "0757d469d0e43ba06385f7c73b8ee28d48bb8279a127dfaae21211062e93758e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/timings/selected-suffix-view.json",
+      "kind": "file",
+      "bytes": 141,
+      "sha256": "350a38d4c0ef4428168c867e9a1b7c104ebf75b7c912c7ff5981b105b6aeb857"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01/verification.json",
+      "kind": "file",
+      "bytes": 1084,
+      "sha256": "957ded116c4c05145c31bf993b3a10c676fb1c7d37e3c7467d0528fef5bc4f18"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-disposition.json",
+      "kind": "file",
+      "bytes": 1630,
+      "sha256": "5959b780650d4cda166c904be03e55ba4e64eb71aba1fa84e9b1c10f1443a894"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/triage-review.md",
+      "kind": "file",
+      "bytes": 8055,
+      "sha256": "46df4c7fb287026b121b5e170b29e463140aabdabcda853a61b686a2c113413e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/witness-01/caller-check.json",
+      "kind": "file",
+      "bytes": 1467,
+      "sha256": "fb2ab002ca6611dd682a15a3f3a93e3e0f05ec0286497088b6d1c9d16f387198"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/witness-01/calls/00-original-public-run-status.json",
+      "kind": "file",
+      "bytes": 10323,
+      "sha256": "4bc78d111f832977091a07dc850f291dc76410b027febba1e452b0beeb9bc73a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/witness-01/calls/01-original-root-binding-reprice.json",
+      "kind": "file",
+      "bytes": 13122775,
+      "sha256": "d51b35ac3bd2752666a2f6a5e9979cd481bfa7734cf91067fe7a120be1faeddf"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/witness-01/execute.mjs",
+      "kind": "file",
+      "bytes": 8379,
+      "sha256": "084ae8788ed029bf3599c97023f81fa26b67390da79f095cf7b70b5c8fbbe763"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/witness-01/execution.stderr",
+      "kind": "file",
+      "bytes": 1207,
+      "sha256": "6095640510abb74ae076f3917a31f7cf154ff3e93e7390d32f2ecc568b353194"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/witness-01/execution.stdout",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/witness-01/receipts/00-original-public-run-status.json",
+      "kind": "file",
+      "bytes": 413521,
+      "sha256": "3aa67bf5819d9a0195819f9b7bb5d5e7f61abdd372663c940430ee81967ca234"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/witness-01/receipts/01-original-root-binding-reprice.json",
+      "kind": "file",
+      "bytes": 3708,
+      "sha256": "21b5bb16b6b4db841eeb7d5e884d1d45de1f10ffcde072a5efe31d3a0ab5d808"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/witness-01/result.json",
+      "kind": "file",
+      "bytes": 4735,
+      "sha256": "f3965becc7eb610ad17f2591dfb73bb1044b954cb643ecb882505d3778fd3cd0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/witness-01/setup-resource-close.json",
+      "kind": "file",
+      "bytes": 2578,
+      "sha256": "982f34acbaf645d56a909cfd1f10b0b9006dc0343eb17f13434195dd21c14638"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/witness-01/setup-resource-entry.json",
+      "kind": "file",
+      "bytes": 887,
+      "sha256": "4fbca92c5d580c706b774f65a8707775e793b75234bf4f2a2fc88ceafefeb507"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/witness-01/timings/original-public-run-status.json",
+      "kind": "file",
+      "bytes": 38,
+      "sha256": "5ac1149b57209dc76f47201ee5d7cbe5ce6010b0496e45d2d7420d3a7fbf96cc"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/witness-01/timings/reprice-construction-and-admission.json",
+      "kind": "file",
+      "bytes": 38,
+      "sha256": "4f815d4127880657d171a6960bd89cea9fc6b81f35161b7c12d1ec1603e7bdf1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/witness-01/verification.json",
+      "kind": "file",
+      "bytes": 1084,
+      "sha256": "0d166b43364875d3f343b7031af6bafe7ae7ce579897a07e59de1cac90cfe354"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/ranks7-8-review.md",
+      "kind": "file",
+      "bytes": 6046,
+      "sha256": "c649f45bf785b892d50e78c953e742560d014b061c402dad06c3fc9912b093a3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/review.md",
+      "kind": "file",
+      "bytes": 21710,
+      "sha256": "64b62ff4e445deedf82ad31f79867a3bf53df9aefaae5b96682e3da5fb1e54f5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-01/RETURN.md",
+      "kind": "file",
+      "bytes": 14548,
+      "sha256": "c6e586c38206dae2e3cf8598edaba23e316210b2849511b367b365c249fe850e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-01/build-final.log",
+      "kind": "file",
+      "bytes": 215,
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-01/freeze.json",
+      "kind": "file",
+      "bytes": 15070,
+      "sha256": "ed8856ef5aef3da762661e9e39d3d223550fd8ab8efdb6990fa10a59c9c15880"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-01/identity-final.log",
+      "kind": "file",
+      "bytes": 768,
+      "sha256": "a8e4fb1fd6d15a74ebb71437daa65a0fc134b7f119ed00eff94042a9b28b8ba6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-01/installed-composition-final.log",
+      "kind": "file",
+      "bytes": 4620,
+      "sha256": "49bf9c487bca1011e52b5b93978455123de9fd1f9cafd898c963f26b9ea93c4d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-01/installed-composition.log",
+      "kind": "file",
+      "bytes": 35783,
+      "sha256": "fbf1ed29bd69beff4ca4c83260cdfa4c8b1779aa9753df12e8ce8c0953f0e311"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-01/product-values.log",
+      "kind": "file",
+      "bytes": 933,
+      "sha256": "7134bb9c045affb77e1574a0c289dc084314242bc9f74baef8bfd14457ad3f8c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-01/review.md",
+      "kind": "file",
+      "bytes": 7352,
+      "sha256": "b2e731c7bc26eb68dc921081a8e74184553a2d1f4a310ba74da941b5256c675f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-02/RETURN.md",
+      "kind": "file",
+      "bytes": 9117,
+      "sha256": "f0cc923e36058da10246b2d16f17f50bab3d54d648551639c4973345784b418e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-02/accounting.json",
+      "kind": "file",
+      "bytes": 16297,
+      "sha256": "b9d7c2efadb6afc0d766afff8a95c2ea814ddb8b072c52781d7347d167ca1a0a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-02/checks.json",
+      "kind": "file",
+      "bytes": 2362,
+      "sha256": "b8efe2c143ea921240b468d2d835c594e2cc5e65bcbc2e44ae64a24225db5f2d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-02/composition.log",
+      "kind": "file",
+      "bytes": 12680,
+      "sha256": "7f50aa02c8f2cdf154681f1ee88c8c07436a73ad6b5ca64092dce4f7cb1ebedc"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-02/freeze.json",
+      "kind": "file",
+      "bytes": 18735,
+      "sha256": "1dbf80300cc6b75016430f667f2c025af781bbdb910b66153c75eed4802f2434"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-02/review.md",
+      "kind": "file",
+      "bytes": 6654,
+      "sha256": "312903ce47192bc8566fdd7c94f4dfb71dec2b1f5d8c0632dc65b1f1bd1e5640"
+    }
+  ],
+  "omittedDirectories": [
+    ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native41",
+    ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/checkpoint-01",
+    ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/preparation/products"
+  ]
+}

@@ -798,7 +798,7 @@ export function completeWorkflowLocus(
       const derived = deriveCompletedTraversalCursor(runtime.graph, cursor, {
         inputRef: retained?.input.admissionRef ?? result.resultRef,
         inputDigest: retained?.input.subjectDigest ?? result.valueDigest,
-      });
+      }, Abg.projectRuntimePrefixesAtDurablePrefix(outcome.successorPrefix, cursor.runId).authorityPrefix);
       if (derived?.kind === "traversal_refusal") {
         return failWorkflow(frame,
           outcome.successorPrefix,
@@ -935,7 +935,7 @@ export function completeWorkflowLocus(
     const derived = deriveCompletedTraversalCursor(runtime.graph, cursor, {
       inputRef: fanOutAdmission.outputVectorRef,
       inputDigest: fanOutAdmission.outputVectorDigest,
-    });
+    }, Abg.projectRuntimePrefixesAtDurablePrefix(fanOutCompletion.successorPrefix, cursor.runId).authorityPrefix);
     if (derived?.kind === "traversal_refusal") {
       return failWorkflow(frame,
         fanOutCompletion.successorPrefix,

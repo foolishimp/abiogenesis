@@ -94,6 +94,7 @@ export function advanceStructuralTransition(
     input.graph,
     input.cursor,
     input.term,
+    Abg.projectRuntimePrefixesAtDurablePrefix(input.predecessorPrefix, input.cursor.runId).authorityPrefix,
   );
   if (target === null || target.kind === "traversal_refusal") {
     return fail(

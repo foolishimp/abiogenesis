@@ -213,6 +213,7 @@ function deferredApplicationState(
       inputRef: outcome.result.resultRef,
       inputDigest: outcome.result.valueDigest,
     },
+    Abg.projectRuntimePrefixesAtDurablePrefix(traversal.predecessorPrefix, traversal.traversalStop.cursor.runId).authorityPrefix,
   );
   if (
     target?.kind === "traversal_refusal" ||

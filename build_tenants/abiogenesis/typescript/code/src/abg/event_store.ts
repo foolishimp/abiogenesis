@@ -2201,6 +2201,7 @@ function projectRuntimeEventAtContract(
   candidate: RuntimeEventCandidate,
   profileDigest: Sha256Digest,
   eventsById?: Pick<ReadonlyMap<string, RuntimeEvent>, "get">,
+  candidateSource: "caller" | "decoded" = "caller",
 ): RuntimeEvent {
   if (
     !isRecord(candidate) ||
@@ -2233,9 +2234,12 @@ function projectRuntimeEventAtContract(
   ) {
     throw new TypeError("runtime event causation cannot cross a run scope");
   }
-  const immutableCandidate = deepFreeze(
-    JSON.parse(canonicalJson(candidate as unknown as JsonValue)) as RuntimeEventCandidate,
-  );
+  // Cold rows are already detached by the store's JSON parser. The body codec
+  // restores references only to earlier validated, detached immutable values.
+  // Keep those exact bodies while freezing each new envelope; caller ingress
+  // still detaches the complete candidate before it can become admitted truth.
+  const immutableCandidate = deepFreeze(candidateSource === "decoded" ? candidate :
+    JSON.parse(canonicalJson(candidate as unknown as JsonValue)) as RuntimeEventCandidate);
   const admissionOrdinal = events.length + 1;
   const stamp = profileDigest === LEGACY_ROOT_EVENT_CONTRACT_DIGEST ? {} : { eventContractDigest: profileDigest };
   const payloadDigest = sha256Canonical(immutableCandidate.payload);
@@ -3177,6 +3181,7 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
       candidateValue as unknown as RuntimeEventCandidate,
       profile,
       eventsById,
+      "decoded",
     );
     if (
       reconstructed.eventId !== eventId ||

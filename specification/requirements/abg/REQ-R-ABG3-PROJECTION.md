@@ -2,8 +2,9 @@
 
 **Status**: Active
 **Category**: Constraint / Guarantee
+**Product behavior**: [Execution And Context Calculus](../../PRODUCT.md#execution-and-context-calculus); T-287 owner-directed Product/requirement re-entry.
 **Date**: 2026-04-05
-**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.1-rc.1/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.1-rc.1/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
 
 ---
 
@@ -16,11 +17,11 @@ surface over ABG runtime truth.
 
 **REQ-R-ABG3-PROJECTION-001**: Projection shall be deterministic. The same event stream and declared inputs shall always yield the same projection result.
 
-**REQ-R-ABG3-PROJECTION-002**: Durable runtime truth shall be derived by replay. ABG shall not write fluent state as a rival authority surface.
+**REQ-R-ABG3-PROJECTION-002**: Runtime state shall be derived from the admitted event history and its declared inputs. The live owner shall maintain that projection incrementally; cold acquisition and recovery shall reconstruct the equivalent committed runtime state. Replay-derived describes the source relation, not a requirement to repeat a whole-history fold on every handoff or read. ABG shall not write fluent state as a rival authority surface.
 
 **REQ-R-ABG3-PROJECTION-003**: ABG shall provide explicit projections for at minimum `run`, `graph_call`, `frame`, and `continuation`.
 
-**REQ-R-ABG3-PROJECTION-004**: If replay cannot determine what currently holds from event truth alone, the event/projection model is constitutionally incomplete.
+**REQ-R-ABG3-PROJECTION-004**: If replay cannot determine admitted runtime state, including explicit unknown or unresolved dispositions, from the event history and its declared sources, the event/projection model is constitutionally incomplete. Reconstructing an historical observation shall not establish the present physical state of its workspace subject.
 
 **REQ-R-ABG3-PROJECTION-005**: Snapshot, checkpoint, or state-summary surfaces may exist as replay aids, but they shall not override replay-derived truth.
 
@@ -67,3 +68,17 @@ parallel observation/workspace ontology.
 **REQ-R-ABG3-PROJECTION-023**: The public `project.read` family shall be a pure closed source/projection relation. In ABIogenesis 5.0 it may render catalog list/describe, status, result, evidence, replay, gaps, and lawful actions only from their owning admitted truth. It shall not evaluate gaps, determine action eligibility, rank or select actions, admit intent or evidence, invoke or continue work, append events, or decide closure. Observer-report, observer-drafts, and tuning-report projections, including tuning-draft transition exclusions, are reserved for the planned 5.1 observer/tuner Product.
 
 **REQ-R-ABG3-PROJECTION-024**: A newer `ObservationSnapshot` under the same immutable workspace binding and execution basis may invalidate and recompute dependent model, gap, target-binding, priority, and next-action projections. Projection shall treat that as ordinary observation progress, never as a workspace rebind or `basis_fork_detected`; an authority change remains governed by binding and continuation law.
+
+**REQ-R-ABG3-PROJECTION-025**: Established projection facts shall be reusable
+under their exact subject, basis, scope, provenance and validity conditions.
+An internal function or role boundary shall not by itself trigger complete
+history reconstruction or reauthentication. A whole-history dependency shall
+identify its governing relation and extent. Qualification shall compare live
+and cold results at the same committed boundary, preserving required checks
+at actual acquisition, invalidation, authority and effect boundaries.
+
+**REQ-R-ABG3-PROJECTION-026**: When effects may have occurred and a required
+successor observation is unavailable, projection shall withdraw dependent
+currentness over potentially affected scope while preserving unaffected facts
+and the original failure. Unknown physical state shall not become unchanged
+state, rollback or a fabricated successor observation.

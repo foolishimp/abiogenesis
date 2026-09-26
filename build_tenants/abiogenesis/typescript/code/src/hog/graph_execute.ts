@@ -7,9 +7,12 @@ import {
   commitFhInteractionResumeAtExpectedPrefix,
   deriveFhResumeSuccessorInputAtPrefix,
   projectOpenedTraversalScopeClassAtDurablePrefix,
+  projectRuntimePrefixesAtDurablePrefix,
   selectAdmittedImplementationResolution,
 } from "../abg/index.js";
+import { projectTraversalInputAtPrefix } from "../abg/traversal_cursor.js";
 import type { CProgramNode } from "../gtl/c_algebra.js";
+import { resolveCProgramTermAtSourcePath } from "../gtl/source_path.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { runEffectProgram } from "../shared/effect_definition.js";
@@ -42,7 +45,6 @@ import {
 } from "./interaction_resume.js";
 import {
   isExactLocusStep,
-  materializedInputAtCursor,
   traversalBasis,
 } from "./operator_support.js";
 import {
@@ -497,28 +499,20 @@ function nextFromEvaluation(
       returns: Object.freeze([...returns]),
     });
   }
-  const materialized = materializedInputAtCursor(
-    runtime.graph,
-    completion.nextCursor,
-  );
+  const selected = completion.nextCursor === null ? null : projectTraversalInputAtPrefix(
+    projectRuntimePrefixesAtDurablePrefix(completion.successorPrefix, completion.nextCursor.runId).authorityPrefix,
+    runtime.graph, runtime.executionBasis, completion.nextCursor);
+  const targetTerm = completion.nextCursor === null ? null : resolveCProgramTermAtSourcePath(
+    runtime.graph.template, completion.nextCursor.currentNodeRef, completion.nextCursor.termPath);
   if (
     completion.nextCursor === null ||
     completion.continuationKind === null ||
     completion.nextInputContractRef === null ||
     evaluation.outputValueKind === null ||
     evaluation.outputContractRef === null ||
-    (materialized === null &&
-      (typeof completion.resultValue !== "object" ||
-        completion.resultValue === null ||
-        Array.isArray(completion.resultValue))) ||
-    (materialized === null &&
-      (completion.continuationKind === "retry"
-        ? completion.nextCursor.inputRef.length === 0 ||
-          completion.nextCursor.inputDigest !==
-            sha256Canonical(completion.resultValue)
-        : !runtime.leafPort.validateContractValueByRef(
-            completion.nextInputContractRef, completion.resultValue,
-          )))
+    selected === null || typeof selected.value !== "object" || selected.value === null || Array.isArray(selected.value) ||
+    targetTerm === null || targetTerm.kind === "c_source_path_refusal" ||
+    !runtime.leafPort.validateContractValueByRef(targetTerm.inputCarrierRef, selected.value)
   ) {
     return failFrame(
       frame,
@@ -540,8 +534,7 @@ function nextFromEvaluation(
         predecessorPrefix: completion.successorPrefix,
       }),
       cursor: completion.nextCursor,
-      input: materialized?.value ??
-        completion.resultValue as Readonly<Record<string, JsonValue>>,
+      input: selected.value as Readonly<Record<string, JsonValue>>,
       ordinal: frame.ordinal + 1,
       structuralOrdinal: 0,
     }),
@@ -642,6 +635,12 @@ function evaluateTraversalProgram(
           eventTime: frame.runtime.eventTime,
           correlationId: frame.runtime.correlationId,
         });
+        const selected = projectTraversalInputAtPrefix(
+          projectRuntimePrefixesAtDurablePrefix(advanced.successorPrefix, advanced.cursor.runId).authorityPrefix,
+          frame.runtime.graph, frame.runtime.executionBasis, advanced.cursor);
+        if (selected === null || selected.value === null || typeof selected.value !== "object" || Array.isArray(selected.value))
+          return Effect.sync(() => failFrame(frame, advanced.successorPrefix, `structural-input-${frame.ordinal}`,
+            "diagnostic://abiogenesis/hog/advanced-result-basis-absent@5", advanced.cursor as unknown as JsonValue));
         return Effect.succeed(Object.freeze({
           stateKind: "evaluate" as const,
           frame: Object.freeze({
@@ -651,10 +650,7 @@ function evaluateTraversalProgram(
               predecessorPrefix: advanced.successorPrefix,
             }),
             cursor: advanced.cursor,
-            input: materializedInputAtCursor(
-              frame.runtime.graph,
-              advanced.cursor,
-            )?.value ?? frame.input,
+            input: selected.value as Readonly<Record<string, JsonValue>>,
             structuralOrdinal: frame.structuralOrdinal + 1,
           }),
           returns: Object.freeze([...state.returns]),

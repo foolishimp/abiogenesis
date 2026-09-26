@@ -1314,7 +1314,7 @@ function appendDurablyBatch(state, events) {
 export function projectRuntimeEventFromValidatedHistory(events, candidate) {
     return projectRuntimeEventAtContract(events, candidate, runtimeEventProfileAfter(events));
 }
-function projectRuntimeEventAtContract(events, candidate, profileDigest, eventsById) {
+function projectRuntimeEventAtContract(events, candidate, profileDigest, eventsById, candidateSource = "caller") {
     if (!isRecord(candidate) ||
         !hasOnlyRuntimeEventCandidateKeys(candidate) ||
         !isRuntimeEventCandidateShape(candidate)) {
@@ -1340,7 +1340,12 @@ function projectRuntimeEventAtContract(events, candidate, profileDigest, eventsB
         : cause.runId !== undefined && cause.runId !== candidate.runId)) {
         throw new TypeError("runtime event causation cannot cross a run scope");
     }
-    const immutableCandidate = deepFreeze(JSON.parse(canonicalJson(candidate)));
+    // Cold rows are already detached by the store's JSON parser. The body codec
+    // restores references only to earlier validated, detached immutable values.
+    // Keep those exact bodies while freezing each new envelope; caller ingress
+    // still detaches the complete candidate before it can become admitted truth.
+    const immutableCandidate = deepFreeze(candidateSource === "decoded" ? candidate :
+        JSON.parse(canonicalJson(candidate)));
     const admissionOrdinal = events.length + 1;
     const stamp = profileDigest === LEGACY_ROOT_EVENT_CONTRACT_DIGEST ? {} : { eventContractDigest: profileDigest };
     const payloadDigest = sha256Canonical(immutableCandidate.payload);
@@ -2081,7 +2086,7 @@ function decodeHistoricalEvents(bytes, expectedProfileDigest) {
             (profile === ROOT_EVENT_CONTRACT_DIGEST && eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST)) {
             throw new TypeError("event stamp differs from the exact native profile schedule");
         }
-        const reconstructed = projectRuntimeEventAtContract(admitted, candidateValue, profile, eventsById);
+        const reconstructed = projectRuntimeEventAtContract(admitted, candidateValue, profile, eventsById, "decoded");
         if (reconstructed.eventId !== eventId ||
             reconstructed.admissionOrdinal !== admissionOrdinal ||
             reconstructed.payloadDigest !== payloadDigest ||

@@ -16,6 +16,9 @@ import { deriveSemanticRevision, deriveRevisionAsset, deriveRevisionAssessment, 
 import { isSemanticStageEnvelope, deriveSemanticWorksiteConstructionConfiguration, projectSemanticWorksiteCoordinates } from "../product/semantic_stage.js";
 import { authenticateSemanticStageBasis, projectSemanticPredecessorAtPrefix, semanticInputValueAtBasis } from "./semantic_stage.js";
 import { rehydrateExecutionBasisAtPrefix } from "./execution_basis.js";
+import { projectOpenedCCallTraversalInputAtPrefix } from "./traversal_cursor.js";
+import { projectWorksiteInputLeafResultAtPrefix } from "./worksite_input_provenance.js";
+import { materializeGraph } from "../gtl/materialize.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
 import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
 import { constructWorksiteObservation, isWorksiteObservation, isWorksitePostPublicationFailure } from "../product/worksite_effect.js";
@@ -158,6 +161,16 @@ function nativeIntakeFacts(basis, input, onRefusal) {
         }
         const cause = causes[0], rejected = jobEnvelope(cause.state.result.value), operationalFailure = operational.get(cause.state.cCall.cCallRef);
         const causeBasis = rehydrateExecutionBasisAtPrefix(prefix, cause.state.cCall.basisId);
+        const causeFunction = causeBasis === null ? undefined : basis.declarationGraphFunctions.find(g => g.name === causeBasis.graphFunctionRef && hash(g) === causeBasis.graphFunctionDigest);
+        const causeGraph = causeBasis === null || causeFunction === undefined ? null : materializeGraph(causeFunction, {
+            invocationAdmissionRef: causeBasis.invocationAdmissionRef, admittedInputRef: causeBasis.rawInputAdmissionRef,
+            admittedInputDigest: causeBasis.rawInputDigest, admittedInput: causeBasis.rawInputValue
+        });
+        const current = operationalFailure === undefined || causeGraph === null ? null
+            : projectOpenedCCallTraversalInputAtPrefix(prefix, causeGraph, cause.state.cCall.cCallRef);
+        const currentProducer = current === null ? null : projectWorksiteInputLeafResultAtPrefix(prefix, current.input.inputRef, current.input.inputDigest);
+        if (operationalFailure !== undefined && (current === null || currentProducer === null))
+            return refuse("cause_input_absent");
         const command = isNativeWorksiteCommandExecutionObservation(cause.state.result.value) ? cause.state.result.value.task : causeBasis?.rawInputValue;
         const construction = rejected?.evidence?.constructionResult ?? (isNativeWorksiteCommandExecutionTask(command) ? command.sourceNativeWork : null);
         const native = isNativeWorkspaceWorkObservation(construction) ? projectNativeWorkspaceWorkSourceAtPrefix(prefix, construction) : null;
@@ -174,7 +187,7 @@ function nativeIntakeFacts(basis, input, onRefusal) {
                     last?.stageRef === stage.declarationRef && last.assessment === null &&
                     envelope.assets.slice(0, -1).every(asset => asset.assessment?.disposition === "satisfied") &&
                     state.cCall.implementationRef === ids.authorImplementationRef && state.cCall.programLocusRef === stage.authorLocusRef &&
-                    last.source.cCallRef === state.cCall.cCallRef && causeBasis !== null && same(state.result.value, causeBasis.rawInputValue);
+                    last.source.cCallRef === state.cCall.cCallRef && currentProducer?.eventId === event.eventId && same(state.result.value, current.input.value);
             }
             if (!envelope.assets.every(asset => asset.assessment?.disposition === "satisfied"))
                 return false;
@@ -183,8 +196,8 @@ function nativeIntakeFacts(basis, input, onRefusal) {
             if (!exactProducer)
                 return false;
             if (operationalFailure !== undefined)
-                return causeBasis !== null &&
-                    same(state.result.value, causeBasis.rawInputValue) && envelope.evidence === null &&
+                return currentProducer?.eventId === event.eventId &&
+                    same(state.result.value, current.input.value) && envelope.evidence === null &&
                     envelope.declaration.stages[envelope.assets.length]?.declarationRef === operationalFailure.stageRef;
             if (rejected !== null)
                 return same(envelope.basis, rejected.basis) && same(envelope.assets, rejected.assets.slice(0, -1));

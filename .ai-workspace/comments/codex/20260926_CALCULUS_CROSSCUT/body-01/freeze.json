@@ -1,0 +1,101 @@
+{
+  "subject": "T287_CALCULUS_REPAIR_01 rank7 CALCULUS-BODY-01",
+  "createdUtc": "2026-09-26T06:46:50.963534+00:00",
+  "repo": "/Users/jim/src/apps/abiogenesis",
+  "productSha256": "bb0c211a3fe04be9b3d8a12779387f6b26e3e0d0bd2bf513cf7fe826c8ba5176",
+  "status": "writer_closed; independent_review_pending",
+  "authority": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#forced-ranked-calculus-repairs",
+  "sharedManifestOwner": "Root; excluded from bounded freeze",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "classification": "changed_source",
+      "sha256": "5aa0d80acb0623aaeaf2aa63f55739e1f4469af5807be98beb3c3a32eb65e7be",
+      "bytes": 170179
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+      "classification": "unchanged_codec",
+      "sha256": "69bc0ba9c39364fe4200420e7e8ca93ec4e707203ef7160ad8c438c73137fdc9",
+      "bytes": 4110
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "classification": "focused_test",
+      "sha256": "5ad54de4577ee5dde86579172e286ce90d76eb3c76e88b97e4c8a9c6b10a7fdc",
+      "bytes": 19668
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+      "classification": "emitted_owner",
+      "sha256": "d854a25ba97a3914d9e28ea8cc7cc5e1115f0d587e358c9d7bd40828e9d565f1",
+      "bytes": 156600
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.d.ts",
+      "classification": "emitted_owner",
+      "sha256": "bbfc81b76a6afe574c3ca02241fea19524781a043cc1b6a6ed857b518be3070d",
+      "bytes": 38555
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_body_encoding.js",
+      "classification": "emitted_owner",
+      "sha256": "b5912ad65906090b718f01937814240d5d254941295c073d5c1252fb4bdd9935",
+      "bytes": 3504
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_body_encoding.d.ts",
+      "classification": "emitted_owner",
+      "sha256": "b413b412b31db39d8b4af6009d0b124b38b5469afa0d8c75f27839c299d44815",
+      "bytes": 1074
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/RETURN.md",
+      "classification": "evidence_or_preimage",
+      "sha256": "6d7dcafc0403f8ba9d71cd871adf2a693c1a5fe3f15c7b5da38fc9c83b52097b",
+      "bytes": 4681
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/checks.json",
+      "classification": "evidence_or_preimage",
+      "sha256": "31139df9cab2dabaf906d2279cdde37454fa9996fe900bce7f08b2c76dcf88c2",
+      "bytes": 1450
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/body-tests.log",
+      "classification": "evidence_or_preimage",
+      "sha256": "d01540bbc307ad39fa0fe204673aeac686b4d6d3943b7aa16a6adc75a99b2316",
+      "bytes": 1109
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/preimages.json",
+      "classification": "evidence_or_preimage",
+      "sha256": "eaa2c9284fde1f598558634f07164af93ee0ae8d21e874ed2c26d4d8f3c06473",
+      "bytes": 950
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/core40-to-candidate.diff",
+      "classification": "evidence_or_preimage",
+      "sha256": "2455c05457881a9227f96225ea4d4253760dab26ea80129bc60fb84903530c91",
+      "bytes": 11548
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/preimage-event_store.ts",
+      "classification": "evidence_or_preimage",
+      "sha256": "ee930b198e178c24fc99c96d8a11fedd6f58766beabcb564432fd828a1423fa6",
+      "bytes": 169755
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/preimage-event_body_encoding.ts",
+      "classification": "evidence_or_preimage",
+      "sha256": "69bc0ba9c39364fe4200420e7e8ca93ec4e707203ef7160ad8c438c73137fdc9",
+      "bytes": 4110
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/preimage-t287-event-body-encoding.test.mjs",
+      "classification": "evidence_or_preimage",
+      "sha256": "349225c0e1c0f06fb1c2a7970f7f3b366fdce54a5f0297441804a6b865cdb2e7",
+      "bytes": 15391
+    }
+  ]
+}

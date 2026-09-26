@@ -319,64 +319,46 @@ test('native D2 root-backed binding cover authenticates source ancestry and pres
 });
 
 
-test('native D2 operational author preparation cause retains accepted stages and selects only the actual failed stage',async t=>{
- // Real component owner and Product derivations; admitted leaf/prefix/binding
- // authentication is supplied by the existing harness, not runtime qualification.
+// These are Product value premises only. Actual failed-call input and producer
+// admission is exercised in t287-calculus-state-transfer, under one real basis.
+const operationalEventContractDigest=(await load('abg/event_store')).ROOT_EVENT_CONTRACT_DIGEST;
+function operationalRevisionValues(env,parent,stage,role){
+ const valueCoordinate=key=>({cCallRef:'component:'+key,resultRef:'component:result:'+key,resultDigest:hash(key),
+  resultAdmissionEventRef:'component:result-event:'+key,judgmentEventRef:'component:judgment:'+key});
+ const body={kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:'file:///component/no-journal',prefixLength:0,prefixDigest:hash('prefix'),
+  storeIdentity:{device:1,inode:1,eventContractDigest:operationalEventContractDigest}};
+ const source={kind:'native_semantic_revision_intake',schemaVersion:'5.0.0',sourceRun:{ref:'component:run',digest:hash('run')},
+  sourcePrefix:{...body,coordinateDigest:hash(body)}};
+ const prior=parent.current??parent;
+ const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:valueCoordinate('parent'),causes:[valueCoordinate('cause')],
+  mode:'stage_revision',selectedStageRef:stage.declarationRef,selectedObligationRefs:[],selectedTargetRefs:[],
+  reasonRef:'component:operational-preparation-pressure',nativePhase:'preconstruction'};
+ const request={kind:'semantic_revision_request',schemaVersion:'5.0.0',parent:selection.parent,causes:selection.causes,
+  selection:valueCoordinate('selection'),selectionChoice:{mode:'stage_revision',selectedStageRef:stage.declarationRef,entryRole:role},currentWorksite:null,
+  nativeWorksite:{kind:'native_semantic_revision_worksite',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,
+   capabilityGrant:env.capabilityGrant,context:prior.context,commandExecutionLimits:{inactivityTimeoutMs:300000,absoluteTimeoutMs:900000},construction:null,source}};
+ assert(revision.isSemanticRevisionRequest(request));assert(revision.isSemanticRevisionSelection(selection));
+ return {request,selection};
+}
+
+test('Product author recovery values retain accepted stages under an explicit failed-stage premise',async t=>{
  const env=await fixture(t);let parent=env.envelope;
  for(let i=0;i<3;i++){const a=await author(env,parent,i);parent=assess(env,a.authored,i).assessed;}
- const h=await harness(env),stage=declaration.stages[parent.assets.length];
- h.admit(parent,D.nativeAssessorFoldImplementationRef,h.original,'advance',parent.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,h.publicRun.ref);
- const causeBasis={...h.original,basisRef:'component:failed-author-basis',parentExecutionBasisRef:h.original.basisRef,rawInputValue:parent,rawInputDigest:hash(parent)};
- h.bases.set(causeBasis.basisRef,causeBasis);
- const cause=h.admit({kind:'semantic_stage_failure',schemaVersion:'5.0.0',failureClass:'implementation_exception'},R.authorImplementationRef,causeBasis,'blocked','component:failed-author',h.publicRun.ref,'failure');
- Object.assign(cause.cCall,{regime:'F_P',programLocusRef:stage.authorLocusRef});cause.result.evidenceRefs=['component:undispatched-evidence'];
- const {constructRuntimeFailureDiagnosticRef}=await load('abg/runtime_failure');
- const refusal={kind:'native_instruction_assembly_refusal',cause:'declared_bound_overflow',policy:stage.assembly.ruleRef,role:'author',unresolvedRefs:['maxPromptBytes']};
- if(process.env.ABI5_NATIVE_D2_DESIGN_DIRECTORY){
-  const retained=JSON.parse(await readFile(join(process.env.ABI5_NATIVE_D2_DESIGN_DIRECTORY,'installed-01/suffix-01/first-cause-public-evidence-02.json'),'utf8')).bodies[0].value;
-  assert.deepEqual(JSON.parse(retained.subject.message),refusal,'actual retained author materialization failure has exactly this typed operational shape');
-  const accepted=JSON.parse(await readFile(join(process.env.ABI5_NATIVE_D2_DESIGN_DIRECTORY,'design-bound-diagnosis-01/design-input.json'),'utf8')).targets[0].event.payload.rawInputValue;
-  assert.equal(accepted.current.declaration.stages[accepted.current.assets.length].declarationRef,stage.declarationRef);
-  assert.equal(accepted.current.assets.at(-1).assessment.disposition,'satisfied');
-  const results=JSON.parse(await readFile(join(process.env.ABI5_NATIVE_D2_DESIGN_DIRECTORY,'design-bound-diagnosis-01/result-events.json'),'utf8')).results;
-  const actualParent=results.find(row=>row.event.payload.resultRef==='result://abiogenesis/7580c6b2215e48a5a133984b0f4d10541ff7abd6de1b498862e4b79eab2dcfb6');
-  assert(actualParent);assert.deepEqual(actualParent.event.payload.value,accepted,'actual advancing assessor value is the complete failed author input, not merely similar assets');
-  t.diagnostic('Actual failed source Run 74ac812a / close 216334690: failure shape and three accepted-stage frontier conserved; prefix/leaf admission and physical roots remain supplied component premises.');
- }
- const observation={stage:'preparation',reason:'thrown',errorClass:'TypeError',diagnosticRef:constructRuntimeFailureDiagnosticRef({message:JSON.stringify(refusal),messageTruncated:false})};
- const evidence={kind:'c_call_evidenced',aggregateId:cause.cCall.cCallRef,eventId:'component:evidence-event',payload:{evidenceClass:'undispatched_owner_refusal',evidenceRef:cause.result.evidenceRefs[0],ownerObservation:observation}};
- h.events.unshift(evidence);h.invocation('operational-intake',h.intake);h.call(R.nativeIntakeImplementationRef,h.intake);
- const limits={inactivityTimeoutMs:300000,absoluteTimeoutMs:900000};let reason;
- const prepare=()=>h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits,r=>reason=r);
- const prepared=await prepare();assert(prepared);assert.equal(prepared.nativeWorksite.construction,null);assert.deepEqual(prepared.causes,[coordinate(cause)]);
- for(const [object,key,value]of [[cause.cCall,'programLocusRef',stage.assessorLocusRef],[cause.cCall,'regime','F_D'],[cause.judgment,'judgment','advance'],[evidence.payload,'evidenceClass','actor_process'],[observation,'stage','dispatch'],[observation,'diagnosticRef',constructRuntimeFailureDiagnosticRef({message:'arbitrary TypeError',messageTruncated:false})]]){
-  const old=object[key];object[key]=value;assert.equal(await prepare(),null);assert.equal(reason,'native_revision_cause_absent');object[key]=old;
- }
- const oldInput=causeBasis.rawInputValue;causeBasis.rawInputValue={...parent,remainingGaps:['crossed parent']};assert.equal(await prepare(),null);assert.equal(reason,'native_revision_parent_absent');causeBasis.rawInputValue=oldInput;
- h.events.shift();assert.equal(await prepare(),null);assert.equal(reason,'native_revision_cause_absent');h.events.unshift(evidence);
- h.admit(prepared,R.nativeIntakeImplementationRef);
- h.basis.graphFunction={name:'component:selection-graph',declarations:{'abg.semantic_revision_selection':declaration.declarationRef}};
- h.call(R.selectionImplementationRef,prepared,prepared,{graphFunctionRef:'component:selection-graph'});
- const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:prepared.parent,causes:prepared.causes,mode:'stage_revision',selectedStageRef:stage.declarationRef,
-  selectedObligationRefs:[],selectedTargetRefs:[],reasonRef:'component:operational-preparation-pressure',nativePhase:'preconstruction'};
- assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,selection),true);
- for(const other of declaration.stages.filter(s=>s.declarationRef!==stage.declarationRef))assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,{...selection,selectedStageRef:other.declarationRef}),false);
- const subject=h.owner.projectJobRevisionSubject(h.basis,prepared);assert.equal(subject.operationalFailure.stageRef,stage.declarationRef);assert.deepEqual(subject.operationalFailure.refusal,refusal);assert.deepEqual(subject.counterevidenceAssets,[],'operational failure invents no rejected semantic asset');
- h.admit(selection,R.selectionImplementationRef);h.basis.declarationGraphFunctions=[h.basis.graphFunction];h.call(R.nativeRequestImplementationRef,selection,prepared);
- const request=h.owner.projectNativeSemanticRevisionRequest(h.basis,selection);assert(request);
- const next=declaredCorrection(JSON.parse(JSON.stringify(request)));assert.equal(next.start.programRef,'program://odd-glc/native-semantic-revision/from-design@5');
- h.invocation('operational-correction',request);h.basis.graphFunction=next.projection;h.call(R.projectionImplementationRef,request);
- const current=h.owner.projectSemanticJobRevision(h.basis,request);assert(current);assert.deepEqual(current.current.assets,parent.assets);assert.deepEqual(current.current.job,parent.job);
- assert.equal(current.current.assets.at(-1).assessment.disposition,'satisfied');assert.equal(current.revisionBasis.historicalAssets.length,parent.assets.length);
+ const stage=declaration.stages[parent.assets.length],{request,selection}=operationalRevisionValues(env,parent,stage,'author');
+ const current=revision.deriveSemanticJobRevision(parent,request,selection,null,null,[],undefined,stage);assert(current);
+ assert.deepEqual(current.current.assets,parent.assets);assert.deepEqual(current.current.job,parent.job);
+ assert.equal(current.current.assets.at(-1).assessment.disposition,'satisfied');
  assert.deepEqual(current.revisionBasis.retainedBindings,p.projectSemanticJobBindings(parent).map(row=>row.binding));
- assert.equal(revision.deriveSemanticJobRevision(parent,request,selection,null),null,'a raw request and reason do not establish operational pressure');
- assert.equal(revision.deriveSemanticJobRevision(parent,request,selection,null,null,[],undefined,declaration.stages[0]),null,'crossed failed-stage premise refuses');
- assert.equal(revision.deriveSemanticJobRevision(parent,request,selection,null,null,parent.assets,undefined,stage),null,'operational continuation cannot disguise semantic counterevidence');
+ assert.equal(declaredCorrection(request).start.programRef,'program://odd-glc/native-semantic-revision/from-design@5');
+ assert.equal(revision.deriveSemanticJobRevision(parent,request,selection,null),null,'request cannot establish operational pressure');
+ assert.equal(revision.deriveSemanticJobRevision(parent,request,selection,null,null,[],undefined,declaration.stages[0]),null);
+ assert.equal(revision.deriveSemanticJobRevision(parent,request,selection,null,null,parent.assets,undefined,stage),null);
  assert.equal(revision.deriveSemanticJobRevision(parent,{...request,nativeWorksite:{...request.nativeWorksite,construction:request.parent}},
-  {...selection,nativePhase:'postconstruction'},null,null,[],undefined,stage),null,'operational empty-scope allowance never extends to postconstruction');
+  {...selection,nativePhase:'postconstruction'},null,null,[],undefined,stage),null);
+ t.diagnostic('Product derivation only: supplied failed-stage premise and value coordinates; no intake, call, prefix or producer admission claim.');
 });
 
-test('native D2 assessor preparation preserves the exact authored asset through admitted request and assessment-first whole suffix',async t=>{
+test('Product assessor recovery values preserve pending Design and select assessment-first without reauthoring',async t=>{
  const retainedDirectory=process.env.ABI5_NATIVE38_DIRECTORY;
  const env0=await fixture(t);let parent=env0.envelope;
  for(let i=0;i<3;i++){const a=await author(env0,parent,i);parent=assess(env0,a.authored,i).assessed;}
@@ -387,73 +369,35 @@ test('native D2 assessor preparation preserves the exact authored asset through 
   retained=JSON.parse(await readFile(join(retainedDirectory,'first-cause-suffix/87788-c_call_result_admitted.jsonl'),'utf8')).payload;
   assert.equal(hash(retained.value),retained.valueDigest);parent=retained.value;
   assert.equal(parent.current.assets.at(-1).assetRef,'semantic-job-asset://abiogenesis/75ddeb06787466432665bddc2f5b51e6d6c29cdeede6b894a1a60fadbdaad5df');
-  // Exact original lifecycle remains the declaration; only the fresh published
-  // assessment-first graphs/roles are component construction, not admission.
   const old=JSON.parse(await readFile(join(process.env.ABI5_NATIVE_D2_DESIGN_DIRECTORY,'publication-01/prospective-publication.json'),'utf8'));
   publication=g.modulePublication({...declaredPublication,semanticJobLifecycle:old.semanticJobLifecycle});
-  env={...env0,job:parent.current.job,envelope:parent.current,...parent.revisionBasis.request.nativeWorksite};
+  env={...env0,...parent.revisionBasis.request.nativeWorksite};
  }
- const prior=parent.current??parent,context=prior.context;
- const h=await harness(env,{publication,observation:retained?context:undefined,contextPremises:retained?{
-  semanticJobContextMatches:(_b,_e,c)=>hash(c)===hash(context),semanticJobContextCurrent:()=>true}:undefined});
- const pending=prior.assets.at(-1),authored=h.admit(parent,R.authorImplementationRef,h.original,'advance',pending.source.cCallRef,h.publicRun.ref);
- Object.assign(authored.cCall,{regime:'F_P',programLocusRef:stage.authorLocusRef});
- const failureBasis={...h.original,basisRef:'component:failed-assessor-basis',parentExecutionBasisRef:h.original.basisRef,rawInputValue:parent,rawInputDigest:hash(parent)};h.bases.set(failureBasis.basisRef,failureBasis);
- const cause=h.admit({kind:'semantic_stage_failure',schemaVersion:'5.0.0',failureClass:'implementation_exception'},R.assessorImplementationRef,failureBasis,'blocked','component:failed-assessor',h.publicRun.ref,'failure');
- Object.assign(cause.cCall,{regime:'F_P',programLocusRef:stage.assessorLocusRef});cause.result.evidenceRefs=['component:assessor-preparation-evidence'];
- const {constructRuntimeFailureDiagnosticRef}=await load('abg/runtime_failure');
- const refusal={kind:'native_instruction_assembly_refusal',cause:'declared_bound_overflow',policy:stage.assembly.ruleRef,role:'assessor',unresolvedRefs:['maxPromptBytes']};
- const observation={stage:'preparation',reason:'thrown',errorClass:'TypeError',diagnosticRef:constructRuntimeFailureDiagnosticRef({message:JSON.stringify(refusal),messageTruncated:false})};
- const evidence={kind:'c_call_evidenced',aggregateId:cause.cCall.cCallRef,eventId:'component:assessor-evidence',payload:{evidenceClass:'undispatched_owner_refusal',evidenceRef:cause.result.evidenceRefs[0],ownerObservation:observation}};h.events.unshift(evidence);
- h.invocation('assessment-intake',h.intake);h.call(R.nativeIntakeImplementationRef,h.intake);
- let reason;const limits={inactivityTimeoutMs:300000,absoluteTimeoutMs:900000};
- const prepare=()=>h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits,r=>reason=r);
- const prepared=await prepare();assert(prepared,reason);assert.equal(h.owner.nativeSemanticRevisionIntakeMatches(h.basis,h.intake,prepared),true);
- for(const [object,key,value]of [[authored.cCall,'implementationRef',R.assessorImplementationRef],[authored.cCall,'programLocusRef',stage.assessorLocusRef],[authored.cCall,'runId','component:foreign-run'],[authored.judgment,'judgment','blocked'],[cause.cCall,'programLocusRef',stage.authorLocusRef],[cause.cCall,'regime','F_D'],[observation,'stage','dispatch'],[evidence.payload,'evidenceClass','actor_process']]){
-  const before=object[key];object[key]=value;assert.equal(await prepare(),null,key);object[key]=before;
- }
- const originalInput=failureBasis.rawInputValue;failureBasis.rawInputValue={...parent,component:'crossed'};assert.equal(await prepare(),null);failureBasis.rawInputValue=originalInput;
- const priorValue=authored.result.value;authored.result.value={...prior,assets:prior.assets.slice(0,-1)};assert.equal(await prepare(),null);authored.result.value=priorValue;
- const parentEvent=h.events.find(e=>e.eventId===authored.result.admissionEventRef),oldOrdinal=parentEvent.admissionOrdinal;
- parentEvent.admissionOrdinal=Number.MAX_SAFE_INTEGER;assert.equal(await prepare(),null);parentEvent.admissionOrdinal=oldOrdinal;
- h.admit(prepared,R.nativeIntakeImplementationRef);h.basis.graphFunction={name:'component:assessment-selection',declarations:{'abg.semantic_revision_selection':prior.declaration.declarationRef}};
- h.call(R.selectionImplementationRef,prepared,prepared,{graphFunctionRef:h.basis.graphFunction.name});
- const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:prepared.parent,causes:prepared.causes,mode:'stage_revision',selectedStageRef:stage.declarationRef,
-  selectedObligationRefs:[],selectedTargetRefs:[],reasonRef:'component:unchanged-meaning-preparation-pressure',nativePhase:'preconstruction'};
- assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,selection),true);
- assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,{...selection,entryRole:'assessor'}),false,'raw selector gains no role field');
- assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,{...selection,selectedStageRef:declaration.stages[2].declarationRef}),false);
- h.admit(selection,R.selectionImplementationRef);h.basis.declarationGraphFunctions=[h.basis.graphFunction];h.call(R.nativeRequestImplementationRef,selection,prepared);
- const request=h.owner.projectNativeSemanticRevisionRequest(h.basis,selection);assert(request);assert.equal(request.selectionChoice.entryRole,'assessor');
- assert.equal(h.owner.semanticJobRevisionResultMatchesBasis(h.basis,selection,{...request,selectionChoice:{...request.selectionChoice,entryRole:'author'}}),false);
- const next=declaredCorrection(JSON.parse(JSON.stringify(request)),publication);
+ const prior=parent.current??parent,pending=prior.assets.at(-1),{request,selection}=operationalRevisionValues(env,parent,stage,'assessor');
+ const successor=revision.deriveSemanticJobRevision(parent,request,selection,null,null,[],undefined,stage,'assessor');assert(successor);
+ const next=declaredCorrection(request,publication);
  assert.equal(next.start.programRef,'program://odd-glc/native-semantic-revision/from-design-assessment@5');
  const whole=publication.graphFunctions.find(g=>g.name===next.start.graphFunctionRef),second=whole.template.nodes[1];
  const assessmentGraph=publication.graphFunctions.find(g=>g.name===second.term.graphFunctionRef);
  const leaves=assessmentGraph.template.nodes.flatMap(n=>g.cLeafTerms(n.term));assert.equal(leaves.length,1);assert.equal(leaves[0].programLocusRef,stage.assessorLocusRef);
- assert(!whole.template.nodes.some(n=>n.term.graphFunctionRef==='graph-function://odd-glc/native-semantic-revision/stage-3@5'),'no repeated Design author');
- h.invocation('assessment-correction',request);h.basis.graphFunction=next.projection;h.call(R.projectionImplementationRef,request);
- const successor=h.owner.projectSemanticJobRevision(h.basis,request);assert(successor);
+ assert(!whole.template.nodes.some(n=>n.term.graphFunctionRef==='graph-function://odd-glc/native-semantic-revision/stage-3@5'));
  assert.deepEqual(successor.current.assets,prior.assets);assert.deepEqual(successor.current.job,prior.job);assert.deepEqual(successor.current.bindingVersions,prior.bindingVersions);
- assert.equal(successor.current.assets.at(-1).assessment,null);assert(!successor.revisionBasis.preservedAssetRefs.includes(pending.assetRef),'unassessed is not accepted');
- assert(successor.revisionBasis.historicalAssets.some(a=>hash(a)===hash(pending)));
+ assert.equal(successor.current.assets.at(-1).assessment,null);assert(!successor.revisionBasis.preservedAssetRefs.includes(pending.assetRef));
  for(const asset of [...(parent.revisionBasis?.historicalAssets??[]),...prior.assets])assert(successor.revisionBasis.historicalAssets.some(a=>hash(a)===hash(asset)));
- assert.equal(revision.deriveSemanticJobRevision(parent,request,selection,null),null,'request alone does not qualify operational cause');
- assert.equal(revision.deriveSemanticJobRevision(parent,request,selection,null,null,[],undefined,stage),null,'author-only premise cannot confer assessor entry');
+ assert.equal(revision.deriveSemanticJobRevision(parent,request,selection,null),null);
+ assert.equal(revision.deriveSemanticJobRevision(parent,request,selection,null,null,[],undefined,stage),null,'author premise cannot confer assessor entry');
  const missingRole={...request,selectionChoice:{mode:'stage_revision',selectedStageRef:stage.declarationRef}};
- h.call(R.projectionImplementationRef,missingRole);assert.equal(h.owner.projectSemanticJobRevision(h.basis,missingRole),null);
- h.call(R.projectionImplementationRef,request);h.basis.graphFunction=declaredCorrection(missingRole,publication).projection;assert.equal(h.owner.projectSemanticJobRevision(h.basis,request),null);h.basis.graphFunction=next.projection;
+ assert.equal(revision.deriveSemanticJobRevision(parent,missingRole,selection,null,null,[],undefined,stage,'assessor'),null);
  const bad=structuredClone(prior);bad.assets.at(-1).assessment={disposition:'satisfied'};
  assert.equal(revision.deriveSemanticJobRevision(bad,request,selection,null,null,[],undefined,stage,'assessor'),null);
- // Real assessor derivation and gate; semantic judgments below are explicitly
- // supplied test candidates, never a claim of independent live assessment.
  for(const disposition of ['satisfied','falsified','indeterminate']){
-  const candidate=verdict(successor.current,3,disposition),out=revision.deriveJobRevisionAssessment(successor,stage.declarationRef,candidate,actorSource('assessment-'+disposition,successor));assert(out,disposition);
+  const out=revision.deriveJobRevisionAssessment(successor,stage.declarationRef,verdict(successor.current,3,disposition),actorSource('assessment-'+disposition,successor));assert(out,disposition);
   assert.deepEqual(out.current.assets.at(-1).candidate,pending.candidate);assert.deepEqual(out.current.assets.at(-1).source,pending.source);
   assert.equal(semantics.ABI5_SEMANTIC_REVISION_PRODUCT_SEMANTICS.resolveJudgmentRelation(R.stepPredicateRef).evaluate(successor,out),disposition==='satisfied');
  }
  if(retained&&process.env.ABI5_ASSESSMENT_SUCCESSOR_OUTPUT)await writeFile(process.env.ABI5_ASSESSMENT_SUCCESSOR_OUTPUT,JSON.stringify(successor)+'\n');
- t.diagnostic(JSON.stringify({scope:'real intake/request/derivation/declared lookup; upstream leaf/prefix/binding/currentness supplied',retainedInput:retained?hash(parent):null,successorDigest:hash(successor),asset:pending.assetRef,assets:successor.current.assets.length,obligations:p.projectSemanticJobBindings(successor.current).length,program:next.start.programRef}));
+ t.diagnostic(JSON.stringify({scope:'Product values and declared assessment-first graph only; operational role supplied, no intake or runtime admission claim',
+  retainedInput:retained?hash(parent):null,successorDigest:hash(successor),asset:pending.assetRef,assets:successor.current.assets.length,program:next.start.programRef}));
 });
 
 test('native D2 retained empty-obligation selector composes with all fifteen unchanged obligations',async t=>{

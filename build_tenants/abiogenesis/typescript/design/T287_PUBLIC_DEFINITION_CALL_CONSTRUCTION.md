@@ -63,6 +63,10 @@ and the Public contracts cited above. This HOW owns the reuse boundary; the
 [ticket checklist](../../../../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#admission-boundary-execution-checklist)
 owns sequencing and acceptance status.
 
+The tenant's [Distribution And Risk Proportionality principle](ABI5_REALIZATION_CONSTITUTION.md#41-distribution-and-risk-proportionality)
+owns the technology and operating-model justification for the mechanisms below.
+The Product calculus supplies their deployment-independent semantic obligations.
+
 The path is **external/raw input → owning admission → established typed internal
 values → additional operation-owned relations/currentness → admitted change**.
 An owner establishes only the facts within its contract. Same-process origin,

@@ -212,6 +212,40 @@ content-addressing, idempotent preservation, or a Saga-style compensating
 relation where one filesystem transaction is unavailable. Compensation is
 effect recovery, not semantic rollback and not a second lifecycle authority.
 
+### 4.1 Distribution And Risk Proportionality
+
+The [ABG execution calculus](../../../../specification/PRODUCT.md#execution-and-context-calculus)
+defines semantic state, transfer, admission, evidence and recovery relations
+independently of technology or deployment. This build tenant owns the mechanisms
+needed to realize those relations in its selected technology domain. Operational
+risk follows that realization's actual distribution, exposure and failure model;
+it does not add semantics to the calculus or weaken its invariants.
+
+The selected runtime core operates in one address space on a single developer's
+trusted machine. Internal program interfaces preserve coherent immutable state
+and applicable owner-established facts. Crossing a function, module or role
+boundary alone introduces no serialization, historical reconstruction or
+renewed authentication obligation. Raw inputs, including LLM responses, and
+actual process, filesystem, effect and recovery boundaries retain their required
+admission and currentness checks.
+
+For each material boundary family, the owning design justifies its machinery
+against the supported trust, failure, concurrency, durability and consequence
+conditions. Address-space or network location alone establishes neither trust
+nor a requirement for every distributed-system mechanism. Additional controls
+must serve an actual obligation in the selected operating model. Machinery
+whose sole justification is an unselected deployment or threat model is removed;
+retention requires another current obligation.
+
+Moving work across processes, hosts, independently failing services or public
+networks re-enters the affected tenant design and any changed Product scope.
+That design locates the additional mechanisms at the boundaries and compositions
+that require them, while preserving the same semantic calculus. This principle
+does not select a distributed realization for ABIogenesis 5.0. Its justification
+belongs in existing design, not a per-call checklist, registry or runtime risk
+framework. The [admission-boundary design](T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md#admission-boundary-and-established-internal-values)
+applies it to current internal value reuse and external admission.
+
 ## 5. Recursive Reference Frames
 
 Functional design decomposes recursively:
@@ -3304,6 +3338,39 @@ one validated immutable prefix. A generic fold library may supply associative
 composition mechanics; it cannot select a prefix or author an event, fluent,
 delta, lifecycle, or result. Effect workflow, retry, persistence, state,
 clock, scheduler, and concurrency services are not runtime truth.
+
+#### 5.7.1 Current-input transfer and historical recovery
+
+GTL selects the declared continuation coordinate; ABG projects its exact admitted
+input reference, digest, value, and origin; HoG passes that value to the selected
+implementation. `traversal_cursor.ts` owns this pure relation over the existing
+prefix and cursor identity. It introduces no carrier, controller, cache, or
+additional admission boundary. Payload equality alone never selects a producer.
+The existing prefix index selects exact input origins and cursor admissions by
+reference. Enclosing-entry and cold opened-call projection follows only that
+cursor's admitted ancestry and applies GTL's target relations once per actual
+transition. It does not enumerate unrelated input origins or hash speculative
+cursor bodies; independent route admission still checks the selected transfer.
+
+| Declaration or transition | Selected input |
+|---|---|
+| sequential compose | the completed predecessor Result |
+| ordinary shared-input batch | the enclosing batch entry, including when a task contains compose or another batch |
+| materialized fan-out batch | the declared member for the task ordinal |
+| retained-input declaration | the admitted entry/source pair authenticated by `worksite_input_provenance.ts` |
+| retry, interaction resume, graph-span reentry | the existing owner-admitted input reference and its value |
+| child foldback | the enclosing Result reference, with the existing foldback owner resolving its child producer |
+
+The enclosing batch entry is recovered from the current cursor's admitted
+ancestry, not from the graph invocation entry or the last inner leaf's input.
+The same projection reconstructs a failed consumer's opened cursor after the
+call closes. Semantic recovery uses that cursor's actual current input and the
+exact successful producer resolved by `worksite_input_provenance.ts`; the
+ExecutionBasis raw entry remains immutable. An assessor preparation failure
+therefore conserves its pending author Result and resumes at assessment under
+the existing revision law. Equal-valued Results from other calls do not satisfy
+that producer join. Explicit retained-entry declarations keep their separate
+meaning.
 
 ## 6. Entity Lifecycle Register
 

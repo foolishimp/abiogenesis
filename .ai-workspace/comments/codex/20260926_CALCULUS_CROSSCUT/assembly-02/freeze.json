@@ -1,0 +1,85 @@
+{
+  "kind": "bounded_rank8_source_component_subject",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "3055fb2f4bbbd8f0d7706780a778780b9fb4e14a95d895cd730a6df7c9d07bd7"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js",
+      "sha256": "792513784efd1cb1bb2c7e4b63e7649f293d3eba07b1e315b446d1abb54d7576"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.d.ts",
+      "sha256": "20d464c541a6b10b0a45b1faa2f741087b137b4bba7e808bab681a3a21c19763"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "sha256": "3418d3aabd1166d90c95cda1101c10f3892f6b77fb2f272e804e335ce9da6d07"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/preimage.json",
+      "sha256": "660092dc940c30c9825699efb577658f85ea60d3b3af28f1cb8b393f82926a3b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/check-config.json",
+      "sha256": "89925fe83be8f6fdd1a26b32279077ffe90e4d0899576c9811ab088bf7b89dea"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/component-regression.mjs",
+      "sha256": "38f6f8c03875d3c63b4aa7b395697a887707c33e398f741b49e06c118be309df"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/worksite-regression.mjs",
+      "sha256": "be7122ba0d4a14bc442554e05cb8e6d5f988b26db9bc731eedb6937b787e01cf"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/checks.json",
+      "sha256": "aac1c269a2e9022555d6de8da3d036562779f8385d29e765ef080451f1d716ab"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/before-assemblies.json",
+      "sha256": "3665a268e88fdb1fd3f9b11ff1a506bfd71cbc9699bfa6ff1dcdbaa297816a90"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/after-assemblies.json",
+      "sha256": "3665a268e88fdb1fd3f9b11ff1a506bfd71cbc9699bfa6ff1dcdbaa297816a90"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/before-checks.log",
+      "sha256": "ab8e4baa895aaaf8d4b986b955c4449ccc3675122462433db1d3553cd5c4cfc7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/after-checks.log",
+      "sha256": "88e93c0e40d7c0bbac833807df9cbe42142c91979d6e52f45faf6837be14a414"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/worksite-checks.log",
+      "sha256": "37a61ffb54510b477b4fb5ebeacd35421f2aa43e5a7feaaa710e9d8b5bd47842"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/worksite-equivalence.json",
+      "sha256": "6cb7eda49b57ea096ca52821850045692330306fe93e3212c99c5237f65681b5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/measurement.json",
+      "sha256": "fb78610917faa216dd3902284be9990e15335cfbd100eadf183b2ccc7edaca46"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/source.diff",
+      "sha256": "cc67f82d0fc6d4925a6315623a9ae68ca5371f0f6fce07a83127d58a7a12e579"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/RETURN.md",
+      "sha256": "52415ed679b607e99d6580804e789786fb8db6dc361110a11da73c176e20221d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/before-fixture-failure.log",
+      "sha256": "75423aa7471321e47c55b77d70cf5b5f3e2a20db5af1f9b92f96031c5f64f89b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/assembly-02/checks-fixture-failure.json",
+      "sha256": "595d6014aadb46135151b1aa6f7a2243f0821a9647f4813cb1b57a77992444fa"
+    }
+  ]
+}

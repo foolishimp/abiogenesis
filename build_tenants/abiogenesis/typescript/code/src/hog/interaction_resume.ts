@@ -100,6 +100,7 @@ export function completeInteractionResume(
       inputRef: input.resume.successorInputRef,
       inputDigest: input.resume.successorInputDigest,
     },
+    Abg.projectRuntimePrefixesAtDurablePrefix(input.predecessorPrefix, input.successorCursor.runId).authorityPrefix,
   );
   if (target?.kind === "traversal_refusal") {
     return fail(
