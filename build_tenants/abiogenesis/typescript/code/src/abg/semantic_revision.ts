@@ -22,7 +22,7 @@ import { isSemanticStageEnvelope, type SemanticStageEnvelope, type SemanticWorks
   deriveSemanticWorksiteConstructionConfiguration, projectSemanticWorksiteCoordinates } from "../product/semantic_stage.js";
 import { authenticateSemanticStageBasis, projectSemanticPredecessorAtPrefix, semanticInputValueAtBasis,
   type SemanticStageNativeBasis } from "./semantic_stage.js";
-import { rehydrateExecutionBasisAtPrefix } from "./execution_basis.js";
+import { rehydrateExecutionBasisAtPrefix, type ExecutionBasis } from "./execution_basis.js";
 import { projectOpenedCCallTraversalInputAtPrefix } from "./traversal_cursor.js";
 import { projectWorksiteInputLeafResultAtPrefix } from "./worksite_input_provenance.js";
 import { materializeGraph } from "../gtl/materialize.js";
@@ -82,6 +82,58 @@ function admittedLeaves(prefix: ValidatedRuntimeEventPrefix, runRef: string) {
   });
 }
 function jobEnvelope(value: unknown) { return isSemanticJobRevisionEnvelope(value) ? value.current : isSemanticJobEnvelope(value) ? value : null; }
+/** An admitted acquisition already owns historical discovery and binding cover.
+ * Reuse its exact request coordinates; consumers do not acquire that history again. */
+function nativeRevisionAcquisitionAtPrefix(prefix: ValidatedRuntimeEventPrefix,
+  request: SemanticRevisionSelectionInput | SemanticRevisionRequest,
+  acquired: ReturnType<typeof projectWorksiteRevisionNativeResult>) {
+  const native = request.nativeWorksite;
+  if (native === undefined || acquired === null || acquired.result.resultClass !== "success" || acquired.judgment.judgment !== "advance" ||
+    acquired.cCall.implementationRef !== ids.nativeIntakeImplementationRef || !isSemanticRevisionSelectionInput(acquired.result.value)) return null;
+  const acquisitionBasis = rehydrateExecutionBasisAtPrefix(prefix, acquired.cCall.basisId);
+  const { acquisition: _acquisition, ...retained } = native;
+  return acquisitionBasis !== null && same(acquisitionBasis.rawInputValue, native.source) &&
+    same(acquired.result.value, { kind: "semantic_revision_selection_input", schemaVersion: "5.0.0",
+      parent: request.parent, causes: request.causes, currentWorksite: null, nativeWorksite: retained }) ? acquired : null;
+}
+/** A correction can begin at a conserved pending assessment. Its accepted
+ * predecessor then belongs to a prior Run, reachable only through the exact
+ * admitted request/acquisition chain. No historical value search selects it. */
+function conservedNativeRevisionParent(prefix: ValidatedRuntimeEventPrefix,
+  cause: ReturnType<typeof admittedLeaves>[number], sourceRoot: ExecutionBasis,
+  eligible: (row: ReturnType<typeof admittedLeaves>[number]) => boolean) {
+  let descendant = cause, root = sourceRoot;
+  while (isSemanticJobRevisionEnvelope(descendant.state.result.value)) {
+    const value = descendant.state.result.value, request = value.revisionBasis.request, native = request.nativeWorksite;
+    if (native?.acquisition === undefined || !same(root.rawInputValue, request) ||
+      root.workspaceBindingId !== native.workspaceBinding.bindingId || root.workspaceBindingDigest !== native.workspaceBinding.bindingDigest) return null;
+    const acquired = nativeRevisionAcquisitionAtPrefix(prefix, request, projectWorksiteRevisionNativeResult(prefix, native.acquisition));
+    const parent = projectWorksiteRevisionNativeResult(prefix, request.parent);
+    if (acquired === null || parent?.result.resultClass !== "success" || parent.judgment.judgment !== "advance") return null;
+    const envelope = jobEnvelope(parent.result.value), parentBasis = rehydrateExecutionBasisAtPrefix(prefix, parent.cCall.basisId);
+    const parentRoot = parentBasis === null ? null : semanticJobRootAtPrefix(prefix, parentBasis);
+    const parentRevision = isSemanticJobRevisionEnvelope(parent.result.value) ? parent.result.value : null;
+    if (envelope === null || parentRoot === null || !same(envelope.basis, value.current.basis) ||
+      !same(envelope.job, value.current.job) || !same(envelope.declaration, value.current.declaration) ||
+      value.revisionBasis.parentRevisionRef !== (parentRevision?.revisionBasis.basisRef ?? null) ||
+      (parentRevision === null ? parentRoot.basisRef !== envelope.basis.rootExecutionBasisRef || !same(parentRoot.rawInputValue, envelope.job)
+        : !same(parentRoot.rawInputValue, parentRevision.revisionBasis.request))) return null;
+    const event = indexedRuntimeEvents(prefix, "id:" + parent.result.admissionEventRef);
+    const judgment = indexedRuntimeEvents(prefix, "id:" + parent.judgment.admissionEventRef);
+    const acquisitionEvent = indexedRuntimeEvents(prefix, "id:" + acquired.result.admissionEventRef);
+    const acquisitionJudgment = indexedRuntimeEvents(prefix, "id:" + acquired.judgment.admissionEventRef);
+    if (event.length !== 1 || judgment.length !== 1 || acquisitionEvent.length !== 1 || acquisitionJudgment.length !== 1 ||
+      event[0]!.admissionOrdinal >= judgment[0]!.admissionOrdinal || judgment[0]!.admissionOrdinal >= acquisitionEvent[0]!.admissionOrdinal ||
+      acquisitionEvent[0]!.admissionOrdinal >= acquisitionJudgment[0]!.admissionOrdinal ||
+      acquisitionJudgment[0]!.admissionOrdinal >= descendant.event.admissionOrdinal) return null;
+    const row = { state: parent, event: event[0]! };
+    if (eligible(row)) return row;
+    // Every admitted parent precedes this acquisition and descendant. Strict
+    // decrease bounds the walk and rejects cycles without another ancestry store.
+    descendant = row; root = parentRoot;
+  }
+  return null;
+}
 function nativeCause(value: unknown): boolean {
   return isNativeWorksiteCommandExecutionObservation(value) && value.commandResults.some(row => row.exitStatus !== 0 || row.timedOut || row.processSignal !== null);
 }
@@ -168,7 +220,7 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
     const construction = rejected?.evidence?.constructionResult ?? (isNativeWorksiteCommandExecutionTask(command) ? command.sourceNativeWork : null);
     const native = isNativeWorkspaceWorkObservation(construction) ? projectNativeWorkspaceWorkSourceAtPrefix(prefix, construction) : null;
     if (construction !== null && native === null) return refuse("construction_source_mismatch");
-    const parents = leaves.filter(({ state, event }) => {
+    const eligibleParent = ({ state, event }: ReturnType<typeof admittedLeaves>[number]) => {
       const envelope = jobEnvelope(state.result.value);
       if (event.admissionOrdinal >= cause.event.admissionOrdinal || state.result.resultClass !== "success" || state.judgment.judgment !== "advance" || envelope === null) return false;
       const last = envelope.assets.at(-1);
@@ -192,7 +244,11 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
       try { return same(construction.task, isSemanticJobRevisionEnvelope(state.result.value)
         ? constructNativeRevisionConstructionTask(state.result.value, {...state.result.value.revisionBasis.request.nativeWorksite!, ...construction.task}) : constructNativeSemanticConstructionTask(envelope, construction.task, construction.before)); }
       catch { return false; }
-    });
+    };
+    const parents = leaves.filter(eligibleParent);
+    const inherited = parents.length === 0 && rejected !== null
+      ? conservedNativeRevisionParent(prefix, cause, sourceRoot, eligibleParent) : null;
+    if (inherited !== null) parents.push(inherited);
     if (parents.length !== 1) { onRefusal?.(parents.length === 0 ? "native_revision_parent_absent" : "native_revision_parent_ambiguous"); return null; }
     const parent = parents[0]!, envelope = jobEnvelope(parent.state.result.value)!;
     const original = rehydrateExecutionBasisAtPrefix(prefix, envelope.basis.rootExecutionBasisRef);
@@ -205,13 +261,16 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
     const parentBasis = rehydrateExecutionBasisAtPrefix(prefix, parent.state.cCall.basisId);
     const invocation = rehydrateInvocationAdmissionAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef);
     if (expectedContext === null || parentBasis === null || causeBasis === null || invocation?.capabilityGrants.length !== 1 ||
-      causeBasis.invocationAdmissionRef !== sourceRoot.invocationAdmissionRef || parentBasis.invocationAdmissionRef !== sourceRoot.invocationAdmissionRef ||
+      causeBasis.invocationAdmissionRef !== sourceRoot.invocationAdmissionRef ||
+      (inherited === null && parentBasis.invocationAdmissionRef !== sourceRoot.invocationAdmissionRef) ||
       owner.environment.kind !== "exact_prefix_workspace_environment") return refuse("historical_context_or_invocation_mismatch");
-    // Public run_status exposes this root. It is usable for cover only after
-    // both exact eligible leaves resolve to it through the existing ancestry owner.
-    if (!same(semanticJobRootAtPrefix(prefix, parentBasis), sourceRoot) ||
+    // The cause belongs to the selected source Run. Its parent either belongs
+    // there too or is conserved by the admitted acquisition chain above.
+    if ((inherited === null && !same(semanticJobRootAtPrefix(prefix, parentBasis), sourceRoot)) ||
       !same(semanticJobRootAtPrefix(prefix, causeBasis), sourceRoot)) return refuse("source_root_ancestry_mismatch");
-    const priorBinding = native === null ? { bindingId: parentBasis.workspaceBindingId, bindingDigest: parentBasis.workspaceBindingDigest } : (construction as import("../product/native_workspace_work.js").NativeWorkspaceWorkObservation).task.workspaceBinding;
+    // Earlier acquisitions retain their own historical W cover. The new cover
+    // starts at this source Run's W, not the conserved ancestor's older W.
+    const priorBinding = native === null ? { bindingId: sourceRoot.workspaceBindingId, bindingDigest: sourceRoot.workspaceBindingDigest } : (construction as import("../product/native_workspace_work.js").NativeWorkspaceWorkObservation).task.workspaceBinding;
     const oldEnvironment = projectExactPrefixWorkspaceEnvironment(historical, { ref: priorBinding.bindingId, digest: priorBinding.bindingDigest });
     if (oldEnvironment.kind !== "exact_prefix_workspace_environment" ||
       !same(oldEnvironment.workspaceAuthorityBasis, owner.environment.workspaceAuthorityBasis)) return refuse("historical_environment_mismatch");
@@ -261,15 +320,11 @@ function nativeJobRevisionSubject(basis: SemanticStageNativeBasis, input: unknow
       isRetainedGraphInput(owner.inputValue) ? owner.inputValue.entry : owner.inputValue;
     if (!same(actual, input)) return null;
     const nativeWorksite = request.nativeWorksite;
-    const acquired = nativeWorksite.acquisition === undefined
+    const candidate = nativeWorksite.acquisition === undefined
       ? selectedSemanticPredecessor(basis, ids.nativeIntakeImplementationRef, request)?.previous ?? null
       : projectWorksiteRevisionNativeResult(owner.prefix, nativeWorksite.acquisition);
-    if (acquired === null || acquired.result.resultClass !== "success" || acquired.judgment.judgment !== "advance" ||
-      acquired.cCall.implementationRef !== ids.nativeIntakeImplementationRef || !isSemanticRevisionSelectionInput(acquired.result.value)) return null;
-    const acquisitionBasis = rehydrateExecutionBasisAtPrefix(owner.prefix, acquired.cCall.basisId);
-    const { acquisition: _acquisition, ...retained } = nativeWorksite;
-    if (acquisitionBasis === null || !same(acquisitionBasis.rawInputValue, nativeWorksite.source) ||
-      !same(acquired.result.value, {kind:"semantic_revision_selection_input", schemaVersion:"5.0.0", parent:request.parent, causes:request.causes, currentWorksite:null, nativeWorksite:retained}) ||
+    const acquired = nativeRevisionAcquisitionAtPrefix(owner.prefix, request, candidate);
+    if (acquired === null ||
       !same(owner.environment.workspaceAuthorityBasis, nativeWorksite.workspaceAuthorityBasis) ||
       !same(owner.environment.workspaceBinding, nativeWorksite.workspaceBinding)) return null;
     const parent = projectWorksiteRevisionNativeResult(owner.prefix, request.parent), envelope = parent === null ? null : jobEnvelope(parent.result.value);

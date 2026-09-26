@@ -1,0 +1,51 @@
+{
+  "role": "Writer assignment",
+  "worker": "/root/calculus_state_review",
+  "effort": "max for complex immutable state/recovery code, previously owner-authorized",
+  "frame": "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-end-to-end-interface-integration-frame",
+  "constituents": [
+    "Owner",
+    "Conservation",
+    "Reuse",
+    "Computational Whole-Path"
+  ],
+  "outcome": "The existing semantic intake can lawfully consume a rejected assessor-only correction suffix whose accepted predecessor is conserved through admitted ancestry. Preserve exact identity and currentness; no arbitrary historical candidate choice.",
+  "changeClass": "design_reframe with realization_refactor: clarify existing tenant same-source-root rule for exactly conserved parents across admitted D2 correction ancestry; Product execution/context calculus unchanged",
+  "reentry": "Product execution/context calculus -> existing native semantic D2 owner",
+  "subject": "core41 native41 intake closed runtime_failed native_revision_parent_absent; no actor started. Source HEAD 2a4dee94. Native40 prior rejected Design remains actual causal source.",
+  "writeTerritory": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "existing directly owning semantic revision/ancestry code only if justified",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-state-transfer.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md if necessary",
+    "this return directory",
+    "affected generated tenant build/code outputs from one tsc pass",
+    "existing Product manifest/capability identity projections from one generator pass",
+    "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md narrow same-source-root/conserved-parent paragraph"
+  ],
+  "evidence": [
+    "native41/intake-01/observed-run-suffix.jsonl first failure ordinal92550",
+    "native41/intake-01/live-receipt.json",
+    "native40/suffix-01/live-receipt.json",
+    "native40/intake-01/intake-terminal-request.json",
+    "Product execution calculus; existing semantic D2 HOW"
+  ],
+  "limits": [
+    "first establish relation before patch",
+    "no arbitrary newer/equal-valued parent, donor law or weakened identity/ancestry",
+    "no Product/requirements repricing without Executive return",
+    "no new runtime ledger/cache/controller",
+    "no provider call, installer, package or repeated full history reconstruction"
+  ],
+  "return": "one exact cause/reentry/code/tests/freeze report, no new reviewer activation",
+  "buildGrant": "Single active source Writer owns one tsc -p tsconfig.json and scripts/generate-product-manifest.mjs, then focused tests; no clean, package or install. Root reuses frozen emission without recompiling.",
+  "rootWriterSuccessorGrant": {
+    "package": "compiled-42 using frozen worker emission and exact changed-member correspondence; no duplicate compile",
+    "caller": "native42 seed and ordinary preparation after package verified; source review closed before paid launch",
+    "source": "native40 rejected assessment and prefix conserved; latest physical entry native41 close",
+    "launch": "one ordinary intake and its actually admitted unique whole suffix, unchanged controls, fresh Public reads; first new failure triaged, no blind retry",
+    "tracking": "T287/GOALS/evidence and checkpoint under standing owner authority"
+  },
+  "triage": "Existing tenant HOW restricts parent and cause to one source Run. Actual assessor-only correction preserves its predecessor through exact admitted request/acquisition links across Runs. Clarify that relation and keep the current failed source-root binding cover. No arbitrary historical parent or value-based selection."
+}

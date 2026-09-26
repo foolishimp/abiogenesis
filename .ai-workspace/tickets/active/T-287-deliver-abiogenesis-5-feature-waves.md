@@ -18,15 +18,15 @@
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
 - current_activation: T287_CALCULUS_REPAIR_01
-- current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/selected-core.json
-- current_candidate_archive_sha256: 15f9bb0788e6b8844f3bb01950c727b209d5d4a2ba2549c34a60a1d89453b7fd
+- current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-42/selected-core.json
+- current_candidate_archive_sha256: 53526cfcfa4c5cff3fb5837924e3aa2c7d1ef85cdf9402905072b18affc5706c
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/return.md
 - current_accepted_archive_sha256: 64093fb74a474c7e246333975c556c4cb34797326dbc81d1c5929455a69498bb
 - current_worker_return: .ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-02/RETURN.md
-- current_candidate_scope: core41_ranks7_8_source_component_and_package_accepted_native_qualification_distinct
-- current_live_execution_record: .ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/suffix-01
-- current_live_execution_status: CLOSED_BLOCKED_native40_design_assessment_fresh_reads_agree
-- current_activation_status: ranks7_8_accepted_core41_packaged_native41_correction_preparation
+- current_candidate_scope: core42_ancestry_source_component_and_package_accepted_native42_selected
+- current_live_execution_record: .ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native42/intake-01
+- current_live_execution_status: RUNNING_native42_intake_on_reviewed_ancestry_repair
+- current_activation_status: ancestry_repair_accepted_native42_intake_running
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#forced-ranked-calculus-repairs'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: native41_actual_counterevidence_intake_then_declared_correction_suffix
-- next_bounded_task_status: caller_preparation_selected_paid_launch_follows_closed_native40_calculus_triage
+- next_bounded_task: repair_actual_assessor_suffix_predecessor_acquisition_then_resume_declared_correction
+- next_bounded_task_status: independent_review_accepted_prepared_native42_intake_selected
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -220,7 +220,7 @@
 - selected_design_mutability: accepted_HOW_conserved_Executive_selects_exact_reentry_for_observed_gaps
 - accepted_wave_2_artifact_status: exact_artifacts_accepted_no_full_qualification_or_release
 - accepted_wave_2_package_status: runtime_1616_inspection_8a3394_separate_exact_evidence
-- selected_git_status: no_git_effect_selected
+- selected_git_status: checkpoint_2a4dee94_pushed_origin_main_bounded_D2_ancestry_successor_active
 - odd_live_gate: seven_narrow_fixture_outcomes_accepted_full_specification_lifecycle_pending
 - prior_accepted_c2_design_sha256: 7f69c4c0c5e027f4025c0f3885042c65a668b4089eb139d278c0cdbc78e4f570
 - accepted_c2_semantic_carrier_source_sha256: f7516e80684158283f2d94aba3fa074e3d9cd1cdb9f45ef84848a78c72f3f555
@@ -414,6 +414,23 @@ actor and wall limits remain. Preparation is independent; consume the closed
 triage before paid launch. No manually selected repair stage, application patch,
 source/oracle weakening, replacement ledger or repeat of an unchanged failure.
 A new actual failure returns to calculus triage at its owning layer.
+
+**Native41 calculus re-entry.** The next intake closed failed before any actor
+with `native_revision_parent_absent` (first leaf ordinal 92550). The actual
+native40 blocked Run and its Design assessment remain preserved. Select
+`NATIVE-D2-ANCESTRY-01` at the existing recovery owner: determine whether the
+current intake loses an accepted predecessor conserved across an assessor-only
+correction suffix, then repair only that relation if existing law is sufficient.
+No unchanged retry or broad cleanup. `/root/calculus_state_review` enters Writer
+at max for this complex immutable-state repair under the exact Interface
+Integration frame; [assignment](../../comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/selection.json)
+owns source territory, falsifiers and stops. The single source Writer owns one emission/manifest pass; Root reuses it for
+packaging and independent review after a frozen return. The exact failure also exposes a tenant HOW assumption that parent and cause
+belong to one source Run. Bounded `design_reframe` includes the owning
+`T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md` paragraph for conserved parents through
+admitted correction ancestry; the current failed source-root cover stays.
+Product execution/context law is sufficient and unchanged. Product or requirement
+insufficiency returns to Executive before changing law.
 
 **Rank 1 grant.** Re-entry is `realization_refactor` with bounded tenant
 `design_reframe`; existing Product calculus and CCALL-018 own the outcome.
@@ -991,7 +1008,7 @@ Current RC1 opportunities remain under Executive-owned T-287 disposition for one
 | INSTALL-VERIFY-COMPUTE-01 | OBSERVED opportunity, not a demonstrated redundant-work defect: [required core40 Product verification](../../comments/codex/20260923_COMPOSITE_READINESS/compiled-40/return.md) takes 9.252 s; whole verifier process 9.55 s wall, 13.56 s user+system CPU, 1,443,217,408 B peak RSS for a 5,233-member package. This is installer computation, distinct from file copying and graph execution. | Owner: Product verification, Computational Whole-Path/Reuse frame. Internal attribution is unknown. Re-entry is bounded realization investigation if this cost materially obstructs the installed delivery path; no profiling detour or new gate now. Close with attributed necessary work or an accepted contraction preserving Product admission. |
 | CALCULUS-SETUP-VOLUME-01 | ACCOUNTED at phase level in the [required ABG fixture run](../../comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-02/accounting.json), not odd_glc live timing. Compose: artifact preparation/pack 17.442 s; extraction, verification, installation/content check and workspace admission 16.292 s; execution preparation/open scope 2.388 s; traversal 2.347 s; mixed owner loading/candidate preparation 0.539 s. Archive 10,165,702 B, unpacked 66,857,195 B, 5,231 members. Artifact verification alone is 12.068 s; CPU/I/O attribution remains unknown. | Owner's functional phases are scenario fixture, Product provisioning, execution. Candidate build/pack and post-run assertions are separate; pre-CLI Program/invocation work stays execution preparation. Necessary copying/installing is acceptable. The old 23 s aggregate proves neither runtime overhead nor copying cost. Current accounting answers that conflation; no further profiling or optimization gate is selected, and no odd_glc/native performance claim follows. |
 | CALCULUS-RUN-WORDING-01 | CLOSED bounded wording correction: Product now says associated Run. [Independent rank-1 review](../../comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-01/review.md) verifies the frozen Product and finds no wording blocker. | Executive accepts the documentation correction; source relation unchanged. Broader rank-1 readiness remains separate. |
-| CALCULUS-BATCH-01 / CALCULUS-INPUT-01 | Source and seven same-cut installed deterministic cases accepted after [independent review](../../comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-02/review.md). Indexed input selection resolves R-ST01; same-basis equal-valued producers are distinguished by exact input reference. | Bounded transfer repair closed at this scope. Full preserved F_P intake remains open under NATIVE-D2-ASSESSOR-PREPARATION-01; no native success is inferred. |
+| CALCULUS-BATCH-01 / CALCULUS-INPUT-01 | Source and seven same-cut installed deterministic cases accepted after [independent review](../../comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-02/review.md). Indexed input selection resolves R-ST01; same-basis equal-valued producers are distinguished by exact input reference. | Bounded transfer repair closed at this scope. Native40 subsequently completes preserved intake and assessment under NATIVE-D2-ASSESSOR-PREPARATION-01; semantic correction and native41 lineage remain distinct. |
 | CALCULUS-BASIS-01 | OPEN S2/P2 computational conformance: parent basis and implementation/interaction sets are reconstructed across child and related consumers. [Review](../../comments/codex/20260926_CALCULUS_CROSSCUT/review.md#established-facts-through-internal-transitions). | Reuse within existing prefix owner; preserve new-child joins, conflicting facts, changed cuts and rollback. Trigger: affected internal-reuse repair before claiming conformance. Separate from closed physical child-read repair; no latency attribution. |
 | CALCULUS-ASSEMBLY-01 | CLOSED for selected source/component repairs at ranks 3 and 8: one binding projection, exact presentation reuse and one common bookkeeping owner. [Joint review](../../comments/codex/20260926_CALCULUS_CROSSCUT/ranks7-8-review.md). Native semantic sufficiency retains its independent scope. | Core41 carries the accepted extraction; actor prompts remain byte-identical to core40. No new prompt framework, global cache, stage retirement or additional release gate. |
 | CALCULUS-BODY-01 | CLOSED for exact cold-body reuse after 7 focused checks and independent review. [Return](../../comments/codex/20260926_CALCULUS_CROSSCUT/body-01/RETURN.md). Changing-envelope substructure remains a distinct unselected opportunity. | Core41 carries the accepted repair. Any partial-envelope persistence work requires separate design selection on an affected storage path or attributed material cost. T288/T289 stay closed; no presumed timing gain or history deletion. |
@@ -999,7 +1016,8 @@ Current RC1 opportunities remain under Executive-owned T-287 disposition for one
 | CALCULUS-PROOF-01 | PARTIAL: per-role substitute-basis intake claim removed; retained tests are explicitly Product value checks. Actual installed deterministic composition exercises same-basis failed-consumer input and exact producer, with the source-cut limits recorded in rank 1. | Full native intake is still unproved and belongs to the preserved installed continuation. No broad replacement suite or repeated valid author. |
 | D2-ACQUISITION-PROVENANCE-01 | Core36 exposed an enclosing child Result versus its acquisition leaf. | Bounded repair closed: existing provenance owner reused in0328f698…/reviewee45eca0…; core37 installed intake779b7f6f… returns actual request62aea2ac…, fresh Result/replay agree and choose declared Design suffix. Direct/nested/wrong-coordinate component checks retained. Full D2 remains separate and open. |
 | NATIVE-D2-RESULT-ENVELOPE-01 | Core37 exposed raw-versus-expanded mismatch; whole historical envelope remains unproved. | Bounded correction closed at core38 installed author Resulta281897b…/advance J443fb850… (return1ac59f89…). Existing materializer/source review/component proof conserved. Design remains unassessed; separate assessor preparation and full D2 remain open. |
-| NATIVE-D2-ASSESSOR-PREPARATION-01 | Core38 preserves unassessed authored Design after assessor prompt overflow; native39 intake is closed-failed at `native_revision_parent_absent` before context/actor. Ranks 1–3 source, role/context components and finite installed input-transfer composition are independently reviewed and accepted; full native intake remains open. | OPEN preserved installed continuation. Preserve authored asset, actual shared basis and original failures. Package preparation now selected; exact consumer/caller selection follows its actual identity. No cap increase, repeated author, invented assessment or installed-completion claim. |
+| NATIVE-D2-ASSESSOR-PREPARATION-01 | CLOSED for preserved intake and independent native40 Design assessment. Intake succeeded; the preserved Design was assessed without reauthoring. The assessment lawfully falsified two criteria and the Run closed blocked with matching fresh Public reads. | No candidate acceptance or application completion inferred. Actual subsequent recovery failure is NATIVE-D2-ANCESTRY-01, not a reopened prompt-size defect. |
+| NATIVE-D2-ANCESTRY-01 | OPEN selected: core41/native41 intake fails `native_revision_parent_absent` at ordinal92550 before any actor after native40 assessor-only suffix rejection. Both fresh Public reads agree; [return](../../comments/codex/20260926_CALCULUS_CROSSCUT/native41/return.json). | Interface Integration/Conservation frame; existing semantic D2 owner. Resolve exact predecessor lineage through admitted correction input, preserving identity, new invalidation and binding cover. No arbitrary history search. Closure: finite repeated-correction and wrong-lineage cases, independent frozen review, then actual installed intake/declared suffix. [Writer grant](../../comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/selection.json). |
 | RUN-SCOPE-REFUSAL-01 | Successor02 owned diagnostica8b867d7…: refusal completion re-entered an admitted sparse Run subset as a global gap-free prefix and masked the original refusal. | Source/component repaira16d007b… and review991c12a1… accepted. Core36 installed event72914 now retains original refusal Evidence72915→Result72917→blocked J72919, with no runtime exception; fresh Result/replay agree at329857339B/70d2a920…. Bounded masking repair closed; separate full D2 completion remains open. |
 | CALLER-PUBLIC-DIAGNOSTIC-01 | The successor02 helper omitted a retained Public data:application/json;charset=utf-8 body; local standards-compliant decoding recovered the existing exception without another runtime read. Runtime evidence itself was retained. | Caller-only diagnostic debt; use the existing complete media-type decoder when that caller is next changed. No new native diagnostic owner or release gate. |
 | NW-F11-SCOPE-COST-01 | Earlier scoped representation and selected-subject context remain accepted. Producer contexts, per-rule domains and the [acquisition successor](../../comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/return.md) have independent source/component acceptance and are included in accepted compiled-01. | Forty-two aggregate compiled checks include affected F11 checks; this is bounded component evidence. Actual independent J, complete applicable coverage and sole AF22 remain open; no native qualification is inferred. |

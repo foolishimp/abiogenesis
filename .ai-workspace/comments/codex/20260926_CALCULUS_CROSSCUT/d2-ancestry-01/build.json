@@ -1,0 +1,21 @@
+[
+  {
+    "name": "tsc",
+    "command": [
+      "node_modules/.bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 6.177122
+  },
+  {
+    "name": "manifest",
+    "command": [
+      "node",
+      "scripts/generate-product-manifest.mjs"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 13.676186
+  }
+]

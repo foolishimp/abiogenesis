@@ -1,0 +1,56 @@
+{
+  "baseline": {
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=native D2 rejected assessor-only",
+      "test_env/tests/t287-native-semantic-revision.test.mjs"
+    ],
+    "exitCode": 1,
+    "wallSeconds": 0.543053,
+    "scope": "new finite regression against unchanged emitted core41 source"
+  },
+  "baselineDisposition": "expected failure: native_revision_parent_absent before new cover check",
+  "build": [
+    {
+      "name": "tsc",
+      "command": [
+        "node_modules/.bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 6.177122
+    },
+    {
+      "name": "manifest",
+      "command": [
+        "node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "exitCode": 0,
+      "wallSeconds": 13.676186
+    }
+  ],
+  "focused": {
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern=native D2 serialized public request|native D2 root-backed binding cover|native D2 rejected assessor-only|Product author recovery|Product assessor recovery",
+      "test_env/tests/t287-native-semantic-revision.test.mjs"
+    ],
+    "exitCode": 0,
+    "wallSeconds": 1.729049,
+    "scope": "new repeated-correction lineage plus affected existing acquisition, binding-cover and Product recovery checks",
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0
+  },
+  "syntaxAndDiffCheck": {
+    "exitCode": 0
+  },
+  "effects": "Temporary finite fixture files; one tsc and manifest emission. No journal acquisition, provider, native actor, installer, package or live Run.",
+  "proofBoundary": "Component admission tables are premises; actual intake lineage, acquisition reuse, semantic-job ancestry, cover algorithm, Product derivation and physical currentness are exercised. Installed native42 intake remains OPEN."
+}

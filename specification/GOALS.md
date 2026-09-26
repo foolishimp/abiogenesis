@@ -30,8 +30,10 @@ with coherent input transfer, recovery and role/context repairs accepted in
 their recorded scopes. Ranks 7–8 are accepted and packaged. Native40 completed Design assessment
 and closed blocked with supported semantic counterevidence and matching fresh
 Public reads. T-287 selects the existing correction path on the reviewed core41,
-from that actual result; its admitted selector owns the repair stage. T-287 owns
-the bounded grants, proof and disposition. Preserve valid
+from that actual result; its admitted selector owns the repair stage. Native41
+exposed a predecessor-lineage refusal before any actor; T-287 selects its bounded
+calculus triage and repair, then resumes the same correction. T-287 owns the
+bounded grants, proof and disposition. Preserve valid
 work and triage any further delivery failure against the end-to-end calculus
 before selecting its owning repair. Native39 remains historical closed-failed
 evidence.

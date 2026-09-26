@@ -1,0 +1,19 @@
+(node:59663) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence (752.954042ms)
+ℹ Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.
+✔ native D2 root-backed binding cover authenticates source ancestry and preserves first refusals (130.110791ms)
+✔ native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings (393.570625ms)
+ℹ Component proof: exact historical admission tables, real ancestry/acquisition reuse, binding-cover algorithm and current physical context; no installed/provider or original operational-failure admission claim.
+✔ Product author recovery values retain accepted stages under an explicit failed-stage premise (47.784916ms)
+ℹ Product derivation only: supplied failed-stage premise and value coordinates; no intake, call, prefix or producer admission claim.
+✔ Product assessor recovery values preserve pending Design and select assessment-first without reauthoring (91.363583ms)
+ℹ {"scope":"Product values and declared assessment-first graph only; operational role supplied, no intake or runtime admission claim","retainedInput":null,"successorDigest":"sha256:290e821bcb226c88d1e22a5d5fd1aa6f42d24b923c457dfd895bb0f9be51aff8","asset":"semantic-job-asset://abiogenesis/0c6a5587e0b985e14af8fcbf10c9c7d2035215db7705e380c1f1d1387cc3f003","assets":4,"program":"program://odd-glc/native-semantic-revision/from-design-assessment@5"}
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1700.755583

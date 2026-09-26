@@ -1,0 +1,16 @@
+{
+  "status": "REUSED_EXACT_FROZEN_BUILD",
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01",
+  "tscSeconds": 6.177,
+  "manifestSeconds": 13.676,
+  "focusedTests": {
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0,
+    "wallSeconds": 1.729
+  },
+  "newCompile": false,
+  "newManifestGeneration": false,
+  "newTests": false,
+  "review": "pending; package preparation allowed, paid launch held"
+}

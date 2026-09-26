@@ -1,0 +1,12 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=native D2 rejected assessor-only",
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "exitCode": 1,
+  "wallSeconds": 0.543053,
+  "scope": "new finite regression against unchanged emitted core41 source"
+}

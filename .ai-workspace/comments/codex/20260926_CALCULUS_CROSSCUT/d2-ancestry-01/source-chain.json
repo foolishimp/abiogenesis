@@ -1,0 +1,65 @@
+{
+  "scope": "Exact retained bytes and request coordinates; no replay or fresh leaf admission reconstruction. Final accepted-Requirements coordinate is named, not rehydrated by this diagnostic.",
+  "evidence": [
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/selected-evidence/native40-selected-events.json",
+      "bytes": 4034179,
+      "sha256": "4fe8dedf8ac8417726a5de4e89ea6e8bff336a06cd311bf0efe42630feb7dc7b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01/first-cause-suffix/87788-c_call_result_admitted.jsonl",
+      "bytes": 1513991,
+      "sha256": "359b374ef0f091489a09076d604b84cd2e7986d95326a145f31e3a7f22cbc49a"
+    }
+  ],
+  "native40": {
+    "sourceRun": "run://abiogenesis/1d11eb78db2cb203eddb1229b2fb695ea37ebe499b4abdcdff71a6d2a8fcc51c",
+    "projectionOrdinal": 88557,
+    "rejectedOrdinal": 92499,
+    "resultRef": "result://abiogenesis/229a0ff100a3be2d27690a8dcec783bc027f2fb6f813a8d0ac147fbe08e4c3ce",
+    "valueDigest": "sha256:46fe1342a2f643720fe06b5a580be62ef24c6188eedc74498e3d6de392941724",
+    "revisionBasisRef": "semantic-revision://abiogenesis/b4b381f5d48d716b44822514d3409686ecd0379f1504b5689be238f56cf3438e",
+    "requestAcquisition": {
+      "cCallRef": "c-call:sha256:5b17af8d890d10fd4af0ecd6e19fa3b46e2c6d908131d5e1f6e1ec19c550c958",
+      "judgmentEventRef": "event://abiogenesis/ebf4ac4b947c32471e20521e8628aa780adbd20f591ea39dcba0a93672885b31",
+      "resultAdmissionEventRef": "event://abiogenesis/e658e6deb4e016563e74c28f8d926df8000f577668be69b129e84234a99b591a",
+      "resultDigest": "sha256:592487977f6baee0bfb5d869f3230d7ecf97179118b0c515e0eebe77711495be",
+      "resultRef": "result://abiogenesis/592487977f6baee0bfb5d869f3230d7ecf97179118b0c515e0eebe77711495be"
+    },
+    "parent": {
+      "cCallRef": "c-call:sha256:e1fd5ac4dc927db7f7a94bd0991a6742531b4ac36bb2af7913b608ae7bc11abc",
+      "judgmentEventRef": "event://abiogenesis/2151aee44cb9f6126ad662d750bfed7734c8fb54496b69de185d139c686f19df",
+      "resultAdmissionEventRef": "event://abiogenesis/94cfb63982bd996312e6b965854633d5bc14ead7ce924ecdf2a5fd3e4a5a8832",
+      "resultDigest": "sha256:a281897b87d74151961dcc5b413f5cac29b3db4da2eecc386c47c71fc1569fc0",
+      "resultRef": "result://abiogenesis/a281897b87d74151961dcc5b413f5cac29b3db4da2eecc386c47c71fc1569fc0"
+    }
+  },
+  "native38Pending": {
+    "resultOrdinal": 87788,
+    "run": "run://abiogenesis/31c1969a2776ffb9e3120571e64fe06faac0ac290e0d9b78b1ecb4138db1f3b4",
+    "resultRef": "result://abiogenesis/a281897b87d74151961dcc5b413f5cac29b3db4da2eecc386c47c71fc1569fc0",
+    "valueDigest": "sha256:e61d3d79e9e54135c0d076f8eb73a06f287e82888c8f807952a2eaa18bee9566",
+    "revisionBasisRef": "semantic-revision://abiogenesis/7bdb86ef6ce31e62058adb335ff780cf75a45a419283a41bbefa880a941b0290",
+    "requestAcquisition": {
+      "cCallRef": "c-call:sha256:1feafa21de77ced730c7b3930f92eb6d072175a7a882da6d93debc166d18a645",
+      "judgmentEventRef": "event://abiogenesis/2913b07a8e878b93335c9db51034dc5285e5e66eaaf7466fda2016b7566bb22c",
+      "resultAdmissionEventRef": "event://abiogenesis/135eac9e6a7658aa634029630753237a5c153da11370c9b57f491695c443e0fd",
+      "resultDigest": "sha256:d3af34bbe14c3b3590a6574b940c1abea5e8b730b050d592debdb0ff62012cd5",
+      "resultRef": "result://abiogenesis/d3af34bbe14c3b3590a6574b940c1abea5e8b730b050d592debdb0ff62012cd5"
+    },
+    "acceptedParent": {
+      "cCallRef": "c-call:sha256:afa4e652785487111c4e15e0eb1527450d75fbff4818cd9980c6867f99f8770c",
+      "judgmentEventRef": "event://abiogenesis/36fa5b5beb8c80c97eab859a7dfbcf002f3ed2431f260fa16156e585d27cca1d",
+      "resultAdmissionEventRef": "event://abiogenesis/fb431103b4a4b0a9a05cf667e5828fe0a4eaf04c939fc566b254e9b3811a8842",
+      "resultDigest": "sha256:7580c6b2215e48a5a133984b0f4d10541ff7abd6de1b498862e4b79eab2dcfb6",
+      "resultRef": "result://abiogenesis/7580c6b2215e48a5a133984b0f4d10541ff7abd6de1b498862e4b79eab2dcfb6"
+    }
+  },
+  "checks": {
+    "requestEqualsNative40SerializedRequest": true,
+    "pendingProducerIdentityPreserved": true,
+    "acceptedAssetPrefixPreserved": true,
+    "newAssessmentDisposition": "falsified",
+    "newCauseIsNotNative41": true
+  }
+}

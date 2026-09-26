@@ -1,0 +1,26 @@
+{
+  "head": "2a4dee94c6fee79ed177700472bdc26d5f616244",
+  "frame": "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-end-to-end-interface-integration-frame",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "bytes": 87008,
+      "sha256": "ab02abd03c96a6e2ae7d6d90c469d4ce6840c0dc8b1bb4634e6a3367e00ab2aa"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "bytes": 56547,
+      "sha256": "52c1e36b03111458296f58142611a3b3bd2a16d65d6057efbb8dfb5c1c32e3b9"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "bytes": 65485,
+      "sha256": "0ae62fc85af6e49e022e7d7ff16d6a1936018ac51235a4456a48a4dbe98bbfbf"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "bytes": 81200,
+      "sha256": "bb0c211a3fe04be9b3d8a12779387f6b26e3e0d0bd2bf513cf7fe826c8ba5176"
+    }
+  ]
+}

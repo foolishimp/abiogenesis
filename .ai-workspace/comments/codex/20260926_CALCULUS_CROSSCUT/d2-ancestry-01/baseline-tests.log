@@ -1,0 +1,33 @@
+(node:58821) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings (153.439ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 516.43575
+
+✖ failing tests:
+
+test at test_env/tests/t287-native-semantic-revision.test.mjs:326:1
+✖ native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings (153.439ms)
+  AssertionError [ERR_ASSERTION]: exact ancestry gets as far as the new cover
+  + actual - expected
+  
+  + 'native_revision_parent_absent'
+  - 'native_revision_binding_cover_absent'
+                     ^
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs:395:44)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'native_revision_parent_absent',
+    expected: 'native_revision_binding_cover_absent',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

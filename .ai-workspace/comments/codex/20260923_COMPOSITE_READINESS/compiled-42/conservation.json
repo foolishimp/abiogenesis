@@ -1,0 +1,12 @@
+{
+  "predecessor": "compiled-41",
+  "unchanged": 5229,
+  "changed": 4,
+  "changedPaths": [
+    "build/code/src/abg/semantic_revision.d.ts",
+    "build/code/src/abg/semantic_revision.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "outsideAcceptedScope": []
+}

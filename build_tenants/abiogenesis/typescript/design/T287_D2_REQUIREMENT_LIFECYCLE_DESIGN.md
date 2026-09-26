@@ -12,7 +12,13 @@ An ordinary caller supplies only the original public Run `{ref,digest}` and
 its durable prefix to `program://odd-glc/native-semantic-revision/intake@5`.
 The declared F_D intake uses existing ABG prefix, Run, execution-basis,
 Result/J, workspace and native-observation owners to authenticate one eligible
-cause and one successful advancing semantic predecessor from that Run. An
+cause from that Run and one successful advancing semantic predecessor. A
+rejected correction may conserve its predecessor through an admitted revision
+request: each exact parent Result/J and native acquisition must match that
+request, its own invocation root and historical binding. Each parent judgment
+precedes its acquisition, which precedes the descendant Result. The walk follows
+only those immutable coordinates until the existing eligible predecessor is
+reached; equal historical values and chronological proximity are not selectors. An
 absent or ambiguous cause/parent refuses; chronological latest is not a
 selector. The original admitted job, source, oracle and root remain exact.
 Rejected candidate/assessment bytes are counterevidence, never the advancing
@@ -27,10 +33,16 @@ relation described below. Setup binding alone is not a cover. No diagnostic
 child coordinates or inferred path correspondence are caller inputs.
 
 Acquisition may add this root to its existing historical child/native-basis
-cover set only after the unique eligible parent and cause both rehydrate through
-the semantic-job ancestry owner to that source Run root. Every ancestry step
+cover set only after the unique eligible cause rehydrates through the
+semantic-job ancestry owner to that source Run root. The parent either reaches
+the same root or is conserved through the exact admitted request/acquisition
+chain above, as when an assessment-only correction rejects a previously pending
+candidate. Every ancestry step
 keeps its invocation, Program, root implementation set and historical W; the
-original job/root and lifecycle remain separately authenticated. The unchanged
+original job/root and lifecycle remain separately authenticated. Earlier admitted
+acquisitions retain their historical binding covers. The new cover starts at the
+failed source Run's W and ends at current W; it does not transplant the older
+parent's invocation or demand an invented direct cover from that older W. The unchanged
 cover owner still requires actual witness and binding admissions, actor/current
 authority, exact W evidence and event ordering. An unrelated root or matching
 path does not suffice. Missing coverage and other first failed intake relations

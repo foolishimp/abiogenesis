@@ -1,0 +1,52 @@
+{
+  "kind": "native_semantic_revision_intake_readback",
+  "run": {
+    "digest": "sha256:c41b4ab18fd91442dd7681a73371eea56e4f4f868c4da358730de10d960f37f1",
+    "ref": "run://abiogenesis/16c6614650b64315f667e2a9564eb5ade2079dfddbd8d2ddc437b81bc1b16e33"
+  },
+  "result": null,
+  "prefix": {
+    "coordinateDigest": "sha256:03d9f08a68e1fbb9167bfaad97cab63225a557de2af599c140267adb564b0c57",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:1cd137d4c7aed6e9bcf2c906abce0ee4df2a60533fec286f87bbc12cb0e0bdd0",
+    "prefixLength": 433209393,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "publicReads": [
+    {
+      "memberKey": "run_result",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 28529.610083000003,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native41/intake-01/read-run_result.json",
+      "resultDigest": "sha256:5178167d80ce7ec35c711ba415a6d734bb75bd84cea44733e27ed1a8bb9060cd",
+      "observation": "result_absent_not_found"
+    },
+    {
+      "memberKey": "run_replay",
+      "disposition": "preserved_and_checked",
+      "elapsedMs": 28671.690500000004,
+      "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native41/intake-01/read-run_replay.json",
+      "resultDigest": "sha256:b4bffedfe4341a65e4796c405067d64810a2297e0e56fd93665cf0ff5d8c836e"
+    }
+  ],
+  "installedAfter": [
+    {
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/6d743377a274ac59c8b730ba6c1de7a3327a457d15bb2ba6f3fe4ec594806076/ff43d1a693efe87b1aa8755cd7ef7e9c57b420d260cd293f2565338ea50a372b",
+      "productContentDigest": "sha256:6d743377a274ac59c8b730ba6c1de7a3327a457d15bb2ba6f3fe4ec594806076"
+    },
+    {
+      "installId": "product-install://@odd-glc/route-one-typescript/0.2.0-dev.16/279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380/ff43d1a693efe87b1aa8755cd7ef7e9c57b420d260cd293f2565338ea50a372b",
+      "productContentDigest": "sha256:279baf9d07e73fb191c314718aead12848e321cea25fd8bcc4fb08bee1e43380"
+    }
+  ],
+  "inputDigest": "sha256:222de164582173a9362043777f94af8ddd14c76ea2ef770c2336a5dbf296d803",
+  "duplicateSdkProjection": false,
+  "status": "no_completed_intake_result",
+  "boundary": "Only ordinary Public terminal Result/replay and installed pure declaration lookup; no private leaf extraction or inferred selection."
+}

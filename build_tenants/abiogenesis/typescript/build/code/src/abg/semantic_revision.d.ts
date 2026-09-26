@@ -4,6 +4,7 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { type SemanticRevisionCoordinate, type SemanticRevisionEnvelope } from "../product/semantic_revision.js";
 import { type SemanticStageEnvelope, type SemanticWorksiteBasis } from "../product/semantic_stage.js";
 import { type SemanticStageNativeBasis } from "./semantic_stage.js";
+import { type ExecutionBasis } from "./execution_basis.js";
 import { type SemanticJobRevisionEnvelope } from "../product/semantic_revision.js";
 import { type SemanticRevisionSelectionInput, type SemanticRevisionRequest } from "../product/semantic_revision.js";
 export declare function prepareNativeSemanticRevisionIntake(basis: SemanticStageNativeBasis, input: unknown, commandExecutionLimits: import("../product/worksite_command_execution.js").WorksiteCommandExecutionLimits, onRefusal?: (reason: string) => void): Promise<SemanticRevisionSelectionInput | null>;
@@ -16,15 +17,15 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
     owner: {
         publication: Readonly<import("../index.js").ModulePublication>;
         lifecycle: Readonly<import("../gtl/semantic_job.js").SemanticJobLifecycleDeclaration>;
-        root: import("./execution_basis.js").ExecutionBasis;
-        invocationRoot: import("./execution_basis.js").ExecutionBasis;
+        root: ExecutionBasis;
+        invocationRoot: ExecutionBasis;
         environment: import("./environment_admission.js").ExactPrefixWorkspaceEnvironment;
         grant: import("../index.js").CapabilityGrant;
         role: "author" | "assessor" | null;
         stage: import("../index.js").SemanticStageDeclaration | undefined;
         events: readonly import("./event_store.js").RuntimeEvent[];
         prefix: ValidatedRuntimeEventPrefix;
-        execution: import("./execution_basis.js").ExecutionBasis;
+        execution: ExecutionBasis;
         graph: Readonly<import("../index.js").GtlGraph>;
         call: import("./c_call.js").CCall;
         resolution: import("./execution_basis.js").AdmittedImplementationResolutionRow;
@@ -58,15 +59,15 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
     owner: {
         publication: Readonly<import("../index.js").ModulePublication>;
         lifecycle: Readonly<import("../gtl/semantic_job.js").SemanticJobLifecycleDeclaration>;
-        root: import("./execution_basis.js").ExecutionBasis;
-        invocationRoot: import("./execution_basis.js").ExecutionBasis;
+        root: ExecutionBasis;
+        invocationRoot: ExecutionBasis;
         environment: import("./environment_admission.js").ExactPrefixWorkspaceEnvironment;
         grant: import("../index.js").CapabilityGrant;
         role: "author" | "assessor" | null;
         stage: import("../index.js").SemanticStageDeclaration | undefined;
         events: readonly import("./event_store.js").RuntimeEvent[];
         prefix: ValidatedRuntimeEventPrefix;
-        execution: import("./execution_basis.js").ExecutionBasis;
+        execution: ExecutionBasis;
         graph: Readonly<import("../index.js").GtlGraph>;
         call: import("./c_call.js").CCall;
         resolution: import("./execution_basis.js").AdmittedImplementationResolutionRow;
@@ -79,7 +80,7 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
     parent: import("./c_call.js").RehydratedAdmittedCCallState;
     envelope: import("../product/semantic_job.js").SemanticJobEnvelope;
     construction: {
-        seed: import("./execution_basis.js").ExecutionBasis;
+        seed: ExecutionBasis;
         worksite: SemanticWorksiteBasis;
         original: (JsonValue | undefined) & import("../product/semantic_job.js").SemanticJobEnvelope;
         result: import("./c_call.js").AdmittedCCallResult;
@@ -124,7 +125,7 @@ export declare function projectRevisionSelectionSubject(basis: SemanticStageNati
     owner: {
         events: readonly import("./event_store.js").RuntimeEvent[];
         prefix: ValidatedRuntimeEventPrefix;
-        execution: import("./execution_basis.js").ExecutionBasis;
+        execution: ExecutionBasis;
         graph: Readonly<import("../index.js").GtlGraph>;
         call: import("./c_call.js").CCall;
         resolution: import("./execution_basis.js").AdmittedImplementationResolutionRow;

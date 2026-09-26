@@ -71,10 +71,11 @@ async function component(name,overrides){const file=join(root,'build/code/src',n
   return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});});await module.evaluate();return module.namespace;}
 function coordinate(state){return {cCallRef:state.cCall.cCallRef,resultRef:state.result.resultRef,resultDigest:state.result.resultDigest,resultAdmissionEventRef:state.result.admissionEventRef,judgmentEventRef:state.judgment.admissionEventRef};}
 async function harness(env, options={}){
- const events=[],states=new Map(),bases=new Map(),nativeSources=new Map();
+ const events=[],states=new Map(),bases=new Map(),nativeSources=new Map(),runs=new Map();
  const prefix={events},publicRun={ref:'component:source-run',digest:hash('public-run')},original={...env.executionBasis,basisRef:env.envelope.basis.rootExecutionBasisRef,parentExecutionBasisRef:null,
   rawInputValue:env.job,rawInputDigest:hash(env.job),rawInputAdmissionRef:env.envelope.basis.rootInputRef,invocationAdmissionRef:env.envelope.basis.invocationAdmissionRef};
  bases.set(original.basisRef,original);
+ runs.set(publicRun.ref,{run:publicRun,executionBasis:{ref:original.basisRef}});
  const oldEnvironment={kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:[]};
  const environment={...oldEnvironment,...options.current};
  const lifecyclePublication=options.publication??declaredPublication;
@@ -83,7 +84,10 @@ async function harness(env, options={}){
  const prefixBody={kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:'file:///component/no-journal',prefixLength:0,prefixDigest:hash('prefix'),storeIdentity:{device:1,inode:1,eventContractDigest:(await load('abg/event_store')).ROOT_EVENT_CONTRACT_DIGEST}};
  const intake={kind:'native_semantic_revision_intake',schemaVersion:'5.0.0',sourceRun:publicRun,sourcePrefix:{...prefixBody,coordinateDigest:hash(prefixBody)}};
  let current,ordinal=0,rootBasis,runId,ancestry=true;const basis={publication:lifecyclePublication,lifecyclePublication,sourcePublication:lifecyclePublication,predecessorPrefix:intake.sourcePrefix,declarationGraphFunctions:[],graphFunction:{declarations:{}}};
- function invocation(name,input){runId='component:run:'+name;rootBasis={...original,basisRef:'component:root:'+name,rawInputValue:input,rawInputDigest:hash(input),rawInputAdmissionRef:'component:input:'+name,invocationAdmissionRef:'component:invocation:'+name};bases.set(rootBasis.basisRef,rootBasis);}
+ function invocation(name,input,operating=env){runId='component:run:'+name;rootBasis={...original,basisRef:'component:root:'+name,basisDigest:hash(['basis',name]),admissionEventRef:'component:basis-event:'+name,
+  rawInputValue:input,rawInputDigest:hash(input),rawInputAdmissionRef:'component:input:'+name,invocationAdmissionRef:'component:invocation:'+name,
+  workspaceBindingId:operating.workspaceBinding.bindingId,workspaceBindingDigest:operating.workspaceBinding.bindingDigest};bases.set(rootBasis.basisRef,rootBasis);
+  const run={ref:runId,digest:hash(['run',name])};runs.set(runId,{run,executionBasis:{ref:rootBasis.basisRef}});return {run,root:rootBasis};}
  function call(impl,input,raw=input,extra={}){const execution={...rootBasis,basisRef:'component:basis:'+(++ordinal),parentExecutionBasisRef:rootBasis.basisRef,rawInputValue:raw,rawInputDigest:hash(raw)};
   bases.set(execution.basisRef,execution);const cCall={...env.cCall,cCallRef:'component:call:'+ordinal,basisId:execution.basisRef,runId,implementationRef:impl,regime:[R.selectionImplementationRef,R.authorImplementationRef,R.assessorImplementationRef].includes(impl)?'F_P':'F_D',...extra};
   current={execution,call:cCall,inputValue:input,inputDigest:hash(input),inputRef:'component:input:'+ordinal,prefix,events,environment,program:{}};basis.cCall=cCall;basis.executionBasis=execution;return current;}
@@ -101,9 +105,9 @@ async function harness(env, options={}){
   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup}});
  const owner=await component('abg/semantic_revision',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./semantic_job.js':{...jobOwner,...options.contextPremises},
   '../product/worksite_operations.js':options.observation===undefined?{}:{observeWorksiteContext:async()=>options.observation},'./semantic_stage.js':{selectedSemanticPredecessor:selected},'./event_store.js':{authenticateRuntimePrefixAncestry:()=>ancestry,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h,readRuntimeEventsAtDurablePrefix:()=>events},
-  './event_prefix.js':{selectValidatedRuntimeEventPrefix:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events,indexedRuntimeEvents:(p,key)=>p.events.filter(e=>key==='aggregate:c_call:'+e.aggregateId)},'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>ref===publicRun.ref?{run:publicRun,executionBasis:{ref:original.basisRef}}:null},
-  './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:()=>oldEnvironment},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup,projectWorksiteRevisionBindingCover:options.cover??(()=>[])},
-  './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>nativeSources.get(value.observationRef)??null,worksiteCommandSourcesInvalidatedAfter:()=>false}});
+  './event_prefix.js':{selectValidatedRuntimeEventPrefix:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events,indexedRuntimeEvents:(p,key)=>p.events.filter(e=>key==='aggregate:c_call:'+e.aggregateId||key==='id:'+e.eventId)},'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>runs.get(ref)??null},
+  './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:options.historicalEnvironment??(()=>oldEnvironment)},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup,projectWorksiteRevisionBindingCover:options.cover??(()=>[])},
+  './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>nativeSources.get(value.observationRef)??null,worksiteCommandSourcesInvalidatedAfter:options.invalidated??(()=>false)}});
  const implementation=await component('implementation/semantic_revision',{'../abg/semantic_revision.js':owner,'../implementation/worksite_command_execution.js':{}});
  function source(value,state){nativeSources.set(value.observationRef,{sourceBasis:bases.get(state.cCall.basisId),sourceResult:{...events.find(e=>e.eventId===state.result.admissionEventRef),runId:state.cCall.runId},sourceClosedEvent:{admissionOrdinal:++ordinal}});}
  return {events,states,bases,original,intake,publicRun,prefix,basis,owner,implementation,jobOwner,invocation,call,admit,source,coordinate,get current(){return current;},set ancestry(v){ancestry=v;}};
@@ -318,6 +322,124 @@ test('native D2 root-backed binding cover authenticates source ancestry and pres
  assert.equal(await prepare(),null);assert.equal(reason,'native_revision_current_context_mismatch');await writeFile(rubric,before);assert(await prepare());
 });
 
+
+test('native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings',async t=>{
+ const env=await fixture(t);let accepted=env.envelope;
+ for(let i=0;i<3;i++){const a=await author(env,accepted,i);accepted=assess(env,a.authored,i).assessed;}
+ const stage=declaration.stages[3],limits={inactivityTimeoutMs:300000,absoluteTimeoutMs:900000};
+ function operating(name){
+  const {bindingId,bindingDigest,admissionEventRef,kind,schemaVersion,...old}=env.workspaceBinding;
+  const body={...old,productSetId:'component:products:'+name,productSetDigest:hash(['products',name]),lockId:'component:lock:'+name,lockDigest:hash(['lock',name])},digest=hash(body);
+  const workspaceBinding={kind,schemaVersion,...body,bindingId:'workspace-binding://abiogenesis/'+digest.slice(7),bindingDigest:digest,admissionEventRef:'component:W:'+name};
+  const {grantRef,grantDigest,kind:gKind,schemaVersion:gVersion,...grant}=env.capabilityGrant;
+  const next={...grant,scopeRef:workspaceBinding.bindingId,scopeDigest:digest},gDigest=hash(next);
+  return {workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding,
+   capabilityGrant:{kind:gKind,schemaVersion:gVersion,...next,grantRef:'capability-grant://abiogenesis/'+gDigest.slice(7),grantDigest:gDigest}};
+ }
+ const authorW=operating('author'),assessmentW=operating('assessment'),currentW=operating('new-intake');
+ const {bindingHarness}=await import('../support/d2-binding-harness.mjs'),cover=await bindingHarness();
+ cover.events.length=0;cover.artifacts.length=0;cover.bases.clear();
+ const workspaces=[env,authorW,assessmentW,currentW];
+ for(const operating of workspaces){const w=operating.workspaceBinding;
+  const e=cover.event('public_operation_artifact_admitted',{}, {eventId:w.admissionEventRef,aggregateId:w.bindingId});
+  const {kind,admissionEventRef,...body}=w;
+  cover.artifacts.push({operationId:'abg.operation.workspace.bind',authorityScopeRef:w.bindingId,authorityScopeDigest:w.bindingDigest,
+   admissionEventRef,admissionOrdinal:e.admissionOrdinal,artifact:{kind:'workspace_binding_candidate',...body},workspaceAuthorityBasis:env.workspaceAuthorityBasis});
+ }
+ let invalidated=false;const consulted=[],coverCalls=[];
+ const h=await harness(env,{current:currentW,onLeafLookup:ref=>consulted.push(ref),invalidated:()=>invalidated,
+  historicalEnvironment:(_prefix,c)=>{const prior=workspaces.find(w=>w.workspaceBinding.bindingId===c.ref&&w.workspaceBinding.bindingDigest===c.digest);
+   return prior?{kind:'exact_prefix_workspace_environment',...prior,productInstalls:[]}:null;},
+  cover:(_prefix,before,after,bases)=>{coverCalls.push({before,after,bases});return cover.owner.projectWorksiteRevisionBindingCover(cover.snapshot(),before,after,bases);}});
+ const predecessor=h.admit(accepted,D.nativeAssessorFoldImplementationRef,h.original,'advance',accepted.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,h.publicRun.ref);
+ // Historical intake/selection admissions are explicit component premises.
+ // This fixture exercises their exact reuse, not operational failure discovery.
+ async function recordedRequest(name,parent,operating,sourceRun,role){
+  const source={...h.intake,sourceRun};h.invocation(name+'-intake',source,operating);h.call(R.nativeIntakeImplementationRef,source);
+  const cause={cCallRef:'component:old-refusal:'+name,resultRef:'component:refusal-result:'+name,resultDigest:hash(['refusal',name]),
+   resultAdmissionEventRef:'component:refusal-event:'+name,judgmentEventRef:'component:refusal-judgment:'+name};
+  const context=await ops.observeWorksiteContext({...operating,readRoots:env.job.worksiteScope.readRoots,maxFiles:declaration.bounds.maxContextFiles,maxBytes:declaration.bounds.maxContextBytes});
+  const prepared={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:coordinate(parent),causes:[cause],currentWorksite:null,
+   nativeWorksite:{kind:'native_semantic_revision_worksite',...operating,context,commandExecutionLimits:limits,construction:null,source}};
+  assert(revision.isSemanticRevisionSelectionInput(prepared));const acquisition=h.admit(prepared,R.nativeIntakeImplementationRef);
+  const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:prepared.parent,causes:prepared.causes,mode:'stage_revision',
+   selectedStageRef:stage.declarationRef,selectedObligationRefs:[],selectedTargetRefs:[],reasonRef:'component:operational:'+name,nativePhase:'preconstruction'};
+  h.call(R.selectionImplementationRef,prepared);const selected=h.admit(selection,R.selectionImplementationRef);
+  const request={kind:'semantic_revision_request',schemaVersion:'5.0.0',parent:prepared.parent,causes:prepared.causes,selection:coordinate(selected),
+   selectionChoice:{mode:'stage_revision',selectedStageRef:stage.declarationRef,entryRole:role},currentWorksite:null,
+   nativeWorksite:{...prepared.nativeWorksite,acquisition:coordinate(acquisition)}};
+  assert(revision.isSemanticRevisionRequest(request));return {request,selection,acquisition};
+ }
+ const first=await recordedRequest('author',predecessor,authorW,h.publicRun,'author');
+ const authorRun=h.invocation('author',first.request,authorW);
+ const projected=revision.deriveSemanticJobRevision(accepted,first.request,first.selection,null,null,[],undefined,stage,'author');assert(projected);
+ const pending=revision.deriveJobRevisionAsset(projected,stage.declarationRef,candidate(projected.current,3),actorSource('conserved-design',projected));assert(pending);
+ h.call(R.authorImplementationRef,projected);
+ const authored=h.admit(pending,R.authorImplementationRef,h.current.execution,'advance',pending.current.assets.at(-1).source.cCallRef,authorRun.run.ref);
+ const second=await recordedRequest('assessment',authored,assessmentW,authorRun.run,'assessor');
+ const sourceRun=h.invocation('assessment',second.request,assessmentW);
+ const resumed=revision.deriveSemanticJobRevision(pending,second.request,second.selection,null,null,[],undefined,stage,'assessor');assert(resumed);
+ h.call(R.projectionImplementationRef,second.request);h.admit(resumed,R.projectionImplementationRef);
+ const rejected=revision.deriveJobRevisionAssessment(resumed,stage.declarationRef,verdict(resumed.current,3,'falsified'),actorSource('rejected-design',resumed));assert(rejected);
+ h.call(R.assessorImplementationRef,resumed);
+ const cause=h.admit(rejected,R.assessorImplementationRef,h.current.execution,'blocked',rejected.current.assets.at(-1).assessment.source.cCallRef,sourceRun.run.ref);
+ assert.deepEqual(rejected.current.assets.slice(0,-1),accepted.assets);
+ assert.deepEqual(rejected.current.assets.at(-1).source,pending.current.assets.at(-1).source);
+ assert.equal([...h.states.values()].filter(s=>s.cCall.runId===sourceRun.run.ref&&s.judgment.judgment==='advance'&&
+  (s.result.value.current?.assets??[]).every(a=>a.assessment?.disposition==='satisfied')).length,0,'source Run has no accepted predecessor leaf');
+ const input={...h.intake,sourceRun:sourceRun.run};h.invocation('new-intake',input,currentW);h.call(R.nativeIntakeImplementationRef,input);
+ for(const b of [h.original,authorRun.root,sourceRun.root,...h.bases.values()])if(!cover.bases.has(b.basisRef)){
+  cover.bases.set(b.basisRef,b);cover.event('basis_admitted',{basisRef:b.basisRef,basisDigest:b.basisDigest},{eventId:b.admissionEventRef});
+ }
+ let reason;const prepare=()=>h.owner.prepareNativeSemanticRevisionIntake(h.basis,input,limits,r=>reason=r);
+ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_binding_cover_absent','exact ancestry gets as far as the new cover');
+ assert.equal(coverCalls.at(-1).before.bindingId,assessmentW.workspaceBinding.bindingId,'new cover starts at failed source Run, not older author/original W');
+ const witness=cover.cover(assessmentW,currentW,sourceRun.root,{name:'latest-source-root'});
+ const prepared=await prepare();assert(prepared,reason);
+ assert.deepEqual(prepared.parent,coordinate(predecessor));assert.deepEqual(prepared.causes,[coordinate(cause)]);
+ assert.equal(prepared.nativeWorksite.context.workspaceBindingIdentity,currentW.workspaceBinding.bindingId);
+ assert.equal(h.owner.nativeSemanticRevisionIntakeMatches(h.basis,input,prepared),true);
+ const duplicate=h.admit(accepted,D.nativeAssessorFoldImplementationRef,h.original,'advance','component:equal-value-wrong-producer','component:unrelated-run');
+ consulted.length=0;assert.deepEqual(await prepare(),prepared);assert(!consulted.includes(duplicate.cCall.cCallRef));
+ for(const required of [predecessor,authored,first.acquisition,second.acquisition]){
+  h.states.delete(required.cCall.cCallRef);assert.equal(await prepare(),null);assert.equal(reason,'native_revision_parent_absent');h.states.set(required.cCall.cCallRef,required);
+ }
+ const impl=second.acquisition.cCall.implementationRef;second.acquisition.cCall.implementationRef=R.projectionImplementationRef;
+ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_parent_absent');second.acquisition.cCall.implementationRef=impl;
+ const acquiredBasis=h.bases.get(first.acquisition.cCall.basisId),raw=acquiredBasis.rawInputValue;
+ acquiredBasis.rawInputValue={...raw,sourceRun:{...raw.sourceRun,ref:'component:wrong-source'}};
+ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_parent_absent');acquiredBasis.rawInputValue=raw;
+ const rootInput=authorRun.root.rawInputValue;authorRun.root.rawInputValue={...rootInput,parent:coordinate(duplicate)};
+ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_parent_absent');authorRun.root.rawInputValue=rootInput;
+ const acquiredEvent=h.events.find(e=>e.eventId===second.acquisition.result.admissionEventRef),oldOrdinal=acquiredEvent.admissionOrdinal;
+ acquiredEvent.admissionOrdinal=h.events.find(e=>e.eventId===cause.result.admissionEventRef).admissionOrdinal+1;
+ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_parent_absent');acquiredEvent.admissionOrdinal=oldOrdinal;
+ const causeBasis=h.bases.get(cause.cCall.basisId),oldRoot=causeBasis.parentExecutionBasisRef;causeBasis.parentExecutionBasisRef=authorRun.root.basisRef;
+ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_source_root_ancestry_mismatch');causeBasis.parentExecutionBasisRef=oldRoot;
+ const witnessSubject=witness.payload.subjectRef;witness.payload.subjectRef=authorRun.root.basisRef;
+ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_binding_cover_absent');witness.payload.subjectRef=witnessSubject;
+ invalidated=true;assert.equal(await prepare(),null);assert.equal(reason,'native_revision_source_invalidated');invalidated=false;
+ const rubric=join(env.canonicalRoot,'assets/rubric.json'),bytes=await readFile(rubric);await writeFile(rubric,'changed after semantic refusal');
+ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_current_context_mismatch');await writeFile(rubric,bytes);
+ assert.deepEqual(await prepare(),prepared);
+ // The admitted acquisition continues through the existing selection/request
+ // and Product projection, retaining original job, bindings and rejected asset.
+ h.admit(prepared,R.nativeIntakeImplementationRef);
+ h.basis.graphFunction={name:'component:repeat-selection',declarations:{'abg.semantic_revision_selection':declaration.declarationRef}};
+ h.call(R.selectionImplementationRef,prepared,prepared,{graphFunctionRef:'component:repeat-selection'});
+ const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:prepared.parent,causes:prepared.causes,mode:'stage_revision',selectedStageRef:stage.declarationRef,
+  selectedObligationRefs:p.projectSemanticJobBindings(accepted).map(v=>v.binding.obligationRef),selectedTargetRefs:[],reasonRef:'component:new-semantic-refusal',nativePhase:'preconstruction'};
+ assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,selection),true);h.admit(selection,R.selectionImplementationRef);
+ h.basis.declarationGraphFunctions=[h.basis.graphFunction];h.call(R.nativeRequestImplementationRef,selection,prepared);
+ const request=h.owner.projectNativeSemanticRevisionRequest(h.basis,selection);assert(request);
+ assert.deepEqual(request.selectionChoice,{mode:'stage_revision',selectedStageRef:stage.declarationRef});
+ h.invocation('new-correction',request,currentW);h.basis.graphFunction=declaredCorrection(request).projection;h.call(R.projectionImplementationRef,request);
+ const successor=h.owner.projectSemanticJobRevision(h.basis,request);assert(successor);
+ assert.deepEqual(successor.current.job,env.job);assert.deepEqual(successor.current.basis,accepted.basis);
+ assert.deepEqual(successor.current.assets,accepted.assets);assert.deepEqual(successor.current.bindingVersions,accepted.bindingVersions);
+ assert(successor.revisionBasis.historicalAssets.some(a=>hash(a)===hash(rejected.current.assets.at(-1))));
+ t.diagnostic('Component proof: exact historical admission tables, real ancestry/acquisition reuse, binding-cover algorithm and current physical context; no installed/provider or original operational-failure admission claim.');
+});
 
 // These are Product value premises only. Actual failed-call input and producer
 // admission is exercised in t287-calculus-state-transfer, under one real basis.

@@ -1,0 +1,12 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=native D2 serialized public request|native D2 root-backed binding cover|native D2 rejected assessor-only|Product author recovery|Product assessor recovery",
+    "test_env/tests/t287-native-semantic-revision.test.mjs"
+  ],
+  "exitCode": 0,
+  "wallSeconds": 1.729049,
+  "scope": "new repeated-correction lineage plus affected existing acquisition, binding-cover and Product recovery checks"
+}

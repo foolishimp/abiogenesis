@@ -1,0 +1,85 @@
+{
+  "status": "EXECUTIVE_SELECTED_PREPARED_REVIEW_CLOSED",
+  "ticket": "T-287",
+  "activation": "T287_CALCULUS_REPAIR_01",
+  "frame": "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-end-to-end-interface-integration-frame",
+  "reEntry": "existing downstream semantic D2 from actual rejected Design; no new ABG calculus or code change",
+  "core": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite41-install-73von96t/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-41/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:15f9bb0788e6b8844f3bb01950c727b209d5d4a2ba2549c34a60a1d89453b7fd",
+      "productContentDigest": "sha256:6d743377a274ac59c8b730ba6c1de7a3327a457d15bb2ba6f3fe4ec594806076",
+      "manifestDigest": "sha256:355c890067e05a18274027adee1dfaa963a4f5f78e56dd7037cd4e8b53efa909",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "consumer": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev16/installed-consumer.json",
+  "sourceRun": {
+    "digest": "sha256:c280b9cb5ecad0cfe6f7eb88d97aeabd17dcf3a30b4a1c86aadc93f2910999a2",
+    "ref": "run://abiogenesis/1d11eb78db2cb203eddb1229b2fb695ea37ebe499b4abdcdff71a6d2a8fcc51c"
+  },
+  "sourcePrefix": {
+    "coordinateDigest": "sha256:8ce6993a3da239407c9fb970c6ba06d03a5bb148985dde38d03ef3fd1da25ea3",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:ed0310df78eeda21c8f17af59455eb0c8bf3948fe3eceec2efb8c7317a904ad8",
+    "prefixLength": 429545568,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "permittedSequence": [
+    "ordinary core41/dev16 verify install bind catalog conformance resolution",
+    "fresh source Run Public root and genuine changed-binding witness",
+    "one semantic intake",
+    "fresh ordinary Public reads and unique published suffix selection",
+    "one full declared suffix then ordinary terminal reads"
+  ],
+  "intakeControls": {
+    "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "expectedVersion": "2.1.280 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "extraArgs": [
+      "--max-budget-usd",
+      "12"
+    ],
+    "inactivityMs": 300000,
+    "absoluteMs": 900000,
+    "terminationGraceMs": 1000,
+    "wholeRunMs": 5400000
+  },
+  "suffixControls": {
+    "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "expectedVersion": "2.1.280 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "extraArgs": [
+      "--max-budget-usd",
+      "8"
+    ],
+    "inactivityMs": 300000,
+    "absoluteMs": 900000,
+    "terminationGraceMs": 1000,
+    "wholeRunMs": 5400000
+  },
+  "stops": [
+    "first causal setup/runtime failure for calculus triage",
+    "no admitted unique selection",
+    "unsupported source/worksite change",
+    "no repeated unchanged attempt or control increase"
+  ],
+  "authority": "Owner AFK delivery direction; /root Writer owns this caller evidence and T287/GOALS projections. Source/compiled subjects remain frozen. Executive disposition consumes the independent native40 triage before paid launch.",
+  "triageReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native40/triage-review.md",
+    "sha256": "46df4c7fb287026b121b5e170b29e463140aabdabcda853a61b686a2c113413e",
+    "disposition": "CLOSED accepted: downstream semantic D2; no established engine defect. Earliest stage determined by actual admitted selector."
+  }
+}

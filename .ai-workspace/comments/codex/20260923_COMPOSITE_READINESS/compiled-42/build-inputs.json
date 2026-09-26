@@ -1,0 +1,30 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.d.ts",
+    "sha256": "aabda321ba70baf461a08179a2e51a9cd14f2205e04cb03dbcec9d49bdb35c38"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js",
+    "sha256": "806413d872a168d9e5901b44e7e3eef593afbb6be293766131bbe72bf10d7320"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+    "sha256": "9036931bc5f7641ce32b0c5d0a6b10f88a7d70bf6fbb5541b9fdcf0a37092aba"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "sha256": "e4614aa48c5d1919e28fb7b0d1878e48f8c44fe029cab57f144634ecaeb57841"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+    "sha256": "8183439af945c312d4e61f0a64de37ea25fce4b1c22074561faae105f6858ed5"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "4da0e62013a7c7a41e47d5b8d0ae98c10fa1044d4e7610e5330d8170a19d37b6"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "sha256": "6b37376bd9f89d3a20c2aff62bd9348538390965e96f2f06823e9d1deae75902"
+  }
+]

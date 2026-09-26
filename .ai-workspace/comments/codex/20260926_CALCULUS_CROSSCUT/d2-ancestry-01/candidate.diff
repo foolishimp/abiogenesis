@@ -1,0 +1,341 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts b/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts
+index 604734fb..72e3fbb1 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts
+@@ -22,7 +22,7 @@ import { isSemanticStageEnvelope, type SemanticStageEnvelope, type SemanticWorks
+   deriveSemanticWorksiteConstructionConfiguration, projectSemanticWorksiteCoordinates } from "../product/semantic_stage.js";
+ import { authenticateSemanticStageBasis, projectSemanticPredecessorAtPrefix, semanticInputValueAtBasis,
+   type SemanticStageNativeBasis } from "./semantic_stage.js";
+-import { rehydrateExecutionBasisAtPrefix } from "./execution_basis.js";
++import { rehydrateExecutionBasisAtPrefix, type ExecutionBasis } from "./execution_basis.js";
+ import { projectOpenedCCallTraversalInputAtPrefix } from "./traversal_cursor.js";
+ import { projectWorksiteInputLeafResultAtPrefix } from "./worksite_input_provenance.js";
+ import { materializeGraph } from "../gtl/materialize.js";
+@@ -82,6 +82,58 @@ function admittedLeaves(prefix: ValidatedRuntimeEventPrefix, runRef: string) {
+   });
+ }
+ function jobEnvelope(value: unknown) { return isSemanticJobRevisionEnvelope(value) ? value.current : isSemanticJobEnvelope(value) ? value : null; }
++/** An admitted acquisition already owns historical discovery and binding cover.
++ * Reuse its exact request coordinates; consumers do not acquire that history again. */
++function nativeRevisionAcquisitionAtPrefix(prefix: ValidatedRuntimeEventPrefix,
++  request: SemanticRevisionSelectionInput | SemanticRevisionRequest,
++  acquired: ReturnType<typeof projectWorksiteRevisionNativeResult>) {
++  const native = request.nativeWorksite;
++  if (native === undefined || acquired === null || acquired.result.resultClass !== "success" || acquired.judgment.judgment !== "advance" ||
++    acquired.cCall.implementationRef !== ids.nativeIntakeImplementationRef || !isSemanticRevisionSelectionInput(acquired.result.value)) return null;
++  const acquisitionBasis = rehydrateExecutionBasisAtPrefix(prefix, acquired.cCall.basisId);
++  const { acquisition: _acquisition, ...retained } = native;
++  return acquisitionBasis !== null && same(acquisitionBasis.rawInputValue, native.source) &&
++    same(acquired.result.value, { kind: "semantic_revision_selection_input", schemaVersion: "5.0.0",
++      parent: request.parent, causes: request.causes, currentWorksite: null, nativeWorksite: retained }) ? acquired : null;
++}
++/** A correction can begin at a conserved pending assessment. Its accepted
++ * predecessor then belongs to a prior Run, reachable only through the exact
++ * admitted request/acquisition chain. No historical value search selects it. */
++function conservedNativeRevisionParent(prefix: ValidatedRuntimeEventPrefix,
++  cause: ReturnType<typeof admittedLeaves>[number], sourceRoot: ExecutionBasis,
++  eligible: (row: ReturnType<typeof admittedLeaves>[number]) => boolean) {
++  let descendant = cause, root = sourceRoot;
++  while (isSemanticJobRevisionEnvelope(descendant.state.result.value)) {
++    const value = descendant.state.result.value, request = value.revisionBasis.request, native = request.nativeWorksite;
++    if (native?.acquisition === undefined || !same(root.rawInputValue, request) ||
++      root.workspaceBindingId !== native.workspaceBinding.bindingId || root.workspaceBindingDigest !== native.workspaceBinding.bindingDigest) return null;
++    const acquired = nativeRevisionAcquisitionAtPrefix(prefix, request, projectWorksiteRevisionNativeResult(prefix, native.acquisition));
++    const parent = projectWorksiteRevisionNativeResult(prefix, request.parent);
++    if (acquired === null || parent?.result.resultClass !== "success" || parent.judgment.judgment !== "advance") return null;
++    const envelope = jobEnvelope(parent.result.value), parentBasis = rehydrateExecutionBasisAtPrefix(prefix, parent.cCall.basisId);
++    const parentRoot = parentBasis === null ? null : semanticJobRootAtPrefix(prefix, parentBasis);
++    const parentRevision = isSemanticJobRevisionEnvelope(parent.result.value) ? parent.result.value : null;
++    if (envelope === null || parentRoot === null || !same(envelope.basis, value.current.basis) ||
++      !same(envelope.job, value.current.job) || !same(envelope.declaration, value.current.declaration) ||
++      value.revisionBasis.parentRevisionRef !== (parentRevision?.revisionBasis.basisRef ?? null) ||
++      (parentRevision === null ? parentRoot.basisRef !== envelope.basis.rootExecutionBasisRef || !same(parentRoot.rawInputValue, envelope.job)
++        : !same(parentRoot.rawInputValue, parentRevision.revisionBasis.request))) return null;
++    const event = indexedRuntimeEvents(prefix, "id:" + parent.result.admissionEventRef);
++    const judgment = indexedRuntimeEvents(prefix, "id:" + parent.judgment.admissionEventRef);
++    const acquisitionEvent = indexedRuntimeEvents(prefix, "id:" + acquired.result.admissionEventRef);
++    const acquisitionJudgment = indexedRuntimeEvents(prefix, "id:" + acquired.judgment.admissionEventRef);
++    if (event.length !== 1 || judgment.length !== 1 || acquisitionEvent.length !== 1 || acquisitionJudgment.length !== 1 ||
++      event[0]!.admissionOrdinal >= judgment[0]!.admissionOrdinal || judgment[0]!.admissionOrdinal >= acquisitionEvent[0]!.admissionOrdinal ||
++      acquisitionEvent[0]!.admissionOrdinal >= acquisitionJudgment[0]!.admissionOrdinal ||
++      acquisitionJudgment[0]!.admissionOrdinal >= descendant.event.admissionOrdinal) return null;
++    const row = { state: parent, event: event[0]! };
++    if (eligible(row)) return row;
++    // Every admitted parent precedes this acquisition and descendant. Strict
++    // decrease bounds the walk and rejects cycles without another ancestry store.
++    descendant = row; root = parentRoot;
++  }
++  return null;
++}
+ function nativeCause(value: unknown): boolean {
+   return isNativeWorksiteCommandExecutionObservation(value) && value.commandResults.some(row => row.exitStatus !== 0 || row.timedOut || row.processSignal !== null);
+ }
+@@ -168,7 +220,7 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
+     const construction = rejected?.evidence?.constructionResult ?? (isNativeWorksiteCommandExecutionTask(command) ? command.sourceNativeWork : null);
+     const native = isNativeWorkspaceWorkObservation(construction) ? projectNativeWorkspaceWorkSourceAtPrefix(prefix, construction) : null;
+     if (construction !== null && native === null) return refuse("construction_source_mismatch");
+-    const parents = leaves.filter(({ state, event }) => {
++    const eligibleParent = ({ state, event }: ReturnType<typeof admittedLeaves>[number]) => {
+       const envelope = jobEnvelope(state.result.value);
+       if (event.admissionOrdinal >= cause.event.admissionOrdinal || state.result.resultClass !== "success" || state.judgment.judgment !== "advance" || envelope === null) return false;
+       const last = envelope.assets.at(-1);
+@@ -192,7 +244,11 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
+       try { return same(construction.task, isSemanticJobRevisionEnvelope(state.result.value)
+         ? constructNativeRevisionConstructionTask(state.result.value, {...state.result.value.revisionBasis.request.nativeWorksite!, ...construction.task}) : constructNativeSemanticConstructionTask(envelope, construction.task, construction.before)); }
+       catch { return false; }
+-    });
++    };
++    const parents = leaves.filter(eligibleParent);
++    const inherited = parents.length === 0 && rejected !== null
++      ? conservedNativeRevisionParent(prefix, cause, sourceRoot, eligibleParent) : null;
++    if (inherited !== null) parents.push(inherited);
+     if (parents.length !== 1) { onRefusal?.(parents.length === 0 ? "native_revision_parent_absent" : "native_revision_parent_ambiguous"); return null; }
+     const parent = parents[0]!, envelope = jobEnvelope(parent.state.result.value)!;
+     const original = rehydrateExecutionBasisAtPrefix(prefix, envelope.basis.rootExecutionBasisRef);
+@@ -205,13 +261,16 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
+     const parentBasis = rehydrateExecutionBasisAtPrefix(prefix, parent.state.cCall.basisId);
+     const invocation = rehydrateInvocationAdmissionAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef);
+     if (expectedContext === null || parentBasis === null || causeBasis === null || invocation?.capabilityGrants.length !== 1 ||
+-      causeBasis.invocationAdmissionRef !== sourceRoot.invocationAdmissionRef || parentBasis.invocationAdmissionRef !== sourceRoot.invocationAdmissionRef ||
++      causeBasis.invocationAdmissionRef !== sourceRoot.invocationAdmissionRef ||
++      (inherited === null && parentBasis.invocationAdmissionRef !== sourceRoot.invocationAdmissionRef) ||
+       owner.environment.kind !== "exact_prefix_workspace_environment") return refuse("historical_context_or_invocation_mismatch");
+-    // Public run_status exposes this root. It is usable for cover only after
+-    // both exact eligible leaves resolve to it through the existing ancestry owner.
+-    if (!same(semanticJobRootAtPrefix(prefix, parentBasis), sourceRoot) ||
++    // The cause belongs to the selected source Run. Its parent either belongs
++    // there too or is conserved by the admitted acquisition chain above.
++    if ((inherited === null && !same(semanticJobRootAtPrefix(prefix, parentBasis), sourceRoot)) ||
+       !same(semanticJobRootAtPrefix(prefix, causeBasis), sourceRoot)) return refuse("source_root_ancestry_mismatch");
+-    const priorBinding = native === null ? { bindingId: parentBasis.workspaceBindingId, bindingDigest: parentBasis.workspaceBindingDigest } : (construction as import("../product/native_workspace_work.js").NativeWorkspaceWorkObservation).task.workspaceBinding;
++    // Earlier acquisitions retain their own historical W cover. The new cover
++    // starts at this source Run's W, not the conserved ancestor's older W.
++    const priorBinding = native === null ? { bindingId: sourceRoot.workspaceBindingId, bindingDigest: sourceRoot.workspaceBindingDigest } : (construction as import("../product/native_workspace_work.js").NativeWorkspaceWorkObservation).task.workspaceBinding;
+     const oldEnvironment = projectExactPrefixWorkspaceEnvironment(historical, { ref: priorBinding.bindingId, digest: priorBinding.bindingDigest });
+     if (oldEnvironment.kind !== "exact_prefix_workspace_environment" ||
+       !same(oldEnvironment.workspaceAuthorityBasis, owner.environment.workspaceAuthorityBasis)) return refuse("historical_environment_mismatch");
+@@ -261,15 +320,11 @@ function nativeJobRevisionSubject(basis: SemanticStageNativeBasis, input: unknow
+       isRetainedGraphInput(owner.inputValue) ? owner.inputValue.entry : owner.inputValue;
+     if (!same(actual, input)) return null;
+     const nativeWorksite = request.nativeWorksite;
+-    const acquired = nativeWorksite.acquisition === undefined
++    const candidate = nativeWorksite.acquisition === undefined
+       ? selectedSemanticPredecessor(basis, ids.nativeIntakeImplementationRef, request)?.previous ?? null
+       : projectWorksiteRevisionNativeResult(owner.prefix, nativeWorksite.acquisition);
+-    if (acquired === null || acquired.result.resultClass !== "success" || acquired.judgment.judgment !== "advance" ||
+-      acquired.cCall.implementationRef !== ids.nativeIntakeImplementationRef || !isSemanticRevisionSelectionInput(acquired.result.value)) return null;
+-    const acquisitionBasis = rehydrateExecutionBasisAtPrefix(owner.prefix, acquired.cCall.basisId);
+-    const { acquisition: _acquisition, ...retained } = nativeWorksite;
+-    if (acquisitionBasis === null || !same(acquisitionBasis.rawInputValue, nativeWorksite.source) ||
+-      !same(acquired.result.value, {kind:"semantic_revision_selection_input", schemaVersion:"5.0.0", parent:request.parent, causes:request.causes, currentWorksite:null, nativeWorksite:retained}) ||
++    const acquired = nativeRevisionAcquisitionAtPrefix(owner.prefix, request, candidate);
++    if (acquired === null ||
+       !same(owner.environment.workspaceAuthorityBasis, nativeWorksite.workspaceAuthorityBasis) ||
+       !same(owner.environment.workspaceBinding, nativeWorksite.workspaceBinding)) return null;
+     const parent = projectWorksiteRevisionNativeResult(owner.prefix, request.parent), envelope = parent === null ? null : jobEnvelope(parent.result.value);
+diff --git a/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md b/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md
+index e9244cab..ce2fbb45 100644
+--- a/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md
+@@ -12,7 +12,13 @@ An ordinary caller supplies only the original public Run `{ref,digest}` and
+ its durable prefix to `program://odd-glc/native-semantic-revision/intake@5`.
+ The declared F_D intake uses existing ABG prefix, Run, execution-basis,
+ Result/J, workspace and native-observation owners to authenticate one eligible
+-cause and one successful advancing semantic predecessor from that Run. An
++cause from that Run and one successful advancing semantic predecessor. A
++rejected correction may conserve its predecessor through an admitted revision
++request: each exact parent Result/J and native acquisition must match that
++request, its own invocation root and historical binding. Each parent judgment
++precedes its acquisition, which precedes the descendant Result. The walk follows
++only those immutable coordinates until the existing eligible predecessor is
++reached; equal historical values and chronological proximity are not selectors. An
+ absent or ambiguous cause/parent refuses; chronological latest is not a
+ selector. The original admitted job, source, oracle and root remain exact.
+ Rejected candidate/assessment bytes are counterevidence, never the advancing
+@@ -27,10 +33,16 @@ relation described below. Setup binding alone is not a cover. No diagnostic
+ child coordinates or inferred path correspondence are caller inputs.
+ 
+ Acquisition may add this root to its existing historical child/native-basis
+-cover set only after the unique eligible parent and cause both rehydrate through
+-the semantic-job ancestry owner to that source Run root. Every ancestry step
++cover set only after the unique eligible cause rehydrates through the
++semantic-job ancestry owner to that source Run root. The parent either reaches
++the same root or is conserved through the exact admitted request/acquisition
++chain above, as when an assessment-only correction rejects a previously pending
++candidate. Every ancestry step
+ keeps its invocation, Program, root implementation set and historical W; the
+-original job/root and lifecycle remain separately authenticated. The unchanged
++original job/root and lifecycle remain separately authenticated. Earlier admitted
++acquisitions retain their historical binding covers. The new cover starts at the
++failed source Run's W and ends at current W; it does not transplant the older
++parent's invocation or demand an invented direct cover from that older W. The unchanged
+ cover owner still requires actual witness and binding admissions, actor/current
+ authority, exact W evidence and event ordering. An unrelated root or matching
+ path does not suffice. Missing coverage and other first failed intake relations
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs
+index f695ff94..f209abdc 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs
+@@ -71,10 +71,11 @@ async function component(name,overrides){const file=join(root,'build/code/src',n
+   return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});});await module.evaluate();return module.namespace;}
+ function coordinate(state){return {cCallRef:state.cCall.cCallRef,resultRef:state.result.resultRef,resultDigest:state.result.resultDigest,resultAdmissionEventRef:state.result.admissionEventRef,judgmentEventRef:state.judgment.admissionEventRef};}
+ async function harness(env, options={}){
+- const events=[],states=new Map(),bases=new Map(),nativeSources=new Map();
++ const events=[],states=new Map(),bases=new Map(),nativeSources=new Map(),runs=new Map();
+  const prefix={events},publicRun={ref:'component:source-run',digest:hash('public-run')},original={...env.executionBasis,basisRef:env.envelope.basis.rootExecutionBasisRef,parentExecutionBasisRef:null,
+   rawInputValue:env.job,rawInputDigest:hash(env.job),rawInputAdmissionRef:env.envelope.basis.rootInputRef,invocationAdmissionRef:env.envelope.basis.invocationAdmissionRef};
+  bases.set(original.basisRef,original);
++ runs.set(publicRun.ref,{run:publicRun,executionBasis:{ref:original.basisRef}});
+  const oldEnvironment={kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:[]};
+  const environment={...oldEnvironment,...options.current};
+  const lifecyclePublication=options.publication??declaredPublication;
+@@ -83,7 +84,10 @@ async function harness(env, options={}){
+  const prefixBody={kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:'file:///component/no-journal',prefixLength:0,prefixDigest:hash('prefix'),storeIdentity:{device:1,inode:1,eventContractDigest:(await load('abg/event_store')).ROOT_EVENT_CONTRACT_DIGEST}};
+  const intake={kind:'native_semantic_revision_intake',schemaVersion:'5.0.0',sourceRun:publicRun,sourcePrefix:{...prefixBody,coordinateDigest:hash(prefixBody)}};
+  let current,ordinal=0,rootBasis,runId,ancestry=true;const basis={publication:lifecyclePublication,lifecyclePublication,sourcePublication:lifecyclePublication,predecessorPrefix:intake.sourcePrefix,declarationGraphFunctions:[],graphFunction:{declarations:{}}};
+- function invocation(name,input){runId='component:run:'+name;rootBasis={...original,basisRef:'component:root:'+name,rawInputValue:input,rawInputDigest:hash(input),rawInputAdmissionRef:'component:input:'+name,invocationAdmissionRef:'component:invocation:'+name};bases.set(rootBasis.basisRef,rootBasis);}
++ function invocation(name,input,operating=env){runId='component:run:'+name;rootBasis={...original,basisRef:'component:root:'+name,basisDigest:hash(['basis',name]),admissionEventRef:'component:basis-event:'+name,
++  rawInputValue:input,rawInputDigest:hash(input),rawInputAdmissionRef:'component:input:'+name,invocationAdmissionRef:'component:invocation:'+name,
++  workspaceBindingId:operating.workspaceBinding.bindingId,workspaceBindingDigest:operating.workspaceBinding.bindingDigest};bases.set(rootBasis.basisRef,rootBasis);
++  const run={ref:runId,digest:hash(['run',name])};runs.set(runId,{run,executionBasis:{ref:rootBasis.basisRef}});return {run,root:rootBasis};}
+  function call(impl,input,raw=input,extra={}){const execution={...rootBasis,basisRef:'component:basis:'+(++ordinal),parentExecutionBasisRef:rootBasis.basisRef,rawInputValue:raw,rawInputDigest:hash(raw)};
+   bases.set(execution.basisRef,execution);const cCall={...env.cCall,cCallRef:'component:call:'+ordinal,basisId:execution.basisRef,runId,implementationRef:impl,regime:[R.selectionImplementationRef,R.authorImplementationRef,R.assessorImplementationRef].includes(impl)?'F_P':'F_D',...extra};
+   current={execution,call:cCall,inputValue:input,inputDigest:hash(input),inputRef:'component:input:'+ordinal,prefix,events,environment,program:{}};basis.cCall=cCall;basis.executionBasis=execution;return current;}
+@@ -101,9 +105,9 @@ async function harness(env, options={}){
+   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup}});
+  const owner=await component('abg/semantic_revision',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./semantic_job.js':{...jobOwner,...options.contextPremises},
+   '../product/worksite_operations.js':options.observation===undefined?{}:{observeWorksiteContext:async()=>options.observation},'./semantic_stage.js':{selectedSemanticPredecessor:selected},'./event_store.js':{authenticateRuntimePrefixAncestry:()=>ancestry,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h,readRuntimeEventsAtDurablePrefix:()=>events},
+-  './event_prefix.js':{selectValidatedRuntimeEventPrefix:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events,indexedRuntimeEvents:(p,key)=>p.events.filter(e=>key==='aggregate:c_call:'+e.aggregateId)},'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>ref===publicRun.ref?{run:publicRun,executionBasis:{ref:original.basisRef}}:null},
+-  './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:()=>oldEnvironment},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup,projectWorksiteRevisionBindingCover:options.cover??(()=>[])},
+-  './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>nativeSources.get(value.observationRef)??null,worksiteCommandSourcesInvalidatedAfter:()=>false}});
++  './event_prefix.js':{selectValidatedRuntimeEventPrefix:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events,indexedRuntimeEvents:(p,key)=>p.events.filter(e=>key==='aggregate:c_call:'+e.aggregateId||key==='id:'+e.eventId)},'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>runs.get(ref)??null},
++  './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:options.historicalEnvironment??(()=>oldEnvironment)},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup,projectWorksiteRevisionBindingCover:options.cover??(()=>[])},
++  './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>nativeSources.get(value.observationRef)??null,worksiteCommandSourcesInvalidatedAfter:options.invalidated??(()=>false)}});
+  const implementation=await component('implementation/semantic_revision',{'../abg/semantic_revision.js':owner,'../implementation/worksite_command_execution.js':{}});
+  function source(value,state){nativeSources.set(value.observationRef,{sourceBasis:bases.get(state.cCall.basisId),sourceResult:{...events.find(e=>e.eventId===state.result.admissionEventRef),runId:state.cCall.runId},sourceClosedEvent:{admissionOrdinal:++ordinal}});}
+  return {events,states,bases,original,intake,publicRun,prefix,basis,owner,implementation,jobOwner,invocation,call,admit,source,coordinate,get current(){return current;},set ancestry(v){ancestry=v;}};
+@@ -319,6 +323,124 @@ test('native D2 root-backed binding cover authenticates source ancestry and pres
+ });
+ 
+ 
++test('native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings',async t=>{
++ const env=await fixture(t);let accepted=env.envelope;
++ for(let i=0;i<3;i++){const a=await author(env,accepted,i);accepted=assess(env,a.authored,i).assessed;}
++ const stage=declaration.stages[3],limits={inactivityTimeoutMs:300000,absoluteTimeoutMs:900000};
++ function operating(name){
++  const {bindingId,bindingDigest,admissionEventRef,kind,schemaVersion,...old}=env.workspaceBinding;
++  const body={...old,productSetId:'component:products:'+name,productSetDigest:hash(['products',name]),lockId:'component:lock:'+name,lockDigest:hash(['lock',name])},digest=hash(body);
++  const workspaceBinding={kind,schemaVersion,...body,bindingId:'workspace-binding://abiogenesis/'+digest.slice(7),bindingDigest:digest,admissionEventRef:'component:W:'+name};
++  const {grantRef,grantDigest,kind:gKind,schemaVersion:gVersion,...grant}=env.capabilityGrant;
++  const next={...grant,scopeRef:workspaceBinding.bindingId,scopeDigest:digest},gDigest=hash(next);
++  return {workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding,
++   capabilityGrant:{kind:gKind,schemaVersion:gVersion,...next,grantRef:'capability-grant://abiogenesis/'+gDigest.slice(7),grantDigest:gDigest}};
++ }
++ const authorW=operating('author'),assessmentW=operating('assessment'),currentW=operating('new-intake');
++ const {bindingHarness}=await import('../support/d2-binding-harness.mjs'),cover=await bindingHarness();
++ cover.events.length=0;cover.artifacts.length=0;cover.bases.clear();
++ const workspaces=[env,authorW,assessmentW,currentW];
++ for(const operating of workspaces){const w=operating.workspaceBinding;
++  const e=cover.event('public_operation_artifact_admitted',{}, {eventId:w.admissionEventRef,aggregateId:w.bindingId});
++  const {kind,admissionEventRef,...body}=w;
++  cover.artifacts.push({operationId:'abg.operation.workspace.bind',authorityScopeRef:w.bindingId,authorityScopeDigest:w.bindingDigest,
++   admissionEventRef,admissionOrdinal:e.admissionOrdinal,artifact:{kind:'workspace_binding_candidate',...body},workspaceAuthorityBasis:env.workspaceAuthorityBasis});
++ }
++ let invalidated=false;const consulted=[],coverCalls=[];
++ const h=await harness(env,{current:currentW,onLeafLookup:ref=>consulted.push(ref),invalidated:()=>invalidated,
++  historicalEnvironment:(_prefix,c)=>{const prior=workspaces.find(w=>w.workspaceBinding.bindingId===c.ref&&w.workspaceBinding.bindingDigest===c.digest);
++   return prior?{kind:'exact_prefix_workspace_environment',...prior,productInstalls:[]}:null;},
++  cover:(_prefix,before,after,bases)=>{coverCalls.push({before,after,bases});return cover.owner.projectWorksiteRevisionBindingCover(cover.snapshot(),before,after,bases);}});
++ const predecessor=h.admit(accepted,D.nativeAssessorFoldImplementationRef,h.original,'advance',accepted.assets.at(-1).assessment.source.nativeWork.adapterCCallRef,h.publicRun.ref);
++ // Historical intake/selection admissions are explicit component premises.
++ // This fixture exercises their exact reuse, not operational failure discovery.
++ async function recordedRequest(name,parent,operating,sourceRun,role){
++  const source={...h.intake,sourceRun};h.invocation(name+'-intake',source,operating);h.call(R.nativeIntakeImplementationRef,source);
++  const cause={cCallRef:'component:old-refusal:'+name,resultRef:'component:refusal-result:'+name,resultDigest:hash(['refusal',name]),
++   resultAdmissionEventRef:'component:refusal-event:'+name,judgmentEventRef:'component:refusal-judgment:'+name};
++  const context=await ops.observeWorksiteContext({...operating,readRoots:env.job.worksiteScope.readRoots,maxFiles:declaration.bounds.maxContextFiles,maxBytes:declaration.bounds.maxContextBytes});
++  const prepared={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:coordinate(parent),causes:[cause],currentWorksite:null,
++   nativeWorksite:{kind:'native_semantic_revision_worksite',...operating,context,commandExecutionLimits:limits,construction:null,source}};
++  assert(revision.isSemanticRevisionSelectionInput(prepared));const acquisition=h.admit(prepared,R.nativeIntakeImplementationRef);
++  const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:prepared.parent,causes:prepared.causes,mode:'stage_revision',
++   selectedStageRef:stage.declarationRef,selectedObligationRefs:[],selectedTargetRefs:[],reasonRef:'component:operational:'+name,nativePhase:'preconstruction'};
++  h.call(R.selectionImplementationRef,prepared);const selected=h.admit(selection,R.selectionImplementationRef);
++  const request={kind:'semantic_revision_request',schemaVersion:'5.0.0',parent:prepared.parent,causes:prepared.causes,selection:coordinate(selected),
++   selectionChoice:{mode:'stage_revision',selectedStageRef:stage.declarationRef,entryRole:role},currentWorksite:null,
++   nativeWorksite:{...prepared.nativeWorksite,acquisition:coordinate(acquisition)}};
++  assert(revision.isSemanticRevisionRequest(request));return {request,selection,acquisition};
++ }
++ const first=await recordedRequest('author',predecessor,authorW,h.publicRun,'author');
++ const authorRun=h.invocation('author',first.request,authorW);
++ const projected=revision.deriveSemanticJobRevision(accepted,first.request,first.selection,null,null,[],undefined,stage,'author');assert(projected);
++ const pending=revision.deriveJobRevisionAsset(projected,stage.declarationRef,candidate(projected.current,3),actorSource('conserved-design',projected));assert(pending);
++ h.call(R.authorImplementationRef,projected);
++ const authored=h.admit(pending,R.authorImplementationRef,h.current.execution,'advance',pending.current.assets.at(-1).source.cCallRef,authorRun.run.ref);
++ const second=await recordedRequest('assessment',authored,assessmentW,authorRun.run,'assessor');
++ const sourceRun=h.invocation('assessment',second.request,assessmentW);
++ const resumed=revision.deriveSemanticJobRevision(pending,second.request,second.selection,null,null,[],undefined,stage,'assessor');assert(resumed);
++ h.call(R.projectionImplementationRef,second.request);h.admit(resumed,R.projectionImplementationRef);
++ const rejected=revision.deriveJobRevisionAssessment(resumed,stage.declarationRef,verdict(resumed.current,3,'falsified'),actorSource('rejected-design',resumed));assert(rejected);
++ h.call(R.assessorImplementationRef,resumed);
++ const cause=h.admit(rejected,R.assessorImplementationRef,h.current.execution,'blocked',rejected.current.assets.at(-1).assessment.source.cCallRef,sourceRun.run.ref);
++ assert.deepEqual(rejected.current.assets.slice(0,-1),accepted.assets);
++ assert.deepEqual(rejected.current.assets.at(-1).source,pending.current.assets.at(-1).source);
++ assert.equal([...h.states.values()].filter(s=>s.cCall.runId===sourceRun.run.ref&&s.judgment.judgment==='advance'&&
++  (s.result.value.current?.assets??[]).every(a=>a.assessment?.disposition==='satisfied')).length,0,'source Run has no accepted predecessor leaf');
++ const input={...h.intake,sourceRun:sourceRun.run};h.invocation('new-intake',input,currentW);h.call(R.nativeIntakeImplementationRef,input);
++ for(const b of [h.original,authorRun.root,sourceRun.root,...h.bases.values()])if(!cover.bases.has(b.basisRef)){
++  cover.bases.set(b.basisRef,b);cover.event('basis_admitted',{basisRef:b.basisRef,basisDigest:b.basisDigest},{eventId:b.admissionEventRef});
++ }
++ let reason;const prepare=()=>h.owner.prepareNativeSemanticRevisionIntake(h.basis,input,limits,r=>reason=r);
++ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_binding_cover_absent','exact ancestry gets as far as the new cover');
++ assert.equal(coverCalls.at(-1).before.bindingId,assessmentW.workspaceBinding.bindingId,'new cover starts at failed source Run, not older author/original W');
++ const witness=cover.cover(assessmentW,currentW,sourceRun.root,{name:'latest-source-root'});
++ const prepared=await prepare();assert(prepared,reason);
++ assert.deepEqual(prepared.parent,coordinate(predecessor));assert.deepEqual(prepared.causes,[coordinate(cause)]);
++ assert.equal(prepared.nativeWorksite.context.workspaceBindingIdentity,currentW.workspaceBinding.bindingId);
++ assert.equal(h.owner.nativeSemanticRevisionIntakeMatches(h.basis,input,prepared),true);
++ const duplicate=h.admit(accepted,D.nativeAssessorFoldImplementationRef,h.original,'advance','component:equal-value-wrong-producer','component:unrelated-run');
++ consulted.length=0;assert.deepEqual(await prepare(),prepared);assert(!consulted.includes(duplicate.cCall.cCallRef));
++ for(const required of [predecessor,authored,first.acquisition,second.acquisition]){
++  h.states.delete(required.cCall.cCallRef);assert.equal(await prepare(),null);assert.equal(reason,'native_revision_parent_absent');h.states.set(required.cCall.cCallRef,required);
++ }
++ const impl=second.acquisition.cCall.implementationRef;second.acquisition.cCall.implementationRef=R.projectionImplementationRef;
++ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_parent_absent');second.acquisition.cCall.implementationRef=impl;
++ const acquiredBasis=h.bases.get(first.acquisition.cCall.basisId),raw=acquiredBasis.rawInputValue;
++ acquiredBasis.rawInputValue={...raw,sourceRun:{...raw.sourceRun,ref:'component:wrong-source'}};
++ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_parent_absent');acquiredBasis.rawInputValue=raw;
++ const rootInput=authorRun.root.rawInputValue;authorRun.root.rawInputValue={...rootInput,parent:coordinate(duplicate)};
++ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_parent_absent');authorRun.root.rawInputValue=rootInput;
++ const acquiredEvent=h.events.find(e=>e.eventId===second.acquisition.result.admissionEventRef),oldOrdinal=acquiredEvent.admissionOrdinal;
++ acquiredEvent.admissionOrdinal=h.events.find(e=>e.eventId===cause.result.admissionEventRef).admissionOrdinal+1;
++ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_parent_absent');acquiredEvent.admissionOrdinal=oldOrdinal;
++ const causeBasis=h.bases.get(cause.cCall.basisId),oldRoot=causeBasis.parentExecutionBasisRef;causeBasis.parentExecutionBasisRef=authorRun.root.basisRef;
++ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_source_root_ancestry_mismatch');causeBasis.parentExecutionBasisRef=oldRoot;
++ const witnessSubject=witness.payload.subjectRef;witness.payload.subjectRef=authorRun.root.basisRef;
++ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_binding_cover_absent');witness.payload.subjectRef=witnessSubject;
++ invalidated=true;assert.equal(await prepare(),null);assert.equal(reason,'native_revision_source_invalidated');invalidated=false;
++ const rubric=join(env.canonicalRoot,'assets/rubric.json'),bytes=await readFile(rubric);await writeFile(rubric,'changed after semantic refusal');
++ assert.equal(await prepare(),null);assert.equal(reason,'native_revision_current_context_mismatch');await writeFile(rubric,bytes);
++ assert.deepEqual(await prepare(),prepared);
++ // The admitted acquisition continues through the existing selection/request
++ // and Product projection, retaining original job, bindings and rejected asset.
++ h.admit(prepared,R.nativeIntakeImplementationRef);
++ h.basis.graphFunction={name:'component:repeat-selection',declarations:{'abg.semantic_revision_selection':declaration.declarationRef}};
++ h.call(R.selectionImplementationRef,prepared,prepared,{graphFunctionRef:'component:repeat-selection'});
++ const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:prepared.parent,causes:prepared.causes,mode:'stage_revision',selectedStageRef:stage.declarationRef,
++  selectedObligationRefs:p.projectSemanticJobBindings(accepted).map(v=>v.binding.obligationRef),selectedTargetRefs:[],reasonRef:'component:new-semantic-refusal',nativePhase:'preconstruction'};
++ assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,selection),true);h.admit(selection,R.selectionImplementationRef);
++ h.basis.declarationGraphFunctions=[h.basis.graphFunction];h.call(R.nativeRequestImplementationRef,selection,prepared);
++ const request=h.owner.projectNativeSemanticRevisionRequest(h.basis,selection);assert(request);
++ assert.deepEqual(request.selectionChoice,{mode:'stage_revision',selectedStageRef:stage.declarationRef});
++ h.invocation('new-correction',request,currentW);h.basis.graphFunction=declaredCorrection(request).projection;h.call(R.projectionImplementationRef,request);
++ const successor=h.owner.projectSemanticJobRevision(h.basis,request);assert(successor);
++ assert.deepEqual(successor.current.job,env.job);assert.deepEqual(successor.current.basis,accepted.basis);
++ assert.deepEqual(successor.current.assets,accepted.assets);assert.deepEqual(successor.current.bindingVersions,accepted.bindingVersions);
++ assert(successor.revisionBasis.historicalAssets.some(a=>hash(a)===hash(rejected.current.assets.at(-1))));
++ t.diagnostic('Component proof: exact historical admission tables, real ancestry/acquisition reuse, binding-cover algorithm and current physical context; no installed/provider or original operational-failure admission claim.');
++});
++
+ // These are Product value premises only. Actual failed-call input and producer
+ // admission is exercised in t287-calculus-state-transfer, under one real basis.
+ const operationalEventContractDigest=(await load('abg/event_store')).ROOT_EVENT_CONTRACT_DIGEST;

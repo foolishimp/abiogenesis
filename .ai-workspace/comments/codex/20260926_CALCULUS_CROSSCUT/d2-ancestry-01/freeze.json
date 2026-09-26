@@ -1,0 +1,161 @@
+{
+  "subject": "NATIVE-D2-ANCESTRY-01",
+  "status": "writer_closed; independent_review_pending",
+  "createdUtc": "2026-09-26T07:46:41.323927+00:00",
+  "repo": "/Users/jim/src/apps/abiogenesis",
+  "head": "2a4dee94c6fee79ed177700472bdc26d5f616244",
+  "frame": "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-end-to-end-interface-integration-frame",
+  "buildReuse": "Use exact emitted candidate; no Root recompilation required.",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "classification": "changed_source",
+      "sha256": "9036931bc5f7641ce32b0c5d0a6b10f88a7d70bf6fbb5541b9fdcf0a37092aba",
+      "bytes": 91415
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "classification": "focused_test",
+      "sha256": "6b37376bd9f89d3a20c2aff62bd9348538390965e96f2f06823e9d1deae75902",
+      "bytes": 70089
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "classification": "changed_how",
+      "sha256": "8183439af945c312d4e61f0a64de37ea25fce4b1c22074561faae105f6858ed5",
+      "bytes": 66384
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.js",
+      "classification": "emitted_owner",
+      "sha256": "806413d872a168d9e5901b44e7e3eef593afbb6be293766131bbe72bf10d7320",
+      "bytes": 93130
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_revision.d.ts",
+      "classification": "emitted_owner",
+      "sha256": "aabda321ba70baf461a08179a2e51a9cd14f2205e04cb03dbcec9d49bdb35c38",
+      "bytes": 10245
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "classification": "generated_identity",
+      "sha256": "e4614aa48c5d1919e28fb7b0d1878e48f8c44fe029cab57f144634ecaeb57841",
+      "bytes": 197474
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "classification": "generated_identity",
+      "sha256": "4da0e62013a7c7a41e47d5b8d0ae98c10fa1044d4e7610e5330d8170a19d37b6",
+      "bytes": 2384496
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "classification": "unchanged_product",
+      "sha256": "bb0c211a3fe04be9b3d8a12779387f6b26e3e0d0bd2bf513cf7fe826c8ba5176",
+      "bytes": 81200
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/selection.json",
+      "classification": "authority_or_proof",
+      "sha256": "130ff7ba4e2c2b3b184a3fc50b4786ce332ba05690f55a85497fa2475dd6a207",
+      "bytes": 3910
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/preimages.json",
+      "classification": "authority_or_proof",
+      "sha256": "5c736b636dea70a5930d1e0424ff1db474166e14eda6aec823e21e2f2f971140",
+      "bytes": 1017
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/source-chain.json",
+      "classification": "authority_or_proof",
+      "sha256": "96fd7f87873104130dc7134b801773a258e617b2ba834aaf6f370fcb83ee99eb",
+      "bytes": 4417
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/candidate.diff",
+      "classification": "authority_or_proof",
+      "sha256": "47084e0c601277e2c949718e60916c573acc04f148348aa1608759ff5a526ede",
+      "bytes": 36561
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/generated-before.json",
+      "classification": "authority_or_proof",
+      "sha256": "7e507cd3efb2b3096ccc218801eb7874fdd280cae30d67d65e9aed2323aeb268",
+      "bytes": 35050
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/generated-after.json",
+      "classification": "authority_or_proof",
+      "sha256": "183faf8cb0b8badd23bb665ecd158a955827c4551e91ca90c847535c45c52848",
+      "bytes": 35050
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/generated-delta.json",
+      "classification": "authority_or_proof",
+      "sha256": "fdda1daf3903be961ab6556b11bfd72d26b9ab3a4b33bb2b1bf80388372a70a0",
+      "bytes": 1000
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/baseline-tests.json",
+      "classification": "authority_or_proof",
+      "sha256": "cf97d3260fd813eb39a1ee220c8b84512b6ff48841e018f25b2361f7b398492d",
+      "bytes": 322
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/baseline-tests.log",
+      "classification": "authority_or_proof",
+      "sha256": "3c09a9a4ddf4afea065508adb3af54e64f9b440b9bf216fbb0be395ccf711900",
+      "bytes": 1349
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/build.json",
+      "classification": "authority_or_proof",
+      "sha256": "62e84b1486a3a07173353abfb29646d4c1061a8e3226e7aed3cdc41967e4e5e5",
+      "bytes": 332
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/tsc.log",
+      "classification": "authority_or_proof",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/manifest.log",
+      "classification": "authority_or_proof",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/focused-tests.json",
+      "classification": "authority_or_proof",
+      "sha256": "2339ea10ed3f34bd7e19fcf27d55498dc5bf1fc34af83f299f9b418dcbbb9d77",
+      "bytes": 492
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/focused-tests.log",
+      "classification": "authority_or_proof",
+      "sha256": "a86f576c04f2cba687d900d31230a457fb627036ab2bd78ac6bc17aa66b2c2ae",
+      "bytes": 1952
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/checks.json",
+      "classification": "authority_or_proof",
+      "sha256": "8dea7b57525b20173171dafaaaedbb57c6c689d32d04c76f5e1f4eb7ba0039cf",
+      "bytes": 1877
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/RETURN.md",
+      "classification": "authority_or_proof",
+      "sha256": "045e6302aa76cbc5c0b48bdfcf34769921e5d809a5903a7c5b307aaaa1464325",
+      "bytes": 5958
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/d2-ancestry-01/selected-evidence/native40-selected-events.json",
+      "classification": "authority_or_proof",
+      "sha256": "4fe8dedf8ac8417726a5de4e89ea6e8bff336a06cd311bf0efe42630feb7dc7b",
+      "bytes": 4034179
+    }
+  ]
+}

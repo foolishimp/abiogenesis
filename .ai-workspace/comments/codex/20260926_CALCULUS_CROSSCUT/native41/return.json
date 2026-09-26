@@ -1,0 +1,38 @@
+{
+  "status": "CLOSED_FAILED_BEFORE_ANY_ACTOR",
+  "reason": "native_revision_parent_absent",
+  "firstFailureOrdinal": 92550,
+  "run": {
+    "digest": "sha256:c41b4ab18fd91442dd7681a73371eea56e4f4f868c4da358730de10d960f37f1",
+    "ref": "run://abiogenesis/16c6614650b64315f667e2a9564eb5ade2079dfddbd8d2ddc437b81bc1b16e33"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:03d9f08a68e1fbb9167bfaad97cab63225a557de2af599c140267adb564b0c57",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:1cd137d4c7aed6e9bcf2c906abce0ee4df2a60533fec286f87bbc12cb0e0bdd0",
+    "prefixLength": 433209393,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "publicReadback": "intake-01/intake-readback.json",
+  "bothFreshReadsAgree": true,
+  "actorOccurrences": 0,
+  "timingSeconds": {
+    "preparation": 67.6,
+    "publicRootAndBindingWitness": 66.49,
+    "nativeInvocation": 44.34,
+    "freshPublicReadback": 58.44
+  },
+  "sourceCounterevidence": "native40 actual blocked Design assessment remains preserved; no design correction launched",
+  "next": "d2-ancestry-01 source calculus triage and one bounded repair",
+  "sourceCheckpoint": {
+    "commit": "2a4dee94",
+    "pushedTo": "origin/main",
+    "scope": "closed calculus repairs and compact closed evidence; active native41 excluded"
+  }
+}

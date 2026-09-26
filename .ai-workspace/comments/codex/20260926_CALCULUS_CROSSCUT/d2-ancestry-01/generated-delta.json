@@ -1,0 +1,26 @@
+[
+  {
+    "path": "build/code/src/abg/semantic_revision.d.ts",
+    "before": "a55f1af3b8c72cc7ad360af0688f79d1f40e6ad6fd126f7ae4aba001c7ca4d1f",
+    "after": "aabda321ba70baf461a08179a2e51a9cd14f2205e04cb03dbcec9d49bdb35c38",
+    "bytes": 10245
+  },
+  {
+    "path": "build/code/src/abg/semantic_revision.js",
+    "before": "3b8482fe2d854f21ee0a9c3ae0b065f3e3e04d203cce0c94332e8037cc8b06d9",
+    "after": "806413d872a168d9e5901b44e7e3eef593afbb6be293766131bbe72bf10d7320",
+    "bytes": 93130
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "before": "4181f59e0665a1b449f32932cc4cd4cedd16e77e1d46c46486785ffde443d97d",
+    "after": "e4614aa48c5d1919e28fb7b0d1878e48f8c44fe029cab57f144634ecaeb57841",
+    "bytes": 197474
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "before": "a696fc228e5bb1b2fd5d740e9f26c2dacd523eb1df620686edd168b8803f682a",
+    "after": "4da0e62013a7c7a41e47d5b8d0ae98c10fa1044d4e7610e5330d8170a19d37b6",
+    "bytes": 2384496
+  }
+]
