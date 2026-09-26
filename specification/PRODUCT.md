@@ -5,7 +5,7 @@
 **Updated**: 2026-09-26
 **Status**: Active - accepted by T-283 F_H closure
 **Derives from**: INT-001 through INT-007
-**Change authority**: T-283 `intent_reprice`; T-287 D1-AUTH-ABG lifecycle, owner-directed 5.0/5.1 boundary, STDO run-environment and [execution-calculus Product re-entry](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#execution-calculus-product-re-entry)
+**Change authority**: T-283 `intent_reprice`; T-287 D1-AUTH-ABG lifecycle, owner-directed 5.0/5.1 boundary, STDO run-environment, [execution-calculus Product re-entry](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#execution-calculus-product-re-entry) and [program-construction definition](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#program-construction-calculus-definition)
 **Acceptance receipt**:
 `.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md`
 **Method adoption authority**: direct Product-owner `F_H` ruling and bounded
@@ -575,6 +575,38 @@ A command, log entry, file, worker response, or fixture assertion is not an ABG
 event merely because it exists. Runtime truth begins only at the owning
 admission boundary. Replay derives state from admitted events; callers and
 fixtures do not author the result they later claim to observe.
+
+## Program Construction Boundary
+
+A task can be realized through different lawful GTL compositions. Its original
+meaning, constraints and completion condition govern their selection. Program
+construction takes the task, applicable authority, relevant workspace
+observations, valid evidence and available GraphFunction contracts and produces
+a candidate ordinary GTL Program, the obligations it attempts and the residuals
+it leaves. A candidate is a proposal for work, not evidence of its success.
+
+The [program-construction calculus](requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md#program-construction-calculus)
+defines that relation, its semantic conservation, contract matching, context
+requirements and discriminating cases. It is the detailed owning requirement;
+the [execution calculus](#execution-and-context-calculus) owns the subsequent
+admitted traversal. Construction may be performed by a human, an agent or an
+explicitly selected construction Product above the interpreter. GTL validation,
+catalog/publication, HoG traversal and ABG runtime truth retain their existing
+owners. A construction result supplies none of their admissions by itself.
+
+Changing the graph preserves the task contract unless its owner changes that
+contract. Existing artifacts, execution evidence, assessments and historical
+construction relations are distinct inputs; the remaining obligation determines
+whether to construct, execute, evaluate, investigate or seek an owner ruling.
+Completion reports the declared condition over admitted evidence. An omitted
+graph stage or a successful Run cannot waive an unresolved obligation.
+
+This boundary constrains program authorship without adding a general automatic
+preprocessor, global optimizer or whole-run adaptive executive to the fifteen
+5.0 families. A Product selecting those capabilities owns their realization
+and qualification. Current odd_glc declarations remain governed by that
+Product's own scope. These relations are independent of deployment topology;
+they prescribe no additional controller, runtime carrier or writable ledger.
 
 ## Execution And Context Calculus
 

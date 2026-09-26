@@ -17,19 +17,19 @@
 - updated_at: 2026-09-26
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_CALCULUS_REPAIR_01
+- current_activation: T287_GLC_PROGRAM_CONSTRUCTION_01
 - current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-45/selected-core.json
 - current_candidate_archive_sha256: 969af38b1d2dd3dc0df758c1c29e27e87190b5362f6b90ffcd1580c2805c94a9
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-45/return.md
 - current_accepted_archive_sha256: 969af38b1d2dd3dc0df758c1c29e27e87190b5362f6b90ffcd1580c2805c94a9
-- current_worker_return: .ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/authority-refresh-01/return.md
+- current_worker_return: '#program-construction-calculus-definition'
 - current_candidate_scope: core45_current_qualification_bindings_exact_package_accepted_runtime_unchanged_from_core44_S06_and_qualification_open
 - current_live_execution_record: .ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/native44/suffix-01
 - current_live_execution_status: CLOSED_COMPLETED_native44_Evidence_suffix_Public_reads_and_exact_conservation_pass_application_coverage_open
-- current_activation_status: native44_review_closed_two_consumer_proof_gaps_core45_package_accepted_bounded_GLC_continuation_intake_selected
+- current_activation_status: GLC_owner_selected_bounded_source_construction_definition_and_realization_in_progress
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
-- current_activation_disposition: '#forced-ranked-calculus-repairs'
+- current_activation_disposition: '#program-construction-calculus-definition'
 - current_management_plan: '#current-management-prerequisite-plan'
 - prior_generic_job_activation: ABI5_GENERIC_JOB_IMPLEMENT_01
 - prior_generic_job_activation_status: closed_native_two_job_intake_D1_and_selected_D2_mechanics_accepted_live_and_broader_Product_qualification_open
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: close_selected_scenario_consumer_proof_gaps_rebind_current_recipe_then_qualify_exact_candidate
-- next_bounded_task_status: core45_source_binding_and_package_ready_S06_predecessor_inputs_and_evaluator_records_open
+- next_bounded_task: deliver_T043_bounded_problem_fitted_GTL_construction_and_installed_composition
+- next_bounded_task_status: GLC_intent_product_reentry_selected_runtime_core45_unchanged_S06_and_RC1_open
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -96,7 +96,7 @@
 - prior_fixture_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-prep-03/manifest.json
 - prior_live08_execution_record: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/live08.json
 - prior_native03_execution_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-native-03/execution-manifest.json
-- current_activation_record: '#forced-ranked-calculus-repairs'
+- current_activation_record: '#program-construction-calculus-definition'
 - prior_generic_job_activation_record: .ai-workspace/comments/codex/20260918_GENERIC_JOB_BINDING_REPAIR/implementation/activation.md
 - prior_mvp_continuation_activation_record: .ai-workspace/comments/codex/20260916_ABG5_MVP_CONTINUATION/activation.md
 - prior_native03_input_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-native-03/records/call-14.jsonl
@@ -645,6 +645,87 @@ historical journal or repeat a valid author merely to expand local qualification
 - Recording closes after local routes/whitespace and unchanged-source checks;
   `/root` returns to Executive. Writer grant consumed; implementation/live HOLD
   and all prior evidence identities remain.
+
+### Program-construction calculus definition
+
+- Subsequent implementation selection, 2026-09-27: owner "ok do it" authorizes
+  realization. Executive selects odd_glc's existing lifecycle Product as the
+  source-construction owner under an explicit Intent/Product re-entry;
+  [T-043](../../../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#problem-fitted-program-construction)
+  owns its exact design/code grant and proof. The calculus stays authoritative
+  here; ABG's fifteen runtime families and installed core45 remain unchanged.
+  `/root` separately enters Writer for this paired ticket/Goals routing only,
+  returning to Executive afterwards. Native44 and existing S06 residuals keep
+  their prior scope; definition does not imply implemented selection or release
+  qualification. The definition-only activation below remains closed history.
+
+- Activation: `T287_PROGRAM_CONSTRUCTION_CALCULUS_01`; definition complete;
+  Writer grant consumed. T-287 delivery remains active.
+- Owner direction, 2026-09-26: formalize the preprocessing calculus so code can
+  be built against it. Re-entry is `product_reprice` at Product's program
+  construction boundary and `requirement_reprice` in the existing GTL
+  selection-boundary owner. Intent and the fifteen-family 5.0 target remain.
+- Subject: documentation delta over ABI `02885af032680749464da517ed1a8a4d1a4da1c7`.
+  `/root` enters Writer, separately from Executive, before these effects.
+  Grant: `specification/PRODUCT.md`, `specification/GOALS.md`,
+  `specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md` and this
+  ticket. Read relevant sources; edit these four documents; check consistency,
+  local routes and whitespace. One bounded independent contract review may
+  write only `.ai-workspace/comments/codex/20260926_PROGRAM_CONSTRUCTION_CALCULUS/review.md`.
+  No code, build, install, native/provider test, Git or sibling-repo effects.
+- Frame: verified STDO `v2.5.1-rc.1`, manifest
+  `5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64`;
+  Product/Owner and project
+  `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration`.
+  Selected claim: contract sufficiency, not realized-path qualification.
+- Completion: one authoritative construction relation connected to the
+  existing execution calculus; explicit C/J/O, source conservation, residuals,
+  contract matching, context binding, invalidation and completion boundaries;
+  cases discriminate reconstruction from missing evidence and new work from
+  reuse. Independent review evaluates those semantics once; local checks
+  establish document consistency only.
+- Scope: define the boundary for constructing ordinary GTL above its
+  interpreter. A general automatic preprocessor remains an implementation
+  selection requiring a Product owner. odd_glc's current compiler exclusion
+  remains operative; this definition does not silently assign it that feature.
+  The historical [strategy](../../comments/codex/20260920T025416Z_STRATEGY_abg5_first_problem_fitted_gtl_preprocessor.md)
+  remains commentary. This activation brings definition forward; it does not
+  select the broader optimizer, HoG upgrades or whole-run executive for 5.0.
+- Delivery frontier is conserved: core45 and native44 retain their exact
+  prior scope; S06's predecessor-input and evaluator-record obligations, exact
+  qualification and RC1 remain open. The completed consumer intake is evidence
+  for the model, not a selected additional permanent continuation route.
+- Return: changed documents, check results, independent findings/disposition,
+  and the remaining implementation-owner decision. Writer stops after return.
+- Initial return: four-document candidate; whitespace and 14 added local
+  links/anchors pass; requirement identifiers are unique and code fences
+  balanced. [Independent review](../../comments/codex/20260926_PROGRAM_CONSTRUCTION_CALCULUS/review.md)
+  finds one contract-sufficiency defect: the worked completion predicate must
+  bind the assessment's satisfactory verdict and complete required scope.
+  `/root` re-enters Writer within the same four-file grant to correct only that
+  predicate/explanation, add its negative case and reconcile these return
+  pointers. Unaffected review evidence is retained. Independent delta readback
+  is `satisfied`: the exact evidence, required scope and satisfactory verdict
+  are bound, and the negative/indeterminate/partial-scope case remains open
+  work instead of false completion. No actionable finding remains in this
+  bounded contract review.
+- Executive disposition: accept the formal definition at its claimed
+  contract-sufficiency scope. The normative owners are
+  [Product](../../../specification/PRODUCT.md#program-construction-boundary)
+  and its [existing GTL requirement](../../../specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md#program-construction-calculus).
+  Requirement SHA-256 after correction is
+  `1024e59448cd0f01b3a7b8e4423c77961f3ba07b0394f701967a9c8e8cb2fdf8`;
+  independent review SHA-256 is
+  `627c68eef9b908b728fa2cf4e34a0a465be46be6e05d4c07415ec114ddd514b9`.
+  Fifteen unique requirement IDs and twelve discriminating cases define the
+  model; they are not execution/test counts. Whitespace and local routes pass.
+  Product and requirement bytes are unchanged after that review.
+- Final recording: `/root` separately enters Writer for this ticket's return
+  pointers/disposition and Goals' completion wording, then returns to
+  Executive. This bookkeeping grants no implementation or release effect.
+  Next decision is the owning Product and bounded realization of graph
+  construction; concrete representation/algorithms and future implementation
+  qualification remain open. No new ticket or native attempt was created.
 
 ### Execution-calculus Product re-entry
 

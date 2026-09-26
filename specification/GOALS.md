@@ -19,6 +19,20 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 ## Current Selection
 
+### Program-construction definition
+
+The owner-selected [formal preprocessing definition](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#program-construction-calculus-definition)
+is documented and independently reviewed. It defines a source-grounded
+contract for fitting ordinary GTL to the task and its remaining obligations,
+connected to the existing execution calculus. The owner's subsequent
+implementation instruction selects odd_glc as the lifecycle construction owner
+through its explicit Intent/Product re-entry; [T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#problem-fitted-program-construction)
+owns the bounded realization and installed thread. The definition preserves
+the current installed evidence and the delivery objective below. Global graph
+optimization and broader HoG upgrades remain separate scope. The governing relation lives at
+[Product's construction boundary](PRODUCT.md#program-construction-boundary),
+not in this work-selection surface.
+
 ### Current delivery objective
 
 The owner-selected T-287
