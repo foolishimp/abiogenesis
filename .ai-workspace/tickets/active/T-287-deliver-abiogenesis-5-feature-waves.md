@@ -17,7 +17,7 @@
 - updated_at: 2026-09-27
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_GLC_PC03_SOURCE_01
+- current_activation: T287_GLC_PC04_SOURCE_01
 - current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46/selected-core.json
 - current_candidate_archive_sha256: e2c2d053528fca7dd0e4988ec50772cd8a12f058d35076119c99cf8c4e7adbfb
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46/return.md
@@ -26,7 +26,7 @@
 - current_candidate_scope: core46_catalog_order_correction_accepted_exact_package_verified_installed_construction_qualification_open
 - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/installed-04/return.md
 - current_live_execution_status: CLOSED_ACCEPTED_deterministic_evaluator_positive_and_wrong_origin_refusal_zero_actors_native44_preserved
-- current_activation_status: T043_PC03_source_active_PC02_installed_boundary_observed_exact_guard_residual
+- current_activation_status: T043_PC03_source_complete_PC04_selected_PC02_exact_guard_residual
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#program-construction-calculus-definition'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: T043_PC03_computed_evidence_and_comparison
-- next_bounded_task_status: PC03_source_then_PC04_PC06_PC02_causal_residual_and_existing_S06_exact_qualification_RC1
+- next_bounded_task: T043_PC04_independent_assessment_composition
+- next_bounded_task_status: PC04_source_then_whole_path_review_PC05_PC06_PC02_causal_residual_and_existing_S06_exact_qualification_RC1
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -662,8 +662,12 @@ historical journal or repeat a valid author merely to expand local qualification
   after compact-basis contraction); exact Worker hashes match. Its zero-actor
   installed check reached the actual predecessor mismatch and stopped before
   actors; exact guard attribution remains residual. [Disposition](../../../../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/pc02-installed-02/executive-disposition.md).
-  PC03 source is active. The later whole-path review and complete installed/live
-  proof remain open.
+  PC03 source is complete: [frozen return](../../../../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/pc03/return.md),
+  six matching source hashes, ten distinct affected component cases passed
+  across fourteen executions (240.982 s). PC04 assessment composition is selected
+  under T-043's bounded Worker grant. Whole-path review and complete installed/live
+  proof remain open. Root enters Writer only for this projection and T-043's
+  scoped checkpoint commit/push, then returns to Executive; core46 is unchanged.
   The design checkpoint is closed.
   Program construction supersedes the
   earlier proposed extra completion entry. Preserve accepted evaluator proof and
