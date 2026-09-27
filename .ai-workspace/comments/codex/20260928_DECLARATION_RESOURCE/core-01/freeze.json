@@ -1,0 +1,50 @@
+{
+  "kind": "t287_declaration_resource_core_freeze",
+  "artifacts": [
+    {
+      "path": "affected-checks.log",
+      "bytes": 5126,
+      "sha256": "1e13dd63126aeee9e881aee41e655edf3bc2ba87fa8871c596fbe62507719a6a"
+    },
+    {
+      "path": "changes.patch",
+      "bytes": 71451,
+      "sha256": "a7b408d18d7b67c876f7c8418b689e1acc39b74ee9dddcee126ab135bbd775d4"
+    },
+    {
+      "path": "check-summary.json",
+      "bytes": 1387,
+      "sha256": "3ecb5466f837686569cca914bb920c8b3d6f119090c6490f8bd1b0b3f1d0ebd4"
+    },
+    {
+      "path": "compile.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "normalization-check.log",
+      "bytes": 215,
+      "sha256": "8f01225d69d855521f49f5b239078275254090435da2f68a58badfe81418379a"
+    },
+    {
+      "path": "reacquisition-check-final.log",
+      "bytes": 1074,
+      "sha256": "215bbf67bb90f53021a95e4b23cf80c6f6e0fa650f971a080dd47c6038623c09"
+    },
+    {
+      "path": "reacquisition-check.log",
+      "bytes": 1073,
+      "sha256": "ce88b4c0a38b2b59d8ac66e9e29e6e5251c15527fa305dc4125a1bdb4f7bd32e"
+    },
+    {
+      "path": "return.md",
+      "bytes": 8436,
+      "sha256": "d7fbb0cb482b8f9fcfa3fde69383b18076cc176ef6ef6d080ab820c52068b406"
+    },
+    {
+      "path": "subject.json",
+      "bytes": 7485,
+      "sha256": "4e35c9423dade71ad84ac81c0d4fea1b07a12be086372ebba569cc26ed92d470"
+    }
+  ]
+}

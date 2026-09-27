@@ -1,0 +1,39 @@
+{
+  "compiler": {
+    "command": "./node_modules/.bin/tsc -p tsconfig.json",
+    "exitCode": 0,
+    "log": "compile.log"
+  },
+  "distinctSelectedTests": 27,
+  "passedDistinct": 20,
+  "unexecutedExternalHistoryControls": 7,
+  "unresolvedFailures": 0,
+  "aggregateLog": "affected-checks.log",
+  "aggregateSelectionFailure": "Negative-lookahead did not exclude external-history normalization test; missing env refused before reading history.",
+  "normalizationCorrection": {
+    "command": "node --test --test-skip-pattern='actual historical pre-result' test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+    "exitCode": 0,
+    "log": "normalization-check.log"
+  },
+  "finalChangedReacquisitionTest": {
+    "command": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-native-work-reacquisition.test.mjs",
+    "exitCode": 0,
+    "passed": 4,
+    "skipped": 3,
+    "log": "reacquisition-check-final.log"
+  },
+  "historicalSourceFixture": {
+    "runs": 1,
+    "bytes": 13540472,
+    "aggregateMs": 10864.930333,
+    "catalogReconstructions": 11,
+    "setupAndIndividualOperationsSeparatelyTimed": false,
+    "sourceUnchanged": true
+  },
+  "limits": [
+    "Explicit lookup premises in new owner fixture",
+    "No gigabyte history profile",
+    "No new actual Run/provider/install/package",
+    "Installed conjoined proof belongs to Root"
+  ]
+}

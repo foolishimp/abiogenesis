@@ -53,8 +53,8 @@ increment now supplies the missing computed evaluator records through accepted
 installed positive/refusal proof on core46. The selected S06 witness still
 requires its prospective construction-input relation and comparison. T-043
 owns that consumer work, reusing valid artifacts and execution evidence.
-The current qualification source bindings and exact core46 package are accepted;
-complete qualification remains open. T-287 owns the
+The current candidate and its bounded source/installed acceptances are selected
+by T-287; complete qualification remains open. T-287 owns the
 bounded grants, proof and disposition. Preserve valid
 work and triage any further delivery failure against the end-to-end calculus
 before selecting its owning repair. Native39 remains historical closed-failed

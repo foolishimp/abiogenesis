@@ -1,0 +1,23 @@
+(node:64983) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/fixtures/program-construction/core-loader.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: {"kind":"static_validation_refusal","schemaVersion":"5.0.0","disposition":"invalid","stage":"publication","subjectDigest":"sha256:42cabd74d44106674dcc15109a5cfb9644d5f8d36db6ce6d970f3c4d9b567183","diagnostics":[{"code":"missing_membership","path":"$.contributions[graph-function://odd-glc/program-construction/assessment-child@5].programMembershipRefs","message":"graph_function contribution requires exact Program membership"},{"code":"missing_membership","path":"$.contributions[graph-function://odd-glc/program-construction/authenticate-construction@5].programMembershipRefs","message":"graph_function contribution requires exact Program membership"},{"code":"missing_membership","path":"$.contributions[graph-function://odd-glc/program-construction/construction-child@5].programMembershipRefs","message":"graph_function contribution requires exact Program membership"},{"code":"missing_membership","path":"$.contributions[graph-function://odd-glc/program-construction/evaluation-child@5].programMembershipRefs","message":"graph_function contribution requires exact Program membership"},{"code":"missing_membership","path":"$.contributions[graph-function://odd-glc/program-construction/join-assessment@5].programMembershipRefs","message":"graph_function contribution requires exact Program membership"},{"code":"missing_membership","path":"$.contributions[graph-function://odd-glc/program-construction/join-evaluation@5].programMembershipRefs","message":"graph_function contribution requires exact Program membership"},{"code":"missing_membership","path":"$.contributions[graph-function://odd-glc/program-construction/join-native-output@5].programMembershipRefs","message":"graph_function contribution requires exact Program membership"},{"code":"missing_membership","path":"$.contributions[graph-function://odd-glc/program-construction/prepare-assessment-input@5].programMembershipRefs","message":"graph_function contribution requires exact Program membership"},{"code":"missing_membership","path":"$.contributions[graph-function://odd-glc/program-construction/prepare-assessment-task@5].programMembershipRefs","message":"graph_function contribution requires exact Program membership"},{"code":"missing_membership","path":"$.contributions[graph-function://odd-glc/program-construction/prepare-constructed-evaluation@5].programMembershipRefs","message":"graph_function contribution requires exact Program membership"},{"code":"missing_membership","path":"$.contributions[graph-function://odd-glc/program-construction/prepare-construction@5].programMembershipRefs","message":"graph_function contribution requires exact Program membership"},{"code":"missing_membership","path":"$.contributions[graph-function://odd-glc/program-construction/prepare-native-task@5].programMembershipRefs","message":"graph_function contribution requires exact Program membership"}]}
++ actual - expected
+
++ 'static_validation_refusal'
+- 'publication_validation'
+
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-triage-01/repair-01/project.mjs:35:8 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'static_validation_refusal',
+  expected: 'publication_validation',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.7.0

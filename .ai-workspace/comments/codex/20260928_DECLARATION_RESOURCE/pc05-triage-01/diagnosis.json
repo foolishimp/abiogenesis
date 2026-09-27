@@ -1,0 +1,88 @@
+{
+  "status": "closed_read_only_causal_triage",
+  "sourceHead": "d85c59c66f76d7218f014e856acf6d71f93adb0c",
+  "frozenFiles": {
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts": {
+      "bytes": 273186,
+      "sha256": "bda88474783e415f8a5e0d08518f14af08a9bd660e582aa2813120a5c543981d"
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts": {
+      "bytes": 38486,
+      "sha256": "dc5d35bfb88d3d8c1b5fe224d63324477c5478dd0413ec706bc790002657d256"
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts": {
+      "bytes": 76875,
+      "sha256": "8bd5ed5138b4f7d679e6085acb7877f9ba26177c248166ef69258ac82e8909f7"
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts": {
+      "bytes": 18426,
+      "sha256": "e0e2f272d922e7d8378272f6faeb3020db984d06cd300be14f7d18c7d7494db0"
+    },
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-01/products/core47/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/c_call.js": {
+      "bytes": 236538,
+      "sha256": "45af70afb17273a9f73f359eca63083dc32bcddff422a56b0291c1d82dec9e5f"
+    },
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-01/products/core47/node_modules/@abiogenesis/typescript-tenant/build/code/src/hog/workflow_lifecycle.js": {
+      "bytes": 34008,
+      "sha256": "19153356557cf3658f9b4b6e8671e5d605cae4ff67ae24965b47b467e1fde709"
+    },
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-01/products/core47/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/validation.js": {
+      "bytes": 77105,
+      "sha256": "bd9182e354139eeb1587e230695cb4bb514d8912f94b033fdfae2fc55c923f4f"
+    },
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-01/packages/construction/build/publication.json": {
+      "bytes": 116608,
+      "sha256": "dfe3fac93dd20b0239f36ec915e2e98326f14e6da2c8842e5e8c1fb13e93621f"
+    },
+    "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-01/execution/result.json": {
+      "bytes": 4905,
+      "sha256": "2ce5bb10f75cce6ef8d9d51c600e98e5d6b89f8bf5e9fe31f6b0d79ddde25a30"
+    },
+    "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/program-construction.mjs": {
+      "bytes": 34627,
+      "sha256": "788576f3f87f253e676501d21cad1558628c68df63c70ba0f70a8d622f8806d8"
+    }
+  },
+  "staticLocalRowProjection": [
+    {
+      "graphFunctionRef": "graph-function://odd-glc/program-construction/assessment-child@5",
+      "ownExecutableLeafCount": 0,
+      "ownFailureRefs": [],
+      "declaredFailureRef": null,
+      "closureRejectionRef": "contract://odd-glc/program-construction/failure@5"
+    },
+    {
+      "graphFunctionRef": "graph-function://odd-glc/program-construction/authenticate-construction@5",
+      "ownExecutableLeafCount": 1,
+      "ownFailureRefs": [
+        "contract://odd-glc/program-construction/failure@5"
+      ],
+      "declaredFailureRef": null,
+      "closureRejectionRef": "contract://odd-glc/program-construction/failure@5"
+    },
+    {
+      "graphFunctionRef": "graph-function://odd-glc/program-construction/construction-child@5",
+      "ownExecutableLeafCount": 0,
+      "ownFailureRefs": [],
+      "declaredFailureRef": null,
+      "closureRejectionRef": "contract://odd-glc/program-construction/failure@5"
+    },
+    {
+      "graphFunctionRef": "graph-function://odd-glc/program-construction/evaluation-child@5",
+      "ownExecutableLeafCount": 0,
+      "ownFailureRefs": [],
+      "declaredFailureRef": null,
+      "closureRejectionRef": "contract://odd-glc/program-construction/failure@5"
+    },
+    {
+      "graphFunctionRef": "graph-function://odd-glc/program-construction/prepare-construction@5",
+      "ownExecutableLeafCount": 1,
+      "ownFailureRefs": [
+        "contract://odd-glc/program-construction/failure@5"
+      ],
+      "declaredFailureRef": null,
+      "closureRejectionRef": "contract://odd-glc/program-construction/failure@5"
+    }
+  ],
+  "scope": "Installed declaration and exact owner source only; no journal acquisition, execution, tests, or provider calls."
+}

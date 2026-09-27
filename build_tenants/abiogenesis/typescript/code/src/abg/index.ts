@@ -415,6 +415,10 @@ export {
 export {
   ABG_TYPED_TERMINAL_RESULT_SCHEMA,
   ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA,
+  ABG_HISTORICAL_DECLARATION_REFERENCE_SCHEMA,
+  constructAbgHistoricalDeclarationReference,
+  isAbgHistoricalDeclarationReference,
+  type AbgHistoricalDeclarationReference,
   isAbgTypedTerminalResult,
   type AbgTypedTerminalResult,
   type AbgHistoricalDeclarationProof,

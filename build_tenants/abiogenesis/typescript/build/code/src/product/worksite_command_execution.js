@@ -1,6 +1,6 @@
 import { isDeepStrictEqual } from "node:util";
 import { validateDurablePrefixCoordinate } from "../abg/event_store.js";
-import { isAbgHistoricalDeclarationProof } from "../abg/terminal_result_contracts.js";
+import { isAbgHistoricalDeclarationProof, isAbgHistoricalDeclarationReference } from "../abg/terminal_result_contracts.js";
 import { isWorksiteContextObservation } from "./worksite_effect.js";
 import { isRecord, hasNulJoinedFields as exactKeys } from "../shared/admission_predicates.js";
 import { delimiter as pathDelimiter, dirname, isAbsolute, join, posix, relative, resolve, win32, } from "node:path";
@@ -92,7 +92,11 @@ export const NATIVE_WORK_REACQUISITION_IDS = Object.freeze({
 function nativeReacquisitionBody(input) {
     const { source, currentContext, sourceNativeWork: original } = input;
     if (!source || !validateDurablePrefixCoordinate(source.prefix) || typeof source.graphCallRef !== "string" || source.graphCallRef.length === 0 ||
-        !isAbgHistoricalDeclarationProof(source.declarationProof) || !isNativeWorkspaceWorkObservation(original) || original.task.assessment !== undefined ||
+        !(source.declarationReference === undefined
+            ? isAbgHistoricalDeclarationProof(source.declarationProof)
+            : source.declarationProof === undefined && exactKeys(source, ["prefix", "graphCallRef", "declarationReference"]) &&
+                isAbgHistoricalDeclarationReference(source.declarationReference)) ||
+        !isNativeWorkspaceWorkObservation(original) || original.task.assessment !== undefined ||
         !exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) || !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) ||
         !same(original.task.workspaceAuthorityBasis, input.workspaceAuthorityBasis) || !isWorksiteContextObservation(currentContext) ||
         currentContext.workspaceBindingIdentity !== input.workspaceBinding.bindingId || currentContext.workspaceBindingDigest !== input.workspaceBinding.bindingDigest ||

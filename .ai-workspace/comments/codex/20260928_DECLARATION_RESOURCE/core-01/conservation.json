@@ -1,0 +1,32 @@
+{
+  "predecessor": "compiled-46",
+  "unchanged": 5209,
+  "changed": 24,
+  "changedPaths": [
+    "build/code/src/abg/event_store.js",
+    "build/code/src/abg/index.d.ts",
+    "build/code/src/abg/index.js",
+    "build/code/src/abg/instruction_assembly.d.ts",
+    "build/code/src/abg/native_work_reacquisition.d.ts",
+    "build/code/src/abg/native_work_reacquisition.js",
+    "build/code/src/abg/project_read_ports.js",
+    "build/code/src/abg/replay.d.ts",
+    "build/code/src/abg/replay.js",
+    "build/code/src/abg/terminal_result_contracts.d.ts",
+    "build/code/src/abg/terminal_result_contracts.js",
+    "build/code/src/gtl/worksite_command_execution.js",
+    "build/code/src/implementation/contracts.d.ts",
+    "build/code/src/implementation/leaf_invocation_port.d.ts",
+    "build/code/src/implementation/leaf_invocation_port.js",
+    "build/code/src/implementation/native_work_reacquisition.d.ts",
+    "build/code/src/implementation/native_work_reacquisition.js",
+    "build/code/src/product/builtin_semantics.d.ts",
+    "build/code/src/product/builtin_semantics.js",
+    "build/code/src/product/worksite_command_execution.d.ts",
+    "build/code/src/product/worksite_command_execution.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "contracts/worksite/command-execution-context.inventory.json",
+    "product-toolchain-manifest.json"
+  ],
+  "scope": "preceding accepted four contractions plus declaration-resource repair; source review owns acceptance"
+}

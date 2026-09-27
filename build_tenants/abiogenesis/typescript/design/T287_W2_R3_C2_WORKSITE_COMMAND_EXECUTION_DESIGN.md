@@ -241,6 +241,16 @@ The old child, author invocation, observation, result and judgment remain exact
 historical evidence. R10's existing terminal projector authenticates the closed
 child and its selected historical declaration proof independently of Run closure.
 
+Declaration dependency transport and establishment/admitted-consumption follow
+[R10's owning relation](./T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md#declaration-dependency-establishment-and-admitted-consumption).
+New requests carry an exact declaration reference; preparation and its judgment
+resolve the proof from explicit resources. After Result and advance J admission,
+C2 child admission, its pre-effect source gate and cold replay consume the
+exact admitted preparation through the existing reacquisition owner. They retain
+their same-Run/grant/binding, native provenance and current invalidation checks;
+they do not execute preparation's declaration proof again. Historical inline
+requests retain their old identities under that same consumption relation.
+
 The request selects that exact child at an ancestral prefix of the same event
 resource, the unchanged `sourceNativeWork`, current A/W/grant, the complete
 current read context, and the existing C2 selected-source/command configuration.

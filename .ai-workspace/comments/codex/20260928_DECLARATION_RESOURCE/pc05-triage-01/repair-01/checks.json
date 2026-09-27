@@ -1,0 +1,37 @@
+[
+  {
+    "name": "component",
+    "command": [
+      "node",
+      "--loader",
+      "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/fixtures/program-construction/core-loader.mjs",
+      "--test",
+      "--test-name-pattern=^PC04 actual PC03 state joins complete original rubric/oracle and ordinary native assessment with no C2$",
+      "test/program-construction.test.mjs"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 6270.557000301778
+  },
+  {
+    "name": "projection",
+    "command": [
+      "node",
+      "--loader",
+      "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/fixtures/program-construction/core-loader.mjs",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-triage-01/repair-01/project.mjs"
+    ],
+    "exitCode": 1,
+    "elapsedMs": 270.99845884367824
+  },
+  {
+    "name": "projection-corrected",
+    "command": [
+      "node",
+      "--loader",
+      "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/fixtures/program-construction/core-loader.mjs",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-triage-01/repair-01/project.mjs"
+    ],
+    "exitCode": 0,
+    "elapsedMs": 257.5135831721127
+  }
+]

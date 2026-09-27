@@ -11,7 +11,7 @@ import { rehydrateAdmittedImplementationSetAtPrefix, rehydrateAdmittedInteractio
 import { rehydrateOpenedTraversalScopeAtPrefix, projectOpenedTraversalScopeClassAtPrefix, type OpenedTraversalScope } from "./open_call.js";
 import { projectHistoricalTraversalRouteAtPrefix } from "./traversal_route.js";
 import { hasJudgedTerminalRouteCausation } from "./retry.js";
-import { isAbgTypedTerminalResult, isAbgHistoricalDeclarationProof, type AbgTypedTerminalResult, type AbgHistoricalDeclarationProof, type AbgHistoricalGraphCallSourceResource, type AbgHistoricalGraphCallSource } from "./terminal_result_contracts.js";
+import { isAbgTypedTerminalResult, isAbgHistoricalDeclarationProof, hasUniqueHistoricalDeclarationDependencies, type AbgTypedTerminalResult, type AbgHistoricalDeclarationProof, type AbgHistoricalGraphCallSourceResource, type AbgHistoricalGraphCallSource } from "./terminal_result_contracts.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -518,8 +518,9 @@ export function projectHistoricalGraphCallSourceAtDurablePrefix(
     const lastOrdinal = events.at(-1)?.admissionOrdinal ?? 0;
     if (previous !== undefined && previous.minimumOrdinal <= lastOrdinal) return previous.value;
     if (!isImmutableRuntimeValue(resource) || resource.kind !== "abg_historical_graph_call_source_resource" ||
-        resource.schemaVersion !== "5.0.0" || !hasExactDataFields(resource, ["kind", "schemaVersion", "terminal", "input", "declarationProof"]) ||
-        !hasExactDataFields(resource.input, ["graphFunctionRef", "contractRef"])) return null;
+        resource.schemaVersion !== "5.0.0" || !hasExactDataFields(resource, ["kind", "schemaVersion", "terminal", "input", "declarationProof",
+          ...(resource.declarationDependencies === undefined ? [] : ["declarationDependencies"])]) ||
+        !hasExactDataFields(resource.input, ["graphFunctionRef", "contractRef"]) || !hasUniqueHistoricalDeclarationDependencies(resource)) return null;
     const packet: AbgProjectReadPacket<"graph_call_result"> = Object.freeze({ kind: "abg_project_read_packet", schemaVersion: "5.0.0",
       memberKey: "graph_call_result", prefix, targetRef: resource.terminal.producer.graphCallRef, declarationProof: resource.declarationProof });
     const prepared: PreparedRead<"graph_call_result"> = Object.freeze({ packet, events, fullPrefix });

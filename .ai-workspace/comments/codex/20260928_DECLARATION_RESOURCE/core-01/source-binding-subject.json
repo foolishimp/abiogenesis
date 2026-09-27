@@ -1,0 +1,17 @@
+{
+  "reason": "Refresh exact emitted member coordinates; renderer span bytes unchanged",
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "sha256": "6d341c2cfe18083a866f28cab198086def7d06312115c0d1b7011286d65bd230"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/gtl/worksite_command_execution.js",
+      "sha256": "fe6778a9dfa6cc1c16106f75c2cc67ab28c66dc0226c488cb62eca864ec8631e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/gtl/worksite_command_execution.d.ts",
+      "sha256": "701844f6540b88c4d8ad21d45ba3c400a23c0e9e4a4ae081965bc9a90497bbed"
+    }
+  ]
+}

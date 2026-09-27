@@ -90,6 +90,15 @@ test('actual R10 ancestry, declaration and leaf proof owners return borrowed his
  const ordinary=r10.GraphCallProjectionPort.graph_call_result({kind:'abg_project_read_packet',schemaVersion:'5.0.0',memberKey:'graph_call_result',
   prefix:f.prefix,targetRef:f.resource.terminal.producer.graphCallRef,declarationProof:f.resource.declarationProof});
  assert.deepEqual(ordinary.value.terminalResult,f.terminal,'unchanged R10 terminal route agrees with frozen predecessor');
+ const distinctProof={...f.resource.declarationProof,catalog:{...f.resource.declarationProof.catalog,basisDigest:hash('additional untrusted basis')},
+  catalogView:{...f.resource.declarationProof.catalogView,catalogBasisDigest:hash('additional untrusted basis')}};
+ const extended=deepFreeze({...f.resource,declarationDependencies:[distinctProof]});
+ const contracts=await import('../../build/code/src/abg/terminal_result_contracts.js'),v=await import('valibot');
+ assert.equal(v.safeParse(contracts.ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA,extended).success,true);
+ assert.equal(v.safeParse(contracts.ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA,{...f.resource,declarationDependencies:[f.resource.declarationProof]}).success,false);
+ assert.deepEqual(read(f.prefix,extended),result,'optional constructor dependencies do not replace the primary historical source proof');
+ assert.equal(read(f.prefix,deepFreeze({...f.resource,declarationDependencies:[f.resource.declarationProof]})),null,'duplicate primary/dependency basis refuses');
+ assert.equal(read(f.prefix,deepFreeze({...f.resource,declarationDependencies:[distinctProof,distinctProof]})),null,'duplicate additional dependency refuses');
  const countBeforeClose=counts.catalog;f.opened.store.closeDurableLog();assert.deepEqual(read(f.prefix),result);assert.equal(counts.catalog,countBeforeClose+1);
  const fd=fs.openSync(f.eventLogPath,'r+');try{fs.writeSync(fd,Buffer.from('!'),0,1,0);}finally{fs.closeSync(fd);}
  assert.equal(read(f.prefix),null,'closed owner must authenticate physical history, not preserve live authority');

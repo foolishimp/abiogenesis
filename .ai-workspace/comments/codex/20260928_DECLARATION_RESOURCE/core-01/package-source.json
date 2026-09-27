@@ -1,0 +1,44 @@
+{
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+      "sha256": "9e29009f9d2eed792f777407317e2722e1f6d3a91182de9c0a7aa2a1ffe3c30b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "sha256": "e77b0450ca49ddd9146291b3c58b16395edbbd7a8baaf2aca0ceed22e65cbced"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "sha256": "0a115c23c3b82adc423cc3acf7e423c10be35cfe1e56fc4c4ebcab2def2579c5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts",
+      "sha256": "576df199d0c3275358253884266385f34689cce21cc2ed9604b3238ab6e83498"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "sha256": "6d341c2cfe18083a866f28cab198086def7d06312115c0d1b7011286d65bd230"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "sha256": "180aae06742fb28ca9c2dad48299e6867f84ec409e1d4f4dee6fb0119cf72f06"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "sha256": "5e0b33920ed2e68f52425c3e416e31853faeec69fa00a5c087f7d922cf8e0724"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+      "sha256": "cd49cd1152c9ec7797ccb3cefc663d12b9a8e78cbb2fea7e2c0870e3616ce937"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "sha256": "eea876f7e55d734042a9505eb01e448058435b410d3a6489d1f5f94ac62d6a73"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "sha256": "dd9747f3444ee74a4d971b53aeba20c859adab319513887a127807d301a6e162"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ import type { LeafExecutionOccurrence, LeafRealizationCandidate, NativeLeafProof
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { JsonValue } from "../shared/canonical_json.js";
+import type { AbgHistoricalGraphCallSourceResource } from "../abg/terminal_result_contracts.js";
 const body = { implementationRef: ids.implementationRef, packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
   modulePath: "build/code/src/implementation/native_work_reacquisition.js", namedSymbol: "prepareNativeWorksiteCommandReacquisition",
   computeRegime: "F_D" as const, inputContractRef: ids.requestContractRef, outputContractRef: c2.taskContractRef,
@@ -13,10 +14,11 @@ const body = { implementationRef: ids.implementationRef, packageName: ABI5_PACKA
 export const NATIVE_WORK_REACQUISITION_DESCRIPTOR: PackagedLeafImplementationDescriptor = deepFreeze({ kind: "packaged_leaf_implementation_descriptor",
   schemaVersion: "5.0.0", descriptorDigest: sha256Canonical(body), ...body });
 export async function prepareNativeWorksiteCommandReacquisition(input: unknown, occurrence: LeafExecutionOccurrence,
-  _resolution?: unknown, _inputDigest?: unknown, nativeProof?: NativeLeafProofOperations): Promise<Readonly<LeafRealizationCandidate>> {
+  _resolution?: unknown, _inputDigest?: unknown, nativeProof?: NativeLeafProofOperations,
+  historicalSource?: AbgHistoricalGraphCallSourceResource): Promise<Readonly<LeafRealizationCandidate>> {
   const basis = occurrence.nativeWorkReacquisitionBasis, owner = nativeProof?.nativeWorkReacquisition !== undefined
     ? nativeProof.nativeWorkReacquisition(input, occurrence)
-    : basis === undefined ? null : authenticateNativeWorkReacquisition(basis, input, true);
+    : basis === undefined ? null : authenticateNativeWorkReacquisition(basis, input, true, historicalSource);
   if (owner === null || owner.call.cCallRef !== occurrence.cCallRef || !await nativeWorkReacquisitionContextCurrent(owner.task.sourceReacquisition!.request))
     throw new TypeError("native reacquisition requires its current admitted owner, preserved child and complete current context");
   const resultCandidate = owner.task as unknown as Readonly<Record<string, JsonValue>>;

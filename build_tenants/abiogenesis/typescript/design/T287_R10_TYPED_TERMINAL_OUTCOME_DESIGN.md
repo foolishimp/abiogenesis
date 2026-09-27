@@ -515,7 +515,7 @@ Interface Integration frame with Owner, Conservation, Reuse and Code Constructio
 Source readiness does not establish installed proof or authorize a new Run.
 
 Existing Product.Run resources may carry one optional `historicalSource`:
-`{kind, schemaVersion, terminal, input:{graphFunctionRef,contractRef}, declarationProof}`.
+`{kind, schemaVersion, terminal, input:{graphFunctionRef,contractRef}, declarationProof, declarationDependencies?}`.
 `terminal` is the stable typed terminal selection without `value` or
 `projectionBasis`. The complete resource remains under raw DefinitionCall and
 exact Run resource admission before effects. It is separate from semantic input,
@@ -543,3 +543,44 @@ declaration owners. No historical input or publication is serialized into the
 successor basis merely to transfer an already owned result. No journal records
 are removed or rewritten. Current native effect/capability/independence checks
 remain outside this historical read relation with their existing owners.
+
+### Declaration dependency establishment and admitted consumption
+
+The historical-source resource may also supply a finite, explicit
+`declarationDependencies` list of complete `AbgHistoricalDeclarationProof`
+candidates. Each distinct historical basis is supplied once. A semantic native
+reacquisition request selects its constructor declaration using a discriminated
+reference containing the exact Catalog basis, readiness-basis and View digests;
+its source prefix and GraphCall remain explicit. The reference participates in
+the request's canonical identity. It carries no Catalog or readiness body.
+The terminal source and original constructor may have different declarations;
+one cannot substitute for the other. Missing, duplicate, crossed or mismatched
+resolution refuses before preparation. These resources are untrusted immutable
+preimages, not a registry, accepted proof flag or new call right.
+
+The existing native preparation owner and its pre-admission judgment resolve
+that reference through the Run's existing leaf proof operations. Direct or cold
+recomputation receives the same explicit dependency. R10 and Product's existing
+historical declaration reconstruction retain their complete environment,
+Catalog/View, contract-owner, Program and ancestry relations. Valid reuse stays
+bound to the exact dependency and authenticated scope. Required proof bytes
+remain available in the immutable invocation resources for cold establishment.
+
+After the preparation's Result and advance J are admitted, the existing native
+reacquisition owner reconstructs the admitted relation for C2 and replay. It
+joins the actual request and preparation cut, exact F_D fibre/implementation,
+canonical task, successful Result, matching deterministic input/output evidence,
+and causally matching advance J. It preserves the original native producer and
+closed child, current consumer's Run/invocation/root-set/grant and ordering,
+recorded binding cover, and source invalidation at the selected cut. An equal
+body or generic success flag is insufficient. C2 child admission, pre-effect
+authorization and cold semantic replay use this owner result without re-running
+declaration establishment or requiring another constructor-proof resource.
+Their current physical and effect checks retain their existing owners. An
+independent R10 terminal/source query retains its own declaration requirement.
+
+Already-admitted inline-proof requests retain their exact identities and remain
+readable. They and new reference-form requests share the same admitted-consumption
+relation. History is not normalized or rewritten. No new event, receipt authority,
+process-local proof store or alternate reader is introduced. Cuts before Result
+or J, mismatched producer/evidence, and stale or uncovered sources refuse.

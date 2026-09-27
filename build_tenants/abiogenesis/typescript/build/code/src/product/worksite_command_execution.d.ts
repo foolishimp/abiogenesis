@@ -1,5 +1,5 @@
 import { type DurablePrefixCoordinate } from "../abg/event_store.js";
-import { type AbgHistoricalDeclarationProof } from "../abg/terminal_result_contracts.js";
+import { type AbgHistoricalDeclarationProof, type AbgHistoricalDeclarationReference } from "../abg/terminal_result_contracts.js";
 import { type WorksiteContextObservation } from "./worksite_effect.js";
 import type { ActorProcessObservation } from "../abg/actor_process.js";
 import { type JsonValue } from "../shared/canonical_json.js";
@@ -226,8 +226,13 @@ export interface NativeWorksiteCommandReacquisitionRequest extends Omit<NativeWo
     readonly source: Readonly<{
         prefix: DurablePrefixCoordinate;
         graphCallRef: string;
+    } & ({
         declarationProof: AbgHistoricalDeclarationProof;
-    }>;
+        declarationReference?: never;
+    } | {
+        declarationReference: AbgHistoricalDeclarationReference;
+        declarationProof?: never;
+    })>;
     /** Full existing read scope, not only the selected C2 snapshot sources. */
     readonly currentContext: WorksiteContextObservation;
 }

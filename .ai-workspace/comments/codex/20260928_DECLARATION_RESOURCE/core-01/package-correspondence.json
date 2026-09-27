@@ -1,0 +1,15 @@
+{
+  "status": "exact",
+  "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "artifactDigest": "sha256:a0e7f50fd7a95d65480635fbb649575d3d94722338bc002c1038b8058a5b8dc9",
+  "archiveBytes": 10196486,
+  "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/bootstrap/node_modules/@abiogenesis/typescript-tenant",
+  "bootstrapRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/bootstrap",
+  "archiveMembers": 5233,
+  "sourceMatches": 5233,
+  "installedMatches": 5233,
+  "extraInstalledMembers": 0,
+  "scripts": "disabled",
+  "network": "npm offline",
+  "archiveMembersSha256": "8942372723c2ae4fb8cca56f6e1ff31c6c9461ec25b353a4d166b065280adfd5"
+}

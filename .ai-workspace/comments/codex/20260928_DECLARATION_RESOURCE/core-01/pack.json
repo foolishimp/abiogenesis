@@ -1,0 +1,15 @@
+{
+  "command": [
+    "npm",
+    "pack",
+    "--ignore-scripts",
+    "--json",
+    "--pack-destination",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/artifacts"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "elapsedSeconds": 3.1723618330433965,
+  "exitCode": 0,
+  "stdoutSha256": "22a9323506601d424e6685e7a55f4aed92862ce9eb7312e12b99c1d26c9c60d2",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

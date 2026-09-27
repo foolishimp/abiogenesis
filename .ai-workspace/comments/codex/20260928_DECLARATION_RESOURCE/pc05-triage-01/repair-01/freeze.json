@@ -1,0 +1,42 @@
+{
+  "status": "closed_source_ready",
+  "reentry": "realization_refactor",
+  "sourcePreimageSha256": "788576f3f87f253e676501d21cad1558628c68df63c70ba0f70a8d622f8806d8",
+  "howPreimageSha256": "fbb19582aa1cdb9b8ebb6c188b5ea58e84dc566fa96ac557f5ebf2b1fc289300",
+  "files": {
+    "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/program-construction.mjs": {
+      "bytes": 34792,
+      "sha256": "8e74fb765276c38cc3b173704c7bf8d579f60b620a3f7620609a6f3d5e7095a9"
+    },
+    "/Users/jim/src/apps/odd_glc/build_tenants/common/design/ODD_GLC_PROGRAM_CONSTRUCTION.md": {
+      "bytes": 37913,
+      "sha256": "8b4fdb908cc8e30f565e7746e316fe439fe2cc664fcbdd4cbe2b3de48136cbed"
+    },
+    "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/program-construction.test.mjs": {
+      "bytes": 80535,
+      "sha256": "231765c4244f411c2aa5e060c49c89bef856b0775e551f489fcf5e9a9836c776"
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-triage-01/repair-01/project.mjs": {
+      "bytes": 3330,
+      "sha256": "ca8607deb8cf96723d5b42177ac4098500544fc4396dbbd66d1d4126ca760765"
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-triage-01/repair-01/checks.json": {
+      "bytes": 1276,
+      "sha256": "ad7305f72661041ae917f05ab9b5ddb48adaf8621694187d35eafc9343121265"
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-triage-01/repair-01/projection-corrected.stdout": {
+      "bytes": 2742,
+      "sha256": "2ae0495d50a3d35ea3dcce3276bf4aca0e69033365b349eb08d4ca70e6c5d6ca"
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-triage-01/repair-01/component.stdout": {
+      "bytes": 685,
+      "sha256": "cd65950afa717ce77b04ffe9aa083f901d555a0719cd15a9f49203c3096c1a81"
+    }
+  },
+  "coreArtifactDigest": "sha256:a0e7f50fd7a95d65480635fbb649575d3d94722338bc002c1038b8058a5b8dc9",
+  "modifiedCanonicalFiles": [
+    "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/program-construction.mjs",
+    "/Users/jim/src/apps/odd_glc/build_tenants/common/design/ODD_GLC_PROGRAM_CONSTRUCTION.md"
+  ],
+  "existingTestSourceUnmodified": true
+}

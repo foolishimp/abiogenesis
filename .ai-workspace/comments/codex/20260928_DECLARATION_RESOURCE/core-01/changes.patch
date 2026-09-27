@@ -1,0 +1,730 @@
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/index.ts b/build_tenants/abiogenesis/typescript/code/src/abg/index.ts
+index 10627e25..08702c6c 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/index.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/index.ts
+@@ -415,6 +415,10 @@ export {
+ export {
+   ABG_TYPED_TERMINAL_RESULT_SCHEMA,
+   ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA,
++  ABG_HISTORICAL_DECLARATION_REFERENCE_SCHEMA,
++  constructAbgHistoricalDeclarationReference,
++  isAbgHistoricalDeclarationReference,
++  type AbgHistoricalDeclarationReference,
+   isAbgTypedTerminalResult,
+   type AbgTypedTerminalResult,
+   type AbgHistoricalDeclarationProof,
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts b/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts
+index bb89b79e..94ea1a13 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts
+@@ -8,29 +8,42 @@ import { NATIVE_WORK_REACQUISITION_IDS as ids, constructNativeWorksiteCommandExe
+   isNativeWorksiteCommandReacquisitionRequest,
+   type NativeWorksiteCommandReacquisitionRequest, type NativeWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
+ import { observeWorksiteContext } from "../product/worksite_operations.js";
+-import { readRuntimeEventsAtDurablePrefix, authenticateRuntimePrefixAncestry, reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate } from "./event_store.js";
+-import { selectValidatedRuntimeEventPrefix, runtimeEventsFromValidatedPrefix, runtimePrefixComputation, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
++import { readRuntimeEventsAtDurablePrefix, authenticateRuntimePrefixAncestry, reidentifyHistoricalDurablePrefixCoordinate,
++  runtimeEventPhysicalPrefix, type DurablePrefixCoordinate } from "./event_store.js";
++import { selectValidatedRuntimeEventPrefix, runtimeEventsFromValidatedPrefix, runtimePrefixComputation, unscopedRuntimeEventPrefix, isImmutableRuntimeValue,
++  validatedRuntimeEventPrefixThroughEvent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+ import { projectClosedGraphCallTerminalAtDurablePrefix } from "./project_read_ports.js";
+ import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
+ import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
+ import { projectWorksiteRevisionBindingCover } from "./worksite_revision.js";
+-import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix } from "./c_call.js";
++import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix } from "./c_call.js";
+ import { rehydrateAdmittedImplementationSetAtPrefix, type ExecutionBasis } from "./execution_basis.js";
+ import { projectNativeWorkCommandSourceAtPrefix } from "./native_worksite_execution.js";
+ import { NATIVE_WORKSPACE_WORK_IDS as native } from "../product/native_workspace_work.js";
++import { constructAbgHistoricalDeclarationReference, hasUniqueHistoricalDeclarationDependencies,
++  type AbgHistoricalDeclarationProof, type AbgHistoricalGraphCallSourceResource } from "./terminal_result_contracts.js";
+ const same = (a: unknown, b: unknown) => a === b || isDeepStrictEqual(a, b) || canonicalJson(a as JsonValue) === canonicalJson(b as JsonValue);
+ const hash = (a: unknown) => sha256Canonical(a as JsonValue);
+ const record = (v: unknown): v is Record<string, JsonValue> => v !== null && typeof v === "object" && !Array.isArray(v);
+ const one = <T>(rows: readonly T[], predicate: (row: T) => boolean): T | null => { const selected = rows.filter(predicate); return selected.length === 1 ? selected[0]! : null; };
+ export interface NativeWorkReacquisitionBasis { readonly predecessorPrefix: DurablePrefixCoordinate; readonly cCallRef: string }
++/** Resolve untrusted preimages before consulting retained establishment facts.
++ * A prior successful preparation cannot supply a missing or different resource. */
++function declarationProofFor(request: NativeWorksiteCommandReacquisitionRequest,
++  resource?: AbgHistoricalGraphCallSourceResource): AbgHistoricalDeclarationProof | null {
++  if (request.source.declarationReference === undefined) return request.source.declarationProof;
++  if (resource === undefined || !hasUniqueHistoricalDeclarationDependencies(resource)) return null;
++  return one([resource.declarationProof, ...(resource.declarationDependencies ?? [])], proof =>
++    same(constructAbgHistoricalDeclarationReference(proof), request.source.declarationReference));
++}
+ /** Local facts from one already admitted request and exact current prefix.
+  * The historical terminal and latest source checks retain their own owners. */
+ function deriveNativeWorkReacquisitionTask(current: DurablePrefixCoordinate,
+   prefix: ValidatedRuntimeEventPrefix, request: NativeWorksiteCommandReacquisitionRequest,
+-  nativeBasis: NativeWorkReacquisitionBasis) {
++  nativeBasis: NativeWorkReacquisitionBasis, declarationProof: AbgHistoricalDeclarationProof) {
+   if (!authenticateRuntimePrefixAncestry(request.source.prefix, current)) return null;
+   const historical = reidentifyHistoricalDurablePrefixCoordinate(current, request.source.prefix);
+-  const terminal = projectClosedGraphCallTerminalAtDurablePrefix(historical, request.source.graphCallRef, request.source.declarationProof);
++  const terminal = projectClosedGraphCallTerminalAtDurablePrefix(historical, request.source.graphCallRef, declarationProof);
+   if (terminal === null || terminal.producer.graphFunction.ref !== native.graphFunctionRef || !same(terminal.value, request.sourceNativeWork) ||
+     terminal.producer.cCallRef !== request.sourceNativeWork.provenance.cCallRef) return null;
+   const sourceBasis = projectExactExecutionBasisAtPrefix(prefix, terminal.producer.executionBasis.ref);
+@@ -48,33 +61,40 @@ function deriveNativeWorkReacquisitionTask(current: DurablePrefixCoordinate,
+ /** The source selector is evidence. R10 owns terminal scope; the binding-cover
+  * owner and current native source projection own its present applicability. */
+ export function projectNativeWorkReacquisitionTask(current: DurablePrefixCoordinate, request: NativeWorksiteCommandReacquisitionRequest,
+-  nativeBasis: NativeWorkReacquisitionBasis): NativeWorksiteCommandExecutionTask | null {
++  nativeBasis: NativeWorkReacquisitionBasis, historicalSource?: AbgHistoricalGraphCallSourceResource): NativeWorksiteCommandExecutionTask | null {
+   try {
+     if (!isNativeWorksiteCommandReacquisitionRequest(request)) return null;
++    const declarationProof = declarationProofFor(request, historicalSource);
++    if (declarationProof === null) return null;
+     const prefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(current));
+-    return deriveNativeWorkReacquisitionTask(current, prefix, request, nativeBasis)?.task ?? null;
++    return deriveNativeWorkReacquisitionTask(current, prefix, request, nativeBasis, declarationProof)?.task ?? null;
+   } catch { return null; }
+ }
+ const REACQUISITION_PROOF = Symbol("native_reacquisition_proof");
+ /** Immutable preparation facts survive ordinary Result copying only inside
+  * the existing authenticated prefix lineage. Current C2 invalidators remain
+  * in projectNativeWorkCommandSourceAtPrefix and its same-Run join. */
+-export function authenticateNativeWorkReacquisition(basis: NativeWorkReacquisitionBasis, input: unknown, requireCurrent = false) {
++export function authenticateNativeWorkReacquisition(basis: NativeWorkReacquisitionBasis, input: unknown, requireCurrent = false,
++  historicalSource?: AbgHistoricalGraphCallSourceResource) {
+   try {
++    if (!isNativeWorksiteCommandReacquisitionRequest(input)) return null;
++    const declarationProof = declarationProofFor(input, historicalSource);
++    if (declarationProof === null) return null;
+     const events = readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix, { requireCurrent });
+     const prefix = selectValidatedRuntimeEventPrefix(events);
+     const facts = runtimePrefixComputation(prefix, REACQUISITION_PROOF,
+-      () => new Map<string, NonNullable<ReturnType<typeof deriveAuthenticatedNativeWorkReacquisition>>>());
++      () => new Map<string, { owner: NonNullable<ReturnType<typeof deriveAuthenticatedNativeWorkReacquisition>>;
++        declarationProof: AbgHistoricalDeclarationProof }>());
+     const key = basis.predecessorPrefix.coordinateDigest + ":" + basis.cCallRef, known = facts.get(key);
+-    if (known !== undefined && same(known.task.sourceReacquisition!.request, input)) return { ...known };
+-    const owner = deriveAuthenticatedNativeWorkReacquisition(basis, input, prefix);
++    if (known !== undefined && known.declarationProof === declarationProof && same(known.owner.task.sourceReacquisition!.request, input)) return { ...known.owner };
++    const owner = deriveAuthenticatedNativeWorkReacquisition(basis, input, prefix, declarationProof);
+     // Preserve the editable projection API while keeping retained authority private.
+-    if (owner !== null) facts.set(key, Object.freeze({ ...owner }));
++    if (owner !== null && isImmutableRuntimeValue(declarationProof)) facts.set(key, { owner: Object.freeze({ ...owner }), declarationProof });
+     return owner;
+   } catch { return null; }
+ }
+ /** Current ordinary CCall owner. A supplied prefix or output never grants this occurrence. */
+-function deriveAuthenticatedNativeWorkReacquisition(basis: NativeWorkReacquisitionBasis, input: unknown, prefix: ValidatedRuntimeEventPrefix) {
++function projectNativeWorkReacquisitionOccurrence(basis: NativeWorkReacquisitionBasis, input: unknown, prefix: ValidatedRuntimeEventPrefix) {
+   try {
+     if (!isNativeWorksiteCommandReacquisitionRequest(input)) return null;
+     const events = runtimeEventsFromValidatedPrefix(prefix);
+@@ -90,17 +110,23 @@ function deriveAuthenticatedNativeWorkReacquisition(basis: NativeWorkReacquisiti
+     const invocation = projectExactInvocationAdmissionAtPrefix(prefix, execution.invocationAdmissionRef);
+     if (graph.materializationDigest !== execution.graphDigest || graph.materializationRef !== execution.graphRef || call === null ||
+       call.basisId !== execution.basisRef || call.callClass !== "leaf" || call.regime !== "F_D" || call.implementationRef !== ids.implementationRef ||
+-      call.implementationBindingRef !== ids.implementationBindingRef || projectCCallCarrierPhaseAtPrefix(prefix, call)?.phase !== "selected_no_evidence" ||
++      call.implementationBindingRef !== ids.implementationBindingRef || call.judgmentPredicateRef !== ids.predicateRef ||
+       set === null || set.implementationSetDigest !== execution.rootImplementationSetDigest ||
+       set.rows.filter(r => r.graphFunctionRef === call.graphFunctionRef && r.programLocusRef === call.programLocusRef &&
+         r.implementationRef === ids.implementationRef && r.implementationBindingRef === ids.implementationBindingRef &&
+         r.inputContractRef === call.inputContractRef && r.outputContractRef === call.outputContractRef).length !== 1 ||
+       invocation === null || invocation.capabilityGrants.length !== 1 || !same(invocation.capabilityGrants[0], input.capabilityGrant)) return null;
+-    const derived = deriveNativeWorkReacquisitionTask(basis.predecessorPrefix, prefix, input, basis);
+-    return derived !== null && derived.source.sourceResult.runId !== call.runId
+-      ? { task: derived.task, call, execution, prefix } : null;
++    return { call, execution, prefix };
+   } catch { return null; }
+ }
++function deriveAuthenticatedNativeWorkReacquisition(basis: NativeWorkReacquisitionBasis, input: NativeWorksiteCommandReacquisitionRequest,
++  prefix: ValidatedRuntimeEventPrefix, declarationProof: AbgHistoricalDeclarationProof) {
++  const occurrence = projectNativeWorkReacquisitionOccurrence(basis, input, prefix);
++  if (occurrence === null || projectCCallCarrierPhaseAtPrefix(prefix, occurrence.call)?.phase !== "selected_no_evidence") return null;
++  const derived = deriveNativeWorkReacquisitionTask(basis.predecessorPrefix, prefix, input, basis, declarationProof);
++  return derived !== null && derived.source.sourceResult.runId !== occurrence.call.runId
++    ? { ...occurrence, task: derived.task } : null;
++}
+ /** Read-only existing physical observation owner; all read-scope files, not just C2 sources. */
+ export async function nativeWorkReacquisitionContextCurrent(request: NativeWorksiteCommandReacquisitionRequest): Promise<boolean> {
+   const { readRoots, maxFiles, maxBytes } = request.currentContext;
+@@ -109,42 +135,92 @@ export async function nativeWorkReacquisitionContextCurrent(request: NativeWorks
+ }
+ /** The optional owner coordinate only reidentifies an already authenticated
+  * historical preparation cut; it confers no current-source or effect authority. */
+-export function nativeWorkReacquisitionResultMatches(input: unknown, value: unknown, currentOwnerPrefix?: DurablePrefixCoordinate): boolean {
++export function nativeWorkReacquisitionResultMatches(input: unknown, value: unknown, currentOwnerPrefix?: DurablePrefixCoordinate,
++  historicalSource?: AbgHistoricalGraphCallSourceResource): boolean {
+   if (!record(value) || !record(value.sourceReacquisition) || !record(value.sourceReacquisition.nativeBasis) ||
+       !same(input, value.sourceReacquisition.request)) return false;
+   try {
+     const original = value.sourceReacquisition.nativeBasis as unknown as NativeWorkReacquisitionBasis;
+     const basis = currentOwnerPrefix === undefined ? original : { ...original,
+       predecessorPrefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, original.predecessorPrefix) };
+-    const owner = authenticateNativeWorkReacquisition(basis, input);
++    const owner = authenticateNativeWorkReacquisition(basis, input, false, historicalSource);
+     return owner !== null && same(owner.task, value);
+   } catch { return false; }
+ }
+ /** Authenticated current-Run preparation carries historical child provenance.
+  * The original F_P result remains in its own Run and invocation. */
++function sameEventResource(a: DurablePrefixCoordinate, b: DurablePrefixCoordinate): boolean {
++  return a.eventLogRef === b.eventLogRef && a.storeIdentity.device === b.storeIdentity.device && a.storeIdentity.inode === b.storeIdentity.inode;
++}
++/** Recover an exact recorded cut from already decoded physical coordinates.
++ * No declaration resource or second journal read enters admitted consumption. */
++function preparationCut(prefix: ValidatedRuntimeEventPrefix, coordinate: DurablePrefixCoordinate): ValidatedRuntimeEventPrefix | null {
++  const authority = unscopedRuntimeEventPrefix(prefix), events = runtimeEventsFromValidatedPrefix(authority);
++  let low = 1, high = events.length;
++  while (low <= high) {
++    const count = (low + high) >>> 1, physical = runtimeEventPhysicalPrefix(events.slice(0, count));
++    if (physical.byteLength < coordinate.prefixLength) low = count + 1;
++    else if (physical.byteLength > coordinate.prefixLength) high = count - 1;
++    else return physical.digest === coordinate.prefixDigest
++      ? validatedRuntimeEventPrefixThroughEvent(authority, events[count - 1]!.eventId) : null;
++  }
++  return null;
++}
++
+ export function projectReacquiredNativeWorkCommandSourceAtPrefix(prefix: ValidatedRuntimeEventPrefix, input: Readonly<{
+   parentBasis: ExecutionBasis; parentCCallRef: string; runId: string; task: NativeWorksiteCommandExecutionTask;
+ }>, currentOwnerPrefix?: DurablePrefixCoordinate) {
++  try {
+   const proof = input.task.sourceReacquisition;
+-  if (proof === undefined || !nativeWorkReacquisitionResultMatches(proof.request, input.task, currentOwnerPrefix)) return null;
+-  const events = runtimeEventsFromValidatedPrefix(prefix), basis = projectExactExecutionBasisAtPrefix(prefix,
+-    one(events, e => e.kind === "c_call_opened" && e.aggregateId === proof.nativeBasis.cCallRef)?.basisId ?? "");
++  if (proof === undefined || !isNativeWorksiteCommandReacquisitionRequest(proof.request) ||
++    !same(constructNativeWorksiteCommandExecutionTask({ ...proof.request, sourceReacquisition: proof }), input.task) ||
++    !sameEventResource(proof.request.source.prefix, proof.nativeBasis.predecessorPrefix) ||
++    (currentOwnerPrefix !== undefined && (!sameEventResource(proof.nativeBasis.predecessorPrefix, currentOwnerPrefix) ||
++      proof.nativeBasis.predecessorPrefix.prefixLength > currentOwnerPrefix.prefixLength))) return null;
++  const preparedPrefix = preparationCut(prefix, proof.nativeBasis.predecessorPrefix);
++  if (preparedPrefix === null) return null;
++  const occurrence = projectNativeWorkReacquisitionOccurrence(proof.nativeBasis, proof.request, preparedPrefix);
++  if (occurrence === null || projectCCallCarrierPhaseAtPrefix(preparedPrefix, occurrence.call)?.phase !== "selected_no_evidence") return null;
++  const { execution: basis, call } = occurrence;
++  const historicalPrefix = preparationCut(preparedPrefix, proof.request.source.prefix);
++  const original = historicalPrefix === null ? null : projectNativeWorkCommandSourceAtPrefix(historicalPrefix, input.task);
++  if (original === null || original.sourceResult.graphCallId !== proof.request.source.graphCallRef ||
++    original.sourceResult.runId === call.runId) return null;
++  const recordedCover = projectWorksiteRevisionBindingCover(preparedPrefix, input.task.sourceNativeWork.task.workspaceBinding,
++    input.task.workspaceBinding, [original.sourceBasis]);
++  if (recordedCover === null || !same(recordedCover, proof.bindingCoverEventRefs)) return null;
++  const events = runtimeEventsFromValidatedPrefix(prefix);
+   const result = one(events, e => e.kind === "c_call_result_admitted" && e.aggregateId === proof.nativeBasis.cCallRef);
+   const judgment = one(events, e => e.kind === "c_call_judged" && e.aggregateId === proof.nativeBasis.cCallRef);
+   const parentCall = one(events, e => e.kind === "c_call_opened" && e.aggregateId === input.parentCCallRef && e.basisId === input.parentBasis.basisRef);
+   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, input.parentBasis.invocationAdmissionRef);
+-  if (basis === null || basis.invocationAdmissionRef !== input.parentBasis.invocationAdmissionRef ||
++  if (basis.invocationAdmissionRef !== input.parentBasis.invocationAdmissionRef || basis.invocationRef !== input.parentBasis.invocationRef ||
+     basis.rootImplementationSetRef !== input.parentBasis.rootImplementationSetRef || basis.rootImplementationSetDigest !== input.parentBasis.rootImplementationSetDigest ||
+-    result === null || judgment === null || result.runId !== input.runId || result.basisId !== basis.basisRef || !record(result.payload) ||
++    result === null || judgment === null || result.runId !== input.runId || result.runId !== call.runId ||
++    result.graphCallId !== call.graphCallId || result.basisId !== basis.basisRef || !record(result.payload) ||
+     result.payload.resultClass !== "success" || !same(result.payload.value, input.task) || result.payload.valueDigest !== hash(input.task) ||
+-    !record(judgment.payload) || judgment.payload.judgment !== "advance" || judgment.payload.resultRef !== result.payload.resultRef ||
++    result.payload.contractRef !== call.outputContractRef || !Array.isArray(result.payload.evidenceRefs) || result.payload.evidenceRefs.length !== 1 ||
++    judgment.runId !== call.runId || judgment.graphCallId !== call.graphCallId || judgment.basisId !== basis.basisRef ||
++    !record(judgment.payload) || judgment.payload.predicateRef !== ids.predicateRef || judgment.payload.contractRef !== call.judgmentContractRef ||
++    judgment.payload.judgment !== "advance" || judgment.payload.resultRef !== result.payload.resultRef ||
+     judgment.payload.resultDigest !== result.payload.resultDigest || !judgment.causationEventRefs.includes(result.eventId) ||
+     parentCall === null || parentCall.runId !== input.runId || parentCall.admissionOrdinal <= judgment.admissionOrdinal ||
+     !record(parentCall.payload) || parentCall.payload.callClass !== "workflow" ||
+     parentCall.payload.childGraphFunctionRef !== "graph-function://abiogenesis/worksite/command-execution@5" ||
+     invocation === null || invocation.capabilityGrants.length !== 1 || !same(invocation.capabilityGrants[0], input.task.capabilityGrant)) return null;
++  const evidenceRefs = result.payload.evidenceRefs;
++  const evidence = one(events, e => e.kind === "c_call_evidenced" && e.aggregateId === call.cCallRef &&
++    e.basisId === basis.basisRef && e.runId === call.runId && e.graphCallId === call.graphCallId && record(e.payload) &&
++    evidenceRefs.includes(e.payload.evidenceRef!));
++  if (evidence === null || !record(evidence.payload) || evidence.payload.evidenceClass !== "deterministic" ||
++    evidence.payload.contractRef !== call.evidenceContractRef || evidence.payload.implementationRef !== ids.implementationRef ||
++    evidence.payload.inputDigest !== basis.rawInputDigest || evidence.payload.outputDigest !== result.payload.valueDigest ||
++    projectAdmittedCCallStateAtPrefix(prefix, call as unknown as Readonly<Record<string, JsonValue>>,
++      { ...result.payload, kind: "admitted_c_call_result", schemaVersion: "5.0.0", disposition: "admitted", admissionEventRef: result.eventId },
++      { ...judgment.payload, kind: "admitted_c_call_judgment", schemaVersion: "5.0.0", disposition: "admitted", admissionEventRef: judgment.eventId }) === null) return null;
+   const source = projectNativeWorkCommandSourceAtPrefix(prefix, input.task);
+   if (source === null) return null;
+   const covers = projectWorksiteRevisionBindingCover(prefix, input.task.sourceNativeWork.task.workspaceBinding, input.task.workspaceBinding, [source.sourceBasis]);
+   return covers !== null && proof.bindingCoverEventRefs.every(ref => covers.includes(ref)) ? source : null;
++  } catch { return null; }
+ }
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts b/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts
+index 5ce104b7..67c9b051 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts
+@@ -11,7 +11,7 @@ import { rehydrateAdmittedImplementationSetAtPrefix, rehydrateAdmittedInteractio
+ import { rehydrateOpenedTraversalScopeAtPrefix, projectOpenedTraversalScopeClassAtPrefix, type OpenedTraversalScope } from "./open_call.js";
+ import { projectHistoricalTraversalRouteAtPrefix } from "./traversal_route.js";
+ import { hasJudgedTerminalRouteCausation } from "./retry.js";
+-import { isAbgTypedTerminalResult, isAbgHistoricalDeclarationProof, type AbgTypedTerminalResult, type AbgHistoricalDeclarationProof, type AbgHistoricalGraphCallSourceResource, type AbgHistoricalGraphCallSource } from "./terminal_result_contracts.js";
++import { isAbgTypedTerminalResult, isAbgHistoricalDeclarationProof, hasUniqueHistoricalDeclarationDependencies, type AbgTypedTerminalResult, type AbgHistoricalDeclarationProof, type AbgHistoricalGraphCallSourceResource, type AbgHistoricalGraphCallSource } from "./terminal_result_contracts.js";
+ import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+ import { admitIJsonValue } from "../shared/i_json.js";
+ import { deepFreeze } from "../shared/immutable.js";
+@@ -518,8 +518,9 @@ export function projectHistoricalGraphCallSourceAtDurablePrefix(
+     const lastOrdinal = events.at(-1)?.admissionOrdinal ?? 0;
+     if (previous !== undefined && previous.minimumOrdinal <= lastOrdinal) return previous.value;
+     if (!isImmutableRuntimeValue(resource) || resource.kind !== "abg_historical_graph_call_source_resource" ||
+-        resource.schemaVersion !== "5.0.0" || !hasExactDataFields(resource, ["kind", "schemaVersion", "terminal", "input", "declarationProof"]) ||
+-        !hasExactDataFields(resource.input, ["graphFunctionRef", "contractRef"])) return null;
++        resource.schemaVersion !== "5.0.0" || !hasExactDataFields(resource, ["kind", "schemaVersion", "terminal", "input", "declarationProof",
++          ...(resource.declarationDependencies === undefined ? [] : ["declarationDependencies"])]) ||
++        !hasExactDataFields(resource.input, ["graphFunctionRef", "contractRef"]) || !hasUniqueHistoricalDeclarationDependencies(resource)) return null;
+     const packet: AbgProjectReadPacket<"graph_call_result"> = Object.freeze({ kind: "abg_project_read_packet", schemaVersion: "5.0.0",
+       memberKey: "graph_call_result", prefix, targetRef: resource.terminal.producer.graphCallRef, declarationProof: resource.declarationProof });
+     const prepared: PreparedRead<"graph_call_result"> = Object.freeze({ packet, events, fullPrefix });
+diff --git a/build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts b/build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts
+index cfe122ae..b4a559b8 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/terminal_result_contracts.ts
+@@ -55,19 +55,55 @@ export function isAbgHistoricalDeclarationProof(value: unknown): value is AbgHis
+   return v.safeParse(ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA, value).success;
+ }
+ 
++/** Selection of immutable declaration evidence, never proof of its admission. */
++export const ABG_HISTORICAL_DECLARATION_REFERENCE_SCHEMA = v.strictObject({
++  kind: v.literal("abg_historical_declaration_reference"),
++  schemaVersion: v.literal("5.0.0"),
++  catalogBasisDigest: refDigestSchema.entries.digest,
++  readinessBasisDigest: refDigestSchema.entries.digest,
++  viewDigest: refDigestSchema.entries.digest,
++});
++export type AbgHistoricalDeclarationReference = v.InferOutput<typeof ABG_HISTORICAL_DECLARATION_REFERENCE_SCHEMA>;
++export function isAbgHistoricalDeclarationReference(value: unknown): value is AbgHistoricalDeclarationReference {
++  return v.safeParse(ABG_HISTORICAL_DECLARATION_REFERENCE_SCHEMA, value).success;
++}
++export function constructAbgHistoricalDeclarationReference(proof: AbgHistoricalDeclarationProof): AbgHistoricalDeclarationReference {
++  if (proof.kind !== "abg_historical_declaration_proof" || proof.schemaVersion !== "5.0.0" ||
++      proof.catalogView.catalogBasisDigest !== proof.catalog.basisDigest) throw new TypeError("historical declaration basis differs from its View");
++  return Object.freeze(v.parse(ABG_HISTORICAL_DECLARATION_REFERENCE_SCHEMA, {
++    kind: "abg_historical_declaration_reference", schemaVersion: "5.0.0",
++    catalogBasisDigest: proof.catalog.basisDigest, readinessBasisDigest: proof.catalog.readinessBasisDigest,
++    viewDigest: proof.catalogView.viewDigest,
++  }));
++}
++
+ /** Stable selection only. The result body and the read prefix remain with ABG. */
+ export const ABG_HISTORICAL_TERMINAL_SELECTION_SCHEMA = v.omit(ABG_TYPED_TERMINAL_RESULT_SCHEMA, ["value", "projectionBasis"]);
+ export type AbgHistoricalTerminalSelection = v.InferOutput<typeof ABG_HISTORICAL_TERMINAL_SELECTION_SCHEMA>;
+ 
+ /** One explicit cold declaration dependency, separate from semantic Run input. */
+-export const ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA = v.strictObject({
++const historicalSourceResourceSchema = v.strictObject({
+   kind: v.literal("abg_historical_graph_call_source_resource"),
+   schemaVersion: v.literal("5.0.0"),
+   terminal: ABG_HISTORICAL_TERMINAL_SELECTION_SCHEMA,
+   input: v.strictObject({ graphFunctionRef: nonblankSchema, contractRef: nonblankSchema }),
+   declarationProof: ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA,
++  declarationDependencies: v.optional(v.array(ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA)),
+ });
+-export type AbgHistoricalGraphCallSourceResource = v.InferOutput<typeof ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA>;
++export type AbgHistoricalGraphCallSourceResource = v.InferOutput<typeof historicalSourceResourceSchema>;
++/** Each immutable basis/View is supplied once, including the primary source. */
++export function hasUniqueHistoricalDeclarationDependencies(resource: AbgHistoricalGraphCallSourceResource): boolean {
++  try {
++    if (resource.declarationDependencies !== undefined && !Array.isArray(resource.declarationDependencies)) return false;
++    const keys = [resource.declarationProof, ...(resource.declarationDependencies ?? [])].map(proof => {
++      const ref = constructAbgHistoricalDeclarationReference(proof);
++      return [ref.catalogBasisDigest, ref.readinessBasisDigest, ref.viewDigest].join(":");
++    });
++    return new Set(keys).size === keys.length;
++  } catch { return false; }
++}
++export const ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA = v.pipe(historicalSourceResourceSchema,
++  v.check(hasUniqueHistoricalDeclarationDependencies, "historical declaration dependencies must select unique exact bases"));
+ 
+ /** Borrowed owner values, never serialized into successor input or evidence. */
+ export interface AbgHistoricalGraphCallSource {
+diff --git a/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts b/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts
+index bcb5538d..f745133d 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts
+@@ -391,7 +391,8 @@ export interface LeafInvocationPort {
+     readonly predicateRef: string;
+     readonly advanceReasonRef: string;
+     readonly rejectionReasonRef: string;
+-    readonly evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations) => boolean;
++    readonly evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations,
++      historicalSource?: import("../abg/terminal_result_contracts.js").AbgHistoricalGraphCallSourceResource) => boolean;
+   }> | null;
+   readonly validateResultEvidenceLineage: (
+     outputContractRef: string,
+diff --git a/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts b/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts
+index eb88ba60..22b61157 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts
+@@ -423,6 +423,7 @@ function preimageRefusal(
+ // declared realization/relation without acquiring a second copy of its history.
+ function nativeLeafProofOperations(
+   implementationRef: string, value: unknown, occurrence: LeafExecutionOccurrence,
++  historicalSource?: AbgHistoricalGraphCallSourceResource,
+ ): Readonly<NativeLeafProofOperations> {
+   const exact = (input: unknown, supplied: LeafExecutionOccurrence) => {
+     if (input !== value || supplied !== occurrence) throw new TypeError("native proof operation differs from its exact admitted input/occurrence");
+@@ -446,7 +447,7 @@ function nativeLeafProofOperations(
+         } } : {}),
+     ...(implementationRef === reacquireIds.implementationRef && native?.cCallRef === occurrence.cCallRef
+       ? { nativeWorkReacquisition: (input: unknown, supplied: LeafExecutionOccurrence) => {
+-          exact(input, supplied); return authenticateNativeWorkReacquisition(native, value, true);
++          exact(input, supplied); return authenticateNativeWorkReacquisition(native, value, true, historicalSource);
+         } } : {}),
+   });
+ }
+@@ -466,7 +467,7 @@ function nativeJudgmentProofOperations(
+   const historical = historicalSource === undefined ? {} : { historicalGraphCallSource: () =>
+     currentOwnerPrefix === undefined ? null : projectHistoricalGraphCallSourceAtDurablePrefix(currentOwnerPrefix, historicalSource) };
+   if (predicateRef === reacquireIds.predicateRef) return Object.freeze({ ...historical,
+-    nativeWorkReacquisition: () => nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix),
++    nativeWorkReacquisition: () => nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix, historicalSource),
+   });
+   if (predicateRef === qualificationIds.verdictPredicate) return Object.freeze({ ...historical,
+     qualificationVerdict: () => {
+@@ -503,6 +504,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
+     value: Readonly<Record<string, JsonValue>>,
+   ) => Readonly<WorkerContracts> | null;
+   occurrence: Readonly<LeafExecutionOccurrence>;
++  historicalSource?: AbgHistoricalGraphCallSourceResource;
+   loadImplementation: () => Promise<unknown>;
+ }>): Promise<Readonly<LeafInvocationOwnerResult>> {
+   const { resolution, inputDigest, failureValueKind } = input;
+@@ -598,7 +600,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
+         input.occurrence,
+         resolution,
+         inputDigest,
+-        nativeLeafProofOperations(resolution.implementationRef, input.value, input.occurrence),
++        nativeLeafProofOperations(resolution.implementationRef, input.value, input.occurrence, input.historicalSource),
+       );
+     } catch {
+       return closedDeterministicOwnerReceipt(
+@@ -1543,6 +1545,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
+           admittedResolution.implementationRef === nativeIds.implementationRef || isWorksiteFileReplaceRequest(call.input) || isWorksiteFileParentsRequest(call.input) ||
+           call.occurrence.executionAuthority !== null;
+         return invokeLeafOwnerBoundary({
++          ...(authority.historicalSource === undefined ? {} : { historicalSource: authority.historicalSource }),
+           resolution: admittedResolution,
+           value: call.input,
+           inputDigest: call.inputDigest,
+diff --git a/build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts b/build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts
+index 6c1c7cf2..01867a3f 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts
+@@ -6,6 +6,7 @@ import type { LeafExecutionOccurrence, LeafRealizationCandidate, NativeLeafProof
+ import { sha256Canonical } from "../shared/digests.js";
+ import { deepFreeze } from "../shared/immutable.js";
+ import type { JsonValue } from "../shared/canonical_json.js";
++import type { AbgHistoricalGraphCallSourceResource } from "../abg/terminal_result_contracts.js";
+ const body = { implementationRef: ids.implementationRef, packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
+   modulePath: "build/code/src/implementation/native_work_reacquisition.js", namedSymbol: "prepareNativeWorksiteCommandReacquisition",
+   computeRegime: "F_D" as const, inputContractRef: ids.requestContractRef, outputContractRef: c2.taskContractRef,
+@@ -13,10 +14,11 @@ const body = { implementationRef: ids.implementationRef, packageName: ABI5_PACKA
+ export const NATIVE_WORK_REACQUISITION_DESCRIPTOR: PackagedLeafImplementationDescriptor = deepFreeze({ kind: "packaged_leaf_implementation_descriptor",
+   schemaVersion: "5.0.0", descriptorDigest: sha256Canonical(body), ...body });
+ export async function prepareNativeWorksiteCommandReacquisition(input: unknown, occurrence: LeafExecutionOccurrence,
+-  _resolution?: unknown, _inputDigest?: unknown, nativeProof?: NativeLeafProofOperations): Promise<Readonly<LeafRealizationCandidate>> {
++  _resolution?: unknown, _inputDigest?: unknown, nativeProof?: NativeLeafProofOperations,
++  historicalSource?: AbgHistoricalGraphCallSourceResource): Promise<Readonly<LeafRealizationCandidate>> {
+   const basis = occurrence.nativeWorkReacquisitionBasis, owner = nativeProof?.nativeWorkReacquisition !== undefined
+     ? nativeProof.nativeWorkReacquisition(input, occurrence)
+-    : basis === undefined ? null : authenticateNativeWorkReacquisition(basis, input, true);
++    : basis === undefined ? null : authenticateNativeWorkReacquisition(basis, input, true, historicalSource);
+   if (owner === null || owner.call.cCallRef !== occurrence.cCallRef || !await nativeWorkReacquisitionContextCurrent(owner.task.sourceReacquisition!.request))
+     throw new TypeError("native reacquisition requires its current admitted owner, preserved child and complete current context");
+   const resultCandidate = owner.task as unknown as Readonly<Record<string, JsonValue>>;
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts b/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts
+index 0e0a2910..6e1b60ae 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts
+@@ -306,9 +306,10 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
+     (predicateRef === reacquireIds.predicateRef ? Object.freeze({ predicateRef,
+       advanceReasonRef: "reason://abiogenesis/worksite/native-reacquisition/current@5",
+       rejectionReasonRef: "reason://abiogenesis/worksite/native-reacquisition/unjoined@5",
+-      evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: import("../abg/event_store.js").DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations) =>
++      evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: import("../abg/event_store.js").DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations,
++        historicalSource?: import("../abg/terminal_result_contracts.js").AbgHistoricalGraphCallSourceResource) =>
+         nativeProof?.nativeWorkReacquisition !== undefined ? nativeProof.nativeWorkReacquisition()
+-          : nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix) }) : null) ??
++          : nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix, historicalSource) }) : null) ??
+     resolveNativeWorkspaceWorkJudgmentRelation(predicateRef) ?? resolveWorksiteCommandForwardJudgmentRelation(predicateRef) ??
+       resolveConformanceJudgmentRelation(predicateRef) ??
+       resolveWorksitePreservedResultJudgmentRelation(predicateRef) ?? resolveWorksiteC0JudgmentRelation(predicateRef) ??
+diff --git a/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts b/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts
+index 1d0f1f4f..1fd063b7 100644
+--- a/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts
+@@ -1,6 +1,7 @@
+ import { isDeepStrictEqual } from "node:util";
+ import { validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
+-import { isAbgHistoricalDeclarationProof, type AbgHistoricalDeclarationProof } from "../abg/terminal_result_contracts.js";
++import { isAbgHistoricalDeclarationProof, isAbgHistoricalDeclarationReference,
++  type AbgHistoricalDeclarationProof, type AbgHistoricalDeclarationReference } from "../abg/terminal_result_contracts.js";
+ import { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
+ import { isRecord, hasNulJoinedFields as exactKeys } from "../shared/admission_predicates.js";
+ import {
+@@ -333,7 +334,10 @@ export interface NativeWorksiteCommandReacquisitionRequest extends Omit<NativeWo
+   readonly kind: "native_worksite_command_reacquisition_request";
+   readonly schemaVersion: "5.0.0";
+   readonly requestRef: string; readonly requestDigest: Sha256Digest;
+-  readonly source: Readonly<{ prefix: DurablePrefixCoordinate; graphCallRef: string; declarationProof: AbgHistoricalDeclarationProof }>;
++  readonly source: Readonly<{ prefix: DurablePrefixCoordinate; graphCallRef: string } & (
++    { declarationProof: AbgHistoricalDeclarationProof; declarationReference?: never } |
++    { declarationReference: AbgHistoricalDeclarationReference; declarationProof?: never }
++  )>;
+   /** Full existing read scope, not only the selected C2 snapshot sources. */
+   readonly currentContext: WorksiteContextObservation;
+ }
+@@ -345,7 +349,11 @@ export interface NativeWorksiteCommandReacquisition {
+ function nativeReacquisitionBody(input: Omit<NativeWorksiteCommandReacquisitionRequest, "kind" | "schemaVersion" | "requestRef" | "requestDigest">) {
+   const { source, currentContext, sourceNativeWork: original } = input;
+   if (!source || !validateDurablePrefixCoordinate(source.prefix) || typeof source.graphCallRef !== "string" || source.graphCallRef.length === 0 ||
+-      !isAbgHistoricalDeclarationProof(source.declarationProof) || !isNativeWorkspaceWorkObservation(original) || original.task.assessment !== undefined ||
++      !(source.declarationReference === undefined
++        ? isAbgHistoricalDeclarationProof(source.declarationProof)
++        : source.declarationProof === undefined && exactKeys(source, ["prefix", "graphCallRef", "declarationReference"]) &&
++          isAbgHistoricalDeclarationReference(source.declarationReference)) ||
++      !isNativeWorkspaceWorkObservation(original) || original.task.assessment !== undefined ||
+       !exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) || !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) ||
+       !same(original.task.workspaceAuthorityBasis, input.workspaceAuthorityBasis) || !isWorksiteContextObservation(currentContext) ||
+       currentContext.workspaceBindingIdentity !== input.workspaceBinding.bindingId || currentContext.workspaceBindingDigest !== input.workspaceBinding.bindingDigest ||
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-historical-source-resource.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-historical-source-resource.test.mjs
+index d20396a0..bb365907 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-historical-source-resource.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-historical-source-resource.test.mjs
+@@ -90,6 +90,15 @@ test('actual R10 ancestry, declaration and leaf proof owners return borrowed his
+  const ordinary=r10.GraphCallProjectionPort.graph_call_result({kind:'abg_project_read_packet',schemaVersion:'5.0.0',memberKey:'graph_call_result',
+   prefix:f.prefix,targetRef:f.resource.terminal.producer.graphCallRef,declarationProof:f.resource.declarationProof});
+  assert.deepEqual(ordinary.value.terminalResult,f.terminal,'unchanged R10 terminal route agrees with frozen predecessor');
++ const distinctProof={...f.resource.declarationProof,catalog:{...f.resource.declarationProof.catalog,basisDigest:hash('additional untrusted basis')},
++  catalogView:{...f.resource.declarationProof.catalogView,catalogBasisDigest:hash('additional untrusted basis')}};
++ const extended=deepFreeze({...f.resource,declarationDependencies:[distinctProof]});
++ const contracts=await import('../../build/code/src/abg/terminal_result_contracts.js'),v=await import('valibot');
++ assert.equal(v.safeParse(contracts.ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA,extended).success,true);
++ assert.equal(v.safeParse(contracts.ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA,{...f.resource,declarationDependencies:[f.resource.declarationProof]}).success,false);
++ assert.deepEqual(read(f.prefix,extended),result,'optional constructor dependencies do not replace the primary historical source proof');
++ assert.equal(read(f.prefix,deepFreeze({...f.resource,declarationDependencies:[f.resource.declarationProof]})),null,'duplicate primary/dependency basis refuses');
++ assert.equal(read(f.prefix,deepFreeze({...f.resource,declarationDependencies:[distinctProof,distinctProof]})),null,'duplicate additional dependency refuses');
+  const countBeforeClose=counts.catalog;f.opened.store.closeDurableLog();assert.deepEqual(read(f.prefix),result);assert.equal(counts.catalog,countBeforeClose+1);
+  const fd=fs.openSync(f.eventLogPath,'r+');try{fs.writeSync(fd,Buffer.from('!'),0,1,0);}finally{fs.closeSync(fd);}
+  assert.equal(read(f.prefix),null,'closed owner must authenticate physical history, not preserve live authority');
+diff --git a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs
+index e58eeec7..fc90010e 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs
+@@ -15,8 +15,145 @@ import { projectExactInvocationAdmissionAtPrefix } from '../../build/code/src/ab
+ import { projectNativeWorkCommandSourceAtPrefix } from '../../build/code/src/abg/native_worksite_execution.js';
+ import { constructNativeWorkspaceWorkObservation } from '../../build/code/src/product/native_workspace_work.js';
+ import { ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS as semantics } from '../../build/code/src/product/builtin_semantics.js';
++import { constructAbgHistoricalDeclarationReference } from '../../build/code/src/abg/terminal_result_contracts.js';
++import { runtimeEventPhysicalPrefix, ROOT_EVENT_CONTRACT_DIGEST } from '../../build/code/src/abg/event_store.js';
++import { deepFreeze } from '../../build/code/src/shared/immutable.js';
++import { loadWorksiteOwner, worksiteFixture } from '../support/t287-generic-job-worksite.mjs';
+ const hash=p.sha256Canonical, ids=p.NATIVE_WORK_REACQUISITION_IDS;
+ const actualRoot=process.env.ABG_NATIVE_REACQUISITION_RETAINED_ROOT;
++
++// Bounded owner controls: exact Product values, physical cuts and CCall
++// phase/Result/J reconstruction. Environment/declaration/native producer and
++// occurrence lookups are explicit premises; no installed or Run claim follows.
++async function declarationFixture(t, inline=false) {
++  const product=await loadWorksiteOwner(),env=await worksiteFixture(product);
++  t.after(()=>fs.rmSync(env.scratch,{recursive:true,force:true}));
++  fs.writeFileSync(path.join(env.canonicalRoot,'source.txt'),'retained source');
++  const context=await product.observeWorksiteContext({...env,readRoots:['source.txt'],maxFiles:1,maxBytes:100});
++  const nativeTask=p.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,capabilityGrant:env.capabilityGrant,
++    context,outcome:'retain source',instructions:['Read source.'],readFirst:['source.txt'],writeRoots:['source.txt'],checks:[]});
++  const observation=constructNativeWorkspaceWorkObservation(nativeTask,context,{summary:'retained',gaps:[]},{cCallRef:'c-call://source',executionAuthorityRef:'authority://source',
++    executionAuthorityDigest:hash('source authority'),actorInvocationRef:'actor://source',transportBindingRef:'transport://source',transportBindingDigest:hash('transport'),promptDigest:hash('prompt'),transportDigest:hash('delivery')});
++  const declaration=deepFreeze({kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog:{basisDigest:hash('constructor'),readinessBasisDigest:hash('constructor ready'),readinessBasis:{retained:'complete proof body'}},
++    catalogView:{catalogBasisDigest:hash('constructor'),viewDigest:hash('constructor view'),allowlist:['constructor']}});
++  const primary=deepFreeze({...declaration,catalog:{...declaration.catalog,basisDigest:hash('terminal')},catalogView:{...declaration.catalogView,catalogBasisDigest:hash('terminal')}});
++  const resource=deepFreeze({kind:'abg_historical_graph_call_source_resource',schemaVersion:'5.0.0',declarationProof:primary,declarationDependencies:[declaration]});
++  const event=(kind,ordinal,payload,extra={})=>({eventId:'event://declaration/'+ordinal,admissionOrdinal:ordinal,payloadDigest:hash(payload),eventContractDigest:ROOT_EVENT_CONTRACT_DIGEST,
++    aggregateType:'c_call',aggregateId:'unused',parentAggregateId:'frame://prepare',correlationId:'component',eventTime:'2026-09-28T00:00:00.000Z',workflowVersion:'5.0.0',
++    scopeClass:'run',basisId:'basis://prepare',runId:'run://prepare',graphCallId:'graph-call://prepare',frameId:'frame://prepare',causationEventRefs:[],kind,payload,...extra});
++  const old=event('graph_call_closed',1,{}, {aggregateType:'graph_call',aggregateId:'graph-call://source',runId:'run://source',graphCallId:'graph-call://source'});
++  const coordinate=rows=>{const physical=runtimeEventPhysicalPrefix(rows),body={kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:'file:///unopened/declaration-component.events.jsonl',
++    prefixLength:physical.byteLength,prefixDigest:physical.digest,storeIdentity:{device:0,inode:0,eventContractDigest:ROOT_EVENT_CONTRACT_DIGEST}};return deepFreeze({...body,coordinateDigest:hash(body)});};
++  const request=p.constructNativeWorksiteCommandReacquisitionRequest({...env,sourceNativeWork:observation,currentContext:context,
++    source:{prefix:coordinate([old]),graphCallRef:old.graphCallId,...(inline?{declarationProof:declaration}:{declarationReference:constructAbgHistoricalDeclarationReference(declaration)})},
++    selectedSources:[{relativePath:'source.txt',subjectUri:pathToFileURL(path.join(env.canonicalRoot,'source.txt')).href}],
++    commands:[{commandId:'command://component',executable:'node',args:['--version'],relativeCwd:'.',environment:{},timeoutMs:1000,terminationGraceMs:100,expectedReports:[]}],outcomePredicates:[],allowedWriteTerritories:[{pathKind:'subtree',relativePath:'evidence'}]});
++  const identity={basisId:'basis://prepare',graphCallId:'graph-call://prepare',frameId:'frame://prepare',vectorIndex:0,stageRole:'native-command-reacquisition',taskOrdinal:null,attempt:1,programLocusRef:ids.nodeRef,retryPath:[]};
++  const call={kind:'c_call',schemaVersion:'5.0.0',...identity,cCallRef:'c-call:'+hash(identity),cCallDigest:hash(identity),callClass:'leaf',regime:'F_D',armId:'arm://component',compositionRef:null,
++    implementationSetRef:'set://prepare',implementationRef:ids.implementationRef,implementationBindingRef:ids.implementationBindingRef,graphFunctionRef:ids.graphFunctionRef,runId:'run://prepare',
++    inputContractRef:ids.requestContractRef,outputContractRef:p.WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef,evidenceContractRef:p.WORKSITE_COMMAND_EXECUTION_IDS.evidenceContractRef,
++    judgmentContractRef:p.WORKSITE_COMMAND_EXECUTION_IDS.judgmentContractRef,judgmentPredicateRef:ids.predicateRef,openedEventRef:'event://declaration/2',fibreSelectedEventRef:'event://declaration/3'};
++  const opened=event('c_call_opened',2,{cCallRef:call.cCallRef,cCallDigest:call.cCallDigest,callClass:'leaf',cursorRef:'cursor://prepare'},{aggregateId:call.cCallRef});
++  const fibre=event('c_call_fibre_selected',3,{cCallRef:call.cCallRef,callClass:'leaf',regime:call.regime,armId:call.armId,compositionRef:null,implementationSetRef:call.implementationSetRef},
++    {aggregateId:call.cCallRef,causationEventRefs:[opened.eventId]});
++  const before=deepFreeze([old,opened,fibre]),nativeBasis={predecessorPrefix:coordinate(before),cCallRef:call.cCallRef};
++  const heldPrefix=selectValidatedRuntimeEventPrefix(before);
++  const gf=gtl.nativeWorkReacquisitionGraphFunction(),basis={...env.executionBasis,basisRef:identity.basisId,invocationAdmissionRef:'invocation://prepare',invocationRef:'runtime://prepare',
++    rootImplementationSetRef:call.implementationSetRef,rootImplementationSetDigest:hash('set'),graphFunctionRef:gf.name,graphFunctionDigest:hash(gf),rawInputValue:request,rawInputDigest:hash(request),rawInputAdmissionRef:'raw://prepare'};
++  const graph=gtl.materializeGraph(gf,{invocationAdmissionRef:basis.invocationAdmissionRef,admittedInputRef:basis.rawInputAdmissionRef,admittedInputDigest:basis.rawInputDigest,admittedInput:request});
++  Object.assign(basis,{graphRef:graph.materializationRef,graphDigest:graph.materializationDigest});
++  const source={sourceBasis:{...env.executionBasis,basisRef:'basis://source'},sourceResult:{eventId:'source-result',runId:'run://source',graphCallId:old.graphCallId},sourceJudgment:{eventId:'source-judgment'},sourceClosedEvent:old};
++  const state={source:true,cover:true,current:true,impl:ids.implementationRef,declarationReads:0,reads:0};
++  const overrides={
++    './event_prefix.js':{selectValidatedRuntimeEventPrefix:rows=>rows===before?heldPrefix:selectValidatedRuntimeEventPrefix(rows)},
++    './event_store.js':{readRuntimeEventsAtDurablePrefix:(_p,options)=>{state.reads++;if(options?.requireCurrent&&!state.current)throw Error('stale occurrence');return before;},authenticateRuntimePrefixAncestry:()=>true,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h},
++    './project_read_ports.js':{projectClosedGraphCallTerminalAtDurablePrefix:(_p,_g,proof)=>{state.declarationReads++;return JSON.stringify(proof)===JSON.stringify(declaration)?{value:observation,
++      producer:{graphFunction:{ref:p.NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef},executionBasis:{ref:source.sourceBasis.basisRef},cCallRef:observation.provenance.cCallRef,resultAdmissionEventRef:source.sourceResult.eventId,judgmentAdmissionEventRef:source.sourceJudgment.eventId}}:null;}},
++    './invocation_execution_truth.js':{projectExactExecutionBasisAtPrefix:(_p,ref)=>ref===basis.basisRef?basis:ref===source.sourceBasis.basisRef?source.sourceBasis:null,
++      projectExactInvocationAdmissionAtPrefix:()=>({capabilityGrants:[request.capabilityGrant]})},
++    './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:()=>({kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding})},
++    './worksite_revision.js':{projectWorksiteRevisionBindingCover:()=>state.cover?[]:null},
++    './c_call.js':{projectOpenedCCallCarrierAtPrefix:()=>({...call,implementationRef:state.impl})},
++    './execution_basis.js':{rehydrateAdmittedImplementationSetAtPrefix:()=>({implementationSetDigest:basis.rootImplementationSetDigest,rows:[call]})},
++    './native_worksite_execution.js':{projectNativeWorkCommandSourceAtPrefix:()=>state.source?source:null},
++  };
++  const {SourceTextModule,SyntheticModule}=await import('node:vm');
++  async function load(file,extra={},names=[]) {const module=new SourceTextModule(fs.readFileSync(file,'utf8')+(names.length?'\nexport { '+names.join(',')+' };':''),{identifier:file});await module.link(async spec=>{
++    const actual=await import(spec.startsWith('node:')?spec:pathToFileURL(path.resolve(path.dirname(file),spec)).href),values={...actual,...overrides[spec],...extra[spec]};
++    return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await module.evaluate();return module.namespace;}
++  const owner=await load(path.resolve('build/code/src/abg/native_work_reacquisition.js'));
++  const implementation=await load(path.resolve('build/code/src/implementation/native_work_reacquisition.js'),{'../abg/native_work_reacquisition.js':owner});
++  const builtin=await load(path.resolve('build/code/src/product/builtin_semantics.js'),{'../abg/native_work_reacquisition.js':owner});
++  const leaf=await load(path.resolve('build/code/src/implementation/leaf_invocation_port.js'),{'../abg/native_work_reacquisition.js':owner},['nativeLeafProofOperations','nativeJudgmentProofOperations']);
++  const task=p.constructNativeWorksiteCommandExecutionTask({...request,sourceReacquisition:{request,nativeBasis,bindingCoverEventRefs:[]}});
++  const evidence=event('c_call_evidenced',4,{cCallRef:call.cCallRef,evidenceRef:'evidence://prepare',evidenceClass:'deterministic',contractRef:call.evidenceContractRef,
++    implementationRef:ids.implementationRef,inputDigest:hash(request),outputDigest:hash(task)},{aggregateId:call.cCallRef,causationEventRefs:[fibre.eventId]});
++  const resultBody={cCallRef:call.cCallRef,contractRef:call.outputContractRef,resultClass:'success',valueKind:task.kind,value:task,valueDigest:hash(task),evidenceRefs:[evidence.payload.evidenceRef]};
++  const result=event('c_call_result_admitted',5,{...resultBody,resultRef:'result://abiogenesis/'+hash(resultBody).slice(7),resultDigest:hash(resultBody)},
++    {aggregateId:call.cCallRef,causationEventRefs:[evidence.eventId]});
++  const judgmentBody={cCallRef:call.cCallRef,contractRef:call.judgmentContractRef,judgment:'advance',reasonRef:ids.predicateRef,predicateRef:ids.predicateRef,resultRef:result.payload.resultRef,resultDigest:result.payload.resultDigest};
++  const judgment=event('c_call_judged',6,{...judgmentBody,judgmentRef:'judgment://abiogenesis/'+hash(judgmentBody).slice(7),judgmentDigest:hash(judgmentBody)},
++    {aggregateId:call.cCallRef,causationEventRefs:[result.eventId]});
++  const parentBasis={...basis,basisRef:'basis://parent'},parentCCallRef='c-call://parent';
++  const parent=event('c_call_opened',7,{callClass:'workflow',childGraphFunctionRef:p.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef},{aggregateId:parentCCallRef,basisId:parentBasis.basisRef});
++  const events=deepFreeze([...before,evidence,result,judgment,parent]);
++  return {owner,implementation,builtin,leaf,request,task,declaration,resource,nativeBasis,call,basis,state,events,coordinate,source,
++    input:{parentBasis,parentCCallRef,runId:call.runId,task},project:rows=>owner.projectReacquiredNativeWorkCommandSourceAtPrefix(selectValidatedRuntimeEventPrefix(deepFreeze(rows)),{parentBasis,parentCCallRef,runId:call.runId,task})};
++}
++
++test('reference preparation resolves exact dependencies in leaf and builtin fallbacks before warm reuse',async t=>{
++  const f=await declarationFixture(t),occurrence={cCallRef:f.call.cCallRef,nativeWorkReacquisitionBasis:f.nativeBasis};
++  assert.equal(f.owner.authenticateNativeWorkReacquisition(f.nativeBasis,f.request),null);
++  const candidate=await f.implementation.prepareNativeWorksiteCommandReacquisition(f.request,occurrence,undefined,undefined,undefined,f.resource);
++  assert.deepEqual(candidate.resultCandidate,f.task);assert.equal(f.state.declarationReads,1);
++  const relation=f.builtin.ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS.resolveJudgmentRelation(ids.predicateRef);
++  assert.equal(relation.evaluate(f.request,f.task,undefined,undefined,f.resource),true);
++  assert.equal(f.state.declarationReads,1,'same immutable dependency reuses establishment');
++  const leafProof=f.leaf.nativeLeafProofOperations(ids.implementationRef,f.request,occurrence,f.resource);
++  assert.deepEqual(leafProof.nativeWorkReacquisition(f.request,occurrence).task,f.task);
++  assert.throws(()=>leafProof.nativeWorkReacquisition(structuredClone(f.request),occurrence));
++  assert.equal(f.leaf.nativeJudgmentProofOperations(ids.predicateRef,f.request,f.task,undefined,f.resource).nativeWorkReacquisition(),true);
++  for(const resource of [undefined,{...f.resource,declarationDependencies:[]},{...f.resource,declarationDependencies:[f.declaration,f.declaration]},
++    {...f.resource,declarationDependencies:[{...f.declaration,catalogView:{...f.declaration.catalogView,viewDigest:hash('crossed')}}]}]) {
++    assert.equal(f.owner.authenticateNativeWorkReacquisition(f.nativeBasis,f.request,false,resource),null);
++    assert.equal(relation.evaluate(f.request,f.task,undefined,undefined,resource),false);
++    assert.equal(f.leaf.nativeLeafProofOperations(ids.implementationRef,f.request,occurrence,resource).nativeWorkReacquisition(f.request,occurrence),null);
++    assert.equal(f.leaf.nativeJudgmentProofOperations(ids.predicateRef,f.request,f.task,undefined,resource).nativeWorkReacquisition(),false);
++    await assert.rejects(f.implementation.prepareNativeWorksiteCommandReacquisition(f.request,occurrence,undefined,undefined,undefined,resource));
++  }
++  const altered={...f.resource,declarationDependencies:[{...f.declaration,catalog:{...f.declaration.catalog,readinessBasis:{retained:'crossed bytes'}}}]};
++  assert.equal(relation.evaluate(f.request,f.task,undefined,undefined,altered),false,'equal selectors do not substitute different proof bodies');
++  f.state.current=false;
++  await assert.rejects(f.implementation.prepareNativeWorksiteCommandReacquisition(f.request,occurrence,undefined,undefined,undefined,f.resource));
++  f.state.current=true;fs.writeFileSync(path.join(f.request.workspaceAuthorityBasis.canonicalRoot,'source.txt'),'changed after preparation');
++  await assert.rejects(f.implementation.prepareNativeWorksiteCommandReacquisition(f.request,occurrence,undefined,undefined,undefined,f.resource));
++});
++
++test('cold admitted preparation consumes Result/J without declaration resolution or history reread',async t=>{
++  const f=await declarationFixture(t),cold=()=>JSON.parse(JSON.stringify(f.events));
++  assert.deepEqual(f.project(cold()),f.source);
++  assert.equal(f.state.declarationReads,0);assert.equal(f.state.reads,0);
++  assert.equal(f.project(cold().slice(0,4)),null,'before Result');
++  assert.equal(f.project(cold().slice(0,5)),null,'before judgment');
++  for(const alter of [rows=>rows[3].payload.inputDigest=hash('crossed input'),rows=>rows[3].payload.outputDigest=hash('crossed output'),
++    rows=>rows[3].payload.implementationRef='implementation://foreign',rows=>rows[4].aggregateId='c-call://foreign',
++    rows=>rows[5].causationEventRefs=[],rows=>rows[5].payload.judgment='refuse',rows=>rows[6].payload.childGraphFunctionRef='graph-function://foreign']) {
++    const rows=cold();alter(rows);assert.equal(f.project(rows),null);
++  }
++  f.state.source=false;assert.equal(f.project(cold()),null);f.state.source=true;
++  f.state.cover=false;assert.equal(f.project(cold()),null);f.state.cover=true;
++  f.state.impl='implementation://foreign';assert.equal(f.project(cold()),null);
++});
++
++test('inline request and task identities remain unchanged through cold admitted consumption',async t=>{
++  const f=await declarationFixture(t,true),request=JSON.parse(JSON.stringify(f.request));
++  assert.deepEqual(p.constructNativeWorksiteCommandReacquisitionRequest(request),f.request);
++  assert(p.isNativeWorksiteCommandReacquisitionRequest(request));
++  assert.deepEqual(f.project(JSON.parse(JSON.stringify(f.events))),f.source);
++  assert.equal(f.state.declarationReads,0);assert.equal(f.state.reads,0);
++  assert.equal(f.owner.nativeWorkReacquisitionResultMatches(request,f.task),true);
++  assert.equal(f.state.declarationReads,1,'new establishment still needs the original inline proof');
++});
+ let loaded;
+ function actual(){
+   if(loaded)return loaded;
+@@ -91,77 +228,6 @@ test('actual source rejects absent child, foreign provenance, changed context an
+   assert.equal(reacquire.projectNativeWorkReacquisitionTask(a.coordinate,uncovered,a.nativeBasis),null);
+ });
+ 
+-// Execute the exact compiled new owner with explicit current-owner lookup
+-// premises. Historical child/current files are checked above against the real
+-// resource. These synthetic new CCalls are not admitted events or installed proof.
+-async function currentOwnerFixture(){
+-  const { SourceTextModule,SyntheticModule }=await import('node:vm');
+-  const a=actual(),sourceTask=p.constructNativeWorksiteCommandExecutionTask(a.request),source=projectNativeWorkCommandSourceAtPrefix(a.prefix,sourceTask);assert(source);
+-  const {coordinateDigest,...pb}=a.coordinate,body={...pb,prefixLength:pb.prefixLength+1,prefixDigest:hash('current lookup only')};
+-  const coordinate={...body,coordinateDigest:hash(body)},nativeBasis={predecessorPrefix:coordinate,cCallRef:'c-call://reacquisition/current-lookup'};
+-  const gf=gtl.nativeWorkReacquisitionGraphFunction();
+-  const execution={...source.sourceBasis,basisRef:'execution-basis://reacquisition/current-lookup',basisDigest:hash('current execution'),
+-    invocationAdmissionRef:'invocation-admission://reacquisition/current-lookup',invocationRef:'invocation://reacquisition/current-lookup',
+-    rootImplementationSetRef:'implementation-set://reacquisition/current-lookup',rootImplementationSetDigest:hash('current set'),
+-    graphFunctionRef:gf.name,graphFunctionDigest:hash(gf),rawInputValue:a.request,rawInputDigest:hash(a.request)};
+-  const graph=gtl.materializeGraph(gf,{invocationAdmissionRef:execution.invocationAdmissionRef,admittedInputRef:execution.rawInputAdmissionRef,
+-    admittedInputDigest:execution.rawInputDigest,admittedInput:a.request});
+-  Object.assign(execution,{graphRef:graph.materializationRef,graphDigest:graph.materializationDigest});
+-  const call={cCallRef:nativeBasis.cCallRef,basisId:execution.basisRef,runId:'run://reacquisition/current-lookup',callClass:'leaf',regime:'F_D',
+-    implementationRef:ids.implementationRef,implementationBindingRef:ids.implementationBindingRef,graphFunctionRef:gf.name,programLocusRef:ids.nodeRef,
+-    inputContractRef:ids.requestContractRef,outputContractRef:p.WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef};
+-  const events=[{kind:'c_call_opened',aggregateId:call.cCallRef,basisId:execution.basisRef}],prefix={events};
+-  let sourceCurrent=true,coverCurrent=true,occurrenceCurrent=true,ownerImpl=ids.implementationRef;
+-  const overrides={
+-    './event_store.js':{readRuntimeEventsAtDurablePrefix:(_p,opts)=>{if(opts?.requireCurrent&&!occurrenceCurrent)throw Error('stale occurrence');return events;},authenticateRuntimePrefixAncestry:()=>true,reidentifyHistoricalDurablePrefixCoordinate:(_current,historical)=>historical},
+-    './event_prefix.js':{selectValidatedRuntimeEventPrefix:events=>({events}),runtimeEventsFromValidatedPrefix:p=>p.events,
+-      runtimePrefixComputation:(_prefix,_key,construct)=>construct()}, // Mutable lookup fixture supplies no retained owner lineage.
+-    './project_read_ports.js':{projectClosedGraphCallTerminalAtDurablePrefix:()=>({value:a.source,producer:{graphFunction:{ref:p.NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef},
+-      executionBasis:{ref:source.sourceBasis.basisRef},cCallRef:a.source.provenance.cCallRef,resultAdmissionEventRef:a.result.eventId,judgmentAdmissionEventRef:source.sourceJudgment.eventId}})},
+-    './invocation_execution_truth.js':{projectExactExecutionBasisAtPrefix:(_p,ref)=>ref===execution.basisRef?execution:ref===source.sourceBasis.basisRef?source.sourceBasis:null,
+-      projectExactInvocationAdmissionAtPrefix:()=>({capabilityGrants:[a.request.capabilityGrant]})},
+-    './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:()=>({kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:a.request.workspaceAuthorityBasis,workspaceBinding:a.request.workspaceBinding})},
+-    './worksite_revision.js':{projectWorksiteRevisionBindingCover:()=>coverCurrent?[]:null},
+-    './c_call.js':{projectOpenedCCallCarrierAtPrefix:()=>({...call,implementationRef:ownerImpl}),projectCCallCarrierPhaseAtPrefix:()=>({phase:'selected_no_evidence'})},
+-    './execution_basis.js':{rehydrateAdmittedImplementationSetAtPrefix:()=>({implementationSetDigest:execution.rootImplementationSetDigest,rows:[call]})},
+-    './native_worksite_execution.js':{projectNativeWorkCommandSourceAtPrefix:()=>sourceCurrent?source:null},
+-  };
+-  async function load(file,extra={}){
+-    const module=new SourceTextModule(fs.readFileSync(file,'utf8'),{identifier:file});
+-    await module.link(async spec=>{
+-      const native=await import(spec.startsWith('node:')?spec:pathToFileURL(path.resolve(path.dirname(file),spec)).href),values={...native,...overrides[spec],...extra[spec]};
+-      return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});
+-    });await module.evaluate();return module.namespace;
+-  }
+-  const owner=await load(path.resolve('build/code/src/abg/native_work_reacquisition.js'));
+-  const implementation=await load(path.resolve('build/code/src/implementation/native_work_reacquisition.js'),{'../abg/native_work_reacquisition.js':owner});
+-  return {a,source,owner,implementation,nativeBasis,call,execution,events,prefix,
+-    setSource:v=>{sourceCurrent=v;},setCover:v=>{coverCurrent=v;},setCurrent:v=>{occurrenceCurrent=v;},setImpl:v=>{ownerImpl=v;}};
+-}
+-test('current F_D owner prepares the original result and C2 requires its admitted advancing handoff',{skip:!actualRoot},async()=>{
+-  const h=await currentOwnerFixture(),occurrence={cCallRef:h.call.cCallRef,nativeWorkReacquisitionBasis:h.nativeBasis};
+-  const result=await h.implementation.prepareNativeWorksiteCommandReacquisition(h.a.request,occurrence),task=result.resultCandidate;
+-  assert.equal(result.disposition,'success');assert.deepEqual(task.sourceNativeWork,h.a.source);
+-  assert.equal(result.evidenceCandidates[0].kind,'deterministic_evidence_candidate');
+-  assert.equal(h.owner.nativeWorkReacquisitionResultMatches(h.a.request,task),true);
+-  assert.equal(h.owner.nativeWorkReacquisitionResultMatches({...h.a.request,requestDigest:hash('foreign')},task),false);
+-  const parent={...h.execution,basisRef:'execution-basis://reacquisition/parent'};
+-  const input={parentBasis:parent,parentCCallRef:'c-call://reacquisition/c2-workflow',runId:h.call.runId,task};
+-  assert.equal(h.owner.projectReacquiredNativeWorkCommandSourceAtPrefix(h.prefix,input),null,'task alone cannot supply preparation admission');
+-  const admitted={kind:'c_call_result_admitted',aggregateId:h.call.cCallRef,basisId:h.execution.basisRef,runId:h.call.runId,eventId:'lookup:result',admissionOrdinal:2,
+-    payload:{resultClass:'success',value:task,valueDigest:hash(task),resultRef:'result://lookup',resultDigest:hash('lookup-result')}};
+-  const judged={kind:'c_call_judged',aggregateId:h.call.cCallRef,basisId:h.execution.basisRef,runId:h.call.runId,eventId:'lookup:judgment',admissionOrdinal:3,
+-    causationEventRefs:[admitted.eventId],payload:{judgment:'advance',resultRef:admitted.payload.resultRef,resultDigest:admitted.payload.resultDigest}};
+-  h.events.push(admitted,judged,{kind:'c_call_opened',aggregateId:input.parentCCallRef,basisId:parent.basisRef,runId:h.call.runId,admissionOrdinal:4,
+-    payload:{callClass:'workflow',childGraphFunctionRef:p.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef}});
+-  assert.equal(h.owner.projectReacquiredNativeWorkCommandSourceAtPrefix(h.prefix,input),h.source);
+-  judged.payload.judgment='refuse';assert.equal(h.owner.projectReacquiredNativeWorkCommandSourceAtPrefix(h.prefix,input),null);judged.payload.judgment='advance';
+-  h.setSource(false);assert.equal(h.owner.projectReacquiredNativeWorkCommandSourceAtPrefix(h.prefix,input),null);h.setSource(true);
+-  h.setCover(false);assert.equal(h.owner.projectReacquiredNativeWorkCommandSourceAtPrefix(h.prefix,input),null);h.setCover(true);
+-  h.setCurrent(false);await assert.rejects(h.implementation.prepareNativeWorksiteCommandReacquisition(h.a.request,occurrence));h.setCurrent(true);
+-  h.setImpl('implementation://foreign');await assert.rejects(h.implementation.prepareNativeWorksiteCommandReacquisition(h.a.request,occurrence));
+-  await assert.rejects(h.implementation.prepareNativeWorksiteCommandReacquisition(h.a.request,{cCallRef:h.call.cCallRef}));
+-});
+ test('later admitted failure invalidates full reacquired context beyond the C2 snapshot subset',{skip:!actualRoot},async()=>{
+   const a=actual(),{projectRuntimeEventFromValidatedHistory}=await import('../../build/code/src/abg/event_store.js');
+   const {deepFreeze}=await import('../../build/code/src/shared/immutable.js');

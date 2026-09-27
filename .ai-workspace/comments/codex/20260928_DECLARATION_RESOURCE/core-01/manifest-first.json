@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "scripts/generate-product-manifest.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "elapsedSeconds": 0.23250924982130527,
+  "exitCode": 1,
+  "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderrSha256": "eccaf0ee627b450285297fdaf558369e8c1b4a58b54f8052e9d1f9fe8d0ece95"
+}

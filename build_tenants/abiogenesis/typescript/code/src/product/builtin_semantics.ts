@@ -306,9 +306,10 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
     (predicateRef === reacquireIds.predicateRef ? Object.freeze({ predicateRef,
       advanceReasonRef: "reason://abiogenesis/worksite/native-reacquisition/current@5",
       rejectionReasonRef: "reason://abiogenesis/worksite/native-reacquisition/unjoined@5",
-      evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: import("../abg/event_store.js").DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations) =>
+      evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: import("../abg/event_store.js").DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations,
+        historicalSource?: import("../abg/terminal_result_contracts.js").AbgHistoricalGraphCallSourceResource) =>
         nativeProof?.nativeWorkReacquisition !== undefined ? nativeProof.nativeWorkReacquisition()
-          : nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix) }) : null) ??
+          : nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix, historicalSource) }) : null) ??
     resolveNativeWorkspaceWorkJudgmentRelation(predicateRef) ?? resolveWorksiteCommandForwardJudgmentRelation(predicateRef) ??
       resolveConformanceJudgmentRelation(predicateRef) ??
       resolveWorksitePreservedResultJudgmentRelation(predicateRef) ?? resolveWorksiteC0JudgmentRelation(predicateRef) ??

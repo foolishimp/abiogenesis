@@ -186,8 +186,8 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
     resolveJudgmentRelation: (predicateRef) => (predicateRef === reacquireIds.predicateRef ? Object.freeze({ predicateRef,
         advanceReasonRef: "reason://abiogenesis/worksite/native-reacquisition/current@5",
         rejectionReasonRef: "reason://abiogenesis/worksite/native-reacquisition/unjoined@5",
-        evaluate: (input, output, currentOwnerPrefix, nativeProof) => nativeProof?.nativeWorkReacquisition !== undefined ? nativeProof.nativeWorkReacquisition()
-            : nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix) }) : null) ??
+        evaluate: (input, output, currentOwnerPrefix, nativeProof, historicalSource) => nativeProof?.nativeWorkReacquisition !== undefined ? nativeProof.nativeWorkReacquisition()
+            : nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix, historicalSource) }) : null) ??
         resolveNativeWorkspaceWorkJudgmentRelation(predicateRef) ?? resolveWorksiteCommandForwardJudgmentRelation(predicateRef) ??
         resolveConformanceJudgmentRelation(predicateRef) ??
         resolveWorksitePreservedResultJudgmentRelation(predicateRef) ?? resolveWorksiteC0JudgmentRelation(predicateRef) ??

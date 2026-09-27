@@ -1,0 +1,62 @@
+(node:19905) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ six current owner outputs preserve the same admitted terminal carrier and the 18/56 Public roster (260.825792ms)
+✔ legal I-JSON null is not absence (pure carrier and replay-row selection, not a new admitted result) (0.141541ms)
+✔ held/failed/missing terminal truth cannot become a completed Product result (0.224375ms)
+✔ read before Run close is not_ready while the actually closed root GraphCall is independently readable (131.072958ms)
+✔ whole-prefix typed replay summary is conserved on first and empty-end pages; invalid offsets and arithmetic refuse (0.238958ms)
+✔ scope and packet crossings refuse; root does not accept a caller declarationProof field (95.530167ms)
+✔ Run reads validate selected liveness while workspace replay retains the complete calculus (114.900708ms)
+✔ native CCall owner rejects altered value, contract, producer, judgment and pre-result prefix without test-owned admission (3.935834ms)
+✔ the shared mapper rejects crossed result aliases and keeps failed-command observation data verbatim (63.219916ms)
+(node:19928) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ actual R10 ancestry, declaration and leaf proof owners return borrowed historical facts; same live resource resolves once and cold copies reconstruct (10864.930333ms)
+ℹ {"kind":"historical_source_resource_component","catalogResolutions":11,"retainedFixtureBytes":13540472,"historicalProofBytes":8356527,"resourceSelectionBytes":2280,"borrowedAncestor":true,"liveIdentityReuse":true,"coldReconstruction":true,"originalHistoryRead":false,"installedProof":false}
+✔ Run resource schema admits the one declaration dependency and refuses extra authority before owner effects (31.91825ms)
+✔ reacquisition constructor has exactly its ordinary normalized publication identity (1.748417ms)
+✖ actual historical pre-result occurrence authenticates with unchanged source and all current physical context (0.320459ms)
+(node:20032) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ reference preparation resolves exact dependencies in leaf and builtin fallbacks before warm reuse (42.067708ms)
+✔ cold admitted preparation consumes Result/J without declaration resolution or history reread (40.205417ms)
+✔ inline request and task identities remain unchanged through cold admitted consumption (14.758417ms)
+✔ reacquisition publishes one ordinary F_D with existing C2 output and native owner semantics (3.555208ms)
+﹣ actual closed child survives blocked parent without acquiring closed-Run source authority (0.034ms) # SKIP
+﹣ actual source rejects absent child, foreign provenance, changed context and uncovered authority (0.033334ms) # SKIP
+﹣ later admitted failure invalidates full reacquired context beyond the C2 snapshot subset (0.037917ms) # SKIP
+✔ native C2 selects changed and unchanged files without acquiring C1 identity (21.594792ms)
+✔ native C2 refuses missing, duplicate, crossed and counterfeit source selections (10.6275ms)
+✔ changed physical source refuses before archive publication or native dispatch (6.517125ms)
+﹣ retained actual native producer joins C2 source admission; absent and foreign origins refuse (0.05275ms) # SKIP
+﹣ native source currentness includes admitted failed-write residue after the child basis cut (0.028958ms) # SKIP
+✔ same published task is a lawful root output and unchanged C2 input; reserved contracts and crossed identities refuse (21.926ms)
+﹣ retained refused Public input crosses only the corrected production contract boundary (0.044ms) # SKIP
+ℹ tests 27
+ℹ suites 0
+ℹ pass 20
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 6
+ℹ todo 0
+ℹ duration_ms 13530.534584
+
+✖ failing tests:
+
+test at test_env/tests/t287-native-work-reacquisition-normalization.test.mjs:21:1
+✖ actual historical pre-result occurrence authenticates with unchanged source and all current physical context (0.320459ms)
+  AssertionError [ERR_ASSERTION]: explicit retained continuation root is required; this check never admits or executes a Run
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs:23:9)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

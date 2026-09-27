@@ -391,7 +391,8 @@ export interface LeafInvocationPort {
     readonly predicateRef: string;
     readonly advanceReasonRef: string;
     readonly rejectionReasonRef: string;
-    readonly evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations) => boolean;
+    readonly evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations,
+      historicalSource?: import("../abg/terminal_result_contracts.js").AbgHistoricalGraphCallSourceResource) => boolean;
   }> | null;
   readonly validateResultEvidenceLineage: (
     outputContractRef: string,

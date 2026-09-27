@@ -1,0 +1,18 @@
+{
+  "path": "code/src/gtl/worksite_command_execution.ts",
+  "before": {
+    "digest": "sha256:43451ebc4b5458acc2a8e711771a1e2b7baa3e29a4c9ab39bf1d56889cd2b6ef",
+    "byteCount": 106106,
+    "startByte": 96161,
+    "endByte": 98469,
+    "spanDigest": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345"
+  },
+  "after": {
+    "digest": "sha256:34f258643c96c5c1c9863b740d544db7e6b36cb98b7cbc7b6f68a6b788d7a9af",
+    "byteCount": 106418,
+    "startByte": 96473,
+    "endByte": 98781,
+    "spanDigest": "sha256:10916fee7c20d82621f49651753d134eb66631cd4872531b8cb635ffa2367345"
+  },
+  "rendererUnchanged": true
+}

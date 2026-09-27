@@ -138,8 +138,13 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
                     source: Readonly<{
                         prefix: import("./event_store.js").DurablePrefixCoordinate;
                         graphCallRef: string;
+                    } & ({
                         declarationProof: import("./terminal_result_contracts.js").AbgHistoricalDeclarationProof;
-                    }>;
+                        declarationReference?: never;
+                    } | {
+                        declarationReference: import("./terminal_result_contracts.js").AbgHistoricalDeclarationReference;
+                        declarationProof?: never;
+                    })>;
                     workspaceBinding: import("../index.js").WorkspaceBinding;
                     capabilityGrant: import("../index.js").CapabilityGrant;
                     commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommandInput[];
@@ -347,8 +352,13 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
                     source: Readonly<{
                         prefix: import("./event_store.js").DurablePrefixCoordinate;
                         graphCallRef: string;
+                    } & ({
                         declarationProof: import("./terminal_result_contracts.js").AbgHistoricalDeclarationProof;
-                    }>;
+                        declarationReference?: never;
+                    } | {
+                        declarationReference: import("./terminal_result_contracts.js").AbgHistoricalDeclarationReference;
+                        declarationProof?: never;
+                    })>;
                     workspaceBinding: import("../index.js").WorkspaceBinding;
                     capabilityGrant: import("../index.js").CapabilityGrant;
                     commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommandInput[];
@@ -556,8 +566,13 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
                     source: Readonly<{
                         prefix: import("./event_store.js").DurablePrefixCoordinate;
                         graphCallRef: string;
+                    } & ({
                         declarationProof: import("./terminal_result_contracts.js").AbgHistoricalDeclarationProof;
-                    }>;
+                        declarationReference?: never;
+                    } | {
+                        declarationReference: import("./terminal_result_contracts.js").AbgHistoricalDeclarationReference;
+                        declarationProof?: never;
+                    })>;
                     workspaceBinding: import("../index.js").WorkspaceBinding;
                     capabilityGrant: import("../index.js").CapabilityGrant;
                     commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommandInput[];

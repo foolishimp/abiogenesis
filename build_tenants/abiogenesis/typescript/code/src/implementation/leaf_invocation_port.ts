@@ -423,6 +423,7 @@ function preimageRefusal(
 // declared realization/relation without acquiring a second copy of its history.
 function nativeLeafProofOperations(
   implementationRef: string, value: unknown, occurrence: LeafExecutionOccurrence,
+  historicalSource?: AbgHistoricalGraphCallSourceResource,
 ): Readonly<NativeLeafProofOperations> {
   const exact = (input: unknown, supplied: LeafExecutionOccurrence) => {
     if (input !== value || supplied !== occurrence) throw new TypeError("native proof operation differs from its exact admitted input/occurrence");
@@ -446,7 +447,7 @@ function nativeLeafProofOperations(
         } } : {}),
     ...(implementationRef === reacquireIds.implementationRef && native?.cCallRef === occurrence.cCallRef
       ? { nativeWorkReacquisition: (input: unknown, supplied: LeafExecutionOccurrence) => {
-          exact(input, supplied); return authenticateNativeWorkReacquisition(native, value, true);
+          exact(input, supplied); return authenticateNativeWorkReacquisition(native, value, true, historicalSource);
         } } : {}),
   });
 }
@@ -466,7 +467,7 @@ function nativeJudgmentProofOperations(
   const historical = historicalSource === undefined ? {} : { historicalGraphCallSource: () =>
     currentOwnerPrefix === undefined ? null : projectHistoricalGraphCallSourceAtDurablePrefix(currentOwnerPrefix, historicalSource) };
   if (predicateRef === reacquireIds.predicateRef) return Object.freeze({ ...historical,
-    nativeWorkReacquisition: () => nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix),
+    nativeWorkReacquisition: () => nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix, historicalSource),
   });
   if (predicateRef === qualificationIds.verdictPredicate) return Object.freeze({ ...historical,
     qualificationVerdict: () => {
@@ -503,6 +504,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
     value: Readonly<Record<string, JsonValue>>,
   ) => Readonly<WorkerContracts> | null;
   occurrence: Readonly<LeafExecutionOccurrence>;
+  historicalSource?: AbgHistoricalGraphCallSourceResource;
   loadImplementation: () => Promise<unknown>;
 }>): Promise<Readonly<LeafInvocationOwnerResult>> {
   const { resolution, inputDigest, failureValueKind } = input;
@@ -598,7 +600,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
         input.occurrence,
         resolution,
         inputDigest,
-        nativeLeafProofOperations(resolution.implementationRef, input.value, input.occurrence),
+        nativeLeafProofOperations(resolution.implementationRef, input.value, input.occurrence, input.historicalSource),
       );
     } catch {
       return closedDeterministicOwnerReceipt(
@@ -1543,6 +1545,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           admittedResolution.implementationRef === nativeIds.implementationRef || isWorksiteFileReplaceRequest(call.input) || isWorksiteFileParentsRequest(call.input) ||
           call.occurrence.executionAuthority !== null;
         return invokeLeafOwnerBoundary({
+          ...(authority.historicalSource === undefined ? {} : { historicalSource: authority.historicalSource }),
           resolution: admittedResolution,
           value: call.input,
           inputDigest: call.inputDigest,

@@ -1,6 +1,7 @@
 import { isDeepStrictEqual } from "node:util";
 import { validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
-import { isAbgHistoricalDeclarationProof, type AbgHistoricalDeclarationProof } from "../abg/terminal_result_contracts.js";
+import { isAbgHistoricalDeclarationProof, isAbgHistoricalDeclarationReference,
+  type AbgHistoricalDeclarationProof, type AbgHistoricalDeclarationReference } from "../abg/terminal_result_contracts.js";
 import { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
 import { isRecord, hasNulJoinedFields as exactKeys } from "../shared/admission_predicates.js";
 import {
@@ -333,7 +334,10 @@ export interface NativeWorksiteCommandReacquisitionRequest extends Omit<NativeWo
   readonly kind: "native_worksite_command_reacquisition_request";
   readonly schemaVersion: "5.0.0";
   readonly requestRef: string; readonly requestDigest: Sha256Digest;
-  readonly source: Readonly<{ prefix: DurablePrefixCoordinate; graphCallRef: string; declarationProof: AbgHistoricalDeclarationProof }>;
+  readonly source: Readonly<{ prefix: DurablePrefixCoordinate; graphCallRef: string } & (
+    { declarationProof: AbgHistoricalDeclarationProof; declarationReference?: never } |
+    { declarationReference: AbgHistoricalDeclarationReference; declarationProof?: never }
+  )>;
   /** Full existing read scope, not only the selected C2 snapshot sources. */
   readonly currentContext: WorksiteContextObservation;
 }
@@ -345,7 +349,11 @@ export interface NativeWorksiteCommandReacquisition {
 function nativeReacquisitionBody(input: Omit<NativeWorksiteCommandReacquisitionRequest, "kind" | "schemaVersion" | "requestRef" | "requestDigest">) {
   const { source, currentContext, sourceNativeWork: original } = input;
   if (!source || !validateDurablePrefixCoordinate(source.prefix) || typeof source.graphCallRef !== "string" || source.graphCallRef.length === 0 ||
-      !isAbgHistoricalDeclarationProof(source.declarationProof) || !isNativeWorkspaceWorkObservation(original) || original.task.assessment !== undefined ||
+      !(source.declarationReference === undefined
+        ? isAbgHistoricalDeclarationProof(source.declarationProof)
+        : source.declarationProof === undefined && exactKeys(source, ["prefix", "graphCallRef", "declarationReference"]) &&
+          isAbgHistoricalDeclarationReference(source.declarationReference)) ||
+      !isNativeWorkspaceWorkObservation(original) || original.task.assessment !== undefined ||
       !exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) || !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) ||
       !same(original.task.workspaceAuthorityBasis, input.workspaceAuthorityBasis) || !isWorksiteContextObservation(currentContext) ||
       currentContext.workspaceBindingIdentity !== input.workspaceBinding.bindingId || currentContext.workspaceBindingDigest !== input.workspaceBinding.bindingDigest ||

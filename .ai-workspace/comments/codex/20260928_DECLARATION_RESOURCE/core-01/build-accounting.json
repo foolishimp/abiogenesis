@@ -1,0 +1,58 @@
+{
+  "phases": {
+    "manifest": {
+      "command": [
+        "node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "elapsedSeconds": 12.446443959139287,
+      "exitCode": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "pack": {
+      "command": [
+        "npm",
+        "pack",
+        "--ignore-scripts",
+        "--json",
+        "--pack-destination",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/artifacts"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "elapsedSeconds": 3.1723618330433965,
+      "exitCode": 0,
+      "stdoutSha256": "22a9323506601d424e6685e7a55f4aed92862ce9eb7312e12b99c1d26c9c60d2",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "bootstrap-install": {
+      "command": [
+        "npm",
+        "install",
+        "--offline",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-fund",
+        "--package-lock=false",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/bootstrap",
+      "elapsedSeconds": 2.103279000148177,
+      "exitCode": 0,
+      "stdoutSha256": "da13ab9d025b19c91553bc7d4c450975d3e4e36dd7c5fef6f223f8008ba39547",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "archive": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:a0e7f50fd7a95d65480635fbb649575d3d94722338bc002c1038b8058a5b8dc9",
+    "archiveBytes": 10196486,
+    "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/bootstrap/node_modules/@abiogenesis/typescript-tenant",
+    "bootstrapRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/bootstrap",
+    "archiveMembers": 5233
+  },
+  "interpretation": "Build/pack/bootstrap costs, not graph execution or file-copy-only timings. Manifest phase constructs and verifies Product inventories/contracts over the emitted package. Internal CPU attribution is not measured. Existing INSTALL-VERIFY-COMPUTE-01/CALCULUS-SETUP-VOLUME-01 own further build attribution if it obstructs delivery.",
+  "contextMemberRepair": "source-binding-refresh.json records unchanged renderer policy and mechanically refreshed member/span coordinates",
+  "secondCompileExitCode": 0
+}

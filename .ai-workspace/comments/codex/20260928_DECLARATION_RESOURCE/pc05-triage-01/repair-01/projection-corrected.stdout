@@ -1,0 +1,49 @@
+{
+  "status": "pure_declaration_projection_passed",
+  "coreRoot": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-01/products/core47/node_modules/@abiogenesis/typescript-tenant",
+  "projection": [
+    {
+      "graphFunctionRef": "graph-function://odd-glc/program-construction/construction-child@5",
+      "priorDigest": "sha256:1cc08444a008d14d68682d6572e62958890f803bed5a7e96c29eae1eb791df6a",
+      "currentDigest": "sha256:0bc50ab4dae2c53f0293ef4681c200409046de33d6620ed291ff90dfb8da0bf1",
+      "localExecutableRowCount": 0,
+      "failureContractRef": "contract://odd-glc/program-construction/failure@5",
+      "failureContractKind": "failure",
+      "closureRejectionRef": "contract://odd-glc/program-construction/failure@5",
+      "innerCalls": [
+        "graph-function://odd-glc/program-construction/prepare-native-task@5",
+        "graph-function://abiogenesis/worksite/native-work@5",
+        "graph-function://odd-glc/program-construction/join-native-output@5"
+      ]
+    },
+    {
+      "graphFunctionRef": "graph-function://odd-glc/program-construction/evaluation-child@5",
+      "priorDigest": "sha256:a959826c2a3842ad28820256f02150a7fb77380ee9a075b4764617e1d259d8ef",
+      "currentDigest": "sha256:606a152e983e2a7e180eeb6f707884c08c2fb0f2de41bd351dc7d954a97cf706",
+      "localExecutableRowCount": 0,
+      "failureContractRef": "contract://odd-glc/program-construction/failure@5",
+      "failureContractKind": "failure",
+      "closureRejectionRef": "contract://odd-glc/program-construction/failure@5",
+      "innerCalls": [
+        "graph-function://odd-glc/qualification/native-records@5",
+        "graph-function://odd-glc/program-construction/join-evaluation@5"
+      ]
+    },
+    {
+      "graphFunctionRef": "graph-function://odd-glc/program-construction/assessment-child@5",
+      "priorDigest": "sha256:4854af847fb9673b7e9d4d2016cd53f2a3ce3b77d3aa183be3b2788b32131efb",
+      "currentDigest": "sha256:9d16df840545af0eab0b705d3956c74d173f236bc8538bd454678a31ccace335",
+      "localExecutableRowCount": 0,
+      "failureContractRef": "contract://odd-glc/program-construction/failure@5",
+      "failureContractKind": "failure",
+      "closureRejectionRef": "contract://odd-glc/program-construction/failure@5",
+      "innerCalls": [
+        "graph-function://odd-glc/program-construction/prepare-assessment-task@5",
+        "graph-function://abiogenesis/worksite/native-work/assessment@5",
+        "graph-function://odd-glc/program-construction/join-assessment@5"
+      ]
+    }
+  ],
+  "elapsedMs": 2.279750000000007,
+  "limits": "Static publication/own-row relation only; no admitted ImplementationSet, workflow opening, failure foldback or installed execution is claimed."
+}

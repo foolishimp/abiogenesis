@@ -1,0 +1,26 @@
+{
+  "scope": "Closed large evidence only; expanded installations/caches are reproducible from selected archives and excluded. Extract at repository root to restore original locators. Files remain unchanged locally. Active successor excluded.",
+  "archive": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/checkpoint-01-large-evidence.tgz",
+  "archiveBytes": 10450838,
+  "archiveSha256": "8cf57a7b01407aed218c5e6ab6ac35c6513d0b80f0b9f6e4badf73a0af1bf502",
+  "members": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/archive-members.json",
+      "bytes": 928686,
+      "sha256": "8942372723c2ae4fb8cca56f6e1ff31c6c9461ec25b353a4d166b065280adfd5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10196486,
+      "sha256": "a0e7f50fd7a95d65480635fbb649575d3d94722338bc002c1038b8058a5b8dc9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/pack.stdout",
+      "bytes": 688758,
+      "sha256": "22a9323506601d424e6685e7a55f4aed92862ce9eb7312e12b99c1d26c9c60d2"
+    }
+  ],
+  "rawBytes": 11813930,
+  "verifiedEveryMember": true,
+  "elapsedSeconds": 0.25671158405020833
+}
