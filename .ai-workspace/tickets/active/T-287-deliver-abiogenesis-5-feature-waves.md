@@ -17,7 +17,7 @@
 - updated_at: 2026-09-27
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_GLC_PROGRAM_CONSTRUCTION_01
+- current_activation: T287_GLC_COMPLETION_DESIGN_01
 - current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46/selected-core.json
 - current_candidate_archive_sha256: e2c2d053528fca7dd0e4988ec50772cd8a12f058d35076119c99cf8c4e7adbfb
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46/return.md
@@ -26,7 +26,7 @@
 - current_candidate_scope: core46_catalog_order_correction_accepted_exact_package_verified_installed_construction_qualification_open
 - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/installed-04/return.md
 - current_live_execution_status: CLOSED_ACCEPTED_deterministic_evaluator_positive_and_wrong_origin_refusal_zero_actors_native44_preserved
-- current_activation_status: T043_bounded_evaluation_increment_accepted_remaining_original_construction_relation_and_comparison_open
+- current_activation_status: T043_evaluation_and_completion_HOW_accepted_realization_pending
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#program-construction-calculus-definition'
@@ -647,6 +647,21 @@ historical journal or repeat a valid author merely to expand local qualification
   and all prior evidence identities remain.
 
 ### Program-construction calculus definition
+
+- Current design disposition, 2026-09-27: the bounded independent whole-path
+  Design/Owner/Reuse review identified an incomplete consumer HOW. The corrected
+  HOW is now independently satisfied and Executive-accepted at SHA-256
+  `9dd3233fb54402c73970bbefcce44f3e31618d158bad393f4a47104c9ed1f83f`;
+  computed-evidence citations and future producer-output binding are explicit.
+  Existing
+  ABI native-work inputs/provenance suffice; no new ABI primitive is indicated.
+  [T-043 completion design re-entry](../../../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#completion-design-re-entry)
+  owns the exact design-only Worker grant. Program construction supersedes the
+  earlier proposed extra completion entry. Preserve accepted evaluator proof and
+  closed caller/catalog repairs. Implementation of this accepted relation and
+  its installed proof remain pending. Root's separate Writer checkpoint grant
+  covers this tracking projection and its commit/push only, returning to
+  Executive afterwards. No new runtime effect or release claim.
 
 - Current installed frontier, 2026-09-27: Executive accepts T-043's first
   evaluate-only increment after its corrected positive, wrong-origin refusal
