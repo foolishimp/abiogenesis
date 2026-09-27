@@ -70,29 +70,6 @@ test("M5 native report keeps its original host schema presentation", () => {
   assertClaudeProtocol(args);
 });
 
-test("M5 schema literal placeholders remain opaque while ordinary templates and append positions expand", () => {
-  const schema = { $schema: "https://json-schema.org/draft/2020-12/schema", type: "object",
-    required: ["template"], additionalProperties: false,
-    properties: { template: { type: "string", const: "{prompt}|{output_path}" } } };
-  const serialized = JSON.stringify(schema);
-  const prompt = 'actual "quoted" task\nnext line';
-  const outputPath = "/retained/output.json";
-  const expand = value => value.replaceAll("{prompt}", prompt).replaceAll("{output_path}", outputPath);
-  const contract = constructKnownWorkerTransportContract("claude", {
-    // Even an ordinary template identical to schema bytes retains its meaning.
-    prefixArgs: [serialized, "--input", "{prompt}", "--destination", "{output_path}"], environment: {},
-  });
-  const args = composeWorkerTransportArgs({ contract, prompt, outputPath, lane: "worker_executes",
-    responseJsonSchema: schema, explicitAppendArgs: ["--localized", "fixture"], environment: {} });
-  assert.deepEqual(args, [expand(serialized), "--localized", "fixture", "--input", prompt,
-    "--destination", outputPath, ...contract.argsTemplate, "--json-schema", serialized]);
-  assert.deepEqual(JSON.parse(args[args.indexOf("--json-schema") + 1]), schema);
-  const ordinary = composeWorkerTransportArgs({ contract, prompt, outputPath, lane: "worker_executes",
-    responseJsonSchema: schema, responsePresentation: "result_text",
-    explicitAppendArgs: ["--localized", "fixture"], environment: {} });
-  assert.deepEqual(ordinary, args.slice(0, -2));
-});
-
 test("M5 requested structured output uses only the final carrier and preserves raw/schema refusal", () => {
   const schema = { $schema: "https://json-schema.org/draft/2020-12/schema", type: "object", additionalProperties: false,
     required: ["kind", "count"], properties: { kind: { const: "bounded_verdict" }, count: { type: "integer", minimum: 0 } } };

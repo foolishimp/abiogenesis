@@ -1,0 +1,17 @@
+{
+  "head": "61a0950efd00e709bb6ab6ae3f21376e1f2e9702",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "bytes": 14489,
+      "sha256": "242f5ee50d5c51cb378f6f735b536c4b74ad5db5579618af62192bc8aea68890",
+      "preimage": "preimage-1.txt"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 34883,
+      "sha256": "4a119c50004c1d8d56bbd4473462f99aa931e666cf493d5a832beaefa213126c",
+      "preimage": "preimage-2.txt"
+    }
+  ]
+}

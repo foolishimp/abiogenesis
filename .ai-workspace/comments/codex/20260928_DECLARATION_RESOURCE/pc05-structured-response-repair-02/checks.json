@@ -1,0 +1,26 @@
+[
+  {
+    "command": [
+      "./node_modules/.bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ],
+    "elapsedSeconds": 5.4263977077789605,
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "node",
+      "--test",
+      "--test-name-pattern",
+      "M5 schema literal placeholders",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "elapsedSeconds": 0.28097495809197426,
+    "exitCode": 0,
+    "stdout": "\u2714 M5 schema literal placeholders remain opaque while ordinary templates and append positions expand (0.825417ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 1\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 257.234875\n",
+    "stderr": ""
+  }
+]

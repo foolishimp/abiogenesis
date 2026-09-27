@@ -247,3 +247,68 @@ resumes Executive control. The accepted projection repair and prior PC05-06
 runtime proof remain valid within their recorded scopes. The 83.411/9.326/69.620 s
 pre-actor wall intervals and about93 s fresh reads remain open LIFE-01 cost
 observations; neither schema repair nor volume alone justifies those costs.
+
+
+Root's bounded Writer preparation reuses the accepted PC05 caller as PC05-08.
+Its only executable differences select the pending core48 package, advance the
+current entry to PC05-07's genuine close, and name that installed core directory.
+The original paid PC05-04 author, exact PC05-05 source selection, GLC semantics,
+all source/oracle/report bytes, checks and actor budget stay fixed. The package
+recipe is the existing exact source/archive/offline-install correspondence
+recipe with the predecessor advanced to core47. Five caller syntax checks pass.
+No package, install or native Run is executed by this preparation. Source and
+caller freeze plus independent delta review precede installed selection.
+
+
+The response Worker closes source/compiled readiness at return cf4961d3… and
+freeze73546935…. One max independent delta review is active. Root's Writer
+activation selects one ordinary successor core48 package from that frozen
+emission, using the existing manifest/pack/offline-install verification owners;
+no recompilation or repeated component campaign is selected. Exact archive,
+installed member correspondence and source conservation are mechanical checks.
+These may proceed alongside source/caller review. Native dispatch remains held
+for the conjoined readiness result and an explicit one-attempt selection.
+
+
+Executive consumes closed review12291407…: STRUCTURED-SCHEMA-01 is a reproduced
+ordinary-input defect in argument composition. The selected PC05 schema contains
+no placeholders; the failure is contained by independent schema refusal, but
+the selected exact-schema contract applies to those legal strings too. Select
+one local `realization_refactor`: the existing transport-argument owner keeps
+serialized schema data outside argument-template expansion. Preserve ordinary
+argument-template and appended prompt/output behavior. Worker adds the one
+literal-placeholder regression, reuses prior valid owner/adapter checks, freezes
+and returns. No further HOW/Product re-entry or provider call. The independent
+review's other source/caller conclusions remain valid under exact conservation;
+only this correction and its successor binding need delta review. Core48 remains
+an unused frozen candidate, not an installed Run or accepted exact-schema claim.
+Root's Writer may advance the pending PC05-08 caller to the corrected package,
+retaining its prior frozen draft and all work/evidence identities. No author/C2
+repeat, broad scan, history acquisition or retry campaign is authorized.
+
+
+### Core49 acceptance and PC05-08 installed selection
+
+Executive accepts the composed source correction after the [closed delta review](pc05-structured-response-repair-02-review.md),
+SHA6cd46824…. STRUCTURED-SCHEMA-01 is closed. Root's [core49 package correspondence](core-03/package-readiness.md)
+conserves all5233 members and the frozen source/emissions. Archive d7ac2aac…,
+GLC source freeze5ecb1041… and caller freeze009e76b5… bind the conjoined subject.
+This accepts source/package readiness; host compatibility and semantic outcome
+remain unproved. Core48 stays an unused historical draft, not an attempted Run.
+
+Select one ordinary installed PC05-08 setup and one native assessment suffix
+from the latest genuine PC05-07 close. Opus5.5/xhigh, Claude2.1.280, original
+finite bounds and current assessor role remain. Preserve original04 author,
+05 source selection, source/oracle, all twelve reports and valid completed
+execution. No author or C2 repeats. The existing R10/currentness, raw/schema,
+consumer interpretation and fresh Public Result/replay owners determine the
+outcome. Returned malformed or unsatisfied evidence does not become success.
+Any terminal failure returns to Executive before another paid attempt.
+
+Root activates Writer for exact install/caller effects, evidence retention,
+ticket projection and authorized scoped commits/pushes. Commit the accepted
+repair and pending caller before execution; no tag or release publication.
+Root resumes Executive at each outcome. Distinguish build/install, runtime,
+actor and fresh readback costs. Existing LIFE-01 red flags stay open; schema
+repair is not performance closure. PC06 then conjoins original conditions;
+S06, exact qualification and actual release acceptance remain separately open.

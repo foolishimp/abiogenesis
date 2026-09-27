@@ -1,0 +1,12 @@
+{
+  "command": [
+    "./node_modules/.bin/tsc",
+    "-p",
+    "tsconfig.json"
+  ],
+  "elapsedSeconds": 5.456499167252332,
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": "",
+  "priorAttempt": "TypeScript readonly-array narrowing at selected structured_output; corrected with checked record cast before this run."
+}

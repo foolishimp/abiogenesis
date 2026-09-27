@@ -1,0 +1,35 @@
+{
+  "head": "9411355110a05de7f5c3963d35ecadd4feba932f",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "preimage": "9411355110a05de7f5c3963d35ecadd4feba932f:build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "0f88bbb966daa82ffc5b3f0ff7fb741271f9995cf766ec6e9b8851108c68bee3",
+      "bytes": 16599
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "preimage": "9411355110a05de7f5c3963d35ecadd4feba932f:build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "sha256": "2130c59330f8a9f51bc91fa636217f4d451dcdd36d0973835f1157af208a79ad",
+      "bytes": 59099
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "preimage": "9411355110a05de7f5c3963d35ecadd4feba932f:build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "sha256": "da4385708d81dfc5f0398ebb479e80fcce897c9bb61dcda5698253592aa1a787",
+      "bytes": 37627
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "preimage": "9411355110a05de7f5c3963d35ecadd4feba932f:build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "sha256": "30885a3496651f9637110da31339e9e237165547d4bc5d917fbc32703cb220ff",
+      "bytes": 30853
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "preimage": "9411355110a05de7f5c3963d35ecadd4feba932f:build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "c060c3b34a3e0900b04056a27522878c3a681a283f85eefe941695669279fea9",
+      "bytes": 64426
+    }
+  ]
+}

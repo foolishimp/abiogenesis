@@ -1,0 +1,9 @@
+# Closed Worker return — STRUCTURED-SCHEMA-01
+
+**Source/compiled ready for delta review.** The existing `composeWorkerTransportArgs` now exempts only the owned serialized schema argument from template expansion. Existing protocol-owned append refusal identifies that slot after composition; all argument order, ordinary template expansion and append placement remain unchanged. No other response, parser, owner, HOW or Product behavior changed.
+
+Exact two-file delta: `code/src/abg/transport_contracts.ts` and `test_env/tests/m5-worker-transport.test.mjs` beneath `build_tenants/abiogenesis/typescript/`. [Preimages](preimages.json), [delta](delta.patch), source/emission and composed prior references are frozen in [source-freeze.json](source-freeze.json), SHA256 `e69ded39ee1e5c5c3ef8ff0f04622eac263483785e5e15a7f15e068886cb68a9`. All prior source/emission members except the extended test remain byte-identical; prior returns/freezes are preserved.
+
+[Checks](checks.json): compiler passed **5.426 s**; one new focused argument regression passed **1/1**, no skips, **0.281 s**; `git diff --check` passed. The regression proves exact serialized-schema equality with literal `{prompt}|{output_path}`, a quoted/multiline actual prompt, and actual output path. An ordinary argument identical to the schema bytes still expands; append placement and explicit result-text behavior remain exact. No unaffected adapter/owner tests or retained constructor check were repeated.
+
+This closes the selected conservation defect, which did not occur in the actual PC05 schema. Prior seven-case and retained-response evidence remains composed through the unchanged owners. Exact-schema provider acceptance, installed behavior and existing framework cost residuals remain unproved/open as before. No provider, package/install, history, worksite, ticket or Git mutation. Stop for the independent delta read and Root's corrected package/caller pin.

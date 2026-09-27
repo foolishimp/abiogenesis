@@ -862,9 +862,6 @@ async function invokeActorProcessWithAssembly(
       PROCESS_TERMINATION_GRACE_MS,
     ),
     responseJsonSchema: input.request.responseJsonSchema,
-    // Only the authenticated native assessor selects this presentation. The
-    // exact declared schema remains in the request, prompt and ABG validator.
-    ...(nativeTask?.assessment === undefined ? {} : { responsePresentation: "result_text" as const }),
     environment,
   });
   const transportBindingBody = {

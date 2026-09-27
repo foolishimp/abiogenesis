@@ -341,22 +341,16 @@ export function composeWorkerTransportArgs(input: {
       : { explicitArgs: input.explicitAppendArgs }),
   });
   const template = [...input.contract.prefixArgs, ...input.contract.argsTemplate];
-  let hasOpaqueSchemaArgument = false;
   if (input.contract.agentKey === "claude") {
     if (input.lane === "closed_prompt_proof") {
       template.push("--safe-mode", "--tools", "");
     }
     if (input.responseJsonSchema !== undefined && input.responsePresentation !== "result_text") {
       template.push("--json-schema", JSON.stringify(input.responseJsonSchema));
-      hasOpaqueSchemaArgument = true;
     }
   }
-  const args = withTransportAppendArgs(template, appendArgs);
-  // Appended arguments cannot override this protocol-owned flag. Preserve its
-  // literal schema while retaining all existing template/append positions.
-  const schemaArgumentIndex = hasOpaqueSchemaArgument ? args.lastIndexOf("--json-schema") + 1 : -1;
-  return args.map((arg, index) =>
-    index === schemaArgumentIndex ? arg : arg
+  return withTransportAppendArgs(template, appendArgs).map((arg) =>
+    arg
       .replaceAll("{prompt}", input.prompt)
       .replaceAll("{output_path}", input.outputPath)
   );

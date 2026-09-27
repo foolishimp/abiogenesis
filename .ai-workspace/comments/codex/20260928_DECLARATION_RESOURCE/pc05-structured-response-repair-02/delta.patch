@@ -1,0 +1,61 @@
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts
+@@ -341,16 +341,22 @@
+       : { explicitArgs: input.explicitAppendArgs }),
+   });
+   const template = [...input.contract.prefixArgs, ...input.contract.argsTemplate];
++  let hasOpaqueSchemaArgument = false;
+   if (input.contract.agentKey === "claude") {
+     if (input.lane === "closed_prompt_proof") {
+       template.push("--safe-mode", "--tools", "");
+     }
+     if (input.responseJsonSchema !== undefined && input.responsePresentation !== "result_text") {
+       template.push("--json-schema", JSON.stringify(input.responseJsonSchema));
+-    }
+-  }
+-  return withTransportAppendArgs(template, appendArgs).map((arg) =>
+-    arg
++      hasOpaqueSchemaArgument = true;
++    }
++  }
++  const args = withTransportAppendArgs(template, appendArgs);
++  // Appended arguments cannot override this protocol-owned flag. Preserve its
++  // literal schema while retaining all existing template/append positions.
++  const schemaArgumentIndex = hasOpaqueSchemaArgument ? args.lastIndexOf("--json-schema") + 1 : -1;
++  return args.map((arg, index) =>
++    index === schemaArgumentIndex ? arg : arg
+       .replaceAll("{prompt}", input.prompt)
+       .replaceAll("{output_path}", input.outputPath)
+   );
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
+@@ -68,6 +68,29 @@
+   });
+   assert.equal(args[args.indexOf("--json-schema") + 1], JSON.stringify(nativeWorkspaceWorkReportSchema));
+   assertClaudeProtocol(args);
++});
++
++test("M5 schema literal placeholders remain opaque while ordinary templates and append positions expand", () => {
++  const schema = { $schema: "https://json-schema.org/draft/2020-12/schema", type: "object",
++    required: ["template"], additionalProperties: false,
++    properties: { template: { type: "string", const: "{prompt}|{output_path}" } } };
++  const serialized = JSON.stringify(schema);
++  const prompt = 'actual "quoted" task\nnext line';
++  const outputPath = "/retained/output.json";
++  const expand = value => value.replaceAll("{prompt}", prompt).replaceAll("{output_path}", outputPath);
++  const contract = constructKnownWorkerTransportContract("claude", {
++    // Even an ordinary template identical to schema bytes retains its meaning.
++    prefixArgs: [serialized, "--input", "{prompt}", "--destination", "{output_path}"], environment: {},
++  });
++  const args = composeWorkerTransportArgs({ contract, prompt, outputPath, lane: "worker_executes",
++    responseJsonSchema: schema, explicitAppendArgs: ["--localized", "fixture"], environment: {} });
++  assert.deepEqual(args, [expand(serialized), "--localized", "fixture", "--input", prompt,
++    "--destination", outputPath, ...contract.argsTemplate, "--json-schema", serialized]);
++  assert.deepEqual(JSON.parse(args[args.indexOf("--json-schema") + 1]), schema);
++  const ordinary = composeWorkerTransportArgs({ contract, prompt, outputPath, lane: "worker_executes",
++    responseJsonSchema: schema, responsePresentation: "result_text",
++    explicitAppendArgs: ["--localized", "fixture"], environment: {} });
++  assert.deepEqual(ordinary, args.slice(0, -2));
+ });
+ 
+ test("M5 requested structured output uses only the final carrier and preserves raw/schema refusal", () => {

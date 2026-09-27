@@ -161,17 +161,27 @@ not let a task invent an undeclared response contract.
 
 The schema owner retains its prepared validator with that exact admitted immutable schema for the asset object's lifetime. Repeated response-schema projection of an unchanged immutable asset reuses the same schema; selector identity checks and each resolver's actual installed-byte/declaration checks still execute. Result parsing reuses that preparation without changing strict draft-2020-12/full-format validation or raw I-JSON refusal. Changed assets, copied schema objects and standalone caller schemas establish their own preparation; no content-keyed registry or caller coordinate supplies authority. Catalog declaration application may resolve a multi-asset reference closure and remains a separate validation basis.
 
-Before dispatch, the authenticated native assessor selects ordinary result-text
-presentation. Its work order displays the full original admitted JSON Schema
-and asks for one matching JSON object as final result text. The Claude host
-receives no `--json-schema` hint for this presentation: no dialect or material
-vocabulary is translated or deleted. The request retains the original schema,
-contract and schema digest; the existing stream parser extracts the ordinary
-result text and ABG independently validates it against the authoritative
-schema. Prompt, assembly and transport identities bind the changed bytes and
-arguments. Only an actually requested host schema tool receives the synthetic
-`StructuredOutput` protocol exemption. The constructor's short-report path,
-native tools, supervision and failure handling retain their existing meaning.
+Before dispatch, the authenticated native assessor passes its exact admitted
+consumer schema through the existing Claude `--json-schema` option. Its work
+order still displays the full original schema. No dialect or material vocabulary
+is translated, stripped or weakened to satisfy the host. An unsupported exact
+schema is a truthful host/transport failure; no retry or result-text fallback is
+selected. Request, schema, prompt, assembly and transport identities bind this
+same contract and its actual arguments.
+
+For an actually requested host schema, the existing stream observer takes the
+value only from the successful final `result.structured_output` carrier. It
+first applies strict raw I-JSON admission to that protocol row, then serializes
+the selected JSON value for the existing native raw-result and full-schema
+checks. Ordinary result text, intermediate `StructuredOutput` tool arguments
+and a separately written result file cannot supply a missing structured final.
+The raw stream remains retained; no malformed content is repaired or admitted.
+Only an actually requested host schema tool receives the synthetic
+`StructuredOutput` capability exemption. Without that selection, the existing
+ordinary result-text route remains. Constructor short reports and fixed-command
+results keep their own schemas and meanings; the assessor's consumer schema is
+never applied to them. Native permissions, supervision and independent ABG
+validation remain unchanged; host schema conformance grants no semantic verdict.
 
 The task binds source paths/digests, candidate path/digest, rubric path/digest
 and selected producer result/invocation identities to its observed context.

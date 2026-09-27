@@ -1,0 +1,26 @@
+{
+  "scope": "Pure adapter check of already-retained host data; no dispatch, admission, journal recovery or semantic verdict",
+  "elapsedMs": 8.203500000000002,
+  "constructor": {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-02/invocation/archives/fp-08e209781c147e26-transport.json",
+    "bytes": 578715,
+    "sha256": "sha256:e113a9a79d7ce9deb2ca1464eaa12371aee50725628ba6817e98463bd083899a",
+    "hostSchemaRequested": true,
+    "oldTextAndStructuredValuesEqual": true,
+    "newSelectedValueEqualsRetainedOutput": true,
+    "structuredOnlyFinalAccepted": true,
+    "selectedBytes": 5757,
+    "toolCallCount": 8
+  },
+  "failedPC0507": {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-07/invocation/archives/fp-fa29af369848375a-output.txt",
+    "bytes": 22260,
+    "sha256": "sha256:f3ef35a058acfed2823065d2c49ef5721e1b3ef51f6194ef18073f830865a2c0",
+    "unchanged": true,
+    "refusal": {
+      "name": "IJsonAdmissionError",
+      "code": "malformed_json",
+      "message": "retained PC05-07: CommaExpected at offset 6218"
+    }
+  }
+}

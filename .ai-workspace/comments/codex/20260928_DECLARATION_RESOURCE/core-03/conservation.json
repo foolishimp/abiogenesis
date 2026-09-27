@@ -1,0 +1,13 @@
+{
+  "predecessor": "core47",
+  "unchanged": 5228,
+  "changed": 5,
+  "changedPaths": [
+    "build/code/src/abg/actor_process.js",
+    "build/code/src/abg/transport_contracts.js",
+    "build/code/src/abg/worker_transport.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "scope": "native assessment structured-response presentation and existing stream owner; exact source review owns acceptance"
+}

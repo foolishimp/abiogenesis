@@ -1,0 +1,15 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern",
+    "M5 native report keeps|M5 requested structured output|M5 closed-prompt proof does not misclassify|typed read-only assessment retains|native assessment (malformed|ordinary-report) cannot|complete assessment preparation",
+    "test_env/tests/m5-worker-transport.test.mjs",
+    "test_env/tests/t287-native-workspace-work.test.mjs"
+  ],
+  "elapsedSeconds": 0.4726554583758116,
+  "exitCode": 0,
+  "stdout": "focused-checks.stdout",
+  "stderr": "focused-checks.stderr"
+}

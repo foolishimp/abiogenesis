@@ -18,15 +18,15 @@
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
 - current_activation: T287_DECLARATION_RESOURCE_01
-- current_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/selected-core.json
-- current_candidate_archive_sha256: a0e7f50fd7a95d65480635fbb649575d3d94722338bc002c1038b8058a5b8dc9
+- current_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-03/selected-core.json
+- current_candidate_archive_sha256: d7ac2aac2fc80c60e71209bf547b59544fbc30edf9944f57953d0b4a361ff582
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/executive-disposition.md
-- current_accepted_archive_sha256: a0e7f50fd7a95d65480635fbb649575d3d94722338bc002c1038b8058a5b8dc9
-- current_worker_return: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-structured-response-01/return.md
-- current_candidate_scope: core47_declaration_resource_source_and_installed_predecessor_refusal_accepted_PC05_live_open
+- current_accepted_archive_sha256: d7ac2aac2fc80c60e71209bf547b59544fbc30edf9944f57953d0b4a361ff582
+- current_worker_return: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-structured-response-repair-02/return.md
+- current_candidate_scope: core49_response_route_source_package_accepted_installed_proof_selected
 - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-07/execution-return.md
 - current_live_execution_status: PC05_07_closed_runtime_failed_malformed_assessment_no_active_actor
-- current_activation_status: PC05_structured_response_HOW_and_transport_repair_selected
+- current_activation_status: PC05_08_installed_setup_and_one_assessment_selected
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#program-construction-calculus-definition'
@@ -49,7 +49,7 @@
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
 - next_bounded_task: correct_native_assessment_structured_response_then_dispose_preserved_PC05
-- next_bounded_task_status: bounded_design_reframe_and_existing_transport_realization_in_progress
+- next_bounded_task_status: source_and_package_accepted_installed_verification_selected
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -673,7 +673,10 @@ Executive accepts the [closed response-boundary diagnosis](../../comments/codex/
 and selects a bounded native-assessment `design_reframe` plus transport repair:
 pass the exact admitted schema to the existing host structured-output mechanism,
 consume its final carrier, retain independent validation. No schema weakening,
-text repair or paid retry. PC06's fifteen-binding join and release remain open.
+text repair or blind retry. The [closed correction and delta review](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-structured-response-repair-02-review.md)
+and exact core49 package are accepted for source readiness. One installed PC05-08
+assessment is selected with original author/work/criteria and bounds conserved.
+PC06's fifteen-binding join and release remain open.
 Latest phases: package14.139 s, install57.599 s, other setup59.174 s;
 Run446.681 s includes actor276.803 s; fresh Result/replay92.711/92.947 s.
 The54,794,116 B appended suffix closes at1,300,706,344 B. One closed diagnostic

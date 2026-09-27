@@ -1,0 +1,17 @@
+✔ M5 native report keeps its original host schema presentation (0.596584ms)
+✔ M5 requested structured output uses only the final carrier and preserves raw/schema refusal (28.383334ms)
+✔ M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool (116.612125ms)
+✔ typed read-only assessment retains F_P source and exact observed basis, not a work report (62.652875ms)
+✔ native assessment ordinary-report cannot produce semantic success (21.823875ms)
+✔ native assessment malformed cannot produce semantic success (18.505667ms)
+(node:90081) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ complete assessment preparation joins assessor context, declared schema and exact native owner without dispatch (51.236167ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 448.339792

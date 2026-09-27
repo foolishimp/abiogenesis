@@ -10,6 +10,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { admitIJsonText } from "../shared/i_json.js";
 import type { RuntimeLivenessObserverProjection } from "./runtime_liveness_contracts.js";
 import {
   classifyWorkerTransportFailure,
@@ -282,8 +283,23 @@ export function createWorkerTransportOutputObserver(structuredOutputExpected: bo
       rawToolCallCount += countToolUses(record, structuredOutputExpected);
       collectToolUses(record, structuredOutputExpected, rawToolInvocations);
     }
-    if (record.type === "result" && typeof record.result === "string") {
-      finalOutput = record.result;
+    if (record.type === "result") {
+      if (structuredOutputExpected) {
+        // Only the successful final host carrier supplies the requested result.
+        // Admit its raw JSON before serializing the selected value, so duplicate
+        // keys or invalid I-JSON cannot disappear through JSON.parse/stringify.
+        finalOutput = "";
+        if (record.subtype !== "success" || record.is_error !== false) return;
+        try {
+          const admitted = admitIJsonText(line, "worker structured result");
+          if (admitted !== null && typeof admitted === "object" && !Array.isArray(admitted) &&
+              Object.hasOwn(admitted, "structured_output")) {
+            finalOutput = canonicalJson((admitted as Readonly<Record<string, JsonValue>>).structured_output!);
+          }
+        } catch { /* retain the raw stream; never repair or fall back */ }
+      } else if (typeof record.result === "string") {
+        finalOutput = record.result;
+      }
     }
   };
   const snapshot = (): StructuredObservation => {
@@ -696,10 +712,11 @@ async function executeWorkerTransport(
     stderrPath: paths.stderr,
     ...(input.observer === undefined ? {} : { observer: input.observer }),
   });
+  const structuredOutputExpected = input.contract.agentKey === "claude" && args.includes("--json-schema");
   const observation = input.contract.parser === "claude_stream_json"
     ? observeStructuredOutput(
         processObservation.resultBearingStdout,
-        input.contract.agentKey === "claude" && args.includes("--json-schema"),
+        structuredOutputExpected,
       )
     : {
       structuredEventCount: 0,
@@ -717,7 +734,9 @@ async function executeWorkerTransport(
     try { fileOutput = (await readFile(paths.output)).toString("utf8"); }
     catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
     if (fileOutput !== null && fileOutput.trim().length > 0) {
-      if (finalOutput.trim().length === 0) finalOutput = fileOutput;
+      if (finalOutput.trim().length === 0) {
+        if (!structuredOutputExpected) finalOutput = fileOutput;
+      }
       else {
         let sameOutput = fileOutput === finalOutput;
         try { sameOutput ||= canonicalJson(JSON.parse(fileOutput)) === canonicalJson(JSON.parse(finalOutput)); } catch { /* no parser repair */ }

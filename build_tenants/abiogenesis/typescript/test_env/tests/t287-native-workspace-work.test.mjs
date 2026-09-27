@@ -662,9 +662,9 @@ test('complete assessment preparation joins assessor context, declared schema an
     occurrence:occurrence(),workerContracts:{instructionContractRef:ids.taskContractRef,resultContractRef:assessmentContract.contractRef},
     runtime:{workspaceBinding:env.workspaceBinding,artifactTruth:{}},request:prepared.workerRequest,dispatchOrdinal:1,basis:{}});
   assert.equal(transportBoundary.message,'stopped after local transport preparation');
-  assert.equal(capturedTransport.responsePresentation,'result_text');
+  assert.equal(capturedTransport.responsePresentation,undefined);
   assert.deepEqual(capturedTransport.responseJsonSchema,assessmentSchema);
-  assert.equal(capturedPlan.args.includes('--json-schema'),false);
+  assert.equal(capturedPlan.args[capturedPlan.args.indexOf('--json-schema')+1],JSON.stringify(assessmentSchema));
   assert.equal(capturedPlan.responseJsonSchemaDigest,product.sha256Canonical(assessmentSchema));
   assert.equal(capturedPlan.promptDigest,product.sha256Canonical(prepared.workerRequest.prompt));
   assert.equal(capturedPlan.cwd,env.canonicalRoot);
