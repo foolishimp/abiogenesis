@@ -414,3 +414,21 @@ Root activates Writer for this record, scoped source/evidence commit and push,
 ordinary install/launch, terminal readback and ticket projection; then returns
 to Executive at the outcome. Keep setup, execution, actor and readback cost
 separate. LIFE-01 remains open; no performance or release closure is selected.
+
+
+PC05-09 ordinary setup completed. Root binds closed review 5c2ab6bf… and
+conserved evaluator/caller freezes to the installed activation. Source/currentness
+and one-assessor/no-author/no-C2 assertions pass. Invoke the selected ordinary
+CLI once, without a component loader or inherited NODE_OPTIONS. Outcome and
+fresh Public readback remain pending; no further attempt is selected.
+
+
+PC05-09 native CLI aborts on heap exhaustion after 157.408 s. The empty-JSON
+caller error is secondary; original stderr/SIGABRT is retained. A single bounded
+31.64 MB physical suffix diagnosis records no actor invocation and no terminal
+Run close; it is not runtime recovery. PID25062 is absent. Preserve this open
+Run and all prior work. LIFE-01 is now a current sunny-day blocker. Select one
+finite source triage of post-evaluation foldback/next-route allocation under
+End-to-End/Reuse/Owner, reusing existing repairs and this suffix. No full-history
+read, heap increase, source rewrite, fake close or paid retry. Root Writer owns
+failed evidence/ticket/checkpoint; Executive selects repair after closed cause.

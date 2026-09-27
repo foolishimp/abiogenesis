@@ -25,8 +25,8 @@
 - current_worker_return: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/return.md
 - current_candidate_scope: core50_schema_default_source_package_accepted_installed_proof_selected
 - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-09/activation.json
-- current_live_execution_status: PC05_09_setup_selected_no_Run_yet
-- current_activation_status: paired_schema_default_and_portable_authoring_accepted
+- current_live_execution_status: PC05_09_process_aborted_heap_exhaustion_Run_not_terminal
+- current_activation_status: LIFE01_heap_failure_finite_source_triage_selected
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#program-construction-calculus-definition'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: PC05_09_installed_assessment_then_PC06_original_condition_join
-- next_bounded_task_status: one_setup_and_one_assessment_selected_preserve_author_and_C2
+- next_bounded_task: PC05_post_evaluation_heap_allocation_triage_then_bounded_repair
+- next_bounded_task_status: no_paid_retry_no_heap_raise_no_fabricated_close
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -689,7 +689,11 @@ Run176.844 s, pre-prompt169.379 s; fresh Result/replay98.184/98.896 s.
 The51,235,907 B suffix closes at1,354,273,180 B. These are elapsed observations,
 not exclusive CPU attribution or justified minimums. LIFE-01 remains open.
 Exact source reuse takes0.106 s; existing R10/currentness owners authenticate
-it. No whole-Run speedup or performance closure is claimed.
+it. The [closed cost diagnostic](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-current-cost-01/return.md)
+identifies two separate cold Public acquisitions of the same prefix; it also
+preserves measured warm Run work and unknown current phase attribution.
+CALLER-DURABLE-CONTEXT-01/LIFE-01 already owns that lifetime/cost relation; no new
+register or performance closure. No whole-Run speedup is claimed.
 
 Prior PC05-04 outcome, 2026-09-28: [native constructor admitted; evaluation preparation failed](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-04/execution-return.md).
 The compatible host and corrected Public steering now pass. Opus5.5/xhigh
