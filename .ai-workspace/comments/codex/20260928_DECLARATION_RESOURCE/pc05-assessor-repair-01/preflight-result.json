@@ -1,0 +1,86 @@
+{
+  "status": "component_preflight_passed_not_installed_authentication",
+  "elapsedMs": 433.790208,
+  "fixture": "t287-native-workspace-work.test.mjs: complete assessment preparation joins assessor context, declared schema and exact native owner without dispatch",
+  "task": {
+    "digest": "sha256:6ae7d97230c2707fdbcbabe5cf01bc39bf475ffad617ac5a890ad8be469353a2",
+    "bytes": 713358,
+    "unchanged": true,
+    "contextBytes": 328015,
+    "contextMaxFiles": 1024,
+    "contextMaxBytes": 4194304
+  },
+  "declaration": {
+    "graphFunctionRef": "graph-function://odd-glc/program-construction/assessment-child@5",
+    "contractRef": "contract://odd-glc/native-continuation/criterion-verdicts@5",
+    "sourceChildDigest": "sha256:16e6fb177db795728cce9ab3ef6b2e47d5989ab4050dccddec193a3c2c224f57",
+    "originalPublicationDigest": "sha256:7b9587d55461ed25143db31e38fa3083cd5835d3ea5ac9b232a45c8e7270ecc3",
+    "componentCorrectedPublicationDigest": "sha256:40cb2c87d5e7ca39bbded569c560242e675a13b1a543cd65dd806e92f6a3d39c"
+  },
+  "controls": {
+    "missing": true,
+    "wrong": true,
+    "unreachable": true,
+    "corrected": true,
+    "absentOwner": true,
+    "absentRole": true,
+    "crossedTask": true,
+    "crossedSchemaOwner": true,
+    "changedSchema": true,
+    "rawContractSelectionMatches": true,
+    "actorToTransportPreparationPassed": true,
+    "malformedRawAssessmentRefused": true,
+    "schemaOnlyIndeterminateControlAccepted": true
+  },
+  "bytes": {
+    "declaredRole": 91032,
+    "sourceText": 82326,
+    "prompt": 454936,
+    "responseSchema": 1118,
+    "request": 475329,
+    "assembly": 2094215,
+    "transportArgv": 236
+  },
+  "transport": {
+    "configuration": {
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "expectedVersion": "2.1.280 (Claude Code)",
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "extraArgs": [
+        "--max-budget-usd",
+        "5"
+      ],
+      "inactivityMs": 300000,
+      "absoluteMs": 900000,
+      "terminationGraceMs": 1000,
+      "wholeRunMs": 3600000
+    },
+    "effortEnvironment": "xhigh",
+    "promptTransport": "stdin",
+    "responsePresentation": "result_text",
+    "args": [
+      "-p",
+      "--disable-slash-commands",
+      "--no-session-persistence",
+      "--output-format",
+      "stream-json",
+      "--include-partial-messages",
+      "--verbose",
+      "--permission-mode",
+      "bypassPermissions",
+      "--tools",
+      "Read,Edit,Write,Glob,Grep,Bash",
+      "--model",
+      "claude-opus-5-5",
+      "--max-budget-usd",
+      "5"
+    ],
+    "responseJsonSchemaDigest": "sha256:03f911428424012095877efbdb534958bdc6f74e24298b9441dc618826e72ffb",
+    "localPreparationPassed": true,
+    "providerInvoked": false,
+    "archiveWritten": false
+  },
+  "frontier": "Native basis authentication and role evidence are supplied component premises, as in the existing fixture. Exact role source spans are independently hash-verified from retained resource roots; omitted validation projection uses a labeled component digest of the same fixed byte width. No durable owner brand, installed successor identity or raw-result verification capability was created. Actual admission/role projection and raw-result port verification remain installed responsibilities.",
+  "bounds": "Existing native-work assembly and transport preparation impose no numerical prompt-byte/token ceiling. Exact request passed their guards, uses stdin, and does not put prompt/schema in argv. Task context retains its existing declared file/byte limits. Provider model acceptance is not proved by this no-provider check."
+}

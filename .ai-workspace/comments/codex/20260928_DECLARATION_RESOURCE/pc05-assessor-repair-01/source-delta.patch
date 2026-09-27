@@ -1,0 +1,44 @@
+--- /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/program-construction.mjs (preimage)
++++ /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/program-construction.mjs
+@@ -325,7 +325,7 @@
+     graphFunctions.push({kind:'graph_function',name:ids.assessmentChildGraphFunctionRef,version:VERSION,inputs:[input],outputs:[output],
+       environment:{requires:[input],provides:[n.taskContractRef,n.observationContractRef,output],carries:[input]},effects:[n.effectUri],tags:['lifecycle-construction','independent-assessment'],
+       declarations:{'abg.compute_regime':'mixed','abg.closure_contract':ids.assessmentChildClosureRef,'abg.child_closure_contract':ids.assessmentChildClosureRef,
+-        'abg.failure_contract':ids.failureContractRef,
++        'abg.failure_contract':ids.failureContractRef,'abg.raw_result_contract':assessmentResultContract.contractRef,
+         'abg.evidence_contract':ids.evidenceContractRef,'abg.judgment_contract':ids.judgmentContractRef,'abg.judgment_predicate':ids.nativeStepPredicateRef,'abg.transition_contract':ids.transitionContractRef},
+       template:{kind:'inline_graph',graphRef:ids.assessmentChildGraphFunctionRef.replace('graph-function:','graph:'),startNodeRef:nodes[0].nodeRef,
+         terminalNodeRefs:[nodes[2].nodeRef],nodes,applications:[],edges:[gtl.graphEdge({fromNodeRef:nodes[0].nodeRef,toNodeRef:nodes[1].nodeRef}),
+--- /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/program-construction.test.mjs (preimage)
++++ /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/program-construction.test.mjs
+@@ -904,3 +904,30 @@
+     assert.equal(refused.conditions.uatPassed,true);
+   }
+ });
++
++
++test('assessment result contract remains declared in the reachable original and preserved Program closure',()=>{
++  const fixture=assessedFixture(),{input,native,work}=fixture;
++  for(const preservedConstruction of [false,true]) {
++    const library=constructProgramConstructionLibrary({gtl,product,artifact,includeNativeConstruction:true,
++      evaluationGraph:evaluator.graphFunctions[0],includeAssessment:true,includePreservedConstruction:preservedConstruction});
++    const route={...fixture.route,roles:[...new Set(work.map(d=>d.role))],obligationRefs:[...new Set(work.map(d=>d.obligationRef))],
++      publications:[library,core,native,evaluator],
++      graphFunctionRefs:preservedConstruction?[ids.preservedAuthenticateGraphFunctionRef,product.NATIVE_WORK_REACQUISITION_IDS.graphFunctionRef,
++        ids.prepareConstructedEvaluationGraphFunctionRef,ids.evaluationChildGraphFunctionRef,ids.prepareAssessmentInputGraphFunctionRef,ids.assessmentChildGraphFunctionRef]
++        :[...fixture.route.graphFunctionRefs,ids.prepareAssessmentInputGraphFunctionRef,ids.assessmentChildGraphFunctionRef],
++      retainEntryAfter:preservedConstruction?[1,3]:[1,2+input.constructionGroups.length,4+input.constructionGroups.length]};
++    const candidate=constructLifecycleProgram({gtl,product,artifact,model:input.model,basis:basis(input),selectedDutyRefs:input.selectedDutyRefs,
++      constructionGroups:input.constructionGroups,preservedConstruction,routes:[route]});
++    assert.equal(candidate.kind,'candidate');
++    const membership=candidate.publication.programs[0].callableMembership;
++    const declarations=candidate.publication.graphFunctions.filter(g=>membership.includes(g.name)&&
++      g.declarations['abg.raw_result_contract']===assessmentResultContract.contractRef);
++    assert.deepEqual(declarations.map(g=>g.name),[ids.assessmentChildGraphFunctionRef],
++      'the reachable consumer child authorizes the selected native response');
++    assert.deepEqual(candidate.publication.contracts.find(c=>c.contractRef===assessmentResultContract.contractRef),assessmentResultContract);
++    assert(membership.includes(product.NATIVE_WORKSPACE_WORK_IDS.assessmentGraphFunctionRef));
++    assert.equal(native.graphFunctions.find(g=>g.name===product.NATIVE_WORKSPACE_WORK_IDS.assessmentGraphFunctionRef)
++      .declarations['abg.raw_result_contract'],undefined,'native core leaves response selection with the consumer');
++  }
++});

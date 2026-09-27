@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessor-triage-01/return.md",
+    "bytes": 5783,
+    "sha256": "3a4410d97784dce4e841f70049d6c42c26c61e33057c6102d4112c448187577b"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessor-triage-01/selected-task.json",
+    "bytes": 713359,
+    "sha256": "7a2a241aa3c97a2c0f510c1b5f6ebaa43a2e3a684438033af1da449fc6fbc484"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessor-triage-01/selected-basis-event.json",
+    "bytes": 720301,
+    "sha256": "25b0fb726ac8ef003bc7dda635d471e519b134d7227051313e034a7a29bd5cdd"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessor-triage-01/suffix-result.json",
+    "bytes": 1985,
+    "sha256": "00a592e66f210d108c68930835a5c02385810d646f05a138a99d627f9239dc6e"
+  },
+  {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-05/products/construction/node_modules/@odd-glc/route-one-typescript/build/publication.json",
+    "bytes": 84563,
+    "sha256": "90797abe266f86c619967ddf1f74b40d2bde41183514eb30e865439ae4f88b73"
+  },
+  {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-05/products/core47/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js",
+    "bytes": 91076,
+    "sha256": "da80447a48c7c5aa224e2a809d447246ee3edd11077a7eb228a7ae578bfbac6b"
+  }
+]

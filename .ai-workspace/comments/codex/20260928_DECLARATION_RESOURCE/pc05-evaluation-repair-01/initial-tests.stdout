@@ -1,0 +1,52 @@
+(node:7241) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./test/fixtures/program-construction/core-loader.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ PC05 author residuals remain verbatim judgment evidence without deciding every structural edge (2173.592ms)
+✔ PC05 preserved construction suffix authenticates both historical values and declares no author or C2 (9681.652833ms)
+✖ PC05 preserved reports reach current independent assessment while historical author bytes remain unchanged (9994.738084ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22394.609584
+
+✖ failing tests:
+
+test at test/program-construction.test.mjs:794:1
+✖ PC05 preserved reports reach current independent assessment while historical author bytes remain unchanged (9994.738084ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /independent assessor/. Input:
+  
+  'AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n' +
+    '\n' +
+    '  assert(product.isNativeWorkspaceWorkObservation(result))\n'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/program-construction.test.mjs:810:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+    
+      assert(product.isNativeWorkspaceWorkObservation(result))
+    
+        at componentAssessment (file:///Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/program-construction.test.mjs:554:3)
+        at file:///Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/program-construction.test.mjs:810:95
+        at getActual (node:assert:609:5)
+        at strict.throws (node:assert:757:24)
+        at TestContext.<anonymous> (file:///Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/program-construction.test.mjs:810:10)
+        at Test.runInAsyncScope (node:async_hooks:214:14)
+        at Test.run (node:internal/test_runner/test:1106:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+        at Test.postRun (node:internal/test_runner/test:1235:19)
+        at Test.run (node:internal/test_runner/test:1163:12),
+    expected: /independent assessor/,
+    operator: 'throws',
+    diff: 'simple'
+  }

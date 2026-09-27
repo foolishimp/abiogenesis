@@ -22,11 +22,11 @@
 - current_candidate_archive_sha256: a0e7f50fd7a95d65480635fbb649575d3d94722338bc002c1038b8058a5b8dc9
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/executive-disposition.md
 - current_accepted_archive_sha256: a0e7f50fd7a95d65480635fbb649575d3d94722338bc002c1038b8058a5b8dc9
-- current_worker_return: '#program-construction-calculus-definition'
+- current_worker_return: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessor-repair-01/return.md
 - current_candidate_scope: core47_declaration_resource_source_and_installed_predecessor_refusal_accepted_PC05_live_open
-- current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-02/execution-return.md
-- current_live_execution_status: CLOSED_host_version_refusal_after_constructor_dispatch_zero_tool_calls
-- current_activation_status: PC05_transport_successor_prepared_same_installed_Products
+- current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-06/activation.json
+- current_live_execution_status: PC05_06_installed_suffix_invocation_in_progress
+- current_activation_status: PC05_06_installed_setup_accepted_suffix_invoked
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#program-construction-calculus-definition'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: preserved_PC05_installed_construction_evaluation_assessment
-- next_bounded_task_status: actual_HoG_workflow_failure_contract_ambiguous_before_actor_source_boundary_review_no_unchanged_retry
+- next_bounded_task: correct_GLC_assessment_result_declaration_then_preserved_PC05
+- next_bounded_task_status: corrected_declaration_review_and_installed_setup_passed_one_suffix_invoked
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -648,15 +648,57 @@ historical journal or repeat a valid author merely to expand local qualification
 
 ### Current framework-cost correction
 
-Latest installed PC05 outcome, 2026-09-28: [host version refusal](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-02/execution-return.md).
-The accepted three-declaration GLC repair passed its runtime boundary; the
-constructor launched, but the provider requires Claude Code2.1.280 instead of
-pinned2.1.278. One actual invocation, zero tools, unchanged owning worksite
-observation; fresh Public result/replay agree. Root has prepared one successor
-using already installed2.1.280, the same admitted Products/request and genuine
-current close. Model, effort, limits and original source/oracle remain. No
-repackaging, installation or new core repair. Caller count now selects actor
-invocation starts rather than counting transport/process identities as actors.
+The [closed source/caller review](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-evaluation-repair-review.md)
+and residual-aware repair are accepted. [PC05-05](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-05/execution-return.md)
+passed historical authentication, current binding cover and computed evaluation,
+then failed in native assessor instruction preparation. Fresh Public reads agree;
+zero actors and no C2 ran. The preserved paid author and all twelve reports remain.
+The [declaration repair](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessor-repair-01/return.md)
+and [independent delta review](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessor-repair-review.md)
+are accepted. The original/preserved declaration regression and actual-task
+assembly/transport preflight pass at the explicit supplied-admission frontier.
+[PC05-06](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-06/execution-return.md)
+completed with one assessor; fresh Public Result/replay agree. Computed evidence
+is true; checked assessment is unsatisfied (required citation roles/coverage,
+one quotation mismatch, selected residuals). Root accepts the installed
+declaration/continuation proof, not semantic closure. No constructor/C2 repeat,
+larger budget or core change. Root accepts the [closed task-contract triage](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessment-contract-triage-01/return.md)
+and selects one GLC realization correction: expose existing citation/residual
+rules and actual current/historical author basis, correct the fixture reason,
+preserve every check/report and the actual refusal. One retained-input pure
+discriminator and independent projection review precede a native successor.
+PC06's fifteen-binding join is prepared; original-task and release remain open.
+Current measured phases: package/preflight13.923 s, install53.696 s, remaining
+setup56.661 s; Run442.532 s includes actor269.453 s; fresh Result/replay89.649/
+89.866 s. The Run appends71,325,743 B to a1,243,581,299 B journal. These remain
+CALLER-DURABLE-CONTEXT-01/LIFE-01 observations, not justified minimums. Exact
+source reuse now takes0.106 s instead of the earlier52.072 s caller projection;
+existing R10/currentness owners still authenticate it. No whole-Run speedup claimed.
+
+Prior PC05-04 outcome, 2026-09-28: [native constructor admitted; evaluation preparation failed](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-04/execution-return.md).
+The compatible host and corrected Public steering now pass. Opus5.5/xhigh
+completed the author in151.057 s, preserving all seven files. Native admission
+and join-native-output succeeded; prepare-constructed-evaluation then returned
+implementation-exception before evaluator/assessor. Fresh Public result/replay
+agree. The [closed exact-input triage](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-evaluation-triage-01/return.md)
+reproduces the GLC refusal: twelve author-reported residuals are wrongly treated
+as mechanically stale construction. Snapshot, protected-source and dependency
+currentness pass. The fixture adds the same unsupported empty-report proxy;
+the actual assessor task also omits the reports.
+
+Executive selects one bounded GLC `design_reframe` under existing Product/R10:
+preserve typed residuals for judgment, remove the invented global structural
+proxy, project all author reports with provenance, and declare an evaluation /
+assessment suffix over the authenticated completed child and ancestral input.
+Current authority/binding coverage and full worksite content must be checked;
+historical author task/observations remain unchanged. `/root/pc02_framework_cost`
+owns GLC HOW, existing constructor/runtime, fixture and directly affected tests.
+Root's separate Writer activation owns paired tickets, exact installed caller,
+package/setup, evidence and scoped Git actions; it returns to Executive after
+each effect. One frozen source return and applicable independent review precede
+installed continuation. Core47, source/oracle, actor bounds and original outcome
+remain. No constructor or C2 repeat, injected retained input, new runtime owner
+or broader qualification campaign is selected.
 
 The prior [GLC repair](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-triage-01/repair-01/return.md)
 and [independent review](../../comments/codex/20260928_DECLARATION_RESOURCE/composite-declaration-review.md)
@@ -1052,7 +1094,14 @@ or native retry. LIFE-01, native correction and qualification remain open.
 
 ## Current Management Prerequisite Plan
 
-The [current selection](#current-checkpoint-and-installed-continuation) owns immediate work: bounded source/HOW implementation and focused checks for a fresh full-source start through current native odd_glc for the actual live-LLM Hello sandbox, under T-043. The accepted C1→C2 basic-cli proof is supporting evidence only. New source acceptance, package, paid full-sandbox attempt, remaining reduced case and Data Mapper launch are unselected. Q07 remains release-boundary work; [Root-accepted core18 readback](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/operator-stop-03/installed-readback-core18-01/root-disposition.md) closes the retained S02-19 operator-stop readback condition only. The earlier management selections below retain their historical scope.
+The [current framework-cost correction](#current-framework-cost-correction)
+owns immediate work: finish T-043 PC05 over the preserved paid constructor,
+then reconcile the original task in PC06 and resume the remaining T-287 release
+obligations. The fixed fifteen-family scope, S06/QUAL056/F11/sole AF22 and
+human acceptance retain their distinct conditions. Data Mapper is held. The
+earlier selections below are historical; they do not reapply superseded launch
+holds to the current explicitly selected suffix. Q07 remains release-boundary
+work; accepted retained S02-19 stop readback does not claim wider qualification.
 
 ### Current graph-context re-entry
 

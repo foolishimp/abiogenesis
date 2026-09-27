@@ -1,0 +1,21 @@
+{
+  "scope": "exact two-file GLC realization_refactor; core47 unchanged",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/program-construction.mjs",
+      "bytes": 36130,
+      "sha256": "1b1869ff690fb870cc1b62b08ee9d2a3e7744987b113e0db9659443856e6859b",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessor-repair-01/preimage-program-construction.mjs",
+      "postimageSha256": "bb7cf8696e6a1f6358966a5cbfc7da27510e33aeaf948d06701ad287c70dedba",
+      "postimageBytes": 36193
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/program-construction.test.mjs",
+      "bytes": 93424,
+      "sha256": "6da2dac0836776abad8fe03ca1d288bb7036d3445716889bbf8421314cc3fc48",
+      "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessor-repair-01/preimage-program-construction.test.mjs",
+      "postimageSha256": "3637b58a16af7723c29c8361099aa470a5b9a53a30a6d8c2e6f4c1d464532390",
+      "postimageBytes": 95837
+    }
+  ]
+}

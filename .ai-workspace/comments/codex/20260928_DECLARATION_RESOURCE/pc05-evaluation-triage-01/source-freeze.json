@@ -1,0 +1,35 @@
+{
+  "status": "read_only_triage_closed",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-evaluation-triage-01/return.md",
+      "bytes": 7540,
+      "sha256": "a62a4b273da319744705aa2d96670cd95461e5a018b36aca944e5f38050454c9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-evaluation-triage-01/result.json",
+      "bytes": 15477,
+      "sha256": "8681589dfac84ebeddbe063cba3809f98c47da265e24214c5ebbadd4c85d12de"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-evaluation-triage-01/reproduce.mjs",
+      "bytes": 6573,
+      "sha256": "8e0ef3036270b619eb493e5c1424b9611cf7d20f705f3d203ff4d970178650aa"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/program-construction-runtime.mjs",
+      "bytes": 52528,
+      "sha256": "3a6386752c139df6c1742475af07503dc523a9a3624e80e2bb7e66b3327edeaa"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/fixtures/program-construction/native-records-evaluator.mjs",
+      "bytes": 24781,
+      "sha256": "dd017a8366691b34d846d679bab5fc364f58214a76a20106f9f1421755486dda"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/fixtures/program-construction/evaluator-contract.md",
+      "bytes": 8290,
+      "sha256": "4650e3b08948894a3bba3745550ee9a56004d52cde3e90f04f9aac853d9b6add"
+    }
+  ]
+}

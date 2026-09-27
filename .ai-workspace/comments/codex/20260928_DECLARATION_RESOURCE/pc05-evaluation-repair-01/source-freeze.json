@@ -1,0 +1,80 @@
+{
+  "status": "source_frozen_for_independent_review",
+  "reentry": "design_reframe/realization",
+  "repository": "/Users/jim/src/apps/odd_glc",
+  "head": "5652b9499380c98878aa9f4a6620299826fb729b",
+  "core47ArtifactSha256": "a0e7f50fd7a95d65480635fbb649575d3d94722338bc002c1038b8058a5b8dc9",
+  "files": [
+    {
+      "path": "build_tenants/common/design/ODD_GLC_PROGRAM_CONSTRUCTION.md",
+      "bytes": 41378,
+      "sha256": "e670ffec4eaded11e81f40c45222a2430610b789911dd74c2628ceca6eaf6456",
+      "preimageSha256": "8b4fdb908cc8e30f565e7746e316fe439fe2cc664fcbdd4cbe2b3de48136cbed"
+    },
+    {
+      "path": "build_tenants/odd_glc/typescript/src/program-construction-contracts.mjs",
+      "bytes": 10271,
+      "sha256": "c6bbc7fcd04e27ff1b8750e2695b1bbb0cd7f5002f285066565729995c0f695a",
+      "preimageSha256": "d92796ea364d106cb9c01d62cd4dcbc363949a5f4181991641f4da7c5b8cd37c"
+    },
+    {
+      "path": "build_tenants/odd_glc/typescript/src/program-construction.mjs",
+      "bytes": 36130,
+      "sha256": "1b1869ff690fb870cc1b62b08ee9d2a3e7744987b113e0db9659443856e6859b",
+      "preimageSha256": "8e74fb765276c38cc3b173704c7bf8d579f60b620a3f7620609a6f3d5e7095a9"
+    },
+    {
+      "path": "build_tenants/odd_glc/typescript/src/program-construction-runtime.mjs",
+      "bytes": 59541,
+      "sha256": "5740590b66c7d3a7d6cd90dd4feb77dda5c622dce55ac1794868686e23bcb220",
+      "preimageSha256": "3a6386752c139df6c1742475af07503dc523a9a3624e80e2bb7e66b3327edeaa"
+    },
+    {
+      "path": "build_tenants/odd_glc/typescript/test/program-construction.test.mjs",
+      "bytes": 93424,
+      "sha256": "6da2dac0836776abad8fe03ca1d288bb7036d3445716889bbf8421314cc3fc48",
+      "preimageSha256": "231765c4244f411c2aa5e060c49c89bef856b0775e551f489fcf5e9a9836c776"
+    },
+    {
+      "path": "build_tenants/odd_glc/typescript/test/fixtures/program-construction/native-records-evaluator.mjs",
+      "bytes": 24922,
+      "sha256": "fa0e43dfba318aca0e57519d3c9f49250c08ea899ff09a7b27d09ef4fc611e82",
+      "preimageSha256": "dd017a8366691b34d846d679bab5fc364f58214a76a20106f9f1421755486dda"
+    },
+    {
+      "path": "build_tenants/odd_glc/typescript/test/fixtures/program-construction/evaluator-contract.md",
+      "bytes": 9098,
+      "sha256": "0b8586f0ef7fd07140ca0b8b47284f4a9485b95ab5a1187f92e7605c7188a924",
+      "preimageSha256": "4650e3b08948894a3bba3745550ee9a56004d52cde3e90f04f9aac853d9b6add"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "focused-tests.stdout",
+      "sha256": "d18e36d83551b1dd567c785877b43ab9a11c3c03eafae7759f3da5427766749b"
+    },
+    {
+      "path": "currentness-test.stdout",
+      "sha256": "0c5fe81d0cb00471fb9c31593d569f11a15c7ca12b9e9c50bf23448428edc398"
+    },
+    {
+      "path": "actual-input-check.json",
+      "sha256": "246fc6a5fecc829993cf94cb83698fa0a69597f6b569a47128451a0a37260273"
+    },
+    {
+      "path": "check-actual-input.mjs",
+      "sha256": "4a363e73f2909941372a640c1bcc83fb5dff86e0eae83a556168c8504286006e"
+    }
+  ],
+  "checks": {
+    "nodeSyntax": "five modified mjs files passed node --check",
+    "whitespace": "git diff --check passed",
+    "focusedTests": 10,
+    "additionalCurrentnessTest": 1,
+    "failed": 0,
+    "focusedTestMs": 85316.768542,
+    "additionalCurrentnessTestMs": 5997.503917,
+    "actualInputCheck": "pure path through assessor task; all twelve reports preserved"
+  },
+  "effects": "Seven selected GLC source/design/test files and this ABI evidence directory only. No ABI source, package, install, Run, provider, journal or worksite mutation; no new owner acquisition."
+}

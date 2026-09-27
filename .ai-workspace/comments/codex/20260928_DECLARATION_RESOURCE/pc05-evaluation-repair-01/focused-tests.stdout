@@ -1,0 +1,21 @@
+(node:8059) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./test/fixtures/program-construction/core-loader.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ wrong predecessor, acquisition, task and root substitutions refuse before dependent preparation (5453.4475ms)
+✔ PC03 actual construction/evaluator join conserves original records and retains the PC04 seam (5617.179083ms)
+✔ PC03 every retained snapshot dependency and selected predecessor stays current before evaluation (33775.284209ms)
+✔ PC03 construction edge records derive from actual before/after and cannot promote false or unknown (2240.85025ms)
+✔ PC05 author residuals remain verbatim judgment evidence without deciding every structural edge (4235.191458ms)
+✔ PC05 predecessor text is non-closing: absent marker permits structure and present marker cannot rescue a bad join (4364.463083ms)
+✔ PC04 finite native assessment preserves negative, unknown and partial results and rejects wrong producer/task/context (68.5935ms)
+✔ PC04 actual PC03 state joins complete original rubric/oracle and ordinary native assessment with no C2 (6054.905417ms)
+✔ PC05 preserved construction suffix authenticates both historical values and declares no author or C2 (10244.055917ms)
+✔ PC05 preserved reports reach current independent assessment while historical author bytes remain unchanged (12792.223083ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 85316.768542

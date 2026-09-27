@@ -1,0 +1,23 @@
+(node:32272) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./test/fixtures/program-construction/core-loader.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ assessment result contract remains declared in the reachable original and preserved Program closure (633.412292ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1102.702375
+
+✖ failing tests:
+
+test at test/program-construction.test.mjs:909:1
+✖ assessment result contract remains declared in the reachable original and preserved Program closure (633.412292ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'declarations')
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/program-construction.test.mjs:931:7)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17)

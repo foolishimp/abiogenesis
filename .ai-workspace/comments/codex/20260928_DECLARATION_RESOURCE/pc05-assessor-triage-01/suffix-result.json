@@ -1,0 +1,37 @@
+{
+  "status": "bounded_raw_suffix_diagnostic_not_owner_projection",
+  "range": {
+    "start": 1122208468,
+    "end": 1169924627,
+    "bytes": 47716159,
+    "sha256": "ee33efd984e17ae193327eaded52d7a612d96372709f4c8032b44fb1fc13d068"
+  },
+  "readMs": 4.245041999999984,
+  "receiptSha256": "69efab327a55becc5e7a634f3325cf27a206dcd330abc8c5aacc65969f8ca453",
+  "receiptCloseCoordinateMatches": true,
+  "runRef": "run://abiogenesis/a41962e7156d33ff4dfd2e63689c3cf3d8b0c82745c8c7b67aed3665e78872c6",
+  "openedEventRef": "event://abiogenesis/d463845bb6be6beaf68a0a8144e12861599f7a23a09bc63c01e05919d46a2323",
+  "basisEventRef": "event://abiogenesis/c2088ada2f555ada235ef8721da0e378f5e34dc92f82bd47aea2cc9b2d3093a2",
+  "preparedResultEventRef": "event://abiogenesis/f14160dc327bccbb588567a03ca2a8fbda1ba227df9eb9b56518d02d47e0f5c9",
+  "nativeCCallRef": "c-call:sha256:664e6adc49a9662af635da294e6cca86d65b7f82009aaac627b2aba2a4300a67",
+  "preparationCCallRef": "c-call:sha256:4ce7adaf7ac98c9648dbba555cbe2ab827b3860ba6f943e93e230bfebe13a96a",
+  "taskDigest": "sha256:6ae7d97230c2707fdbcbabe5cf01bc39bf475ffad617ac5a890ad8be469353a2",
+  "taskBytes": 713358,
+  "taskValid": true,
+  "taskInputAndAdmittedResultDigestEqual": true,
+  "responseContract": {
+    "contractKind": "output",
+    "contractRef": "contract://odd-glc/native-continuation/criterion-verdicts@5",
+    "contractVersion": "5.0.0",
+    "valueKind": "native_asset_criterion_assessment"
+  },
+  "physicalRows": 402,
+  "unresolved": [],
+  "assemblyEvents": [],
+  "unchangedFile": {
+    "bytes": true,
+    "mtime": true,
+    "inode": true
+  },
+  "limits": "Corrected second read of precisely the reauthorized suffix interval; first attempt used the wrong aggregate selector and retained no selected values; pure installed body codec checks resolvable local body references. No full prefix/stamp/replay acquisition or native owner authentication. Original receipt and Root boundary event coordinates are corroborating retained data."
+}

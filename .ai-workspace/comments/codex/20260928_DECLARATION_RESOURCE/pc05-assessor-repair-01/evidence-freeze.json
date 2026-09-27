@@ -1,0 +1,37 @@
+[
+  {
+    "name": "return.md",
+    "bytes": 5274,
+    "sha256": "035c77382ea921ff24bff1211eb90e6826f1c4e6b51219736c2694d727be8f19"
+  },
+  {
+    "name": "source-freeze.json",
+    "bytes": 1141,
+    "sha256": "382f980598f2fa84da610dd991117a0f283f55b7ff58cc20656f7925065eab3a"
+  },
+  {
+    "name": "source-delta.patch",
+    "bytes": 4134,
+    "sha256": "c5e4f8c98d79aa9c0c9d3295eba5133a5afd064e19dc64d4623c55e2a7b7d5f8"
+  },
+  {
+    "name": "preimages.json",
+    "bytes": 780,
+    "sha256": "d40d38140599f42d7d5a7d5104809fb88a7faf376a12f25f3bce29bdd43ca8ca"
+  },
+  {
+    "name": "preflight.mjs",
+    "bytes": 18233,
+    "sha256": "ab779e84d1fc5995fc1b212790144f63f0911957ecbf9a777f828dfaa75145f6"
+  },
+  {
+    "name": "preflight-result.json",
+    "bytes": 3604,
+    "sha256": "6f5b5b4738bf1d5daa04d7bbd46542ebb61229ebcb865ef5a109e82df44457fc"
+  },
+  {
+    "name": "glc-check-02.tap",
+    "bytes": 622,
+    "sha256": "733888c5f356dee42f146b0e4e36d0dac7c01b75df1c5b0746cf1fa6e020d710"
+  }
+]
