@@ -17,7 +17,7 @@
 - updated_at: 2026-09-27
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_GLC_MODULAR_COMPLETION_PLAN_01
+- current_activation: T287_GLC_PC02_01
 - current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46/selected-core.json
 - current_candidate_archive_sha256: e2c2d053528fca7dd0e4988ec50772cd8a12f058d35076119c99cf8c4e7adbfb
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46/return.md
@@ -26,7 +26,7 @@
 - current_candidate_scope: core46_catalog_order_correction_accepted_exact_package_verified_installed_construction_qualification_open
 - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/installed-04/return.md
 - current_live_execution_status: CLOSED_ACCEPTED_deterministic_evaluator_positive_and_wrong_origin_refusal_zero_actors_native44_preserved
-- current_activation_status: T043_modular_completion_plan_selected_PC01_ready_implementation_pending
+- current_activation_status: T043_PC01_source_complete_PC02_active_native_construction_handoff
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#program-construction-calculus-definition'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: T043_PC01_work_selection_and_dependency_binding
-- next_bounded_task_status: PC01_through_PC06_then_existing_S06_exact_qualification_and_RC1
+- next_bounded_task: T043_PC02_native_construction_handoff
+- next_bounded_task_status: PC01_source_complete_PC02_through_PC06_then_existing_S06_exact_qualification_and_RC1
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -657,7 +657,10 @@ historical journal or repeat a valid author merely to expand local qualification
   indicated. The [T-043 modular completion plan](../../../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#modular-completion-plan)
   owns PC01–PC06, their dependencies and exit tests: selection, construction
   handoff, computed evidence, independent assessment, installed proof and
-  original-task disposition. PC01 is next; the design checkpoint is closed.
+  original-task disposition. PC01 source is complete (20 focused component
+  checks; exact Worker hashes verified). PC02 is active under T-043's bounded
+  Worker grant; the later whole-path review and installed proof remain open.
+  The design checkpoint is closed.
   Program construction supersedes the
   earlier proposed extra completion entry. Preserve accepted evaluator proof and
   closed caller/catalog repairs. Implementation of this accepted relation and
