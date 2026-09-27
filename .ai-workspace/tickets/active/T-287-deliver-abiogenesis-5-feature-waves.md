@@ -17,7 +17,7 @@
 - updated_at: 2026-09-27
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_GLC_COMPLETION_DESIGN_01
+- current_activation: T287_GLC_MODULAR_COMPLETION_PLAN_01
 - current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46/selected-core.json
 - current_candidate_archive_sha256: e2c2d053528fca7dd0e4988ec50772cd8a12f058d35076119c99cf8c4e7adbfb
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46/return.md
@@ -26,7 +26,7 @@
 - current_candidate_scope: core46_catalog_order_correction_accepted_exact_package_verified_installed_construction_qualification_open
 - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/installed-04/return.md
 - current_live_execution_status: CLOSED_ACCEPTED_deterministic_evaluator_positive_and_wrong_origin_refusal_zero_actors_native44_preserved
-- current_activation_status: T043_evaluation_and_completion_HOW_accepted_realization_pending
+- current_activation_status: T043_modular_completion_plan_selected_PC01_ready_implementation_pending
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#program-construction-calculus-definition'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: deliver_T043_bounded_problem_fitted_GTL_construction_and_installed_composition
-- next_bounded_task_status: remaining_T043_G3_predecessor_inputs_and_comparison_then_S06_exact_qualification_and_RC1
+- next_bounded_task: T043_PC01_work_selection_and_dependency_binding
+- next_bounded_task_status: PC01_through_PC06_then_existing_S06_exact_qualification_and_RC1
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -653,15 +653,18 @@ historical journal or repeat a valid author merely to expand local qualification
   HOW is now independently satisfied and Executive-accepted at SHA-256
   `9dd3233fb54402c73970bbefcce44f3e31618d158bad393f4a47104c9ed1f83f`;
   computed-evidence citations and future producer-output binding are explicit.
-  Existing
-  ABI native-work inputs/provenance suffice; no new ABI primitive is indicated.
-  [T-043 completion design re-entry](../../../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#completion-design-re-entry)
-  owns the exact design-only Worker grant. Program construction supersedes the
+  Existing ABG native-work inputs/provenance suffice; no new ABG primitive is
+  indicated. The [T-043 modular completion plan](../../../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#modular-completion-plan)
+  owns PC01–PC06, their dependencies and exit tests: selection, construction
+  handoff, computed evidence, independent assessment, installed proof and
+  original-task disposition. PC01 is next; the design checkpoint is closed.
+  Program construction supersedes the
   earlier proposed extra completion entry. Preserve accepted evaluator proof and
   closed caller/catalog repairs. Implementation of this accepted relation and
-  its installed proof remain pending. Root's separate Writer checkpoint grant
-  covers this tracking projection and its commit/push only, returning to
-  Executive afterwards. No new runtime effect or release claim.
+  its installed proof remain pending. S06, exact qualification and RC1 retain
+  their existing conditions after the consumer result. Root's separate planning
+  Writer grant covers T-043/Goals, this ticket/Goals routing and their commit/push
+  only, returning to Executive afterwards. No new runtime effect or release claim.
 
 - Current installed frontier, 2026-09-27: Executive accepts T-043's first
   evaluate-only increment after its corrected positive, wrong-origin refusal
