@@ -127,7 +127,6 @@ interface PreparedRead<K extends AbgProjectReadMemberKey> {
   readonly packet: AbgProjectReadPacket<K>;
   readonly events: readonly RuntimeEvent[];
   readonly fullPrefix: ValidatedRuntimeEventPrefix;
-  readonly fullCalculus: RuntimeEventCalculusProjection;
 }
 
 interface RunReadContext {
@@ -523,8 +522,7 @@ export function projectHistoricalGraphCallSourceAtDurablePrefix(
         !hasExactDataFields(resource.input, ["graphFunctionRef", "contractRef"])) return null;
     const packet: AbgProjectReadPacket<"graph_call_result"> = Object.freeze({ kind: "abg_project_read_packet", schemaVersion: "5.0.0",
       memberKey: "graph_call_result", prefix, targetRef: resource.terminal.producer.graphCallRef, declarationProof: resource.declarationProof });
-    const prepared: PreparedRead<"graph_call_result"> = Object.freeze({ packet, events, fullPrefix,
-      fullCalculus: deriveRuntimeEventCalculusProjection(fullPrefix) });
+    const prepared: PreparedRead<"graph_call_result"> = Object.freeze({ packet, events, fullPrefix });
     const runId = runIdForGraphCall(prepared, packet.targetRef);
     const context = runId === null ? null : runContext(prepared, runId);
     const result = context === null ? null : terminalOutcome(prepared, context, packet.targetRef, false, resource.input);
@@ -639,7 +637,6 @@ function prepareRead<K extends AbgProjectReadMemberKey>(
       packet,
       events,
       fullPrefix,
-      fullCalculus: deriveRuntimeEventCalculusProjection(fullPrefix),
     });
   } catch {
     return refusal(
@@ -1124,12 +1121,15 @@ function projectWorkspaceReplay(
     (event) => event.scopeClass === "workspace" && event.aggregateId === targetRef,
   );
   if (workspaceEvents.length === 0) return ABSENT;
+  // Workspace replay alone selects the complete workspace calculus. Run and
+  // GraphCall reads derive their named causal scope through runContext.
+  const fullCalculus = deriveRuntimeEventCalculusProjection(prepared.fullPrefix);
   const replays = runIds(prepared).map((runId) =>
     projectRunSemanticReplayProjection(prepared.fullPrefix, runId, prepared.packet.prefix)
   );
   return {
     workspaceRef: targetRef,
-    eventContractProjection: prepared.fullCalculus,
+    eventContractProjection: fullCalculus,
     workspaceEventRefs: workspaceEvents.map((event) => event.eventId),
     runReplays: replays,
   } as unknown as JsonValue;

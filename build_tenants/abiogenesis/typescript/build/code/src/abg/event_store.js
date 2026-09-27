@@ -2087,10 +2087,12 @@ function decodeHistoricalEvents(bytes, expectedProfileDigest) {
             throw new TypeError("event stamp differs from the exact native profile schedule");
         }
         const reconstructed = projectRuntimeEventAtContract(admitted, candidateValue, profile, eventsById, "decoded");
+        // The decoded candidate's fields pass unchanged into reconstruction; only
+        // these stamps and the profile checked above are added. Compare those
+        // fields directly instead of serializing both complete logical events.
         if (reconstructed.eventId !== eventId ||
             reconstructed.admissionOrdinal !== admissionOrdinal ||
-            reconstructed.payloadDigest !== payloadDigest ||
-            canonicalJson(reconstructed) !== canonicalJson(decoded)) {
+            reconstructed.payloadDigest !== payloadDigest) {
             throw new TypeError("durable ABG event log contains restamped or inconsistent history");
         }
         if (representation.physicallyInline) {

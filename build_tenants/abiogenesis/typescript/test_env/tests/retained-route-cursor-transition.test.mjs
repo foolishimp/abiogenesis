@@ -14,7 +14,8 @@ import {rawAdmitValue} from '../../build/code/src/validator/index.js';
 import {acquireNewEmptyAppendSinkFixture} from '../support/new-empty-append-sink.mjs';
 const hash=p.sha256Canonical;
 async function owner(relative,overrides={}){
- const file=path.resolve('build/code/src',relative),m=new vm.SourceTextModule(await fs.readFile(file,'utf8'),{identifier:file});
+ const file=path.resolve('build/code/src',relative),source=relative==='abg/replay.js'&&process.env.ABI5_REPLAY_PREIMAGE?process.env.ABI5_REPLAY_PREIMAGE:file;
+ const m=new vm.SourceTextModule(await fs.readFile(source,'utf8'),{identifier:file});
  await m.link(async spec=>{const actual=await import(spec.startsWith('node:')?spec:pathToFileURL(path.resolve(path.dirname(file),spec)).href),values={...actual,...overrides[spec]};
   return new vm.SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();return m.namespace;
 }
@@ -92,7 +93,11 @@ test('route-origin workflow cursor stages, replays, commits and cold-projects ex
   edges:[{fromNodeRef:'n1',toNodeRef:'n2',inputBinding:p.graphInputRetentionBinding(E,S)}]}};
  const sourcePath={deriveCSourceContinuation:()=>({relation:'graph_edge'}),resolveCProgramTermAtSourcePath:()=>({kind:'c_workflow',graphFunctionRef:child.graphFunctionRef,inputCarrierRef:E,outputCarrierRef:S}),
   deriveCContinuationTarget:(_g,_s,completed)=>({disposition:'advance',nodeRef:'n2',termPath:[],taskOrdinal:null,attempt:1,retryPath:[],...completed})};
+ // Continuation derivation now belongs to the cursor owner. Supply the same
+ // existing declaration premise at that seam; cursor/provenance checks stay real.
+ const declaredCursor=await owner('abg/traversal_cursor.js',{'../gtl/source_path.js':sourcePath});
  const makeRouteOwner=projectionReplay=>owner('abg/traversal_route.js',{'./invocation_execution_truth.js':lookup,'./replay.js':projectionReplay,'./execution_basis.js':{hasAdmittedExecutionBasisAtPrefix:()=>true,rehydrateExecutionBasisAtPrefix:lookup.projectExactExecutionBasisAtPrefix,admittedConstructionComposition:()=>null,selectAdmittedConstructionAuthority:()=>null},
+  './traversal_cursor.js':{deriveAdmittedCContinuationTarget:declaredCursor.deriveAdmittedCContinuationTarget},
   '../gtl/materialize.js':{isMaterializedGtlGraph:()=>true},'../gtl/source_path.js':sourcePath,
   './runtime_liveness.js':{captureNativeFrameBoundary:()=>null,observeNativeFrameLiveness:()=>{}},
   './c_call.js':{projectAdmittedCCallOutcomeAtPrefix:()=>({cCall:call,result,judgment})},'./retry.js':{projectDeclaredCRetryExitProgress:()=>({progressClass:'none',exitedRetryDepths:[]})}});
@@ -126,6 +131,22 @@ test('route-origin workflow cursor stages, replays, commits and cold-projects ex
  const coldReplay=replay.replayValidatedRuntimeEventPrefix(copied);
  assert.deepEqual(coldReplay.routes.at(-1).boundInput,input);
  assert.equal(coldReplay.replayDigest,admitted.replayState.replayDigest);
+ if(material===null){
+  const index=copied.events.indexOf(finalRoute),predecessors=copied.events.slice(0,index);
+  for(const [label,mutate] of [
+   ['raw subject digest',value=>{value.subjectDigest=hash('crossed raw subject');}],
+   ['raw admission identity',value=>{value.admissionRef='raw-admission://crossed';}],
+   ['raw contract',value=>{value.contractRef='contract://crossed';}],
+   ['retained source',value=>{value.value.source={kind:'job_execution',result:'crossed'};}],
+  ]){
+   const {eventId,admissionOrdinal,payloadDigest,eventContractDigest,...candidate}=structuredClone(finalRoute);
+   mutate(candidate.payload.boundInput);
+   const changed=es.projectRuntimeEventFromValidatedHistory(predecessors,candidate);
+   const selected=ep.selectValidatedRuntimeEventPrefix(deepFreeze([...predecessors,changed]));
+   assert.equal(cold.projectRetainedWorksiteInputAtPrefix(selected,changed),null,label);
+   assert.throws(()=>replay.replayValidatedRuntimeEventPrefix(selected),/retained input raw identity mismatch|no exact entry\/source\/foldback provenance/,label);
+  }
+ }
  assert.equal(cursorOwner.traversalCursorAdmissionEventRefAtPrefix(copied,target),admitted.route.admissionEventRef);
  assert.equal(es.selectHeldEventStoreDurablePrefix(acquired.store).prefixDigest,admitted.successorPrefix.prefixDigest);
  if(material===null){

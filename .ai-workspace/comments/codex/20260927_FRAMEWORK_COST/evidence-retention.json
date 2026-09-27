@@ -1,0 +1,9 @@
+{
+  "archive": "runtime-evidence.tar.gz",
+  "sha256": "7bcdc75d0afba2660f1cf7a9ad36161ec875484877a44024f3d453981c3ab5ca",
+  "bytes": 437834,
+  "members": 32,
+  "expandedBytes": 6255279,
+  "scope": "Exact existing runtime analysis and frozen repair evidence, including unchanged preimages and diagnostic patch. No journal copy.",
+  "extractFromThisDirectory": "tar -xzf runtime-evidence.tar.gz"
+}

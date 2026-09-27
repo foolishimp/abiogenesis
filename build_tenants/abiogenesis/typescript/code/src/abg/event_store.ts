@@ -3183,11 +3183,13 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
       eventsById,
       "decoded",
     );
+    // The decoded candidate's fields pass unchanged into reconstruction; only
+    // these stamps and the profile checked above are added. Compare those
+    // fields directly instead of serializing both complete logical events.
     if (
       reconstructed.eventId !== eventId ||
       reconstructed.admissionOrdinal !== admissionOrdinal ||
-      reconstructed.payloadDigest !== payloadDigest ||
-      canonicalJson(reconstructed as unknown as JsonValue) !== canonicalJson(decoded as JsonValue)
+      reconstructed.payloadDigest !== payloadDigest
     ) {
       throw new TypeError(
         "durable ABG event log contains restamped or inconsistent history",

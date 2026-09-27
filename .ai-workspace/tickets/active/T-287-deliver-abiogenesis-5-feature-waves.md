@@ -17,7 +17,7 @@
 - updated_at: 2026-09-27
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_GLC_PC05_PREPARATION_01
+- current_activation: T287_PC02_FRAMEWORK_COST_01
 - current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46/selected-core.json
 - current_candidate_archive_sha256: e2c2d053528fca7dd0e4988ec50772cd8a12f058d35076119c99cf8c4e7adbfb
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46/return.md
@@ -26,7 +26,7 @@
 - current_candidate_scope: core46_catalog_order_correction_accepted_exact_package_verified_installed_construction_qualification_open
 - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/installed-04/return.md
 - current_live_execution_status: CLOSED_ACCEPTED_deterministic_evaluator_positive_and_wrong_origin_refusal_zero_actors_native44_preserved
-- current_activation_status: T043_PC01_PC04_source_review_accepted_WP01_closed_PC05_preparation
+- current_activation_status: four_cost_contractions_source_accepted_R10_C2_HOW_correction_next_PC05_held
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#program-construction-calculus-definition'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: T043_PC05_prepare_and_prove_installed_complete_path
-- next_bounded_task_status: PC05_PC06_then_existing_S06_exact_qualification_RC1
+- next_bounded_task: PC02_whole_path_cost_correction_then_T043_PC05
+- next_bounded_task_status: investigate_framework_phases_over_10s_repair_and_verify_then_PC05_PC06_RC1
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -646,6 +646,88 @@ historical journal or repeat a valid author merely to expand local qualification
   `/root` returns to Executive. Writer grant consumed; implementation/live HOLD
   and all prior evidence identities remain.
 
+### Current framework-cost correction
+
+Owner direction, 2026-09-27: pure non-LLM framework activity above ten seconds
+triggers investigation. This is a workload/complexity trigger, not a hard
+execution limit or Product-law amendment. Separate setup/file copying, framework
+processing, actor time and fresh reads. Resolve the unexplained PC02 cost
+before PC05; keep accepted semantics and evidence intact.
+
+Select `F-END-TO-END-INTERFACE-INTEGRATION` with STDO2.5.1RC1 Computational
+Whole-Path/Owner/Reuse/Proof: caller selection → admission → traversal →
+refusal → fresh Public readback. Existing CALLER-DURABLE-CONTEXT-01 / LIFE-01
+owns the work. `/root/pc02_framework_cost` (Astra/xhigh) traces the runtime half;
+Root traces the caller/selection half. One instrumented retained cold read is
+permitted; no paid Run, source-history rewrite or broad qualification cycle.
+Root enters Writer for these paired ticket projections and a bounded GLC
+`realization_refactor` in `src/program-construction.mjs` plus its existing test:
+classify the shared immutable basis once per selection while preserving every
+duty's applicability, dependency and refusal result. Diagnostic/return writes
+are confined to `20260927_FRAMEWORK_COST/consumer-analysis-01/`; no core or
+Product/HOW change is granted by this local correction. Conjoin the closed
+runtime analysis before choosing any additional owning repair. Then freeze,
+review the affected complete path, and measure the no-actor discriminator before
+resuming PC05. Root resumes Executive after each Writer effect.
+
+Runtime analysis disposition: Executive accepts the closed
+[whole-path diagnostic](../../comments/codex/20260927_FRAMEWORK_COST/runtime-analysis-01/return.md)
+at SHA-256 `d21a8510dea8d8addb1b7d2779737e4d9b5a51608c7498a10f0f8c7f9dc07780`.
+The same Worker now receives a separate `realization_refactor` grant for exactly
+three existing-owner contractions: remove unused eager workspace calculus from
+Run/historical read preparation; remove redundant reconstructed/decoded
+whole-event serialization after preserving exact fields/stamps; consume the
+retained-input provenance owner's admitted value instead of replay admitting it
+again. Write territory: `code/src/abg/{project_read_ports,event_store,replay}.ts`,
+directly affected existing tests, normal local compiler output, and
+`20260927_FRAMEWORK_COST/runtime-repair-01/` diagnostic/return files. Retain
+event identities, physical encoding checks, source/foldback/currentness,
+ordinary failure disposition and workspace replay semantics. No liveness/digest,
+Public schema, body format, Product/HOW or event-history changes are granted.
+Run the required compile and affected checks; one instrumented read of the same
+frozen history must preserve the original projection and physical journal.
+Freeze and return for one independent conjoined review. This does not authorize
+package/install, a Run, native actor, new test campaign or subsequent expansion.
+
+Scope disposition for the first runtime contraction: the Worker identified an
+incidental global liveness refusal in the eager full calculus. Under
+PROJECTION-002/-023/-025 and the accepted E08/E09/E10/E14/E15 source-to-subject
+read relations, the selected Run/GraphCall and its causal dependencies own that
+projection; unrelated Runs do not create a blanket liveness prerequisite.
+Proceed with scoped derivation, preserving complete physical/stamp/payload
+prefix checks and target/source liveness and provenance. E13 workspace replay
+still derives the complete workspace projection. Record the changed unrelated-
+history refusal boundary explicitly; verify target-invalid refusal and scoped
+independence. Do not replace the removed work with another global guard loop.
+
+The [closed runtime correction](../../comments/codex/20260927_FRAMEWORK_COST/runtime-repair-01/return.md)
+and [GLC correction](../../../../odd_glc/.ai-workspace/comments/codex/20260927_FRAMEWORK_COST/consumer-analysis-01/return.md)
+are Executive-accepted at source scope after the [one independent affected review](../../comments/codex/20260927_FRAMEWORK_COST/repair-review.md)
+(`db8f2930d0321a803fa2f0dba810af58f23aa0f9084b1de7e8694b95b8008fbc`),
+with no actionable findings. The retained-input comparison
+preserves complete selection results (3.646 s → 0.130 s); the one repaired
+history read preserves semantic/replay identities with zero actors/writes.
+Cold acquisition is still 24.433 s and Public truth 20.457 s. The baseline and
+successor read entrypoints differ; no full-CLI speedup or cost closure follows.
+
+End-to-end design finding: about 89% of the semantic entry is immutable
+declaration evidence, copied through request → task → retained join. The
+[declaration-transport review](../../comments/codex/20260927_FRAMEWORK_COST/declaration-transport-01/review.md)
+owns the diagnosis and proposed repair. Its smallest next re-entry is the
+existing R10/C2 HOW: establish the exact historical declaration relation from
+explicit resources; carry selectors in semantic values; have later C2/replay
+owners consume the exact admitted preparation relation while retaining current
+source/invalidation/binding checks. Native42 and native44 remain distinct
+historical bases. This is the next selected design correction, not implemented capability
+or authority to rewrite old evidence. The [closed Executive conjunction](../../comments/codex/20260927_FRAMEWORK_COST/executive-review.md) records the acceptance and residuals. PC05 stays held. No new ticket, Product
+law or qualification campaign is selected.
+
+Root Writer grant for this review boundary: record the closed conjunction in
+`20260927_FRAMEWORK_COST/executive-review.md` and these paired ticket projections;
+after independent review, checkpoint only the accepted source/tests, normal
+compiler output and bounded evidence to the existing remotes. No package,
+installation, Run or release is granted. Root returns to Executive afterwards.
+
 ### Program-construction calculus definition
 
 - Current design disposition, 2026-09-27: the bounded independent whole-path
@@ -1180,7 +1262,7 @@ Current RC1 opportunities remain under Executive-owned T-287 disposition for one
 | CALCULUS-BASIS-01 | OPEN S2/P2 computational conformance: parent basis and implementation/interaction sets are reconstructed across child and related consumers. [Review](../../comments/codex/20260926_CALCULUS_CROSSCUT/review.md#established-facts-through-internal-transitions). | Reuse within existing prefix owner; preserve new-child joins, conflicting facts, changed cuts and rollback. Trigger: affected internal-reuse repair before claiming conformance. Separate from closed physical child-read repair; no latency attribution. |
 | CALCULUS-ASSEMBLY-01 | CLOSED for selected source/component repairs at ranks 3 and 8: one binding projection, exact presentation reuse and one common bookkeeping owner. [Joint review](../../comments/codex/20260926_CALCULUS_CROSSCUT/ranks7-8-review.md). Native semantic sufficiency retains its independent scope. | Core41 carries the accepted extraction; actor prompts remain byte-identical to core40. No new prompt framework, global cache, stage retirement or additional release gate. |
 | CALCULUS-BODY-01 | CLOSED for exact cold-body reuse after 7 focused checks and independent review. [Return](../../comments/codex/20260926_CALCULUS_CROSSCUT/body-01/RETURN.md). Changing-envelope substructure remains a distinct unselected opportunity. | Core41 carries the accepted repair. Any partial-envelope persistence work requires separate design selection on an affected storage path or attributed material cost. T288/T289 stay closed; no presumed timing gain or history deletion. |
-| CALLER-DURABLE-CONTEXT-01 / LIFE-01 | OPEN observed caller footprint: native44 retains three 289,109,084 B `readback-basis.json` projections; its retained directory measured 1,466,366,547 B across 5,404 files, including installed copies and other evidence. Program-construction installed04 measures an 83,059,135 B launch with 22,757,679 B input (20,284,717 B source-selection declarations). Its successful [positive04](../../../../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/installed-04/positive04/result.json) takes 218.542 s for five GraphCalls/eight CCalls with zero actors, appends 120,715,880 B, and takes 73.675/74.638 s for fresh Public result/replay plus 46.187 s for the caller count projection. Earlier failed timings remain in the bounded observation. [Bounded observation](../../../../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/installed-04/complexity-observation.json). These are nonisolated timings, not a proved minimum or justified evaluator cost. This is caller evidence construction, not actor context or new ABG truth. [Observation](../../comments/codex/20260926_CALCULUS_CROSSCUT/native44/retention-observation.json). PC02 adds a same-debt observation: 83,331,584 B launch / 328,015 B context, 250.771 s zero-actor invocation, 166,947,425 B appended; fresh Result/replay 91.008/91.275 s. [Exact phases](../../../../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/pc02-installed-02/return.md). | Existing sandbox caller, Computational Whole-Path/Reuse frame. Preserve exact read coordinates and genuinely required reconstruction inputs while removing redundant durable projections when this caller next changes. No isolated latency attribution, new release gate, history deletion or general cleanup activation. |
+| CALLER-DURABLE-CONTEXT-01 / LIFE-01 | OPEN observed caller footprint: native44 retains three 289,109,084 B `readback-basis.json` projections; its retained directory measured 1,466,366,547 B across 5,404 files, including installed copies and other evidence. Program-construction installed04 measures an 83,059,135 B launch with 22,757,679 B input (20,284,717 B source-selection declarations). Its successful [positive04](../../../../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/installed-04/positive04/result.json) takes 218.542 s for five GraphCalls/eight CCalls with zero actors, appends 120,715,880 B, and takes 73.675/74.638 s for fresh Public result/replay plus 46.187 s for the caller count projection. Earlier failed timings remain in the bounded observation. [Bounded observation](../../../../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/installed-04/complexity-observation.json). These are nonisolated timings, not a proved minimum or justified evaluator cost. This is caller evidence construction, not actor context or new ABG truth. [Observation](../../comments/codex/20260926_CALCULUS_CROSSCUT/native44/retention-observation.json). PC02 adds a same-debt observation: 83,331,584 B launch / 328,015 B context, 250.771 s zero-actor invocation, 166,947,425 B appended; fresh Result/replay 91.008/91.275 s. [Exact phases](../../../../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/pc02-installed-02/return.md). | ACTIVE under the [current framework-cost correction](#current-framework-cost-correction), which supersedes the earlier unselected cleanup disposition. The complete caller/runtime/readback path owns cost acceptance. Preserve exact historical bases and current binding checks. Four bounded contractions are independently accepted at source scope; declaration transport and admitted-preparation consumption require the next R10/C2 HOW correction. PC05 is held; no history deletion or broad cleanup campaign. |
 | LEAF-FAILURE-DIAGNOSTIC-01 | OPEN diagnostic retention: PC02 installed prepare-construction failure retains only `implementation_exception`; F_D load/invocation catches in `implementation/leaf_invocation_port.ts` discard the original exception. The [exact-input deterministic reproduction](../../../../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/pc02-causal-reproduction-01/return.md) now identifies the predecessor-currentness guard and a one-digest comparison succeeds. That resolves this cut's causal proof gap; the original receipt still lacks the cause. | Existing leaf-invocation owner; Diagnostic/Owner/Whole-Path frame; `realization_refactor`. No block on PC04 source. Before diagnosing another F_D failure, retain or reproduce its exact cause on admitted input without changing failure admission/classification. Close the retention defect with subject-bound diagnostic retrieval and preserved outcome checks; no new logger, runtime or broad qualification campaign. |
 | CALCULUS-PROOF-01 | PARTIAL: per-role substitute-basis intake claim removed; retained tests are explicitly Product value checks. Actual installed deterministic composition exercises same-basis failed-consumer input and exact producer, with the source-cut limits recorded in rank 1. | Full native intake is still unproved and belongs to the preserved installed continuation. No broad replacement suite or repeated valid author. |
 | D2-ACQUISITION-PROVENANCE-01 | Core36 exposed an enclosing child Result versus its acquisition leaf. | Bounded repair closed: existing provenance owner reused in0328f698…/reviewee45eca0…; core37 installed intake779b7f6f… returns actual request62aea2ac…, fresh Result/replay agree and choose declared Design suffix. Direct/nested/wrong-coordinate component checks retained. Full D2 remains separate and open. |

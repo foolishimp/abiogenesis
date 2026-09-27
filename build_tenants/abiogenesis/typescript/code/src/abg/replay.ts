@@ -5,7 +5,7 @@ import { projectNativeLivenessRead, projectFrameLivenessContext, projectRuntimeL
 import type { RuntimeLivenessReadProjection } from "./runtime_liveness_contracts.js";
 import { isWorksiteExecutionTask } from "../product/worksite_revision.js";
 import { projectRetainedWorksiteInputAtPrefix, retainedWorksiteInputRelationVersion } from "./worksite_input_provenance.js";
-import { rawAdmitValue, type RawAdmittedValue } from "../validator/raw_admission.js";
+import type { RawAdmittedValue } from "../validator/raw_admission.js";
 import { isWorksitePreparationBoundInput } from "../product/worksite_preparation.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
@@ -673,15 +673,13 @@ export function projectReplayRouteAtPrefix(
           (!isWorksitePreparationBoundInput(assertedBoundInput.value) && !isRetainedGraphInput(assertedBoundInput.value)) || routeKind !== "advance") {
           throw new TypeError(`invalid retained input at ${event.eventId}`);
         }
-        const raw = rawAdmitValue<Readonly<Record<string, JsonValue>>>(assertedBoundInput.value, "invocation_input", assertedBoundInput.contractRef);
-        if (raw.kind !== "raw_admitted_value" || sha256Canonical(raw as unknown as JsonValue) !== sha256Canonical(assertedBoundInput)) {
-          throw new TypeError(`retained input raw identity mismatch at ${event.eventId}`);
-        }
-        boundInput = raw;
         const retained = projectRetainedWorksiteInputAtPrefix(authorityPrefix, event);
-        if (retained === null || sha256Canonical(retained.input as unknown as JsonValue) !== sha256Canonical(raw as unknown as JsonValue)) {
+        if (retained === null) {
           throw new TypeError("replay retained input has no exact entry/source/foldback provenance");
         }
+        // Provenance reconstructs and raw-admits the exact entry/source join,
+        // including equality with the complete asserted admission carrier.
+        boundInput = retained.input;
       }
       return {
         ...(boundInput === undefined ? {} : { boundInput }),

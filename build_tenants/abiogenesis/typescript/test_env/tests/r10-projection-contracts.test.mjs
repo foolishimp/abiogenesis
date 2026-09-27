@@ -14,6 +14,9 @@ import {readRuntimeEventsAtDurablePrefix} from '../../build/code/src/abg/event_s
 import {selectValidatedRuntimeEventPrefix,validatedRuntimeEventPrefixThroughEvent} from '../../build/code/src/abg/event_prefix.js';
 import {sha256Canonical} from '../../build/code/src/shared/digests.js';
 import {PUBLIC_FUNCTION_DEFINITION_FAMILY,PUBLIC_OPERATION_CONTRACT_PROJECTIONS} from '../../build/code/src/shared/public_function_family.js';
+import {ROOT_EVENT_CONTRACT_DIGEST,projectRuntimeEventFromValidatedHistory} from '../../build/code/src/abg/event_store.js';
+import {constructRuntimeSystemProbeContract} from '../../build/code/src/abg/runtime_liveness_contracts.js';
+import {deepFreeze} from '../../build/code/src/shared/immutable.js';
 // Integration relocates test source only. This original S01 store is read-only;
 // no acquisition, append, Public invocation or application effect is selected.
 const native='/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01';
@@ -88,6 +91,46 @@ test('scope and packet crossings refuse; root does not accept a caller declarati
   assert.equal(RunProjectionPort.run_result({...packet('run_result'),prefix:{...prefix,coordinateDigest:sha256Canonical('wrong')}}).code,'invalid_history');
   assert.equal(GraphCallProjectionPort.graph_call_result(packet('graph_call_result',run)).kind,'abg_project_read_refusal');
   assert.equal(RunProjectionPort.run_result(packet('run_result',graph)).kind,'abg_project_read_refusal');
+});
+
+test('Run reads validate selected liveness while workspace replay retains the complete calculus',async()=>{
+  // Component boundary: supply the authenticated immutable-event premise to
+  // the read owner. These current-profile variants are unadmitted test data;
+  // physical decoding/stamps are exercised by the decoder and body-codec tests.
+  const nativeEvents=deepFreeze(events.map(event=>({...event,eventContractDigest:ROOT_EVENT_CONTRACT_DIGEST})));
+  const reader=rows=>privateOwner('abg/project_read_ports.js',['prepareRead'],{
+    './event_store.js':{readRuntimeEventsAtDurablePrefix:()=>rows},
+  });
+  const original=await reader(nativeEvents);
+  const expected=original.RunProjectionPort.run_result(packet('run_result'));
+  assert.equal(expected.kind,'abg_project_read_projection');
+  const workspace=events.find(event=>event.scopeClass==='workspace').aggregateId;
+  const workspaceExpected=original.WorkspaceProjectionPort.workspace_replay(packet('workspace_replay',workspace));
+  assert.equal(workspaceExpected.kind,'abg_project_read_projection');
+  assert.equal(workspaceExpected.value.eventContractProjection.effectRows.length,nativeEvents.length);
+  const malformed=runId=>{
+    const scope={basisRef:'basis://scope-control',programRef:'program://scope-control',runId,
+      graphFunctionRef:'graph-function://scope-control',graphCallId:'graph-call://scope-control',frameId:'frame://scope-control',
+      cCallRef:null,programLocusRef:null,taskOrdinal:null,vectorIndex:null,edgeRef:null,attempt:1,
+      actorInvocationRef:null,actorRef:null,workerBindingRef:null,backendRef:null};
+    const probeContract=constructRuntimeSystemProbeContract({scope,clockOriginRef:'clock://scope-control',source:'frame_progress',
+      sourceRef:'frame://scope-control',declarationEventRef:'event://missing-declaration',required:true});
+    const observation={kind:'runtime_probe_observation',schemaVersion:'5.0.0',probeRef:probeContract.probeRef,
+      scopeDigest:sha256Canonical(scope),clockOriginRef:probeContract.clockOriginRef,elapsedMs:0,
+      underlyingObservationRef:'event://missing-source',underlyingEventRef:'event://missing-source',sourceDigest:sha256Canonical('missing'),
+      sourceRevisionDigest:null,evidenceRefs:[],coverage:'observed',signal:'activity'};
+    const event=projectRuntimeEventFromValidatedHistory(nativeEvents,{kind:'runtime_activity_probe_observed',eventTime:'2026-09-27T00:00:00.000Z',
+      aggregateType:'graph_call',aggregateId:scope.graphCallId,parentAggregateId:runId,causationEventRefs:[],
+      correlationId:'correlation://scope-control',workflowVersion:'5.0.0',scopeClass:'run',basisId:scope.basisRef,runId,
+      graphFunctionRef:scope.graphFunctionRef,graphCallId:scope.graphCallId,frameId:scope.frameId,payload:{probeContract,observation}});
+    return deepFreeze([...nativeEvents,event]);
+  };
+  const unrelated=await reader(malformed('run://unrelated-scope-control'));
+  assert.deepEqual(unrelated.RunProjectionPort.run_result(packet('run_result')).value.terminalResult,expected.value.terminalResult);
+  assert.equal(unrelated.WorkspaceProjectionPort.workspace_replay(packet('workspace_replay',workspace)).code,'invalid_history');
+  const target=await reader(malformed(run));
+  assert.equal(target.RunProjectionPort.run_result(packet('run_result')).code,'invalid_history');
+  assert.equal(target.RunProjectionPort.run_replay(packet('run_replay')).code,'invalid_history');
 });
 
 test('native CCall owner rejects altered value, contract, producer, judgment and pre-result prefix without test-owned admission',()=>{
