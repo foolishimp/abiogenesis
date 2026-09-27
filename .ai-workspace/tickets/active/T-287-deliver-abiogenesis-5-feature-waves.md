@@ -24,9 +24,9 @@
 - current_accepted_archive_sha256: d7ac2aac2fc80c60e71209bf547b59544fbc30edf9944f57953d0b4a361ff582
 - current_worker_return: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-structured-response-repair-02/return.md
 - current_candidate_scope: core49_response_route_source_package_accepted_installed_proof_selected
-- current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-07/execution-return.md
-- current_live_execution_status: PC05_07_closed_runtime_failed_malformed_assessment_no_active_actor
-- current_activation_status: PC05_08_installed_setup_and_one_assessment_selected
+- current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-08/activation.json
+- current_live_execution_status: PC05_08_closed_host_schema_refusal
+- current_activation_status: paired_schema_default_HOW_and_authoring_correction_selected
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#program-construction-calculus-definition'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: correct_native_assessment_structured_response_then_dispose_preserved_PC05
-- next_bounded_task_status: source_and_package_accepted_installed_verification_selected
+- next_bounded_task: compatible_authored_assessment_schema_with_fixed_ABG_dialect
+- next_bounded_task_status: paired_HOW_and_realization_work_no_installed_retry_selected
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -674,16 +674,19 @@ and selects a bounded native-assessment `design_reframe` plus transport repair:
 pass the exact admitted schema to the existing host structured-output mechanism,
 consume its final carrier, retain independent validation. No schema weakening,
 text repair or blind retry. The [closed correction and delta review](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-structured-response-repair-02-review.md)
-and exact core49 package are accepted for source readiness. One installed PC05-08
-assessment is selected with original author/work/criteria and bounds conserved.
-PC06's fifteen-binding join and release remain open.
-Latest phases: package14.139 s, install57.599 s, other setup59.174 s;
-Run446.681 s includes actor276.803 s; fresh Result/replay92.711/92.947 s.
-The54,794,116 B appended suffix closes at1,300,706,344 B. One closed diagnostic
-refines the pre-actor elapsed intervals to83.411/9.326/69.620 s; these are not
-exclusive CPU attribution. CALLER-DURABLE-CONTEXT-01/LIFE-01 remains open.
-Exact source reuse takes0.149 s; existing R10/currentness owners authenticate
-it. No whole-Run speedup or justified framework minimum is claimed.
+and exact core49 package are accepted for source readiness. [PC05-08](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-08/execution-return.md)
+closed failed: pinned host refuses the exact schema's draft-2020-12 declaration;
+no valid assessment or model usage is reported. Fresh Result is absent and replay
+failed. [Closed portability triage](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-01/return.md)
+selects the bounded paired HOW correction: fixed ABI2020 default for an omitted
+marker and GLC authoring without that optional marker, preserving every actual
+constraint. No transport translation or further attempt. PC06 and release remain open.
+Latest phases: package14.554 s, install61.594 s, other setup61.512 s;
+Run176.844 s, pre-prompt169.379 s; fresh Result/replay98.184/98.896 s.
+The51,235,907 B suffix closes at1,354,273,180 B. These are elapsed observations,
+not exclusive CPU attribution or justified minimums. LIFE-01 remains open.
+Exact source reuse takes0.106 s; existing R10/currentness owners authenticate
+it. No whole-Run speedup or performance closure is claimed.
 
 Prior PC05-04 outcome, 2026-09-28: [native constructor admitted; evaluation preparation failed](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-04/execution-return.md).
 The compatible host and corrected Public steering now pass. Opus5.5/xhigh

@@ -312,3 +312,63 @@ Root resumes Executive at each outcome. Distinguish build/install, runtime,
 actor and fresh readback costs. Existing LIFE-01 red flags stay open; schema
 repair is not performance closure. PC06 then conjoins original conditions;
 S06, exact qualification and actual release acceptance remain separately open.
+
+
+PC05-08 setup closes genuinely at1,303,037,273 B. Packaging14.554 s,
+installation61.594 s and remaining setup61.512 s are recorded separately;
+exact source reuse0.106 s and fresh installed descriptor0.271 s pass. The
+frozen source/caller and one-assessor/no-constructor/no-C2 assertions pass.
+Root binds closed review6cd46824… and invokes the installed suffix once through
+ordinary CLI with no component loader or inherited NODE_OPTIONS. Terminal
+outcome and fresh Public reads are pending. No further attempt is selected.
+
+
+PC05-08 is closed failed: the pinned host locally refuses the exact consumer
+schema's draft-2020-12 declaration. Fresh Result is absent and replay failed;
+no valid assessment or model-usage result exists. Its176.844 s Run and169.379 s
+pre-prompt interval, followed by98.184/98.896 s fresh reads, remain explicit
+framework-cost red flags. The response/parser source correction's bounded
+acceptance is preserved, not promoted to successful host compatibility.
+
+Before another attempt, Worker performs one bounded read-only schema-portability
+triage at GLC's schema owner: determine whether the actual finite vocabulary can
+be authored compatibly without loss under the existing ABG validator and pinned
+host, with a deterministic preflight discriminator. No adapter stripping, fallback,
+new schema-transformer, source change or native retry is selected. Root Writer
+records the closed failure and scopes its checkpoint; Executive owns the next
+re-entry after the closed return. No full-journal diagnostic is needed here.
+
+
+### Assessment dialect default re-entry
+
+Executive consumes compatibility return f1a3bb64…. REQ-R-ABG3-PAYLOAD-028
+requires one declared shape authority, rendered and enforced at ingress; it
+does not require the metadata marker. Current ABI HOW/admission unnecessarily
+makes that marker mandatory while the selected host rejects it. The actual
+GLC schema uses only the recorded portable vocabulary. Its current task is
+constructed from the current ASSESSMENT_SCHEMA_TEXT at the existing GLC owner;
+historical originalInput and author evidence do not need rewriting.
+
+Select the smallest paired `design_reframe`: ABI assessment admission has an
+explicit fixed draft-2020-12 default when `$schema` is absent. A present marker
+must still equal the selected 2020 URI; conflicting dialects refuse. Preserve
+strict Ajv2020, formats, no coercion/defaults/removal, exact identity, closed
+objects, kind and all other admission/instance checks. GLC authors its exact
+schema without the optional marker; `$id` and every instance constraint remain
+byte-for-byte equivalent as a JSON value. Transport passes that complete
+newly authored schema unchanged; no adapter stripping, transformer, fallback,
+second validator authority or historical input mutation is selected. Product,
+Public families, source obligations, criteria and instance domain remain.
+
+Worker owns that coherent ABI/GLC HOW/source/affected-check delta under their
+unchanged exact method bases. Prove explicit/implicit2020 and conflicting-dialect
+admission, preserve actual constraint positive/negatives and exact argv. One
+bounded pinned-host local compiler preflight may use empty stdin/no prompt in
+print mode, with a short process bound: the original schema must reproduce its
+meta-schema refusal and the portable schema must reach the ordinary missing-input
+boundary without a model turn. If the host cannot establish this without a
+provider turn, stop and report that limit. No paid/provider invocation, install,
+shared-history read, original-work edit or expanded suite is authorized. Freeze
+and return; one independent delta review precedes any further installed selection.
+Root separately records and checkpoints PC05-08's closed failure while this
+source work proceeds. The excessive deterministic elapsed cost remains open.
