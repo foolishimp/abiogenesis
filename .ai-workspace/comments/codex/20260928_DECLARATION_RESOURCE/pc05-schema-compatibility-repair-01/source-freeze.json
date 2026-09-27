@@ -1,0 +1,215 @@
+{
+  "scope": "Paired authored schema and fixed ABI dialect default; exact transport schema unchanged",
+  "preimages": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/preimages.json",
+    "bytes": 1675,
+    "sha256": "d3219ecf9bb9e11c5323d33890f1ad112446226563b26eed44e29c891e7aa4ee"
+  },
+  "source": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "bytes": 8161,
+      "sha256": "fb140fcb9868ff66147e677216442f6f501aaa73d87288318a6fddf057d7aa8a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "bytes": 17728,
+      "sha256": "1a44403256c6d31b8d3a8091e1086c3885104cc44e5e29f014f0eb2e9a6d3739"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 66124,
+      "sha256": "92d75e46a98ad979b02283e0fa9f3ecded429dca3b34c8ae952357f35f8cb041"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-continuation-contracts.mjs",
+      "bytes": 13603,
+      "sha256": "75f96f83b8417b8b2fb1dc56599c865b12696d71e34d90dfdfd49e5123b616e5"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/build_tenants/common/design/ODD_GLC_PROGRAM_CONSTRUCTION.md",
+      "bytes": 43452,
+      "sha256": "ff6aebe166a21c36fa98851e7f3fb2edebcb732d7e401460a163e37d6c42b1f4"
+    }
+  ],
+  "compiled": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_assessment.js",
+      "bytes": 6913,
+      "sha256": "116947e2f46f28f60600c6026f84f6fd3864ebd1a871bdaba700ee33ce5cb4cd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_assessment.d.ts",
+      "bytes": 2132,
+      "sha256": "07a6a35249308959e8ed114b1da595b85aa10eeaf42b4771fca900a768137a3e"
+    }
+  ],
+  "composedReferences": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-structured-response-repair-01/source-freeze.json",
+      "bytes": 4199,
+      "sha256": "73546935073fa9ded2a28df5ecfea505852b6862d1cc7a06ad9a18eeef35a790"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-structured-response-repair-01/return.md",
+      "bytes": 3752,
+      "sha256": "cf4961d3e252495fc82b41ca9ac7c70927c8c4eb6a0f88532da8ed83081b2e71"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-structured-response-repair-02/source-freeze.json",
+      "bytes": 4628,
+      "sha256": "e69ded39ee1e5c5c3ef8ff0f04622eac263483785e5e15a7f15e068886cb68a9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-structured-response-repair-02/return.md",
+      "bytes": 1933,
+      "sha256": "39e74cac284b421687f9156b7d0e067073d80f3384067947cb9eb0b95919dc32"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-01/return.md",
+      "bytes": 3863,
+      "sha256": "f1a3bb6419c409e9298e9ec1e77123500ad3d094935bdafc3c87a53c0b32bc5c"
+    }
+  ],
+  "retainedPriorMembers": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "bytes": 58840,
+      "sha256": "7fd7ed76858a787259c67377a7f7ef31b84247ff21955b0195118246c79834a5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "bytes": 38651,
+      "sha256": "7d4a1fa3d03481703012bf9ab54e090eb45d95a55d2bf8498680b2132ba715d9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/actor_process.js",
+      "bytes": 54726,
+      "sha256": "e1a17103dcf7ab760673e0c4d9e4c7920e571edb31a61d53277850ddca3704eb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/actor_process.d.ts",
+      "bytes": 8545,
+      "sha256": "5928af2fb736f8c9302fbaaec127637de07d0c077c9818052ef7cb9685b49eac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/worker_transport.js",
+      "bytes": 34445,
+      "sha256": "77fb28160626506574ebd745164acee99da749512f2627b8fc39440939103169"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/worker_transport.d.ts",
+      "bytes": 6463,
+      "sha256": "7dfaffed4e28cea8f8e84a407e7ce9fe31bfb5630e05d3e7ba02931f66476191"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "bytes": 14887,
+      "sha256": "d38f46fae38fa8239532b853eb962bb6a1defb99d59ae2edc7931561faa9e0fb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 36496,
+      "sha256": "4fd72316efc857b2ea4c59036ffdd57808ca876822aa0ca9d05f1cf92c889aea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/transport_contracts.js",
+      "bytes": 11527,
+      "sha256": "8982b031d637c4ed12b0abfff6a60a38cb9c0b0f939144ba03a03438e43affd7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/transport_contracts.d.ts",
+      "bytes": 4235,
+      "sha256": "99f7252bbef13503266e89c39832cbc425224dd1d10cfc6e2f03e017ff5b0644"
+    }
+  ],
+  "checks": {
+    "compiler": "passed",
+    "focusedTests": "2/2 passed",
+    "actualSchemaComparison": "11 cases passed",
+    "pinnedHostPreflight": "old metadata refusal; exact newly authored schema missing-input boundary",
+    "diffCheck": "passed in both repositories"
+  },
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/authored-schema.json",
+      "bytes": 1062,
+      "sha256": "dfc1fbd986f7855cb9ee626924102ff4b18e1b4b5b75fcabae6f8d2e20583751"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/checks.json",
+      "bytes": 987,
+      "sha256": "c1e8303b1df5546629de6d636dc9cf7df81e613031ea50d7bab2bc65d0bc91ff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/delta.patch",
+      "bytes": 6446,
+      "sha256": "dcbb7d819e0a2c96c5f568c87f04ab036e03e0319f43d1b87a88aba6d3a4c021"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/host-config/.claude.json",
+      "bytes": 423,
+      "sha256": "19b34f5c4ece3738a2b0b958387843674ebffc9a4c64b94f104482f14cba8952"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/host-config/backups/.claude.json.backup.1790550008185",
+      "bytes": 84,
+      "sha256": "e38e3b6926014df161f6a783c993d6476b61656ddfd315114b6b72f14a61d93a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/host-preflight.json",
+      "bytes": 1773,
+      "sha256": "cb852f391cc541860487135943acb57598ddbe0ef5fd5516e5525e96ce1364e2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/host-preflight.py",
+      "bytes": 2494,
+      "sha256": "c9b62062184b544892540878134ece7745820c74aed84263701308d6af2cc084"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/old-schema.json",
+      "bytes": 1119,
+      "sha256": "8289425dbcfbb85c0be94a46451267183bb8666af413fc8484d941b594efbcc7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/preimage-1.txt",
+      "bytes": 8123,
+      "sha256": "a6759d40d4c2267560c36c91540e3ff5c5148223bd8d8fe07a85d501e2e5eafe"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/preimage-2.txt",
+      "bytes": 17268,
+      "sha256": "725c9c319401bf8435542766f0773f1401b0b75929e67b6657193ffb8f083bf1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/preimage-3.txt",
+      "bytes": 64469,
+      "sha256": "579c2209d17fe8ac55c40ade090161dedcdda8749e4b5bf03c893fdf383d8af6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/preimage-4.txt",
+      "bytes": 13664,
+      "sha256": "98b26c5f39806e3673ebc99b1fe4b110ced7370c3f59e4384ca83e4cea37f886"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/preimage-5.txt",
+      "bytes": 42988,
+      "sha256": "d732d69ab7dcde45cd0ecb6a320e065df306f5b82f67d615ddccec1c67b7ff16"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/preimages.json",
+      "bytes": 1675,
+      "sha256": "d3219ecf9bb9e11c5323d33890f1ad112446226563b26eed44e29c891e7aa4ee"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/pure-schema-check.json",
+      "bytes": 1623,
+      "sha256": "ef57e581a41f182218bc749ca535e12414dd2a173734e9594d13ab769b6b3ba8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/pure-schema-check.mjs",
+      "bytes": 4402,
+      "sha256": "43c675a03334c0e02a46ade7e866ca918aa996b433b84db49b5eb0b9bb8bb059"
+    }
+  ]
+}

@@ -159,13 +159,6 @@ selection against the required closure before ordinary raw/result admission.
 Missing, ambiguous, different or invalid schema evidence refuses. This does
 not let a task invent an undeclared response contract.
 
-Assessment schemas have the fixed draft-2020-12 interpretation. An absent
-`$schema` selects that default without adding a marker to the authored bytes;
-a present marker must equal `https://json-schema.org/draft/2020-12/schema`.
-Conflicting or null markers refuse. The same strict Ajv2020 validator, full
-formats and raw I-JSON checks apply, without coercion, defaults or removal of
-additional properties. This is an admission default, not dialect conversion.
-
 The schema owner retains its prepared validator with that exact admitted immutable schema for the asset object's lifetime. Repeated response-schema projection of an unchanged immutable asset reuses the same schema; selector identity checks and each resolver's actual installed-byte/declaration checks still execute. Result parsing reuses that preparation without changing strict draft-2020-12/full-format validation or raw I-JSON refusal. Changed assets, copied schema objects and standalone caller schemas establish their own preparation; no content-keyed registry or caller coordinate supplies authority. Catalog declaration application may resolve a multi-asset reference closure and remains a separate validation basis.
 
 Before dispatch, the authenticated native assessor passes its exact admitted

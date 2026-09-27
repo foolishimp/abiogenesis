@@ -1,0 +1,27 @@
+[
+  {
+    "command": [
+      "./node_modules/.bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ],
+    "elapsedSeconds": 5.664494583848864,
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern",
+      "assessment schema defaults to fixed 2020|assessment schema must match its unique declared installed owner",
+      "test_env/tests/t287-native-workspace-work.test.mjs"
+    ],
+    "elapsedSeconds": 0.34475820790976286,
+    "exitCode": 0,
+    "stdout": "\u2714 assessment schema must match its unique declared installed owner and immutable schema asset (23.825042ms)\n\u2714 assessment schema defaults to fixed 2020 without changing declared validation or accepting conflicting markers (17.182ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 2\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 321.315833\n",
+    "stderr": ""
+  }
+]

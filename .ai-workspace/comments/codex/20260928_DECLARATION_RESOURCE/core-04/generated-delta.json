@@ -1,0 +1,41 @@
+[
+  {
+    "path": "build/code/src/product/native_workspace_assessment.js",
+    "before": {
+      "path": "build/code/src/product/native_workspace_assessment.js",
+      "bytes": 6875,
+      "sha256": "f3d01865df5672655a735511fe5f50042a6b33fdd2bf316a144600336ae7d9b4"
+    },
+    "after": {
+      "path": "build/code/src/product/native_workspace_assessment.js",
+      "bytes": 6913,
+      "sha256": "116947e2f46f28f60600c6026f84f6fd3864ebd1a871bdaba700ee33ce5cb4cd"
+    }
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "51b7f50599cabccd669cc41e7a22abc9e84e6e4dd40d4e7924bb6cf3ff66cb12"
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "7c69951e63729b07b1bae721d225ac54f43f4d35bad2b75c8f47252592494650"
+    }
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "8f39efbf9a12bab71834d29f983b535cf6f097fba7ea9ebbdc3ce7fa10e07fa0"
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "148f3afa0786bb0c4b22a427fe7bb5c4fa4a0768fe5a89b7a62ecfd763e104a6"
+    }
+  }
+]

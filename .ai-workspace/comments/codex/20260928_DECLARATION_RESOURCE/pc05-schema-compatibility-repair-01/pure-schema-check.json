@@ -1,0 +1,61 @@
+{
+  "scope": "Pure schema/argument comparison; retained assessment remains historically unsatisfied under unchanged GLC interpretation",
+  "elapsedMs": 102.38970900000001,
+  "onlyRemovedMetadata": "$schema",
+  "oldAssetSha256": "sha256:8289425dbcfbb85c0be94a46451267183bb8666af413fc8484d941b594efbcc7",
+  "newAssetSha256": "sha256:dfc1fbd986f7855cb9ee626924102ff4b18e1b4b5b75fcabae6f8d2e20583751",
+  "oldAssetBytes": 1119,
+  "newAssetBytes": 1062,
+  "exactArgumentEquality": true,
+  "retained": {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-06/execution/terminal-value.json",
+    "sha256": "sha256:fdd30fce48071ed4b07befbd57b1bc7a6dcbedd2951e1386a0ff223fee2aa8e8",
+    "criteria": 5
+  },
+  "cases": [
+    {
+      "label": "actual typed assessment",
+      "schemaValid": true
+    },
+    {
+      "label": "malformed JSON",
+      "schemaValid": false
+    },
+    {
+      "label": "duplicate key",
+      "schemaValid": false
+    },
+    {
+      "label": "wrong kind",
+      "schemaValid": false
+    },
+    {
+      "label": "extra root property",
+      "schemaValid": false
+    },
+    {
+      "label": "missing criteria",
+      "schemaValid": false
+    },
+    {
+      "label": "empty criteria",
+      "schemaValid": false
+    },
+    {
+      "label": "invalid disposition",
+      "schemaValid": false
+    },
+    {
+      "label": "empty rationale",
+      "schemaValid": false
+    },
+    {
+      "label": "missing nested evidence quote",
+      "schemaValid": false
+    },
+    {
+      "label": "selected residual with null criterion",
+      "schemaValid": true
+    }
+  ]
+}

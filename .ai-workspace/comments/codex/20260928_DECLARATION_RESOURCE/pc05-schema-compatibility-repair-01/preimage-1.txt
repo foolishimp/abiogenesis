@@ -48,7 +48,7 @@ export function nativeWorkspaceAssessmentSchema(selection: NativeWorkspaceAssess
     })();
     if (!isJsonRecord(schema) ||
       schema.$id !== selection.resultContract.contractRef || schema.$id !== selection.schemaAsset.contractId ||
-      (Object.hasOwn(schema, "$schema") && schema.$schema !== "https://json-schema.org/draft/2020-12/schema") || schema.$async !== undefined ||
+      schema.$schema !== "https://json-schema.org/draft/2020-12/schema" || schema.$async !== undefined ||
       schema.type !== "object" || schema.additionalProperties !== false) return null;
     const properties = schema.properties;
     if (properties === undefined || !isJsonRecord(properties)) return null;

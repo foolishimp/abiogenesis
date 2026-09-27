@@ -1,0 +1,11 @@
+{
+  "predecessor": "core49",
+  "unchanged": 5230,
+  "changed": 3,
+  "changedPaths": [
+    "build/code/src/product/native_workspace_assessment.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "scope": "fixed draft2020 default for omitted marker, strict validation conserved; exact source review owns acceptance"
+}

@@ -1,0 +1,43 @@
+{
+  "heads": {
+    "/Users/jim/src/apps/abiogenesis": "c7988f93795efcd335f3cb7e1544ea0c5e1c6424",
+    "/Users/jim/src/apps/odd_glc": "6488c2d2e94288a3854093d9fd84673991b86392"
+  },
+  "files": [
+    {
+      "repo": "/Users/jim/src/apps/abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "sha256": "a6759d40d4c2267560c36c91540e3ff5c5148223bd8d8fe07a85d501e2e5eafe",
+      "bytes": 8123,
+      "preimage": "preimage-1.txt"
+    },
+    {
+      "repo": "/Users/jim/src/apps/abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "725c9c319401bf8435542766f0773f1401b0b75929e67b6657193ffb8f083bf1",
+      "bytes": 17268,
+      "preimage": "preimage-2.txt"
+    },
+    {
+      "repo": "/Users/jim/src/apps/abiogenesis",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "579c2209d17fe8ac55c40ade090161dedcdda8749e4b5bf03c893fdf383d8af6",
+      "bytes": 64469,
+      "preimage": "preimage-3.txt"
+    },
+    {
+      "repo": "/Users/jim/src/apps/odd_glc",
+      "path": "build_tenants/odd_glc/typescript/src/native-continuation-contracts.mjs",
+      "sha256": "98b26c5f39806e3673ebc99b1fe4b110ced7370c3f59e4384ca83e4cea37f886",
+      "bytes": 13664,
+      "preimage": "preimage-4.txt"
+    },
+    {
+      "repo": "/Users/jim/src/apps/odd_glc",
+      "path": "build_tenants/common/design/ODD_GLC_PROGRAM_CONSTRUCTION.md",
+      "sha256": "d732d69ab7dcde45cd0ecb6a320e065df306f5b82f67d615ddccec1c67b7ff16",
+      "bytes": 42988,
+      "preimage": "preimage-5.txt"
+    }
+  ]
+}

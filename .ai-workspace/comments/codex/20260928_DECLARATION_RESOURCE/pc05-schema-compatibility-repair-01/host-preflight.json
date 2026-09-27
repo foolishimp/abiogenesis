@@ -1,0 +1,42 @@
+{
+  "host": "/Users/jim/.local/share/claude/versions/2.1.280",
+  "hostSha256": "387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d",
+  "boundSeconds": 5,
+  "scope": "Local print-mode argument/input preflight only; empty stdin, no prompt, isolated config, no credentials, provider URL restricted to loopback port 1, no session persistence",
+  "rows": [
+    {
+      "label": "old",
+      "schemaFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/old-schema.json",
+      "schemaArgumentSha256": "96bb25ae56efacc011d7b0522cea154ba85e81c6eb349d8c2c1ccdbafc198005",
+      "flags": [
+        "--print",
+        "--no-session-persistence",
+        "--json-schema"
+      ],
+      "stdinBytes": 0,
+      "promptArgument": false,
+      "elapsedSeconds": 0.21199150010943413,
+      "status": 1,
+      "timedOut": false,
+      "stdout": "",
+      "stderr": "Error: --json-schema is not a valid JSON Schema: no schema with key or ref \"https://json-schema.org/draft/2020-12/schema\"\n"
+    },
+    {
+      "label": "authored",
+      "schemaFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/authored-schema.json",
+      "schemaArgumentSha256": "a6f64a7bbe85ca129e30ecdd1e56323b658081ca46bb4bfe02d9442931c71f6e",
+      "flags": [
+        "--print",
+        "--no-session-persistence",
+        "--json-schema"
+      ],
+      "stdinBytes": 0,
+      "promptArgument": false,
+      "elapsedSeconds": 0.20626470912247896,
+      "status": 1,
+      "timedOut": false,
+      "stdout": "",
+      "stderr": "Error: Input must be provided either through stdin or as a prompt argument when using --print\n"
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+--- a/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts
++++ b/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts
+@@ -48,7 +48,7 @@
+     })();
+     if (!isJsonRecord(schema) ||
+       schema.$id !== selection.resultContract.contractRef || schema.$id !== selection.schemaAsset.contractId ||
+-      schema.$schema !== "https://json-schema.org/draft/2020-12/schema" || schema.$async !== undefined ||
++      (Object.hasOwn(schema, "$schema") && schema.$schema !== "https://json-schema.org/draft/2020-12/schema") || schema.$async !== undefined ||
+       schema.type !== "object" || schema.additionalProperties !== false) return null;
+     const properties = schema.properties;
+     if (properties === undefined || !isJsonRecord(properties)) return null;
+--- a/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
++++ b/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+@@ -159,6 +159,13 @@
+ Missing, ambiguous, different or invalid schema evidence refuses. This does
+ not let a task invent an undeclared response contract.
+ 
++Assessment schemas have the fixed draft-2020-12 interpretation. An absent
++`$schema` selects that default without adding a marker to the authored bytes;
++a present marker must equal `https://json-schema.org/draft/2020-12/schema`.
++Conflicting or null markers refuse. The same strict Ajv2020 validator, full
++formats and raw I-JSON checks apply, without coercion, defaults or removal of
++additional properties. This is an admission default, not dialect conversion.
++
+ The schema owner retains its prepared validator with that exact admitted immutable schema for the asset object's lifetime. Repeated response-schema projection of an unchanged immutable asset reuses the same schema; selector identity checks and each resolver's actual installed-byte/declaration checks still execute. Result parsing reuses that preparation without changing strict draft-2020-12/full-format validation or raw I-JSON refusal. Changed assets, copied schema objects and standalone caller schemas establish their own preparation; no content-keyed registry or caller coordinate supplies authority. Catalog declaration application may resolve a multi-asset reference closure and remains a separate validation basis.
+ 
+ Before dispatch, the authenticated native assessor passes its exact admitted
+--- a/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
++++ b/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs
+@@ -449,6 +449,30 @@
+   await fs.writeFile(schemaPath,'{}');assert.equal(resolveNativeWorkspaceAssessmentSchema(a,[declared],[install]),null,'changed installed schema');
+ });
+ 
++test('assessment schema defaults to fixed 2020 without changing declared validation or accepting conflicting markers', async t => {
++  const env=await assessmentFixture(t), a=env.task.assessment;
++  const owner=await import('../../build/code/src/product/native_workspace_assessment.js');
++  const { $schema: marker, ...implicit }=assessmentSchema;
++  const select=schema=>({...a,schemaAsset:{...a.schemaAsset,bytesBase64:Buffer.from(JSON.stringify(schema)).toString('base64')}});
++  for (const schema of [assessmentSchema,implicit]) {
++    const selected=owner.nativeWorkspaceAssessmentSchema(select(schema));
++    assert.deepEqual(selected,schema,'admission preserves exact authored schema without marker injection');
++    assert.deepEqual(owner.parseNativeWorkspaceAssessmentResult(selected,verdict()),JSON.parse(verdict()));
++    for (const output of ['{',JSON.stringify({...JSON.parse(verdict()),kind:'wrong'}),
++      JSON.stringify({...JSON.parse(verdict()),extra:true})]) {
++      assert.equal(owner.parseNativeWorkspaceAssessmentResult(selected,output),null);
++    }
++  }
++  assert.equal(marker,'https://json-schema.org/draft/2020-12/schema');
++  for (const wrong of [null,'http://json-schema.org/draft-07/schema#','https://json-schema.org/draft/2019-09/schema',false]) {
++    assert.equal(owner.nativeWorkspaceAssessmentSchema(select({...implicit,$schema:wrong})),null);
++  }
++  for (const change of [{$id:'contract://wrong'}, {additionalProperties:true}, {required:['criteria','residuals']},
++    {properties:{...implicit.properties,kind:{const:'wrong'}}}]) {
++    assert.equal(owner.nativeWorkspaceAssessmentSchema(select({...implicit,...change})),null);
++  }
++});
++
+ test('exact assessment resolution, native completion and result checks share one compilation without accepting changed schema or installed bytes', async t => {
+   const {Ajv2020}=await import('ajv/dist/2020.js');
+   const schemaOwner=await import('../../build/code/src/product/native_workspace_assessment.js');
+--- a/odd_glc/build_tenants/odd_glc/typescript/src/native-continuation-contracts.mjs
++++ b/odd_glc/build_tenants/odd_glc/typescript/src/native-continuation-contracts.mjs
+@@ -30,7 +30,6 @@
+  inputContractRef:stage.inputContractRef,outputContractRef:stage.outputContractRef,failureContractRef:ids.failureContractRef,refusalContractRef:ids.refusalContractRef});
+ 
+ export const ASSESSMENT_SCHEMA = {
+-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+   "$id": "contract://odd-glc/native-continuation/criterion-verdicts@5",
+   "type": "object",
+   "additionalProperties": false,
+--- a/odd_glc/build_tenants/common/design/ODD_GLC_PROGRAM_CONSTRUCTION.md
++++ b/odd_glc/build_tenants/common/design/ODD_GLC_PROGRAM_CONSTRUCTION.md
+@@ -555,6 +555,13 @@
+ Require assessor independence from that author and any other producer named by
+ the selected duty. No new assessment file is needed.
+ 
++The shared criterion-verdict schema is authored without the optional `$schema`
++marker and uses portable validation vocabulary. ABI's assessment owner gives
++that exact schema its fixed draft-2020-12 interpretation; `$id`, closed objects,
++required fields and every instance constraint remain declared. The same authored
++bytes reach native admission and the host. No transport strips metadata or
++converts dialects; unsupported host/schema combinations still refuse.
++
+ Native admission establishes schema/response/provenance. GLC additionally
+ checks the exact prepared task, unchanged read-only subject, complete required
+ criterion/evidence-role coverage and satisfactory verdict. Assessment considers

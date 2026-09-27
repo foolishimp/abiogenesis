@@ -18,15 +18,15 @@
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
 - current_activation: T287_DECLARATION_RESOURCE_01
-- current_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-03/selected-core.json
-- current_candidate_archive_sha256: d7ac2aac2fc80c60e71209bf547b59544fbc30edf9944f57953d0b4a361ff582
+- current_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-04/selected-core.json
+- current_candidate_archive_sha256: 91e21527183245b1d660350222b68e2331a4ccf93d447ef996d249e6499f12db
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/executive-disposition.md
-- current_accepted_archive_sha256: d7ac2aac2fc80c60e71209bf547b59544fbc30edf9944f57953d0b4a361ff582
-- current_worker_return: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-structured-response-repair-02/return.md
-- current_candidate_scope: core49_response_route_source_package_accepted_installed_proof_selected
-- current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-08/activation.json
-- current_live_execution_status: PC05_08_closed_host_schema_refusal
-- current_activation_status: paired_schema_default_HOW_and_authoring_correction_selected
+- current_accepted_archive_sha256: 91e21527183245b1d660350222b68e2331a4ccf93d447ef996d249e6499f12db
+- current_worker_return: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/return.md
+- current_candidate_scope: core50_schema_default_source_package_accepted_installed_proof_selected
+- current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-09/activation.json
+- current_live_execution_status: PC05_09_setup_selected_no_Run_yet
+- current_activation_status: paired_schema_default_and_portable_authoring_accepted
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#program-construction-calculus-definition'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: compatible_authored_assessment_schema_with_fixed_ABG_dialect
-- next_bounded_task_status: paired_HOW_and_realization_work_no_installed_retry_selected
+- next_bounded_task: PC05_09_installed_assessment_then_PC06_original_condition_join
+- next_bounded_task_status: one_setup_and_one_assessment_selected_preserve_author_and_C2
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -680,7 +680,10 @@ no valid assessment or model usage is reported. Fresh Result is absent and repla
 failed. [Closed portability triage](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-01/return.md)
 selects the bounded paired HOW correction: fixed ABI2020 default for an omitted
 marker and GLC authoring without that optional marker, preserving every actual
-constraint. No transport translation or further attempt. PC06 and release remain open.
+constraint. The [closed paired delta review](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-review.md)
+and exact core50 package are accepted. One installed PC05-09 setup/assessment is
+selected under source freeze aa2dedac… and caller freeze 283dc064…. Preserve the
+paid author and completed C2; no translation or blind retry. PC06/release remain open.
 Latest phases: package14.554 s, install61.594 s, other setup61.512 s;
 Run176.844 s, pre-prompt169.379 s; fresh Result/replay98.184/98.896 s.
 The51,235,907 B suffix closes at1,354,273,180 B. These are elapsed observations,
