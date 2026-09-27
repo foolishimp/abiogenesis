@@ -17,7 +17,7 @@
 - updated_at: 2026-09-27
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_GLC_PC05_REVIEW_01
+- current_activation: T287_GLC_PC05_PREPARATION_01
 - current_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46/selected-core.json
 - current_candidate_archive_sha256: e2c2d053528fca7dd0e4988ec50772cd8a12f058d35076119c99cf8c4e7adbfb
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-46/return.md
@@ -26,7 +26,7 @@
 - current_candidate_scope: core46_catalog_order_correction_accepted_exact_package_verified_installed_construction_qualification_open
 - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/installed-04/return.md
 - current_live_execution_status: CLOSED_ACCEPTED_deterministic_evaluator_positive_and_wrong_origin_refusal_zero_actors_native44_preserved
-- current_activation_status: T043_PC01_PC04_source_complete_whole_path_review_selected
+- current_activation_status: T043_PC01_PC04_source_review_accepted_WP01_closed_PC05_preparation
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#program-construction-calculus-definition'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: T043_PC05_whole_path_review_and_installed_proof
-- next_bounded_task_status: whole_path_review_then_PC05_PC06_and_existing_S06_exact_qualification_RC1
+- next_bounded_task: T043_PC05_prepare_and_prove_installed_complete_path
+- next_bounded_task_status: PC05_PC06_then_existing_S06_exact_qualification_RC1
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -670,7 +670,12 @@ historical journal or repeat a valid author merely to expand local qualification
   across fourteen executions (240.982 s). PC04 assessment composition is source
   complete: [frozen return](../../../../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/pc04/return.md),
   nine matching hashes, eight final affected cases passed in 29.453 s. T-043
-  selects the one whole-path review before complete installed/live proof.
+  owns the closed whole-path review and its accepted WP-01 correction:
+  complete edge coverage prevents a true row hiding a nontrue sibling. Four
+  affected checks pass (22.617 s); the same Reviewer independently reproduced
+  the repaired refusal (0.150 s). [Delta review](../../../../odd_glc/.ai-workspace/comments/codex/20260927_PROGRAM_CONSTRUCTION/wp01-repair-01/review.md)
+  and both frozen hashes are accepted; PC05 preparation is selected. No ABI
+  source change or new installed/live outcome is claimed.
   Root enters Writer only for this projection and T-043's
   scoped checkpoint commit/push, then returns to Executive; core46 is unchanged.
   The design checkpoint is closed.
