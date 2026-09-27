@@ -1,0 +1,16 @@
+(node:60958) ExperimentalWarning: `--experimental-loader` may be removed in the future; instead use `register()`:
+--import 'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("./test/fixtures/program-construction/core-loader.mjs", pathToFileURL("./"));'
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ PC03 construction edge records derive from actual before/after and cannot promote false or unknown (2173.038084ms)
+✔ PC05 author residuals remain verbatim judgment evidence without deciding every structural edge (4075.066542ms)
+✔ PC04 finite assessment mapping conserves canonical records and refuses unresolved or colliding labels before dispatch (4.987ms)
+✔ PC04 finite native assessment preserves negative, unknown and partial results and rejects wrong producer/task/context (68.0585ms)
+✔ PC05 preserved reports reach current independent assessment while historical author bytes remain unchanged (12534.293542ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19390.158958

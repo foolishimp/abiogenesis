@@ -1,0 +1,15 @@
+{
+  "command": [
+    "node",
+    "--experimental-loader",
+    "./test/fixtures/program-construction/core-loader.mjs",
+    "--test",
+    "--test-name-pattern",
+    "PC04 finite assessment mapping|PC04 finite native assessment|PC05 author residuals|PC05 preserved reports|PC03 construction edge records",
+    "test/program-construction.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript",
+  "ABI5_COMPONENT_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/bootstrap/node_modules/@abiogenesis/typescript-tenant",
+  "elapsedMs": 19414.45133369416,
+  "exitCode": 0
+}

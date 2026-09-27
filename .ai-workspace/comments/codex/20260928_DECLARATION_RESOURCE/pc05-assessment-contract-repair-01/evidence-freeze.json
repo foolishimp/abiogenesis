@@ -1,0 +1,79 @@
+{
+  "files": [
+    {
+      "path": "actual-input-result.json",
+      "bytes": 2054,
+      "sha256": "463c3d0920733d6724f3803fb100b2711754a99493a5ae18efb727efc07fb62b"
+    },
+    {
+      "path": "check-actual-input.mjs",
+      "bytes": 9323,
+      "sha256": "d4eddae75e797e9c865963ade6adb85a6156facefd42eade7c9f129d6f4610da"
+    },
+    {
+      "path": "commands.json",
+      "bytes": 2420,
+      "sha256": "a7ead9bd05afbae98bd8dce5bc983f29cd743fd5c81c7a66d4bb96078af7f35e"
+    },
+    {
+      "path": "component-result.json",
+      "bytes": 655,
+      "sha256": "aaf76f233b594389fbbdf04c35258be4d802959d6286cce16aea6af6d961fe69"
+    },
+    {
+      "path": "component.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "component.stdout",
+      "bytes": 1132,
+      "sha256": "6a891a98a8c10e4dc573ca12636e25a0ee9c3bb2a93edb5e04441e47976f1021"
+    },
+    {
+      "path": "measure-render.mjs",
+      "bytes": 1677,
+      "sha256": "8237c910c6723d94f51ad020db8533af03141be4cfe8419f33275735aac0f756"
+    },
+    {
+      "path": "preimages.json",
+      "bytes": 1583,
+      "sha256": "0077d2b2ed805e0d45cb3129ec0ab9c01ca33f29a1f29b9a6d9df00df4c84efa"
+    },
+    {
+      "path": "render-result.json",
+      "bytes": 298,
+      "sha256": "cb7fd02a1bca9d195c91d104e006cf4b231a964ea1fdc29dfc70018f7d1cf00f"
+    },
+    {
+      "path": "return.md",
+      "bytes": 5192,
+      "sha256": "0867601bff1ed39dc599283f0ec5298a6ffc5f0bebd4e7f2cc2c109ef6556b47"
+    },
+    {
+      "path": "source-freeze.json",
+      "bytes": 3297,
+      "sha256": "8d0c6d4ab07a14fbc6103e0af791f2c28df091fced7c87414e2a71b55f1ba0e9"
+    },
+    {
+      "path": "source.patch",
+      "bytes": 16677,
+      "sha256": "34ca49fca15f1ac453c5cf0a0b3a04a800d36ccfde457bc2f49c78943f6ea422"
+    },
+    {
+      "path": "wording-component-result.json",
+      "bytes": 672,
+      "sha256": "ce8ccdf91229fc091ea7857123a46f1e5b7fb71d185a98fed66a0c523a2313d3"
+    },
+    {
+      "path": "wording-component.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "wording-component.stdout",
+      "bytes": 629,
+      "sha256": "b843445ae01797556a84befb5861d55eab345beb4306f11bbd9722f13b34e986"
+    }
+  ]
+}

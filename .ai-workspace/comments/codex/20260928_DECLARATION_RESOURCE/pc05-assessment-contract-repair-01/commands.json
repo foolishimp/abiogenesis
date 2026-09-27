@@ -1,0 +1,72 @@
+{
+  "environment": {
+    "ABI5_COMPONENT_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/bootstrap/node_modules/@abiogenesis/typescript-tenant"
+  },
+  "componentReceipt": "component-result.json",
+  "wordingComponentReceipt": "wording-component-result.json",
+  "pure": [
+    {
+      "command": [
+        "node",
+        "--experimental-loader",
+        "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/fixtures/program-construction/core-loader.mjs",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessment-contract-repair-01/check-actual-input.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "node",
+        "--experimental-loader",
+        "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/fixtures/program-construction/core-loader.mjs",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessment-contract-repair-01/measure-render.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis",
+      "exitCode": 0
+    }
+  ],
+  "static": [
+    {
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/odd_glc/typescript/src/program-construction-runtime.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/odd_glc",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/odd_glc/typescript/test/fixtures/program-construction/native-records-evaluator.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/odd_glc",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "build_tenants/odd_glc/typescript/test/program-construction.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/odd_glc",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        "build_tenants/odd_glc/typescript/src/program-construction-runtime.mjs",
+        "build_tenants/common/design/ODD_GLC_PROGRAM_CONSTRUCTION.md",
+        "build_tenants/odd_glc/typescript/test/fixtures/program-construction/native-records-evaluator.mjs",
+        "build_tenants/odd_glc/typescript/test/program-construction.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/odd_glc",
+      "exitCode": 0
+    }
+  ]
+}

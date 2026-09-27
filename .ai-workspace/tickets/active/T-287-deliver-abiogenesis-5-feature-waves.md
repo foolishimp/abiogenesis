@@ -22,11 +22,11 @@
 - current_candidate_archive_sha256: a0e7f50fd7a95d65480635fbb649575d3d94722338bc002c1038b8058a5b8dc9
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/executive-disposition.md
 - current_accepted_archive_sha256: a0e7f50fd7a95d65480635fbb649575d3d94722338bc002c1038b8058a5b8dc9
-- current_worker_return: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessor-repair-01/return.md
+- current_worker_return: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-structured-response-01/return.md
 - current_candidate_scope: core47_declaration_resource_source_and_installed_predecessor_refusal_accepted_PC05_live_open
-- current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-06/activation.json
-- current_live_execution_status: PC05_06_installed_suffix_invocation_in_progress
-- current_activation_status: PC05_06_installed_setup_accepted_suffix_invoked
+- current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-07/execution-return.md
+- current_live_execution_status: PC05_07_closed_runtime_failed_malformed_assessment_no_active_actor
+- current_activation_status: PC05_structured_response_HOW_and_transport_repair_selected
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#program-construction-calculus-definition'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: correct_GLC_assessment_result_declaration_then_preserved_PC05
-- next_bounded_task_status: corrected_declaration_review_and_installed_setup_passed_one_suffix_invoked
+- next_bounded_task: correct_native_assessment_structured_response_then_dispose_preserved_PC05
+- next_bounded_task_status: bounded_design_reframe_and_existing_transport_realization_in_progress
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -665,15 +665,22 @@ declaration/continuation proof, not semantic closure. No constructor/C2 repeat,
 larger budget or core change. Root accepts the [closed task-contract triage](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessment-contract-triage-01/return.md)
 and selects one GLC realization correction: expose existing citation/residual
 rules and actual current/historical author basis, correct the fixture reason,
-preserve every check/report and the actual refusal. One retained-input pure
-discriminator and independent projection review precede a native successor.
-PC06's fifteen-binding join is prepared; original-task and release remain open.
-Current measured phases: package/preflight13.923 s, install53.696 s, remaining
-setup56.661 s; Run442.532 s includes actor269.453 s; fresh Result/replay89.649/
-89.866 s. The Run appends71,325,743 B to a1,243,581,299 B journal. These remain
-CALLER-DURABLE-CONTEXT-01/LIFE-01 observations, not justified minimums. Exact
-source reuse now takes0.106 s instead of the earlier52.072 s caller projection;
-existing R10/currentness owners still authenticate it. No whole-Run speedup claimed.
+preserve every check/report and the actual refusal. The [closed repair and independent review](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessment-contract-repair-review.md)
+are accepted. [PC05-07](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-07/execution-return.md)
+closed `runtime_failed`: the model returned malformed JSON, correctly refused;
+fresh Result is absent and replay is failed. One assessor, no author/C2 repeat.
+Executive accepts the [closed response-boundary diagnosis](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-structured-response-01/return.md)
+and selects a bounded native-assessment `design_reframe` plus transport repair:
+pass the exact admitted schema to the existing host structured-output mechanism,
+consume its final carrier, retain independent validation. No schema weakening,
+text repair or paid retry. PC06's fifteen-binding join and release remain open.
+Latest phases: package14.139 s, install57.599 s, other setup59.174 s;
+Run446.681 s includes actor276.803 s; fresh Result/replay92.711/92.947 s.
+The54,794,116 B appended suffix closes at1,300,706,344 B. One closed diagnostic
+refines the pre-actor elapsed intervals to83.411/9.326/69.620 s; these are not
+exclusive CPU attribution. CALLER-DURABLE-CONTEXT-01/LIFE-01 remains open.
+Exact source reuse takes0.149 s; existing R10/currentness owners authenticate
+it. No whole-Run speedup or justified framework minimum is claimed.
 
 Prior PC05-04 outcome, 2026-09-28: [native constructor admitted; evaluation preparation failed](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-04/execution-return.md).
 The compatible host and corrected Public steering now pass. Opus5.5/xhigh

@@ -1,0 +1,57 @@
+{
+  "scope": "pure component premises and retained installed pure interpretation; no runtime admission/provider/history acquisition",
+  "inputDigest": "sha256:cec80f4c9d018e27de4ae75fe0209c3341b4ce31ddd30714af2dfed5eb0f78a3",
+  "retainedFileDigest": "sha256:fdd30fce48071ed4b07befbd57b1bc7a6dcbedd2951e1386a0ff223fee2aa8e8",
+  "oldTaskDigest": "sha256:47ad90ce03e6074d0256d778fbb2e0e115f9356e3f72d76892562c79b2b18232",
+  "newTaskDigest": "sha256:1ac1969049a0a1f14cdb50964a21fbdb3ea191af8a59ffa1c0037662410a48f6",
+  "records": 15,
+  "constructionRecords": 14,
+  "verbatimReports": 12,
+  "syntheticDisposition": "satisfied",
+  "controls": {
+    "missingRole": {
+      "assessmentDisposition": "unsatisfied",
+      "diagnostics": [
+        "missing_declared_evidence_role:criterion://odd-glc/generic-lifecycle/evidence/source-faithfulness@5"
+      ]
+    },
+    "missingEdge": {
+      "assessmentDisposition": "unsatisfied",
+      "diagnostics": [
+        "computed_record_coverage_missing:/records/constructionEdges/2"
+      ]
+    },
+    "newlineQuote": {
+      "assessmentDisposition": "unsatisfied",
+      "diagnostics": [
+        "evidence_quote_mismatch:criterion://odd-glc/generic-lifecycle/evidence/source-faithfulness@5"
+      ]
+    },
+    "selectedResidual": {
+      "assessmentDisposition": "unsatisfied",
+      "diagnostics": []
+    }
+  },
+  "actualDisposition": "unsatisfied",
+  "actualInterpretationUnchanged": true,
+  "frozenActualTerminalUnchanged": true,
+  "selectedActualResiduals": 7,
+  "sizes": {
+    "taskBefore": 713358,
+    "taskAfter": 725420,
+    "taskGrowth": 12062
+  },
+  "timings": {
+    "evidenceMs": 3.8873749999999916,
+    "taskMs": 6.605332999999973,
+    "completeSyntheticMs": 67.13329099999999,
+    "missingRoleMs": 46.10879100000005,
+    "missingEdgeMs": 45.97025000000002,
+    "newlineQuoteMs": 46.98616599999997,
+    "selectedResidualMs": 46.24349999999998,
+    "outsideResidualMs": 45.233749999999986,
+    "actualOutputMs": 43.349459000000024,
+    "frozenActualOutputMs": 48.34395900000004
+  },
+  "totalMs": 440.712791
+}

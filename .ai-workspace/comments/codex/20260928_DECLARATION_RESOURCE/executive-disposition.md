@@ -165,3 +165,85 @@ discriminator. It must preserve all twelve reports, explicit unknowns and the
 actual output's refusal; synthetic responses earn no semantic acceptance. The
 independent reviewer examines this concrete projection delta before any native
 successor. Root owns caller/recording and the original-condition conjunction.
+
+Root's bounded Writer activation prepares PC05-07 by reusing PC05-06's caller
+and exact PC05-05 historical selection. Only the latest genuine entry close
+advances to PC05-06; the paid author's PC05-04 Run and original input remain
+the construction basis. Freeze the repaired source after the worker closes.
+One independent delta review covers that source plus the two-line caller
+advance before ordinary installed setup and one native assessment. Preserve
+the previous unsatisfied result, all reports, currentness checks, host and
+bounds. No further assessment retry is pre-authorized by this selection; its
+terminal result returns for original-condition disposition. Setup, invocation
+and fresh Public readback retain their existing owners and separate timings.
+
+Executive accepts the [closed projection repair](pc05-assessment-contract-repair-01/return.md)
+and [independent delta review](pc05-assessment-contract-repair-review.md), SHA
+`5ade6d62b4eedaff64fda5d041f560e85bc744adc3c1c32fbfac17a13156d253`.
+PC05-07 source/caller freezes are `a55f7218…` / `a683db3e…`; all fourteen source
+and ten caller members match. Its installed setup and one assessment are now
+dependency-ready and selected. The actual-input discriminator passes in0.441 s
+while preserving PC05-06's unsatisfied result. Only task projection and the
+new fixture explanation change; existing semantic checks and reports remain.
+No semantic success or performance closure is inferred from source readiness.
+
+PC05-07 setup completed (package14.139 s, installation57.599 s, other59.174 s)
+and its single native assessment is active. The existing execution start record
+and completed prompt-file timestamp span162.380 s before the first actor prompt.
+This is elapsed interval evidence, not CPU attribution. Under existing
+CALLER-DURABLE-CONTEXT-01/LIFE-01, the xhigh worker receives a bounded read-only
+phase/volume review of the exact installed path and existing evidence. No full
+history recovery, instrumentation, test, source change or provider call. Any
+suffix inspection waits for terminal closure and begins at the recorded entry
+offset. Its closed return is recorded in pc05-07-framework-phase-review; it
+neither gates nor restarts this live assessment. Root separately records this
+selection as Writer, then resumes Executive control.
+
+PC05-07 closed runtime_failed after the host returned invalid JSON at offset6218
+(`"criterionRef":"criterion":"criterion://...`). Fresh Public Result is absent
+and replay records failure; the rejected raw bytes stay unchanged. No valid
+assessment was admitted. Root selects existing response-schema/host-route
+triage, with bounded realization only if current authority and carriers already
+support that exact schema through the existing structured-output mechanism.
+No post-hoc repair, relaxed validation, new contract/controller or paid retry.
+The xhigh worker owns that single return; Root owns a diagnostic-only read of
+the closed appended54,794,116 B suffix, failure/phase metadata, recording and
+checkpoint. The same read may refine the accepted phase review's unattributed
+cost finding; it cannot create runtime truth or qualify performance.
+
+
+### PC05-07 response presentation re-entry
+
+Executive consumes the [closed response-boundary diagnosis](pc05-structured-response-01/return.md)
+(`cfe07fcb06d4dd613888c69dd74eb6e4af46ef3ee4bc2d13352a0a97f33aac12`).
+The malformed response is correctly refused. The deliberate HOW selection of
+unconstrained result-text caused an avoidable JSON-syntax failure at an existing
+typed interface; this is not a defect in the consumer's semantic validator.
+
+Select a bounded `design_reframe` at native-assessment response presentation,
+then its existing transport realization, under T-287's unchanged Product native
+judgment/admission boundary. The exact immutable basis and
+F-END-TO-END-INTERFACE-INTEGRATION frame remain selected. The admitted consumer
+schema is passed unchanged through the existing host structured-output option;
+ABG retains independent raw I-JSON and full-schema validation. The final host
+structured-result carrier must enter that same parser only when requested and
+successful. Intermediate tool arguments are not the result. No schema dialect,
+identifier, keyword, format or field may be dropped to obtain host acceptance.
+Unsupported host/schema combinations retain a truthful refusal. Ordinary coding
+and fixed-command contracts, permissions, bounds and supervision are conserved.
+
+The xhigh Worker owns one coherent HOW/source/affected-test correction and one
+closed exact return, including the absent/malformed/wrong-schema and unrequested
+synthetic-tool cases. Existing component fixtures discriminate the adapter
+relation; no paid call, install, historical recovery or broad suite is selected
+for the Worker. Stop for Executive on any Product/public-carrier or unrelated
+ownership change. One max independent review then examines this exact delta;
+Executive alone selects any later installed suffix. PC05-07's raw output and
+failed identity remain unchanged. PC06's original-condition join remains open.
+
+Root separately activates Writer for this selection, PC05-07 closed evidence,
+current ticket projections and the authorized scoped checkpoint/push, then
+resumes Executive control. The accepted projection repair and prior PC05-06
+runtime proof remain valid within their recorded scopes. The 83.411/9.326/69.620 s
+pre-actor wall intervals and about93 s fresh reads remain open LIFE-01 cost
+observations; neither schema repair nor volume alone justifies those costs.

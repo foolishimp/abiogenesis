@@ -1,0 +1,143 @@
+diff --git a/build_tenants/common/design/ODD_GLC_PROGRAM_CONSTRUCTION.md b/build_tenants/common/design/ODD_GLC_PROGRAM_CONSTRUCTION.md
+index 682bdc6..d2f012e 100644
+--- a/build_tenants/common/design/ODD_GLC_PROGRAM_CONSTRUCTION.md
++++ b/build_tenants/common/design/ODD_GLC_PROGRAM_CONSTRUCTION.md
+@@ -336,7 +336,16 @@ predecessor, changed execution snapshot or protected source still refuses reuse.
+ Neither a nonempty report nor an empty report proves an edge false or true.
+ The assessment task includes each actual observation coordinate, provenance and
+ complete `{summary, gaps}` alongside the full records, original source/oracle
+-and carried duties. C establishes structural/currentness facts; J evaluates
++and carried duties. Include that author's exact task outcome, instructions,
++read/write paths, checks and changed paths, without duplicating context
++snapshots or file bodies. Distinguish the joined dependent work from the earlier
++execution's evidence and scope. An observed predecessor has no future-producer
++duty; its null producer-duty field does not erase the dependent-work observation.
++A future-produced predecessor names its actual earlier child and resolved output.
++Historical missing-construction or ordering statements do not decide a later
++joined relation. Assess the declared work and justification for retained content
++under the derivation rule below; unchanged bytes alone prove neither faithful
++derivation nor its absence. C establishes structural/currentness facts; J evaluates
+ reported uncertainty and faithful derivation; the owner retains acceptance.
+ 
+ ### Preserved Construction Evaluation And Assessment
+@@ -499,6 +508,19 @@ criterion/role mapping in assessment instructions and use it unchanged for quote
+ checking. The actual admitted child join authenticates the record; its digest
+ and rendered label alone do not.
+ 
++State the existing response conditions explicitly in that task: exactly one
++row per declared criterion; each satisfied row cites at least one allowed label
++for every required role in that criterion's mapping. Citations in another row
++do not discharge the requirement. Across the response, cite every selected
++computed record, including false/unknown records, using the complete required
++label set supplied with the task. Quotes preserve literal whitespace/newlines;
++normalization or paraphrase cannot satisfy substring checking. A selected-scope
++residual prevents overall satisfaction even when each row says satisfied.
++Preserve outside-scope residuals without moving selected issues outside to
++obtain satisfaction; missing evidence remains grounds for unsatisfactory
++judgment. These are response/evidence conditions, not an expected semantic
++answer or additional original-source obligations.
++
+ The source-linked criteria requiring new edge evidence use the separate
+ `construction_record` role, and those requiring the new comparison use
+ `comparison_record`; their allowed labels select only the corresponding actual
+diff --git a/build_tenants/odd_glc/typescript/src/program-construction-runtime.mjs b/build_tenants/odd_glc/typescript/src/program-construction-runtime.mjs
+index 0496efe..45dd595 100644
+--- a/build_tenants/odd_glc/typescript/src/program-construction-runtime.mjs
++++ b/build_tenants/odd_glc/typescript/src/program-construction-runtime.mjs
+@@ -471,11 +471,17 @@ function buildConstructionAssessmentTask(input,evidence) {
+       'A true computed condition is evidence to judge, not proof of faithful derivation. Preserve negative/unknown records, missing raw argument/type fields, carried duties and separate owner conjunction of accepted scopes. Do not infer original-task or full semantic closure.',
+       `Complete candidate paths: ${product.canonicalJson(s.candidatePaths)}. Complete source paths: ${product.canonicalJson(s.sourcePaths)}.`,
+       `Exact original rubric stage: ${s.rubric.stageRef}. All declared criteria are required: ${product.canonicalJson(evidence.criteria)}.`,
+-      `Exact criterion/role/allowed-label mapping: ${product.canonicalJson(evidence.roleLabels)}. Quote actual substrings from these labels; old command evidence cannot stand for a computed record.`,
++      'Response acceptance conditions: return exactly one row for each declared criterion. Every satisfied criterion must cite at least one allowed label for EACH required role in its mapping; citations in another criterion do not discharge that requirement. Across the assessment, cite EVERY selected computed record at least once, including false and unknown records. A representative record cannot stand for another record.',
++      `Exact criterion/required-role/allowed-label mapping: ${product.canonicalJson(evidence.roleLabels)}. Quotes must be literal substrings of the exact labeled text, preserving whitespace and newlines; do not paraphrase or normalize them. Old command evidence cannot stand for a computed record.`,
++      `Complete required computed-record citation set: ${product.canonicalJson(evidence.records.map(r=>r.label))}`,
++      'A selected-assessment residual prevents overall satisfaction even when every criterion row says satisfied. Preserve unresolved issues that affect this selected claim in that scope; preserve other issues as outside-assessment without moving a selected issue outside merely to obtain satisfaction. Missing or insufficient evidence warrants falsified or indeterminate judgment, never invented citations. Structural true records and a well-formed response alone do not establish faithful derivation or owner acceptance.',
+       `Original duty population and carried scope: ${product.canonicalJson({duties:view.dutyPopulation,carriedDuties:view.carriedDuties,carriedBindingRefs:view.carriedBindingRefs,pendingDutyRefs:view.pendingDutyRefs})}`,
++      'The joined construction observations below describe the selected dependent work. Their original tasks, reports and changed paths remain historical facts under the current content/binding checks. Original execution streams and original construction/execution coordinates describe earlier evidence at its own scope; an earlier missing-construction or unobservable-order statement does not decide the later joined construction relation. An observed predecessor binds an existing path/digest; producerDutyRef is null or absent because no future-producing child was selected. The dependent work still has its own producer/observation. A future-produced predecessor instead names its actual earlier child and resolved output. Judge actual derivation from the declared task, report, source, bodies and records: justified retention can preserve existing bytes, while a reread, touch or rewrite merely to manufacture provenance earns no construction credit. Unchanged bytes or currentness alone prove neither faithful derivation nor its absence.',
+       `Actual author reports, verbatim and non-closing; assess every reported residual against its selected or outside scope: ${product.canonicalJson(view.constructionObservations.map(row=>({
+         groupRef:row.groupRef,dutyRefs:row.dutyRefs,observation:{ref:row.observation.observationRef,digest:row.observation.observationDigest},
+-        provenance:row.observation.provenance,report:row.observation.report})))}`,
++        provenance:row.observation.provenance,task:{outcome:row.observation.task.outcome,instructions:row.observation.task.instructions,
++          readFirst:row.observation.task.readFirst,writeRoots:row.observation.task.writeRoots,checks:row.observation.task.checks},
++        changedPaths:row.observation.changedPaths,report:row.observation.report})))}`,
+       `Unchanged evaluator-only oracle (${input.oracle.ref}):\n${input.oracle.text}`,
+       ...evidence.records.map(r=>`Exact derived evidence (${r.label}):\n${r.text}`),
+       ...evidence.streams.map(r=>`Exact retained execution evidence (${r.label}):\n${r.text}`),
+diff --git a/build_tenants/odd_glc/typescript/test/fixtures/program-construction/native-records-evaluator.mjs b/build_tenants/odd_glc/typescript/test/fixtures/program-construction/native-records-evaluator.mjs
+index d997fb0..f0d8e20 100644
+--- a/build_tenants/odd_glc/typescript/test/fixtures/program-construction/native-records-evaluator.mjs
++++ b/build_tenants/odd_glc/typescript/test/fixtures/program-construction/native-records-evaluator.mjs
+@@ -105,7 +105,7 @@ function constructionEdges(input) {
+       declaredReadPath:dependency.path,observation:observation?coordinate(observation):null,producer:observation?.provenance??null,
+       contentObservations:{declaresPredecessor:{...verdict(declares,'JSON derivedFrom or literal predecessor path; neither proves nor is required for faithful derivation'),
+         evidenceRole:'non_closing_content_observation'},completeReport:{...verdict(observation?observation.report.gaps.length===0:null,
+-        'native author reports no remaining gaps; free-text residuals require scoped judgment'),evidenceRole:'non_closing_content_observation',
++        'whether the native author reports no remaining gaps; free-text residuals require scoped judgment'),evidenceRole:'non_closing_content_observation',
+         report:observation?.report??null}},
+       cardinality:{producers:producers.length,predecessorProducers:predecessorRows.length},conditions,verdict:conjunction(conditions)};
+   })));
+diff --git a/build_tenants/odd_glc/typescript/test/program-construction.test.mjs b/build_tenants/odd_glc/typescript/test/program-construction.test.mjs
+index 36e770a..520cb91 100644
+--- a/build_tenants/odd_glc/typescript/test/program-construction.test.mjs
++++ b/build_tenants/odd_glc/typescript/test/program-construction.test.mjs
+@@ -481,6 +481,8 @@ test('PC05 author residuals remain verbatim judgment evidence without deciding e
+   assert(records.constructionEdges.every(row=>row.verdict==='true'));
+   const last=records.constructionEdges.find(row=>row.observation.ref===state.constructionObservations.at(-1).observation.observationRef);
+   assert.equal(last.contentObservations.completeReport.value,'false');assert.deepEqual(last.contentObservations.completeReport.report.gaps,reports);
++  assert.match(last.contentObservations.completeReport.reason,/^whether the native author reports no remaining gaps;/);
++  assert.equal(last.contentObservations.completeReport.evidenceRole,'non_closing_content_observation');
+   assert.deepEqual(view.constructionObservations,state.constructionObservations);
+   const stale=structuredClone(view);stale.constructionObservations.at(-1).resolvedDependencies[0].digest=hash('stale');
+   assert.equal(deriveNativeRecords(stale).records.verdict,'false');
+@@ -596,6 +598,12 @@ function smallAssessmentInput(extraFiles={}) {
+ }
+ test('PC04 finite assessment mapping conserves canonical records and refuses unresolved or colliding labels before dispatch',()=>{
+   const input=smallAssessmentInput(),evidence=assessmentEvidence(input),task=constructionAssessmentTask(input);assert(isAssessmentInput(input));
++  const citationSet=task.instructions.find(s=>s.startsWith('Complete required computed-record citation set: '));
++  assert.deepEqual(JSON.parse(citationSet.slice(citationSet.indexOf(': ')+2)),evidence.records.map(r=>r.label));
++  assert(task.instructions.some(s=>s.includes('EACH required role')&&s.includes('citations in another criterion do not discharge')));
++  assert(task.instructions.some(s=>s.includes('cite EVERY selected computed record')&&s.includes('including false and unknown')));
++  assert(task.instructions.some(s=>s.includes('preserving whitespace and newlines')&&s.includes('do not paraphrase or normalize')));
++  assert(task.instructions.some(s=>s.includes('selected-assessment residual prevents overall satisfaction')&&s.includes('without moving a selected issue outside')));
+   for(const row of evidence.records) {
+     assert.equal(row.label,`computed:${hash(input.evaluationState.computedRecords)}:${row.recordPath}`);
+     const record=row.recordPath.endsWith('/edge')?input.evaluationState.computedRecords.records.edge:input.evaluationState.computedRecords.records.comparison;
+@@ -614,7 +622,7 @@ test('PC04 finite assessment mapping conserves canonical records and refuses unr
+   assert.throws(()=>constructionAssessmentTask(smallAssessmentInput({'command-1.stdout':'collision'})),/colliding/);
+ });
+ test('PC04 finite native assessment preserves negative, unknown and partial results and rejects wrong producer/task/context',()=>{
+-  const input=smallAssessmentInput(),evidence=assessmentEvidence(input),task=constructionAssessmentTask(input),raw=satisfiedAssessment(evidence);
++  const input=smallAssessmentInput({'source.txt':'complete\nsynthetic source'}),evidence=assessmentEvidence(input),task=constructionAssessmentTask(input),raw=satisfiedAssessment(evidence);
+   const observed=componentAssessment(task,raw),result=constructionAssessmentOutput(product.constructRetainedGraphInput(input,observed));
+   assert.equal(result.assessmentDisposition,'satisfied');assert.equal(result.originalTaskCompletion,'not_claimed');assert.equal(result.semanticClosure,'not_claimed');
+   assert.deepEqual(result.preservedResiduals,input.evaluationState.computedRecords.records.residuals);
+@@ -624,6 +632,9 @@ test('PC04 finite native assessment preserves negative, unknown and partial resu
+     assert.equal(output.assessmentDisposition,'unsatisfied');assert.equal(output.assessmentObservation.assessment.criteria[0].disposition,disposition);
+   }
+   for(const change of [x=>{x.criteria[0].evidence[0].quote='invented quote';},x=>{x.criteria[0].evidence[0].path='unknown';},
++    x=>{x.criteria[0].evidence=x.criteria[0].evidence.filter(e=>e.path!=='source.txt');},
++    x=>{x.criteria[0].evidence.find(e=>e.path==='source.txt').quote='complete synthetic source';},
++    x=>{x.criteria[0].evidence=x.criteria[0].evidence.filter(e=>e.path!==evidence.records[0].label);},
+     x=>{x.criteria[0].evidence=x.criteria[0].evidence.filter(e=>!e.path.startsWith('computed:'));},
+     x=>{x.residuals=[{scope:'selected-assessment',criterionRef:x.criteria[0].criterionRef,description:'partial'}];}]) {
+     const bad=structuredClone(raw);change(bad);assert.equal(constructionAssessmentOutput(product.constructRetainedGraphInput(input,componentAssessment(task,bad))).assessmentDisposition,'unsatisfied');
+@@ -802,9 +813,18 @@ test('PC05 preserved reports reach current independent assessment while historic
+   assert.equal(PROGRAM_CONSTRUCTION_SEMANTICS.resolveJudgmentRelation(ids.constructedEvaluationPredicateRef).evaluate(input,evaluated),true);
+   assert.deepEqual(view.constructionObservations,input.constructionState.constructionObservations);assert.deepEqual(view.currentContext,input.currentContext);
+   const assessed=constructionAssessmentInput(product.constructRetainedGraphInput(input,evaluated)),evidence=assessmentEvidence(assessed),task=constructionAssessmentTask(assessed);
++  const authorInstruction=task.instructions.find(s=>s.startsWith('Actual author reports, verbatim'));
++  const authors=JSON.parse(authorInstruction.slice(authorInstruction.indexOf(': ')+2));
++  assert.equal(authors.length,view.constructionObservations.length);
+   for(const row of view.constructionObservations) {
+     assert(task.instructions.some(s=>s.includes(product.canonicalJson(row.observation.report))&&s.includes(row.observation.observationRef)&&s.includes(row.observation.provenance.actorInvocationRef)));
++    const projected=authors.find(a=>a.observation.ref===row.observation.observationRef),source=row.observation;
++    assert.deepEqual(projected.task,Object.fromEntries(['outcome','instructions','readFirst','writeRoots','checks'].map(k=>[k,source.task[k]])));
++    assert.deepEqual(projected.changedPaths,source.changedPaths);assert.deepEqual(projected.report,source.report);
++    assert.deepEqual(Object.keys(projected).sort(),['changedPaths','dutyRefs','groupRef','observation','provenance','report','task']);
+   }
++  assert(task.instructions.some(s=>s.includes('producerDutyRef is null')&&s.includes('A future-produced predecessor')&&s.includes('earlier evidence at its own scope')));
++  assert(task.instructions.some(s=>s.includes('Unchanged bytes or currentness alone prove neither faithful derivation nor its absence')));
+   assert(reports.every(report=>task.instructions.some(s=>s.includes(report))));assert.deepEqual(task.context,input.currentContext);assert.deepEqual(task.workspaceBinding,input.authority.workspaceBinding);
+   assert.deepEqual(JSON.parse(assessed.oracle.text),input.originalInput.origin.assessmentBasis.evaluationData);
+   const observed=componentAssessment(task,satisfiedAssessment(evidence)),result=constructionAssessmentOutput(product.constructRetainedGraphInput(assessed,observed));

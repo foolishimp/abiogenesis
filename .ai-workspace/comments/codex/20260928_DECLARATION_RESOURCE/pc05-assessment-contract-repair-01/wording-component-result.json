@@ -1,0 +1,16 @@
+{
+  "command": [
+    "node",
+    "--experimental-loader",
+    "./test/fixtures/program-construction/core-loader.mjs",
+    "--test",
+    "--test-name-pattern",
+    "PC05 preserved reports",
+    "test/program-construction.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript",
+  "ABI5_COMPONENT_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-01/bootstrap/node_modules/@abiogenesis/typescript-tenant",
+  "elapsedMs": 12840.907915960997,
+  "exitCode": 0,
+  "reason": "Final generic task wording removes a fixture-only cardinality field; rerun only the affected task-projection case."
+}
