@@ -432,3 +432,40 @@ finite source triage of post-evaluation foldback/next-route allocation under
 End-to-End/Reuse/Owner, reusing existing repairs and this suffix. No full-history
 read, heap increase, source rewrite, fake close or paid retry. Root Writer owns
 failed evidence/ticket/checkpoint; Executive selects repair after closed cause.
+
+
+### LIFE-01 retained-route duplicate work correction
+
+Executive consumes closed triage bec2f3ee…. Heap pressure is observed; the exact
+OOM site is not proved. Select one local `realization_refactor` at the existing
+retained-input provenance owner: prove membership by exact indexed immutable
+object identity before falling back to existing whole-value comparison. Preserve
+all raw-input, detached-value, prefix, lineage and provenance conditions. Reuse
+existing focused fixtures; demonstrate same-object serialization removal and
+unchanged equal-copy/altered/missing outcomes. No generic cache/equality rewrite,
+Product/HOW expansion, heap increase or broad suite. This removes concrete debt
+without claiming the OOM cured. Worker freezes one delta; max review then Root
+conjoins readiness. The next installed step remains unselected pending evidence.
+Root Writer may prepare the existing package/caller and the existing installed
+resource-reconciliation request. No recovery or lifecycle event is implied by
+preparation; exact quiescence and current physical bytes must be selected first.
+
+
+### Core51 source acceptance and one physical recovery discriminator
+
+Executive accepts the local provenance contraction after closed review fa6b224d…
+and exact core51 archive 96439976…. GLC source/caller freezes 683cae83… / 8c1cfe4a…
+preserve original work and checks. This accepts source/package readiness only.
+
+Select the closed plan ff327528…: one existing installed core50 recovery through
+reviewed pc05-09/reconcile.mjs under standard Node CPU/heap sampling and GC trace.
+Root is the sole trusted operator for this maintenance interval and starts no
+competing acquisition or writer. The exact abandoned lock names dead PID25062;
+current bytes are 1,388,245,432 with SHA409a23df…, same device/inode and genuine
+setup predecessor. The owner revalidates these premises and artifact/approval.
+Grant only physical reconciliation/close, preserving every byte and the incomplete
+Run. This is not a lifecycle stop, resumption, fresh projection or paid retry.
+Keep the default heap bound. Retain recovery refusal/fault as the outcome if it
+occurs; do not repeat. Profiling perturbs time and is diagnostic, not authority.
+Root Writer executes, retains the result and checkpoints accepted source; Executive
+then consumes this closed boundary before selecting any further work.

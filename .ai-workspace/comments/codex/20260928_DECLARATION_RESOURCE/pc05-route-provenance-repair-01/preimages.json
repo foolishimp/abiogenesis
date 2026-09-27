@@ -1,0 +1,17 @@
+{
+  "head": "78352355bc356655845272995ad9ebf2fd366f4e",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts",
+      "bytes": 37962,
+      "sha256": "6d27337d5b87d0fdf677ef3268e3d63b217169fd230c2f8b6a45dbc5e303cf3f",
+      "preimage": "preimage-1.txt"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/generic-input-retention.test.mjs",
+      "bytes": 14166,
+      "sha256": "71714b5f7ea9ebd4840dc5f32d62eec237ed3b2ecd2687dae4c8adc3c0a3761e",
+      "preimage": "preimage-2.txt"
+    }
+  ]
+}

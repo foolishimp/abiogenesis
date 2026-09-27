@@ -1,0 +1,11 @@
+{
+  "predecessor": "core50",
+  "unchanged": 5230,
+  "changed": 3,
+  "changedPaths": [
+    "build/code/src/abg/worksite_input_provenance.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "scope": "exact immutable indexed-route membership before conserved canonical fallback; source review owns acceptance"
+}

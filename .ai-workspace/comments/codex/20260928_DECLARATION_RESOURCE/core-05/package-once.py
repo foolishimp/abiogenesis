@@ -1,0 +1,49 @@
+from pathlib import Path
+import json,hashlib,subprocess,time,tempfile,tarfile
+B=Path('/Users/jim/src/apps/abiogenesis');T=B/'build_tenants/abiogenesis/typescript';D=B/'.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-05';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();save=lambda name,data:(D/name).write_text(json.dumps(data,indent=2)+'\n')
+assert (D.parent/'pc05-route-provenance-repair-01/return.md').is_file(), 'closed response Worker return required'
+source_files=subprocess.check_output(['git','diff','--name-only'],cwd=B,text=True).splitlines()
+source_rows=[{'path':str(B/p),'sha256':sha(B/p)} for p in source_files if p.startswith('build_tenants/abiogenesis/typescript/code/')]
+save('package-source.json',{'members':source_rows})
+assert source_rows, 'repair source must be present'
+(D/'artifacts').mkdir(exist_ok=True)
+assert not list((D/'artifacts').iterdir()), 'no package overwrite'
+def run(label,command,cwd):
+ start=time.monotonic()
+ with (D/(label+'.stdout')).open('w') as out,(D/(label+'.stderr')).open('w') as err:p=subprocess.run(command,cwd=cwd,stdout=out,stderr=err)
+ row={'command':command,'cwd':str(cwd),'elapsedSeconds':time.monotonic()-start,'exitCode':p.returncode,'stdoutSha256':sha(D/(label+'.stdout')),'stderrSha256':sha(D/(label+'.stderr'))};save(label+'.json',row);print(json.dumps(row),flush=True)
+ if p.returncode:raise SystemExit(p.returncode)
+run('manifest',['node','scripts/generate-product-manifest.mjs'],T)
+run('pack',['npm','pack','--ignore-scripts','--json','--pack-destination',str(D/'artifacts')],T)
+packed=json.loads((D/'pack.stdout').read_text());assert len(packed)==1
+archive=D/'artifacts'/packed[0]['filename'];assert archive.is_file()
+bootstrap=D/'bootstrap';bootstrap.mkdir();(bootstrap/'package.json').write_text(json.dumps({'name':'abi5-declaration-resource-bootstrap','private':True,'version':'1.0.0'})+'\n')
+run('bootstrap-install',['npm','install','--offline','--ignore-scripts','--no-audit','--no-fund','--package-lock=false',str(archive)],bootstrap)
+installed=bootstrap/'node_modules/@abiogenesis/typescript-tenant';records=[]
+with tarfile.open(archive,'r:gz') as tgz:
+ names=set()
+ for member in tgz.getmembers():
+  if not member.isfile():
+   assert member.isdir(),'unsupported nonregular archive member: '+member.name
+   continue
+  assert member.name.startswith('package/') and '..' not in Path(member.name).parts
+  rel=member.name[len('package/'):];assert rel not in names;names.add(rel)
+  body=tgz.extractfile(member).read();digest=hashlib.sha256(body).hexdigest()
+  source=T/rel;target=installed/rel
+  assert source.is_file() and target.is_file(),rel
+  assert sha(source)==digest,('source mismatch',rel)
+  assert sha(target)==digest,('installed mismatch',rel)
+  records.append({'path':rel,'bytes':len(body),'sha256':digest})
+ actual={str(p.relative_to(installed)) for p in installed.rglob('*') if p.is_file()}
+ assert actual==names,{'extra':sorted(actual-names),'missing':sorted(names-actual)}
+records.sort(key=lambda r:r['path']);save('archive-members.json',records)
+identity={'artifactPath':str(archive),'artifactDigest':'sha256:'+sha(archive),'archiveBytes':archive.stat().st_size,'packageRoot':str(installed),'bootstrapRoot':str(bootstrap),'archiveMembers':len(records)}
+save('package-identity.json',identity);save('package-correspondence.json',{'status':'exact',**identity,'sourceMatches':len(records),'installedMatches':len(records),'extraInstalledMembers':0,'scripts':'disabled','network':'npm offline','archiveMembersSha256':sha(D/'archive-members.json')});print(json.dumps(identity),flush=True)
+
+prior={r['path']:r for r in json.loads((B/'.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-04/archive-members.json').read_text())}
+current={r['path']:r for r in records}
+delta=[{'path':k,'before':prior.get(k),'after':current.get(k)} for k in sorted(prior.keys()|current.keys()) if prior.get(k)!=current.get(k)]
+save('generated-delta.json',delta)
+for r in source_rows: assert sha(Path(r['path']))==r['sha256'],r['path']
+save('conservation.json',{'predecessor':'core50','unchanged':len(records)-len(delta),'changed':len(delta),'changedPaths':[r['path'] for r in delta],'scope':'exact immutable indexed-route membership before conserved canonical fallback; source review owns acceptance'})
+print(json.dumps({'changedPaths':[r['path'] for r in delta]}),flush=True)

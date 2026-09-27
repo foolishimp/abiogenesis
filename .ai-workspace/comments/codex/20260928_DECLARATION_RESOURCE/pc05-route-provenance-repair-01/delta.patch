@@ -1,0 +1,75 @@
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts
+@@ -226,7 +226,11 @@
+   prefix: ValidatedRuntimeEventPrefix, route: RuntimeEvent,
+ ): RetainedWorksiteInputProjection | null {
+   const events = runtimeEventsFromValidatedPrefix(prefix);
+-  if (route.kind !== "traversal_route_admitted" || !indexedRuntimeEvents(prefix, "id:" + route.eventId).some((event) => same(event, route)) ||
++  if (route.kind !== "traversal_route_admitted") return null;
++  const indexedRoutes = indexedRuntimeEvents(prefix, "id:" + route.eventId);
++  // The prefix already owns this immutable event; check identity before any
++  // whole-event serialization. Detached copies retain canonical comparison.
++  if ((!indexedRoutes.includes(route) && !indexedRoutes.some((event) => same(event, route))) ||
+     !record(route.payload) || route.payload.routeKind !== "advance" || !record(route.payload.boundInput)) return null;
+   const routePayload = route.payload;
+   const asserted = route.payload.boundInput;
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/generic-input-retention.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/generic-input-retention.test.mjs
+@@ -8,6 +8,8 @@
+ import * as gtl from '../../build/code/src/gtl/index.js';
+ import {rawAdmitValue} from '../../build/code/src/validator/index.js';
+ import {projectTraversalRouteBody} from '../../build/code/src/abg/traversal_transition.js';
++import {canonicalJson} from '../../build/code/src/shared/canonical_json.js';
++import {deepFreeze} from '../../build/code/src/shared/immutable.js';
+ const hash=p.sha256Canonical, version='5.0.0';
+ const E={contractRef:'contract://retention/entry',contractVersion:version,contractKind:'input',valueKind:'job_entry'};
+ const S={contractRef:'contract://retention/source',contractVersion:version,contractKind:'output',valueKind:'job_execution'};
+@@ -81,7 +83,8 @@
+  const f=fixture(),lookup={projectExactExecutionBasisAtPrefix:(v,ref)=>ref===v.basis.basisRef?v.basis:ref===v.child.basisRef?v.child:null,
+   projectExactInvocationAdmissionAtPrefix:()=>({inputContractRef:E.contractRef})};
+  const runtime={runtimeEventsFromValidatedPrefix:x=>x.rows,
+-  indexedRuntimeEvents:(x,key)=>x.rows.filter(event=>key==='id:'+event.eventId || key==='graph-call:'+event.graphCallId || key==='related:'+event.aggregateId),
++  indexedRuntimeEvents:(x,key)=>x.rows.filter(event=>key==='id:'+event.eventId || key==='graph-call:'+event.graphCallId || key==='related:'+event.aggregateId ||
++   key==='cursor-origin:'+(event.kind==='traversal_cursor_entered'?event.payload.cursorRef:event.kind==='traversal_route_admitted'?event.payload.targetCursorRef:event.kind==='fh_interaction_resume_admitted'?event.payload.successorCursorRef:undefined)),
+   runtimePrefixComputation:(_prefix,_owner,construct)=>construct()};
+  const warm=await owner('abg/traversal_route.js',{'./event_prefix.js':runtime,'./execution_basis.js':{hasAdmittedExecutionBasisAtPrefix:()=>true,rehydrateExecutionBasisAtPrefix:lookup.projectExactExecutionBasisAtPrefix},
+   './traversal_cursor.js':{hasAdmittedTraversalCursorAtPrefix:()=>true},'./c_call.js':{projectAdmittedCCallOutcomeAtPrefix:()=>({})},'../gtl/source_path.js':{deriveCSourceContinuation:()=>({relation:'graph_edge'})}});
+@@ -126,6 +129,38 @@
+  }
+  const routeBody=projectTraversalRouteBody(f.route.payload);assert(!('retentionBinding' in routeBody));assert.deepEqual(routeBody.boundInput,f.input);
+ });
++test('indexed immutable route membership avoids serialization and preserves detached-copy provenance',async t=>{
++ const f=deepFreeze(fixture()),lookup={projectExactExecutionBasisAtPrefix:(v,ref)=>ref===v.basis.basisRef?v.basis:ref===v.child.basisRef?v.child:null,
++  projectExactInvocationAdmissionAtPrefix:()=>({inputContractRef:E.contractRef})};
++ const runtime={runtimeEventsFromValidatedPrefix:x=>x.rows,
++  indexedRuntimeEvents:(x,key)=>x.rows.filter(event=>key==='id:'+event.eventId || key==='graph-call:'+event.graphCallId || key==='related:'+event.aggregateId ||
++   key==='cursor-origin:'+(event.kind==='traversal_cursor_entered'?event.payload.cursorRef:event.kind==='traversal_route_admitted'?event.payload.targetCursorRef:event.kind==='fh_interaction_resume_admitted'?event.payload.successorCursorRef:undefined))};
++ const cursors=await owner('abg/traversal_cursor.js',{'./event_prefix.js':runtime});
++ const calls=await owner('abg/c_call.js',{'./event_prefix.js':runtime,'./traversal_cursor.js':cursors});
++ let wholeRouteSerializations=0;
++ const cold=await owner('abg/worksite_input_provenance.js',{'./event_prefix.js':runtime,'./invocation_execution_truth.js':lookup,
++  './traversal_cursor.js':cursors,'./c_call.js':calls,'../shared/canonical_json.js':{canonicalJson:value=>{
++   if(value?.kind==='traversal_route_admitted'&&value.eventId===f.route.eventId)wholeRouteSerializations++;
++   return canonicalJson(value);
++  }}});
++ const indexed=cold.projectRetainedWorksiteInputAtPrefix(f,f.route);
++ assert.deepEqual(indexed?.input,f.input);assert.equal(wholeRouteSerializations,0);
++ const copied=structuredClone(f.route);
++ assert.deepEqual(cold.projectRetainedWorksiteInputAtPrefix(f,copied),indexed);
++ assert.equal(wholeRouteSerializations,2,'detached equal copy retains exact whole-event comparison');
++ copied.payload.boundInput.value.source.result='altered';
++ assert.equal(cold.projectRetainedWorksiteInputAtPrefix(f,copied),null);
++ assert.equal(wholeRouteSerializations,4,'altered detached route still compares and refuses');
++ const missing={...f,rows:f.rows.filter(row=>row!==f.route)};
++ assert.equal(cold.projectRetainedWorksiteInputAtPrefix(missing,f.route),null);
++ assert.equal(wholeRouteSerializations,4,'identity outside the selected prefix supplies no membership');
++ const crossed=structuredClone(f);crossed.child.invocationRef='invocation://crossed';
++ assert.equal(cold.projectRetainedWorksiteInputAtPrefix(crossed,crossed.route),null,'identity does not waive source lineage');
++ assert.equal(wholeRouteSerializations,4);
++ t.diagnostic(JSON.stringify({sameObjectWholeRouteSerializations:0,equalDetachedWholeRouteSerializations:2,
++  routeBytes:Buffer.byteLength(canonicalJson(f.route)),scope:'Existing component admission premises; no history acquisition or OOM-cure claim.'}));
++});
++
+ test('one material record conserves E/S references and never retains an assessment result again',t=>{
+  const e={...entry,body:'e'.repeat(10*1024*1024)},s={...output,body:'s'.repeat(11*1024*1024)};
+  const bound=p.constructRetainedGraphInput(e,s);assert.equal(bound.entry,e);assert.equal(bound.source,s);assert.deepEqual(Object.keys(bound).sort(),['entry','kind','schemaVersion','source']);

@@ -1,0 +1,41 @@
+[
+  {
+    "path": "build/code/src/abg/worksite_input_provenance.js",
+    "before": {
+      "path": "build/code/src/abg/worksite_input_provenance.js",
+      "bytes": 37016,
+      "sha256": "1c0538f1a990a9e4e7feaa8cccb4dddbf1603a75cf6c8cb106ca1b3b1213c354"
+    },
+    "after": {
+      "path": "build/code/src/abg/worksite_input_provenance.js",
+      "bytes": 37278,
+      "sha256": "de47a6221d8d02ee2a91bcaf3fe81a7a5b9d78c7cbc206b551967e4a5491545b"
+    }
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "7c69951e63729b07b1bae721d225ac54f43f4d35bad2b75c8f47252592494650"
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "6ca2fd0b746da8f31e1452cffb0650e8c7b92a215a3c1fca8df3e3d8b2a6f6b9"
+    }
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "148f3afa0786bb0c4b22a427fe7bb5c4fa4a0768fe5a89b7a62ecfd763e104a6"
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "7d175e55cfabaa39eb7d979c72fa7d7ac4e58ed456d7f670d36584616396e48c"
+    }
+  }
+]

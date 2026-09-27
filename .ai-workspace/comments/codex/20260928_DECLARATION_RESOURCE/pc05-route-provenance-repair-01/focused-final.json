@@ -1,0 +1,15 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern",
+    "indexed immutable route membership|real warm derivation and serialized cold projector",
+    "test_env/tests/generic-input-retention.test.mjs"
+  ],
+  "elapsedSeconds": 0.27088516717776656,
+  "exitCode": 0,
+  "stdout": "(node:34369) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n\u2714 real warm derivation and serialized cold projector agree; crossed/missing/duplicate lineage refuses (13.514333ms)\n\u2714 indexed immutable route membership avoids serialization and preserves detached-copy provenance (3.85075ms)\n\u2139 {\"sameObjectWholeRouteSerializations\":0,\"equalDetachedWholeRouteSerializations\":2,\"routeBytes\":1491,\"scope\":\"Existing component admission premises; no history acquisition or OOM-cure claim.\"}\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 2\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 247.489958\n",
+  "stderr": "",
+  "fixtureCorrection": "Existing mocked prefix index now supplies cursor-origin selection used by the real traversal cursor owner; no production change."
+}

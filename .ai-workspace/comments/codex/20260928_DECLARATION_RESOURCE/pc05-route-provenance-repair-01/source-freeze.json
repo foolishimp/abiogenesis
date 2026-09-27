@@ -1,0 +1,73 @@
+{
+  "scope": "Exact indexed immutable route identity before canonical fallback; all downstream provenance/raw checks retained",
+  "preimageHead": "78352355bc356655845272995ad9ebf2fd366f4e",
+  "source": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts",
+      "bytes": 38208,
+      "sha256": "c092a78ada894d2e9220487011fc30cfcdc87d8da7ec2b3f1845d30be59dcbca"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/generic-input-retention.test.mjs",
+      "bytes": 17362,
+      "sha256": "bcceb0c486f7e25a7098b4aa02ee6bdcfd661af55682d6032c7b86d954aa8b32"
+    }
+  ],
+  "compiled": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_input_provenance.js",
+      "bytes": 37278,
+      "sha256": "de47a6221d8d02ee2a91bcaf3fe81a7a5b9d78c7cbc206b551967e4a5491545b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/worksite_input_provenance.d.ts",
+      "bytes": 3227,
+      "sha256": "14f1978919c2581b78103bbfddca5fb4a089e3058e27951012db67fc20051bd6"
+    }
+  ],
+  "composedReferences": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-heap-triage-01/return.md",
+      "bytes": 4639,
+      "sha256": "bec2f3eeeba3d682bdbab17037413847bbdd914e1ffb26049896df92f70bc85f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-01/source-freeze.json",
+      "bytes": 10779,
+      "sha256": "6ff4c233a2b7ab254e5a4831643d9c09094e2e976cce9e6eb24915ef8b6168ae"
+    }
+  ],
+  "evidence": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-route-provenance-repair-01/checks.json",
+      "bytes": 5216,
+      "sha256": "f4de13afb1c2e1904e49f34e73f0343215128ec3144fef232c83e73f7ff61894"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-route-provenance-repair-01/delta.patch",
+      "bytes": 6757,
+      "sha256": "53d8b02f5386a7848ea90919b1216e0dd1dc37897f78b2293a5e8932be11e956"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-route-provenance-repair-01/focused-final.json",
+      "bytes": 1270,
+      "sha256": "69f42fed6294cedb82668a62c5f73bd5229534d214eb181195eef687b9c171e6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-route-provenance-repair-01/preimage-1.txt",
+      "bytes": 37962,
+      "sha256": "6d27337d5b87d0fdf677ef3268e3d63b217169fd230c2f8b6a45dbc5e303cf3f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-route-provenance-repair-01/preimage-2.txt",
+      "bytes": 14166,
+      "sha256": "71714b5f7ea9ebd4840dc5f32d62eec237ed3b2ecd2687dae4c8adc3c0a3761e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-route-provenance-repair-01/preimages.json",
+      "bytes": 580,
+      "sha256": "24ab171ccf1fd2af4eedd8df905d3219d23196b6ac339809989a5c64aa64edf2"
+    }
+  ],
+  "diffCheck": "passed"
+}

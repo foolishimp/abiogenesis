@@ -1,0 +1,27 @@
+[
+  {
+    "command": [
+      "./node_modules/.bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ],
+    "elapsedSeconds": 5.4839356248266995,
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "command": [
+      "node",
+      "--experimental-vm-modules",
+      "--test",
+      "--test-name-pattern",
+      "indexed immutable route membership|real warm derivation and serialized cold projector",
+      "test_env/tests/generic-input-retention.test.mjs"
+    ],
+    "elapsedSeconds": 0.31801654072478414,
+    "exitCode": 1,
+    "stdout": "(node:33426) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n\u2716 real warm derivation and serialized cold projector agree; crossed/missing/duplicate lineage refuses (9.605417ms)\n\u2716 indexed immutable route membership avoids serialization and preserves detached-copy provenance (3.909583ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 2\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 293.087125\n\n\u2716 failing tests:\n\ntest at test_env/tests/generic-input-retention.test.mjs:82:1\n\u2716 real warm derivation and serialized cold projector agree; crossed/missing/duplicate lineage refuses (9.605417ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n  + actual - expected\n  \n  + undefined\n  - {\n  -   admissionRef: 'raw-admission://abiogenesis/4caf42138fff94bf7d2f4fa7860aed05b8ac9bb44c4babfe28a86b84d2a520ee',\n  -   contractRef: 'contract://abiogenesis/worksite/retained-graph-input@5',\n  -   kind: 'raw_admitted_value',\n  -   schemaVersion: '5.0.0',\n  -   subjectDigest: 'sha256:e540c57b620bea476e2ee7ab6ecc34b75e5791cfa76c2a937290435f4e9bbb2e',\n  -   subjectKind: 'invocation_input',\n  -   value: {\n  -     entry: {\n  -       job: {\n  -         label: 'one'\n  -       },\n  -       kind: 'job_entry',\n  -       schemaVersion: '5.0.0'\n  -     },\n  -     kind: 'retained_graph_input',\n  -     schemaVersion: '5.0.0',\n  -     source: {\n  -       kind: 'job_execution',\n  -       result: 'observed',\n  -       schemaVersion: '5.0.0'\n  -     }\n  -   }\n  - }\n  \n      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/generic-input-retention.test.mjs:95:53)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: { kind: 'raw_admitted_value', schemaVersion: '5.0.0', admissionRef: 'raw-admission://abiogenesis/4caf42138fff94bf7d2f4fa7860aed05b8ac9bb44c4babfe28a86b84d2a520ee', subjectKind: 'invocation_input', contractRef: 'contract://abiogenesis/worksite/retained-graph-input@5', subjectDigest: 'sha256:e540c57b620bea476e2ee7ab6ecc34b75e5791cfa76c2a937290435f4e9bbb2e', value: { entry: [Object], kind: 'retained_graph_input', schemaVersion: '5.0.0', source: [Object] } },\n    operator: 'deepStrictEqual',\n    diff: 'simple'\n  }\n\ntest at test_env/tests/generic-input-retention.test.mjs:131:1\n\u2716 indexed immutable route membership avoids serialization and preserves detached-copy provenance (3.909583ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:\n  + actual - expected\n  \n  + undefined\n  - {\n  -   admissionRef: 'raw-admission://abiogenesis/4caf42138fff94bf7d2f4fa7860aed05b8ac9bb44c4babfe28a86b84d2a520ee',\n  -   contractRef: 'contract://abiogenesis/worksite/retained-graph-input@5',\n  -   kind: 'raw_admitted_value',\n  -   schemaVersion: '5.0.0',\n  -   subjectDigest: 'sha256:e540c57b620bea476e2ee7ab6ecc34b75e5791cfa76c2a937290435f4e9bbb2e',\n  -   subjectKind: 'invocation_input',\n  -   value: {\n  -     entry: {\n  -       job: {\n  -         label: 'one'\n  -       },\n  -       kind: 'job_entry',\n  -       schemaVersion: '5.0.0'\n  -     },\n  -     kind: 'retained_graph_input',\n  -     schemaVersion: '5.0.0',\n  -     source: {\n  -       kind: 'job_execution',\n  -       result: 'observed',\n  -       schemaVersion: '5.0.0'\n  -     }\n  -   }\n  - }\n  \n      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/generic-input-retention.test.mjs:145:9)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: undefined,\n    expected: { kind: 'raw_admitted_value', schemaVersion: '5.0.0', admissionRef: 'raw-admission://abiogenesis/4caf42138fff94bf7d2f4fa7860aed05b8ac9bb44c4babfe28a86b84d2a520ee', subjectKind: 'invocation_input', contractRef: 'contract://abiogenesis/worksite/retained-graph-input@5', subjectDigest: 'sha256:e540c57b620bea476e2ee7ab6ecc34b75e5791cfa76c2a937290435f4e9bbb2e', value: { entry: [Object], kind: 'retained_graph_input', schemaVersion: '5.0.0', source: [Object] } },\n    operator: 'deepStrictEqual',\n    diff: 'simple'\n  }\n",
+    "stderr": ""
+  }
+]

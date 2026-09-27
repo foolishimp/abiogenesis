@@ -226,11 +226,7 @@ export function projectRetainedWorksiteInputAtPrefix(
   prefix: ValidatedRuntimeEventPrefix, route: RuntimeEvent,
 ): RetainedWorksiteInputProjection | null {
   const events = runtimeEventsFromValidatedPrefix(prefix);
-  if (route.kind !== "traversal_route_admitted") return null;
-  const indexedRoutes = indexedRuntimeEvents(prefix, "id:" + route.eventId);
-  // The prefix already owns this immutable event; check identity before any
-  // whole-event serialization. Detached copies retain canonical comparison.
-  if ((!indexedRoutes.includes(route) && !indexedRoutes.some((event) => same(event, route))) ||
+  if (route.kind !== "traversal_route_admitted" || !indexedRuntimeEvents(prefix, "id:" + route.eventId).some((event) => same(event, route)) ||
     !record(route.payload) || route.payload.routeKind !== "advance" || !record(route.payload.boundInput)) return null;
   const routePayload = route.payload;
   const asserted = route.payload.boundInput;
