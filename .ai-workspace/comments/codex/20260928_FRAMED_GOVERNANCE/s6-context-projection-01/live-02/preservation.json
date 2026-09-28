@@ -1,0 +1,62 @@
+{
+  "oldManifests": [
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/launcher-manifest.json",
+      "sha256": "e194455fad533fcddce89788be7acd8c8a9543e3e0f9c3663ddc6fddd3e8627d",
+      "bytes": 1023,
+      "members": 8
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/proof-manifest.json",
+      "sha256": "c6ba8c72e5191466346c9b57d513bc7d1c247cb97042072f953b508f8dbff26d",
+      "bytes": 12254,
+      "members": 79
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-fulfillment-implementation/proof-manifest.json",
+      "sha256": "01b52809e4d4fc0327f3577713f4389fbed07b01191106348b96881109e2e275",
+      "bytes": 7350,
+      "members": 51
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-fulfillment-implementation/live-01/run-proof-manifest.json",
+      "sha256": "6fdd2c05c274aa7fc3e602b6dceb37ea713083e52daa5c40139b9c292befb9c5",
+      "bytes": 6979,
+      "members": 50
+    }
+  ],
+  "installed": [
+    {
+      "name": "core",
+      "archive": {
+        "sha256": "e49c4cc9d552ebca16c944d197cd9af4685ec8f6d0559c732cf35833f02a5d0d",
+        "bytes": 10337023
+      },
+      "installedRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl/consumer/node_modules/@abiogenesis/typescript-tenant",
+      "members": 5254,
+      "unchanged": true
+    },
+    {
+      "name": "consumer",
+      "archive": {
+        "sha256": "2161cfc9e67745bdec0363d4ca5cc724f473a5c7bb4f2bd498d34e32d04f5e60",
+        "bytes": 11780
+      },
+      "installedRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection",
+      "members": 7,
+      "unchanged": true
+    }
+  ],
+  "launcherReturn": {
+    "sha256": "7b4cbeca1ba907602b86484ca9dcdf19f0292b20c0fe800c0c00bae046ae19c5",
+    "bytes": 2305
+  },
+  "correctionReturn": {
+    "sha256": "4e238f9b07de82f077649c8b784d3299bb494009072405cbdb4ce73b5a028fb1",
+    "bytes": 6955
+  },
+  "priorRunReturn": {
+    "sha256": "293d2bc5b1ac47efa3ef711bdd0420446b02734a0ba57ba785c18c8871b7aa15",
+    "bytes": 9480
+  }
+}

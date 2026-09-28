@@ -1,0 +1,52 @@
+(node:40167) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "measurements": [
+    {
+      "taskOrdinal": 40,
+      "taskRef": "result://abiogenesis/e990f788ebe85d28b317f90f82bfcfc21e6e93342d749a23dabd79a6ac3aa879",
+      "inputDigest": "sha256:cd79a44ad679b183605459871fc78aaf7a39bee1f24fbbd669021f07ab9235bb",
+      "beforeBytes": 111904,
+      "afterBytes": 53943,
+      "beforeSections": {
+        "choices": 4260,
+        "evidence": 321,
+        "response": 6540,
+        "role": 7939,
+        "task": 92785
+      },
+      "afterSections": {
+        "role": 8418,
+        "choices": 4260,
+        "task": 34345,
+        "evidence": 321,
+        "response": 6540
+      },
+      "responseSchemaDigest": "sha256:3019681567d916e95e4888adb98f325885a9773215fc97609639801631c5e784"
+    },
+    {
+      "taskOrdinal": 1794,
+      "taskRef": "result://abiogenesis/b1a89df4b62f4339532b5ef2da2d81320ff5552da97b4908c14cae1499a7dc6e",
+      "inputDigest": "sha256:c10fdf7f00f8bb09487764cd5a0b78fcfe5915609ec6be570ec9d0b3a8645c45",
+      "beforeBytes": 133945,
+      "afterBytes": 69332,
+      "beforeSections": {
+        "choices": 4260,
+        "evidence": 321,
+        "response": 7508,
+        "role": 7939,
+        "task": 113858
+      },
+      "afterSections": {
+        "role": 8418,
+        "choices": 4260,
+        "task": 48766,
+        "evidence": 321,
+        "response": 7508
+      },
+      "responseSchemaDigest": "sha256:43268cc34a057424909d6fc60999dc855af5468e9118a78fc8d371b61031a0c8"
+    }
+  ],
+  "multiplicityProjectionBytes": 96869
+}

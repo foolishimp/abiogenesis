@@ -1,0 +1,10 @@
+import {readFile,writeFile} from 'node:fs/promises';
+import {dirname,join} from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+const here=dirname(fileURLToPath(import.meta.url)),base=dirname(here),read=async p=>JSON.parse(await readFile(p,'utf8')),setup=await read(join(base,'setup.json')),handoff=await read(join(here,'handoff.json')),start=await read(join(here,'dispatch-start.json'));
+const store=await import(pathToFileURL(join(setup.installedRoots[0],'build/code/src/abg/event_store.js')).href),events=store.readRuntimeEventsAtDurablePrefix(handoff.prefix).slice(start.beforeEventCount);
+const brief=e=>({ordinal:e.admissionOrdinal,eventId:e.eventId,kind:e.kind,eventTime:e.eventTime,graphFunctionRef:e.graphFunctionRef,aggregateId:e.aggregateId,parentAggregateId:e.parentAggregateId,payload:e.payload});
+const results=events.filter(e=>e.kind==='c_call_result_admitted'),failures=events.filter(e=>e.kind.includes('fail')||e.kind.includes('refus')||e.kind.includes('diagnostic')||e.payload?.resultClass==='failure');
+const out={eventCount:events.length,failures:failures.map(brief),tail:events.slice(-24).map(brief),results:results.map(e=>({ordinal:e.admissionOrdinal,eventId:e.eventId,graphFunctionRef:e.graphFunctionRef,cCallRef:e.aggregateId,resultRef:e.payload.resultRef,contractRef:e.payload.contractRef,resultClass:e.payload.resultClass,valueKind:e.payload.value?.kind,terminal:e.payload.value?.terminal,observationPurpose:e.payload.value?.observations?.at(-1)?.purpose,selected:e.payload.value?.judgment?.nextGraphFunctionRef??e.payload.value?.graphFunctionRef,changedPaths:e.payload.value?.changedPaths,summary:e.payload.value?.report?.summary,commandExitStatuses:e.payload.value?.commandResults?.map(r=>r.exitStatus)}))};
+await writeFile(join(here,'closed-frontier.json'),JSON.stringify(out,null,2)+'\n',{flag:'wx'});
+console.log(JSON.stringify({eventCount:events.length,failures:out.failures,tail:out.tail.map(({payload,...e})=>({...e,payloadKeys:Object.keys(payload)})),results:out.results},null,2));

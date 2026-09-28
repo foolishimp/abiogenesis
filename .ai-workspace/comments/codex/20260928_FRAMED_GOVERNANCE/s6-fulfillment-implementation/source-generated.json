@@ -1,0 +1,257 @@
+{
+  "selectedBase": "b8bffae0654b83804ecd0e76aee263be98283805",
+  "changed": [
+    {
+      "path": "code/src/product/default_library.ts",
+      "sha256": "e5ac38cfb585d839a497b0ec5f37f40537ff999e32af83a57292bfb5a9b9650e",
+      "bytes": 18710,
+      "before": {
+        "sha256": "e187aa0ebda2dc44d0e9782032f7466c74baef5479e25e595525462fe111ec82",
+        "bytes": 16131
+      },
+      "addedLines": 28,
+      "removedLines": 7
+    },
+    {
+      "path": "code/src/product/default_library_fulfillment.ts",
+      "sha256": "772e6b6ae074e0f198297b173a9a9372ed5d15452b2e5154949444e88a26b322",
+      "bytes": 22127,
+      "before": null,
+      "addedLines": 218,
+      "removedLines": 0
+    },
+    {
+      "path": "code/src/abg/default_library.ts",
+      "sha256": "6eef97a343ac8fb60f38486787a101b3f3b9bee093d709f1340a3df69cf99bc3",
+      "bytes": 28255,
+      "before": {
+        "sha256": "8c3215443e5ef23d04ba93d55a1b21a15c148de8f54fc165ffd410a4b1c43e91",
+        "bytes": 21916
+      },
+      "addedLines": 63,
+      "removedLines": 6
+    },
+    {
+      "path": "code/src/abg/instruction_assembly.ts",
+      "sha256": "d914b7df669b3523a5e6be70616af51187864c0ae3db438b9a91fbd302ef36ff",
+      "bytes": 117104,
+      "before": {
+        "sha256": "fe0ce15e28b5cbc7ef78f4c8baf1b67e3072af865ecb6a681bff7e3845299e36",
+        "bytes": 116793
+      },
+      "addedLines": 4,
+      "removedLines": 1
+    },
+    {
+      "path": "code/src/gtl/default_library.ts",
+      "sha256": "3170884eacec34f80ed2e940e95ae20801eeba6f36cfc7966782db5121941d35",
+      "bytes": 18901,
+      "before": {
+        "sha256": "7159ce9beea02a912ae848a21aab477df13aa0aaca97e4718c8500564e995a1c",
+        "bytes": 18794
+      },
+      "addedLines": 2,
+      "removedLines": 1
+    },
+    {
+      "path": "code/src/gtl/semantic_stage.ts",
+      "sha256": "8c3578a6e03f71cf64012e92b535e54dc617caa5e89c76f1bffefe6fc98b18c3",
+      "bytes": 12820,
+      "before": {
+        "sha256": "15b6e7a4cd7238d87a74203e5d2f249553f909d741c79ba7696d9a2b25878711",
+        "bytes": 12806
+      },
+      "addedLines": 2,
+      "removedLines": 2
+    },
+    {
+      "path": "code/src/product/requirement_handoff.ts",
+      "sha256": "a7e4b05504ca720911860494f54ccab20ea8188fd8d6d5947a2217c5a5c5d574",
+      "bytes": 8615,
+      "before": {
+        "sha256": "e67a845491b2017933e8715956faf5bae130df89f171221df64899088f2fe127",
+        "bytes": 7870
+      },
+      "addedLines": 10,
+      "removedLines": 1
+    },
+    {
+      "path": "code/src/product/semantic_job.ts",
+      "sha256": "9703f5ded2ee7fec0f1f247388a3364d0a2905d51ce0667946e7a0bb8e1ad75d",
+      "bytes": 93617,
+      "before": {
+        "sha256": "b0513a0f392643c1c476f7f190649d72e0df100fd17385a07213a85f203a5dfe",
+        "bytes": 93818
+      },
+      "addedLines": 3,
+      "removedLines": 4
+    },
+    {
+      "path": "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "27496b0a2b0b7cfdd4940705d35a1654db938ef1569786220cec49d286342647",
+      "bytes": 38127,
+      "before": {
+        "sha256": "684929199b02a3273628f60af074d35bc256356de93b81506934ab6897abcea5",
+        "bytes": 32811
+      },
+      "addedLines": 82,
+      "removedLines": 0
+    },
+    {
+      "path": "test_env/support/default-library-fulfillment.mjs",
+      "sha256": "33036a01200ce7782657113bc2730bcd8ecffaba5d8283361cd6e943bbfbaf18",
+      "bytes": 8912,
+      "before": null,
+      "addedLines": 64,
+      "removedLines": 0
+    },
+    {
+      "path": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "sha256": "34b2b6782efbc805c236c1c4a42715006db6d3b603bd176ba8bf31d6d8163da4",
+      "bytes": 34007,
+      "before": null,
+      "addedLines": 175,
+      "removedLines": 0
+    },
+    {
+      "path": "test_env/tests/t287-default-library.test.mjs",
+      "sha256": "21a18c57bcf6cabb76a5b198f9449383a734895fb1de63e73034596779e43c17",
+      "bytes": 75599,
+      "before": {
+        "sha256": "58b811833b8dced31f926b9c320940a3e0219dbb14e49fa68af50e1458c8b643",
+        "bytes": 75549
+      },
+      "addedLines": 2,
+      "removedLines": 2
+    }
+  ],
+  "unchangedReused": [
+    {
+      "path": "code/src/implementation/default_library.ts",
+      "sha256": "6e51be1a4bc71d3fe11d05821b09309a99397a4281da84f34f073473ad21adc7",
+      "bytes": 6205
+    },
+    {
+      "path": "code/src/product/index.ts",
+      "sha256": "273ddc342f19df1b7013e3e19fb37dbd1cba5e346342f0d9456ae323647b2a23",
+      "bytes": 25105
+    },
+    {
+      "path": "test_env/support/default-library.mjs",
+      "sha256": "b435665a743c7c7a04f0dae6a59070e521fb798c491e506c28cba8201d2c0fc3",
+      "bytes": 8597
+    },
+    {
+      "path": "test_env/support/registered-graph-selection.mjs",
+      "sha256": "221d3d8dfab58da9b96ff926b8a5e3548a9f8c2b8dfc42b26cac7e1b3b467449",
+      "bytes": 21381
+    },
+    {
+      "path": "test_env/support/root-installed-environment.mjs",
+      "sha256": "cf0a778870128c4afc13e8fb535c01bc67ac009cb23233324b1242a6b44eb65d",
+      "bytes": 37822
+    },
+    {
+      "path": "test_env/fixtures/default-library-product/index.mjs",
+      "sha256": "e8cde80b6ca3093f65857eac23fa6969260567f1220f705f9ac5ca316e089c41",
+      "bytes": 730
+    }
+  ],
+  "generated": [
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "sha256": "195c209bc1743853bc7ce9dcbf8501e50644facaa729fe77f5d3376da96e98ec",
+      "bytes": 197474
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "sha256": "c8603f0e8bf1085c3248cf1190812e76b6a1c8a77eb9c9b8aacb55b6f2604703",
+      "bytes": 2545310
+    },
+    {
+      "path": "build/code/src/product/default_library.js",
+      "sha256": "3aa47a8d1fc6682c1d9fc72b0876a2c1a785a35fd19d45c4ef9e9e58819565f3",
+      "bytes": 16201
+    },
+    {
+      "path": "build/code/src/product/default_library.d.ts",
+      "sha256": "3a9e51a7413a41f3e49d56bd96ced1f6db6e570866cd80d15e5b5e2e87c2e78f",
+      "bytes": 37824
+    },
+    {
+      "path": "build/code/src/product/default_library_fulfillment.js",
+      "sha256": "b3cb400c8b3b95250e13b00e8176eb8e9645a2ca0ca71d94794924dfed18ffa9",
+      "bytes": 20807
+    },
+    {
+      "path": "build/code/src/product/default_library_fulfillment.d.ts",
+      "sha256": "b501c8eabaa4e27e05e7d3e81b0a766b346278e88506a8a6d6e0a6c54dfc7d4b",
+      "bytes": 32419
+    },
+    {
+      "path": "build/code/src/abg/default_library.js",
+      "sha256": "cb733ebe84298d5e9e3d9db43783d00d3e4e502fadd612143774f2a8908a1773",
+      "bytes": 27975
+    },
+    {
+      "path": "build/code/src/abg/default_library.d.ts",
+      "sha256": "e91197e4e4b3b8d6386500e7e8f14ccae57b71510ff6bd2ce9404571d4a170b7",
+      "bytes": 2197
+    },
+    {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "sha256": "f7782854a788956a232779025026f992aec9e7f6dfa2f12e56f83064c7caa0ee",
+      "bytes": 112857
+    },
+    {
+      "path": "build/code/src/abg/instruction_assembly.d.ts",
+      "sha256": "07d59aa31a2eac3ffb3bbad4a6f1b7d25a4a573444d4592f44f48ad39d68c4de",
+      "bytes": 43002
+    },
+    {
+      "path": "build/code/src/gtl/default_library.js",
+      "sha256": "53addbe21cffc0eb92b2ad65a66cfede6dbf2ee16ab7276fa95e24005b3b635f",
+      "bytes": 18591
+    },
+    {
+      "path": "build/code/src/gtl/default_library.d.ts",
+      "sha256": "82cc9586e9ec5651213613041c63135fe4b4ee6fbcb1d2ef8eb70e1e2d21f3d9",
+      "bytes": 2701
+    },
+    {
+      "path": "build/code/src/gtl/semantic_stage.js",
+      "sha256": "0267009adc162c6a658eb7854124a29bf2b2bbf237791d793226e04e3a4f31ad",
+      "bytes": 9320
+    },
+    {
+      "path": "build/code/src/gtl/semantic_stage.d.ts",
+      "sha256": "b09f9700ade561568eb597cfdd6d46ca8864d73f703a39ce740cc2f97e4171d4",
+      "bytes": 19697
+    },
+    {
+      "path": "build/code/src/product/requirement_handoff.js",
+      "sha256": "aaa4a8325b3cbca4f4c8f0613d5614f04cf0ec2dee0e3d842e5da903e36ed526",
+      "bytes": 6367
+    },
+    {
+      "path": "build/code/src/product/requirement_handoff.d.ts",
+      "sha256": "0dad9b07d9be059927b1972e5c738bf0cd52bb6de32c2be23062f02c3e2a29ca",
+      "bytes": 15833
+    },
+    {
+      "path": "build/code/src/product/semantic_job.js",
+      "sha256": "30ceeb38693b45e8a267beb83817b11184d6578acf69fc62f499a31bd28aea5e",
+      "bytes": 86813
+    },
+    {
+      "path": "build/code/src/product/semantic_job.d.ts",
+      "sha256": "6d9ecf2ca7fa8503e0946ccc00ce92ae8bdb451335ef755db0ef9d97cc5cdbd5",
+      "bytes": 37774
+    }
+  ],
+  "net": {
+    "addedLines": 653,
+    "removedLines": 24,
+    "netLines": 629
+  }
+}

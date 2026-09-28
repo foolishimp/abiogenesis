@@ -1,0 +1,24 @@
+{
+  "providerBinaryHashVerified": true,
+  "installedControlsRead": true,
+  "preparedHandoffEqualsOriginal": true,
+  "syntaxChecks": [
+    {
+      "command": "node --check .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-fulfillment-implementation/live-01/prepare-launch.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node --check .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-fulfillment-implementation/live-01/launch.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node --check .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-fulfillment-implementation/live-01/readback.mjs",
+      "exitCode": 0
+    }
+  ],
+  "launchScriptExecuted": false,
+  "readbackScriptExecuted": false,
+  "providersStarted": 0,
+  "runStarted": false,
+  "newPackOrInstall": false
+}

@@ -1,0 +1,1617 @@
+{
+  "envelope": {
+    "boundBasis": {
+      "contextRef": "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "frameEvidenceDigest": "sha256:e5902a30af003929b0b341c637b560cf282827ab17ce382cc7b0e1995e3d8bdf",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "inputDigest": "sha256:c115b649e6bbb23cdb3f5b5b193a482e9d7b90f924a19f8b5fe83414b2fd3a3e",
+      "inputRef": "result://abiogenesis/98ab914a24c704db36df403a9c72bdad0d115587e2c145755cebe46d78ea1df8",
+      "previousResultRef": null,
+      "taskRef": "task://default-library-witness/s6-original@5"
+    },
+    "cCallDigest": "sha256:5ac52ae06168dc2bcf3d1f03aef060bc81e9e9eb3d42948f1427ab32ea5c5533",
+    "cCallRef": "c-call:sha256:5ac52ae06168dc2bcf3d1f03aef060bc81e9e9eb3d42948f1427ab32ea5c5533",
+    "executionBasisDigest": "sha256:f47c0e3c0d8e54ae4ee2f37e39926f0d74256a250837c357808df6a3d6e3e049",
+    "executionBasisRef": "execution-basis://abiogenesis/f47c0e3c0d8e54ae4ee2f37e39926f0d74256a250837c357808df6a3d6e3e049",
+    "inputDigest": "sha256:c115b649e6bbb23cdb3f5b5b193a482e9d7b90f924a19f8b5fe83414b2fd3a3e",
+    "inputRef": "result://abiogenesis/98ab914a24c704db36df403a9c72bdad0d115587e2c145755cebe46d78ea1df8",
+    "planRef": "prompt-plan://abiogenesis/framed-synthesis/6cc846f1dd604648aa3c5f6a20709952f1342c8909d04ae3ebe3f0aafd51bfab",
+    "predecessorPrefix": {
+      "coordinateDigest": "sha256:a119871cfef413a40a668df7f32dbfa6d30edcf8238ff31049dc9971dcfffffd",
+      "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:2364cf24ca140ca69ec8f8e525290458f7a66f680d35518fced00deb48a6f5f4",
+      "prefixLength": 4557672,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+        "inode": 462972291
+      }
+    },
+    "sections": {
+      "choices": [
+        {
+          "conditionsForUse": "A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit.",
+          "contracts": [
+            {
+              "contractKind": "input",
+              "contractRef": "contract://abiogenesis/default-library/state@5",
+              "contractVersion": "5.0.0",
+              "valueKind": "governance_work_state"
+            },
+            {
+              "contractKind": "input",
+              "contractRef": "contract://abiogenesis/default-library/state@5",
+              "contractVersion": "5.0.0",
+              "valueKind": "governance_work_state"
+            }
+          ],
+          "effects": [
+            "effect://abiogenesis/worksite/native-work/v1"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+          "purpose": "State source-grounded behavior, boundaries and testable acceptance criteria. Preserve valid supplied requirements, conflicts and unknowns. Do not require a fresh induction artifact."
+        },
+        {
+          "conditionsForUse": "A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit.",
+          "contracts": [
+            {
+              "contractKind": "input",
+              "contractRef": "contract://abiogenesis/default-library/state@5",
+              "contractVersion": "5.0.0",
+              "valueKind": "governance_work_state"
+            },
+            {
+              "contractKind": "input",
+              "contractRef": "contract://abiogenesis/default-library/state@5",
+              "contractVersion": "5.0.0",
+              "valueKind": "governance_work_state"
+            }
+          ],
+          "effects": [
+            "effect://abiogenesis/worksite/native-work/v1"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+          "purpose": "Describe a realizable bounded change against the actual worksite and existing capabilities. Preserve selected criteria and supply a meaningful executable proof plan; expose missing dependencies or capacity."
+        },
+        {
+          "conditionsForUse": "A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit.",
+          "contracts": [
+            {
+              "contractKind": "input",
+              "contractRef": "contract://abiogenesis/default-library/state@5",
+              "contractVersion": "5.0.0",
+              "valueKind": "governance_work_state"
+            },
+            {
+              "contractKind": "input",
+              "contractRef": "contract://abiogenesis/default-library/state@5",
+              "contractVersion": "5.0.0",
+              "valueKind": "governance_work_state"
+            }
+          ],
+          "effects": [
+            "effect://abiogenesis/worksite/native-work/v1"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+          "purpose": "Implement only the selected bounded change. Preserve original sources, valid supplied assets and declared effect scope. A report or self-run check is not independent acceptance."
+        },
+        {
+          "conditionsForUse": "Selected existing files and an executable command/predicate plan are available; no author prerequisite. Missing plan remains a gap.",
+          "contracts": [
+            {
+              "contractKind": "input",
+              "contractRef": "contract://abiogenesis/default-library/state@5",
+              "contractVersion": "5.0.0",
+              "valueKind": "governance_work_state"
+            },
+            {
+              "contractKind": "input",
+              "contractRef": "contract://abiogenesis/default-library/state@5",
+              "contractVersion": "5.0.0",
+              "valueKind": "governance_work_state"
+            }
+          ],
+          "effects": [],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+          "purpose": "Execute the selected reproducible command plan against the actual files and retain command, stream and predicate observations, including nonzero exits. Reuse files without inventing an author. A missing verifier or command plan is a gap, not permission to fabricate evidence."
+        },
+        {
+          "conditionsForUse": "An explicitly selected current native-work or C2 measurement Result, consumer source/rubric and installed assessment contract are available. Measurement provenance is not authorship. Read-only independent assessment.",
+          "contracts": [
+            {
+              "contractKind": "input",
+              "contractRef": "contract://abiogenesis/default-library/state@5",
+              "contractVersion": "5.0.0",
+              "valueKind": "governance_work_state"
+            },
+            {
+              "contractKind": "input",
+              "contractRef": "contract://abiogenesis/default-library/state@5",
+              "contractVersion": "5.0.0",
+              "valueKind": "governance_work_state"
+            }
+          ],
+          "effects": [
+            "effect://abiogenesis/worksite/native-work/v1"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "purpose": "Independently assess the full original outcome using the exact candidate, consumer rubric and current admitted execution observations. Preserve unmet and indeterminate criteria. Do not edit files or certify success merely from a report, file presence or stage count."
+        }
+      ],
+      "evidence": {
+        "declaredAccess": [
+          {
+            "accessRef": "access://registered-selection/source-corpus-validation@5",
+            "claim": "structural_corpus_access_not_frame_application",
+            "disposition": "omitted_not_required",
+            "operation": "validate",
+            "projection": null,
+            "projectionDigest": "sha256:762c96822e71889dfc6ecc40d9a1a3c6573563f8c49d65f83f2b4f72ab72462f"
+          }
+        ]
+      },
+      "response": {
+        "additionalProperties": false,
+        "properties": {
+          "contributions": {
+            "description": "At most one contribution row per graphFunctionRef in this current mapping.",
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "contribution": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "dependsOn": {
+                  "description": "Every dependency must name a different contribution in THIS response. Prior completed work outside this current mapping belongs in evidenceRefs, not dependsOn. Mapping membership does not require execution; only the explicit next member executes.",
+                  "items": {
+                    "enum": [
+                      "graph-function://abiogenesis/default-library/specification@5",
+                      "graph-function://abiogenesis/default-library/design@5",
+                      "graph-function://abiogenesis/default-library/construction@5",
+                      "graph-function://abiogenesis/default-library/testing@5",
+                      "graph-function://abiogenesis/default-library/uat@5"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "uniqueItems": true
+                },
+                "evidenceRefs": {
+                  "items": {
+                    "enum": [
+                      "task://default-library-witness/s6-original@5",
+                      "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "uniqueItems": true
+                },
+                "graphFunctionRef": {
+                  "enum": [
+                    "graph-function://abiogenesis/default-library/specification@5",
+                    "graph-function://abiogenesis/default-library/design@5",
+                    "graph-function://abiogenesis/default-library/construction@5",
+                    "graph-function://abiogenesis/default-library/testing@5",
+                    "graph-function://abiogenesis/default-library/uat@5"
+                  ],
+                  "type": "string"
+                },
+                "reason": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "supportRefs": {
+                  "items": {
+                    "enum": [
+                      "obligation://default-library-witness/complete-original@5",
+                      "obligation://default-library-witness/conformance@5",
+                      "obligation://default-library-witness/implementation-design@5",
+                      "obligation://default-library-witness/test-design@5",
+                      "obligation://default-library-witness/execution-plan@5",
+                      "obligation://default-library-witness/behavior@5",
+                      "obligation://default-library-witness/revision@5"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "graphFunctionRef",
+                "contribution",
+                "reason",
+                "supportRefs",
+                "evidenceRefs",
+                "dependsOn"
+              ],
+              "type": "object"
+            },
+            "maxItems": 5,
+            "type": "array"
+          },
+          "gaps": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "evidenceRefs": {
+                  "items": {
+                    "enum": [
+                      "task://default-library-witness/s6-original@5",
+                      "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "uniqueItems": true
+                },
+                "reason": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "supportRefs": {
+                  "items": {
+                    "enum": [
+                      "obligation://default-library-witness/complete-original@5",
+                      "obligation://default-library-witness/conformance@5",
+                      "obligation://default-library-witness/implementation-design@5",
+                      "obligation://default-library-witness/test-design@5",
+                      "obligation://default-library-witness/execution-plan@5",
+                      "obligation://default-library-witness/behavior@5",
+                      "obligation://default-library-witness/revision@5"
+                    ],
+                    "type": "string"
+                  },
+                  "minItems": 1,
+                  "type": "array",
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "supportRefs",
+                "reason",
+                "evidenceRefs"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "interpretation": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "nextEvidenceRefs": {
+            "items": {
+              "enum": [
+                "task://default-library-witness/s6-original@5",
+                "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+              ],
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "nextGraphFunctionRef": {
+            "description": "Must name a contribution row in THIS response, explicitly chosen to execute next. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule.",
+            "enum": [
+              "graph-function://abiogenesis/default-library/specification@5",
+              "graph-function://abiogenesis/default-library/design@5",
+              "graph-function://abiogenesis/default-library/construction@5",
+              "graph-function://abiogenesis/default-library/testing@5",
+              "graph-function://abiogenesis/default-library/uat@5",
+              null
+            ],
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "nextReason": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "requirementProposals": {
+            "description": "Propose only additional source-grounded obligations. Use local candidate refs, never invented admitted identities. Preserve originals; missing policy remains open.",
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "candidateRef": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "classRef": {
+                  "enum": [
+                    "discovery://default-library-witness/source-obligations@5"
+                  ],
+                  "type": "string"
+                },
+                "evidenceRefs": {
+                  "items": {
+                    "enum": [
+                      "task://default-library-witness/s6-original@5",
+                      "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "uniqueItems": true
+                },
+                "meaning": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "predecessorRequirementRefs": {
+                  "items": {
+                    "enum": [
+                      "requirement://default-library-witness/complete-original@5",
+                      "requirement://default-library-witness/conformance@5",
+                      "requirement://default-library-witness/implementation-design@5",
+                      "requirement://default-library-witness/test-design@5",
+                      "requirement://default-library-witness/execution-plan@5",
+                      "requirement://default-library-witness/behavior@5",
+                      "requirement://default-library-witness/revision@5"
+                    ],
+                    "type": "string"
+                  },
+                  "type": "array",
+                  "uniqueItems": true
+                },
+                "reason": {
+                  "minLength": 1,
+                  "type": "string"
+                },
+                "sourceQuotes": {
+                  "items": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "memberRef": {
+                        "enum": [
+                          "member://default-library-witness/source/original-basic-cli.txt@5",
+                          "member://default-library-witness/source/witness-contract.md@5",
+                          "member://default-library-witness/source/basic-cli.oracle.json@5"
+                        ],
+                        "type": "string"
+                      },
+                      "quote": {
+                        "minLength": 1,
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "memberRef",
+                      "quote"
+                    ],
+                    "type": "object"
+                  },
+                  "minItems": 1,
+                  "type": "array"
+                }
+              },
+              "required": [
+                "candidateRef",
+                "classRef",
+                "meaning",
+                "reason",
+                "sourceQuotes",
+                "predecessorRequirementRefs",
+                "evidenceRefs"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "revisionEvidenceRefs": {
+            "items": {
+              "enum": [
+                "task://default-library-witness/s6-original@5",
+                "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+              ],
+              "type": "string"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "revisionReason": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "subjectEvidenceRef": {
+            "description": "For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null.",
+            "enum": [
+              null
+            ],
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "interpretation",
+          "contributions",
+          "gaps",
+          "nextGraphFunctionRef",
+          "nextReason",
+          "nextEvidenceRefs",
+          "subjectEvidenceRef",
+          "revisionReason",
+          "revisionEvidenceRefs",
+          "requirementProposals"
+        ],
+        "type": "object"
+      },
+      "role": {
+        "frameRefs": [
+          "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+        ],
+        "instruction": "Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. The task section is an owned judgment projection: originalTask contains the complete original task. File contentIn originalTask and sourceRanges locate exact text already presented in this prompt; no external read is needed. Other file content is supplied directly. Each work order also applies the original task; only exact repeated source text is omitted from its instructions. currentAtContext and staleDependencies describe byte correspondence only, never semantic adequacy. Return only the closed response JSON.",
+        "policy": {
+          "digest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+          "policyRef": "policy://default-library-witness/selector@5",
+          "text": "Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\n"
+        },
+        "role": "selector",
+        "sourceContent": [
+          {
+            "contextRef": "context://default-library-witness/frames@5",
+            "endByte": 35546,
+            "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+            "memberRef": "member://default-library-witness/frames@5",
+            "path": "standards/STDO_REFERENCE_FRAME_BASELINE.md",
+            "sourceLocator": "stdo://releases/v2.5.1-rc.1/",
+            "spanDigest": "sha256:462f85054e7a000076051c2fc0adb7c9b6c80726057ce4112e6da192e501c485",
+            "startByte": 30700,
+            "text": "## Derived Executive Frame\n\n| Frame element | Derived application |\n|---|---|\n| evaluation family | Is the bounded outcome and execution basis authorized? Which frames and actors are capable? Is a returned result exact and current? What priority, current-boundary effect, `STDO-UP-020` disposition, and next action follow from the current Product mandate? |\n| subject and basis | complete selected STDO cut; exact Goals/Product/requirements/design/work authority; current MVP or release mandate; current workspace and checkpoint; open findings and technical triage; Product-selected triage policy; proxy grant where used |\n| material manifold | outcome, mandate, affected causal cone, evaluation inventory, frame configuration, actor envelopes, evidence obligations, returned results and technical triage, priority, boundary effect, re-entry owners, and already-authorized continuation boundary |\n| coordinates | exact method, project, outcome, mandate, authority, checkpoint, candidate, evidence, finding, triage-policy, and actor identities |\n| governing invariants | `RF-001..017`; `STDO-UP-017..020`; applicable identity, ticket, assurance, and release law |\n| authority | existing Product/work frame-set and decision authority or its admitted bounded proxy; no operation authority or other authority arises from the Executive label |\n| evidence | live authority surfaces, frame results, Reviewer technical triage, exact candidate identity, transition evidence, coverage residuals, and specialist-frame results |\n| capability envelope | enough method, Product, release or MVP, authority, workspace, triage, and actor-selection competence to configure, prioritize, and dispose the bounded evaluation; implementation expertise may be delegated to specialist frames |\n| exclusions | candidate/Product/worktree byte mutation and implementation effects while occupying Executive, implementation ownership, silently rewriting Reviewer evidence or severity, independent-review claims without a qualifying activation, semantic reconstruction owned elsewhere, and disposition outside the admitted grant |\n| result | one Reference Frame Method result, assigned priority and current-boundary effect, plus an existing `STDO-UP-020` disposition where the basis is decidable |\n| invalidation | material method, authority, outcome, mandate, triage policy, checkpoint, candidate, evidence, finding, capability, or topology change |\n\nThe Executive frame does not introduce `authorize` or `no_action` as peer\nSTDO dispositions. Activation is the `REFERENCE_FRAME_METHOD.md` function;\nbounded candidate disposition remains exactly `accept`, `local_repair`,\n`re_enter`, or `reject` under `STDO-UP-020`.\n\nPriority and current-boundary effect are decision projections, not additional\nReference Frame Method results or `STDO-UP-020` dispositions. If Executive\ncannot rely on the supplied severity or technical assessment, it reactivates a\ncapable evaluation or retains the uncertainty; it does not silently rewrite the\nReviewer result.\n\n### Steel-Thread Delivery\n\nExecutive sequences delivery around a steel thread: the smallest real,\nrunnable path from a supported Product entry to a material outcome through\nthe selected composition. Establish that path early and expand it in bounded\nincrements. Where it already exists, extend or revalidate the affected\nthread. Select increments by consequential uncertainty, dependency and\ninterface reach, and failure impact.\n\nEarly end-to-end and integration evidence prunes incompatible construction\nchoices before they spread. Use it to settle the exercised interfaces,\npreserve working composition, and concentrate construction on unresolved\nobligations. Each passing thread establishes only the relations and\nconditions actually exercised; untested branches, interaction combinations,\nrefusal and recovery paths retain their material proof obligations. Revisit\nsettled construction decisions when material counterevidence invalidates\ntheir basis.\n\nDuring construction, use focused deterministic regression and targeted\njudgment probes to resolve material uncertainty. Use unit evidence for\nmodule-owned laws under the testing frames. Schedule substantial,\nresource-intensive user-acceptance cycles near release or when a bounded\ncapability is considered complete enough to qualify. An early focused user\nprobe remains appropriate when it decides a material outcome uncertainty.\n\nThe [Product testing frames](#derived-product-testing-frame-set) retain their\ndistinct claims and govern the necessary scenarios, independent assessments,\nand repetitions. Reuse qualified results while their exact subject and basis\nremain valid; rerun affected assurance when a material change invalidates it.\nExecutive selects this sequence under the existing mandate and activates\nconstruction through the existing operation grants.\n\n---\n\n"
+          }
+        ]
+      },
+      "task": {
+        "assessment": {
+          "candidatePath": "generated/hello-world.mjs",
+          "resultContract": {
+            "contractKind": "output",
+            "contractRef": "contract://default-library-witness/assessment@5",
+            "contractVersion": "5.0.0",
+            "valueKind": "consumer_outcome_assessment"
+          },
+          "rubricPath": "source/basic-cli.oracle.json",
+          "satisfiedValue": "satisfied",
+          "sources": [
+            "source/original-basic-cli.txt",
+            "test/component/hello-cli.test.mjs",
+            "test/uat/hello-cli.uat.test.mjs",
+            "source/witness-contract.md",
+            "specification/project-conformance.md",
+            "design/implementation-design.md",
+            "design/test-design.md",
+            "test-execution-plan.json"
+          ],
+          "verdictField": "disposition"
+        },
+        "authorityRefs": [
+          "authority://default-library-witness/s6-case@5"
+        ],
+        "fulfillment": {
+          "coverage": [
+            {
+              "assessmentResultRef": null,
+              "disposition": "open",
+              "gaps": [
+                "assessment_missing"
+              ],
+              "obligationRef": "obligation://default-library-witness/complete-original@5",
+              "supportResultRefs": []
+            },
+            {
+              "assessmentResultRef": null,
+              "disposition": "open",
+              "gaps": [
+                "assessment_missing"
+              ],
+              "obligationRef": "obligation://default-library-witness/conformance@5",
+              "supportResultRefs": []
+            },
+            {
+              "assessmentResultRef": null,
+              "disposition": "open",
+              "gaps": [
+                "assessment_missing"
+              ],
+              "obligationRef": "obligation://default-library-witness/implementation-design@5",
+              "supportResultRefs": []
+            },
+            {
+              "assessmentResultRef": null,
+              "disposition": "open",
+              "gaps": [
+                "assessment_missing"
+              ],
+              "obligationRef": "obligation://default-library-witness/test-design@5",
+              "supportResultRefs": []
+            },
+            {
+              "assessmentResultRef": null,
+              "disposition": "open",
+              "gaps": [
+                "assessment_missing"
+              ],
+              "obligationRef": "obligation://default-library-witness/execution-plan@5",
+              "supportResultRefs": []
+            },
+            {
+              "assessmentResultRef": null,
+              "disposition": "open",
+              "gaps": [
+                "assessment_missing"
+              ],
+              "obligationRef": "obligation://default-library-witness/behavior@5",
+              "supportResultRefs": []
+            },
+            {
+              "assessmentResultRef": null,
+              "disposition": "open",
+              "gaps": [
+                "assessment_missing"
+              ],
+              "obligationRef": "obligation://default-library-witness/revision@5",
+              "supportResultRefs": []
+            }
+          ],
+          "discoveryClasses": [
+            {
+              "classRef": "discovery://default-library-witness/source-obligations@5",
+              "ruleRef": "rule://abiogenesis/default-library/admitted-requirement-proposals@5",
+              "templatePolicyRef": "proof-policy://default-library-witness/complete-original@5",
+              "templateShapeRef": "proof-shape://default-library-witness/complete-original@5"
+            }
+          ],
+          "obligations": [
+            {
+              "completeness": {
+                "adverseCommands": [],
+                "depthClasses": [
+                  {
+                    "classRef": "depth://default-library-witness/complete-original@5",
+                    "permitsNonApplicability": false
+                  }
+                ],
+                "policyRef": "proof-policy://default-library-witness/complete-original@5",
+                "semanticCriteria": [
+                  "criterion://default-library-witness/complete-original@5"
+                ],
+                "strengthRuleRef": "rule://abiogenesis/default-library/declared-current-independent-evidence@5"
+              },
+              "obligationRef": "obligation://default-library-witness/complete-original@5",
+              "policy": {
+                "closureRule": "All selected evidence roles and semantic/depth criteria under the declared current-independent rule.",
+                "policyRef": "proof-policy://default-library-witness/complete-original@5",
+                "proofMeaning": [
+                  "Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected."
+                ],
+                "realizationMeaning": [
+                  "Complete original outcome; preserve every original obligation and honest execution-result meaning."
+                ],
+                "scope": "Complete original outcome; preserve every original obligation and honest execution-result meaning.",
+                "unprovedScope": []
+              },
+              "proofContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+              "realizationContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+              "requirementRef": "requirement://default-library-witness/complete-original@5",
+              "shape": {
+                "nativeCarrierBoundary": "Actual admitted native/C2/assessment child observations only.",
+                "proofShapeRef": "proof-shape://default-library-witness/complete-original@5",
+                "requiredContent": [
+                  "Complete original outcome; preserve every original obligation and honest execution-result meaning."
+                ],
+                "requiredEvidenceRoles": [
+                  "realization",
+                  "verifier_artifact",
+                  "verifier_execution",
+                  "semantic_assessment"
+                ],
+                "sharedBasis": [
+                  "same-invocation",
+                  "exact-source",
+                  "current-subject"
+                ]
+              },
+              "sourceRanges": [
+                {
+                  "endByte": 4325,
+                  "memberRef": "member://default-library-witness/source/original-basic-cli.txt@5",
+                  "path": "source/original-basic-cli.txt",
+                  "startByte": 0
+                }
+              ]
+            },
+            {
+              "completeness": {
+                "adverseCommands": [],
+                "depthClasses": [
+                  {
+                    "classRef": "depth://default-library-witness/conformance@5",
+                    "permitsNonApplicability": false
+                  }
+                ],
+                "policyRef": "proof-policy://default-library-witness/conformance@5",
+                "semanticCriteria": [
+                  "criterion://default-library-witness/conformance@5"
+                ],
+                "strengthRuleRef": "rule://abiogenesis/default-library/declared-current-independent-evidence@5"
+              },
+              "obligationRef": "obligation://default-library-witness/conformance@5",
+              "policy": {
+                "closureRule": "All selected evidence roles and semantic/depth criteria under the declared current-independent rule.",
+                "policyRef": "proof-policy://default-library-witness/conformance@5",
+                "proofMeaning": [
+                  "Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected."
+                ],
+                "realizationMeaning": [
+                  "Fresh substantive source-grounded conformance, Intent/Product/Requirements and completion criteria."
+                ],
+                "scope": "Fresh substantive source-grounded conformance, Intent/Product/Requirements and completion criteria.",
+                "unprovedScope": []
+              },
+              "proofContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+              "realizationContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+              "requirementRef": "requirement://default-library-witness/conformance@5",
+              "shape": {
+                "nativeCarrierBoundary": "Actual admitted native/C2/assessment child observations only.",
+                "proofShapeRef": "proof-shape://default-library-witness/conformance@5",
+                "requiredContent": [
+                  "Fresh substantive source-grounded conformance, Intent/Product/Requirements and completion criteria."
+                ],
+                "requiredEvidenceRoles": [
+                  "realization",
+                  "semantic_assessment"
+                ],
+                "sharedBasis": [
+                  "same-invocation",
+                  "exact-source",
+                  "current-subject"
+                ]
+              },
+              "sourceRanges": [
+                {
+                  "endByte": 1310,
+                  "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+                  "path": "source/witness-contract.md",
+                  "startByte": 1228
+                }
+              ]
+            },
+            {
+              "completeness": {
+                "adverseCommands": [],
+                "depthClasses": [
+                  {
+                    "classRef": "depth://default-library-witness/implementation-design@5",
+                    "permitsNonApplicability": false
+                  }
+                ],
+                "policyRef": "proof-policy://default-library-witness/implementation-design@5",
+                "semanticCriteria": [
+                  "criterion://default-library-witness/implementation-design@5"
+                ],
+                "strengthRuleRef": "rule://abiogenesis/default-library/declared-current-independent-evidence@5"
+              },
+              "obligationRef": "obligation://default-library-witness/implementation-design@5",
+              "policy": {
+                "closureRule": "All selected evidence roles and semantic/depth criteria under the declared current-independent rule.",
+                "policyRef": "proof-policy://default-library-witness/implementation-design@5",
+                "proofMeaning": [
+                  "Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected."
+                ],
+                "realizationMeaning": [
+                  "Fresh realizable implementation design faithful to source and actual predecessor conformance."
+                ],
+                "scope": "Fresh realizable implementation design faithful to source and actual predecessor conformance.",
+                "unprovedScope": []
+              },
+              "proofContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+              "realizationContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+              "requirementRef": "requirement://default-library-witness/implementation-design@5",
+              "shape": {
+                "nativeCarrierBoundary": "Actual admitted native/C2/assessment child observations only.",
+                "proofShapeRef": "proof-shape://default-library-witness/implementation-design@5",
+                "requiredContent": [
+                  "Fresh realizable implementation design faithful to source and actual predecessor conformance."
+                ],
+                "requiredEvidenceRoles": [
+                  "realization",
+                  "semantic_assessment"
+                ],
+                "sharedBasis": [
+                  "same-invocation",
+                  "exact-source",
+                  "current-subject"
+                ]
+              },
+              "sourceRanges": [
+                {
+                  "endByte": 1452,
+                  "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+                  "path": "source/witness-contract.md",
+                  "startByte": 1373
+                }
+              ]
+            },
+            {
+              "completeness": {
+                "adverseCommands": [],
+                "depthClasses": [
+                  {
+                    "classRef": "depth://default-library-witness/test-design@5",
+                    "permitsNonApplicability": false
+                  }
+                ],
+                "policyRef": "proof-policy://default-library-witness/test-design@5",
+                "semanticCriteria": [
+                  "criterion://default-library-witness/test-design@5"
+                ],
+                "strengthRuleRef": "rule://abiogenesis/default-library/declared-current-independent-evidence@5"
+              },
+              "obligationRef": "obligation://default-library-witness/test-design@5",
+              "policy": {
+                "closureRule": "All selected evidence roles and semantic/depth criteria under the declared current-independent rule.",
+                "policyRef": "proof-policy://default-library-witness/test-design@5",
+                "proofMeaning": [
+                  "Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected."
+                ],
+                "realizationMeaning": [
+                  "Fresh test-design meaning preserving exact CLI output/exit and actual test surfaces."
+                ],
+                "scope": "Fresh test-design meaning preserving exact CLI output/exit and actual test surfaces.",
+                "unprovedScope": []
+              },
+              "proofContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+              "realizationContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+              "requirementRef": "requirement://default-library-witness/test-design@5",
+              "shape": {
+                "nativeCarrierBoundary": "Actual admitted native/C2/assessment child observations only.",
+                "proofShapeRef": "proof-shape://default-library-witness/test-design@5",
+                "requiredContent": [
+                  "Fresh test-design meaning preserving exact CLI output/exit and actual test surfaces."
+                ],
+                "requiredEvidenceRoles": [
+                  "realization",
+                  "semantic_assessment"
+                ],
+                "sharedBasis": [
+                  "same-invocation",
+                  "exact-source",
+                  "current-subject"
+                ]
+              },
+              "sourceRanges": [
+                {
+                  "endByte": 1612,
+                  "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+                  "path": "source/witness-contract.md",
+                  "startByte": 1536
+                }
+              ]
+            },
+            {
+              "completeness": {
+                "adverseCommands": [],
+                "depthClasses": [
+                  {
+                    "classRef": "depth://default-library-witness/execution-plan@5",
+                    "permitsNonApplicability": false
+                  }
+                ],
+                "policyRef": "proof-policy://default-library-witness/execution-plan@5",
+                "semanticCriteria": [
+                  "criterion://default-library-witness/execution-plan@5"
+                ],
+                "strengthRuleRef": "rule://abiogenesis/default-library/declared-current-independent-evidence@5"
+              },
+              "obligationRef": "obligation://default-library-witness/execution-plan@5",
+              "policy": {
+                "closureRule": "All selected evidence roles and semantic/depth criteria under the declared current-independent rule.",
+                "policyRef": "proof-policy://default-library-witness/execution-plan@5",
+                "proofMeaning": [
+                  "Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected."
+                ],
+                "realizationMeaning": [
+                  "Fresh JSON plan agrees with fixed prospective commands and original expectations; it does not control execution."
+                ],
+                "scope": "Fresh JSON plan agrees with fixed prospective commands and original expectations; it does not control execution.",
+                "unprovedScope": []
+              },
+              "proofContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+              "realizationContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+              "requirementRef": "requirement://default-library-witness/execution-plan@5",
+              "shape": {
+                "nativeCarrierBoundary": "Actual admitted native/C2/assessment child observations only.",
+                "proofShapeRef": "proof-shape://default-library-witness/execution-plan@5",
+                "requiredContent": [
+                  "Fresh JSON plan agrees with fixed prospective commands and original expectations; it does not control execution."
+                ],
+                "requiredEvidenceRoles": [
+                  "realization",
+                  "semantic_assessment"
+                ],
+                "sharedBasis": [
+                  "same-invocation",
+                  "exact-source",
+                  "current-subject"
+                ]
+              },
+              "sourceRanges": [
+                {
+                  "endByte": 1769,
+                  "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+                  "path": "source/witness-contract.md",
+                  "startByte": 1692
+                }
+              ]
+            },
+            {
+              "completeness": {
+                "adverseCommands": [],
+                "depthClasses": [
+                  {
+                    "classRef": "depth://default-library-witness/behavior@5",
+                    "permitsNonApplicability": false
+                  }
+                ],
+                "policyRef": "proof-policy://default-library-witness/behavior@5",
+                "semanticCriteria": [
+                  "criterion://default-library-witness/behavior@5"
+                ],
+                "strengthRuleRef": "rule://abiogenesis/default-library/declared-current-independent-evidence@5"
+              },
+              "obligationRef": "obligation://default-library-witness/behavior@5",
+              "policy": {
+                "closureRule": "All selected evidence roles and semantic/depth criteria under the declared current-independent rule.",
+                "policyRef": "proof-policy://default-library-witness/behavior@5",
+                "proofMeaning": [
+                  "Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected."
+                ],
+                "realizationMeaning": [
+                  "Actual current CLI stdout, successful exit, at least two real passing tests and zero failures."
+                ],
+                "scope": "Actual current CLI stdout, successful exit, at least two real passing tests and zero failures.",
+                "unprovedScope": []
+              },
+              "proofContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+              "realizationContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+              "requirementRef": "requirement://default-library-witness/behavior@5",
+              "shape": {
+                "nativeCarrierBoundary": "Actual admitted native/C2/assessment child observations only.",
+                "proofShapeRef": "proof-shape://default-library-witness/behavior@5",
+                "requiredContent": [
+                  "Actual current CLI stdout, successful exit, at least two real passing tests and zero failures."
+                ],
+                "requiredEvidenceRoles": [
+                  "realization",
+                  "verifier_artifact",
+                  "verifier_execution",
+                  "semantic_assessment"
+                ],
+                "sharedBasis": [
+                  "same-invocation",
+                  "exact-source",
+                  "current-subject"
+                ]
+              },
+              "sourceRanges": [
+                {
+                  "endByte": 2711,
+                  "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+                  "path": "source/witness-contract.md",
+                  "startByte": 2631
+                }
+              ]
+            },
+            {
+              "completeness": {
+                "adverseCommands": [
+                  {
+                    "commandId": "command://default-library-witness/1@5",
+                    "disposition": "nonzero"
+                  }
+                ],
+                "depthClasses": [
+                  {
+                    "classRef": "depth://default-library-witness/revision@5",
+                    "permitsNonApplicability": false
+                  }
+                ],
+                "policyRef": "proof-policy://default-library-witness/revision@5",
+                "semanticCriteria": [
+                  "criterion://default-library-witness/revision@5"
+                ],
+                "strengthRuleRef": "rule://abiogenesis/default-library/declared-current-independent-evidence@5"
+              },
+              "obligationRef": "obligation://default-library-witness/revision@5",
+              "policy": {
+                "closureRule": "All selected evidence roles and semantic/depth criteria under the declared current-independent rule.",
+                "policyRef": "proof-policy://default-library-witness/revision@5",
+                "proofMeaning": [
+                  "Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected."
+                ],
+                "realizationMeaning": [
+                  "Actual baseline failure before CLI change, changed registered choice and consequential same-lineage correction; old failure remains historical."
+                ],
+                "scope": "Actual baseline failure before CLI change, changed registered choice and consequential same-lineage correction; old failure remains historical.",
+                "unprovedScope": []
+              },
+              "proofContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+              "realizationContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+              "requirementRef": "requirement://default-library-witness/revision@5",
+              "shape": {
+                "nativeCarrierBoundary": "Actual admitted native/C2/assessment child observations only.",
+                "proofShapeRef": "proof-shape://default-library-witness/revision@5",
+                "requiredContent": [
+                  "Actual baseline failure before CLI change, changed registered choice and consequential same-lineage correction; old failure remains historical."
+                ],
+                "requiredEvidenceRoles": [
+                  "realization",
+                  "verifier_artifact",
+                  "verifier_execution",
+                  "semantic_assessment"
+                ],
+                "sharedBasis": [
+                  "same-invocation",
+                  "exact-source",
+                  "current-subject"
+                ]
+              },
+              "sourceRanges": [
+                {
+                  "endByte": 2347,
+                  "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+                  "path": "source/witness-contract.md",
+                  "startByte": 2270
+                }
+              ]
+            }
+          ],
+          "sourceMembers": [
+            {
+              "memberRef": "member://default-library-witness/source/original-basic-cli.txt@5",
+              "path": "source/original-basic-cli.txt"
+            },
+            {
+              "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+              "path": "source/witness-contract.md"
+            },
+            {
+              "memberRef": "member://default-library-witness/source/basic-cli.oracle.json@5",
+              "path": "source/basic-cli.oracle.json"
+            }
+          ]
+        },
+        "observations": [],
+        "originalTask": "  sdlcComplianceScenario({\n    key: \"basic-cli\",\n    scenarioId: \"SCN-GLC-HELLO-WORLD-CLI-BASIC\",\n    kind: \"node_cli\",\n    stagePlan: [\n      {\n        stage: \"conformance_project\",\n        filesToProduce: [\"specification/project-conformance.md\"],\n        instructions: [\n          \"Write only specification/project-conformance.md.\",\n          \"Declare a minimal CLI Hello World software-build traversal.\",\n          \"The source surface must be generated/hello-world.mjs.\",\n          \"The execution proof must run the CLI and observe stdout exactly \\\"Hello, world!\\\\n\\\".\",\n          \"Do not write source, tests, package files, or execution plans in this vector.\"\n        ]\n      },\n      {\n        stage: \"implementation_design\",\n        filesToProduce: [\"design/implementation-design.md\"],\n        instructions: [\n          \"Write only design/implementation-design.md.\",\n          \"Use the prior conformance_project artifact as authority.\",\n          \"Define a minimal Node CLI script at generated/hello-world.mjs.\",\n          \"The script must print exactly \\\"Hello, world!\\\" followed by one newline.\",\n          \"Name component and UAT test source surfaces that execute the CLI and assert stdout.\"\n        ]\n      },\n      {\n        stage: \"source\",\n        filesToProduce: [\"generated/hello-world.mjs\"],\n        instructions: [\n          \"Write only generated/hello-world.mjs.\",\n          \"The script must execute under node without package installation.\",\n          \"It must write exactly \\\"Hello, world!\\\\n\\\" to stdout.\"\n        ]\n      },\n      {\n        stage: \"test_design\",\n        filesToProduce: [\"design/test-design.md\"],\n        instructions: [\n          \"Write only design/test-design.md.\",\n          \"Specify component and UAT validation of the CLI stdout contract.\",\n          \"Both tests must spawn node generated/hello-world.mjs and assert status 0 and stdout exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"component_test_source\",\n        filesToProduce: [\"test/component/hello-cli.test.mjs\"],\n        instructions: [\n          \"Write only test/component/hello-cli.test.mjs.\",\n          \"Use node:test, node:assert/strict, and node:child_process spawnSync.\",\n          \"Run process.execPath with [\\\"generated/hello-world.mjs\\\"] from the project root.\",\n          \"Assert status 0 and stdout exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"uat_test_source\",\n        filesToProduce: [\"test/uat/hello-cli.uat.test.mjs\"],\n        instructions: [\n          \"Write only test/uat/hello-cli.uat.test.mjs.\",\n          \"Use node:test, node:assert/strict, and node:child_process spawnSync.\",\n          \"Run process.execPath with [\\\"generated/hello-world.mjs\\\"] from the project root.\",\n          \"Assert the user-visible CLI output is exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"test_execution_plan\",\n        workerExecutes: true,\n        filesToProduce: [\"test-execution-plan.json\", \"test-execution-result.json\"],\n        instructions: [\n          \"Write test-execution-plan.json and test-execution-result.json only.\",\n          \"The JSON command must be node.\",\n          \"The args must be [\\\"--test\\\", \\\"test/component/hello-cli.test.mjs\\\", \\\"test/uat/hello-cli.uat.test.mjs\\\"].\",\n          \"expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.\",\n          \"expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.\",\n          \"assertedReturnValue must be \\\"Hello, world!\\\".\",\n          \"EXECUTION-DEFAULT LAW: run node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs yourself inside this turn; the framework executes nothing.\",\n          \"Record the truthful observed command, args, integer status, stdout, stderr, expectedTestPassCount, expectedStdoutMatch, assertedReturnValue, cwd, and env in test-execution-result.json.\"\n        ]\n      },\n      {\n        stage: \"test_execution_result\",\n        instructions: [\n          \"Produce no files.\",\n          \"Accept only if the execution plan command exited 0, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true.\"\n        ]\n      }\n    ]\n  }),\n\n# Independent complete-lifecycle witness\n\nComplete the original basic-cli application outcome through the selected installed\nGTL/HoG/ABG library. This contract is prospective input, authored separately from\nthe implementation. The complete original source and independent oracle remain\nunchanged and available to every evaluation that needs them. They are not replaced\nby a shortened task summary or by this contract.\n\nThe original source is `source/original-basic-cli.txt`, SHA-256\n`ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f`.\nThe oracle is `source/basic-cli.oracle.json`, SHA-256\n`028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585`.\nCopy this contract to `source/witness-contract.md` before freezing the new case.\n\n## Supplied input and actual authorship\n\nSupply the original unverified `generated/hello-world.mjs` and the unchanged\ncomponent and UAT test sources from the independently selected basic-cli seed.\nThey have no accepted behavior or author provenance in this Run. No historical\nruntime event is imported. The initial conformance, implementation design,\ntest design and execution-plan files must be absent.\n\nNative work must actually produce these four substantive assets:\n\n- `specification/project-conformance.md`: the small task's Intent, Product boundary,\n  source-grounded requirements and criteria for completion.\n- `design/implementation-design.md`: a realizable design faithful to the original\n  outcome and the conformance asset, including source and verification surfaces.\n- `design/test-design.md`: meaningful component and user-outcome checks of the\n  actual CLI, preserving the original stdout and successful-exit conditions.\n- `test-execution-plan.json`: the declared commands, expected test coverage and\n  observed-result criteria required by the original source.\n\nNames and file presence do not establish these meanings. Independent assessment\nmust evaluate their content and source/predecessor correspondence. Valid supplied\nverifiers may be reused; they are not counted as newly authored work. No separate\ndocument or role activation is required merely to increase stage counts.\n\n## Evidence, correction and final outcome\n\nEstablish the supplied CLI's actual behavior before changing it. Its material\nfailure must remain admitted evidence for a subsequently justified, different\nregistered work choice and an actual bounded correction in this same witness\nlineage. Do not force graph names or a complete schedule. Earlier specification\nor design work is permitted when useful; it does not replace the baseline\nmeasurement or authorize an unobserved CLI repair.\n\nAt completion, the CLI runs under Node without package installation, exits zero,\nand prints exactly `Hello, world!` followed by one newline. Both supplied tests\nmust actually execute the current CLI, with at least two passes and zero failures.\nThe four newly authored assets must satisfy the original content requirements.\nFixed prospective command selection is:\n\n1. `node generated/hello-world.mjs`\n2. `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`\n\nThe authored plan must agree with these commands and the original expectations;\nit is not the runtime source of the commands. Preserve the already-selected\nmechanism distinction: the predecessor's stage ordering and handwritten\nexecution-receipt mechanics are realized by the current declared graph and actual\nadmitted C2 evidence. That evidence must retain the real command, arguments,\nenvironment, working directory, exit status, stdout/stderr and resulting test\nobservations. A fabricated success file or a native author's report is insufficient.\n\nThe baseline failure is evidence about its exact earlier subject. Current behavior\nmust be proved against the corrected current subject. Preserve the explicit causal\nrelation between them; neither retarget the old failure to new bytes nor discard\nit merely because the correction changed those bytes. Only support whose claim\ndepends on the old bytes remaining current becomes stale. Unaffected work survives.\n\n## Admitted completion and scope\n\nThe consumer declaration must bind the original and case obligations to explicit\nrealization/proof roles and the selected policy before execution. Meaning and\nsufficiency are attributed F_P judgments. Identity, role correspondence,\ncurrentness and completeness of the selected declared policy are computed from\nadmitted facts. Newly admitted obligations remain visible; missing or unknown\nrequired support leaves the parent open. Scalar UAT success cannot replace the\nrequired pairing and coverage relation.\n\nThe independent assessment must consume current actual evidence and examine all\nmandatory selected outcomes, including authored content, verifier adequacy,\nexecution-plan correspondence and the consequential revision. Its actor/call is\ndistinct from the selected author or measurement producer. Parent completion\nrequires that assessment and eligible admitted coverage. Fresh installed Public\nresult and replay must agree on the actual terminal state and evidence lineage.\n\nProtect original source, oracle, this contract, supplied test sources and installed\nassets. Application writes are confined to the CLI and the four absent asset\npaths above. Command evidence retains its separately declared territory. There\nis no package/network dependency for this application. No caller-owned loop,\nout-of-band application edit, solution-specific framework branch, answer repair\nor oracle change is permitted. Preserve and return the first unexpected failure;\ndo not run an automatic paid retry. Scope and criteria do not shrink after results.\n",
+        "priorJudgment": null,
+        "protectedSources": [
+          "source/original-basic-cli.txt",
+          "source/basic-cli.oracle.json",
+          "test/component/hello-cli.test.mjs",
+          "test/uat/hello-cli.uat.test.mjs",
+          "source/witness-contract.md"
+        ],
+        "requiredSupportRefs": [
+          "obligation://default-library-witness/complete-original@5",
+          "obligation://default-library-witness/conformance@5",
+          "obligation://default-library-witness/implementation-design@5",
+          "obligation://default-library-witness/test-design@5",
+          "obligation://default-library-witness/execution-plan@5",
+          "obligation://default-library-witness/behavior@5",
+          "obligation://default-library-witness/revision@5"
+        ],
+        "taskRef": "task://default-library-witness/s6-original@5",
+        "testing": {
+          "allowedWriteTerritories": [
+            {
+              "pathKind": "subtree",
+              "relativePath": "execution-evidence"
+            }
+          ],
+          "commands": [
+            {
+              "args": [
+                "generated/hello-world.mjs"
+              ],
+              "commandId": "command://default-library-witness/0@5",
+              "environment": {},
+              "executable": "node",
+              "expectedReports": [],
+              "relativeCwd": ".",
+              "terminationGraceMs": 2000,
+              "timeoutMs": 20000
+            },
+            {
+              "args": [
+                "--test",
+                "test/component/hello-cli.test.mjs",
+                "test/uat/hello-cli.uat.test.mjs"
+              ],
+              "commandId": "command://default-library-witness/1@5",
+              "environment": {},
+              "executable": "node",
+              "expectedReports": [],
+              "relativeCwd": ".",
+              "terminationGraceMs": 2000,
+              "timeoutMs": 20000
+            }
+          ],
+          "outcomePredicates": [],
+          "selectedPaths": [
+            "source/original-basic-cli.txt",
+            "source/basic-cli.oracle.json",
+            "generated/hello-world.mjs",
+            "test/component/hello-cli.test.mjs",
+            "test/uat/hello-cli.uat.test.mjs",
+            "source/witness-contract.md"
+          ]
+        },
+        "unresolvedSupportRefs": [
+          "obligation://default-library-witness/complete-original@5",
+          "obligation://default-library-witness/conformance@5",
+          "obligation://default-library-witness/implementation-design@5",
+          "obligation://default-library-witness/test-design@5",
+          "obligation://default-library-witness/execution-plan@5",
+          "obligation://default-library-witness/behavior@5",
+          "obligation://default-library-witness/revision@5"
+        ],
+        "workOrders": {
+          "construction": {
+            "checks": [],
+            "instructions": [
+              "Writable files for this capability: [\"generated/hello-world.mjs\"]. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work."
+            ],
+            "originalTaskApplies": true,
+            "outcome": "Perform the justified construction contribution to the complete original outcome.",
+            "readFirst": [
+              "source/original-basic-cli.txt",
+              "source/basic-cli.oracle.json",
+              "generated/hello-world.mjs",
+              "test/component/hello-cli.test.mjs",
+              "test/uat/hello-cli.uat.test.mjs",
+              "source/witness-contract.md"
+            ],
+            "writeRoots": [
+              "generated/hello-world.mjs"
+            ]
+          },
+          "design": {
+            "checks": [],
+            "instructions": [
+              "Writable files for this capability: [\"design/implementation-design.md\",\"design/test-design.md\",\"test-execution-plan.json\"]. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work."
+            ],
+            "originalTaskApplies": true,
+            "outcome": "Perform the justified design contribution to the complete original outcome.",
+            "readFirst": [
+              "source/original-basic-cli.txt",
+              "source/basic-cli.oracle.json",
+              "generated/hello-world.mjs",
+              "test/component/hello-cli.test.mjs",
+              "test/uat/hello-cli.uat.test.mjs",
+              "source/witness-contract.md"
+            ],
+            "writeRoots": [
+              "design/implementation-design.md",
+              "design/test-design.md",
+              "test-execution-plan.json"
+            ]
+          },
+          "specification": {
+            "checks": [],
+            "instructions": [
+              "Writable files for this capability: [\"specification/project-conformance.md\"]. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work."
+            ],
+            "originalTaskApplies": true,
+            "outcome": "Perform the justified specification contribution to the complete original outcome.",
+            "readFirst": [
+              "source/original-basic-cli.txt",
+              "source/basic-cli.oracle.json",
+              "generated/hello-world.mjs",
+              "test/component/hello-cli.test.mjs",
+              "test/uat/hello-cli.uat.test.mjs",
+              "source/witness-contract.md"
+            ],
+            "writeRoots": [
+              "specification/project-conformance.md"
+            ]
+          },
+          "testing": {
+            "checks": [],
+            "instructions": [
+              "Writable files for this capability: []. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work."
+            ],
+            "originalTaskApplies": true,
+            "outcome": "Perform the justified testing contribution to the complete original outcome.",
+            "readFirst": [
+              "source/original-basic-cli.txt",
+              "source/basic-cli.oracle.json",
+              "generated/hello-world.mjs",
+              "test/component/hello-cli.test.mjs",
+              "test/uat/hello-cli.uat.test.mjs",
+              "source/witness-contract.md"
+            ],
+            "writeRoots": []
+          },
+          "uat": {
+            "checks": [],
+            "instructions": [
+              "Writable files for this capability: []. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work."
+            ],
+            "originalTaskApplies": true,
+            "outcome": "Perform the justified uat contribution to the complete original outcome.",
+            "readFirst": [
+              "source/original-basic-cli.txt",
+              "source/basic-cli.oracle.json",
+              "generated/hello-world.mjs",
+              "test/component/hello-cli.test.mjs",
+              "test/uat/hello-cli.uat.test.mjs",
+              "source/witness-contract.md",
+              "specification/project-conformance.md",
+              "design/implementation-design.md",
+              "design/test-design.md",
+              "test-execution-plan.json"
+            ],
+            "writeRoots": []
+          }
+        },
+        "worksite": {
+          "files": [
+            {
+              "path": "design/implementation-design.md",
+              "state": "absent"
+            },
+            {
+              "path": "design/test-design.md",
+              "state": "absent"
+            },
+            {
+              "content": "console.log(\"Hello world!\");\n",
+              "encoding": "utf8",
+              "path": "generated/hello-world.mjs",
+              "state": "file"
+            },
+            {
+              "content": "{\n  \"scenarioId\": \"SCN-GLC-HELLO-WORLD-CLI-BASIC\",\n  \"purpose\": \"Independent evaluation of the unchanged complete original basic-cli declaration.\",\n  \"cases\": [{ \"arguments\": [], \"stdout\": \"Hello, world!\\n\", \"exitStatus\": 0 }],\n  \"minimumTestPasses\": 2,\n  \"requiredArtifacts\": [\"specification/project-conformance.md\", \"design/implementation-design.md\", \"generated/hello-world.mjs\", \"design/test-design.md\", \"test/component/hello-cli.test.mjs\", \"test/uat/hello-cli.uat.test.mjs\", \"test-execution-plan.json\"],\n  \"requiredTestFiles\": [\"test/component/hello-cli.test.mjs\", \"test/uat/hello-cli.uat.test.mjs\"],\n  \"requiredStageMeanings\": [\"conformance_project\", \"implementation_design\", \"source\", \"test_design\", \"component_test_source\", \"uat_test_source\", \"test_execution_plan\", \"test_execution_result\"],\n  \"assessment\": \"Require genuine conformance/design/test-design/execution-plan content and actual CLI stdout/status. Both component and UAT tests must execute the real CLI; at least two pass and zero fail. Admitted C2 plus assessed Evidence supplies truthful execution-result meaning, not a prewritten report.\"\n}\n",
+              "encoding": "utf8",
+              "path": "source/basic-cli.oracle.json",
+              "state": "file"
+            },
+            {
+              "contentIn": "originalTask",
+              "endCharacter": 4325,
+              "path": "source/original-basic-cli.txt",
+              "startCharacter": 0,
+              "state": "file"
+            },
+            {
+              "contentIn": "originalTask",
+              "endCharacter": 9983,
+              "path": "source/witness-contract.md",
+              "startCharacter": 4327,
+              "state": "file"
+            },
+            {
+              "path": "specification/project-conformance.md",
+              "state": "absent"
+            },
+            {
+              "path": "test-execution-plan.json",
+              "state": "absent"
+            },
+            {
+              "content": "import { test } from 'node:test';\nimport assert from 'node:assert/strict';\nimport { spawnSync } from 'node:child_process';\n\ntest('CLI process satisfies its output contract', () => {\n  const result = spawnSync(process.execPath, ['generated/hello-world.mjs'], { encoding: 'utf8' });\n  assert.equal(result.status, 0);\n  assert.equal(result.stdout, 'Hello, world!\\n');\n});\n",
+              "encoding": "utf8",
+              "path": "test/component/hello-cli.test.mjs",
+              "state": "file"
+            },
+            {
+              "content": "import { test } from 'node:test';\nimport assert from 'node:assert/strict';\nimport { spawnSync } from 'node:child_process';\n\ntest('a user receives the exact promised greeting', () => {\n  const result = spawnSync(process.execPath, ['generated/hello-world.mjs'], { encoding: 'utf8' });\n  assert.equal(result.status, 0);\n  assert.equal(result.stdout, 'Hello, world!\\n');\n});\n",
+              "encoding": "utf8",
+              "path": "test/uat/hello-cli.uat.test.mjs",
+              "state": "file"
+            }
+          ],
+          "observationRef": "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+        }
+      }
+    },
+    "targetBindings": [
+      {
+        "definitionDigest": "sha256:dfb8993011b050b6ca2a3b3fcd79e457ce9648692551e50756402c29e07e5d09",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+        "purpose": "specification"
+      },
+      {
+        "definitionDigest": "sha256:e3204c6f7a03a95d130c5526d7be39616562e4f6b63fb07a817e8e7c641dd9f0",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+        "purpose": "design"
+      },
+      {
+        "definitionDigest": "sha256:fecb0d4153bb1498207b5b313f351ffcbc965d8ba72017eb08fc36596a760fe0",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+        "purpose": "construction"
+      },
+      {
+        "definitionDigest": "sha256:60ea9465493446e580a0088650616418d05fe99c2b063268dcfc6804c9b9ab80",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+        "purpose": "testing"
+      },
+      {
+        "definitionDigest": "sha256:42b98bd04fe0cd2abfeb467ecb86382f62d24b031156d7c3d288a3015a47e217",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+        "purpose": "uat"
+      }
+    ]
+  },
+  "envelopeDigest": "sha256:8a900cfee92cb09b5a7ba4ccd3108a5b063a680acbc456e51152662f3eb2ed39",
+  "kind": "native_instruction_assembly",
+  "manifest": {
+    "envelopeDigest": "sha256:8a900cfee92cb09b5a7ba4ccd3108a5b063a680acbc456e51152662f3eb2ed39",
+    "planDigest": "sha256:6cc846f1dd604648aa3c5f6a20709952f1342c8909d04ae3ebe3f0aafd51bfab",
+    "planRef": "prompt-plan://abiogenesis/framed-synthesis/6cc846f1dd604648aa3c5f6a20709952f1342c8909d04ae3ebe3f0aafd51bfab",
+    "promptByteCount": 53943,
+    "promptBytesDigest": "sha256:def616d6b3c957f6f043544ef6059dfe92e27df5b7babe16124628ebb4b6d6b9",
+    "promptDigest": "sha256:c716022172f476b8b781f6c409ea4a3e496fcc0cd33c9cfde395e26e2cbc16b1",
+    "rendererRef": "renderer://abiogenesis/default-library/synthesis@5",
+    "responseContractRef": "contract://abiogenesis/default-library/native-response@5",
+    "responseSchemaDigest": "sha256:3ec894efbdc5c240ad8dd4d0ebbcf6a65cf46d64241a6660840033f68629d161",
+    "runEnvironment": {
+      "contextPolicyDigest": "sha256:02179a3ad42e1dc8d4d2693cad6ce7aa333ee068bc7b8b0d5a0604fc595d05e4",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "evidenceDigest": "sha256:e5902a30af003929b0b341c637b560cf282827ab17ce382cc7b0e1995e3d8bdf",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/cebfb841460854aafead5ef7dcb4ae6a4c6f78901be9f99ba89e2d3efc13920e",
+      "policyDigest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+      "policyRef": "policy://default-library-witness/selector@5"
+    }
+  },
+  "manifestDigest": "sha256:f0a03d669301a27bef92f9fdddeb35ed81fcf78b26bdd51c42db464590f50db6",
+  "plan": {
+    "instructionContractRef": "contract://abiogenesis/default-library/selection-task@5",
+    "projectionLocus": "node://abiogenesis/default-library/project-choice@5",
+    "rendererRef": "renderer://abiogenesis/default-library/synthesis@5",
+    "resultContractRef": "contract://abiogenesis/default-library/native-response@5",
+    "runEnvironment": {
+      "contextPolicyDigest": "sha256:02179a3ad42e1dc8d4d2693cad6ce7aa333ee068bc7b8b0d5a0604fc595d05e4",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "evidenceDigest": "sha256:e5902a30af003929b0b341c637b560cf282827ab17ce382cc7b0e1995e3d8bdf",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/cebfb841460854aafead5ef7dcb4ae6a4c6f78901be9f99ba89e2d3efc13920e",
+      "policyDigest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+      "policyRef": "policy://default-library-witness/selector@5"
+    },
+    "sectionOrder": [
+      "role",
+      "choices",
+      "task",
+      "evidence",
+      "response"
+    ],
+    "variant": "framed-synthesis"
+  },
+  "planDigest": "sha256:6cc846f1dd604648aa3c5f6a20709952f1342c8909d04ae3ebe3f0aafd51bfab",
+  "planRef": "prompt-plan://abiogenesis/framed-synthesis/6cc846f1dd604648aa3c5f6a20709952f1342c8909d04ae3ebe3f0aafd51bfab",
+  "request": {
+    "actorRef": "actor://abiogenesis/default-library/executive@5",
+    "implementationRef": "implementation://abiogenesis/default-library/select@5",
+    "inputDigest": "sha256:c115b649e6bbb23cdb3f5b5b193a482e9d7b90f924a19f8b5fe83414b2fd3a3e",
+    "instructionContractRef": "contract://abiogenesis/default-library/selection-task@5",
+    "materializationPlanRef": "prompt-plan://abiogenesis/framed-synthesis/6cc846f1dd604648aa3c5f6a20709952f1342c8909d04ae3ebe3f0aafd51bfab",
+    "prompt": "## role\n{\"frameRefs\":[\"stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame\"],\"instruction\":\"Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. The task section is an owned judgment projection: originalTask contains the complete original task. File contentIn originalTask and sourceRanges locate exact text already presented in this prompt; no external read is needed. Other file content is supplied directly. Each work order also applies the original task; only exact repeated source text is omitted from its instructions. currentAtContext and staleDependencies describe byte correspondence only, never semantic adequacy. Return only the closed response JSON.\",\"policy\":{\"digest\":\"sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180\",\"policyRef\":\"policy://default-library-witness/selector@5\",\"text\":\"Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\\n\"},\"role\":\"selector\",\"sourceContent\":[{\"contextRef\":\"context://default-library-witness/frames@5\",\"endByte\":35546,\"memberDigest\":\"sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d\",\"memberRef\":\"member://default-library-witness/frames@5\",\"path\":\"standards/STDO_REFERENCE_FRAME_BASELINE.md\",\"sourceLocator\":\"stdo://releases/v2.5.1-rc.1/\",\"spanDigest\":\"sha256:462f85054e7a000076051c2fc0adb7c9b6c80726057ce4112e6da192e501c485\",\"startByte\":30700,\"text\":\"## Derived Executive Frame\\n\\n| Frame element | Derived application |\\n|---|---|\\n| evaluation family | Is the bounded outcome and execution basis authorized? Which frames and actors are capable? Is a returned result exact and current? What priority, current-boundary effect, `STDO-UP-020` disposition, and next action follow from the current Product mandate? |\\n| subject and basis | complete selected STDO cut; exact Goals/Product/requirements/design/work authority; current MVP or release mandate; current workspace and checkpoint; open findings and technical triage; Product-selected triage policy; proxy grant where used |\\n| material manifold | outcome, mandate, affected causal cone, evaluation inventory, frame configuration, actor envelopes, evidence obligations, returned results and technical triage, priority, boundary effect, re-entry owners, and already-authorized continuation boundary |\\n| coordinates | exact method, project, outcome, mandate, authority, checkpoint, candidate, evidence, finding, triage-policy, and actor identities |\\n| governing invariants | `RF-001..017`; `STDO-UP-017..020`; applicable identity, ticket, assurance, and release law |\\n| authority | existing Product/work frame-set and decision authority or its admitted bounded proxy; no operation authority or other authority arises from the Executive label |\\n| evidence | live authority surfaces, frame results, Reviewer technical triage, exact candidate identity, transition evidence, coverage residuals, and specialist-frame results |\\n| capability envelope | enough method, Product, release or MVP, authority, workspace, triage, and actor-selection competence to configure, prioritize, and dispose the bounded evaluation; implementation expertise may be delegated to specialist frames |\\n| exclusions | candidate/Product/worktree byte mutation and implementation effects while occupying Executive, implementation ownership, silently rewriting Reviewer evidence or severity, independent-review claims without a qualifying activation, semantic reconstruction owned elsewhere, and disposition outside the admitted grant |\\n| result | one Reference Frame Method result, assigned priority and current-boundary effect, plus an existing `STDO-UP-020` disposition where the basis is decidable |\\n| invalidation | material method, authority, outcome, mandate, triage policy, checkpoint, candidate, evidence, finding, capability, or topology change |\\n\\nThe Executive frame does not introduce `authorize` or `no_action` as peer\\nSTDO dispositions. Activation is the `REFERENCE_FRAME_METHOD.md` function;\\nbounded candidate disposition remains exactly `accept`, `local_repair`,\\n`re_enter`, or `reject` under `STDO-UP-020`.\\n\\nPriority and current-boundary effect are decision projections, not additional\\nReference Frame Method results or `STDO-UP-020` dispositions. If Executive\\ncannot rely on the supplied severity or technical assessment, it reactivates a\\ncapable evaluation or retains the uncertainty; it does not silently rewrite the\\nReviewer result.\\n\\n### Steel-Thread Delivery\\n\\nExecutive sequences delivery around a steel thread: the smallest real,\\nrunnable path from a supported Product entry to a material outcome through\\nthe selected composition. Establish that path early and expand it in bounded\\nincrements. Where it already exists, extend or revalidate the affected\\nthread. Select increments by consequential uncertainty, dependency and\\ninterface reach, and failure impact.\\n\\nEarly end-to-end and integration evidence prunes incompatible construction\\nchoices before they spread. Use it to settle the exercised interfaces,\\npreserve working composition, and concentrate construction on unresolved\\nobligations. Each passing thread establishes only the relations and\\nconditions actually exercised; untested branches, interaction combinations,\\nrefusal and recovery paths retain their material proof obligations. Revisit\\nsettled construction decisions when material counterevidence invalidates\\ntheir basis.\\n\\nDuring construction, use focused deterministic regression and targeted\\njudgment probes to resolve material uncertainty. Use unit evidence for\\nmodule-owned laws under the testing frames. Schedule substantial,\\nresource-intensive user-acceptance cycles near release or when a bounded\\ncapability is considered complete enough to qualify. An early focused user\\nprobe remains appropriate when it decides a material outcome uncertainty.\\n\\nThe [Product testing frames](#derived-product-testing-frame-set) retain their\\ndistinct claims and govern the necessary scenarios, independent assessments,\\nand repetitions. Reuse qualified results while their exact subject and basis\\nremain valid; rerun affected assurance when a material change invalidates it.\\nExecutive selects this sequence under the existing mandate and activates\\nconstruction through the existing operation grants.\\n\\n---\\n\\n\"}]}\n\n## choices\n[{\"conditionsForUse\":\"A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit.\",\"contracts\":[{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"},{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"}],\"effects\":[\"effect://abiogenesis/worksite/native-work/v1\"],\"graphFunctionRef\":\"graph-function://abiogenesis/default-library/specification@5\",\"purpose\":\"State source-grounded behavior, boundaries and testable acceptance criteria. Preserve valid supplied requirements, conflicts and unknowns. Do not require a fresh induction artifact.\"},{\"conditionsForUse\":\"A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit.\",\"contracts\":[{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"},{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"}],\"effects\":[\"effect://abiogenesis/worksite/native-work/v1\"],\"graphFunctionRef\":\"graph-function://abiogenesis/default-library/design@5\",\"purpose\":\"Describe a realizable bounded change against the actual worksite and existing capabilities. Preserve selected criteria and supply a meaningful executable proof plan; expose missing dependencies or capacity.\"},{\"conditionsForUse\":\"A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit.\",\"contracts\":[{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"},{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"}],\"effects\":[\"effect://abiogenesis/worksite/native-work/v1\"],\"graphFunctionRef\":\"graph-function://abiogenesis/default-library/construction@5\",\"purpose\":\"Implement only the selected bounded change. Preserve original sources, valid supplied assets and declared effect scope. A report or self-run check is not independent acceptance.\"},{\"conditionsForUse\":\"Selected existing files and an executable command/predicate plan are available; no author prerequisite. Missing plan remains a gap.\",\"contracts\":[{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"},{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"}],\"effects\":[],\"graphFunctionRef\":\"graph-function://abiogenesis/default-library/testing@5\",\"purpose\":\"Execute the selected reproducible command plan against the actual files and retain command, stream and predicate observations, including nonzero exits. Reuse files without inventing an author. A missing verifier or command plan is a gap, not permission to fabricate evidence.\"},{\"conditionsForUse\":\"An explicitly selected current native-work or C2 measurement Result, consumer source/rubric and installed assessment contract are available. Measurement provenance is not authorship. Read-only independent assessment.\",\"contracts\":[{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"},{\"contractKind\":\"input\",\"contractRef\":\"contract://abiogenesis/default-library/state@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"governance_work_state\"}],\"effects\":[\"effect://abiogenesis/worksite/native-work/v1\"],\"graphFunctionRef\":\"graph-function://abiogenesis/default-library/uat@5\",\"purpose\":\"Independently assess the full original outcome using the exact candidate, consumer rubric and current admitted execution observations. Preserve unmet and indeterminate criteria. Do not edit files or certify success merely from a report, file presence or stage count.\"}]\n\n## task\n{\"assessment\":{\"candidatePath\":\"generated/hello-world.mjs\",\"resultContract\":{\"contractKind\":\"output\",\"contractRef\":\"contract://default-library-witness/assessment@5\",\"contractVersion\":\"5.0.0\",\"valueKind\":\"consumer_outcome_assessment\"},\"rubricPath\":\"source/basic-cli.oracle.json\",\"satisfiedValue\":\"satisfied\",\"sources\":[\"source/original-basic-cli.txt\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\",\"source/witness-contract.md\",\"specification/project-conformance.md\",\"design/implementation-design.md\",\"design/test-design.md\",\"test-execution-plan.json\"],\"verdictField\":\"disposition\"},\"authorityRefs\":[\"authority://default-library-witness/s6-case@5\"],\"fulfillment\":{\"coverage\":[{\"assessmentResultRef\":null,\"disposition\":\"open\",\"gaps\":[\"assessment_missing\"],\"obligationRef\":\"obligation://default-library-witness/complete-original@5\",\"supportResultRefs\":[]},{\"assessmentResultRef\":null,\"disposition\":\"open\",\"gaps\":[\"assessment_missing\"],\"obligationRef\":\"obligation://default-library-witness/conformance@5\",\"supportResultRefs\":[]},{\"assessmentResultRef\":null,\"disposition\":\"open\",\"gaps\":[\"assessment_missing\"],\"obligationRef\":\"obligation://default-library-witness/implementation-design@5\",\"supportResultRefs\":[]},{\"assessmentResultRef\":null,\"disposition\":\"open\",\"gaps\":[\"assessment_missing\"],\"obligationRef\":\"obligation://default-library-witness/test-design@5\",\"supportResultRefs\":[]},{\"assessmentResultRef\":null,\"disposition\":\"open\",\"gaps\":[\"assessment_missing\"],\"obligationRef\":\"obligation://default-library-witness/execution-plan@5\",\"supportResultRefs\":[]},{\"assessmentResultRef\":null,\"disposition\":\"open\",\"gaps\":[\"assessment_missing\"],\"obligationRef\":\"obligation://default-library-witness/behavior@5\",\"supportResultRefs\":[]},{\"assessmentResultRef\":null,\"disposition\":\"open\",\"gaps\":[\"assessment_missing\"],\"obligationRef\":\"obligation://default-library-witness/revision@5\",\"supportResultRefs\":[]}],\"discoveryClasses\":[{\"classRef\":\"discovery://default-library-witness/source-obligations@5\",\"ruleRef\":\"rule://abiogenesis/default-library/admitted-requirement-proposals@5\",\"templatePolicyRef\":\"proof-policy://default-library-witness/complete-original@5\",\"templateShapeRef\":\"proof-shape://default-library-witness/complete-original@5\"}],\"obligations\":[{\"completeness\":{\"adverseCommands\":[],\"depthClasses\":[{\"classRef\":\"depth://default-library-witness/complete-original@5\",\"permitsNonApplicability\":false}],\"policyRef\":\"proof-policy://default-library-witness/complete-original@5\",\"semanticCriteria\":[\"criterion://default-library-witness/complete-original@5\"],\"strengthRuleRef\":\"rule://abiogenesis/default-library/declared-current-independent-evidence@5\"},\"obligationRef\":\"obligation://default-library-witness/complete-original@5\",\"policy\":{\"closureRule\":\"All selected evidence roles and semantic/depth criteria under the declared current-independent rule.\",\"policyRef\":\"proof-policy://default-library-witness/complete-original@5\",\"proofMeaning\":[\"Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected.\"],\"realizationMeaning\":[\"Complete original outcome; preserve every original obligation and honest execution-result meaning.\"],\"scope\":\"Complete original outcome; preserve every original obligation and honest execution-result meaning.\",\"unprovedScope\":[]},\"proofContractRef\":\"contract://abiogenesis/worksite/command-execution-observation@5\",\"realizationContractRef\":\"contract://abiogenesis/worksite/command-execution-observation@5\",\"requirementRef\":\"requirement://default-library-witness/complete-original@5\",\"shape\":{\"nativeCarrierBoundary\":\"Actual admitted native/C2/assessment child observations only.\",\"proofShapeRef\":\"proof-shape://default-library-witness/complete-original@5\",\"requiredContent\":[\"Complete original outcome; preserve every original obligation and honest execution-result meaning.\"],\"requiredEvidenceRoles\":[\"realization\",\"verifier_artifact\",\"verifier_execution\",\"semantic_assessment\"],\"sharedBasis\":[\"same-invocation\",\"exact-source\",\"current-subject\"]},\"sourceRanges\":[{\"endByte\":4325,\"memberRef\":\"member://default-library-witness/source/original-basic-cli.txt@5\",\"path\":\"source/original-basic-cli.txt\",\"startByte\":0}]},{\"completeness\":{\"adverseCommands\":[],\"depthClasses\":[{\"classRef\":\"depth://default-library-witness/conformance@5\",\"permitsNonApplicability\":false}],\"policyRef\":\"proof-policy://default-library-witness/conformance@5\",\"semanticCriteria\":[\"criterion://default-library-witness/conformance@5\"],\"strengthRuleRef\":\"rule://abiogenesis/default-library/declared-current-independent-evidence@5\"},\"obligationRef\":\"obligation://default-library-witness/conformance@5\",\"policy\":{\"closureRule\":\"All selected evidence roles and semantic/depth criteria under the declared current-independent rule.\",\"policyRef\":\"proof-policy://default-library-witness/conformance@5\",\"proofMeaning\":[\"Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected.\"],\"realizationMeaning\":[\"Fresh substantive source-grounded conformance, Intent/Product/Requirements and completion criteria.\"],\"scope\":\"Fresh substantive source-grounded conformance, Intent/Product/Requirements and completion criteria.\",\"unprovedScope\":[]},\"proofContractRef\":\"contract://abiogenesis/worksite/native-work/observation@5\",\"realizationContractRef\":\"contract://abiogenesis/worksite/native-work/observation@5\",\"requirementRef\":\"requirement://default-library-witness/conformance@5\",\"shape\":{\"nativeCarrierBoundary\":\"Actual admitted native/C2/assessment child observations only.\",\"proofShapeRef\":\"proof-shape://default-library-witness/conformance@5\",\"requiredContent\":[\"Fresh substantive source-grounded conformance, Intent/Product/Requirements and completion criteria.\"],\"requiredEvidenceRoles\":[\"realization\",\"semantic_assessment\"],\"sharedBasis\":[\"same-invocation\",\"exact-source\",\"current-subject\"]},\"sourceRanges\":[{\"endByte\":1310,\"memberRef\":\"member://default-library-witness/source/witness-contract.md@5\",\"path\":\"source/witness-contract.md\",\"startByte\":1228}]},{\"completeness\":{\"adverseCommands\":[],\"depthClasses\":[{\"classRef\":\"depth://default-library-witness/implementation-design@5\",\"permitsNonApplicability\":false}],\"policyRef\":\"proof-policy://default-library-witness/implementation-design@5\",\"semanticCriteria\":[\"criterion://default-library-witness/implementation-design@5\"],\"strengthRuleRef\":\"rule://abiogenesis/default-library/declared-current-independent-evidence@5\"},\"obligationRef\":\"obligation://default-library-witness/implementation-design@5\",\"policy\":{\"closureRule\":\"All selected evidence roles and semantic/depth criteria under the declared current-independent rule.\",\"policyRef\":\"proof-policy://default-library-witness/implementation-design@5\",\"proofMeaning\":[\"Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected.\"],\"realizationMeaning\":[\"Fresh realizable implementation design faithful to source and actual predecessor conformance.\"],\"scope\":\"Fresh realizable implementation design faithful to source and actual predecessor conformance.\",\"unprovedScope\":[]},\"proofContractRef\":\"contract://abiogenesis/worksite/native-work/observation@5\",\"realizationContractRef\":\"contract://abiogenesis/worksite/native-work/observation@5\",\"requirementRef\":\"requirement://default-library-witness/implementation-design@5\",\"shape\":{\"nativeCarrierBoundary\":\"Actual admitted native/C2/assessment child observations only.\",\"proofShapeRef\":\"proof-shape://default-library-witness/implementation-design@5\",\"requiredContent\":[\"Fresh realizable implementation design faithful to source and actual predecessor conformance.\"],\"requiredEvidenceRoles\":[\"realization\",\"semantic_assessment\"],\"sharedBasis\":[\"same-invocation\",\"exact-source\",\"current-subject\"]},\"sourceRanges\":[{\"endByte\":1452,\"memberRef\":\"member://default-library-witness/source/witness-contract.md@5\",\"path\":\"source/witness-contract.md\",\"startByte\":1373}]},{\"completeness\":{\"adverseCommands\":[],\"depthClasses\":[{\"classRef\":\"depth://default-library-witness/test-design@5\",\"permitsNonApplicability\":false}],\"policyRef\":\"proof-policy://default-library-witness/test-design@5\",\"semanticCriteria\":[\"criterion://default-library-witness/test-design@5\"],\"strengthRuleRef\":\"rule://abiogenesis/default-library/declared-current-independent-evidence@5\"},\"obligationRef\":\"obligation://default-library-witness/test-design@5\",\"policy\":{\"closureRule\":\"All selected evidence roles and semantic/depth criteria under the declared current-independent rule.\",\"policyRef\":\"proof-policy://default-library-witness/test-design@5\",\"proofMeaning\":[\"Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected.\"],\"realizationMeaning\":[\"Fresh test-design meaning preserving exact CLI output/exit and actual test surfaces.\"],\"scope\":\"Fresh test-design meaning preserving exact CLI output/exit and actual test surfaces.\",\"unprovedScope\":[]},\"proofContractRef\":\"contract://abiogenesis/worksite/native-work/observation@5\",\"realizationContractRef\":\"contract://abiogenesis/worksite/native-work/observation@5\",\"requirementRef\":\"requirement://default-library-witness/test-design@5\",\"shape\":{\"nativeCarrierBoundary\":\"Actual admitted native/C2/assessment child observations only.\",\"proofShapeRef\":\"proof-shape://default-library-witness/test-design@5\",\"requiredContent\":[\"Fresh test-design meaning preserving exact CLI output/exit and actual test surfaces.\"],\"requiredEvidenceRoles\":[\"realization\",\"semantic_assessment\"],\"sharedBasis\":[\"same-invocation\",\"exact-source\",\"current-subject\"]},\"sourceRanges\":[{\"endByte\":1612,\"memberRef\":\"member://default-library-witness/source/witness-contract.md@5\",\"path\":\"source/witness-contract.md\",\"startByte\":1536}]},{\"completeness\":{\"adverseCommands\":[],\"depthClasses\":[{\"classRef\":\"depth://default-library-witness/execution-plan@5\",\"permitsNonApplicability\":false}],\"policyRef\":\"proof-policy://default-library-witness/execution-plan@5\",\"semanticCriteria\":[\"criterion://default-library-witness/execution-plan@5\"],\"strengthRuleRef\":\"rule://abiogenesis/default-library/declared-current-independent-evidence@5\"},\"obligationRef\":\"obligation://default-library-witness/execution-plan@5\",\"policy\":{\"closureRule\":\"All selected evidence roles and semantic/depth criteria under the declared current-independent rule.\",\"policyRef\":\"proof-policy://default-library-witness/execution-plan@5\",\"proofMeaning\":[\"Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected.\"],\"realizationMeaning\":[\"Fresh JSON plan agrees with fixed prospective commands and original expectations; it does not control execution.\"],\"scope\":\"Fresh JSON plan agrees with fixed prospective commands and original expectations; it does not control execution.\",\"unprovedScope\":[]},\"proofContractRef\":\"contract://abiogenesis/worksite/native-work/observation@5\",\"realizationContractRef\":\"contract://abiogenesis/worksite/native-work/observation@5\",\"requirementRef\":\"requirement://default-library-witness/execution-plan@5\",\"shape\":{\"nativeCarrierBoundary\":\"Actual admitted native/C2/assessment child observations only.\",\"proofShapeRef\":\"proof-shape://default-library-witness/execution-plan@5\",\"requiredContent\":[\"Fresh JSON plan agrees with fixed prospective commands and original expectations; it does not control execution.\"],\"requiredEvidenceRoles\":[\"realization\",\"semantic_assessment\"],\"sharedBasis\":[\"same-invocation\",\"exact-source\",\"current-subject\"]},\"sourceRanges\":[{\"endByte\":1769,\"memberRef\":\"member://default-library-witness/source/witness-contract.md@5\",\"path\":\"source/witness-contract.md\",\"startByte\":1692}]},{\"completeness\":{\"adverseCommands\":[],\"depthClasses\":[{\"classRef\":\"depth://default-library-witness/behavior@5\",\"permitsNonApplicability\":false}],\"policyRef\":\"proof-policy://default-library-witness/behavior@5\",\"semanticCriteria\":[\"criterion://default-library-witness/behavior@5\"],\"strengthRuleRef\":\"rule://abiogenesis/default-library/declared-current-independent-evidence@5\"},\"obligationRef\":\"obligation://default-library-witness/behavior@5\",\"policy\":{\"closureRule\":\"All selected evidence roles and semantic/depth criteria under the declared current-independent rule.\",\"policyRef\":\"proof-policy://default-library-witness/behavior@5\",\"proofMeaning\":[\"Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected.\"],\"realizationMeaning\":[\"Actual current CLI stdout, successful exit, at least two real passing tests and zero failures.\"],\"scope\":\"Actual current CLI stdout, successful exit, at least two real passing tests and zero failures.\",\"unprovedScope\":[]},\"proofContractRef\":\"contract://abiogenesis/worksite/command-execution-observation@5\",\"realizationContractRef\":\"contract://abiogenesis/worksite/command-execution-observation@5\",\"requirementRef\":\"requirement://default-library-witness/behavior@5\",\"shape\":{\"nativeCarrierBoundary\":\"Actual admitted native/C2/assessment child observations only.\",\"proofShapeRef\":\"proof-shape://default-library-witness/behavior@5\",\"requiredContent\":[\"Actual current CLI stdout, successful exit, at least two real passing tests and zero failures.\"],\"requiredEvidenceRoles\":[\"realization\",\"verifier_artifact\",\"verifier_execution\",\"semantic_assessment\"],\"sharedBasis\":[\"same-invocation\",\"exact-source\",\"current-subject\"]},\"sourceRanges\":[{\"endByte\":2711,\"memberRef\":\"member://default-library-witness/source/witness-contract.md@5\",\"path\":\"source/witness-contract.md\",\"startByte\":2631}]},{\"completeness\":{\"adverseCommands\":[{\"commandId\":\"command://default-library-witness/1@5\",\"disposition\":\"nonzero\"}],\"depthClasses\":[{\"classRef\":\"depth://default-library-witness/revision@5\",\"permitsNonApplicability\":false}],\"policyRef\":\"proof-policy://default-library-witness/revision@5\",\"semanticCriteria\":[\"criterion://default-library-witness/revision@5\"],\"strengthRuleRef\":\"rule://abiogenesis/default-library/declared-current-independent-evidence@5\"},\"obligationRef\":\"obligation://default-library-witness/revision@5\",\"policy\":{\"closureRule\":\"All selected evidence roles and semantic/depth criteria under the declared current-independent rule.\",\"policyRef\":\"proof-policy://default-library-witness/revision@5\",\"proofMeaning\":[\"Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected.\"],\"realizationMeaning\":[\"Actual baseline failure before CLI change, changed registered choice and consequential same-lineage correction; old failure remains historical.\"],\"scope\":\"Actual baseline failure before CLI change, changed registered choice and consequential same-lineage correction; old failure remains historical.\",\"unprovedScope\":[]},\"proofContractRef\":\"contract://abiogenesis/worksite/command-execution-observation@5\",\"realizationContractRef\":\"contract://abiogenesis/worksite/command-execution-observation@5\",\"requirementRef\":\"requirement://default-library-witness/revision@5\",\"shape\":{\"nativeCarrierBoundary\":\"Actual admitted native/C2/assessment child observations only.\",\"proofShapeRef\":\"proof-shape://default-library-witness/revision@5\",\"requiredContent\":[\"Actual baseline failure before CLI change, changed registered choice and consequential same-lineage correction; old failure remains historical.\"],\"requiredEvidenceRoles\":[\"realization\",\"verifier_artifact\",\"verifier_execution\",\"semantic_assessment\"],\"sharedBasis\":[\"same-invocation\",\"exact-source\",\"current-subject\"]},\"sourceRanges\":[{\"endByte\":2347,\"memberRef\":\"member://default-library-witness/source/witness-contract.md@5\",\"path\":\"source/witness-contract.md\",\"startByte\":2270}]}],\"sourceMembers\":[{\"memberRef\":\"member://default-library-witness/source/original-basic-cli.txt@5\",\"path\":\"source/original-basic-cli.txt\"},{\"memberRef\":\"member://default-library-witness/source/witness-contract.md@5\",\"path\":\"source/witness-contract.md\"},{\"memberRef\":\"member://default-library-witness/source/basic-cli.oracle.json@5\",\"path\":\"source/basic-cli.oracle.json\"}]},\"observations\":[],\"originalTask\":\"  sdlcComplianceScenario({\\n    key: \\\"basic-cli\\\",\\n    scenarioId: \\\"SCN-GLC-HELLO-WORLD-CLI-BASIC\\\",\\n    kind: \\\"node_cli\\\",\\n    stagePlan: [\\n      {\\n        stage: \\\"conformance_project\\\",\\n        filesToProduce: [\\\"specification/project-conformance.md\\\"],\\n        instructions: [\\n          \\\"Write only specification/project-conformance.md.\\\",\\n          \\\"Declare a minimal CLI Hello World software-build traversal.\\\",\\n          \\\"The source surface must be generated/hello-world.mjs.\\\",\\n          \\\"The execution proof must run the CLI and observe stdout exactly \\\\\\\"Hello, world!\\\\\\\\n\\\\\\\".\\\",\\n          \\\"Do not write source, tests, package files, or execution plans in this vector.\\\"\\n        ]\\n      },\\n      {\\n        stage: \\\"implementation_design\\\",\\n        filesToProduce: [\\\"design/implementation-design.md\\\"],\\n        instructions: [\\n          \\\"Write only design/implementation-design.md.\\\",\\n          \\\"Use the prior conformance_project artifact as authority.\\\",\\n          \\\"Define a minimal Node CLI script at generated/hello-world.mjs.\\\",\\n          \\\"The script must print exactly \\\\\\\"Hello, world!\\\\\\\" followed by one newline.\\\",\\n          \\\"Name component and UAT test source surfaces that execute the CLI and assert stdout.\\\"\\n        ]\\n      },\\n      {\\n        stage: \\\"source\\\",\\n        filesToProduce: [\\\"generated/hello-world.mjs\\\"],\\n        instructions: [\\n          \\\"Write only generated/hello-world.mjs.\\\",\\n          \\\"The script must execute under node without package installation.\\\",\\n          \\\"It must write exactly \\\\\\\"Hello, world!\\\\\\\\n\\\\\\\" to stdout.\\\"\\n        ]\\n      },\\n      {\\n        stage: \\\"test_design\\\",\\n        filesToProduce: [\\\"design/test-design.md\\\"],\\n        instructions: [\\n          \\\"Write only design/test-design.md.\\\",\\n          \\\"Specify component and UAT validation of the CLI stdout contract.\\\",\\n          \\\"Both tests must spawn node generated/hello-world.mjs and assert status 0 and stdout exactly \\\\\\\"Hello, world!\\\\\\\\n\\\\\\\".\\\"\\n        ]\\n      },\\n      {\\n        stage: \\\"component_test_source\\\",\\n        filesToProduce: [\\\"test/component/hello-cli.test.mjs\\\"],\\n        instructions: [\\n          \\\"Write only test/component/hello-cli.test.mjs.\\\",\\n          \\\"Use node:test, node:assert/strict, and node:child_process spawnSync.\\\",\\n          \\\"Run process.execPath with [\\\\\\\"generated/hello-world.mjs\\\\\\\"] from the project root.\\\",\\n          \\\"Assert status 0 and stdout exactly \\\\\\\"Hello, world!\\\\\\\\n\\\\\\\".\\\"\\n        ]\\n      },\\n      {\\n        stage: \\\"uat_test_source\\\",\\n        filesToProduce: [\\\"test/uat/hello-cli.uat.test.mjs\\\"],\\n        instructions: [\\n          \\\"Write only test/uat/hello-cli.uat.test.mjs.\\\",\\n          \\\"Use node:test, node:assert/strict, and node:child_process spawnSync.\\\",\\n          \\\"Run process.execPath with [\\\\\\\"generated/hello-world.mjs\\\\\\\"] from the project root.\\\",\\n          \\\"Assert the user-visible CLI output is exactly \\\\\\\"Hello, world!\\\\\\\\n\\\\\\\".\\\"\\n        ]\\n      },\\n      {\\n        stage: \\\"test_execution_plan\\\",\\n        workerExecutes: true,\\n        filesToProduce: [\\\"test-execution-plan.json\\\", \\\"test-execution-result.json\\\"],\\n        instructions: [\\n          \\\"Write test-execution-plan.json and test-execution-result.json only.\\\",\\n          \\\"The JSON command must be node.\\\",\\n          \\\"The args must be [\\\\\\\"--test\\\\\\\", \\\\\\\"test/component/hello-cli.test.mjs\\\\\\\", \\\\\\\"test/uat/hello-cli.uat.test.mjs\\\\\\\"].\\\",\\n          \\\"expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.\\\",\\n          \\\"expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.\\\",\\n          \\\"assertedReturnValue must be \\\\\\\"Hello, world!\\\\\\\".\\\",\\n          \\\"EXECUTION-DEFAULT LAW: run node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs yourself inside this turn; the framework executes nothing.\\\",\\n          \\\"Record the truthful observed command, args, integer status, stdout, stderr, expectedTestPassCount, expectedStdoutMatch, assertedReturnValue, cwd, and env in test-execution-result.json.\\\"\\n        ]\\n      },\\n      {\\n        stage: \\\"test_execution_result\\\",\\n        instructions: [\\n          \\\"Produce no files.\\\",\\n          \\\"Accept only if the execution plan command exited 0, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true.\\\"\\n        ]\\n      }\\n    ]\\n  }),\\n\\n# Independent complete-lifecycle witness\\n\\nComplete the original basic-cli application outcome through the selected installed\\nGTL/HoG/ABG library. This contract is prospective input, authored separately from\\nthe implementation. The complete original source and independent oracle remain\\nunchanged and available to every evaluation that needs them. They are not replaced\\nby a shortened task summary or by this contract.\\n\\nThe original source is `source/original-basic-cli.txt`, SHA-256\\n`ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f`.\\nThe oracle is `source/basic-cli.oracle.json`, SHA-256\\n`028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585`.\\nCopy this contract to `source/witness-contract.md` before freezing the new case.\\n\\n## Supplied input and actual authorship\\n\\nSupply the original unverified `generated/hello-world.mjs` and the unchanged\\ncomponent and UAT test sources from the independently selected basic-cli seed.\\nThey have no accepted behavior or author provenance in this Run. No historical\\nruntime event is imported. The initial conformance, implementation design,\\ntest design and execution-plan files must be absent.\\n\\nNative work must actually produce these four substantive assets:\\n\\n- `specification/project-conformance.md`: the small task's Intent, Product boundary,\\n  source-grounded requirements and criteria for completion.\\n- `design/implementation-design.md`: a realizable design faithful to the original\\n  outcome and the conformance asset, including source and verification surfaces.\\n- `design/test-design.md`: meaningful component and user-outcome checks of the\\n  actual CLI, preserving the original stdout and successful-exit conditions.\\n- `test-execution-plan.json`: the declared commands, expected test coverage and\\n  observed-result criteria required by the original source.\\n\\nNames and file presence do not establish these meanings. Independent assessment\\nmust evaluate their content and source/predecessor correspondence. Valid supplied\\nverifiers may be reused; they are not counted as newly authored work. No separate\\ndocument or role activation is required merely to increase stage counts.\\n\\n## Evidence, correction and final outcome\\n\\nEstablish the supplied CLI's actual behavior before changing it. Its material\\nfailure must remain admitted evidence for a subsequently justified, different\\nregistered work choice and an actual bounded correction in this same witness\\nlineage. Do not force graph names or a complete schedule. Earlier specification\\nor design work is permitted when useful; it does not replace the baseline\\nmeasurement or authorize an unobserved CLI repair.\\n\\nAt completion, the CLI runs under Node without package installation, exits zero,\\nand prints exactly `Hello, world!` followed by one newline. Both supplied tests\\nmust actually execute the current CLI, with at least two passes and zero failures.\\nThe four newly authored assets must satisfy the original content requirements.\\nFixed prospective command selection is:\\n\\n1. `node generated/hello-world.mjs`\\n2. `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`\\n\\nThe authored plan must agree with these commands and the original expectations;\\nit is not the runtime source of the commands. Preserve the already-selected\\nmechanism distinction: the predecessor's stage ordering and handwritten\\nexecution-receipt mechanics are realized by the current declared graph and actual\\nadmitted C2 evidence. That evidence must retain the real command, arguments,\\nenvironment, working directory, exit status, stdout/stderr and resulting test\\nobservations. A fabricated success file or a native author's report is insufficient.\\n\\nThe baseline failure is evidence about its exact earlier subject. Current behavior\\nmust be proved against the corrected current subject. Preserve the explicit causal\\nrelation between them; neither retarget the old failure to new bytes nor discard\\nit merely because the correction changed those bytes. Only support whose claim\\ndepends on the old bytes remaining current becomes stale. Unaffected work survives.\\n\\n## Admitted completion and scope\\n\\nThe consumer declaration must bind the original and case obligations to explicit\\nrealization/proof roles and the selected policy before execution. Meaning and\\nsufficiency are attributed F_P judgments. Identity, role correspondence,\\ncurrentness and completeness of the selected declared policy are computed from\\nadmitted facts. Newly admitted obligations remain visible; missing or unknown\\nrequired support leaves the parent open. Scalar UAT success cannot replace the\\nrequired pairing and coverage relation.\\n\\nThe independent assessment must consume current actual evidence and examine all\\nmandatory selected outcomes, including authored content, verifier adequacy,\\nexecution-plan correspondence and the consequential revision. Its actor/call is\\ndistinct from the selected author or measurement producer. Parent completion\\nrequires that assessment and eligible admitted coverage. Fresh installed Public\\nresult and replay must agree on the actual terminal state and evidence lineage.\\n\\nProtect original source, oracle, this contract, supplied test sources and installed\\nassets. Application writes are confined to the CLI and the four absent asset\\npaths above. Command evidence retains its separately declared territory. There\\nis no package/network dependency for this application. No caller-owned loop,\\nout-of-band application edit, solution-specific framework branch, answer repair\\nor oracle change is permitted. Preserve and return the first unexpected failure;\\ndo not run an automatic paid retry. Scope and criteria do not shrink after results.\\n\",\"priorJudgment\":null,\"protectedSources\":[\"source/original-basic-cli.txt\",\"source/basic-cli.oracle.json\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\",\"source/witness-contract.md\"],\"requiredSupportRefs\":[\"obligation://default-library-witness/complete-original@5\",\"obligation://default-library-witness/conformance@5\",\"obligation://default-library-witness/implementation-design@5\",\"obligation://default-library-witness/test-design@5\",\"obligation://default-library-witness/execution-plan@5\",\"obligation://default-library-witness/behavior@5\",\"obligation://default-library-witness/revision@5\"],\"taskRef\":\"task://default-library-witness/s6-original@5\",\"testing\":{\"allowedWriteTerritories\":[{\"pathKind\":\"subtree\",\"relativePath\":\"execution-evidence\"}],\"commands\":[{\"args\":[\"generated/hello-world.mjs\"],\"commandId\":\"command://default-library-witness/0@5\",\"environment\":{},\"executable\":\"node\",\"expectedReports\":[],\"relativeCwd\":\".\",\"terminationGraceMs\":2000,\"timeoutMs\":20000},{\"args\":[\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"],\"commandId\":\"command://default-library-witness/1@5\",\"environment\":{},\"executable\":\"node\",\"expectedReports\":[],\"relativeCwd\":\".\",\"terminationGraceMs\":2000,\"timeoutMs\":20000}],\"outcomePredicates\":[],\"selectedPaths\":[\"source/original-basic-cli.txt\",\"source/basic-cli.oracle.json\",\"generated/hello-world.mjs\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\",\"source/witness-contract.md\"]},\"unresolvedSupportRefs\":[\"obligation://default-library-witness/complete-original@5\",\"obligation://default-library-witness/conformance@5\",\"obligation://default-library-witness/implementation-design@5\",\"obligation://default-library-witness/test-design@5\",\"obligation://default-library-witness/execution-plan@5\",\"obligation://default-library-witness/behavior@5\",\"obligation://default-library-witness/revision@5\"],\"workOrders\":{\"construction\":{\"checks\":[],\"instructions\":[\"Writable files for this capability: [\\\"generated/hello-world.mjs\\\"]. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work.\"],\"originalTaskApplies\":true,\"outcome\":\"Perform the justified construction contribution to the complete original outcome.\",\"readFirst\":[\"source/original-basic-cli.txt\",\"source/basic-cli.oracle.json\",\"generated/hello-world.mjs\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\",\"source/witness-contract.md\"],\"writeRoots\":[\"generated/hello-world.mjs\"]},\"design\":{\"checks\":[],\"instructions\":[\"Writable files for this capability: [\\\"design/implementation-design.md\\\",\\\"design/test-design.md\\\",\\\"test-execution-plan.json\\\"]. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work.\"],\"originalTaskApplies\":true,\"outcome\":\"Perform the justified design contribution to the complete original outcome.\",\"readFirst\":[\"source/original-basic-cli.txt\",\"source/basic-cli.oracle.json\",\"generated/hello-world.mjs\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\",\"source/witness-contract.md\"],\"writeRoots\":[\"design/implementation-design.md\",\"design/test-design.md\",\"test-execution-plan.json\"]},\"specification\":{\"checks\":[],\"instructions\":[\"Writable files for this capability: [\\\"specification/project-conformance.md\\\"]. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work.\"],\"originalTaskApplies\":true,\"outcome\":\"Perform the justified specification contribution to the complete original outcome.\",\"readFirst\":[\"source/original-basic-cli.txt\",\"source/basic-cli.oracle.json\",\"generated/hello-world.mjs\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\",\"source/witness-contract.md\"],\"writeRoots\":[\"specification/project-conformance.md\"]},\"testing\":{\"checks\":[],\"instructions\":[\"Writable files for this capability: []. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work.\"],\"originalTaskApplies\":true,\"outcome\":\"Perform the justified testing contribution to the complete original outcome.\",\"readFirst\":[\"source/original-basic-cli.txt\",\"source/basic-cli.oracle.json\",\"generated/hello-world.mjs\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\",\"source/witness-contract.md\"],\"writeRoots\":[]},\"uat\":{\"checks\":[],\"instructions\":[\"Writable files for this capability: []. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work.\"],\"originalTaskApplies\":true,\"outcome\":\"Perform the justified uat contribution to the complete original outcome.\",\"readFirst\":[\"source/original-basic-cli.txt\",\"source/basic-cli.oracle.json\",\"generated/hello-world.mjs\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\",\"source/witness-contract.md\",\"specification/project-conformance.md\",\"design/implementation-design.md\",\"design/test-design.md\",\"test-execution-plan.json\"],\"writeRoots\":[]}},\"worksite\":{\"files\":[{\"path\":\"design/implementation-design.md\",\"state\":\"absent\"},{\"path\":\"design/test-design.md\",\"state\":\"absent\"},{\"content\":\"console.log(\\\"Hello world!\\\");\\n\",\"encoding\":\"utf8\",\"path\":\"generated/hello-world.mjs\",\"state\":\"file\"},{\"content\":\"{\\n  \\\"scenarioId\\\": \\\"SCN-GLC-HELLO-WORLD-CLI-BASIC\\\",\\n  \\\"purpose\\\": \\\"Independent evaluation of the unchanged complete original basic-cli declaration.\\\",\\n  \\\"cases\\\": [{ \\\"arguments\\\": [], \\\"stdout\\\": \\\"Hello, world!\\\\n\\\", \\\"exitStatus\\\": 0 }],\\n  \\\"minimumTestPasses\\\": 2,\\n  \\\"requiredArtifacts\\\": [\\\"specification/project-conformance.md\\\", \\\"design/implementation-design.md\\\", \\\"generated/hello-world.mjs\\\", \\\"design/test-design.md\\\", \\\"test/component/hello-cli.test.mjs\\\", \\\"test/uat/hello-cli.uat.test.mjs\\\", \\\"test-execution-plan.json\\\"],\\n  \\\"requiredTestFiles\\\": [\\\"test/component/hello-cli.test.mjs\\\", \\\"test/uat/hello-cli.uat.test.mjs\\\"],\\n  \\\"requiredStageMeanings\\\": [\\\"conformance_project\\\", \\\"implementation_design\\\", \\\"source\\\", \\\"test_design\\\", \\\"component_test_source\\\", \\\"uat_test_source\\\", \\\"test_execution_plan\\\", \\\"test_execution_result\\\"],\\n  \\\"assessment\\\": \\\"Require genuine conformance/design/test-design/execution-plan content and actual CLI stdout/status. Both component and UAT tests must execute the real CLI; at least two pass and zero fail. Admitted C2 plus assessed Evidence supplies truthful execution-result meaning, not a prewritten report.\\\"\\n}\\n\",\"encoding\":\"utf8\",\"path\":\"source/basic-cli.oracle.json\",\"state\":\"file\"},{\"contentIn\":\"originalTask\",\"endCharacter\":4325,\"path\":\"source/original-basic-cli.txt\",\"startCharacter\":0,\"state\":\"file\"},{\"contentIn\":\"originalTask\",\"endCharacter\":9983,\"path\":\"source/witness-contract.md\",\"startCharacter\":4327,\"state\":\"file\"},{\"path\":\"specification/project-conformance.md\",\"state\":\"absent\"},{\"path\":\"test-execution-plan.json\",\"state\":\"absent\"},{\"content\":\"import { test } from 'node:test';\\nimport assert from 'node:assert/strict';\\nimport { spawnSync } from 'node:child_process';\\n\\ntest('CLI process satisfies its output contract', () => {\\n  const result = spawnSync(process.execPath, ['generated/hello-world.mjs'], { encoding: 'utf8' });\\n  assert.equal(result.status, 0);\\n  assert.equal(result.stdout, 'Hello, world!\\\\n');\\n});\\n\",\"encoding\":\"utf8\",\"path\":\"test/component/hello-cli.test.mjs\",\"state\":\"file\"},{\"content\":\"import { test } from 'node:test';\\nimport assert from 'node:assert/strict';\\nimport { spawnSync } from 'node:child_process';\\n\\ntest('a user receives the exact promised greeting', () => {\\n  const result = spawnSync(process.execPath, ['generated/hello-world.mjs'], { encoding: 'utf8' });\\n  assert.equal(result.status, 0);\\n  assert.equal(result.stdout, 'Hello, world!\\\\n');\\n});\\n\",\"encoding\":\"utf8\",\"path\":\"test/uat/hello-cli.uat.test.mjs\",\"state\":\"file\"}],\"observationRef\":\"worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c\"}}\n\n## evidence\n{\"declaredAccess\":[{\"accessRef\":\"access://registered-selection/source-corpus-validation@5\",\"claim\":\"structural_corpus_access_not_frame_application\",\"disposition\":\"omitted_not_required\",\"operation\":\"validate\",\"projection\":null,\"projectionDigest\":\"sha256:762c96822e71889dfc6ecc40d9a1a3c6573563f8c49d65f83f2b4f72ab72462f\"}]}\n\n## response\n{\"additionalProperties\":false,\"properties\":{\"contributions\":{\"description\":\"At most one contribution row per graphFunctionRef in this current mapping.\",\"items\":{\"additionalProperties\":false,\"properties\":{\"contribution\":{\"minLength\":1,\"type\":\"string\"},\"dependsOn\":{\"description\":\"Every dependency must name a different contribution in THIS response. Prior completed work outside this current mapping belongs in evidenceRefs, not dependsOn. Mapping membership does not require execution; only the explicit next member executes.\",\"items\":{\"enum\":[\"graph-function://abiogenesis/default-library/specification@5\",\"graph-function://abiogenesis/default-library/design@5\",\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"],\"type\":\"string\"},\"type\":\"array\",\"uniqueItems\":true},\"evidenceRefs\":{\"items\":{\"enum\":[\"task://default-library-witness/s6-original@5\",\"worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c\"],\"type\":\"string\"},\"type\":\"array\",\"uniqueItems\":true},\"graphFunctionRef\":{\"enum\":[\"graph-function://abiogenesis/default-library/specification@5\",\"graph-function://abiogenesis/default-library/design@5\",\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"],\"type\":\"string\"},\"reason\":{\"minLength\":1,\"type\":\"string\"},\"supportRefs\":{\"items\":{\"enum\":[\"obligation://default-library-witness/complete-original@5\",\"obligation://default-library-witness/conformance@5\",\"obligation://default-library-witness/implementation-design@5\",\"obligation://default-library-witness/test-design@5\",\"obligation://default-library-witness/execution-plan@5\",\"obligation://default-library-witness/behavior@5\",\"obligation://default-library-witness/revision@5\"],\"type\":\"string\"},\"type\":\"array\",\"uniqueItems\":true}},\"required\":[\"graphFunctionRef\",\"contribution\",\"reason\",\"supportRefs\",\"evidenceRefs\",\"dependsOn\"],\"type\":\"object\"},\"maxItems\":5,\"type\":\"array\"},\"gaps\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"evidenceRefs\":{\"items\":{\"enum\":[\"task://default-library-witness/s6-original@5\",\"worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c\"],\"type\":\"string\"},\"type\":\"array\",\"uniqueItems\":true},\"reason\":{\"minLength\":1,\"type\":\"string\"},\"supportRefs\":{\"items\":{\"enum\":[\"obligation://default-library-witness/complete-original@5\",\"obligation://default-library-witness/conformance@5\",\"obligation://default-library-witness/implementation-design@5\",\"obligation://default-library-witness/test-design@5\",\"obligation://default-library-witness/execution-plan@5\",\"obligation://default-library-witness/behavior@5\",\"obligation://default-library-witness/revision@5\"],\"type\":\"string\"},\"minItems\":1,\"type\":\"array\",\"uniqueItems\":true}},\"required\":[\"supportRefs\",\"reason\",\"evidenceRefs\"],\"type\":\"object\"},\"type\":\"array\"},\"interpretation\":{\"minLength\":1,\"type\":\"string\"},\"nextEvidenceRefs\":{\"items\":{\"enum\":[\"task://default-library-witness/s6-original@5\",\"worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c\"],\"type\":\"string\"},\"type\":\"array\",\"uniqueItems\":true},\"nextGraphFunctionRef\":{\"description\":\"Must name a contribution row in THIS response, explicitly chosen to execute next. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule.\",\"enum\":[\"graph-function://abiogenesis/default-library/specification@5\",\"graph-function://abiogenesis/default-library/design@5\",\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\",null],\"type\":[\"string\",\"null\"]},\"nextReason\":{\"minLength\":1,\"type\":\"string\"},\"requirementProposals\":{\"description\":\"Propose only additional source-grounded obligations. Use local candidate refs, never invented admitted identities. Preserve originals; missing policy remains open.\",\"items\":{\"additionalProperties\":false,\"properties\":{\"candidateRef\":{\"minLength\":1,\"type\":\"string\"},\"classRef\":{\"enum\":[\"discovery://default-library-witness/source-obligations@5\"],\"type\":\"string\"},\"evidenceRefs\":{\"items\":{\"enum\":[\"task://default-library-witness/s6-original@5\",\"worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c\"],\"type\":\"string\"},\"type\":\"array\",\"uniqueItems\":true},\"meaning\":{\"minLength\":1,\"type\":\"string\"},\"predecessorRequirementRefs\":{\"items\":{\"enum\":[\"requirement://default-library-witness/complete-original@5\",\"requirement://default-library-witness/conformance@5\",\"requirement://default-library-witness/implementation-design@5\",\"requirement://default-library-witness/test-design@5\",\"requirement://default-library-witness/execution-plan@5\",\"requirement://default-library-witness/behavior@5\",\"requirement://default-library-witness/revision@5\"],\"type\":\"string\"},\"type\":\"array\",\"uniqueItems\":true},\"reason\":{\"minLength\":1,\"type\":\"string\"},\"sourceQuotes\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"memberRef\":{\"enum\":[\"member://default-library-witness/source/original-basic-cli.txt@5\",\"member://default-library-witness/source/witness-contract.md@5\",\"member://default-library-witness/source/basic-cli.oracle.json@5\"],\"type\":\"string\"},\"quote\":{\"minLength\":1,\"type\":\"string\"}},\"required\":[\"memberRef\",\"quote\"],\"type\":\"object\"},\"minItems\":1,\"type\":\"array\"}},\"required\":[\"candidateRef\",\"classRef\",\"meaning\",\"reason\",\"sourceQuotes\",\"predecessorRequirementRefs\",\"evidenceRefs\"],\"type\":\"object\"},\"type\":\"array\"},\"revisionEvidenceRefs\":{\"items\":{\"enum\":[\"task://default-library-witness/s6-original@5\",\"worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c\"],\"type\":\"string\"},\"type\":\"array\",\"uniqueItems\":true},\"revisionReason\":{\"minLength\":1,\"type\":\"string\"},\"subjectEvidenceRef\":{\"description\":\"For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null.\",\"enum\":[null],\"type\":[\"string\",\"null\"]}},\"required\":[\"interpretation\",\"contributions\",\"gaps\",\"nextGraphFunctionRef\",\"nextReason\",\"nextEvidenceRefs\",\"subjectEvidenceRef\",\"revisionReason\",\"revisionEvidenceRefs\",\"requirementProposals\"],\"type\":\"object\"}",
+    "rendererRef": "renderer://abiogenesis/default-library/synthesis@5",
+    "responseJsonSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "contributions": {
+          "description": "At most one contribution row per graphFunctionRef in this current mapping.",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "contribution": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "dependsOn": {
+                "description": "Every dependency must name a different contribution in THIS response. Prior completed work outside this current mapping belongs in evidenceRefs, not dependsOn. Mapping membership does not require execution; only the explicit next member executes.",
+                "items": {
+                  "enum": [
+                    "graph-function://abiogenesis/default-library/specification@5",
+                    "graph-function://abiogenesis/default-library/design@5",
+                    "graph-function://abiogenesis/default-library/construction@5",
+                    "graph-function://abiogenesis/default-library/testing@5",
+                    "graph-function://abiogenesis/default-library/uat@5"
+                  ],
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "evidenceRefs": {
+                "items": {
+                  "enum": [
+                    "task://default-library-witness/s6-original@5",
+                    "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+                  ],
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "graphFunctionRef": {
+                "enum": [
+                  "graph-function://abiogenesis/default-library/specification@5",
+                  "graph-function://abiogenesis/default-library/design@5",
+                  "graph-function://abiogenesis/default-library/construction@5",
+                  "graph-function://abiogenesis/default-library/testing@5",
+                  "graph-function://abiogenesis/default-library/uat@5"
+                ],
+                "type": "string"
+              },
+              "reason": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "supportRefs": {
+                "items": {
+                  "enum": [
+                    "obligation://default-library-witness/complete-original@5",
+                    "obligation://default-library-witness/conformance@5",
+                    "obligation://default-library-witness/implementation-design@5",
+                    "obligation://default-library-witness/test-design@5",
+                    "obligation://default-library-witness/execution-plan@5",
+                    "obligation://default-library-witness/behavior@5",
+                    "obligation://default-library-witness/revision@5"
+                  ],
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "graphFunctionRef",
+              "contribution",
+              "reason",
+              "supportRefs",
+              "evidenceRefs",
+              "dependsOn"
+            ],
+            "type": "object"
+          },
+          "maxItems": 5,
+          "type": "array"
+        },
+        "gaps": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "evidenceRefs": {
+                "items": {
+                  "enum": [
+                    "task://default-library-witness/s6-original@5",
+                    "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+                  ],
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "reason": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "supportRefs": {
+                "items": {
+                  "enum": [
+                    "obligation://default-library-witness/complete-original@5",
+                    "obligation://default-library-witness/conformance@5",
+                    "obligation://default-library-witness/implementation-design@5",
+                    "obligation://default-library-witness/test-design@5",
+                    "obligation://default-library-witness/execution-plan@5",
+                    "obligation://default-library-witness/behavior@5",
+                    "obligation://default-library-witness/revision@5"
+                  ],
+                  "type": "string"
+                },
+                "minItems": 1,
+                "type": "array",
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "supportRefs",
+              "reason",
+              "evidenceRefs"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "interpretation": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "nextEvidenceRefs": {
+          "items": {
+            "enum": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+            ],
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "nextGraphFunctionRef": {
+          "description": "Must name a contribution row in THIS response, explicitly chosen to execute next. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule.",
+          "enum": [
+            "graph-function://abiogenesis/default-library/specification@5",
+            "graph-function://abiogenesis/default-library/design@5",
+            "graph-function://abiogenesis/default-library/construction@5",
+            "graph-function://abiogenesis/default-library/testing@5",
+            "graph-function://abiogenesis/default-library/uat@5",
+            null
+          ],
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nextReason": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "requirementProposals": {
+          "description": "Propose only additional source-grounded obligations. Use local candidate refs, never invented admitted identities. Preserve originals; missing policy remains open.",
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "candidateRef": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "classRef": {
+                "enum": [
+                  "discovery://default-library-witness/source-obligations@5"
+                ],
+                "type": "string"
+              },
+              "evidenceRefs": {
+                "items": {
+                  "enum": [
+                    "task://default-library-witness/s6-original@5",
+                    "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+                  ],
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "meaning": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "predecessorRequirementRefs": {
+                "items": {
+                  "enum": [
+                    "requirement://default-library-witness/complete-original@5",
+                    "requirement://default-library-witness/conformance@5",
+                    "requirement://default-library-witness/implementation-design@5",
+                    "requirement://default-library-witness/test-design@5",
+                    "requirement://default-library-witness/execution-plan@5",
+                    "requirement://default-library-witness/behavior@5",
+                    "requirement://default-library-witness/revision@5"
+                  ],
+                  "type": "string"
+                },
+                "type": "array",
+                "uniqueItems": true
+              },
+              "reason": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "sourceQuotes": {
+                "items": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "memberRef": {
+                      "enum": [
+                        "member://default-library-witness/source/original-basic-cli.txt@5",
+                        "member://default-library-witness/source/witness-contract.md@5",
+                        "member://default-library-witness/source/basic-cli.oracle.json@5"
+                      ],
+                      "type": "string"
+                    },
+                    "quote": {
+                      "minLength": 1,
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "memberRef",
+                    "quote"
+                  ],
+                  "type": "object"
+                },
+                "minItems": 1,
+                "type": "array"
+              }
+            },
+            "required": [
+              "candidateRef",
+              "classRef",
+              "meaning",
+              "reason",
+              "sourceQuotes",
+              "predecessorRequirementRefs",
+              "evidenceRefs"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "revisionEvidenceRefs": {
+          "items": {
+            "enum": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+            ],
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "revisionReason": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "subjectEvidenceRef": {
+          "description": "For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null.",
+          "enum": [
+            null
+          ],
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "interpretation",
+        "contributions",
+        "gaps",
+        "nextGraphFunctionRef",
+        "nextReason",
+        "nextEvidenceRefs",
+        "subjectEvidenceRef",
+        "revisionReason",
+        "revisionEvidenceRefs",
+        "requirementProposals"
+      ],
+      "type": "object"
+    },
+    "resultContractRef": "contract://abiogenesis/default-library/native-response@5",
+    "transportLane": "closed_prompt_proof",
+    "workerBindingRef": "worker://abiogenesis/default-library/selector@5"
+  },
+  "schemaVersion": "5.0.0"
+}

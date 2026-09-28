@@ -1,0 +1,30 @@
+✖ prospective installed declaration uses immutable schema and exact original source; later domains do not change bytes (54.328708ms)
+✔ pure projection separates historical adverse evidence, current roles, policy completeness and later obligations (5.424042ms)
+(node:15768) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage (154.328208ms)
+✔ selected-profile hook and persisted assembly conserve admitted additions through selected and gap projection (24.995375ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 495.920292
+
+✖ failing tests:
+
+test at test_env/tests/t287-default-library-fulfillment.test.mjs:32:1
+✖ prospective installed declaration uses immutable schema and exact original source; later domains do not change bytes (54.328708ms)
+  AssertionError [ERR_ASSERTION]: the unchanged actual installed assessment parser accepts later identities
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs:63:106)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

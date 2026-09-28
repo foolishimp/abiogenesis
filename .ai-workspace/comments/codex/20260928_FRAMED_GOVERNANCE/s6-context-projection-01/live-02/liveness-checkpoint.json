@@ -1,0 +1,18 @@
+{
+  "observedAt": "2026-09-28T21:36:53.929932Z",
+  "elapsedInvocationSeconds": 592.303932,
+  "scope": "one requested active process observation and final 131072 event-log bytes; no complete-history status claim",
+  "activeGraphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+  "correlationSuffix": "hog/recursion/4/child/workflow/3/child/workflow/1/child/leaf/0/actor-process",
+  "actorInvocationRef": "actor-invocation://abiogenesis/253754287cd8aa649d3698b5a052ab42ebeda956a2afdb45fd34367d856a53cf",
+  "actorPid": 63165,
+  "actorProcessElapsedSeconds": 36,
+  "latestEventOrdinal": 13901,
+  "lastActivityAt": "2026-09-28T21:36:53.671Z",
+  "lastActivityKind": "runtime_activity_probe_observed",
+  "currentInterval": "native",
+  "eventLogBytes": 55337667,
+  "unexpectedFailureObservedInTail": false,
+  "terminalReceiptObserved": false,
+  "controlChanges": []
+}

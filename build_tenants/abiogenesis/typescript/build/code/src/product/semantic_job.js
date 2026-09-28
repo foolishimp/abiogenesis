@@ -1,4 +1,5 @@
 import { isRetainedGraphInput } from "./worksite_preparation_contracts.js";
+import { groundBoundSourceQuote } from "./requirement_handoff.js";
 import { isSemanticJobRevisionEnvelope } from "./semantic_revision.js";
 import { ABI5_PRODUCT_ID } from "./contracts.js";
 import { constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask, isNativeWorkspaceWorkObservation, nativeWorkspaceAssessmentMatchesContext } from "./native_workspace_work.js";
@@ -92,11 +93,7 @@ export function groundSemanticJobQuote(envelope, selected) {
     const row = envelope.job.members.find(m => m.memberRef === selected.memberRef);
     if (row === undefined || selected.quote.length === 0)
         return null;
-    const bytes = Buffer.from(row.base64, "base64"), quote = Buffer.from(selected.quote, "utf8"), startByte = bytes.indexOf(quote);
-    if (startByte < 0 || bytes.indexOf(quote, startByte + 1) !== -1)
-        return null;
-    return deepFreeze({ contextRef: envelope.sourceContext.contextRef, memberRef: row.memberRef, memberDigest: sha256Bytes(bytes),
-        startByte, endByte: startByte + quote.length, spanDigest: sha256Bytes(quote) });
+    return groundBoundSourceQuote(envelope.sourceContext.contextRef, { ...row, digest: sha256Bytes(Buffer.from(row.base64, "base64")) }, selected.quote);
 }
 const bindingCandidateSchema = v.strictObject({ requirement: v.strictObject({ kind: v.picklist(["existing", "candidate"]), ref }),
     previousVersionRef: v.nullable(ref), templateRef: ref, scope: ref, realizationMeaning: v.pipe(refs, v.minLength(1)),

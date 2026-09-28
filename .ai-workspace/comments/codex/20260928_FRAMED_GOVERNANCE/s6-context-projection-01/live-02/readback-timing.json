@@ -1,0 +1,22 @@
+[
+  {
+    "memberKey": "run_result",
+    "wallMs": 6935.325791000039,
+    "requestBytes": 9238,
+    "source": {
+      "digest": "sha256:0b0cd0bf48d773861e84d8ebfce782bc1b4443e329b2177cab79f9032090d8bf",
+      "ref": "run://abiogenesis/b2c9e77448c8e97acd626a6dbf36be83b2aae1733b07bf466c3bbd41b01a423c"
+    },
+    "outcomeKind": "refusal"
+  },
+  {
+    "memberKey": "run_replay",
+    "wallMs": 7430.892292000004,
+    "requestBytes": 9275,
+    "source": {
+      "digest": "sha256:0b0cd0bf48d773861e84d8ebfce782bc1b4443e329b2177cab79f9032090d8bf",
+      "ref": "run://abiogenesis/b2c9e77448c8e97acd626a6dbf36be83b2aae1733b07bf466c3bbd41b01a423c"
+    },
+    "outcomeKind": "result"
+  }
+]

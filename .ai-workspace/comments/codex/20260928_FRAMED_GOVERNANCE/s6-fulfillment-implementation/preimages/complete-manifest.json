@@ -1,0 +1,50 @@
+{
+  "manifest.json": {
+    "sha256": "47173b0e8c1ace41aafb759f4a910605f9199ed08946b5bfa19ecde661608ffa",
+    "bytes": 1491
+  },
+  "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": {
+    "sha256": "684929199b02a3273628f60af074d35bc256356de93b81506934ab6897abcea5",
+    "bytes": 32811
+  },
+  "code/src/product/requirement_handoff.ts": {
+    "sha256": "e67a845491b2017933e8715956faf5bae130df89f171221df64899088f2fe127",
+    "bytes": 7870
+  },
+  "code/src/product/default_library.ts": {
+    "sha256": "e187aa0ebda2dc44d0e9782032f7466c74baef5479e25e595525462fe111ec82",
+    "bytes": 16131
+  },
+  "code/src/product/index.ts": {
+    "sha256": "273ddc342f19df1b7013e3e19fb37dbd1cba5e346342f0d9456ae323647b2a23",
+    "bytes": 25105
+  },
+  "code/src/product/semantic_job.ts": {
+    "sha256": "b0513a0f392643c1c476f7f190649d72e0df100fd17385a07213a85f203a5dfe",
+    "bytes": 93818
+  },
+  "code/src/abg/default_library.ts": {
+    "sha256": "8c3215443e5ef23d04ba93d55a1b21a15c148de8f54fc165ffd410a4b1c43e91",
+    "bytes": 21916
+  },
+  "code/src/abg/instruction_assembly.ts": {
+    "sha256": "fe0ce15e28b5cbc7ef78f4c8baf1b67e3072af865ecb6a681bff7e3845299e36",
+    "bytes": 116793
+  },
+  "code/src/implementation/default_library.ts": {
+    "sha256": "6e51be1a4bc71d3fe11d05821b09309a99397a4281da84f34f073473ad21adc7",
+    "bytes": 6205
+  },
+  "code/src/gtl/default_library.ts": {
+    "sha256": "7159ce9beea02a912ae848a21aab477df13aa0aaca97e4718c8500564e995a1c",
+    "bytes": 18794
+  },
+  "code/src/gtl/semantic_stage.ts": {
+    "sha256": "15b6e7a4cd7238d87a74203e5d2f249553f909d741c79ba7696d9a2b25878711",
+    "bytes": 12806
+  },
+  "test_env/tests/t287-default-library.test.mjs": {
+    "sha256": "58b811833b8dced31f926b9c320940a3e0219dbb14e49fa68af50e1458c8b643",
+    "bytes": 75549
+  }
+}

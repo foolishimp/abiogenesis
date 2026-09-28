@@ -1,0 +1,10 @@
+{
+  "code/src/product/default_library.ts": {
+    "sha256": "5b50747c2fab1fc84ee495b7d8f1a405bf6214d51e95561dd11d5d5030fafe91",
+    "bytes": 25441
+  },
+  "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": {
+    "sha256": "70d5e1abcb0fc6627ba4dbfaae95ce324ab8ec9ccb6fe24c5e410d2616d9fe4a",
+    "bytes": 39770
+  }
+}

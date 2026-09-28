@@ -1,0 +1,881 @@
+--- before/code/src/product/default_library.ts
++++ after/code/src/product/default_library.ts
+@@ -5,6 +5,10 @@
+ import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput, WorksiteCommandWriteTerritoryInput } from "./worksite_command_execution.js";
+ import type { NativeWorkspaceAssessmentSelection } from "./native_workspace_assessment.js";
+ import { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
++import { GOVERNANCE_REQUIREMENT_PROPOSAL_SCHEMA, GOVERNANCE_FULFILLMENT_STATE_SCHEMA, GOVERNANCE_FULFILLMENT_EVIDENCE_SCHEMA,
++  isGovernanceFulfillmentDeclaration, type GovernanceFulfillmentDeclaration, initialGovernanceFulfillment, governanceFulfillmentStateMatches,
++  deriveGovernanceObligations } from "./default_library_fulfillment.js";
++export * from "./default_library_fulfillment.js";
+ 
+ import { governanceRef } from "./default_library_identity.js";
+ export { governanceRef, governanceContract } from "./default_library_identity.js";
+@@ -30,7 +34,8 @@
+   contributions: v.array(v.strictObject({ graphFunctionRef: text, contribution: text, reason: text, supportRefs: texts, evidenceRefs: texts, dependsOn: texts })),
+   gaps: v.array(v.strictObject({ supportRefs: texts, reason: text, evidenceRefs: texts })),
+   nextGraphFunctionRef: v.nullable(text), nextReason: text, nextEvidenceRefs: texts, subjectEvidenceRef: v.nullable(text),
+-  revisionReason: text, revisionEvidenceRefs: texts });
++  revisionReason: text, revisionEvidenceRefs: texts,
++  requirementProposals: v.optional(v.array(GOVERNANCE_REQUIREMENT_PROPOSAL_SCHEMA)) });
+ const synthesisBasisSchema = v.strictObject({ inputRef: text, inputDigest: digest, taskRef: text,
+   environmentRef: text, environmentDigest: digest, frameEvidenceDigest: digest, frameRefs: texts,
+   contextRef: text, previousResultRef: v.nullable(text) });
+@@ -45,22 +50,30 @@
+   workOrders: v.record(text, workOrder),
+   testing: v.strictObject({ selectedPaths: v.pipe(texts, v.minLength(1)), commands: v.array(jsonRecord), outcomePredicates: v.array(jsonRecord), allowedWriteTerritories: v.array(jsonRecord) }),
+   assessment: v.strictObject({ sources: v.pipe(texts, v.minLength(1)), candidatePath: text, rubricPath: text,
+-    resultContract: jsonRecord, schemaAsset: jsonRecord, verdictField: text, satisfiedValue: text }) });
++    resultContract: jsonRecord, schemaAsset: jsonRecord, verdictField: text, satisfiedValue: text }),
++  fulfillment: v.optional(v.custom<GovernanceFulfillmentDeclaration>(isGovernanceFulfillmentDeclaration)) });
+ const observationSchema = v.strictObject({ purpose: v.picklist(GOVERNANCE_PURPOSES), resultRef: text, resultDigest: digest,
+-  cCallRef: text, actorInvocationRef: v.nullable(text), synthesisResultRef: text, selectedGraphFunctionRef: text, value: jsonRecord });
++  cCallRef: text, actorInvocationRef: v.nullable(text), synthesisResultRef: text, selectedGraphFunctionRef: text, value: jsonRecord,
++  fulfillmentEvidence: v.optional(GOVERNANCE_FULFILLMENT_EVIDENCE_SCHEMA) });
+ const stateSchema = v.strictObject({ kind: v.literal("governance_work_state"), schemaVersion: v.literal("5.0.0"),
+-  original: originalSchema, synthesis: v.nullable(currentSynthesisSchema), observations: v.array(observationSchema), unresolvedSupportRefs: texts, terminal: v.boolean() });
++  original: originalSchema, synthesis: v.nullable(currentSynthesisSchema), observations: v.array(observationSchema), unresolvedSupportRefs: texts, terminal: v.boolean(),
++  fulfillment: v.optional(GOVERNANCE_FULFILLMENT_STATE_SCHEMA) });
+ export type GovernanceWorkState = v.InferOutput<typeof stateSchema>;
+ export type GovernanceObservation = GovernanceWorkState["observations"][number];
+ export type GovernanceOriginal = GovernanceWorkState["original"];
+ export function isGovernanceWorkState(value: unknown): value is GovernanceWorkState {
+   return v.is(stateSchema, value) && new Set(value.original.requiredSupportRefs).size === value.original.requiredSupportRefs.length &&
+     new Set(value.original.sources.map(s => s.path)).size === value.original.sources.length &&
+-    (value.terminal ? value.unresolvedSupportRefs.length === 0 : isDeepStrictEqual(value.unresolvedSupportRefs, value.original.requiredSupportRefs));
++    (value.original.fulfillment === undefined ? value.fulfillment === undefined && value.observations.every(o => o.fulfillmentEvidence === undefined) &&
++      (value.terminal ? value.unresolvedSupportRefs.length === 0 : isDeepStrictEqual(value.unresolvedSupportRefs, value.original.requiredSupportRefs)) :
++      value.fulfillment !== undefined && governanceFulfillmentStateMatches(value.original.fulfillment, value.fulfillment) &&
++      isDeepStrictEqual(value.unresolvedSupportRefs, value.fulfillment.coverage.filter(r => r.disposition !== "eligible").map(r => r.obligationRef)) &&
++      (!value.terminal || value.unresolvedSupportRefs.length === 0));
+ }
+ export function constructGovernanceWorkState(original: GovernanceOriginal): Readonly<GovernanceWorkState> {
+   const state = { kind: "governance_work_state" as const, schemaVersion: "5.0.0" as const, original,
+-    synthesis: null, observations: [], unresolvedSupportRefs: [...original.requiredSupportRefs], terminal: false };
++    synthesis: null, observations: [], unresolvedSupportRefs: [...original.requiredSupportRefs], terminal: false,
++    ...(original.fulfillment === undefined ? {} : { fulfillment: initialGovernanceFulfillment(original.fulfillment) }) };
+   if (!isGovernanceWorkState(state)) throw new TypeError("governance input requires complete original source, scope and declared work contracts");
+   return deepFreeze(state);
+ }
+@@ -127,6 +140,9 @@
+     basis.taskRef !== task.state.original.taskRef || basis.contextRef !== task.context.observationRef ||
+     basis.previousResultRef !== (task.state.synthesis?.resultRef ?? null) || !unique(targets.map(t => t.graphFunctionRef))) return null;
+   const evidence = framedSynthesisEvidenceRefs(task), supports = task.state.unresolvedSupportRefs;
++  if (task.state.original.fulfillment === undefined ? raw.requirementProposals !== undefined : raw.requirementProposals === undefined ||
++    deriveGovernanceObligations(task.state.original.fulfillment, task.state.fulfillment!, raw.requirementProposals,
++      task.state.original.taskRef, "pending:admitted-synthesis", task.context, evidence) === null) return null;
+   const validEvidence = (refs: readonly string[]) => refs.every(ref => evidence.includes(ref));
+   if (raw.contributions.some(c => !targets.some(t => t.graphFunctionRef === c.graphFunctionRef) ||
+       !c.supportRefs.every(ref => supports.includes(ref)) || !validEvidence(c.evidenceRefs)) ||
+@@ -152,5 +168,10 @@
+     nextReason: textSchema, nextEvidenceRefs: array(evidence),
+     subjectEvidenceRef: { type: ["string", "null"], enum: [...task.state.observations.map(o => o.resultRef), null],
+       description: "For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null." },
+-    revisionReason: textSchema, revisionEvidenceRefs: array(evidence) }) as unknown as Readonly<Record<string, JsonValue>>);
++    revisionReason: textSchema, revisionEvidenceRefs: array(evidence),
++    ...(task.state.original.fulfillment === undefined ? {} : { requirementProposals: { type: "array", description: "Propose only additional source-grounded obligations. Use local candidate refs, never invented admitted identities. Preserve originals; missing policy remains open.", items: object({
++      candidateRef: textSchema, classRef: reference(task.state.original.fulfillment.discoveryClasses.map(c => c.classRef)), meaning: textSchema, reason: textSchema,
++      sourceQuotes: { type: "array", minItems: 1, items: object({ memberRef: reference(task.state.original.fulfillment.context.members.map(m => m.memberRef)), quote: textSchema }) },
++      predecessorRequirementRefs: array([...task.state.original.fulfillment.terms.map(t => t.requirementRef), ...task.state.fulfillment!.additions.map(a => a.term.requirementRef)]), evidenceRefs: array(evidence) }) } })
++  }) as unknown as Readonly<Record<string, JsonValue>>);
+ }
+--- before/code/src/product/default_library_fulfillment.ts
++++ after/code/src/product/default_library_fulfillment.ts
+@@ -0,0 +1,218 @@
++import * as v from "valibot";
++import { isDeepStrictEqual as same } from "node:util";
++import { CONTEXT_DECLARATION_SCHEMA, REQUIREMENT_TERM_SCHEMA, GTL_CONTRACT_FULFILLMENT_BINDING_SCHEMA } from "../gtl/requirement_handoff.js";
++import { POLICY_SCHEMA, SHAPE_SCHEMA } from "../gtl/semantic_stage.js";
++import type { ContractDeclaration, GtlProgram } from "../gtl/contracts.js";
++import type { WorksiteContextObservation } from "./worksite_effect.js";
++import { sha256Canonical, sha256Bytes } from "../shared/digests.js";
++import type { JsonValue } from "../shared/canonical_json.js";
++import { deepFreeze } from "../shared/immutable.js";
++import { groundBoundSourceQuote } from "./requirement_handoff.js";
++import { governanceRef } from "./default_library_identity.js";
++
++export const GOVERNANCE_FULFILLMENT_PROFILE = governanceRef("policy", "admitted-fulfillment");
++export const GOVERNANCE_FULFILLMENT_STRENGTH = governanceRef("rule", "declared-current-independent-evidence");
++export const GOVERNANCE_FULFILLMENT_DISCOVERY = governanceRef("rule", "admitted-requirement-proposals");
++const ref = v.pipe(v.string(), v.minLength(1)), refs = v.array(ref), digest = v.pipe(ref, v.regex(/^sha256:[a-f0-9]{64}$/));
++const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
++const hash = (value: unknown) => sha256Canonical(value as JsonValue);
++const judgment = v.picklist(["satisfied", "falsified", "indeterminate"]);
++const file = v.strictObject({ path: ref, digest });
++const proofRole = v.picklist(["realization", "verifier_artifact", "verifier_execution", "semantic_assessment"]);
++const completeness = v.strictObject({ policyRef: ref, semanticCriteria: refs,
++  depthClasses: v.array(v.strictObject({ classRef: ref, permitsNonApplicability: v.boolean() })), strengthRuleRef: ref,
++  adverseCommands: v.array(v.strictObject({ commandId: ref, disposition: v.picklist(["nonzero", "zero"]) })) });
++export const GOVERNANCE_FULFILLMENT_DECLARATION_SCHEMA = v.strictObject({ profileRef: v.literal(GOVERNANCE_FULFILLMENT_PROFILE),
++  context: CONTEXT_DECLARATION_SCHEMA, terms: v.pipe(v.array(REQUIREMENT_TERM_SCHEMA), v.minLength(1)),
++  bindings: v.pipe(v.array(GTL_CONTRACT_FULFILLMENT_BINDING_SCHEMA), v.minLength(1)),
++  policies: v.array(POLICY_SCHEMA), shapes: v.array(SHAPE_SCHEMA), completeness: v.array(completeness),
++  discoveryClasses: v.array(v.strictObject({ classRef: ref, ruleRef: ref, templatePolicyRef: v.nullable(ref), templateShapeRef: v.nullable(ref) })),
++  assessmentContractRef: ref });
++export type GovernanceFulfillmentDeclaration = v.InferOutput<typeof GOVERNANCE_FULFILLMENT_DECLARATION_SCHEMA>;
++export const GOVERNANCE_REQUIREMENT_PROPOSAL_SCHEMA = v.strictObject({ candidateRef: ref, classRef: ref, meaning: ref, reason: ref,
++  sourceQuotes: v.pipe(v.array(v.strictObject({ memberRef: ref, quote: ref })), v.minLength(1)),
++  predecessorRequirementRefs: refs, evidenceRefs: refs });
++export type GovernanceRequirementProposal = v.InferOutput<typeof GOVERNANCE_REQUIREMENT_PROPOSAL_SCHEMA>;
++const selection = v.strictObject({ role: v.picklist(["realization", "verifier_artifact", "verifier_execution"]), resultRef: ref,
++  artifactPath: v.nullable(ref), commandId: v.nullable(ref) });
++const assessmentRow = v.strictObject({ obligationRef: ref, policyRef: v.nullable(ref), shapeRef: v.nullable(ref), judgment, reason: ref,
++  support: v.array(selection), adverseEvidenceRefs: refs, criteria: v.array(v.strictObject({ criterionRef: ref, judgment, reason: ref })),
++  depth: v.array(v.strictObject({ classRef: ref, judgment: v.picklist(["satisfied", "falsified", "indeterminate", "not_applicable"]), reason: ref, evidenceRefs: refs })) });
++export const GOVERNANCE_FULFILLMENT_ASSESSMENT_SCHEMA = v.strictObject({ obligations: v.array(assessmentRow),
++  discoveries: v.array(v.strictObject({ classRef: ref, judgment, reason: ref, evidenceRefs: refs })) });
++export type GovernanceFulfillmentAssessment = v.InferOutput<typeof GOVERNANCE_FULFILLMENT_ASSESSMENT_SCHEMA>;
++const addition = v.strictObject({ candidateRef: ref, classRef: ref, meaning: ref, proposalDigest: digest, introducedByResultRef: ref,
++  term: REQUIREMENT_TERM_SCHEMA, binding: GTL_CONTRACT_FULFILLMENT_BINDING_SCHEMA,
++  policy: v.nullable(POLICY_SCHEMA), shape: v.nullable(SHAPE_SCHEMA), completeness: v.nullable(completeness) });
++const coverageRow = v.strictObject({ obligationRef: ref, disposition: v.picklist(["eligible", "open", "stale"]), gaps: refs,
++  assessmentResultRef: v.nullable(ref), supportResultRefs: refs, dependencies: v.array(file) });
++export const GOVERNANCE_FULFILLMENT_STATE_SCHEMA = v.strictObject({ additions: v.array(addition), coverage: v.array(coverageRow) });
++export type GovernanceFulfillmentState = v.InferOutput<typeof GOVERNANCE_FULFILLMENT_STATE_SCHEMA>;
++/** Owned at existing retained child fold, never a worker-authored evidence packet. */
++export const GOVERNANCE_FULFILLMENT_EVIDENCE_SCHEMA = v.strictObject({ resultRef: ref, resultDigest: digest, contractRef: ref,
++  cCallRef: ref, actorInvocationRef: ref, kind: v.picklist(["native", "execution", "assessment"]),
++  files: v.array(file), dependencies: v.array(file), commands: v.array(v.strictObject({ commandId: ref, exitStatus: v.nullable(v.number()), timedOut: v.boolean() })),
++  assessmentContractRef: v.nullable(ref), producerResultRef: v.nullable(ref), producerActorRef: v.nullable(ref) });
++export type GovernanceFulfillmentEvidence = v.InferOutput<typeof GOVERNANCE_FULFILLMENT_EVIDENCE_SCHEMA>;
++
++export function isGovernanceFulfillmentDeclaration(value: unknown): value is GovernanceFulfillmentDeclaration {
++  if (!v.is(GOVERNANCE_FULFILLMENT_DECLARATION_SCHEMA, value)) return false;
++  const d = value;
++  return unique(d.context.members.map(m => m.memberRef)) && unique(d.context.members.map(m => m.path)) &&
++    unique(d.terms.map(t => t.requirementRef)) && unique(d.bindings.map(b => b.obligationRef)) && unique(d.bindings.map(b => b.requirementRef)) &&
++    same(d.terms.map(t => t.requirementRef), d.bindings.map(b => b.requirementRef)) &&
++    unique(d.policies.map(p => p.policyRef)) && unique(d.shapes.map(s => s.proofShapeRef)) && unique(d.completeness.map(p => p.policyRef)) &&
++    unique(d.discoveryClasses.map(c => c.classRef)) && d.completeness.every(c => unique(c.semanticCriteria) && unique(c.depthClasses.map(x => x.classRef))) &&
++    d.bindings.every(b => {
++      const term = d.terms.find(t => t.requirementRef === b.requirementRef)!;
++      const p = d.policies.find(p => p.policyRef === b.proofPolicyRef), s = d.shapes.find(s => s.proofShapeRef === b.proofShapeRef);
++      return (b.proofPolicyRef === null || p !== undefined && p.obligationRef === b.obligationRef && p.sourceRequirementRef === b.requirementRef && same(p.sourceBindings, term.sourceBindings)) &&
++        (b.proofShapeRef === null || s !== undefined && s.obligationRef === b.obligationRef && s.requirementRef === b.requirementRef &&
++          s.roleContractRefs.realization === b.realizationContractRef && s.roleContractRefs.proof === b.proofContractRef && unique(s.requiredEvidenceRoles));
++    }) && d.terms.every(t => t.sourceBindings.every(b => {
++      const m = d.context.members.find(m => m.memberRef === b.memberRef);
++      return m !== undefined && b.contextRef === d.context.contextRef && b.memberDigest === m.digest && b.startByte < b.endByte && b.endByte <= m.byteCount;
++    }));
++}
++/** Conditional selection over admitted definitions, with no definition hashing. */
++export function governanceFulfillmentSelection(program: Pick<GtlProgram, "policies">, original: { fulfillment?: GovernanceFulfillmentDeclaration | undefined;
++  sources: readonly { path: string; digest: string }[]; requiredSupportRefs: readonly string[]; assessment: { resultContract: Readonly<Record<string, JsonValue>> } }): "absent" | "selected" | "invalid" {
++  const selected = program.policies["abg.default_library_fulfillment"], d = original.fulfillment;
++  if (selected === undefined) return d === undefined ? "absent" : "invalid";
++  return selected === GOVERNANCE_FULFILLMENT_PROFILE && d?.profileRef === selected &&
++    d.context.members.every(m => original.sources.some(s => s.path === m.path && s.digest === m.digest)) &&
++    same(original.requiredSupportRefs, d.bindings.map(b => b.obligationRef)) && original.assessment.resultContract.contractRef === d.assessmentContractRef ? "selected" : "invalid";
++}
++export function governanceFulfillmentContractsMatch(d: GovernanceFulfillmentDeclaration, contract: (ref: string) => ContractDeclaration | null): boolean {
++  return [...new Set(d.bindings.flatMap(b => [b.realizationContractRef, b.proofContractRef]).filter((r): r is string => r !== null))]
++    .every(r => contract(r)?.contractKind === "output") && contract(d.assessmentContractRef)?.contractKind === "output";
++}
++/** First source acquisition only; subsequent internal owners retain this binding. */
++export function governanceFulfillmentSourceMatches(d: GovernanceFulfillmentDeclaration, context: WorksiteContextObservation): boolean {
++  if (hash(d.context.members) !== d.context.inventoryDigest) return false;
++  return d.context.members.every(m => {
++    const e = context.entries.find(e => e.relativePath === m.path);
++    if (e?.state !== "file" || e.digest !== m.digest || e.byteLength !== m.byteCount) return false;
++    const bytes = Buffer.from(e.bytes, "base64");
++    return d.terms.every(t => t.sourceBindings.filter(b => b.memberRef === m.memberRef).every(b => sha256Bytes(bytes.subarray(b.startByte, b.endByte)) === b.spanDigest));
++  });
++}
++export function governanceFulfillmentActive(d: GovernanceFulfillmentDeclaration, state: GovernanceFulfillmentState) {
++  return [...d.bindings.map((binding, i) => ({ binding, term: d.terms[i]!, policy: d.policies.find(p => p.policyRef === binding.proofPolicyRef) ?? null,
++    shape: d.shapes.find(s => s.proofShapeRef === binding.proofShapeRef) ?? null, completeness: d.completeness.find(c => c.policyRef === binding.proofPolicyRef) ?? null })), ...state.additions];
++}
++export function initialGovernanceFulfillment(d: GovernanceFulfillmentDeclaration): GovernanceFulfillmentState {
++  return { additions: [], coverage: d.bindings.map(b => ({ obligationRef: b.obligationRef, disposition: "open", gaps: ["assessment_missing"], assessmentResultRef: null, supportResultRefs: [], dependencies: [] })) };
++}
++export function governanceFulfillmentStateMatches(d: GovernanceFulfillmentDeclaration, state: GovernanceFulfillmentState): boolean {
++  const active = governanceFulfillmentActive(d, state);
++  return unique(active.map(r => r.binding.obligationRef)) && unique(active.map(r => r.binding.requirementRef)) && unique(state.additions.map(a => a.candidateRef)) &&
++    same(state.coverage.map(r => r.obligationRef), active.map(r => r.binding.obligationRef));
++}
++export function deriveGovernanceObligations(d: GovernanceFulfillmentDeclaration, prior: GovernanceFulfillmentState,
++  proposals: readonly GovernanceRequirementProposal[], taskRef: string, sourceResultRef: string, context: WorksiteContextObservation,
++  evidenceRefs: readonly string[]): GovernanceFulfillmentState | null {
++  if (!unique(proposals.map(p => p.candidateRef))) return null;
++  const additions = [...prior.additions], active = governanceFulfillmentActive(d, prior);
++  for (const p of proposals) {
++    if (!v.is(GOVERNANCE_REQUIREMENT_PROPOSAL_SCHEMA, p) || !unique(p.evidenceRefs) || !p.evidenceRefs.every(r => evidenceRefs.includes(r)) ||
++      !p.predecessorRequirementRefs.every(r => active.some(a => a.term.requirementRef === r))) return null;
++    const c = d.discoveryClasses.find(c => c.classRef === p.classRef); if (c === undefined) return null;
++    const proposalDigest = hash(p), known = additions.find(a => a.candidateRef === p.candidateRef);
++    if (known) { if (known.proposalDigest !== proposalDigest) return null; continue; }
++    const sourceBindings = p.sourceQuotes.map(q => {
++      const m = d.context.members.find(m => m.memberRef === q.memberRef), e = context.entries.find(e => e.relativePath === m?.path);
++      return m !== undefined && e?.state === "file" && e.digest === m.digest
++        ? groundBoundSourceQuote(d.context.contextRef, { memberRef: m.memberRef, digest: m.digest, base64: e.bytes }, q.quote) : null;
++    });
++    if (sourceBindings.some(b => b === null)) return null;
++    const id = hash({ taskRef, proposal: p, sourceBindings }).slice(7), requirementRef = governanceRef("requirement", id), obligationRef = governanceRef("obligation", id);
++    const term = { requirementRef, sourceBindings: sourceBindings as NonNullable<typeof sourceBindings[number]>[] };
++    const templatePolicy = d.policies.find(t => t.policyRef === c.templatePolicyRef), templateShape = d.shapes.find(t => t.proofShapeRef === c.templateShapeRef);
++    const policy = templatePolicy === undefined ? null : { ...templatePolicy, policyRef: governanceRef("proof-policy", id), sourceRequirementRef: requirementRef, obligationRef, sourceBindings: term.sourceBindings };
++    const shape = templateShape === undefined ? null : { ...templateShape, proofShapeRef: governanceRef("proof-shape", id), requirementRef, obligationRef };
++    const policyCompleteness = d.completeness.find(t => t.policyRef === c.templatePolicyRef);
++    const binding = { obligationRef, requirementRef, realizationContractRef: shape?.roleContractRefs.realization ?? null,
++      proofContractRef: shape?.roleContractRefs.proof ?? null, proofPolicyRef: policy?.policyRef ?? null, proofShapeRef: shape?.proofShapeRef ?? null };
++    additions.push({ candidateRef: p.candidateRef, classRef: p.classRef, meaning: p.meaning, proposalDigest, introducedByResultRef: sourceResultRef, term, binding, policy, shape,
++      completeness: policy && policyCompleteness ? { ...policyCompleteness, policyRef: policy.policyRef } : null });
++  }
++  const coverage = [...prior.coverage, ...additions.slice(prior.additions.length).map(a => ({ obligationRef: a.binding.obligationRef, disposition: "open" as const,
++    gaps: ["assessment_missing"], assessmentResultRef: null, supportResultRefs: [], dependencies: [] }))];
++  return { additions, coverage };
++}
++
++/** Structural schema bytes are constant. Current domains are owned task data. */
++export function governanceFulfillmentAssessmentJsonSchema(): Readonly<Record<string, JsonValue>> {
++  const s = { type: "string", minLength: 1 }, strings = { type: "array", items: s, uniqueItems: true }, nullable = { type: ["string", "null"] };
++  const object = (properties: Record<string, unknown>) => ({ type: "object", additionalProperties: false, properties, required: Object.keys(properties) });
++  const array = (items: unknown) => ({ type: "array", items }), disposition = { type: "string", enum: ["satisfied", "falsified", "indeterminate"] };
++  return deepFreeze(object({ obligations: array(object({ obligationRef: s, policyRef: nullable, shapeRef: nullable, judgment: disposition, reason: s,
++    support: array(object({ role: { type: "string", enum: ["realization", "verifier_artifact", "verifier_execution"] }, resultRef: s, artifactPath: nullable, commandId: nullable })), adverseEvidenceRefs: strings,
++    criteria: array(object({ criterionRef: s, judgment: disposition, reason: s })),
++    depth: array(object({ classRef: s, judgment: { type: "string", enum: ["satisfied", "falsified", "indeterminate", "not_applicable"] }, reason: s, evidenceRefs: strings })) })),
++    discoveries: array(object({ classRef: s, judgment: disposition, reason: s, evidenceRefs: strings })) }) as Readonly<Record<string, JsonValue>>);
++}
++export function bindGovernanceFulfillmentAssessment(d: GovernanceFulfillmentDeclaration, state: GovernanceFulfillmentState,
++  raw: unknown, evidence: readonly GovernanceFulfillmentEvidence[]): GovernanceFulfillmentAssessment | null {
++  if (!v.is(GOVERNANCE_FULFILLMENT_ASSESSMENT_SCHEMA, raw)) return null;
++  const active = governanceFulfillmentActive(d, state), refs = evidence.map(e => e.resultRef);
++  const domain = (got: readonly string[], expected: readonly string[]) => unique(got) && got.length === expected.length && got.every(x => expected.includes(x));
++  if (!domain(raw.obligations.map(r => r.obligationRef), active.map(r => r.binding.obligationRef)) ||
++    !domain(raw.discoveries.map(r => r.classRef), d.discoveryClasses.map(c => c.classRef))) return null;
++  for (const row of raw.obligations) {
++    const a = active.find(a => a.binding.obligationRef === row.obligationRef)!;
++    if (row.policyRef !== a.binding.proofPolicyRef || row.shapeRef !== a.binding.proofShapeRef ||
++      !domain(row.criteria.map(c => c.criterionRef), a.completeness?.semanticCriteria ?? []) ||
++      !domain(row.depth.map(c => c.classRef), a.completeness?.depthClasses.map(c => c.classRef) ?? []) ||
++      row.depth.some(c => !c.evidenceRefs.every(r => refs.includes(r))) || !unique(row.support.map(s => JSON.stringify(s))) || !unique(row.adverseEvidenceRefs) ||
++      row.adverseEvidenceRefs.some(r => !evidence.some(e => e.resultRef === r && e.kind === "execution"))) return null;
++    for (const s of row.support) {
++      const e = evidence.find(e => e.resultRef === s.resultRef);
++      if (!e || e.kind === "assessment" || (s.role === "verifier_execution"
++        ? e.kind !== "execution" || s.artifactPath !== null || s.commandId === null || !e.commands.some(c => c.commandId === s.commandId)
++        : s.commandId !== null || s.artifactPath === null || !e.files.some(f => f.path === s.artifactPath))) return null;
++    }
++  }
++  return raw.discoveries.every(c => c.evidenceRefs.every(r => refs.includes(r))) ? raw : null;
++}
++export function projectGovernanceFulfillment(d: GovernanceFulfillmentDeclaration, prior: GovernanceFulfillmentState,
++  assessment: GovernanceFulfillmentAssessment, current: GovernanceFulfillmentEvidence, evidence: readonly GovernanceFulfillmentEvidence[]): GovernanceFulfillmentState {
++  const active = governanceFulfillmentActive(d, prior), currentFiles = current.files;
++  return { additions: prior.additions, coverage: active.map(a => {
++    const row = assessment.obligations.find(r => r.obligationRef === a.binding.obligationRef)!, gaps: string[] = [], dependencies: v.InferOutput<typeof file>[] = [];
++    const support = row.support.map(s => ({ selection: s, fact: evidence.find(e => e.resultRef === s.resultRef)! }));
++    const stale = (files: readonly v.InferOutput<typeof file>[]) => files.some(f => !currentFiles.some(c => c.path === f.path && c.digest === f.digest));
++    if (!a.policy || !a.shape || !a.completeness || !a.binding.realizationContractRef || !a.binding.proofContractRef) gaps.push("policy_incomplete");
++    if (row.judgment !== "satisfied") gaps.push("semantic_" + row.judgment);
++    if (current.kind !== "assessment" || current.assessmentContractRef !== d.assessmentContractRef || current.actorInvocationRef === current.producerActorRef) gaps.push("independent_assessment_missing");
++    for (const r of a.shape?.requiredEvidenceRoles ?? []) {
++      if (r === "semantic_assessment") continue;
++      if (!support.some(s => s.selection.role === r)) gaps.push("missing_role:" + r);
++    }
++    if (!support.some(s => s.selection.role === "realization" && s.fact.contractRef === a.binding.realizationContractRef)) gaps.push("realization_pair_missing");
++    if (!(support.some(s => s.selection.role !== "realization" && s.fact.contractRef === a.binding.proofContractRef) ||
++      a.shape?.requiredEvidenceRoles.includes("semantic_assessment") && current.contractRef === a.binding.proofContractRef)) gaps.push("proof_pair_missing");
++    for (const s of support) {
++      const files = s.selection.role === "verifier_execution" ? s.fact.dependencies : s.fact.files.filter(f => f.path === s.selection.artifactPath);
++      dependencies.push(...files);
++      if (stale(files)) gaps.push("stale_evidence");
++      if (s.fact.actorInvocationRef === current.actorInvocationRef) gaps.push("assessor_not_independent");
++    }
++    const realizedPaths = support.filter(s => s.selection.role === "realization").map(s => s.selection.artifactPath);
++    if (support.some(s => s.selection.role === "verifier_artifact" && realizedPaths.includes(s.selection.artifactPath))) gaps.push("roles_not_distinct");
++    if (row.criteria.some(c => c.judgment !== "satisfied")) gaps.push("semantic_criterion_incomplete");
++    if (row.depth.some(c => c.judgment !== "satisfied" && !(c.judgment === "not_applicable" && a.completeness?.depthClasses.find(x => x.classRef === c.classRef)?.permitsNonApplicability && c.evidenceRefs.length > 0))) gaps.push("depth_policy_incomplete");
++    if (a.completeness?.strengthRuleRef !== GOVERNANCE_FULFILLMENT_STRENGTH) gaps.push("unsupported_strength_rule");
++    for (const adverse of a.completeness?.adverseCommands ?? []) if (!evidence.some(e => row.adverseEvidenceRefs.includes(e.resultRef) && e.kind === "execution" && e.commands.some(c => c.commandId === adverse.commandId && !c.timedOut && c.exitStatus !== null &&
++      (adverse.disposition === "zero" ? c.exitStatus === 0 : c.exitStatus !== 0)))) gaps.push("adverse_evidence_missing");
++    for (const c of d.discoveryClasses) if (c.ruleRef !== GOVERNANCE_FULFILLMENT_DISCOVERY || assessment.discoveries.find(r => r.classRef === c.classRef)?.judgment !== "satisfied") gaps.push("discovery_incomplete:" + c.classRef);
++    return { obligationRef: a.binding.obligationRef, disposition: gaps.includes("stale_evidence") ? "stale" as const : gaps.length ? "open" as const : "eligible" as const,
++      gaps: [...new Set(gaps)], assessmentResultRef: current.resultRef, supportResultRefs: [...new Set([...row.support.map(s => s.resultRef), ...row.adverseEvidenceRefs, current.resultRef])],
++      dependencies: [...new Map(dependencies.map(f => [f.path, f])).values()] };
++  }) };
++}
++export function invalidateGovernanceFulfillment(prior: GovernanceFulfillmentState, currentFiles: readonly v.InferOutput<typeof file>[], changedPaths: readonly string[]): GovernanceFulfillmentState {
++  return { additions: prior.additions, coverage: prior.coverage.map(row => row.dependencies.some(f => changedPaths.includes(f.path) && !currentFiles.some(c => c.path === f.path && c.digest === f.digest))
++    ? { ...row, disposition: "stale", gaps: [...new Set([...row.gaps, "stale_evidence"])] } : row) };
++}
+--- before/code/src/abg/default_library.ts
++++ after/code/src/abg/default_library.ts
+@@ -19,6 +19,10 @@
+ import { observeWorksiteContext, observeWorksiteSubject } from "../product/worksite_operations.js";
+ import type { JsonValue } from "../shared/canonical_json.js";
+ import type { RuntimeEvent } from "./event_store.js";
++import { governanceFulfillmentSelection, initialGovernanceFulfillment, governanceFulfillmentSourceMatches, deriveGovernanceObligations,
++  bindGovernanceFulfillmentAssessment, projectGovernanceFulfillment, invalidateGovernanceFulfillment, governanceFulfillmentActive,
++  type GovernanceFulfillmentEvidence } from "../product/default_library_fulfillment.js";
++import { framedSynthesisEvidenceRefs } from "../product/default_library.js";
+ const record = (x: unknown): x is Readonly<Record<string, JsonValue>> => typeof x === "object" && x !== null && !Array.isArray(x);
+ const asJson = (x: unknown) => x as Readonly<Record<string, JsonValue>>;
+ function owner(basis: NativeInstructionAssemblyBasis, input: unknown) {
+@@ -31,6 +35,8 @@
+     e.payload.invocationAdmissionRef === invocation.invocationAdmissionRef && e.payload.implementationSetRef === owned.execution.rootImplementationSetRef);
+   const initial = roots.length === 1 && record(roots[0]!.payload) ? roots[0]!.payload.rawInputValue : null;
+   if (!isGovernanceWorkState(initial) || initial.observations.length !== 0 || initial.synthesis !== null || initial.terminal) return null;
++  if (governanceFulfillmentSelection(owned.program, initial.original) === "invalid" || initial.original.fulfillment !== undefined &&
++    !same(initial.fulfillment, initialGovernanceFulfillment(initial.original.fulfillment))) return null;
+   const state = isRetainedGraphInput(input) ? input.entry : isFramedSynthesisTask(input) || isFramedSynthesisResult(input) ? input.state : input;
+   if (isGovernanceWorkState(state) && !same(state.original, initial.original)) return null;
+   return { ...owned, environment: owned.environment, grant: invocation.capabilityGrants[0]! };
+@@ -74,8 +80,24 @@
+     e.runId === o.call.runId && e.basisId === o.execution.basisRef && record(e.payload) && e.payload.programLocusRef === profile.node.nodeRef);
+   if (opened.length !== 1) return null;
+   const j = input.judgment, common = { kind: "registered_graph_choice", schemaVersion: "5.0.0", reason: j.nextReason, evidenceRefs: j.nextEvidenceRefs };
+-  if (j.nextGraphFunctionRef === null) return { ...common, disposition: "gap", missingSupportRefs: [...new Set(j.gaps.flatMap(g => g.supportRefs))] };
+-  const next: GovernanceWorkState = { ...input.state, synthesis: { resultRef: o.inputRef, resultDigest: event.payload.resultDigest as `sha256:${string}`,
++  let projected = input.state;
++  if (input.state.original.fulfillment !== undefined) {
++    // The selector's actual admitted input owns this context. Do not reread a
++    // mutable worksite or reconstruct the proposal from arbitrary payloads.
++    const inputEvents = indexedRuntimeEvents(o.prefix, "payload:resultRef:" + input.basis.inputRef)
++      .filter(e => e.kind === "c_call_result_admitted" && e.runId === o.call.runId && e.basisId === event.basisId &&
++        record(e.payload) && e.payload.valueDigest === input.basis.inputDigest && isFramedSynthesisTask(e.payload.value));
++    const inputEvent = inputEvents.length === 1 ? inputEvents[0] : undefined;
++    const task = record(inputEvent?.payload) && isFramedSynthesisTask(inputEvent.payload.value) ? inputEvent.payload.value : null;
++    if (task === null || j.requirementProposals === undefined || !same(task.state, input.state)) return null;
++    const fulfillment = deriveGovernanceObligations(input.state.original.fulfillment, input.state.fulfillment!, j.requirementProposals,
++      input.state.original.taskRef, o.inputRef, task.context, framedSynthesisEvidenceRefs(task));
++    if (fulfillment === null) return null;
++    projected = { ...input.state, fulfillment, unresolvedSupportRefs: fulfillment.coverage.filter(r => r.disposition !== "eligible").map(r => r.obligationRef) };
++  }
++  if (j.nextGraphFunctionRef === null) return { ...common, evidenceRefs: projected.fulfillment === undefined ? common.evidenceRefs : [...new Set([...common.evidenceRefs, o.inputRef])],
++    disposition: "gap", missingSupportRefs: [...new Set([...j.gaps.flatMap(g => g.supportRefs), ...(projected.fulfillment === undefined ? [] : projected.unresolvedSupportRefs)])] };
++  const next: GovernanceWorkState = { ...projected, synthesis: { resultRef: o.inputRef, resultDigest: event.payload.resultDigest as `sha256:${string}`,
+     basis: input.basis, judgment: j } };
+   const choice = { ...common, disposition: "selected", graphFunctionRef: j.nextGraphFunctionRef,
+     definitionDigest: o.execution.registeredSelectionDefinitionDigests?.[j.nextGraphFunctionRef], input: { contractRef: contract("state"), value: asJson(next) } };
+@@ -84,7 +106,10 @@
+ }
+ export async function projectGovernanceSelection(basis: NativeInstructionAssemblyBasis, input: unknown) {
+   const o = owner(basis, input); if (o === null || !isGovernanceWorkState(input)) return null;
+-  const context = await currentContext(o, input); return context === null ? null : selectionTask(input, context);
++  const context = await currentContext(o, input);
++  if (context === null || input.original.fulfillment !== undefined && input.synthesis === null &&
++    !governanceFulfillmentSourceMatches(input.original.fulfillment, context)) return null;
++  return selectionTask(input, context);
+ }
+ function subjectEvidence(o: Owner, state: GovernanceWorkState) {
+   const ref = state.synthesis?.judgment.subjectEvidenceRef;
+@@ -108,6 +133,7 @@
+   const instructions = [GOVERNANCE_POLICIES[purpose], ...order.instructions,
+     `Conserved original task: ${state.original.task}`, `Unresolved parent outcomes: ${JSON.stringify(state.unresolvedSupportRefs)}`,
+     `Actual admitted observations: ${JSON.stringify(state.observations)}`];
++  if (state.original.fulfillment !== undefined) instructions.push(`Active source-grounded paired obligations: ${JSON.stringify(governanceFulfillmentActive(state.original.fulfillment, state.fulfillment!))}`);
+   if (purpose !== "uat") return constructNativeWorkspaceWorkTask({ ...operating(o), context, ...order, instructions });
+   const p = subjectEvidence(o, state), selection = governanceAssessmentContract(state);
+   if (p === null || !record(p.event.payload) || typeof p.event.payload.resultRef !== "string" || typeof p.event.payload.resultDigest !== "string") return null;
+@@ -121,6 +147,11 @@
+       !p.value.after.entries.some(e => e.relativePath === candidate.relativePath && e.state === "file" && e.digest === candidate.digest)) return null;
+   } else if (!p.value.task.protectedObservations.some(e => e.subject.relativePath === candidate.relativePath && e.observation.state === "file" && e.observation.fileDigest === candidate.digest)) return null;
+   const asset = (path: string) => { const e = context.entries.find(e => e.relativePath === path); if (e?.state !== "file") throw new TypeError("assessment file missing"); return { path, digest: e.digest }; };
++  if (state.original.fulfillment !== undefined) instructions.push(
++    "Return the installed structural fulfillment response. Use exactly one row per current obligation, criterion, depth class and discovery class. Meanings and sufficiency are your independent judgments. Unknown support is indeterminate, never implicit success.",
++    "Select only prior Result refs, roles, paths and command ids from the owned domains below. Do not emit digests, CCall/actor identities or your own future Result ref. The owner attaches this assessment after admission. Realization and verifier artifacts are different selected subjects. Current support must match current dependency bytes. AdverseEvidenceRefs are historical C2 counterevidence for the declared adverse-command criterion, not proof of current behavior.",
++    `Selected policy and dynamic domains: ${JSON.stringify({ declaration: state.original.fulfillment,
++      active: governanceFulfillmentActive(state.original.fulfillment, state.fulfillment!), evidence: state.observations.map(o => o.fulfillmentEvidence).filter(Boolean) })}`);
+   return constructNativeWorkspaceWorkTask({ ...operating(o), context, ...order, instructions, writeRoots: [],
+     assessment: { resultContract: selection.resultContract, schemaAsset: selection.schemaAsset, sources: selection.sources.map(asset),
+       candidate: asset(selection.candidatePath), rubric: asset(selection.rubricPath), producer: { resultRef: p.event.payload.resultRef,
+@@ -179,9 +210,31 @@
+     value = purpose === "uat" ? source.assessment ?? null! : asJson({ report: source.report, changedPaths: source.changedPaths });
+     if (!record(value)) return null; actorInvocationRef = source.provenance.actorInvocationRef;
+   }
+-  return { ...input.entry, observations: [...input.entry.observations, { purpose, resultRef: event.payload.resultRef,
+-    resultDigest: event.payload.resultDigest as `sha256:${string}`, cCallRef: event.aggregateId, actorInvocationRef, synthesisResultRef: input.entry.synthesis.resultRef, selectedGraphFunctionRef: basis.graphFunction.name, value }], terminal: false,
+-    unresolvedSupportRefs: [...input.entry.original.requiredSupportRefs] };
++  const observation = { purpose, resultRef: event.payload.resultRef,
++    resultDigest: event.payload.resultDigest as `sha256:${string}`, cCallRef: event.aggregateId, actorInvocationRef,
++    synthesisResultRef: input.entry.synthesis.resultRef, selectedGraphFunctionRef: basis.graphFunction.name, value };
++  if (input.entry.original.fulfillment === undefined) return { ...input.entry, observations: [...input.entry.observations, observation],
++    terminal: false, unresolvedSupportRefs: [...input.entry.original.requiredSupportRefs] };
++  if (typeof event.payload.contractRef !== "string" || actorInvocationRef === null) return null;
++  const native = isNativeWorkspaceWorkObservation(source), execution = !native && (isObservedWorksiteCommandExecutionObservation(source) || isNativeWorksiteCommandExecutionObservation(source));
++  if (!native && !execution) return null;
++  const files = native ? source.after.entries.flatMap(e => e.state === "file" ? [{ path: e.relativePath, digest: e.digest }] : [])
++    : source.snapshotMembers.map(e => ({ path: e.relativePath, digest: e.digest }));
++  const producer = native ? source.task.assessment?.producer : undefined;
++  const fact: GovernanceFulfillmentEvidence = { resultRef: observation.resultRef, resultDigest: observation.resultDigest,
++    contractRef: event.payload.contractRef, cCallRef: event.aggregateId, actorInvocationRef, kind: purpose === "uat" ? "assessment" : native ? "native" : "execution",
++    files, dependencies: files, commands: native ? [] : source.commandResults.map(c => ({ commandId: c.commandId, exitStatus: c.exitStatus, timedOut: c.timedOut })),
++    assessmentContractRef: native ? source.task.assessment?.resultContract.contractRef ?? null : null,
++    producerResultRef: producer?.resultRef ?? null, producerActorRef: producer?.actorInvocationRef ?? null };
++  let fulfillment = input.entry.fulfillment!;
++  if (purpose === "uat") {
++    const facts = input.entry.observations.flatMap(o => o.fulfillmentEvidence === undefined ? [] : [o.fulfillmentEvidence]);
++    const assessment = bindGovernanceFulfillmentAssessment(input.entry.original.fulfillment, fulfillment, value.fulfillment, facts);
++    if (assessment === null) return null;
++    fulfillment = projectGovernanceFulfillment(input.entry.original.fulfillment, fulfillment, assessment, fact, facts);
++  } else if (native) fulfillment = invalidateGovernanceFulfillment(fulfillment, files, source.changedPaths);
++  return { ...input.entry, observations: [...input.entry.observations, { ...observation, fulfillmentEvidence: fact }], fulfillment,
++    terminal: false, unresolvedSupportRefs: fulfillment.coverage.filter(r => r.disposition !== "eligible").map(r => r.obligationRef) };
+ }
+ export function projectGovernanceParent(basis: NativeInstructionAssemblyBasis, input: unknown): GovernanceWorkState | null {
+   const o = owner(basis, input); if (o === null || !isGovernanceWorkState(input)) return null;
+@@ -194,6 +247,10 @@
+     if (source === null || source.sourceBasis.invocationAdmissionRef !== o.execution.invocationAdmissionRef) return null;
+     terminal = !worksiteCommandSourcesInvalidatedAfter(o.prefix, event.admissionOrdinal, event.payload.value.task.workspaceAuthorityBasis.canonicalRoot,
+       [], event.payload.value.after.readRoots);
++  }
++  if (input.fulfillment !== undefined) {
++    terminal = terminal && input.fulfillment.coverage.length > 0 && input.fulfillment.coverage.every(r => r.disposition === "eligible" && r.assessmentResultRef === input.observations.at(-1)?.resultRef);
++    return { ...input, terminal, unresolvedSupportRefs: input.fulfillment.coverage.filter(r => r.disposition !== "eligible").map(r => r.obligationRef) };
+   }
+   return { ...input, terminal, unresolvedSupportRefs: terminal ? [] : [...input.original.requiredSupportRefs] };
+ }
+--- before/code/src/abg/instruction_assembly.ts
++++ after/code/src/abg/instruction_assembly.ts
+@@ -1,5 +1,6 @@
+ import { isDeepStrictEqual as sameSynthesis } from "node:util";
+-import { isFramedSynthesisTask, bindFramedSynthesisResult, framedSynthesisResponseSchema, GOVERNANCE_PURPOSES, governanceRef, type FramedSynthesisTarget, type FramedSynthesisBasis } from "../product/default_library.js";
++import { isFramedSynthesisTask, bindFramedSynthesisResult, framedSynthesisResponseSchema, GOVERNANCE_PURPOSES, governanceRef, type FramedSynthesisTarget, type FramedSynthesisBasis,
++  governanceFulfillmentSelection, governanceFulfillmentContractsMatch } from "../product/default_library.js";
+ import { rootCSourcePath } from "../gtl/source_path.js";
+ import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
+ import { modulePublicationSemanticDigest } from "../product/publication.js";
+@@ -319,6 +320,8 @@
+     return rows.length === 1 ? rows[0]! : null;
+   });
+   const rawContractRef = basis.graphFunction.declarations["abg.raw_result_contract"];
++  if (governanceFulfillmentSelection(owner.program, input.state.original) === "invalid" || input.state.original.fulfillment !== undefined &&
++    !governanceFulfillmentContractsMatch(input.state.original.fulfillment, contract)) return null;
+   if (domain === null || contract(owner.call.inputContractRef)?.valueKind !== "framed_synthesis_task" ||
+     contract(owner.call.outputContractRef)?.valueKind !== "framed_synthesis_result" || rawContractRef === undefined ||
+     contract(rawContractRef)?.valueKind !== "framed_synthesis_response") return null;
+--- before/code/src/gtl/default_library.ts
++++ after/code/src/gtl/default_library.ts
+@@ -7,7 +7,7 @@
+ import { NATIVE_WORKSPACE_WORK_IDS as native } from "../product/native_workspace_work_identity.js";
+ import { WORKSITE_COMMAND_EXECUTION_IDS as c2 } from "../product/worksite_command_execution_identity.js";
+ import { DEFAULT_LIBRARY_POLICY, GOVERNANCE_POLICIES, GOVERNANCE_PURPOSES, GOVERNANCE_OPERATIONS, governanceRef as ref,
+-  governanceContract as contract, type GovernanceOperation, type GovernancePurpose } from "../product/default_library.js";
++  governanceContract as contract, GOVERNANCE_FULFILLMENT_PROFILE, type GovernanceOperation, type GovernancePurpose } from "../product/default_library.js";
+ import { canonicalJson } from "../shared/canonical_json.js";
+ import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
+ 
+@@ -69,6 +69,7 @@
+   const parentNode = leaf("evaluate-parent", ref("node", "parent"), recursion.applicationRef);
+   const parent: GraphFunction = { ...step, name: ref("graph-function", "executive"),
+     declarations: { ...declarations, "abg.closure_contract": contract("closure-run"), "abg.judgment_predicate": ref("predicate", "evaluate-parent"),
++      "abg.supported_fulfillment_profile": GOVERNANCE_FULFILLMENT_PROFILE,
+       "abg.functional_purpose": "Preserve original outcomes through bounded declared recursion; reevaluate the current independent verdict before parent closure.",
+       "abg.conditions_for_use": "A complete original task, criterion/authority basis and bounded permitted library are declared." },
+     template: { kind: "inline_graph", graphRef: ref("graph", "executive"), startNodeRef: parentNode.nodeRef, terminalNodeRefs: [parentNode.nodeRef], nodes: [parentNode], edges: [], applications: [recursion] } };
+--- before/code/src/gtl/semantic_stage.ts
++++ after/code/src/gtl/semantic_stage.ts
+@@ -80,10 +80,10 @@
+   readonly stages: readonly SemanticStageDeclaration[];
+ }
+ 
+-const POLICY_SCHEMA = v.strictObject({ policyRef: ref, sourceRequirementRef: ref, sourceBindings,
++export const POLICY_SCHEMA = v.strictObject({ policyRef: ref, sourceRequirementRef: ref, sourceBindings,
+   scope: ref, realizationMeaning: strings, proofMeaning: strings, unprovedScope: strings,
+   closureRule: ref, obligationRef: ref });
+-const SHAPE_SCHEMA = v.strictObject({ proofShapeRef: ref,
++export const SHAPE_SCHEMA = v.strictObject({ proofShapeRef: ref,
+   requiredEvidenceRoles: v.array(v.picklist(["realization", "verifier_artifact", "verifier_execution", "semantic_assessment"])),
+   sharedBasis: strings, requiredContent: strings, nativeCarrierBoundary: ref, requirementRef: ref, obligationRef: ref,
+   roleContractRefs: v.strictObject({ realization: ref, proof: ref }) });
+--- before/code/src/product/requirement_handoff.ts
++++ after/code/src/product/requirement_handoff.ts
+@@ -1,12 +1,21 @@
+ import * as v from "valibot";
+ import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA, isRequirementHandoffDeclaration,
+-  type GtlRequirementHandoffDeclaration } from "../gtl/requirement_handoff.js";
++  type GtlRequirementHandoffDeclaration, type RequirementTerm } from "../gtl/requirement_handoff.js";
+ import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
+ import type { JsonValue } from "../shared/canonical_json.js";
+ import { deepFreeze } from "../shared/immutable.js";
+ const ref = v.pipe(v.string(), v.minLength(1));
+ const digest = v.pipe(v.string(), v.regex(/^sha256:[0-9a-f]{64}$/));
+ const schemaVersion = v.literal("5.0.0");
++/** Pure quote projection over an already bound immutable source member. */
++export function groundBoundSourceQuote(contextRef: string, member: Readonly<{ memberRef: string;
++  digest: `sha256:${string}`; base64: string }>, quoteText: string): RequirementTerm["sourceBindings"][number] | null {
++  if (quoteText.length === 0) return null;
++  const bytes = Buffer.from(member.base64, "base64"), quote = Buffer.from(quoteText, "utf8"), startByte = bytes.indexOf(quote);
++  if (startByte < 0 || bytes.indexOf(quote, startByte + 1) !== -1) return null;
++  return deepFreeze({ contextRef, memberRef: member.memberRef, memberDigest: member.digest,
++    startByte, endByte: startByte + quote.length, spanDigest: sha256Bytes(quote) });
++}
+ const members = v.pipe(v.array(v.strictObject({ memberRef: ref, base64: v.string() })), v.minLength(1));
+ export const REQUIREMENT_HANDOFF_INPUT_SCHEMA = v.strictObject({
+   kind: v.literal("requirement_handoff_input"), schemaVersion,
+--- before/code/src/product/semantic_job.ts
++++ after/code/src/product/semantic_job.ts
+@@ -1,4 +1,5 @@
+ import { isRetainedGraphInput } from "./worksite_preparation_contracts.js";
++import { groundBoundSourceQuote } from "./requirement_handoff.js";
+ import { isSemanticJobRevisionEnvelope, type SemanticJobRevisionEnvelope } from "./semantic_revision.js";
+ import { ABI5_PRODUCT_ID } from "./contracts.js";
+ import { constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask, isNativeWorkspaceWorkObservation, nativeWorkspaceAssessmentMatchesContext,
+@@ -123,10 +124,8 @@
+ export function groundSemanticJobQuote(envelope: SemanticJobEnvelope, selected: SemanticSourceQuote): RequirementTerm["sourceBindings"][number] | null {
+   const row = envelope.job.members.find(m => m.memberRef === selected.memberRef);
+   if (row === undefined || selected.quote.length === 0) return null;
+-  const bytes = Buffer.from(row.base64, "base64"), quote = Buffer.from(selected.quote, "utf8"), startByte = bytes.indexOf(quote);
+-  if (startByte < 0 || bytes.indexOf(quote, startByte + 1) !== -1) return null;
+-  return deepFreeze({ contextRef: envelope.sourceContext.contextRef, memberRef: row.memberRef, memberDigest: sha256Bytes(bytes),
+-    startByte, endByte: startByte + quote.length, spanDigest: sha256Bytes(quote) });
++  return groundBoundSourceQuote(envelope.sourceContext.contextRef,
++    { ...row, digest: sha256Bytes(Buffer.from(row.base64, "base64")) }, selected.quote);
+ }
+ export interface SemanticJobBindingCandidate {
+   readonly requirement: { readonly kind: "existing" | "candidate"; readonly ref: string };
+--- before/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
++++ after/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
+@@ -408,3 +408,85 @@
+ actual observation. Successful observation of a failing command advances that
+ observation; it cannot satisfy the parent outcome. The Executive step retains
+ its state-conservation judgment and parent evaluation retains closure authority.
++
++
++## Optional admitted fulfillment — S6
++
++Accepted relation: `default-library-fulfillment-plan.md` SHA-256
++`4c41f80459da086e5a4f75e5db3efe652a123eee1ac9e4020aac1cdb06403c59`,
++with all five conditions of `default-library-fulfillment-review.md` SHA-256
++`8dadfef5f9a39f428d4a0684050a8a41599903dc684fccb8969305cc4db10f49`.
++Execution grant: `execution.md#s6-fulfillment-implementation` in the
++20260928_FRAMED_GOVERNANCE comments. Those frozen proposals/reviews remain history;
++this section owns the corrected technical relation.
++
++The immutable admitted Program opts in through
++`policies["abg.default_library_fulfillment"]`. Its original input contains the
++matching closed source context, RequirementTerms, existing
++GtlContractFulfillmentBindings, SemanticProofPolicies/Shapes and subordinate
++completeness selection. Initial source spans bind exact protected original bytes.
++The default library's existing root remains GovernanceWorkState. No semantic-job
++root, stage order, ledger, event kind or new graph operator is introduced.
++Programs without this profile retain the earlier S5 relation. Selected missing,
++foreign or malformed contracts refuse; payload shape never activates the profile.
++
++The ordinary Executive judgment may propose additional requirements using local
++candidate refs, exact source quotes, existing policy templates, predecessor refs
++and actual evidence. The owner derives source spans and task-scoped identities;
++original and admitted new obligations remain conserved. The choice projection
++retains additions in selected child input. A gap retains unresolved original/new
++refs and the actual admitted synthesis Result, whose raw proposal and conserved
++source support the same derivation; it cannot lose additions by returning early.
++No worker can emit trusted coverage, remove an obligation or grant authority.
++
++The independent assessment uses one **immutable installed structural schema**.
++Current obligation/policy/shape/evidence domains are supplied by owned task
++context and checked by the same selected-profile binder, never inserted as
++runtime enums into schema-asset bytes. Raw F_P selects prior Result refs, semantic
++roles, artifact paths and command ids; it never emits integrity hashes, CCall or
++actor identities, or its own future Result. At the actual retained assessment
++fold, ABG attaches the real child Result/CCall/actor and derives exact integrity
++coordinates from admitted evidence. Negative and indeterminate semantic findings
++remain admitted and leave obligations open. Malformed/crossed references refuse.
++
++The native-work after-context and C2 protected snapshots supply artifact facts;
++C2 command observations supply execution facts. Supplied files need no invented
++author. Pairing checks compatible actual **outer** native/C2 output contracts;
++the inner consumer assessment contract is separately checked by the existing
++native assessment/schema owner. Meaning and sufficiency of realization/verifier
++roles belong to the independent F_P judgment; total checks enforce exact separate
++selected subjects, current dependency bytes and actor independence. A native
++report is never admitted verifier execution.
++
++The selected strength rule checks declared evidence roles, exact current support
++and independent assessment, plus only prospectively required adverse-command
++conditions. `adverseEvidenceRefs` explicitly select historical admitted C2
++observations for those conditions. Their old dependency bytes are retained as
++historical counterevidence; they are not required to equal current corrected
++bytes and never substitute for current realization/execution support. No policy
++prose is interpreted as executable law. Depth/applicability/discovery completeness
++uses explicit selected rows with attributed F_P judgments and total domain and
++support checks. Unsupported rules/enumeration remain typed policy gaps.
++
++Existing native child fold produces compact support facts once from its already
++computed retained source. There is no per-support history scan or new cache.
++Existing indexed Results and authenticated invocation/workspace coordinates
++resolve explicit references. Internal owners consume bound immutable facts;
++only new derived identities are computed. Relevant physical changes stale affected
++coverage while conserving unaffected support. Historical replay consumes admitted
++contexts/snapshots and explicit command environment, not mutable files or ambient
++process defaults.
++
++The existing parent evaluation requires both its current independent UAT relation
++and eligible per-obligation coverage, selected depth/policy completeness and
++strength, with no unresolved obligation/gap. Scalar success cannot bypass these
++checks. The existing recurse application preserves state and requires parent
++reevaluation. F_P alone selects new work; F_D neither ranks nor schedules it.
++
++S6 uses unchanged full original source/oracle and a prospectively frozen consumer
++case. Its authored execution plan is independently assessed against fixed declared
++commands; it is not secretly their runtime source. One same-lineage baseline
++failure and consequential correction, actual fresh lifecycle assets, current
++execution, independent assessment and fresh Public reads are required. Mechanical
++readiness is not native qualification, and S5 evidence is reused only for its
++unchanged claims.
+--- before/test_env/support/default-library-fulfillment.mjs
++++ after/test_env/support/default-library-fulfillment.mjs
+@@ -0,0 +1,64 @@
++import assert from 'node:assert/strict';
++import { readFile, mkdir, writeFile } from 'node:fs/promises';
++import { join, dirname } from 'node:path';
++import { assessmentContract, assessmentSchema, libraryConsumerDeclaration, witnessRef } from './default-library.mjs';
++
++export const freshLifecyclePaths=['specification/project-conformance.md','design/implementation-design.md','design/test-design.md','test-execution-plan.json'];
++export const suppliedLifecyclePaths=['source/original-basic-cli.txt','source/basic-cli.oracle.json','generated/hello-world.mjs','test/component/hello-cli.test.mjs','test/uat/hello-cli.uat.test.mjs'];
++export function fulfillmentAssessmentSchema(product){
++  return {...assessmentSchema,required:[...assessmentSchema.required,'fulfillment'],properties:{...assessmentSchema.properties,fulfillment:product.governanceFulfillmentAssessmentJsonSchema()}};
++}
++export function fulfillmentConsumerDeclaration({gtl,product,library,runEnvironment}){
++  const declaration=libraryConsumerDeclaration(gtl,library,runEnvironment,{purposes:['specification','design','construction','testing','uat'],bound:12});
++  declaration.programs[0].policies['abg.default_library_fulfillment']=product.GOVERNANCE_FULFILLMENT_PROFILE;
++  return declaration;
++}
++/** Prospective inputs only; this helper never authors or repairs an application. */
++export async function prepareFulfillmentSeed({seedRoot,caseContractPath,destination}){
++  const files={};
++  for(const path of suppliedLifecyclePaths)files[path]=await readFile(join(seedRoot,path));
++  files['source/witness-contract.md']=await readFile(caseContractPath);
++  for(const [path,bytes]of Object.entries(files)){await mkdir(dirname(join(destination,path)),{recursive:true});await writeFile(join(destination,path),bytes,{flag:'wx'});}
++  return files;
++}
++export function fulfillmentWitnessInput({product,files}){
++  const src='source/original-basic-cli.txt',contract='source/witness-contract.md',oracle='source/basic-cli.oracle.json';
++  const sourcePaths=[src,contract,oracle],members=sourcePaths.map(path=>({memberRef:witnessRef('member',path),path,byteCount:files[path].length,digest:product.sha256Bytes(files[path])}));
++  const context={contextRef:witnessRef('context','fulfillment-source'),sourceLocator:'consumer:complete-basic-cli-and-case',inventoryDigest:product.sha256Canonical(members),members};
++  const quote=(path,text)=>{const bytes=files[path],selected=Buffer.from(text),startByte=bytes.indexOf(selected);assert.ok(startByte>=0&&bytes.indexOf(selected,startByte+1)<0,text);
++    const member=members.find(m=>m.path===path);return {contextRef:context.contextRef,memberRef:member.memberRef,memberDigest:member.digest,startByte,endByte:startByte+selected.length,spanDigest:product.sha256Bytes(selected)};};
++  const specs=[
++    ['complete-original',src,files[src].toString(),'Complete original outcome; preserve every original obligation and honest execution-result meaning.','behavior'],
++    ['conformance',contract,'`specification/project-conformance.md`: the small task\'s Intent, Product boundary,','Fresh substantive source-grounded conformance, Intent/Product/Requirements and completion criteria.','document'],
++    ['implementation-design',contract,'`design/implementation-design.md`: a realizable design faithful to the original','Fresh realizable implementation design faithful to source and actual predecessor conformance.','document'],
++    ['test-design',contract,'`design/test-design.md`: meaningful component and user-outcome checks of the','Fresh test-design meaning preserving exact CLI output/exit and actual test surfaces.','document'],
++    ['execution-plan',contract,'`test-execution-plan.json`: the declared commands, expected test coverage and','Fresh JSON plan agrees with fixed prospective commands and original expectations; it does not control execution.','document'],
++    ['behavior',contract,'At completion, the CLI runs under Node without package installation, exits zero,','Actual current CLI stdout, successful exit, at least two real passing tests and zero failures.','behavior'],
++    ['revision',contract,'failure must remain admitted evidence for a subsequently justified, different','Actual baseline failure before CLI change, changed registered choice and consequential same-lineage correction; old failure remains historical.','revision'],
++  ];
++  const native=product.NATIVE_WORKSPACE_WORK_IDS.observationContractRef,c2=product.WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef;
++  const terms=[],bindings=[],policies=[],shapes=[],completeness=[];
++  for(const [name,path,text,meaning,kind]of specs){
++    const requirementRef=witnessRef('requirement',name),obligationRef=witnessRef('obligation',name),policyRef=witnessRef('proof-policy',name),proofShapeRef=witnessRef('proof-shape',name),sourceBindings=[quote(path,text)];
++    const realizationContractRef=kind==='document'?native:c2,proofContractRef=kind==='document'?native:c2;
++    terms.push({requirementRef,sourceBindings});bindings.push({requirementRef,obligationRef,realizationContractRef,proofContractRef,proofPolicyRef:policyRef,proofShapeRef});
++    policies.push({policyRef,sourceRequirementRef:requirementRef,sourceBindings,scope:meaning,realizationMeaning:[meaning],proofMeaning:['Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected.'],unprovedScope:[],closureRule:'All selected evidence roles and semantic/depth criteria under the declared current-independent rule.',obligationRef});
++    shapes.push({proofShapeRef,requirementRef,obligationRef,requiredEvidenceRoles:kind==='document'?['realization','semantic_assessment']:['realization','verifier_artifact','verifier_execution','semantic_assessment'],sharedBasis:['same-invocation','exact-source','current-subject'],requiredContent:[meaning],nativeCarrierBoundary:'Actual admitted native/C2/assessment child observations only.',roleContractRefs:{realization:realizationContractRef,proof:proofContractRef}});
++    completeness.push({policyRef,semanticCriteria:[witnessRef('criterion',name)],depthClasses:[{classRef:witnessRef('depth',name),permitsNonApplicability:false}],strengthRuleRef:product.GOVERNANCE_FULFILLMENT_STRENGTH,
++      adverseCommands:kind==='revision'?[{commandId:witnessRef('command','1'),disposition:'nonzero'}]:[]});
++  }
++  const fulfillment={profileRef:product.GOVERNANCE_FULFILLMENT_PROFILE,context,terms,bindings,policies,shapes,completeness,
++    discoveryClasses:[{classRef:witnessRef('discovery','source-obligations'),ruleRef:product.GOVERNANCE_FULFILLMENT_DISCOVERY,templatePolicyRef:policies[0].policyRef,templateShapeRef:shapes[0].proofShapeRef}],assessmentContractRef:assessmentContract.contractRef};
++  assert.ok(product.isGovernanceFulfillmentDeclaration(fulfillment));
++  const paths=Object.keys(files),readRoots=[...paths,...freshLifecyclePaths].sort();
++  const commands=[['generated/hello-world.mjs'],['--test','test/component/hello-cli.test.mjs','test/uat/hello-cli.uat.test.mjs']].map((args,i)=>({commandId:witnessRef('command',String(i)),executable:'node',args,relativeCwd:'.',environment:{},timeoutMs:20_000,terminationGraceMs:2_000,expectedReports:[]}));
++  const scope={specification:[freshLifecyclePaths[0]],design:freshLifecyclePaths.slice(1),construction:['generated/hello-world.mjs'],testing:[],uat:[]};
++  const original={taskRef:witnessRef('task','s6-original'),task:files[src].toString()+'\n\n'+files[contract].toString(),
++    sources:paths.filter(p=>p!=='generated/hello-world.mjs').map(path=>({path,digest:product.sha256Bytes(files[path])})),requiredSupportRefs:bindings.map(b=>b.obligationRef),authorityRefs:[witnessRef('authority','s6-case')],
++    readRoots,maxContextFiles:128,maxContextBytes:131_072,maxPromptBytes:131_072,
++    workOrders:Object.fromEntries(Object.entries(scope).map(([purpose,writeRoots])=>[purpose,{outcome:`Perform the justified ${purpose} contribution to the complete original outcome.`,instructions:[files[contract].toString(),`Writable files for this capability: ${JSON.stringify(writeRoots)}. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work.`],readFirst:purpose==='uat'?[...paths,...freshLifecyclePaths]:paths,writeRoots,checks:[]}])),
++    testing:{selectedPaths:paths,commands,outcomePredicates:[],allowedWriteTerritories:[{pathKind:'subtree',relativePath:'execution-evidence'}]},
++    assessment:{sources:[...paths.filter(p=>p!=='generated/hello-world.mjs'&&p!==oracle),...freshLifecyclePaths],candidatePath:'generated/hello-world.mjs',rubricPath:oracle,
++      resultContract:assessmentContract,schemaAsset:{productId:witnessRef('product','consumer'),contractId:assessmentContract.contractRef,bytesBase64:Buffer.from(JSON.stringify(fulfillmentAssessmentSchema(product))+'\n').toString('base64')},verdictField:'disposition',satisfiedValue:'satisfied'},fulfillment};
++  return product.constructGovernanceWorkState(original);
++}
+--- before/test_env/tests/t287-default-library-fulfillment.test.mjs
++++ after/test_env/tests/t287-default-library-fulfillment.test.mjs
+@@ -0,0 +1,175 @@
++import assert from 'node:assert/strict';
++import test from 'node:test';
++import {readFile,writeFile,mkdir,rm} from 'node:fs/promises';
++import {join,resolve,dirname} from 'node:path';
++import {pathToFileURL} from 'node:url';
++import {SourceTextModule,SyntheticModule} from 'node:vm';
++import * as product from '../../build/code/src/product/index.js';
++import * as gtl from '../../build/code/src/gtl/index.js';
++import * as validator from '../../build/code/src/validator/index.js';
++import * as native from '../../build/code/src/product/native_workspace_work.js';
++import * as c2 from '../../build/code/src/product/worksite_command_execution.js';
++import {parseNativeWorkspaceAssessmentResult} from '../../build/code/src/product/native_workspace_assessment.js';
++import {loadWorksiteOwner,worksiteFixture} from '../support/t287-generic-job-worksite.mjs';
++import {libraryEnvironment,witnessRef} from '../support/default-library.mjs';
++import {prepareFulfillmentSeed,fulfillmentWitnessInput,fulfillmentAssessmentSchema,fulfillmentConsumerDeclaration,freshLifecyclePaths} from '../support/default-library-fulfillment.mjs';
++const packageRoot=new URL('../..',import.meta.url).pathname,records=new URL('../../../../../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/',import.meta.url).pathname;
++const hash=product.sha256Canonical,basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:'5.0.0-rc.1',artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
++async function fixture(t){const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
++  const files=await prepareFulfillmentSeed({seedRoot:join(records,'default-library-witness/seed'),caseContractPath:join(records,'s6-witness-contract.md'),destination:f.canonicalRoot});
++  const state=fulfillmentWitnessInput({product,files}),observe=()=>physical.observeWorksiteContext({...f,readRoots:state.original.readRoots,maxFiles:128,maxBytes:131072});
++  return {...f,physical,files,state,observe};}
++const fact=(ref,kind,files,contractRef,commands=[])=>({resultRef:ref,resultDigest:hash(ref),contractRef,cCallRef:'call:'+ref,actorInvocationRef:'actor:'+ref,kind,files,dependencies:files,commands,assessmentContractRef:null,producerResultRef:null,producerActorRef:null});
++function positive(d,state,evidence){
++  const n=evidence.findLast(e=>e.kind==='native'),c=evidence.findLast(e=>e.kind==='execution'&&e.commands.every(c=>c.exitStatus===0)),red=evidence.find(e=>e.kind==='execution'&&e.commands.some(c=>c.exitStatus!==0));
++  return {obligations:product.governanceFulfillmentActive(d,state).map(a=>({obligationRef:a.binding.obligationRef,policyRef:a.binding.proofPolicyRef,shapeRef:a.binding.proofShapeRef,judgment:'satisfied',reason:'Controlled semantic premise; no native judgment qualification.',
++    support:a.shape.requiredEvidenceRoles.filter(r=>r!=='semantic_assessment').map(role=>({role,resultRef:role==='realization'&&a.binding.realizationContractRef===product.NATIVE_WORKSPACE_WORK_IDS.observationContractRef?n.resultRef:c.resultRef,
++      artifactPath:role==='realization'?(a.binding.realizationContractRef===product.NATIVE_WORKSPACE_WORK_IDS.observationContractRef?freshLifecyclePaths[0]:'generated/hello-world.mjs'):role==='verifier_artifact'?'test/component/hello-cli.test.mjs':null,
++      commandId:role==='verifier_execution'?witnessRef('command','1'):null})),adverseEvidenceRefs:a.completeness.adverseCommands.length?[red.resultRef]:[],
++    criteria:a.completeness.semanticCriteria.map(criterionRef=>({criterionRef,judgment:'satisfied',reason:'Controlled criterion premise'})),depth:a.completeness.depthClasses.map(c=>({classRef:c.classRef,judgment:'satisfied',reason:'Controlled depth premise',evidenceRefs:[c.resultRef].filter(Boolean)}))})),
++    discoveries:d.discoveryClasses.map(c=>({classRef:c.classRef,judgment:'satisfied',reason:'Controlled complete-discovery premise',evidenceRefs:[n.resultRef]}))};
++}
++test('prospective installed declaration uses immutable schema and exact original source; later domains do not change bytes',async t=>{
++  const f=await fixture(t),d=f.state.original.fulfillment,context=await f.observe();
++  assert.equal(product.sha256Bytes(f.files['source/witness-contract.md']),'sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b');
++  assert.ok(product.governanceFulfillmentSourceMatches(d,context));
++  for(const path of freshLifecyclePaths)assert.equal(context.entries.find(e=>e.relativePath===path)?.state,'absent');
++  const pubs=['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'].map(n=>gtl[n](basis)),env=await libraryEnvironment({gtl,product});
++  const data=fulfillmentConsumerDeclaration({gtl,product,library:pubs[0],runEnvironment:env.declaration});
++  const consumer=gtl.modulePublication({kind:'module_publication',moduleVersion:'5.0.0',...data,artifactDigest:basis.artifactDigest,productContentDigest:basis.productContentDigest,productManifestDigest:basis.productManifestDigest,contributions:data.contributions.map(c=>({...c,provenanceRefs:[basis.artifactDigest]}))});
++  const raw=(value,kind)=>{const result=validator.rawAdmitValue(value,kind,'contract:fixture');assert.equal(result.kind,'raw_admitted_value',JSON.stringify(result));return result;};
++  const publications=[...pubs,consumer],unique=(key,values)=>[...new Map(values.map(v=>[v[key],v])).values()],admittedPub=raw(consumer,'module_publication');
++  const validation=validator.validateProgram({declarationBasisDigest:admittedPub.subjectDigest,programPublication:admittedPub,program:raw(consumer.programs[0],'gtl_program'),
++    graphFunctions:unique('name',publications.flatMap(p=>p.graphFunctions)).map(v=>raw(v,'graph_function')),
++    contracts:unique('contractRef',publications.flatMap(p=>p.contracts)).map(v=>raw(v,'contract_declaration')),
++    evaluators:unique('name',publications.flatMap(p=>p.evaluators)),rules:unique('name',publications.flatMap(p=>p.rules)),
++    implementationBindings:unique('bindingRef',publications.flatMap(p=>p.implementationBindings)).map(v=>raw(v,'implementation_binding')),
++    closureContracts:unique('closureContractRef',publications.flatMap(p=>p.closureContracts)).map(v=>raw(v,'closure_contract'))});
++  assert.equal(validation.kind,'program_validation',JSON.stringify(validation));
++  const lookup=ref=>[...pubs,consumer].flatMap(p=>p.contracts).find(c=>c.contractRef===ref)??null;
++  assert.ok(product.governanceFulfillmentContractsMatch(d,lookup));assert.equal(product.governanceFulfillmentContractsMatch(d,()=>null),false);
++  assert.equal(product.governanceFulfillmentSelection(consumer.programs[0],f.state.original),'selected');assert.equal(product.governanceFulfillmentSelection({policies:{}},f.state.original),'invalid');
++  const {fulfillment,...ordinary}=f.state.original;assert.equal(product.governanceFulfillmentSelection({policies:{}},ordinary),'absent');assert.equal(product.governanceFulfillmentSelection(consumer.programs[0],ordinary),'invalid');
++  const schemaBytes=JSON.stringify(fulfillmentAssessmentSchema(product)),p={candidateRef:'candidate:later',classRef:d.discoveryClasses[0].classRef,meaning:'Additional source-grounded coverage',reason:'Observed need',sourceQuotes:[{memberRef:d.context.members[0].memberRef,quote:'sdlcComplianceScenario'}],predecessorRequirementRefs:[d.terms[0].requirementRef],evidenceRefs:['result:later']};
++  const next=product.deriveGovernanceObligations(d,f.state.fulfillment,[p],f.state.original.taskRef,'result:synthesis',context,['result:later']);assert.ok(next);assert.equal(next.additions.length,1);assert.equal(next.coverage.length,d.bindings.length+1);
++  assert.deepEqual(product.deriveGovernanceObligations(d,next,[p],f.state.original.taskRef,'result:repeated',context,['result:later']),next);
++  assert.equal(product.deriveGovernanceObligations(d,next,[{...p,meaning:'Changed identity'}],f.state.original.taskRef,'result:new',context,['result:later']),null);
++  assert.equal(product.deriveGovernanceObligations(d,f.state.fulfillment,[{...p,sourceQuotes:[{...p.sourceQuotes[0],quote:'not actually in the source'}]}],f.state.original.taskRef,'result:new',context,['result:later']),null);
++  assert.equal(JSON.stringify(fulfillmentAssessmentSchema(product)),schemaBytes);
++  assert.ok(!schemaBytes.includes(next.additions[0].binding.obligationRef),'dynamic identities are not schema enums');
++  const laterFact=fact('result:later','native',[],product.NATIVE_WORKSPACE_WORK_IDS.observationContractRef);
++  const open={kind:'consumer_outcome_assessment',disposition:'unmet',reason:'Later requirement remains open',unresolvedCriteria:['later requirement'],fulfillment:{
++    obligations:product.governanceFulfillmentActive(d,next).map(a=>({obligationRef:a.binding.obligationRef,policyRef:a.binding.proofPolicyRef,shapeRef:a.binding.proofShapeRef,judgment:'indeterminate',reason:'No sufficient support yet',support:[],adverseEvidenceRefs:[],criteria:a.completeness.semanticCriteria.map(criterionRef=>({criterionRef,judgment:'indeterminate',reason:'Open'})),depth:a.completeness.depthClasses.map(c=>({classRef:c.classRef,judgment:'indeterminate',reason:'Open',evidenceRefs:['result:later']}))})),discoveries:d.discoveryClasses.map(c=>({classRef:c.classRef,judgment:'indeterminate',reason:'Open',evidenceRefs:['result:later']}))}};
++  const parsed=parseNativeWorkspaceAssessmentResult(JSON.parse(schemaBytes),JSON.stringify(open));assert.ok(parsed,'the unchanged actual installed assessment parser accepts later identities');
++  assert.ok(product.bindGovernanceFulfillmentAssessment(d,next,parsed.fulfillment,[laterFact]));
++  assert.equal(product.bindGovernanceFulfillmentAssessment(d,f.state.fulfillment,parsed.fulfillment,[laterFact]),null,'same schema, wrong admitted obligation domain refuses');
++  assert.equal(product.bindGovernanceFulfillmentAssessment(d,next,parsed.fulfillment,[]),null,'same schema, unknown later evidence refuses');
++
++});
++test('pure projection separates historical adverse evidence, current roles, policy completeness and later obligations',async t=>{
++  const f=await fixture(t),d=f.state.original.fulfillment;
++  const files=[{path:'generated/hello-world.mjs',digest:hash('corrected')},{path:'test/component/hello-cli.test.mjs',digest:hash('verifier')},...freshLifecyclePaths.map(path=>({path,digest:hash(path)}))];
++  const n=fact('result:author','native',files,product.NATIVE_WORKSPACE_WORK_IDS.observationContractRef),c=fact('result:current','execution',files,product.WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef,[{commandId:witnessRef('command','1'),exitStatus:0,timedOut:false}]);
++  const red=fact('result:baseline','execution',[{...files[0],digest:hash('old faulty')}],c.contractRef,[{commandId:witnessRef('command','1'),exitStatus:1,timedOut:false}]);
++  const evidence=[red,n,c],raw=positive(d,f.state.fulfillment,evidence),assessment={...fact('result:assessment','assessment',files,n.contractRef),assessmentContractRef:d.assessmentContractRef,producerResultRef:c.resultRef,producerActorRef:c.actorInvocationRef};
++  const bound=product.bindGovernanceFulfillmentAssessment(d,f.state.fulfillment,raw,evidence);assert.ok(bound);assert.deepEqual(bound,raw);
++  const project=value=>product.projectGovernanceFulfillment(d,f.state.fulfillment,value,assessment,evidence);
++  const covered=project(bound);assert.ok(covered.coverage.every(r=>r.disposition==='eligible'),JSON.stringify(covered));assert.ok(covered.coverage.every(r=>r.assessmentResultRef===assessment.resultRef));
++  assert.ok(covered.coverage.find(r=>r.obligationRef===witnessRef('obligation','revision')).supportResultRefs.includes(red.resultRef));
++  for(const mutate of [x=>x.obligations.pop(),x=>x.obligations.push(x.obligations[0]),x=>x.obligations[0].support[0].resultRef='result:foreign',x=>x.obligations[0].support[0].digest=hash('model-hash'),x=>x.obligations[0].support.push({role:'semantic_assessment',resultRef:'future:self',artifactPath:null,commandId:null})]){const bad=structuredClone(raw);mutate(bad);assert.equal(product.bindGovernanceFulfillmentAssessment(d,f.state.fulfillment,bad,evidence),null);}
++  const negative=structuredClone(raw);negative.obligations[0].judgment='indeterminate';assert.ok(product.bindGovernanceFulfillmentAssessment(d,f.state.fulfillment,negative,evidence));assert.equal(project(negative).coverage[0].disposition,'open');
++  const sameRoles=structuredClone(raw);sameRoles.obligations[0].support.find(s=>s.role==='verifier_artifact').artifactPath='generated/hello-world.mjs';assert.ok(project(sameRoles).coverage[0].gaps.includes('roles_not_distinct'));
++  const wrongContract=structuredClone(evidence);wrongContract[2].contractRef='contract:wrong';assert.ok(product.projectGovernanceFulfillment(d,f.state.fulfillment,raw,assessment,wrongContract).coverage[0].gaps.includes('realization_pair_missing'));
++  const stale=product.invalidateGovernanceFulfillment(covered,[{...files[0],digest:hash('later edit')}],['generated/hello-world.mjs']);assert.equal(stale.coverage[0].disposition,'stale');assert.equal(stale.coverage[1].disposition,'eligible');
++  const unsupported=structuredClone(d);unsupported.completeness[0].strengthRuleRef='rule:unknown';assert.ok(product.projectGovernanceFulfillment(unsupported,f.state.fulfillment,raw,assessment,evidence).coverage[0].gaps.includes('unsupported_strength_rule'));
++  const missingAdverse=structuredClone(raw);missingAdverse.obligations.find(r=>r.obligationRef===witnessRef('obligation','revision')).adverseEvidenceRefs=[];assert.ok(project(missingAdverse).coverage.at(-1).gaps.includes('adverse_evidence_missing'));
++  const independent={...assessment,actorInvocationRef:c.actorInvocationRef};assert.ok(product.projectGovernanceFulfillment(d,f.state.fulfillment,raw,independent,evidence).coverage[0].gaps.includes('independent_assessment_missing'));
++});
++
++async function controlledOwner(f){
++  const library=gtl.constructDefaultGovernanceLibraryModulePublication(basis),program={...library.programs[0],policies:{...library.programs[0].policies,'abg.default_library_fulfillment':product.GOVERNANCE_FULFILLMENT_PROFILE}};
++  const rows=[],invocation={invocationRef:'invocation:fulfillment',invocationAdmissionRef:'admission:fulfillment',capabilityGrants:[f.capabilityGrant]},execution={basisRef:'basis:wrapper',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:fulfillment',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
++  const root={kind:'basis_admitted',payload:{basisClass:'root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:f.state}};
++  const owned={program,prefix:{},events:rows,execution,environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,productInstalls:[]},call:{runId:'run:fulfillment'},inputValue:null,inputRef:'input:fulfillment',inputOrigin:{}};
++  const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
++  // Exact ingress/closed occurrence is the controlled premise. Real child,
++  // task, observation, retained input and owner projectors run below. No live
++  // model, installed traversal or semantic adequacy is claimed by these tests.
++  await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
++    const replacements=specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>execution}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:()=>false,projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis:execution})}:{};
++    const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
++  const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
++  return {m,owned,rows,execution,root,library,at};
++}
++function synthesis(state,purpose,context,subjectEvidenceRef=null){return {...state,synthesis:{resultRef:'result:synthesis:'+purpose,resultDigest:hash(purpose),basis:{inputRef:'input:synthesis',inputDigest:hash(state),taskRef:state.original.taskRef,environmentRef:'environment:test',environmentDigest:hash('environment'),frameEvidenceDigest:hash('frame'),frameRefs:['frame:test'],contextRef:context.observationRef,previousResultRef:state.synthesis?.resultRef??null},judgment:{interpretation:'Controlled semantic premise',contributions:[{graphFunctionRef:product.governanceRef('graph-function',purpose),contribution:'Selected work',reason:'Actual evidence',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:product.governanceRef('graph-function',purpose),nextReason:'Chosen work',nextEvidenceRefs:[],subjectEvidenceRef,revisionReason:'Current evidence',revisionEvidenceRefs:[],requirementProposals:[]}}};}
++const provenance=name=>({cCallRef:'call:'+name,executionAuthorityRef:'authority:test',executionAuthorityDigest:hash('authority'),actorInvocationRef:'actor:'+name,transportBindingRef:'transport:test',transportBindingDigest:hash('transport'),promptDigest:hash('prompt'),transportDigest:hash('transport')});
++function observedCommand(task,status){
++  const plan=c2.worksiteCommandExecutionHelperPlan(task,'attempt:'+status),empty={kind:'worksite_observed_stream',schemaVersion:'5.0.0',encoding:'base64',payload:'',byteLength:0,digest:product.sha256Bytes(Buffer.alloc(0))};
++  const commandResults=task.commands.map(({kind,schemaVersion,expectedReports,...command})=>{const body={...command,exitStatus:status,timedOut:false,processSignal:null,signalSequence:[],terminationConfirmed:true,stdout:empty,stderr:empty,reports:[],reportCount:0},digest=hash(body);return {kind:'worksite_command_result',schemaVersion:'5.0.0',...body,observationRef:'worksite-command-observation://abiogenesis/'+digest.slice(7),observationDigest:digest};});
++  const members=task.protectedObservations.map(row=>({kind:'worksite_snapshot_member',schemaVersion:'5.0.0',ordinal:row.ordinal,sourceMemberRef:row.sourceMemberRef,sourceObservationRef:row.observation.observationRef,sourceObservationDigest:row.observation.observationDigest,relativePath:row.subject.relativePath,byteLength:row.observation.byteLength,digest:row.observation.fileDigest})),snapshotDigest=hash(members);
++  const artifact=c2.constructWorksiteExecutionHelperArtifact({task,disposition:'success',commandResults,predicateObservations:[],worksiteDelta:[],productDelta:[],snapshotRoot:plan.sandboxRoot,snapshotRef:'worksite-command-snapshot://abiogenesis/'+snapshotDigest.slice(7),snapshotDigest,snapshotMembers:members,protectedBefore:task.protectedObservations.map(r=>r.observation),protectedAfter:task.protectedObservations.map(r=>r.observation)});
++  const acknowledgment={kind:'worksite_command_execution_worker_result',schemaVersion:'5.0.0',taskRef:task.taskRef,taskDigest:task.taskDigest,attemptRef:plan.attemptRef,helperArtifactRef:artifact.artifactRef,helperArtifactDigest:artifact.artifactDigest};
++  return c2.constructWorksiteExecutionObservation(task,acknowledgment,{actorRef:task.workerActorRef,workerBindingRef:task.workerBindingRef,implementationRef:product.WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,inputDigest:hash(task),transportLane:'worker_executes',disposition:'success',toolCallCount:1,toolInvocations:[{kind:'worker_tool_invocation_evidence',schemaVersion:'5.0.0',ordinal:0,toolName:'Bash',toolUseRef:'tool:test',inputDigest:plan.toolInputDigest,inputByteLength:plan.toolInputByteLength}],processRef:'process:test',...provenance('command-'+status)},artifact,plan);
++}
++test('real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage',async t=>{
++  const f=await fixture(t),o=await controlledOwner(f),first=await f.observe();
++  const fold=(state,purpose,source)=>{const input=product.constructRetainedGraphInput(state,source),b=o.at(purpose,'fold',input),n=o.rows.length,event={kind:'c_call_result_admitted',runId:'run:fulfillment',basisId:'basis:child',aggregateId:'call:actual:'+n,admissionOrdinal:n+10,payload:{resultRef:'result:actual:'+n,resultDigest:hash({n,source}),valueDigest:hash(source),contractRef:purpose==='testing'?product.WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef:product.NATIVE_WORKSPACE_WORK_IDS.observationContractRef,resultClass:'success',value:source}};
++    o.rows.push(event);o.owned.inputOrigin={retainedProjection:{entryBasis:o.execution,input:{admissionRef:o.owned.inputRef,value:input},sourceResult:event}};const result=o.m.namespace.projectGovernanceFold(b,input);assert.ok(result,purpose);assert.equal(result.observations.at(-1).fulfillmentEvidence.cCallRef,event.aggregateId);return result;};
++  const testing=synthesis(f.state,'testing',first),task=await o.m.namespace.projectGovernanceTestingTask(o.at('testing','prepare-testing',testing),testing);assert.ok(task.sourceObservedInput);
++  const red=fold(testing,'testing',observedCommand(task,1));assert.equal(red.observations.at(-1).fulfillmentEvidence.kind,'execution');
++  const premature=synthesis(red,'uat',first,red.observations.at(-1).resultRef);await assert.rejects(()=>o.m.namespace.projectGovernanceNativeTask(o.at('uat','prepare-native',premature),premature),/assessment file missing/);
++  // Physical asset bytes here are a disclosed component fixture, not the S6 run.
++  const designed=synthesis(red,'design',first),nativeTask=await o.m.namespace.projectGovernanceNativeTask(o.at('design','prepare-native',designed),designed);
++  for(const path of freshLifecyclePaths.slice(1)){await mkdir(dirname(join(f.canonicalRoot,path)),{recursive:true});await writeFile(join(f.canonicalRoot,path),'controlled asset '+path+'\n');}
++  let state=fold(designed,'design',native.constructNativeWorkspaceWorkObservation(nativeTask,await f.observe(),{summary:'Component asset author',gaps:[]},provenance('design')));
++  const specified=synthesis(state,'specification',await f.observe()),specTask=await o.m.namespace.projectGovernanceNativeTask(o.at('specification','prepare-native',specified),specified);await mkdir(join(f.canonicalRoot,'specification'),{recursive:true});await writeFile(join(f.canonicalRoot,freshLifecyclePaths[0]),'controlled conformance\n');
++  state=fold(specified,'specification',native.constructNativeWorkspaceWorkObservation(specTask,await f.observe(),{summary:'Component conformance',gaps:[]},provenance('specification')));
++  const greenState=synthesis(state,'testing',await f.observe()),greenTask=await o.m.namespace.projectGovernanceTestingTask(o.at('testing','prepare-testing',greenState),greenState);state=fold(greenState,'testing',observedCommand(greenTask,0));
++  const uat=synthesis(state,'uat',await f.observe(),state.observations.at(-1).resultRef),assessmentTask=await o.m.namespace.projectGovernanceNativeTask(o.at('uat','prepare-native',uat),uat);assert.ok(assessmentTask);
++  assert.equal(assessmentTask.assessment.producer.cCallRef,state.observations.at(-1).cCallRef);assert.ok(assessmentTask.instructions.some(s=>s.includes('Do not emit digests')));
++  const evidence=uat.observations.map(o=>o.fulfillmentEvidence),raw={kind:'consumer_outcome_assessment',disposition:'satisfied',reason:'Controlled semantic premise only',unresolvedCriteria:[],fulfillment:positive(uat.original.fulfillment,uat.fulfillment,evidence)};
++  const source=native.constructNativeWorkspaceWorkObservation(assessmentTask,await f.observe(),null,provenance('independent-assessor'),raw);
++  assert.ok(native.isNativeWorkspaceWorkObservation(source));const assessed=fold(uat,'uat',source),actual=assessed.observations.at(-1);
++  assert.ok(assessed.fulfillment.coverage.every(r=>r.assessmentResultRef===actual.resultRef));assert.ok(!JSON.stringify(raw).includes(actual.resultRef));
++  o.at('uat','evaluate-parent',assessed);assert.equal(o.m.namespace.projectGovernanceParent({},assessed).terminal,true);
++  const bad=structuredClone(raw);bad.fulfillment.obligations[0].judgment='indeterminate';const negative=native.constructNativeWorkspaceWorkObservation(assessmentTask,await f.observe(),null,provenance('another-assessor'),bad),unmet=fold(uat,'uat',negative);o.at('uat','evaluate-parent',unmet);assert.equal(o.m.namespace.projectGovernanceParent({},unmet).terminal,false);
++  assert.ok(unmet.unresolvedSupportRefs.includes(uat.original.fulfillment.bindings[0].obligationRef));
++});
++
++test('selected-profile hook and persisted assembly conserve admitted additions through selected and gap projection',async t=>{
++  const f=await fixture(t),o=await controlledOwner(f),context=await f.observe(),graph=o.library.graphFunctions.find(g=>g.name===product.governanceRef('graph-function','executive-step'));
++  const node=graph.template.nodes.find(n=>n.nodeRef===graph.declarations['abg.framed_synthesis_locus']),projection=graph.template.nodes.find(n=>n.nodeRef===graph.declarations['abg.framed_synthesis_projection']),role=o.library.runEnvironments[0].roles.find(r=>r.role==='selector');
++  const targets=o.library.graphFunctions.filter(g=>g.declarations['abg.default_library_purpose']),task={kind:'framed_synthesis_task',schemaVersion:'5.0.0',state:f.state,context};
++  Object.assign(o.execution,{programRef:o.owned.program.programRef,basisDigest:hash('basis'),registeredSelectionDefinitionDigests:Object.fromEntries(targets.map(g=>[g.name,hash(g)]))});
++  Object.assign(o.owned,{graph:{template:graph.template},inputValue:task,inputRef:'result:prepared',inputDigest:hash(task)});
++  Object.assign(o.owned.call,{regime:'F_P',cCallRef:'call:selector',cCallDigest:hash('call'),graphCallId:'graph-call:fulfillment',graphFunctionRef:graph.name,programLocusRef:node.nodeRef,inputContractRef:node.term.inputCarrierRef,outputContractRef:node.term.outputCarrierRef,implementationRef:product.governanceRef('implementation','select')});
++  const publication={...o.library,programs:[o.owned.program]},candidate={publication,graphFunction:graph,declarationGraphFunctions:o.library.graphFunctions,executionBasis:o.execution,cCall:o.owned.call,cursor:{currentNodeRef:node.nodeRef,termPath:gtl.rootCSourcePath(node.nodeRef)},predecessorPrefix:{}};
++  const file=resolve(packageRoot,'build/code/src/abg/instruction_assembly.js');
++  const load=async()=>{const m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href),replacements=specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>o.owned}:specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidence:()=>({...role,invocationAdmissionRef:o.execution.invocationAdmissionRef,environmentRef:'environment:fulfillment',environmentDigest:hash('environment'),evidenceDigest:hash('evidence'),contextPolicyDigest:hash(role.contextPolicy),sourceContent:[],accessContent:[]})}:{};const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();return m;};
++  const pubs=[publication,gtl.constructNativeWorkspaceWorkModulePublication(basis),gtl.constructWorksiteCommandExecutionModulePublication(basis)];
++  const lookup=ref=>pubs.flatMap(p=>p.contracts).find(c=>c.contractRef===ref)??(ref===f.state.original.assessment.resultContract.contractRef?f.state.original.assessment.resultContract:null);
++  const assemblyOwner=await load(),assembly=assemblyOwner.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,task,lookup);assert.equal(assembly.kind,'native_instruction_assembly',JSON.stringify(assembly));
++  assert.ok(assembly.request.responseJsonSchema.required.includes('requirementProposals'));
++  assert.ok(assembly.request.prompt.includes(f.state.original.fulfillment.bindings[0].obligationRef));
++  const target=targets.find(g=>g.declarations['abg.default_library_purpose']==='testing'),d=f.state.original.fulfillment;
++  const raw={interpretation:'Controlled current judgment',contributions:[{graphFunctionRef:target.name,contribution:'Measure',reason:'No current evidence',supportRefs:f.state.unresolvedSupportRefs,evidenceRefs:[context.observationRef],dependsOn:[]}],gaps:[],nextGraphFunctionRef:target.name,nextReason:'Current choice',nextEvidenceRefs:[context.observationRef],subjectEvidenceRef:null,revisionReason:'Initial',revisionEvidenceRefs:[],requirementProposals:[{candidateRef:'candidate:after-start',classRef:d.discoveryClasses[0].classRef,meaning:'Additional source obligation',reason:'Current source interpretation',sourceQuotes:[{memberRef:d.context.members[0].memberRef,quote:'sdlcComplianceScenario'}],predecessorRequirementRefs:[d.terms[0].requirementRef],evidenceRefs:[context.observationRef]}]};
++  const hook=await import('../../build/code/src/implementation/default_library.js'),port=await import('../../build/code/src/implementation/leaf_invocation_port.js');
++  const prepared=await port.invokeLeafOwnerBoundary({resolution:hook.GOVERNANCE_SELECTOR_DESCRIPTOR,value:task,inputDigest:hash(task),failureValueKind:'governance_failure',verifyAuthority:()=>true,validateSuccess:product.isFramedSynthesisResult,resolveWorkerContracts:()=>({instructionContractRef:o.owned.call.inputContractRef,resultContractRef:graph.declarations['abg.raw_result_contract']}),occurrence:{cCallRef:'call:selector',runId:o.owned.call.runId,graphCallId:o.owned.call.graphCallId,frameId:'frame:test',programLocusRef:node.nodeRef,taskOrdinal:null,attempt:0,executionAuthority:null},contractByRef:lookup,loadImplementation:async()=>(value,occurrence)=>hook.selectGovernanceWork(value,occurrence,()=>assembly)});
++  assert.equal(prepared.kind,'prepared_probabilistic_leaf_owner_invocation',JSON.stringify(prepared));
++  const bind=raw=>product.bindFramedSynthesisResult(task,assembly.envelope.targetBindings,assembly.envelope.boundBasis,raw),bound=bind(raw);assert.ok(bound);
++  const observation={disposition:'success',toolCallCount:0,finalOutput:JSON.stringify(raw),inputDigest:hash(task),implementationRef:o.owned.call.implementationRef};
++  assert.ok(assemblyOwner.namespace.framedSynthesisInstructionResultMatches(candidate,task,bound,observation,lookup));
++  // Reconstruct with a fresh assembly owner from persisted JSON; no retained cache premise.
++  const cold=await load(),persisted=JSON.parse(JSON.stringify(assembly));assert.deepEqual(cold.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,task,lookup),persisted);
++  assert.ok(cold.namespace.framedSynthesisInstructionResultMatches(candidate,task,bound,observation,lookup));
++  const origin={kind:'c_call_result_admitted',runId:o.owned.call.runId,basisId:o.execution.basisRef,graphCallId:o.owned.call.graphCallId,aggregateId:'call:selector',payload:{resultClass:'success',resultRef:'result:selector',resultDigest:hash(bound),valueDigest:hash(bound),value:bound}};
++  const inputEvent={kind:'c_call_result_admitted',runId:o.owned.call.runId,basisId:o.execution.basisRef,aggregateId:'call:prepare',payload:{resultClass:'success',resultRef:'result:prepared',resultDigest:hash('prepared-result'),valueDigest:hash(task),value:task}};
++  o.rows.push(inputEvent,{kind:'c_call_opened',runId:o.owned.call.runId,basisId:o.execution.basisRef,aggregateId:'call:selector',payload:{programLocusRef:node.nodeRef}});
++  Object.assign(o.owned,{inputValue:bound,inputRef:origin.payload.resultRef,inputOrigin:{event:origin}});Object.assign(o.owned.call,{implementationRef:product.governanceRef('implementation','project-choice'),outputContractRef:product.governanceContract('choice')});
++  const projectionBasis={graphFunction:graph,cursor:{currentNodeRef:projection.nodeRef,termPath:gtl.rootCSourcePath(projection.nodeRef)}},choice=o.m.namespace.projectGovernanceChoice(projectionBasis,bound);assert.ok(choice);assert.equal(choice.disposition,'selected');
++  const next=choice.input.value;assert.equal(next.fulfillment.additions.length,1);const added=next.fulfillment.additions[0];assert.equal(added.introducedByResultRef,origin.payload.resultRef);assert.ok(next.unresolvedSupportRefs.includes(added.binding.obligationRef));assert.deepEqual(next.original,f.state.original);
++  const gap=bind({...raw,contributions:[],nextGraphFunctionRef:null,gaps:[{supportRefs:f.state.unresolvedSupportRefs,reason:'No currently suitable work',evidenceRefs:[context.observationRef]}]});assert.ok(gap);o.owned.inputValue=gap;origin.payload.value=gap;origin.payload.valueDigest=hash(gap);origin.payload.resultDigest=hash(gap);
++  const projectedGap=o.m.namespace.projectGovernanceChoice(projectionBasis,gap);assert.equal(projectedGap.disposition,'gap');assert.ok(projectedGap.missingSupportRefs.includes(added.binding.obligationRef));assert.ok(projectedGap.evidenceRefs.includes(origin.payload.resultRef));assert.deepEqual(origin.payload.value.judgment.requirementProposals,raw.requirementProposals);
++  inputEvent.basisId='basis:foreign';assert.equal(o.m.namespace.projectGovernanceChoice(projectionBasis,gap),null);inputEvent.basisId=o.execution.basisRef;
++  inputEvent.payload.valueDigest=hash('different');assert.equal(o.m.namespace.projectGovernanceChoice(projectionBasis,gap),null);
++});
+--- before/test_env/tests/t287-default-library.test.mjs
++++ after/test_env/tests/t287-default-library.test.mjs
+@@ -204,7 +204,7 @@
+   const library=gtl.constructDefaultGovernanceLibraryModulePublication(basis),rows=[],invocation={invocationRef:'invocation:test',invocationAdmissionRef:'invocation-admission:test',capabilityGrants:[f.capabilityGrant]};
+   const execution={basisRef:'basis:wrapper',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:test',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
+   const root={kind:'basis_admitted',payload:{basisClass:'root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:originalState}};
+-  const owned={prefix:{},events:rows,execution,environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,productInstalls:[]},call:{runId:'run:test'},inputValue:null,inputRef:'input:test',inputOrigin:{}};
++  const owned={program:library.programs[0],prefix:{},events:rows,execution,environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,productInstalls:[]},call:{runId:'run:test'},inputValue:null,inputRef:'input:test',inputOrigin:{}};
+   let sourceBasis={...execution},invalidated=false;
+   const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+   // Controlled admitted occurrence/index premises; all native/C2/assessment
+@@ -254,7 +254,7 @@
+ test('parent conservation joins the pre-Run root basis through exact invocation and root implementation set',async()=>{
+   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8')),state=await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')});
+   const invocation={invocationRef:'invocation:root',invocationAdmissionRef:'invocation-admission:root',capabilityGrants:[{}]},root={kind:'basis_admitted',runId:null,payload:{basisClass:'root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:'set:root',rawInputValue:state}},roots=[root];
+-  const owned={inputValue:state,call:{runId:'run:later-created',implementationRef:product.governanceRef('implementation','evaluate-parent')},execution:{invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:root'},environment:{kind:'exact_prefix_workspace_environment'},prefix:{}};
++  const owned={program:{policies:{}},inputValue:state,call:{runId:'run:later-created',implementationRef:product.governanceRef('implementation','evaluate-parent')},execution:{invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:root'},environment:{kind:'exact_prefix_workspace_environment'},prefix:{}};
+   const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
+     const replacements=specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?roots:[]}:{};

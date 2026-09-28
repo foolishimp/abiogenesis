@@ -1,0 +1,134 @@
+{
+  "predecessorSourceFreeze": {
+    "sha256": "f5644b465e62ecf98de2d9c8392de17495d658197dae05cbbfb51e0b14945d3f",
+    "bytes": 1266
+  },
+  "changed": [
+    {
+      "path": "code/src/product/default_library.ts",
+      "sha256": "09543fa5cb1a7023e01ff83f9367b135dc8299fab37a3a542e38aa7a92ebccee",
+      "bytes": 26117,
+      "before": {
+        "sha256": "5b50747c2fab1fc84ee495b7d8f1a405bf6214d51e95561dd11d5d5030fafe91",
+        "bytes": 25441
+      },
+      "addedLines": 6,
+      "removedLines": 1
+    },
+    {
+      "path": "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "b549c5157df3d1423889c26250393d6b05b93ed3d6724ec0af9905ba7c6e5466",
+      "bytes": 41155,
+      "before": {
+        "sha256": "70d5e1abcb0fc6627ba4dbfaae95ce324ab8ec9ccb6fe24c5e410d2616d9fe4a",
+        "bytes": 39770
+      },
+      "addedLines": 23,
+      "removedLines": 0
+    }
+  ],
+  "inheritedUnchanged": [
+    {
+      "path": "code/src/abg/instruction_assembly.ts",
+      "sha256": "1642c2b513eb9dc773deb1090a1c4217fdb7a06c163d584faba2663997e5a26d",
+      "bytes": 117624
+    },
+    {
+      "path": "code/src/product/default_library_fulfillment.ts",
+      "sha256": "772e6b6ae074e0f198297b173a9a9372ed5d15452b2e5154949444e88a26b322",
+      "bytes": 22127
+    },
+    {
+      "path": "code/src/abg/default_library.ts",
+      "sha256": "6eef97a343ac8fb60f38486787a101b3f3b9bee093d709f1340a3df69cf99bc3",
+      "bytes": 28255
+    },
+    {
+      "path": "code/src/gtl/default_library.ts",
+      "sha256": "3170884eacec34f80ed2e940e95ae20801eeba6f36cfc7966782db5121941d35",
+      "bytes": 18901
+    },
+    {
+      "path": "code/src/gtl/semantic_stage.ts",
+      "sha256": "8c3578a6e03f71cf64012e92b535e54dc617caa5e89c76f1bffefe6fc98b18c3",
+      "bytes": 12820
+    },
+    {
+      "path": "code/src/product/requirement_handoff.ts",
+      "sha256": "a7e4b05504ca720911860494f54ccab20ea8188fd8d6d5947a2217c5a5c5d574",
+      "bytes": 8615
+    },
+    {
+      "path": "code/src/product/semantic_job.ts",
+      "sha256": "9703f5ded2ee7fec0f1f247388a3364d0a2905d51ce0667946e7a0bb8e1ad75d",
+      "bytes": 93617
+    },
+    {
+      "path": "test_env/support/default-library-fulfillment.mjs",
+      "sha256": "33036a01200ce7782657113bc2730bcd8ecffaba5d8283361cd6e943bbfbaf18",
+      "bytes": 8912
+    },
+    {
+      "path": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "sha256": "34b2b6782efbc805c236c1c4a42715006db6d3b603bd176ba8bf31d6d8163da4",
+      "bytes": 34007
+    },
+    {
+      "path": "test_env/tests/t287-default-library.test.mjs",
+      "sha256": "21a18c57bcf6cabb76a5b198f9449383a734895fb1de63e73034596779e43c17",
+      "bytes": 75599
+    },
+    {
+      "path": "code/src/implementation/default_library.ts",
+      "sha256": "6e51be1a4bc71d3fe11d05821b09309a99397a4281da84f34f073473ad21adc7",
+      "bytes": 6205
+    },
+    {
+      "path": "code/src/product/index.ts",
+      "sha256": "273ddc342f19df1b7013e3e19fb37dbd1cba5e346342f0d9456ae323647b2a23",
+      "bytes": 25105
+    },
+    {
+      "path": "test_env/support/default-library.mjs",
+      "sha256": "b435665a743c7c7a04f0dae6a59070e521fb798c491e506c28cba8201d2c0fc3",
+      "bytes": 8597
+    },
+    {
+      "path": "test_env/support/registered-graph-selection.mjs",
+      "sha256": "221d3d8dfab58da9b96ff926b8a5e3548a9f8c2b8dfc42b26cac7e1b3b467449",
+      "bytes": 21381
+    },
+    {
+      "path": "test_env/support/root-installed-environment.mjs",
+      "sha256": "cf0a778870128c4afc13e8fb535c01bc67ac009cb23233324b1242a6b44eb65d",
+      "bytes": 37822
+    },
+    {
+      "path": "test_env/fixtures/default-library-product/index.mjs",
+      "sha256": "e8cde80b6ca3093f65857eac23fa6969260567f1220f705f9ac5ca316e089c41",
+      "bytes": 730
+    }
+  ],
+  "generated": [
+    {
+      "path": "build/code/src/product/default_library.js",
+      "sha256": "b5358d468d1c1471ba3838cce6d2f151ec6050d11a55ae61d3596eb6c4b3fcda",
+      "bytes": 23846
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "sha256": "fafbba192f62ec277504b078f12d335ea5a6d4627bf05583460a0f4aa508559d",
+      "bytes": 197474
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "sha256": "67e0edd2589c438fbb09a3a0ecde80d0249372469f5af27f7ab8e469c20005c4",
+      "bytes": 2545310
+    }
+  ],
+  "net": {
+    "addedLines": 29,
+    "removedLines": 1,
+    "netLines": 28
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "predecessor": {
+    "return.md": "9ea519b0475540d3cd19cd623a7ca25aa9e238d3ba3527869a16251a35204698",
+    "freeze.json": "3bfda7ac23bd8fd7ad5274d0875c3c13bdbf6033805370665055749e04e2d8e8",
+    "core.tgz": "64712d9e3f480236f3a90f7c3c124eb8140ffee5ba426dafc1c7d02767008d4d",
+    "consumer.tgz": "f70349590488054f940e818628d0009c950dde6d91e513d27c6b934a54636b98",
+    "live-01/return.md": "ef4b22d0736d4eb1b39fb1f853b413665699e0b3efca10b4a2b45bc2d3ea5b13",
+    "live-01/launcher-manifest.json": "f1da19fd49122aea10855763e5382121f522b7c1c7d2b029598681f90ba07f73",
+    "live-01/run-return.md": "293d2bc5b1ac47efa3ef711bdd0420446b02734a0ba57ba785c18c8871b7aa15",
+    "live-01/run-proof-manifest.json": "6fdd2c05c274aa7fc3e602b6dceb37ea713083e52daa5c40139b9c292befb9c5"
+  },
+  "priorMechanicalProofMembers": 51,
+  "priorRunProofMembers": 50,
+  "oldInstalledRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-iQioh9/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "unchangedCase": {
+    "sha256": "ea6140665f41064d18606add4a3018d30b0c21fc6db3e74f546659dcd9fb867d",
+    "bytes": 310
+  }
+}

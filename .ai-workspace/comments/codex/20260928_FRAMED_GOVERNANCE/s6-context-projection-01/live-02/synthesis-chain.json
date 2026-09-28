@@ -1,0 +1,752 @@
+[
+  {
+    "synthesisEvent": "event://abiogenesis/084cc9f79a32b0355f47a4557f8ccba9b7d860c8d4a86dfba6a161292e405603",
+    "synthesisOrdinal": 1334,
+    "resultRef": "result://abiogenesis/636f0757f1a742455cfc087f455d46081736c544cddb5a375b00e73bce318847",
+    "basis": {
+      "contextRef": "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "frameEvidenceDigest": "sha256:e5902a30af003929b0b341c637b560cf282827ab17ce382cc7b0e1995e3d8bdf",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "inputDigest": "sha256:c115b649e6bbb23cdb3f5b5b193a482e9d7b90f924a19f8b5fe83414b2fd3a3e",
+      "inputRef": "result://abiogenesis/98ab914a24c704db36df403a9c72bdad0d115587e2c145755cebe46d78ea1df8",
+      "previousResultRef": null,
+      "taskRef": "task://default-library-witness/s6-original@5"
+    },
+    "judgment": {
+      "contributions": [
+        {
+          "contribution": "Baseline measurement of the supplied, unchanged files. Run the fixed commands with the declared env, cwd and timeouts: `node generated/hello-world.mjs` and `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`. Keep the actual arguments, exit statuses, stdout and stderr, and test pass and fail counts, including any nonzero exits. Write only under `execution-evidence/`. After construction, the same capability must run again against the corrected CLI to produce current behavior evidence.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+          "reason": "The witness contract requires establishing the supplied CLI's actual behavior before changing it. The revision obligation declares an expected nonzero outcome for command 1 as baseline evidence. A command plan and the selected files are already available, and Testing needs no author prerequisite. Reading the file shows a likely mismatch, but that is not an execution observation. Only real command evidence can admit the failure.",
+          "supportRefs": [
+            "obligation://default-library-witness/revision@5",
+            "obligation://default-library-witness/behavior@5",
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        },
+        {
+          "contribution": "Write `specification/project-conformance.md`. It must state: the Intent; the Product boundary, a minimal Node CLI Hello World at `generated/hello-world.mjs`, with no package or network dependency; source-grounded requirements, stdout exactly `Hello, world!\\n` and exit 0; and completion criteria, the fixed two commands with at least 2 passes and 0 failures. Do not write source, tests, package files or plans.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+          "reason": "The conformance asset is absent and must be written fresh by native work (conformance_project stage). It is the authority for the downstream design assets. It does not depend on the baseline measurement and does not authorize a CLI repair.",
+          "supportRefs": [
+            "obligation://default-library-witness/conformance@5",
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        },
+        {
+          "contribution": "Write three files:\n- `design/implementation-design.md`: a minimal Node CLI at `generated/hello-world.mjs` that prints exactly `Hello, world!` plus one newline. Name the component and UAT test surfaces.\n- `design/test-design.md`: both tests spawn `process.execPath` with [\"generated/hello-world.mjs\"] from the project root and assert status 0 and stdout exactly `Hello, world!\\n`.\n- `test-execution-plan.json`: command `node`, args [\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"], expectedTestPassCount >= 2, expectedStdoutMatch containing stable zero-failure evidence such as `fail 0`, and assertedReturnValue `Hello, world!`.\n\nThe plan must agree with the fixed commands but does not control execution.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/specification@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+          "reason": "All three design assets are absent. They must be faithful to the original source and to the actual conformance predecessor. Design must also check that the supplied verifiers are adequate as the named test surfaces.",
+          "supportRefs": [
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5",
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        },
+        {
+          "contribution": "Make a bounded correction to `generated/hello-world.mjs` only, so that under plain `node` it writes exactly `Hello, world!\\n` to stdout and exits 0. Protected sources and supplied tests stay unchanged.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/testing@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+          "reason": "The correction is justified only after Testing admits the baseline failure. That keeps the causal relation from the historical failure to a different registered choice (revision obligation). Construction is not required to wait for the design assets. Its target is fully fixed by the original source and the oracle.",
+          "supportRefs": [
+            "obligation://default-library-witness/revision@5",
+            "obligation://default-library-witness/behavior@5",
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        },
+        {
+          "contribution": "A read-only, independent assessment of the full original outcome. It covers:\n- the exact corrected CLI;\n- the four authored assets and how well they correspond to their sources and predecessors;\n- whether the supplied verifiers are adequate;\n- whether the execution plan matches the fixed commands;\n- current C2 execution evidence (stdout, exit 0, >= 2 passes, 0 failures);\n- the consequential revision: the baseline failure stays historical and the correction follows from it.\n\nIt uses the oracle rubric. Unmet and indeterminate criteria are kept.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/specification@5",
+            "graph-function://abiogenesis/default-library/design@5",
+            "graph-function://abiogenesis/default-library/construction@5",
+            "graph-function://abiogenesis/default-library/testing@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "reason": "Parent completion needs an independent semantic assessment of current evidence from an actor distinct from the author or measurement producer. It cannot be selected until a current native-work or C2 Result exists for the corrected subject.",
+          "supportRefs": [
+            "obligation://default-library-witness/complete-original@5",
+            "obligation://default-library-witness/conformance@5",
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5",
+            "obligation://default-library-witness/behavior@5",
+            "obligation://default-library-witness/revision@5"
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "evidenceRefs": [
+            "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+          ],
+          "reason": "No execution evidence has been admitted yet. The mismatch between the supplied CLI (`Hello world!`) and the required `Hello, world!\\n` comes from reading the file, not from running it. Neither the baseline failure nor current behavior is established.",
+          "supportRefs": [
+            "obligation://default-library-witness/revision@5",
+            "obligation://default-library-witness/behavior@5"
+          ]
+        },
+        {
+          "evidenceRefs": [
+            "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+          ],
+          "reason": "All four required authored assets are absent from the worksite. No realization exists yet.",
+          "supportRefs": [
+            "obligation://default-library-witness/conformance@5",
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5"
+          ]
+        },
+        {
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5"
+          ],
+          "reason": "After construction, Testing must run again against the corrected current subject, and UAT must independently assess that exact Result. Neither is possible yet, and a later mapping must select both.",
+          "supportRefs": [
+            "obligation://default-library-witness/complete-original@5",
+            "obligation://default-library-witness/behavior@5"
+          ]
+        }
+      ],
+      "interpretation": "This is the first mapping. There is no prior judgment and there are no admitted observations. All seven obligations are open. The worksite contains the supplied, unverified CLI `generated/hello-world.mjs`, which contains `console.log(\"Hello world!\");`. I only inspected that content. I did not run it. As written, it does not match the required stdout `Hello, world!\\n` because the comma is missing. The two supplied tests, component and UAT, both assert status 0 and that exact stdout. They look like valid verifiers that can be reused. The four assets that must be written in this run are absent: conformance, implementation design, test design and execution plan. The witness contract requires three things in order. First, run the supplied CLI to record its actual behavior before any change. Second, keep that measured failure as historical evidence for a different, justified registered choice. Third, make a bounded correction in the same lineage. The revision obligation expects `command://default-library-witness/1@5` to exit nonzero on the baseline. The next step is therefore to run the fixed commands against the current supplied files with Testing. Specification and design can proceed separately. Construction must wait for the admitted baseline failure. UAT must wait for the corrected subject, a Testing re-run against the current bytes, and the authored assets.",
+      "nextEvidenceRefs": [
+        "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c",
+        "task://default-library-witness/s6-original@5"
+      ],
+      "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "nextReason": "The witness contract requires the supplied CLI's actual behavior to be measured before any change. The revision obligation depends on an admitted baseline failure of command 1. Testing can run the fixed command plan against the supplied files now, with no author prerequisite. Any failures must be recorded honestly and kept as historical evidence about the original subject bytes.",
+      "requirementProposals": [],
+      "revisionEvidenceRefs": [
+        "task://default-library-witness/s6-original@5",
+        "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+      ],
+      "revisionReason": "This is the initial mapping, with no prior judgment or observations. It is based on the complete original task and the current worksite inventory. Nothing earlier is being revised.",
+      "subjectEvidenceRef": null
+    },
+    "choiceEvent": "event://abiogenesis/79358d4f161a2d08155a60254efba62c7f2a940f9f489ea17d39dadcdb7799c8",
+    "childEvent": "event://abiogenesis/bda52491c267212b61ca9e6a84c4a729df9233654caffd96283be0f2243a27dd",
+    "childResultRef": "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f",
+    "childGraphFunction": "graph-function://abiogenesis/worksite/command-execution@5",
+    "foldEvent": "event://abiogenesis/876b5ee44da324df7a5b14e1209ddd13cc0f0c50c899edacd660bd92ef92ed49",
+    "parentEvent": "event://abiogenesis/9c777d121770e866abed80644590accd2f87736678af4903fa1af9f20fd7a181"
+  },
+  {
+    "synthesisEvent": "event://abiogenesis/ad81ca29244077e76e7147d9074211438a7f9903a0b12ac2bfb1493917448cce",
+    "synthesisOrdinal": 2674,
+    "resultRef": "result://abiogenesis/ca3219ea0d4248e23631a94bea9e9e832784d2fbb7aaf5aace3fa2e12709864a",
+    "basis": {
+      "contextRef": "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "frameEvidenceDigest": "sha256:e5902a30af003929b0b341c637b560cf282827ab17ce382cc7b0e1995e3d8bdf",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "inputDigest": "sha256:3ac9a5db218ecab81465975292ab58c4fd8feca9e4ffa8105c87175f37de0c28",
+      "inputRef": "result://abiogenesis/19aef16fe282e6ff39de4cbea23aa9ed2ea8eea9056498317b7ed2731aa8a9cd",
+      "previousResultRef": "result://abiogenesis/636f0757f1a742455cfc087f455d46081736c544cddb5a375b00e73bce318847",
+      "taskRef": "task://default-library-witness/s6-original@5"
+    },
+    "judgment": {
+      "contributions": [
+        {
+          "contribution": "Make a bounded correction to `generated/hello-world.mjs` only, so that under plain `node`, with no package installation, it writes exactly `Hello, world!\\n` to stdout and exits 0. For example, `console.log(\"Hello, world!\");`. Do not modify the protected sources, oracle, witness contract or supplied tests. Record the justification: the correction answers the admitted baseline failure in result 8499dedb, where the comma was missing and both tests failed.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f",
+            "task://default-library-witness/s6-original@5",
+            "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+          "reason": "The admitted baseline in result 8499dedb shows the supplied CLI printing `Hello world!\\n` and both supplied tests failing (exit 1, 0 pass, 2 fail). This is the material failure the witness contract requires before a justified, different registered choice and a same-lineage correction. The target is fully fixed by the original source and the oracle (stdout `Hello, world!\\n`, exit 0), so it does not need to wait for the design assets.",
+          "supportRefs": [
+            "obligation://default-library-witness/revision@5",
+            "obligation://default-library-witness/behavior@5",
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        },
+        {
+          "contribution": "Run the fixed commands again against the corrected current CLI and the unchanged supplied tests: `node generated/hello-world.mjs` and `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`. Use the declared env, cwd and timeouts. Keep the actual args, exit statuses, stdout and stderr, and pass and fail counts, including any failures. Write only under `execution-evidence/`. The baseline result 8499dedb stays historical evidence about the original bytes and must not be retargeted.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/construction@5"
+          ],
+          "evidenceRefs": [
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f",
+            "task://default-library-witness/s6-original@5"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+          "reason": "The behavior obligation needs actual current evidence on the corrected subject: stdout exactly `Hello, world!\\n`, exit 0, at least 2 passes and 0 failures. The baseline result is stale for current behavior once construction changes the CLI bytes, but it keeps its historical meaning for the revision obligation.",
+          "supportRefs": [
+            "obligation://default-library-witness/behavior@5",
+            "obligation://default-library-witness/revision@5",
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        },
+        {
+          "contribution": "Write `specification/project-conformance.md` with four parts:\n- Intent.\n- Product boundary: a minimal Node CLI Hello World at `generated/hello-world.mjs`, with no package or network dependency.\n- Source-grounded requirements: stdout exactly `Hello, world!\\n` and exit 0.\n- Completion criteria: the two fixed commands, with at least 2 passes and 0 failures from the component and UAT tests.\n\nDo not write source, tests, package files or plans.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+          "reason": "The conformance asset is still absent and must be written fresh by native work. It is the authority for the design assets and does not depend on the correction.",
+          "supportRefs": [
+            "obligation://default-library-witness/conformance@5",
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        },
+        {
+          "contribution": "Write three files:\n- `design/implementation-design.md`: a minimal Node CLI at `generated/hello-world.mjs` that prints exactly `Hello, world!` plus one newline. Name the component and UAT test surfaces.\n- `design/test-design.md`: both tests spawn `process.execPath` with [\"generated/hello-world.mjs\"] from the project root and assert status 0 and stdout exactly `Hello, world!\\n`.\n- `test-execution-plan.json`: command `node`, args [\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"], expectedTestPassCount >= 2, expectedStdoutMatch containing `fail 0`, and assertedReturnValue `Hello, world!`.\n\nThe plan must agree with the fixed commands but does not control execution.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/specification@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+          "reason": "All three design assets are absent. They must be faithful to the original source and to the actual conformance predecessor. The baseline evidence confirms the supplied verifiers really execute the CLI, so the test design can name them as adequate surfaces.",
+          "supportRefs": [
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5",
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        },
+        {
+          "contribution": "A read-only, independent assessment of the full original outcome against the oracle rubric. It covers:\n- the exact corrected CLI;\n- the content of the four authored assets and how they correspond to their sources and predecessors;\n- whether the supplied verifiers are adequate;\n- whether the execution plan matches the fixed commands;\n- current C2 evidence from the testing re-run;\n- the consequential revision: baseline result 8499dedb stays historical and the correction follows from it.\n\nUnmet and indeterminate criteria are kept.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/specification@5",
+            "graph-function://abiogenesis/default-library/design@5",
+            "graph-function://abiogenesis/default-library/construction@5",
+            "graph-function://abiogenesis/default-library/testing@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "reason": "Parent completion needs an independent semantic assessment of current evidence from an actor distinct from the author or measurement producer. It cannot be selected until a current Result exists for the corrected subject and the authored assets are in place.",
+          "supportRefs": [
+            "obligation://default-library-witness/complete-original@5",
+            "obligation://default-library-witness/conformance@5",
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5",
+            "obligation://default-library-witness/behavior@5",
+            "obligation://default-library-witness/revision@5"
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "evidenceRefs": [
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f"
+          ],
+          "reason": "Current behavior is not established. The only execution evidence (result 8499dedb) is the baseline failure on the original bytes. There is no corrected CLI yet and no re-run against it.",
+          "supportRefs": [
+            "obligation://default-library-witness/behavior@5",
+            "obligation://default-library-witness/revision@5"
+          ]
+        },
+        {
+          "evidenceRefs": [
+            "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+          ],
+          "reason": "All four required authored assets are still absent: conformance, implementation design, test design and execution plan.",
+          "supportRefs": [
+            "obligation://default-library-witness/conformance@5",
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5"
+          ]
+        },
+        {
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5"
+          ],
+          "reason": "No independent assessment exists. UAT must wait for the corrected subject, the current testing evidence and the authored assets.",
+          "supportRefs": [
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        }
+      ],
+      "interpretation": "The baseline measurement is now admitted as result 8499dedb. It ran against the unchanged supplied files:\n- Command 0 (`node generated/hello-world.mjs`) exited 0, but stdout was `Hello world!\\n` with the comma missing. That misses the original stdout contract `Hello, world!\\n`.\n- Command 1 (`node --test` over the component and UAT tests) exited 1, with 2 tests, 0 passes and 2 failures. Both assertion diffs show the actual value `'Hello world!\\n'` against the expected `'Hello, world!\\n'`.\n\nThis matches the revision obligation's declared adverse outcome, a nonzero exit for command 1. It also shows the two supplied verifiers really spawn the current CLI and detect the mismatch, which supports reusing them as the component and UAT test surfaces. The failure is historical evidence about the original CLI bytes (`console.log(\"Hello world!\");`) and must stay tied to those bytes. The prior judgment's causal precondition for a different registered choice is now met: a bounded construction correction limited to `generated/hello-world.mjs`.\n\nAll seven obligations remain open. The four authored assets are still absent, there is no current behavior evidence for a corrected subject, and there is no independent assessment. Specification and design are still independent of the correction. Testing must run again after construction so current behavior is proved on the new bytes. UAT waits for the authored assets and that re-run.",
+      "nextEvidenceRefs": [
+        "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f",
+        "task://default-library-witness/s6-original@5",
+        "worksite-context-observation://abiogenesis/402c2cc7dcdb3929a19d97cbbf765137bff39c9215b01c5bee771174b8fb3f4c"
+      ],
+      "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+      "nextReason": "The admitted baseline in result 8499dedb shows a material failure: stdout `Hello world!\\n` and 2 of 2 tests failing with exit 1. That justifies the different registered choice the witness contract requires, a bounded correction of `generated/hello-world.mjs` in the same lineage. Doing the correction now establishes the steel thread early. The testing re-run can then prove current behavior while specification and design proceed on their own path.",
+      "requirementProposals": [],
+      "revisionEvidenceRefs": [
+        "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f",
+        "result://abiogenesis/636f0757f1a742455cfc087f455d46081736c544cddb5a375b00e73bce318847"
+      ],
+      "revisionReason": "The prior judgment (636f0757) chose Testing for the baseline measurement. That ran, and result 8499dedb admits the expected nonzero outcome for command 1 plus a stdout mismatch on command 0. This meets construction's dependency, so construction becomes the next member and no longer depends on testing within this mapping. Testing is kept as the post-correction re-run, which now depends on construction. The specification, design and UAT rows are kept unchanged in substance.",
+      "subjectEvidenceRef": null
+    },
+    "choiceEvent": "event://abiogenesis/712da95d0a5679cc74d1da474abc269e8a9176b5dc0ac39ae53ce697270d11c8",
+    "childEvent": "event://abiogenesis/6d6876d82228eaf61f7adfc9a1ad5325c1e5657efb0e4253f43dd3c2f698e72d",
+    "childResultRef": "result://abiogenesis/a55f6c05d82e61635cb5da84a86e74b336178f6015071e3bfded650abf0aa3f3",
+    "childGraphFunction": "graph-function://abiogenesis/worksite/native-work@5",
+    "foldEvent": "event://abiogenesis/8b7cfe3f96ea742ca89dc85b9d57b84bce221bcc14fe8b4a4b178b6ac000983b",
+    "parentEvent": "event://abiogenesis/c21fca2a7b0933645fb1d4b734ae56e8ca995e1f70455ea3dd260896ea460385"
+  },
+  {
+    "synthesisEvent": "event://abiogenesis/fc75b662a72a5d355c6036d62a3e0d4ff30a61634e5221098c162dae1c4ad120",
+    "synthesisOrdinal": 5083,
+    "resultRef": "result://abiogenesis/47f52a37bf0c566317d6306c7dfb3e66c6d82bfe2bf5bc09c862c0b747b7a607",
+    "basis": {
+      "contextRef": "worksite-context-observation://abiogenesis/54c18bf3e9bd4c8fa724b9a1a5a82d13185c9d1972e91fb0089bb5bf2829fc8f",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "frameEvidenceDigest": "sha256:e5902a30af003929b0b341c637b560cf282827ab17ce382cc7b0e1995e3d8bdf",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "inputDigest": "sha256:68a3d5eaad4d21a934674708b634428077e5b54ea6b0e39c6dd332af3678682a",
+      "inputRef": "result://abiogenesis/f793e00aa1264e894734e5f7bc69025502041fbcf36c8591e8e6326fcd2919ec",
+      "previousResultRef": "result://abiogenesis/ca3219ea0d4248e23631a94bea9e9e832784d2fbb7aaf5aace3fa2e12709864a",
+      "taskRef": "task://default-library-witness/s6-original@5"
+    },
+    "judgment": {
+      "contributions": [
+        {
+          "contribution": "Run the two fixed commands again, with the declared empty env, cwd `.` and the declared timeouts, against the corrected file from construction result a55f6c05 and the unchanged supplied tests:\n1. `node generated/hello-world.mjs`\n2. `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`\n\nRecord the actual args, exit statuses, signals, stdout and stderr (bytes and digests) and pass/fail counts, including any failure. Write only under `execution-evidence/`. Baseline result 8499dedb stays historical evidence about the original bytes; do not point it at the new file.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "result://abiogenesis/a55f6c05d82e61635cb5da84a86e74b336178f6015071e3bfded650abf0aa3f3",
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f",
+            "worksite-context-observation://abiogenesis/54c18bf3e9bd4c8fa724b9a1a5a82d13185c9d1972e91fb0089bb5bf2829fc8f",
+            "task://default-library-witness/s6-original@5"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+          "reason": "The behavior obligation needs admitted current C2 evidence on the corrected file: stdout exactly `Hello, world!\\n`, exit 0, at least 2 passes and 0 failures. The author's self-check in a55f6c05 does not count. The revision obligation also needs this run to link the correction to the baseline failure it answers. Construction is finished, so it is cited as evidence rather than listed as a dependency.",
+          "supportRefs": [
+            "obligation://default-library-witness/behavior@5",
+            "obligation://default-library-witness/revision@5",
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        },
+        {
+          "contribution": "Write `specification/project-conformance.md` with four parts:\n- **Intent:** a minimal CLI Hello World traversal.\n- **Product boundary:** the source surface is `generated/hello-world.mjs`, run under Node with no package or network dependency.\n- **Source-grounded requirements:** stdout is exactly `Hello, world!\\n` and the exit status is 0.\n- **Completion criteria:** the two fixed commands, with the component and UAT tests giving at least 2 passes and 0 failures.\n\nDo not write source, tests, package files or plans.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "worksite-context-observation://abiogenesis/54c18bf3e9bd4c8fa724b9a1a5a82d13185c9d1972e91fb0089bb5bf2829fc8f"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+          "reason": "The conformance asset is still absent and must be written fresh by native work. The design assets use it as their authority. It does not depend on the correction or on the re-run.",
+          "supportRefs": [
+            "obligation://default-library-witness/conformance@5",
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        },
+        {
+          "contribution": "Write three files:\n- **`design/implementation-design.md`:** a minimal Node CLI at `generated/hello-world.mjs` that prints exactly `Hello, world!` plus one newline. Name the component and UAT test surfaces.\n- **`design/test-design.md`:** both tests spawn `process.execPath` with [\"generated/hello-world.mjs\"] from the project root and assert status 0 and stdout exactly `Hello, world!\\n`.\n- **`test-execution-plan.json`:** command `node`; args [\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"]; expectedTestPassCount of at least 2; expectedStdoutMatch containing `fail 0`; assertedReturnValue `Hello, world!`.\n\nThe plan must agree with the fixed commands but does not control execution.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/specification@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f",
+            "worksite-context-observation://abiogenesis/54c18bf3e9bd4c8fa724b9a1a5a82d13185c9d1972e91fb0089bb5bf2829fc8f"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+          "reason": "All three design assets are absent. They must match both the original source and the conformance asset once it exists. The baseline run showed the supplied verifiers actually execute the CLI and catch a mismatch, which supports naming them as adequate test surfaces.",
+          "supportRefs": [
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5",
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        },
+        {
+          "contribution": "A read-only, independent assessment of the full original outcome against the oracle rubric. It covers:\n- the exact corrected CLI;\n- the content of the four authored assets and how they correspond to their sources and predecessors;\n- whether the supplied verifiers are adequate;\n- whether the execution plan matches the fixed commands;\n- the current C2 re-run evidence;\n- the consequential revision: baseline 8499dedb stays historical, correction a55f6c05 follows from it, and the current re-run shows the result.\n\nUnmet and indeterminate criteria are kept.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/testing@5",
+            "graph-function://abiogenesis/default-library/specification@5",
+            "graph-function://abiogenesis/default-library/design@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f",
+            "result://abiogenesis/a55f6c05d82e61635cb5da84a86e74b336178f6015071e3bfded650abf0aa3f3"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "reason": "Parent completion needs an independent semantic assessment of current evidence by an actor who is neither the author nor the measurement producer. It can only be selected once a current C2 result exists for the corrected file and all four authored assets are in place.",
+          "supportRefs": [
+            "obligation://default-library-witness/complete-original@5",
+            "obligation://default-library-witness/conformance@5",
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5",
+            "obligation://default-library-witness/behavior@5",
+            "obligation://default-library-witness/revision@5"
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "evidenceRefs": [
+            "result://abiogenesis/a55f6c05d82e61635cb5da84a86e74b336178f6015071e3bfded650abf0aa3f3",
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f"
+          ],
+          "reason": "Current behavior is not established. The corrected file (a55f6c05) has no admitted C2 measurement; the author's self-check does not count. Baseline 8499dedb is stale for the current file and is only historical evidence.",
+          "supportRefs": [
+            "obligation://default-library-witness/behavior@5",
+            "obligation://default-library-witness/revision@5"
+          ]
+        },
+        {
+          "evidenceRefs": [
+            "worksite-context-observation://abiogenesis/54c18bf3e9bd4c8fa724b9a1a5a82d13185c9d1972e91fb0089bb5bf2829fc8f"
+          ],
+          "reason": "All four required authored assets are still absent in the current worksite: conformance, implementation design, test design and execution plan.",
+          "supportRefs": [
+            "obligation://default-library-witness/conformance@5",
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5"
+          ]
+        },
+        {
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5"
+          ],
+          "reason": "No independent assessment exists. UAT must wait for the current re-run evidence and the authored assets.",
+          "supportRefs": [
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        }
+      ],
+      "interpretation": "Construction ran and its native-work result is a55f6c05. The current worksite observation (54c18bf3) confirms that `generated/hello-world.mjs` now contains `console.log(\"Hello, world!\");\\n`, and the protected files are unchanged.\n\nThe baseline measurement (8499dedb) now lists `generated/hello-world.mjs` as a stale dependency, so it no longer describes current behavior. It stays as historical evidence about the original bytes: command 0 printed `Hello world!\\n` and command 1 exited 1 with 0 passes and 2 failures. That record is the causal basis for the revision obligation.\n\nThe construction author says their own run after the fix passed. That is self-reported and not admitted C2 evidence, so current behavior is still unproved.\n\nAll seven obligations remain open:\n- **Behavior:** no admitted measurement of the corrected file yet.\n- **Revision:** the correction exists, but no current measurement shows it resolved the baseline failure.\n- **Four authored assets:** conformance, implementation design, test design and execution plan are all still absent.\n- **Assessment:** no independent assessment exists.\n\nFollowing steel-thread delivery, the next step is to measure the corrected CLI with the two fixed commands. Specification and design do not depend on that run and can follow. UAT comes last.",
+      "nextEvidenceRefs": [
+        "result://abiogenesis/a55f6c05d82e61635cb5da84a86e74b336178f6015071e3bfded650abf0aa3f3",
+        "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f",
+        "worksite-context-observation://abiogenesis/54c18bf3e9bd4c8fa724b9a1a5a82d13185c9d1972e91fb0089bb5bf2829fc8f",
+        "task://default-library-witness/s6-original@5"
+      ],
+      "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "nextReason": "The correction is in place (a55f6c05), but its only verification is the author's own check. Running the two fixed commands against that exact result finishes the steel thread from CLI to verifiers. It gives the behavior obligation admitted current evidence, and it closes the revision loop from the baseline failure to the correction to the current outcome. If the run fails, we find out before specification and design build on it.",
+      "requirementProposals": [],
+      "revisionEvidenceRefs": [
+        "result://abiogenesis/ca3219ea0d4248e23631a94bea9e9e832784d2fbb7aaf5aace3fa2e12709864a",
+        "result://abiogenesis/a55f6c05d82e61635cb5da84a86e74b336178f6015071e3bfded650abf0aa3f3",
+        "worksite-context-observation://abiogenesis/54c18bf3e9bd4c8fa724b9a1a5a82d13185c9d1972e91fb0089bb5bf2829fc8f"
+      ],
+      "revisionReason": "The prior judgment (ca3219ea) chose Construction. It ran as a55f6c05 and changed only `generated/hello-world.mjs`, to `console.log(\"Hello, world!\");`, as the current worksite 54c18bf3 confirms. Construction is now finished, so it drops out of this mapping and is cited as evidence.\n\nTesting no longer depends on construction and becomes the next step, with a55f6c05 as its subject. That keeps the lineage from the baseline failure to the correction to the current measurement. The specification, design and UAT rows are unchanged in substance. UAT now also cites a55f6c05 and depends on testing, specification and design in this mapping.",
+      "subjectEvidenceRef": "result://abiogenesis/a55f6c05d82e61635cb5da84a86e74b336178f6015071e3bfded650abf0aa3f3"
+    },
+    "choiceEvent": "event://abiogenesis/7f31ce7afe518669f485c44f4c1c88b94eba2ee79f2ff8aa281c9c915481ebdb",
+    "childEvent": "event://abiogenesis/30fb852b8d83aa39c52ee59f433b96b8c62efadd48a790a2a2350d393feb3732",
+    "childResultRef": "result://abiogenesis/cdf773374207b01f6e61bf55c0257fbda4ed1b063582c03e7405b148595f11f9",
+    "childGraphFunction": "graph-function://abiogenesis/worksite/command-execution@5",
+    "foldEvent": "event://abiogenesis/0ac286f53744e83e35fde661128612e5e43508f928d4a89c7c835c5359b0f4ea",
+    "parentEvent": "event://abiogenesis/9744dcb0d519b142e0c39c70c07e1f0647502c7e8d3c848dc7f8681e8ef29ff2"
+  },
+  {
+    "synthesisEvent": "event://abiogenesis/8a62cbfed470db3c89e3a84613235e338df9ce9aa53b483e93e21a0f45a07157",
+    "synthesisOrdinal": 7265,
+    "resultRef": "result://abiogenesis/9e79905a17c64a4efd44c7a94386f52922edeb78b048db26f892379c60286d33",
+    "basis": {
+      "contextRef": "worksite-context-observation://abiogenesis/54c18bf3e9bd4c8fa724b9a1a5a82d13185c9d1972e91fb0089bb5bf2829fc8f",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "frameEvidenceDigest": "sha256:e5902a30af003929b0b341c637b560cf282827ab17ce382cc7b0e1995e3d8bdf",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "inputDigest": "sha256:b8b2a78791508475a663a4339f2724dc9fa24b9af71acbd1631ea678292ca89c",
+      "inputRef": "result://abiogenesis/fd12a1d4bb4459bc69298472ea3522e4712bfa861334b0b3cc7ab16ef0824ff3",
+      "previousResultRef": "result://abiogenesis/47f52a37bf0c566317d6306c7dfb3e66c6d82bfe2bf5bc09c862c0b747b7a607",
+      "taskRef": "task://default-library-witness/s6-original@5"
+    },
+    "judgment": {
+      "contributions": [
+        {
+          "contribution": "Write only `specification/project-conformance.md`, with four parts:\n- **Intent:** a minimal CLI Hello World software-build traversal.\n- **Product boundary:** the source surface is `generated/hello-world.mjs`. It runs under Node without package installation and has no network dependency. The supplied component and UAT tests are the verification surfaces.\n- **Source-grounded requirements:** running the CLI with no arguments writes exactly `Hello, world!\\n` to stdout and exits 0.\n- **Completion criteria:** the execution proof runs the CLI and observes that exact stdout. Both tests spawn the real CLI, and `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs` gives at least 2 passes and 0 failures. Truthful execution-result meaning comes from admitted command evidence, not a prewritten report.\n\nDo not write source, tests, package files or execution plans.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "worksite-context-observation://abiogenesis/54c18bf3e9bd4c8fa724b9a1a5a82d13185c9d1972e91fb0089bb5bf2829fc8f",
+            "result://abiogenesis/cdf773374207b01f6e61bf55c0257fbda4ed1b063582c03e7405b148595f11f9"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+          "reason": "The conformance asset is absent and must be written fresh by native work. It is the authority the design assets must follow. Current measurement cdf77337 settles the CLI contract it will state, so no further uncertainty blocks it.",
+          "supportRefs": [
+            "obligation://default-library-witness/conformance@5",
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        },
+        {
+          "contribution": "Write three files, using the new conformance asset as authority:\n- **`design/implementation-design.md`:** a minimal Node CLI at `generated/hello-world.mjs` that prints exactly `Hello, world!` plus one newline, using only built-ins. Name the component and UAT test surfaces, `test/component/hello-cli.test.mjs` and `test/uat/hello-cli.uat.test.mjs`, which execute the CLI and assert stdout.\n- **`design/test-design.md`:** component and UAT validation of the stdout contract. Both tests spawn `process.execPath` with [\"generated/hello-world.mjs\"] from the project root using `node:test`, `node:assert/strict` and `spawnSync`, and assert status 0 and stdout exactly `Hello, world!\\n`.\n- **`test-execution-plan.json`:** command `node`; args [\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"]; expectedTestPassCount of at least 2; expectedStdoutMatch containing stable zero-failure evidence such as `fail 0`, without pinning an exact pass count; assertedReturnValue `Hello, world!`.\n\nThe plan must agree with the two fixed commands but does not control execution. Do not write `test-execution-result.json`.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/specification@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "worksite-context-observation://abiogenesis/54c18bf3e9bd4c8fa724b9a1a5a82d13185c9d1972e91fb0089bb5bf2829fc8f",
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f",
+            "result://abiogenesis/cdf773374207b01f6e61bf55c0257fbda4ed1b063582c03e7405b148595f11f9"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+          "reason": "All three design assets are absent. They must match the original source and the conformance asset once it exists. The actual verifier behavior supports naming the supplied tests as adequate surfaces: they caught the baseline mismatch in 8499dedb and passed on the corrected CLI in cdf77337.",
+          "supportRefs": [
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5",
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        },
+        {
+          "contribution": "A read-only, independent assessment of the full original outcome against the oracle rubric. It covers:\n- the exact current CLI bytes;\n- the content of the four authored assets and how they correspond to the original source and to each other;\n- whether the supplied verifiers are adequate, meaning they execute the real CLI and assert status and exact stdout;\n- whether the execution plan matches the fixed commands and original expectations;\n- current C2 measurement cdf77337: exact stdout, exit 0, 2 passes, 0 failures, with the declared env and cwd;\n- the consequential revision: baseline failure 8499dedb stays historical, correction a55f6c05 follows from it, and cdf77337 shows the result.\n\nUnmet and indeterminate criteria are kept. The subject will be cdf77337, provided it is still current when UAT is selected.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/specification@5",
+            "graph-function://abiogenesis/default-library/design@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f",
+            "result://abiogenesis/a55f6c05d82e61635cb5da84a86e74b336178f6015071e3bfded650abf0aa3f3",
+            "result://abiogenesis/cdf773374207b01f6e61bf55c0257fbda4ed1b063582c03e7405b148595f11f9"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "reason": "Parent completion needs an independent semantic assessment of current evidence by an actor who is neither the author nor the measurement producer. The current measurement now exists, but the authored assets do not, so UAT cannot yet assess the complete outcome.",
+          "supportRefs": [
+            "obligation://default-library-witness/complete-original@5",
+            "obligation://default-library-witness/conformance@5",
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5",
+            "obligation://default-library-witness/behavior@5",
+            "obligation://default-library-witness/revision@5"
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "evidenceRefs": [
+            "worksite-context-observation://abiogenesis/54c18bf3e9bd4c8fa724b9a1a5a82d13185c9d1972e91fb0089bb5bf2829fc8f"
+          ],
+          "reason": "All four required authored assets are still absent in the current worksite: conformance, implementation design, test design and execution plan.",
+          "supportRefs": [
+            "obligation://default-library-witness/conformance@5",
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5"
+          ]
+        },
+        {
+          "evidenceRefs": [
+            "result://abiogenesis/cdf773374207b01f6e61bf55c0257fbda4ed1b063582c03e7405b148595f11f9",
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f",
+            "result://abiogenesis/a55f6c05d82e61635cb5da84a86e74b336178f6015071e3bfded650abf0aa3f3"
+          ],
+          "reason": "Current measurement cdf77337 supplies realization and verifier-execution evidence, and completes the lineage from baseline 8499dedb through correction a55f6c05. The semantic-assessment role is still missing, so both obligations stay open.",
+          "supportRefs": [
+            "obligation://default-library-witness/behavior@5",
+            "obligation://default-library-witness/revision@5"
+          ]
+        },
+        {
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5"
+          ],
+          "reason": "No independent assessment exists. UAT has to wait for the authored assets.",
+          "supportRefs": [
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        }
+      ],
+      "interpretation": "The prior judgment (47f52a37) chose Testing, and it ran as C2 measurement cdf77337 against the corrected CLI from construction a55f6c05. Every selected file in that run is current, and it has no stale dependencies.\n\n- **Command 0** (`node generated/hello-world.mjs`) exited 0. It printed exactly `Hello, world!\\n` (14 bytes) with empty stderr.\n- **Command 1** (`node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`) exited 0. It reported tests 2, pass 2, fail 0, with empty stderr.\n\nThe run used the declared empty env and cwd `.`.\n\nThis gives the behavior obligation its realization and verifier-execution evidence on the current subject. It also completes the revision chain:\n1. Baseline 8499dedb: original bytes, command 1 exited nonzero with 0 passes and 2 failures. This stays historical, and its stale dependency is correctly recorded.\n2. Construction a55f6c05: a one-line correction.\n3. Current measurement cdf77337: the correction resolves that failure.\n\nNeither obligation is closed yet, because both still need an independent semantic assessment.\n\nThe four authored assets are still absent in worksite 54c18bf3:\n- `specification/project-conformance.md`\n- `design/implementation-design.md`\n- `design/test-design.md`\n- `test-execution-plan.json`\n\nSo the conformance, implementation-design, test-design and execution-plan obligations, plus complete-original, have no realization.\n\nThe steel thread from CLI to verifiers is now established. The remaining work is authoring the assets and then UAT. The asset files are outside Testing's selected paths, so writing them does not make cdf77337 stale. A further measurement is needed only if the CLI or supplied tests change.\n\nThe original stage plan's handwritten `test-execution-result.json` is not required. The witness contract replaces that receipt with admitted C2 evidence, and no write root allows it.",
+      "nextEvidenceRefs": [
+        "task://default-library-witness/s6-original@5",
+        "worksite-context-observation://abiogenesis/54c18bf3e9bd4c8fa724b9a1a5a82d13185c9d1972e91fb0089bb5bf2829fc8f",
+        "result://abiogenesis/cdf773374207b01f6e61bf55c0257fbda4ed1b063582c03e7405b148595f11f9"
+      ],
+      "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+      "nextReason": "Measurement cdf77337 has confirmed the corrected CLI and verifiers, so no execution uncertainty remains that would redirect authoring. The main open work is the four absent assets. The conformance asset is the stated authority for the design assets, so it has to come first. It needs no other contribution in this mapping.",
+      "requirementProposals": [],
+      "revisionEvidenceRefs": [
+        "result://abiogenesis/47f52a37bf0c566317d6306c7dfb3e66c6d82bfe2bf5bc09c862c0b747b7a607",
+        "result://abiogenesis/cdf773374207b01f6e61bf55c0257fbda4ed1b063582c03e7405b148595f11f9",
+        "worksite-context-observation://abiogenesis/54c18bf3e9bd4c8fa724b9a1a5a82d13185c9d1972e91fb0089bb5bf2829fc8f"
+      ],
+      "revisionReason": "The prior judgment (47f52a37) chose Testing. It ran as cdf77337 against the current corrected CLI, and every selected file is current. It printed exactly `Hello, world!\\n` with exit 0, and the tests gave 2 passes and 0 failures with exit 0.\n\nTesting is now finished, so it drops out of this mapping and is cited as evidence. Rerunning it is only justified if the CLI or supplied tests change.\n\nSpecification becomes the next step. Design still depends on it. UAT now depends on specification and design, cites cdf77337 as its intended current subject, and keeps baseline 8499dedb as historical counterevidence.",
+      "subjectEvidenceRef": null
+    },
+    "choiceEvent": "event://abiogenesis/90af7c5df44b83967ca724d67c47b42c73486508e2fef7303d8501e38227e64d",
+    "childEvent": "event://abiogenesis/ffac90d787488ff9da361311af56df9a0a05477275d1a5503787b2f107668c60",
+    "childResultRef": "result://abiogenesis/dd83e79714d0fcc4d7f39a8da3aeb958b88eca38151f7c4410e7ee36c81e6990",
+    "childGraphFunction": "graph-function://abiogenesis/worksite/native-work@5",
+    "foldEvent": "event://abiogenesis/cc6dae5792dd45e51fff6475cc7624154bdb836a0166f19c985a29520d3bf2fc",
+    "parentEvent": "event://abiogenesis/e98af6845d0fa6c25516ef3f8e621a373540469cf4a9a61f5a3a8dfda57b2284"
+  },
+  {
+    "synthesisEvent": "event://abiogenesis/2ba0d2b655e04a2707cd46f632047057fb752960b80a5aa44f5b68fbf4a2691d",
+    "synthesisOrdinal": 13562,
+    "resultRef": "result://abiogenesis/5beebd6bce41c97aa2b0a55df0939ad304b8fbc5975a7700b8584824564a2ac9",
+    "basis": {
+      "contextRef": "worksite-context-observation://abiogenesis/10821c4d1d83ff7888d4a9ecdf874e866c4db57121d1201412c5c898dce3a30c",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "frameEvidenceDigest": "sha256:e5902a30af003929b0b341c637b560cf282827ab17ce382cc7b0e1995e3d8bdf",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "inputDigest": "sha256:4e3087a37f3ecabcd730a9f303cf05f04e1c47d4c1d830898a2eca4dda858e7b",
+      "inputRef": "result://abiogenesis/0268a177af14043fecd7cb52b47c6d088c358362a8a138d2e5eb975fbb15bd79",
+      "previousResultRef": "result://abiogenesis/9e79905a17c64a4efd44c7a94386f52922edeb78b048db26f892379c60286d33",
+      "taskRef": "task://default-library-witness/s6-original@5"
+    },
+    "judgment": {
+      "contributions": [
+        {
+          "contribution": "Write three files, using the current `specification/project-conformance.md` (dd83e797) as the stated authority.\n\n**1. `design/implementation-design.md`** (meets R-5 (a) to (e)):\n- Cite the conformance asset as its authority.\n- Define a minimal Node CLI script at `generated/hello-world.mjs` that uses only built-ins and needs no package installation.\n- Specify that it prints exactly `Hello, world!` followed by one newline and exits 0.\n- Name `test/component/hello-cli.test.mjs` and `test/uat/hello-cli.uat.test.mjs` as the test surfaces that execute the CLI and assert stdout.\n- Be realizable against the actual current CLI bytes.\n\n**2. `design/test-design.md`** (meets R-6, R-7 and R-8):\n- Specify component and UAT validation of the CLI stdout contract.\n- Both tests use `node:test`, `node:assert/strict` and `spawnSync` from `node:child_process`.\n- Both spawn `process.execPath` with [\"generated/hello-world.mjs\"] from the project root.\n- Both assert status 0 and stdout exactly `Hello, world!\\n`.\n- Tie these checks to the actual supplied test sources, which are reused rather than newly authored (C-4). Note the working-directory dependence (U-4).\n\n**3. `test-execution-plan.json`** (meets R-9 and AC-7). Keep the original fields:\n- `command`: \"node\"\n- `args`: [\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"]\n- `expectedTestPassCount`: an integer ≥ 2\n- `expectedStdoutMatch`: includes `fail 0`, with no `pass N` fragment\n- `assertedReturnValue`: \"Hello, world!\"\n\nFollowing the spec's R-9 SHOULD and U-6, it may also declare the direct CLI command `node generated/hello-world.mjs` with expected stdout `Hello, world!\\n` and status 0. No command may contradict the two fixed commands. The plan declares expectations only and does not control execution.\n\nDo not write `test-execution-result.json`. Per C-1 and C-2 its meaning comes from admitted C2 evidence. Do not edit the spec, the CLI, the tests or the protected sources.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "worksite-context-observation://abiogenesis/10821c4d1d83ff7888d4a9ecdf874e866c4db57121d1201412c5c898dce3a30c",
+            "result://abiogenesis/dd83e79714d0fcc4d7f39a8da3aeb958b88eca38151f7c4410e7ee36c81e6990",
+            "result://abiogenesis/cdf773374207b01f6e61bf55c0257fbda4ed1b063582c03e7405b148595f11f9",
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+          "reason": "The three design assets are absent. The original source requires them to use the prior conformance_project artifact as authority, and that artifact now exists (dd83e797). Measurement cdf77337 shows the CLI and verifier behavior these designs describe, so no execution uncertainty blocks authoring.",
+          "supportRefs": [
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5",
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        },
+        {
+          "contribution": "A read-only, independent assessment of the full original outcome against the oracle rubric. It covers:\n- The exact current CLI bytes.\n- The content of all four authored assets and how they correspond to the original source, the oracle and each other. This includes the spec dd83e797, how its conflicts C-1 to C-4 are handled, and its interpretations U-5 and U-6.\n- Whether the supplied verifiers are adequate: they spawn the real CLI and assert status and exact stdout.\n- Whether the execution plan matches the fixed commands and original expectations, including applying the R-11 acceptance rule to admitted observations.\n- The current C2 measurement cdf77337: exact stdout, exit 0, 2 passes and 0 failures, with the declared env and cwd.\n- The consequential revision. Baseline 8499dedb stays historical, the correction a55f6c05 follows from it, and cdf77337 proves the corrected result.\n\nUnmet and indeterminate criteria are kept, for example the unrecorded Node version (U-3). The intended subject is cdf77337, provided it is still current when UAT is selected.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/design@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5",
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f",
+            "result://abiogenesis/a55f6c05d82e61635cb5da84a86e74b336178f6015071e3bfded650abf0aa3f3",
+            "result://abiogenesis/cdf773374207b01f6e61bf55c0257fbda4ed1b063582c03e7405b148595f11f9",
+            "result://abiogenesis/dd83e79714d0fcc4d7f39a8da3aeb958b88eca38151f7c4410e7ee36c81e6990"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "reason": "Parent completion needs an independent semantic assessment of current evidence. The assessor must be neither the author nor the measurement producer. UAT cannot assess the complete outcome until the design assets exist.",
+          "supportRefs": [
+            "obligation://default-library-witness/complete-original@5",
+            "obligation://default-library-witness/conformance@5",
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5",
+            "obligation://default-library-witness/behavior@5",
+            "obligation://default-library-witness/revision@5"
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "evidenceRefs": [
+            "worksite-context-observation://abiogenesis/10821c4d1d83ff7888d4a9ecdf874e866c4db57121d1201412c5c898dce3a30c"
+          ],
+          "reason": "Three required authored assets are absent in the current worksite: `design/implementation-design.md`, `design/test-design.md` and `test-execution-plan.json`.",
+          "supportRefs": [
+            "obligation://default-library-witness/implementation-design@5",
+            "obligation://default-library-witness/test-design@5",
+            "obligation://default-library-witness/execution-plan@5"
+          ]
+        },
+        {
+          "evidenceRefs": [
+            "result://abiogenesis/dd83e79714d0fcc4d7f39a8da3aeb958b88eca38151f7c4410e7ee36c81e6990"
+          ],
+          "reason": "The conformance asset exists (dd83e797), but only its author has judged it. It lacks the semantic-assessment role, so the obligation stays open.",
+          "supportRefs": [
+            "obligation://default-library-witness/conformance@5"
+          ]
+        },
+        {
+          "evidenceRefs": [
+            "result://abiogenesis/cdf773374207b01f6e61bf55c0257fbda4ed1b063582c03e7405b148595f11f9",
+            "result://abiogenesis/8499dedb271fa5f327e541beb500066e320ee0442cd0d8116a068bbb5620ce9f",
+            "result://abiogenesis/a55f6c05d82e61635cb5da84a86e74b336178f6015071e3bfded650abf0aa3f3"
+          ],
+          "reason": "Current measurement cdf77337 gives realization and verifier-execution evidence and completes the lineage 8499dedb → a55f6c05 → cdf77337. The semantic-assessment role is still missing, so both obligations stay open.",
+          "supportRefs": [
+            "obligation://default-library-witness/behavior@5",
+            "obligation://default-library-witness/revision@5"
+          ]
+        },
+        {
+          "evidenceRefs": [
+            "task://default-library-witness/s6-original@5"
+          ],
+          "reason": "No independent assessment exists yet. UAT has to wait until the design assets exist.",
+          "supportRefs": [
+            "obligation://default-library-witness/complete-original@5"
+          ]
+        }
+      ],
+      "interpretation": "The prior judgment (9e79905a) chose Specification. It ran as native work dd83e797. That run changed only `specification/project-conformance.md`, which now exists in worksite 10821c4d.\n\nThe spec covers:\n- **Intent:** a minimal Node CLI that prints exactly `Hello, world!\\n` and exits 0.\n- **Product boundary:** the CLI entry point, verifiers, write territory and protected digests.\n- **Stage map:** the eight original stages mapped to their artifacts.\n- **Requirements:** R-1 to R-15, all cited to source.\n- **Acceptance criteria:** AC-1 to AC-12.\n- **Conflicts kept open:** C-1 to C-4 (receipt carrier, executor, stage order, reuse of supplied tests).\n- **Unknowns:** U-1 to U-9.\n\nThis is the author's own work and is not acceptance. Its content and fidelity to the source still need independent assessment.\n\nMeasurement cdf77337 is still current. Its selected paths (the CLI, the tests and the protected sources) are unchanged, and it has no stale dependencies. It shows `node generated/hello-world.mjs` printing exactly `Hello, world!\\n` with exit 0, and the test command giving 2 passes, 0 failures and exit 0.\n\nThe revision chain is unchanged:\n1. Baseline 8499dedb (original bytes): the test command exited 1 with 0 passes and 2 failures. This stays historical.\n2. Correction a55f6c05: a one-line fix.\n3. Current proof cdf77337.\n\nThree authored assets are still absent: `design/implementation-design.md`, `design/test-design.md` and `test-execution-plan.json`. Without them, the implementation-design, test-design, execution-plan and complete-original obligations have no realization, and UAT cannot assess the complete outcome.\n\nThe steel thread from CLI to verifiers already exists. The remaining work is design authoring, then one independent UAT. The design paths are outside cdf77337's selected paths, so writing them does not make that measurement stale.",
+      "nextEvidenceRefs": [
+        "task://default-library-witness/s6-original@5",
+        "worksite-context-observation://abiogenesis/10821c4d1d83ff7888d4a9ecdf874e866c4db57121d1201412c5c898dce3a30c",
+        "result://abiogenesis/dd83e79714d0fcc4d7f39a8da3aeb958b88eca38151f7c4410e7ee36c81e6990",
+        "result://abiogenesis/cdf773374207b01f6e61bf55c0257fbda4ed1b063582c03e7405b148595f11f9"
+      ],
+      "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+      "nextReason": "The conformance authority now exists (dd83e797), and cdf77337 has confirmed the corrected CLI and verifiers. The main open work is the three absent design assets. UAT depends on them to assess the complete outcome, and Design needs no other contribution in this mapping.",
+      "requirementProposals": [],
+      "revisionEvidenceRefs": [
+        "result://abiogenesis/9e79905a17c64a4efd44c7a94386f52922edeb78b048db26f892379c60286d33",
+        "result://abiogenesis/dd83e79714d0fcc4d7f39a8da3aeb958b88eca38151f7c4410e7ee36c81e6990",
+        "worksite-context-observation://abiogenesis/10821c4d1d83ff7888d4a9ecdf874e866c4db57121d1201412c5c898dce3a30c"
+      ],
+      "revisionReason": "The prior judgment (9e79905a) chose Specification. It ran as dd83e797, which wrote only `specification/project-conformance.md`. That file is now present and current. The protected digests and cdf77337 are unaffected.\n\nSpecification is now finished. It drops out of this mapping and is cited as evidence, and there is no reason to rerun it unless the sources change.\n\nDesign becomes the next step. It no longer depends on anything in this mapping, since its authority is supplied by dd83e797. UAT now depends only on Design, cites dd83e797 and cdf77337 as current evidence, and keeps 8499dedb as historical counterevidence.",
+      "subjectEvidenceRef": null
+    },
+    "choiceEvent": "event://abiogenesis/42c73b20f81e5d6504b06554791ad4bd57e23d944951ecd446a2f45ececa61a4",
+    "childEvent": "event://abiogenesis/f6ae42637c523348a0a322c8408f50dfcabefbb93c59512b243972e90bb94270",
+    "childResultRef": "result://abiogenesis/efef824a0b4a02c5cfe90ac479ad56ffeb27aeb813622421130516959cb6bb7f",
+    "childGraphFunction": "graph-function://abiogenesis/worksite/native-work@5",
+    "foldEvent": "event://abiogenesis/7c4756a19ac069d1d8af176a75c45d5c701ca2cd4786515b563be36c7a917271",
+    "parentEvent": "event://abiogenesis/d1c0a36a3d3e983143131694590083242cfd78ea417f2562f4cce9f71c0fda39"
+  }
+]

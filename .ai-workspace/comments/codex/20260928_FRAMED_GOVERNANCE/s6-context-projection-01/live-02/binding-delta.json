@@ -1,0 +1,88 @@
+{
+  "oldReadiness": {
+    "sha256": "aaec9e8893a8f06528e3ae9fe62ecdba4d1ed7e221c4903957ec8196db2c6296",
+    "bytes": 3549
+  },
+  "newReadiness": {
+    "sha256": "886787da55482198ec8b4092102a436a7ab4d1d1beee889885e5cd26ce47ba9b",
+    "bytes": 3539
+  },
+  "sources": {
+    "freeze.json": {
+      "before": {
+        "sha256": "sha256:3bfda7ac23bd8fd7ad5274d0875c3c13bdbf6033805370665055749e04e2d8e8"
+      },
+      "after": {
+        "sha256": "sha256:f5644b465e62ecf98de2d9c8392de17495d658197dae05cbbfb51e0b14945d3f"
+      }
+    },
+    "core.tgz": {
+      "before": {
+        "sha256": "sha256:64712d9e3f480236f3a90f7c3c124eb8140ffee5ba426dafc1c7d02767008d4d"
+      },
+      "after": {
+        "sha256": "sha256:e49c4cc9d552ebca16c944d197cd9af4685ec8f6d0559c732cf35833f02a5d0d"
+      }
+    },
+    "consumer.tgz": {
+      "before": {
+        "sha256": "sha256:f70349590488054f940e818628d0009c950dde6d91e513d27c6b934a54636b98"
+      },
+      "after": {
+        "sha256": "sha256:2161cfc9e67745bdec0363d4ca5cc724f473a5c7bb4f2bd498d34e32d04f5e60"
+      }
+    },
+    "start-prepared.json": {
+      "before": {
+        "sha256": "sha256:a72d7d4c72bb9345b0b5516659e82f82fc97bacc4d2a3530d2dcfabc6b0128a0"
+      },
+      "after": {
+        "sha256": "sha256:331b6f58f7f919c21bf2977f0735cdf781be8d63ab69a6d67573594872ef1d97"
+      }
+    },
+    "handoff-before-start.json": {
+      "before": {
+        "sha256": "sha256:9190a6719b58c4ca8fcd8a1e0a32fb8b45d687ca2a736ef0cd272ed58b291f8e"
+      },
+      "after": {
+        "sha256": "sha256:06d851c125cc2d411789894d5977fc0e53fbe00a18ea61ddee8f1141dd3c588a"
+      }
+    }
+  },
+  "coordinates": {
+    "installedRoot": {
+      "before": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-iQioh9/consumer/node_modules/@abiogenesis/typescript-tenant",
+      "after": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl/consumer/node_modules/@abiogenesis/typescript-tenant"
+    },
+    "scratch": {
+      "before": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-iQioh9",
+      "after": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl"
+    },
+    "worksite": {
+      "before": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-iQioh9/workspace",
+      "after": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl/workspace"
+    },
+    "commands": {
+      "before": {
+        "launch": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-fulfillment-implementation/live-01/launch.mjs --dispatch-once",
+        "readback": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-fulfillment-implementation/live-01/readback.mjs"
+      },
+      "after": {
+        "launch": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/launch.mjs --dispatch-once",
+        "readback": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/readback.mjs"
+      }
+    }
+  },
+  "unchanged": [
+    "case input",
+    "assessment schema",
+    "fulfillment policy",
+    "source/case/oracle",
+    "launch logic",
+    "provider binary/model/effort",
+    "supervision/command/recursion/context bounds",
+    "shared cold-read helper",
+    "installed CLI/actor/transport/liveness owners"
+  ],
+  "dispatchAuthorized": false
+}

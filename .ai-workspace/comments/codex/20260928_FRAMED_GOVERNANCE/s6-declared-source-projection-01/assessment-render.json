@@ -1,0 +1,29 @@
+{
+  "kind": "native_instruction_assembly",
+  "manifest": {
+    "planRef": "prompt-plan://abiogenesis/native-work/53840730d876e596840e07fb0924833cc4ca45de96458527d924de8cbe7e3417",
+    "planDigest": "sha256:53840730d876e596840e07fb0924833cc4ca45de96458527d924de8cbe7e3417",
+    "envelopeDigest": "sha256:816ff78a8d23a3e26fa4489f174d4f6df4019d49b037f11e4321da8b56270ab9",
+    "rendererRef": "renderer://abiogenesis/worksite/native-work@5",
+    "contextRef": "worksite-context-observation://abiogenesis/84a44559c37fe254878bec28fcda657a3131df07020ea3e8f0bde462812cef95",
+    "contextDigest": "sha256:84a44559c37fe254878bec28fcda657a3131df07020ea3e8f0bde462812cef95",
+    "responseContractRef": "contract://default-library-witness/assessment@5",
+    "responseSchemaDigest": "sha256:eebd4e4d28c305f659dad102685fda4cfbfc02791e5c4e841e95bf8476d8af4b",
+    "promptDigest": "sha256:b34f8b8dbd8616c340c88e469218248ec646bd42f199693eaf5fcfb97a9f96c5",
+    "promptBytesDigest": "sha256:e73decdd777e44893bdfcf1d9b3bd7079fadc85bc77e3e56289681df89d5f78a",
+    "promptByteCount": 174928
+  },
+  "contextByteBound": 131072,
+  "promptBytes": 174928,
+  "transportLane": "worker_executes",
+  "role": "assessor",
+  "frameRefs": [
+    "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-product-testing-frame-set",
+    "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-reviewer-frame"
+  ],
+  "responseSchemaDigest": "sha256:eebd4e4d28c305f659dad102685fda4cfbfc02791e5c4e841e95bf8476d8af4b",
+  "separateNumericNativePromptBound": null,
+  "boundExplanation": "Existing native-work assembly applies the declared physical context bound, but contains no separate numeric prompt-byte rejection. Selector maxPromptBytes remains 131072 and is not applied to this distinct native-work lane.",
+  "prospectiveAuthenticatedChildPremise": true,
+  "admitted": false
+}

@@ -1,0 +1,18 @@
+{
+  "startedAt": "2026-09-28T20:40:59.735Z",
+  "provider": {
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "sha256": "sha256:387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d",
+    "requestedModel": "claude-opus-5-5",
+    "requestedEffort": "xhigh",
+    "appendArgs": [
+      "--model",
+      "claude-opus-5-5",
+      "--effort",
+      "xhigh"
+    ],
+    "providerInvocations": 0
+  },
+  "sourceFreeze": "sha256:3bfda7ac23bd8fd7ad5274d0875c3c13bdbf6033805370665055749e04e2d8e8",
+  "beforeEventCount": 3
+}

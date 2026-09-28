@@ -1,0 +1,188 @@
+(node:76924) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "measurements": [
+    {
+      "taskOrdinal": 40,
+      "beforeBytes": 53943,
+      "afterBytes": 54948,
+      "sectionBytes": {
+        "role": 8418,
+        "choices": 4260,
+        "task": 35350,
+        "evidence": 321,
+        "response": 6540
+      },
+      "projectedTaskFieldBytes": {
+        "taskRef": 46,
+        "originalTask": 10333,
+        "authorityRefs": 49,
+        "protectedSources": 163,
+        "requiredSupportRefs": 385,
+        "worksite": 3943,
+        "workOrders": 3065,
+        "testing": 805,
+        "assessment": 589,
+        "fulfillment": 15369,
+        "observations": 2,
+        "unresolvedSupportRefs": 385,
+        "priorJudgment": 4
+      },
+      "inputRef": "result://abiogenesis/98ab914a24c704db36df403a9c72bdad0d115587e2c145755cebe46d78ea1df8",
+      "inputDigest": "sha256:c115b649e6bbb23cdb3f5b5b193a482e9d7b90f924a19f8b5fe83414b2fd3a3e",
+      "responseSchemaDigest": "sha256:3ec894efbdc5c240ad8dd4d0ebbcf6a65cf46d64241a6660840033f68629d161"
+    },
+    {
+      "taskOrdinal": 1656,
+      "beforeBytes": 70025,
+      "afterBytes": 71030,
+      "sectionBytes": {
+        "role": 8418,
+        "choices": 4260,
+        "task": 50464,
+        "evidence": 321,
+        "response": 7508
+      },
+      "projectedTaskFieldBytes": {
+        "taskRef": 46,
+        "originalTask": 10333,
+        "authorityRefs": 49,
+        "protectedSources": 163,
+        "requiredSupportRefs": 385,
+        "worksite": 3943,
+        "workOrders": 3065,
+        "testing": 805,
+        "assessment": 589,
+        "fulfillment": 15369,
+        "observations": 4374,
+        "unresolvedSupportRefs": 385,
+        "priorJudgment": 10746
+      },
+      "inputRef": "result://abiogenesis/19aef16fe282e6ff39de4cbea23aa9ed2ea8eea9056498317b7ed2731aa8a9cd",
+      "inputDigest": "sha256:3ac9a5db218ecab81465975292ab58c4fd8feca9e4ffa8105c87175f37de0c28",
+      "responseSchemaDigest": "sha256:0b21d2dafbf9af6db07c1934883a4e6d5178ddb710d8df660c0d2ec6cece205e"
+    },
+    {
+      "taskOrdinal": 3195,
+      "beforeBytes": 74717,
+      "afterBytes": 75721,
+      "sectionBytes": {
+        "role": 8418,
+        "choices": 4260,
+        "task": 54627,
+        "evidence": 321,
+        "response": 8036
+      },
+      "projectedTaskFieldBytes": {
+        "taskRef": 46,
+        "originalTask": 10333,
+        "authorityRefs": 49,
+        "protectedSources": 163,
+        "requiredSupportRefs": 385,
+        "worksite": 3943,
+        "workOrders": 3065,
+        "testing": 805,
+        "assessment": 589,
+        "fulfillment": 15369,
+        "observations": 7817,
+        "unresolvedSupportRefs": 385,
+        "priorJudgment": 11466
+      },
+      "inputRef": "result://abiogenesis/f793e00aa1264e894734e5f7bc69025502041fbcf36c8591e8e6326fcd2919ec",
+      "inputDigest": "sha256:68a3d5eaad4d21a934674708b634428077e5b54ea6b0e39c6dd332af3678682a",
+      "responseSchemaDigest": "sha256:8384820166c65c71a75638c313ee9218630f11cf264369e00576b33e5441283c"
+    },
+    {
+      "taskOrdinal": 5407,
+      "beforeBytes": 77018,
+      "afterBytes": 78022,
+      "sectionBytes": {
+        "role": 8418,
+        "choices": 4260,
+        "task": 56400,
+        "evidence": 321,
+        "response": 8564
+      },
+      "projectedTaskFieldBytes": {
+        "taskRef": 46,
+        "originalTask": 10333,
+        "authorityRefs": 49,
+        "protectedSources": 163,
+        "requiredSupportRefs": 385,
+        "worksite": 3943,
+        "workOrders": 3065,
+        "testing": 805,
+        "assessment": 589,
+        "fulfillment": 15369,
+        "observations": 10025,
+        "unresolvedSupportRefs": 385,
+        "priorJudgment": 11031
+      },
+      "inputRef": "result://abiogenesis/fd12a1d4bb4459bc69298472ea3522e4712bfa861334b0b3cc7ab16ef0824ff3",
+      "inputDigest": "sha256:b8b2a78791508475a663a4339f2724dc9fa24b9af71acbd1631ea678292ca89c",
+      "responseSchemaDigest": "sha256:b403ddfb19c737d6563f9ad859c29b055c8ba16a6e57b1e7cbce5d2c4ca041c5"
+    },
+    {
+      "taskOrdinal": 11748,
+      "beforeBytes": 106113,
+      "afterBytes": 84013,
+      "sectionBytes": {
+        "role": 8418,
+        "choices": 4260,
+        "task": 61863,
+        "evidence": 321,
+        "response": 9092
+      },
+      "projectedTaskFieldBytes": {
+        "taskRef": 46,
+        "originalTask": 10333,
+        "authorityRefs": 49,
+        "protectedSources": 163,
+        "requiredSupportRefs": 385,
+        "worksite": 4075,
+        "workOrders": 3065,
+        "testing": 805,
+        "assessment": 589,
+        "fulfillment": 15369,
+        "observations": 15313,
+        "unresolvedSupportRefs": 385,
+        "priorJudgment": 11074
+      },
+      "inputRef": "result://abiogenesis/0268a177af14043fecd7cb52b47c6d088c358362a8a138d2e5eb975fbb15bd79",
+      "inputDigest": "sha256:4e3087a37f3ecabcd730a9f303cf05f04e1c47d4c1d830898a2eca4dda858e7b",
+      "responseSchemaDigest": "sha256:370a6d0336f1b21463401f5e8d6a7c588abdd0bc6f8c70f96e2afc6926ac425f"
+    },
+    {
+      "taskOrdinal": 21845,
+      "beforeBytes": 152346,
+      "afterBytes": 91719,
+      "sectionBytes": {
+        "role": 8418,
+        "choices": 4260,
+        "task": 69041,
+        "evidence": 321,
+        "response": 9620
+      },
+      "projectedTaskFieldBytes": {
+        "taskRef": 46,
+        "originalTask": 10333,
+        "authorityRefs": 49,
+        "protectedSources": 163,
+        "requiredSupportRefs": 385,
+        "worksite": 4470,
+        "workOrders": 3065,
+        "testing": 805,
+        "assessment": 589,
+        "fulfillment": 15369,
+        "observations": 22321,
+        "unresolvedSupportRefs": 385,
+        "priorJudgment": 10849
+      },
+      "inputRef": "result://abiogenesis/0eed15697102184d4156654c402f8fa0a7af260e07f36fa8a78aa32db778819c",
+      "inputDigest": "sha256:f86ebda5c631626f41dc276818fed0007252225de1f4f2f5977421950c5f6cc5",
+      "responseSchemaDigest": "sha256:3545b6bf651e1ef3a52a10c0b21ef6d939a5beb3b12edb1754111c8c5eee4e6f"
+    }
+  ],
+  "assessmentPrepared": true
+}

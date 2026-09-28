@@ -1,0 +1,14 @@
+{
+  "code/src/product/default_library.ts": {
+    "sha256": "e5ac38cfb585d839a497b0ec5f37f40537ff999e32af83a57292bfb5a9b9650e",
+    "bytes": 18710
+  },
+  "code/src/abg/instruction_assembly.ts": {
+    "sha256": "d914b7df669b3523a5e6be70616af51187864c0ae3db438b9a91fbd302ef36ff",
+    "bytes": 117104
+  },
+  "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": {
+    "sha256": "27496b0a2b0b7cfdd4940705d35a1654db938ef1569786220cec49d286342647",
+    "bytes": 38127
+  }
+}

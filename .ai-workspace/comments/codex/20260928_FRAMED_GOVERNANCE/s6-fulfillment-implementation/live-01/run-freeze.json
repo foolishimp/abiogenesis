@@ -1,0 +1,27 @@
+{
+  "coreSha256": "64712d9e3f480236f3a90f7c3c124eb8140ffee5ba426dafc1c7d02767008d4d",
+  "consumerSha256": "f70349590488054f940e818628d0009c950dde6d91e513d27c6b934a54636b98",
+  "proofManifestSha256": "6fdd2c05c274aa7fc3e602b6dceb37ea713083e52daa5c40139b9c292befb9c5",
+  "proofMembers": 50,
+  "events": {
+    "sha256": "d96209e575ffc538050e3b2d84c82a432bfe3eda9b506fa62a1a6297dc309070",
+    "bytes": 11264229
+  },
+  "firstFailure": {
+    "sha256": "01877387cfc1260e41ecafbda529cd82488c2f2e64a490a23c709a1a9121b931",
+    "bytes": 15051
+  },
+  "execution": {
+    "sha256": "be1b5e8185341c2e5490dd007c4f92acc7c0281401ff45604b192604d9ad04ab",
+    "bytes": 433412
+  },
+  "handoff": {
+    "sha256": "95280248633c3274b97ac666c606bdb6c6b238bf28a7405c5016c6431a441887",
+    "bytes": 1232
+  },
+  "originalProofUnchanged": true,
+  "launcherReadinessUnchanged": true,
+  "outcome": "runtime_failed",
+  "providerCalls": 2,
+  "runClosed": false
+}

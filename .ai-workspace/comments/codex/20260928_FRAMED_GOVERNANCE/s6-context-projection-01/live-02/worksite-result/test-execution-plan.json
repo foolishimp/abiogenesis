@@ -1,0 +1,115 @@
+{
+  "planKind": "test_execution_plan",
+  "scenarioId": "SCN-GLC-HELLO-WORLD-CLI-BASIC",
+  "scenarioKey": "basic-cli",
+  "status": "Declared expectations only. This plan executes nothing, records no result, and is not the runtime source of the commands; the commands are fixed by source/witness-contract.md and executed as admitted C2 command-execution observations.",
+  "basis": [
+    { "ref": "OS", "path": "source/original-basic-cli.txt", "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f" },
+    { "ref": "OR", "path": "source/basic-cli.oracle.json", "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585" },
+    { "ref": "WC", "path": "source/witness-contract.md", "sha256": "f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b" },
+    { "ref": "PC", "path": "specification/project-conformance.md", "sha256": "220ed4e30552ccb257def26e481e629f411dffd13480b80083ad249920e19d52" },
+    { "ref": "ID", "path": "design/implementation-design.md", "sha256": "355e130dac58e3b9186632aeb6bea8e98f57983ab4ee9b01ba4240724c1de27f" },
+    { "ref": "TD", "path": "design/test-design.md", "sha256": "84594a0b3fb375b33724da18f056e940866cc0f9b8b94e50f1559acb543693f6" }
+  ],
+
+  "command": "node",
+  "args": ["--test", "test/component/hello-cli.test.mjs", "test/uat/hello-cli.uat.test.mjs"],
+  "cwd": ".",
+  "expectedExitStatus": 0,
+  "expectedTestPassCount": 2,
+  "expectedStdoutMatch": "fail 0",
+  "assertedReturnValue": "Hello, world!",
+
+  "declaredCommands": [
+    {
+      "id": "cli",
+      "witnessSelection": 1,
+      "purpose": "Execution proof: run the CLI and observe stdout exactly \"Hello, world!\\n\" (OS:L13, OS:L34); carrier of assertedReturnValue (OS:L76). TD CHK-CLI-1.",
+      "command": "node",
+      "args": ["generated/hello-world.mjs"],
+      "cwd": ".",
+      "expected": {
+        "exitStatus": 0,
+        "timedOut": false,
+        "processSignal": null,
+        "stdout": "Hello, world!\n",
+        "stdoutByteLength": 14,
+        "stdoutHex": "48656c6c6f2c20776f726c64210a",
+        "stdoutSha256": "d9014c4624844aa5bac314773d6b689ad467fa4e1d1a50a1b8a99d5a95f72ff5",
+        "stdoutEquals": "assertedReturnValue + \"\\n\""
+      }
+    },
+    {
+      "id": "tests",
+      "witnessSelection": 2,
+      "purpose": "Run the component and UAT verifiers against the current CLI (OS:L72-73). TD TC-COMP-1 and TC-UAT-1.",
+      "command": "node",
+      "args": ["--test", "test/component/hello-cli.test.mjs", "test/uat/hello-cli.uat.test.mjs"],
+      "cwd": ".",
+      "expected": {
+        "exitStatus": 0,
+        "timedOut": false,
+        "processSignal": null,
+        "minimumPassCount": 2,
+        "failCount": 0,
+        "stdoutMatch": "fail 0",
+        "requiredPassingTests": [
+          {
+            "role": "component",
+            "file": "test/component/hello-cli.test.mjs",
+            "sha256": "8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613",
+            "name": "CLI process satisfies its output contract"
+          },
+          {
+            "role": "uat",
+            "file": "test/uat/hello-cli.uat.test.mjs",
+            "sha256": "5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4",
+            "name": "a user receives the exact promised greeting"
+          }
+        ]
+      }
+    }
+  ],
+
+  "coverage": {
+    "floor": "expectedTestPassCount = 2: one component test plus one UAT test (OS:L74, OR:minimumTestPasses). The exact pass count is not pinned, so added depth tests remain admissible (OS:L75).",
+    "pairing": "Both requiredPassingTests must be reported passing by name in the same admitted run of command 'tests'. Exit 0 alone, UAT alone, or an aggregate count without both names is insufficient (PC R-12, WC:L78-79)."
+  },
+
+  "observedResultCriteria": {
+    "observationSource": "Admitted C2 command-execution observations (contract://abiogenesis/worksite/command-execution-observation@5) of declaredCommands 'cli' and 'tests', whose recorded files carry the same current generated/hello-world.mjs digest and the requiredPassingTests source digests.",
+    "observedFields": ["executable", "args", "environment", "relativeCwd", "exitStatus", "timedOut", "processSignal", "stdout", "stderr", "files"],
+    "planFields": ["expectedTestPassCount", "expectedStdoutMatch", "assertedReturnValue"],
+    "observedTestPassCount": "Integer N from the 'tests' stdout summary line matching /^(?:ℹ|#) pass (\\d+)$/m.",
+    "observedTestFailCount": "Integer N from the 'tests' stdout summary line matching /^(?:ℹ|#) fail (\\d+)$/m.",
+    "namedTestPassed": "The 'tests' stdout has a line beginning '✔ <name>' (spec) or 'ok <n> - <name>' (TAP), and no line beginning '✖ <name>' or 'not ok <n> - <name>'.",
+    "planSatisfied": [
+      "tests.exitStatus === 0",
+      "observedTestFailCount === 0",
+      "tests.stdout includes expectedStdoutMatch",
+      "every requiredPassingTests entry satisfies namedTestPassed",
+      "cli.exitStatus === 0",
+      "cli.stdout === assertedReturnValue + \"\\n\"",
+      "neither observation timedOut or has a processSignal",
+      "both observations record the same current CLI digest and the requiredPassingTests sha256 values"
+    ],
+    "accept": "tests.exitStatus === 0 && observedTestPassCount >= expectedTestPassCount && planSatisfied",
+    "otherwise": "Reject. A failing observation stays as evidence and is never a reason to relax an expectation, edit a test source or change the oracle (PC R-15, WC:L92-94).",
+    "evaluator": "Independent assessment over admitted evidence (OS:L82-86 test_execution_result produces no files). Not this plan and not its author."
+  },
+
+  "resultCarrier": {
+    "originalFile": "test-execution-result.json",
+    "disposition": "Not authored. The original's handwritten execution-result file and worker-run execution (OS:L68-78) are carried by admitted C2 command-execution observations recording the real command, args, cwd, env, integer status, stdout and stderr; expectedTestPassCount, expectedStdoutMatch and assertedReturnValue come from this plan (PC C-1, C-2, R-10; WC:L58-63; OR:assessment)."
+  },
+
+  "currentness": {
+    "subject": "generated/hello-world.mjs as recorded by digest in the admitted observations at execution time. This plan does not pin CLI bytes.",
+    "historical": "Observations of an earlier CLI digest, including the baseline sha256:647697a5fb5d141a2b1163363170a7a845b61a36096ff52f7a369f1736cd4993 (command 'tests' exit 1, pass 0, fail 2), are retained as revision-lineage counterevidence and can neither satisfy nor refute this plan for the current subject (PC R-13).",
+    "invalidatedBy": [
+      "a change to either requiredPassingTests source digest",
+      "a change to any basis digest",
+      "a change to the CLI digest after the admitted observations (the observations become historical; the plan stays valid)"
+    ]
+  }
+}

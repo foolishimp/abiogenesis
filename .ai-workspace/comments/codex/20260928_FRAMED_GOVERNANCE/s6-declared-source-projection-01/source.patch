@@ -1,0 +1,52 @@
+--- before/code/src/product/default_library.ts
++++ after/code/src/product/default_library.ts
+@@ -138,6 +138,8 @@
+   const { state, context } = task, original = state.original;
+   const record = (value: JsonValue | undefined): value is Readonly<Record<string, JsonValue>> =>
+     value !== null && typeof value === "object" && !Array.isArray(value);
++  const declaredSourcePaths = new Set([...original.sources.map(source => source.path),
++    ...(original.fulfillment?.context.members.map(member => member.path) ?? [])]);
+   const sourceTextsInTask = new Set<string>();
+   const sourceText = (entry: Extract<WorksiteContextObservation["entries"][number], { state: "file" }>) => {
+     const bytes = Buffer.from(entry.bytes, "base64");
+@@ -200,7 +202,10 @@
+   return deepFreeze({ taskRef: original.taskRef, originalTask: original.task, authorityRefs: original.authorityRefs,
+     protectedSources: original.sources.map(source => source.path), requiredSupportRefs: original.requiredSupportRefs,
+     worksite: { observationRef: context.observationRef, files: context.entries.map(entry => ({ path: entry.relativePath,
+-      state: entry.state, ...(entry.state === "file" ? sourceText(entry) : {}) })) },
++      state: entry.state, ...(entry.state === "file" ? { byteLength: entry.byteLength, digest: entry.digest,
++        contentRole: declaredSourcePaths.has(entry.relativePath) ? "declared_source" : "observed_output",
++        ...(declaredSourcePaths.has(entry.relativePath) ? sourceText(entry) : {}) } : {}) })),
++      interpretation: "Observed output inventory establishes presence and byte identity only. Admitted producer reports remain attributed observations, not independent adequacy judgments. Full output bodies belong to the separately declared native work and assessment contexts." },
+     workOrders: Object.fromEntries(Object.entries(original.workOrders).map(([purpose, order]) => [purpose, {
+       outcome: order.outcome, originalTaskApplies: true,
+       instructions: order.instructions.filter(instruction => !sourceTextsInTask.has(instruction)),
+--- before/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
++++ after/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
+@@ -514,3 +514,26 @@
+ through the existing preparation exception boundary. The affected discriminator
+ is the real baseline fold → parent reevaluation → next task → owned assembly,
+ plus unchanged dynamic-domain/raw-answer and exact input identity checks.
++
++
++### Declared source roles in selector context (S6 live-02 correction)
++
++The selector presentation distinguishes the existing `original.sources` and
++fulfillment `context.members` declarations from the wider observed `readRoots`.
++Their exact source bodies remain consumable in the prompt (or as exact ranges
++inside its original task). Every other observed file contributes its path,
++state, byte count and digest, plus existing admitted observations and current
++dependency correspondence. No filename heuristic or semantic F_D compression
++selects source material. An explicit source designation retains its body even
++when an otherwise identical file is an output. Inventory and producer reports
++confer no independent adequacy or completion.
++
++The complete authoritative task, physical context, input identity and raw
++response domains remain intact. Native work and independent assessment retain
++their separately declared complete subject bodies. The selector lane has no
++file tools, so required source content cannot be replaced by external locators.
++The 131,072-byte selected bound is unchanged; overflow remains an explicit
++refusal. Verification includes the actual post-Design fold, parent, expanded
++context and owned selector assembly, plus prospective assessment preparation
++over those retained assets. Controlled preparation is not an admitted UAT
++selection or semantic assessment.

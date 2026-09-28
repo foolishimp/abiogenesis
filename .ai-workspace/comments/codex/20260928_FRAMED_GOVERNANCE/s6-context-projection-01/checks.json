@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "providerCalls": 0,
+  "retainedSource": "s6-fulfillment-implementation/live-01",
+  "componentPremise": "Existing authenticated occurrence/index relations supplied from retained admitted facts; no new admission or whole installed rerun.",
+  "measurements": [
+    {
+      "taskOrdinal": 40,
+      "taskRef": "result://abiogenesis/e990f788ebe85d28b317f90f82bfcfc21e6e93342d749a23dabd79a6ac3aa879",
+      "inputDigest": "sha256:cd79a44ad679b183605459871fc78aaf7a39bee1f24fbbd669021f07ab9235bb",
+      "beforeBytes": 111904,
+      "afterBytes": 53943,
+      "beforeSections": {
+        "choices": 4260,
+        "evidence": 321,
+        "response": 6540,
+        "role": 7939,
+        "task": 92785
+      },
+      "afterSections": {
+        "role": 8418,
+        "choices": 4260,
+        "task": 34345,
+        "evidence": 321,
+        "response": 6540
+      },
+      "responseSchemaDigest": "sha256:3019681567d916e95e4888adb98f325885a9773215fc97609639801631c5e784"
+    },
+    {
+      "taskOrdinal": 1794,
+      "taskRef": "result://abiogenesis/b1a89df4b62f4339532b5ef2da2d81320ff5552da97b4908c14cae1499a7dc6e",
+      "inputDigest": "sha256:c10fdf7f00f8bb09487764cd5a0b78fcfe5915609ec6be570ec9d0b3a8645c45",
+      "beforeBytes": 133945,
+      "afterBytes": 69332,
+      "beforeSections": {
+        "choices": 4260,
+        "evidence": 321,
+        "response": 7508,
+        "role": 7939,
+        "task": 113858
+      },
+      "afterSections": {
+        "role": 8418,
+        "choices": 4260,
+        "task": 48766,
+        "evidence": 321,
+        "response": 7508
+      },
+      "responseSchemaDigest": "sha256:43268cc34a057424909d6fc60999dc855af5468e9118a78fc8d371b61031a0c8"
+    }
+  ],
+  "ordinaryJoin": {
+    "foldOrdinal": 1733,
+    "parentOrdinal": 1774,
+    "nextTaskOrdinal": 1794,
+    "actualC2SourceOrdinal": 1703,
+    "typedFoldEqual": true,
+    "parentEqual": true,
+    "nextTaskEqual": true,
+    "ownedAssemblyAccepted": true
+  },
+  "refusals": [
+    "changed input",
+    "missing exact contract",
+    "wrong input Result ref",
+    "declared bound overflow cause retained"
+  ],
+  "conserved": [
+    "original task/case/oracle/source text",
+    "authority",
+    "capability effects/read/write/checks",
+    "fixed command plan",
+    "active obligation policy/shape/criteria/depth/discovery",
+    "current observation streams/status/Result refs",
+    "prior judgment and unresolved obligations",
+    "unchanged dynamic response domains and raw answer",
+    "full input identity"
+  ],
+  "multiplicityProbe": {
+    "observations": 12,
+    "presentationBytes": 96869,
+    "totalUsingSuccessorSections": 117435,
+    "admittedRunClaim": false
+  }
+}

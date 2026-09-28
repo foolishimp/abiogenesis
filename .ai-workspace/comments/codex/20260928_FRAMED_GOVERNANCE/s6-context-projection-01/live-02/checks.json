@@ -1,0 +1,44 @@
+{
+  "ready": true,
+  "syntax": [
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/launch.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/readback.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/prepare-launch.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "launcherAndPreparationByteIdentical": true,
+  "readbackDelta": "Only request/evidence identity prefix s6-live-01- -> s6-live-02-",
+  "providerAndControlsByteIdentical": true,
+  "installedReadOwnersAndSharedHelperIdentical": true,
+  "exactSuccessorRequestAndHandoff": true,
+  "oldLauncherManifestPreserved": true,
+  "correctionProofManifestPreserved": true,
+  "runStarted": false,
+  "providerCalls": 0
+}

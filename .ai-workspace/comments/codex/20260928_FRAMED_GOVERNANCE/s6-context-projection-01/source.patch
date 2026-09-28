@@ -1,0 +1,159 @@
+--- before/code/src/product/default_library.ts
++++ after/code/src/product/default_library.ts
+@@ -7,7 +7,7 @@
+ import { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
+ import { GOVERNANCE_REQUIREMENT_PROPOSAL_SCHEMA, GOVERNANCE_FULFILLMENT_STATE_SCHEMA, GOVERNANCE_FULFILLMENT_EVIDENCE_SCHEMA,
+   isGovernanceFulfillmentDeclaration, type GovernanceFulfillmentDeclaration, initialGovernanceFulfillment, governanceFulfillmentStateMatches,
+-  deriveGovernanceObligations } from "./default_library_fulfillment.js";
++  deriveGovernanceObligations, governanceFulfillmentActive } from "./default_library_fulfillment.js";
+ export * from "./default_library_fulfillment.js";
+ 
+ import { governanceRef } from "./default_library_identity.js";
+@@ -132,6 +132,87 @@
+   return [task.state.original.taskRef, task.context.observationRef, ...task.state.observations.map(o => o.resultRef),
+     ...(task.state.synthesis === null ? [] : [task.state.synthesis.resultRef])];
+ }
++/** Presentation over the already-bound task. Integrity/authority carriers stay
++ * in that task; this projection neither chooses evidence nor judges adequacy. */
++export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Readonly<Record<string, JsonValue>> {
++  const { state, context } = task, original = state.original;
++  const record = (value: JsonValue | undefined): value is Readonly<Record<string, JsonValue>> =>
++    value !== null && typeof value === "object" && !Array.isArray(value);
++  const sourceTextsInTask = new Set<string>();
++  const sourceText = (entry: Extract<WorksiteContextObservation["entries"][number], { state: "file" }>) => {
++    const bytes = Buffer.from(entry.bytes, "base64");
++    let text: string;
++    try { text = new TextDecoder("utf-8", { fatal: true }).decode(bytes); }
++    catch { return { encoding: "base64", content: entry.bytes }; }
++    // Exact containment only. The actor receives the complete text in this
++    // same prompt, not a locator that would require a forbidden file read.
++    const start = text.length === 0 ? -1 : original.task.indexOf(text);
++    if (start >= 0) sourceTextsInTask.add(text);
++    return start < 0 ? { encoding: "utf8", content: text } :
++      { contentIn: "originalTask", startCharacter: start, endCharacter: start + text.length };
++  };
++  const evidence = state.observations.map(observation => {
++    const value = observation.value;
++    const observed = observation.purpose === "testing" && Array.isArray(value.commandResults)
++      ? { commandResults: value.commandResults.filter(record).map(row => ({ commandId: row.commandId,
++          exitStatus: row.exitStatus, timedOut: row.timedOut, processSignal: row.processSignal,
++          terminationConfirmed: row.terminationConfirmed, stdout: row.stdout, stderr: row.stderr, reports: row.reports })),
++          predicateObservations: value.predicateObservations }
++      : observation.purpose === "uat" && original.fulfillment !== undefined && record(value.fulfillment)
++        ? { ...Object.fromEntries(Object.entries(value).filter(([key]) => key !== "fulfillment")),
++            fulfillment: { obligations: Array.isArray(value.fulfillment.obligations) ? value.fulfillment.obligations.filter(record).map(row =>
++              ({ obligationRef: row.obligationRef, judgment: row.judgment, reason: row.reason, criteria: row.criteria, depth: row.depth })) : [],
++              discoveries: value.fulfillment.discoveries } }
++        : value;
++    const fact = observation.fulfillmentEvidence;
++    return { resultRef: observation.resultRef, purpose: observation.purpose,
++      selectedGraphFunctionRef: observation.selectedGraphFunctionRef, synthesisResultRef: observation.synthesisResultRef,
++      actorInvocationRef: observation.actorInvocationRef, observed,
++      ...(fact === undefined ? {} : { support: { contractRef: fact.contractRef, kind: fact.kind,
++        files: fact.files.map(file => ({ path: file.path, currentAtContext: context.entries.some(e =>
++          e.state === "file" && e.relativePath === file.path && e.digest === file.digest) })),
++        staleDependencies: fact.dependencies.filter(file => !context.entries.some(e => e.state === "file" &&
++          e.relativePath === file.path && e.digest === file.digest)).map(file => file.path),
++        assessmentContractRef: fact.assessmentContractRef, producerResultRef: fact.producerResultRef,
++        producerActorRef: fact.producerActorRef } }) };
++  });
++  const declaration = original.fulfillment;
++  const fulfillment = declaration === undefined ? null : {
++    obligations: governanceFulfillmentActive(declaration, state.fulfillment!).map(active => ({
++      requirementRef: active.binding.requirementRef, obligationRef: active.binding.obligationRef,
++      ...( "meaning" in active ? { admittedMeaning: active.meaning } : {}),
++      sourceRanges: active.term.sourceBindings.map(binding => ({
++        path: declaration.context.members.find(member => member.memberRef === binding.memberRef)!.path,
++        memberRef: binding.memberRef, startByte: binding.startByte, endByte: binding.endByte })),
++      realizationContractRef: active.binding.realizationContractRef, proofContractRef: active.binding.proofContractRef,
++      policy: active.policy === null ? null : { policyRef: active.policy.policyRef, scope: active.policy.scope,
++        realizationMeaning: active.policy.realizationMeaning, proofMeaning: active.policy.proofMeaning,
++        unprovedScope: active.policy.unprovedScope, closureRule: active.policy.closureRule },
++      shape: active.shape === null ? null : { proofShapeRef: active.shape.proofShapeRef,
++        requiredEvidenceRoles: active.shape.requiredEvidenceRoles, sharedBasis: active.shape.sharedBasis,
++        requiredContent: active.shape.requiredContent, nativeCarrierBoundary: active.shape.nativeCarrierBoundary },
++      completeness: active.completeness,
++    })), discoveryClasses: declaration.discoveryClasses,
++    sourceMembers: declaration.context.members.map(member => ({ memberRef: member.memberRef, path: member.path })),
++    coverage: state.fulfillment!.coverage.map(row => ({ obligationRef: row.obligationRef, disposition: row.disposition,
++      gaps: row.gaps, assessmentResultRef: row.assessmentResultRef, supportResultRefs: row.supportResultRefs })),
++  };
++  return deepFreeze({ taskRef: original.taskRef, originalTask: original.task, authorityRefs: original.authorityRefs,
++    protectedSources: original.sources.map(source => source.path), requiredSupportRefs: original.requiredSupportRefs,
++    worksite: { observationRef: context.observationRef, files: context.entries.map(entry => ({ path: entry.relativePath,
++      state: entry.state, ...(entry.state === "file" ? sourceText(entry) : {}) })) },
++    workOrders: Object.fromEntries(Object.entries(original.workOrders).map(([purpose, order]) => [purpose, {
++      outcome: order.outcome, originalTaskApplies: true,
++      instructions: order.instructions.filter(instruction => !sourceTextsInTask.has(instruction)),
++      readFirst: order.readFirst, writeRoots: order.writeRoots, checks: order.checks }])),
++    testing: original.testing,
++    assessment: { sources: original.assessment.sources, candidatePath: original.assessment.candidatePath,
++      rubricPath: original.assessment.rubricPath, resultContract: original.assessment.resultContract,
++      verdictField: original.assessment.verdictField, satisfiedValue: original.assessment.satisfiedValue },
++    fulfillment, observations: evidence, unresolvedSupportRefs: state.unresolvedSupportRefs,
++    priorJudgment: state.synthesis === null ? null : { resultRef: state.synthesis.resultRef, judgment: state.synthesis.judgment },
++  } as unknown as Readonly<Record<string, JsonValue>>);
++}
+ /** One strict binder, shared by raw completion and admission. It transports no
+  * provider edits to original state and stores no previous bound Result body. */
+ export function bindFramedSynthesisResult(task: FramedSynthesisTask, targets: readonly FramedSynthesisTarget[],
+--- before/code/src/abg/instruction_assembly.ts
++++ after/code/src/abg/instruction_assembly.ts
+@@ -1,6 +1,6 @@
+ import { isDeepStrictEqual as sameSynthesis } from "node:util";
+ import { isFramedSynthesisTask, bindFramedSynthesisResult, framedSynthesisResponseSchema, GOVERNANCE_PURPOSES, governanceRef, type FramedSynthesisTarget, type FramedSynthesisBasis,
+-  governanceFulfillmentSelection, governanceFulfillmentContractsMatch } from "../product/default_library.js";
++  governanceFulfillmentSelection, governanceFulfillmentContractsMatch, projectFramedSynthesisPromptTask } from "../product/default_library.js";
+ import { rootCSourcePath } from "../gtl/source_path.js";
+ import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
+ import { modulePublicationSemanticDigest } from "../product/publication.js";
+@@ -358,8 +358,8 @@
+     const boundBasis = synthesisBoundBasis(context), response = framedSynthesisResponseSchema(task, bindings);
+     const runEnvironment = selectorRunEnvironmentIdentity(role);
+     const sections = { role: { role: "selector", frameRefs: role.frameRefs, policy: role.policy, sourceContent: role.sourceContent,
+-      instruction: "Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. Return only the closed response JSON." },
+-      choices, task, evidence: { declaredAccess: role.accessContent }, response } as unknown as Readonly<Record<string, JsonValue>>;
++      instruction: "Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. The task section is an owned judgment projection: originalTask contains the complete original task. File contentIn originalTask and sourceRanges locate exact text already presented in this prompt; no external read is needed. Other file content is supplied directly. Each work order also applies the original task; only exact repeated source text is omitted from its instructions. currentAtContext and staleDependencies describe byte correspondence only, never semantic adequacy. Return only the closed response JSON." },
++      choices, task: projectFramedSynthesisPromptTask(task), evidence: { declaredAccess: role.accessContent }, response } as unknown as Readonly<Record<string, JsonValue>>;
+     const plan = { variant: "framed-synthesis", projectionLocus: context.profile.projection.nodeRef, runEnvironment,
+       rendererRef: governanceRef("renderer", "synthesis"), instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef,
+       sectionOrder: ["role", "choices", "task", "evidence", "response"] };
+@@ -400,7 +400,7 @@
+ export function requireDeclaredNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, input: unknown, contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>): Readonly<NativeInstructionAssembly> {
+   if (framedSynthesisNativeRole(basis.publication, basis.executionBasis.programRef, basis.graphFunction, basis.cCall.programLocusRef) !== null) {
+     const result = evaluateFramedSynthesisInstructionAssembly(basis, input, contractByRef);
+-    if (result.kind !== "native_instruction_assembly") throw new TypeError("framed synthesis requires its declared owned assembly");
++    if (result.kind !== "native_instruction_assembly") throw new TypeError(JSON.stringify(result));
+     return result;
+   }
+   if (registeredSelectionNativeRole(basis.publication, basis.executionBasis.programRef, basis.graphFunction, basis.cCall.programLocusRef) !== null) {
+--- before/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
++++ after/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
+@@ -490,3 +490,27 @@
+ execution, independent assessment and fresh Public reads are required. Mechanical
+ readiness is not native qualification, and S5 evidence is reused only for its
+ unchanged claims.
++
++### Selector context projection (S6 live-01 realization correction)
++
++The selector's full FramedSynthesisTask remains its authoritative input and exact
++input digest; raw response binding and dynamic reference domains are unchanged.
++The existing owned assembly presents a pure judgment projection rather than
++serializing that complete execution carrier. Original task/source/case meaning
++is present once in readable text, alongside the current oracle and worksite
++contents. An exact source text already inside the original task is located there
++within the same prompt; only an identical source block is omitted from repeated
++work-order instructions. Purpose, outcome, read/write/check scope, fixed testing
++commands and assessment subject/rubric remain explicit.
++
++Active obligation meaning, selected completeness/depth/strength rules, discovery
++classes, coverage gaps and current/historical evidence remain visible. Integrity
++carriers, schema asset bytes, duplicated source bindings and complete command
++execution envelopes remain in bound input, not model context. The projection
++keeps actual command streams/status, native reports, assessment findings, Result
++refs, byte-currentness facts and the current prior judgment without reconstructing
++history or semantically choosing relevant work. The 131072-byte case bound still
++applies. A bounded-context refusal retains its already-computed structured cause
++through the existing preparation exception boundary. The affected discriminator
++is the real baseline fold → parent reevaluation → next task → owned assembly,
++plus unchanged dynamic-domain/raw-answer and exact input identity checks.

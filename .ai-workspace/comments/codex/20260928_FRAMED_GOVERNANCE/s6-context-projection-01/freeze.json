@@ -1,0 +1,45 @@
+{
+  "sourceGenerated": {
+    "sha256": "983c8553eed55db0ed8b71cfa9b8b5b3b5d8932bf38ed3170ab67fa50c416559",
+    "bytes": 8068
+  },
+  "proofManifest": {
+    "sha256": "c6ba8c72e5191466346c9b57d513bc7d1c247cb97042072f953b508f8dbff26d",
+    "bytes": 12254
+  },
+  "installedCorrespondence": {
+    "sha256": "8180b7d4d753108d9d52550d39b42e09dc273a21a8923387dc956945484d72c5",
+    "bytes": 1207657
+  },
+  "core": {
+    "sha256": "e49c4cc9d552ebca16c944d197cd9af4685ec8f6d0559c732cf35833f02a5d0d",
+    "bytes": 10337023
+  },
+  "consumer": {
+    "sha256": "2161cfc9e67745bdec0363d4ca5cc724f473a5c7bb4f2bd498d34e32d04f5e60",
+    "bytes": 11780
+  },
+  "readiness": {
+    "sha256": "79a916209d6f0501bd9c7274139469e1f54412e0178c79ba60bdfb009f41a245",
+    "bytes": 2658
+  },
+  "input": {
+    "sha256": "377bae203c2ac43bf0e0339a24ce979998aa4247807c68c2fe383d274a74ee87",
+    "bytes": 84605
+  },
+  "prospectiveContract": {
+    "sha256": "f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+    "bytes": 5656
+  },
+  "checks": {
+    "sha256": "23fec0cb62faa536d95306bcf8bf6d22de5ec21b8a1356a2aa74b7452bee87a9",
+    "bytes": 2670
+  },
+  "net": {
+    "addedLines": 110,
+    "removedLines": 5,
+    "netLines": 105
+  },
+  "providerCalls": 0,
+  "runtimeRunStarted": false
+}

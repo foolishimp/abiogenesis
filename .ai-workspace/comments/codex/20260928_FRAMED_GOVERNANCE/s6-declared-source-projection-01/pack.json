@@ -1,0 +1,12 @@
+{
+  "command": [
+    "npm",
+    "pack",
+    "--ignore-scripts",
+    "--json",
+    "--pack-destination",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01"
+  ],
+  "exitCode": 0,
+  "elapsedMs": 3121.786749921739
+}

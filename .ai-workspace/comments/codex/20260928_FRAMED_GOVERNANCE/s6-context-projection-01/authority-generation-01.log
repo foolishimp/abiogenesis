@@ -1,0 +1,32 @@
+{
+  "kind": "qualification_asset_generation",
+  "claim": "immutable definitions only; semantic fidelity, applicability and execution sufficiency remain unevaluated",
+  "sources": 95,
+  "rules": 2137,
+  "coverageClaims": 16,
+  "behavioralCoverage": 66,
+  "absentProductMechanismsClaimed": 0,
+  "inputDigest": "sha256:9fd080d2f21cdbfda19ae2bd1f46104d2c6c6158d5f6e5c4c79c5b243dfaa5eb",
+  "outputs": [
+    {
+      "path": "contracts/qualification/rule-catalog.json",
+      "sha256": "sha256:e9aa4d0a863050f17ca8ed89b1911ae237df08ce1727ee24e3016f2f7297f5c4",
+      "bytes": 1796651
+    },
+    {
+      "path": "contracts/qualification/law-basis.json",
+      "sha256": "sha256:578fb695296f9939ba1dfdc6ac0c4ab17bd067845e657ec4b61615795244cc06",
+      "bytes": 28470
+    },
+    {
+      "path": "contracts/qualification/coverage.json",
+      "sha256": "sha256:c7c45a998036c1cf1858701f00a5ed62ef7b3b957194dedfb18caedfaba5be4b",
+      "bytes": 11476
+    },
+    {
+      "path": "contracts/schemas/self-conformance.schema.json",
+      "sha256": "sha256:916a087f4b3c6490c9f5ea649cb91012be7769c18f05cf306c1c04409afcd48a",
+      "bytes": 605420
+    }
+  ]
+}

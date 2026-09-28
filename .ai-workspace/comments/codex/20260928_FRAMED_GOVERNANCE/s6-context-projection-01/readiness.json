@@ -1,0 +1,61 @@
+{
+  "ready": true,
+  "launchAuthorized": false,
+  "providerCalls": 0,
+  "setupMs": 23237.964375,
+  "accounting": {
+    "wallMs": {
+      "provisioning_pack": 3145.163042,
+      "provisioning_extract": 508.2291250000003,
+      "bootstrap_owner_loading_and_candidate_preparation": 401.1142500000001,
+      "provisioning_verify_artifact": 11745.159333,
+      "provisioning_install": 2569.198875,
+      "provisioning_installed_content_check": 489.87887500000215,
+      "provisioning_additional_products": 1426.4604160000017,
+      "installed_owner_loading": 220.07308300000295,
+      "environment_install_and_workspace_admission": 551.7044999999998,
+      "execution_preparation_publication_program_and_catalog": 367.98558400000184
+    },
+    "volumes": {
+      "archiveBytes": 10337023,
+      "archiveUnpackedBytes": 67628684,
+      "archiveMemberCount": 5254,
+      "installedTreeBytes": null
+    }
+  },
+  "sourceCaseSha256": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+  "inputSha256": "sha256:b99defdc9a3f82fd350b95400be1f3b45858860d4f87ec28d2de028b72c52c2d",
+  "publicCallBytes": 17683373,
+  "contextBytes": 11862,
+  "initialFiles": 6,
+  "absentAssets": [
+    "specification/project-conformance.md",
+    "design/implementation-design.md",
+    "design/test-design.md",
+    "test-execution-plan.json"
+  ],
+  "initialObligations": 7,
+  "schemaInstalled": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection/contracts/assessment.schema.json",
+  "worksite": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl/workspace",
+  "callableMembership": [
+    "graph-function://abiogenesis/default-library/construction@5",
+    "graph-function://abiogenesis/default-library/design@5",
+    "graph-function://abiogenesis/default-library/specification@5",
+    "graph-function://abiogenesis/default-library/testing@5",
+    "graph-function://abiogenesis/default-library/uat@5",
+    "graph-function://abiogenesis/worksite/command-execution@5",
+    "graph-function://abiogenesis/worksite/native-work/assessment@5",
+    "graph-function://abiogenesis/worksite/native-work@5",
+    "graph-function://default-library-witness/executive-step@5",
+    "graph-function://default-library-witness/executive@5"
+  ],
+  "checks": [
+    "actual core/consumer verify/install/catalog",
+    "imported exact pair contract owners",
+    "Program profile selection",
+    "exact original source/span binding",
+    "four assets absent",
+    "installed immutable schema equals input",
+    "prepared Public start only; no run or actor"
+  ]
+}

@@ -26,7 +26,7 @@ generation or revival of the withdrawn odd_glc planner is selected.
 | S3 | Native F_P Executive with bounded frame/catalogue context | Accepted bounded native evidence and reviewed RS-N01 source correction; installed successor is S4 |
 | S4 | Changed registered choice and recursive result/foldback | Accepted first installed attempt after independent review; no production change |
 | S5 | Reused default induction/specification/design/testing/UAT declarations | Accepted bounded library implementation and installed supplied/faulty pair; full lifecycle authorship remains S6 |
-| S6 | Installed consumer-authored Hello, correction, assessment and Public readback | Minimal complete lifecycle/requirement-proof fixture planning selected |
+| S6 | Installed consumer-authored Hello, correction, assessment and Public readback | Live-02 retained actual correction and four authored assets; selector source-role projection repair selected after a second context overflow; full outcome remains open |
 | S7 | Remaining Product qualification and exact RC lifecycle | Pending selected obligations |
 
 ## S1 Worker grant: T287_REGISTERED_SELECTION_DESIGN_01
@@ -1407,3 +1407,456 @@ contract, and current execution/T-287/GOALS tracking. Preserve unrelated dirty
 paths and scratch, ignored local installs and the not-yet-returned S6 plan.
 No release tag/version, rebuild or further test is needed for this checkpoint.
 Root then resumes Executive on the already-selected S6 plan.
+
+## S6 admitted fulfillment relation
+
+Checkpoint `b8bffae0654b83804ecd0e76aee263be98283805` is pushed and matches
+`origin/main`. Root accepts the constructibility finding in
+`s6-lifecycle-plan.md` (`aab226154cad709ce51750943904147071da010c66448cb19d43cb53eaef4d8d`):
+the proved library path does not yet connect its observations to admitted
+requirement/proof pairing and coverage-gated completion. Existing semantic-job
+and generic requirement-handoff projections explicitly remain non-closing.
+This is an unfulfilled existing S6 relation, not evidence for a new calculus,
+mandatory stage pipeline, or stronger assurance policy.
+
+Select `T287_S6_CARRY_THROUGH_HOW_01`, bounded `design_reframe` at the library
+HOW, for the same Astra/xhigh Worker. Write only
+`default-library-fulfillment-plan.md`. Reuse `GtlContractFulfillmentBinding`,
+existing native/C2/assessment evidence and existing ABG admission/projection
+owners. Distinguish authored semantic judgments from computed identity, role,
+currentness and declared-policy completeness. Define the smallest explicit
+consumer declaration and current admitted evidence relation needed for S6, plus
+its exact parent-consumption rule. Keep the original outcome and newly admitted
+obligations conserved; missing support stays open. Do not impose semantic-job
+root/stage-count machinery on the unordered library, or add a second obligation
+ledger, planner, interpreter, semantic F_D inference or per-handoff history scan.
+
+Identify precisely which existing functions can be reused/extracted, the minimal
+missing functions and raw-versus-trusted boundaries, and the finite positive/
+negative joins that discriminate the proposal before one real lifecycle case.
+Depth/strength requirements are implemented only under their selected declared
+policy, never invented by the adapter. Source schemas that cannot express a
+required relation are reported explicitly rather than smuggled into prose or a
+generic satisfied flag. Existing S5 acceptance remains unchanged. Keep the
+prospective case's fixed commands and same-lineage revision; preserve source and
+oracle. No implementation, tests, build, provider, Product edit or Git is granted.
+Return one compact HOW for the existing max Reviewer before code activation.
+Root separately records this selection and current ticket/goal tracking as Writer,
+then returns to Executive.
+
+## S6 fulfillment HOW review
+
+Select the existing Astra/max Reviewer for
+`T287_S6_CARRY_THROUGH_HOW_REVIEW_01` against
+`default-library-fulfillment-plan.md`, SHA-256
+`4c41f80459da086e5a4f75e5db3efe652a123eee1ac9e4020aac1cdb06403c59`.
+Same Product/Owner, End-To-End Interface Integration and Reuse frame; reconstruct
+the S06 and F_D/F_P boundary from the already selected Product authority. Write
+only `default-library-fulfillment-review.md`; keep the closed S5 review unchanged.
+Judge exact constructibility through existing carriers/owners, conservation and
+invalidation, semantic judgment versus computed correspondence, and whether the
+proposal introduces a duplicate runtime or an unselected assurance rule. Check
+immutable installed consumer schema versus runtime obligation/evidence domains,
+including proposed additions, and the exact coverage-to-parent relation. Distinguish
+a required local clarification from a new capability/policy decision. No code,
+tests/build, native execution, Git, broad review or general optimization survey.
+Return one scoped disposition and concrete conditions for a bounded Worker grant;
+S5 remains accepted and no S6 implementation is yet selected. Root records this
+review grant as Writer and returns to Executive.
+
+## S6 fulfillment implementation
+
+Root accepts `default-library-fulfillment-plan.md`
+(`4c41f80459da086e5a4f75e5db3efe652a123eee1ac9e4020aac1cdb06403c59`)
+with all five conditions of `default-library-fulfillment-review.md`
+(`8dadfef5f9a39f428d4a0684050a8a41599903dc684fccb8969305cc4db10f49`).
+Select `T287_S6_CARRY_THROUGH_IMPLEMENT_01`, same Astra/xhigh Worker and
+Product/Owner, Reuse/Foundation and End-To-End Interface Integration frames.
+Promote the corrected relation into the existing tenant library HOW, preserving
+the proposal/review as history. The installed assessment schema stays structural
+and immutable; runtime domains are owned context and binder inputs. Integrity
+identities and the current assessment's provenance come from admitted facts,
+never a model-generated hash or a reference to its future Result. Preserve
+additions on selected and gap paths, role/currentness/independence distinctions,
+and policy-subordinate coverage before parent completion.
+
+Permitted source is the existing default-library Product/GTL/ABG/implementation
+wiring and owned assembly/profile seams; the small shared quote/structural
+relations named in the HOW; corresponding schemas, manifests and exact source
+bindings; and affected consumer fixtures/checks. No unrelated semantic-job
+redesign, Product change, new runtime/ledger/planner, mandatory lifecycle order,
+unbounded policy interpreter or historical reauthentication is selected.
+Use actual already-admitted owner facts and preserve the non-profile S5 path.
+
+Implement and self-check one coherent candidate with the finite actual joins
+and refusal/gap discriminators in the accepted HOW/review. Include unchanged
+schema with later obligations/Results, real retained assessment provenance,
+source-role/currentness/coverage conservation and actual exported-hook/child/fold/
+parent correspondence. Reuse unaffected S2–S5 evidence; no broad campaign.
+Freeze the exact source/output and report the candidate with the prospective S6
+consumer declaration. Root separately writes `s6-witness-contract.md` from the
+unchanged original source/oracle and accepted case scope before any native work.
+The current implementation grant reaches mechanical readiness, then returns
+the exact installed-join and fixture basis for the first native launch selection.
+It grants no automatic paid retry, application patch outside HoG, oracle change,
+timer/heap/model increase, release or Git effect. A missing owner fact or material
+scope mismatch returns immediately rather than acquiring extra machinery.
+Root's Writer records this grant and current tracking, then resumes Executive.
+
+The Root-authored prospective `s6-witness-contract.md` fixes the complete case
+before native work. Existing max Reviewer is selected for
+`T287_S6_CARRY_THROUGH_IMPLEMENTATION_REVIEW_01`: first inspect that case and
+the source/oracle correspondence while implementation proceeds; then wait for
+the Worker's exact source/output/consumer freeze, and finally the closed installed
+outcome if launch is selected. Write only
+`default-library-fulfillment-implementation/review.md`, leaving prior reviews
+unchanged. Reuse the closed HOW judgment with its five conditions; review exact
+changed joins and actual evidence, with no duplicate broad investigation, tests,
+providers, source edits or Git. Send actionable findings promptly. Root's Writer
+records this bounded overlapping evaluation, then returns to Executive.
+
+## S6 frozen mechanical readiness
+
+Root consumes the closed Worker return `s6-fulfillment-implementation/return.md`
+(`9ea519b0475540d3cd19cd623a7ca25aa9e238d3ba3527869a16251a35204698`).
+Freeze `3bfda7ac23bd8fd7ad5274d0875c3c13bdbf6033805370665055749e04e2d8e8`
+binds core `64712d9e3f480236f3a90f7c3c124eb8140ffee5ba426dafc1c7d02767008d4d`
+and consumer `f70349590488054f940e818628d0009c950dde6d91e513d27c6b934a54636b98`.
+Four focused S6 checks and actual verify/install/catalog/imported-owner/schema/
+Public-start preparation pass; all 5,261 regular archive members match their
+installations. The return discloses the two corrected fixture failures and the
+initial typing correction. Component premises remain explicit; native adequacy,
+effects, complete traversal and fresh Run reads remain unproved.
+
+The existing max implementation Reviewer resumes on this exact source/output/
+consumer freeze, reusing its accepted case and HOW judgments. No additional
+review cycle or tests are selected. Source is held, no Run or provider has
+started, and the existing prepared installation is retained for launch selection
+after the readiness disposition. Setup is 23.20 s, including 11.73 s artifact
+verification of 67,579,508 unpacked bytes in 5,254 core members; it is separately
+accounted from future HoG/native work. Root separately enters Writer to project
+this closed return and pending review into T-287 and GOALS, then resumes Executive.
+
+Concurrently select the same xhigh Worker for `T287_S6_LIVE01_PREPARE_01`:
+prepare one launcher/readback under `s6-fulfillment-implementation/live-01/`
+using the frozen prepared request, exact installed CLI, original handoff and
+existing proof helpers. Record pinned Opus5.5/xhigh and actual supervision
+controls. No source, frozen case/input/schema, install, Run or provider change;
+no speculative calls. Return launch readiness and await explicit Executive
+dispatch selection after review. Preserve the expected baseline failure and
+ordinary declared correction; stop on the first unexpected failure. This is
+preparation for the selected S6 case, not another qualification campaign.
+
+Root accepts source/mechanical readiness by conjoining the closed Worker return
+above with `default-library-fulfillment-implementation/review.md`
+(`ed37bb3015c9a270b488247bd898abfb01d9b1ac4eb3fc2b3fdba322e65e7dca`).
+No supported blocker remains for one native attempt on this exact subject.
+Complete S6 remains open. The pending launch preparation must retain the actual
+controls and reuse this installation; its readiness return precedes dispatch.
+
+## S6 live-01 execution
+
+Root conjoins accepted frozen readiness with launcher return
+`s6-fulfillment-implementation/live-01/return.md`
+(`ef4b22d0736d4eb1b39fb1f853b413665699e0b3efca10b4a2b45bc2d3ea5b13`),
+manifest `f1da19fd49122aea10855763e5382121f522b7c1c7d2b029598681f90ba07f73`.
+Select `T287_S6_LIVE01_EXECUTE_01`, same xhigh Worker: one existing prepared
+Public start via `live-01/launch.mjs --dispatch-once`, then both fresh Public
+reads via its readback helper. Reuse the exact frozen core, consumer, request,
+workspace and close handoff. HoG owns work choice, expected baseline failure
+and declared correction. The independently authored case remains unchanged.
+
+The pinned Claude 2.1.280 binary and explicit Opus5.5/xhigh arguments are those
+verified in the launcher return. Inherited startup/inactivity leases are 60 s,
+actor hard cap 3,600 s, command bounds 20 s, recursion twelve. These are existing
+supervision limits, not an expected elapsed time; no timeout/heap/model/budget
+override is introduced. Separate setup, native intervals, framework work and
+readback. Investigate unexplained individual deterministic intervals over 10 s
+by their actual work/volume, without a blanket benchmark or invented latency law.
+
+Retain actual prompts, raw responses, events, effects, obligations/coverage,
+independence and exact Result/readback correspondence. No source or application
+patch outside the admitted work, repack/install, oracle/input change, fallback,
+answer repair, automatic paid retry, release or Git effect. Stop and return the
+first unexpected provider/runtime/contract failure with its causal evidence.
+The same max Reviewer evaluates the closed installed return afterward; readiness
+does not preaccept the outcome. Root's Writer projects this selection to T-287
+and GOALS, then resumes Executive.
+
+### S7 preparation dependency
+
+Root's read-only comparison of the 87 repository rows in the existing qualification
+authority-input manifest finds eleven frozen source copies older than current
+source: INTENT, PRODUCT, requirements README, CONTINUATION, CONTEXT,
+LANGUAGE-CAPABILITY-MODEL, SELECTION-BOUNDARY, MAPPING, POLICY, QUAL and SCENARIOS.
+Before final-candidate qualification, use the existing explicit authority-staging
+and manifest owners to refresh the derived bindings and cover the current source
+set. The accepted 09-23 authority-refresh return supplies the reusable owner route,
+not current qualification credit. This observation authorizes no mutation of the
+frozen S6 candidate or current live Run. Preserve S6 evidence and explicitly assess
+its applicability to the eventual exact release subject; do not relabel its archive.
+
+## S6 live-01 disposition and context projection repair
+
+The closed failed `live-01/run-return.md`
+(`293d2bc5b1ac47efa3ef711bdd0420446b02734a0ba57ba785c18c8871b7aa15`)
+and run freeze `073ec0b9038a48feb531c843b756ffabb54f4214a8b38cea8dccbbb34130ceb1`
+retain the first attempt unchanged. Baseline C2 Result 1703, library fold 1733
+and unmet parent evaluation 1774 succeeded. First rejection is selector assembly
+at 1807; 1809 admits its failure and 1815 reports the downstream foldback mismatch.
+The exact retained successor render is 133,945 bytes against the unchanged
+131,072 bound. Whole task serialization repeats five case bodies (28,760 JSON
+bytes), full declaration/schema carriers and source context. This is a bounded
+context-projection realization defect under the already accepted calculus/HOW.
+No new Product law or larger limit is selected. Result absence and failed replay
+are truthful; there is no completed S6 outcome. Execution took 76.772 s, native
+67.764 s, other runtime work 9.008 s; largest adjacent non-actor interval 0.924 s.
+
+Select `T287_S6_CONTEXT_PROJECTION_01`, same xhigh Worker, local
+`realization_refactor` at the existing selector-owned assembly projection under
+Product/Owner, Reuse/Foundation and End-To-End Interface Integration. Preserve
+the complete authoritative task/state, identities, raw response/domain contract
+and 131,072-byte limit. Present needed source/case/oracle meaning once in a form
+the actor can consume, declared capability purposes/effects, active original/new
+obligations and gaps, applicable evidence and compact prior judgment. Project
+existing typed facts; do not semantically summarize away constraints, replace
+required content by unresolved refs, serialize whole carriers or add a planner.
+Correct the recurrence, not merely this 2,873-byte overflow.
+
+Permitted writes: existing selector/default-library projection and assembly
+owners, a local HOW clarification, exact generated/source bindings, and focused
+checks/evidence under `s6-context-projection-01/`. Reuse live-01's actual first
+and successor tasks through the owned assembly, including the previously omitted
+baseline fold → parent → successor task → render join. Demonstrate bounded
+presentation and preserved required material/domains; retain source/ref refusal
+and exact input identity. If the existing boundary already exposes the actual
+refusal cause, preserve it in the current diagnostic rather than inventing another
+error framework; otherwise record the precise remaining limitation.
+
+Self-check, build and freeze one coherent correction for the same max Reviewer.
+No provider, automatic retry, timer/heap/model change, application/fixture-contract
+edit, new lifecycle controller or broader audit is granted. Old source/archive/
+Run/proof and launcher-readiness records remain immutable. Root's Writer projects
+this triage and next task to T-287, then resumes Executive.
+
+The correction freeze includes one exact successor pack/install and mechanical
+readiness for the unchanged S6 case through the established preparation route.
+Preserve the old install/Run and consumer semantics; native launch remains held.
+
+If this successor is not yet packed/frozen, include the S7 dependency above in
+the same candidate: existing explicit qualification authority staging against
+current originals and selected immutable STDO, then the normal manifest owner.
+Only derived copies/bindings change; verify exact source joins and record delta.
+No authority originals, qualification semantics or roster change is selected.
+If already frozen, return that fact rather than repeating preparation silently.
+
+## S6 context correction readiness review
+
+Worker return `s6-context-projection-01/return.md`
+(`4e238f9b07de82f077649c8b784d3299bb494009072405cbdb4ce73b5a028fb1`) closes
+the correction at freeze `f5644b465e62ecf98de2d9c8392de17495d658197dae05cbbfb51e0b14945d3f`.
+Core `e49c4cc9d552ebca16c944d197cd9af4685ec8f6d0559c732cf35833f02a5d0d`,
+consumer `2161cfc9e67745bdec0363d4ca5cc724f473a5c7bb4f2bd498d34e32d04f5e60`:
+all 5,261 archive/install members match; the case/input/schema/policy is unchanged.
+Actual first/successor prompts are 53,943/69,332 bytes under the same bound.
+Fifteen local checks pass; native remains skipped. The recorded projection
+removes full carriers while conserving meaning, current streams and the replaced
+prior judgment. The actual retained baseline/fold/parent/next-task assembly joins.
+The eleven stale qualification copies and their derived bindings were refreshed
+by existing owners, with all 95 source joins and unchanged coverage roster.
+
+Select `T287_S6_CONTEXT_PROJECTION_REVIEW_01` for the same max Reviewer, writing
+only `s6-context-projection-01/review.md`. Preserve prior review bytes. Judge the
+failure/correction correspondence, exact affected source/output/consumer and
+authority-copy identities, and conservation of necessary judgment material,
+input identities and refusal. Reuse the accepted case/HOW/fulfillment findings;
+no broad review, tests, provider or Git. Return one readiness disposition for a
+single native successor attempt; no live completion is preaccepted. Root records
+this closed return/pending review as Writer, then resumes Executive.
+
+In parallel, the same xhigh Worker may rebind the accepted one-run launcher and
+cold readback to this successor's already-prepared coordinates in
+`s6-context-projection-01/live-02/`. Reuse launcher logic and inherited controls;
+record only the binding delta and readiness. No Run/provider until explicit
+dispatch selection after review, and no new source, pack or install.
+
+## S6 live-02 execution
+
+At 2026-09-28T21:25:52Z, Root accepts bounded correction readiness by conjoining
+the closed correction return above with `s6-context-projection-01/review.md`
+(`92844f60be670314b70f9552f68093fca059bdd4642f99aedf2e8e45d499b839`) and
+launcher return `s6-context-projection-01/live-02/return.md`
+(`7b4cbeca1ba907602b86484ca9dcdf19f0292b20c0fe800c0c00bae046ae19c5`).
+Their identities are unchanged. The Reviewer finds no blocking correction;
+live-01 remains failed and complete S6 remains unaccepted.
+
+Select `T287_S6_LIVE02_EXECUTE_01`, same xhigh Worker: execute exactly one
+prepared successor Public start through
+`s6-context-projection-01/live-02/launch.mjs --dispatch-once`, followed by its
+two fresh Public reads. Core `e49c4cc9d552ebca16c944d197cd9af4685ec8f6d0559c732cf35833f02a5d0d`
+and consumer `2161cfc9e67745bdec0363d4ca5cc724f473a5c7bb4f2bd498d34e32d04f5e60`
+remain frozen. Use the already-prepared installation, request and handoff. The
+case, input, policy, schema, pinned Opus5.5/xhigh and inherited controls remain
+unchanged. No source/application repair outside admitted work, repack, install,
+fallback, automatic paid retry, oracle edit, release or Git effect is selected.
+
+HoG owns graph choice and the expected baseline failure/correction progression.
+Stop at the first unexpected failure and retain its original causal evidence.
+Preserve prompts, raw actors, admitted chain, actual effects, obligations,
+coverage, independent assessment and result/replay correspondence. Report setup,
+native work, framework intervals and readback separately; explain any individual
+deterministic interval over 10 seconds by actual work and volume. Preserve all
+previous records and launcher readiness; write the closed outcome separately
+as `live-02/run-return.md`. The same max Reviewer assesses that closed outcome
+before S6 acceptance. Root separately enters Writer for this grant and its T-287
+projection, then returns to Executive.
+
+## S6 live-02 disposition and declared source projection
+
+Root consumes closed `s6-context-projection-01/live-02/run-return.md`
+(`e96a804b3d5893eea57d1547efb2390ea1e510ae8071e518c0370494a2d6bc35`),
+run freeze `e2e7bfba82e73dcde2ecbdace8f2600d7f87d8f8f3b391cf692ff27d14c0c631`.
+Five actual selections were Testing, Construction, Testing, Specification and
+Design. CLI correction and passing measurements are retained, together with
+60,652 bytes of four freshly authored assets. Seven obligations remain unmet;
+there is no independent UAT, eligible coverage, terminal Result or Run closure.
+First refusal is event 21858, `declared_bound_overflow`: the post-Design selector
+prompt is 152,346 bytes. Failure Result 21860 and foldback diagnostic 21866 are
+downstream. Both cold reads are truthful. Runtime 945.380 s includes 905.906 s
+of native work; largest adjacent non-native interval is 1.307 s. The 81,386,224-
+byte log and 39.474 s aggregate other execution remain recorded cost observations,
+not an isolated attribution or new performance gate.
+
+The prior projection repair is incomplete for growing authored material. Of the
+46,233-byte post-Design increase, 38,922 bytes are file-body projection and 7,008
+are the Design observation/report. No new obligations or recursively nested
+state caused it. Existing `GovernanceOriginal.sources` and fulfillment source
+declarations distinguish authority from the broader observed workspace. This
+is the existing frame/context calculus applied at its role-specific projection;
+no Product extension or increased bound is selected.
+
+Select `T287_S6_DECLARED_SOURCE_PROJECTION_01`, same xhigh Worker, local
+`realization_refactor` with a subordinate HOW clarification at the existing
+`product/default_library.ts` presentation owner. Present original task and
+declared authority/case/oracle/fulfillment source content in consumable form;
+present other output files as exact observed inventory/currentness and retain
+their admitted observations and qualification limits. Source selection follows
+existing declarations and identities, never filename heuristics or semantic
+classification in F_D. Do not substitute unresolved refs for required content:
+the selector has no reading tools. Full authoritative task/state, source/input
+identity, raw response/domain, evidence and the existing prompt limit remain.
+Native work and independent assessment retain the complete material their
+declared responsibilities require; inventory presence cannot certify adequacy.
+
+Permitted writes are this existing presentation owner, its HOW, focused proof
+and normal derived outputs under `s6-declared-source-projection-01/`. Exercise
+the actual retained authored-file fold -> parent -> current context -> next
+selector join, with unchanged response domains and source/ref refusal. Cover
+an observed output separately from an explicitly declared source with the same
+bytes, and inspect the existing assessment preparation on the actual expanded
+subject to show the required bodies remain available. Controlled preparation
+premises are not native UAT or admitted choices. Reuse unaffected proof. Perform
+one coherent build/package freeze for the same max Reviewer; no provider,
+new installation, case/input/policy/model/timer/heap/bound change or Git effect.
+
+One bounded read of the existing recovery/reprice owner may establish whether
+the progressed parent/task can lawfully continue with repaired authority while
+retaining live-02's work. Return an exact supported route or its missing join;
+do not add a recovery adapter, transfer raw Results into fresh history, alter
+the old install or broaden this repair. Native verification selection follows
+the closed correction and this concrete boundary. Root records this disposition
+and T-287 projection as Writer, then resumes Executive.
+
+Select the same max Reviewer for `T287_S6_DECLARED_SOURCE_REVIEW_01`, one
+bounded checkpoint spanning the closed live-02 cause/provenance and the coming
+source-role correction freeze. Write only
+`s6-declared-source-projection-01/review.md`; preserve earlier reviews. Reuse
+accepted source/install/mechanics evidence where unchanged. Check the exact
+failed expanding-asset relation, declared authority/content versus output
+inventory, unchanged authoritative state and raw domains, retained assessment
+material, and the actual corrected owner join. A metadata projection must not
+claim unseen output adequacy or hide required authority. No provider, tests,
+broad scan, source repair, repeated unaffected inventory campaign or Git.
+Return readiness only after the closed Worker freeze is supplied; wait for that
+event without polling. Actual successor native outcome remains separate.
+
+## S6 declared-source correction readiness and verification selection
+
+Root consumes closed `s6-declared-source-projection-01/return.md`
+(`1bdfd4425419d8c117b8883dbdcf274049c40bf496f49101cd9b951e02207838`),
+freeze `e3b9e8d1945ebe6e30a7c15fa35a3c8c2fbd4f23dc9682ca1d592eb73628d60b`,
+core `08d95ee6fc816e413f8f6deaf43c1f106d1c202c942eead9af47bb962cd30110`.
+The actual expanded selector renders at 91,719 bytes under its unchanged
+131,072 bound. Prospective independent UAT retains all ten files/72,515 bytes
+through its actual owned render at 174,928 bytes; the separate native-work
+lane's existing bounds are unchanged. Fifteen focused tests pass. Exact source,
+generated and package correspondence is frozen; independent review is pending.
+
+The Reviewer's bounded scope judgment distinguishes recovery from new
+verification. CONTINUATION-015 forbids repeating successful producers solely to
+recreate live-02's progressed input; completing that lineage requires its
+unproved recovery/reprice join. CONTINUATION purpose, -003/-004 and -012 do not
+prohibit a separately selected new qualification instance of changed candidate
+bytes. Root selects that new verification instance under the unchanged
+independent S6 case. It does not resume or close live-02, import its Results,
+discard its assets, or qualify the missing cross-authority library recovery.
+That limitation remains an explicit existing-requirement coverage question in
+T-287, not a waiver or a new adapter implementation in this correction.
+
+Select `T287_S6_LIVE03_PREPARE_01`, same xhigh Worker: bind one fresh case and
+the unchanged consumer semantics to this frozen archive through the established
+preparation owners. Use a new disposable workspace with the exact six initial
+files and four absent assets; preserve all earlier workspaces and evidence.
+Rebind only dependency/derived identities; reuse the launcher/readback logic and
+pinned Opus5.5/xhigh controls. Write preparation and launcher readiness under
+`s6-declared-source-projection-01/installed-live-03/`; record exact input/case/
+schema/policy and archive/install correspondence plus separate setup timings.
+No core source/HOW, case/oracle, timer/heap/prompt bound or Git changes. One
+consumer package and installation are selected; no Run/provider until the closed
+correction review and explicit Root dispatch. Return readiness; no automatic
+retry. Root records this selection as Writer and resumes Executive.
+
+Root accepts bounded source/package correction readiness by conjoining the
+closed Worker return with `s6-declared-source-projection-01/review.md`
+(`cb38eb43c7af30915969be6ab1fd4c663eb49a715ed4eef46c47b01273529919`).
+No blocking correction finding remains. The judgment also independently
+confirms live-02's cause/provenance and the distinct new-verification scope.
+Installation/launcher readiness and explicit dispatch are still separate;
+complete S6 and the live-02 recovery relation remain open.
+
+## S6 live-03 execution
+
+At 2026-09-28T22:18:08Z, Root conjoins accepted correction readiness with
+`s6-declared-source-projection-01/installed-live-03/return.md`
+(`85c1deed2341aeef4ab0d519f1ce3b4e4d3f092413e6ea3456a40751451954ce`),
+readiness freeze `ec4372708d7ccf23e16c8c97dd45f263931addd2702f7ad26fbe411a9bd680d2`.
+Core `08d95ee6fc816e413f8f6deaf43c1f106d1c202c942eead9af47bb962cd30110`
+and consumer `5b27fb85a2c2153819b1c273c5f2a8816974af3d9eca3865f3519cec4f1e7a99`
+match all 5,261 installed members. Original case/input/schema/policy and controls
+are unchanged; the six-file initial case has four absent assets.
+
+Select `T287_S6_LIVE03_EXECUTE_01`, same xhigh Worker: execute the prepared
+`installed-live-03/launch.mjs --dispatch-once` exactly once and retain both
+fresh Public reads. This is the newly selected whole-witness verification
+of changed candidate bytes, not live-02 continuation or recovery credit.
+HoG owns graph choices and expected baseline/correction progression. Preserve
+raw prompts/responses, events, effects, fulfillment/independence and causal
+readback; stop at the first unexpected failure. No source/case/oracle/control
+change, repack/install, fallback, automatic paid retry, release or Git effect.
+Retain readiness unchanged and close separately in `run-return.md`. Account
+native, framework and fresh-read costs separately from the 19.769 s setup
+and 0.534 s extraction. One bounded liveness observation is permitted if the
+call remains outstanding at ten minutes, using an existing tail/process owner,
+not a repeated full-history scan. The same max Reviewer assesses the closed
+outcome; no complete S6 result is preaccepted. Root records this selection as
+Writer and resumes Executive.
+
+### Reviewed-source checkpoint
+
+Root separately enters Writer to commit and push the reviewed S6 fulfillment
+and context corrections, their normal derived bindings, current tracking and
+closed evidence. This is a source/evidence checkpoint, not S6 acceptance or
+release publication. Exclude the active `installed-live-03/` evidence until its
+closed return, and preserve unrelated historical untracked files and symlinks.
+Use ordinary non-forced main publication under the owner's continuing
+commit/push authorization, then verify the remote commit and return to Executive.

@@ -1,0 +1,75 @@
+{
+  "stage": "sixth-selector-owned-preparation",
+  "firstRejectedEvent": {
+    "ordinal": 21858,
+    "eventId": "event://abiogenesis/ebe8572cf5d606d638b44e4adb3d3c0d72945c6736a209312d63d4ffb20945fc",
+    "kind": "c_call_evidenced",
+    "eventTime": "2026-09-28T21:42:46.103Z",
+    "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+    "cCallRef": "c-call:sha256:eef9ee5db4b221c4f16e8a7eb7681dd4e37f52179b540c516684608c8a99cf80",
+    "resultRef": null,
+    "contractRef": "contract://abiogenesis/default-library/evidence@5"
+  },
+  "diagnostic": {
+    "diagnosticClassRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/thrown@5",
+    "errorClass": "TypeError",
+    "errorCode": null,
+    "message": "{\"kind\":\"native_instruction_assembly_refusal\",\"cause\":\"declared_bound_overflow\",\"policy\":null,\"role\":\"selector\",\"unresolvedRefs\":[\"result://abiogenesis/0eed15697102184d4156654c402f8fa0a7af260e07f36fa8a78aa32db778819c\"]}",
+    "messageTruncated": false,
+    "reason": "thrown",
+    "stack": "TypeError: {\"kind\":\"native_instruction_assembly_refusal\",\"cause\":\"declared_bound_overflow\",\"policy\":null,\"role\":\"selector\",\"unresolvedRefs\":[\"result://abiogenesis/0eed15697102184d4156654c402f8fa0a7af260e07f36fa8a78aa32db778819c\"]}\n    at requireDeclaredNativeInstructionAssembly (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js:388:19)\n    at prepareInstructionAssembly (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/actor_process.js:406:23)\n    at selectGovernanceWork (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:49:22)\n    at invokeLeafOwnerBoundary (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:462:32)",
+    "stackTruncated": false,
+    "stage": "preparation"
+  },
+  "cause": {
+    "kind": "native_instruction_assembly_refusal",
+    "cause": "declared_bound_overflow",
+    "policy": null,
+    "role": "selector",
+    "unresolvedRefs": [
+      "result://abiogenesis/0eed15697102184d4156654c402f8fa0a7af260e07f36fa8a78aa32db778819c"
+    ]
+  },
+  "inputDigest": "sha256:f86ebda5c631626f41dc276818fed0007252225de1f4f2f5977421950c5f6cc5",
+  "inputContractRef": "contract://abiogenesis/default-library/selection-task@5",
+  "outputContractRef": "contract://abiogenesis/default-library/synthesis@5",
+  "failedTask": {
+    "ordinal": 21845,
+    "eventId": "event://abiogenesis/b0a0ddccce47115ececa456097d8f0f850a6b78521d26e5ca5e81a8d7b6e4aee",
+    "kind": "c_call_result_admitted",
+    "eventTime": "2026-09-28T21:42:45.681Z",
+    "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+    "cCallRef": "c-call:sha256:293fddbb195d96a524d866c2c9bf1e192422b6551984bb3fd1253c0d25017628",
+    "resultRef": "result://abiogenesis/0eed15697102184d4156654c402f8fa0a7af260e07f36fa8a78aa32db778819c",
+    "contractRef": "contract://abiogenesis/default-library/selection-task@5"
+  },
+  "projectedPromptBytes": 152346,
+  "declaredBound": 131072,
+  "downstreamFailureResults": [
+    {
+      "ordinal": 21860,
+      "eventId": "event://abiogenesis/bae397f2f172076c0511caafdf2635ae22c7b2652d4600798ed7a7830134e445",
+      "kind": "c_call_result_admitted",
+      "eventTime": "2026-09-28T21:42:46.106Z",
+      "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+      "cCallRef": "c-call:sha256:eef9ee5db4b221c4f16e8a7eb7681dd4e37f52179b540c516684608c8a99cf80",
+      "resultRef": "result://abiogenesis/e95636c797cf1c2ace4618e237a1bbf3c693ff1401e3996e57d556ff8125d1f0",
+      "contractRef": "contract://abiogenesis/default-library/failure@5"
+    }
+  ],
+  "runtimeFailureEvents": [
+    {
+      "ordinal": 21866,
+      "eventId": "event://abiogenesis/318155c3add78d0e5eacf5f655152755bcfed6a783f78390b6123cf5dbdb03f7",
+      "kind": "runtime_failure_observed",
+      "eventTime": "2026-09-28T21:42:46.418Z",
+      "graphFunctionRef": "graph-function://default-library-witness/executive@5",
+      "cCallRef": "run://abiogenesis/b2c9e77448c8e97acd626a6dbf36be83b2aae1733b07bf466c3bbd41b01a423c",
+      "resultRef": null,
+      "contractRef": null
+    }
+  ],
+  "runClosed": false,
+  "providerCalls": 10,
+  "automaticRetry": false
+}

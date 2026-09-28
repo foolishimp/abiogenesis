@@ -1,0 +1,13 @@
+✔ prospective installed declaration uses immutable schema and exact original source; later domains do not change bytes (34.303375ms)
+✔ pure projection separates historical adverse evidence, current roles, policy completeness and later obligations (4.847708ms)
+(node:12699) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage (157.67275ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 447.712291

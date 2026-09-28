@@ -1,0 +1,65 @@
+{
+  "sourceFreeze": {
+    "sha256": "f5644b465e62ecf98de2d9c8392de17495d658197dae05cbbfb51e0b14945d3f",
+    "bytes": 1266
+  },
+  "core": {
+    "sha256": "e49c4cc9d552ebca16c944d197cd9af4685ec8f6d0559c732cf35833f02a5d0d",
+    "bytes": 10337023
+  },
+  "consumer": {
+    "sha256": "2161cfc9e67745bdec0363d4ca5cc724f473a5c7bb4f2bd498d34e32d04f5e60",
+    "bytes": 11780
+  },
+  "input": {
+    "sha256": "377bae203c2ac43bf0e0339a24ce979998aa4247807c68c2fe383d274a74ee87",
+    "bytes": 84605
+  },
+  "launcherReadiness": {
+    "sha256": "7b4cbeca1ba907602b86484ca9dcdf19f0292b20c0fe800c0c00bae046ae19c5",
+    "bytes": 2305
+  },
+  "proofManifest": {
+    "sha256": "e1b01fdaa1b6b2efe00cde0fc79822c7cb33bc7202ccd58355b6c748d1aade21",
+    "bytes": 15972
+  },
+  "proofMembers": 109,
+  "events": {
+    "sha256": "821a9935dc7051dff36a97a967ad16d9e770aeb33f299178cbd4dac14a92f284",
+    "bytes": 81386224
+  },
+  "execution": {
+    "sha256": "7f349c4dcfea44cb4bac16211eb48adb8254273d8d0d8f68776ee94eed94eeaa",
+    "bytes": 5165444
+  },
+  "firstFailure": {
+    "sha256": "9e07b28a2c5da7c2cd9f4ee0e2fac19947e3869c1adde983fa2c088b48981b45",
+    "bytes": 4675
+  },
+  "attribution": {
+    "sha256": "c29c6173bf8713e035169c12327bdc63638acfe08584427de91713c88da5a9c8",
+    "bytes": 40533
+  },
+  "chain": {
+    "sha256": "8d17e6ff95d31f1c22b51c806a9990686b341ebf268a29e066f23643ddb8c90f",
+    "bytes": 90323
+  },
+  "reads": {
+    "run_result": {
+      "sha256": "01fce2f06d40b82ec9a93ddbd0e6e93f4a67af4346af76a6d31caa412c57fe51",
+      "bytes": 3712
+    },
+    "run_replay": {
+      "sha256": "2031b63e8d066130d6ad85f935e55da9d2abbeb672fead2206b4c172833a7f4c",
+      "bytes": 4861
+    }
+  },
+  "outcome": "runtime_failed",
+  "firstCause": "declared_bound_overflow",
+  "firstCauseOrdinal": 21858,
+  "providerCalls": 10,
+  "runClosed": false,
+  "assessmentCompleted": false,
+  "sourceAndOldProofPreserved": true,
+  "nativeSettingsUnchanged": true
+}

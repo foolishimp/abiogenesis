@@ -1,0 +1,39 @@
+✔ prospective installed declaration uses immutable schema and exact original source; later domains do not change bytes (39.351959ms)
+✔ pure projection separates historical adverse evidence, current roles, policy completeness and later obligations (5.282125ms)
+(node:12193) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage (120.522167ms)
+✔ default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation (10.927042ms)
+✔ independent consumer restricts choices while preserving actual native role and schema owners (23.692208ms)
+✔ retention and execution share root, imported and exact external semantics owner selection (9.593833ms)
+✔ declared wrapper judgments advance actual observations, including red C2, without satisfying parent state (27.204625ms)
+✔ default role content is the selected STDO source with capability instructions separate (0.706167ms)
+(node:12194) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ framed synthesis binds imported contracts, exact raw judgment and compact choice provenance (25.872791ms)
+✔ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (110.481333ms)
+✔ parent conservation joins the pre-Run root basis through exact invocation and root implementation set (1.552292ms)
+✔ consumer-authored source and scope remain exact application data; no solution is in library (0.656917ms)
+✔ observed child provenance joins the current preparation and rejects crossed or missing causal facts (35.192209ms)
+✔ observed command correspondence conserves explicit input across empty and different process environments (796.451875ms)
+﹣ one installed Public default-library invocation reuses observed files, corrects actual work and independently closes (0.046917ms) # SKIP
+ℹ tests 15
+ℹ suites 0
+ℹ pass 13
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 1309.767959
+
+✖ failing tests:
+
+test at test_env/tests/t287-default-library-fulfillment.test.mjs:105:1
+✖ real task/child carriers and retained fold attach assessment provenance before the parent consumes coverage (120.522167ms)
+  TypeError [Error]: native workspace task requires one bound worksite, context and declared scope
+      at constructNativeWorkspaceWorkTask (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_work.js:40:15)
+      at nativeTask (/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/default_library.js:179:12)
+      at Module.projectGovernanceNativeTask (/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/default_library.js:189:38)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs:119:105)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

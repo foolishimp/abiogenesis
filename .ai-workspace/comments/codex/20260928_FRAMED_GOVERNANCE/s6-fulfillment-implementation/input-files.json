@@ -1,0 +1,26 @@
+{
+  "source/original-basic-cli.txt": {
+    "bytes": 4325,
+    "sha256": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+  },
+  "source/basic-cli.oracle.json": {
+    "bytes": 1112,
+    "sha256": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+  },
+  "generated/hello-world.mjs": {
+    "bytes": 29,
+    "sha256": "sha256:647697a5fb5d141a2b1163363170a7a845b61a36096ff52f7a369f1736cd4993"
+  },
+  "test/component/hello-cli.test.mjs": {
+    "bytes": 369,
+    "sha256": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613"
+  },
+  "test/uat/hello-cli.uat.test.mjs": {
+    "bytes": 371,
+    "sha256": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4"
+  },
+  "source/witness-contract.md": {
+    "bytes": 5656,
+    "sha256": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b"
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "readOnlyAnalysis": true,
+  "newRuntimeInvocation": false,
+  "renderScope": "Byte projection of the already-admitted second task, using the retained unchanged role/choices and installed response-schema/renderer rules. Not reconstructed runtime authority or a new assembly admission.",
+  "firstOwnedPreparationRefusal": {
+    "ordinal": 1807,
+    "eventId": "event://abiogenesis/ec7574b4800afe76c901c43bde68f7901e3f5401706abc36b1284fa49d055837",
+    "diagnostic": {
+      "diagnosticClassRef": "diagnostic://abiogenesis/implementation/undispatched/preparation/thrown@5",
+      "errorClass": "TypeError",
+      "errorCode": null,
+      "message": "framed synthesis requires its declared owned assembly",
+      "messageTruncated": false,
+      "reason": "thrown",
+      "stack": "TypeError: framed synthesis requires its declared owned assembly\n    at requireDeclaredNativeInstructionAssembly (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-iQioh9/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/instruction_assembly.js:388:19)\n    at prepareInstructionAssembly (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-iQioh9/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/actor_process.js:406:23)\n    at selectGovernanceWork (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-iQioh9/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:49:22)\n    at invokeLeafOwnerBoundary (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-iQioh9/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:462:32)",
+      "stackTruncated": false,
+      "stage": "preparation"
+    },
+    "inputContractRef": "contract://abiogenesis/default-library/selection-task@5",
+    "outputContractRef": "contract://abiogenesis/default-library/synthesis@5",
+    "inputDigest": "sha256:c10fdf7f00f8bb09487764cd5a0b78fcfe5915609ec6be570ec9d0b3a8645c45"
+  },
+  "secondTask": {
+    "ordinal": 1794,
+    "eventId": "event://abiogenesis/96acc82437b2d0ad65367a4979ce68fc220b40d8e9d196ac72d52d4c4c03c0a6",
+    "resultRef": "result://abiogenesis/b1a89df4b62f4339532b5ef2da2d81320ff5552da97b4908c14cae1499a7dc6e",
+    "valueDigest": "sha256:c10fdf7f00f8bb09487764cd5a0b78fcfe5915609ec6be570ec9d0b3a8645c45",
+    "isFramedSynthesisTask": true,
+    "observations": 1,
+    "originalObligations": 7,
+    "additionalObligations": 0,
+    "unresolvedSupportRefs": [
+      "obligation://default-library-witness/complete-original@5",
+      "obligation://default-library-witness/conformance@5",
+      "obligation://default-library-witness/implementation-design@5",
+      "obligation://default-library-witness/test-design@5",
+      "obligation://default-library-witness/execution-plan@5",
+      "obligation://default-library-witness/behavior@5",
+      "obligation://default-library-witness/revision@5"
+    ]
+  },
+  "promptVolume": {
+    "initialRenderedBytes": 111904,
+    "secondRenderedBytes": 133945,
+    "declaredMax": 131072,
+    "overflowBytes": 2873,
+    "sectionBytes": {
+      "choices": 4260,
+      "evidence": 321,
+      "response": 7508,
+      "role": 7939,
+      "task": 113858
+    },
+    "originalFieldBytes": {
+      "assessment": 4228,
+      "authorityRefs": 49,
+      "fulfillment": 23516,
+      "maxContextBytes": 6,
+      "maxContextFiles": 3,
+      "maxPromptBytes": 6,
+      "readRoots": 315,
+      "requiredSupportRefs": 385,
+      "sources": 623,
+      "task": 10333,
+      "taskRef": 46,
+      "testing": 805,
+      "workOrders": 31695
+    },
+    "stateFieldBytes": {
+      "fulfillment": 1372,
+      "kind": 23,
+      "observations": 10166,
+      "original": 72204,
+      "schemaVersion": 7,
+      "synthesis": 10913,
+      "terminal": 5,
+      "unresolvedSupportRefs": 385
+    }
+  },
+  "deterministicGapsOver10Seconds": [
+    {
+      "fromOrdinal": 3,
+      "toOrdinal": 4,
+      "fromKind": "public_operation_artifact_admitted",
+      "toKind": "public_operation_admitted",
+      "elapsedMs": 6036062355
+    }
+  ],
+  "runtimeFailures": [
+    {
+      "ordinal": 1815,
+      "eventId": "event://abiogenesis/f215af04a550cd0bfb472156910dad86899bb6ce68ade29a40ce34fb78905f1f"
+    }
+  ],
+  "runClosure": [],
+  "actorFailures": [],
+  "processTimeouts": []
+}
