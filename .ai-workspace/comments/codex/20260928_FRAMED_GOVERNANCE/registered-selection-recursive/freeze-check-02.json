@@ -1,0 +1,8 @@
+{
+  "scope": "post-run evidence summary only",
+  "firstCheck": "basis_admitted graphFunctionRef read at event rather than payload",
+  "result": "KeyError graphFunctionRef",
+  "correction": "project existing basis payload.graphFunctionRef",
+  "sourceOrTestChanges": false,
+  "providerRerun": false
+}

@@ -1,0 +1,259 @@
+--- before/test_env/fixtures/registered-selection-product/recursive.mjs
++++ after/test_env/fixtures/registered-selection-product/recursive.mjs
+@@ -0,0 +1,109 @@
++import {isNativeRegisteredSelectionTask,isNativeRegisteredSelectionResponse} from '@abiogenesis/typescript-tenant/product';
++import {declarations as nativeDeclarations,select} from './native.mjs';
++import {ref,contract,hash,canonical,version,packageName} from './index.mjs';
++export {select,ref,contract,hash};
++const stateContract=contract('recursive-state');
++const recordOK=value=>value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).length>0&&
++  Object.entries(value).every(([k,v])=>/^[A-Za-z][A-Za-z0-9_]*$/.test(k)&&typeof v==='string'&&!v.includes('\n'));
++const equal=(a,b)=>canonical(a)===canonical(b);
++const refs=x=>Array.isArray(x)&&x.length>0&&x.every(r=>typeof r==='string'&&r.length>0)&&new Set(x).size===x.length;
++
++// Prospective controlled receiver: consume actual bytes using its fixed decoder.
++// Its independently supplied documentation is deliberately inaccurate.
++export function receive(rendered,expected){
++  const decoded={};
++  for(const line of rendered.split('\n')){
++    const match=/^([A-Za-z][A-Za-z0-9_]*): (.*)$/.exec(line);
++    if(!match||Object.hasOwn(decoded,match[1]))return {accepted:false,decodedRecord:null,diagnostic:'Receiver could not decode a unique labelled field in key: value format.'};
++    decoded[match[1]]=match[2];
++  }
++  const accepted=equal(decoded,expected);
++  return {accepted,decodedRecord:decoded,diagnostic:accepted?'Receiver decoded the exact supplied record.':'Decoded fields or values differ from the supplied record.'};
++}
++const render=(format,record)=>format==='json'?JSON.stringify(record):Object.entries(record).map(([k,v])=>`${k}: ${v}`).join('\n');
++const measurement=(format,record)=>{
++  const rendered=render(format,record),body={representation:format,rendered,...receive(rendered,record)};
++  return {observationRef:ref('observation',hash(body).slice(7)),...body};
++};
++export function initialState(){
++  const task={taskRef:ref('task','deliver-record'),text:'Deliver the supplied record in a representation accepted by the receiver, preserving every field name and value.',record:{service:'Atlas',status:'healthy'}};
++  const requiredSupportRefs=[ref('support','receiver-accepts'),ref('support','record-preserved')];
++  return {kind:'recursive_selection_state',schemaVersion:version,task,taskDigest:hash(task),requiredSupportRefs,
++    observations:[{observationRef:ref('observation','receiver-documentation'),qualification:'Supplied receiver documentation, provisional until checked against the actual receiver.',value:'The receiver documentation advertises JSON object input. Actual acceptance has not yet been measured.'}],
++    measurements:[],unresolvedSupportRefs:[...requiredSupportRefs],terminal:false};
++}
++export function validState(s){
++  return s?.kind==='recursive_selection_state'&&s.schemaVersion===version&&recordOK(s.task?.record)&&typeof s.task.text==='string'&&
++    typeof s.task.taskRef==='string'&&s.taskDigest===hash(s.task)&&refs(s.requiredSupportRefs)&&Array.isArray(s.unresolvedSupportRefs)&&
++    (equal(s.unresolvedSupportRefs,s.requiredSupportRefs)||s.unresolvedSupportRefs.length===0)&&typeof s.terminal==='boolean'&&
++    Array.isArray(s.observations)&&s.observations.length>0&&s.observations.every(o=>typeof o.observationRef==='string'&&typeof o.qualification==='string'&&Object.hasOwn(o,'value'))&&
++    Array.isArray(s.measurements)&&s.measurements.every(m=>['json','labelled_lines'].includes(m.representation)&&equal(m,measurement(m.representation,s.task.record)))&&
++    (s.terminal?s.unresolvedSupportRefs.length===0&&s.measurements.at(-1)?.accepted===true:equal(s.unresolvedSupportRefs,s.requiredSupportRefs));
++}
++const requireState=s=>{if(!validState(s))throw new TypeError('missing or invalid recursive task/support/measurement state');return s;};
++export function evaluatedState(input){
++  const s=requireState(input),terminal=s.measurements.at(-1)?.accepted===true;
++  return {...s,terminal,unresolvedSupportRefs:terminal?[]:[...s.requiredSupportRefs]};
++}
++export function selectionTask(input){
++  const s=requireState(input);if(s.terminal||s.unresolvedSupportRefs.length===0)throw new TypeError('no unresolved parent task');
++  return {kind:'registered_selection_task',schemaVersion:version,workerActorRef:ref('actor','executive'),workerBindingRef:ref('worker','native-selection'),
++    task:s.task.text,observations:[...s.observations,{observationRef:ref('observation',s.taskDigest.slice(7)),qualification:'Original record and task identity retained from the admitted parent state.',value:s.task},
++      ...s.measurements.map(m=>({observationRef:m.observationRef,qualification:'Actual retained receiver measurement produced by a completed child computation.',value:m}))],
++    requiredSupportRefs:[...s.unresolvedSupportRefs],childInput:{contractRef:stateContract,value:s},maxPromptBytes:65_536};
++}
++const measuredState=(input,format)=>{const s=requireState(input);if(s.terminal)throw new TypeError('parent already terminal');return {...s,measurements:[...s.measurements,measurement(format,s.task.record)]};};
++export const bindings=['select','A','B','parent','prepare'].map(name=>({kind:'implementation_binding',bindingRef:ref('binding',name),implementationRef:ref('implementation',name),packageName,packageVersion:version,modulePath:'build/recursive.mjs',
++  namedSymbol:({select:'select',A:'executeA',B:'executeB',parent:'evaluateParent',prepare:'prepareSelectionTask'})[name],computeRegime:name==='select'?'F_P':'F_D',
++  inputContractRef:name==='select'?contract('request'):stateContract,outputContractRef:name==='select'?contract('choice'):name==='prepare'?contract('request'):stateContract,
++  failureContractRef:contract('failure'),refusalContractRef:contract('refusal')}));
++const descriptor=binding=>{const {kind,bindingRef,...body}=binding;return {kind:'packaged_leaf_implementation_descriptor',schemaVersion:version,...body,descriptorDigest:hash(body)};};
++export const SELECT_DESCRIPTOR=descriptor(bindings[0]),A_DESCRIPTOR=descriptor(bindings[1]),B_DESCRIPTOR=descriptor(bindings[2]),PARENT_DESCRIPTOR=descriptor(bindings[3]),PREPARE_DESCRIPTOR=descriptor(bindings[4]);
++const realize=(name,input,resultCandidate)=>({kind:'leaf_realization_candidate',schemaVersion:version,disposition:'success',resultCandidate,
++  evidenceCandidates:[{kind:'deterministic_evidence_candidate',schemaVersion:version,implementationRef:ref('implementation',name),inputDigest:hash(input),outputDigest:hash(resultCandidate)}]});
++export const executeA=input=>realize('A',input,measuredState(input,'json'));
++export const executeB=input=>realize('B',input,measuredState(input,'labelled_lines'));
++export const evaluateParent=input=>realize('parent',input,evaluatedState(input));
++export const prepareSelectionTask=input=>realize('prepare',input,selectionTask(input));
++export const SEMANTICS={kind:'product_semantics_provider',schemaVersion:version,bindingRef:ref('semantics','product'),packageName,packageVersion:version,
++  admitInput(c,v){return c===stateContract&&validState(v)||c===contract('request')&&isNativeRegisteredSelectionTask(v)?v:null;},
++  evaluateInteractionResponse(){return null;},
++  resolveProbabilisticWorkerContracts(basis){return {instructionContractRef:basis.inputContractRef,resultContractRef:contract('native-response')};},
++  validateContractValue(kind,v){if(kind==='recursive_selection_state')return validState(v);if(kind==='registered_selection_task')return isNativeRegisteredSelectionTask(v);if(kind==='registered_selection_response')return isNativeRegisteredSelectionResponse(v);return v?.kind===kind;},
++  resolveJudgmentRelation(predicateRef){
++    const name=['parent','prepare','A','B','valid','workflow'].find(n=>predicateRef===ref('predicate',n));if(!name)return null;
++    return {predicateRef,advanceReasonRef:ref('reason','valid'),rejectionReasonRef:ref('reason','unresolved'),evaluate(input,output){
++      try{return name==='valid'?output?.kind==='registered_graph_choice'&&output.disposition==='selected':equal(output,name==='parent'?evaluatedState(input):name==='prepare'?selectionTask(input):measuredState(input,name==='workflow'?output.measurements.at(-1).representation:name==='A'?'json':'labelled_lines'));}catch{return false;}
++    }};
++  },
++};
++export function declarations(gtl,runEnvironment){
++  const d=nativeDeclarations(gtl,runEnvironment),[root,A,B]=d.graphFunctions;
++  d.implementationBindings=bindings;d.productSemanticsBinding.modulePath='build/recursive.mjs';
++  d.contracts.push({contractRef:stateContract,contractVersion:version,contractKind:'input',valueKind:'recursive_selection_state'});
++  for(const closure of d.closureContracts)closure.resultContractRef=stateContract;
++  const leaf=(name,compositionRef=null)=>{const b=bindings.find(b=>b.bindingRef===ref('binding',name));return gtl.C.of({input:gtl.cCarrier(b.inputContractRef),output:gtl.cCarrier(b.outputContractRef),programLocusRef:ref('node',name),stageRole:name==='parent'?'termination':name==='prepare'?'prepare':'result',fibre:'F_D',armId:ref('arm',name),compositionRef,vectorIndex:0,judgmentPredicateRef:ref('predicate',name),resultBearing:name!=='prepare',
++    requirement:{kind:'executable_leaf_requirement',implementationBindingRef:b.bindingRef,inputContractRef:b.inputContractRef,outputContractRef:b.outputContractRef,evidenceContractRef:contract('evidence'),failureContractRef:b.failureContractRef,refusalContractRef:b.refusalContractRef,judgmentContractRef:contract('judgment')}});};
++  for(const graph of [root,A,B]){
++    graph.inputs=[stateContract];graph.outputs=[stateContract];graph.environment={requires:[stateContract],provides:[stateContract],carries:[stateContract,contract('request'),contract('choice')]};
++    graph.declarations={...graph.declarations,'abg.closure_contract':contract('closure-graph_call')};
++  }
++  for(const [graph,name] of [[A,'A'],[B,'B']]){graph.template.nodes[0].term=leaf(name);graph.declarations['abg.judgment_predicate']=ref('predicate',name);}
++  A.declarations['abg.functional_purpose']='Render the supplied record as compact JSON, submit those bytes to the controlled receiver decoder and return its actual acceptance or rejection measurement.';
++  A.declarations['abg.conditions_for_use']='The recipient is expected to accept a JSON object. Input task, prior measurements and unresolved support are preserved; only the parent can certify task completion.';
++  B.declarations['abg.functional_purpose']='Render the supplied record as labelled key: value lines, submit those bytes to the controlled receiver decoder and return its actual acceptance or rejection measurement.';
++  B.declarations['abg.conditions_for_use']='The recipient is expected to accept labelled text lines. Input task, prior measurements and unresolved support are preserved; only the parent can certify task completion.';
++  root.declarations['abg.judgment_predicate']=ref('predicate','workflow');
++  root.template.nodes.unshift({nodeRef:ref('node','prepare'),nodeKind:'c_locus',term:leaf('prepare')});root.template.startNodeRef=ref('node','prepare');
++  root.template.edges.unshift(gtl.graphEdge({fromNodeRef:ref('node','prepare'),toNodeRef:ref('node','select')}));
++  const {applicationRef:_old,kind:_kind,relationKind:_relation,...selection}=root.template.applications[0];
++  root.template.applications=[gtl.registeredSelectionApplication({...selection,outputContractRef:stateContract})];
++  for(const name of ['A','B'])root.template.nodes.find(n=>n.nodeRef===ref('node',`call-${name}`)).term=gtl.workflow.C(gtl.cGraphFunctionRef({graphFunctionRef:ref('graph-function',name),input:gtl.cCarrier(stateContract),output:gtl.cCarrier(stateContract)}));
++  d.evaluators.push({name:ref('evaluator','parent'),regime:'F_D',description:'Evaluate actual receiver acceptance and exact record preservation.',binding:ref('implementation','parent'),consumedFieldRefs:['$.terminal'],tags:[]});
++  d.rules.push({name:ref('rule','parent'),kind:'boolean_field_termination',config:{fieldRef:'$.terminal',terminalValue:true},tags:[]});
++  const application=gtl.recurseApplication({inputContractRef:stateContract,outputContractRef:stateContract,graphFunctionRef:root.name,terminationRuleRef:ref('rule','parent'),terminationEvaluatorRefs:[ref('evaluator','parent')],terminationFieldRef:'$.terminal',foldback:{mode:'rebind',binding:'$',requiresParentEvaluation:true},bound:3});
++  const parent={...structuredClone(A),name:ref('graph-function','recursive-parent'),template:{kind:'inline_graph',graphRef:ref('graph','recursive-parent'),startNodeRef:ref('node','parent'),terminalNodeRefs:[ref('node','parent')],nodes:[{nodeRef:ref('node','parent'),nodeKind:'c_locus',term:leaf('parent',application.applicationRef)}],edges:[],applications:[application]},
++    declarations:{...A.declarations,'abg.closure_contract':contract('closure-run'),'abg.judgment_predicate':ref('predicate','parent'),'abg.functional_purpose':'Preserve the original delivery obligation until explicit receiver acceptance and record-equality evaluation passes.'}};
++  d.graphFunctions.push(parent);d.programs[0].starts[0].graphFunctionRef=parent.name;d.programs[0].callableMembership.push(parent.name);
++  d.contributions.push({...d.contributions[0],handle:parent.name,declarationOrContractRef:parent.name});return d;
++}
+--- before/test_env/tests/t287-recursive-registered-selection.test.mjs
++++ after/test_env/tests/t287-recursive-registered-selection.test.mjs
+@@ -0,0 +1,126 @@
++import assert from 'node:assert/strict';
++import test from 'node:test';
++import {mkdir,mkdtemp,readFile,writeFile,readdir,copyFile} from 'node:fs/promises';
++import {join,basename} from 'node:path';
++import {tmpdir} from 'node:os';
++import {pathToFileURL} from 'node:url';
++import * as gtl from '../../build/code/src/gtl/index.js';
++import * as product from '../../build/code/src/product/index.js';
++import * as validator from '../../build/code/src/validator/index.js';
++import {setupInstalledRootCatalog} from '../support/root-installed-environment.mjs';
++import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
++import {nativeSelectionEnvironment} from '../support/native-registered-selection.mjs';
++import {declarations,initialState,validState,evaluatedState,selectionTask,executeA,executeB,SEMANTICS,ref,contract,hash} from '../fixtures/registered-selection-product/recursive.mjs';
++const packageRoot=new URL('../..',import.meta.url).pathname;
++
++function environmentDeclaration(){
++  const text='Use the declared frame.',digest=product.sha256Bytes(Buffer.from(text)),member={path:'frame.txt',type:'file',digest,target:null};
++  const contextMember={memberRef:'member:frame',path:member.path,byteCount:Buffer.byteLength(text),digest};
++  return gtl.constructRunEnvironmentDeclaration({kind:'run_environment_declaration',schemaVersion:'5.0.0',declarationRef:'environment:fixture',dependencies:[{dependencyRef:'dependency:frame',basisRef:'generic://frame/',recordRef:'record:frame',recordDigest:digest,recordFormat:'member_inventory@1',inventoryDigest:gtl.stdoInventoryDigest([member]),members:[member]}],
++    contexts:[{contextRef:'context:frame',sourceLocator:'generic://frame/',inventoryDigest:hash([contextMember]),members:[contextMember]}],corpusAccess:null,accesses:[],
++    roles:[{graphFunctionRef:ref('graph-function','root'),programLocusRef:ref('node','select'),role:'selector',frameRefs:['frame:executive'],policy:{policyRef:'policy:frame',text,digest},contextPolicy:{policyRef:'policy:context',selectors:['full_source','active_binding_semantics']},accessRefs:[],sourceBindings:[{contextRef:'context:frame',memberRef:contextMember.memberRef,memberDigest:digest,startByte:0,endByte:Buffer.byteLength(text),spanDigest:digest}]}]});
++}
++test('recursive fixture declares a valid bounded Program with one native selector',()=>{
++  const digest='sha256:'+'1'.repeat(64),d=declarations(gtl,environmentDeclaration());
++  const publication=gtl.modulePublication({kind:'module_publication',moduleVersion:'5.0.0',...d,artifactDigest:digest,productContentDigest:digest,productManifestDigest:digest,contributions:d.contributions.map(c=>({...c,provenanceRefs:[digest]}))});
++  const raw=(v,k)=>{const result=validator.rawAdmitValue(v,k,'contract:fixture');assert.equal(result.kind,'raw_admitted_value',JSON.stringify(result));return result;};
++  const admitted=raw(publication,'module_publication');
++  const validation=validator.validateProgram({declarationBasisDigest:admitted.subjectDigest,programPublication:admitted,program:raw(publication.programs[0],'gtl_program'),graphFunctions:publication.graphFunctions.map(v=>raw(v,'graph_function')),contracts:publication.contracts.map(v=>raw(v,'contract_declaration')),evaluators:publication.evaluators,rules:publication.rules,implementationBindings:publication.implementationBindings.map(v=>raw(v,'implementation_binding')),closureContracts:publication.closureContracts.map(v=>raw(v,'closure_contract'))});
++  assert.equal(validation.kind,'program_validation',JSON.stringify(validation));
++  assert.equal(validation.executableLeafRows.filter(r=>r.fibre==='F_P').length,1);
++  const app=d.graphFunctions.at(-1).template.applications[0];assert.equal(app.bound,3);assert.equal(app.foldback.requiresParentEvaluation,true);
++  assert.equal(gtl.recursionTerminationDecision(app,initialState()),false);
++  assert.equal(gtl.recursionTerminationDecision(app,{kind:'missing-state'}),null);
++});
++test('receiver counterevidence and unresolved task survive child returns until parent evaluation',()=>{
++  const initial=initialState(),first=executeA(initial).resultCandidate;
++  assert.equal(SEMANTICS.resolveJudgmentRelation(ref('predicate','workflow')).evaluate(initial,first),true);
++  assert.equal(first.measurements[0].accepted,false);assert.equal(first.terminal,false);assert.deepEqual(first.unresolvedSupportRefs,initial.requiredSupportRefs);
++  const secondInput=evaluatedState(first),task=selectionTask(secondInput);
++  assert.deepEqual(task.childInput.value,secondInput);assert.deepEqual(task.observations.at(-1).value,first.measurements[0]);
++  const second=executeB(secondInput).resultCandidate;assert.equal(second.measurements[1].accepted,true);assert.equal(second.terminal,false);
++  assert.deepEqual(second.unresolvedSupportRefs,initial.requiredSupportRefs);
++  const terminal=evaluatedState(second);assert.equal(terminal.terminal,true);assert.deepEqual(terminal.unresolvedSupportRefs,[]);
++  for(const s of [first,secondInput,second,terminal]){assert.equal(validState(s),true);assert.deepEqual(s.task,initial.task);assert.equal(s.taskDigest,initial.taskDigest);assert.deepEqual(s.requiredSupportRefs,initial.requiredSupportRefs);}
++  const childRelation=SEMANTICS.resolveJudgmentRelation(ref('predicate','B'));
++  assert.equal(childRelation.evaluate(secondInput,terminal),false,'child cannot clear obligations or certify parent completion');
++  for(const alter of [s=>{delete s.taskDigest;},s=>{s.requiredSupportRefs=[];},s=>{s.measurements[0].accepted=true;},s=>{s.measurements[0].diagnostic='fabricated';}]){
++    const bad=structuredClone(first);alter(bad);assert.equal(validState(bad),false);assert.throws(()=>selectionTask(bad),/invalid recursive/);
++  }
++});
++
++test('one installed Public start revises native choice from child evidence and reevaluates its parent',{skip:process.env.ABI5_RECURSIVE_SELECTION_LIVE!=='1'},async()=>{
++  const evidence=process.env.ABI5_RECURSIVE_SELECTION_EVIDENCE_ROOT??await mkdtemp(join(tmpdir(),'abi5-recursive-selection-'));
++  await mkdir(evidence,{recursive:true});const save=(n,v)=>writeFile(join(evidence,n),JSON.stringify(v,null,2)+'\n',{flag:'wx'});
++  const provider=JSON.parse(await readFile(process.env.ABI5_NATIVE_SELECTION_PROVIDER,'utf8'));
++  assert.equal(provider.requestedModel,'claude-opus-5-5');assert.equal(provider.requestedEffort,'xhigh');assert.equal(await product.sha256File(provider.executable),provider.sha256);
++  await save('provider.json',provider);
++  let selectedEnvironment;const accounting={wallMs:{}};
++  const env=await setupInstalledRootCatalog({after:()=>{}},packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,setupAccounting:accounting,
++    prepareAdditionalProducts:async basis=>{
++      selectedEnvironment=await nativeSelectionEnvironment(basis);
++      const abiPackageArchivePath=join(basis.scratch,'artifacts',(await readdir(join(basis.scratch,'artifacts'))).find(p=>p.endsWith('.tgz')));
++      return [await prepareRegisteredSelectionProduct({...basis,abiPackageArchivePath,declarationFactory:g=>declarations(g,selectedEnvironment.declaration),fixtureFiles:['index','native','recursive'].map(n=>({path:`build/${n}.mjs`,source:new URL(`../fixtures/registered-selection-product/${n}.mjs`,import.meta.url)}))})];
++    }});
++  await save('setup.json',{scratch:env.scratch,installedRoots:env.installedRoots,artifactPaths:env.artifactPaths,accounting});
++  await save('archive.json',{path:env.artifactPath,sha256:await product.sha256File(env.artifactPath),consumer:env.additionalProducts[0].basis});
++  await save('run-environment.json',selectedEnvironment.declaration);
++  await copyFile(env.artifactPath,join(evidence,'core.tgz'));await copyFile(env.additionalProducts[0].artifactPath,join(evidence,'consumer.tgz'));
++  const publication=env.additionalPublications[0];await save('publication.json',publication);
++  env.catalogView=env.product.narrowGraphFunctionCatalog(env.catalog,['recursive-parent','root','A','B'].map(n=>ref('graph-function',n)));
++  assert.equal(env.catalogView.kind,'graph_function_catalog_view');
++  const load=async path=>import(pathToFileURL(join(env.installedRoot,`build/code/src/${path}.js`)).href);
++  const publicApi=await load('public/index'),readContracts=await load('abg/project_read_operation_contracts'),storeOwner=await load('abg/event_store');
++  let handoff=env.store.projectReopenAuthorityAndClose();const before=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix).length;
++  const resource=()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)});
++  const input=initialState();await save('input.json',input);
++  const start=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input,identity:'recursive',runEnvironmentResourceFactory:selectedEnvironment.resources});
++  const execution=await runInstalledCliRequest({scratch:env.scratch,installedRoot:env.installedRoot,identity:'recursive',acquisition:{kind:'reopen',closeHandoff:handoff},call:start.call,expectedExitCode:null,
++    environment:{...process.env,ABG_TS_CLAUDE_COMMAND:provider.executable,ABG_TS_CLAUDE_APPEND_ARGS:JSON.stringify(provider.appendArgs)}});
++  await save('execution.json',execution);const receipt=execution.output.receipt;assert.ok(receipt,JSON.stringify(execution.output));
++  handoff=receipt.resources.eventResource.closeHandoff;await save('handoff.json',handoff);
++  const allEvents=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix),events=allEvents.slice(before);await save('events.json',events);
++  await writeFile(join(evidence,'events.jsonl'),await readFile(new URL(handoff.prefix.eventLogRef)),{flag:'wx'});
++  const bindings=events.filter(e=>e.kind==='actor_transport_binding_admitted');
++  for(const [i,binding] of bindings.entries()){
++    await save(`assembly-${i+1}.json`,binding.payload.instructionAssembly);
++    for(const [name,path] of Object.entries(binding.payload.paths))if(typeof path==='string')try{await copyFile(path,join(evidence,`actor-${i+1}-${name}-${basename(path)}`));}catch(error){if(error.code!=='ENOENT')throw error;}
++  }
++  assert.equal(receipt.ownerOutput.outcomeKind,'result',JSON.stringify(receipt.ownerOutput));
++  assert.equal(receipt.ownerOutput.value.disposition,'completed',JSON.stringify(receipt.ownerOutput));
++  assert.equal(bindings.length,2,'exactly two native decisions in one invocation');
++  const observations=events.filter(e=>e.kind==='actor_result_artifact_observed'),choices=events.filter(e=>e.kind==='c_call_result_admitted'&&e.payload.value?.kind==='registered_graph_choice');
++  const parentCalls=events.filter(e=>e.kind==='c_call_opened'&&e.graphFunctionRef===ref('graph-function','recursive-parent'));
++  const parentResults=events.filter(e=>e.kind==='c_call_result_admitted'&&e.graphFunctionRef===ref('graph-function','recursive-parent'));
++  const measured=events.filter(e=>e.kind==='c_call_result_admitted'&&['A','B'].some(n=>e.graphFunctionRef===ref('graph-function',n)));
++  assert.deepEqual(parentCalls.map(e=>e.payload.attempt),[1,2,3]);assert.equal(new Set(parentCalls.map(e=>e.frameId)).size,1);
++  assert.deepEqual(parentResults.map(e=>e.payload.value.terminal),[false,false,true]);assert.deepEqual(measured.map(e=>e.payload.value.measurements.at(-1).accepted),[false,true]);
++  assert.ok(parentResults[2].admissionOrdinal>measured[1].admissionOrdinal);
++  const targets=['A','B'].map(n=>env.catalogView.entries.find(e=>e.definitionRef===ref('graph-function',n))).map(e=>({graphFunctionRef:e.definitionRef,definitionDigest:e.definitionDigest}));
++  const projected=events.filter(e=>e.kind==='c_call_result_admitted'&&e.payload.value?.kind==='registered_selection_task');
++  const timings=[];
++  for(const [i,binding] of bindings.entries()){
++    assert.equal(binding.payload.command,provider.executable);assert.equal(binding.payload.args[binding.payload.args.indexOf('--model')+1],'claude-opus-5-5');assert.equal(binding.payload.args[binding.payload.args.indexOf('--effort')+1],'xhigh');assert.ok(!binding.payload.args.includes('--fallback-model'));
++    const rows=(await readFile(binding.payload.paths.stdoutPath??binding.payload.paths.stdout,'utf8')).trim().split('\n').filter(Boolean).map(l=>JSON.parse(l));
++    const models=[...new Set(rows.flatMap(r=>[r.model,r.message?.model,...Object.keys(r.modelUsage??{})]).filter(Boolean))];assert.ok(models.length>0&&models.every(m=>m==='claude-opus-5-5'));
++    const raw=JSON.parse(observations[i].payload.finalOutput);assert.equal(observations[i].payload.toolCallCount,0);
++    assert.equal(raw.graphFunctionRef,ref('graph-function',i===0?'A':'B'),'unexpected native answer stops the proof; no oracle repair');
++    assert.deepEqual(choices[i].payload.value,product.materializeNativeRegisteredChoice(projected[i].payload.value,targets,raw));
++    const prompt=binding.payload.instructionAssembly.request.prompt;assert.ok(!prompt.includes('readinessBasis'));assert.ok(Buffer.byteLength(prompt)<=65_536);
++    const started=events.find(e=>e.kind==='actor_invocation_started'&&e.parentAggregateId===binding.parentAggregateId),closed=events.find(e=>e.kind==='actor_invocation_closed'&&e.parentAggregateId===binding.parentAggregateId);
++    assert.ok(started&&closed);timings.push({actor:i+1,nativeIntervalMs:Date.parse(closed.eventTime)-Date.parse(started.eventTime),promptBytes:Buffer.byteLength(prompt),raw,models});
++  }
++  assert.deepEqual(projected[1].payload.value.observations.at(-1).value,measured[0].payload.value.measurements[0]);
++  assert.ok(bindings[1].payload.instructionAssembly.request.prompt.includes(measured[0].payload.value.measurements[0].diagnostic));
++  for(const e of [...parentResults,...measured]){assert.deepEqual(e.payload.value.task,input.task);assert.equal(e.payload.value.taskDigest,input.taskDigest);assert.deepEqual(e.payload.value.requiredSupportRefs,input.requiredSupportRefs);}
++  const foldbacks=events.filter(e=>e.kind==='child_foldback_admitted'),recursive=foldbacks.filter(e=>e.payload.applicationRef!==undefined);
++  assert.equal(foldbacks.length,4);assert.equal(recursive.length,2);
++  for(const foldback of recursive){const route=events.find(e=>e.kind==='traversal_route_admitted'&&e.payload.consumedAvailabilityRefs?.includes(foldback.payload.foldbackRef));assert.ok(route?.causationEventRefs.includes(foldback.eventId));assert.ok(route.admissionOrdinal>foldback.admissionOrdinal);}
++  const closed=events.filter(e=>e.kind==='run_closed');assert.equal(closed.length,1);assert.ok(closed[0].admissionOrdinal>parentResults[2].admissionOrdinal);
++  await save('timing.json',{setup:accounting,totalExecutionMs:execution.wallMs,native:timings,frameworkOutsideNativeIntervalsMs:execution.wallMs-timings.reduce((n,t)=>n+t.nativeIntervalMs,0),publicRequestBytes:(await readFile(execution.requestPath)).length,eventCount:events.length,eventBytes:Buffer.byteLength(JSON.stringify(events))});
++  for(const memberKey of ['run_result','run_replay']){
++    const call=constructInstalledRunReadCall({environment:env,publicApi,projectReadContracts:readContracts,memberKey,selector:memberKey==='run_result'?{kind:'none'}:{kind:'ordinal_page',fromOrdinal:0,limit:2048},source:receipt.resources.run,eventResource:resource(),identity:`recursive-${memberKey}`});
++    const read=await runInstalledCliRequest({scratch:env.scratch,installedRoot:env.installedRoot,identity:`recursive-${memberKey}`,acquisition:{kind:'reopen',closeHandoff:handoff},call:call.call,expectedExitCode:0});await save(`read-${memberKey}.json`,read);
++    assert.deepEqual(read.output.receipt.resources.eventResource.closeHandoff.prefix,handoff.prefix);assert.deepEqual(read.output.receipt.ownerOutput.value.projection.terminalResult,receipt.ownerOutput.value.terminalResult);assert.deepEqual(read.output.receipt.ownerOutput.value.projection.replay,receipt.resources.replay);
++  }
++});
+--- before/test_env/support/registered-graph-selection.mjs
++++ after/test_env/support/registered-graph-selection.mjs
+@@ -15,10 +15,11 @@
+   const productId = publicationData.owningProductId;
+   const packageVersion = version;
+   const {moduleRef, descriptorRef, contributionManifestRef} = publicationData;
+-  const programRef = ref('program','root');
+-  const graphFunctionRef = ref('graph-function','root');
+-  const nodeRef = ref('node','select');
+-  const startRef = ref('start','root');
++  const program = publicationData.programs[0];
++  const {programRef} = program;
++  const start = program.starts.find(s => s.startRef === program.policies['abg.default_start_ref']) ?? program.starts[0];
++  const {graphFunctionRef, startRef} = start;
++  const nodeRef = publicationData.graphFunctions.find(g => g.name === graphFunctionRef).template.startNodeRef;
+   const provenanceRef = ref('provenance','product');
+   const sourceRoot = join(scratch, "registered-selection-data-product-source");
+   await rm(sourceRoot, { force: true, recursive: true });

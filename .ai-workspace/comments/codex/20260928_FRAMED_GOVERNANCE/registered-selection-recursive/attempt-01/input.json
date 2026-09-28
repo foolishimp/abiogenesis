@@ -1,0 +1,30 @@
+{
+  "kind": "recursive_selection_state",
+  "schemaVersion": "5.0.0",
+  "task": {
+    "taskRef": "task://registered-selection/deliver-record@5",
+    "text": "Deliver the supplied record in a representation accepted by the receiver, preserving every field name and value.",
+    "record": {
+      "service": "Atlas",
+      "status": "healthy"
+    }
+  },
+  "taskDigest": "sha256:89696998a5587a6e9e241cd84ebcde7a760fefeac3fc623dba5d80d98c06ca1a",
+  "requiredSupportRefs": [
+    "support://registered-selection/receiver-accepts@5",
+    "support://registered-selection/record-preserved@5"
+  ],
+  "observations": [
+    {
+      "observationRef": "observation://registered-selection/receiver-documentation@5",
+      "qualification": "Supplied receiver documentation, provisional until checked against the actual receiver.",
+      "value": "The receiver documentation advertises JSON object input. Actual acceptance has not yet been measured."
+    }
+  ],
+  "measurements": [],
+  "unresolvedSupportRefs": [
+    "support://registered-selection/receiver-accepts@5",
+    "support://registered-selection/record-preserved@5"
+  ],
+  "terminal": false
+}

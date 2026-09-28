@@ -1,0 +1,8 @@
+{
+  "scope": "post-run evidence summary only",
+  "firstCheck": "incorrectly compared Public producer CCall ref with result event parentAggregateId (frame ref)",
+  "result": "assertion failed",
+  "correction": "compare existing result payload.cCallRef",
+  "sourceOrTestChanges": false,
+  "providerRerun": false
+}

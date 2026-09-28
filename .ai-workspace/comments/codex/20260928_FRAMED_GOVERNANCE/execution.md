@@ -24,8 +24,8 @@ generation or revival of the withdrawn odd_glc planner is selected.
 | S1 | Existing-owner design for purpose, context, selection, admission, actual dispatch and foldback | Accepted corrected direct-selection HOW |
 | S2 | Installed two-choice deterministic proof with scope/contract refusals | Accepted, including repeated-input correction; native suitability remains S3 |
 | S3 | Native F_P Executive with bounded frame/catalogue context | Accepted bounded native evidence and reviewed RS-N01 source correction; installed successor is S4 |
-| S4 | Changed registered choice and recursive result/foldback | Accepted fixture plan; implementation selected after scoped S3 checkpoint |
-| S5 | Reused default induction/specification/design/testing/UAT declarations | Pending proved selection |
+| S4 | Changed registered choice and recursive result/foldback | Accepted first installed attempt after independent review; no production change |
+| S5 | Reused default induction/specification/design/testing/UAT declarations | Proposal frozen; focused owner-boundary/design review selected before code |
 | S6 | Installed consumer-authored Hello, correction, assessment and Public readback | Pending applicable library capability |
 | S7 | Remaining Product qualification and exact RC lifecycle | Pending selected obligations |
 
@@ -551,3 +551,117 @@ context/body volumes; investigate unexplained pure-framework intervals above
 ten seconds. Freeze one subject and return evidence plus residuals. Root
 conjoins that result; a focused independent review applies at that checkpoint.
 PC05-11, the full lifecycle, default library and release obligations remain open.
+
+## S4 review and S5 catalogue coverage
+
+The [closed S4 return](registered-selection-recursive/return.md), SHA-256
+`ef3561925f7c22d354a6660036527841733b53415aef3bf8f77643861f5ff219`, freezes
+subject `f21919fa5867f84caf10975956699d1cbfc0b5d3b6734fb548d4539e8359e232`
+and installed core archive
+`287e5bf32374fc713299038cf4a458244dc24f4994887e0949718a48a113c98a`.
+One Public start, two genuine native choices, actual receiver counterevidence,
+four foldbacks and three parent evaluations produced closure and agreeing fresh
+reads. Execution was 21.124 s, including 18.083 s native and 3.041 s framework.
+The only changes are consumer fixtures/support; the corrected S3 core was reused.
+Worker success is not yet Executive acceptance or general library qualification.
+
+Activate the existing Astra/max Reviewer for this exact S4 checkpoint under
+Product/Owner and the end-to-end interface-integration frame. Reacquire the
+Product frame; inspect actual context-to-choice-to-child-to-parent correspondence,
+source/installed identity, original task/support conservation and closure after
+parent reevaluation. Check that the receiver produced real counterevidence and
+the caller/prompt did not prescribe A then B. Review the small fixture-loader
+change and proof limits; reuse accepted S3 source judgment. Do not rerun native
+calls, builds or broad tests. Sole write territory:
+`registered-selection-recursive/review.md`. Return a closed finding/disposition
+recommendation; no repair authority.
+
+Owner clarification: capability now depends on the registered GraphFunctions
+available to the Program. Product already owns that relation. S5 therefore makes
+the default library's actual capability coverage explicit; a missing suitable
+capability remains a gap, and catalogue presence does not require invocation.
+The same graph can serve different application tasks under the applicable frame,
+contracts and effect grant. No per-application solution enters generic runtime.
+
+In parallel activate existing Astra/xhigh Worker for
+`T287_DEFAULT_LIBRARY_DESIGN_01`. Frame: Product/Design/Owner, Reuse/Foundation
+and the selected end-to-end integration frame, under exact STDO v2.5.1-rc.1.
+Write only `default-library-plan.md` here. S4 source/build/proof stays frozen.
+This is a bounded HOW proposal; no code, Product/requirements, tests, install,
+provider or Git effects are selected.
+
+Map the smallest ordinary module/catalog publication of the recursive Executive
+and reusable induction, specification, design, testing and UAT GraphFunctions,
+using the existing declared native coding-worker capability for construction.
+For each capability identify functional purpose, typed input/result, applicable
+frame/criteria, effects, completion/gap, actual invocation seam and reusable
+source. Explain how caller-selected originals, evidence and remaining obligations
+survive child return. Preserve conditional selection, required independence and
+reuse; introduce no mandatory lifecycle or deterministic semantic planner.
+
+Reuse current S3/S4 owners. Useful donor meaning is in odd_glc's
+`build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs` and
+`native-intent-declarations.mjs`; their full-chain orchestration is not selected.
+Generic native workspace work/assessment already has ABG module/catalog owners.
+Identify and retain useful assets, and name any superseded executable machinery
+actually displaced by the proposal. No copy of the retired planner or new
+controller, catalogue, runtime, obligation engine or graph-generation path.
+
+The proposal must reach S6's independently authored installed Hello through
+actual file work, execution, applicable assessment/UAT and fresh Public reads.
+Keep the original source/oracle outside the library. State actual missing
+relations before implementation; distinguish reusable declarations from delivered
+capabilities and qualification still required. Prefer one small live thread over
+separate qualification campaigns for each label. Return one compact proposed HOW
+with owner/file boundaries, affected checks and residual decisions for Root.
+
+Root enters Writer only for these grants and T-287 current work state, then
+resumes Executive. No S5 implementation is admitted by this proposal grant.
+
+## S4 acceptance and S5 design review
+
+2026-09-29. Executive accepts the [S4 review](registered-selection-recursive/review.md),
+SHA-256 `81fba86fea4716b0fa0b4447558f840a425eee50e628f42bd1a0ad7d8eb08db5`.
+The exact installed composition establishes native changed choice from actual
+counterevidence, conserved task/support/authority, recursive foldback and closure
+only after required parent reevaluation. Fresh Public reads agree. No blocking
+finding remains in that bounded claim. Whole-library, lifecycle and release
+qualification remain open. No repeat execution or additional S4 test is selected.
+
+The [S5 proposal](default-library-plan.md), SHA-256
+`ed93976f94859c00148c953644258f1bc7181d83e303c4abe5167a91c141a368`,
+maps seven callable purposes onto existing native selection/work/assessment/
+command owners. Its concrete reuse limit is the ordered-stage condition in
+`product/semantic_job.ts:865–873` and the corresponding preparation/fold helpers.
+The proposed replacement relation is unordered library state to exact native
+task and actual observation. This is an unimplemented design seam, not a new
+observed runtime failure. It must not become a second semantic planner or
+promote library-domain rules into generic ABG admission authority.
+
+Activate existing Astra/max Reviewer as `T287_DEFAULT_LIBRARY_DESIGN_REVIEW_01`.
+Frame: Product/Owner, Reuse/Foundation, cross-cutting construction and accepted
+End-To-End Interface Integration under exact STDO v2.5.1-rc.1. Reacquire the
+Product frame, then inspect this exact proposal and only the actual owner seams
+needed to assess it. Decide whether the proposed HoG/admission binding additions
+are necessary; prefer existing generic task/basis and result correspondence when
+they suffice. Identify any incomplete relation that prevents one installed
+library-to-workspace-to-assessment path before implementation.
+
+Check conditional catalogue coverage, explicit permitted purposes/contracts,
+original task and residual conservation, independent assessment, source-grounded
+context, and parent closure. Distinguish library declaration/projection data from
+runtime truth. F_D adapters may construct/validate declared carriers; they cannot
+choose semantic work, recreate an obligation calculus or infer fulfillment.
+Reject repeated full-history/declaration validation at trusted internal hops.
+Keep the consumer-authored Hello source/oracle outside the library and preserve
+one installed proof route. No general hardening or qualification campaign.
+
+Only `default-library-plan-review.md` here may be written. No source, Product,
+requirements, provider, tests/build, install or Git effects. Return a closed
+assessment with concrete blockers or sufficient bounded acceptance; no repair.
+The worker remains stopped pending this disposition.
+
+Root enters Writer only for this acceptance/review grant, T-287/GOALS projections
+and a scoped checkpoint/push of S4 fixture/support, its frozen evidence and these
+planning records. Preserve unrelated inherited untracked files. No release
+version/tag change. Root then resumes Executive; S5 code is not yet authorized.

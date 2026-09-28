@@ -1,0 +1,193 @@
+{
+  "wallMs": 765.2584579999966,
+  "cliPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-riUdId/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "requestPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-riUdId/st4-recursive-run_result-request.jsonl",
+  "output": {
+    "acquisitionKind": "reopen",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "run_result",
+        "operationId": "abg.operation.project.read"
+      },
+      "exitCode": 0,
+      "failure": null,
+      "invocationRef": "invocation://abiogenesis/0eba2ec1d6c8e64094c926356f991b9e1caf0bffac6aecae08514a7b06a20cce",
+      "kind": "definition_host_receipt",
+      "ownerOutput": {
+        "outcomeKind": "result",
+        "value": {
+          "caseKey": "run_result",
+          "projection": {
+            "kind": "run_result_projection",
+            "replay": {
+              "digest": "sha256:3e11631326e48c142ddd7527497e5e5cf7e1db92b8369ce2cd8e6e1b9e939e6a",
+              "ref": "replay://abiogenesis/3e11631326e48c142ddd7527497e5e5cf7e1db92b8369ce2cd8e6e1b9e939e6a"
+            },
+            "result": {
+              "digest": "sha256:7bd1375c48dc63f66badcbe5b8a30ca805681ffab816732c8fe73108cb62a1c4",
+              "ref": "result://abiogenesis/7bd1375c48dc63f66badcbe5b8a30ca805681ffab816732c8fe73108cb62a1c4"
+            },
+            "subject": {
+              "digest": "sha256:f6adc147527d5bbdce32c273fce2d1f952b709343a2422fa7a0e46c03a13bc7e",
+              "ref": "run://abiogenesis/c4611ec93cfc2c7515aa4833066b0d5809312b3c3ff6673a5984004c0b27764a"
+            },
+            "terminalResult": {
+              "contract": {
+                "digest": "sha256:bf7f36703e738e89abb3bb9970d168a19e6340478d95e4dc3db337b68683b4bc",
+                "ref": "contract://registered-selection/recursive-state@5"
+              },
+              "kind": "abg_typed_terminal_result",
+              "producer": {
+                "cCallRef": "c-call:sha256:c33034ccd225096ea41de12c1a28a58d33e104792d1722c2de6426b9454727c0",
+                "executionBasis": {
+                  "digest": "sha256:35ee6b42eb750c5348319b385bb47716363849db8a631527c31566bde3a94313",
+                  "ref": "execution-basis://abiogenesis/35ee6b42eb750c5348319b385bb47716363849db8a631527c31566bde3a94313"
+                },
+                "graphCallRef": "graph-call://abiogenesis/6244507dc7f213295330df0b01275e81a4091cb80e8037433841dd9b7c0734ec",
+                "graphFunction": {
+                  "digest": "sha256:0e991ec0d71beba210c18eba0593b7baff44bca2f026e599a4474a1d9784520e",
+                  "ref": "graph-function://registered-selection/recursive-parent@5"
+                },
+                "invocationAdmissionRef": "invocation-admission://abiogenesis/ec66a89509dddca8bbe09e26460dc96c3a3343f283286ca98f53b323c9625d52",
+                "judgmentAdmissionEventRef": "event://abiogenesis/17d2d317291cd2f34afd63c2dc101cf11fe48a69aa2af2afc1f47368a54a3ac7",
+                "judgmentRef": "judgment://abiogenesis/e3187a4059a0969656f4ced6e53883b7180f4c932bcaaf7c458fb330f8ab07e8",
+                "program": {
+                  "digest": "sha256:1745480e30fcae5c7355fd4daecfb396bee90c153135866e0ef19e83ccd4430e",
+                  "ref": "program://registered-selection/root@5"
+                },
+                "resultAdmissionEventRef": "event://abiogenesis/153540c2456896a1a6869dea14b3e9aebfd2cf6d2e2f3f23d80c5e35da211ded",
+                "runRef": "run://abiogenesis/c4611ec93cfc2c7515aa4833066b0d5809312b3c3ff6673a5984004c0b27764a",
+                "terminalRoute": {
+                  "digest": "sha256:d15023c661d37004533d727c41f644230c424a32d9710f0d9c4de8a47d62be00",
+                  "ref": "traversal-route://abiogenesis/d15023c661d37004533d727c41f644230c424a32d9710f0d9c4de8a47d62be00"
+                }
+              },
+              "projectionBasis": {
+                "digest": "sha256:5cfe57e85f50ae58d778b79702ce2d7e073998cb968cddf2be0a2665026dd6c4",
+                "ref": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-riUdId/runtime/events.jsonl"
+              },
+              "result": {
+                "digest": "sha256:7bd1375c48dc63f66badcbe5b8a30ca805681ffab816732c8fe73108cb62a1c4",
+                "ref": "result://abiogenesis/7bd1375c48dc63f66badcbe5b8a30ca805681ffab816732c8fe73108cb62a1c4"
+              },
+              "schemaVersion": "5.0.0",
+              "value": {
+                "kind": "recursive_selection_state",
+                "measurements": [
+                  {
+                    "accepted": false,
+                    "decodedRecord": null,
+                    "diagnostic": "Receiver could not decode a unique labelled field in key: value format.",
+                    "observationRef": "observation://registered-selection/7e85704175a9688af3fd06907c78399d32f609a8cd62a0a6c39b4d8a2c18b282@5",
+                    "rendered": "{\"service\":\"Atlas\",\"status\":\"healthy\"}",
+                    "representation": "json"
+                  },
+                  {
+                    "accepted": true,
+                    "decodedRecord": {
+                      "service": "Atlas",
+                      "status": "healthy"
+                    },
+                    "diagnostic": "Receiver decoded the exact supplied record.",
+                    "observationRef": "observation://registered-selection/195efc638c106f328668c242d8359d54a4353b47e0e41823962e2c631ea4b9ac@5",
+                    "rendered": "service: Atlas\nstatus: healthy",
+                    "representation": "labelled_lines"
+                  }
+                ],
+                "observations": [
+                  {
+                    "observationRef": "observation://registered-selection/receiver-documentation@5",
+                    "qualification": "Supplied receiver documentation, provisional until checked against the actual receiver.",
+                    "value": "The receiver documentation advertises JSON object input. Actual acceptance has not yet been measured."
+                  }
+                ],
+                "requiredSupportRefs": [
+                  "support://registered-selection/receiver-accepts@5",
+                  "support://registered-selection/record-preserved@5"
+                ],
+                "schemaVersion": "5.0.0",
+                "task": {
+                  "record": {
+                    "service": "Atlas",
+                    "status": "healthy"
+                  },
+                  "taskRef": "task://registered-selection/deliver-record@5",
+                  "text": "Deliver the supplied record in a representation accepted by the receiver, preserving every field name and value."
+                },
+                "taskDigest": "sha256:89696998a5587a6e9e241cd84ebcde7a760fefeac3fc623dba5d80d98c06ca1a",
+                "terminal": true,
+                "unresolvedSupportRefs": []
+              },
+              "valueDigest": "sha256:3a3c48f9ee0840a1021013a3ce67ed3d53d2a49dfd936e037f4685bdad4f0d1b",
+              "valueKind": "recursive_selection_state"
+            },
+            "terminalRoute": {
+              "digest": "sha256:d15023c661d37004533d727c41f644230c424a32d9710f0d9c4de8a47d62be00",
+              "ref": "traversal-route://abiogenesis/d15023c661d37004533d727c41f644230c424a32d9710f0d9c4de8a47d62be00"
+            }
+          },
+          "projectionBasis": {
+            "digest": "sha256:5cfe57e85f50ae58d778b79702ce2d7e073998cb968cddf2be0a2665026dd6c4",
+            "ref": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-riUdId/runtime/events.jsonl"
+          },
+          "source": {
+            "digest": "sha256:f6adc147527d5bbdce32c273fce2d1f952b709343a2422fa7a0e46c03a13bc7e",
+            "ref": "run://abiogenesis/c4611ec93cfc2c7515aa4833066b0d5809312b3c3ff6673a5984004c0b27764a"
+          }
+        }
+      },
+      "resources": {
+        "eventResource": {
+          "acquisitionKind": "reopen",
+          "closeHandoff": {
+            "prefix": {
+              "coordinateDigest": "sha256:5cfe57e85f50ae58d778b79702ce2d7e073998cb968cddf2be0a2665026dd6c4",
+              "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-riUdId/runtime/events.jsonl",
+              "kind": "durable_prefix_coordinate",
+              "prefixDigest": "sha256:34ef6ec3680dfba5f6ccf2a2dc36e0144f16202700fc4f2611137cbdfccd4aa7",
+              "prefixLength": 5623754,
+              "schemaVersion": "5.0.0",
+              "storeIdentity": {
+                "device": 16777230,
+                "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+                "inode": 462480135
+              }
+            },
+            "reopenAuthority": {
+              "authorityDigest": "sha256:b76a51b489f3777151b788073c3f100c94b6b292eb59bb2fb272154d50d5f22d",
+              "device": 16777230,
+              "durableByteLength": 5623754,
+              "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+              "eventLogDigest": "sha256:34ef6ec3680dfba5f6ccf2a2dc36e0144f16202700fc4f2611137cbdfccd4aa7",
+              "eventLogPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-riUdId/runtime/events.jsonl",
+              "inode": 462480135,
+              "kind": "event_store_reopen_authority",
+              "schemaVersion": "5.0.0"
+            }
+          },
+          "entryPrefix": {
+            "coordinateDigest": "sha256:5cfe57e85f50ae58d778b79702ce2d7e073998cb968cddf2be0a2665026dd6c4",
+            "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-riUdId/runtime/events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:34ef6ec3680dfba5f6ccf2a2dc36e0144f16202700fc4f2611137cbdfccd4aa7",
+            "prefixLength": 5623754,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777230,
+              "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+              "inode": 462480135
+            }
+          },
+          "kind": "abg_event_resource_receipt",
+          "receiptDigest": "sha256:5a2d273cfa995c89365161cabe2c0f25a23fa1d319be48b52fee82dc3ea6f9a7",
+          "schemaVersion": "5.0.0"
+        },
+        "kind": "abg_project_read_resource_receipt",
+        "schemaVersion": "5.0.0"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  }
+}

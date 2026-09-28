@@ -1,0 +1,125 @@
+{
+  "task": "T287_REGISTERED_SELECTION_RECURSIVE_IMPLEMENT_01",
+  "baseCommit": "3359b36aa6519cc91f2e9997ddcf93c4248c4ae3",
+  "acceptedPlanSha256": "sha256:cb716cdfbba23acc877856412e7d31074891940202b5ae209444db4d2edf56a5",
+  "source": {
+    "test_env/fixtures/registered-selection-product/recursive.mjs": {
+      "sha256": "sha256:3ba21b94902f1d39f42784c30d959b083ac8bd7a9b902915389071495bb90557",
+      "bytes": 13148,
+      "added": 109,
+      "removed": 0
+    },
+    "test_env/tests/t287-recursive-registered-selection.test.mjs": {
+      "sha256": "sha256:3fe0005bd4a8403bb91bde4e09122cd8f1372d7f85be29d1b48bb863d1aeef7d",
+      "bytes": 15890,
+      "added": 126,
+      "removed": 0
+    },
+    "test_env/support/registered-graph-selection.mjs": {
+      "sha256": "sha256:55669e77983b75eb490a9f8a937bdec7782543d4c89ad0aec43a99e2776f6c95",
+      "bytes": 20761,
+      "added": 5,
+      "removed": 4
+    }
+  },
+  "core": {
+    "archiveSha256": "sha256:287e5bf32374fc713299038cf4a458244dc24f4994887e0949718a48a113c98a",
+    "archiveBytes": 10209050,
+    "installedRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-riUdId/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "productContentDigest": "sha256:e4073edd88d8feac2aeeb9bcf31f32af261d8dcb64f6d447eeb73234ac7dc81b",
+    "acceptedSourceBuildSubjectSha256": "sha256:c7f5f884ef85f0c2f87da209eb33747e9b0cc26457baacc8af905ea5b5d026ab"
+  },
+  "consumer": {
+    "artifactDigest": "sha256:d6afcbe00bc56ac4989e8c29fee260b3564b674db03d42ed33d83e96f729e3f1",
+    "manifestDigest": "sha256:e074cdb5743934ac5226c5c8d62b63d8df4af913729c2601a879954c8d86281c",
+    "productContentDigest": "sha256:ad6802e0697e1c35d38e8a35e51c2d4b2d8e9a93f8a15a67e030ddecab57c0df",
+    "productId": "product://registered-selection/product@5",
+    "packageName": "@abiogenesis-fixtures/registered-selection",
+    "packageVersion": "5.0.0"
+  },
+  "correspondence": {
+    "product-toolchain-manifest.json": {
+      "sourceBuild": "sha256:e303fdc8d183221c6c695cb00ef2087b8b418870a7dae305cab42b95b0f8a12d",
+      "archive": "sha256:e303fdc8d183221c6c695cb00ef2087b8b418870a7dae305cab42b95b0f8a12d",
+      "installed": "sha256:e303fdc8d183221c6c695cb00ef2087b8b418870a7dae305cab42b95b0f8a12d"
+    },
+    "contracts/capabilities/capability-definition-graph.json": {
+      "sourceBuild": "sha256:e88bbb2048c38ea85e024070989d4a3ea9265b63b1b3221d58a38c725a2b56a5",
+      "archive": "sha256:e88bbb2048c38ea85e024070989d4a3ea9265b63b1b3221d58a38c725a2b56a5",
+      "installed": "sha256:e88bbb2048c38ea85e024070989d4a3ea9265b63b1b3221d58a38c725a2b56a5"
+    },
+    "build/code/src/gtl/stdo_run_environment.js": {
+      "sourceBuild": "sha256:999dbf05fdccbee93dabd4354e81d75f16bb709f2537397be26228fada2cdd42",
+      "archive": "sha256:999dbf05fdccbee93dabd4354e81d75f16bb709f2537397be26228fada2cdd42",
+      "installed": "sha256:999dbf05fdccbee93dabd4354e81d75f16bb709f2537397be26228fada2cdd42"
+    },
+    "build/code/src/gtl/stdo_run_environment.d.ts": {
+      "sourceBuild": "sha256:fd5b6383f842465e250693f7ea791ac1957faf18b31e2dd6bba4a960770065d8",
+      "archive": "sha256:fd5b6383f842465e250693f7ea791ac1957faf18b31e2dd6bba4a960770065d8",
+      "installed": "sha256:fd5b6383f842465e250693f7ea791ac1957faf18b31e2dd6bba4a960770065d8"
+    },
+    "build/code/src/hog/ccall_lifecycle.js": {
+      "sourceBuild": "sha256:eaa252b0f7022a325bd857642351a5e7e59816a260a758e2f1967a013863b1fc",
+      "archive": "sha256:eaa252b0f7022a325bd857642351a5e7e59816a260a758e2f1967a013863b1fc",
+      "installed": "sha256:eaa252b0f7022a325bd857642351a5e7e59816a260a758e2f1967a013863b1fc"
+    },
+    "build/code/src/hog/ccall_lifecycle.d.ts": {
+      "sourceBuild": "sha256:c2bdb9be9e0bab6cd62506643fd21cdd72c9036adb89936f480e6f00741dfd0f",
+      "archive": "sha256:c2bdb9be9e0bab6cd62506643fd21cdd72c9036adb89936f480e6f00741dfd0f",
+      "installed": "sha256:c2bdb9be9e0bab6cd62506643fd21cdd72c9036adb89936f480e6f00741dfd0f"
+    },
+    "build/code/src/abg/instruction_assembly.js": {
+      "sourceBuild": "sha256:6efb43dbdc14ac3b6f5c429de3ed24cffd1e693051c2c5af7231c94bc490bab3",
+      "archive": "sha256:6efb43dbdc14ac3b6f5c429de3ed24cffd1e693051c2c5af7231c94bc490bab3",
+      "installed": "sha256:6efb43dbdc14ac3b6f5c429de3ed24cffd1e693051c2c5af7231c94bc490bab3"
+    },
+    "build/code/src/abg/instruction_assembly.d.ts": {
+      "sourceBuild": "sha256:bdc1c52974e3f584ecbeb6bc692117e93cf05d18d6b9387a7850a5ef8cbfcbf6",
+      "archive": "sha256:bdc1c52974e3f584ecbeb6bc692117e93cf05d18d6b9387a7850a5ef8cbfcbf6",
+      "installed": "sha256:bdc1c52974e3f584ecbeb6bc692117e93cf05d18d6b9387a7850a5ef8cbfcbf6"
+    },
+    "build/code/src/abg/c_call_outcome.js": {
+      "sourceBuild": "sha256:217cc226ab1edac2193ff6a8492d5aa6e75ff8901e453f5618b1ef7a14819d38",
+      "archive": "sha256:217cc226ab1edac2193ff6a8492d5aa6e75ff8901e453f5618b1ef7a14819d38",
+      "installed": "sha256:217cc226ab1edac2193ff6a8492d5aa6e75ff8901e453f5618b1ef7a14819d38"
+    },
+    "build/code/src/abg/c_call_outcome.d.ts": {
+      "sourceBuild": "sha256:533e120f212acaf8de6f9abd8670192fa9bb3abf287bb2c9524a302a08a42a2c",
+      "archive": "sha256:533e120f212acaf8de6f9abd8670192fa9bb3abf287bb2c9524a302a08a42a2c",
+      "installed": "sha256:533e120f212acaf8de6f9abd8670192fa9bb3abf287bb2c9524a302a08a42a2c"
+    },
+    "build/index.mjs": {
+      "source": "sha256:ecfa477dd5620ef8ff87ace68fd811d8e007675c91bc112b09ac290f513512d8",
+      "archive": "sha256:ecfa477dd5620ef8ff87ace68fd811d8e007675c91bc112b09ac290f513512d8",
+      "installed": "sha256:ecfa477dd5620ef8ff87ace68fd811d8e007675c91bc112b09ac290f513512d8"
+    },
+    "build/native.mjs": {
+      "source": "sha256:963119ad1ae1c07644cc9848863f13244d416a720bb644261f3d578fa0b609a6",
+      "archive": "sha256:963119ad1ae1c07644cc9848863f13244d416a720bb644261f3d578fa0b609a6",
+      "installed": "sha256:963119ad1ae1c07644cc9848863f13244d416a720bb644261f3d578fa0b609a6"
+    },
+    "build/recursive.mjs": {
+      "source": "sha256:3ba21b94902f1d39f42784c30d959b083ac8bd7a9b902915389071495bb90557",
+      "archive": "sha256:3ba21b94902f1d39f42784c30d959b083ac8bd7a9b902915389071495bb90557",
+      "installed": "sha256:3ba21b94902f1d39f42784c30d959b083ac8bd7a9b902915389071495bb90557"
+    }
+  },
+  "preservation": {
+    "registered-selection-native": {
+      "filesVerified": 112,
+      "manifestSha256": "sha256:b7f693b1960ab8a4f15407cdcc03f0e3b05d26bc851572a2546335935c9f653a",
+      "reviewSha256": "sha256:6e7a1e77eae1cc21f26c39991629a9b91e893cfdd93e4e4a2758863e21563749"
+    },
+    "registered-selection-native-scope-repair": {
+      "filesVerified": 28,
+      "manifestSha256": "sha256:bdd346b43fb69bcd07de4da1901c772c5c4ef0341773308e39ddebc20c362808",
+      "reviewSha256": "sha256:a619d8fd590767b728473c80c39cae44e7747734be819434ad26ecaf527655d7"
+    }
+  },
+  "productionChanges": 0,
+  "builds": 0,
+  "corePacks": 1,
+  "consumerPacks": 1,
+  "providerCalls": 2,
+  "providerRetries": 0
+}

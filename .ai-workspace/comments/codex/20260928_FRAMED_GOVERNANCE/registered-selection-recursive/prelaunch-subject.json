@@ -1,0 +1,8 @@
+{
+  "acceptedCoreSubject": "sha256:c7f5f884ef85f0c2f87da209eb33747e9b0cc26457baacc8af905ea5b5d026ab",
+  "fixture": {
+    "test_env/fixtures/registered-selection-product/recursive.mjs": "sha256:3ba21b94902f1d39f42784c30d959b083ac8bd7a9b902915389071495bb90557",
+    "test_env/tests/t287-recursive-registered-selection.test.mjs": "sha256:3fe0005bd4a8403bb91bde4e09122cd8f1372d7f85be29d1b48bb863d1aeef7d",
+    "test_env/support/registered-graph-selection.mjs": "sha256:55669e77983b75eb490a9f8a937bdec7782543d4c89ad0aec43a99e2776f6c95"
+  }
+}

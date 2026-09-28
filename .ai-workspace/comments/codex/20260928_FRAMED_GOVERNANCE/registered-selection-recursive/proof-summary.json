@@ -1,0 +1,115 @@
+{
+  "onePublicStart": true,
+  "executionRequestPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-riUdId/st4-recursive-request.jsonl",
+  "sameAdmittedAuthorityCoordinates": {
+    "programRef": "program://registered-selection/root@5",
+    "programDigest": "sha256:1745480e30fcae5c7355fd4daecfb396bee90c153135866e0ef19e83ccd4430e",
+    "actorRef": "actor://abiogenesis/t286/trusted-developer",
+    "workspaceBindingId": "workspace-binding://abiogenesis/319ee553b5d247fbdc9fb1c4897f9d263468302b4e56a5a775a9706fe1952400",
+    "workspaceBindingDigest": "sha256:319ee553b5d247fbdc9fb1c4897f9d263468302b4e56a5a775a9706fe1952400",
+    "catalogBasisRef": "graph-function-catalog://abiogenesis/ab69250c3ce0524fde351053429f765f9fbcd9ea8b1e7b117115a943a299ae5a",
+    "catalogBasisDigest": "sha256:ab69250c3ce0524fde351053429f765f9fbcd9ea8b1e7b117115a943a299ae5a",
+    "rootImplementationSetRef": "implementation-set://abiogenesis/316a498a51f9c5da550f29d59dffe89dc5f4b347933b16c29f6db2b3c5b8ed11",
+    "rootImplementationSetDigest": "sha256:316a498a51f9c5da550f29d59dffe89dc5f4b347933b16c29f6db2b3c5b8ed11",
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/ec66a89509dddca8bbe09e26460dc96c3a3343f283286ca98f53b323c9625d52"
+  },
+  "basisLineage": [
+    {
+      "eventId": "event://abiogenesis/7f47fefa1f741ef289abd55076475223a5709e51bfd308bad23b8a73e0132f3c",
+      "basisRef": "execution-basis://abiogenesis/35ee6b42eb750c5348319b385bb47716363849db8a631527c31566bde3a94313",
+      "parentExecutionBasisRef": null,
+      "graphFunctionRef": "graph-function://registered-selection/recursive-parent@5"
+    },
+    {
+      "eventId": "event://abiogenesis/965bec9d48b025d0c06ae90e2d9030910b6bcd5ae9593087b08247eba9db516a",
+      "basisRef": "execution-basis://abiogenesis/ab7fca5236b1a9a9cd5a9bbd895e5835277f346444734ed95825f46a753038b7",
+      "parentExecutionBasisRef": "execution-basis://abiogenesis/35ee6b42eb750c5348319b385bb47716363849db8a631527c31566bde3a94313",
+      "graphFunctionRef": "graph-function://registered-selection/root@5"
+    },
+    {
+      "eventId": "event://abiogenesis/84a16b4936d85bc1d41f56238ef752e8ee4549636668c5b8822a4a5a5f830aaf",
+      "basisRef": "execution-basis://abiogenesis/4b70f0667c250cffedc0e7fca2e630e1bb1ecdf87c4ee7d6da23224efd370059",
+      "parentExecutionBasisRef": "execution-basis://abiogenesis/ab7fca5236b1a9a9cd5a9bbd895e5835277f346444734ed95825f46a753038b7",
+      "graphFunctionRef": "graph-function://registered-selection/A@5"
+    },
+    {
+      "eventId": "event://abiogenesis/9ec11ee269eb733b4f2f9e5951c18e1c294fdcda1ff2f62211d32b6dab84539e",
+      "basisRef": "execution-basis://abiogenesis/7bd87faf02aec85125924b837010b24953da5e9f9555d6e68b07873353c92df3",
+      "parentExecutionBasisRef": "execution-basis://abiogenesis/35ee6b42eb750c5348319b385bb47716363849db8a631527c31566bde3a94313",
+      "graphFunctionRef": "graph-function://registered-selection/root@5"
+    },
+    {
+      "eventId": "event://abiogenesis/899f8265065a49c100c9ff0dd303299335fc5ddcccf336c55aa14eaef978d952",
+      "basisRef": "execution-basis://abiogenesis/84061ac048d6fe9e4146c698b1429d77e33bbb2123f74ddcfbdee3e77f8a62d8",
+      "parentExecutionBasisRef": "execution-basis://abiogenesis/7bd87faf02aec85125924b837010b24953da5e9f9555d6e68b07873353c92df3",
+      "graphFunctionRef": "graph-function://registered-selection/B@5"
+    }
+  ],
+  "parentResultEvents": [
+    {
+      "eventId": "event://abiogenesis/205d4c67019e65465a4e571786df5cb37717cd90fd2f6ddbc71381cad167d982",
+      "ordinal": 20,
+      "terminal": false,
+      "unresolvedSupportRefs": [
+        "support://registered-selection/receiver-accepts@5",
+        "support://registered-selection/record-preserved@5"
+      ]
+    },
+    {
+      "eventId": "event://abiogenesis/9298358e2bcb496120f8a133aeb36742f979b1047a9dabf2c1cf7b90bb9499ce",
+      "ordinal": 236,
+      "terminal": false,
+      "unresolvedSupportRefs": [
+        "support://registered-selection/receiver-accepts@5",
+        "support://registered-selection/record-preserved@5"
+      ]
+    },
+    {
+      "eventId": "event://abiogenesis/153540c2456896a1a6869dea14b3e9aebfd2cf6d2e2f3f23d80c5e35da211ded",
+      "ordinal": 508,
+      "terminal": true,
+      "unresolvedSupportRefs": []
+    }
+  ],
+  "publicTerminalProducer": {
+    "cCallRef": "c-call:sha256:c33034ccd225096ea41de12c1a28a58d33e104792d1722c2de6426b9454727c0",
+    "executionBasis": {
+      "digest": "sha256:35ee6b42eb750c5348319b385bb47716363849db8a631527c31566bde3a94313",
+      "ref": "execution-basis://abiogenesis/35ee6b42eb750c5348319b385bb47716363849db8a631527c31566bde3a94313"
+    },
+    "graphCallRef": "graph-call://abiogenesis/6244507dc7f213295330df0b01275e81a4091cb80e8037433841dd9b7c0734ec",
+    "graphFunction": {
+      "digest": "sha256:0e991ec0d71beba210c18eba0593b7baff44bca2f026e599a4474a1d9784520e",
+      "ref": "graph-function://registered-selection/recursive-parent@5"
+    },
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/ec66a89509dddca8bbe09e26460dc96c3a3343f283286ca98f53b323c9625d52",
+    "judgmentAdmissionEventRef": "event://abiogenesis/17d2d317291cd2f34afd63c2dc101cf11fe48a69aa2af2afc1f47368a54a3ac7",
+    "judgmentRef": "judgment://abiogenesis/e3187a4059a0969656f4ced6e53883b7180f4c932bcaaf7c458fb330f8ab07e8",
+    "program": {
+      "digest": "sha256:1745480e30fcae5c7355fd4daecfb396bee90c153135866e0ef19e83ccd4430e",
+      "ref": "program://registered-selection/root@5"
+    },
+    "resultAdmissionEventRef": "event://abiogenesis/153540c2456896a1a6869dea14b3e9aebfd2cf6d2e2f3f23d80c5e35da211ded",
+    "runRef": "run://abiogenesis/c4611ec93cfc2c7515aa4833066b0d5809312b3c3ff6673a5984004c0b27764a",
+    "terminalRoute": {
+      "digest": "sha256:d15023c661d37004533d727c41f644230c424a32d9710f0d9c4de8a47d62be00",
+      "ref": "traversal-route://abiogenesis/d15023c661d37004533d727c41f644230c424a32d9710f0d9c4de8a47d62be00"
+    }
+  },
+  "publicRequestReadinessVolumes": [
+    {
+      "path": "/invocation/resources/catalog/readinessBasis",
+      "compactJsonBytes": 16044361
+    }
+  ],
+  "freshReads": {
+    "run_result": {
+      "wallMs": 765.2584579999966,
+      "prefixUnchanged": true
+    },
+    "run_replay": {
+      "wallMs": 757.937791999997,
+      "prefixUnchanged": true
+    }
+  }
+}

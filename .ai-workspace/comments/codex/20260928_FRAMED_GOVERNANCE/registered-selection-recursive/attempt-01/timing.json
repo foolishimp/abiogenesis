@@ -1,0 +1,64 @@
+{
+  "setup": {
+    "wallMs": {
+      "provisioning_pack": 3463.527083,
+      "provisioning_extract": 555.8047499999998,
+      "bootstrap_owner_loading_and_candidate_preparation": 415.6668749999999,
+      "provisioning_verify_artifact": 11854.230417000002,
+      "provisioning_install": 2604.3667080000014,
+      "provisioning_installed_content_check": 561.2318749999977,
+      "provisioning_additional_products": 1469.4008749999994,
+      "installed_owner_loading": 236.992083000001,
+      "environment_install_and_workspace_admission": 536.2212080000027,
+      "execution_preparation_publication_program_and_catalog": 323.37962499999776
+    },
+    "volumes": {
+      "archiveBytes": 10209050,
+      "archiveUnpackedBytes": 67092696,
+      "archiveMemberCount": 5239,
+      "installedTreeBytes": null
+    }
+  },
+  "totalExecutionMs": 21124.371333,
+  "native": [
+    {
+      "actor": 1,
+      "nativeIntervalMs": 8167,
+      "promptBytes": 14690,
+      "raw": {
+        "disposition": "selected",
+        "evidenceRefs": [
+          "observation://registered-selection/receiver-documentation@5",
+          "observation://registered-selection/89696998a5587a6e9e241cd84ebcde7a760fefeac3fc623dba5d80d98c06ca1a@5"
+        ],
+        "graphFunctionRef": "graph-function://registered-selection/A@5",
+        "reason": "The receiver's documentation says it takes JSON object input. That note is provisional, and acceptance hasn't been measured yet. Capability A matches it: it renders the record as compact JSON and is meant for a recipient that expects a JSON object. Capability B produces labelled key: value lines, which is a different format from the one the documentation describes. A sends the bytes to the controlled receiver decoder and returns the actual acceptance or rejection. That measurement is what can settle whether receiver-accepts is supported. A JSON object can carry both fields ('service': 'Atlas', 'status': 'healthy') with their names and values unchanged, which is what record-preserved needs, based on the original record kept in the parent state. A also keeps the input task, earlier measurements and unresolved support. Choosing A doesn't show the delivery succeeded and doesn't grant authority to operate. Both required supports stay unresolved until A's measurement comes back and the parent checks it. Only the parent can confirm the task is complete."
+      },
+      "models": [
+        "claude-opus-5-5"
+      ]
+    },
+    {
+      "actor": 2,
+      "nativeIntervalMs": 9916,
+      "promptBytes": 15686,
+      "raw": {
+        "disposition": "selected",
+        "evidenceRefs": [
+          "observation://registered-selection/7e85704175a9688af3fd06907c78399d32f609a8cd62a0a6c39b4d8a2c18b282@5",
+          "observation://registered-selection/receiver-documentation@5",
+          "observation://registered-selection/89696998a5587a6e9e241cd84ebcde7a760fefeac3fc623dba5d80d98c06ca1a@5"
+        ],
+        "graphFunctionRef": "graph-function://registered-selection/B@5",
+        "reason": "The receiver documentation says it accepts JSON objects, but that claim is provisional. The actual receiver rejected the compact JSON rendering of the record with the diagnostic \"Receiver could not decode a unique labelled field in key: value format.\" This real measurement outweighs the documentation and shows the receiver expects labelled key: value lines. Capability A would resubmit the same JSON representation that was already rejected, so it is not suitable. Capability B renders the record as labelled key: value lines, which matches what the receiver expects. The record is flat, with two string fields (service: Atlas, status: healthy), so it can be written as unique labelled lines without losing any field name or value. B also submits the rendering to the controlled receiver and returns the actual result, which is how receiver-accepts and record-preserved can be settled. Selecting B does not show that delivery succeeded. Both supports stay unresolved until B's measurement confirms acceptance and a faithful decoded record, and only the parent can certify that the task is complete."
+      },
+      "models": [
+        "claude-opus-5-5"
+      ]
+    }
+  ],
+  "frameworkOutsideNativeIntervalsMs": 3041.371332999999,
+  "publicRequestBytes": 16490747,
+  "eventCount": 519,
+  "eventBytes": 3306833
+}

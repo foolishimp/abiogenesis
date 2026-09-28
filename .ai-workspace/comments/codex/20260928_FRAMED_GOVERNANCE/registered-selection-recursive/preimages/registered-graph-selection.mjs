@@ -15,11 +15,10 @@ export async function prepareRegisteredSelectionProduct({scratch, product, gtl, 
   const productId = publicationData.owningProductId;
   const packageVersion = version;
   const {moduleRef, descriptorRef, contributionManifestRef} = publicationData;
-  const program = publicationData.programs[0];
-  const {programRef} = program;
-  const start = program.starts.find(s => s.startRef === program.policies['abg.default_start_ref']) ?? program.starts[0];
-  const {graphFunctionRef, startRef} = start;
-  const nodeRef = publicationData.graphFunctions.find(g => g.name === graphFunctionRef).template.startNodeRef;
+  const programRef = ref('program','root');
+  const graphFunctionRef = ref('graph-function','root');
+  const nodeRef = ref('node','select');
+  const startRef = ref('start','root');
   const provenanceRef = ref('provenance','product');
   const sourceRoot = join(scratch, "registered-selection-data-product-source");
   await rm(sourceRoot, { force: true, recursive: true });
