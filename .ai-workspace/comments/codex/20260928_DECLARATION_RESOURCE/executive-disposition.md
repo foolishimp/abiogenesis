@@ -670,3 +670,55 @@ and proposes the next lawful action; existing GTL/HoG/ABG retains composition,
 recursion, admission and execution. This is the selected interpretation for the
 next design reframe, not a claim that the current deterministic planner realizes
 it or a grant for autonomous cross-Run authority.
+
+
+### Owner rejection: Product revisions withdrawn
+
+Owner ruling, 2026-09-28: "the product revisions are wrong", following the
+clarification that HoG is the unit of computation. The Program-construction
+scope expansion is rejected. The earlier instruction to implement the proposal
+did not justify replacing odd_glc's existing requirement-compiler exclusion
+with a new local selection and state pipeline. Contract review did not establish
+that the selected computational ownership was appropriate.
+
+Re-entry: restore the prior Intent/Product/requirement boundaries and withdraw
+the dependent design and implementation selection. This supersedes the prior
+construction grant; it does not reverse accepted generic ABG repairs or erase
+bounded observations from the rejected implementation. The next subject is the
+calculus and design under the existing GTL/HoG/ABG ownership, with the owner's
+recursive reference-frame interpretation. No replacement is selected here.
+
+Root explicitly activates Writer for the following effects only:
+
+- In odd_glc, restore the eight definition/bootstrap files changed by the
+  construction-scope amendment to their pre-extension `eb65daa3` contents:
+  AGENTS, README, Intent, Product, Reference-Frame Basis, Boundary-Authority,
+  Worksite-Lifecycle and Requirements-Algebra-Consumption. Reconcile Goals,
+  T-043 and the Program-construction HOW's authority status.
+- In ABIogenesis, remove the corresponding Program-construction Product grant,
+  retain the execution/context calculus, restore selection-boundary -001–007
+  under the selected STDO basis, and preserve the withdrawn -008–015 calculus
+  as review material. Reconcile Goals, T-287 and this disposition.
+- Check the bounded documentation diff, retained calculus and source links;
+  commit and push those exact paths to the existing remotes, with no tag.
+
+Review preimages are ABI `0c114db1b1a26fdc27270d7bfd0600b9535037c5` and
+GLC `a189c370b9af674413941fd7e5a110777585b23e`. Git retains the rejected
+Product/Intent revisions and the original design; the
+[calculus review copy](program-construction-calculus-review.md) retains every
+construction equation and criterion. The strategy post remains unchanged.
+No code deletion, build, install, journal recovery, native execution or provider
+call is authorized by this Writer activation. Existing implementation remains
+held for the requested removal/design review. Return to Executive after the
+bounded documentation checkpoint.
+
+
+Restoration verification: all eight GLC definition/bootstrap files exactly
+match `eb65daa3`; ABG Product exactly matches `02885af` with the existing
+execution/context calculus conserved. Structural criteria -001–007 are unchanged
+and retain the selected STDO 2.5.1 RC1 routes. The complete withdrawn construction
+text is preserved in the review copy with only relative links relocated.
+Added local documentation links resolve and whitespace checks pass. The patch
+changes documentation only. Runtime tests, builds and paid/native runs were not
+performed for this authority correction. Root's remaining Writer effect is the
+scoped commit/push, followed by return to Executive.

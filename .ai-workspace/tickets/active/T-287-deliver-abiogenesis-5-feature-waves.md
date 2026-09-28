@@ -17,7 +17,7 @@
 - updated_at: 2026-09-28
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_DECLARATION_RESOURCE_01
+- current_activation: T287_PRODUCT_AUTHORITY_RESTORE_01
 - current_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-06/selected-core.json
 - current_candidate_archive_sha256: df47a7a2c9d7f25cb2b1c22e7097e027c68ec25d05179b5c6d8f15dbe0319944
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/executive-disposition.md
@@ -26,10 +26,10 @@
 - current_candidate_scope: core52_canonical_contraction_source_package_and_installed_owner_conservation_accepted
 - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-11/activation.json
 - current_live_execution_status: PC05_11_process_heap_aborted_before_admission_zero_appended_events
-- current_activation_status: extension_held_for_owner_requested_F_P_F_D_boundary_reframe
+- current_activation_status: construction_Product_revisions_rejected_implementation_grant_withdrawn
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
-- current_activation_disposition: '#program-construction-calculus-definition'
+- current_activation_disposition: '#owner-rejection-of-program-construction-revisions'
 - current_management_plan: '#current-management-prerequisite-plan'
 - prior_generic_job_activation: ABI5_GENERIC_JOB_IMPLEMENT_01
 - prior_generic_job_activation_status: closed_native_two_job_intake_D1_and_selected_D2_mechanics_accepted_live_and_broader_Product_qualification_open
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: assess_replacement_of_new_consumer_planner_under_existing_framework_owners
-- next_bounded_task_status: one_installed_owner_check_passed_28439ms_acquisition_9790ms_projection_peak_RSS5193203712
+- next_bounded_task: review_preserved_calculus_and_design_under_existing_HoG_computation_boundary
+- next_bounded_task_status: definition_restored_review_pending_no_replacement_implementation_selected
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -268,6 +268,21 @@
 - accepted_wave_2_roadmap_tree: 9ae5438410d1528614cb887cff5caebb699b708d
 - accepted_wave_2_roadmap_verdict: A0_B0_C0_D0
 
+
+## Owner rejection of Program-construction revisions
+
+Owner ruling, 2026-09-28: "the product revisions are wrong"; HoG is the unit of
+computation. The Program-construction Product amendment and dependent -008–015
+requirement grant are withdrawn. Original selection criteria -001–007, the
+execution/context calculus and accepted generic core repairs remain.
+
+The [Executive disposition](../../comments/codex/20260928_DECLARATION_RESOURCE/executive-disposition.md#owner-rejection-product-revisions-withdrawn)
+records the exact Writer scope and preimages. The
+[withdrawn calculus](../../comments/codex/20260928_DECLARATION_RESOURCE/program-construction-calculus-review.md)
+and T-043's rejected HOW remain review subjects. Earlier acceptance records
+below preserve historical evidence; they do not authorize this extension.
+Implementation, recovery and native attempts remain held. No new planner,
+Product capability, code deletion or release claim is selected by this update.
 
 ## Current Checkpoint And Installed Continuation
 
@@ -844,7 +859,11 @@ installation, Run or release is granted. Root returns to Executive afterwards.
 
 ### Program-construction calculus definition
 
-- Current design disposition, 2026-09-27: the bounded independent whole-path
+**Withdrawn selection.** The owner rejection above supersedes this definition
+and its dependent implementation grants. The following entries record the prior
+selection and bounded evidence, not current Product authority.
+
+- Historical design disposition, 2026-09-27: the bounded independent whole-path
   Design/Owner/Reuse review identified an incomplete consumer HOW. The corrected
   HOW is now independently satisfied and Executive-accepted at SHA-256
   `9dd3233fb54402c73970bbefcce44f3e31618d158bad393f4a47104c9ed1f83f`;
@@ -977,7 +996,7 @@ installation, Run or release is granted. Root returns to Executive afterwards.
 - Executive disposition: accept the formal definition at its claimed
   contract-sufficiency scope. The normative owners are
   [Product](../../../specification/PRODUCT.md#program-construction-boundary)
-  and its [existing GTL requirement](../../../specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md#program-construction-calculus).
+  and its [existing GTL requirement](../../comments/codex/20260928_DECLARATION_RESOURCE/program-construction-calculus-review.md#program-construction-calculus).
   Requirement SHA-256 after correction is
   `1024e59448cd0f01b3a7b8e4423c77961f3ba07b0394f701967a9c8e8cb2fdf8`;
   independent review SHA-256 is

@@ -19,60 +19,33 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 ## Current Selection
 
-### Program-construction definition
+### Owner rejection of the construction extension
 
-The owner-selected [formal preprocessing definition](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#program-construction-calculus-definition)
-is documented and independently reviewed. It defines a source-grounded
-contract for fitting ordinary GTL to the task and its remaining obligations,
-connected to the existing execution calculus. The owner's subsequent
-implementation instruction selects odd_glc as the lifecycle construction owner
-through its explicit Intent/Product re-entry; the [T-043 modular completion plan](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#modular-completion-plan)
-owns the bounded realization, incremental tests and installed thread. The definition preserves
-the current installed evidence and the delivery objective below. Global graph
-optimization and broader HoG upgrades remain separate scope. The governing relation lives at
-[Product's construction boundary](PRODUCT.md#program-construction-boundary),
-not in this work-selection surface.
+The owner has rejected the Program-construction Product revisions. Restore the
+existing Product and structural-selection boundaries; review the withdrawn
+calculus and consumer design with HoG as the unit of computation.
+[T-287's current disposition](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#owner-rejection-of-program-construction-revisions)
+and [T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#owner-rejection-of-program-construction-revisions)
+track this bounded correction. Implementation, recovery and native attempts on
+the rejected extension are held. No replacement planner is selected.
 
 ### Current delivery objective
 
-The owner-selected T-287
-[execution-calculus Product re-entry](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#execution-calculus-product-re-entry)
-is documented and independently reviewed. Product and its existing requirement
-owners govern state, context and recovery. The owner now selects T-287's
-[forced-ranked repairs](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#forced-ranked-calculus-repairs),
-with coherent input transfer, recovery and role/context repairs accepted in
-their recorded scopes. Ranks 7–8 and the bounded predecessor-lineage repair are
-accepted and packaged. Native42 proves the repaired installed intake, accepts
-revised Design, and completes construction and nine command runs. Evidence-author
-preparation then refuses the context bound. T-287 selects lossless context
-sharing and the missing operational recovery case so the declared Evidence-only
-suffix can consume valid completed work. Native44 completes that recovery with satisfied stage assessments, fresh Public
-readback and exact conservation of completed work. Independent review supports
-the application behavior and content. T-043's first Program-construction
-increment now supplies the missing computed evaluator records through accepted
-installed positive/refusal proof on core46. The selected S06 witness still
-requires its prospective construction-input relation and comparison. T-043
-owns that consumer work, reusing valid artifacts and execution evidence.
-The current candidate and its bounded source/installed acceptances are selected
-by T-287; complete qualification remains open. T-287 owns the
-bounded grants, proof and disposition. Preserve valid
-work and triage any further delivery failure against the end-to-end calculus
-before selecting its owning repair. Native39 remains historical closed-failed
-evidence.
+Deliver the fixed fifteen-family ABG5 runtime through the existing GTL/HoG/ABG
+owners. Preserve the accepted execution/context calculus, generic core repairs,
+original task/oracle and still-valid evidence. The withdrawn consumer extension
+cannot serve as current implementation authority or release acceptance.
 
-Complete the preserved native correction steel thread from its original source
-and oracle through affected lifecycle work, construction, real execution,
-independent assessment and fresh Public readback. Reuse valid completed work;
-repair supported failures on that path without starting a general cleanup
-campaign. Then qualify the exact fixed fifteen-family ABG5 candidate and publish
-RC1 through the existing F11, sole AF22 and release owners. Publication, installed-RC
-qualification and actual owner acceptance remain distinct.
+After the owner-requested calculus/design review resolves the delivery path,
+resume the preserved native steel thread through real execution, independent
+assessment and fresh Public readback. Then qualify the exact candidate and
+publish RC1 through existing F11, sole AF22 and release owners. Publication,
+installed-RC qualification and actual owner acceptance remain distinct.
 
-[T287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md)
-owns the exact current candidate, active execution/repair, evidence and remaining
-release conditions; [T043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md)
-owns the paired GLC work. Data Mapper stays held. Historical bounded acceptances
-below do not replace the tickets' current selection.
+T-287 owns remaining runtime and release work; T-043 owns the paired lifecycle
+work. Data Mapper remains held. The records below preserve earlier bounded
+results and selections; they do not override the current owner rejection or
+activate an implementation, recovery or native execution.
 
 GOAL-035/T-287 and T-043 retain the fixed fifteen-family ABG5 outcome, original
 job/S1–S5/oracle, five selected/four outside residuals and protected worksite.
