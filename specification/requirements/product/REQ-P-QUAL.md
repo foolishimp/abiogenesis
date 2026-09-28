@@ -3,7 +3,8 @@
 **Status**: Active - T-283 base; exact Definition-selected STDO qualification basis
 **Category**: Verification
 **Date**: 2026-07-25
-**Derives from**: INT-001 (installed product and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md) (Verification Layers)
+**Updated**: 2026-09-28
+**Derives from**: INT-001 (installed product and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](stdo://releases/v2.5.1-rc.1/standards/SPEC_METHOD.md) (Verification Layers)
 **Wave**: ABG 5.0
 
 ---
@@ -16,9 +17,11 @@ This requirement establishes the constitutional rules for the qualification infr
 
 Gate applicability follows [Product Release Boundaries](../../PRODUCT.md#50-and-51-release-boundaries).
 Standalone Consensus, mandatory host parity, native human response/resume and
-whole-run semantic executive oversight are 5.1 qualification claims. Their
+the dedicated F12/S04 observer/tuner Product are 5.1 qualification claims. Their
 deferral does not waive retained local traversal, truthful blocking, runtime
 liveness, complete selected F17/S06 outcomes or actual human RC acceptance.
+The selected ordinary governance/default-library discriminator follows
+`REQ-P-SCENARIOS-018` within existing S02/S03/S06, not an additional campaign.
 
 ---
 
@@ -488,6 +491,37 @@ selection, effect paths, HoG traversal and ABG truth checks alternative-path
 risk on the affected dependency closure. Pure catalog/readiness functions may
 remain eventless. Required independent assessment and proportionate
 module-derived unit evidence remain distinct under the selected STDO frames.
+
+## Constitutional Execution Conformance
+
+**REQ-P-QUAL-072**: Qualification of framed execution shall establish the
+actual declared-to-executed relation in the Product Execution And Context
+Calculus, on the exact candidate and Program basis:
+
+```text
+selected frame + subject/observation basis
+  -> actual supplied context and evaluator/compute regime
+  -> attributed candidate result and supporting evidence
+  -> ABG admission
+  -> actual declared graph/effect consequence and parent/child disposition
+```
+
+Evidence shall distinguish a configured binding from the inputs actually
+supplied and the resulting admitted execution. Focused counterexamples shall
+cover wrong/stale frame or observation basis, an unadmitted result influencing
+progression, and child success concealing an outstanding parent obligation.
+Unknown or out-of-frame results shall retain their declared disposition.
+Existing valid checks may satisfy these relations at their owning boundaries;
+identity/schema validation alone shall not establish semantic adequacy.
+
+Changed calculus obligations shall be mapped to affected execution and
+qualification claims. Historical results retain their exact supported scope;
+they shall not automatically qualify a new relation. Unaffected evidence and
+evidence already sufficient for the new relation remain reusable. Missing
+correspondence leaves the dependent claim open. This requirement uses existing
+F11/qualification and S02/S03/S06 owners, follows QUAL-071's sequencing and
+requires no new ledger, mandatory auditor invocation, per-handoff full replay,
+or indiscriminate rerun of UAT.
 
 ## Live Test Authority
 

@@ -11,13 +11,13 @@
 - build_tenant: typescript
 - change_intent: deliver_one_installed_correctable_graph_runtime_through_complete_selected_lifecycle_UAT_and_exact_release
 - change_class: goal_reprice
-- derived_change_classes: product_reprice, requirement_reprice, design_reframe, realization_refactor_subject_to_milestone_intake
+- derived_change_classes: intent_reprice, product_reprice, requirement_reprice, design_reframe, realization_refactor_subject_to_milestone_intake
 - re_entry_point: specification/GOALS.md#current-selection
-- retriaged_at: 2026-09-26
+- retriaged_at: 2026-09-28
 - updated_at: 2026-09-28
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_EXECUTIVE_LIBRARY_DEFINITION_01
+- current_activation: T287_FRAMED_GOVERNANCE_DEFINITION_01
 - current_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-06/selected-core.json
 - current_candidate_archive_sha256: df47a7a2c9d7f25cb2b1c22e7097e027c68ec25d05179b5c6d8f15dbe0319944
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/executive-disposition.md
@@ -26,10 +26,10 @@
 - current_candidate_scope: core52_canonical_contraction_source_package_and_installed_owner_conservation_accepted
 - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-11/activation.json
 - current_live_execution_status: PC05_11_process_heap_aborted_before_admission_zero_appended_events
-- current_activation_status: owner_selected_recursive_Executive_overlay_and_default_graph_library_definition
+- current_activation_status: constitutional_governance_and_execution_verification_definition_accepted
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
-- current_activation_disposition: '#recursive-executive-and-default-graph-library'
+- current_activation_disposition: '#framed-governance-definition-re-entry'
 - current_management_plan: '#current-management-prerequisite-plan'
 - prior_generic_job_activation: ABI5_GENERIC_JOB_IMPLEMENT_01
 - prior_generic_job_activation_status: closed_native_two_job_intake_D1_and_selected_D2_mechanics_accepted_live_and_broader_Product_qualification_open
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: define_existing_owner_composition_and_installed_sandbox_proof_contract
-- next_bounded_task_status: owner_scope_recorded_for_Product_playback_no_implementation_activation
+- next_bounded_task: design_smallest_framed_governance_composition_and_representation_binding
+- next_bounded_task_status: definition_review_closed_design_and_implementation_not_activated
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -271,78 +271,60 @@
 
 ## Recursive Executive and default graph library
 
-Owner-selected target, 2026-09-28; Product-definition playback precedes
-implementation. The prior odd_glc planner and its grants remain rejected.
+Current outcome: composable governance through ordinary GTL/HoG/ABG, with
+reference frames governing attention, evaluation and declared graph selection.
+The default library supplies the selected Executive overlay and reusable
+lifecycle functions. The rejected odd_glc planner remains withdrawn.
 
-1. Express the recursive Executive overlay as ordinary GTL/GraphFunction work
-   on the existing HoG compute unit, following the
-   [strategy](../../comments/codex/20260920T025416Z_STRATEGY_abg5_first_problem_fitted_gtl_preprocessor.md).
-   The outcome is a justified fit of graph to problem, revised through evidence.
-   F_P interprets the task, governing constraints, current workspace observations,
-   applicable admitted evidence and available function contracts. Through HoG it
-   selects an existing composition, recomposes compatible functions or authors
-   candidate ordinary GTL, retaining explicit capability gaps. It may revise
-   granularity, dependencies and iteration placement when evidence warrants it.
-   Each candidate crosses existing validation/publication/admission; a bound
-   Program is not silently rewritten. Original outcome, required independence,
-   valid unaffected work and unresolved obligations are conserved. Declared
-   recursion/foldback and ABG admission retain execution and continuation.
-   "Best fit" means justified under those constraints, not global optimality.
-2. Publish the reusable GraphFunctions in the existing module/catalog registry
-   as the default ABG library. They remain ordinary selectable/replaceable
-   declarations through the same public path as user graphs.
-3. Key functions cover induction, specification, design, testing and UAT.
-   Induction establishes the task model from input/context, assumptions and
-   unknowns. Specification preserves outcome/constraints; design relates those
-   to realization; testing supplies construction evidence; UAT evaluates the
-   supported user outcome. Actual construction reuses the existing coding-worker
-   capability. The Executive selects applicable work; these names do not impose
-   an unconditional five-stage pipeline on every task.
-4. The principal proof deploys ABG and its library into a clean sandbox, then
-   invokes the selected overlay through installed Public entry against scenario
-   input. Hello World is the minimal application: its purpose is to expose
-   framework/context/progression failures with negligible application complexity.
+Authority now resides in [INT-008](../../../specification/INTENT.md#int-008---composable-reference-frame-governance),
+[Product calculus](../../../specification/PRODUCT.md#graph-composition-and-reference-frames),
+[default library](../../../specification/PRODUCT.md#default-governance-and-lifecycle-library)
+and [release allocation](../../../specification/PRODUCT.md#50-and-51-release-boundaries).
+[Requirement routes](../../../specification/requirements/README.md#framed-governance)
+decompose those relations. The original
+[strategy](../../comments/codex/20260920T025416Z_STRATEGY_abg5_first_problem_fitted_gtl_preprocessor.md)
+remains rationale, not competing authority. T-043 owns reusable consumer assets
+and retirement tracking; it supplies no replacement planner.
 
-Proof boundary: use real LLM actors, actual generated files, executed tests and
-UAT, and fresh admitted result/readback. Scenario input/oracle owns the greeting
-requirement; framework and default library contain no Hello-specific branch or
-prebuilt successful output. Observe recursive child/parent relations where
-selected and conserve unresolved parent obligations. Preparation/copy/install,
-pre-actor runtime, LLM work, deterministic work and readback are measured
-separately; excessive deterministic processing triggers volume/path diagnosis.
-A deterministic fixture or an existing application alone cannot close this
-installed native proof. Within the same small scenario, distinguish fresh work,
-valid admitted results already available, and counterevidence requiring revision.
-The selected work/composition must respond to those differences while preserving
-valid unaffected work and the original completion condition. Retain the reason
-for the selection and the resulting actual execution; a successful fixed route
-alone does not qualify problem-fitted construction. An unchanged composition is
-lawful where justified, not a universal substitute for the revision case.
+## Framed-governance definition re-entry
 
-Graph construction and invocation context are separate responsibilities on the
-same existing owners. The selected function/role receives sufficient bounded,
-source-linked context through ordinary instruction assembly. The axiomatic index
-routes to constraints; applying them and judging semantic fit remain F_P work.
-Missing function contracts produce an explicit gap or separately governed function
-construction/qualification, never a hidden local planner or runtime substitute.
-Assess useful outcome and total work, including graph construction/assessment
-cost; reducing work cannot waive required evaluation or change the task. These
-are bounded outcome discriminators, not a new broad qualification campaign.
+Owner instruction: capture the calculus first in Intent, Product and
+specification, then independently review consistency before implementation.
 
-Ownership: ABI T-287 owns the overlay/library target and generic runtime gaps.
-T-043 supplies reusable declaration/prompt/scenario assets and tracks the
-retirement of the rejected consumer machinery; it does not supply a replacement
-planner. Existing GraphFunction, module/catalog, recursion, effect, admission,
-state and replay owners remain. The current 5.1 whole-run Executive reservation
-requires explicit Product-scope reconciliation for this overlay, without
-importing other deferred features. Current evidence is retained at its original
-scope; this target is not implemented or qualified by this tracking update.
+| Intake | Selection |
+|---|---|
+| Class and entry | `intent_reprice` at INT-001/Product Direction; derived Product and requirement re-entry. |
+| Reason | Governance becomes explicit direction; the existing post-selection context relation needs its graph evaluation/admission/consequence relation, and the blanket 5.1 Executive reservation conflicts with the selected overlay. |
+| Scope | Existing GTL declarations, HoG computation and ABG admission; reference-frame reuse without another topology entity or interpreter. |
+| Release | Selected ordinary Executive/default library under the existing fifteen families and S02/S03/S06; dedicated F12/S04, autonomous out-of-traversal routing and native human response remain deferred. Product owns the exact allocation. |
+| Evidence | Definition and review only. Installed code and historical native results do not establish this new capability or resolve the retained pre-admission heap failure. |
+| Current grant | Bounded Writer documentation effects and independent read-only consistency review; no implementation, code deletion, recovery, native execution or release. |
 
-Next: complete the requested Product playback, then specify the smallest
-end-to-end overlay/library composition and its installed sandbox discriminator.
-No new code, deletion, native launch or Product-law mutation is selected by this
-scope-recording activation. Root's Writer territory is the paired tickets/Goals
-and the current Executive disposition, plus their scoped commit/push.
+[Exact Writer grant and disposition](../../comments/codex/20260928_FRAMED_GOVERNANCE/triage-and-disposition.md)
+own the bounded activation and subject.
+
+- [x] Triage against the existing Intent/Product and selected STDO basis.
+- [x] Capture direction, calculus, release scope and derived acceptance in their owners.
+- [x] Independent consistency review; FG-01 corrected and accepted on the frozen successor.
+- [ ] Design the smallest installed composition against the accepted definition.
+- [ ] Implement and qualify the selected sandbox discriminator, then continue release work.
+
+Definition and execution-verification consistency are closed after
+[independent review](../../comments/codex/20260928_FRAMED_GOVERNANCE/review-03.md),
+conjoined with the retained prior judgments. FG-01 restored the graph-revision
+discriminator; no remaining blocking finding was identified. QUAL-072 makes
+actual execution conformance explicit. Implementation and qualification remain
+unassessed. Next:
+bounded design of the smallest composition and representation bindings using
+existing owners. The withdrawn construction pipeline grants no implementation
+authority.
+
+Verification impact: the calculus is constitutional. Design/implementation
+must map each changed relation to its actual execution boundary and evidence
+under [QUAL-072](../../../specification/requirements/product/REQ-P-QUAL.md#constitutional-execution-conformance).
+Preserve valid historical results at their supported scope; require affected
+proof before claiming the new relation. Definition review closes no execution
+or qualification obligation and does not trigger a blanket UAT rerun.
 
 ## Owner rejection of Program-construction revisions
 

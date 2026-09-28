@@ -3,7 +3,8 @@
 **Status**: Active - T-283 base; exact Definition-selected STDO qualification basis
 **Category**: Verification
 **Date**: 2026-07-25
-**Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md)
+**Updated**: 2026-09-28
+**Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](stdo://releases/v2.5.1-rc.1/standards/SPEC_METHOD.md)
 **Wave**: ABIogenesis 5.0
 
 ---
@@ -16,9 +17,9 @@ Product. These requirements decompose the stable scenario identities in
 
 Every scenario inherits [Product Release Boundaries](../../PRODUCT.md#50-and-51-release-boundaries).
 Standalone Consensus qualification, mandatory host parity, native human
-response/resume and whole-run semantic executive oversight are
-reserved for 5.1; local recursion, automatic progression, correction and
-truthful blocked handoff remain 5.0.
+response/resume and the dedicated F12/S04 observer/tuner Product are reserved
+for 5.1. Selected framed Executive/default-library composition, local recursion,
+automatic progression, correction and truthful blocked handoff remain 5.0.
 
 ## General Scenario Law
 
@@ -126,7 +127,7 @@ specification and authority preserves unaffected work, refreshes affected
 evidence and supports automatic progression to the declared completion
 condition. A separate no-lawful-next-step
 case produces typed block and human-readable handoff without false completion.
-Native human response/resume and whole-run executive intervention are not gates.
+Native human response/resume and dedicated F12/S04 capabilities are not gates.
 When the truthful stop is an admitted `gap_stop`, the scenario may instead
 lawfully re-enter that exact stopped Run into one successor Run under an
 admitted single-use re-entry basis. Re-entry shall preserve the exact selected
@@ -172,8 +173,8 @@ mutation. Native human response/resume after that handoff is reserved for 5.1.
 invocation through native SDK and CLI with no marketplace host. Mandatory
 Codex/native parity is reserved for 5.1; any retained projection owns no copied
 program, traversal, event, continuation or closure behavior.
-An independent downstream catalog provides the real lifecycle
-witness defined by Product F17/S06 using only installed public ABIogenesis
+A user-selected composition over default or user GraphFunctions provides the
+real lifecycle witness defined by Product F17/S06 using only installed public ABIogenesis
 contracts for publication, declaration application and GraphFunction
 invocation.
 
@@ -255,3 +256,25 @@ binding, supported public path, outcome predicate, nearest weaker excluded
 property, terminal condition, or non-closure boundary requires lawful Product
 re-entry. Requirements and tests may decompose these stable identities but
 shall not silently weaken or replace them.
+
+**REQ-P-SCENARIOS-018**: The selected default-library governance proof shall
+exercise Product's minimal installed sandbox discriminator within S02/S03/S06.
+The original scenario and expected outcomes shall be bound independently of
+implementation and result inspection. Its finite cases shall establish:
+
+| Case | Required distinction |
+|---|---|
+| Fresh task | Real native F_P work produces the required files, executed checks, selected UAT, admitted evidence and fresh Public result through the installed default library. |
+| Valid prior result | The declared selection reuses applicable admitted work without repeating it or treating unassessed work as accepted. |
+| Material counterevidence | A prospectively bound case warrants changed graph selection or composition. Its selection reason and actual admitted execution demonstrate that change; artifact-only repair on a universal unchanged route is insufficient. Dependent support is invalidated; unrelated valid work and original completion obligations survive. Unchanged composition remains lawful where justified in other cases. |
+| Frame/policy change | A prospective criterion or observation-scope difference changes the required context or permitted decision where its contract requires it. Explicit F_D policy and F_P judgment retain their separate contracts and admitted consequences. |
+| Missing or invalid support | Unknown required applicability/evidence, an invalid basis or an unadmitted proposal cannot acquire an authorized next action or completion by omission. |
+| Recursive investigation | A selected child returns through admitted foldback; its success alone does not discharge remaining parent obligations or expand authority. |
+
+Cases may share one installed steel thread and reuse valid evidence. Deterministic
+relations use focused mechanical checks; claimed native judgment has real LLM
+evidence. Scenario scaffolding owns the task/oracle and supplies no solution or
+runtime bypass. Copy/install, pre-actor runtime, LLM, deterministic and readback
+work are distinguished. This is no new scenario family, mandatory role roster
+or claim of stochastic repeatability. The complete selected F17 outcome remains
+required; case definition alone supplies no qualification evidence.

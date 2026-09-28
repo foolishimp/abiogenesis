@@ -1,0 +1,66 @@
+{
+  "kind": "frozen-document-review-subject",
+  "base_commit": "929057d6d498095f0fd1e6e41c26de89ca49b80e",
+  "created_utc": "2026-09-28T05:45:27.167996+00:00",
+  "scope": "Intent/Product/requirements and governing/tracking projections; no implementation or qualification claim",
+  "subjects": [
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "14b16fe6da9ed066c5a6a76c4eee6a8b47cec6141e23a1381ce145c334f680fc"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "26828f12e74aa06e9621344d1c594157668242f8c76a549c8ac0ce50e731d53a"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "61fffabf894d648b5c74919a56a61dd12bb34d96453ef001e273e2837f5d0ad8"
+    },
+    {
+      "path": "specification/INTENT.md",
+      "sha256": "bbb2c55f678acb5bca7a6b1c126433090b0ca60f64205755ff34b8ce4ab97214"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "21952b0e175d4e4e8dc8138834a88681ee834042f697b2aca62ab57357a61f24"
+    },
+    {
+      "path": "specification/requirements/README.md",
+      "sha256": "cb0c843362fc918169823c0a1770f1b3a0ed7a9cea673f387b249f0f7227b04d"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+      "sha256": "c062ea26440b23e71101ae8f1161634972b67ad1324d90cd295e2bc302773b97"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+      "sha256": "bb5b2bc9a0e0be1153457ca6a85950c57fa5877a5cd9128239d92e266f9322f9"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+      "sha256": "d71d8b530f6efc1b611dcf0079ee03d8838de0cd083fdea5488c1274b8261c4a"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+      "sha256": "510af4887470b5423a30d7aed0165df6c394696b961ba4984e395aba8cbeee21"
+    },
+    {
+      "path": "specification/requirements/mapping/REQ-M-GTL3-MAPPING.md",
+      "sha256": "1060b39e83a2ceee5dd74fb403bd45a7f8d3f1ea071a74f2fa1ba2b81b680822"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-POLICY.md",
+      "sha256": "e13953bc84a5a41d9d54f7fac4ab3b53142e12a9a35ee8b3fbefb210a6104d98"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-QUAL.md",
+      "sha256": "5788f543ce1ffe6f37145a83442d0303fb2fa31936a959839a633305e6e614ed"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-SCENARIOS.md",
+      "sha256": "26e1e1cccc5b085bcf58a94d7a632a6f53f2353f5e5e71327bac1c8b406f94be"
+    }
+  ],
+  "prior_subject": "review-subject-01.json",
+  "delta": "FG-01 correction to Product and SCENARIOS-018 only"
+}

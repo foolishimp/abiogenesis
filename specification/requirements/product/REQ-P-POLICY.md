@@ -5,6 +5,7 @@
 packed/installed verification clarification
 **Category**: Governance
 **Date**: 2026-04-19
+**Updated**: 2026-09-28
 **Derives from**: [INTENT.md](../../INTENT.md) INT-001 and INT-005,
 [PRODUCT.md](../../PRODUCT.md)
 **Wave**: 3; ABG 5.0 public operator contract
@@ -17,9 +18,11 @@ Product-level policy (feature closing, human proxy, merge gates, CLI behavior) l
 
 All clauses inherit [Product Release Boundaries](../../PRODUCT.md#50-and-51-release-boundaries)
 and [requirement release applicability](../README.md#human-response-and-whole-run-oversight).
-Only native human response/resume and whole-run semantic executive portions
-are 5.1 scope; ordinary system policy, local correction, liveness, block and
-handoff remain 5.0. Reserved owner rulings are not waived.
+Native human response/resume and dedicated observer/tuner portions retain 5.1
+scope. Selected graph-based Executive governance, ordinary system policy, local
+correction, liveness, block and handoff follow the 5.0 allocation. Reserved owner
+rulings are not waived. Governing policy is declared work; the generic GTL
+validator and HoG kernel do not invent domain priorities or frame semantics.
 
 ## Acceptance Criteria
 

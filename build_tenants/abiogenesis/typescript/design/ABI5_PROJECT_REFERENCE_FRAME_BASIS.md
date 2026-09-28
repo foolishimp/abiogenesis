@@ -8,9 +8,12 @@ immutable STDO basis selected by `stdo_abiogenesis.json`; it does not amend
 STDO, create a frame runtime, or grant semantic, mutation, admission, decision,
 implementation, or release authority.
 
-The frame declarations are structured prose. The LLM selects and evaluates
-them. Code may resolve referenced bytes and join caller-ordered prompt
-sections; it does not select, interpret, execute, or conjoin frames.
+These development/review frame declarations are structured prose. Their
+open-world selection and semantic evaluation remain LLM judgments. Code may
+resolve referenced bytes and join selected prompt sections. Under the Product
+governance calculus, an explicitly declared closed rule may be evaluated by F_D
+inside ordinary graph work. That does not make arbitrary frame prose executable
+or authorize a deterministic interpreter of open-world frame meaning.
 
 ## Exact Basis
 
@@ -48,8 +51,9 @@ downstream obligations are bound prospectively under Product Release Boundaries.
 T-287 D1/D2 acceptance is bounded to behavior and correction; D3 requires every
 mandatory outcome of that selected witness. Full original Data Mapper remains
 independent downstream beta work and is not closed by witness acceptance. Their conjunction
-does not replace other Product or qualification gates. odd_glc owns downstream
-declarations, semantic interpretation and application acceptance; ABG owns
+does not replace other Product or qualification gates. The owning default/user
+library and downstream Product declarations own domain semantics, with
+application acceptance under the selected scenario's authority; ABG owns
 admission, replay-derived proof coverage, continuation and runtime closure.
 Admitted semantic judgments, total structural checks and reserved owner rulings
 retain their distinct authority. Publication and maturation of the separate

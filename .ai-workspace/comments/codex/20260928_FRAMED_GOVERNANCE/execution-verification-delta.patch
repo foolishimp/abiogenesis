@@ -1,0 +1,125 @@
+diff --git a/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md b/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+index 3d150ca9..e0b2ba9e 100644
+--- a/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
++++ b/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md
+@@ -26,7 +26,7 @@
+ - current_candidate_scope: core52_canonical_contraction_source_package_and_installed_owner_conservation_accepted
+ - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-11/activation.json
+ - current_live_execution_status: PC05_11_process_heap_aborted_before_admission_zero_appended_events
+-- current_activation_status: framed_governance_definition_independently_reviewed_and_accepted
++- current_activation_status: definition_review_accepted_execution_verification_clarification_under_review
+ - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
+ - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
+ - current_activation_disposition: '#framed-governance-definition-re-entry'
+@@ -49,7 +49,7 @@
+ - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
+ - bounded_task_register: '#admission-boundary-execution-checklist'
+ - next_bounded_task: design_smallest_framed_governance_composition_and_representation_binding
+-- next_bounded_task_status: definition_review_closed_design_and_implementation_not_activated
++- next_bounded_task_status: execution_verification_delta_review_pending_design_and_implementation_not_activated
+ - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
+ - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
+ - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
+@@ -311,11 +311,20 @@ own the bounded activation and subject.
+ 
+ Definition consistency is closed after [independent review](../../comments/codex/20260928_FRAMED_GOVERNANCE/review-02.md).
+ FG-01 restored the graph-revision discriminator; no remaining blocking finding
+-was identified. Implementation and qualification remain unassessed. Next:
++was identified in that subject. The subsequent owner clarification makes actual
++execution conformance explicit in QUAL-072; its bounded delta review is pending.
++Implementation and qualification remain unassessed. Next:
+ bounded design of the smallest composition and representation bindings using
+ existing owners. The withdrawn construction pipeline grants no implementation
+ authority.
+ 
++Verification impact: the calculus is constitutional. Design/implementation
++must map each changed relation to its actual execution boundary and evidence
++under [QUAL-072](../../../specification/requirements/product/REQ-P-QUAL.md#constitutional-execution-conformance).
++Preserve valid historical results at their supported scope; require affected
++proof before claiming the new relation. Definition review closes no execution
++or qualification obligation and does not trigger a blanket UAT rerun.
++
+ ## Owner rejection of Program-construction revisions
+ 
+ Owner ruling, 2026-09-28: "the product revisions are wrong"; HoG is the unit of
+diff --git a/specification/PRODUCT.md b/specification/PRODUCT.md
+index 3cede444..d4e6b0d4 100644
+--- a/specification/PRODUCT.md
++++ b/specification/PRODUCT.md
+@@ -842,6 +842,20 @@ producer cannot qualify the real handoff. These are obligations within the
+ existing S02/S03/S06 and qualification scopes, not a new feature family or a
+ claim that current realization has passed.
+ 
++The graph/frame calculus is constitutional execution law. Verification of a
++claimed framed execution establishes the correspondence from the selected
++frame and observation basis to the context actually supplied, declared evaluator
++and compute regime, candidate result, ABG admission, and actual graph/effect
++consequence, including child foldback and remaining obligations. Declaration
++presence, frame labels, schema validity and application output alone do not
++establish that correspondence. Mechanical conformance and semantic adequacy
++remain separate claims. Changed constitutional relations reopen only dependent
++qualification claims; previous evidence is reused where its exact subject and
++observations establish the required relation. This uses the existing evidence
++and execution owners, without requiring an extra auditor call or full-history
++scan at each handoff. [QUAL-072](requirements/product/REQ-P-QUAL.md#constitutional-execution-conformance)
++owns the derived execution-verification requirement.
++
+ The detailed acceptance owners are
+ [C-call](requirements/abg/REQ-R-ABG3-CCALL.md),
+ [instruction assembly](requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md),
+diff --git a/specification/requirements/README.md b/specification/requirements/README.md
+index 65337750..c1c6e7cd 100644
+--- a/specification/requirements/README.md
++++ b/specification/requirements/README.md
+@@ -105,7 +105,8 @@ INT-008 and the Product Execution And Context Calculus own the selected
+ governance meaning. `REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-015B` owns its
+ composition vocabulary; CONTEXT-009..012 own frame bindings and observation
+ use; SELECTION-BOUNDARY-016..019 own evaluated selection; MAPPING-007 owns
+-representation conservation; SCENARIOS-018 owns the bounded discriminator.
++representation conservation; SCENARIOS-018 owns the bounded discriminator;
++QUAL-072 owns correspondence with actual execution and affected qualification.
+ These decompose one Product definition, not a new planner, frame runtime or
+ requirement family. Work state and current acceptance belong to T-287.
+ 
+diff --git a/specification/requirements/product/REQ-P-QUAL.md b/specification/requirements/product/REQ-P-QUAL.md
+index 388b3fd8..b8436d7b 100644
+--- a/specification/requirements/product/REQ-P-QUAL.md
++++ b/specification/requirements/product/REQ-P-QUAL.md
+@@ -492,6 +492,37 @@ risk on the affected dependency closure. Pure catalog/readiness functions may
+ remain eventless. Required independent assessment and proportionate
+ module-derived unit evidence remain distinct under the selected STDO frames.
+ 
++## Constitutional Execution Conformance
++
++**REQ-P-QUAL-072**: Qualification of framed execution shall establish the
++actual declared-to-executed relation in the Product Execution And Context
++Calculus, on the exact candidate and Program basis:
++
++```text
++selected frame + subject/observation basis
++  -> actual supplied context and evaluator/compute regime
++  -> attributed candidate result and supporting evidence
++  -> ABG admission
++  -> actual declared graph/effect consequence and parent/child disposition
++```
++
++Evidence shall distinguish a configured binding from the inputs actually
++supplied and the resulting admitted execution. Focused counterexamples shall
++cover wrong/stale frame or observation basis, an unadmitted result influencing
++progression, and child success concealing an outstanding parent obligation.
++Unknown or out-of-frame results shall retain their declared disposition.
++Existing valid checks may satisfy these relations at their owning boundaries;
++identity/schema validation alone shall not establish semantic adequacy.
++
++Changed calculus obligations shall be mapped to affected execution and
++qualification claims. Historical results retain their exact supported scope;
++they shall not automatically qualify a new relation. Unaffected evidence and
++evidence already sufficient for the new relation remain reusable. Missing
++correspondence leaves the dependent claim open. This requirement uses existing
++F11/qualification and S02/S03/S06 owners, follows QUAL-071's sequencing and
++requires no new ledger, mandatory auditor invocation, per-handoff full replay,
++or indiscriminate rerun of UAT.
++
+ ## Live Test Authority
+ 
+ **REQ-P-QUAL-021**: Live F_P qualification tests are the **gold standard** for product correctness. Any failure must be root-caused — never dismissed as flaky, pre-existing, or environmental without diagnosis.

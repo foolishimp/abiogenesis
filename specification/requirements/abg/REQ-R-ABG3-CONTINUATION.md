@@ -18,7 +18,9 @@ intent and admission of a newly selected action.
 
 Release applicability follows [Product Release Boundaries](../../PRODUCT.md#50-and-51-release-boundaries)
 and the [requirement allocation](../README.md#human-response-and-whole-run-oversight).
-CONTINUATION-010 is 5.1 whole-run executive scope. Only the native F_H
+The dedicated observer/tuner variants of CONTINUATION-010 are 5.1 scope;
+ordinary selected governance preserves its shared admission/pressure boundary.
+Only the native F_H
 response/resume portion of CONTINUATION-011 is deferred; automatic
 current-intent continuation, newly selected actions, local correction and
 CONTINUATION-009 runtime liveness remain 5.0. Deferred response contracts do

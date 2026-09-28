@@ -3,6 +3,8 @@
 **Status**: Active - accepted by T-283 F_H closure
 **Category**: Capability / Vocabulary / Constraint
 **Date**: 2026-06-30
+**Updated**: 2026-09-28
+**Governing relation**: [Product graph/frame calculus](../../PRODUCT.md#graph-composition-and-reference-frames), deriving from INT-008.
 **Derives from**: `REQ-L-GTL3-LANGUAGE`, `REQ-L-GTL3-CONTRACT-LAW-API`, `REQ-M-GTL3-MAPPING`, `REQ-M-GTL3-PROVENANCE`, `REQ-R-ABG3-INTERPRET`, `REQ-R-ABG3-PROJECTION`, `REQ-R-ABG3-FN-COMPOSITION`
 **Wave**: GOAL-019
 
@@ -271,6 +273,15 @@ compositions are the program surfaces that bind those functions. Workspaces are
 mutable instance surfaces that supply bootstrap config, files, data, observed
 state, generated artifacts, and run archives. HoG traversal is the execution
 bind over admitted program and workspace truth; ABG admits its runtime facts.
+
+**REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-015B**: Overlays shall bind compositions
+over graphs; graphs shall compose nested graph calls and declared computations
+under the same HoG execution law. Reference-frame evaluation contracts shall
+be reusable through existing composition, Context, contract and policy
+declarations under `REQ-L-GTL3-CONTEXT-009..012`. First-class frame use shall not
+introduce a separate topology object, callable kind, registry or interpreter.
+The frame contract, overlay composition and ABG runtime Frame shall retain
+their distinct meanings.
 
 **REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-016**: An overlay frame shall be ABG
 runtime contract truth over observed state, pressure, or foldback. An overlay

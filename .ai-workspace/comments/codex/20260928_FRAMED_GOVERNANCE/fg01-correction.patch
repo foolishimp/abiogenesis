@@ -1,0 +1,27 @@
+--- a/specification/PRODUCT.md
++++ b/specification/PRODUCT.md
+@@ -1331,7 +1331,12 @@
+ LLM work produces files, executed checks, selected UAT and a fresh admitted
+ readback. Neither the executor nor library contains a Hello-specific result or
+ dispatch branch. Within that bounded case, distinguish fresh work, reusable
+-valid work and counterevidence requiring revision. Show that frame/criterion
++valid work and counterevidence requiring revision. At least one prospectively
++bound counterevidence case requires a changed selection or composition of graph
++work. Retain its selection reason and actual admitted execution; artifact-only
++repair on a universal unchanged route does not satisfy this discriminator.
++Unchanged composition remains lawful where justified in other cases.
++Show that frame/criterion
+ differences and an explicit closed-rule versus F_P evaluation can govern the
+ declared choice, with unknown required inputs preserving a gap. Exercise one
+ selected recursive investigation/foldback without losing parent obligations.
+--- a/specification/requirements/product/REQ-P-SCENARIOS.md
++++ b/specification/requirements/product/REQ-P-SCENARIOS.md
+@@ -266,7 +266,7 @@
+ |---|---|
+ | Fresh task | Real native F_P work produces the required files, executed checks, selected UAT, admitted evidence and fresh Public result through the installed default library. |
+ | Valid prior result | The declared selection reuses applicable admitted work without repeating it or treating unassessed work as accepted. |
+-| Material counterevidence | Dependent support is invalidated and the declared work is revised; unrelated valid work and original completion obligations survive. |
++| Material counterevidence | A prospectively bound case warrants changed graph selection or composition. Its selection reason and actual admitted execution demonstrate that change; artifact-only repair on a universal unchanged route is insufficient. Dependent support is invalidated; unrelated valid work and original completion obligations survive. Unchanged composition remains lawful where justified in other cases. |
+ | Frame/policy change | A prospective criterion or observation-scope difference changes the required context or permitted decision where its contract requires it. Explicit F_D policy and F_P judgment retain their separate contracts and admitted consequences. |
+ | Missing or invalid support | Unknown required applicability/evidence, an invalid basis or an unadmitted proposal cannot acquire an authorized next action or completion by omission. |
+ | Recursive investigation | A selected child returns through admitted foldback; its success alone does not discharge remaining parent obligations or expand authority. |

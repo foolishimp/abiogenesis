@@ -2,10 +2,10 @@
 
 **Intent ID**: INT-001
 **Date**: 2026-03-15
-**Updated**: 2026-07-20
-**Status**: Active - accepted by T-283 F_H closure
-**Change authority**: T-283 `intent_reprice`
-**Acceptance receipt**:
+**Updated**: 2026-09-28
+**Status**: Active - T-283 base; owner-directed T-287 governance re-entry
+**Change authority**: T-283 and [T-287 framed-governance `intent_reprice`](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry)
+**Base acceptance receipt**:
 `.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md`
 
 ---
@@ -24,6 +24,12 @@ assurance depend on remembered implementation behavior.
 
 ABIogenesis exists to make the complete program inspectable before execution
 and the complete runtime episode replayable after execution.
+
+Its governance makes the selected questions, evidence, evaluators and permitted
+consequences explicit. Reference frames bound what work considers over a mutable
+workspace and admitted execution facts. Governance preserves the declared
+evaluation and authority relations; application adequacy remains an outcome
+judged under the selected Product contracts and evidence.
 
 ## Governing Intent
 
@@ -57,11 +63,14 @@ LLM-first graph programming model. It shall:
     ancestry, or accidental implementation retention;
 11. apply its own conformance, proof, qualification, and release law to the
     exact product candidate without self-minted assurance or product
-    exemption; and
+    exemption;
 12. release one immutable source-independent ABIogenesis 5.0 product before
-    recursive self-use, qualifying its generic downstream lifecycle contract
-    through the required installed witness while keeping GLC Product
-    publication and maturation independent.
+    ABIogenesis-builds-ABIogenesis self-use, qualifying its generic downstream
+    lifecycle contract through the required installed witness while keeping
+    separate GLC Product publication and maturation independent; and
+13. express recursive governance through ordinary graph compositions and
+    reusable reference-frame bindings, with declared probabilistic judgment or
+    closed-domain deterministic evaluation governing admitted consequences.
 
 ## Program And Runtime Boundary
 
@@ -149,9 +158,11 @@ impersonate the other regime or inherit its authority.
 ## Product Direction
 
 Release allocation follows [Product Release Boundaries](PRODUCT.md#50-and-51-release-boundaries).
-The directional human-work capability remains; native human response/resume,
-whole-run executive oversight, standalone Consensus qualification and mandatory
-host parity are 5.1 scope, not 5.0 completion conditions.
+The directional human-work capability remains. The selected recursive Executive
+overlay and default graph library govern work within declared Program authority
+in 5.0. The separate observer/tuner Product, autonomous out-of-traversal routing,
+native human response/resume, standalone Consensus qualification and mandatory
+host parity retain the release allocations owned by Product.
 Declared recursion, local correction, truthful blocking and attributed human
 authority remain part of the direction and the selected 5.0 boundary.
 
@@ -170,8 +181,11 @@ complete-handoff obligations while superseding the lowered executable plan with
 direct HoG traversal of admitted GTL.
 
 Stable 5.0 is released before self-use. Installed 5.0 may then become the
-development product for 5.0.1. odd_glc remains a separately released downstream
-catalog product whose publication and maturation are not 5.0 build,
+development product for 5.0.1. Recursive governance of downstream work is an
+ordinary use of the selected 5.0 Program model, distinct from that self-use gate.
+The default library supplies reusable lifecycle functions through the same
+publication path as user modules. Any separately released odd_glc downstream
+catalog product has publication and maturation independent of 5.0 build,
 qualification, or release dependencies. The real specification-driven
 lifecycle witness required by Product F17/S06 is ABIogenesis qualification
 evidence over its installed public contract class. Its complete selected
@@ -227,6 +241,22 @@ instance. An implementation, plugin, or tool realizes a declared seam.
 
 None of these identities owns program topology, traversal, event truth,
 continuation, or closure merely because it performs work.
+
+### INT-008 - Composable Reference-Frame Governance
+
+Overlays compose graphs; graphs compose nested graph calls and declared
+computations; HoG executes the admitted composition. Reference frames supply
+the evaluation family, attention scope, criteria, evidence, authority and result
+relations applied by that work. Their bindings are explicit, reusable GTL
+declarations through existing composition, Context, contract and policy
+surfaces. A role name or broader observation scope grants no additional authority.
+
+Executive, auditor and strategic oversight are applicable compositions of the
+same machinery. Declared policy selects their use and weighting. Semantic
+judgment uses F_P; a closed, explicitly defined rule may use F_D. Plugin bindings
+realize those declared computations. ABG admits their results before HoG follows
+the declared consequences. Application-specific policies remain outside the
+generic executor. Product owns the calculus and its release applicability.
 
 ## Product Use Context
 

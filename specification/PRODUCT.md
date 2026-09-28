@@ -2,11 +2,12 @@
 
 **Product ID**: PROD-001
 **Version target**: 5.0.0
-**Updated**: 2026-09-26
-**Status**: Active - accepted by T-283 F_H closure
-**Derives from**: INT-001 through INT-007
+**Updated**: 2026-09-28
+**Status**: Active - T-283 base; owner-directed T-287 governance re-entry
+**Derives from**: INT-001 through INT-008
 **Change authority**: T-283 `intent_reprice`; T-287 D1-AUTH-ABG lifecycle, owner-directed 5.0/5.1 boundary, STDO run-environment and [execution-calculus Product re-entry](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#execution-calculus-product-re-entry)
-**Acceptance receipt**:
+**Governance change authority**: [T-287 framed-governance re-entry](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry).
+**Base acceptance receipt**:
 `.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md`
 **Method adoption authority**: direct Product-owner `F_H` ruling and bounded
 `product_reprice` recorded in
@@ -47,6 +48,13 @@ evaluates and realizes admitted recursive reference-frame declarations and
 material relations through GTL, HoG, exact owners, ABG admission, and
 Event-Calculus/replay projections. GTL remains the sole admitted semantic
 source and topology carrier.
+
+Composable governance is a Product outcome. Reference frames make the selected
+questions, observations, criteria and result/authority boundaries explicit.
+Declared graph evaluations apply them to workspace evidence and admitted
+execution facts; their admitted results govern subsequent graph work. This
+preserves the declared governance relation. Semantic sufficiency and application
+quality require their selected evaluations and supporting evidence.
 
 For this release, feature-complete means complete against the 15 selected 5.0
 outcome families and their explicit baseline dispositions below. It does not
@@ -431,9 +439,9 @@ behaviors through program start, GraphFunction invocation, catalog resolution,
 typed stop conditions, and policy. A published asset remains non-callable; its
 owning program or GraphFunction is the executable target. Control mode remains
 policy around traversal and never becomes another traversal controller. Native
-human response/proxy-resume and whole-run semantic executive supervision are
-reserved for 5.1; ordinary declared system policy and runtime liveness remain
-5.0 behavior.
+human response/proxy-resume and the separate observer/tuner Product retain their
+5.1 allocation. Selected graph-based Executive governance, ordinary system
+policy and runtime liveness follow [Release Boundaries](#50-and-51-release-boundaries).
 
 ### Conservation Proof
 
@@ -622,11 +630,49 @@ entry. Equal bytes alone do not establish producer identity or permission.
 Nested calls preserve their declared entry and foldback relations; they do not
 turn every sequential handoff into a child call.
 
+### Graph Composition And Reference Frames
+
+Let `Omega` name an overlay, `G_i` its participating graphs, `Ctx` their declared
+Context bindings and `Pi` their policies. The relation
+
+```text
+P = bind(Omega, {G_i}, Ctx, Pi)
+```
+
+states that the overlay binds a Program composition over graphs. Graphs compose
+nested GraphFunction calls and declared computations through the existing graph
+and C algebra. HoG traverses that admitted structure at every depth. `bind`
+denotes a semantic relation, not another compiler, execution plan or controller.
+
+`F` denotes the reference frame bound to an evaluation/work call. It preserves
+the owning evaluation family, subject/basis, material relations, criteria,
+authority, admissible evidence, exclusions, result relation, invalidation and
+actor capability envelope. Role, question, scope, required inputs and response
+contract are its usable projection, not a replacement definition. Under STDO,
+[Reference Frame Method](stdo://releases/v2.5.1-rc.1/standards/REFERENCE_FRAME_METHOD.md#reference-frame)
+owns that meaning. General GTL Programs need not adopt STDO to declare their
+own evaluation contracts.
+
+Reference-frame bindings are explicit, addressable, reusable and composable
+through existing GTL overlay, Context, contract, evaluator, rule and policy
+declarations. A frame is distinct from an overlay's graph composition, a context
+presentation and an ABG runtime `Frame` aggregate. Its first-class use requires
+preserving these relations, not another topology kind, registry or executor.
+The frame definition references its owning source once; invocation-specific
+observations retain their separate subject, basis and invalidation conditions.
+
+For a prepared call, its frame binding is declared by `P` or selected through a
+prior admitted result under `P`'s policy. It is not invented by prompt assembly.
+Graph nesting, frame relationships and authority precedence are distinct.
+Refinement, overlap, conjunction or translation is declared where needed; a
+child graph does not automatically inherit a more powerful or sufficient frame.
+
 ### Execution, Admission And Advancement
 
 ```text
 call_k                 = prepare(P, B, S_k)
-context_k              = contextFor(call_k, S_k)
+F_k                    = frameBinding(P, call_k, S_k)
+context_k              = contextFor(F_k, call_k, S_k)
 (raw_k, W_next, facts_k) = execute(call_k, context_k, W_k)
 outcome_k              = admit(call_k, raw_k, facts_k)
 S_next                 = advance(P, S_k, outcome_k)
@@ -648,11 +694,10 @@ unknown state; it fabricates neither rollback nor a successor observation.
 
 ### Role-Specific Context
 
-For an already selected computation, `F` denotes its declared evaluation/work
-frame: role, question, criteria, scope, required inputs and response contract.
-It is distinct from an ABG runtime `Frame` aggregate. Reference-frame meaning
-remains with its owning declaration and evaluator; these equations do not
-introduce a deterministic interpreter of open-world frame meaning.
+For the bound computation and frame, context is the projection below.
+Reference-frame meaning remains with its owning declaration and evaluator;
+these equations do not introduce a deterministic interpreter of open-world
+frame meaning.
 
 ```text
 selected_k = select(F_k, currentInput_k, admittedAssets_k,
@@ -677,6 +722,56 @@ an inaccessible locator does not supply required content. Repeated whole bodies
 require a declared presentation need. Historical runtime carriers enter the
 prompt only through the selected material relation, never merely because they
 enclose that material. Context is a projection, not execution authority.
+
+### Framed Evaluation And Graph Consequence
+
+Governance evaluation is declared GraphFunction work on HoG. Its `F_D`, `F_P`
+or `F_H` boundary is explicit under [Compute And Authority](#compute-and-authority).
+A deterministic policy/state-machine checker is a declared closed-domain
+computation; contextual applicability, prioritization and semantic sufficiency
+remain judgment wherever no total rule is declared. A plugin realizes only its
+selected implementation seam.
+
+```text
+frame-bound graph evaluation -> candidate findings or selection
+candidate + supporting evidence -> ABG-admitted outcome
+advance(P, S, admitted outcome) -> declared next graph work or disposition
+```
+
+These are instances of the execution/admission/advancement relation above.
+There is no Executive loop outside that relation. Results identify the frame,
+evaluated subject, observation basis, applicable criteria, evidence, residuals
+and permitted proposal. Missing evidence, unknown applicability, an insufficient
+frame or invalid basis retains its declared unresolved/refusal disposition.
+It cannot silently suppress a required evaluation or establish satisfaction.
+
+Declared weights and thresholds govern prioritization over permitted choices;
+they cannot average away mandatory constraints, required independence or owner
+rulings. Applicability and graph selection are themselves declared computations.
+The interpreter checks and follows admitted selections; it does not invent the
+policy or infer that catalog presence makes work necessary.
+
+A selection may reuse a compatible admitted composition or propose ordinary
+GTL construction/recomposition through an F_P graph. A newly authored Program
+crosses existing publication, validation and admission before execution. A
+bound Program is not silently rewritten; a changed execution basis preserves
+its predecessor identity and re-entry authority.
+
+An auditor may evaluate the admitted event projection for the policies and
+interval it covers. Current-workspace claims additionally require applicable
+workspace observations. A broader Executive or strategic frame grants neither
+global context nor wider authority. Needed investigations are ordinary child
+graphs; closed results return through declared conjunction/foldback. Required
+independent judgment, valid unaffected work and unresolved parent obligations
+survive that composition. Child success alone does not complete its parent.
+
+The representation preserves these relations: for the same bound observations
+and admitted evaluator outputs, it preserves permitted graph choices, effects,
+refusals and completion conditions. A materially different frame or observation
+basis invalidates only the dependent evaluations. This is conditional behavioral
+conservation, not identical answers from stochastic evaluators. Ordinary calls
+consume current admitted state and necessary observations under the reuse law
+below; governance adds no mandatory full-history or full-workspace scan.
 
 ### Live State, Recovery And Valid Reuse
 
@@ -746,6 +841,20 @@ Fixtures preserve these relations; a newly invented basis or substituted
 producer cannot qualify the real handoff. These are obligations within the
 existing S02/S03/S06 and qualification scopes, not a new feature family or a
 claim that current realization has passed.
+
+The graph/frame calculus is constitutional execution law. Verification of a
+claimed framed execution establishes the correspondence from the selected
+frame and observation basis to the context actually supplied, declared evaluator
+and compute regime, candidate result, ABG admission, and actual graph/effect
+consequence, including child foldback and remaining obligations. Declaration
+presence, frame labels, schema validity and application output alone do not
+establish that correspondence. Mechanical conformance and semantic adequacy
+remain separate claims. Changed constitutional relations reopen only dependent
+qualification claims; previous evidence is reused where its exact subject and
+observations establish the required relation. This uses the existing evidence
+and execution owners, without requiring an extra auditor call or full-history
+scan at each handoff. [QUAL-072](requirements/product/REQ-P-QUAL.md#constitutional-execution-conformance)
+owns the derived execution-verification requirement.
 
 The detailed acceptance owners are
 [C-call](requirements/abg/REQ-R-ABG3-CCALL.md),
@@ -825,9 +934,9 @@ declared progress, correction, re-entry or truthful block without requiring
 unaffected work to be recreated.
 
 This template realizes existing F02/F04/F07/F10/F17 obligations. General GTL and
-ABG remain independent of STDO-specific interpretation. Whole-run Executive
-oversight, autonomous upstream re-entry and native human-response resumption
-retain their 5.1 boundaries.
+ABG remain independent of STDO-specific interpretation. The selected Executive
+overlay follows the governance calculus and release allocation; autonomous
+upstream re-entry and native human-response resumption retain their 5.1 boundaries.
 
 ## SDK And CLI
 
@@ -909,10 +1018,12 @@ or change proposals. Their outputs remain drafts. Ratification or rejection
 crosses the ordinary policy or `F_H` boundary; neither capability mutates
 specification, configuration, or tickets directly.
 
-Whole-run executive oversight is the wider-scope Consequence capability
-defined in [Release Boundaries](#50-and-51-release-boundaries). Observer
-findings, Consequence proposals and tuner declaration drafts retain separate
-judgment and admission boundaries; tuning does not become runtime control.
+This separate observer/tuner Product has the applicability defined in
+[Release Boundaries](#50-and-51-release-boundaries). Observer findings,
+Consequence proposals and tuner declaration drafts retain separate judgment
+and admission boundaries; tuning does not become runtime control. Ordinary
+Executive/auditor graph composition follows the selected governance calculus
+without requiring this dedicated Product or its public surfaces.
 
 This higher-order Product is reserved for ABIogenesis 5.1. It is not part of
 the 5.0 feature, scenario, qualification, or release predicate. ABIogenesis
@@ -926,6 +1037,24 @@ GraphFunction calls, HoG child frames, admitted result foldback, parent
 re-evaluation, and ABG continuation. It is not a separate runtime, controller,
 or product feature family.
 
+### Default Governance And Lifecycle Library
+
+The default library publishes a recursive Executive overlay and reusable
+GraphFunctions for induction, specification, design, testing and UAT through
+the same module/catalog path as user declarations. They are explicitly selected,
+replaceable compositions. Induction establishes the task model, governing
+context, assumptions and unknowns. Construction uses the declared coding-worker
+capability. Applicable work, depth and repetition follow framed evaluation and
+policy; the library imposes no unconditional lifecycle or mandatory hierarchy
+of Executive, auditor and strategic roles.
+
+Governance preserves the original task, required outcomes and authority while
+fitting or revising graph work to current evidence. The declaration supplies
+the selection reason and its criteria; best fit is a warranted judgment, not a
+global optimum. Domain instructions and scenario oracles belong to their
+declaring sources. Native coding agents retain their own work loop inside their
+declared invocation; the library does not reproduce that loop in another engine.
+
 ## 5.0 And 5.1 Release Boundaries
 
 This section owns release applicability for the feature, scenario, requirement,
@@ -934,12 +1063,20 @@ design and qualification surfaces. Fifteen feature families are selected for
 families exclude the reserved portions below.
 Historical or lower-level text does not restore a deferred release obligation.
 
+The selected 5.0 Executive/default-library increment is ordinary framed GTL
+composition under F02/F03/F04/F07/F09/F10/F17, qualified through S02/S03/S06.
+It includes declared cross-branch observation/evaluation and recursive
+investigation within admitted Program authority. The distinct F12/S04
+observer/tuner Product and its dedicated public surfaces remain reserved.
+Their deferral does not prohibit the selected ordinary graph composition or
+remove its governance proof obligations. No new feature-family identity is added.
+
 | Capability boundary | 5.0 | Reserved 5.1 capability |
 |---|---|---|
 | Local Consequence | Evaluation supplies evidence; Consequence proposes advance, bounded retry/repair, declared local re-entry, or truthful block. ABG admits the transition; HoG executes it. | Autonomous upstream/out-of-traversal A.0 routing. |
-| Graph recursion | Declared child GraphFunctions use the same HoG, explicit bounds, admitted foldback and parent re-evaluation. Child completion does not establish parent completion. | Whole-run executive policy that inspects and coordinates across branches. |
+| Graph recursion | Declared child GraphFunctions and the selected recursive Executive overlay use the same HoG, explicit bounds, admitted foldback and parent re-evaluation, including declared cross-branch scope. Child completion does not establish parent completion. | Autonomous upstream/out-of-traversal coordination and the distinct F12/S04 Product. |
 | Human boundary | Required human input produces typed block/hold and a human-readable handoff; external entry outside the current admitted traversal requires F_H authority. | Native response admission and response-driven same-run resumption, including evaluation of changed basis and lawful re-entry. |
-| Observation | Progress, timeout, interruption, causal events and replay-derived liveness/disposition remain required runtime truth. | Whole-run semantic executive oversight, reflection and tuning under A5-F12/S04. |
+| Observation | Progress, timeout, interruption, causal events and replay-derived liveness/disposition remain required runtime truth. Selected governance graphs consume bounded event/workspace observations under their declared frames. | Dedicated observer/tuner drafts, ratification and public surfaces under A5-F12/S04. |
 | Consensus | Ordinary composition, recursion, attribution, admission and replay remain generic runtime obligations. Existing Consensus code and exact evidence are preserved without a dedicated release-complete claim. | Standalone F08/S05 qualification, including agreement/dispute and multi-workspace campaigns. |
 | Host projection | Native SDK/CLI independence and the single Public authority are required. Any retained host adapter is a thin projection with truthful supported claims. Native worker transport remains required. | Additional host-adapter work and mandatory Codex/native parity qualification. |
 
@@ -982,9 +1119,10 @@ obligations explicitly. When no lawful continuation exists within the declared
 limits, the result is a typed block and handoff. Progress never marks a gap
 satisfied, fabricates a prerequisite, or waives final closure conditions.
 
-The 5.1 executive applies Consequence recursively at a wider observation scope;
-it is declared GTL work through the same GraphFunctions, HoG and ABG, not another
-orchestration engine. At both scopes, Worker, Evaluator and Consequence use a reference
+The selected Executive applies Consequence recursively at its declared scope
+through the same GraphFunctions, HoG and ABG. The planned F12 Product extends
+the ordinary governance composition with its separately qualified observer/tuner
+capabilities. At both scopes, Worker, Evaluator and Consequence use a reference
 frame defining visible context, contract, constraints, permitted proposals and
 return/escalation boundary. These are role/context declarations, not a new
 frame runtime or a transfer of authority.
@@ -1071,9 +1209,11 @@ counts.
 | `A5-F17` | **Specification-driven downstream lifecycle.** A prospectively selected real specification progresses through Intent/Product, Requirements, Design, working application behavior, admitted evidence and targeted revision through only installed public ABIogenesis contracts. The witness preserves original source, selected and excluded obligations, newly discovered obligations and residuals; satisfies every mandatory outcome of the selected contract; and owns no local runtime or controller. S06 owns qualification of this contract class. Full original Data Mapper upper-bound evaluation and any complete downstream application-delivery claim retain their distinct independently owned outcomes. |
 
 `A5-F08`, standalone Consensus free-construction qualification, and
-`A5-F12`, replay-grounded whole-run executive oversight, observer and tuner,
+`A5-F12`, the dedicated replay-grounded observer/tuner Product,
 retain their stable identities as planned ABIogenesis 5.1 outcomes. They are excluded from required 5.0 realization,
-qualification, and release rather than silently weakened or renumbered.
+qualification, and release rather than silently weakened or renumbered. Ordinary
+recursive Executive governance and the default library have the selected
+allocation in [Release Boundaries](#50-and-51-release-boundaries).
 The human-response portions of F03/F06/F07/F10 and their public contracts are
 also reserved for 5.1 under [Release Boundaries](#50-and-51-release-boundaries).
 
@@ -1123,7 +1263,7 @@ automatic progression, evidence refresh and preserved unaffected work, reaching
 the declared completion condition. Also
 prove that absence of a lawful next step produces a typed block and
 human-readable handoff, without fabricated completion. Native human
-response/resume and whole-run executive intervention are not S03 gates. The
+response/resume and the dedicated F12/S04 observer/tuner Product are not S03 gates. The
 SDK, CLI, fixture and worker do not select or order the loop. Exercise the
 retained 5.0 portions of the consequence routes and runtime dispositions,
 including local graph-span re-entry, and explicitly account for deferred
@@ -1132,9 +1272,9 @@ portions in the conservation matrix under
 
 ### `ABG5-S04`: Planned 5.1 Reflection And Tuning
 
-This scenario is reserved for ABIogenesis 5.1. Its scope includes whole-run
-executive Consequence over replay truth, bounded recursive investigation and
-parent re-evaluation, plus observer/tuner drafts, attribution, ratification,
+This dedicated observer/tuner scenario is reserved for ABIogenesis 5.1. It uses
+the same governance calculus for executive Consequence over replay truth,
+bounded recursive investigation and parent re-evaluation, plus drafts, attribution, ratification,
 rejection and replay. Negative proof includes rejecting authority expansion
 from visibility or a child result alone. Its frozen design is non-operative
 input requiring reconciliation with the release boundaries before realization.
@@ -1162,8 +1302,8 @@ Complete one public-contract invocation through the native SDK and CLI without
 a marketplace host. Codex/native parity is a reserved 5.1 qualification claim;
 any retained adapter still owns no copied runtime behavior.
 
-An independent downstream catalog supplies a real specification-driven
-lifecycle witness of the contract class required by odd_glc. The complete
+A user-selected composition over published default or user GraphFunctions
+supplies a real specification-driven lifecycle witness. The complete
 original user-authored specification and the prospectively selected witness
 contract are bound by exact source identity and content under
 [Release Boundaries](#50-and-51-release-boundaries). Declared GTL progression
@@ -1199,6 +1339,24 @@ any separate complete-application claim remain explicit. That evaluation and
 downstream Product publication/maturation remain independent of ABIogenesis
 qualification and release. Selected-witness acceptance does not close those
 claims or erase newly discovered obligations.
+
+The default-library proof uses an independently authored minimal Hello World
+scenario through a clean installed sandbox and supported Public entry. Real
+LLM work produces files, executed checks, selected UAT and a fresh admitted
+readback. Neither the executor nor library contains a Hello-specific result or
+dispatch branch. Within that bounded case, distinguish fresh work, reusable
+valid work and counterevidence requiring revision. At least one prospectively
+bound counterevidence case requires a changed selection or composition of graph
+work. Retain its selection reason and actual admitted execution; artifact-only
+repair on a universal unchanged route does not satisfy this discriminator.
+Unchanged composition remains lawful where justified in other cases.
+Show that frame/criterion
+differences and an explicit closed-rule versus F_P evaluation can govern the
+declared choice, with unknown required inputs preserving a gap. Exercise one
+selected recursive investigation/foldback without losing parent obligations.
+Separate copy/install preparation, pre-actor runtime, LLM work, deterministic
+work and readback in the evidence. These are discriminators within S02/S03/S06,
+not a new scenario family or a substitute for the complete selected F17 witness.
 
 ### `ABG5-S07`: Exact Qualification And Release
 
@@ -1298,8 +1456,8 @@ qualification, and release gates remain independently required.
 ABIogenesis 5.0 does not include:
 
 - native human response admission or response-driven same-run resumption;
-- whole-run semantic executive oversight or autonomous upstream/out-of-traversal
-  A.0 routing, as distinct from retained local recursion and correction;
+- the dedicated F12/S04 observer/tuner Product or autonomous upstream/out-of-traversal
+  A.0 routing, as distinct from selected graph-based Executive governance;
 - standalone Consensus qualification or mandatory host-adapter parity;
 - full original Data Mapper completion as an ABIogenesis release prerequisite;
 - a new GTL source language, parser, compiler pipeline, bytecode, or executable

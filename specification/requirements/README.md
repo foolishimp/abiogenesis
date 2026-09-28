@@ -9,7 +9,8 @@ The active requirement families are grouped by constitutional domain:
 - `mapping/` — GTL-to-runtime mapping and provenance law
 - `product/` — product policy, qualification, and scenario law
 
-Use [SPEC_METHOD.md](stdo://releases/v2.5.0-rc.6/standards/SPEC_METHOD.md) as the process constitution when writing or revising these files.
+Use SPEC_METHOD.md from the immutable STDO basis selected by the
+[Product Definition](../../stdo_abiogenesis.json) when revising these files.
 
 ## Rules
 
@@ -38,7 +39,10 @@ self-conformance, qualification, release, public-contract or no-silence gates.
 An optional published claim still obeys its current declared contract and
 generic Product law.
 
-The exact deferred relation set is:
+The exact deferred relation set is below. References to shared declaration,
+evaluation, recursion and context laws defer only their dedicated F12/S04
+observer/tuner variants. The selected ordinary Executive/default-library
+composition inherits those shared laws under Product Release Boundaries.
 
 - dedicated `REQ-P-CONSENSUS` qualification, `REQ-P-SCENARIOS-012`,
   `REQ-P-QUAL-061` and `REQ-P-QUAL-066`, host parity in
@@ -84,13 +88,27 @@ escalation reporting, reserved owner rulings and actual human RC acceptance
 are not deferred. Shared schema, identity, authority and refusal requirements
 still apply to every retained or actually claimed operation.
 
-Whole-run semantic executive oversight and autonomous upstream/out-of-traversal
-A.0 routing are 5.1 scope. Ordinary recursive GraphFunctions, declared local
-graph-span re-entry, bounded retry/repair, parent foldback/re-evaluation and
-basic runtime liveness remain 5.0. A requirement containing `recursive`,
+The selected recursive Executive/default-library composition, including
+declared cross-branch evaluation within admitted authority, is 5.0 scope under
+Product Release Boundaries. The separate observer/tuner Product and autonomous
+upstream/out-of-traversal A.0 routing remain 5.1. Ordinary recursive
+GraphFunctions, declared local graph-span re-entry, bounded retry/repair,
+parent foldback/re-evaluation and basic runtime liveness remain 5.0.
+A requirement containing `recursive`,
 `supervised`, `continuation` or `re-entry` is not wholly deferred by that word.
 Existing frozen future designs/tests remain reusable input, not current 5.0
 qualification demands or evidence of implemented 5.1 capability.
+
+### Framed Governance
+
+INT-008 and the Product Execution And Context Calculus own the selected
+governance meaning. `REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-015B` owns its
+composition vocabulary; CONTEXT-009..012 own frame bindings and observation
+use; SELECTION-BOUNDARY-016..019 own evaluated selection; MAPPING-007 owns
+representation conservation; SCENARIOS-018 owns the bounded discriminator;
+QUAL-072 owns correspondence with actual execution and affected qualification.
+These decompose one Product definition, not a new planner, frame runtime or
+requirement family. Work state and current acceptance belong to T-287.
 
 ### Selected Lifecycle Witness And Testing
 

@@ -21,20 +21,23 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 ### Recursive Executive and default graph library
 
-Provide an Executive overlay that fits and revises ordinary GTL compositions
-to the task, governing constraints, current workspace and valid evidence, using
-reusable GraphFunctions in the default registry on existing GTL/HoG/ABG.
-Preserve the original outcome and valid work while changing the selected work
-when evidence warrants it. Installed sandbox scenarios with a minimal Hello
-World application expose framework behaviour and distinguish fresh work, valid
-reuse and necessary revision; scenario meaning stays outside runtime code.
-[T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#recursive-executive-and-default-graph-library)
-owns the strategy-aligned scope and discriminating outcomes, Product-definition
-playback, release-scope reconciliation and subsequent steel-thread selection.
-[T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#default-library-asset-handoff)
-owns reusable GLC assets and retirement tracking. The rejected local planner
-remains withdrawn; no replacement implementation is selected by this definition
-recording. Existing Product authority remains in force pending its bounded re-entry.
+Deliver composable governance in which reference frames determine the questions,
+observations and criteria applied by ordinary graph work. GTL overlays compose
+graphs; HoG executes their declared F_P/F_D evaluations; ABG admits the results
+that govern subsequent work. The default Executive/lifecycle library fits and
+revises that work while preserving the original outcome, authority, valid
+results and unresolved obligations. Installed minimal scenarios expose the
+actual framework path without embedding the scenario's solution in the runtime.
+
+[Intent](INTENT.md#int-008---composable-reference-frame-governance),
+[Product calculus](PRODUCT.md#graph-composition-and-reference-frames) and
+[Product release allocation](PRODUCT.md#50-and-51-release-boundaries) own the
+meaning and scope. [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry)
+owns the current constitutional capture, independent consistency review and
+subsequent bounded design/steel-thread selection. [T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#default-library-asset-handoff)
+owns consumer asset reuse and retirement tracking. The rejected planner remains
+withdrawn. This document increment supplies no implementation or qualification
+claim and starts no native execution.
 
 ### Current delivery objective
 
