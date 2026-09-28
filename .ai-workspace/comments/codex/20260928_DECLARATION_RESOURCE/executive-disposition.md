@@ -722,3 +722,25 @@ Added local documentation links resolve and whitespace checks pass. The patch
 changes documentation only. Runtime tests, builds and paid/native runs were not
 performed for this authority correction. Root's remaining Writer effect is the
 scoped commit/push, followed by return to Executive.
+
+
+### Owner-selected recursive Executive and default graph library
+
+The owner's four-point direction selects the target recorded once in
+[T-287](../../../tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#recursive-executive-and-default-graph-library):
+recursive Executive overlay on the existing compute unit; default registered
+GraphFunctions for induction, specification, design, testing and UAT; installed
+sandbox scenarios using a minimal application to expose framework behaviour.
+The rejected odd_glc planner remains withdrawn.
+
+Executive intake: Product/Owner/end-to-end interface frames. The target is a
+GTL overlay and published graph library consumed by the existing HoG/ABG owners.
+Whole-run Executive release applicability is currently reserved for 5.1; the
+bounded Product re-entry must reconcile this selected overlay explicitly.
+This does not select all deferred observer/tuner or human-response work.
+
+Root enters Writer for T-287 and ABI Goals, T-043 and GLC Goals, and this record
+only, including scoped commit/push. Record the owner's target and its proof
+boundary without adopting another Product amendment ahead of the requested
+playback. No implementation, package, install, recovery or provider effects
+are granted by this documentation activation. Return to Executive afterwards.
