@@ -24,9 +24,9 @@
 - current_accepted_archive_sha256: df47a7a2c9d7f25cb2b1c22e7097e027c68ec25d05179b5c6d8f15dbe0319944
 - current_worker_return: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/return.md
 - current_candidate_scope: core52_canonical_contraction_source_package_and_installed_owner_conservation_accepted
-- current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-09/activation.json
-- current_live_execution_status: PC05_09_process_aborted_heap_exhaustion_Run_not_terminal
-- current_activation_status: core52_profile_closed_PC05_11_setup_selected
+- current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-11/activation.json
+- current_live_execution_status: PC05_11_process_heap_aborted_before_admission_zero_appended_events
+- current_activation_status: pre_admission_memory_triage_on_closed_PC05_11_failure
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#program-construction-calculus-definition'
@@ -48,7 +48,7 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: complete_PC05_11_setup_then_one_preserved_assessment_steel_thread
+- next_bounded_task: identify_pre_admission_memory_lifetime_then_select_owning_correction
 - next_bounded_task_status: one_installed_owner_check_passed_28439ms_acquisition_9790ms_projection_peak_RSS5193203712
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
@@ -668,13 +668,15 @@ actor invocation. [Core50 maintenance](../../../../odd_glc/.ai-workspace/comment
 returned a genuine current handoff without closing that Run. Preserve original04
 paid author, exact05 selection, completed C2, source/oracle and all twelve reports.
 
-PC05-11 is prepared on core52 with unchanged consumer sources, checks and actor
-bounds; its only executable caller differences are the artifact selector and
-install label. The Executive's closed-profile disposition selects one setup and one native
-assessment, now in preparation. No author/C2 rerun, heap increase, new ticket or
-automatic retry. PC06 conjoins original conditions and preserves actual residuals;
-fifteen-family qualification and release remain open. Current grants and exact
-conjunctions live in the [Executive disposition](../../comments/codex/20260928_DECLARATION_RESOURCE/executive-disposition.md).
+[PC05-11](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-11/execution-return.md)
+setup passed, then its ordinary CLI heap-aborted after81.318 s before admission:
+zero appended bytes/events, no new Run or model result. PID65622 is absent with
+an abandoned ownership lock at unchanged setup extent1,390,576,361 bytes.
+Current selection is one read-only pre-admission memory-lifetime triage; use
+retained input and profiles, without another history read or paid attempt.
+Existing-owner reconciliation remains pending. Core52's bounded owner proof
+and allocation improvement stand; native sufficiency is unproved. PC06 and
+release remain open. Exact grants live in the [Executive disposition](../../comments/codex/20260928_DECLARATION_RESOURCE/executive-disposition.md).
 
 ### Historical dispositions — prior selections, not current launch grants
 

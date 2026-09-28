@@ -575,3 +575,26 @@ with its existing core-loader and explicit actual core52 root. Source-level
 construction alone uses that resolver; actual descriptor/native processes retain
 ordinary installed linkage and cleared loader options. No code or acceptance
 condition changes, new Run, or spent model work follows from the failed import.
+
+
+PC05-11 ordinary setup is CLOSED: twelve Public calls and fresh installed
+descriptor resolution pass. Package14.027 s / install67.431 s / other setup59.671 s
+are retained separately. Genuine setup close35509741… binds1,390,576,361 bytes.
+Root conjoins accepted core52 source/package, unchanged consumer/caller checks,
+review64667f0b… and current installed activation. Invoke the selected ordinary
+CLI once under its existing Opus5.5/xhigh transport; no component resolver or
+inherited loader options enter that process. Capture native outcome and fresh
+Public readback; no additional native attempt is selected.
+
+
+PC05-11 CLI SIGABRT-aborts at81.318 s before admission: physical suffix has zero
+bytes/events; PID65622 is absent and its exact lock remains. The original native
+heap diagnostic is preserved separately from the caller's secondary JSON parse
+error. There is no new Run, native outcome or model result. Source52 and its
+installed-owner proof retain their bounded acceptances; warm sufficiency was
+never established. Select one read-only pre-admission lifetime/volume triage at
+the actual installed ingress, using retained input and profiles. Worker may
+measure finite input values but must not reread history, invoke actors, edit
+source or infer the crashing JS function from ArrayJoin alone. Root Writer
+preserves/checkpoints this failure and prepares existing-owner reconciliation;
+no new native attempt or broader serializer/liveness repair is selected yet.
