@@ -277,8 +277,17 @@ implementation. The prior odd_glc planner and its grants remain rejected.
 1. Express the recursive Executive overlay as ordinary GTL/GraphFunction work
    on the existing HoG compute unit, following the
    [strategy](../../comments/codex/20260920T025416Z_STRATEGY_abg5_first_problem_fitted_gtl_preprocessor.md).
-   F_P applies reference frames, judges work and proposes actions; declared
+   The outcome is a justified fit of graph to problem, revised through evidence.
+   F_P interprets the task, governing constraints, current workspace observations,
+   applicable admitted evidence and available function contracts. Through HoG it
+   selects an existing composition, recomposes compatible functions or authors
+   candidate ordinary GTL, retaining explicit capability gaps. It may revise
+   granularity, dependencies and iteration placement when evidence warrants it.
+   Each candidate crosses existing validation/publication/admission; a bound
+   Program is not silently rewritten. Original outcome, required independence,
+   valid unaffected work and unresolved obligations are conserved. Declared
    recursion/foldback and ABG admission retain execution and continuation.
+   "Best fit" means justified under those constraints, not global optimality.
 2. Publish the reusable GraphFunctions in the existing module/catalog registry
    as the default ABG library. They remain ordinary selectable/replaceable
    declarations through the same public path as user graphs.
@@ -302,7 +311,23 @@ selected and conserve unresolved parent obligations. Preparation/copy/install,
 pre-actor runtime, LLM work, deterministic work and readback are measured
 separately; excessive deterministic processing triggers volume/path diagnosis.
 A deterministic fixture or an existing application alone cannot close this
-installed native proof. No broad new qualification campaign is selected here.
+installed native proof. Within the same small scenario, distinguish fresh work,
+valid admitted results already available, and counterevidence requiring revision.
+The selected work/composition must respond to those differences while preserving
+valid unaffected work and the original completion condition. Retain the reason
+for the selection and the resulting actual execution; a successful fixed route
+alone does not qualify problem-fitted construction. An unchanged composition is
+lawful where justified, not a universal substitute for the revision case.
+
+Graph construction and invocation context are separate responsibilities on the
+same existing owners. The selected function/role receives sufficient bounded,
+source-linked context through ordinary instruction assembly. The axiomatic index
+routes to constraints; applying them and judging semantic fit remain F_P work.
+Missing function contracts produce an explicit gap or separately governed function
+construction/qualification, never a hidden local planner or runtime substitute.
+Assess useful outcome and total work, including graph construction/assessment
+cost; reducing work cannot waive required evaluation or change the task. These
+are bounded outcome discriminators, not a new broad qualification campaign.
 
 Ownership: ABI T-287 owns the overlay/library target and generic runtime gaps.
 T-043 supplies reusable declaration/prompt/scenario assets and tracks the

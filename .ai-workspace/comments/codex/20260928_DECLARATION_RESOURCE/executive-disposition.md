@@ -744,3 +744,46 @@ only, including scoped commit/push. Record the owner's target and its proof
 boundary without adopting another Product amendment ahead of the requested
 playback. No implementation, package, install, recovery or provider effects
 are granted by this documentation activation. Return to Executive afterwards.
+
+
+### Strategy outcome correction and prior-work disposition
+
+Owner direction: revise the definition to meet the strategy's outcomes and
+assess whether the recent work was all technical debt. Root enters Writer for
+this record, T-287's existing target/proof section and ABI Goals, plus their
+scoped commit/push. The effect is a definition revision for the requested
+playback; current Product law, runtime code, installs and retained evidence are
+unchanged. No new agent, execution or qualification campaign is selected.
+
+The prior four-point scope described the substrate and library but left graph
+fit and evidence-driven revision implicit. T-287 now requires selecting or
+constructing a justified GTL composition, revising its granularity/dependencies/
+iteration when warranted, and supplying role-specific context through the
+existing assembly owner. The small installed sandbox must discriminate fresh
+work, reusable valid results and counterevidence. Preserving required outcome,
+independence and unresolved obligations remains part of each relation.
+
+Prior work is mixed, not wholly technical debt:
+
+- The withdrawn consumer planner/state pipeline is removal debt while retained
+  as prospective implementation. Its three central files contain 1,081 lines;
+  this count excludes packaging/tests and does not prove every helper redundant.
+  Any reusable declarations or leaf mechanics must retain their existing owners
+  during extraction; the planner is not a replacement Executive implementation.
+- Generic ABG corrections retain their bounded acceptance independently. The
+  shared canonical encoder contraction has exact-byte and source/package/owner
+  evidence; it is not proof of a complete native path or an OOM cure.
+- GTL declarations, native-role material and scenario/evidence assets are reuse
+  candidates. Their existence is not automatic acceptance in the new composition.
+- Failed attempts and diagnostic receipts preserve observations. Their execution
+  cost is sunk effort, not delivered Product functionality. The latest fatal
+  pre-admission allocation remains unattributed; deleting the consumer planner
+  has not been demonstrated to repair it.
+
+The strategic capability—an Executive that fits and revises the graph through
+HoG—remains undelivered. Local mechanism proofs did not establish that outcome.
+The control-loop comparison with direct Codex does not change this: ABG must
+supply useful declared composition, state and evidence boundaries while reusing
+native agent work. It does not make semantic judgment deterministic or prevent
+an incorrectly admitted Product/design by itself. Return to Executive after the
+bounded documentation checkpoint.

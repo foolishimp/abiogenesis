@@ -21,13 +21,16 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 ### Recursive Executive and default graph library
 
-Provide an Executive overlay and reusable lifecycle GraphFunctions on the
-existing GTL/HoG/ABG computation model, published in the default registry and
-proved through installed sandbox scenarios. A minimal Hello World application
-exposes framework behaviour; scenario meaning stays outside runtime code.
+Provide an Executive overlay that fits and revises ordinary GTL compositions
+to the task, governing constraints, current workspace and valid evidence, using
+reusable GraphFunctions in the default registry on existing GTL/HoG/ABG.
+Preserve the original outcome and valid work while changing the selected work
+when evidence warrants it. Installed sandbox scenarios with a minimal Hello
+World application expose framework behaviour and distinguish fresh work, valid
+reuse and necessary revision; scenario meaning stays outside runtime code.
 [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#recursive-executive-and-default-graph-library)
-owns the owner's four-point scope, Product-definition playback, release-scope
-reconciliation and subsequent steel-thread selection.
+owns the strategy-aligned scope and discriminating outcomes, Product-definition
+playback, release-scope reconciliation and subsequent steel-thread selection.
 [T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#default-library-asset-handoff)
 owns reusable GLC assets and retirement tracking. The rejected local planner
 remains withdrawn; no replacement implementation is selected by this definition
