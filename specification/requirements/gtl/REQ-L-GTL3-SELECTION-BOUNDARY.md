@@ -47,10 +47,17 @@ closed declared domain; F_P shall own contextual judgment where no such rule
 exists. Both shall preserve their result/evidence contracts and admission
 boundary. Deterministic implementation shall not confer semantic authority.
 
-**REQ-L-GTL3-SELECTION-BOUNDARY-019**: Reuse or selection shall identify the
-compatible admitted graph contract. Semantic construction/recomposition shall
-be F_P graph work producing candidate ordinary GTL. New Program publication,
-validation and admission shall precede execution; existing binding/re-entry
-law shall preserve prior identity, original outcome, valid unaffected work
-and unresolved obligations. No returned proposal shall silently rewrite its
-running Program or expand its authority.
+**REQ-L-GTL3-SELECTION-BOUNDARY-019**: The selected 5.0 governance shall choose
+only preregistered GraphFunctions in the exact admitted catalog view and
+permitted by the Program at that boundary. Each registered graph shall declare
+its functional purpose and conditions for use, linked to its input, result and
+effect contracts. Selection shall identify that published declaration, inputs,
+reason and supporting evidence; declared purpose or catalog presence alone shall
+not establish applicability, permission or successful completion. Missing
+suitable capability or unresolved required support shall remain an explicit gap.
+Changed evidence may change the registered choice or justify compatible result
+reuse while preserving the original outcome, unaffected valid work and remaining
+obligations. It shall not author/recompose graph definitions, silently rewrite
+the running Program or expand its callable scope. Existing registered-template
+materialization and recursive invocation remain lawful. Future graph-building
+work is outside this increment under Product Release Boundaries.

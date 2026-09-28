@@ -211,6 +211,12 @@ function and is not a runtime plan.
 input/output boundary and a replayable GTL template that materializes a graph.
 Every callable GraphFunction therefore has GTL structure for HoG to traverse.
 
+Each registered GraphFunction declares its functional purpose: the outcome it
+serves and conditions for its use, linked to its input, result and effect
+contracts. The catalog exposes that declaration under the same published
+identity. Purpose supports selection; it does not itself establish applicability,
+authorize an effect or prove that an invocation fulfilled its outcome.
+
 An admitted implementation binding may realize a declared leaf seam inside
 that constructive body. It cannot replace the template, materialized graph, or
 published GraphFunction contract with an implementation-only callable.
@@ -751,11 +757,28 @@ rulings. Applicability and graph selection are themselves declared computations.
 The interpreter checks and follows admitted selections; it does not invent the
 policy or infer that catalog presence makes work necessary.
 
-A selection may reuse a compatible admitted composition or propose ordinary
-GTL construction/recomposition through an F_P graph. A newly authored Program
-crosses existing publication, validation and admission before execution. A
-bound Program is not silently rewritten; a changed execution basis preserves
-its predecessor identity and re-entry authority.
+For the selected 5.0 governance, let `K(P)` be the preregistered GraphFunctions
+in the exact admitted catalog view that `P` permits at the selection boundary.
+Their declared functional purposes and contracts are the available capabilities:
+
+```text
+select(K(P), frame, observations, policy) -> candidate registered choice | gap
+admit(candidate choice, evidence)        -> admitted choice | refusal
+advance(P, S, admitted choice)           -> selected registered graph work
+```
+
+Selection identifies the exact registered GraphFunction, its declared purpose,
+invocation inputs and supporting reason/evidence. Its input/result/effect
+contracts and Program authority remain binding. Catalog presence alone does not
+make a graph applicable or permitted. F_P judges suitability where no total
+closed rule is declared. A missing suitable graph or unresolved required support
+preserves a gap; it does not authorize generation of a new graph.
+
+Changed evidence may change the registered choice or justify reuse of an
+applicable admitted result. This does not rewrite the bound Program or expand
+its catalog/callable scope. Registered-template materialization and recursive
+invocation remain ordinary execution. Runtime authoring, publication or
+recomposition of new graph definitions is outside this governance increment.
 
 An auditor may evaluate the admitted event projection for the policies and
 interval it covers. Current-workspace claims additionally require applicable
@@ -1049,9 +1072,11 @@ policy; the library imposes no unconditional lifecycle or mandatory hierarchy
 of Executive, auditor and strategic roles.
 
 Governance preserves the original task, required outcomes and authority while
-fitting or revising graph work to current evidence. The declaration supplies
-the selection reason and its criteria; best fit is a warranted judgment, not a
-global optimum. Domain instructions and scenario oracles belong to their
+selecting or revising the choice of preregistered graph work in response to
+current evidence. Selection uses the declared purposes and contracts under
+[Framed Evaluation And Graph Consequence](#framed-evaluation-and-graph-consequence).
+The declaration supplies the selection reason and its criteria; best fit is a
+warranted judgment, not a global optimum. Domain instructions and scenario oracles belong to their
 declaring sources. Native coding agents retain their own work loop inside their
 declared invocation; the library does not reproduce that loop in another engine.
 
@@ -1070,6 +1095,13 @@ investigation within admitted Program authority. The distinct F12/S04
 observer/tuner Product and its dedicated public surfaces remain reserved.
 Their deferral does not prohibit the selected ordinary graph composition or
 remove its governance proof obligations. No new feature-family identity is added.
+
+The selected governance is limited to preregistered graph selection. Dynamic
+graph generation/recomposition and its runtime publication path are excluded
+from 5.0 acceptance. A future graph-building capability is ordinary recursive
+graph work over GTL primitives; its candidate definitions cross publication,
+validation and admission before execution. It supplies no second language,
+planner or runtime and is not assigned a release by this definition.
 
 | Capability boundary | 5.0 | Reserved 5.1 capability |
 |---|---|---|
@@ -1346,10 +1378,12 @@ LLM work produces files, executed checks, selected UAT and a fresh admitted
 readback. Neither the executor nor library contains a Hello-specific result or
 dispatch branch. Within that bounded case, distinguish fresh work, reusable
 valid work and counterevidence requiring revision. At least one prospectively
-bound counterevidence case requires a changed selection or composition of graph
-work. Retain its selection reason and actual admitted execution; artifact-only
+bound counterevidence case requires a different preregistered GraphFunction
+choice within the admitted Program. Retain the catalogue/purpose basis,
+selection reason and actual admitted execution; artifact-only
 repair on a universal unchanged route does not satisfy this discriminator.
-Unchanged composition remains lawful where justified in other cases.
+Unchanged selection remains lawful where justified in other cases. A missing
+suitable registered capability retains a gap; it cannot trigger graph generation.
 Show that frame/criterion
 differences and an explicit closed-rule versus F_P evaluation can govern the
 declared choice, with unknown required inputs preserving a gap. Exercise one

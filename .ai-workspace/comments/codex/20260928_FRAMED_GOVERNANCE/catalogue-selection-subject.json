@@ -1,0 +1,37 @@
+{
+  "kind": "documentation_review_subject",
+  "activation": "T287_REGISTERED_GRAPH_SELECTION_01",
+  "base_commit": "95138eb0431236c60df74934d637fd00b4331f73",
+  "stdo_basis": "stdo://releases/v2.5.1-rc.1/",
+  "scope": "Owner-directed preregistered graph selection and future recursive graph-building boundary; definition consistency only",
+  "files": [
+    {
+      "path": "specification/INTENT.md",
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "032f776d0727decc8e53445d404cf5f47c3f845523b9146b082af735d85e2b94"
+    },
+    {
+      "path": "specification/requirements/README.md",
+      "sha256": "4f364154780bd3b084e9af57e8d031cb021225ae46995837d719e560bf7c71a0"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+      "sha256": "1ea14838adfe1dfa999dcc31c30156fb810d810ad6600936c695d721469f8061"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-SCENARIOS.md",
+      "sha256": "aa6f0c878253541b50469ca5f04540f3007755272382d284e3a3234efffb99e5"
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "dba2677ab93de31fc67f66a2d35bb112d27ce4d085c44080cbf899eaefec05d9"
+    }
+  ]
+}

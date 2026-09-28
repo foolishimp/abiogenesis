@@ -258,6 +258,14 @@ realize those declared computations. ABG admits their results before HoG follows
 the declared consequences. Application-specific policies remain outside the
 generic executor. Product owns the calculus and its release applicability.
 
+The selected 5.0 governance chooses among preregistered GraphFunctions with
+declared functional purposes and contracts, within the admitted Program's
+permitted catalogue scope. It revises the choice as evidence changes while
+preserving the original outcome and unresolved obligations. A missing suitable
+capability remains an explicit gap. Dynamic authoring or recomposition of graph
+definitions is outside this increment; ordinary registered-template
+materialization and recursive calls remain part of execution.
+
 ## Product Use Context
 
 The supported 5.0 environment is one trusted developer desktop. Native

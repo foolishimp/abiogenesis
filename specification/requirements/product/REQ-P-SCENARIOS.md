@@ -266,9 +266,9 @@ implementation and result inspection. Its finite cases shall establish:
 |---|---|
 | Fresh task | Real native F_P work produces the required files, executed checks, selected UAT, admitted evidence and fresh Public result through the installed default library. |
 | Valid prior result | The declared selection reuses applicable admitted work without repeating it or treating unassessed work as accepted. |
-| Material counterevidence | A prospectively bound case warrants changed graph selection or composition. Its selection reason and actual admitted execution demonstrate that change; artifact-only repair on a universal unchanged route is insufficient. Dependent support is invalidated; unrelated valid work and original completion obligations survive. Unchanged composition remains lawful where justified in other cases. |
+| Material counterevidence | A prospectively bound case warrants a different preregistered GraphFunction choice permitted by the admitted Program. Its catalogue/purpose basis, selection reason and actual admitted execution demonstrate that change; artifact-only repair on a universal unchanged route is insufficient. Dependent support is invalidated; unrelated valid work and original completion obligations survive. Unchanged selection remains lawful where justified in other cases. |
 | Frame/policy change | A prospective criterion or observation-scope difference changes the required context or permitted decision where its contract requires it. Explicit F_D policy and F_P judgment retain their separate contracts and admitted consequences. |
-| Missing or invalid support | Unknown required applicability/evidence, an invalid basis or an unadmitted proposal cannot acquire an authorized next action or completion by omission. |
+| Missing or invalid support | Unknown required applicability/evidence, no suitable registered capability, an invalid basis or an unadmitted proposal cannot acquire an authorized next action or completion by omission. An unregistered or Program-excluded choice is refused; a capability gap does not trigger graph generation. |
 | Recursive investigation | A selected child returns through admitted foldback; its success alone does not discharge remaining parent obligations or expand authority. |
 
 Cases may share one installed steel thread and reuse valid evidence. Deterministic

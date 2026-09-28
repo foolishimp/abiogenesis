@@ -24,9 +24,11 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 Deliver composable governance in which reference frames determine the questions,
 observations and criteria applied by ordinary graph work. GTL overlays compose
 graphs; HoG executes their declared F_P/F_D evaluations; ABG admits the results
-that govern subsequent work. The default Executive/lifecycle library fits and
-revises that work while preserving the original outcome, authority, valid
-results and unresolved obligations. Installed minimal scenarios expose the
+that govern subsequent work. The default Executive/lifecycle library selects
+preregistered graphs by their declared functional purposes and contracts and
+revises that choice as evidence changes, preserving the original outcome,
+authority, valid results and unresolved obligations. Dynamic graph generation
+is future graph-defined work outside this increment. Installed minimal scenarios expose the
 actual framework path without embedding the scenario's solution in the runtime.
 
 [Intent](INTENT.md#int-008---composable-reference-frame-governance),

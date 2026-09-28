@@ -17,7 +17,7 @@
 - updated_at: 2026-09-28
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_FRAMED_GOVERNANCE_DEFINITION_01
+- current_activation: T287_REGISTERED_GRAPH_SELECTION_01
 - current_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-06/selected-core.json
 - current_candidate_archive_sha256: df47a7a2c9d7f25cb2b1c22e7097e027c68ec25d05179b5c6d8f15dbe0319944
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/executive-disposition.md
@@ -26,7 +26,7 @@
 - current_candidate_scope: core52_canonical_contraction_source_package_and_installed_owner_conservation_accepted
 - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-11/activation.json
 - current_live_execution_status: PC05_11_process_heap_aborted_before_admission_zero_appended_events
-- current_activation_status: constitutional_governance_and_execution_verification_definition_accepted
+- current_activation_status: preregistered_graph_selection_definition_consistency_accepted
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#framed-governance-definition-re-entry'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: design_smallest_framed_governance_composition_and_representation_binding
-- next_bounded_task_status: definition_review_closed_design_and_implementation_not_activated
+- next_bounded_task: design_smallest_registered_choice_execution_through_existing_owners
+- next_bounded_task_status: narrowed_definition_review_closed_design_and_implementation_not_activated
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -272,7 +272,8 @@
 ## Recursive Executive and default graph library
 
 Current outcome: composable governance through ordinary GTL/HoG/ABG, with
-reference frames governing attention, evaluation and declared graph selection.
+reference frames governing attention, evaluation and selection of preregistered
+graphs by their declared functional purposes and contracts.
 The default library supplies the selected Executive overlay and reusable
 lifecycle functions. The rejected odd_glc planner remains withdrawn.
 
@@ -290,34 +291,38 @@ and retirement tracking; it supplies no replacement planner.
 
 Owner instruction: capture the calculus first in Intent, Product and
 specification, then independently review consistency before implementation.
+The subsequent owner ruling narrows the increment to preregistered graph
+selection. Dynamic graph building is future recursive graph work over existing
+primitives, outside current delivery acceptance.
 
 | Intake | Selection |
 |---|---|
-| Class and entry | `intent_reprice` at INT-001/Product Direction; derived Product and requirement re-entry. |
-| Reason | Governance becomes explicit direction; the existing post-selection context relation needs its graph evaluation/admission/consequence relation, and the blanket 5.1 Executive reservation conflicts with the selected overlay. |
-| Scope | Existing GTL declarations, HoG computation and ABG admission; reference-frame reuse without another topology entity or interpreter. |
+| Class and entry | `intent_reprice` at INT-008; derived Product and requirement re-entry. |
+| Reason | Owner removes dynamic graph generation from the selected governance increment and requires declared functional purposes for catalogue selection. |
+| Scope | Existing GTL declarations, HoG computation and ABG admission; preregistered, Program-permitted graph selection under reference frames, without another topology entity or interpreter. |
 | Release | Selected ordinary Executive/default library under the existing fifteen families and S02/S03/S06; dedicated F12/S04, autonomous out-of-traversal routing and native human response remain deferred. Product owns the exact allocation. |
 | Evidence | Definition and review only. Installed code and historical native results do not establish this new capability or resolve the retained pre-admission heap failure. |
 | Current grant | Bounded Writer documentation effects and independent read-only consistency review; no implementation, code deletion, recovery, native execution or release. |
 
-[Exact Writer grant and disposition](../../comments/codex/20260928_FRAMED_GOVERNANCE/triage-and-disposition.md)
+[Exact Writer grant and disposition](../../comments/codex/20260928_FRAMED_GOVERNANCE/catalogue-selection-disposition.md)
 own the bounded activation and subject.
 
 - [x] Triage against the existing Intent/Product and selected STDO basis.
 - [x] Capture direction, calculus, release scope and derived acceptance in their owners.
-- [x] Independent consistency review; FG-01 corrected and accepted on the frozen successor.
-- [ ] Design the smallest installed composition against the accepted definition.
+- [x] Independent consistency review of the narrowed catalogue-selection definition.
+- [ ] Design the smallest installed selection between registered graphs; resolve admitted choice to actual HoG dispatch without a new planner.
 - [ ] Implement and qualify the selected sandbox discriminator, then continue release work.
 
-Definition and execution-verification consistency are closed after
-[independent review](../../comments/codex/20260928_FRAMED_GOVERNANCE/review-03.md),
-conjoined with the retained prior judgments. FG-01 restored the graph-revision
-discriminator; no remaining blocking finding was identified. QUAL-072 makes
-actual execution conformance explicit. Implementation and qualification remain
-unassessed. Next:
-bounded design of the smallest composition and representation bindings using
-existing owners. The withdrawn construction pipeline grants no implementation
-authority.
+The preceding definition and execution-verification clarification passed
+[independent review](../../comments/codex/20260928_FRAMED_GOVERNANCE/review-03.md).
+That exact historical judgment remains; the narrowed selection delta passed
+[independent review](../../comments/codex/20260928_FRAMED_GOVERNANCE/catalogue-selection-review.md)
+and Executive accepts its bounded definition consistency. FG-01's discriminator now requires a changed registered choice and
+actual execution, without graph generation. QUAL-072 remains the execution
+conformance owner. Implementation and qualification remain unassessed; the
+fixed-callee integration gap and PC05-11 failure remain open. The next design
+maps declared purpose, frame/context, admitted choice, HoG dispatch and foldback
+through existing owners. Runtime graph publication is no longer a dependency.
 
 Verification impact: the calculus is constitutional. Design/implementation
 must map each changed relation to its actual execution boundary and evidence

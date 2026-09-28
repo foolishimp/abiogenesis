@@ -104,7 +104,8 @@ qualification demands or evidence of implemented 5.1 capability.
 INT-008 and the Product Execution And Context Calculus own the selected
 governance meaning. `REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-015B` owns its
 composition vocabulary; CONTEXT-009..012 own frame bindings and observation
-use; SELECTION-BOUNDARY-016..019 own evaluated selection; MAPPING-007 owns
+use; SELECTION-BOUNDARY-016..019 own evaluated preregistered selection and its
+declared-purpose boundary; MAPPING-007 owns
 representation conservation; SCENARIOS-018 owns the bounded discriminator;
 QUAL-072 owns correspondence with actual execution and affected qualification.
 These decompose one Product definition, not a new planner, frame runtime or
