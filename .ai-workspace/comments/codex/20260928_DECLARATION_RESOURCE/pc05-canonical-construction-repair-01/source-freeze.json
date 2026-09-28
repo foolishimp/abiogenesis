@@ -1,0 +1,135 @@
+{
+  "preimageHead": "89f8f8c9b1c647cea2068654313edf924a443f22",
+  "source": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/canonical_json.ts",
+      "bytes": 1621,
+      "sha256": "606a24509e9d76998f95be0abe8d2ff518c0a43e826e128e54a9781fd2d04eb6"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "bytes": 21963,
+      "sha256": "36168586fca7128ba37018c744dab90f94b0eef74e110f66d923a3c6de2493ae"
+    }
+  ],
+  "emissions": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js",
+      "bytes": 1551,
+      "sha256": "ae5a20c7e8a4bb182f7576e558436eaeaa5c87ac7a1e75ce1106567158cf2b02"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.d.ts",
+      "bytes": 277,
+      "sha256": "ed0e12fb3f654cd0d6a55f72c47d40d4241550d72f42f86976a84ba8a88ba7d2"
+    }
+  ],
+  "evidence": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/body-tests.json",
+      "bytes": 155,
+      "sha256": "56b10812c167d4c99e76478598cc312d9d5ff20bbcaccf0677700fa8b5f980a3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/body-tests.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/body-tests.stdout",
+      "bytes": 1308,
+      "sha256": "c82a9a0edf719e6bf35df2c562ba26c49760ec7524de3f5d89ccf9b3f859fd9a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/compare-suffix.mjs",
+      "bytes": 3833,
+      "sha256": "734ae1b51fa93ab9447b05de9fd21d8660998ed27803c264e6f50e51ba2484ca"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/compile.json",
+      "bytes": 192,
+      "sha256": "3dcf5dddab726eebeba15dfb0c0ae1e5b4bef1c6df79872a4a8bf11e16e7402e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/delta.patch",
+      "bytes": 5328,
+      "sha256": "a61fdb9654bf81adfdb078b4c774328ab4a9c1d0debae6f24b545cbb322122c8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/diff-check.json",
+      "bytes": 52,
+      "sha256": "6d620d1c454a90e41ee536109b1fee6ba5177ac2ee9d3aeb3a9f1e108bf3f044"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/identity-tests.json",
+      "bytes": 265,
+      "sha256": "a9a1ef6c1b1cf8211fa700006f6d539a467ff67c7b4b4ec005c6c9f91384443f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/identity-tests.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/identity-tests.stdout",
+      "bytes": 292,
+      "sha256": "7ca0c1aac0fc2974a08cf146bbbf5a7fbd1083cc49293c291b005d8b919b6981"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/preimage-1.txt",
+      "bytes": 1010,
+      "sha256": "a5ef9c2ba078fd7d3bad9572a4e6166a03ea749fafa1c6d171ac03050f59be78"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/preimage-2.txt",
+      "bytes": 19668,
+      "sha256": "5ad54de4577ee5dde86579172e286ce90d76eb3c76e88b97e4c8a9c6b10a7fdc"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/preimage-3.mjs",
+      "bytes": 872,
+      "sha256": "484aaa129058bc43ec540c6747186d1f5fe8fa90ab2850a096d10e0e2b0090bc"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/preimage-4.txt",
+      "bytes": 277,
+      "sha256": "ed0e12fb3f654cd0d6a55f72c47d40d4241550d72f42f86976a84ba8a88ba7d2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/preimages.json",
+      "bytes": 1066,
+      "sha256": "04aad0a912f7dc77a723e1a3d5f995598a4f9cf58de7fac35f66e5bae7638f19"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/suffix-check.json",
+      "bytes": 241,
+      "sha256": "fa74bad43dcddbfba37863ae77563b2d9c089ced4dd3c901654fe9d2eb3c69f0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/suffix-check.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/suffix-check.stdout",
+      "bytes": 1970,
+      "sha256": "4bb644ece9dd557bb2fe1384b406cda2729596d0f711b73bf94e97fd71dc712e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/suffix-comparison.json",
+      "bytes": 2356,
+      "sha256": "55d17eb7b6782086d1e67d63ddbe1e9321d5a8dedafc7d49325b0c3618e0b3e2"
+    }
+  ],
+  "scope": "Shared canonical construction only; no event-stamp payload reuse, recovery, Run, provider, installation or journal acquisition. Captured suffix inspected once."
+}

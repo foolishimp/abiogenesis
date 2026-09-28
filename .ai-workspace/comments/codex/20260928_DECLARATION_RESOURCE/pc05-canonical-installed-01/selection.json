@@ -1,0 +1,7 @@
+{
+  "coreRecord": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-06/selected-core.json",
+  "recoveryRecord": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-09/recovery-result.json",
+  "expectedCoordinate": "sha256:67a75b13cac7d8fc1dc91353292beb72dabe9e2428e7c9f88f229d137775e3b9",
+  "expectedEventCount": 137417,
+  "runId": "run://abiogenesis/d639248f45a84713e047ddfca321da8e44c05197e6abe2a6f0549eceda6fae5e"
+}

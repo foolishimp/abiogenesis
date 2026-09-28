@@ -1,0 +1,11 @@
+{
+  "name": "close",
+  "at": "2026-09-28T00:05:41.252Z",
+  "memory": {
+    "rss": 4795072512,
+    "heapTotal": 2516828160,
+    "heapUsed": 2394730928,
+    "external": 2438895,
+    "arrayBuffers": 27239
+  }
+}

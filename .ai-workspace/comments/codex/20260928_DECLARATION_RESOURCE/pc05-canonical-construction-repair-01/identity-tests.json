@@ -1,0 +1,10 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "--test-name-pattern=canonicalizes every selected authored set inventory|preserves ordered topology",
+    "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs"
+  ],
+  "exitCode": 0,
+  "elapsedMs": 353.513624984771
+}

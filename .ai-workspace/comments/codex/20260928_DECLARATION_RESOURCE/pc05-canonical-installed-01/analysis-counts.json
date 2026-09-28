@@ -1,0 +1,351 @@
+{
+  "basis": {
+    "scope": "No complete Public or native Run claim",
+    "core": {
+      "artifactDigest": "sha256:df47a7a2c9d7f25cb2b1c22e7097e027c68ec25d05179b5c6d8f15dbe0319944",
+      "productContentDigest": "sha256:577ccafcaa9c7113a223a4d1af95378503c932fa2f34dd06ae3c8a421a7272f3",
+      "manifestDigest": "sha256:abb8700e9e609ffa4fc0d8c48fddd1f436b7138e53468f43421147eb71fa502a",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    },
+    "entryPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+      "prefixLength": 1388245432,
+      "prefixDigest": "sha256:409a23dfafc94be6889516cf694a2b20d9463dbfa4ba6f7bb8dd1a7800dccb3c",
+      "storeIdentity": {
+        "device": 16777230,
+        "inode": 459405010,
+        "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+      },
+      "coordinateDigest": "sha256:67a75b13cac7d8fc1dc91353292beb72dabe9e2428e7c9f88f229d137775e3b9"
+    },
+    "authorityEvents": 137417,
+    "selectedRun": "run://abiogenesis/d639248f45a84713e047ddfca321da8e44c05197e6abe2a6f0549eceda6fae5e",
+    "selectedEvents": 254,
+    "runtimeStatus": "active",
+    "viewDigest": "sha256:6dfd05803d1fcaee527949cbae0293b39eb2eeb006e2d0593da433cd0e9c63c2",
+    "closed": true,
+    "errors": {
+      "primaryError": null,
+      "closeError": null,
+      "cleanupError": null
+    }
+  },
+  "inputs": {
+    "result.json": {
+      "bytes": 80458,
+      "sha256": "b4d85330dc7792f621fddd3e9e3be4639d218528746c7b45df76e51561d82f66"
+    },
+    "installed.cpuprofile": {
+      "bytes": 743755,
+      "sha256": "33c973db550a1d32275627c34808f77ee6f7b1eba3f3c339c06f5c958cad8450"
+    },
+    "installed.heapprofile": {
+      "bytes": 219372,
+      "sha256": "71c468192da8c960c2240049e6d5fd035e509bb392e99036225ebcfac07f9fbe"
+    },
+    "installed.stdout": {
+      "bytes": 1130052,
+      "sha256": "7e6bfde092436f078f624fde2ea6b254a4a50572bc6ffdf6e29f5af45253a2d5"
+    },
+    "installed.stderr": {
+      "bytes": 777,
+      "sha256": "4a3d1c6461f6039a9e58d89fe5b65521f1acde4ad5c154fbee2e6a45479eacbb"
+    },
+    "imports-start.json": {
+      "bytes": 202,
+      "sha256": "85eb678f1de09c7d2cc99a7578eaf57e3dc32489fff5c844ae65feee7c28377c"
+    },
+    "imports-end.json": {
+      "bytes": 222,
+      "sha256": "4fdc9ab06f8160c4c6e3ef35849e06bbfebcef7b06558fb1b4348f5d6db26fa3"
+    },
+    "acquisition-start.json": {
+      "bytes": 211,
+      "sha256": "1c04816597cb2c7f301bac0e28811d44d2c08422f9c3be659f519c3c89b8fdf9"
+    },
+    "acquisition-end.json": {
+      "bytes": 245,
+      "sha256": "3ee35367df8a90e9c4c1e2b6762e75725cb6c1a83c4ba5ab58a3d5b21ff189ef"
+    },
+    "prefix-selection-start.json": {
+      "bytes": 227,
+      "sha256": "fb7c482fe800b66bbe137467232a37e83c81930884498a26cb63a9e8268cc6cc"
+    },
+    "prefix-selection-end.json": {
+      "bytes": 250,
+      "sha256": "bba0a38425ec382f1eb3230ad40a35c2083c82f0252e3bfda680dddaf3832800"
+    },
+    "run-projection-start.json": {
+      "bytes": 225,
+      "sha256": "cf231931a1a3bdd56a79afaae26afc030ec23232d9b1f0421866be07ba34073a"
+    },
+    "run-projection-end.json": {
+      "bytes": 239,
+      "sha256": "7c0880709894f551a24a3ffee05f001e80d57fd0b57dbcafc46b5ca10d263a4e"
+    },
+    "close-start.json": {
+      "bytes": 208,
+      "sha256": "cbbc52aeb6e910ceb6fc699b84d9414614dd8bf539d5afdc0fed9c0c33ad607e"
+    },
+    "close-end.json": {
+      "bytes": 230,
+      "sha256": "f6958b1252bcbc63d7aee9dfa11e9bcbba2c6dfc9c01a86cc7261e6d8e6b3445"
+    }
+  },
+  "actualPhases": [
+    {
+      "name": "imports",
+      "elapsedMs": 247.236167,
+      "status": "returned",
+      "memory": {
+        "rss": 186695680,
+        "heapTotal": 116178944,
+        "heapUsed": 58067376,
+        "external": 2620714,
+        "arrayBuffers": 233691
+      }
+    },
+    {
+      "name": "acquisition",
+      "elapsedMs": 28438.713834000002,
+      "status": "returned",
+      "memory": {
+        "rss": 4589780992,
+        "heapTotal": 2524758016,
+        "heapUsed": 2406802608,
+        "external": 1390716695,
+        "arrayBuffers": 1388305039
+      }
+    },
+    {
+      "name": "prefix-selection",
+      "elapsedMs": 1550.1918750000004,
+      "status": "returned",
+      "memory": {
+        "rss": 4728111104,
+        "heapTotal": 2711371776,
+        "heapUsed": 2626031856,
+        "external": 1390716695,
+        "arrayBuffers": 1388305039
+      }
+    },
+    {
+      "name": "run-projection",
+      "elapsedMs": 9790.243166000004,
+      "status": "returned",
+      "memory": {
+        "rss": 4795072512,
+        "heapTotal": 2516828160,
+        "heapUsed": 2394704040,
+        "external": 2438495,
+        "arrayBuffers": 26839
+      }
+    },
+    {
+      "name": "close",
+      "elapsedMs": 0.589124999998603,
+      "status": "returned",
+      "memory": {
+        "rss": 4795072512,
+        "heapTotal": 2516828160,
+        "heapUsed": 2394846856,
+        "external": 2439295,
+        "arrayBuffers": 27639
+      }
+    }
+  ],
+  "process": {
+    "realSeconds": 40.24,
+    "userSeconds": 42.07,
+    "sysSeconds": 2.09,
+    "maxRssBytes": 5193203712
+  },
+  "cpu": {
+    "samples": 26761,
+    "nodes": 1553,
+    "weightedMs": 40049.334,
+    "phaseStackBuckets": {
+      "acquisition": {
+        "sampledStackMs": 25884.582,
+        "canonicalSelfMs": 13633.133,
+        "hashSelfMs": 7703.492,
+        "firstSampleMs": 272.125,
+        "lastSampleMs": 28702.584
+      },
+      "prefix-selection": {
+        "sampledStackMs": 1456.0,
+        "canonicalSelfMs": 0,
+        "hashSelfMs": 0,
+        "firstSampleMs": 28705.917,
+        "lastSampleMs": 30253.792
+      },
+      "run-projection": {
+        "sampledStackMs": 8938.253,
+        "canonicalSelfMs": 5115.014,
+        "hashSelfMs": 2776.783,
+        "firstSampleMs": 30256.834,
+        "lastSampleMs": 40046.334
+      }
+    },
+    "gcSelfMs": 3338.619,
+    "note": "Time-delta-weighted samples, not exact timers or OS CPU-seconds. Function-stack phase tags are exact; GC has no caller stack."
+  },
+  "gc": {
+    "clockAlignment": {
+      "medianGcUptimeMinusProfileMs": 4.165999999999258,
+      "majorPauseMatches": 7,
+      "observedOffsetRangeMs": [
+        3.540999999999258,
+        4.957999999998719
+      ],
+      "method": "Match long CPU GC blocks to trace major pauses; use first owner-stack sample as approximate phase boundary. GC allocated fields cover since-previous-GC intervals that may straddle phase boundaries; not exact per-phase allocation."
+    },
+    "recordTimeBuckets": {
+      "startup/imports": {
+        "gcRecords": 19,
+        "majorCount": 1,
+        "pauseMs": 14.2,
+        "reportedAllocatedBytes": 235524848
+      },
+      "acquisition": {
+        "gcRecords": 573,
+        "majorCount": 7,
+        "pauseMs": 2415.3,
+        "reportedAllocatedBytes": 51252097096
+      },
+      "prefix-selection": {
+        "gcRecords": 79,
+        "majorCount": 0,
+        "pauseMs": 67.3,
+        "reportedAllocatedBytes": 5479906896
+      },
+      "run-projection": {
+        "gcRecords": 158,
+        "majorCount": 2,
+        "pauseMs": 803.1,
+        "reportedAllocatedBytes": 16022044336
+      },
+      "close/exit": {
+        "gcRecords": 1,
+        "majorCount": 1,
+        "pauseMs": 83.2,
+        "reportedAllocatedBytes": 92203712
+      }
+    },
+    "count": 830,
+    "totalPauseMs": 3383.1,
+    "totalReportedAllocatedBytes": 73081776888,
+    "maxPreGcObjectBytes": 3234217816,
+    "maxPostMajorObjectBytes": 1929997120,
+    "lastMajor": {
+      "atMs": 40142.0,
+      "pause": "83.2",
+      "start_object_size": "2395214552",
+      "end_object_size": "1901280432"
+    }
+  },
+  "decoderComparison": {
+    "core50Recovery": {
+      "sampledMs": 28452.752,
+      "canonicalSelfMs": 16335.762,
+      "hashSelfMs": 7657.337,
+      "gcWindowMs": [
+        11151.792000000001,
+        42083.708
+      ],
+      "gcRecordCount": 1013,
+      "gcPauseMs": 2261.5,
+      "gcReportedAllocatedBytes": 130088079632
+    },
+    "core52Acquisition": {
+      "sampledMs": 25312.418,
+      "canonicalSelfMs": 13633.133,
+      "hashSelfMs": 7295.533,
+      "gcWindowMs": [
+        790.3749999999992,
+        28706.75
+      ],
+      "gcRecordCount": 572,
+      "gcPauseMs": 2414.0,
+      "gcReportedAllocatedBytes": 51242875240
+    },
+    "reportedAllocationDecreasePercent": 60.60909240496244,
+    "sampledTimeDecreasePercent": 11.03701322107612,
+    "note": "Same frozen history and decoder. Different outer operations, process state and profiling perturbation; interval-GC counters, not object allocation census or controlled peak-memory comparison. Reuses prior retained profile only."
+  },
+  "heap": {
+    "estimatedSurvivingBytes": 1878259856,
+    "sampleCount": 3050,
+    "topAllocationSites": [
+      {
+        "function": "decodeHistoricalEvents",
+        "module": "code/src/abg/event_store.js",
+        "line": 2038,
+        "bytes": 1604673232
+      },
+      {
+        "function": "slice",
+        "module": "",
+        "line": 0,
+        "bytes": 61996928
+      },
+      {
+        "function": "advance",
+        "module": "code/src/abg/event_prefix.js",
+        "line": 353,
+        "bytes": 49370840
+      },
+      {
+        "function": "projectRuntimeEventAtContract",
+        "module": "code/src/abg/event_store.js",
+        "line": 1317,
+        "bytes": 34606656
+      },
+      {
+        "function": "set",
+        "module": "",
+        "line": 0,
+        "bytes": 33554632
+      },
+      {
+        "function": "advance",
+        "module": "code/src/abg/event_prefix.js",
+        "line": 438,
+        "bytes": 17673728
+      },
+      {
+        "function": "advance",
+        "module": "code/src/abg/runtime_liveness.js",
+        "line": 516,
+        "bytes": 16497360
+      },
+      {
+        "function": "appendCanonicalJson",
+        "module": "code/src/shared/canonical_json.js",
+        "line": 9,
+        "bytes": 15205712
+      },
+      {
+        "function": "decode",
+        "module": "node:internal/encoding",
+        "line": 440,
+        "bytes": 8469088
+      },
+      {
+        "function": "",
+        "module": "code/src/abg/event_prefix.js",
+        "line": 356,
+        "bytes": 5243368
+      }
+    ],
+    "note": "Exit allocation-site samples after final GC; not retaining paths, total allocations or proof every survivor is necessary. Caller lifetime differs from prior maintenance exit."
+  },
+  "limits": [
+    "No new history acquisition, test, profile, Run or provider in analysis.",
+    "No complete Public-read or warm native Run profile; no OOM-cure claim."
+  ]
+}

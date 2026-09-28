@@ -18,15 +18,15 @@
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
 - current_activation: T287_DECLARATION_RESOURCE_01
-- current_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-05/selected-core.json
-- current_candidate_archive_sha256: 96439976b6f00fbe00144da1d17f120b78dfe53c50ae66721deba6d3efa60c54
+- current_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-06/selected-core.json
+- current_candidate_archive_sha256: df47a7a2c9d7f25cb2b1c22e7097e027c68ec25d05179b5c6d8f15dbe0319944
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/executive-disposition.md
-- current_accepted_archive_sha256: 96439976b6f00fbe00144da1d17f120b78dfe53c50ae66721deba6d3efa60c54
-- current_worker_return: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-route-provenance-repair-01/return.md
-- current_candidate_scope: core51_provenance_contraction_source_package_accepted_no_OOM_claim
+- current_accepted_archive_sha256: df47a7a2c9d7f25cb2b1c22e7097e027c68ec25d05179b5c6d8f15dbe0319944
+- current_worker_return: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/return.md
+- current_candidate_scope: core52_canonical_contraction_source_package_and_installed_owner_conservation_accepted
 - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-09/activation.json
 - current_live_execution_status: PC05_09_process_aborted_heap_exhaustion_Run_not_terminal
-- current_activation_status: one_core50_resource_reconciliation_profile_selected_no_Run
+- current_activation_status: core52_profile_closed_PC05_11_setup_selected
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#program-construction-calculus-definition'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: recover_PC05_09_resource_and_attribute_cold_heap_cost
-- next_bounded_task_status: one_no_model_recovery_profile_selected_no_paid_retry
+- next_bounded_task: complete_PC05_11_setup_then_one_preserved_assessment_steel_thread
+- next_bounded_task_status: one_installed_owner_check_passed_28439ms_acquisition_9790ms_projection_peak_RSS5193203712
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -648,52 +648,35 @@ historical journal or repeat a valid author merely to expand local qualification
 
 ### Current framework-cost correction
 
-The [closed source/caller review](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-evaluation-repair-review.md)
-and residual-aware repair are accepted. [PC05-05](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-05/execution-return.md)
-passed historical authentication, current binding cover and computed evaluation,
-then failed in native assessor instruction preparation. Fresh Public reads agree;
-zero actors and no C2 ran. The preserved paid author and all twelve reports remain.
-The [declaration repair](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessor-repair-01/return.md)
-and [independent delta review](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessor-repair-review.md)
-are accepted. The original/preserved declaration regression and actual-task
-assembly/transport preflight pass at the explicit supplied-admission frontier.
-[PC05-06](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-06/execution-return.md)
-completed with one assessor; fresh Public Result/replay agree. Computed evidence
-is true; checked assessment is unsatisfied (required citation roles/coverage,
-one quotation mismatch, selected residuals). Root accepts the installed
-declaration/continuation proof, not semantic closure. No constructor/C2 repeat,
-larger budget or core change. Root accepts the [closed task-contract triage](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessment-contract-triage-01/return.md)
-and selects one GLC realization correction: expose existing citation/residual
-rules and actual current/historical author basis, correct the fixture reason,
-preserve every check/report and the actual refusal. The [closed repair and independent review](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-assessment-contract-repair-review.md)
-are accepted. [PC05-07](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-07/execution-return.md)
-closed `runtime_failed`: the model returned malformed JSON, correctly refused;
-fresh Result is absent and replay is failed. One assessor, no author/C2 repeat.
-Executive accepts the [closed response-boundary diagnosis](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-structured-response-01/return.md)
-and selects a bounded native-assessment `design_reframe` plus transport repair:
-pass the exact admitted schema to the existing host structured-output mechanism,
-consume its final carrier, retain independent validation. No schema weakening,
-text repair or blind retry. The [closed correction and delta review](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-structured-response-repair-02-review.md)
-and exact core49 package are accepted for source readiness. [PC05-08](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-08/execution-return.md)
-closed failed: pinned host refuses the exact schema's draft-2020-12 declaration;
-no valid assessment or model usage is reported. Fresh Result is absent and replay
-failed. [Closed portability triage](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-01/return.md)
-selects the bounded paired HOW correction: fixed ABI2020 default for an omitted
-marker and GLC authoring without that optional marker, preserving every actual
-constraint. The [closed paired delta review](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-schema-compatibility-repair-review.md)
-and exact core50 package are accepted. One installed PC05-09 setup/assessment is
-selected under source freeze aa2dedac… and caller freeze 283dc064…. Preserve the
-paid author and completed C2; no translation or blind retry. PC06/release remain open.
-Latest phases: package14.554 s, install61.594 s, other setup61.512 s;
-Run176.844 s, pre-prompt169.379 s; fresh Result/replay98.184/98.896 s.
-The51,235,907 B suffix closes at1,354,273,180 B. These are elapsed observations,
-not exclusive CPU attribution or justified minimums. LIFE-01 remains open.
-Exact source reuse takes0.106 s; existing R10/currentness owners authenticate
-it. The [closed cost diagnostic](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-current-cost-01/return.md)
-identifies two separate cold Public acquisitions of the same prefix; it also
-preserves measured warm Run work and unknown current phase attribution.
-CALLER-DURABLE-CONTEXT-01/LIFE-01 already owns that lifetime/cost relation; no new
-register or performance closure. No whole-Run speedup is claimed.
+Core52 archive `df47a7a2…` is accepted after the [closed shared-encoder review](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-review.md)
+and exact 5,233-member correspondence. The shared accumulator preserves admitted
+JSON bytes/digests/refusals; prior schema, provenance and observation repairs remain.
+One build, eleven focused cases and the captured suffix comparison pass.
+
+The [installed owner discriminator](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-installed-01/result.json)
+validates all 137,417 events, projects the incomplete Run truthfully and closes
+at unchanged 1,388,245,432 bytes / `409a23df…`, coordinate `67a75b13…`.
+Acquisition 28.439 s; prefix selection 1.550 s; Run projection 9.790 s; close
+0.589 ms; process 40.24 s / peak RSS 5,193,203,712 B. This is owner conservation,
+not a complete native/Public proof or an OOM cure. The [closed profile comparison](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-installed-01/analysis.md)
+records 60.6% lower decoder allocation counters; peak memory remains high.
+Executive selects PC05-11 below; LIFE-01 remains open.
+
+[PC05-09](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-09/execution-return.md)
+remains the historical 157.408 s heap abort, with no terminal receipt or recorded
+actor invocation. [Core50 maintenance](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-09/recovery-result.json)
+returned a genuine current handoff without closing that Run. Preserve original04
+paid author, exact05 selection, completed C2, source/oracle and all twelve reports.
+
+PC05-11 is prepared on core52 with unchanged consumer sources, checks and actor
+bounds; its only executable caller differences are the artifact selector and
+install label. The Executive's closed-profile disposition selects one setup and one native
+assessment, now in preparation. No author/C2 rerun, heap increase, new ticket or
+automatic retry. PC06 conjoins original conditions and preserves actual residuals;
+fifteen-family qualification and release remain open. Current grants and exact
+conjunctions live in the [Executive disposition](../../comments/codex/20260928_DECLARATION_RESOURCE/executive-disposition.md).
+
+### Historical dispositions — prior selections, not current launch grants
 
 Prior PC05-04 outcome, 2026-09-28: [native constructor admitted; evaluation preparation failed](../../../../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-04/execution-return.md).
 The compatible host and corrected Public steering now pass. Opus5.5/xhigh

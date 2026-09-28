@@ -469,3 +469,109 @@ Keep the default heap bound. Retain recovery refusal/fault as the outcome if it
 occurs; do not repeat. Profiling perturbs time and is diagnostic, not authority.
 Root Writer executes, retains the result and checkpoints accepted source; Executive
 then consumes this closed boundary before selecting any further work.
+
+
+Selected core50 reconciliation returns recovered, owner41.504 s / process42.39 s,
+137,417 validated events and genuine close67a75b13…. All1,388,245,432 bytes remain
+SHA409a23df…. Profiling reports5,289,394,176 B peakRSS; this is diagnostic pressure,
+not a minimum or source attribution. The Run remains incomplete. Worker analyzes
+only the closed CPU/heap/GC artifacts; no second read, heap raise or Run is
+selected. Root Writer contracts the current ticket paragraphs to this frontier,
+retaining prior attempts in their immutable returns and Git history.
+
+
+### Shared canonical construction contraction
+
+Executive consumes recovery analysis ab4e2993…. Decoder samples account for
+28.453 s; canonical/hash self intervals account for60.6% of samples; GC allocation
+fields total143.985 GB (churn, not unique retained bytes). Warm retaining paths
+remain unproved. Root inspects the single existing canonical_json owner: recursive
+array/object map/join builds intermediate subtree strings at each ancestor.
+
+Select a bounded pure `realization_refactor` of that shared encoder to emit the
+same canonical bytes with a single accumulation/assembly path, preserving its
+public/internal signature, property ordering, escaping, numeric behavior and
+refusal domain/precedence. Do not add a cache, alternate encoding, third-party
+serializer, new authority/carrier or general constructor design. The existing
+shared owner is the whole-family reuse point; actual output/digest equality is
+the discriminator. Worker may reject this candidate if no faithful bounded
+contraction results. Preserve source49/50/51 repairs.
+
+Use focused existing canonical/body-codec controls and a finite captured PC05-09
+suffix corpus; compare old/new bytes and event/payload digests, retain malformed
+and restamped refusal checks. No whole-history read, provider, new Run, memory
+limit increase or broad suite. Freeze one source/build/proof delta for max review.
+Operation-local payload serialization reuse remains an identified subsequent
+opportunity, not an additional implementation/API here. After this closed delta,
+Root selects at most one installed no-model same-history discriminator before
+considering another paid assessment. LIFE-01 remains open, without an OOM claim.
+
+Root activates Writer for mechanical core52 packaging and one prepared installed
+owner discriminator, concurrently with independent source review. Its existing
+acquire/prefix/replay/close exports consume the genuine recovered handoff once;
+separate timings identify acquisition, Run projection and closure. Preparation
+does not authorize execution. Preserve original history and the incomplete Run;
+no actor, event append, synthetic receipt, heap increase or repeated acquisition.
+The diagnostic is an installed owner check, not complete Public/Run acceptance.
+
+### Core52 acceptance and single installed owner discriminator
+
+Executive accepts the shared canonical contraction for the admitted I-JSON
+domain after closed review64667f0b… and exact core52 archive df47a7a2…. Custom
+executable array hooks are outside that existing domain, not a waived obligation.
+Component byte/digest and refusal evidence is sufficient for this source change;
+the two unavailable pre-suffix bodies and warm OOM claim remain unproved.
+
+Select the frozen caller b49248bc… once against core52 and genuine recovered
+coordinate67a75b13…. Root Writer runs its existing acquire→selected projection→
+close path with default-heap CPU/heap/GC profiling. Preserve all event bytes,
+incomplete Run identity and original work. No competing acquisition, provider,
+event append, synthetic close or additional native attempt is authorized here.
+Root consumes the actual closed phases before repricing any further work.
+
+Installed core52 discriminator returns normally: acquisition28.439 s,
+prefix1.550 s, selected Run projection9.790 s and close0.589 ms; process40.24 s
+with5,193,203,712 B peakRSS. All137,417 events validate and the same current
+coordinate67a75b13… closes unchanged; Run09 projects active, not terminal.
+Root accepts this installed-owner conservation only. Worker compares the closed
+profiles without another history read; LIFE-01 and warm sufficiency remain open.
+Root Writer may prepare a PC05-11 copy of the accepted caller selecting core52;
+only the artifact selector/install label and evidence coordinates may differ.
+No install or paid Run is selected by this preparation grant.
+
+### Closed profile disposition and PC05-11 continuation
+
+Executive consumes analysis1378cdac…: comparable decoder allocation counters
+fall130.088→51.243 GB and sampled time28.453→25.312 s. The remaining cold cost
+authenticates1.388 GB; selected projection's principal cost is prefix hashing.
+This explains the observed phases without claiming their implementation minimal.
+Peak RSS5.193 GB and warm OOM sufficiency remain LIFE-01 residuals. No further
+serializer/liveness optimization is selected before the actual delivery path.
+
+Select one ordinary PC05-11 setup and one installed native evaluation/assessment
+suffix on core52. Source freeze9b215bca… conserves all14 consumer members;
+caller freezecfee51af… differs from reviewed10 only by core artifact selection
+and install label. Root conjoins exact conservation with reviewsfa6b224d… /
+64667f0b… and core52 correspondence; no new caller semantics are asserted.
+Use genuine current recovery handoff67a75b13… (unchanged by the owner check),
+original04 author, exact05 historical selection, accepted command/evaluator work,
+original source/oracle and all twelve reports. Unchanged pinned Opus5.5/xhigh
+and finite controls apply. No author or C2 repeat, history transplant, heap
+increase or automatic retry. Preparation failure is a closed outcome.
+
+At a legitimate native outcome, fresh Public result/replay establish what ran;
+PC06 conjoins original conditions and preserves unproved semantics, including
+strict raw-field and traversal interpretations. A valid semantic refusal does
+not authorize another framework repair or model retry. Root Writer owns setup,
+one launch, truthful readback, scoped checkpoint/push and paired current tracking;
+it returns to Executive at each closed effect boundary. Release remains separate.
+
+
+PC05-11 first preparation invocation refuses during ESM import, before acquisition:
+Root omitted the existing explicit installed-core resolver and selected the old
+ambient dependency. Preserve the import refusal; this is a caller invocation
+error, not new ABG evidence. Root Writer selects the same frozen preparation once
+with its existing core-loader and explicit actual core52 root. Source-level
+construction alone uses that resolver; actual descriptor/native processes retain
+ordinary installed linkage and cleared loader options. No code or acceptance
+condition changes, new Run, or spent model work follows from the failed import.

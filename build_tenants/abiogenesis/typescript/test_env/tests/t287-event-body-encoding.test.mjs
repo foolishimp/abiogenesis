@@ -15,6 +15,41 @@ import { canonicalJson } from "../../build/code/src/shared/canonical_json.js";
 import { sha256Canonical, sha256Bytes } from "../../build/code/src/shared/digests.js";
 import { isDeeplyFrozen } from "../../build/code/src/shared/immutable.js";
 
+test("shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays", () => {
+  const value = { "\ufffd": "last", "\ud834\udd1e": "first", "2": -0, "10": 1e21,
+    text: "\"\\\b\f\n\r\t\u0000\ud800", values: [null, true, false, 1e-7, Number.MIN_VALUE] };
+  assert.equal(canonicalJson(value), '{"10":1e+21,"2":0,"text":"\\\"\\\\\\b\\f\\n\\r\\t\\u0000\\ud800","values":[null,true,false,1e-7,5e-324],"𝄞":"first","�":"last"}');
+  assert.equal(canonicalJson({}), "{}");
+  assert.equal(canonicalJson([]), "[]");
+  assert.equal(canonicalJson(Array(1)), "[]");
+  const sparse = Array(4); sparse[1] = {a: 1};
+  assert.equal(canonicalJson(sparse), '[,{"a":1},,]');
+  const inherited = Array(4), prototype = Object.create(Array.prototype);
+  prototype[2] = "inherited"; Object.setPrototypeOf(inherited, prototype); inherited[1] = "own";
+  assert.equal(canonicalJson(inherited), '[,"own","inherited",]');
+  const shared = {text: "same value"};
+  assert.equal(canonicalJson([shared, shared]), '[{"text":"same value"},{"text":"same value"}]');
+});
+
+test("shared canonical traversal preserves captured entries, array length and refusal precedence", () => {
+  const visited = [], value = {};
+  Object.defineProperties(value, {
+    b: {enumerable: true, get() { visited.push("b"); return {get child() { visited.push("child"); return 1; }}; }},
+    a: {enumerable: true, get() { visited.push("a"); return Infinity; }},
+  });
+  assert.throws(() => canonicalJson(value), {name: "TypeError", message: "canonical JSON does not admit non-finite numbers"});
+  assert.deepEqual(visited, ["b", "a"], "entries are captured before sorted traversal refuses a");
+  const shrinks = [0, 1, 2];
+  Object.defineProperty(shrinks, 0, {get() { shrinks.length = 1; return 7; }});
+  assert.equal(canonicalJson(shrinks), "[7,,]", "array iteration retains its entry length");
+  for (const invalid of [NaN, Infinity, -Infinity, {nested: [NaN]}]) {
+    assert.throws(() => canonicalJson(invalid), {name: "TypeError", message: "canonical JSON does not admit non-finite numbers"});
+  }
+  for (const invalid of [undefined, [undefined], {present: undefined}]) assert.throws(() => canonicalJson(invalid), TypeError);
+  const cycle = {}; cycle.self = cycle;
+  assert.throws(() => canonicalJson(cycle), RangeError);
+});
+
 const time = "2026-09-22T00:00:00.000Z";
 const input = { kind: "body_fixture_input", text: "selected complete input; ".repeat(1500),
   metadata: { sources: ["source://body-fixture/input"] } };

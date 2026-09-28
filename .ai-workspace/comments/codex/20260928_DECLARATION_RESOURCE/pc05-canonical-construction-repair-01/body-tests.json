@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    "--test",
+    "test_env/tests/t287-event-body-encoding.test.mjs"
+  ],
+  "exitCode": 0,
+  "elapsedMs": 877.7704578824341
+}

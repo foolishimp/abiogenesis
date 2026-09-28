@@ -1,0 +1,18 @@
+✔ shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays (0.3915ms)
+✔ shared canonical traversal preserves captured entries, array length and refusal precedence (5.245125ms)
+✔ native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append (336.781ms)
+ℹ {"physicalBytes":93629,"expandedBytes":220249,"savedBytes":126620,"logicalEvents":9,"freshProcessReplayEqual":true,"exactColdBodyReuse":["basis-to-basis","result-to-result","result-to-basis"],"deeplyFrozen":true}
+✔ physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences (50.14975ms)
+✔ nearest malformed body references refuse before logical history is exposed (62.387209ms)
+✔ reused cold bodies still require each new envelope identity, stamp, cause and logical digest (50.642916ms)
+✔ independently supplied mutable raw input remains detached at event admission (13.172125ms)
+✔ literal marker-shaped Product data and small duplicate values remain unambiguous (27.433ms)
+✔ failed durable batch discards new inline sources; committed same-batch references survive reopen (25.34775ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 851.547375

@@ -1,0 +1,25 @@
+{
+  "scope": "Prepared no-model installed-owner discriminator, execution unselected",
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-installed-01/discriminate.mjs",
+      "sha256": "9ccc36019658a2a8426bb882c925edf509c8e87193a088410607431b634b71e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-installed-01/plan.md",
+      "sha256": "f4174951357c17d3323d56ef10c366c91d87265041c0759087f80b37d56e2404"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-installed-01/selection.json",
+      "sha256": "90fa6c571a52948c544f233cc7149aca6fbeee40aeb66d912c88ec06aa386ca6"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-09/recovery-result.json",
+      "sha256": "47fdc14fa294e86785623e276a6548810d7e2f8f856c229ec256d5b8d0f603b5"
+    },
+    {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-09/execution/abort-disposition.json",
+      "sha256": "c91ee7d16914dd0c2cc2b63a57d260505a9f88fb5d5489ccd8d3658e11b646f2"
+    }
+  ]
+}

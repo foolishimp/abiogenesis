@@ -1,0 +1,12 @@
+{
+  "name": "acquisition",
+  "elapsedMs": 28438.713834000002,
+  "status": "returned",
+  "memory": {
+    "rss": 4589780992,
+    "heapTotal": 2524758016,
+    "heapUsed": 2406802608,
+    "external": 1390716695,
+    "arrayBuffers": 1388305039
+  }
+}

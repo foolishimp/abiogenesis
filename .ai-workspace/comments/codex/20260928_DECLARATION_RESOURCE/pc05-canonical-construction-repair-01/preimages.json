@@ -1,0 +1,29 @@
+{
+  "head": "89f8f8c9b1c647cea2068654313edf924a443f22",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/canonical_json.ts",
+      "bytes": 1010,
+      "sha256": "a5ef9c2ba078fd7d3bad9572a4e6166a03ea749fafa1c6d171ac03050f59be78",
+      "preimage": "preimage-1.txt"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "bytes": 19668,
+      "sha256": "5ad54de4577ee5dde86579172e286ce90d76eb3c76e88b97e4c8a9c6b10a7fdc",
+      "preimage": "preimage-2.txt"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.js",
+      "bytes": 872,
+      "sha256": "484aaa129058bc43ec540c6747186d1f5fe8fa90ab2850a096d10e0e2b0090bc",
+      "preimage": "preimage-3.mjs"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/canonical_json.d.ts",
+      "bytes": 277,
+      "sha256": "ed0e12fb3f654cd0d6a55f72c47d40d4241550d72f42f86976a84ba8a88ba7d2",
+      "preimage": "preimage-4.txt"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "run-projection",
+  "at": "2026-09-28T00:05:31.461Z",
+  "memory": {
+    "rss": 4728111104,
+    "heapTotal": 2716090368,
+    "heapUsed": 2566948536,
+    "external": 1390717095,
+    "arrayBuffers": 1388305439
+  }
+}

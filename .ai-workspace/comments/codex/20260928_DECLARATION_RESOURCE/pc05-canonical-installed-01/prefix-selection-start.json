@@ -1,0 +1,11 @@
+{
+  "name": "prefix-selection",
+  "at": "2026-09-28T00:05:29.909Z",
+  "memory": {
+    "rss": 4589780992,
+    "heapTotal": 2524758016,
+    "heapUsed": 2406849240,
+    "external": 1390717095,
+    "arrayBuffers": 1388305439
+  }
+}

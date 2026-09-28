@@ -1,0 +1,41 @@
+[
+  {
+    "path": "build/code/src/shared/canonical_json.js",
+    "before": {
+      "path": "build/code/src/shared/canonical_json.js",
+      "bytes": 872,
+      "sha256": "484aaa129058bc43ec540c6747186d1f5fe8fa90ab2850a096d10e0e2b0090bc"
+    },
+    "after": {
+      "path": "build/code/src/shared/canonical_json.js",
+      "bytes": 1551,
+      "sha256": "ae5a20c7e8a4bb182f7576e558436eaeaa5c87ac7a1e75ce1106567158cf2b02"
+    }
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "6ca2fd0b746da8f31e1452cffb0650e8c7b92a215a3c1fca8df3e3d8b2a6f6b9"
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "991925c632b99455f6d4bb1490c1189f3084fcdffdad48442e525a41c1ae8495"
+    }
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "7d175e55cfabaa39eb7d979c72fa7d7ac4e58ed456d7f670d36584616396e48c"
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2384496,
+      "sha256": "74b17f406481bdcf1798cc677d4471ea3814059c804c73e7011a1d130c4a1083"
+    }
+  }
+]

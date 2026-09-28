@@ -1,0 +1,10 @@
+✔ A5-F02 canonicalizes every selected authored set inventory (65.897959ms)
+✔ A5-F02 preserves ordered topology, C composition, arguments, and closure sequences (2.649625ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 329.333333

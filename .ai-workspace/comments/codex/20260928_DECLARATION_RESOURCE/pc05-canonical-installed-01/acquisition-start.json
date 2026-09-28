@@ -1,0 +1,11 @@
+{
+  "name": "acquisition",
+  "at": "2026-09-28T00:05:01.470Z",
+  "memory": {
+    "rss": 186695680,
+    "heapTotal": 116178944,
+    "heapUsed": 58089272,
+    "external": 2621114,
+    "arrayBuffers": 234091
+  }
+}

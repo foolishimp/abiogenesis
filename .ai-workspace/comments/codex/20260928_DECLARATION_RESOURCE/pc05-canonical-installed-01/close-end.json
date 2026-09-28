@@ -1,0 +1,12 @@
+{
+  "name": "close",
+  "elapsedMs": 0.589124999998603,
+  "status": "returned",
+  "memory": {
+    "rss": 4795072512,
+    "heapTotal": 2516828160,
+    "heapUsed": 2394846856,
+    "external": 2439295,
+    "arrayBuffers": 27639
+  }
+}

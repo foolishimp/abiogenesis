@@ -1,0 +1,140 @@
+{
+  "basis": {
+    "owner": "installed core50 recoverInterruptedAbgEventResource",
+    "historyReadByThisAnalysis": false,
+    "profiledResourceBytes": 1388245432,
+    "validatedEventCount": 137417,
+    "ownerElapsedMs": 41504.45575,
+    "processRealSeconds": 42.39,
+    "processUserSeconds": 46.41,
+    "processSysSeconds": 4.6,
+    "peakRssBytes": 5289394176
+  },
+  "inputs": {
+    "recovery.cpuprofile": {
+      "bytes": 24432492,
+      "sha256": "e0186d55ec183badc1e2a1a2efa28e98f06e052f059992c0fbd93d305ae5b8fb"
+    },
+    "recovery.heapprofile": {
+      "bytes": 141918,
+      "sha256": "c5813e0fd78a5f2251e050d3e7a0c982b3a61886facbe7c4bef2fb72195d7914"
+    },
+    "recovery.stdout": {
+      "bytes": 1678439,
+      "sha256": "c1e76b34d9b768567d619b2420edd14144fee2a9fc9863773ed9aa902239dffe"
+    },
+    "recovery.stderr": {
+      "bytes": 777,
+      "sha256": "d36e56a648dc59cdcef2c18d8272641a78ac3e98ff64add7f3662c33f6c8eb36"
+    }
+  },
+  "cpu": {
+    "nodes": 68695,
+    "samples": 31077,
+    "profileMs": 42093.75,
+    "weightedSampleMs": 42093.708,
+    "exclusiveStackBucketsMs": {
+      "other": 1613.123,
+      "garbageCollector": 2662.871,
+      "verifyProduct": 8388.378,
+      "recoveryOutsideDecode": 976.584,
+      "decodeHistoricalEvents": 28452.752
+    },
+    "canonicalSelfMs": 16843.303,
+    "hashUpdateSelfMs": 8683.585,
+    "selectedProjectionSamples": 0,
+    "note": "timeDelta-weighted samples; not exact function timers or OS CPU-seconds; async ancestors and GC attribution are limited"
+  },
+  "gc": {
+    "count": 1222,
+    "byType": {
+      "s": {
+        "count": 1194,
+        "pauseMs": 1467.3,
+        "reportedAllocatedBytes": 141721918168
+      },
+      "mc": {
+        "count": 28,
+        "pauseMs": 1172.2,
+        "reportedAllocatedBytes": 2263004808
+      }
+    },
+    "totalPauseMs": 2639.5,
+    "maxPreGcObjectBytes": 3231249008,
+    "maxPostMajorObjectBytes": 1679615544,
+    "largestPreMajor": {
+      "atMs": 34370.0,
+      "pause": 54.3,
+      "start_object_size": 3231249008,
+      "end_object_size": 1489392488
+    },
+    "lastMajor": {
+      "atMs": 42335.0,
+      "pause": 64.8,
+      "start_object_size": 2418485096,
+      "end_object_size": 81414912
+    },
+    "note": "allocated counters describe interval heap-allocation churn, not unique retained bytes or complete external-buffer allocation"
+  },
+  "heap": {
+    "sampleCount": 109,
+    "estimatedSurvivingBytes": 77071600,
+    "topSites": [
+      {
+        "function": "read",
+        "url": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-09/reconcile.mjs",
+        "line": 7,
+        "bytes": 17473464
+      },
+      {
+        "function": "readFileSync",
+        "url": "node:fs",
+        "line": 433,
+        "bytes": 9111696
+      },
+      {
+        "function": "decode",
+        "url": "node:internal/encoding",
+        "line": 440,
+        "bytes": 8102768
+      },
+      {
+        "function": "wrapSafe",
+        "url": "node:internal/modules/cjs/loader",
+        "line": 1627,
+        "bytes": 5808384
+      },
+      {
+        "function": "set",
+        "url": "",
+        "line": 0,
+        "bytes": 4768184
+      },
+      {
+        "function": "compileSourceTextModule",
+        "url": "node:internal/modules/esm/utils",
+        "line": 355,
+        "bytes": 4759944
+      },
+      {
+        "function": "update",
+        "url": "node:internal/crypto/hash",
+        "line": 134,
+        "bytes": 3402264
+      },
+      {
+        "function": "convertSchema",
+        "url": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-09/products/core50/node_modules/@abiogenesis/typescript-tenant/node_modules/@valibot/to-json-schema/dist/index.mjs",
+        "line": 340,
+        "bytes": 2097480
+      },
+      {
+        "function": "set hash",
+        "url": "node:internal/url",
+        "line": 1135,
+        "bytes": 1573088
+      }
+    ],
+    "note": "exit sampling estimates live allocations after final GC, not object retaining paths or peak attribution"
+  }
+}

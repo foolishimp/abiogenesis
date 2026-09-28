@@ -1,0 +1,11 @@
+{
+  "predecessor": "core51",
+  "unchanged": 5230,
+  "changed": 3,
+  "changedPaths": [
+    "build/code/src/shared/canonical_json.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "scope": "single shared canonical accumulator with conserved admitted JSON bytes; source review owns acceptance"
+}

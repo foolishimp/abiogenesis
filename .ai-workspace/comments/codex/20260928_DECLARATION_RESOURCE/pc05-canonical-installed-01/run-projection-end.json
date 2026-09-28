@@ -1,0 +1,12 @@
+{
+  "name": "run-projection",
+  "elapsedMs": 9790.243166000004,
+  "status": "returned",
+  "memory": {
+    "rss": 4795072512,
+    "heapTotal": 2516828160,
+    "heapUsed": 2394704040,
+    "external": 2438495,
+    "arrayBuffers": 26839
+  }
+}

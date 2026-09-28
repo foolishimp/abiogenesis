@@ -1,0 +1,6 @@
+{
+  "command": "./node_modules/.bin/tsc -p tsconfig.json",
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "exitCode": 0,
+  "elapsedMs": 5546.695583965629
+}
