@@ -598,3 +598,75 @@ measure finite input values but must not reread history, invoke actors, edit
 source or infer the crashing JS function from ArrayJoin alone. Root Writer
 preserves/checkpoints this failure and prepares existing-owner reconciliation;
 no new native attempt or broader serializer/liveness repair is selected yet.
+
+
+### PC05-11 pre-admission whole-path discriminator
+
+Executive consumes closed triage aee4a4e5… under the continuing user instruction
+“do it”. The proven63.4 MB digest construction is insufficient attribution for
+the4.11 GB fatal heap. Select one diagnostic caller through the actual installed
+core52 fixed-call/input admission, resource acquisition, setup artifact truth and
+Product preparation owners, stopping before invocation/event admission. Preserve
+the exact PC05-11 input and all checks; do not substitute a smaller synthetic
+request, infer a second decode, or select another speculative serializer repair.
+
+Frame: ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration,
+with Owner/Reuse/Proof/Context. Subject is derived diagnostic tooling over fixed
+15-family Product authority, not a new runtime or controller. Existing T287/R10
+and LIFE-01 own this correction; PC06 and release remain open.
+
+Worker pc02_framework_cost (Astra/xhigh) prepares and freezes the single caller
+under pc05-11-pre-admission-01/, retaining phase starts/ends/memory and incremental
+V8 profiling. Use exact existing owner exports and expose any unavailable seam;
+do not reproduce admission logic or mutate a frozen package. Preparation has no
+journal acquisition, recovery, provider, production edit, build or execution grant.
+Root Writer separately prepares the existing interrupted-resource reconciliation
+for dead PID65622 and genuine unchanged setup35509741…; it does not execute until
+the exact diagnostic is ready. One independent bounded read-only checkpoint
+conjoins resource safety and correct selected path before execution. Default
+heap, unchanged history and no paid call remain constraints. Root consumes the
+closed phase evidence before selecting an owning correction.
+
+Root activates Writer only for this selection, paired ticket current pointers,
+recovery/diagnostic evidence and scoped checkpoint/push; returns Executive after
+each closed effect boundary. No Product, HOW, source or release mutation is
+selected by this diagnostic preparation.
+
+
+### Owner correction: F_P decision boundary; extension held
+
+Owner challenges the deterministic expansion in odd_glc and potential throwaway
+work. Root stops further implementation, recovery and native attempts on this
+extension. The prepared recovery11 was not executed; the exact abandoned lock,
+history and application remain preserved. All Workers have closed returns.
+
+The proposed prepare-only probe is closed-unimplemented (return6e056f70…):
+existing exported seams cannot reproduce private parsed-resource lifetimes and
+stop before admission. No diagnostic API/harness or paid retry was introduced.
+
+Root's bounded source inspection identifies an additional consumer planner and
+state pipeline: program-construction.mjs:111 selects duty/prerequisite states;
+:176 restricts composition regimes; program-construction-contracts.mjs:51–102
+declares eight contracts and twelve F_D adapters; runtime:516 reconstructs the
+assessment output during validation. The three files total1,081 lines. These
+are scope observations, not proof that every adapter is redundant or caused OOM.
+The inspected code delegates execution/admission to GTL/HoG/ABG; a second runtime
+is not established. The latest crash precedes graph execution and remains an
+unattributed generic preparation failure.
+
+Reprice the realization at the F_P/F_D boundary before another local repair:
+semantic interpretation/next-work choice belongs to F_P; existing framework
+owners retain actual mechanical admission, traversal, effects and evidence.
+Treat the new deterministic planner/state pipeline as a replacement candidate,
+not accepted minimal infrastructure. Retain legitimate lifecycle vocabulary,
+ordinary GTL/function declarations, independent assessment, existing core repairs
+and original evidence. No deletion, Product/HOW rewrite, replacement planner,
+release claim or new effectful grant follows from this review. T287/T043 own
+this frontier; no new ticket or broad audit is created.
+
+Owner further identifies the intended Executive function as recursive reference
+frames: F_P selects and evaluates frame-scoped work, conjoins returned evidence
+and proposes the next lawful action; existing GTL/HoG/ABG retains composition,
+recursion, admission and execution. This is the selected interpretation for the
+next design reframe, not a claim that the current deterministic planner realizes
+it or a grant for autonomous cross-Run authority.

@@ -1,0 +1,88 @@
+{
+  "scope": "Finite component evidence only; exact installed canonical emission reused through an evidence-only sink. No history or ABG owner, no installed invocation.",
+  "input": {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-11/start.jsonl",
+    "bytes": 44650516,
+    "digest": "sha256:d3fe41dc4e258bc45ac6bab338f0c4dd2572919b587dfaf39450b36654a7d363"
+  },
+  "sources": {
+    "canonical": "sha256:ae5a20c7e8a4bb182f7576e558436eaeaa5c87ac7a1e75ce1106567158cf2b02",
+    "digests": "sha256:bcfca50154c00df17ac3eacbd49323180f7645b2b0d779554dc9aa7c7c34212a"
+  },
+  "sizes": {
+    "DefinitionCall": 44649094,
+    "invocation": 9452396,
+    "invocation.request": 4722208,
+    "invocation.invocationAuthority": 4725015,
+    "invocation.request.input.value": 4720589,
+    "resources": 35196670,
+    "resources.catalog": 17445134,
+    "resources.catalog.readinessBasis": 16356317,
+    "resources.historicalSource": 17667993,
+    "resources.historicalSource.declarationProof": 17665570,
+    "resources.historicalSource.declarationProof.catalog": 17553780
+  },
+  "duplicateInputEqual": true,
+  "subject": "resources.catalog.readinessBasis",
+  "expectedDigest": "sha256:9d9ebe2b037bee5fe6368b1f48b42e88f570700651d0f14424c6962754d9ba13",
+  "exactCurrentAndTokenDigestEqual": true,
+  "measurements": {
+    "baseline": {
+      "rss": 463863808,
+      "heapTotal": 197033984,
+      "heapUsed": 60236616,
+      "external": 46703107,
+      "arrayBuffers": 44667139
+    },
+    "beforeJoin": {
+      "rss": 510836736,
+      "heapTotal": 227377152,
+      "heapUsed": 90916464,
+      "external": 46703147,
+      "arrayBuffers": 44667139
+    },
+    "parts": {
+      "count": 629442,
+      "totalCodeUnits": 16354211,
+      "totalUtf8Bytes": 16356317,
+      "maximumFragmentBytes": 975008
+    },
+    "afterJoin": {
+      "rss": 544079872,
+      "heapTotal": 259309568,
+      "heapUsed": 123634184,
+      "external": 46703147,
+      "arrayBuffers": 44667139
+    },
+    "joinedCodeUnits": 16354211,
+    "afterHash": {
+      "rss": 544079872,
+      "heapTotal": 259309568,
+      "heapUsed": 123636328,
+      "external": 46703147,
+      "arrayBuffers": 44667139
+    },
+    "releasedFlat": {
+      "rss": 497795072,
+      "heapTotal": 197033984,
+      "heapUsed": 60276552,
+      "external": 46703147,
+      "arrayBuffers": 44667139
+    },
+    "afterTokenHash": {
+      "rss": 539033600,
+      "heapTotal": 195985408,
+      "heapUsed": 60390304,
+      "external": 46743421,
+      "arrayBuffers": 44667139
+    }
+  },
+  "tokenSink": {
+    "bytesFed": 16356317,
+    "chunks": 214,
+    "maxChunkBytes": 975008,
+    "elapsedMs": 60.19079099999999,
+    "finalWholeValueJoin": false
+  },
+  "limits": "Forced GC perturbs lifetime and exposes selected live construction, not a native-process peak. Sink prototype proves this finite exact digest and bounded aggregation only; no full-domain or OOM sufficiency claim. Atomic JSON.stringify of each scalar remains unchanged."
+}
