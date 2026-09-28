@@ -1,0 +1,117 @@
+[
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/current/case-machine.json",
+    "bytes": 10681,
+    "sha256": "68ddd6e8fbd2337fa3dba0821a02e32c9d8e102a70ec77516a88ab03b5cf9078"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/current/events-machine.json",
+    "bytes": 1642667,
+    "sha256": "a6579286e3a9a949f17364ca0e7ca28142f0118b40cbcb78dfeca35591177f6f"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/current/final-handoff.json",
+    "bytes": 1230,
+    "sha256": "b2a8f2b8ad98ee16715eece2a97da04d90d7e945086b0d287cad91b3a1216cd4"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/current/frozen-artifact.json",
+    "bytes": 408,
+    "sha256": "6cc982ac0c0c0edabacbced6d50b4bcc5ca453468d0b84312292cd4156238525"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/current/missing-context.json",
+    "bytes": 3890,
+    "sha256": "87c12446102b5a033eefdceeee03cff346b2bc903758e613efb5b1a227680f95"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/current/run-environment.json",
+    "bytes": 27379,
+    "sha256": "2485668be0ede9c931b11625682a1d6b80fe88d63abe2e543502a84ddd22a5c9"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/current/setup.json",
+    "bytes": 1545,
+    "sha256": "23d2b0f08c224bbb505ff64dad53f298f063676ac9549c011df0343b4a0b284f"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/attempt-02/assembly-machine.json",
+    "bytes": 40079,
+    "sha256": "6819a133cbded409dc0bca0479fd8c9fcdcc704b6f19e5f7d6b97f145c00bd0b"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/attempt-02/case-machine.json",
+    "bytes": 15400,
+    "sha256": "7852d34b00158b10c8960c6b89dbae13cedb424213491f4a37830da3ca8447f5"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/attempt-02/events-machine.json",
+    "bytes": 1764283,
+    "sha256": "0b8380e75f3cbb210eee98da30171bf278e5ceb50099a1949059932ec274277c"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/attempt-02/exception.json",
+    "bytes": 3533,
+    "sha256": "4f2bd571b86578805687d145e09e526b22db010551a796985be69379c8c2f7d7"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/attempt-02/final-handoff.json",
+    "bytes": 1230,
+    "sha256": "6c157c28ddaecc8e757673963e2bfd25870448131af3dd6e1e5d08c55e65a0e6"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/attempt-02/frozen-artifact.json",
+    "bytes": 408,
+    "sha256": "6cc982ac0c0c0edabacbced6d50b4bcc5ca453468d0b84312292cd4156238525"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/attempt-02/machine-output-fp-ca5b922b9a1d2c78-output.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/attempt-02/machine-prompt-fp-ca5b922b9a1d2c78-prompt.txt",
+    "bytes": 13244,
+    "sha256": "bcd5e44713f39483204c1cbb63c81618aa2b059a5383b3a30879ddb1243c7f25"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/attempt-02/machine-stderr-fp-ca5b922b9a1d2c78-stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/attempt-02/machine-stdout-fp-ca5b922b9a1d2c78-stdout.log",
+    "bytes": 3453,
+    "sha256": "417e1808610b91691675a9df1e9f23508c00f621ef514ca9d1fee317a8deed79"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/attempt-02/machine-transport-fp-ca5b922b9a1d2c78-transport.json",
+    "bytes": 7349,
+    "sha256": "67de96ee970fa8df35c99d559c7f0485d10fced59330da84760029e055ac8340"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/attempt-02/missing-context.json",
+    "bytes": 3883,
+    "sha256": "920b2778163d566a5d37039073727ef16e94e9c266db5a29e4f986256106ceed"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/attempt-02/run-environment.json",
+    "bytes": 27379,
+    "sha256": "2485668be0ede9c931b11625682a1d6b80fe88d63abe2e543502a84ddd22a5c9"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/attempt-02/setup.json",
+    "bytes": 1323,
+    "sha256": "500761701268f8edb2e18221666b8baa958e00ba76addca15cd68daa3bd106d7"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/installed-01.log",
+    "bytes": 5656,
+    "sha256": "e57a09469d02e4d0a31a71338d2844c83f6b997fe8008849b4b941f48194ba47"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/installed-02.log",
+    "bytes": 9216,
+    "sha256": "b4b85a705d0e270941e01bbc99608c34704e78e405e42a6caee9282962e84ce0"
+  }
+]

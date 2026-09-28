@@ -1,0 +1,167 @@
+{
+  "baseline": "1535e001",
+  "productBase": "e27f72bc2037130d3261694da40af0148269f142",
+  "sourceFiles": {
+    "code/src/gtl/stdo_run_environment.ts": "sha256:50e844fdc3189fd6f9baacdca3c5f2aa4de6a848d72e2f2f5c075dda5a08a396",
+    "code/src/gtl/registered_selection.ts": "sha256:32f44f7aba5d77ab5255f29b2300cafcae202fed3eb27f5ad46ff6dbc2e6fdbd",
+    "code/src/product/registered_selection_native.ts": "sha256:2e4413c1431f1abdd6d19e267364196b0a0986628976829e00aab04da987f280",
+    "code/src/product/index.ts": "sha256:7eb00e531b3b650a053a62a901ee93035bbb97584fc14854ae88eb8a171cc482",
+    "code/src/abg/instruction_assembly.ts": "sha256:8309950088b448292cb926f97f96834c857ba9bb3576cfb93856da83d1191116",
+    "code/src/abg/actor_process.ts": "sha256:55e068032197d33d9464acd4ebc006f75c8a8ac9528a4540b0944baf0ad12ece",
+    "code/src/hog/ccall_lifecycle.ts": "sha256:fbcdd74a520089caa3167868d1759f786701b8faea54640d8cf4eeb09b5f1740",
+    "code/src/abg/c_call_outcome.ts": "sha256:73d313d77986a6232a2c31ff7dd7844d189bc1bf090cf7974c0689333f25e640",
+    "test_env/support/registered-graph-selection.mjs": "sha256:702ce6f5b2468ed5daccdaa6f2730bca65d4279a996783bbf47ce1a59a53efc2",
+    "test_env/fixtures/registered-selection-product/native.mjs": "sha256:963119ad1ae1c07644cc9848863f13244d416a720bb644261f3d578fa0b609a6",
+    "test_env/support/native-registered-selection.mjs": "sha256:c2deb44c845503ea893c6803c2c7d7bc1079e8dbcd05d215a0f2fa9f85901195",
+    "test_env/tests/t287-native-registered-selection.test.mjs": "sha256:201eba94a0abebc65ce94917fb212a461974c6a889a7455e230576787c22516d",
+    "design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md": "sha256:242ff1758a25c5953cad9f0a8a4ca318d5275f54fa56c2e63c69707831ac9c25"
+  },
+  "generatedLocalArchiveInstalledEqual": {
+    "build/code/src/gtl/stdo_run_environment.js": "sha256:c98ad4c714cbcaacd671c7c616e0415a857b0824892df7b5891a9067f6e6366c",
+    "build/code/src/gtl/stdo_run_environment.d.ts": "sha256:9b03939c3b10df418b9af0e55c4bd67959fe3bf68d1fa65501ff83bc4e107e69",
+    "build/code/src/gtl/registered_selection.js": "sha256:6302b4ddcc30fe82f3302c8affbb27d1df0635ac74e87b80261e980271561b09",
+    "build/code/src/gtl/registered_selection.d.ts": "sha256:27fe8a1e6123f267b4db539889fccb1970a9f93239e35fa33c08b80f01384dff",
+    "build/code/src/product/registered_selection_native.js": "sha256:509874b8a51aba70fe24468f16189a212d1e30a6c45c6e367fe8d42ad2af8db1",
+    "build/code/src/product/registered_selection_native.d.ts": "sha256:ef43c2a7f178403de6586f44995cf56593cfa006c79f28f3c4a430351d01ce01",
+    "build/code/src/product/index.js": "sha256:30bdf7109fa5bdc95b3fee1a2c0066e4eb7600ba5192213d73782d1adae81fc9",
+    "build/code/src/product/index.d.ts": "sha256:1eaa5aada29365889ee47fcf50723fd51f9956206dd734f3cfb36681e4ec1669",
+    "build/code/src/abg/instruction_assembly.js": "sha256:4d38e9cd83ad999ff22af480a0c70ca559346e59459030996913ebf1d484ab91",
+    "build/code/src/abg/instruction_assembly.d.ts": "sha256:233a5412e291e670fdeedbdd56276623aa66bb875927c4ffdbccb8883892c28a",
+    "build/code/src/abg/actor_process.js": "sha256:777f1cd6311c46e3c643f5a0c1040483d86ad74524b4cd07df0c092a7a8b351c",
+    "build/code/src/abg/actor_process.d.ts": "sha256:5928af2fb736f8c9302fbaaec127637de07d0c077c9818052ef7cb9685b49eac",
+    "build/code/src/hog/ccall_lifecycle.js": "sha256:dca8dc02c28c4e13bfa2b021f002e8660fb658c1483832f9d1fbb12bf4315814",
+    "build/code/src/hog/ccall_lifecycle.d.ts": "sha256:c2bdb9be9e0bab6cd62506643fd21cdd72c9036adb89936f480e6f00741dfd0f",
+    "build/code/src/abg/c_call_outcome.js": "sha256:389263d26e2cca25f464ef778aff0cd36661e6d8688480f5807d17a83fd22a8d",
+    "build/code/src/abg/c_call_outcome.d.ts": "sha256:533e120f212acaf8de6f9abd8670192fa9bb3abf287bb2c9524a302a08a42a2c",
+    "product-toolchain-manifest.json": "sha256:f7331c8ba08f2a75314048a494d7a517f393d3e536992534f22624afd2b9653b",
+    "contracts/capabilities/capability-definition-graph.json": "sha256:b5543f4fc9d8ab7c14197c17e0f72c43e7d33742679056df8e555b330a5f336f"
+  },
+  "artifacts": {
+    "current": [
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-C6ZZgi/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "sha256": "sha256:bcae75b4388440750ff2ef4dc2a9d61414f8851e3deedb684d07a820f7530e8b",
+        "bytes": 10208501
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-C6ZZgi/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+        "sha256": "sha256:4e052203a8aeabf42027c507693af6b323b69169abd282946e903c6a5e6461e1",
+        "bytes": 14646
+      }
+    ],
+    "attempt-02": [
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-C6ZZgi/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "sha256": "sha256:bcae75b4388440750ff2ef4dc2a9d61414f8851e3deedb684d07a820f7530e8b",
+        "bytes": 10208501
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-RntsJO/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+        "sha256": "sha256:ec137f0270fdc5d34b5b69345ad3d7e5acffad759f54a6ec396215e698b88097",
+        "bytes": 14649
+      }
+    ],
+    "attempt-03": [
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-9aQ3GR/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "sha256": "sha256:94f409c2641c850beac17205b207aa0ba4b03fd7cabb81ceae6aa774563a4546",
+        "bytes": 10208423
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-9aQ3GR/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+        "sha256": "sha256:9a862810ce6f9262ce4ebf6b2c4a2c47d5d1160b2c36b6d3c60961cba74cf65b",
+        "bytes": 14646
+      }
+    ],
+    "attempt-04": [
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-hkUkzs/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+        "sha256": "sha256:7ca24e8935aefec7a4ee41ad9c45615391e29055f1ad5de4d776ab8d376114ea",
+        "bytes": 10208537
+      },
+      {
+        "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-hkUkzs/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+        "sha256": "sha256:ab24a154e075968b20d972aa04514f404d4d1b59f7bb4883d1e84d96065cc463",
+        "bytes": 14647
+      }
+    ]
+  },
+  "installedRoots": [
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-hkUkzs/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-hkUkzs/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection"
+  ],
+  "productContentDigest": "sha256:51d12c95b64ea3a6fe211ca80d9938eaf92dc993c662a4820f0be41cebbc252f",
+  "delta": {
+    "code/src/gtl/stdo_run_environment.ts": {
+      "additions": 16,
+      "deletions": 2,
+      "net": 14
+    },
+    "code/src/gtl/registered_selection.ts": {
+      "additions": 16,
+      "deletions": 5,
+      "net": 11
+    },
+    "code/src/product/registered_selection_native.ts": {
+      "additions": 75,
+      "deletions": 0,
+      "net": 75
+    },
+    "code/src/product/index.ts": {
+      "additions": 3,
+      "deletions": 0,
+      "net": 3
+    },
+    "code/src/abg/instruction_assembly.ts": {
+      "additions": 119,
+      "deletions": 0,
+      "net": 119
+    },
+    "code/src/abg/actor_process.ts": {
+      "additions": 3,
+      "deletions": 3,
+      "net": 0
+    },
+    "code/src/hog/ccall_lifecycle.ts": {
+      "additions": 5,
+      "deletions": 5,
+      "net": 0
+    },
+    "code/src/abg/c_call_outcome.ts": {
+      "additions": 8,
+      "deletions": 1,
+      "net": 7
+    },
+    "test_env/support/registered-graph-selection.mjs": {
+      "additions": 11,
+      "deletions": 5,
+      "net": 6
+    },
+    "test_env/fixtures/registered-selection-product/native.mjs": {
+      "additions": 53,
+      "deletions": 0,
+      "net": 53
+    },
+    "test_env/support/native-registered-selection.mjs": {
+      "additions": 61,
+      "deletions": 0,
+      "net": 61
+    },
+    "test_env/tests/t287-native-registered-selection.test.mjs": {
+      "additions": 151,
+      "deletions": 0,
+      "net": 151
+    },
+    "design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md": {
+      "additions": 11,
+      "deletions": 4,
+      "net": 7
+    }
+  },
+  "netSourceDelta": 507,
+  "sourceAdditions": 532,
+  "sourceDeletions": 25,
+  "preservedFirstAttemptFiles": 23,
+  "proofCases": "attempt-04/outcomes.json",
+  "wholeTestStatus": "attempt-04 failed only on incorrect gap run_result exit expectation; three native cases passed; readback-only completion in finish-gap-readback.mjs passed; no whole-test or provider rerun after final test-only correction"
+}

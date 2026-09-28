@@ -1,0 +1,4 @@
+code/src/product/registered_selection_native.ts(67,7): error TS2322: Type 'Readonly<{ missingSupportRefs: JsonValue | undefined; kind: string; schemaVersion: string; disposition: JsonValue | undefined; reason: JsonValue | undefined; evidenceRefs: JsonValue | undefined; }>' is not assignable to type 'Readonly<Record<string, JsonValue>>'.
+  Property 'missingSupportRefs' is incompatible with index signature.
+    Type 'JsonValue | undefined' is not assignable to type 'JsonValue'.
+      Type 'undefined' is not assignable to type 'JsonValue'.

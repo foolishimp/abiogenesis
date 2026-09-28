@@ -1,0 +1,19 @@
+{
+  "missingContext": "Public refusal before actor",
+  "undeclaredChoiceData": "ordinary",
+  "unknownRawTarget": "refused",
+  "malformedRaw": "refused",
+  "unknownEvidence": "refused",
+  "rawChoiceChange": "refused",
+  "boundInputChange": "refused",
+  "staleTarget": {
+    "kind": "native_instruction_assembly_refusal",
+    "cause": "unknown_dependency",
+    "policy": null,
+    "role": "selector",
+    "unresolvedRefs": [
+      "graph-function://registered-selection/B@5"
+    ]
+  },
+  "scope": "controlled installed owner checks against the real native basis; no extra provider invocations"
+}

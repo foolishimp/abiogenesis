@@ -1,0 +1,33 @@
+{
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "results": [
+    {
+      "command": [
+        "node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 5511
+    },
+    {
+      "command": [
+        "node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 12514
+    },
+    {
+      "command": [
+        "node",
+        "--test",
+        "test_env/tests/t287-native-selection-profile-scope.test.mjs"
+      ],
+      "exitCode": 0,
+      "elapsedMs": 299
+    }
+  ],
+  "elapsedMs": 18324
+}

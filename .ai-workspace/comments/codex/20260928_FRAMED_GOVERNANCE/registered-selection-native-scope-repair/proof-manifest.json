@@ -1,0 +1,116 @@
+{
+  "files": {
+    "build-02.log": {
+      "bytes": 215,
+      "sha256": "sha256:e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969"
+    },
+    "build-03.log": {
+      "bytes": 215,
+      "sha256": "sha256:e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969"
+    },
+    "build-04-result.json": {
+      "bytes": 177,
+      "sha256": "sha256:ccb953008a39b9a8270a459793973a1a9085123ccb4e7afd81c588f7d4ca47b7"
+    },
+    "build-04.log": {
+      "bytes": 215,
+      "sha256": "sha256:e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969"
+    },
+    "build.log": {
+      "bytes": 1368,
+      "sha256": "sha256:34b2d393c30a4c018f9bc04ebd04c00fcfbc1f34ac7138d37c3acee802cc9c8a"
+    },
+    "final-check-result.json": {
+      "bytes": 648,
+      "sha256": "sha256:a3bb175e1d018531cc504a8f02585fbf64014d5f94da55b3e06387df6849b55b"
+    },
+    "final-check.log": {
+      "bytes": 523,
+      "sha256": "sha256:dc6e0952caacf253540da2cbac07a8f226eae6feceaa811c40ad05ed717597e6"
+    },
+    "preimages/build/code/src/abg/c_call_outcome.d.ts": {
+      "bytes": 9764,
+      "sha256": "sha256:533e120f212acaf8de6f9abd8670192fa9bb3abf287bb2c9524a302a08a42a2c"
+    },
+    "preimages/build/code/src/abg/c_call_outcome.js": {
+      "bytes": 53974,
+      "sha256": "sha256:389263d26e2cca25f464ef778aff0cd36661e6d8688480f5807d17a83fd22a8d"
+    },
+    "preimages/build/code/src/abg/instruction_assembly.d.ts": {
+      "bytes": 41731,
+      "sha256": "sha256:233a5412e291e670fdeedbdd56276623aa66bb875927c4ffdbccb8883892c28a"
+    },
+    "preimages/build/code/src/abg/instruction_assembly.js": {
+      "bytes": 102219,
+      "sha256": "sha256:4d38e9cd83ad999ff22af480a0c70ca559346e59459030996913ebf1d484ab91"
+    },
+    "preimages/build/code/src/gtl/stdo_run_environment.d.ts": {
+      "bytes": 31674,
+      "sha256": "sha256:9b03939c3b10df418b9af0e55c4bd67959fe3bf68d1fa65501ff83bc4e107e69"
+    },
+    "preimages/build/code/src/gtl/stdo_run_environment.js": {
+      "bytes": 18938,
+      "sha256": "sha256:c98ad4c714cbcaacd671c7c616e0415a857b0824892df7b5891a9067f6e6366c"
+    },
+    "preimages/build/code/src/hog/ccall_lifecycle.d.ts": {
+      "bytes": 2649,
+      "sha256": "sha256:c2bdb9be9e0bab6cd62506643fd21cdd72c9036adb89936f480e6f00741dfd0f"
+    },
+    "preimages/build/code/src/hog/ccall_lifecycle.js": {
+      "bytes": 33106,
+      "sha256": "sha256:dca8dc02c28c4e13bfa2b021f002e8660fb658c1483832f9d1fbb12bf4315814"
+    },
+    "preimages/code/src/abg/c_call_outcome.ts": {
+      "bytes": 65950,
+      "sha256": "sha256:73d313d77986a6232a2c31ff7dd7844d189bc1bf090cf7974c0689333f25e640"
+    },
+    "preimages/code/src/abg/instruction_assembly.ts": {
+      "bytes": 105536,
+      "sha256": "sha256:8309950088b448292cb926f97f96834c857ba9bb3576cfb93856da83d1191116"
+    },
+    "preimages/code/src/gtl/stdo_run_environment.ts": {
+      "bytes": 19649,
+      "sha256": "sha256:50e844fdc3189fd6f9baacdca3c5f2aa4de6a848d72e2f2f5c075dda5a08a396"
+    },
+    "preimages/code/src/hog/ccall_lifecycle.ts": {
+      "bytes": 35416,
+      "sha256": "sha256:fbcdd74a520089caa3167868d1759f786701b8faea54640d8cf4eeb09b5f1740"
+    },
+    "preimages/contracts/capabilities/capability-definition-graph.json": {
+      "bytes": 197474,
+      "sha256": "sha256:b5543f4fc9d8ab7c14197c17e0f72c43e7d33742679056df8e555b330a5f336f"
+    },
+    "preimages/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md": {
+      "bytes": 14492,
+      "sha256": "sha256:242ff1758a25c5953cad9f0a8a4ca318d5275f54fa56c2e63c69707831ac9c25"
+    },
+    "preimages/product-toolchain-manifest.json": {
+      "bytes": 2398991,
+      "sha256": "sha256:f7331c8ba08f2a75314048a494d7a517f393d3e536992534f22624afd2b9653b"
+    },
+    "preimages.json": {
+      "bytes": 1814,
+      "sha256": "sha256:d8dddb944d134f6e9f82c1b59cddb2a0fc0b9200e95c226cd7b7fc0d26daa726"
+    },
+    "repair.diff": {
+      "bytes": 19041,
+      "sha256": "sha256:2da50d73a8bb8262a9b4b7a1bba91751d8b90991f8c3623ccda96c80ea2369c6"
+    },
+    "return.md": {
+      "bytes": 4821,
+      "sha256": "sha256:20c7fe3b150210ebc5e9db8790d7711a3b1290dc2474cb61256b6a56d0ef33a1"
+    },
+    "subject.json": {
+      "bytes": 3900,
+      "sha256": "sha256:c7f5f884ef85f0c2f87da209eb33747e9b0cc26457baacc8af905ea5b5d026ab"
+    },
+    "test-02.log": {
+      "bytes": 523,
+      "sha256": "sha256:16046f1c4542176add1757be0c8d028319434ce3ccd408e5802aac51329841fb"
+    },
+    "test.log": {
+      "bytes": 520,
+      "sha256": "sha256:08fd9a76b6f502e7f4322baf260ced7a8d5e33e76cd9d5835851a3cfa6be7e04"
+    }
+  }
+}

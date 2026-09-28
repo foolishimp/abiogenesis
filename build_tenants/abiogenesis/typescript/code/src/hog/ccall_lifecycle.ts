@@ -3,7 +3,7 @@ import { isNativeWorkspaceWorkTask, nativeWorkspaceWorkGraphFunctionRef, NATIVE_
 import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
 import { semanticLifecycleRefForProgram } from "../gtl/semantic_stage.js";
 import { SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
-import { runEnvironmentForProgram, nativeContextLeafFamily } from "../gtl/stdo_run_environment.js";
+import { runEnvironmentForProgram, nativeContextLeafFamily, registeredSelectionNativeRole } from "../gtl/stdo_run_environment.js";
 import { cLeafTerms } from "../gtl/c_algebra.js";
 import { WORKSITE_CONSTRUCTION_IDS } from "../product/worksite_construction_identity.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
@@ -456,21 +456,23 @@ export function evaluateExecutableCCall(
     const selectedContextFamily = input.graphFunction.template.nodes.flatMap(node => cLeafTerms(node.term))
       .filter(leaf => leaf.programLocusRef === opened.cCall.programLocusRef)
       .map(leaf => nativeContextLeafFamily(input.graphFunction, leaf));
-    const worksiteAssemblyRequired = input.programPublication !== undefined &&
+    const selectorRole = resolution.computeRegime === "F_P"
+      ? registeredSelectionNativeRole(input.programPublication, input.executionBasis.programRef, input.graphFunction, opened.cCall.programLocusRef) : null;
+    const nativeAssemblyRequired = selectorRole !== null || input.programPublication !== undefined &&
       (resolution.implementationRef === nativeIds.implementationRef ||
         runEnvironmentForProgram(input.programPublication, input.program) !== null &&
         selectedContextFamily.length === 1 && ["constructor", "command_executor"].includes(selectedContextFamily[0] ?? ""));
     const assessmentPublication = isNativeWorkspaceWorkTask(input.input) && input.input.assessment !== undefined
       ? input.leafPort.contractPublicationByRef?.(input.input.assessment.resultContract.contractRef) ?? null : null;
-    const nativeInstructionAssemblyBasis = worksiteAssemblyRequired && input.programPublication !== undefined
+    const nativeInstructionAssemblyBasis = nativeAssemblyRequired && input.programPublication !== undefined
       ? Abg.constructNativeInstructionAssemblyBasis({ publication: input.programPublication, graph: input.graph,
           ...(assessmentPublication === null ? {} : { assessmentPublication }),
           graphFunction: input.graphFunction, declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [],
           executionBasis: input.executionBasis, cCall: opened.cCall, cursor: input.stop.cursor,
           predecessorPrefix: opened.successorPrefix }) : null;
-    if (worksiteAssemblyRequired && nativeInstructionAssemblyBasis === null) return failCCall(input,
+    if (nativeAssemblyRequired && nativeInstructionAssemblyBasis === null) return failCCall(input,
       opened.successorPrefix, `leaf-assembly-${input.ordinal}`,
-      "diagnostic://abiogenesis/instruction-assembly/stale-worksite-basis@5", input.stop as unknown as JsonValue);
+      "diagnostic://abiogenesis/instruction-assembly/stale-native-basis@5", input.stop as unknown as JsonValue);
     const occurrence = Object.freeze({
       ...(nativeInstructionAssemblyBasis === null ? {} : { nativeInstructionAssemblyBasis }),
       ...(worksiteCommandForwardBasis === null ? {} : {worksiteCommandForwardBasis}),

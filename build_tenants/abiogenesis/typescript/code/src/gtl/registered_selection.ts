@@ -46,21 +46,32 @@ export type RegisteredSelectionResolution = Readonly<{
   graphFunctionRef: string; definitionDigest: Sha256Digest; contractRef: string; value: RecordValue;
 }> | Readonly<{ disposition: "gap"; applicationRef: string }>;
 
+/** The application and its outgoing fixed workflows own the candidate domain. */
+export function registeredSelectionTargets(template: GraphTemplate, source: Readonly<{
+  currentNodeRef: string; termPath: readonly string[];
+}>, contractRef: string) {
+  const application = registeredSelectionAtSource(template, source, contractRef);
+  if (application === null) return null;
+  const targets = template.edges.filter(e => e.fromNodeRef === source.currentNodeRef)
+    .map(e => template.nodes.find(n => n.nodeRef === e.toNodeRef))
+    .filter(n => n?.term.kind === "c_workflow");
+  return { application, targets };
+}
+
 /** One structural target/input relation shared by HoG proposal and ABG admission.
  * Definitions are the exact admitted catalogue/Program digest projection. */
 export function resolveRegisteredSelection(template: GraphTemplate, source: Readonly<{
   currentNodeRef: string; termPath: readonly string[];
 }>, contractRef: string, value: JsonValue,
 definitionDigests: Readonly<Record<string, Sha256Digest>>): RegisteredSelectionResolution | null {
-  const application = registeredSelectionAtSource(template, source, contractRef);
-  if (application === null) return null;
+  const domain = registeredSelectionTargets(template, source, contractRef);
+  if (domain === null) return null;
+  const { application } = domain;
   if (!isRegisteredGraphChoice(value)) throw new TypeError("registered selection result does not conform");
   if (value.disposition === "gap") return { disposition: "gap", applicationRef: application.applicationRef };
   const input = value.input as RecordValue;
   const graphFunctionRef = value.graphFunctionRef as string;
-  const targets = template.edges.filter(e => e.fromNodeRef === source.currentNodeRef)
-    .map(e => template.nodes.find(n => n.nodeRef === e.toNodeRef))
-    .filter(n => n?.term.kind === "c_workflow" && n.term.graphFunctionRef === graphFunctionRef);
+  const targets = domain.targets.filter(n => n?.term.kind === "c_workflow" && n.term.graphFunctionRef === graphFunctionRef);
   if (targets.length !== 1 || targets[0]?.term.kind !== "c_workflow" ||
     definitionDigests[graphFunctionRef] !== value.definitionDigest ||
     input.contractRef !== application.outputContractRef || targets[0].term.inputCarrierRef !== input.contractRef) {

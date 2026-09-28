@@ -1,0 +1,232 @@
+--- S3/code/src/gtl/stdo_run_environment.ts
++++ current/code/src/gtl/stdo_run_environment.ts
+@@ -223,6 +223,33 @@
+   const rows = publication.runEnvironments?.filter(d => d.declarationRef === ref);
+   return rows?.length === 1 && isRunEnvironmentDeclaration(rows[0]) ? rows[0]! : false;
+ }
++/** Project already-bound declarations; acquisition/native-basis owners authenticate
++ * their content. null is unselected and false is an invalid applicable binding.
++ * Payloads and reconstructed runtime evidence never select or disable it. */
++export function registeredSelectionNativeRole(publication: Readonly<ModulePublication> | undefined,
++  programRef: string, graph: Readonly<GraphFunction>, programLocusRef: string): Readonly<RunEnvironmentRole> | null | false {
++  try {
++    const applications = graph.template.applications.filter(a => a.relationKind === "registered_selection" &&
++      a.sourceProgramLocusRef === programLocusRef);
++    if (applications.length === 0) return null;
++    const nodes = graph.template.nodes.filter(n => n.term.kind === "c_of" && n.term.programLocusRef === programLocusRef);
++    if (nodes.length !== 1 || applications.length !== 1) return false;
++    const leaf = nodes[0]!.term;
++    if (leaf.kind !== "c_of" || leaf.fibre !== "F_P") return null;
++    const programs = publication?.programs.filter(p => p.programRef === programRef);
++    if (publication === undefined || programs?.length !== 1) return false;
++    const program = programs[0]!;
++    if (program.policies[STDO_ENVIRONMENT_POLICY] !== undefined || publication.stdoRunEnvironments !== undefined) return false;
++    const environmentRef = program.policies[RUN_ENVIRONMENT_POLICY];
++    if (environmentRef === undefined) return null;
++    const environments = publication.runEnvironments?.filter(d => d.declarationRef === environmentRef);
++    if (environments?.length !== 1 || !program.callableMembership.includes(graph.name) ||
++      leaf.stageRole !== "evaluate" || leaf.requirement.kind !== "executable_leaf_requirement" ||
++      applications[0]!.inputContractRef !== leaf.outputCarrierRef) return false;
++    const roles = environments[0]!.roles.filter(r => r.graphFunctionRef === graph.name && r.programLocusRef === programLocusRef);
++    return roles.length === 1 && roles[0]!.role === "selector" ? roles[0]! : false;
++  } catch { return false; }
++}
+ export function validRunEnvironmentPublication(publication: Readonly<ModulePublication>): boolean {
+   const rows = publication.runEnvironments ?? [];
+   return publication.stdoRunEnvironments === undefined && unique(rows.map(d => d.declarationRef)) &&
+--- S3/code/src/hog/ccall_lifecycle.ts
++++ current/code/src/hog/ccall_lifecycle.ts
+@@ -3,7 +3,7 @@
+ import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
+ import { semanticLifecycleRefForProgram } from "../gtl/semantic_stage.js";
+ import { SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
+-import { runEnvironmentForProgram, nativeContextLeafFamily } from "../gtl/stdo_run_environment.js";
++import { runEnvironmentForProgram, nativeContextLeafFamily, registeredSelectionNativeRole } from "../gtl/stdo_run_environment.js";
+ import { cLeafTerms } from "../gtl/c_algebra.js";
+ import { WORKSITE_CONSTRUCTION_IDS } from "../product/worksite_construction_identity.js";
+ import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
+@@ -456,10 +456,12 @@
+     const selectedContextFamily = input.graphFunction.template.nodes.flatMap(node => cLeafTerms(node.term))
+       .filter(leaf => leaf.programLocusRef === opened.cCall.programLocusRef)
+       .map(leaf => nativeContextLeafFamily(input.graphFunction, leaf));
+-    const nativeAssemblyRequired = input.programPublication !== undefined &&
++    const selectorRole = resolution.computeRegime === "F_P"
++      ? registeredSelectionNativeRole(input.programPublication, input.executionBasis.programRef, input.graphFunction, opened.cCall.programLocusRef) : null;
++    const nativeAssemblyRequired = selectorRole !== null || input.programPublication !== undefined &&
+       (resolution.implementationRef === nativeIds.implementationRef ||
+         runEnvironmentForProgram(input.programPublication, input.program) !== null &&
+-        selectedContextFamily.length === 1 && ["constructor", "command_executor", "selector"].includes(selectedContextFamily[0] ?? ""));
++        selectedContextFamily.length === 1 && ["constructor", "command_executor"].includes(selectedContextFamily[0] ?? ""));
+     const assessmentPublication = isNativeWorkspaceWorkTask(input.input) && input.input.assessment !== undefined
+       ? input.leafPort.contractPublicationByRef?.(input.input.assessment.resultContract.contractRef) ?? null : null;
+     const nativeInstructionAssemblyBasis = nativeAssemblyRequired && input.programPublication !== undefined
+--- S3/code/src/abg/instruction_assembly.ts
++++ current/code/src/abg/instruction_assembly.ts
+@@ -22,7 +22,7 @@
+ import type { ProbabilisticWorkerRequest } from "../implementation/contracts.js";
+ import { projectRunEnvironmentRoleEvidence } from "./stdo_environment.js";
+ import { authenticateNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+-import { nativeContextLeafFamily } from "../gtl/stdo_run_environment.js";
++import { nativeContextLeafFamily, registeredSelectionNativeRole } from "../gtl/stdo_run_environment.js";
+ import { registeredSelectionTargets } from "../gtl/registered_selection.js";
+ import { isNativeRegisteredSelectionTask, nativeRegisteredSelectionResponseSchema, materializeNativeRegisteredChoice,
+   type NativeRegisteredSelectionTarget } from "../product/registered_selection_native.js";
+@@ -222,9 +222,9 @@
+   const refusal = (cause: NativeInstructionAssemblyRefusal["cause"], refs: readonly string[] = []) =>
+     assemblyRefusal(cause, null, "selector", refs);
+   try {
+-    const leaves = basis.graphFunction.template.nodes.flatMap(n => cLeafTerms(n.term))
+-      .filter(leaf => leaf.programLocusRef === basis.cCall.programLocusRef);
+-    if (leaves.length !== 1 || nativeContextLeafFamily(basis.graphFunction, leaves[0]!) !== "selector") return refusal("unsupported_selection");
++    const selected = registeredSelectionNativeRole(basis.publication, basis.executionBasis.programRef, basis.graphFunction, basis.cCall.programLocusRef);
++    if (selected === null) return refusal("unsupported_selection");
++    if (selected === false) return refusal("unknown_dependency", [basis.executionBasis.programRef]);
+     const owner = authenticateNativeInstructionAssemblyBasis(basis);
+     if (owner === null || owner.call.regime !== "F_P" || sha256Canonical(supplied as JsonValue) !== owner.inputDigest) return refusal("stale_basis");
+     if (!isNativeRegisteredSelectionTask(supplied)) return refusal("unavailable_required_content", [owner.call.inputContractRef]);
+@@ -289,16 +289,14 @@
+ }
+ 
+ export function constructDeclaredNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, input: unknown): Readonly<NativeInstructionAssembly> | null {
+-  const leaves = basis.graphFunction.template.nodes.flatMap(n => cLeafTerms(n.term)).filter(l => l.programLocusRef === basis.cCall.programLocusRef);
+-  if (leaves.length === 1 && nativeContextLeafFamily(basis.graphFunction, leaves[0]!) === "selector") {
++  if (registeredSelectionNativeRole(basis.publication, basis.executionBasis.programRef, basis.graphFunction, basis.cCall.programLocusRef) !== null) {
+     const result = evaluateRegisteredSelectionInstructionAssembly(basis, input);
+     return result.kind === "native_instruction_assembly" ? result : null;
+   }
+   return constructWorksiteNativeInstructionAssembly(basis, input);
+ }
+ export function requireDeclaredNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, input: unknown): Readonly<NativeInstructionAssembly> {
+-  const leaves = basis.graphFunction.template.nodes.flatMap(n => cLeafTerms(n.term)).filter(l => l.programLocusRef === basis.cCall.programLocusRef);
+-  if (leaves.length === 1 && nativeContextLeafFamily(basis.graphFunction, leaves[0]!) === "selector") {
++  if (registeredSelectionNativeRole(basis.publication, basis.executionBasis.programRef, basis.graphFunction, basis.cCall.programLocusRef) !== null) {
+     const result = evaluateRegisteredSelectionInstructionAssembly(basis, input);
+     if (result.kind !== "native_instruction_assembly") throw new TypeError(JSON.stringify(result));
+     return result;
+@@ -309,8 +307,14 @@
+ }
+ 
+ /** Conserve the observed native answer through the one mechanical binder. */
+-export function registeredSelectionInstructionResultMatches(basis: NativeInstructionAssemblyBasis, input: unknown, output: unknown): boolean {
++export function registeredSelectionInstructionResultMatches(candidate: Omit<NativeInstructionAssemblyBasis, "publication"> &
++  { readonly publication: NativeInstructionAssemblyBasis["publication"] | undefined }, input: unknown, output: unknown): boolean {
+   try {
++    const selected = registeredSelectionNativeRole(candidate.publication, candidate.executionBasis.programRef,
++      candidate.graphFunction, candidate.cCall.programLocusRef);
++    if (selected === null) return true;
++    if (selected === false || candidate.publication === undefined) return false;
++    const basis = candidate as NativeInstructionAssemblyBasis;
+     const owner = authenticateNativeInstructionAssemblyBasis(basis);
+     if (owner === null || !isNativeRegisteredSelectionTask(input)) return false;
+     const observations = owner.events.filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
+--- S3/code/src/abg/c_call_outcome.ts
++++ current/code/src/abg/c_call_outcome.ts
+@@ -1,4 +1,4 @@
+-import { registeredSelectionAtSource } from "../gtl/registered_selection.js";
++import { registeredSelectionNativeRole } from "../gtl/stdo_run_environment.js";
+ import { constructNativeInstructionAssemblyBasis } from "./execution_basis.js";
+ import { SEMANTIC_REVISION_IMPLEMENTATION_REFS, SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
+ import { semanticRevisionResultMatchesBasis, projectRevisionWorksitePreparation, semanticJobRevisionResultMatchesBasis } from "./semantic_revision.js";
+@@ -977,12 +977,12 @@
+             : (input.regime !== "F_P" ||
+                 probabilistic?.kind ===
+                   "contract_admitted_probabilistic_result_candidate") &&
+-              (input.regime !== "F_P" || registeredSelectionAtSource(input.graph.template, input.cursor, input.cCall.outputContractRef) === null ||
+-                (input.programPublication !== undefined && registeredSelectionInstructionResultMatches({
++              (input.regime !== "F_P" || registeredSelectionNativeRole(input.programPublication, input.executionBasis.programRef,
++                input.graphFunction, input.cCall.programLocusRef) === null || registeredSelectionInstructionResultMatches({
+                   publication: input.programPublication, graph: input.graph, graphFunction: input.graphFunction,
+                   declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [],
+                   executionBasis: input.executionBasis, cCall: input.cCall, cursor: input.cursor,
+-                  predecessorPrefix: input.predecessorPrefix }, input.input, value))) &&
++                  predecessorPrefix: input.predecessorPrefix }, input.input, value)) &&
+               (input.cCall.implementationRef !== nativeIds.implementationRef ||
+                 nativeWorkspaceWorkResultMatches(input.input, value, input.cCall.cCallRef, observation)) &&
+               (!([forwardIds.prepareImplementationRef,forwardIds.implementationRef] as readonly string[]).includes(input.cCall.implementationRef??"") ||
+--- S3/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md
++++ current/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md
+@@ -58,6 +58,15 @@
+ data. The raw Public owner imports `RUN_ENVIRONMENT_SCHEMA` directly, so this
+ change has one current schema owner rather than another copied union.
+ 
++The profile applies only when the Program selects its run environment and that
++exact GraphFunction/locus has the selector role. Preparation and result admission
++share this declaration-only applicability relation: unselected, selected, or
++invalid selected binding. This projects already-bound declarations; publication and
++native-basis owners retain authentication without rehashing definitions or source
++inventories at the applicability hop. Generic F_P registered selection without this profile
++retains its own input/raw-result contracts. Missing or invalid selected context
++refuses; task shape and failure to reconstruct assembly never disable the guard.
++
+ Use one small native task profile, owned in a new
+ `code/src/product/registered_selection_native.ts`, for this explicit library
+ realization. It contains the semantic task, referenced supplied observations and
+--- S3/test_env/tests/t287-native-selection-profile-scope.test.mjs
++++ current/test_env/tests/t287-native-selection-profile-scope.test.mjs
+@@ -0,0 +1,66 @@
++import assert from 'node:assert/strict';
++import test from 'node:test';
++import * as gtl from '../../build/code/src/gtl/index.js';
++import {sha256Bytes,sha256Canonical} from '../../build/code/src/shared/digests.js';
++import {registeredSelectionNativeRole} from '../../build/code/src/gtl/stdo_run_environment.js';
++import {registeredSelectionInstructionResultMatches,evaluateRegisteredSelectionInstructionAssembly,requireDeclaredNativeInstructionAssembly} from '../../build/code/src/abg/instruction_assembly.js';
++import {declarations,ref,contract} from '../fixtures/registered-selection-product/index.mjs';
++
++// Controlled applicability checks at the actual ABG profile guard, not a
++// fabricated actor/result admission. Existing native proof owns that relation.
++function fixture(selected=false){
++  const publication=declarations(gtl),graph=publication.graphFunctions[0],program=publication.programs[0];
++  graph.template.nodes[0].term={...graph.template.nodes[0].term,fibre:'F_P'};
++  const text='Apply the declared selector frame.',bytes=Buffer.from(text),digest=sha256Bytes(bytes);
++  const member={path:'frame.txt',type:'file',digest,target:null},contextMember={memberRef:'member:scope',path:member.path,byteCount:bytes.length,digest};
++  const role={graphFunctionRef:graph.name,programLocusRef:ref('node','select'),role:'selector',frameRefs:['frame:scope'],
++    policy:{policyRef:'policy:scope',text,digest},contextPolicy:{policyRef:'policy:context',selectors:['full_source','active_binding_semantics']},accessRefs:[],
++    sourceBindings:[{contextRef:'context:scope',memberRef:contextMember.memberRef,memberDigest:digest,startByte:0,endByte:bytes.length,spanDigest:digest}]};
++  publication.runEnvironments=[gtl.constructRunEnvironmentDeclaration({kind:'run_environment_declaration',schemaVersion:'5.0.0',declarationRef:'environment:scope',
++    dependencies:[{dependencyRef:'dependency:scope',basisRef:'generic://scope/',recordRef:'record:scope',recordDigest:digest,recordFormat:'member_inventory@1',inventoryDigest:gtl.stdoInventoryDigest([member]),members:[member]}],
++    contexts:[{contextRef:'context:scope',sourceLocator:'generic://scope/',inventoryDigest:sha256Canonical([contextMember]),members:[contextMember]}],corpusAccess:null,accesses:[],roles:[role]})];
++  if(selected)program.policies['abg.run_environment']='environment:scope';
++  const candidate={publication,graphFunction:graph,executionBasis:{programRef:program.programRef},cCall:{programLocusRef:role.programLocusRef}};
++  return {publication,graph,program,role,candidate};
++}
++const ownInput={kind:'consumer_specific_task',instruction:'Use the declared consumer F_P contract'};
++const ownChoice={kind:'registered_graph_choice',schemaVersion:'5.0.0',disposition:'selected',reason:'Own probabilistic result contract',evidenceRefs:[],
++  graphFunctionRef:ref('graph-function','A'),definitionDigest:'sha256:'+'a'.repeat(64),input:{contractRef:contract('child-input'),value:{kind:'consumer_specific_child',value:17}}};
++
++test('generic registered F_P keeps its own task/raw contract when the profile is unselected',()=>{
++  const f=fixture();
++  assert.equal(gtl.isRegisteredGraphChoice(ownChoice),true);
++  assert.equal(registeredSelectionNativeRole(f.publication,f.candidate.executionBasis.programRef,f.graph,f.role.programLocusRef),null);
++  assert.equal(registeredSelectionInstructionResultMatches(f.candidate,ownInput,ownChoice),true);
++  assert.equal(registeredSelectionInstructionResultMatches(f.candidate,{kind:'registered_selection_task'},ownChoice),true,'payload resemblance does not activate the profile');
++});
++
++test('selected exact role requires runtime correspondence and cannot fall back on another input shape',()=>{
++  const f=fixture(true);
++  assert.deepEqual(registeredSelectionNativeRole(f.publication,f.candidate.executionBasis.programRef,f.graph,f.role.programLocusRef),f.role);
++  for(const input of [ownInput,{kind:'registered_selection_task'},null])assert.equal(registeredSelectionInstructionResultMatches(f.candidate,input,ownChoice),false);
++  assert.equal(evaluateRegisteredSelectionInstructionAssembly(f.candidate,ownInput).cause,'stale_basis','selected role without admitted native basis refuses');
++});
++
++test('missing or misbound selected environment refuses at preparation and result guard',()=>{
++  for(const mutate of [
++    f=>{f.publication.runEnvironments=[];},
++    f=>{f.publication.runEnvironments=structuredClone(f.publication.runEnvironments);f.publication.runEnvironments[0].roles[0].graphFunctionRef=ref('graph-function','B');},
++    f=>{f.publication.runEnvironments=structuredClone(f.publication.runEnvironments);f.publication.runEnvironments[0].roles[0].role='assessor';},
++    f=>{f.graph.template.applications=[{...f.graph.template.applications[0],inputContractRef:"contract:wrong-choice"}];},
++    f=>{f.publication.programs=[];},
++    f=>{f.candidate.publication=undefined;},
++  ]){
++    const f=fixture(true);mutate(f);
++    assert.equal(registeredSelectionNativeRole(f.candidate.publication,f.candidate.executionBasis.programRef,f.graph,f.role.programLocusRef),false);
++    assert.equal(registeredSelectionInstructionResultMatches(f.candidate,ownInput,ownChoice),false);
++    assert.equal(evaluateRegisteredSelectionInstructionAssembly(f.candidate,ownInput).cause,'unknown_dependency');
++    assert.throws(()=>requireDeclaredNativeInstructionAssembly(f.candidate,ownInput),/unknown_dependency/);
++  }
++});
++
++test('an unrelated locus remains outside this profile even with choice-shaped data',()=>{
++  const f=fixture(true);f.graph.template.applications=[];
++  assert.equal(registeredSelectionNativeRole(f.publication,f.candidate.executionBasis.programRef,f.graph,f.role.programLocusRef),null);
++  assert.equal(registeredSelectionInstructionResultMatches(f.candidate,ownChoice,ownChoice),true);
++});

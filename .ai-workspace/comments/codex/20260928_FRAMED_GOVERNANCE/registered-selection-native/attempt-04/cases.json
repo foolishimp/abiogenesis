@@ -1,0 +1,67 @@
+[
+  {
+    "name": "machine",
+    "disposition": "completed",
+    "wallMs": 10267.791625000002,
+    "nativeIntervalMs": 7989,
+    "frameworkOutsideNativeIntervalMs": 2278.7916250000017,
+    "promptBytes": 13046,
+    "publicRequestBytes": 16449148,
+    "reportedModels": [
+      "claude-opus-5-5"
+    ],
+    "rawAnswer": {
+      "disposition": "selected",
+      "evidenceRefs": [
+        "observation://registered-selection/recipient@5",
+        "observation://registered-selection/record@5"
+      ],
+      "graphFunctionRef": "graph-function://registered-selection/A@5",
+      "reason": "The recipient takes a single JSON object and rejects labels, Markdown and prose. Both field names and values must be kept. Capability A is the right fit: its stated purpose is to render the supplied record as compact JSON for a machine to read, and its conditions say it is for a recipient that needs structured JSON. It produces plain unsigned text and has no external effects. The recipient needs nothing beyond that, so none of their requirements goes unmet. The supplied record {service: Atlas, status: healthy} matches A's selection_record_input contract. Capability B is unsuitable because it outputs labelled lines for a human reader, which the recipient explicitly rejects. This finding is only about suitability. It does not grant authority to run A, and it does not show that rendering will succeed. The record is a fact supplied with this request and has not been checked against the workspace."
+    }
+  },
+  {
+    "name": "human",
+    "disposition": "completed",
+    "wallMs": 8305.874125000002,
+    "nativeIntervalMs": 5959,
+    "frameworkOutsideNativeIntervalMs": 2346.874125000002,
+    "promptBytes": 13054,
+    "publicRequestBytes": 16449154,
+    "reportedModels": [
+      "claude-opus-5-5"
+    ],
+    "rawAnswer": {
+      "disposition": "selected",
+      "evidenceRefs": [
+        "observation://registered-selection/recipient@5",
+        "observation://registered-selection/record@5"
+      ],
+      "graphFunctionRef": "graph-function://registered-selection/B@5",
+      "reason": "The recipient is an on-call operator reading plain text in a terminal and wants each field on its own labelled line, with no JSON punctuation. Capability B is declared to render the supplied record as readable labelled lines for a human reader. It takes the supplied selection_record_input, produces unsigned text, and has no external effects, so it meets the recipient-output support requirement. Capability A renders compact JSON for machine consumption, which conflicts with the recipient's requirement. This finding only covers suitability; it does not grant authority to run B or show that B will succeed."
+    }
+  },
+  {
+    "name": "unsupported",
+    "disposition": "blocked",
+    "wallMs": 8264.259458,
+    "nativeIntervalMs": 5956,
+    "frameworkOutsideNativeIntervalMs": 2308.2594580000004,
+    "promptBytes": 13115,
+    "publicRequestBytes": 16449306,
+    "reportedModels": [
+      "claude-opus-5-5"
+    ],
+    "rawAnswer": {
+      "disposition": "gap",
+      "evidenceRefs": [
+        "observation://registered-selection/recipient@5",
+        "observation://registered-selection/record@5"
+      ],
+      "missingSupportRefs": [
+        "support://registered-selection/recipient-output@5"
+      ],
+      "reason": "The recipient needs a binary record with a cryptographic signature that can be checked against an approved public key. It says unsigned text and unsigned JSON do not meet this need. Both permitted capabilities output ordinary unsigned text with no cryptographic signing: A renders compact JSON and B renders labelled lines for a human reader. Neither one produces the required signed binary output. The required recipient-output support is therefore not provided, and this remains an explicit gap. The capabilities' purpose and presence do not make them suitable."
+    }
+  }
+]

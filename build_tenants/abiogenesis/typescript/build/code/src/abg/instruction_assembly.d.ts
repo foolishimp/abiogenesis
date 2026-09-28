@@ -38,6 +38,14 @@ export declare function worksiteCommandExecutionAttemptRef(occurrence: Readonly<
  * prompt overrides. This projection performs no helper or filesystem effect. */
 export declare function constructWorksiteNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, supplied: unknown): Readonly<NativeInstructionAssembly> | null;
 export declare function requireWorksiteNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, supplied: unknown): Readonly<NativeInstructionAssembly>;
+/** This branch is applicable only at the declared registered-selection source. */
+export declare function evaluateRegisteredSelectionInstructionAssembly(basis: NativeInstructionAssemblyBasis, supplied: unknown): Readonly<NativeInstructionAssembly | NativeInstructionAssemblyRefusal>;
+export declare function constructDeclaredNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, input: unknown): Readonly<NativeInstructionAssembly> | null;
+export declare function requireDeclaredNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, input: unknown): Readonly<NativeInstructionAssembly>;
+/** Conserve the observed native answer through the one mechanical binder. */
+export declare function registeredSelectionInstructionResultMatches(candidate: Omit<NativeInstructionAssemblyBasis, "publication"> & {
+    readonly publication: NativeInstructionAssemblyBasis["publication"] | undefined;
+}, input: unknown, output: unknown): boolean;
 /** Deterministic projection of required admitted evidence. Artifact/log bytes
  * are exact; no truncation, normalization, inferred judgment or raw-envelope
  * replacement occurs. Historical task/inventory bodies are not role material. */
@@ -146,11 +154,11 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
                         declarationProof?: never;
                     })>;
                     workspaceBinding: import("../index.js").WorkspaceBinding;
-                    capabilityGrant: import("../index.js").CapabilityGrant;
                     commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommandInput[];
+                    workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
+                    capabilityGrant: import("../index.js").CapabilityGrant;
                     outcomePredicates?: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicateInput[];
                     allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritoryInput[];
-                    workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
                     selectedSources: readonly Readonly<{
                         subjectUri: string;
                         relativePath: string;
@@ -214,15 +222,15 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
             resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;
             transportLane: "worker_executes";
             workspaceBinding: import("../index.js").WorkspaceBinding;
-            capabilityGrant: import("../index.js").CapabilityGrant;
             taskRef: string;
             taskDigest: Sha256Digest;
             commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommand[];
-            outcomePredicates: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicate[];
-            allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritory[];
             workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
+            capabilityGrant: import("../index.js").CapabilityGrant;
             instructionContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef;
             protectedObservations: readonly import("../product/worksite_command_execution.js").WorksiteProtectedObservation[];
+            outcomePredicates: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicate[];
+            allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritory[];
         };
         commandResults: {
             stdout: {
@@ -284,6 +292,7 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
         kind: "worksite_command_execution_observation";
         schemaVersion: "5.0.0";
         provenance: import("../product/worksite_command_execution.js").WorksiteCommandExecutionProvenance;
+        observationRef: string;
         observationDigest: Sha256Digest;
         snapshotMembers: readonly import("../product/worksite_command_execution.js").WorksiteSnapshotMember[];
         predicateObservations: readonly import("../product/worksite_command_execution.js").WorksitePredicateObservation[];
@@ -291,7 +300,6 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
         productDelta: readonly import("../product/worksite_command_execution.js").WorksitePathDelta[];
         snapshotRef: string;
         snapshotDigest: Sha256Digest;
-        observationRef: string;
         helperArtifactRef: string;
         helperArtifactDigest: Sha256Digest;
     } | {
@@ -360,11 +368,11 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
                         declarationProof?: never;
                     })>;
                     workspaceBinding: import("../index.js").WorkspaceBinding;
-                    capabilityGrant: import("../index.js").CapabilityGrant;
                     commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommandInput[];
+                    workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
+                    capabilityGrant: import("../index.js").CapabilityGrant;
                     outcomePredicates?: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicateInput[];
                     allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritoryInput[];
-                    workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
                     selectedSources: readonly Readonly<{
                         subjectUri: string;
                         relativePath: string;
@@ -428,15 +436,15 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
             resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;
             transportLane: "worker_executes";
             workspaceBinding: import("../index.js").WorkspaceBinding;
-            capabilityGrant: import("../index.js").CapabilityGrant;
             taskRef: string;
             taskDigest: Sha256Digest;
             commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommand[];
-            outcomePredicates: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicate[];
-            allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritory[];
             workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
+            capabilityGrant: import("../index.js").CapabilityGrant;
             instructionContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef;
             protectedObservations: readonly import("../product/worksite_command_execution.js").WorksiteProtectedObservation[];
+            outcomePredicates: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicate[];
+            allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritory[];
         };
         commandResults: {
             stdout: {
@@ -499,13 +507,13 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
         snapshotMembers: readonly import("../index.js").WorksiteRevisionSnapshotMember[];
         schemaVersion: "5.0.0";
         provenance: import("../product/worksite_command_execution.js").WorksiteCommandExecutionProvenance;
+        observationRef: string;
         observationDigest: Sha256Digest;
         predicateObservations: readonly import("../product/worksite_command_execution.js").WorksitePredicateObservation[];
         worksiteDelta: readonly import("../product/worksite_command_execution.js").WorksitePathDelta[];
         productDelta: readonly import("../product/worksite_command_execution.js").WorksitePathDelta[];
         snapshotRef: string;
         snapshotDigest: Sha256Digest;
-        observationRef: string;
         helperArtifactRef: string;
         helperArtifactDigest: Sha256Digest;
     } | {
@@ -574,11 +582,11 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
                         declarationProof?: never;
                     })>;
                     workspaceBinding: import("../index.js").WorkspaceBinding;
-                    capabilityGrant: import("../index.js").CapabilityGrant;
                     commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommandInput[];
+                    workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
+                    capabilityGrant: import("../index.js").CapabilityGrant;
                     outcomePredicates?: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicateInput[];
                     allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritoryInput[];
-                    workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
                     selectedSources: readonly Readonly<{
                         subjectUri: string;
                         relativePath: string;
@@ -642,15 +650,15 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
             resultContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.workerResultContractRef;
             transportLane: "worker_executes";
             workspaceBinding: import("../index.js").WorkspaceBinding;
-            capabilityGrant: import("../index.js").CapabilityGrant;
             taskRef: string;
             taskDigest: Sha256Digest;
             commands: readonly import("../product/worksite_command_execution.js").WorksiteDeclaredCommand[];
-            outcomePredicates: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicate[];
-            allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritory[];
             workspaceAuthorityBasis: import("../index.js").WorkspaceAuthorityBasis;
+            capabilityGrant: import("../index.js").CapabilityGrant;
             instructionContractRef: typeof WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef;
             protectedObservations: readonly import("../product/worksite_command_execution.js").WorksiteProtectedObservation[];
+            outcomePredicates: readonly import("../product/worksite_command_execution.js").WorksiteOutcomePredicate[];
+            allowedWriteTerritories: readonly import("../product/worksite_command_execution.js").WorksiteCommandWriteTerritory[];
         };
         commandResults: {
             stdout: {

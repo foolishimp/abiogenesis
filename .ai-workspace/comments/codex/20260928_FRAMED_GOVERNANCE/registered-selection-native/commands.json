@@ -1,0 +1,43 @@
+{
+  "packageCwd": "build_tenants/abiogenesis/typescript",
+  "build": "npm run build",
+  "nativeCommand": "ABI5_NATIVE_SELECTION_LIVE=1 ABI5_NATIVE_SELECTION_EVIDENCE_ROOT=<native-evidence>/attempt-04 ABI5_NATIVE_SELECTION_PROVIDER=<native-evidence>/provider-preflight.json node --test test_env/tests/t287-native-registered-selection.test.mjs",
+  "attempts": [
+    {
+      "evidence": "current",
+      "log": "installed-01.log",
+      "providerProcesses": 0,
+      "result": "fixture preparation rejected: unfrozen carrier"
+    },
+    {
+      "evidence": "attempt-02",
+      "log": "installed-02.log",
+      "providerProcesses": 1,
+      "result": "provider rejected missing root schema type; same ABI archive as attempt-01"
+    },
+    {
+      "evidence": "attempt-03",
+      "log": "installed-03.log",
+      "providerProcesses": 1,
+      "result": "provider rejected root union; corrected ABI archive"
+    },
+    {
+      "evidence": "attempt-04",
+      "log": "installed-04.log",
+      "providerProcesses": 3,
+      "result": "all native cases and four completed-run reads passed; final gap terminal-result expectation was wrong"
+    }
+  ],
+  "completion": "node .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-native/finish-gap-readback.mjs",
+  "completionLog": "gap-readback.log",
+  "completionProviderProcesses": 0,
+  "finalChecks": [
+    "npm run build (build-03.log)",
+    "node --check test_env/tests/t287-native-registered-selection.test.mjs",
+    "node --check finish-gap-readback.mjs",
+    "git diff --check",
+    "18 selected generated/local/archive/install byte correspondences",
+    "git diff --exit-code 1535e001 -- frozen S2 implementation, repair and test-hygiene proof directories"
+  ],
+  "wholeSuiteRerun": false
+}

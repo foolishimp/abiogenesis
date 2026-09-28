@@ -1,0 +1,102 @@
+[
+  {
+    "name": "machine",
+    "disposition": "completed",
+    "wallMs": 10267.791625000002,
+    "nativeIntervalMs": 7989,
+    "frameworkOutsideNativeIntervalMs": 2278.7916250000017,
+    "promptBytes": 13046,
+    "publicRequestBytes": 16449148,
+    "reportedModels": [
+      "claude-opus-5-5"
+    ],
+    "providerReportedApiMs": 6876,
+    "providerReportedTotalMs": 7250,
+    "apiRetryCount": 0,
+    "processIntervalMs": 7962,
+    "nativeOwnerScaffoldingMs": 27,
+    "childGraphs": [
+      "graph-function://registered-selection/A@5"
+    ],
+    "foldbackCount": 1,
+    "closureCount": 1,
+    "reads": {
+      "run_result": {
+        "wallMs": 661.8017910000053,
+        "outcome": "result",
+        "code": null
+      },
+      "run_replay": {
+        "wallMs": 671.2301249999946,
+        "outcome": "result",
+        "code": null
+      }
+    }
+  },
+  {
+    "name": "human",
+    "disposition": "completed",
+    "wallMs": 8305.874125000002,
+    "nativeIntervalMs": 5959,
+    "frameworkOutsideNativeIntervalMs": 2346.874125000002,
+    "promptBytes": 13054,
+    "publicRequestBytes": 16449154,
+    "reportedModels": [
+      "claude-opus-5-5"
+    ],
+    "providerReportedApiMs": 4761,
+    "providerReportedTotalMs": 5060,
+    "apiRetryCount": 0,
+    "processIntervalMs": 5927,
+    "nativeOwnerScaffoldingMs": 32,
+    "childGraphs": [
+      "graph-function://registered-selection/B@5"
+    ],
+    "foldbackCount": 1,
+    "closureCount": 1,
+    "reads": {
+      "run_result": {
+        "wallMs": 702.8965830000016,
+        "outcome": "result",
+        "code": null
+      },
+      "run_replay": {
+        "wallMs": 707.5756670000046,
+        "outcome": "result",
+        "code": null
+      }
+    }
+  },
+  {
+    "name": "unsupported",
+    "disposition": "blocked",
+    "wallMs": 8264.259458,
+    "nativeIntervalMs": 5956,
+    "frameworkOutsideNativeIntervalMs": 2308.2594580000004,
+    "promptBytes": 13115,
+    "publicRequestBytes": 16449306,
+    "reportedModels": [
+      "claude-opus-5-5"
+    ],
+    "providerReportedApiMs": 4506,
+    "providerReportedTotalMs": 4831,
+    "apiRetryCount": 0,
+    "processIntervalMs": 5922,
+    "nativeOwnerScaffoldingMs": 34,
+    "childGraphs": [],
+    "foldbackCount": 0,
+    "closureCount": 0,
+    "reads": {
+      "run_result": {
+        "wallMs": 699.971833,
+        "outcome": "refusal",
+        "code": "not_found"
+      },
+      "run_replay": {
+        "wallMs": 695.1080830000001,
+        "outcome": "result",
+        "code": null
+      }
+    }
+  }
+]

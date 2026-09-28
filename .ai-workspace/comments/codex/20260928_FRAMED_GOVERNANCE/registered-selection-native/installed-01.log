@@ -1,0 +1,30 @@
+✖ native Executive selects registered capabilities through installed Public entry (26661.578875ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 26961.980458
+
+✖ failing tests:
+
+test at test_env/tests/t287-native-registered-selection.test.mjs:13:1
+✖ native Executive selects registered capabilities through installed Public entry (26661.578875ms)
+  AssertionError [ERR_ASSERTION]: {"outcomeKind":"result","value":{"disposition":"runtime_failed","evidence":[{"digest":"sha256:2c524c81fef2a2b64744bd9f41afb110643e12a9b26ef1231c999e6efca75c59","ref":"event://abiogenesis/a1d4d61ea3a3f79152ed7daa794c888928cb97dfcf43ed0cc44d75e6b0e92b9a"},{"digest":"sha256:9e11faad6263097cb5f8804e8a2c55a0a5fe52fdecb1212e991789001042c2f4","ref":"event://abiogenesis/a70952ba8ffa0a681d6601bfab4b3664fcf502f218edb47479901423919a6769"},{"digest":"sha256:4078aa770b2b344d27cd4aae80a2854eb3905d98424ab52ef7d5f5c9c43e940f","ref":"event://abiogenesis/28266c9789ec43072b67a9f8eaa2f9f5fb8b0c94b3b5c509e1b71d475e5baeb9"},{"digest":"sha256:e692c2ce65a8f20fe1e542247c8dcea7077bc5de097382a51b90f35371f0f697","ref":"event://abiogenesis/21694bd8d7081cce771096e1098c93258f22f4f6df86a50ce0bf0980ad350705"},{"digest":"sha256:6c29bc4db2618b3e9964a0a18b84e5de918ca92ac01971727bd13f9c9b6c6e56","ref":"event://abiogenesis/30cf93429a453e940aedf879101c55b519f8da770289d80bfb945b12d27d8292"},{"digest":"sha256:8abb91d3e6448d94d9d6f0fe9381476b88d0aabbc932522f1b7d340858dcf730","ref":"event://abiogenesis/e5075fe9d183bc8ecd1173a812e1f2ef704aa3031e5f837b85b7c75dd0a3d461"},{"digest":"sha256:ba461451d01d98d02988d23d41b5418ed3dfe73a6ec7548f9b8483f48fff80ca","ref":"event://abiogenesis/5b3742795f82a10daaeb188e712dfc40f6bc586d28daf103c0b65c7dfcde74f1"},{"digest":"sha256:6c138e075762d709a2d01d59ba65fba20e3a0480ea2781c029a1009f6aae3896","ref":"event://abiogenesis/567523c721aa243657e1f1df61b056e26216e05067ef1890536cc2de066cc9b6"},{"digest":"sha256:f6086a96587cc431807bd6ce205d1c6940bb55deb5a13ce74140f5e2a99cba4f","ref":"event://abiogenesis/2678efcf35f7f68acd9e03f297462f6b33327bacc84b6655e8f6d2fd6cc6ff8e"},{"digest":"sha256:11c1c413a9828c07708386db09134d7efd3b3a6cbb52b0bd9f8c022831f64936","ref":"event://abiogenesis/744539b58fb49720b82f55331cb3b407ddea600857348e72b2e2ecbef6d621cf"},{"digest":"sha256:d1a75168d6fefc8a5816c0b30e8ff42b78be3bc012562f487f6fb1f7430aad2b","ref":"event://abiogenesis/d54b2bc1dcfd23edcf6c17280f2e5d805fb37e8a7221443ffa1c8af6bef1a418"},{"digest":"sha256:be21f5a0fcb2ef5cb9020aa2b25acd4eab13574600fcdd8e01cfb951d6a4f4e5","ref":"event://abiogenesis/3b943354448d063b5d74774749191da321beec0e8313b6cac02eefbbad02e9d2"},{"digest":"sha256:59ec62488e3f0bde2571d3ca44c1370fb05d7117f946f409ced6510694dcc209","ref":"event://abiogenesis/bc768c5a9a9ac0bdee622617235eea3ed36a87636b2edeaff97ec3d23f8f6389"},{"digest":"sha256:8678dbe49f8cc2869eea19521d8f046fb4a9e2f802e215add71f40f2e92b9b6e","ref":"event://abiogenesis/c4c896623bf0ce9dd89a090dde3cf51858a9e75245901a64e323182e87adcf0a"},{"digest":"sha256:36b7fdb23927a907db623a0878a8f777154919d27dd0e843dd49da86a0d65e4a","ref":"event://abiogenesis/5d0553057b3ca1ccb0749523f4bbfb8197da30e3fa6168a8aa19d86947eef67f"},{"digest":"sha256:ea0d7d714a4cd2a50cb0cec8f757ae71a11c761e006eca1fb0b577e8514b4f74","ref":"event://abiogenesis/d503243d52a1302afd82c74ddbd634dfa7d06d701904c119e3222510ed2a8e32"},{"digest":"sha256:2a311afb6865db35005bf32b76ee120fb1c489fc1e8a2b1a0ed6687b8a9f9689","ref":"event://abiogenesis/59cbd8bff4a5f8c33ee06e43749e8f00ffc8d0b12c0a7018680136a40da65bca"},{"digest":"sha256:eb139fb274b8dfe5f54992e69b83415fbe2ad1f7ec35b4a70fe3019d2be15695","ref":"event://abiogenesis/0c189b453df7b4ffe4ebb72fd9baabbfea7ced929991259d93c30b8a4d1433a0"},{"digest":"sha256:267b31861c538faaf355176d039d76150560fded7833576bd3715224043b8bf6","ref":"event://abiogenesis/d642601aac1c15eb49bb051b477499f97f2b49e5c2784d2679a792d87b002079"},{"digest":"sha256:9925cde197cfcd655da21e52024f6030948dab8ec1ce692d6df52d87d9b02519","ref":"event://abiogenesis/8e3bb59cac4c102e20364c91c05a7be3c7cc19787e84b11ae17a33b15f8171ab"},{"digest":"sha256:91326a1daaf7470196be4fc91fae212b12e4fee04559417515bc675d6d3e3adb","ref":"event://abiogenesis/48a7dc8d49dde1ad09e24a12b7212acf9edde4cffecbcd5b97a058bb472379f8"}],"gap":null,"graphCall":{"digest":"sha256:8abb91d3e6448d94d9d6f0fe9381476b88d0aabbc932522f1b7d340858dcf730","ref":"graph-call://abiogenesis/94262e8230c6f36342da9709ab85095caa8cba2983f84abb63b4891094451bfb"},"interaction":null,"invocationKind":"start","replay":{"digest":"sha256:7e8dc0aba8ae86a3ff449c55b75a8a59389aa1a923d8b877df1c4d6c667d906d","ref":"replay://abiogenesis/7e8dc0aba8ae86a3ff449c55b75a8a59389aa1a923d8b877df1c4d6c667d906d"},"result":null,"run":{"digest":"sha256:6c29bc4db2618b3e9964a0a18b84e5de918ca92ac01971727bd13f9c9b6c6e56","ref":"run://abiogenesis/52344545bd45a67f405ec504201e36cc2f1a804f3bec478353c44b519ea3c330"},"stop":{"digest":"sha256:91326a1daaf7470196be4fc91fae212b12e4fee04559417515bc675d6d3e3adb","ref":"event://abiogenesis/48a7dc8d49dde1ad09e24a12b7212acf9edde4cffecbcd5b97a058bb472379f8"},"terminalResult":null}}
+  + actual - expected
+  
+  + 'runtime_failed'
+  - 'completed'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs:87:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'runtime_failed',
+    expected: 'completed',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,970 @@
+import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
+import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+import { constructNativeInstructionAssembly, constructDeclaredNativeInstructionAssembly, requireNativeInstructionAssembly, requireDeclaredNativeInstructionAssembly } from "./instruction_assembly.js";
+import { authenticateNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
+import { isNativeWorkspaceWorkTask, NATIVE_WORKSPACE_WORK_IDS as nativeIds } from "../product/native_workspace_work.js";
+import { semanticInputValueAtBasis } from "./semantic_stage.js";
+import { constants as osConstants } from "node:os";
+import { lstatSync, readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { sampleNativeEventTime } from "./native_event_time.js";
+import { observeNativeFrameLiveness, captureNativeFrameBoundary } from "./runtime_liveness.js";
+import { isSha256Digest, sha256Canonical, } from "../shared/digests.js";
+import { admitIJsonValue } from "../shared/i_json.js";
+import { deepFreeze } from "../shared/immutable.js";
+import { isNonBlankRef } from "../shared/references.js";
+import { hasAdmittedWorkspaceBinding } from "./environment_admission.js";
+import { admitNonEmptyRuntimeEventTransactionAtDurablePrefix, assertHeldEventStoreAtDurablePrefix, admitRuntimeEvent, ROOT_EVENT_CONTRACT_DIGEST, readRuntimeEventsAtDurablePrefix, } from "./event_store.js";
+import { runtimeEventsFromValidatedPrefix, selectValidatedRuntimeEventPrefix, } from "./event_prefix.js";
+import { classifyWorkerTransportFailure, constructKnownWorkerTransportContract, isNativeWorkerResultAssessment, } from "./transport_contracts.js";
+import { prepareWorkerTransport, runPreparedWorkerTransport, createWorkerTransportOutputObserver, } from "./worker_transport.js";
+import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy } from "./runtime_liveness_contracts.js";
+import { admitRuntimeActivityProbe, admitRuntimeThreshold, projectActorLivenessContext, runtimeAssetRevisionDigest } from "./runtime_liveness.js";
+import { sha256Bytes } from "../shared/digests.js";
+import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
+const PROCESS_TIMEOUT_MS = 60_000;
+const PROCESS_ABSOLUTE_TIMEOUT_MS = 3_600_000;
+const PROCESS_TERMINATION_GRACE_MS = 1_000;
+function refuseActorProcessEffect(code, message, predecessorPrefix, successorPrefix) {
+    return deepFreeze({
+        kind: "actor_process_effect_refusal",
+        schemaVersion: "5.0.0",
+        disposition: "refused",
+        code,
+        diagnosticRef: `diagnostic://abiogenesis/actor-process/${code}@5`,
+        message,
+        predecessorPrefix,
+        successorPrefix,
+    });
+}
+const ACTOR_PROCESS_REQUEST_FIELDS = Object.freeze([
+    "actorRef",
+    "implementationRef",
+    "inputDigest",
+    "instructionContractRef",
+    "materializationPlanRef",
+    "prompt",
+    "rendererRef",
+    "responseJsonSchema",
+    "resultContractRef",
+    "transportLane",
+    "workerBindingRef",
+]);
+const ACTOR_PROCESS_OBSERVATION_FIELDS = Object.freeze([
+    "actorInvocationRef",
+    "actorRef",
+    "apiRetryCount",
+    "artifactDigests",
+    "disposition",
+    "exitObserved",
+    "failureClass",
+    "finalOutput",
+    "implementationRef",
+    "inputDigest",
+    "instructionContractRef",
+    "materializationPlanRef",
+    "observedOutputDigest",
+    "processRef",
+    "processSignal",
+    "processStatus",
+    "progressEventCount",
+    "promptDigest",
+    "rendererRef",
+    "resultContractRef",
+    "signalSequence",
+    "stderrByteLength",
+    "stdoutByteLength",
+    "structuredEventCount",
+    "terminationConfirmed",
+    "timeoutClass",
+    "timedOut",
+    "toolCallCount",
+    "toolInvocations",
+    "transportBindingDigest",
+    "transportBindingRef",
+    "transportDigest",
+    "transportLane",
+    "workerBindingRef",
+]);
+const ACTOR_PROCESS_ARTIFACT_DIGEST_FIELDS = Object.freeze([
+    "output",
+    "prompt",
+    "stderr",
+    "stdout",
+    "transport",
+]);
+function carrierRef(value) {
+    return isNonBlankRef(value) && value.trim() === value;
+}
+function exactOrdinaryDataRecord(value, fields) {
+    try {
+        if (typeof value !== "object" || value === null || Array.isArray(value)) {
+            return null;
+        }
+        const prototype = Object.getPrototypeOf(value);
+        if (prototype !== Object.prototype && prototype !== null)
+            return null;
+        const keys = Reflect.ownKeys(value);
+        const expected = [...fields].sort();
+        if (keys.length !== expected.length ||
+            keys.some((key) => typeof key !== "string") ||
+            keys.sort().some((key, index) => key !== expected[index])) {
+            return null;
+        }
+        for (const key of keys) {
+            const descriptor = Object.getOwnPropertyDescriptor(value, key);
+            if (descriptor === undefined ||
+                !Object.hasOwn(descriptor, "value") ||
+                Object.hasOwn(descriptor, "get") ||
+                Object.hasOwn(descriptor, "set") ||
+                descriptor.enumerable !== true) {
+                return null;
+            }
+        }
+        return value;
+    }
+    catch {
+        return null;
+    }
+}
+function carrierRefusal(code, message) {
+    return deepFreeze({
+        kind: "actor_process_carrier_validation_refusal",
+        schemaVersion: "5.0.0",
+        disposition: "refused",
+        code,
+        message,
+    });
+}
+function isNonnegativeSafeInteger(value) {
+    return Number.isSafeInteger(value) && Number(value) >= 0;
+}
+function isNodeProcessSignal(value) {
+    return typeof value === "string" &&
+        Object.hasOwn(osConstants.signals, value);
+}
+function isExactRequestedSignalSequence(timedOut, sequence) {
+    if (!timedOut)
+        return sequence.length === 0;
+    return (sequence.length === 1 && sequence[0] === "SIGTERM") || (sequence.length === 2 &&
+        sequence[0] === "SIGTERM" &&
+        sequence[1] === "SIGKILL");
+}
+/**
+ * Pure erased-input validation for actor request/observation carriers.
+ * This proves only structural and locally decidable lifecycle law; it neither
+ * emits runtime events nor establishes durable observation provenance.
+ */
+export function validateActorProcessCarrierPair(requestCandidate, observationCandidate) {
+    const requestRecord = exactOrdinaryDataRecord(requestCandidate, ACTOR_PROCESS_REQUEST_FIELDS);
+    if (requestRecord === null) {
+        return carrierRefusal("invalid_actor_process_request", "actor process request must be one exact ordinary closed data object");
+    }
+    let request;
+    try {
+        request = admitIJsonValue(requestRecord);
+    }
+    catch {
+        return carrierRefusal("invalid_actor_process_request", "actor process request must contain only exact I-JSON data");
+    }
+    if (!carrierRef(request.actorRef) ||
+        !carrierRef(request.workerBindingRef) ||
+        !carrierRef(request.implementationRef) ||
+        !isSha256Digest(request.inputDigest) ||
+        !carrierRef(request.materializationPlanRef) ||
+        !carrierRef(request.rendererRef) ||
+        !carrierRef(request.instructionContractRef) ||
+        !carrierRef(request.resultContractRef) ||
+        (request.transportLane !== "closed_prompt_proof" &&
+            request.transportLane !== "worker_executes") ||
+        typeof request.prompt !== "string" ||
+        request.prompt.trim().length === 0 ||
+        typeof request.responseJsonSchema !== "object" ||
+        request.responseJsonSchema === null ||
+        Array.isArray(request.responseJsonSchema)) {
+        return carrierRefusal("invalid_actor_process_request", "actor process request contains an invalid identity, digest, lane, prompt, or response schema");
+    }
+    const observationRecord = exactOrdinaryDataRecord(observationCandidate, typeof observationCandidate === "object" && observationCandidate !== null && Object.hasOwn(observationCandidate, "nativeResultAssessment")
+        ? [...ACTOR_PROCESS_OBSERVATION_FIELDS, "nativeResultAssessment"] : ACTOR_PROCESS_OBSERVATION_FIELDS);
+    if (observationRecord === null) {
+        return carrierRefusal("invalid_actor_process_observation", "actor process observation must be one exact ordinary closed data object");
+    }
+    let observation;
+    try {
+        observation = admitIJsonValue(observationRecord);
+    }
+    catch {
+        return carrierRefusal("invalid_actor_process_observation", "actor process observation must contain only exact I-JSON data");
+    }
+    const artifacts = exactOrdinaryDataRecord(observation.artifactDigests, ACTOR_PROCESS_ARTIFACT_DIGEST_FIELDS);
+    const counts = [
+        observation.structuredEventCount,
+        observation.progressEventCount,
+        observation.toolCallCount,
+        observation.apiRetryCount,
+        observation.stdoutByteLength,
+        observation.stderrByteLength,
+    ];
+    const statusValid = observation.processStatus === null ||
+        Number.isSafeInteger(observation.processStatus);
+    const signalValid = observation.processSignal === null ||
+        isNodeProcessSignal(observation.processSignal);
+    if (!carrierRef(observation.actorInvocationRef) ||
+        !carrierRef(observation.actorRef) ||
+        !carrierRef(observation.workerBindingRef) ||
+        !carrierRef(observation.implementationRef) ||
+        !isSha256Digest(observation.inputDigest) ||
+        !carrierRef(observation.materializationPlanRef) ||
+        !carrierRef(observation.rendererRef) ||
+        !carrierRef(observation.instructionContractRef) ||
+        !carrierRef(observation.resultContractRef) ||
+        !carrierRef(observation.processRef) ||
+        !carrierRef(observation.transportBindingRef) ||
+        !isSha256Digest(observation.transportBindingDigest) ||
+        !isSha256Digest(observation.observedOutputDigest) ||
+        !isSha256Digest(observation.promptDigest) ||
+        !isSha256Digest(observation.transportDigest) ||
+        (observation.transportLane !== "closed_prompt_proof" &&
+            observation.transportLane !== "worker_executes") ||
+        (observation.disposition !== "failure" &&
+            observation.disposition !== "success") ||
+        typeof observation.finalOutput !== "string" ||
+        (observation.timeoutClass !== null &&
+            observation.timeoutClass !== "absolute" &&
+            observation.timeoutClass !== "inactivity") ||
+        typeof observation.timedOut !== "boolean" ||
+        typeof observation.exitObserved !== "boolean" ||
+        typeof observation.terminationConfirmed !== "boolean" ||
+        !statusValid ||
+        !signalValid ||
+        !Array.isArray(observation.signalSequence) ||
+        observation.signalSequence.some((signal) => signal !== "SIGTERM" && signal !== "SIGKILL") ||
+        counts.some((count) => !isNonnegativeSafeInteger(count)) ||
+        !Array.isArray(observation.toolInvocations) ||
+        observation.toolInvocations.length !== observation.toolCallCount ||
+        observation.toolInvocations.some((row, ordinal) => typeof row !== "object" || row === null || Array.isArray(row) ||
+            Object.keys(row).sort().join("\0") !== [
+                "inputByteLength", "inputDigest", "kind", "ordinal", "schemaVersion", "toolName", "toolUseRef",
+            ].sort().join("\0") ||
+            row.kind !== "worker_tool_invocation_evidence" ||
+            row.schemaVersion !== "5.0.0" || row.ordinal !== ordinal ||
+            !carrierRef(row.toolUseRef) || !carrierRef(row.toolName) ||
+            !isSha256Digest(row.inputDigest) ||
+            !isNonnegativeSafeInteger(row.inputByteLength)) ||
+        artifacts === null ||
+        ACTOR_PROCESS_ARTIFACT_DIGEST_FIELDS.some((field) => !isSha256Digest(artifacts[field]))) {
+        return carrierRefusal("invalid_actor_process_observation", "actor process observation contains an invalid identity, digest, value domain, count, or artifact set");
+    }
+    const terminalPairValid = observation.exitObserved ===
+        observation.terminationConfirmed &&
+        (observation.exitObserved
+            ? (observation.processStatus !== null &&
+                observation.processStatus >= 0 &&
+                observation.processSignal === null) || (observation.processStatus === null &&
+                observation.processSignal !== null)
+            : observation.processSignal === null &&
+                (observation.processStatus === null ||
+                    observation.processStatus < 0));
+    const requestedSignalSequenceValid = isExactRequestedSignalSequence(observation.timedOut, observation.signalSequence);
+    const timeoutClassValid = observation.timedOut ===
+        (observation.timeoutClass !== null);
+    const timeoutTerminalValid = !observation.timedOut ||
+        observation.exitObserved ||
+        (observation.processStatus === null &&
+            observation.processSignal === null &&
+            !observation.terminationConfirmed &&
+            observation.signalSequence.length === 2);
+    const expectedFailureClass = classifyWorkerTransportFailure({
+        ...(observation.nativeResultAssessment === undefined ? {} : { nativeResultDisposition: observation.nativeResultAssessment.disposition }),
+        parser: "claude_stream_json",
+        lane: request.transportLane,
+        processStatus: observation.processStatus,
+        timedOut: observation.timedOut,
+        terminationConfirmed: observation.terminationConfirmed,
+        processSpawnFailed: !observation.timedOut &&
+            !observation.exitObserved &&
+            !observation.terminationConfirmed &&
+            observation.processStatus !== null &&
+            observation.processStatus < 0,
+        structuredEventCount: observation.structuredEventCount,
+        toolCallCount: observation.toolCallCount,
+        apiRetryCount: observation.apiRetryCount,
+        finalOutput: observation.finalOutput,
+    });
+    const transportClassificationValid = (observation.nativeResultAssessment === undefined || isNativeWorkerResultAssessment(observation.nativeResultAssessment, observation.finalOutput, request.resultContractRef, request.inputDigest)) &&
+        observation.transportLane === request.transportLane &&
+        observation.failureClass === expectedFailureClass &&
+        observation.disposition ===
+            (expectedFailureClass === null ? "success" : "failure");
+    if (!terminalPairValid ||
+        !timeoutClassValid ||
+        !requestedSignalSequenceValid ||
+        !timeoutTerminalValid ||
+        !transportClassificationValid) {
+        return carrierRefusal("invalid_actor_process_observation", "actor process observation differs from the owner-classified transport lifecycle");
+    }
+    return deepFreeze({
+        kind: "actor_process_carrier_validation",
+        schemaVersion: "5.0.0",
+        disposition: "valid",
+        request,
+        observation,
+    });
+}
+export function projectActorProcessLifecycle(prefix, actorInvocationRef) {
+    const events = runtimeEventsFromValidatedPrefix(prefix);
+    const rows = events.filter((event) => event.aggregateId === actorInvocationRef ||
+        event.parentAggregateId === actorInvocationRef);
+    const started = rows.filter((event) => event.kind === "actor_process_started");
+    const processTerminals = rows.filter((event) => event.kind === "actor_process_exited" ||
+        event.kind === "actor_process_spawn_failed");
+    const actorTerminals = rows.filter((event) => event.kind === "actor_invocation_closed" ||
+        event.kind === "actor_invocation_failed");
+    if (started.length > 1 || processTerminals.length > 1 || actorTerminals.length > 1) {
+        throw new TypeError("actor/process lifecycle requires exact single terminal cardinality");
+    }
+    const processTerminal = processTerminals[0];
+    const actorTerminal = actorTerminals[0];
+    if (processTerminal?.kind === "actor_process_spawn_failed" && started.length !== 0) {
+        throw new TypeError("spawn-failed Process terminal cannot follow process start");
+    }
+    if (processTerminal?.kind === "actor_process_exited" && started.length !== 1) {
+        throw new TypeError("exited Process terminal requires one process start");
+    }
+    if (actorTerminal !== undefined && processTerminal === undefined) {
+        throw new TypeError("ActorInvocation cleanup terminal requires confirmed Process terminality");
+    }
+    const terminationUnconfirmed = rows.some((event) => event.kind === "actor_process_termination_unconfirmed");
+    const processLive = started.length === 1 && processTerminal === undefined;
+    const runTerminal = events.some((event) => event.kind === "run_stopped" ||
+        (event.kind === "runtime_failure_observed" && event.aggregateType === "run"));
+    const cleanupPending = actorTerminal === undefined &&
+        (processTerminal !== undefined || (runTerminal && started.length === 1));
+    return deepFreeze({
+        kind: "actor_process_lifecycle_projection",
+        actorInvocationRef,
+        processRef: rows.find((event) => event.aggregateType === "process")?.aggregateId ?? null,
+        processTerminalEventRef: processTerminal?.eventId ?? null,
+        processTerminalKind: processTerminal === undefined
+            ? null
+            : processTerminal.kind === "actor_process_exited"
+                ? "actor_process_exited"
+                : "actor_process_spawn_failed",
+        actorTerminalEventRef: actorTerminal?.eventId ?? null,
+        processLive,
+        cleanupPending,
+        terminationUnconfirmed,
+        cleanupDisposition: actorTerminal !== undefined
+            ? "complete"
+            : terminationUnconfirmed && processTerminal === undefined
+                ? "termination_unconfirmed"
+                : cleanupPending || processLive
+                    ? "pending"
+                    : "not_required",
+    });
+}
+function positiveInteger(environment, key, fallback) {
+    const raw = environment[key];
+    if (raw === undefined)
+        return fallback;
+    const value = Number(raw);
+    if (!Number.isSafeInteger(value) || value < 1) {
+        throw new TypeError(`${key} must be one positive safe integer`);
+    }
+    return value;
+}
+function outputDigest(output) {
+    try {
+        return sha256Canonical(JSON.parse(output));
+    }
+    catch {
+        return sha256Canonical(output);
+    }
+}
+/** One preparation and dispatch composition. The implementation may request
+ * the assembly, but cannot supply or replace the value retained by this owner.
+ * Only the existing immutable native basis permits reuse; raw/copy callers
+ * retain the standalone cold dispatch authentication path. */
+export function prepareActorProcessInvocation(value, occurrence) {
+    const { semanticStageBasis, nativeInstructionAssemblyBasis } = occurrence;
+    const coordinates = { cCallRef: occurrence.cCallRef, runId: occurrence.runId,
+        graphCallId: occurrence.graphCallId, frameId: occurrence.frameId,
+        programLocusRef: occurrence.programLocusRef, taskOrdinal: occurrence.taskOrdinal,
+        attempt: occurrence.attempt };
+    let assembly;
+    let ownedBasis = false;
+    return Object.freeze({
+        prepareInstructionAssembly() {
+            assembly = null;
+            const basis = semanticStageBasis ?? nativeInstructionAssemblyBasis;
+            const captured = basis === undefined ? null : constructNativeInstructionAssemblyBasis(basis);
+            ownedBasis = captured !== null && captured === basis;
+            assembly = semanticStageBasis !== undefined
+                ? requireNativeInstructionAssembly(semanticStageBasis, value)
+                : nativeInstructionAssemblyBasis !== undefined
+                    ? requireDeclaredNativeInstructionAssembly(nativeInstructionAssemblyBasis, value)
+                    : null;
+            if (assembly === null)
+                throw new TypeError("native assembly preparation requires its admitted basis");
+            return assembly;
+        },
+        async invokeActorProcess(input) {
+            if (assembly === null)
+                return refuseActorProcessEffect("actor_process_invocation_refused", "native assembly preparation did not complete", input.predecessorPrefix, input.predecessorPrefix);
+            const basis = semanticStageBasis ?? nativeInstructionAssemblyBasis;
+            if (input.occurrence.semanticStageBasis !== semanticStageBasis ||
+                input.occurrence.nativeInstructionAssemblyBasis !== nativeInstructionAssemblyBasis ||
+                (ownedBasis && basis !== undefined && (input.predecessorPrefix.coordinateDigest !== basis.predecessorPrefix.coordinateDigest ||
+                    input.executionBasis.basisRef !== basis.executionBasis.basisRef ||
+                    input.executionBasis.basisDigest !== basis.executionBasis.basisDigest ||
+                    input.cCall.cCallDigest !== basis.cCall.cCallDigest)) ||
+                Object.keys(coordinates).some(key => input.occurrence[key] !== coordinates[key]))
+                return refuseActorProcessEffect("actor_process_invocation_refused", "prepared native assembly crosses actor coordinates", input.predecessorPrefix, input.predecessorPrefix);
+            return invokeActorProcessWithAssembly(input, ownedBasis ? assembly : undefined);
+        },
+    });
+}
+/** Standalone callers authenticate the complete assembly from durable input. */
+export async function invokeActorProcess(input) {
+    return invokeActorProcessWithAssembly(input);
+}
+async function invokeActorProcessWithAssembly(input, preparedAssembly) {
+    const predecessorPrefix = input.predecessorPrefix;
+    let successorPrefix = predecessorPrefix;
+    try {
+        if (input.request.implementationRef !== input.cCall.implementationRef ||
+            input.request.inputDigest !== input.expectedInputDigest ||
+            input.workerContracts.instructionContractRef.length === 0 ||
+            input.workerContracts.resultContractRef.length === 0 ||
+            input.request.instructionContractRef !==
+                input.workerContracts.instructionContractRef ||
+            input.request.resultContractRef !== input.workerContracts.resultContractRef ||
+            input.occurrence.cCallRef !== input.cCall.cCallRef ||
+            input.occurrence.runId !== input.cCall.runId ||
+            input.occurrence.graphCallId !== input.cCall.graphCallId ||
+            input.occurrence.frameId !== input.cCall.frameId ||
+            input.occurrence.programLocusRef !== input.cCall.programLocusRef ||
+            input.occurrence.taskOrdinal !== input.cCall.taskOrdinal ||
+            input.occurrence.attempt !== input.cCall.attempt ||
+            (input.request.transportLane !== "closed_prompt_proof" &&
+                input.request.transportLane !== "worker_executes") ||
+            !Number.isSafeInteger(input.dispatchOrdinal) ||
+            input.dispatchOrdinal < 1 ||
+            input.request.workerBindingRef.length === 0 ||
+            !hasAdmittedWorkspaceBinding(input.runtime.artifactTruth, input.runtime.workspaceBinding) ||
+            input.runtime.workspaceBinding.bindingId !== input.executionBasis.workspaceBindingId ||
+            input.runtime.workspaceBinding.bindingDigest !== input.executionBasis.workspaceBindingDigest) {
+            throw new TypeError("actor process request or workspace differs from the admitted execution basis");
+        }
+        const semanticCall = input.request.implementationRef === SEMANTIC_STAGE_IDS.authorImplementationRef ||
+            input.request.implementationRef === SEMANTIC_STAGE_IDS.assessorImplementationRef ||
+            input.request.implementationRef === SEMANTIC_REVISION_IDS.selectionImplementationRef || input.request.implementationRef === SEMANTIC_REVISION_IDS.authorImplementationRef || input.request.implementationRef === SEMANTIC_REVISION_IDS.assessorImplementationRef;
+        const semanticBasis = input.occurrence.semanticStageBasis;
+        const worksiteBasis = input.occurrence.nativeInstructionAssemblyBasis;
+        const worksiteOwner = worksiteBasis === undefined ? null : authenticateNativeInstructionAssemblyBasis(worksiteBasis);
+        const instructionAssembly = preparedAssembly ?? (semanticCall && semanticBasis !== undefined
+            ? constructNativeInstructionAssembly(semanticBasis, semanticInputValueAtBasis(semanticBasis))
+            : worksiteBasis !== undefined && worksiteOwner !== null
+                ? constructDeclaredNativeInstructionAssembly(worksiteBasis, worksiteOwner.inputValue) : null);
+        const invocation = rehydrateInvocationAdmissionAtPrefix(selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix)), input.executionBasis.invocationAdmissionRef);
+        const assemblyRequired = semanticCall || invocation?.runEnvironment !== undefined || worksiteBasis !== undefined;
+        if (worksiteOwner !== null && (worksiteOwner.call.cCallRef !== input.cCall.cCallRef ||
+            worksiteOwner.execution.basisRef !== input.executionBasis.basisRef ||
+            worksiteOwner.inputDigest !== input.expectedInputDigest))
+            throw new TypeError("worksite assembly crosses actor coordinates");
+        if ((assemblyRequired || preparedAssembly !== undefined) && (instructionAssembly === null ||
+            sha256Canonical(instructionAssembly.request) !== sha256Canonical(input.request))) {
+            throw new TypeError("dependent dispatch requires exact native admitted instruction assembly");
+        }
+        const environment = Object.freeze({ ...process.env });
+        const promptDigest = sha256Canonical(input.request.prompt);
+        const requestDigest = sha256Canonical(input.request);
+        const requestRef = `probabilistic-request://abiogenesis/${requestDigest.slice("sha256:".length)}`;
+        const attemptDigest = sha256Canonical({
+            basisRef: input.executionBasis.basisRef,
+            cCallRef: input.cCall.cCallRef,
+            attempt: input.cCall.attempt,
+            dispatchOrdinal: input.dispatchOrdinal,
+            actorRef: input.request.actorRef,
+            workerBindingRef: input.request.workerBindingRef,
+            implementationBindingRef: input.cCall.implementationBindingRef,
+            implementationRef: input.request.implementationRef,
+            inputDigest: input.request.inputDigest,
+            promptDigest,
+        });
+        const command = environment.ABG_TS_CLAUDE_COMMAND;
+        if (command !== undefined && command.length === 0) {
+            throw new TypeError("ABG_TS_CLAUDE_COMMAND must be a non-empty command");
+        }
+        const nativeTask = input.request.implementationRef === nativeIds.implementationRef && worksiteOwner !== null &&
+            isNativeWorkspaceWorkTask(worksiteOwner.inputValue) ? worksiteOwner.inputValue : null;
+        if (input.request.implementationRef === nativeIds.implementationRef && nativeTask === null)
+            throw new TypeError("native workspace dispatch lacks its authenticated worksite task");
+        const transportContract = constructKnownWorkerTransportContract("claude", {
+            command: command ?? "claude",
+            environment,
+        });
+        const plan = await prepareWorkerTransport({
+            contract: nativeTask === null ? transportContract : { ...transportContract,
+                argsTemplate: [...transportContract.argsTemplate, "--tools", "Read,Edit,Write,Glob,Grep,Bash"] },
+            prompt: input.request.prompt,
+            lane: input.request.transportLane,
+            cwd: nativeTask?.workspaceAuthorityBasis.canonicalRoot ?? resolve(input.runtime.workspaceBinding.roots.archiveRoot, "..", ".."),
+            archiveRoot: input.runtime.workspaceBinding.roots.archiveRoot,
+            label: `fp-${attemptDigest.slice("sha256:".length, "sha256:".length + 16)}`,
+            timeoutMs: positiveInteger(environment, "ABG_TS_FP_TIMEOUT_MS", PROCESS_TIMEOUT_MS),
+            absoluteTimeoutMs: positiveInteger(environment, "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS", PROCESS_ABSOLUTE_TIMEOUT_MS),
+            terminationGraceMs: positiveInteger(environment, "ABG_TS_FP_TERMINATION_GRACE_MS", PROCESS_TERMINATION_GRACE_MS),
+            responseJsonSchema: input.request.responseJsonSchema,
+            environment,
+        });
+        const transportBindingBody = {
+            ...(successorPrefix.storeIdentity.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ? {} : {
+                livenessBinding: {
+                    kind: "runtime_liveness_binding", schemaVersion: "5.0.0",
+                    clockOriginRef: `runtime-clock://abiogenesis/${sha256Canonical({ attemptDigest, transportPlanDigest: plan.planDigest }).slice(7)}`,
+                    clockKind: "native_monotonic_elapsed",
+                    policy: constructRuntimeWatchdogPolicy({ startupMs: plan.timeoutMs, inactivityMs: plan.timeoutMs,
+                        hardCapMs: plan.absoluteTimeoutMs, terminationGraceMs: plan.terminationGraceMs }),
+                    sources: actorRuntimeProbeSources(plan.parser),
+                },
+            }),
+            ...(instructionAssembly === null ? {} : { instructionAssembly }),
+            cCallRef: input.cCall.cCallRef,
+            actorRef: input.request.actorRef,
+            workerBindingRef: input.request.workerBindingRef,
+            implementationBindingRef: input.cCall.implementationBindingRef,
+            implementationRef: input.request.implementationRef,
+            inputDigest: input.request.inputDigest,
+            transportPlanDigest: plan.planDigest,
+            transportContractDigest: plan.contractDigest,
+            agentKey: plan.agentKey,
+            parser: plan.parser,
+            promptTransport: plan.promptTransport,
+            lane: plan.lane,
+            dispatchOrdinal: input.dispatchOrdinal,
+            command: plan.command,
+            args: plan.args,
+            cwd: plan.cwd,
+            archiveRoot: plan.archiveRoot,
+            timeoutMs: plan.timeoutMs,
+            absoluteTimeoutMs: plan.absoluteTimeoutMs,
+            terminationGraceMs: plan.terminationGraceMs,
+            promptDigest: plan.promptDigest,
+            responseJsonSchemaDigest: plan.responseJsonSchemaDigest,
+            environmentPolicyDigest: plan.environmentPolicyDigest,
+            environmentDigest: plan.environmentDigest,
+            paths: plan.paths,
+        };
+        const transportBindingDigest = sha256Canonical(transportBindingBody);
+        const transportBindingRef = `transport-binding://abiogenesis/${transportBindingDigest.slice("sha256:".length)}`;
+        const common = {
+            correlationId: input.basis.correlationId,
+            workflowVersion: "5.0.0",
+            scopeClass: "run",
+            basisId: input.executionBasis.basisRef,
+            runId: input.scope.runId,
+            graphFunctionRef: input.executionBasis.graphFunctionRef,
+            materializationRef: input.executionBasis.graphRef,
+            graphCallId: input.scope.graphCallId,
+            frameId: input.scope.frameId,
+        };
+        const identityDigest = sha256Canonical({
+            attemptDigest,
+            transportBindingRef,
+            transportBindingDigest,
+        });
+        const actorInvocationRef = `actor-invocation://abiogenesis/${identityDigest.slice("sha256:".length)}`;
+        const processRef = `process://abiogenesis/${sha256Canonical({ actorInvocationRef }).slice("sha256:".length)}`;
+        assertHeldEventStoreAtDurablePrefix(input.store, successorPrefix);
+        const intentAdmission = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(input.store, successorPrefix, () => {
+            const bindingEvent = admitRuntimeEvent(input.store, {
+                kind: "actor_transport_binding_admitted",
+                ...common,
+                eventTime: sampleNativeEventTime(),
+                aggregateType: "transport_binding",
+                aggregateId: transportBindingRef,
+                parentAggregateId: input.cCall.cCallRef,
+                causationEventRefs: [input.cCall.fibreSelectedEventRef],
+                payload: {
+                    transportBindingRef,
+                    transportBindingDigest,
+                    ...transportBindingBody,
+                },
+            });
+            const startedEvent = admitRuntimeEvent(input.store, {
+                kind: "actor_invocation_started",
+                ...common,
+                eventTime: sampleNativeEventTime(),
+                aggregateType: "actor_invocation",
+                aggregateId: actorInvocationRef,
+                parentAggregateId: input.cCall.cCallRef,
+                causationEventRefs: [bindingEvent.eventId],
+                payload: {
+                    actorInvocationRef,
+                    actorRef: input.request.actorRef,
+                    workerBindingRef: input.request.workerBindingRef,
+                    cCallRef: input.cCall.cCallRef,
+                    implementationRef: input.request.implementationRef,
+                    inputDigest: input.request.inputDigest,
+                    promptDigest,
+                    requestRef,
+                    requestDigest,
+                    dispatchOrdinal: input.dispatchOrdinal,
+                    transportBindingRef,
+                    transportBindingDigest,
+                },
+            });
+            return Object.freeze({ bindingEvent, startedEvent });
+        });
+        const { startedEvent } = intentAdmission.value;
+        successorPrefix = intentAdmission.successorPrefix;
+        let previousEventRef = startedEvent.eventId;
+        let streamOrdinal = 0;
+        let stdoutByteLength = 0;
+        let stderrByteLength = 0;
+        const stdoutEventRefs = [];
+        const stderrEventRefs = [];
+        let processStarted = false;
+        let processTerminalConfirmed = false;
+        let actorTerminalAdmitted = false;
+        const signalSequence = [];
+        const append = (kind, aggregateType, aggregateId, parentAggregateId, payload) => {
+            assertHeldEventStoreAtDurablePrefix(input.store, successorPrefix);
+            const admission = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(input.store, successorPrefix, () => {
+                const capturedAt = captureNativeFrameBoundary(input.store);
+                const event = admitRuntimeEvent(input.store, {
+                    kind,
+                    ...common,
+                    eventTime: sampleNativeEventTime(),
+                    aggregateType,
+                    aggregateId,
+                    parentAggregateId,
+                    causationEventRefs: [previousEventRef],
+                    payload,
+                });
+                observeNativeFrameLiveness(input.store, event, capturedAt);
+                return event;
+            });
+            const event = admission.value;
+            successorPrefix = admission.successorPrefix;
+            previousEventRef = event.eventId;
+            return event;
+        };
+        const currentProfile = successorPrefix.storeIdentity.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST;
+        const assessNativeResultArtifact = (output) => {
+            const owner = input.rawResultOwner;
+            if (owner === undefined || !isAdmittedLeafInvocationPort(owner.port) ||
+                !owner.port.isAdmittedResolution(owner.resolution) || owner.resolution.implementationRef !== input.cCall.implementationRef ||
+                owner.resolution.outputContractRef !== input.cCall.outputContractRef ||
+                sha256Canonical(owner.input) !== input.expectedInputDigest)
+                throw new TypeError("native artifact assessment lacks its exact admitted leaf owner");
+            let verification = null, disposition = output.trim().length === 0 ? "absent" : "rejected";
+            if (disposition !== "absent") {
+                try {
+                    const raw = admitIJsonValue(JSON.parse(output), "native worker result artifact");
+                    if (typeof raw === "object" && raw !== null && !Array.isArray(raw)) {
+                        const result = owner.port.verifyProbabilisticResultContractPreimage({ resolution: owner.resolution, input: owner.input,
+                            inputDigest: input.expectedInputDigest, instructionContractRef: input.request.instructionContractRef,
+                            rawResultContractRef: input.request.resultContractRef, rawResult: raw });
+                        if (result.kind === "verified_probabilistic_result_contract_preimage") {
+                            verification = result;
+                            disposition = "admitted";
+                        }
+                    }
+                }
+                catch { /* exact malformed/owner-refused output stays rejected, never repaired */ }
+            }
+            return deepFreeze({ kind: "native_worker_result_assessment", schemaVersion: "5.0.0", resultContractRef: input.request.resultContractRef,
+                inputDigest: input.expectedInputDigest, rawOutputDigest: sha256Bytes(output), disposition, verification });
+        };
+        const clockStart = performance.now();
+        const elapsed = () => Math.max(0, performance.now() - clockStart);
+        const stdoutObserver = createWorkerTransportOutputObserver(plan.agentKey === "claude" && plan.args.includes("--json-schema"));
+        let observedProgressCount = 0;
+        let observedFinalOutput = "";
+        let supervisionInterrupted = false;
+        const nativeContext = () => projectActorLivenessContext(selectValidatedRuntimeEventPrefix(input.store.readAll()), actorInvocationRef);
+        const probe = (source, event, signal, elapsedMs, coverage = "observed") => {
+            if (!currentProfile)
+                return;
+            if (supervisionInterrupted && signal !== "artifact_admitted" && signal !== "artifact_rejected")
+                return;
+            const context = nativeContext(), declaration = context?.probes.find(row => row.source === source);
+            if (context === null || declaration === undefined)
+                throw new TypeError("actor probe lacks its admitted declaration");
+            const result = admitRuntimeActivityProbe({ store: input.store, predecessorPrefix: successorPrefix, actorInvocationRef,
+                source, eventTime: event.eventTime, correlationId: common.correlationId,
+                observation: { kind: "runtime_probe_observation", schemaVersion: "5.0.0", probeRef: declaration.probeRef,
+                    scopeDigest: sha256Canonical(context.scope), clockOriginRef: context.binding.clockOriginRef,
+                    elapsedMs, underlyingObservationRef: event.eventId, underlyingEventRef: event.eventId, sourceDigest: event.payloadDigest, sourceRevisionDigest: null,
+                    evidenceRefs: [event.eventId], coverage, signal },
+            });
+            successorPrefix = result.successorPrefix;
+            previousEventRef = result.value.eventId;
+        };
+        const observePendingAsset = () => {
+            const context = nativeContext();
+            if (context === null)
+                throw new TypeError("actor asset observer lacks its declared current context");
+            const declaration = context.probes.find(row => row.source === "result_artifact");
+            let bytes;
+            let sourceRevisionDigest;
+            try {
+                const node = lstatSync(declaration.sourceRef, { bigint: true });
+                if (!node.isFile() || node.isSymbolicLink() || node.nlink !== 1n)
+                    throw new TypeError("actor result asset is not one declared file");
+                bytes = readFileSync(declaration.sourceRef);
+                sourceRevisionDigest = runtimeAssetRevisionDigest(node);
+            }
+            catch (error) {
+                if (error.code !== "ENOENT")
+                    throw error;
+                return;
+            }
+            if (bytes.length === 0)
+                return;
+            const sourceDigest = sha256Bytes(bytes);
+            const underlyingObservationRef = `runtime-asset-observation://abiogenesis/${sha256Canonical({ probeRef: declaration.probeRef, sourceDigest, sourceRevisionDigest }).slice(7)}`;
+            if (input.store.readAll().some(event => {
+                const p = event.payload, observation = p.observation;
+                return typeof observation === "object" && observation !== null && !Array.isArray(observation) && observation.underlyingObservationRef === underlyingObservationRef;
+            }))
+                return;
+            const result = admitRuntimeActivityProbe({ store: input.store, predecessorPrefix: successorPrefix, actorInvocationRef,
+                source: "result_artifact", eventTime: sampleNativeEventTime(), correlationId: common.correlationId,
+                observation: { kind: "runtime_probe_observation", schemaVersion: "5.0.0", probeRef: declaration.probeRef,
+                    scopeDigest: sha256Canonical(context.scope), clockOriginRef: context.binding.clockOriginRef,
+                    elapsedMs: elapsed(), underlyingObservationRef, underlyingEventRef: null, sourceDigest, sourceRevisionDigest,
+                    evidenceRefs: [context.declarationEventRef], coverage: "observed", signal: "artifact_pending" },
+            });
+            successorPrefix = result.successorPrefix;
+            previousEventRef = result.value.eventId;
+        };
+        try {
+            const transport = await runPreparedWorkerTransport(plan, {
+                ...(currentProfile ? { assessNativeResultArtifact, onNativeSupervisionWakeup: () => {
+                        observePendingAsset();
+                        const sampled = elapsed();
+                        const decision = admitRuntimeThreshold({ store: input.store, predecessorPrefix: successorPrefix,
+                            actorInvocationRef, processRef, elapsedMs: sampled, eventTime: sampleNativeEventTime(), correlationId: common.correlationId });
+                        if (decision.kind === "runtime_threshold_admitted") {
+                            successorPrefix = decision.successorPrefix;
+                            previousEventRef = decision.value.eventId;
+                            if (decision.timeoutClass === "absolute") {
+                                probe("process_lifecycle", decision.value, "external_interruption", sampled);
+                                supervisionInterrupted = true;
+                            }
+                            return { projection: decision.projection, admittedThresholdEventRef: decision.value.eventId,
+                                timeoutClass: decision.timeoutClass, nextWakeDelayMs: plan.timeoutMs };
+                        }
+                        const p = decision.projection;
+                        if (p.hardDeadlineElapsedMs === null || p.leaseDeadlineElapsedMs === null)
+                            throw new TypeError("actor supervision requires its bound native policy");
+                        return { projection: p, admittedThresholdEventRef: null, timeoutClass: null,
+                            nextWakeDelayMs: Math.max(1, Math.min(p.hardDeadlineElapsedMs - sampled, p.leaseDeadlineElapsedMs > sampled ? p.leaseDeadlineElapsedMs - sampled : plan.timeoutMs)) };
+                    } } : {}),
+                onProcessStarted: (pid) => {
+                    const sampled = elapsed();
+                    const event = append("actor_process_started", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef, processId: pid, cCallRef: input.cCall.cCallRef });
+                    processStarted = true;
+                    if (currentProfile) {
+                        for (const source of actorRuntimeProbeSources(plan.parser))
+                            probe(source, event, source === "process_lifecycle" ? "activity" : "coverage", sampled, source === "process_lifecycle" || source === "stdout" || source === "stderr" ? "observed" : "unavailable");
+                    }
+                },
+                onStdoutObserved: (chunk) => {
+                    const sampled = elapsed();
+                    const byteLength = Buffer.byteLength(chunk);
+                    stdoutByteLength += byteLength;
+                    const event = append("actor_process_stdout_observed", "process", processRef, actorInvocationRef, {
+                        actorInvocationRef,
+                        processRef,
+                        streamOrdinal: ++streamOrdinal,
+                        byteLength,
+                        chunkDigest: sha256Canonical(chunk),
+                    });
+                    stdoutEventRefs.push(event.eventId);
+                    if (plan.parser !== "claude_stream_json") {
+                        probe("stdout", event, "activity", sampled);
+                        return true;
+                    }
+                    const output = stdoutObserver.observe(chunk);
+                    const progress = output.progressEventCount > observedProgressCount;
+                    const result = output.finalOutput.length > 0 && output.finalOutput !== observedFinalOutput;
+                    observedProgressCount = output.progressEventCount;
+                    observedFinalOutput = output.finalOutput;
+                    // Retry notices and protocol bookkeeping remain raw stream evidence,
+                    // not lease-renewing model progress. Partial message rows are activity
+                    // only when bytes actually arrive; silence is never inferred progress.
+                    if (progress || result)
+                        probe("stdout", event, "activity", sampled);
+                    if (result)
+                        probe("structured_output", event, "artifact_pending", sampled);
+                    return progress || result;
+                },
+                onStderrObserved: (chunk) => {
+                    const sampled = elapsed();
+                    const byteLength = Buffer.byteLength(chunk);
+                    stderrByteLength += byteLength;
+                    const event = append("actor_process_stderr_observed", "process", processRef, actorInvocationRef, {
+                        actorInvocationRef,
+                        processRef,
+                        streamOrdinal: ++streamOrdinal,
+                        byteLength,
+                        chunkDigest: sha256Canonical(chunk),
+                    });
+                    stderrEventRefs.push(event.eventId);
+                    probe("stderr", event, "activity", sampled);
+                    return true;
+                },
+                onTimeoutObserved: (timeoutClass) => append("actor_process_timeout_observed", "process", processRef, actorInvocationRef, {
+                    actorInvocationRef,
+                    processRef,
+                    timeoutClass,
+                    timeoutMs: timeoutClass === "inactivity"
+                        ? plan.timeoutMs
+                        : plan.absoluteTimeoutMs,
+                }),
+                onSignalRequested: (signal) => {
+                    signalSequence.push(signal);
+                    append("actor_process_signal_requested", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef, signal });
+                },
+                onSpawnFailed: (message) => {
+                    append("actor_process_spawn_failed", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef, diagnosticDigest: sha256Canonical(message) });
+                    processTerminalConfirmed = true;
+                },
+                onProcessExited: (status, signal) => {
+                    if (processStarted) {
+                        append("actor_process_exited", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef, status, signal });
+                    }
+                    else {
+                        append("actor_process_spawn_failed", "process", processRef, actorInvocationRef, {
+                            actorInvocationRef,
+                            processRef,
+                            diagnosticDigest: sha256Canonical({ status, signal }),
+                        });
+                    }
+                    processTerminalConfirmed = true;
+                },
+                onTerminationUnconfirmed: () => append("actor_process_termination_unconfirmed", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef }),
+            });
+            const observedOutputDigest = outputDigest(transport.finalOutput);
+            const artifactDigests = {
+                output: transport.artifacts.output.digest,
+                prompt: transport.artifacts.prompt.digest,
+                stderr: transport.artifacts.stderr.digest,
+                stdout: transport.artifacts.stdout.digest,
+                transport: transport.artifacts.transport.digest,
+            };
+            const observationBody = {
+                ...(transport.nativeResultAssessment === undefined ? {} : { nativeResultAssessment: transport.nativeResultAssessment }),
+                actorInvocationRef,
+                actorRef: input.request.actorRef,
+                workerBindingRef: input.request.workerBindingRef,
+                implementationRef: input.request.implementationRef,
+                inputDigest: input.request.inputDigest,
+                materializationPlanRef: input.request.materializationPlanRef,
+                rendererRef: input.request.rendererRef,
+                instructionContractRef: input.request.instructionContractRef,
+                resultContractRef: input.request.resultContractRef,
+                processRef,
+                transportBindingRef,
+                transportBindingDigest,
+                disposition: transport.disposition,
+                failureClass: transport.failureClass,
+                finalOutput: transport.finalOutput,
+                observedOutputDigest,
+                promptDigest,
+                transportDigest: transport.artifacts.transport.digest,
+                transportLane: transport.lane,
+                processStatus: transport.status,
+                processSignal: transport.signal,
+                timeoutClass: transport.timeoutClass,
+                timedOut: transport.timedOut,
+                exitObserved: transport.exitObserved,
+                terminationConfirmed: transport.terminationConfirmed,
+                signalSequence: Object.freeze([...signalSequence]),
+                structuredEventCount: transport.structuredEventCount,
+                progressEventCount: transport.progressEventCount,
+                toolCallCount: transport.toolCallCount,
+                toolInvocations: transport.toolInvocations,
+                apiRetryCount: transport.apiRetryCount,
+                stdoutByteLength,
+                stderrByteLength,
+                artifactDigests,
+            };
+            const artifactEvent = append("actor_result_artifact_observed", "actor_invocation", actorInvocationRef, input.cCall.cCallRef, {
+                cCallRef: input.cCall.cCallRef,
+                requestRef,
+                requestDigest,
+                ...observationBody,
+            });
+            if (currentProfile && transport.nativeResultAssessment?.disposition !== "absent")
+                probe("result_artifact", artifactEvent, transport.nativeResultAssessment?.disposition === "admitted" ? "artifact_admitted" : "artifact_rejected", elapsed());
+            if (processTerminalConfirmed) {
+                // The terminal owner consumes the actual artifact producer. A liveness
+                // observation between them is not a replacement artifact cause.
+                previousEventRef = artifactEvent.eventId;
+                append(transport.disposition === "success"
+                    ? "actor_invocation_closed"
+                    : "actor_invocation_failed", "actor_invocation", actorInvocationRef, input.cCall.cCallRef, {
+                    actorInvocationRef,
+                    processRef,
+                    cCallRef: input.cCall.cCallRef,
+                    disposition: transport.disposition,
+                    failureClass: transport.failureClass,
+                    transportBindingRef,
+                    transportBindingDigest,
+                    transportDigest: transport.artifacts.transport.digest,
+                    consumedTransportBindingRef: transportBindingRef,
+                    consumedStdoutEventRefs: Object.freeze([...stdoutEventRefs]),
+                    consumedStderrEventRefs: Object.freeze([...stderrEventRefs]),
+                    consumedArtifactEventRef: artifactEvent.eventId,
+                });
+                actorTerminalAdmitted = true;
+            }
+            const observation = deepFreeze(observationBody);
+            const exchange = validateActorProcessCarrierPair(input.request, observation);
+            if (exchange.kind !== "actor_process_carrier_validation") {
+                return refuseActorProcessEffect("actor_process_carrier_refused", exchange.message, predecessorPrefix, successorPrefix);
+            }
+            return deepFreeze({
+                kind: "actor_process_effect_receipt",
+                schemaVersion: "5.0.0",
+                disposition: "admitted",
+                predecessorPrefix,
+                successorPrefix,
+                exchange,
+            });
+        }
+        catch (error) {
+            if (!processStarted && !processTerminalConfirmed) {
+                append("actor_process_spawn_failed", "process", processRef, actorInvocationRef, {
+                    actorInvocationRef,
+                    processRef,
+                    diagnosticDigest: sha256Canonical(error instanceof Error ? error.message : String(error)),
+                });
+                processTerminalConfirmed = true;
+            }
+            if (!actorTerminalAdmitted && processTerminalConfirmed) {
+                append("actor_invocation_failed", "actor_invocation", actorInvocationRef, input.cCall.cCallRef, {
+                    actorInvocationRef,
+                    processRef,
+                    cCallRef: input.cCall.cCallRef,
+                    disposition: "failure",
+                    failureClass: "transport_exception",
+                    transportBindingRef,
+                    transportBindingDigest,
+                    diagnosticDigest: sha256Canonical(error instanceof Error ? error.message : String(error)),
+                });
+                actorTerminalAdmitted = true;
+            }
+            throw error;
+        }
+    }
+    catch (error) {
+        return refuseActorProcessEffect("actor_process_invocation_refused", error instanceof Error ? error.message : String(error), predecessorPrefix, successorPrefix);
+    }
+}

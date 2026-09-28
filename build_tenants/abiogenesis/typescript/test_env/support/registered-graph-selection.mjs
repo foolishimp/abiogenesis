@@ -8,8 +8,10 @@ import { declarations, ref, packageName, version } from "../fixtures/registered-
 const execFileAsync = promisify(execFile);
 const schemaVersion = "5.0.0";
 const operationId = "abg.operation.run.invoke";
-export async function prepareRegisteredSelectionProduct({scratch, product, gtl, abiPublication}) {
-  const publicationData = declarations(gtl);
+export async function prepareRegisteredSelectionProduct({scratch, product, gtl, abiPublication,
+  declarationFactory=declarations, fixtureFiles=[{path:'build/index.js',source:new URL('../fixtures/registered-selection-product/index.mjs',import.meta.url)}],
+  abiPackageArchivePath}) {
+  const publicationData = await declarationFactory(gtl);
   const productId = publicationData.owningProductId;
   const packageVersion = version;
   const {moduleRef, descriptorRef, contributionManifestRef} = publicationData;
@@ -28,6 +30,7 @@ export async function prepareRegisteredSelectionProduct({scratch, product, gtl, 
     type: "module",
     exports: { "./publication": "./build/publication.json" },
     files: ["build", "contracts", "product-toolchain-manifest.json"],
+    ...(abiPackageArchivePath === undefined ? {} : {dependencies:{'@abiogenesis/typescript-tenant':`file:${abiPackageArchivePath}`}}),
   };
   const catalogSchema = {
     $schema: "https://json-schema.org/draft/2020-12/schema",
@@ -58,9 +61,9 @@ export async function prepareRegisteredSelectionProduct({scratch, product, gtl, 
   );
   const capabilityDefinitionGraphCoordinate =
     product.capabilityDefinitionGraphCoordinate(capabilityDefinitionGraph);
-  await cp(new URL("../fixtures/registered-selection-product/index.mjs", import.meta.url), join(sourceRoot, "build/index.js"));
+  for (const file of fixtureFiles) await cp(file.source,join(sourceRoot,file.path));
   const productRelativeLocators = [
-    "build/index.js",
+    ...fixtureFiles.map(file=>file.path),
     "contracts/public-contract-catalog.schema.json",
     "build/publication.json",
     "package.json",
@@ -223,6 +226,7 @@ export async function constructInstalledStartCall({
   eventResource,
   input,
   identity = "st-1",
+  runEnvironmentResourceFactory,
 }) {
   const {
     product,
@@ -404,6 +408,7 @@ export async function constructInstalledStartCall({
     catalogView,
     applications: Object.freeze([]),
     source: Object.freeze({ kind: "none" }),
+    ...(runEnvironmentResourceFactory === undefined ? {} : {runEnvironmentResources:await runEnvironmentResourceFactory({authority,program:resolution.program,workspaceBinding,product})}),
   });
   return {
     call: publicApi.constructInstalledPublicDefinitionCall({
@@ -565,6 +570,7 @@ export async function runInstalledCliRequest({
   acquisition,
   call,
   expectedExitCode = 0,
+  environment = {},
 }) {
   const requestPath = join(scratch, `st4-${identity}-request.jsonl`);
   const cliPath = join(installedRoot, "build/code/src/public/cli.js");
@@ -580,7 +586,7 @@ export async function runInstalledCliRequest({
     execution = await execFileAsync(
       process.execPath,
       [cliPath, "--jsonl", requestPath],
-      { cwd: scratch, env: {}, maxBuffer: 10 * 1024 * 1024 },
+      { cwd: scratch, env: environment, maxBuffer: 10 * 1024 * 1024 },
     );
     if (expectedExitCode !== null) assert.equal(expectedExitCode, 0, `${identity} CLI exit`);
   } catch (error) {

@@ -1,0 +1,105 @@
+{
+  "task": "T287_REGISTERED_SELECTION_NATIVE_SCOPE_REPAIR_01",
+  "source": {
+    "code/src/gtl/stdo_run_environment.ts": {
+      "sha256": "sha256:7380d7656df4737e0a279c55dbbc3c22529582b1b1f454544a9d68b485436a92",
+      "bytes": 21689,
+      "added": 27,
+      "removed": 0
+    },
+    "code/src/hog/ccall_lifecycle.ts": {
+      "sha256": "sha256:6e282ac82affe4c794a447be9aaf4eb8566bd6ea91f6b9051216dae6c383e5fe",
+      "bytes": 35676,
+      "added": 5,
+      "removed": 3
+    },
+    "code/src/abg/instruction_assembly.ts": {
+      "sha256": "sha256:14b1f9036b6c1aaac6b6ab75006bd3ec06d2eef76416c1be3180d269a28e55be",
+      "bytes": 105848,
+      "added": 13,
+      "removed": 9
+    },
+    "code/src/abg/c_call_outcome.ts": {
+      "sha256": "sha256:87154ec0faebb4beffd7cef3ab39a6139e72998d957dd5dd87b12304377d06a1",
+      "bytes": 65952,
+      "added": 4,
+      "removed": 4
+    },
+    "design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md": {
+      "sha256": "sha256:10fd6b04c94d57561704ddc69c778c0ef7cdd5e3555638fbe5cc1fae0d15b3b9",
+      "bytes": 15150,
+      "added": 9,
+      "removed": 0
+    },
+    "test_env/tests/t287-native-selection-profile-scope.test.mjs": {
+      "sha256": "sha256:520768aa8e8349890d7e3e61dbfd0793a64790d52e8902aed5dced3c14ffc4f3",
+      "bytes": 5771,
+      "added": 66,
+      "removed": 0
+    }
+  },
+  "generated": {
+    "product-toolchain-manifest.json": {
+      "sha256": "sha256:e303fdc8d183221c6c695cb00ef2087b8b418870a7dae305cab42b95b0f8a12d",
+      "bytes": 2398991,
+      "changedFromS3": true
+    },
+    "contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "sha256:e88bbb2048c38ea85e024070989d4a3ea9265b63b1b3221d58a38c725a2b56a5",
+      "bytes": 197474,
+      "changedFromS3": true
+    },
+    "build/code/src/gtl/stdo_run_environment.js": {
+      "sha256": "sha256:999dbf05fdccbee93dabd4354e81d75f16bb709f2537397be26228fada2cdd42",
+      "bytes": 21029,
+      "changedFromS3": true
+    },
+    "build/code/src/gtl/stdo_run_environment.d.ts": {
+      "sha256": "sha256:fd5b6383f842465e250693f7ea791ac1957faf18b31e2dd6bba4a960770065d8",
+      "bytes": 32149,
+      "changedFromS3": true
+    },
+    "build/code/src/hog/ccall_lifecycle.js": {
+      "sha256": "sha256:eaa252b0f7022a325bd857642351a5e7e59816a260a758e2f1967a013863b1fc",
+      "bytes": 33376,
+      "changedFromS3": true
+    },
+    "build/code/src/hog/ccall_lifecycle.d.ts": {
+      "sha256": "sha256:c2bdb9be9e0bab6cd62506643fd21cdd72c9036adb89936f480e6f00741dfd0f",
+      "bytes": 2649,
+      "changedFromS3": false
+    },
+    "build/code/src/abg/instruction_assembly.js": {
+      "sha256": "sha256:6efb43dbdc14ac3b6f5c429de3ed24cffd1e693051c2c5af7231c94bc490bab3",
+      "bytes": 102431,
+      "changedFromS3": true
+    },
+    "build/code/src/abg/instruction_assembly.d.ts": {
+      "sha256": "sha256:bdc1c52974e3f584ecbeb6bc692117e93cf05d18d6b9387a7850a5ef8cbfcbf6",
+      "bytes": 41847,
+      "changedFromS3": true
+    },
+    "build/code/src/abg/c_call_outcome.js": {
+      "sha256": "sha256:217cc226ab1edac2193ff6a8492d5aa6e75ff8901e453f5618b1ef7a14819d38",
+      "bytes": 53936,
+      "changedFromS3": true
+    },
+    "build/code/src/abg/c_call_outcome.d.ts": {
+      "sha256": "sha256:533e120f212acaf8de6f9abd8670192fa9bb3abf287bb2c9524a302a08a42a2c",
+      "bytes": 9764,
+      "changedFromS3": false
+    }
+  },
+  "preservation": {
+    "preimagesVerified": 15,
+    "originalS3ProofFilesVerified": 112,
+    "originalS3ProofManifest": "sha256:b7f693b1960ab8a4f15407cdcc03f0e3b05d26bc851572a2546335935c9f653a",
+    "originalS3Return": "sha256:cc42a0bc974e2557a3dddee169d5c7c2fe2b7e3ac1d36035b8432ad6008f1668",
+    "originalS3Subject": "sha256:cef7f765ad03e89107d77e04c84eab2856440c138e3300f1704855c80ccd273e",
+    "originalS3Review": "sha256:6e7a1e77eae1cc21f26c39991629a9b91e893cfdd93e4e4a2758863e21563749"
+  },
+  "delta": {
+    "added": 124,
+    "removed": 16
+  }
+}

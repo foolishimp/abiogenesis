@@ -10,6 +10,8 @@ import { deepFreeze } from "../shared/immutable.js";
 import { WORKSITE_CONSTRUCTION_IDS } from "../product/worksite_construction_identity.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution_identity.js";
 import { SEMANTIC_STAGE_IDS } from "./semantic_stage_identity.js";
+import { registeredSelectionAtSource } from "./registered_selection.js";
+import { rootCSourcePath } from "./source_path.js";
 
 const ref = v.pipe(v.string(), v.minLength(1));
 const digest = v.pipe(v.string(), v.regex(/^sha256:[a-f0-9]{64}$/u));
@@ -133,8 +135,19 @@ export function stdoRoleForDeclaredLeaf(graph: Readonly<GraphFunction>, leaf: Re
   return null;
 }
 
-/** One closed native family shared by publication validation, HoG and assembly. */
-export const nativeContextLeafFamily = stdoRoleForDeclaredLeaf;
+/** One declared native family shared by publication validation, HoG and assembly.
+ * Historical STDO roles remain confined to their existing declaration profile. */
+export function nativeContextLeafFamily(graph: Readonly<GraphFunction>, leaf: ReturnType<typeof cLeafTerms>[number]):
+  RunEnvironmentRole["role"] | null {
+  try {
+  if (leaf.fibre === "F_P" && leaf.stageRole === "evaluate" && leaf.requirement.kind === "executable_leaf_requirement") {
+    const nodes = graph.template.nodes.filter(n => n.term.kind === "c_of" && n.term.programLocusRef === leaf.programLocusRef);
+    if (nodes.length === 1 && registeredSelectionAtSource(graph.template,
+      { currentNodeRef: nodes[0]!.nodeRef, termPath: rootCSourcePath(nodes[0]!.nodeRef) }, leaf.outputCarrierRef) !== null) return "selector";
+  }
+  return stdoRoleForDeclaredLeaf(graph, leaf);
+  } catch { return null; }
+}
 export const RUN_ENVIRONMENT_POLICY = "abg.run_environment";
 export const CONTEXT_SELECTORS = ["full_source", "declared_predecessor_semantics", "active_binding_semantics",
   "current_candidate", "current_worksite", "admitted_execution_evidence", "assessor_evaluation_data", "not_required"] as const;
@@ -153,6 +166,7 @@ export const RUN_ENVIRONMENT_SCHEMA = v.strictObject({
     mode: v.picklist(["validation", "materialized"]), frameIndexRefs: v.array(ref), maxOutputBytes: bound,
     timeoutMs: v.pipe(v.number(), v.integer(), v.minValue(1), v.maxValue(60_000)) })),
   roles: v.pipe(v.array(v.strictObject({ ...STDO_RUN_ENVIRONMENT_SCHEMA.entries.roles.item.entries,
+    role: v.picklist(["author", "assessor", "constructor", "command_executor", "selector"]),
     accessRefs: v.array(ref), contextPolicy: contextPolicySchema })), v.minLength(1)),
 });
 export type RunEnvironmentDeclaration = v.InferOutput<typeof RUN_ENVIRONMENT_SCHEMA>;
@@ -208,6 +222,33 @@ export function runEnvironmentForProgram(publication: Readonly<ModulePublication
   if (ref === undefined) return null;
   const rows = publication.runEnvironments?.filter(d => d.declarationRef === ref);
   return rows?.length === 1 && isRunEnvironmentDeclaration(rows[0]) ? rows[0]! : false;
+}
+/** Project already-bound declarations; acquisition/native-basis owners authenticate
+ * their content. null is unselected and false is an invalid applicable binding.
+ * Payloads and reconstructed runtime evidence never select or disable it. */
+export function registeredSelectionNativeRole(publication: Readonly<ModulePublication> | undefined,
+  programRef: string, graph: Readonly<GraphFunction>, programLocusRef: string): Readonly<RunEnvironmentRole> | null | false {
+  try {
+    const applications = graph.template.applications.filter(a => a.relationKind === "registered_selection" &&
+      a.sourceProgramLocusRef === programLocusRef);
+    if (applications.length === 0) return null;
+    const nodes = graph.template.nodes.filter(n => n.term.kind === "c_of" && n.term.programLocusRef === programLocusRef);
+    if (nodes.length !== 1 || applications.length !== 1) return false;
+    const leaf = nodes[0]!.term;
+    if (leaf.kind !== "c_of" || leaf.fibre !== "F_P") return null;
+    const programs = publication?.programs.filter(p => p.programRef === programRef);
+    if (publication === undefined || programs?.length !== 1) return false;
+    const program = programs[0]!;
+    if (program.policies[STDO_ENVIRONMENT_POLICY] !== undefined || publication.stdoRunEnvironments !== undefined) return false;
+    const environmentRef = program.policies[RUN_ENVIRONMENT_POLICY];
+    if (environmentRef === undefined) return null;
+    const environments = publication.runEnvironments?.filter(d => d.declarationRef === environmentRef);
+    if (environments?.length !== 1 || !program.callableMembership.includes(graph.name) ||
+      leaf.stageRole !== "evaluate" || leaf.requirement.kind !== "executable_leaf_requirement" ||
+      applications[0]!.inputContractRef !== leaf.outputCarrierRef) return false;
+    const roles = environments[0]!.roles.filter(r => r.graphFunctionRef === graph.name && r.programLocusRef === programLocusRef);
+    return roles.length === 1 && roles[0]!.role === "selector" ? roles[0]! : false;
+  } catch { return false; }
 }
 export function validRunEnvironmentPublication(publication: Readonly<ModulePublication>): boolean {
   const rows = publication.runEnvironments ?? [];

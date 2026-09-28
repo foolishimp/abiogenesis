@@ -1,0 +1,12 @@
+{
+  "code/src/gtl/stdo_run_environment.ts": "sha256:e16c05f49d3cf29c621151cb9276b7d8e278a56535997a594a53e5fe20de5460",
+  "code/src/gtl/registered_selection.ts": "sha256:732d5f6d68ea82377e4de760118a09b02529caa8c28cc52935ae66d58afd5824",
+  "code/src/product/index.ts": "sha256:4819619adb88b46f5a96a99ab4e2fa270294738787cbcb15ced7c5b553a784b5",
+  "code/src/abg/instruction_assembly.ts": "sha256:9f809b6c52be40b0805e12b93f291124af276996f548ffad7a5802446ca89941",
+  "code/src/abg/actor_process.ts": "sha256:7fd7ed76858a787259c67377a7f7ef31b84247ff21955b0195118246c79834a5",
+  "code/src/hog/ccall_lifecycle.ts": "sha256:8126a77801c028612835f6ba3995777fa2de8b85afd8220a32c691aa681ef205",
+  "code/src/abg/c_call_outcome.ts": "sha256:0544ab335f1885f6f25b5aa3f157dc5300fc5ccd5f661c487122885dee69334d",
+  "test_env/support/registered-graph-selection.mjs": "sha256:196f3320d5bae01429bd23a2c342c3c08cb35be7a08c3512ee625cd35bd5dd2a",
+  "product-toolchain-manifest.json": "sha256:8d7c4f47bd1eea3b858da81427980c8a087f1c7aa78d2c1135f4ae101b9dd128",
+  "contracts/capabilities/capability-definition-graph.json": "sha256:15f8d9bf4209522d6c0e44263ae31a8092832f9a86c976df4b87957de0a6a745"
+}

@@ -1,0 +1,33 @@
+machine selected graph-function://registered-selection/A@5 10267.8ms
+human selected graph-function://registered-selection/B@5 8305.9ms
+unsupported gap gap 8264.3ms
+✖ native Executive selects registered capabilities through installed Public entry (57439.556875ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 57739.961667
+
+✖ failing tests:
+
+test at test_env/tests/t287-native-registered-selection.test.mjs:13:1
+✖ native Executive selects registered capabilities through installed Public entry (57439.556875ms)
+  AssertionError [ERR_ASSERTION]: unsupported-run_result CLI exit
+  
+  1 !== 0
+  
+      at runInstalledCliRequest (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs:593:43)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs:116:18)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,85 @@
+{
+  "wallMs": 1340.648792,
+  "cliPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-RntsJO/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "requestPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-RntsJO/st4-missing-context-request.jsonl",
+  "output": {
+    "acquisitionKind": "reopen",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "start",
+        "operationId": "abg.operation.run.invoke"
+      },
+      "exitCode": 1,
+      "failure": null,
+      "invocationRef": "invocation://abiogenesis/11f522c7ce8e416350ab01aac7db25eef4ecc68284aa151395c00a68e0dde02f",
+      "kind": "definition_host_receipt",
+      "ownerOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "invalid_capability",
+          "evidenceRefs": [],
+          "issuePaths": [
+            "/runEnvironmentResources",
+            "/runEnvironment/cause/missing_binding"
+          ]
+        }
+      },
+      "resources": {
+        "eventResource": {
+          "acquisitionKind": "reopen",
+          "closeHandoff": {
+            "prefix": {
+              "coordinateDigest": "sha256:2bc46a37f08e6d54b57ba5c1934bae29be08014c10adc0fdded4ad916d57dc11",
+              "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-RntsJO/runtime/events.jsonl",
+              "kind": "durable_prefix_coordinate",
+              "prefixDigest": "sha256:5032f668d25a1d3a2bcf7edcb393711bb79564365c42a926a498f02b1de356b5",
+              "prefixLength": 2323132,
+              "schemaVersion": "5.0.0",
+              "storeIdentity": {
+                "device": 16777230,
+                "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+                "inode": 462361618
+              }
+            },
+            "reopenAuthority": {
+              "authorityDigest": "sha256:5b9a836bb022c9fc25113e98406896152670a3dfbab4e665865d5c124dab3b23",
+              "device": 16777230,
+              "durableByteLength": 2323132,
+              "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+              "eventLogDigest": "sha256:5032f668d25a1d3a2bcf7edcb393711bb79564365c42a926a498f02b1de356b5",
+              "eventLogPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-RntsJO/runtime/events.jsonl",
+              "inode": 462361618,
+              "kind": "event_store_reopen_authority",
+              "schemaVersion": "5.0.0"
+            }
+          },
+          "entryPrefix": {
+            "coordinateDigest": "sha256:2bc46a37f08e6d54b57ba5c1934bae29be08014c10adc0fdded4ad916d57dc11",
+            "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-RntsJO/runtime/events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:5032f668d25a1d3a2bcf7edcb393711bb79564365c42a926a498f02b1de356b5",
+            "prefixLength": 2323132,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777230,
+              "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+              "inode": 462361618
+            }
+          },
+          "kind": "abg_event_resource_receipt",
+          "receiptDigest": "sha256:6381e9af71cf01e7e56ea7b8d2f76909be0a50286288ccba893fd3172466fe1b",
+          "schemaVersion": "5.0.0"
+        },
+        "invocationAdmission": null,
+        "kind": "run_invocation_resource_receipt",
+        "productExecutionResolution": null,
+        "replay": null,
+        "run": null,
+        "schemaVersion": "5.0.0"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  }
+}

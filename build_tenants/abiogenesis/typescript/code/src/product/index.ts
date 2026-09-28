@@ -1,3 +1,6 @@
+export { isNativeRegisteredSelectionTask, isNativeRegisteredSelectionResponse,
+  nativeRegisteredSelectionResponseSchema, materializeNativeRegisteredChoice,
+  type NativeRegisteredSelectionTask, type NativeRegisteredSelectionTarget } from "./registered_selection_native.js";
 export {
   WORKSITE_COMMAND_EXECUTION_IDS,
   constructWorksiteCommandExecutionObservation,

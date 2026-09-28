@@ -58,6 +58,15 @@ and assembly. An unrelated input with choice-looking fields remains ordinary
 data. The raw Public owner imports `RUN_ENVIRONMENT_SCHEMA` directly, so this
 change has one current schema owner rather than another copied union.
 
+The profile applies only when the Program selects its run environment and that
+exact GraphFunction/locus has the selector role. Preparation and result admission
+share this declaration-only applicability relation: unselected, selected, or
+invalid selected binding. This projects already-bound declarations; publication and
+native-basis owners retain authentication without rehashing definitions or source
+inventories at the applicability hop. Generic F_P registered selection without this profile
+retains its own input/raw-result contracts. Missing or invalid selected context
+refuses; task shape and failure to reconstruct assembly never disable the guard.
+
 Use one small native task profile, owned in a new
 `code/src/product/registered_selection_native.ts`, for this explicit library
 realization. It contains the semantic task, referenced supplied observations and
@@ -85,10 +94,17 @@ selected: {disposition, graphFunctionRef, reason, evidenceRefs}
 gap:      {disposition, reason, missingSupportRefs, evidenceRefs}
 ```
 
-Its closed JSON schema permits every available choice and the gap arm, without
-fixing the expected answer. Evidence/support references resolve within the
-declared input/context domain. The completion binder rejects unknown references,
-extra fields and malformed answers. It copies graphFunctionRef's exact admitted
+Its provider JSON schema is a closed root object with disposition, reason and
+evidenceRefs required; the domain-constrained graphFunctionRef and
+missingSupportRefs carry explicit selected-only/gap-only descriptions. This
+provider shaping permits both outcomes without fixing the expected answer. The
+strict raw branch validator and shared completion/admission binder enforce the
+exact selected or gap fields above, rejecting branch-inappropriate fields rather
+than stripping them. Evidence/support references resolve within the declared
+input/context domain. Unknown references, extra fields and malformed answers
+remain refusals. This two-layer correspondence accommodates the configured
+provider's prohibition on top-level schema unions; it changes no raw answer or
+admitted choice semantics. It copies graphFunctionRef's exact admitted
 definitionDigest and the task's unchanged child input into the shared final
 choice. The model calculates no identities and authors no replacement input.
 No fallback choice, coercion, default, repair, semantic ranking or silent retry

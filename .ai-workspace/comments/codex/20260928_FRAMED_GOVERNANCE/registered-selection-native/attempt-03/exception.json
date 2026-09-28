@@ -1,0 +1,9 @@
+{
+  "providerAttempts": 1,
+  "semanticAnswers": 0,
+  "error": "API Error: 400 tools.1.custom.input_schema: input_schema does not support oneOf, allOf, or anyOf at the top level",
+  "promptBytes": 13260,
+  "publicRequestBytes": 16449148,
+  "executionWallMs": 3792.7659999999996,
+  "actorIntervalMs": 1763
+}

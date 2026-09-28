@@ -1,6 +1,6 @@
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
-import { constructNativeInstructionAssembly, constructWorksiteNativeInstructionAssembly, requireNativeInstructionAssembly, requireWorksiteNativeInstructionAssembly, type NativeInstructionAssembly } from "./instruction_assembly.js";
+import { constructNativeInstructionAssembly, constructDeclaredNativeInstructionAssembly, requireNativeInstructionAssembly, requireDeclaredNativeInstructionAssembly, type NativeInstructionAssembly } from "./instruction_assembly.js";
 import { authenticateNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
 import { isNativeWorkspaceWorkTask, NATIVE_WORKSPACE_WORK_IDS as nativeIds } from "../product/native_workspace_work.js";
@@ -717,7 +717,7 @@ export function prepareActorProcessInvocation(
       assembly = semanticStageBasis !== undefined
         ? requireNativeInstructionAssembly(semanticStageBasis, value)
         : nativeInstructionAssemblyBasis !== undefined
-          ? requireWorksiteNativeInstructionAssembly(nativeInstructionAssemblyBasis, value)
+          ? requireDeclaredNativeInstructionAssembly(nativeInstructionAssemblyBasis, value)
           : null;
       if (assembly === null) throw new TypeError("native assembly preparation requires its admitted basis");
       return assembly;
@@ -796,7 +796,7 @@ async function invokeActorProcessWithAssembly(
   const instructionAssembly = preparedAssembly ?? (semanticCall && semanticBasis !== undefined
     ? constructNativeInstructionAssembly(semanticBasis, semanticInputValueAtBasis(semanticBasis))
     : worksiteBasis !== undefined && worksiteOwner !== null
-      ? constructWorksiteNativeInstructionAssembly(worksiteBasis, worksiteOwner.inputValue) : null);
+      ? constructDeclaredNativeInstructionAssembly(worksiteBasis, worksiteOwner.inputValue) : null);
   const invocation = rehydrateInvocationAdmissionAtPrefix(selectValidatedRuntimeEventPrefix(
     readRuntimeEventsAtDurablePrefix(predecessorPrefix)), input.executionBasis.invocationAdmissionRef);
   const assemblyRequired = semanticCall || invocation?.runEnvironment !== undefined || worksiteBasis !== undefined;

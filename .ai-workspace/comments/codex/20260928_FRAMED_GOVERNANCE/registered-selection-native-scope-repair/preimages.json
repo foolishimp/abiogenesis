@@ -1,0 +1,17 @@
+{
+  "code/src/gtl/stdo_run_environment.ts": "sha256:50e844fdc3189fd6f9baacdca3c5f2aa4de6a848d72e2f2f5c075dda5a08a396",
+  "code/src/hog/ccall_lifecycle.ts": "sha256:fbcdd74a520089caa3167868d1759f786701b8faea54640d8cf4eeb09b5f1740",
+  "code/src/abg/instruction_assembly.ts": "sha256:8309950088b448292cb926f97f96834c857ba9bb3576cfb93856da83d1191116",
+  "code/src/abg/c_call_outcome.ts": "sha256:73d313d77986a6232a2c31ff7dd7844d189bc1bf090cf7974c0689333f25e640",
+  "design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md": "sha256:242ff1758a25c5953cad9f0a8a4ca318d5275f54fa56c2e63c69707831ac9c25",
+  "product-toolchain-manifest.json": "sha256:f7331c8ba08f2a75314048a494d7a517f393d3e536992534f22624afd2b9653b",
+  "contracts/capabilities/capability-definition-graph.json": "sha256:b5543f4fc9d8ab7c14197c17e0f72c43e7d33742679056df8e555b330a5f336f",
+  "build/code/src/gtl/stdo_run_environment.js": "sha256:c98ad4c714cbcaacd671c7c616e0415a857b0824892df7b5891a9067f6e6366c",
+  "build/code/src/gtl/stdo_run_environment.d.ts": "sha256:9b03939c3b10df418b9af0e55c4bd67959fe3bf68d1fa65501ff83bc4e107e69",
+  "build/code/src/hog/ccall_lifecycle.js": "sha256:dca8dc02c28c4e13bfa2b021f002e8660fb658c1483832f9d1fbb12bf4315814",
+  "build/code/src/hog/ccall_lifecycle.d.ts": "sha256:c2bdb9be9e0bab6cd62506643fd21cdd72c9036adb89936f480e6f00741dfd0f",
+  "build/code/src/abg/instruction_assembly.js": "sha256:4d38e9cd83ad999ff22af480a0c70ca559346e59459030996913ebf1d484ab91",
+  "build/code/src/abg/instruction_assembly.d.ts": "sha256:233a5412e291e670fdeedbdd56276623aa66bb875927c4ffdbccb8883892c28a",
+  "build/code/src/abg/c_call_outcome.js": "sha256:389263d26e2cca25f464ef778aff0cd36661e6d8688480f5807d17a83fd22a8d",
+  "build/code/src/abg/c_call_outcome.d.ts": "sha256:533e120f212acaf8de6f9abd8670192fa9bb3abf287bb2c9524a302a08a42a2c"
+}

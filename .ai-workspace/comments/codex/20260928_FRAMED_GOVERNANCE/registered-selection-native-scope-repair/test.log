@@ -1,0 +1,12 @@
+✔ generic registered F_P keeps its own task/raw contract when the profile is unselected (1.1055ms)
+✔ selected exact role requires runtime correspondence and cannot fall back on another input shape (0.908417ms)
+✔ missing or misbound selected environment refuses at preparation and result guard (1.301667ms)
+✔ an unrelated locus remains outside this profile even with choice-shaped data (0.11225ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 252.334167

@@ -1,0 +1,928 @@
+import { registeredSelectionAtSource } from "../gtl/registered_selection.js";
+import { constructNativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { SEMANTIC_REVISION_IMPLEMENTATION_REFS, SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
+import { semanticRevisionResultMatchesBasis, projectRevisionWorksitePreparation, semanticJobRevisionResultMatchesBasis } from "./semantic_revision.js";
+import { SEMANTIC_IMPLEMENTATION_REFS, SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+import { WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS } from "../product/worksite_construction_recovery.js";
+import { worksitePreservedResultMatchesBasis } from "./worksite_construction_recovery.js";
+import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
+import { worksiteCommandForwardResultMatches } from "./worksite_command_forward.js";
+import { semanticLifecycleRefForProgram } from "../gtl/semantic_stage.js";
+import { semanticResultMatchesBasis, projectSemanticWorksitePreparation, projectSemanticEvidenceInput, projectSemanticEnvelopeOutput } from "./semantic_stage.js";
+import { semanticInstructionResultMatches, registeredSelectionInstructionResultMatches } from "./instruction_assembly.js";
+import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
+import { requirementHandoffResultMatches } from "./requirement_handoff.js";
+import { isWorksiteFileReplaceOutput, WORKSITE_C0_IDS } from "../gtl/worksite_c0.js";
+import { semanticJobResultMatchesBasis } from "./semantic_job.js";
+import { isWorksiteFileParentsSuccess, isWorksiteFileParentsFailure } from "../product/worksite_effect.js";
+import { sha256Canonical } from "../shared/digests.js";
+import { deepFreeze } from "../shared/immutable.js";
+import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, nativeWorkspaceWorkResultMatches } from "../product/native_workspace_work.js";
+import { isWorksiteEffectAuthorization, isWorksiteFileReplaceReceipt, isWorksiteFileReplaceRequest, isWorksiteObservation, isWorksitePostPublicationFailure, worksitePostPublicationFailureMatches, constructWorksiteEffectAuthorization, worksiteFailureAuthorization, WORKSITE_FILE_REPLACE_EFFECT_URI, } from "../product/worksite_effect.js";
+import { admitEvidence, admitEvidenceFromActorTransport, projectActorTransportForResult, admitJudgment, admitResult, completeRejectedCCall, deriveProbabilisticTransportEvidence, deriveSubTraversalEvidence, isAdmittedCCallResult, projectAdmittedCCallStateAtPrefix, projectCCallCarrierPhaseAtPrefix, } from "./c_call.js";
+import { admitNonEmptyRuntimeEventTransactionAtDurablePrefix, admitRuntimeEventTransactionAtDurablePrefix, assertHeldEventStoreAtDurablePrefix, isRuntimeEventTransactionActive, readActiveRuntimeTransactionAtDurablePrefix, } from "./event_store.js";
+import { runtimeEventPrefixDigest, runtimeEventsFromValidatedPrefix, selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromAuthority, } from "./event_prefix.js";
+import { admitProbabilisticResultFromActorTransport, } from "./probabilistic_result.js";
+import { projectActiveRuntimeTransaction, projectRuntimeTruthAtDurablePrefix, replayValidatedRuntimeEventPrefix, } from "./replay.js";
+import { admitPlannedCompletedRetryProgressInActiveTransaction, } from "./retry.js";
+import { discardNativeFrameClock } from "./runtime_liveness.js";
+import { admitScopeClosure, } from "./closure.js";
+import { admitTraversalTransitionInActiveTransaction, } from "./traversal_route.js";
+function isJsonRecord(value) {
+    return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+/** Reconstructs C0's Product-owned failure join from admitted bytes, with no I/O. */
+export function projectWorksiteFailureBasis(events, cCallRef, value) {
+    if (!isWorksitePostPublicationFailure(value))
+        return null;
+    const authorization = worksiteFailureAuthorization(value);
+    if (authorization.cCallRef !== cCallRef ||
+        authorization.graphFunctionRef !== WORKSITE_C0_IDS.graphFunctionRef ||
+        authorization.implementationBindingRef !== "implementation-binding://abiogenesis/worksite/file-replace-fd@5" ||
+        authorization.implementationRef !== "implementation://abiogenesis/worksite/file-replace-fd@5")
+        return null;
+    const one = (kind, predicate) => {
+        const rows = events.filter(row => row.kind === kind && predicate(row));
+        return rows.length === 1 ? rows[0] : null;
+    };
+    const basisRow = one("basis_admitted", row => row.basisId === authorization.executionBasisRef);
+    const opened = one("c_call_opened", row => row.aggregateId === cCallRef);
+    const fibre = one("c_call_fibre_selected", row => row.aggregateId === cCallRef);
+    const bindingRow = one("public_operation_artifact_admitted", row => isJsonRecord(row.payload) && row.payload.operationId === "abg.operation.workspace.bind" &&
+        row.payload.artifactRef === authorization.workspaceBindingIdentity &&
+        row.payload.artifactDigest === authorization.workspaceBindingDigest);
+    if (basisRow === null || opened === null || fibre === null || bindingRow === null ||
+        !isJsonRecord(basisRow.payload) || !isJsonRecord(opened.payload) ||
+        !isJsonRecord(fibre.payload) || !isJsonRecord(bindingRow.payload) ||
+        !isJsonRecord(bindingRow.payload.artifact) ||
+        opened.basisId !== basisRow.basisId || fibre.basisId !== basisRow.basisId ||
+        opened.graphFunctionRef !== authorization.graphFunctionRef ||
+        fibre.graphFunctionRef !== opened.graphFunctionRef ||
+        opened.runId !== fibre.runId || opened.frameId !== fibre.frameId ||
+        opened.graphCallId !== fibre.graphCallId ||
+        opened.payload.callClass !== "leaf" || fibre.payload.callClass !== "leaf" ||
+        fibre.payload.regime !== "F_D" ||
+        !fibre.causationEventRefs.includes(opened.eventId) ||
+        !(bindingRow.admissionOrdinal < basisRow.admissionOrdinal &&
+            basisRow.admissionOrdinal < opened.admissionOrdinal &&
+            opened.admissionOrdinal < fibre.admissionOrdinal))
+        return null;
+    const basisPayload = basisRow.payload;
+    const request = basisPayload.rawInputValue;
+    const implementationRow = one("implementation_admitted", row => isJsonRecord(row.payload) && row.payload.implementationSetRef === basisPayload.implementationSetRef);
+    if (!isWorksiteFileReplaceRequest(request) ||
+        basisPayload.rawInputDigest !== sha256Canonical(request) ||
+        sha256Canonical(request.workspaceAuthorityBasis) !==
+            sha256Canonical(bindingRow.payload.workspaceAuthorityBasis) ||
+        implementationRow === null || !isJsonRecord(implementationRow.payload) ||
+        !isJsonRecord(implementationRow.payload.implementationSet) ||
+        implementationRow.admissionOrdinal >= basisRow.admissionOrdinal)
+        return null;
+    try {
+        const workspaceBinding = { ...bindingRow.payload.artifact, kind: "workspace_binding",
+            admissionEventRef: bindingRow.eventId };
+        const executionBasis = { kind: "execution_basis", schemaVersion: "5.0.0", disposition: "admitted",
+            ...basisPayload, admissionEventRef: basisRow.eventId };
+        const implementationSet = { kind: "admitted_implementation_set", schemaVersion: "5.0.0", disposition: "admitted",
+            ...implementationRow.payload.implementationSet, admissionEventRef: implementationRow.eventId };
+        const fibrePayload = fibre.payload;
+        const openedPayload = opened.payload;
+        const selected = implementationSet.rows.filter(row => row.requirementKey === fibrePayload.implementationRequirementKey &&
+            row.programLocusRef === openedPayload.programLocusRef &&
+            row.graphFunctionRef === opened.graphFunctionRef &&
+            row.implementationBindingRef === fibrePayload.implementationBindingRef);
+        if (selected.length !== 1 || selected[0].failureContractRef !== WORKSITE_C0_IDS.failureContractRef)
+            return null;
+        const resolution = selected[0];
+        const cCall = { kind: "c_call", schemaVersion: "5.0.0", ...opened.payload, ...fibre.payload,
+            basisId: opened.basisId, runId: opened.runId, graphFunctionRef: opened.graphFunctionRef,
+            graphCallId: opened.graphCallId, frameId: opened.frameId,
+            inputContractRef: resolution.inputContractRef, outputContractRef: resolution.outputContractRef,
+            failureContractRef: resolution.failureContractRef, refusalContractRef: resolution.refusalContractRef,
+            openedEventRef: opened.eventId, fibreSelectedEventRef: fibre.eventId,
+        };
+        const expected = constructWorksiteEffectAuthorization({ workspaceBinding, request, executionBasis, cCall, implementationSet });
+        if (expected.kind !== "worksite_effect_authorization" ||
+            !worksitePostPublicationFailureMatches(value, request, expected))
+            return null;
+        return { request, authorization: expected, executionBasis, implementationSet, workspaceBinding, cCall };
+    }
+    catch {
+        return null;
+    }
+}
+function worksiteEvidenceCandidate(input, resultCandidate) {
+    if (input.outcomeClass !== "leaf" ||
+        input.regime !== "F_D" ||
+        input.graphFunction.effects.includes(WORKSITE_FILE_REPLACE_EFFECT_URI) === false ||
+        !isWorksiteFileReplaceRequest(input.input))
+        return null;
+    const authorization = resultCandidate.authorization;
+    const receipt = resultCandidate.receipt;
+    const successorObservation = resultCandidate.successorObservation;
+    if (!isWorksiteEffectAuthorization(authorization) ||
+        !isWorksiteFileReplaceReceipt(receipt) ||
+        !isWorksiteObservation(successorObservation))
+        return {
+            kind: "worksite_file_replace_evidence_candidate",
+            schemaVersion: "5.0.0",
+            implementationRef: input.cCall.implementationRef ?? "",
+            inputDigest: input.inputDigest,
+            outputDigest: sha256Canonical(resultCandidate),
+            request: input.input,
+            authorization: authorization,
+            receipt: receipt,
+            successorObservation: successorObservation,
+        };
+    return {
+        kind: "worksite_file_replace_evidence_candidate",
+        schemaVersion: "5.0.0",
+        implementationRef: input.cCall.implementationRef ?? "",
+        inputDigest: input.inputDigest,
+        outputDigest: sha256Canonical(resultCandidate),
+        request: input.input,
+        authorization,
+        receipt,
+        successorObservation,
+    };
+}
+class CCallCompletionAbort extends Error {
+    result;
+    constructor(result) {
+        super(result.message);
+        this.result = result;
+    }
+}
+function completionAdmission(payload) {
+    return deepFreeze({
+        kind: "c_call_completion_admission",
+        schemaVersion: "5.0.0",
+        ...payload,
+    });
+}
+function stageBasis(basis, stage) {
+    return {
+        ...basis,
+        correlationId: `${basis.correlationId}/${stage}`,
+    };
+}
+function isRetryEligibleProbabilisticPayloadRefusal(result) {
+    if (result.kind !== "probabilistic_result_admission_refusal")
+        return false;
+    switch (result.code) {
+        case "duplicate_object_key":
+        case "invalid_json_framing":
+        case "invalid_unicode_scalar":
+        case "malformed_json":
+        case "non_finite_number":
+        case "non_ijson_value":
+        case "unsafe_integral_number":
+        case "non_object_result":
+        case "declared_contract_refused":
+            return true;
+        default:
+            return false;
+    }
+}
+function projectProbabilisticResultAtPrefix(input, prefix, actorTransport) {
+    if (input.outcomeClass !== "leaf" || input.regime !== "F_P")
+        return null;
+    const receipt = input.ownerReceipt.receipt;
+    if (receipt?.computeRegime !== "F_P")
+        return null;
+    const exchange = receipt.actorProcessExchange;
+    return admitProbabilisticResultFromActorTransport({
+        artifactTruth: input.actorRuntimeBinding.artifactTruth,
+        executionBasis: input.executionBasis,
+        implementationSet: input.implementationSet,
+        leafPort: input.leafPort,
+        occurrence: {
+            cCallRef: input.cCall.cCallRef,
+            runId: input.cCall.runId,
+            graphCallId: input.cCall.graphCallId,
+            frameId: input.cCall.frameId,
+            programLocusRef: input.cCall.programLocusRef,
+            taskOrdinal: input.cCall.taskOrdinal,
+            attempt: input.cCall.attempt,
+            executionAuthority: null,
+        },
+        prefix,
+        resolution: input.resolution,
+        input: input.input,
+        request: exchange.request,
+        observation: exchange.observation,
+    }, actorTransport);
+}
+function admitProbabilisticPayloadRejection(input, prefix) {
+    const result = admitResult(input.store, prefix, input.graph, input.graphFunction, input.cursor, input.cCall, input.ownerReceipt.candidate.resultCandidate, "success", input.cCall.outputContractRef, input.outputValueKind, () => false, [], stageBasis(input.basis, "result"));
+    if (result.kind !== "c_call_admission_rejection") {
+        throw new TypeError("F04 payload refusal must remain one pure CCall result rejection");
+    }
+    return result;
+}
+function outcomeProjectionFromTruth(truth) {
+    return deepFreeze({
+        kind: "admitted_c_call_outcome",
+        schemaVersion: "5.0.0",
+        replayState: truth.replayState,
+        runtimePrefix: truth.runtimePrefix,
+    });
+}
+function projectCCallOutcomeReceiptFromTruth(truth, basis) {
+    const projection = outcomeProjectionFromTruth(truth);
+    if (basis.disposition === "judged") {
+        const admitted = projectAdmittedCCallStateAtPrefix(projection.runtimePrefix, basis.admitted.cCall, basis.admitted.result, basis.admitted.judgment);
+        return admitted === null
+            ? null
+            : deepFreeze({
+                ...projection,
+                disposition: "judged",
+                admitted,
+            });
+    }
+    const phase = projectCCallCarrierPhaseAtPrefix(projection.runtimePrefix, basis.cCall);
+    const events = runtimeEventsFromValidatedPrefix(projection.runtimePrefix);
+    const { completion } = basis;
+    const result = events.find((event) => event.eventId === completion.resultEventRef);
+    const judgment = events.find((event) => event.eventId === completion.judgmentEventRef);
+    const evidence = completion.evidenceEventRef === null
+        ? null
+        : events.find((event) => event.eventId === completion.evidenceEventRef) ??
+            null;
+    const admittedResult = result?.kind === "c_call_result_admitted" &&
+        isJsonRecord(result.payload)
+        ? deepFreeze({
+            kind: "admitted_c_call_result",
+            schemaVersion: "5.0.0",
+            disposition: "admitted",
+            ...result.payload,
+            admissionEventRef: result.eventId,
+        })
+        : null;
+    if (phase?.phase !== "judged" ||
+        phase.resultEventRef !== completion.resultEventRef ||
+        phase.judgmentEventRef !== completion.judgmentEventRef ||
+        completion.cCallRef !== basis.cCall.cCallRef ||
+        result?.kind !== "c_call_result_admitted" ||
+        judgment?.kind !== "c_call_judged" ||
+        !isJsonRecord(result.payload) ||
+        !isJsonRecord(judgment.payload) ||
+        result.payload.resultRef !== completion.refusalResultRef ||
+        admittedResult === null ||
+        !isAdmittedCCallResult(admittedResult) ||
+        admittedResult.cCallRef !== basis.cCall.cCallRef ||
+        judgment.payload.judgmentRef !== completion.rejectionJudgmentRef ||
+        judgment.payload.judgment !== "blocked" ||
+        judgment.payload.reasonRef !== basis.diagnosticRef ||
+        !judgment.causationEventRefs.includes(result.eventId) ||
+        (completion.evidenceEventRef === null) !==
+            (completion.rejectionEvidenceRef === null) ||
+        (evidence !== null &&
+            (evidence.kind !== "c_call_evidenced" ||
+                !isJsonRecord(evidence.payload) ||
+                evidence.payload.evidenceRef !== completion.rejectionEvidenceRef)))
+        return null;
+    return deepFreeze({
+        ...projection,
+        disposition: "blocked",
+        cCall: basis.cCall,
+        result: admittedResult,
+        completion,
+        diagnosticRef: basis.diagnosticRef,
+    });
+}
+/**
+ * Rehydrates a judged or blocked outcome from its exact durable successor.
+ * The owner authenticates the exact durable prefix and any prior derivation;
+ * absent or untrusted derivations take the same complete reconstruction path.
+ */
+export function projectCCallOutcomeReceiptAtPrefix(successorPrefix, basis, priorDerivation) {
+    let truth;
+    try {
+        truth = projectRuntimeTruthAtDurablePrefix(successorPrefix, basis.disposition === "judged"
+            ? basis.admitted.cCall.runId
+            : basis.cCall.runId, priorDerivation);
+    }
+    catch {
+        return null;
+    }
+    const receipt = projectCCallOutcomeReceiptFromTruth(truth, basis);
+    return receipt === null
+        ? null
+        : deepFreeze({ ...receipt, successorPrefix });
+}
+function completeOutcomeReceiptBody(staged, truth) {
+    if (staged.disposition === "blocked") {
+        const receipt = projectCCallOutcomeReceiptFromTruth(truth, {
+            disposition: "blocked",
+            cCall: staged.cCall,
+            completion: staged.completion,
+            diagnosticRef: staged.diagnosticRef,
+        });
+        if (receipt?.disposition !== "blocked") {
+            throw new TypeError("blocked CCall outcome differs from its durable prefix");
+        }
+        return receipt;
+    }
+    const projection = outcomeProjectionFromTruth(truth);
+    return deepFreeze({
+        ...projection,
+        ...staged,
+    });
+}
+function stageBlockedOutcome(input, prefix, rejection) {
+    const completion = completeRejectedCCall(input.store, prefix, input.graph, input.graphFunction, input.cursor, input.cCall, rejection, stageBasis(input.basis, "rejected-call"));
+    return deepFreeze({
+        disposition: "blocked",
+        cCall: input.cCall,
+        completion,
+        diagnosticRef: rejection.diagnosticRef,
+    });
+}
+function stageCCallResult(input, probabilistic, payloadRejection, actorTransport) {
+    if (!isRuntimeEventTransactionActive(input.store)) {
+        throw new TypeError("CCall result admission requires one ABG transaction");
+    }
+    const leafInput = input.outcomeClass === "leaf" ? input : null;
+    const leafCandidate = leafInput?.ownerReceipt.candidate ?? null;
+    const resultDisposition = input.outcomeClass === "leaf"
+        ? input.ownerReceipt.candidate.disposition
+        : input.resultDisposition;
+    const resultCandidate = input.outcomeClass === "leaf"
+        ? input.ownerReceipt.candidate.resultCandidate
+        : input.resultCandidate;
+    const failureDiagnosticRef = resultDisposition === "failure"
+        ? leafCandidate?.disposition === "failure"
+            ? leafCandidate.diagnosticRef
+            : input.outcomeClass === "workflow" && input.resultDisposition === "failure"
+                ? input.failureDiagnosticRef
+                : null
+        : null;
+    let authorityPrefix = selectValidatedRuntimeEventPrefix(input.store.readAll());
+    const exchange = leafInput?.ownerReceipt.receipt?.computeRegime === "F_P"
+        ? leafInput.ownerReceipt.receipt.actorProcessExchange
+        : null;
+    const request = exchange?.request ?? null;
+    const observation = exchange?.observation ?? null;
+    const worksiteEvidence = resultDisposition === "success"
+        ? worksiteEvidenceCandidate(input, resultCandidate)
+        : null;
+    const postPublication = input.cCall.graphFunctionRef === WORKSITE_C0_IDS.graphFunctionRef &&
+        resultDisposition === "failure" && resultCandidate.phase === "post_publication";
+    if (postPublication) {
+        const authenticated = projectWorksiteFailureBasis(input.store.readAll(), input.cCall.cCallRef, resultCandidate);
+        if (input.outcomeClass !== "leaf" || input.regime !== "F_D" || authenticated === null ||
+            input.graphFunction.name !== WORKSITE_C0_IDS.graphFunctionRef ||
+            input.cCall.failureContractRef !== WORKSITE_C0_IDS.failureContractRef ||
+            !input.graphFunction.effects.includes(WORKSITE_FILE_REPLACE_EFFECT_URI) ||
+            input.inputDigest !== sha256Canonical(authenticated.request) ||
+            sha256Canonical(input.input) !== input.inputDigest ||
+            authenticated.executionBasis.basisDigest !== input.executionBasis.basisDigest ||
+            authenticated.implementationSet.implementationSetDigest !== input.implementationSet.implementationSetDigest ||
+            authenticated.authorization.cCallDigest !== input.cCall.cCallDigest ||
+            authenticated.authorization.leafResolutionCandidateDigest !== input.resolution.leafResolutionCandidateDigest) {
+            throw new TypeError("post-publication worksite failure differs from its exact admitted C0 basis");
+        }
+    }
+    // A workflow conserves its already-admitted child's exact result through
+    // foldback. Only the leaf performed this effect and owns its commit residue.
+    const parentsPhysical = input.outcomeClass !== "leaf" ? null : isWorksiteFileParentsSuccess(resultCandidate) ? resultCandidate :
+        isWorksiteFileParentsFailure(resultCandidate) ? resultCandidate.physicalOutcome : null;
+    if (parentsPhysical !== null && (input.outcomeClass !== "leaf" || sha256Canonical(parentsPhysical.request) !== input.inputDigest ||
+        parentsPhysical.authorization.cCallRef !== input.cCall.cCallRef || parentsPhysical.authorization.cCallDigest !== input.cCall.cCallDigest ||
+        parentsPhysical.authorization.executionBasisRef !== input.executionBasis.basisRef ||
+        parentsPhysical.authorization.leafResolutionCandidateDigest !== input.resolution.leafResolutionCandidateDigest))
+        throw new TypeError("file-parent physical result differs from its admitted C0 basis");
+    const committedWorksiteOutput = worksiteEvidence !== null &&
+        isWorksiteFileReplaceOutput(resultCandidate) || postPublication || parentsPhysical !== null;
+    const evidenceCandidates = input.outcomeClass === "workflow"
+        ? [deriveSubTraversalEvidence(input.cCall, input.foldback, input.inputDigest, sha256Canonical(resultCandidate))]
+        : input.regime === "F_D"
+            ? worksiteEvidence === null
+                ? leafCandidate.evidenceCandidates
+                : [worksiteEvidence]
+            : input.ownerReceipt.computeRegime === "F_P" && input.ownerReceipt.effectDisposition === "not_dispatched"
+                ? [{
+                        kind: "undispatched_owner_refusal_evidence_candidate", schemaVersion: "5.0.0",
+                        implementationRef: input.cCall.implementationRef, inputDigest: input.inputDigest,
+                        outputDigest: sha256Canonical(resultCandidate), failureContractRef: input.cCall.failureContractRef,
+                        failureValue: resultCandidate, ownerObservation: input.ownerReceipt.ownerObservation,
+                    }]
+                : payloadRejection !== null
+                    ? []
+                    : request === null || observation === null ||
+                        input.ownerReceipt.workerContracts === null
+                        ? []
+                        : [deriveProbabilisticTransportEvidence(input.cCall, request, observation, probabilistic?.kind ===
+                                "contract_admitted_probabilistic_result_candidate"
+                                ? probabilistic
+                                : null, resultCandidate, input.ownerReceipt.workerContracts.instructionContractRef, input.ownerReceipt.workerContracts.resultContractRef)];
+    const workerContracts = leafInput?.ownerReceipt.workerContracts ?? null;
+    const evidence = [];
+    for (const row of evidenceCandidates) {
+        const admitCurrentEvidence = row.kind === "probabilistic_transport_evidence_candidate"
+            ? (...args) => admitEvidenceFromActorTransport(actorTransport(), ...args)
+            : admitEvidence;
+        const admitted = admitCurrentEvidence(input.store, authorityPrefix, input.graph, input.graphFunction, input.cursor, input.cCall, row, input.cCall.evidenceContractRef, input.inputDigest, stageBasis(input.basis, "evidence"), workerContracts?.instructionContractRef, workerContracts?.resultContractRef, request === null || observation === null
+            ? null
+            : {
+                request,
+                observation,
+                admittedResultCarrier: probabilistic?.kind ===
+                    "contract_admitted_probabilistic_result_candidate"
+                    ? probabilistic
+                    : null,
+            });
+        if (admitted.kind === "c_call_admission_rejection") {
+            if (committedWorksiteOutput) {
+                throw new TypeError("committed worksite evidence failed ABG admission");
+            }
+            return stageBlockedOutcome(input, authorityPrefix, admitted);
+        }
+        evidence.push(admitted);
+        authorityPrefix = selectValidatedRuntimeEventPrefix(input.store.readAll());
+    }
+    const retrySource = evidence.length === 1 &&
+        evidence[0].evidenceClass === "probabilistic_transport" &&
+        evidence[0].transportDisposition === "failure"
+        ? evidence[0]
+        : null;
+    if (input.outcomeClass === "leaf" &&
+        resultDisposition === "failure" &&
+        input.cCall.retryPath.length > 0 &&
+        retrySource !== null) {
+        return deepFreeze({
+            disposition: "retry",
+            cCall: input.cCall,
+            source: retrySource,
+            failureCandidate: resultCandidate,
+            failureValueKind: input.failureValueKind,
+        });
+    }
+    const result = payloadRejection ?? admitResult(input.store, authorityPrefix, input.graph, input.graphFunction, input.cursor, input.cCall, resultCandidate, resultDisposition, resultDisposition === "success"
+        ? input.cCall.outputContractRef
+        : input.cCall.failureContractRef, resultDisposition === "success"
+        ? input.outputValueKind
+        : input.failureValueKind, resultDisposition === "success"
+        ? (value) => input.outcomeClass === "workflow"
+            ? input.leafPort.validateContractValue(input.cCall.outputContractRef, "output", value)
+            : (input.regime !== "F_P" ||
+                probabilistic?.kind ===
+                    "contract_admitted_probabilistic_result_candidate") &&
+                (input.regime !== "F_P" || registeredSelectionAtSource(input.graph.template, input.cursor, input.cCall.outputContractRef) === null ||
+                    (input.programPublication !== undefined && registeredSelectionInstructionResultMatches({
+                        publication: input.programPublication, graph: input.graph, graphFunction: input.graphFunction,
+                        declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [],
+                        executionBasis: input.executionBasis, cCall: input.cCall, cursor: input.cursor,
+                        predecessorPrefix: input.predecessorPrefix
+                    }, input.input, value))) &&
+                (input.cCall.implementationRef !== nativeIds.implementationRef ||
+                    nativeWorkspaceWorkResultMatches(input.input, value, input.cCall.cCallRef, observation)) &&
+                (![forwardIds.prepareImplementationRef, forwardIds.implementationRef].includes(input.cCall.implementationRef ?? "") ||
+                    (input.programPublication !== undefined && worksiteCommandForwardResultMatches({ publication: input.programPublication,
+                        graph: input.graph, graphFunction: input.graphFunction, executionBasis: input.executionBasis, cCall: input.cCall,
+                        cursor: input.cursor, predecessorPrefix: input.predecessorPrefix }, input.input, value))) &&
+                (input.cCall.outputContractRef !== REQUIREMENT_HANDOFF_IDS.outputContractRef ||
+                    (input.programPublication !== undefined && requirementHandoffResultMatches({
+                        publication: input.programPublication, graph: input.graph, graphFunction: input.graphFunction,
+                        executionBasis: input.executionBasis, cCall: input.cCall, predecessorPrefix: input.predecessorPrefix,
+                    }, input.input, value))) &&
+                (!WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS.includes(input.cCall.implementationRef ?? "") ||
+                    (input.programPublication !== undefined && worksitePreservedResultMatchesBasis({ publication: input.programPublication,
+                        graph: input.graph, graphFunction: input.graphFunction, executionBasis: input.executionBasis, cCall: input.cCall,
+                        cursor: input.cursor, predecessorPrefix: input.predecessorPrefix }, input.input, value))) &&
+                (!SEMANTIC_IMPLEMENTATION_REFS.includes(input.cCall.implementationRef ?? "") || (() => {
+                    if (input.programPublication === undefined)
+                        return false;
+                    const program = input.programPublication.programs.find(p => p.programRef === input.executionBasis.programRef);
+                    const lifecycleRef = program === undefined ? undefined : semanticLifecycleRefForProgram(input.programPublication, program);
+                    const lifecyclePublication = lifecycleRef === undefined ? null : input.leafPort.semanticPublicationByDeclarationRef?.(lifecycleRef) ?? null;
+                    if (lifecyclePublication === null)
+                        return false;
+                    const sourcePublication = lifecyclePublication.semanticJobLifecycle !== undefined ? lifecyclePublication : input.leafPort.sourcePublicationByDeclarationRef?.(lifecyclePublication.semanticLifecycle.sourceDeclarationRef) ?? null;
+                    if (sourcePublication === null)
+                        return false;
+                    const basis = constructNativeInstructionAssemblyBasis({ publication: input.programPublication,
+                        lifecyclePublication,
+                        sourcePublication,
+                        graph: input.graph,
+                        graphFunction: input.graphFunction, executionBasis: input.executionBasis, cCall: input.cCall,
+                        cursor: input.cursor, predecessorPrefix: input.predecessorPrefix,
+                        declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [] });
+                    if (basis === null)
+                        return false;
+                    if (lifecyclePublication.semanticJobLifecycle !== undefined)
+                        return (SEMANTIC_REVISION_IMPLEMENTATION_REFS.includes(input.cCall.implementationRef ?? "")
+                            ? semanticJobRevisionResultMatchesBasis(basis, input.input, value) : semanticJobResultMatchesBasis(basis, input.input, value)) &&
+                            (![SEMANTIC_STAGE_IDS.authorImplementationRef, SEMANTIC_STAGE_IDS.assessorImplementationRef,
+                                SEMANTIC_REVISION_IDS.selectionImplementationRef, SEMANTIC_REVISION_IDS.authorImplementationRef, SEMANTIC_REVISION_IDS.assessorImplementationRef].some(r => r === input.cCall.implementationRef) ||
+                                semanticInstructionResultMatches(basis, input.input, value));
+                    if (SEMANTIC_REVISION_IMPLEMENTATION_REFS.includes(input.cCall.implementationRef ?? "")) {
+                        if (input.cCall.implementationRef === SEMANTIC_REVISION_IDS.bridgeImplementationRef) {
+                            const expected = projectRevisionWorksitePreparation(basis, input.input);
+                            return expected !== null && sha256Canonical(expected) === sha256Canonical(value);
+                        }
+                        return semanticRevisionResultMatchesBasis(basis, input.input, value) &&
+                            (![SEMANTIC_REVISION_IDS.selectionImplementationRef, SEMANTIC_REVISION_IDS.authorImplementationRef, SEMANTIC_REVISION_IDS.assessorImplementationRef].some(r => r === input.cCall.implementationRef) ||
+                                semanticInstructionResultMatches(basis, input.input, value));
+                    }
+                    if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.bridgeImplementationRef) {
+                        const expected = projectSemanticWorksitePreparation(basis, input.input);
+                        return expected !== null && sha256Canonical(expected) === sha256Canonical(value);
+                    }
+                    if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.evidenceInputImplementationRef) {
+                        const expected = projectSemanticEvidenceInput(basis, input.input);
+                        return expected !== null && sha256Canonical(expected) === sha256Canonical(value);
+                    }
+                    if (input.cCall.implementationRef === SEMANTIC_STAGE_IDS.terminalImplementationRef) {
+                        const expected = projectSemanticEnvelopeOutput(basis, input.input);
+                        return expected !== null && sha256Canonical(expected) === sha256Canonical(value);
+                    }
+                    return semanticResultMatchesBasis(basis, input.input, value) && semanticInstructionResultMatches(basis, input.input, value);
+                })()) &&
+                input.leafPort.validateContractValue(input.cCall.outputContractRef, "output", value) &&
+                input.leafPort.validateResultEvidenceLineage(input.cCall.outputContractRef, value, evidence.map((row) => deepFreeze({
+                    cCallRef: input.cCall.cCallRef,
+                    cCallAttempt: input.cCall.attempt,
+                    evidenceRef: row.evidenceRef,
+                    evidenceDigest: row.evidenceDigest,
+                    evidenceClass: row.evidenceClass,
+                    outputDigest: row.outputDigest,
+                    transportDigest: row.evidenceClass === "probabilistic_transport" &&
+                        "transportDigest" in row
+                        ? row.transportDigest
+                        : null,
+                })))
+        : (value) => typeof value === "object" && value !== null &&
+            !Array.isArray(value) &&
+            value.kind ===
+                input.failureValueKind &&
+            value.schemaVersion ===
+                "5.0.0" &&
+            (input.cCall.implementationRef !== nativeIds.implementationRef ||
+                (input.outcomeClass === "leaf" && input.ownerReceipt.computeRegime === "F_P" &&
+                    input.ownerReceipt.effectDisposition === "not_dispatched") ||
+                nativeWorkspaceWorkResultMatches(input.input, value, input.cCall.cCallRef, observation)) &&
+            (input.outcomeClass === "workflow" ||
+                value.diagnosticRef ===
+                    failureDiagnosticRef), evidence, stageBasis(input.basis, "result"));
+    if (result.kind === "c_call_admission_rejection") {
+        if (committedWorksiteOutput) {
+            throw new TypeError("committed worksite result failed ABG admission");
+        }
+        return stageBlockedOutcome(input, authorityPrefix, result);
+    }
+    return deepFreeze({
+        disposition: "result",
+        cCall: input.cCall,
+        result,
+    });
+}
+/**
+ * Admits owner evidence and one result at the caller-selected predecessor.
+ * HoG must separately propose the judgment from the returned exact receipt.
+ */
+export function admitCCallResult(input) {
+    if (isRuntimeEventTransactionActive(input.store)) {
+        throw new TypeError("CCall result admission owns its ABG transaction");
+    }
+    const committed = admitRuntimeEventTransactionAtDurablePrefix(input.store, input.predecessorPrefix, () => {
+        const predecessorPrefix = selectValidatedRuntimeEventPrefix(readActiveRuntimeTransactionAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true }));
+        // Retain the one actual owner projection for this transaction. Invalid raw
+        // framing still refuses before requesting actor-history authentication.
+        let transport;
+        const actorTransport = () => {
+            if (transport === undefined) {
+                const exchange = input.outcomeClass === "leaf" && input.ownerReceipt.receipt?.computeRegime === "F_P"
+                    ? input.ownerReceipt.receipt.actorProcessExchange : null;
+                transport = exchange === null ? null : projectActorTransportForResult(predecessorPrefix, input.cCall, exchange.request, exchange.observation);
+            }
+            return transport;
+        };
+        const probabilistic = projectProbabilisticResultAtPrefix(input, predecessorPrefix, actorTransport);
+        if (probabilistic?.kind === "probabilistic_result_admission_refusal" &&
+            !isRetryEligibleProbabilisticPayloadRefusal(probabilistic)) {
+            throw new TypeError(`F04 probabilistic result authority refused: ${probabilistic.code}`);
+        }
+        const probabilisticInput = input.outcomeClass === "leaf" &&
+            input.regime === "F_P"
+            ? input
+            : null;
+        const payloadRejection = probabilisticInput !== null &&
+            probabilistic !== null &&
+            isRetryEligibleProbabilisticPayloadRefusal(probabilistic) &&
+            // Native work may already have edited files before its report is
+            // refused. Admit the owner's typed failure/observations, never the
+            // malformed report as a successful result or an advancing judgment.
+            !(probabilisticInput.cCall.implementationRef === nativeIds.implementationRef &&
+                probabilisticInput.ownerReceipt.candidate.disposition === "failure" &&
+                nativeWorkspaceWorkResultMatches(probabilisticInput.input, probabilisticInput.ownerReceipt.candidate.resultCandidate, probabilisticInput.cCall.cCallRef, probabilisticInput.ownerReceipt.receipt?.computeRegime === "F_P"
+                    ? probabilisticInput.ownerReceipt.receipt.actorProcessExchange.observation : null)) &&
+            probabilisticInput.ownerReceipt.receipt?.computeRegime === "F_P" &&
+            probabilisticInput.ownerReceipt.receipt.actorProcessExchange.observation
+                .disposition === "success"
+            ? admitProbabilisticPayloadRejection(probabilisticInput, predecessorPrefix)
+            : null;
+        if (payloadRejection !== null && probabilisticInput !== null &&
+            input.cCall.retryPath.length > 0) {
+            const staged = deepFreeze({
+                disposition: "retry",
+                cCall: input.cCall,
+                source: payloadRejection,
+                failureCandidate: probabilisticInput.ownerReceipt.candidate.resultCandidate,
+                failureValueKind: input.failureValueKind,
+            });
+            const truth = projectRuntimeTruthAtDurablePrefix(input.predecessorPrefix, input.cCall.runId);
+            return completeOutcomeReceiptBody(staged, truth);
+        }
+        const staged = stageCCallResult(input, probabilistic, payloadRejection, actorTransport);
+        const truth = projectActiveRuntimeTransaction(input.store, input.predecessorPrefix, staged.cCall.runId);
+        if (input.store.readAll().length === predecessorPrefix.events.length) {
+            throw new TypeError("non-empty durable ABG transaction admitted no durable events");
+        }
+        return completeOutcomeReceiptBody(staged, truth);
+    });
+    return deepFreeze({
+        ...committed.value,
+        successorPrefix: committed.successorPrefix ?? input.predecessorPrefix,
+    });
+}
+/**
+ * Admits only the judgment candidate already derived by HoG from the exact
+ * admitted result receipt and declared relation.
+ */
+export function admitCCallJudgment(input) {
+    if (isRuntimeEventTransactionActive(input.store)) {
+        throw new TypeError("CCall judgment admission owns its ABG transaction");
+    }
+    const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(input.store, input.outcome.successorPrefix, () => {
+        const events = readActiveRuntimeTransactionAtDurablePrefix(input.store, input.outcome.successorPrefix, { durableOnly: true });
+        const authorityPrefix = selectValidatedRuntimeEventPrefix(events);
+        const runPrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
+            runId: input.outcome.cCall.runId,
+        });
+        const replayState = replayValidatedRuntimeEventPrefix(runPrefix, authorityPrefix, input.outcome.replayState);
+        if (runtimeEventPrefixDigest(runPrefix) !==
+            runtimeEventPrefixDigest(input.outcome.runtimePrefix) ||
+            replayState.replayDigest !== input.outcome.replayState.replayDigest) {
+            throw new TypeError("CCall result receipt differs from its durable prefix");
+        }
+        const judgment = admitJudgment(input.store, authorityPrefix, input.graph, input.graphFunction, input.cursor, input.outcome.cCall, input.outcome.result, input.candidate, replayState, stageBasis(input.basis, "judgment"));
+        let staged;
+        if (judgment.kind === "c_call_admission_rejection") {
+            const rejectionPrefix = selectValidatedRuntimeEventPrefix(input.store.readAll());
+            staged = stageBlockedOutcome({
+                store: input.store,
+                graph: input.graph,
+                graphFunction: input.graphFunction,
+                cursor: input.cursor,
+                cCall: input.outcome.cCall,
+                basis: input.basis,
+            }, rejectionPrefix, judgment);
+        }
+        else {
+            staged = deepFreeze({
+                disposition: "judged",
+                cCall: input.outcome.cCall,
+                result: input.outcome.result,
+                judgment,
+            });
+        }
+        const truth = projectActiveRuntimeTransaction(input.store, input.outcome.successorPrefix, input.outcome.cCall.runId);
+        const receipt = projectCCallOutcomeReceiptFromTruth(truth, staged.disposition === "blocked"
+            ? staged
+            : {
+                disposition: "judged",
+                admitted: {
+                    cCall: staged.cCall,
+                    result: staged.result,
+                    judgment: staged.judgment,
+                },
+            });
+        if (receipt?.disposition !== staged.disposition) {
+            throw new TypeError(`CCall ${staged.disposition} differs from its staged prefix`);
+        }
+        return receipt;
+    });
+    return deepFreeze({
+        ...committed.value,
+        successorPrefix: committed.successorPrefix,
+    });
+}
+/**
+ * Admits one already-produced owner admission rejection at an exact durable
+ * predecessor and returns only its rehydrated durable outcome.
+ */
+export function admitCCallRejection(input) {
+    if (isRuntimeEventTransactionActive(input.store)) {
+        throw new TypeError("CCall rejection admission owns its ABG transaction");
+    }
+    const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(input.store, input.predecessorPrefix, () => {
+        // Completion owns its Run projection; retain the complete authority cut
+        // here, including the original global ordinals of unrelated Runs.
+        const authorityPrefix = selectValidatedRuntimeEventPrefix(readActiveRuntimeTransactionAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true }));
+        const completion = completeRejectedCCall(input.store, authorityPrefix, input.graph, input.graphFunction, input.cursor, input.cCall, input.rejection, stageBasis(input.basis, "rejected-call"));
+        const receipt = projectCCallOutcomeReceiptFromTruth(projectActiveRuntimeTransaction(input.store, input.predecessorPrefix, input.cCall.runId), {
+            disposition: "blocked",
+            cCall: input.cCall,
+            completion,
+            diagnosticRef: input.rejection.diagnosticRef,
+        });
+        if (receipt?.disposition !== "blocked") {
+            throw new TypeError("CCall rejection differs from its staged prefix");
+        }
+        return receipt;
+    });
+    return deepFreeze({
+        ...committed.value,
+        successorPrefix: committed.successorPrefix,
+    });
+}
+/**
+ * Admits only the runtime transition selected after HoG/GTL derives a target.
+ * ABG validates and admits that target; it never derives traversal topology.
+ */
+export function admitCCallCompletion(input) {
+    if (input.deferToApplication === true &&
+        input.outcome.disposition === "judged" &&
+        input.outcome.admitted.result.resultClass === "success" &&
+        input.outcome.admitted.judgment.judgment === "advance") {
+        if (input.completedRetryProgress !== undefined) {
+            throw new TypeError("application return cannot consume completed retry progress");
+        }
+        if (input.target !== null || input.candidate !== null) {
+            throw new TypeError("application return consumes neither a topology target nor a route candidate");
+        }
+        assertHeldEventStoreAtDurablePrefix(input.store, input.predecessorPrefix);
+        const exactOutcome = projectCCallOutcomeReceiptAtPrefix(input.predecessorPrefix, { disposition: "judged", admitted: input.outcome.admitted });
+        if (exactOutcome?.disposition !== "judged") {
+            throw new TypeError("application return requires the exact durable judged outcome");
+        }
+        return completionAdmission({
+            disposition: "application_ready",
+            outcome: exactOutcome,
+            replayState: exactOutcome.replayState,
+        });
+    }
+    if (input.candidate === null) {
+        throw new TypeError("CCall completion requires HoG's exact transition candidate");
+    }
+    if (isRuntimeEventTransactionActive(input.store)) {
+        throw new TypeError("CCall completion owns its complete ABG transaction");
+    }
+    try {
+        const committed = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(input.store, input.predecessorPrefix, () => {
+            const predecessorEvents = readActiveRuntimeTransactionAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true });
+            const exactOutcome = input.outcome.disposition === "judged"
+                ? projectCCallOutcomeReceiptAtPrefix(input.predecessorPrefix, {
+                    disposition: "judged",
+                    admitted: input.outcome.admitted,
+                }, input.outcome.replayState)
+                : projectCCallOutcomeReceiptAtPrefix(input.predecessorPrefix, {
+                    disposition: "blocked",
+                    cCall: input.outcome.cCall,
+                    completion: input.outcome.completion,
+                    diagnosticRef: input.outcome.diagnosticRef,
+                }, input.outcome.replayState);
+            if (exactOutcome?.disposition !== input.outcome.disposition) {
+                throw new TypeError("CCall completion outcome differs from its predecessor");
+            }
+            let stagedPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
+            if (input.completedRetryProgress !== undefined) {
+                const retryProgress = input.completedRetryProgress;
+                const completedProgresses = admitPlannedCompletedRetryProgressInActiveTransaction(input.store, input.predecessorPrefix, input.graph, input.graphFunction, input.source, input.target, retryProgress.completion, retryProgress.basis, retryProgress.plan);
+                if (!Array.isArray(completedProgresses)) {
+                    throw new CCallCompletionAbort(completedProgresses);
+                }
+                stagedPrefix = selectValidatedRuntimeEventPrefix(input.store.readAll());
+                if (runtimeEventPrefixDigest(stagedPrefix) !==
+                    runtimeEventPrefixDigest(retryProgress.plan.projectedPrefix)) {
+                    throw new TypeError("staged retry progress differs from its exact projected prefix");
+                }
+            }
+            const staged = admitTraversalTransitionInActiveTransaction({
+                durablePredecessorPrefix: input.predecessorPrefix,
+                stagedPrefix,
+                priorDerivation: exactOutcome.replayState,
+                store: input.store,
+                executionBasis: input.executionBasis,
+                graph: input.graph,
+                graphFunction: input.graphFunction,
+                source: input.source,
+                target: input.target,
+                candidate: input.candidate,
+                basis: stageBasis(input.basis, "transition"),
+            });
+            if (staged.kind !== "staged_route_transition_admission") {
+                throw new CCallCompletionAbort(staged);
+            }
+            const routeKind = staged.route.routeKind;
+            if (((routeKind === "advance" || routeKind === "re_enter") &&
+                input.target === null) ||
+                (["blocked", "failed", "terminal", "gap_stop"].includes(routeKind) &&
+                    input.target !== null) ||
+                !["advance", "re_enter", "blocked", "failed", "terminal", "gap_stop"].includes(routeKind)) {
+                throw new TypeError(`CCall completion received unsupported ${routeKind} transition`);
+            }
+            let closure = null;
+            if (routeKind === "terminal") {
+                if (input.outcome.disposition !== "judged") {
+                    throw new TypeError("terminal CCall completion requires a judged outcome");
+                }
+                const { cCall, result, judgment } = input.outcome.admitted;
+                const interactionResume = input.candidate.evidence?.evidenceClass ===
+                    "interaction_resume"
+                    ? input.candidate.evidence.resume
+                    : null;
+                const closureBasis = stageBasis(input.basis, "closure");
+                const admittedClosure = admitScopeClosure(input.store, input.predecessorPrefix, interactionResume !== null
+                    ? {
+                        kind: "interaction",
+                        scope: input.openedTraversalScope,
+                        cCall,
+                        pendingResult: result,
+                        pendingJudgment: judgment,
+                        resume: interactionResume,
+                    }
+                    : {
+                        kind: "ordinary",
+                        scope: input.openedTraversalScope,
+                        cCall,
+                        result,
+                        judgment,
+                    }, staged.route, input.closureContract, closureBasis);
+                if (admittedClosure.kind !== "scope_closure_admission") {
+                    throw new CCallCompletionAbort(admittedClosure);
+                }
+                closure = admittedClosure;
+            }
+            const truth = projectActiveRuntimeTransaction(input.store, input.predecessorPrefix, input.source.runId, staged.replayState);
+            const transition = deepFreeze({
+                kind: "route_transition_admission",
+                route: staged.route,
+                retryAttempt: staged.retryAttempt,
+                replayState: truth.replayState,
+            });
+            if (routeKind === "terminal") {
+                if (input.outcome.disposition !== "judged" || closure === null) {
+                    throw new TypeError("terminal route requires one judged outcome and admitted closure");
+                }
+                return deepFreeze({
+                    disposition: "closed",
+                    outcome: input.outcome,
+                    transition,
+                    closure,
+                });
+            }
+            if (routeKind === "blocked") {
+                return deepFreeze({
+                    disposition: "blocked",
+                    outcome: input.outcome,
+                    transition,
+                });
+            }
+            if (routeKind === "failed" || routeKind === "gap_stop") {
+                if (input.outcome.disposition !== "judged") {
+                    throw new TypeError(`${routeKind} route requires one judged CCall outcome`);
+                }
+                return deepFreeze({
+                    disposition: routeKind,
+                    outcome: input.outcome,
+                    transition,
+                });
+            }
+            if (input.outcome.disposition !== "judged") {
+                throw new TypeError("advancing route requires one judged CCall outcome");
+            }
+            const reentryApplication = routeKind === "re_enter"
+                ? input.graph.template.applications.find(application => application.relationKind === "re_enter" &&
+                    application.applicationRef === staged.route.graphSpanReentryProjection?.applicationRef)
+                : undefined;
+            if (routeKind === "re_enter" && reentryApplication === undefined) {
+                throw new TypeError("admitted re-entry requires its exact declared target contract");
+            }
+            return deepFreeze({
+                disposition: "advanced",
+                outcome: input.outcome,
+                transition,
+                reentryInputContractRef: reentryApplication?.outputContractRef ?? null,
+            });
+        });
+        if (committed.value.disposition === "closed") {
+            discardNativeFrameClock(input.store, input.openedTraversalScope.frameId);
+        }
+        const transition = deepFreeze({
+            ...committed.value.transition,
+            successorPrefix: committed.successorPrefix,
+        });
+        return completionAdmission({
+            ...committed.value,
+            transition,
+        });
+    }
+    catch (error) {
+        if (error instanceof CCallCompletionAbort)
+            return error.result;
+        throw error;
+    }
+}
