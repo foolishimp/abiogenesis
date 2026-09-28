@@ -1,0 +1,8 @@
+{
+  "record": "liveness.json",
+  "actualElapsedSeconds": 585.503271,
+  "thresholdSeconds": 600,
+  "earlySeconds": 14.496729,
+  "correction": "The scope text saying after ten minutes is inaccurate; actual elapsed was 9m45.5s. This is the sole bounded liveness observation; no repeat or intervention.",
+  "rootNotified": true
+}

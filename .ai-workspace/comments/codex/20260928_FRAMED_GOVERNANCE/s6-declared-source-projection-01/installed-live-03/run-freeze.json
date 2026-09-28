@@ -1,0 +1,78 @@
+{
+  "readinessFreeze": {
+    "sha256": "ec4372708d7ccf23e16c8c97dd45f263931addd2702f7ad26fbe411a9bd680d2",
+    "bytes": 857
+  },
+  "sourceFreeze": {
+    "sha256": "e3b9e8d1945ebe6e30a7c15fa35a3c8c2fbd4f23dc9682ca1d592eb73628d60b",
+    "bytes": 938
+  },
+  "core": {
+    "sha256": "08d95ee6fc816e413f8f6deaf43c1f106d1c202c942eead9af47bb962cd30110",
+    "bytes": 10337143
+  },
+  "consumer": {
+    "sha256": "5b27fb85a2c2153819b1c273c5f2a8816974af3d9eca3865f3519cec4f1e7a99",
+    "bytes": 11776
+  },
+  "input": {
+    "sha256": "377bae203c2ac43bf0e0339a24ce979998aa4247807c68c2fe383d274a74ee87",
+    "bytes": 84605
+  },
+  "launcherReadiness": {
+    "sha256": "85c1deed2341aeef4ab0d519f1ce3b4e4d3f092413e6ea3456a40751451954ce",
+    "bytes": 5400
+  },
+  "proofManifest": {
+    "sha256": "1df8e16ca76e589b1c3496c4a16310bc77f159ed46339abaf83f8f7ece5c4f9a",
+    "bytes": 16784
+  },
+  "proofMembers": 113,
+  "events": {
+    "sha256": "22ab6dd13ab696d2048f5a74e680ffb60d48955954a56f9e354704f799d995b1",
+    "bytes": 79653929
+  },
+  "execution": {
+    "sha256": "e10ead38c00ffc1950fce82f8526403918e735199b39a780d3a53e22c62b48d8",
+    "bytes": 4976903
+  },
+  "firstFailure": {
+    "sha256": "02ea013367a266a87b54097d0e26113d50543ce371f0aea7e455fb48dd981c57",
+    "bytes": 4975
+  },
+  "diagnosis": {
+    "sha256": "84bb782096be0a128f18784ec77bba5b496dd309e803cdab2e6c37f9fc8cea87",
+    "bytes": 5798
+  },
+  "attribution": {
+    "sha256": "20f6e5595e954d1d2fea72bf3c49e8c80c6d06b991ffe51454e70ea3d8d6b91d",
+    "bytes": 32690
+  },
+  "chain": {
+    "sha256": "1f4f89d90afe5d7cb7e188b0c9b9e57033b67111f9ca914bf3d46dadbacf8e8f",
+    "bytes": 98943
+  },
+  "nativeScopeEvidence": {
+    "sha256": "95b208b1814811ebb33fe3154294f3e4ed6395beb7bb1659235b36773dcd4aae",
+    "bytes": 28944
+  },
+  "reads": {
+    "run_result": {
+      "sha256": "827e9d2eb1bebb5419113cf26a10e6c3b74b26abd8eee4bae301ac12c4aad6db",
+      "bytes": 3730
+    },
+    "run_replay": {
+      "sha256": "3e4987b75c668ec206232ca4dd3816ab5289c94323a6505abdb11767f72acd87",
+      "bytes": 4879
+    }
+  },
+  "outcome": "runtime_failed",
+  "firstCausalEvidenceOrdinal": 21042,
+  "firstFailureResultOrdinal": 21044,
+  "providerCalls": 11,
+  "runClosed": false,
+  "assessmentCompleted": false,
+  "sourceAndOldProofPreserved": true,
+  "nativeSettingsUnchanged": true,
+  "qualificationKind": "new whole-witness instance; no live-02 recovery credit"
+}

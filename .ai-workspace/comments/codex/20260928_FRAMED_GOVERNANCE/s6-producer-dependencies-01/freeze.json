@@ -1,0 +1,35 @@
+{
+  "sourceGenerated": {
+    "sha256": "866e53cd8170eb756f9e08d06cd9c0e50f2f1b6a89ee5ebcd1439bf3ed00ec99",
+    "bytes": 4546
+  },
+  "proofManifest": {
+    "sha256": "73088e128953fcf2a3df56f3ffd183d499e4f2363a9f84f67513e985842df996",
+    "bytes": 3858
+  },
+  "proofMembers": 27,
+  "core": {
+    "sha256": "6311b520520efb19f6d042fb11c00bf7abe5ad335f0b274915726c482d7bdf07",
+    "bytes": 10337313
+  },
+  "archiveCorrespondence": {
+    "sha256": "c76a874924dbe4131b6e1168890427461652cecfd22b0fb9d3afd1e8b64b1aa6",
+    "bytes": 1164737
+  },
+  "checks": {
+    "sha256": "b2b22e768fca78695a264e7aa6d10d496367e5cf08b337f1ad1a1223c3fa9a67",
+    "bytes": 4622
+  },
+  "assessmentRender": {
+    "sha256": "28ac694c1cf710876f5d2bdbeb65268a4822be39d624e397500e9005b453f832",
+    "bytes": 2044
+  },
+  "net": {
+    "addedLines": 60,
+    "removedLines": 11,
+    "netLines": 49
+  },
+  "installed": false,
+  "providerCalls": 0,
+  "runtimeAdmission": false
+}

@@ -1,0 +1,36 @@
+{
+  "manifests": [
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/proof-manifest.json",
+      "sha256": "dd915e108118fb5acb7e7c4cf5e012aa0e1df1b5149217572c58038c3c53a2c8",
+      "bytes": 3886,
+      "members": 28
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/run-proof-manifest.json",
+      "sha256": "1df8e16ca76e589b1c3496c4a16310bc77f159ed46339abaf83f8f7ece5c4f9a",
+      "bytes": 16784,
+      "members": 113
+    }
+  ],
+  "priorRunReturn": {
+    "sha256": "6ecbf5d923a43257c5f356cd34f75e8b7f9728733f84f37b400a4b203891af34",
+    "bytes": 10326
+  },
+  "priorCore": {
+    "sha256": "08d95ee6fc816e413f8f6deaf43c1f106d1c202c942eead9af47bb962cd30110",
+    "bytes": 10337143
+  },
+  "priorConsumer": {
+    "sha256": "5b27fb85a2c2153819b1c273c5f2a8816974af3d9eca3865f3519cec4f1e7a99",
+    "bytes": 11776
+  },
+  "originalInput": {
+    "sha256": "377bae203c2ac43bf0e0339a24ce979998aa4247807c68c2fe383d274a74ee87",
+    "bytes": 84605
+  },
+  "prospectiveCase": {
+    "sha256": "f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+    "bytes": 5656
+  }
+}

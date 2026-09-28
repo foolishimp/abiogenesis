@@ -1,0 +1,6 @@
+{
+  "exitCode": 1,
+  "boundary": "readback.mjs:18:219",
+  "message": "AssertionError: run_result outcomeKind refusal, code not_found; expected result. Both actual cold-read receipts were saved before this assertion.",
+  "session": 48851
+}

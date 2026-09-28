@@ -1,0 +1,111 @@
+--- before/code/src/abg/default_library.ts
++++ after/code/src/abg/default_library.ts
+@@ -138,14 +138,20 @@
+   const p = subjectEvidence(o, state), selection = governanceAssessmentContract(state);
+   if (p === null || !record(p.event.payload) || typeof p.event.payload.resultRef !== "string" || typeof p.event.payload.resultDigest !== "string") return null;
+   const candidate = context.entries.find(e => e.relativePath === selection.candidatePath);
+-  if (candidate?.state !== "file" || worksiteCommandSourcesInvalidatedAfter(o.prefix, p.event.admissionOrdinal,
+-    o.environment.workspaceAuthorityBasis.canonicalRoot,
+-    [...selection.sources, selection.candidatePath, selection.rubricPath])) return null;
++  if (candidate?.state !== "file") return null;
+   if (isNativeWorkspaceWorkObservation(p.value)) {
+     const native = projectNativeWorkspaceWorkSourceAtPrefix(o.prefix, p.value);
+-    if (native === null || native.sourceBasis.invocationAdmissionRef !== o.execution.invocationAdmissionRef ||
+-      !p.value.after.entries.some(e => e.relativePath === candidate.relativePath && e.state === "file" && e.digest === candidate.digest)) return null;
+-  } else if (!p.value.task.protectedObservations.some(e => e.subject.relativePath === candidate.relativePath && e.observation.state === "file" && e.observation.fileDigest === candidate.digest)) return null;
++    if (native === null || native.sourceBasis.invocationAdmissionRef !== o.execution.invocationAdmissionRef) return null;
++  }
++  // Producer support keeps its admitted dependency set. Fresh assessment-only
++  // inputs are bound below to the current context, not to the producer's time.
++  const dependencies = isNativeWorkspaceWorkObservation(p.value)
++    ? p.value.after.entries.flatMap(e => e.state === "file" ? [{ path: e.relativePath, digest: e.digest }] : [])
++    : p.value.task.protectedObservations.map(e => ({ path: e.subject.relativePath, digest: e.observation.fileDigest }));
++  if (!dependencies.some(e => e.path === candidate.relativePath && e.digest === candidate.digest) ||
++    !dependencies.every(e => context.entries.some(c => c.relativePath === e.path && c.state === "file" && c.digest === e.digest)) ||
++    worksiteCommandSourcesInvalidatedAfter(o.prefix, p.event.admissionOrdinal,
++      o.environment.workspaceAuthorityBasis.canonicalRoot, dependencies.map(e => e.path))) return null;
+   const asset = (path: string) => { const e = context.entries.find(e => e.relativePath === path); if (e?.state !== "file") throw new TypeError("assessment file missing"); return { path, digest: e.digest }; };
+   if (state.original.fulfillment !== undefined) instructions.push(
+     "Return the installed structural fulfillment response. Use exactly one row per current obligation, criterion, depth class and discovery class. Meanings and sufficiency are your independent judgments. Unknown support is indeterminate, never implicit success.",
+--- before/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
++++ after/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
+@@ -146,9 +146,22 @@
+ The assessment producer coordinate then denotes measurement provenance, never
+ file authorship. No dummy author or fabricated source Result is introduced.
+ Existing native-work HOW's typed assessment already permits existing assets and
+-consumer-selected historical evidence. Fresh context binds source/candidate/
+-rubric, later intersecting writes or uncertain residue refuse, and existing
+-native assessment requires a distinct fresh call/actor. Preparation and
++consumer-selected historical evidence. Producer support is scoped to its own
++admitted files: native work uses file entries in its exact after-observation
++(the existing folded native dependency projection), and either C2 source arm
++uses its protected task observations. The candidate must be among those files
++at its current digest. Every producer dependency must still match the freshly
++observed context; later intersecting writes or uncertain residue refuse through
++the existing currentness owner. Absent future outputs and assessment inputs
++first authored afterward do not retroactively become producer dependencies.
++
++Separately, fresh context binds every declared assessment source, candidate and
++rubric at its current digest. Newly authored assessment-only documents may
++therefore accompany an earlier still-current native or C2 subject. Neither
++latest-author selection nor a redundant command run is required. The assessment
++must actually consume these current inputs; their presence does not prove
++adequacy. Existing native assessment requires a distinct fresh call/actor.
++Preparation and
+ admission share this exact local relation; parent outcome evaluation remains
+ separate. Explicitly selected crossed/stale evidence is never replaced silently.
+ 
+--- before/test_env/tests/t287-default-library-fulfillment.test.mjs
++++ after/test_env/tests/t287-default-library-fulfillment.test.mjs
+@@ -86,7 +86,7 @@
+   const independent={...assessment,actorInvocationRef:c.actorInvocationRef};assert.ok(product.projectGovernanceFulfillment(d,f.state.fulfillment,raw,independent,evidence).coverage[0].gaps.includes('independent_assessment_missing'));
+ });
+ 
+-async function controlledOwner(f){
++async function controlledOwner(f, invalidated=()=>false){
+   const library=gtl.constructDefaultGovernanceLibraryModulePublication(basis),program={...library.programs[0],policies:{...library.programs[0].policies,'abg.default_library_fulfillment':product.GOVERNANCE_FULFILLMENT_PROFILE}};
+   const rows=[],invocation={invocationRef:'invocation:fulfillment',invocationAdmissionRef:'admission:fulfillment',capabilityGrants:[f.capabilityGrant]},execution={basisRef:'basis:wrapper',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:fulfillment',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
+   const root={kind:'basis_admitted',payload:{basisClass:'root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:f.state}};
+@@ -96,7 +96,7 @@
+   // task, observation, retained input and owner projectors run below. No live
+   // model, installed traversal or semantic adequacy is claimed by these tests.
+   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
+-    const replacements=specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>execution}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:()=>false,projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis:execution})}:{};
++    const replacements=specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>execution}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:invalidated,projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis:execution})}:{};
+     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
+   const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
+   return {m,owned,rows,execution,root,library,at};
+@@ -173,3 +173,33 @@
+   inputEvent.basisId='basis:foreign';assert.equal(o.m.namespace.projectGovernanceChoice(projectionBasis,gap),null);inputEvent.basisId=o.execution.basisRef;
+   inputEvent.payload.valueDigest=hash('different');assert.equal(o.m.namespace.projectGovernanceChoice(projectionBasis,gap),null);
+ });
++
++test('UAT keeps native and both C2 dependency sets while acquiring later assessment-only documents',async t=>{
++  const f=await fixture(t),changed=new Set(),calls=[],o=await controlledOwner(f,(_prefix,_ordinal,_root,paths)=>{calls.push([...paths]);return paths.some(p=>changed.has(p));}),initial=await f.observe();
++  const fold=(state,purpose,source)=>{const retained=product.constructRetainedGraphInput(state,source),b=o.at(purpose,'fold',retained),n=o.rows.length,event={kind:'c_call_result_admitted',runId:'run:fulfillment',basisId:'basis:child',aggregateId:'call:actual:'+n,admissionOrdinal:n+10,payload:{resultRef:'result:actual:'+n,resultDigest:hash({n,source}),valueDigest:hash(source),contractRef:purpose==='testing'?product.WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef:product.NATIVE_WORKSPACE_WORK_IDS.observationContractRef,resultClass:'success',value:source}};
++    o.rows.push(event);o.owned.inputOrigin={retainedProjection:{entryBasis:o.execution,input:{admissionRef:o.owned.inputRef,value:retained},sourceResult:event}};const result=o.m.namespace.projectGovernanceFold(b,retained);assert.ok(result,purpose);return result;};
++  const work=synthesis(f.state,'construction',initial),workTask=await o.m.namespace.projectGovernanceNativeTask(o.at('construction','prepare-native',work),work);
++  const nativeState=fold(work,'construction',native.constructNativeWorkspaceWorkObservation(workTask,initial,{summary:'Controlled existing-subject observation',gaps:[]},provenance('native-subject')));
++  const observedState=synthesis(f.state,'testing',initial),observedTask=await o.m.namespace.projectGovernanceTestingTask(o.at('testing','prepare-testing',observedState),observedState);assert.ok(observedTask.sourceObservedInput);
++  const observed=fold(observedState,'testing',observedCommand(observedTask,1));
++  const nativeTest=synthesis(nativeState,'testing',initial,nativeState.observations.at(-1).resultRef),nativeCommandTask=await o.m.namespace.projectGovernanceTestingTask(o.at('testing','prepare-testing',nativeTest),nativeTest);assert.ok(nativeCommandTask.sourceNativeWork);
++  const nativeCommand=fold(nativeTest,'testing',observedCommand(nativeCommandTask,0));
++  for(const path of freshLifecyclePaths){await mkdir(dirname(join(f.canonicalRoot,path)),{recursive:true});await writeFile(join(f.canonicalRoot,path),'Later assessment material '+path+'\n');changed.add(path);}
++  const current=await f.observe();
++  for(const [arm,state]of [['native',nativeState],['observed-C2',observed],['native-C2',nativeCommand]]){
++    const uat=synthesis(state,'uat',current,state.observations.at(-1).resultRef),b=o.at('uat','prepare-native',uat),task=await o.m.namespace.projectGovernanceNativeTask(b,uat);assert.ok(task,arm);
++    const deps=calls.at(-1);assert.deepEqual([...deps].sort(),initial.entries.filter(e=>e.state==='file').map(e=>e.relativePath).sort(),arm+' exact producer files');assert.ok(freshLifecyclePaths.every(p=>!deps.includes(p)));
++    assert.ok(freshLifecyclePaths.every(p=>task.assessment.sources.some(s=>s.path===p&&s.digest===current.entries.find(e=>e.relativePath===p).digest)),'fresh assessment material bound separately');
++    assert.equal(o.m.namespace.governanceResultMatches(b,uat,task),true,arm+' preparation admission guard');
++    // Downstream native observation/ABG matching consumes measurement provenance
++    // unchanged; no author-only prerequisite or invented successful judgment.
++    const raw={kind:'consumer_outcome_assessment',disposition:'indeterminate',reason:'Controlled carrier check only',unresolvedCriteria:['unproved'],fulfillment:{obligations:[],discoveries:[]}},p=provenance('fresh-assessor-'+arm),candidate=native.constructNativeWorkspaceWorkObservation(task,current,null,p,raw),transport={...p,implementationRef:product.NATIVE_WORKSPACE_WORK_IDS.implementationRef,inputDigest:hash(task),transportLane:'worker_executes',disposition:'success',finalOutput:JSON.stringify(raw)};
++    assert.ok(native.isNativeWorkspaceWorkObservation(candidate));assert.equal(native.nativeWorkspaceWorkResultMatches(task,candidate,p.cCallRef,transport),true,arm+' actual result matching guard');
++    const self=native.constructNativeWorkspaceWorkObservation(task,current,null,{...p,actorInvocationRef:task.assessment.producer.actorInvocationRef},raw);assert.equal(native.isNativeWorkspaceWorkObservation(self),false,arm+' independent actor required');
++    for(const path of ['generated/hello-world.mjs','test/component/hello-cli.test.mjs']){changed.add(path);assert.equal(await o.m.namespace.projectGovernanceNativeTask(b,uat),null,arm+' admitted dependency mutation');changed.delete(path);}
++    const original=await readFile(join(f.canonicalRoot,'generated/hello-world.mjs'));await writeFile(join(f.canonicalRoot,'generated/hello-world.mjs'),'changed current subject\n');assert.equal(await o.m.namespace.projectGovernanceNativeTask(b,uat),null,arm+' physical digest change');await writeFile(join(f.canonicalRoot,'generated/hello-world.mjs'),original);
++    const observation=uat.observations.at(-1),event=o.rows.find(e=>e.payload.resultRef===observation.resultRef),actualCall=event.aggregateId;event.aggregateId='call:foreign';assert.equal(await o.m.namespace.projectGovernanceNativeTask(b,uat),null,arm+' wrong admitted call');event.aggregateId=actualCall;
++    const forged=structuredClone(uat);forged.observations.at(-1).actorInvocationRef='actor:foreign';assert.equal(await o.m.namespace.projectGovernanceNativeTask(o.at('uat','prepare-native',forged),forged),null,arm+' wrong actor');
++  }
++  t.diagnostic('Controlled admitted occurrence and currentness callback; actual typed native/C2 observations, filesystem context, task preparation, admission/result matching and independent-actor guards. Actual retained live-03 CCall and currentness owner are exercised separately in the frozen correction proof. No provider or semantic adequacy claim.');
++});

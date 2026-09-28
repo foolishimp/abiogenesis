@@ -1,0 +1,10 @@
+{
+  "command": "npm pack --ignore-scripts --pack-destination /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01 --json",
+  "filename": "abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "retained": "core.tgz",
+  "rebuiltDuringPack": false,
+  "installed": false,
+  "size": 10337313,
+  "unpackedSize": 67629734,
+  "entryCount": 5254
+}

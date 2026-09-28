@@ -1,0 +1,1030 @@
+{
+  "scope": "Pure byte projection of exact admitted tasks using the frozen installed projector/schema/renderer. Every dispatched selector prompt is compared to its retained owned assembly; no input or response repair.",
+  "measurements": [
+    {
+      "task": {
+        "ordinal": 40,
+        "eventId": "event://abiogenesis/b6fd91129bc3bd15485abf50dbd8dcf5e2a6c8ed04bfd74d8fe537bf0b1007b1",
+        "kind": "c_call_result_admitted",
+        "eventTime": "2026-09-28T22:19:27.167Z",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "c-call:sha256:96065d83d57f0edb15261c02cf35dcaf27fcecc766523b5391edca32e33f0f91",
+        "resultRef": "result://abiogenesis/849245fadacd264b683ea6c17da11c79c197ba253cdac3eda591f1a63069709c",
+        "contractRef": "contract://abiogenesis/default-library/selection-task@5"
+      },
+      "renderedBytes": 54948,
+      "sectionBytes": {
+        "choices": 4260,
+        "evidence": 321,
+        "response": 6540,
+        "role": 8418,
+        "task": 35350
+      },
+      "projectedTaskFieldBytes": {
+        "taskRef": 46,
+        "originalTask": 10333,
+        "authorityRefs": 49,
+        "protectedSources": 163,
+        "requiredSupportRefs": 385,
+        "worksite": 3943,
+        "workOrders": 3065,
+        "testing": 805,
+        "assessment": 589,
+        "fulfillment": 15369,
+        "observations": 2,
+        "unresolvedSupportRefs": 385,
+        "priorJudgment": 4
+      },
+      "worksiteFieldBytes": {
+        "observationRef": 109,
+        "files": 3532,
+        "interpretation": 256
+      },
+      "worksiteFiles": [
+        {
+          "path": "design/implementation-design.md",
+          "state": "absent",
+          "projectedBytes": 59,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "design/test-design.md",
+          "state": "absent",
+          "projectedBytes": 49,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "generated/hello-world.mjs",
+          "state": "file",
+          "projectedBytes": 182,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "source/basic-cli.oracle.json",
+          "state": "file",
+          "projectedBytes": 1405,
+          "contentBytes": 1112,
+          "contentIn": null
+        },
+        {
+          "path": "source/original-basic-cli.txt",
+          "state": "file",
+          "projectedBytes": 254,
+          "contentBytes": null,
+          "contentIn": "originalTask"
+        },
+        {
+          "path": "source/witness-contract.md",
+          "state": "file",
+          "projectedBytes": 254,
+          "contentBytes": null,
+          "contentIn": "originalTask"
+        },
+        {
+          "path": "specification/project-conformance.md",
+          "state": "absent",
+          "projectedBytes": 64,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "test-execution-plan.json",
+          "state": "absent",
+          "projectedBytes": 52,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "test/component/hello-cli.test.mjs",
+          "state": "file",
+          "projectedBytes": 601,
+          "contentBytes": 369,
+          "contentIn": null
+        },
+        {
+          "path": "test/uat/hello-cli.uat.test.mjs",
+          "state": "file",
+          "projectedBytes": 601,
+          "contentBytes": 371,
+          "contentIn": null
+        }
+      ],
+      "observationBytes": [],
+      "fulfillmentFieldBytes": {
+        "obligations": 13420,
+        "discoveryClasses": 313,
+        "sourceMembers": 353,
+        "coverage": 1218
+      },
+      "priorJudgmentBytes": 4,
+      "responseSchemaBytes": 6540,
+      "contextBytes": 11862,
+      "originalObligations": 7,
+      "additionalObligations": 0,
+      "observations": 0,
+      "actualBinding": {
+        "ordinal": 53,
+        "eventId": "event://abiogenesis/66c2542f7af42b90f0a4c763a6846ca8c4a20b5a0abdead5893b68b57f454a73",
+        "kind": "actor_transport_binding_admitted",
+        "eventTime": "2026-09-28T22:19:27.376Z",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "transport-binding://abiogenesis/3e707486bdb33c6108d5a20e751a53e4000a3eb5c73fafad62ffe394e1a61903",
+        "resultRef": null,
+        "contractRef": null
+      }
+    },
+    {
+      "task": {
+        "ordinal": 1413,
+        "eventId": "event://abiogenesis/1b3c9ef7ab568b40a735917cf4142d37e9e4f808e1486c9fe2025ab3c82b2fff",
+        "kind": "c_call_result_admitted",
+        "eventTime": "2026-09-28T22:20:26.736Z",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "c-call:sha256:251385c94717d297f70224addaf4178923898a4686ec96bb55497115284daabd",
+        "resultRef": "result://abiogenesis/89e7048d6bd7ae11617f22b73351c49e94159b98c1a7a7bc1433a211c0a852ba",
+        "contractRef": "contract://abiogenesis/default-library/selection-task@5"
+      },
+      "renderedBytes": 68920,
+      "sectionBytes": {
+        "choices": 4260,
+        "evidence": 321,
+        "response": 7508,
+        "role": 8418,
+        "task": 48354
+      },
+      "projectedTaskFieldBytes": {
+        "taskRef": 46,
+        "originalTask": 10333,
+        "authorityRefs": 49,
+        "protectedSources": 163,
+        "requiredSupportRefs": 385,
+        "worksite": 3943,
+        "workOrders": 3065,
+        "testing": 805,
+        "assessment": 589,
+        "fulfillment": 15369,
+        "observations": 4374,
+        "unresolvedSupportRefs": 385,
+        "priorJudgment": 8636
+      },
+      "worksiteFieldBytes": {
+        "observationRef": 109,
+        "files": 3532,
+        "interpretation": 256
+      },
+      "worksiteFiles": [
+        {
+          "path": "design/implementation-design.md",
+          "state": "absent",
+          "projectedBytes": 59,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "design/test-design.md",
+          "state": "absent",
+          "projectedBytes": 49,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "generated/hello-world.mjs",
+          "state": "file",
+          "projectedBytes": 182,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "source/basic-cli.oracle.json",
+          "state": "file",
+          "projectedBytes": 1405,
+          "contentBytes": 1112,
+          "contentIn": null
+        },
+        {
+          "path": "source/original-basic-cli.txt",
+          "state": "file",
+          "projectedBytes": 254,
+          "contentBytes": null,
+          "contentIn": "originalTask"
+        },
+        {
+          "path": "source/witness-contract.md",
+          "state": "file",
+          "projectedBytes": 254,
+          "contentBytes": null,
+          "contentIn": "originalTask"
+        },
+        {
+          "path": "specification/project-conformance.md",
+          "state": "absent",
+          "projectedBytes": 64,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "test-execution-plan.json",
+          "state": "absent",
+          "projectedBytes": 52,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "test/component/hello-cli.test.mjs",
+          "state": "file",
+          "projectedBytes": 601,
+          "contentBytes": 369,
+          "contentIn": null
+        },
+        {
+          "path": "test/uat/hello-cli.uat.test.mjs",
+          "state": "file",
+          "projectedBytes": 601,
+          "contentBytes": 371,
+          "contentIn": null
+        }
+      ],
+      "observationBytes": [
+        {
+          "purpose": "testing",
+          "resultRef": "result://abiogenesis/7d8d7f5fb42032f75ae9dc9e25aa3ca1583a3d2977bb54dece7f63130970ab02",
+          "bytes": 4372,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 9,
+            "selectedGraphFunctionRef": 56,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 3317,
+            "support": 599
+          }
+        }
+      ],
+      "fulfillmentFieldBytes": {
+        "obligations": 13420,
+        "discoveryClasses": 313,
+        "sourceMembers": 353,
+        "coverage": 1218
+      },
+      "priorJudgmentBytes": 8636,
+      "responseSchemaBytes": 7508,
+      "contextBytes": 11862,
+      "originalObligations": 7,
+      "additionalObligations": 0,
+      "observations": 1,
+      "actualBinding": {
+        "ordinal": 1426,
+        "eventId": "event://abiogenesis/522ba93dcb54eb532ef2a6beb3fae5eab6016cdaa3fff5e0b4b12d8187843667",
+        "kind": "actor_transport_binding_admitted",
+        "eventTime": "2026-09-28T22:20:26.961Z",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "transport-binding://abiogenesis/dea4fb535b1a9277d13310129546f8c0e33595c1ec7cb58848b81fa2a9254b76",
+        "resultRef": null,
+        "contractRef": null
+      }
+    },
+    {
+      "task": {
+        "ordinal": 2524,
+        "eventId": "event://abiogenesis/fec051c47f91a63020b90c20834c3c3858e2b58b55c9c1afc951d748ac5f2841",
+        "kind": "c_call_result_admitted",
+        "eventTime": "2026-09-28T22:22:03.830Z",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "c-call:sha256:5995ad52cae46457afebea91d84348512f4607d2b402822f50a319329de52ec0",
+        "resultRef": "result://abiogenesis/6a7b9042fe6ddeac6910111c21b4e950ef8ac6576b40dfb59029acc4361a9531",
+        "contractRef": "contract://abiogenesis/default-library/selection-task@5"
+      },
+      "renderedBytes": 76210,
+      "sectionBytes": {
+        "choices": 4260,
+        "evidence": 321,
+        "response": 8036,
+        "role": 8418,
+        "task": 55116
+      },
+      "projectedTaskFieldBytes": {
+        "taskRef": 46,
+        "originalTask": 10333,
+        "authorityRefs": 49,
+        "protectedSources": 163,
+        "requiredSupportRefs": 385,
+        "worksite": 3943,
+        "workOrders": 3065,
+        "testing": 805,
+        "assessment": 589,
+        "fulfillment": 15369,
+        "observations": 7892,
+        "unresolvedSupportRefs": 385,
+        "priorJudgment": 11880
+      },
+      "worksiteFieldBytes": {
+        "observationRef": 109,
+        "files": 3532,
+        "interpretation": 256
+      },
+      "worksiteFiles": [
+        {
+          "path": "design/implementation-design.md",
+          "state": "absent",
+          "projectedBytes": 59,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "design/test-design.md",
+          "state": "absent",
+          "projectedBytes": 49,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "generated/hello-world.mjs",
+          "state": "file",
+          "projectedBytes": 182,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "source/basic-cli.oracle.json",
+          "state": "file",
+          "projectedBytes": 1405,
+          "contentBytes": 1112,
+          "contentIn": null
+        },
+        {
+          "path": "source/original-basic-cli.txt",
+          "state": "file",
+          "projectedBytes": 254,
+          "contentBytes": null,
+          "contentIn": "originalTask"
+        },
+        {
+          "path": "source/witness-contract.md",
+          "state": "file",
+          "projectedBytes": 254,
+          "contentBytes": null,
+          "contentIn": "originalTask"
+        },
+        {
+          "path": "specification/project-conformance.md",
+          "state": "absent",
+          "projectedBytes": 64,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "test-execution-plan.json",
+          "state": "absent",
+          "projectedBytes": 52,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "test/component/hello-cli.test.mjs",
+          "state": "file",
+          "projectedBytes": 601,
+          "contentBytes": 369,
+          "contentIn": null
+        },
+        {
+          "path": "test/uat/hello-cli.uat.test.mjs",
+          "state": "file",
+          "projectedBytes": 601,
+          "contentBytes": 371,
+          "contentIn": null
+        }
+      ],
+      "observationBytes": [
+        {
+          "purpose": "testing",
+          "resultRef": "result://abiogenesis/7d8d7f5fb42032f75ae9dc9e25aa3ca1583a3d2977bb54dece7f63130970ab02",
+          "bytes": 4400,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 9,
+            "selectedGraphFunctionRef": 56,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 3317,
+            "support": 627
+          }
+        },
+        {
+          "purpose": "construction",
+          "resultRef": "result://abiogenesis/1f11cf4c619b59bf0b318df4eb5484ed751e9fae66e612c16ce8f9c2b252ec83",
+          "bytes": 3489,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 14,
+            "selectedGraphFunctionRef": 61,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 2433,
+            "support": 590
+          }
+        }
+      ],
+      "fulfillmentFieldBytes": {
+        "obligations": 13420,
+        "discoveryClasses": 313,
+        "sourceMembers": 353,
+        "coverage": 1218
+      },
+      "priorJudgmentBytes": 11880,
+      "responseSchemaBytes": 8036,
+      "contextBytes": 11863,
+      "originalObligations": 7,
+      "additionalObligations": 0,
+      "observations": 2,
+      "actualBinding": {
+        "ordinal": 2537,
+        "eventId": "event://abiogenesis/ac6a8764b71aa09c4ae5e08dc7fdc36b5a02430fcdd25ded6e2810e1eb971df0",
+        "kind": "actor_transport_binding_admitted",
+        "eventTime": "2026-09-28T22:22:04.084Z",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "transport-binding://abiogenesis/72d33355eed2814242c74df998a7b2c6559a197eaf60fb25c49c30af3a57ad94",
+        "resultRef": null,
+        "contractRef": null
+      }
+    },
+    {
+      "task": {
+        "ordinal": 4802,
+        "eventId": "event://abiogenesis/7dfb6017242dfb7a31566aa9728b31cadb5833f3a6d3a0a3e3f14f5846c22e42",
+        "kind": "c_call_result_admitted",
+        "eventTime": "2026-09-28T22:23:21.073Z",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "c-call:sha256:baac60aeed0510a743e0ae4ff74e37348f973ffc0ff23c499fedf5e079485d17",
+        "resultRef": "result://abiogenesis/13ae8f5b292a653d7d6a35b143faa9c70eaf49e88235d56243eb5abcea08a405",
+        "contractRef": "contract://abiogenesis/default-library/selection-task@5"
+      },
+      "renderedBytes": 78562,
+      "sectionBytes": {
+        "choices": 4260,
+        "evidence": 321,
+        "response": 8564,
+        "role": 8418,
+        "task": 56940
+      },
+      "projectedTaskFieldBytes": {
+        "taskRef": 46,
+        "originalTask": 10333,
+        "authorityRefs": 49,
+        "protectedSources": 163,
+        "requiredSupportRefs": 385,
+        "worksite": 3943,
+        "workOrders": 3065,
+        "testing": 805,
+        "assessment": 589,
+        "fulfillment": 15369,
+        "observations": 10102,
+        "unresolvedSupportRefs": 385,
+        "priorJudgment": 11494
+      },
+      "worksiteFieldBytes": {
+        "observationRef": 109,
+        "files": 3532,
+        "interpretation": 256
+      },
+      "worksiteFiles": [
+        {
+          "path": "design/implementation-design.md",
+          "state": "absent",
+          "projectedBytes": 59,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "design/test-design.md",
+          "state": "absent",
+          "projectedBytes": 49,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "generated/hello-world.mjs",
+          "state": "file",
+          "projectedBytes": 182,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "source/basic-cli.oracle.json",
+          "state": "file",
+          "projectedBytes": 1405,
+          "contentBytes": 1112,
+          "contentIn": null
+        },
+        {
+          "path": "source/original-basic-cli.txt",
+          "state": "file",
+          "projectedBytes": 254,
+          "contentBytes": null,
+          "contentIn": "originalTask"
+        },
+        {
+          "path": "source/witness-contract.md",
+          "state": "file",
+          "projectedBytes": 254,
+          "contentBytes": null,
+          "contentIn": "originalTask"
+        },
+        {
+          "path": "specification/project-conformance.md",
+          "state": "absent",
+          "projectedBytes": 64,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "test-execution-plan.json",
+          "state": "absent",
+          "projectedBytes": 52,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "test/component/hello-cli.test.mjs",
+          "state": "file",
+          "projectedBytes": 601,
+          "contentBytes": 369,
+          "contentIn": null
+        },
+        {
+          "path": "test/uat/hello-cli.uat.test.mjs",
+          "state": "file",
+          "projectedBytes": 601,
+          "contentBytes": 371,
+          "contentIn": null
+        }
+      ],
+      "observationBytes": [
+        {
+          "purpose": "testing",
+          "resultRef": "result://abiogenesis/7d8d7f5fb42032f75ae9dc9e25aa3ca1583a3d2977bb54dece7f63130970ab02",
+          "bytes": 4400,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 9,
+            "selectedGraphFunctionRef": 56,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 3317,
+            "support": 627
+          }
+        },
+        {
+          "purpose": "construction",
+          "resultRef": "result://abiogenesis/1f11cf4c619b59bf0b318df4eb5484ed751e9fae66e612c16ce8f9c2b252ec83",
+          "bytes": 3489,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 14,
+            "selectedGraphFunctionRef": 61,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 2433,
+            "support": 590
+          }
+        },
+        {
+          "purpose": "testing",
+          "resultRef": "result://abiogenesis/56805fe3c08b6090c1bd5f5732dae0052e14fdabf28488db3725f1ab2277704b",
+          "bytes": 2209,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 9,
+            "selectedGraphFunctionRef": 56,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 1154,
+            "support": 599
+          }
+        }
+      ],
+      "fulfillmentFieldBytes": {
+        "obligations": 13420,
+        "discoveryClasses": 313,
+        "sourceMembers": 353,
+        "coverage": 1218
+      },
+      "priorJudgmentBytes": 11494,
+      "responseSchemaBytes": 8564,
+      "contextBytes": 11863,
+      "originalObligations": 7,
+      "additionalObligations": 0,
+      "observations": 3,
+      "actualBinding": {
+        "ordinal": 4815,
+        "eventId": "event://abiogenesis/cb79ce717f54410ad0b57e6c6ce63d245f42bb509d09043d630033b84cad6aca",
+        "kind": "actor_transport_binding_admitted",
+        "eventTime": "2026-09-28T22:23:21.365Z",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "transport-binding://abiogenesis/701edbe53df44ac83c1c2ee460a111c807d68c7eff36d18082ddac68f1abde5e",
+        "resultRef": null,
+        "contractRef": null
+      }
+    },
+    {
+      "task": {
+        "ordinal": 11271,
+        "eventId": "event://abiogenesis/a5c53a86fed544e65a23fdfffc05c4036c07309caf595af333d171ec6b7aa0aa",
+        "kind": "c_call_result_admitted",
+        "eventTime": "2026-09-28T22:27:47.891Z",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "c-call:sha256:bdec1562fd977f05ef8fe87655f5050a412157a0e0ffbd00e47b9ad5f3ce6058",
+        "resultRef": "result://abiogenesis/5ee278100d07d5b0aad301d254d2736db153116f11a62238c7a6d6edb810eb9d",
+        "contractRef": "contract://abiogenesis/default-library/selection-task@5"
+      },
+      "renderedBytes": 84644,
+      "sectionBytes": {
+        "choices": 4260,
+        "evidence": 321,
+        "response": 9092,
+        "role": 8418,
+        "task": 62494
+      },
+      "projectedTaskFieldBytes": {
+        "taskRef": 46,
+        "originalTask": 10333,
+        "authorityRefs": 49,
+        "protectedSources": 163,
+        "requiredSupportRefs": 385,
+        "worksite": 4075,
+        "workOrders": 3065,
+        "testing": 805,
+        "assessment": 589,
+        "fulfillment": 15369,
+        "observations": 16947,
+        "unresolvedSupportRefs": 385,
+        "priorJudgment": 10071
+      },
+      "worksiteFieldBytes": {
+        "observationRef": 109,
+        "files": 3664,
+        "interpretation": 256
+      },
+      "worksiteFiles": [
+        {
+          "path": "design/implementation-design.md",
+          "state": "absent",
+          "projectedBytes": 59,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "design/test-design.md",
+          "state": "absent",
+          "projectedBytes": 49,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "generated/hello-world.mjs",
+          "state": "file",
+          "projectedBytes": 182,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "source/basic-cli.oracle.json",
+          "state": "file",
+          "projectedBytes": 1405,
+          "contentBytes": 1112,
+          "contentIn": null
+        },
+        {
+          "path": "source/original-basic-cli.txt",
+          "state": "file",
+          "projectedBytes": 254,
+          "contentBytes": null,
+          "contentIn": "originalTask"
+        },
+        {
+          "path": "source/witness-contract.md",
+          "state": "file",
+          "projectedBytes": 254,
+          "contentBytes": null,
+          "contentIn": "originalTask"
+        },
+        {
+          "path": "specification/project-conformance.md",
+          "state": "file",
+          "projectedBytes": 196,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "test-execution-plan.json",
+          "state": "absent",
+          "projectedBytes": 52,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "test/component/hello-cli.test.mjs",
+          "state": "file",
+          "projectedBytes": 601,
+          "contentBytes": 369,
+          "contentIn": null
+        },
+        {
+          "path": "test/uat/hello-cli.uat.test.mjs",
+          "state": "file",
+          "projectedBytes": 601,
+          "contentBytes": 371,
+          "contentIn": null
+        }
+      ],
+      "observationBytes": [
+        {
+          "purpose": "testing",
+          "resultRef": "result://abiogenesis/7d8d7f5fb42032f75ae9dc9e25aa3ca1583a3d2977bb54dece7f63130970ab02",
+          "bytes": 4400,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 9,
+            "selectedGraphFunctionRef": 56,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 3317,
+            "support": 627
+          }
+        },
+        {
+          "purpose": "construction",
+          "resultRef": "result://abiogenesis/1f11cf4c619b59bf0b318df4eb5484ed751e9fae66e612c16ce8f9c2b252ec83",
+          "bytes": 3489,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 14,
+            "selectedGraphFunctionRef": 61,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 2433,
+            "support": 590
+          }
+        },
+        {
+          "purpose": "testing",
+          "resultRef": "result://abiogenesis/56805fe3c08b6090c1bd5f5732dae0052e14fdabf28488db3725f1ab2277704b",
+          "bytes": 2209,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 9,
+            "selectedGraphFunctionRef": 56,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 1154,
+            "support": 599
+          }
+        },
+        {
+          "purpose": "specification",
+          "resultRef": "result://abiogenesis/ead8ed6b924528167921fc2fb656cf1b61878c0fa0686b96f19acd4692009978",
+          "bytes": 6844,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 15,
+            "selectedGraphFunctionRef": 62,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 5714,
+            "support": 662
+          }
+        }
+      ],
+      "fulfillmentFieldBytes": {
+        "obligations": 13420,
+        "discoveryClasses": 313,
+        "sourceMembers": 353,
+        "coverage": 1218
+      },
+      "priorJudgmentBytes": 10071,
+      "responseSchemaBytes": 9092,
+      "contextBytes": 37603,
+      "originalObligations": 7,
+      "additionalObligations": 0,
+      "observations": 4,
+      "actualBinding": {
+        "ordinal": 11284,
+        "eventId": "event://abiogenesis/de68e3f06a708bb10f31bab8044589cd1b0713671b585b327755a5cc953fe34d",
+        "kind": "actor_transport_binding_admitted",
+        "eventTime": "2026-09-28T22:27:48.233Z",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "transport-binding://abiogenesis/730c5a6752b02929caf4fae8d5b278412e41d00a072b406d72deba84158a6fb9",
+        "resultRef": null,
+        "contractRef": null
+      }
+    },
+    {
+      "task": {
+        "ordinal": 20670,
+        "eventId": "event://abiogenesis/fcd58027d1122b38af05ed25311a2e1be4f079e2102852a00de99973d270e012",
+        "kind": "c_call_result_admitted",
+        "eventTime": "2026-09-28T22:35:45.623Z",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "c-call:sha256:a1a83da02831b259c7af0c8b954fc7c5d2b6c9196f3d5ffedf66342d5290b44a",
+        "resultRef": "result://abiogenesis/a877127564de810fcf770258f699b20c92b0a8206066927660c817da7117b958",
+        "contractRef": "contract://abiogenesis/default-library/selection-task@5"
+      },
+      "renderedBytes": 92162,
+      "sectionBytes": {
+        "choices": 4260,
+        "evidence": 321,
+        "response": 9620,
+        "role": 8418,
+        "task": 69484
+      },
+      "projectedTaskFieldBytes": {
+        "taskRef": 46,
+        "originalTask": 10333,
+        "authorityRefs": 49,
+        "protectedSources": 163,
+        "requiredSupportRefs": 385,
+        "worksite": 4470,
+        "workOrders": 3065,
+        "testing": 805,
+        "assessment": 589,
+        "fulfillment": 15369,
+        "observations": 23773,
+        "unresolvedSupportRefs": 385,
+        "priorJudgment": 9840
+      },
+      "worksiteFieldBytes": {
+        "observationRef": 109,
+        "files": 4059,
+        "interpretation": 256
+      },
+      "worksiteFiles": [
+        {
+          "path": "design/implementation-design.md",
+          "state": "file",
+          "projectedBytes": 191,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "design/test-design.md",
+          "state": "file",
+          "projectedBytes": 181,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "generated/hello-world.mjs",
+          "state": "file",
+          "projectedBytes": 182,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "source/basic-cli.oracle.json",
+          "state": "file",
+          "projectedBytes": 1405,
+          "contentBytes": 1112,
+          "contentIn": null
+        },
+        {
+          "path": "source/original-basic-cli.txt",
+          "state": "file",
+          "projectedBytes": 254,
+          "contentBytes": null,
+          "contentIn": "originalTask"
+        },
+        {
+          "path": "source/witness-contract.md",
+          "state": "file",
+          "projectedBytes": 254,
+          "contentBytes": null,
+          "contentIn": "originalTask"
+        },
+        {
+          "path": "specification/project-conformance.md",
+          "state": "file",
+          "projectedBytes": 196,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "test-execution-plan.json",
+          "state": "file",
+          "projectedBytes": 183,
+          "contentBytes": null,
+          "contentIn": null
+        },
+        {
+          "path": "test/component/hello-cli.test.mjs",
+          "state": "file",
+          "projectedBytes": 601,
+          "contentBytes": 369,
+          "contentIn": null
+        },
+        {
+          "path": "test/uat/hello-cli.uat.test.mjs",
+          "state": "file",
+          "projectedBytes": 601,
+          "contentBytes": 371,
+          "contentIn": null
+        }
+      ],
+      "observationBytes": [
+        {
+          "purpose": "testing",
+          "resultRef": "result://abiogenesis/7d8d7f5fb42032f75ae9dc9e25aa3ca1583a3d2977bb54dece7f63130970ab02",
+          "bytes": 4400,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 9,
+            "selectedGraphFunctionRef": 56,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 3317,
+            "support": 627
+          }
+        },
+        {
+          "purpose": "construction",
+          "resultRef": "result://abiogenesis/1f11cf4c619b59bf0b318df4eb5484ed751e9fae66e612c16ce8f9c2b252ec83",
+          "bytes": 3489,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 14,
+            "selectedGraphFunctionRef": 61,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 2433,
+            "support": 590
+          }
+        },
+        {
+          "purpose": "testing",
+          "resultRef": "result://abiogenesis/56805fe3c08b6090c1bd5f5732dae0052e14fdabf28488db3725f1ab2277704b",
+          "bytes": 2209,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 9,
+            "selectedGraphFunctionRef": 56,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 1154,
+            "support": 599
+          }
+        },
+        {
+          "purpose": "specification",
+          "resultRef": "result://abiogenesis/ead8ed6b924528167921fc2fb656cf1b61878c0fa0686b96f19acd4692009978",
+          "bytes": 6844,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 15,
+            "selectedGraphFunctionRef": 62,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 5714,
+            "support": 662
+          }
+        },
+        {
+          "purpose": "design",
+          "resultRef": "result://abiogenesis/ae8a9a42c04a749138ae9f3501059955874e00cf26024ad691da304f0fc46d43",
+          "bytes": 6825,
+          "fields": {
+            "resultRef": 87,
+            "purpose": 8,
+            "selectedGraphFunctionRef": 55,
+            "synthesisResultRef": 87,
+            "actorInvocationRef": 97,
+            "observed": 5525,
+            "support": 846
+          }
+        }
+      ],
+      "fulfillmentFieldBytes": {
+        "obligations": 13420,
+        "discoveryClasses": 313,
+        "sourceMembers": 353,
+        "coverage": 1218
+      },
+      "priorJudgmentBytes": 9840,
+      "responseSchemaBytes": 9620,
+      "contextBytes": 71690,
+      "originalObligations": 7,
+      "additionalObligations": 0,
+      "observations": 5,
+      "actualBinding": {
+        "ordinal": 20683,
+        "eventId": "event://abiogenesis/4aacc32f7a12c2d2f381944560a572ce9b53174cc082b075a5f9593cd1e83594",
+        "kind": "actor_transport_binding_admitted",
+        "eventTime": "2026-09-28T22:35:46.036Z",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "transport-binding://abiogenesis/78eccd5be974010b8240035b5578f384dfca50da0f47bab000a4c1571c418faf",
+        "resultRef": null,
+        "contractRef": null
+      }
+    }
+  ]
+}

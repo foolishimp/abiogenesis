@@ -1,0 +1,89 @@
+{
+  "oldManifests": [
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/proof-manifest.json",
+      "sha256": "26549de174974f26299f7a5aa5161ab85a94b39dea719e0d50505ac8cd5d3aff",
+      "bytes": 4162,
+      "members": 32
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/launcher-manifest.json",
+      "sha256": "381fa2024e3fb9d3a247e7c2d549d4cdd6b01755b818cff2a00415ccd19dd79d",
+      "bytes": 1023,
+      "members": 8
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/proof-manifest.json",
+      "sha256": "dd915e108118fb5acb7e7c4cf5e012aa0e1df1b5149217572c58038c3c53a2c8",
+      "bytes": 3886,
+      "members": 28
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/run-proof-manifest.json",
+      "sha256": "e1b01fdaa1b6b2efe00cde0fc79822c7cb33bc7202ccd58355b6c748d1aade21",
+      "bytes": 15972,
+      "members": 109
+    }
+  ],
+  "installed": [
+    {
+      "name": "core",
+      "archive": {
+        "sha256": "08d95ee6fc816e413f8f6deaf43c1f106d1c202c942eead9af47bb962cd30110",
+        "bytes": 10337143
+      },
+      "installedRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-sg2xZg/consumer/node_modules/@abiogenesis/typescript-tenant",
+      "members": 5254,
+      "unchanged": true
+    },
+    {
+      "name": "consumer",
+      "archive": {
+        "sha256": "5b27fb85a2c2153819b1c273c5f2a8816974af3d9eca3865f3519cec4f1e7a99",
+        "bytes": 11776
+      },
+      "installedRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-sg2xZg/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection",
+      "members": 7,
+      "unchanged": true
+    }
+  ],
+  "sourceGeneratedMembers": [
+    "code/src/product/default_library.ts",
+    "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "code/src/abg/instruction_assembly.ts",
+    "code/src/product/default_library_fulfillment.ts",
+    "code/src/abg/default_library.ts",
+    "code/src/gtl/default_library.ts",
+    "code/src/gtl/semantic_stage.ts",
+    "code/src/product/requirement_handoff.ts",
+    "code/src/product/semantic_job.ts",
+    "test_env/support/default-library-fulfillment.mjs",
+    "test_env/tests/t287-default-library-fulfillment.test.mjs",
+    "test_env/tests/t287-default-library.test.mjs",
+    "code/src/implementation/default_library.ts",
+    "code/src/product/index.ts",
+    "test_env/support/default-library.mjs",
+    "test_env/support/registered-graph-selection.mjs",
+    "test_env/support/root-installed-environment.mjs",
+    "test_env/fixtures/default-library-product/index.mjs",
+    "build/code/src/product/default_library.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "sourceGenerated": {
+    "sha256": "f4448be3a4adf730361cc475fa99cd5be3965c9d44754101ffba5ca846494043",
+    "bytes": 4364
+  },
+  "readinessReturn": {
+    "sha256": "85c1deed2341aeef4ab0d519f1ce3b4e4d3f092413e6ea3456a40751451954ce",
+    "bytes": 5400
+  },
+  "readinessFreeze": {
+    "sha256": "ec4372708d7ccf23e16c8c97dd45f263931addd2702f7ad26fbe411a9bd680d2",
+    "bytes": 857
+  },
+  "priorRunReturn": {
+    "sha256": "e96a804b3d5893eea57d1547efb2390ea1e510ae8071e518c0370494a2d6bc35",
+    "bytes": 11789
+  }
+}

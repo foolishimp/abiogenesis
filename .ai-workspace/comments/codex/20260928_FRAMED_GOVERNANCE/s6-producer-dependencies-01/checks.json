@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "providerCalls": 0,
+  "installation": false,
+  "actualAdmittedPrepare": {
+    "callRef": "c-call:sha256:8c35c5e756490de799dedf0bf6a2d2fd95f29b099a57c43133231990826ffd29",
+    "basisRef": "execution-basis://abiogenesis/07815b4d4a9f6bd1d4e48623bef4e80a0c866f1a2c61164b667be42d42d39dfc",
+    "inputRef": "raw-admission://abiogenesis/7b480da2d6569466aefbaf41ae607389cff203d371db8c1193509f8b9757d190",
+    "inputDigest": "sha256:01cf288ba058b09f2e2e5ddb2c01ad1cf8f2ce9c9b913a82ebfc69d5d0ca2c42",
+    "authenticated": true,
+    "preparationAccepted": true,
+    "admissionGuardAccepted": true,
+    "producerOrdinal": 4711,
+    "producerOwnDependenciesCurrent": true,
+    "laterAssessmentSourcesChanged": true,
+    "contextConserved": true,
+    "taskDigest": "sha256:261b160a5b568c6dd562e41c3f3d42afba3a765900409ca1e537cf2991a0d39b"
+  },
+  "actualProducer": {
+    "resultRef": "result://abiogenesis/56805fe3c08b6090c1bd5f5732dae0052e14fdabf28488db3725f1ab2277704b",
+    "resultDigest": "sha256:56805fe3c08b6090c1bd5f5732dae0052e14fdabf28488db3725f1ab2277704b",
+    "cCallRef": "c-call:sha256:9960b9708c42ce82d1b7daa13555eb586f9222bb96b48b1c77621dde65b7a55a",
+    "actorInvocationRef": "actor-invocation://abiogenesis/5fd774a6fc0891c0a3c4bff84a8245f5212bdea026436f6a26c12130f55c09ff"
+  },
+  "dependencies": [
+    "source/original-basic-cli.txt",
+    "source/basic-cli.oracle.json",
+    "generated/hello-world.mjs",
+    "test/component/hello-cli.test.mjs",
+    "test/uat/hello-cli.uat.test.mjs",
+    "source/witness-contract.md"
+  ],
+  "assessmentPaths": [
+    "source/original-basic-cli.txt",
+    "test/component/hello-cli.test.mjs",
+    "test/uat/hello-cli.uat.test.mjs",
+    "source/witness-contract.md",
+    "specification/project-conformance.md",
+    "design/implementation-design.md",
+    "design/test-design.md",
+    "test-execution-plan.json",
+    "generated/hello-world.mjs",
+    "source/basic-cli.oracle.json"
+  ],
+  "render": {
+    "kind": "native_instruction_assembly",
+    "promptBytes": 176380,
+    "contextBytes": 71690,
+    "contextBound": 131072,
+    "selectorBound": 131072,
+    "separateNumericNativePromptBound": null,
+    "role": "assessor",
+    "frameRefs": [
+      "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-product-testing-frame-set",
+      "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-reviewer-frame"
+    ],
+    "manifest": {
+      "planRef": "prompt-plan://abiogenesis/native-work/cff8bc6855e846a16230ee37f9770fa8ac3198675142539f044d86690e295136",
+      "planDigest": "sha256:cff8bc6855e846a16230ee37f9770fa8ac3198675142539f044d86690e295136",
+      "envelopeDigest": "sha256:92e5a2287bddb0f9e2b3d18bee1a23a58a619d33ee955db0ba2a1fb38d9c82e6",
+      "rendererRef": "renderer://abiogenesis/worksite/native-work@5",
+      "contextRef": "worksite-context-observation://abiogenesis/c02a2a19830649b7138f4a38836d483c71ca5ed3e3fa4f225c6fad7f0bd57215",
+      "contextDigest": "sha256:c02a2a19830649b7138f4a38836d483c71ca5ed3e3fa4f225c6fad7f0bd57215",
+      "responseContractRef": "contract://default-library-witness/assessment@5",
+      "responseSchemaDigest": "sha256:eebd4e4d28c305f659dad102685fda4cfbfc02791e5c4e841e95bf8476d8af4b",
+      "promptDigest": "sha256:cf4c0d173b38e94c8722ccda186c45208af7f8e55a9b47aa137ce5eddc872512",
+      "promptBytesDigest": "sha256:f674c5db304ee64f77d79dfad542bf2228fd688e995dafae614d8d17751727ed",
+      "promptByteCount": 176380
+    },
+    "taskDigest": "sha256:261b160a5b568c6dd562e41c3f3d42afba3a765900409ca1e537cf2991a0d39b",
+    "producer": {
+      "resultRef": "result://abiogenesis/56805fe3c08b6090c1bd5f5732dae0052e14fdabf28488db3725f1ab2277704b",
+      "resultDigest": "sha256:56805fe3c08b6090c1bd5f5732dae0052e14fdabf28488db3725f1ab2277704b",
+      "cCallRef": "c-call:sha256:9960b9708c42ce82d1b7daa13555eb586f9222bb96b48b1c77621dde65b7a55a",
+      "actorInvocationRef": "actor-invocation://abiogenesis/5fd774a6fc0891c0a3c4bff84a8245f5212bdea026436f6a26c12130f55c09ff"
+    },
+    "assessmentAdmitted": false
+  },
+  "downstream": {
+    "ownedAssemblyRendered": true,
+    "rawSchemaValidated": true,
+    "abgNativeResultMatchingGuard": true,
+    "observationJudgment": true,
+    "independenceRefused": true,
+    "retainedFold": true,
+    "openCoverage": 7,
+    "actualAdmittedUat": false
+  },
+  "limits": "Actual retained failed preparation CCall/authentication/input/currentness. Future assessor occurrence, raw indeterminate response and fold-result admission are controlled premises only; no UAT admission, provider, semantic success, installed successor or Run closure."
+}

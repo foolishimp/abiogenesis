@@ -1,0 +1,61 @@
+{
+  "core": [
+    {
+      "path": "build/code/src/product/default_library.js",
+      "before": {
+        "sha256": "bf5235c35953318b56b3f41afd46bd48d86d99738a735f78471183d6fd65b977",
+        "bytes": 23134
+      },
+      "after": {
+        "sha256": "b5358d468d1c1471ba3838cce6d2f151ec6050d11a55ae61d3596eb6c4b3fcda",
+        "bytes": 23846
+      }
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "sha256": "c1764c4c0b17f03b02e7ca2cc59f8e8b6b46d64245e5349f009ec52d4a1faa03",
+        "bytes": 197474
+      },
+      "after": {
+        "sha256": "fafbba192f62ec277504b078f12d335ea5a6d4627bf05583460a0f4aa508559d",
+        "bytes": 197474
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "sha256": "633057dca6ce16cf580249352511553b9d6be57bbec8c966ff7880f2ce969d80",
+        "bytes": 2545310
+      },
+      "after": {
+        "sha256": "67e0edd2589c438fbb09a3a0ecde80d0249372469f5af27f7ab8e469c20005c4",
+        "bytes": 2545310
+      }
+    }
+  ],
+  "consumer": [
+    {
+      "path": "package.json",
+      "before": {
+        "sha256": "d19b61a6219d3ec7a5813a42fb644b2b9be00799c2962f169666fc16e05652c3",
+        "bytes": 458
+      },
+      "after": {
+        "sha256": "9b3010484dcaf2486dd8a5cd1f5f155c8081fdc4eeb555b72066ea7047fa4c80",
+        "bytes": 455
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "sha256": "70119102b93dc893af2d05a08561515fbd547ad11294e8132a80c89883d03603",
+        "bytes": 4898
+      },
+      "after": {
+        "sha256": "fe92dded1393e88655722835b000e14c7c39db639146953d77814d537e5043a9",
+        "bytes": 4898
+      }
+    }
+  ]
+}

@@ -1860,3 +1860,141 @@ release publication. Exclude the active `installed-live-03/` evidence until its
 closed return, and preserve unrelated historical untracked files and symlinks.
 Use ordinary non-forced main publication under the owner's continuing
 commit/push authorization, then verify the remote commit and return to Executive.
+
+
+## S6 live-03 disposition and producer dependency correction
+
+Root enters Writer only to append this disposition and project T-287, then
+returns to Executive. Closed live-03 return `6ecbf5d923a43257c5f356cd34f75e8b7f9728733f84f37b400a4b203891af34`
+and freeze `3016dd621b859ae13ce3b99f85d6476ba2f5e534aba5bbd73718106d505cf7c6`
+establish Testing -> Construction -> Testing -> Specification -> Design -> UAT
+selection. The selector correction passes its installed discriminator (six
+prompts, maximum 92,162 bytes). UAT preparation fails at 21042/21044; downstream
+foldback is not the cause. The selected C2 Result at 4711 has six unchanged
+dependencies, but the shared guard rejects later writes to four assessment-only
+documents. All seven obligations remain assessment_missing. Run and S6 remain
+incomplete. Preserve both fresh reads, prior Runs and all authored assets.
+
+Select `T287_S6_PRODUCER_DEPENDENCIES_01`, same xhigh Worker,
+`realization_refactor` at `abg/default_library.ts` plus its owning
+`T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md`. Frame:
+`repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration`,
+with Product/Owner and Reuse/Foundation. Product reusable(a) and
+CONTINUATION-016 already require exact dependency-scoped reuse. Separate
+producer-support validity from freshly acquired assessment source/candidate/
+rubric bindings through existing owners; no Product change, forced graph order,
+new currentness model, cache or recovery adapter. Preserve original invocation,
+Result/call/actor identity, actual affectedness and independent assessment.
+
+Write territory: that existing preparation owner, its HOW, directly necessary
+focused tests and proof under `s6-producer-dependencies-01/`, plus ordinary
+derived build/package outputs. Reproduce the actual admitted failing CCall;
+cover native-work, observed-input C2 and native-source C2, later unrelated
+assessment inputs, changed producer dependency/subject, and malformed lineage.
+Continue the successful preparation through its actual owned assessment render;
+controlled preparation remains distinct from admitted UAT. Reuse unchanged
+proof. One coherent source/build/package freeze, then stop for the same max
+Reviewer. No provider, installation, case/oracle/schema/policy/control change,
+Git effect or extension into unrelated currentness owners absent a concrete
+necessary join. Return a design/authority conflict before broadening.
+
+Select `T287_S6_PRODUCER_DEPENDENCIES_REVIEW_01`, same max Reviewer, one bounded
+checkpoint of the closed actual failure and coming exact correction. Independently
+check producer dependencies versus assessment material/currentness, nearest
+refusals and native UAT path reachability, not a selected latest-author shortcut.
+Also classify live-03's disclosed Design `/tmp/.x` write/delete against the
+current native-effect and selected witness contract. It is separate from the
+preparation failure and cannot support an effect-compliance claim; determine
+whether it is an instruction failure for assessment or a missing governing
+runtime check, without inventing a host-security requirement. Write only
+`s6-producer-dependencies-01/review.md`; no source repair, broad audit, tests,
+provider or Git. Await the exact Worker freeze for final readiness. No new paid
+attempt is selected here.
+
+
+## S6 producer-dependency readiness and installed verification preparation
+
+Root consumes closed `s6-producer-dependencies-01/return.md`
+(`269be2e1c0a7dfd6d50da578758f5c73ffef14e695ddb2b2ace70477a39e090f`),
+freeze `75a1d75bf882180b267704e2e76f6619ff343552e2941dbbf91a82c246fad270`,
+core `6311b520520efb19f6d042fb11c00bf7abe5ad335f0b274915726c482d7bdf07`.
+The actual authenticated failing UAT CCall now prepares with its original C2
+producer. Its full assessment context/render, downstream native matching and
+controlled indeterminate fold succeed; actual UAT and closure remain unproved.
+Production change is +12/-6 lines in the existing owner; three focused tests
+pass. Final independent correction review is pending.
+
+The Reviewer's closed scope judgment treats Design's `/tmp/.x` write/delete as
+an attributed agent instruction/effect-scope deviation. Current native HOW
+observes bounded worksite before/after and makes no global host-containment
+promise. Preserve that adverse fact and withhold unqualified effect-compliance
+credit; it does not itself stale the unrelated C2 dependencies. No transcript
+scanner, new sandbox or Design rerun is selected by this finding. Live-03 remains
+failed and unaccepted; a fresh changed-candidate instance cannot erase it.
+
+Select `T287_S6_LIVE04_PREPARE_01`, same xhigh Worker, one fresh qualification
+instance to verify the substantive producer-dependency correction on the same
+independent complete case. This is not continuation/recovery of live-03 and
+imports none of its runtime Results. FRAMED-RECOVERY-01 remains open. Use the
+existing preparation owners and launcher with only exact dependency/derived
+identity and disposable coordinates rebound. Six original files, four absent
+assets, seven original obligations, case/input/schema/policy/model/controls and
+all S6 outcomes stay unchanged. No forced graph order. Record the new core/
+consumer/install/input identity and separate preparation timings under
+`s6-producer-dependencies-01/installed-live-04/`; reuse established launcher and
+readback logic. One consumer package/install is permitted; no core source,
+HOW, tests, rebuild/repack of core, case/control change, native dispatch, release
+or Git effect. Return frozen installation/launcher readiness and stop. Actual
+paid dispatch requires the closed correction review and Root's explicit grant.
+Root enters Writer only for this record/T-287 projection, then resumes Executive.
+
+
+## S6 live-04 execution
+
+At 2026-09-28T23:09:38.192584+00:00, Root conjoins the closed producer-dependency correction and
+independent review `d9d896aab84e7915d074ce8f232c275e1ad88bcf6a20e4923379fcb5318a4d48`
+with installed readiness `4bc20a3e8d0bebcd8c8b30c34041da0491a8989ec0dbca50e606e4dc9af90afe`,
+freeze `0a9a9d9bdcf9393ca1b657133d33abe66f16e555d250726905d8d00037117bca`.
+Core `6311b520520efb19f6d042fb11c00bf7abe5ad335f0b274915726c482d7bdf07`
+and consumer `6cf3780dadeeddce756fdfe903e0c7da2ec8f894a4619a104650ab5128792e12`
+match all 5,261 installed members. Exact original case/input/schema/policy,
+six initial files/four absent assets and pinned Opus5.5/xhigh controls remain.
+The repair is source/package ready; complete S6 remains open.
+
+Select `T287_S6_LIVE04_EXECUTE_01`, same xhigh Worker: run the prepared
+`installed-live-04/launch.mjs --dispatch-once` exactly once. This separately
+selected changed-candidate verification imports no old Results and claims no
+recovery of live-03. HoG owns graph choices and expected baseline/correction
+progression. Preserve raw native material, actual effects, all selected/expanded
+obligations, independent assessment, admitted coverage and parent/Run disposition.
+Retain both genuine cold Public reads. Stop at the first unexpected failure;
+no source/case/oracle/control changes, installation, fallback, automatic paid
+retry, Git or release effect. Keep readiness immutable and close separately in
+`run-return.md`. A single bounded liveness observation is permitted only if
+still outstanding at least 600 seconds after actual dispatch-start, using the
+existing tail/process owner. No repeated log scanning. Separate native/framework/
+readback from 19.617 s setup and 0.892 s extraction. The max Reviewer receives
+the closed outcome for the actual S6 claim; no prospective acceptance.
+
+Root enters Writer for this record/T-287 and a scoped commit/push of reviewed
+repair source, ordinary derived bindings and closed prior evidence, excluding
+active live-04 evidence and reproducible bootstrap copies/symlinks. The previous
+source checkpoint is 26a2e49a358e1ad16e8d6b36eb1f1f232d59dd25. This checkpoint is
+neither a release cut nor S6 acceptance; resume Executive afterward.
+
+
+### Parallel S7 recovery applicability check
+
+Select `T287_S7_RECOVERY_COVERAGE_TRIAGE_01`, same max Reviewer, read-only
+Product/Owner and Continuation frame under the selected immutable basis. During
+live-04, determine the exact retained RC1 obligation exposed by
+FRAMED-RECOVERY-01: distinguish unsupported repaired-authority continuation and
+lawful basis-fork refusal from same-authority recovery of a completed producer's
+pending consumer. Use current Product/CONTINUATION-014/-015/-016/QUAL-064 and
+the closed owner check; consult only directly necessary existing owner routes.
+Return one bounded source-linked applicability judgment: mandatory missing
+capability, insufficient qualification evidence, or justified out-of-scope case,
+with the smallest decisive next proof if one is required. No code/design/ticket
+changes, provider/tests, broad inventory audit, waiver or new recovery mechanism.
+Write only `s7-recovery-coverage.md`. This is early release-scope clarification;
+it neither interrupts live-04 nor grants recovery implementation or RC acceptance.

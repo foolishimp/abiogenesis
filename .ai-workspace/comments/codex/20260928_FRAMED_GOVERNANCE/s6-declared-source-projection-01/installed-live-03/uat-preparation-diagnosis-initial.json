@@ -1,0 +1,148 @@
+{
+  "scope": "Read-only reconstruction of the actual admitted UAT prepare call through existing durable-prefix, execution, materialization, cursor and assembly authentication owners. Instrumentation records the existing currentness function without changing its input or return. No fake call/authentication, altered work input, provider, admission or effect.",
+  "actualBasisAuthenticated": true,
+  "inputRef": "raw-admission://abiogenesis/7b480da2d6569466aefbaf41ae607389cff203d371db8c1193509f8b9757d190",
+  "inputDigest": "sha256:01cf288ba058b09f2e2e5ddb2c01ad1cf8f2ce9c9b913a82ebfc69d5d0ca2c42",
+  "expectedOutputContractRef": "contract://abiogenesis/worksite/native-work/task@5",
+  "firstEvidence": {
+    "ordinal": 21042,
+    "eventId": "event://abiogenesis/163c760e91c94e3dbc754081b11e5328a911454b9107023eb33402ad6d362be8",
+    "resultRef": null,
+    "cCallRef": "c-call:sha256:8c35c5e756490de799dedf0bf6a2d2fd95f29b099a57c43133231990826ffd29",
+    "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5"
+  },
+  "firstFailureResult": {
+    "ordinal": 21044,
+    "eventId": "event://abiogenesis/875c65b33b91cb8db688e3a8c2a34ae22081a3db3d7a8b7c958e0b3fadd360a9",
+    "resultRef": "result://abiogenesis/ee2e5b6fd54f413700963d135da1154c7b62d22f056eb114e8ce99ca444ba886",
+    "cCallRef": "c-call:sha256:8c35c5e756490de799dedf0bf6a2d2fd95f29b099a57c43133231990826ffd29",
+    "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5"
+  },
+  "trace": [
+    {
+      "function": "worksiteCommandSourcesInvalidatedAfter",
+      "afterOrdinal": 4711,
+      "selectedPaths": [
+        "source/original-basic-cli.txt",
+        "test/component/hello-cli.test.mjs",
+        "test/uat/hello-cli.uat.test.mjs",
+        "source/witness-contract.md",
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "design/test-design.md",
+        "test-execution-plan.json",
+        "generated/hello-world.mjs",
+        "source/basic-cli.oracle.json"
+      ],
+      "result": true
+    }
+  ],
+  "earliestFalsePredicate": {
+    "source": "code/src/abg/default_library.ts:141-143",
+    "predicate": "candidate is a file AND no writes to all assessment sources/candidate/rubric since the selected producer",
+    "failedTerm": "worksiteCommandSourcesInvalidatedAfter(..., selectedC2.admissionOrdinal, ..., allAssessmentPaths) === true"
+  },
+  "selectedProducer": {
+    "ordinal": 4711,
+    "eventId": "event://abiogenesis/678f583be602360588d310666c15e081631c60014383524f685d1fb219a1f19d",
+    "resultRef": "result://abiogenesis/56805fe3c08b6090c1bd5f5732dae0052e14fdabf28488db3725f1ab2277704b",
+    "cCallRef": "c-call:sha256:9960b9708c42ce82d1b7daa13555eb586f9222bb96b48b1c77621dde65b7a55a",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+    "kind": "worksite_command_execution_observation",
+    "nativeSourceArm": true,
+    "observedSourceArm": false,
+    "actorInvocationRef": "actor-invocation://abiogenesis/5fd774a6fc0891c0a3c4bff84a8245f5212bdea026436f6a26c12130f55c09ff",
+    "selectedPaths": [
+      "source/original-basic-cli.txt",
+      "source/basic-cli.oracle.json",
+      "generated/hello-world.mjs",
+      "test/component/hello-cli.test.mjs",
+      "test/uat/hello-cli.uat.test.mjs",
+      "source/witness-contract.md"
+    ],
+    "candidateRecordedDigest": "sha256:fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef",
+    "candidateCurrentDigest": "sha256:fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef",
+    "candidateDigestEqual": true,
+    "ownSelectedFilesInvalidated": false
+  },
+  "assessmentPaths": [
+    "source/original-basic-cli.txt",
+    "test/component/hello-cli.test.mjs",
+    "test/uat/hello-cli.uat.test.mjs",
+    "source/witness-contract.md",
+    "specification/project-conformance.md",
+    "design/implementation-design.md",
+    "design/test-design.md",
+    "test-execution-plan.json",
+    "generated/hello-world.mjs",
+    "source/basic-cli.oracle.json"
+  ],
+  "invalidatingAuthors": [
+    {
+      "ordinal": 11180,
+      "eventId": "event://abiogenesis/f047d2787fad50a6742568b002894b261b28c1dbeb4137fc883fd59c2c1e9e5a",
+      "resultRef": "result://abiogenesis/ead8ed6b924528167921fc2fb656cf1b61878c0fa0686b96f19acd4692009978",
+      "cCallRef": "c-call:sha256:11ebf9c9e993017ba4576068fb676290fddf666cced6d798d00a7ee025795075",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "changedPaths": [
+        "specification/project-conformance.md"
+      ],
+      "overlap": [
+        "specification/project-conformance.md"
+      ]
+    },
+    {
+      "ordinal": 11193,
+      "eventId": "event://abiogenesis/74a067a8c8cf2263cd0f167a0dce0bd88bf066cde7a5ddab95dbfc3b5af4d593",
+      "resultRef": "result://abiogenesis/d667233cce363565806484d5c81c084ca84dbfe92e9534de58b5f4674162e337",
+      "cCallRef": "c-call:sha256:b9fe927085d4efbfa2babdbc851246aa138cf8b8b6d38d55f25fbaa1b317ff2c",
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+      "changedPaths": [
+        "specification/project-conformance.md"
+      ],
+      "overlap": [
+        "specification/project-conformance.md"
+      ]
+    },
+    {
+      "ordinal": 20579,
+      "eventId": "event://abiogenesis/7d0bdc6aff12f6b6dc3f95ce79eb9693482ed40bf2f426a8e28e061591e207ac",
+      "resultRef": "result://abiogenesis/ae8a9a42c04a749138ae9f3501059955874e00cf26024ad691da304f0fc46d43",
+      "cCallRef": "c-call:sha256:fe5dcc20ff995aaae250da2186991bb658238ab564a7c5c1e3f6d429331eeeea",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "changedPaths": [
+        "design/implementation-design.md",
+        "design/test-design.md",
+        "test-execution-plan.json"
+      ],
+      "overlap": [
+        "design/implementation-design.md",
+        "design/test-design.md",
+        "test-execution-plan.json"
+      ]
+    },
+    {
+      "ordinal": 20592,
+      "eventId": "event://abiogenesis/4de74d591553ec75ce57f09f1f8a1147113c12b56544af246486d25a1e0d22ca",
+      "resultRef": "result://abiogenesis/2655e03791f92ecd65fe64ccc0d1becee32b9cb5bd2e027cec0984dcdb6910bd",
+      "cCallRef": "c-call:sha256:44d7a68977edbaaa3da90a671cba52628d68f203cd65660fc73f53bd820ddb2f",
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+      "changedPaths": [
+        "design/implementation-design.md",
+        "design/test-design.md",
+        "test-execution-plan.json"
+      ],
+      "overlap": [
+        "design/implementation-design.md",
+        "design/test-design.md",
+        "test-execution-plan.json"
+      ]
+    }
+  ],
+  "priorControlledCheck": {
+    "path": "../check.mjs:37-40",
+    "producer": "actual latest Design native result from live-02 ordinal 21754, chosen by controlled prospective UAT premise",
+    "difference": "Live-03 actual F_P selected earlier current C2 ordinal 4711 after independent Specification/Design wrote assessment-only document paths. The prior check used latest Design, so no later assessment-source writes existed."
+  },
+  "projectedTask": null
+}

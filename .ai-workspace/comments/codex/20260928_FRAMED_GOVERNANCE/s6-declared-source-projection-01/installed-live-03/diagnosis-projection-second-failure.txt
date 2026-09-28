@@ -1,0 +1,1 @@
+The second offline diagnostic reconstructed the initial cursor as at_compute_locus; the exact cursor identity refused. Existing traversal_cursor.ts:416 owns initial at_term. Corrected diagnostic only; prior text preserved. No source/runtime/input change.

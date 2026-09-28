@@ -1,0 +1,18 @@
+{
+  "code/src/abg/default_library.ts": {
+    "sha256": "6eef97a343ac8fb60f38486787a101b3f3b9bee093d709f1340a3df69cf99bc3",
+    "bytes": 28255
+  },
+  "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": {
+    "sha256": "b549c5157df3d1423889c26250393d6b05b93ed3d6724ec0af9905ba7c6e5466",
+    "bytes": 41155
+  },
+  "test_env/tests/t287-default-library.test.mjs": {
+    "sha256": "21a18c57bcf6cabb76a5b198f9449383a734895fb1de63e73034596779e43c17",
+    "bytes": 75599
+  },
+  "test_env/tests/t287-default-library-fulfillment.test.mjs": {
+    "sha256": "34b2b6782efbc805c236c1c4a42715006db6d3b603bd176ba8bf31d6d8163da4",
+    "bytes": 34007
+  }
+}

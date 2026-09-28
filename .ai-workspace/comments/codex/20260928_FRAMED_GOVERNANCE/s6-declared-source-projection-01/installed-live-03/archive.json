@@ -1,0 +1,18 @@
+{
+  "core": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/core.tgz",
+    "sha256": "sha256:08d95ee6fc816e413f8f6deaf43c1f106d1c202c942eead9af47bb962cd30110"
+  },
+  "consumer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/consumer.tgz",
+    "sha256": "sha256:5b27fb85a2c2153819b1c273c5f2a8816974af3d9eca3865f3519cec4f1e7a99",
+    "basis": {
+      "artifactDigest": "sha256:5b27fb85a2c2153819b1c273c5f2a8816974af3d9eca3865f3519cec4f1e7a99",
+      "manifestDigest": "sha256:87698914d2254ae4fabc450b4e0441e495935f42dc0e2abcee14b98fe3c45761",
+      "productContentDigest": "sha256:996519440f56ea8c85f8d74f9e204aeebe1ce9c02c711e471766d15c7b06e3c3",
+      "productId": "product://default-library-witness/consumer@5",
+      "packageName": "@abiogenesis-fixtures/registered-selection",
+      "packageVersion": "5.0.0"
+    }
+  }
+}

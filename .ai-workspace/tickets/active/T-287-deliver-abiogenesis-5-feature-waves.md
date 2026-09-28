@@ -17,21 +17,21 @@
 - updated_at: 2026-09-29
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_S6_LIVE03_EXECUTE_01
-- current_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/freeze.json
-- current_candidate_archive_sha256: 08d95ee6fc816e413f8f6deaf43c1f106d1c202c942eead9af47bb962cd30110
+- current_activation: T287_S6_LIVE04_EXECUTE_01
+- current_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/freeze.json
+- current_candidate_archive_sha256: 6311b520520efb19f6d042fb11c00bf7abe5ad335f0b274915726c482d7bdf07
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s5-framed-synthesis-acceptance
 - current_accepted_archive_sha256: 27914d23b68684fe5c1ef523bcf1b75c08e2e4a9da5e0b38f596e9cdc064a562
-- current_worker_return: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/return.md
-- current_candidate_scope: declared_source_role_projection_independently_accepted_installed_original_case_ready_one_fresh_qualification_attempt_selected
-- current_live_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/execution.json
-- current_live_execution_status: S6_live02_closed_failed_post_Design_selector_152346_bytes_exceeded_131072_bound_CLI_corrected_tests_pass_four_assets_authored_no_UAT_or_terminal_Result
-- current_cost_evidence: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/timing.json
-- current_cost_disposition: S6_live02_945_380s_native905_906s_other39_474s_max_adjacent_non_native1_307s_log81386224B_setup23_238s_separate
+- current_worker_return: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/return.md
+- current_candidate_scope: producer_dependency_correction_independently_accepted_exact_install_ready_one_fresh_case_dispatch_selected
+- current_live_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/execution.json
+- current_live_execution_status: S6_live03_closed_failed_UAT_prepare_native_21042_21044_selected_C2_dependencies_current_no_UAT_or_terminal_Result
+- current_cost_evidence: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/timing.json
+- current_cost_disposition: S6_live03_1046_946s_native1004_879s_other42_067s_max_adjacent_non_native1_390s_log79653929B_setup19_769s_separate
 - prior_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-11/activation.json
 - prior_live_execution_status: PC05_11_process_heap_aborted_before_admission_zero_appended_events_unresolved
-- current_activation_status: exact_live03_readiness_accepted_one_fresh_qualification_dispatch_selected_not_recovery
-- current_native_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/run-return.md
+- current_activation_status: live04_readiness_accepted_explicit_single_dispatch_selected_not_live03_recovery
+- current_native_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/run-return.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#framed-governance-definition-re-entry'
 - current_management_plan: '#current-management-prerequisite-plan'
@@ -52,8 +52,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: execute_live03_then_independently_review_actual_case_outcome_admitted_coverage_and_fresh_Public_reads
-- next_bounded_task_status: one_explicit_dispatch_selected_live02_preserved_missing_recovery_join_not_waived
+- next_bounded_task: execute_live04_then_independently_review_complete_selected_outcome_coverage_and_fresh_Public_reads
+- next_bounded_task_status: one_explicit_native_dispatch_selected_no_automatic_retry
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -74,8 +74,8 @@
 - prior_recovery_candidate_record: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/recovery-how-01/implementation/freeze.json
 - prior_recovery_candidate_disposition: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/recovery-how-01/implementation/executive-disposition.md
 - prior_recovery_resource_disposition: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/recovery-how-01/installed/installed-disposition.json
-- current_review_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/review.md
-- current_review_disposition: declared_source_correction_source_package_ready_no_blocker_new_qualification_permitted_live02_recovery_unproved_complete_S6_open
+- current_review_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/review.md
+- current_review_disposition: producer_dependency_source_package_ready_no_blocker_native_scope_deviation_preserved_actual_S6_open
 - prior_bounded_native_review_disposition: Root_accepted_tenant_service_c0c2697b_diagnostics_f35f4f1d_budget_d173512d_native_nonclosing_residuals_preserved
 - technical_debt_checklist: '#current-management-debt'
 - completed_technical_debt_checklist: ../completed/T-288-remove-duplicated-runtime-construction.md
@@ -1485,11 +1485,18 @@ of which 905.906 s is native work; no adjacent non-native interval exceeds
 1.307 s. These extend LIFE-01/caller-volume evidence without attributing all
 bytes to duplication. The immediate failure is the selector projection below.
 
+Live-03 extends that sample: 79,653,929 B / 21,064 events; execution
+1,046.946 s = 1,004.879 s native + 42.067 s other; maximum adjacent non-native
+1.390 s; fresh reads 6.643/7.176 s. The selected correction concerns dependency
+scope, not a measured framework stall. [Closed return](../../comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/run-return.md).
+
 Current RC1 opportunities remain under Executive-owned T-287 disposition for one trusted developer laptop; this register grants no extra implementation. Unexplained expensive execution, repeated derivation and excess hardening are red flags: retain exact subject, work extent and elapsed evidence, distinguish observation from attribution, and return the supported-rule question to Root. No heap/timeout increase, universal timing/read quota, automatic delivery gate or separate optimization campaign is selected.
 
 | Opportunity | Evidence / status | Next bounded scope |
 |---|---|---|
-| FRAMED-CONTEXT-SOURCE-01 | ACTIVE local realization defect: live-01 exposed repeated whole-task carriers; that bounded correction passed, but live-02's actual authored assets expanded the selector to 152,346 bytes. Complete output-file bodies account for most growth; seven obligations and the prompt bound are unchanged. The repeated fixed-observation probe did not cover expanding assets. | Existing selector presentation/declared source roles, Product/Owner and End-To-End Interface Integration. [Current grant](../../comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s6-live-02-disposition-and-declared-source-projection) preserves required authority bodies, uses output inventory/currentness for graph choice, and retains full assessment material. Actual post-Design preparation, independent review and selected installed outcome are required; no bound increase or new context harness. |
+| FRAMED-CONTEXT-SOURCE-01 | CLOSED for the demonstrated selector defect: independently reviewed declared-source projection passes all six actual live-03 choices, including post-Design UAT selection; maximum prompt 92,162 B under unchanged 131,072. | [Installed evidence](../../comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/run-return.md). Full assessment material and authoritative state remain; no arbitrary-context-size or S6 completion claim. |
+| FRAMED-UAT-DEPENDENCIES-01 | ACTIVE realization defect: live-03 preparation rejects C2 Result 4711 with six unchanged dependencies because four later assessment-only documents changed. Exact real-call diagnosis retained; first failure 21042/21044. | [Current grant](../../comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s6-live-03-disposition-and-producer-dependency-correction). Existing preparation and currentness owners; separate producer validity from freshly acquired assessment inputs, preserve affected-dependency refusal and independent assessment. Focused actual-join proof, review, then selected installed verification. |
+| FRAMED-NATIVE-SCOPE-01 | DISPOSITIONED agent instruction/effect-scope failure: live-03 Design wrote/deleted `/tmp/.x` outside its roots. Independent review finds no promised global containment or demonstrated missing host-security owner. The actual adverse command/report is retained; no effect-compliance or UAT credit follows. | Current native HOW requires bounded worksite observation and honest assessment. Preserve the failure for its exact Run and withhold scope-compliance credit; no transcript scanner, new sandbox or unrelated C2 invalidation. Final review is recorded with the dependency correction. |
 | FRAMED-RECOVERY-01 | OPEN existing-requirement coverage: live-02 retains progressed parent 21825/task 21845, completed native work and seven obligations. The [bounded owner check](../../comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/return.md) finds no established default-library join across repaired authority: initial-empty/current-Run guards and specialized construction recovery cannot be bypassed. | CONTINUATION-014/-015/-016 and the existing recovery/reprice owner govern. Preserve work and require a lawful admitted producer/basis transition before claiming continuation; no copied history or forced producer rerun as recovery. A separately selected fresh qualification instance does not close this limitation. Reconcile applicable retained coverage in S7; no requirement waiver or recovery adapter is selected here. |
 | TEST-PUBLIC-LEGACY-01 | OPEN stale-harness debt, made concrete by the [S2 return](../../comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-implementation/return.md): `root-cli-environment.mjs/buildRootCliScenario` constructs retired Public envelopes and still has historical installed-test callers. The new selection proof uses current DefinitionCall helpers. | Owner: test fixture / Proof frame. Local realization retirement when those callers are selected for evidence reuse or qualification; remove the obsolete envelope path while preserving applicable tests through current owners. No supported-runtime defect or S2 blocker is established. Close with no active obsolete callers and a current-entry installed proof; never restore retired Public APIs to make old tests pass. |
 | INSTALL-VERIFY-COMPUTE-01 | OBSERVED opportunity, not a demonstrated redundant-work defect: [required core40 Product verification](../../comments/codex/20260923_COMPOSITE_READINESS/compiled-40/return.md) takes 9.252 s; whole verifier process 9.55 s wall, 13.56 s user+system CPU, 1,443,217,408 B peak RSS for a 5,233-member package. This is installer computation, distinct from file copying and graph execution. | Owner: Product verification, Computational Whole-Path/Reuse frame. Internal attribution is unknown. Re-entry is bounded realization investigation if this cost materially obstructs the installed delivery path; no profiling detour or new gate now. Close with attributed necessary work or an accepted contraction preserving Product admission. |

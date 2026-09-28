@@ -1,0 +1,1 @@
+First build shell redirection used an incorrect relative output directory; npm did not start. Reissued unchanged npm run build with the absolute selected evidence path; build-01.log records that single build.

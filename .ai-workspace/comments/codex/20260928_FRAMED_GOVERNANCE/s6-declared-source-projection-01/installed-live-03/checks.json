@@ -1,0 +1,42 @@
+{
+  "syntax": [
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/launch.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/readback.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/prepare-launch.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "logicDelta": "Only base/evidence coordinates and read request identity s6-live-03; launch, capture, assertion and cold-read logic unchanged",
+  "providerControlsByteIdentical": true,
+  "installedReadOwnersAndSharedHelperUnchanged": true,
+  "freshQualificationInstance": true,
+  "oldRunResumed": false,
+  "importedRuntimeResults": false,
+  "runStarted": false,
+  "providerCalls": 0
+}

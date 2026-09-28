@@ -1,0 +1,81 @@
+{
+  "oldReadiness": {
+    "sha256": "886787da55482198ec8b4092102a436a7ab4d1d1beee889885e5cd26ce47ba9b",
+    "bytes": 3539
+  },
+  "newReadiness": {
+    "sha256": "f4ac25eddadb12c5591d412487a15b779a021e9a9863daf242d19faec908645c",
+    "bytes": 3575
+  },
+  "oldSubject": "sha256:f5644b465e62ecf98de2d9c8392de17495d658197dae05cbbfb51e0b14945d3f",
+  "newInstalledFreeze": "sha256:37450316a9f4d020cf3c1cf5d9f0aebd377025308c10d33367915a6e5d9a7d59",
+  "sources": {
+    "freeze.json": {
+      "before": {
+        "sha256": "sha256:f5644b465e62ecf98de2d9c8392de17495d658197dae05cbbfb51e0b14945d3f"
+      },
+      "after": {
+        "sha256": "sha256:37450316a9f4d020cf3c1cf5d9f0aebd377025308c10d33367915a6e5d9a7d59"
+      }
+    },
+    "core.tgz": {
+      "before": {
+        "sha256": "sha256:e49c4cc9d552ebca16c944d197cd9af4685ec8f6d0559c732cf35833f02a5d0d"
+      },
+      "after": {
+        "sha256": "sha256:08d95ee6fc816e413f8f6deaf43c1f106d1c202c942eead9af47bb962cd30110"
+      }
+    },
+    "consumer.tgz": {
+      "before": {
+        "sha256": "sha256:2161cfc9e67745bdec0363d4ca5cc724f473a5c7bb4f2bd498d34e32d04f5e60"
+      },
+      "after": {
+        "sha256": "sha256:5b27fb85a2c2153819b1c273c5f2a8816974af3d9eca3865f3519cec4f1e7a99"
+      }
+    },
+    "start-prepared.json": {
+      "before": {
+        "sha256": "sha256:331b6f58f7f919c21bf2977f0735cdf781be8d63ab69a6d67573594872ef1d97"
+      },
+      "after": {
+        "sha256": "sha256:70cb22516afc59cae854ed55065afffcfaa95b26825cc62c139438b21a507e13"
+      }
+    },
+    "handoff-before-start.json": {
+      "before": {
+        "sha256": "sha256:06d851c125cc2d411789894d5977fc0e53fbe00a18ea61ddee8f1141dd3c588a"
+      },
+      "after": {
+        "sha256": "sha256:a5e460bc1e83f686bc20748dbc3172cf9787e5ce784bb2263d13e687d263a244"
+      }
+    }
+  },
+  "coordinates": {
+    "installedRoot": {
+      "before": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl/consumer/node_modules/@abiogenesis/typescript-tenant",
+      "after": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-sg2xZg/consumer/node_modules/@abiogenesis/typescript-tenant"
+    },
+    "scratch": {
+      "before": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl",
+      "after": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-sg2xZg"
+    },
+    "worksite": {
+      "before": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-O5UtQl/workspace",
+      "after": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-sg2xZg/workspace"
+    },
+    "commands": {
+      "before": {
+        "launch": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/launch.mjs --dispatch-once",
+        "readback": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/readback.mjs"
+      },
+      "after": {
+        "launch": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/launch.mjs --dispatch-once",
+        "readback": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/readback.mjs"
+      }
+    }
+  },
+  "semantics": "Same frozen six-file/four-absent-asset case; separate new qualification instance, not preserved-work recovery",
+  "openRecoveryLimit": "FRAMED-RECOVERY-01",
+  "dispatchAuthorized": false
+}

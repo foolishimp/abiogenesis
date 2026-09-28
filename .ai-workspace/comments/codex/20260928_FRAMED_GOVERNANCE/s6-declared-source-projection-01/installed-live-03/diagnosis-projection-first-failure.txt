@@ -1,0 +1,1 @@
+The first offline diagnostic passed a newly filtered mutable array into selectValidatedRuntimeEventPrefix, which refused: runtime event-prefix selection requires one explicit immutable snapshot. Corrected the diagnostic only to consume readRuntimeEventsAtDurablePrefix(cut). No runtime/source/case change or provider retry.

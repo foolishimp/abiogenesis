@@ -1,0 +1,115 @@
+{
+  "planKind": "test_execution_plan",
+  "scenarioId": "SCN-GLC-HELLO-WORLD-CLI-BASIC",
+  "declarationStatus": "Expectations only. This plan contains no observed results and is not the runtime source of the commands; admitted C2 command-execution observations carry the execution result.",
+  "basis": {
+    "originalTask": { "path": "source/original-basic-cli.txt", "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f" },
+    "oracle": { "path": "source/basic-cli.oracle.json", "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585" },
+    "witnessContract": { "path": "source/witness-contract.md", "sha256": "f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b" },
+    "conformance": { "path": "specification/project-conformance.md", "sha256": "13c5d91da001aae2836e4baa0bf91a5f734a3e9580aeb63dfe707b103fe26470" },
+    "implementationDesign": { "path": "design/implementation-design.md", "sha256": "79257416e08f63d99b4885560bae3cd276c509ebde711a391d1609ff46ac3dfc" },
+    "testDesign": { "path": "design/test-design.md", "sha256": "2af6c6ffefaba281e3656f77e059c12d5bd84c8ac79ddbe5024da556fb3b8cb9" }
+  },
+
+  "command": "node",
+  "args": ["--test", "test/component/hello-cli.test.mjs", "test/uat/hello-cli.uat.test.mjs"],
+  "cwd": ".",
+  "expectedExitStatus": 0,
+  "expectedTestPassCount": 2,
+  "expectedStdoutMatch": "fail 0",
+  "assertedReturnValue": "Hello, world!",
+
+  "commands": [
+    {
+      "id": "E-1",
+      "purpose": "Direct Product invocation: exact stdout bytes and successful exit (conformance AC-1; test design X-CLI-1).",
+      "command": "node",
+      "args": ["generated/hello-world.mjs"],
+      "cwd": ".",
+      "expected": {
+        "exitStatus": 0,
+        "processSignal": null,
+        "timedOut": false,
+        "stdout": "Hello, world!\n",
+        "stdoutByteLength": 14,
+        "stdoutSha256": "d9014c4624844aa5bac314773d6b689ad467fa4e1d1a50a1b8a99d5a95f72ff5",
+        "stderr": "unconstrained (conformance U-2); expected empty, not a criterion"
+      }
+    },
+    {
+      "id": "E-2",
+      "purpose": "Execute both supplied verifiers against the current CLI (conformance AC-2, AC-3; test design T-COMP-1, T-UAT-1).",
+      "command": "node",
+      "args": ["--test", "test/component/hello-cli.test.mjs", "test/uat/hello-cli.uat.test.mjs"],
+      "cwd": ".",
+      "expected": {
+        "exitStatus": 0,
+        "timedOut": false,
+        "minimumTestPassCount": 2,
+        "stdoutIncludes": ["fail 0"],
+        "failCount": 0,
+        "cancelledCount": 0,
+        "stderr": "unconstrained; not a criterion"
+      }
+    }
+  ],
+
+  "requiredTestFiles": [
+    {
+      "path": "test/component/hello-cli.test.mjs",
+      "sha256": "8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613",
+      "role": "component",
+      "expectedPassingTests": ["CLI process satisfies its output contract"]
+    },
+    {
+      "path": "test/uat/hello-cli.uat.test.mjs",
+      "sha256": "5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4",
+      "role": "uat",
+      "expectedPassingTests": ["a user receives the exact promised greeting"]
+    }
+  ],
+
+  "environment": {
+    "workingDirectory": "project root (relative cwd \".\"); required because both tests spawn the relative path generated/hello-world.mjs (conformance I-3)",
+    "nodeResolution": "node on PATH; version not pinned (conformance U-1)",
+    "requiredVariables": [],
+    "packageInstallation": false,
+    "network": false
+  },
+
+  "observedResultCriteria": {
+    "observedTestPassCount": "Integer N from the first E-2 stdout line matching ^(ℹ|#) pass (\\d+)$",
+    "observedFailCount": "Integer from the first E-2 stdout line matching ^(ℹ|#) fail (\\d+)$",
+    "observedCancelledCount": "Integer from the first E-2 stdout line matching ^(ℹ|#) cancelled (\\d+)$",
+    "predicates": [
+      { "id": "P-1", "over": "E-1", "holds": "exitStatus === 0 && processSignal === null && timedOut === false" },
+      { "id": "P-2", "over": "E-1", "holds": "stdout.text === assertedReturnValue + \"\\n\" && stdout.byteLength === 14" },
+      { "id": "P-3", "over": "E-2", "holds": "exitStatus === 0 && timedOut === false" },
+      { "id": "P-4", "over": "E-2", "holds": "observedTestPassCount >= expectedTestPassCount" },
+      { "id": "P-5", "over": "E-2", "holds": "stdout.text includes expectedStdoutMatch && observedFailCount === 0" },
+      { "id": "P-6", "over": "E-2", "holds": "every requiredTestFiles[].expectedPassingTests name is reported as passing && observedCancelledCount === 0" },
+      { "id": "P-7", "over": "E-1, E-2", "holds": "the observation's recorded digests of generated/hello-world.mjs and both requiredTestFiles equal the worksite digests current at assessment, and the protected basis digests are unchanged" }
+    ],
+    "planSatisfied": "P-1 && P-2 && P-3 && P-4 && P-5 (conformance R-RES-2(c), I-2)",
+    "acceptance": "planSatisfied && P-6 && P-7, judged by an independent semantic assessment distinct from the author and measurement producer (conformance AC-10)"
+  },
+
+  "resultCarrier": {
+    "kind": "admitted C2 command-execution observation (contract://abiogenesis/worksite/command-execution-observation@5)",
+    "handwrittenResultFile": "test-execution-result.json is neither produced nor trusted (conformance §8 C-1, C-2)",
+    "originalResultFieldMapping": {
+      "command": "commandResults[].executable",
+      "args": "commandResults[].args",
+      "status": "commandResults[].exitStatus",
+      "stdout": "commandResults[].stdout.text",
+      "stderr": "commandResults[].stderr.text",
+      "cwd": "commandResults[].relativeCwd",
+      "env": "commandResults[].environment",
+      "expectedTestPassCount": "this plan",
+      "expectedStdoutMatch": "this plan",
+      "assertedReturnValue": "this plan",
+      "observedTestPassCount": "derived from E-2 stdout per observedResultCriteria",
+      "planSatisfied": "derived per observedResultCriteria"
+    }
+  }
+}
