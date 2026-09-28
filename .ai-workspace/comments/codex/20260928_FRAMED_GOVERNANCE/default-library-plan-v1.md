@@ -3,9 +3,7 @@
 Proposal only under `execution.md#s4-review-and-s5-catalogue-coverage`, current
 Product Default Governance And Lifecycle Library and its independent Hello
 witness, exact STDO v2.5.1-rc.1, Product/Design/Owner, Reuse/Foundation and
-End-To-End Interface Integration. S4 is accepted and remains frozen. This successor addresses only DL-D01 under
-`execution.md#dl-d01-observed-input-testing-child`; the reviewed original is
-`default-library-plan-v1.md` (`ed93976f94859c00148c953644258f1bc7181d83e303c4abe5167a91c141a368`).
+End-To-End Interface Integration. S4 remains frozen under independent review.
 
 Publish one ordinary default-library module with seven callable purposes:
 recursive Executive, induction, specification, design, construction, testing
@@ -40,7 +38,7 @@ F_D performs declared copying, schema/identity checks and total control rules.
 | **Specification**: state requested behavior and testable criteria | Source/model and any already-valid requirements → behavior/criterion asset | Product/Specification; source-grounded behavior, boundaries and meaningful proof obligations | Scoped asset writes; absent source/authority remains gap. Does not require a freshly generated induction asset | Fixed native-work and applicable native-assessment calls. Retain donor product/requirements required-content and common rubric; remove fixed predecessor-stage requirements |
 | **Design**: propose a realizable bounded change and checks | Source/criteria/current worksite/reusable design → selected artifact and command plan | Design + interface integration; actual context, feasibility, preservation and executable proof | Scoped design asset only. Unknown dependency/capacity remains explicit; no guessed controls | Fixed native work/assessment; retain donor design content and executable-proof criterion, including actual inventory and declared capacity |
 | **Construction**: realize the selected work | Bounded work order/current context → `NativeWorkspaceWorkObservation` folded into state | Worker/Construction; original outcomes and selected change scope | Existing native coding host reads/edits/runs permitted checks; actual before/after observations own effect truth. Report alone never proves success | Existing `NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef`, `realizeNativeWorkspaceWork`; retain exact native task, scope and observation contracts |
-| **Testing**: establish reproducible executable behavior | Selected criteria/check plan plus actual candidate → native command/predicate observations and residuals | Testing/verification; meaningful tests of the actual candidate and declared expected observations | Permitted command/check effects and explicitly scoped verifier artifacts. Missing plan/tools/evidence remains gap | Existing native work may author a needed verifier/plan; existing C2 command GraphFunction executes the declared commands and returns typed observations. Reuse its unchanged native-source arm, or the explicitly proposed observed-input child extension below; never fabricate construction success |
+| **Testing**: establish reproducible executable behavior | Selected criteria/check plan plus actual candidate → native command/predicate observations and residuals | Testing/verification; meaningful tests of the actual candidate and declared expected observations | Permitted command/check effects and explicitly scoped verifier artifacts. Missing plan/tools/evidence remains gap | Existing native work may author a needed verifier/plan; existing C2 command GraphFunction executes the declared commands and returns typed observations. Reuse its native-source or observed-input arm, not fabricated construction success |
 | **UAT**: independently assess selected user outcomes | Original source, independently authored oracle/rubric, exact candidate and execution evidence → consumer-declared assessment | Product/UAT + independent Reviewer; requested behavior in the selected usage context | Read-only fresh assessment; use declared C2 probes if required. Unsatisfied/indeterminate outcomes remain open | Existing native assessment GraphFunction with installed schema asset and exact source/candidate/rubric digests. Retain donor evidence/common-rubric meaning, not its unconditional final stage |
 
 Policy rows and source assets are declaration data. Existing run-environment
@@ -117,91 +115,6 @@ required occurrence/producer relation, return that exact seam before introducing
 another carrier. The task must not fall back to a naked prompt, caller-side
 snapshot/continuation loop or the ordered semantic-job helper.
 
-## DL-D01: observed-input Testing child — selected extension
-
-The governing C2 HOW, `T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md:303–339`,
-explicitly supports **root C2 only** for observed files and deliberately excludes
-children. This proposal amends that HOW boundary for one admitted Testing-child
-composition; it must not be described as already supported. The existing root
-binding at `abg/execution_basis.ts:714–724` remains exact and unchanged. No Product
-conflict was found: COMPOSE-004/007/008 requires replayable composition with
-preserved, sufficient inputs; HANDLERS-001/003/005 requires exact admitted calls,
-real observations and authority; BINDING-016–018 separates observations from
-immutable authority. Product's Preparation/Execution boundary and default-library
-reuse require no invented author or gratuitous construction call. Implementation
-must update only the owning C2 HOW's root-only exclusion and its affected joins;
-Product, requirements, effect scope and Public operations stay fixed.
-
-There are two distinct source cases. Native-source Testing retains its existing
-completed native Result, same-Run/reacquisition preparation and currentness laws.
-Observed-input Testing carries actual existing file observations, **no author
-claim and no predecessor native/construction Result**. Its real F_D preparation
-Result proves task preparation, not file authorship. Keep
-`deriveSameRunWorksiteCommandSourceBasisAtPrefix`'s native/C1/C3 branches unchanged;
-do not coerce observed files into `ProductInvocationSourceResultBasis`.
-
-Use one pure observed-child provenance projection in existing
-`abg/worksite_input_provenance.ts`, selected by the existing closed
-`sourceObservedInput` task arm and the actual declared C2 call boundary. It
-returns the already-admitted input/preparation/result/judgment/route coordinates
-and selected observation set. This is an internal projection, with no new basis
-identity, serialized carrier, event, cache, ledger or effect permission.
-
-1. **Input and acquisition.** The Testing wrapper receives the admitted parent
-   state and an explicit ordered file selection plus command/predicate/write
-   configuration. Its named `prepareObservedTestingTask` F_D leaf consumes the
-   existing owned occurrence basis; it derives A/W/grant from the current admitted
-   environment and original invocation. It uses existing worksite observation
-   operations for exactly those subjects and constructs the existing
-   `ObservedWorksiteCommandExecutionTask`. Nonempty/unique source rows, exact
-   subject/observation binding, source-set identity and protected territories
-   remain the existing constructor's law. Caller-provided file claims alone are
-   insufficient. This leaf executes no command and makes no suitability judgment.
-2. **Preparation admission and route.** The proposed library preparation guard
-   admits the exact task/observations only against that occurrence, declared
-   input and admitted implementation. The shared projector follows the current
-   parent basis, Run, invocation, workflow CCall and cursor to its actual preceding
-   advance route and successful, advancing preparation Result. It verifies the
-   exact declared preparation binding, Result/judgment causal refs and canonical
-   task/contract equality. Recover the preparation input through the existing
-   cursor/retained-input projections; any retained source is an actual upstream
-   result, never an invented native producer. Preserve the acquisition prefix
-   belonging to the preparation occurrence using its existing CCall/fibre events.
-   Index by occurrence and causal route before comparing content; equal task
-   digests in unrelated history cannot establish or invalidate this relation.
-3. **Child admission.** At `execution_basis.ts:2411–2417`, branch only for this
-   admitted observed task into the shared projector, instead of requiring a
-   completed-source Result. The exact fixed C2 GraphFunction, input digest,
-   parent CCall/basis, Program membership/implementation subset, A/W and original
-   grant still match. Reject missing/ambiguous preparation, crossed route/input,
-   mixed source arms, foreign authority or intervening invalidation before opening
-   the child. Leave the existing source-result branch and root arm unchanged.
-4. **Before effects.** Replace only the unconditional observed-child refusal at
-   `execution_basis.ts:980–981` with the same exact provenance join. Check later
-   admitted mutations and uncertain failed-write residue affecting the selected
-   protected paths from the preparation's acquisition cut through the held
-   pre-effect prefix, not merely through child admission. Keep current binding,
-   grant, fixed implementation, protected-file and physical O1 re-observation
-   checks before manifests/snapshot/dispatch. A preparation Result or source-set
-   digest never authorizes execution of changed files. Preserve unaffected paths;
-   do not widen read/write territories, controls or trusted-desktop guarantees.
-5. **Result and replay.** C2 helper execution, typed command observations, result
-   admission, ordinary foldback and parent evaluation stay unchanged. At
-   `abg/replay.ts:1789–1798`, project observed child provenance at that child's
-   historical admission cut using the same projector; distinguish its observation
-   set and real preparation Result from the existing source-Result projection.
-   Do not fabricate author lineage or make historical replay reread today's
-   filesystem. Existing pre-effect/effect evidence retains the later currentness
-   obligation. The existing basis/route/result facts suffice for fresh-process
-   reconstruction; missing provenance refuses rather than trusting task shape.
-
-This adds the named observed arm in `abg/worksite_input_provenance.ts`, whose
-current completed-source projector excludes it at `:305–309`, plus the three
-listed `execution_basis.ts`/`replay.ts` consumers and the already-proposed library
-preparation/result correspondence. `abg/invocation_admission.ts:530–556` continues
-to derive actual predecessor Result bases only. Existing retention, traversal,
-C2 task/snapshot/effect and native-source owners are reused, not replaced.
-
 Retain donor **meaning** from `native-intent-declarations.mjs` and the per-stage
 content/rubrics in `native-lifecycle-declarations.mjs`. Pin its exact source and
 adapt the bounded policy data into the ABI library; do not make runtime depend
@@ -241,27 +154,6 @@ not seven independent label-qualification campaigns. Explicit closed-rule versus
 F_P and frame/criterion selection checks remain bound to the Product witness;
 publication coverage alone earns no runtime or release claim.
 
-
-Add one affected reuse discriminator to that same installed S5 thread: supply
-an already-valid candidate and check plan with no native/construction producer;
-select Testing, admit its observation/preparation, execute the fixed C2 child,
-fold actual command evidence back and obtain fresh Public replay/readback.
-Assert no native author call, unchanged protected originals, the actual observed
-source arm and parent obligations preserved. This is reuse of the consumer's
-prospectively selected files, not a second Hello solution embedded in the library.
-Keep the existing fresh-native-source thread as its regression witness.
-
-Use bounded mechanical mutations of that actual preparation/child boundary for
-missing or non-advancing preparation, crossed Run/cursor/Result despite equal
-bytes, changed task/file selection or foreign grant, and mixed source carriers.
-For currentness, exercise a selected-file change (including an admitted failed
-write with unknown residue) after preparation/child admission but before effect;
-expect refusal before command dispatch. Preserve unchanged-unrelated-path
-behavior through existing currentness checks. Fresh-process replay must reproduce
-the positive provenance and refuse a detached/mismatched preparation; no extra
-provider reliability campaign, author rerun or execution-policy widening is
-selected by these checks.
-
 No further Product decision is needed. Executive must accept this HOW and grant
 the named owner extension before implementation. Source-authored Hello/oracle
 selection and independent review remain separate roles; no implementation,
@@ -278,12 +170,3 @@ provider, build or qualification effects occurred in this proposal.
 - `/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts`: `14b1f9036b6c1aaac6b6ab75006bd3ec06d2eef76416c1be3180d269a28e55be`.
 - `/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-intent-declarations.mjs`: `5630d1d25802a8ad1bd3c81d6f68155b439c5edb4cad5e4135650afdf1077ea9`.
 - `/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs`: `580f7680cb2fc4cc0dbadacd596fd361f8c1a0f5f13821821ad5530f68ac7a32`.
-
-DL-D01 additional read-subject identities:
-- `specification/requirements/gtl/REQ-L-GTL3-COMPOSE.md`: `d6614b9a9e992fa3d8c07a977f9edeec83ac5c8893a60e859f1cc0a86342a89c`.
-- `specification/requirements/abg/REQ-R-ABG3-HANDLERS.md`: `11b1c61ecb52c11b2bbc047c019792139b9a80367f881bbddd5826a8e4189000`.
-- `specification/requirements/abg/REQ-R-ABG3-BINDING.md`: `af6538e5bf717feeefc90a8becedac9f3556fc77ea4c149443fa2a9c4d5f3175`.
-- `build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md`: `1918f94eb8c289e0af71386a88631a903a40dd6f43a0aa0de2ed9ef59d03cca3`.
-- `build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts`: `c092a78ada894d2e9220487011fc30cfcdc87d8da7ec2b3f1845d30be59dcbca`.
-- `build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts`: `4f47f3084d8079d0dd04989e4aa35c7beeb56ed59cd92d05046b555b8d440cba`.
-- `build_tenants/abiogenesis/typescript/code/src/abg/replay.ts`: `db57002098ace36cc173b3e3544ecf43ea5b4748af297fc940dda9f03cd4950c`.

@@ -25,7 +25,7 @@ generation or revival of the withdrawn odd_glc planner is selected.
 | S2 | Installed two-choice deterministic proof with scope/contract refusals | Accepted, including repeated-input correction; native suitability remains S3 |
 | S3 | Native F_P Executive with bounded frame/catalogue context | Accepted bounded native evidence and reviewed RS-N01 source correction; installed successor is S4 |
 | S4 | Changed registered choice and recursive result/foldback | Accepted first installed attempt after independent review; no production change |
-| S5 | Reused default induction/specification/design/testing/UAT declarations | Proposal frozen; focused owner-boundary/design review selected before code |
+| S5 | Reused default induction/specification/design/testing/UAT declarations | Corrected HOW accepted; bounded implementation and installed proof selected |
 | S6 | Installed consumer-authored Hello, correction, assessment and Public readback | Pending applicable library capability |
 | S7 | Remaining Product qualification and exact RC lifecycle | Pending selected obligations |
 
@@ -665,3 +665,165 @@ Root enters Writer only for this acceptance/review grant, T-287/GOALS projection
 and a scoped checkpoint/push of S4 fixture/support, its frozen evidence and these
 planning records. Preserve unrelated inherited untracked files. No release
 version/tag change. Root then resumes Executive; S5 code is not yet authorized.
+
+## DL-D01 observed-input Testing child
+
+Executive accepts [S5 review](default-library-plan-review.md)'s bounded DL-D01
+finding. Existing C2 observed-input tasks are root-bound and explicitly refused
+as children; the proposed Testing wrapper cannot reuse existing files through
+that arm yet. Same-Run native-source C2 remains feasible. This is a missing HOW
+relation caught before implementation, with fail-closed current behavior.
+
+Select a bounded design reframe within the existing Product's reusable work and
+generic graph composition. Extend the proposed HOW to carry observed-input
+tasks through the existing child-admission, pre-effect and replay owners.
+Preserve native-source behavior and actual observation/currentness duties.
+Do not invent a native producer, require a gratuitous author invocation, widen
+effects, or add an event family, catalogue, ledger or controller.
+
+Activate existing Astra/xhigh Worker as
+`T287_DEFAULT_LIBRARY_DESIGN_REPAIR_01`. Same S5 Product/Owner/Reuse/integration
+frame and immutable basis. Preserve the exact reviewed proposal at
+`default-library-plan-v1.md`, then correct only `default-library-plan.md` here.
+Inspect the owning requirement/HOW and the three seams identified by Reviewer;
+state the admitted preparation/parent input, selected observed task/files, exact
+child binding, pre-effect currentness and replay relation. Reuse existing
+occurrence/retained-input/source projections where sufficient. Name any actual
+Product conflict before claiming this is a realization choice.
+
+Add only the affected positive reuse discriminator and refusal checks needed
+to qualify this relation with the library thread. Do not activate extra native
+campaigns, code, tests/build, providers, installs or Git. Other reviewed S5
+judgments and S4 acceptance remain valid. Return the exact successor proposal
+and change summary for the same Reviewer's focused DL-D01 recheck.
+
+Root enters Writer solely for this disposition and current T-287 state, then
+returns to Executive. S5 implementation remains unselected until HOW is complete.
+
+The corrected [S5 HOW](default-library-plan.md), SHA-256
+`f9e7f51a2bd12ee0d27e5e0d3a9861545a941e139835ab87097144e8e053fe2a`,
+preserves the reviewed original at `default-library-plan-v1.md`. It explicitly
+amends the owning C2 HOW's root-only exclusion, binds observed tasks to their real
+preparation/child/currentness/replay relations and preserves native-source/root
+behavior. No Product change or source implementation is claimed.
+
+Activate the same Astra/max Reviewer for a focused DL-D01 delta recheck. Reuse
+the unaffected S5 judgments and exact frame. Only
+`default-library-plan-review-02.md` may be written; no execution, tests, build,
+source or Git effects. Return whether this relation is sufficiently specified
+for the bounded implementation. Root enters Writer only to record this grant
+and work state, then resumes Executive.
+
+Root read-only located the unchanged original Hello source for the subsequent
+consumer witness: odd_glc `build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs`,
+bytes `[7589,11914)`, SHA-256 `ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f`;
+whole-file SHA-256 `99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2`.
+Both still match the retained Opus04 ordinary-input selection. Its independent
+oracle route is `test/fixtures/generic-job/basic-cli.oracle.json` in that tenant.
+Preserve the complete original behavior/asset obligations and prior explicit
+non-authority of the predecessor vector mechanism. This locator creates no
+new source, oracle, S6 launch or obligation waiver.
+
+## S5 acceptance and implementation grant
+
+Executive accepts corrected HOW `f9e7f51a2bd12ee0d27e5e0d3a9861545a941e139835ab87097144e8e053fe2a`
+and [focused recheck](default-library-plan-review-02.md), SHA-256
+`fc71d3c2cae63de284b0ef28bff11fec655bf790d9922674d1e3e7289712efda`.
+DL-D01 is resolved at design scope. The first review's unaffected conclusions
+remain valid. Implementation and installed proof are outstanding.
+
+Activate existing Astra/xhigh Worker as `T287_DEFAULT_LIBRARY_IMPLEMENT_01`.
+Frame: the accepted S5 Product/Design/Owner, Reuse/Foundation and end-to-end
+integration composition under exact STDO v2.5.1-rc.1. Outcome: one published,
+conditionally selectable default library over existing native owners, including
+observed-input Testing as a lawful child and actual result/parent conservation.
+Implement the accepted HOW; no independent planner, runtime or semantic F_D
+decision is selected.
+
+First promote its reviewed technical content into
+`design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md` as the owning accepted HOW,
+referencing the immutable proposal/reviews for history rather than treating them
+as another maintained rule. Amend the C2 HOW's observed-input root-only exclusion
+as specified. Code territory, relative to the TypeScript tenant: the proposed
+`gtl/default_library.ts`, `product/default_library.ts`,
+`implementation/default_library.ts`, `abg/default_library.ts`; existing
+`hog/ccall_lifecycle.ts`, `abg/c_call_outcome.ts`, `abg/execution_basis.ts`,
+`abg/worksite_input_provenance.ts`, `abg/replay.ts`; required exports, existing
+semantics/publication registration, packaged policy assets and normal generated
+contract/capability/build/manifest outputs. Reuse existing generic retention,
+producer/occurrence projection, effects and assessment. Add no per-handoff
+inventory/hash/history authentication or new serialized authority carrier.
+
+Fixture/test territory: new focused default-library consumer/support/tests and
+minimal reuse of the current installed/Public harness. Preserve all earlier
+S2–S4 records. New exact preimages, proof, scripts and closed return belong under
+`default-library-implementation/` here. No Product/requirements, donor checkout,
+model/heap/timer, Public-operation or Git mutation. Routine implementation fixes
+within this HOW are the worker's duty; a missing material owner/authority relation
+returns for triage before a new design is encoded.
+
+Self-check the affected publication, task/source conservation, generic/native
+scope, parent closure and observed-input child/currentness/replay boundaries.
+Reuse unaffected evidence. Build once when coherent, freeze/package/install the
+candidate, and use the current native provider pinned to Opus 5.5/xhigh. Rebuild
+or broaden checks only when a source correction or actual failure requires it.
+
+The first installed library proof is the consumer witness selected separately by
+Root under `default-library-witness/` here. Root's Writer grant is limited to its
+source/oracle/seed/selection files, using the unchanged original Hello source and
+independent oracle located above. This separates prospective consumer acceptance
+from library implementation. Worker may prepare the generic harness while Root
+freezes that input; no native launch before its exact selection is recorded.
+That recorded selection, ordinary mechanical readiness and this grant authorize
+the one first installed attempt without another permission round. It must use
+actual workspace work, observed-file Testing without an author prerequisite,
+native construction where justified, independent assessment and Public reads.
+No caller loop or expected graph schedule. Keep native-source regression proof
+where unchanged, and preserve the first actual result if an unexpected branch or
+failure occurs. No automatic paid retry, forced next graph or altered oracle.
+
+Report setup/copy/install separately from actor time, framework progression and
+readback; include context and Public-resource volumes. Existing S4's 3.041 s
+framework interval is a measured reference, not a limit. Explain substantial
+deterministic cost by its actual operations and volume; do not increase controls
+to hide unexplained work. Freeze one exact return for independent review and
+Executive disposition. Partial library evidence does not close all S6/S7 claims.
+
+Root enters Writer only for this activation, current T-287/GOALS projections and
+the separate consumer-witness territory above, then resumes Executive for
+coordination. No user permission beyond existing delivery authority is required.
+
+## Independent library witness selection
+
+Root's separate Writer activation froze
+`default-library-witness/selection.json`, SHA-256
+`ca439cb9aa144477a6aa1d5956d51a5a2c29c084283e2b028a5b94af74c55dbc`.
+Ten seed files total 10,222 bytes. Original Hello source and oracle are copied
+byte-for-byte from the verified source routes; no original obligation is removed.
+The consumer supplies existing conformance/design/test/plan assets and an
+unverified CLI candidate with one deliberately wrong greeting. These are input
+files without a native/construction producer in this Run, never imported events
+or historical runtime success.
+
+The consumer permits construction, Testing and UAT as appropriate to this
+already-specified task; those purposes are not a graph schedule. Actual testing
+must expose the mismatch, its result must reach a changed registered choice,
+native construction must correct the application, current execution and fresh
+independent assessment must establish the complete selected outcome, and parent
+evaluation must close it. The selector receives only the fixed seed/ordinary
+scope and source contract, not the evaluator's counterexample annotation or
+expected-result checklist. Preserve the original source/oracle, valid supplied
+assets and selected effect scope.
+
+This selects the S5 installed reuse/correction discriminator under the existing
+implementation grant. It does not claim fresh generation of every lifecycle
+asset or close all S6/S7 obligations. The test must distinguish successful
+observation of a failing application check from satisfying the application;
+an unsupported failure-to-parent relation returns for triage, never a fabricated
+pass. No test/provider execution occurred while authoring this selection.
+Root returns to Executive; the library Worker may now prepare and execute the
+one first installed attempt after its ordinary mechanical readiness checks.
+
+Root separately enters Writer to checkpoint/push only these S5 planning/review
+records, T-287/GOALS and the frozen consumer witness. Concurrent implementation
+and unrelated files are excluded. Root then resumes Executive.

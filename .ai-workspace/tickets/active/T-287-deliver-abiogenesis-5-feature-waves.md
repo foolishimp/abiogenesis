@@ -17,7 +17,7 @@
 - updated_at: 2026-09-29
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_DEFAULT_LIBRARY_DESIGN_REVIEW_01
+- current_activation: T287_DEFAULT_LIBRARY_IMPLEMENT_01
 - current_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-recursive/subject.json
 - current_candidate_archive_sha256: 287e5bf32374fc713299038cf4a458244dc24f4994887e0949718a48a113c98a
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s4-acceptance-and-s5-design-review
@@ -28,7 +28,7 @@
 - current_live_execution_status: two_Opus55_xhigh_calls_changed_choice_parent_reevaluation_and_fresh_reads_accepted
 - prior_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-11/activation.json
 - prior_live_execution_status: PC05_11_process_heap_aborted_before_admission_zero_appended_events_unresolved
-- current_activation_status: S4_accepted_S5_owner_boundary_design_review_selected_no_library_implementation
+- current_activation_status: S4_accepted_S5_HOW_accepted_bounded_default_library_implementation_selected
 - current_native_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-recursive/return.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#framed-governance-definition-re-entry'
@@ -50,8 +50,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: review_unordered_native_task_preparation_and_foldback_for_default_library
-- next_bounded_task_status: S5_frozen_HOW_proposal_focused_review_no_new_runtime_or_live_test_selected
+- next_bounded_task: implement_default_library_and_observed_input_testing_through_existing_native_owners
+- next_bounded_task_status: accepted_HOW_f9e7f51a_one_installed_consumer_proof_selected_after_frozen_witness_readiness
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
