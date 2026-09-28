@@ -1,0 +1,12 @@
+{
+  "build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js": "sha256:18781a354f782ab3e98e446b5c13d6e01e9845b4926bf02f01bf4bfd9eb5d365",
+  "build_tenants/abiogenesis/typescript/build/code/src/product/execution_resolution.js": "sha256:0979ad36e30e5830c2f4ede2edeb5ba7aeca8465178f717c0984648a600e2f85",
+  "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": "sha256:464c43418b42d3772e17ab2857bb08641f918d93c3d1849275100cc5527261c6",
+  "build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json": "sha256:866eebd2a7cfe2d3aafac965aecb9ba69dfb8611ce86a5288cf354f6ba49f957",
+  "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": "sha256:af5ca3269672519b2e3777a54ba5e09b734673333eb663da00a49b26821c4e46",
+  "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts": "sha256:79c9eff058b3d054a30fa00894d91c962dc6037ce060f27eea88b2e59ac2a576",
+  "build_tenants/abiogenesis/typescript/test_env/tests/t287-registered-graph-selection.test.mjs": "sha256:9692142a7160e01872fd974da6833b1bc901d6402a0f967029c1b92784bda438",
+  "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md": "sha256:e805364d56f6a0e09309a700be17f8292367ff5449029cff191d836c2081e148",
+  "build_tenants/abiogenesis/typescript/build/code/src/abg/traversal_cursor.js": "sha256:9b40d0bf7f4bb791edfbf54599f03faab1b94b963345ac651edacfff7b35a510",
+  "build_tenants/abiogenesis/typescript/build/code/src/abg/traversal_cursor.d.ts": "sha256:ff1ac1cfe1d73e2c93183f94e275d1253d85d8131b693477fd5a74292b0c4297"
+}

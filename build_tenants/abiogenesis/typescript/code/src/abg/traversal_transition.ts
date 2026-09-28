@@ -45,6 +45,7 @@ export interface TraversalRouteBodySource {
   readonly contractRef: string | null;
   readonly replayStateDigest: `sha256:${string}` | null;
   readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
+  readonly registeredSelectionApplicationRef?: string;
   readonly nextActionProjectionRef?: string;
   readonly nextActionProjectionDigest?: `sha256:${string}`;
   readonly nextActionProjection?: Readonly<object>;
@@ -157,6 +158,8 @@ export function projectTraversalRouteBody(
     route.graphSpanReentryProjection,
   ].map((value) => value !== undefined);
   if (
+    (route.registeredSelectionApplicationRef !== undefined &&
+      (typeof route.registeredSelectionApplicationRef !== "string" || route.registeredSelectionApplicationRef.length === 0 || route.boundInput === undefined)) ||
     route.consumedAvailabilityRefs === null ||
     route.replayStateDigest === null ||
     (nextActionPresence.some(Boolean) && !nextActionPresence.every(Boolean)) ||
@@ -164,6 +167,7 @@ export function projectTraversalRouteBody(
   ) return null;
   return {
     ...(route.boundInput === undefined ? {} : { boundInput: route.boundInput }),
+    ...(route.registeredSelectionApplicationRef === undefined ? {} : { registeredSelectionApplicationRef: route.registeredSelectionApplicationRef }),
     routeKind: route.routeKind,
     declarationRef: route.declarationRef,
     declarationDigest: route.declarationDigest,
@@ -222,7 +226,7 @@ export function routeCandidateBody(
     : [];
   if (!hasExactKeys(route, [
     "candidateDigest", "candidateRef", "kind", "schemaVersion",
-    ...required, ...nextAction, ...graphSpan, ...(Object.hasOwn(route, "boundInput") ? ["boundInput"] : []),
+    ...required, ...nextAction, ...graphSpan, ...(Object.hasOwn(route, "registeredSelectionApplicationRef") ? ["registeredSelectionApplicationRef"] : []), ...(Object.hasOwn(route, "boundInput") ? ["boundInput"] : []),
   ])) return null;
   return projectTraversalRouteBody(
     route as unknown as TraversalRouteBodySource,

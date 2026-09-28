@@ -1,3 +1,4 @@
+import { projectRegisteredSelectionInputAtPrefix, registeredSelectionInputRelationVersion } from "./registered_selection_provenance.js";
 import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
 import { isOptionalJsonRecord as isRecord, hasExactJsonKeys as hasExactKeys } from "../shared/admission_predicates.js";
 import { projectExactExecutionBasisAtPrefix } from "./invocation_execution_truth.js";
@@ -148,6 +149,7 @@ export function projectActiveRuntimeTransaction(
 
 export interface ReplayRouteState {
   readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
+  readonly registeredSelectionApplicationRef?: string;
   readonly routeRef: string;
   readonly routeDigest: Sha256Digest;
   readonly routeKind: TraversalRouteKind;
@@ -668,7 +670,14 @@ export function projectReplayRouteAtPrefix(
       }
       const assertedBoundInput = isRecord(event.payload) ? event.payload.boundInput : undefined;
       let boundInput: RawAdmittedValue<Readonly<Record<string, JsonValue>>> | undefined;
-      if (assertedBoundInput !== undefined) {
+      const registeredSelectionApplicationRef = stringField(event, "registeredSelectionApplicationRef");
+      if (isRecord(event.payload) && Object.hasOwn(event.payload, "registeredSelectionApplicationRef") && registeredSelectionApplicationRef === null)
+        throw new TypeError(`invalid registered selection application at ${event.eventId}`);
+      if (registeredSelectionApplicationRef !== null) {
+        const selected = projectRegisteredSelectionInputAtPrefix(authorityPrefix, event);
+        if (selected === null) throw new TypeError(`invalid registered selection binding at ${event.eventId}`);
+        boundInput = selected;
+      } else if (assertedBoundInput !== undefined) {
         if (!isRecord(assertedBoundInput) || typeof assertedBoundInput.contractRef !== "string" ||
           (!isWorksitePreparationBoundInput(assertedBoundInput.value) && !isRetainedGraphInput(assertedBoundInput.value)) || routeKind !== "advance") {
           throw new TypeError(`invalid retained input at ${event.eventId}`);
@@ -683,6 +692,7 @@ export function projectReplayRouteAtPrefix(
       }
       return {
         ...(boundInput === undefined ? {} : { boundInput }),
+        ...(registeredSelectionApplicationRef === null ? {} : { registeredSelectionApplicationRef }),
         routeRef,
         routeDigest: routeDigest as Sha256Digest,
         routeKind,
@@ -852,7 +862,7 @@ function deriveReplayPrefixFacts(
   const routes = indexedRuntimeEvents(prefix, "kind:traversal_route_admitted")
     .map(event => facts.fact("route:" + event.eventId,
       String(indexedRuntimeEvents(prefix, "payload:routeRef:" + stringField(event, "routeRef")).filter(candidate => candidate.kind === "construction_intent_selected").at(-1)?.admissionOrdinal ?? 0) + ":" +
-      (isRecord(event.payload) && event.payload.boundInput !== undefined ? retainedWorksiteInputRelationVersion(authorityPrefix, event) : ""),
+      (isRecord(event.payload) && event.payload.boundInput !== undefined ? retainedWorksiteInputRelationVersion(authorityPrefix, event) + registeredSelectionInputRelationVersion(authorityPrefix, event) : ""),
       () => projectReplayRouteAtPrefix(prefix, event, authorityPrefix),
       isRecord(event.payload) && event.payload.boundInput !== undefined ? authority : undefined));
 

@@ -1,0 +1,31 @@
+{
+  "scratch": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-fzebjx",
+  "installedRoots": [
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-fzebjx/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-fzebjx/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection"
+  ],
+  "artifactPaths": [
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-fzebjx/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-fzebjx/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz"
+  ],
+  "accounting": {
+    "wallMs": {
+      "provisioning_pack": 3131.1821670000004,
+      "provisioning_extract": 483.35812499999975,
+      "bootstrap_owner_loading_and_candidate_preparation": 389.6835000000001,
+      "provisioning_verify_artifact": 11429.635083000001,
+      "provisioning_install": 2610.949042000002,
+      "provisioning_installed_content_check": 571.3658340000002,
+      "provisioning_additional_products": 222.7426250000026,
+      "installed_owner_loading": 241.60275000000183,
+      "environment_install_and_workspace_admission": 536.7756670000017,
+      "execution_preparation_publication_program_and_catalog": 314.96895900000163
+    },
+    "volumes": {
+      "archiveBytes": 10203840,
+      "archiveUnpackedBytes": 67060997,
+      "archiveMemberCount": 5237,
+      "installedTreeBytes": null
+    }
+  }
+}

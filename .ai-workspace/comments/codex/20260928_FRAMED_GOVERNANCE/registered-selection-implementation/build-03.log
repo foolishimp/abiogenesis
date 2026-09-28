@@ -1,0 +1,19 @@
+
+> @abiogenesis/typescript-tenant@5.0.0-rc.1 build
+> npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs
+
+
+> @abiogenesis/typescript-tenant@5.0.0-rc.1 clean
+> node scripts/clean.mjs
+
+file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:504
+    throw new TypeError("the immutable legacy event-contract table changed");
+          ^
+
+TypeError: the immutable legacy event-contract table changed
+    at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:504:11
+    at ModuleJob.run (node:internal/modules/esm/module_job:371:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:683:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.7.0

@@ -1,0 +1,16 @@
+A completed 1408.6ms
+B completed 1405.2ms
+nonpermitted runtime_failed 1306.0ms
+stale runtime_failed 1298.9ms
+wrong-contract runtime_failed 1316.0ms
+wrong-input runtime_failed 1322.1ms
+gap blocked 1354.4ms
+✔ registered selection through installed Public CLI, child foldback and fresh reads (35813.813459ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 35873.375667

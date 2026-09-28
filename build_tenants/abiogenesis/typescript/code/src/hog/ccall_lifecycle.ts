@@ -658,24 +658,25 @@ export function evaluateExecutableCCall(
         outputContractRef: input.stop.outputContractRef,
       };
     }
-    const selectedTarget = input.deferToApplication === true ? undefined
-      : Routes.deriveSelectedCCallOutcomeTarget(input.graph, input.stop.cursor, admitted);
-    if (selectedTarget?.kind === "traversal_route_proposal_refusal") {
-      return failCCall(input, admitted.successorPrefix, `leaf-continuation-${input.ordinal}`,
-        `diagnostic://abiogenesis/hog/${selectedTarget.code}@5`, selectedTarget as unknown as JsonValue);
-    }
     let retained: ReturnType<typeof Abg.deriveRetainedCCallInputAtPrefix> = null;
     if (admitted.disposition === "judged" && admitted.admitted.result.resultClass === "success" &&
-      admitted.admitted.judgment.judgment === "advance" && input.deferToApplication !== true &&
-      selectedTarget === undefined) {
+      admitted.admitted.judgment.judgment === "advance" && input.deferToApplication !== true) {
       try {
         const truth = Abg.projectRuntimePrefixesAtDurablePrefix(admitted.successorPrefix, input.stop.cursor.runId);
         retained = Abg.deriveRetainedCCallInputAtPrefix(truth.authorityPrefix, input.executionBasis,
           input.graph, input.stop.cursor, admitted.admitted.cCall, admitted.admitted.result, admitted.admitted.judgment);
-      } catch {
+      } catch (error) {
         return failCCall(input, admitted.successorPrefix, `leaf-retention-${input.ordinal}`,
-          "diagnostic://abiogenesis/hog/retention-binding-invalid@5", { stage: "retention" });
+          "diagnostic://abiogenesis/hog/retention-binding-invalid@5", {
+            stage: "retention", message: error instanceof Error ? error.message : String(error),
+          });
       }
+    }
+    const selectedTarget = input.deferToApplication === true ? undefined
+      : Routes.deriveSelectedCCallOutcomeTarget(input.graph, input.stop.cursor, admitted, input.executionBasis.registeredSelectionDefinitionDigests, retained?.input);
+    if (selectedTarget?.kind === "traversal_route_proposal_refusal") {
+      return failCCall(input, admitted.successorPrefix, `leaf-continuation-${input.ordinal}`,
+        `diagnostic://abiogenesis/hog/${selectedTarget.code}@5`, selectedTarget as unknown as JsonValue);
     }
     let target: TraversalCursor | null = selectedTarget ?? null;
     if (
@@ -747,7 +748,8 @@ export function evaluateExecutableCCall(
       ? null
       : Routes.proposeCCallOutcomeTransition({
           ...(retained === null ? {} : { boundInput: retained.input }),
-        graph: input.graph,
+          graph: input.graph,
+          registeredSelectionDefinitionDigests: input.executionBasis.registeredSelectionDefinitionDigests ?? {},
           graphFunction: input.graphFunction,
           sourceCursor: input.stop.cursor,
           targetCursor: admitted.disposition === "blocked" ? null : target,

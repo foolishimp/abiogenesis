@@ -1,0 +1,31 @@
+# T-287 registered selection — independent S2 review
+
+Product Frame: the fixed fifteen-family ABI 5.0 Product remains selected. T-287 S2 realizes ordinary preregistered graph selection across GTL, catalogue/Program permission, HoG traversal, ABG admission and Public readback. Immutable declarations own permitted computation; implementation bindings realize leaves; ABG owns runtime truth; replay projects admitted facts. No graph generation, semantic planner, compulsory ConstructionComposition, second execution owner or graph-copy replay is authorized. Review basis: accepted Product/Intent at `e27f72bc2037130d3261694da40af0148269f142`, STDO v2.5.1-rc.1, corrected S1 and the recorded S2/replay-binding dispositions, under Product/Owner and `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration`.
+
+**Decision: one blocking finding, RS-I01. Return to Executive for a bounded realization correction.** Reviewer: **GPT-6 Astra / max**. No delegation or source repair.
+
+Source/test paths below are relative to `build_tenants/abiogenesis/typescript/`.
+
+## RS-I01 — P1: an earlier run's identical input prevents the current selected child from executing
+
+The new registered-selection branch in `code/src/abg/traversal_cursor.ts:280–283` returns `null` when a recovered route belongs to another ExecutionBasis. Its enclosing origin search (`:251–275`) visits the global `input-origin:<inputRef>` bucket without first selecting the current execution/cursor's provenance. The index preserves admission order (`code/src/abg/event_prefix.ts:448–463`). HoG passes the full authority prefix into this lookup (`code/src/hog/graph_execute.ts:502–504`), so earlier runs are present.
+
+The new route binding is constructed with ordinary `rawAdmitValue` (`code/src/abg/traversal_route.ts:4068–4070`). That identity is correctly canonical over subject kind, contract and value (`code/src/validator/raw_admission.ts:123–136`); it is not unique to a route use.
+
+Concrete lawful counterexample: run A with child input `{kind:"selection_child_input",payload:"payload:A"}`, then run B (or A again) with the same child-input contract and value in the same event resource. Both choices satisfy the declared alternatives and common child interface. Their route-bound raw input references coincide. After the second choice and route are admitted, input recovery encounters the first run's valid route, observes its different basis, and returns `null` before considering the current route. HoG takes `advanced-result-basis-absent` (`graph_execute.ts:507–521`) instead of executing the selected child.
+
+A read-only probe against the exact installed resolver confirmed that A and B both resolve with that identical child input and both produce `raw-admission://abiogenesis/8acc3adede29a797605cc74b85a543e961a6eb2951b998da58e267c44b632273`. The retained A/B routes have distinct ExecutionBases. No second Run was executed by the Reviewer: the failure conclusion follows from the admitted-prefix lookup and fail branch above. The existing installed cases use `payload:${name}` (`test_env/tests/t287-registered-graph-selection.test.mjs:57`), so they avoid this collision.
+
+Impact is a common supported repeated-invocation path, including children with constant or empty business inputs. The failure is closed: it does not launch an unauthorized child or fabricate completion. That protection does not make ordinary repeated selection usable. No corruption or adversarial writer is required.
+
+Smallest correction: select input origins using the current admitted execution/cursor provenance before evaluating the binding, preserving rejection of a malformed applicable binding. Retain canonical raw identity; do not add fresh identities, caches or another ledger. Keep source-result/application attribution in the admitted route-use relation. S1's sentence about deriving the child input reference from source result/application should distinguish this route-use provenance from canonical raw-content identity. Add the bounded installed discriminator A then B with identical child input (or an identical repeated A), plus its fresh readback; reuse unaffected current evidence.
+
+## Established evidence and limits
+
+Independently verified all 17 source, 3 fixture and 5 generated hashes; all 717 emitted members against the local build, retained ABI archive and actual installation; both retained archives; and all 67 proof-file hashes. Subject manifest: `b65f92fa297fe8a7712fdb4ea052542851545cde47d2aa6a17741a53de5ff094`. ABI archive: `780f944ce5b6e271cff68f43b58c8f8dc01a7636b0169e2406c5e2354a2441ce`.
+
+Reconstructed the seven case slices from the exact 282-event, 3,316,771-byte log. A/B establish selector-result → route → exact child basis/input/digest → one foldback → parent closure, and all four fresh CLI result/replay receipts agree at unchanged prefixes. The nonpermitted, stale and wrong-contract cases admit no selected route; malformed child input admits its route but fails before child launch; gap blocks. None of the five negative/gap cases opens a child or completes the parent. The malformed-input case must not be described as rejecting before route admission.
+
+Declaration-first applicability, shared structural resolution, exact permitted definition projection, unchanged fixed workflow guard, and owner-admitted route binding are otherwise coherent in the inspected scope. The installed root has one selector and two fixed workflow nodes, with no ConstructionComposition. Replay uses source CCall/result/judgment/basis provenance, not a graph snapshot or another selector. Existing workflow/child owners and the legacy event-contract profile remain unchanged. No other blocking finding identified.
+
+The recorded final build and focused test passed; they were consumed, not rerun. The only new executable probe was the read-only installed resolver/raw-identity call above. No build, pack, provider, new Run, event write or Git operation was performed. Compact choice output is not a compact whole Public request: the seven retained CLI requests are approximately 16.37 MB each; inherited caller-volume debt remains separate. S3 native F_P context/suitability, recursive qualification, PC05-11 and whole-Product/release acceptance remain open. Subject hashes were checked again at closure; only this review record was written.

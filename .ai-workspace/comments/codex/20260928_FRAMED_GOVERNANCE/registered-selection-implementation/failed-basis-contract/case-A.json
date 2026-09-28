@@ -1,0 +1,40 @@
+{
+  "wallMs": 1197.0493749999987,
+  "cliPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "requestPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/st4-A-request.jsonl",
+  "output": {
+    "acquisitionKind": "reopen",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "start",
+        "operationId": "abg.operation.run.invoke"
+      },
+      "exitCode": 70,
+      "failure": {
+        "cause": "Error: {\"kind\":\"definition_execution_fault\",\"schemaVersion\":\"5.0.0\",\"definitionKey\":{\"operationId\":\"abg.operation.run.invoke\",\"memberKey\":\"start\"},\"stage\":\"execution_basis\",\"code\":\"execution_basis_failure\",\"message\":\"runtime event payload matches no admitted event-contract variant\",\"evidence\":{\"cause\":\"TypeError: runtime event payload matches no admitted event-contract variant\\n    at assertRuntimeEventContract (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:1616:15)\\n    at projectRuntimeEventAtContract (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:1323:5)\\n    at admitRuntimeEventInternal (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:2565:36)\\n    at admitRuntimeEvent (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:2538:12)\\n    at file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/execution_basis.js:1297:28\\n    at runRuntimeEventTransaction (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:2658:23)\\n    at admitNonEmptyRuntimeEventTransactionAtDurablePrefix (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:2728:12)\\n    at admitExecutionBasis (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/execution_basis.js:1161:23)\\n    at file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/owner_bindings/run_invocation.js:1081:75\\n    at effect_internal_function (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/node_modules/effect/dist/esm/Utils.js:333:12)\"}}",
+        "failureKind": "typed_execution_fault",
+        "fault": {
+          "code": "execution_basis_failure",
+          "definitionKey": {
+            "memberKey": "start",
+            "operationId": "abg.operation.run.invoke"
+          },
+          "evidence": {
+            "cause": "TypeError: runtime event payload matches no admitted event-contract variant\n    at assertRuntimeEventContract (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:1616:15)\n    at projectRuntimeEventAtContract (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:1323:5)\n    at admitRuntimeEventInternal (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:2565:36)\n    at admitRuntimeEvent (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:2538:12)\n    at file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/execution_basis.js:1297:28\n    at runRuntimeEventTransaction (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:2658:23)\n    at admitNonEmptyRuntimeEventTransactionAtDurablePrefix (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js:2728:12)\n    at admitExecutionBasis (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/execution_basis.js:1161:23)\n    at file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/owner_bindings/run_invocation.js:1081:75\n    at effect_internal_function (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-okYrfy/consumer/node_modules/@abiogenesis/typescript-tenant/node_modules/effect/dist/esm/Utils.js:333:12)"
+          },
+          "kind": "definition_execution_fault",
+          "message": "runtime event payload matches no admitted event-contract variant",
+          "schemaVersion": "5.0.0",
+          "stage": "execution_basis"
+        }
+      },
+      "invocationRef": "invocation://abiogenesis/49092270a8943a1aaf9fcb521b8597a06cbe6a24fb1208e1d4f4c8434877e792",
+      "kind": "definition_host_receipt",
+      "ownerOutput": null,
+      "resources": null,
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  }
+}

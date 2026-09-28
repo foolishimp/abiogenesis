@@ -151,6 +151,7 @@ export {
   fanOutApplication,
   foldbackRef,
   gateApplication,
+  registeredSelectionApplication,
   graphEdge,
   graphEdgeRef,
   graphFunctionApplicationRef,
@@ -390,3 +391,5 @@ export { constructWorksiteCommandForwardModulePublication, worksiteCommandForwar
 export { QUALIFICATION_IDS } from "./self_conformance.js";
 
 export { nativeWorkReacquisitionGraphFunction } from "./worksite_command_execution.js";
+
+export { isRegisteredGraphChoice, registeredSelectionAtSource, resolveRegisteredSelection } from "./registered_selection.js";

@@ -15,7 +15,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. [T-287 current frontier](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-checkpoint-and-installed-continuation) owns the selected native lifecycle correction, exact candidate/failed-cut evidence and current source/installed execution disposition, with the [T287/LIFE-01 admission-boundary checklist](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#admission-boundary-execution-checklist) owning the dependency-ready cleanup and resumed native correction. Preserve accepted bounded outcomes and original sources/oracles. Data Mapper is held; LIFE-01, fifteen-family qualification, QUAL056/F11/sole AF22 and RC1 remain open; T288/T289 stay closed. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. [T-287 selected plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry) owns registered selection, native and recursive governance, default graph reuse, installed Hello and the remaining exact release obligations. Deterministic selection is accepted; native selection is the current bounded increment. Preserve accepted bounded outcomes and original sources/oracles. Data Mapper is held; LIFE-01, fifteen-family qualification, QUAL056/F11/sole AF22 and RC1 remain open; T288/T289 stay closed. |
 
 ## Current Selection
 
@@ -35,11 +35,15 @@ actual framework path without embedding the scenario's solution in the runtime.
 [Product calculus](PRODUCT.md#graph-composition-and-reference-frames) and
 [Product release allocation](PRODUCT.md#50-and-51-release-boundaries) own the
 meaning and scope. [T-287](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry)
-owns the current constitutional capture, independent consistency review and
-subsequent bounded design/steel-thread selection. [T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#default-library-asset-handoff)
-owns consumer asset reuse and retirement tracking. The rejected planner remains
-withdrawn. This document increment supplies no implementation or qualification
-claim and starts no native execution.
+owns the execution plan and acceptance. Deterministic registered selection,
+exact child input, ordinary foldback and fresh Public reads are accepted; the
+next bounded step is native selection through owned frame/catalogue context.
+[T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#default-library-asset-handoff)
+owns consumer asset reuse and retirement tracking. The rejected planner and its
+dedicated tests are removed; valid graph assets and native continuation remain.
+The [execution record](../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md)
+owns exact grants and evidence. Partial proofs do not establish whole-Product
+qualification or release readiness.
 
 ### Current delivery objective
 
@@ -48,16 +52,17 @@ owners. Preserve the accepted execution/context calculus, generic core repairs,
 original task/oracle and still-valid evidence. The withdrawn consumer extension
 cannot serve as current implementation authority or release acceptance.
 
-After the owner-requested calculus/design review resolves the delivery path,
-resume the preserved native steel thread through real execution, independent
-assessment and fresh Public readback. Then qualify the exact candidate and
-publish RC1 through existing F11, sole AF22 and release owners. Publication,
-installed-RC qualification and actual owner acceptance remain distinct.
+Continue through native selection, changed choice with recursive foldback,
+reused default lifecycle graphs, then the installed consumer-authored Hello
+thread with correction, independent assessment and fresh Public readback.
+Use that evidence to resolve remaining Product obligations and qualify the exact
+candidate before RC1 through existing F11, sole AF22 and release owners.
+Publication, installed-RC qualification and actual owner acceptance remain distinct.
 
 T-287 owns remaining runtime and release work; T-043 owns the paired lifecycle
 work. Data Mapper remains held. The records below preserve earlier bounded
-results and selections; they do not override the current owner rejection or
-activate an implementation, recovery or native execution.
+results and selections; they do not override the current selection or activate
+recovery of the retired planner. T-287's current bounded grant owns execution.
 
 GOAL-035/T-287 and T-043 retain the fixed fifteen-family ABG5 outcome, original
 job/S1–S5/oracle, five selected/four outside residuals and protected worksite.

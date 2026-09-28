@@ -1,0 +1,38 @@
+{
+  "wallMs": 366.42841600000247,
+  "cliPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-2oD2YD/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "requestPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-2oD2YD/st4-A-request.jsonl",
+  "output": {
+    "acquisitionKind": "reopen",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "start",
+        "operationId": "abg.operation.run.invoke"
+      },
+      "exitCode": 70,
+      "failure": {
+        "cause": "Error: {\"kind\":\"definition_execution_fault\",\"schemaVersion\":\"5.0.0\",\"definitionKey\":{\"operationId\":\"abg.operation.run.invoke\",\"memberKey\":\"start\"},\"stage\":\"resource_admission\",\"code\":\"invalid_resource_assertion\",\"message\":\"definition resources differ from the owner-authored structural contract\",\"evidence\":{}}",
+        "failureKind": "typed_execution_fault",
+        "fault": {
+          "code": "invalid_resource_assertion",
+          "definitionKey": {
+            "memberKey": "start",
+            "operationId": "abg.operation.run.invoke"
+          },
+          "evidence": {},
+          "kind": "definition_execution_fault",
+          "message": "definition resources differ from the owner-authored structural contract",
+          "schemaVersion": "5.0.0",
+          "stage": "resource_admission"
+        }
+      },
+      "invocationRef": "invocation://abiogenesis/87b294e7fc3003a6054d45fd0bd8e035197b94201bb0dc177164719f3e9e2186",
+      "kind": "definition_host_receipt",
+      "ownerOutput": null,
+      "resources": null,
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  }
+}

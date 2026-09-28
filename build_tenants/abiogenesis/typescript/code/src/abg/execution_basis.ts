@@ -352,6 +352,7 @@ export interface AdmittedImplementationResolution {
 }
 
 export interface ExecutionBasis {
+  readonly registeredSelectionDefinitionDigests?: Readonly<Record<string, Sha256Digest>>;
   readonly kind: "execution_basis";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
@@ -1964,6 +1965,7 @@ export function admitExecutionBasis(
     rows: interactionSet.rows,
   } as unknown as JsonValue);
   const executionBody = {
+    ...(input.executionResolution.registeredSelectionDefinitionDigests === undefined ? {} : { registeredSelectionDefinitionDigests: input.executionResolution.registeredSelectionDefinitionDigests }),
     basisClass: "root" as const,
     invocationAdmissionRef: input.invocationAdmission.invocationAdmissionRef,
     invocationRef: input.invocationAdmission.invocationRef,
@@ -2515,6 +2517,7 @@ function admitChildExecutionBasisUsing(
     catalogBasisDigest: parent.catalogBasisDigest,
     catalogViewId: parent.catalogViewId,
     catalogViewDigest: parent.catalogViewDigest,
+    ...(parent.registeredSelectionDefinitionDigests === undefined ? {} : { registeredSelectionDefinitionDigests: parent.registeredSelectionDefinitionDigests }),
     actionCatalogRef: parent.actionCatalogRef,
     actionCatalogDigest: parent.actionCatalogDigest,
     actionCatalogRows: parent.actionCatalogRows,

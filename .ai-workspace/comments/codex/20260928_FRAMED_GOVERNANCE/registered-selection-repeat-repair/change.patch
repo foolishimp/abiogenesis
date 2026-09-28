@@ -1,0 +1,135 @@
+--- preimage/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts
++++ build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts
+@@ -251,6 +251,9 @@
+   for (const event of indexedRuntimeEvents(prefix, "input-origin:" + inputRef)) {
+     if (!isJsonRecord(event.payload)) continue;
+     const p = event.payload;
++    // Registered inputs are canonical content identities. Their applicable use
++    // is selected by the admitted cursor below, never by this global bucket.
++    if (event.kind === "traversal_route_admitted" && p.registeredSelectionApplicationRef !== undefined) continue;
+     const origin = event.kind === "c_call_result_admitted" ? [p.resultRef, p.valueDigest, p.value]
+       : event.kind === "fh_interaction_resume_admitted" ? [p.successorInputRef, p.successorInputDigest, p.successorInputValue]
+       : event.kind === "fan_out_completion_admitted" ? [p.outputVectorRef, p.outputVectorDigest, p.outputVector]
+@@ -272,20 +275,25 @@
+   graph: Readonly<GtlGraph>, execution: ExecutionBasis, cursor: TraversalCursorCandidate): TraversalInputOrigin | null {
+   if (cursor.executionBasisRef !== execution.basisRef || cursor.graphRef !== graph.materializationRef ||
+     !hasAdmittedTraversalCursorAtPrefix(prefix, cursor)) return null;
++  const registeredOrigins = traversalCursorAdmissionEventsAtPrefix(prefix, cursor).filter(event =>
++    event.kind === "traversal_route_admitted" && isJsonRecord(event.payload) &&
++    event.payload.registeredSelectionApplicationRef !== undefined);
++  if (registeredOrigins.length > 0) {
++    if (registeredOrigins.length !== 1 || traversalCursorAdmissionDigest(registeredOrigins[0]!) !== cursor.cursorDigest) return null;
++    const event = registeredOrigins[0]!;
++    const selected = projectRegisteredSelectionInputAtPrefix(prefix, event);
++    return selected !== null && selected.admissionRef === cursor.inputRef && selected.subjectDigest === cursor.inputDigest
++      ? { inputRef: selected.admissionRef, inputDigest: selected.subjectDigest, value: selected.value, event, retained: true }
++      : null;
++  }
+   for (const origin of selectedTraversalInputOrigins(prefix, graph, execution, cursor.inputRef)) {
+     if (origin.inputRef !== cursor.inputRef || origin.inputDigest !== cursor.inputDigest) continue;
+     if (sha256Canonical(origin.value) !== cursor.inputDigest) return null;
+     if (origin.retained) {
+       const event = origin.event!;
+-      if (isJsonRecord(event.payload) && event.payload.registeredSelectionApplicationRef !== undefined) {
+-        const selected = projectRegisteredSelectionInputAtPrefix(prefix, event);
+-        if (selected === null || event.basisId !== execution.basisRef ||
+-          selected.admissionRef !== cursor.inputRef || selected.subjectDigest !== cursor.inputDigest) return null;
+-      } else {
+-        const retained = projectRetainedWorksiteInputAtPrefix(prefix, event);
+-        if (retained === null || retained.entryBasis.basisRef !== execution.basisRef ||
+-          retained.input.admissionRef !== cursor.inputRef || retained.input.subjectDigest !== cursor.inputDigest) return null;
+-      }
++      const retained = projectRetainedWorksiteInputAtPrefix(prefix, event);
++      if (retained === null || retained.entryBasis.basisRef !== execution.basisRef ||
++        retained.input.admissionRef !== cursor.inputRef || retained.input.subjectDigest !== cursor.inputDigest) return null;
+     }
+     return origin;
+   }
+--- preimage/build_tenants/abiogenesis/typescript/test_env/tests/t287-registered-graph-selection.test.mjs
++++ build_tenants/abiogenesis/typescript/test_env/tests/t287-registered-graph-selection.test.mjs
+@@ -7,7 +7,8 @@
+ import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
+ import {ref,contract,select} from '../fixtures/registered-selection-product/index.mjs';
+ const packageRoot=new URL('../..',import.meta.url).pathname;
+-const evidence=resolve(packageRoot,'../../../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-implementation');
++const evidence=process.env.ABI5_SELECTION_EVIDENCE_ROOT ?? resolve(packageRoot,'../../../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-repeat-repair/current');
++const repeatOnly=process.env.ABI5_SELECTION_REPEAT_ONLY === '1';
+ const save=async(name,value)=>writeFile(join(evidence,name),JSON.stringify(value,null,2)+'\n');
+ 
+ test('registered selection through installed Public CLI, child foldback and fresh reads',async()=>{
+@@ -53,8 +54,9 @@
+   const projectReadContracts=await load('abg/project_read_operation_contracts');
+   let handoff=environment.store.projectReopenAuthorityAndClose();
+   const cases=[];
+-  for(const name of ['A','B','nonpermitted','stale','wrong-contract','wrong-input','gap']) {
+-    const input={kind:'selection_request',choice:name,payload:`payload:${name}`,catalog};
++  const selectedRoutes=[];
++  for(const name of (repeatOnly ? ['A','B'] : ['A','B','nonpermitted','stale','wrong-contract','wrong-input','gap'])) {
++    const input={kind:'selection_request',choice:name,payload:['A','B'].includes(name)?'payload:shared':`payload:${name}`,catalog};
+     const resource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)};
+     const {call,resolution}=await constructInstalledStartCall({environment,publicApi,eventResource:resource,input,identity:name});
+     const execution=await runInstalledCliRequest({scratch:environment.scratch,installedRoot:environment.installedRoot,identity:name,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null});
+@@ -73,6 +75,12 @@
+       assert.equal(receipt.ownerOutput.value.disposition,'completed',JSON.stringify(receipt.ownerOutput));
+       assert.deepEqual(slice.filter(e=>e.kind==='graph_call_opened').map(e=>e.graphFunctionRef),[root.name,ref('graph-function',name)],'only selected child opens');
+       const route = slice.find(e=>e.kind==='traversal_route_admitted' && e.payload.registeredSelectionApplicationRef);
++      selectedRoutes.push(route);
++      if (name === 'B') {
++        assert.equal(route.payload.boundInput.admissionRef,selectedRoutes[0].payload.boundInput.admissionRef,'canonical identical child input is reused across runs');
++        assert.deepEqual(route.payload.boundInput,selectedRoutes[0].payload.boundInput);
++        assert.notEqual(route.basisId,selectedRoutes[0].basisId);
++      }
+       assert.equal(route.payload.registeredSelectionApplicationRef,root.template.applications[0].applicationRef);
+       assert.deepEqual(route.payload.boundInput.value,{kind:'selection_child_input',payload:input.payload});
+       const childBasis = slice.find(e=>e.kind==='basis_admitted' && e.payload.basisClass==='child');
+@@ -96,6 +104,31 @@
+         if(memberKey==='run_result') assert.deepEqual(projection.result,receipt.ownerOutput.value.result);
+         else assert.equal(projection.status,'closed');
+       }
++      if (name === 'B') {
++        const prefixOwner=await load('abg/event_prefix');
++        const basisOwner=await load('abg/execution_basis');
++        const cursorOwner=await load('abg/traversal_cursor');
++        const events=log.toString('utf8').trim().split('\n').map(JSON.parse);
++        const freeze=value=>{if(value!==null&&typeof value==='object'){Object.values(value).forEach(freeze);Object.freeze(value);}return value;};
++        const prefix=prefixOwner.selectValidatedRuntimeEventPrefix(freeze(events));
++        const basis=basisOwner.rehydrateExecutionBasisAtPrefix(prefix,route.basisId);
++        const graph=gtl.materializeGraph(root,{invocationAdmissionRef:basis.invocationAdmissionRef,admittedInputRef:basis.rawInputAdmissionRef,admittedInputDigest:basis.rawInputDigest,admittedInput:basis.rawInputValue});
++        const entered=slice.find(e=>e.kind==='traversal_cursor_entered'&&e.basisId===route.basisId);
++        const cursor=cursorOwner.constructTraversalCursorCandidate({programRef:basis.programRef,executionBasisRef:basis.basisRef,
++          traversalScopeRef:entered.payload.traversalScopeRef,runId:route.runId,graphCallId:route.graphCallId,frameId:route.frameId,
++          graphRef:graph.materializationRef,currentNodeRef:ref('node','call-B'),position:'at_term',termPath:gtl.rootCSourcePath(ref('node','call-B')),
++          taskOrdinal:null,attempt:1,retryPath:[],inputRef:route.payload.boundInput.admissionRef,inputDigest:route.payload.boundInput.subjectDigest});
++        assert.equal(cursor.cursorRef,route.payload.targetCursorRef);
++        const recovered=cursorOwner.projectTraversalInputAtPrefix(prefix,graph,basis,cursor);
++        assert.equal(recovered.event.eventId,route.eventId,'select current route despite earlier equal raw input');
++        const damaged=structuredClone(events);
++        damaged.find(e=>e.eventId===route.eventId).causationEventRefs=[];
++        assert.equal(cursorOwner.projectTraversalInputAtPrefix(prefixOwner.selectValidatedRuntimeEventPrefix(freeze(damaged)),graph,basis,cursor),null,
++          'malformed applicable provenance cannot fall back to earlier identical input');
++        await save('repeat-provenance.json',{canonicalInputRef:cursor.inputRef,earlierRouteRef:selectedRoutes[0].payload.routeRef,
++          currentRouteRef:route.payload.routeRef,recoveredEventRef:recovered.event.eventId,currentProvenanceTamper:'refused',
++          proofBoundary:'installed read-only projection over a controlled copied prefix; not another Public execution'});
++      }
+     } else {
+       assert.deepEqual(slice.filter(e=>e.kind==='graph_call_opened').map(e=>e.graphFunctionRef),[root.name],'negative choice must not launch child');
+       assert.equal(slice.some(e=>e.kind==='child_foldback_admitted'||e.kind==='run_closed'),false);
+--- preimage/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md
++++ build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md
+@@ -123,10 +123,12 @@
+ choice-looking fields remains ordinary data; no global shape-triggered dispatch.
+ 
+ The relation joins chosen definition digest, unique declared edge/target, shared
+-input contract and unchanged input bytes. Derive the child input reference
+-canonically from the source admitted result identity, application and selected
+-input; its value digest hashes `input.value`. This is a provenance-preserving
+-projection, not replacement input authored after the selector.
++input contract and unchanged input bytes. The child raw-input reference is
++canonical over subject kind, contract and value and may recur across Runs; its
++value digest hashes `input.value`. The admitted route-use relation separately
++binds source result, application, execution and target cursor to that content.
++Input recovery selects this current provenance before validating the binding.
++This projection does not author replacement input after the selector.
+ 
+ HoG calls this relation after ordinary result/judgment admission and proposes a
+ target cursor carrying that child-input identity. ABG authenticates the same

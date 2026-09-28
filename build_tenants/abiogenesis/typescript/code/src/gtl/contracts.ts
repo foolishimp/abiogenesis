@@ -220,6 +220,13 @@ export interface GateApplication extends GraphFunctionApplicationBase {
   readonly evaluatorRefs: readonly string[];
 }
 
+export interface RegisteredSelectionApplication extends GraphFunctionApplicationBase {
+  readonly relationKind: "registered_selection";
+  readonly sourceProgramLocusRef: string;
+  readonly evaluatorRef: string;
+  readonly ruleRef: string;
+}
+
 export interface ReenterApplication extends GraphFunctionApplicationBase {
   readonly relationKind: "re_enter";
   readonly graphFunctionRef: string;
@@ -253,6 +260,7 @@ export type GraphFunctionApplication =
   | FanOutApplication
   | FanInApplication
   | GateApplication
+  | RegisteredSelectionApplication
   | ReenterApplication
   | PromoteApplication
   | IdentityApplication

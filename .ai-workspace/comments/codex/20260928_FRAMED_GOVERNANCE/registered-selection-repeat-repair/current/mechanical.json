@@ -1,0 +1,20 @@
+{
+  "undeclaredData": "ordinary",
+  "ambiguousTarget": "refused",
+  "wrongResultContract": "refused",
+  "singular": "preserved",
+  "ambiguousDeclaration": {
+    "kind": "static_validation_refusal",
+    "schemaVersion": "5.0.0",
+    "disposition": "invalid",
+    "stage": "program",
+    "subjectDigest": "sha256:26577517b8a3eee939ff6f2d3578ae9770497efd7964310d79e52cecb6ade48d",
+    "diagnostics": [
+      {
+        "code": "invalid_application",
+        "path": "$.graphFunctions[graph-function://registered-selection/root@5].template.applications[graph-function-application://abiogenesis/1ee9ef4176d25de022909b635656fd5b38282490e22d321bc6ff451068b2e871]",
+        "message": "registered selection requires an exact evaluator/policy source and unique permitted workflow targets with one shared interface and purpose"
+      }
+    ]
+  }
+}

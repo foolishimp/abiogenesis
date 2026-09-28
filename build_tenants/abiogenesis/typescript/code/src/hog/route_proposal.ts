@@ -1,3 +1,5 @@
+import { resolveRegisteredSelection } from "../gtl/registered_selection.js";
+import { constructTraversalCursorCandidate } from "../abg/traversal_cursor.js";
 import type { RawAdmittedValue } from "../validator/raw_admission.js";
 import type {
   AdmittedCCallJudgment,
@@ -89,6 +91,7 @@ function routeRefusal(
 type GraphRouteExtras = Partial<Pick<
   RouteCandidateBody,
   | "boundInput"
+  | "registeredSelectionApplicationRef"
   | "graphSpanReentryProjection"
   | "graphSpanReentryProjectionDigest"
   | "graphSpanReentryProjectionRef"
@@ -300,6 +303,7 @@ export function proposeJudgedRoute(
   contractRef: string,
   completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
+  definitionDigests: Readonly<Record<string, `sha256:${string}`>> = {},
 ): RouteCandidate | RouteProposalRefusal {
   if (judgment.judgment !== "advance") {
     return routeRefusal(
@@ -307,6 +311,12 @@ export function proposeJudgedRoute(
       "post-judgment route requires an admitted advance judgment",
     );
   }
+  const selected = resolveRegisteredSelection(graph.template, sourceCursor, cCall.outputContractRef, result.value, definitionDigests);
+  const declared = selected === null ? isDeclaredCompletion(graph, sourceCursor, targetCursor, {
+    inputRef: boundInput?.admissionRef ?? result.resultRef, inputDigest: boundInput?.subjectDigest ?? result.valueDigest,
+  }) : selected.disposition === "selected" && targetCursor !== null && boundInput !== undefined &&
+    targetCursor.currentNodeRef === selected.nodeRef && targetCursor.termPath.join("\0") === selected.termPath.join("\0") &&
+    targetCursor.inputRef === boundInput.admissionRef && targetCursor.inputDigest === boundInput.subjectDigest;
   const routeKind = targetCursor === null ? "terminal" as const : "advance" as const;
   if (
     !isMaterializedGtlGraph(graph) ||
@@ -314,10 +324,7 @@ export function proposeJudgedRoute(
     (targetCursor !== null && !isTraversalCursorCandidate(targetCursor)) ||
     sourceCursor.graphRef !== graph.materializationRef ||
     sourceCursor.frameId !== cCall.frameId ||
-    !isDeclaredCompletion(graph, sourceCursor, targetCursor, {
-      inputRef: boundInput?.admissionRef ?? result.resultRef,
-      inputDigest: boundInput?.subjectDigest ?? result.valueDigest,
-    }) ||
+    !declared ||
     result.cCallRef !== cCall.cCallRef ||
     judgment.resultRef !== result.resultRef ||
     judgment.cCallRef !== cCall.cCallRef
@@ -340,7 +347,8 @@ export function proposeJudgedRoute(
     ],
     contractRef,
     replayState,
-    extras: boundInput === undefined ? {} : { boundInput },
+    extras: { ...(boundInput === undefined ? {} : { boundInput }),
+      ...(selected === null ? {} : { registeredSelectionApplicationRef: selected.applicationRef }) },
   });
 }
 
@@ -578,7 +586,19 @@ export function deriveSelectedCCallOutcomeTarget(
   graph: Readonly<GtlGraph>,
   source: TraversalCursor,
   outcome: JudgedCCallOutcomeReceipt | BlockedCCallOutcomeReceipt,
+  definitionDigests: Readonly<Record<string, `sha256:${string}`>> = {},
+  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
 ): TraversalCursor | RouteProposalRefusal | null | undefined {
+  if (outcome.disposition === "judged" && outcome.admitted.judgment.judgment === "advance") {
+    const selected = resolveRegisteredSelection(graph.template, source, outcome.admitted.cCall.outputContractRef,
+      outcome.admitted.result.value, definitionDigests);
+    if (selected !== null) {
+      if (selected.disposition !== "selected" || boundInput === undefined) return routeRefusal("structural_step_missing", "registered selection lacks admitted child input");
+      const { kind: _kind, schemaVersion: _schema, cursorRef: _ref, cursorDigest: _digest, ...body } = source;
+      return constructTraversalCursorCandidate({ ...body, currentNodeRef: selected.nodeRef, termPath: selected.termPath,
+        position: "at_term", taskOrdinal: null, attempt: 1, retryPath: [], inputRef: boundInput.admissionRef, inputDigest: boundInput.subjectDigest });
+    }
+  }
   const routeKind = selectedCCallOutcomeRoute(outcome);
   if (routeKind === null || outcome.disposition !== "judged") return undefined;
   if (routeKind === "gap_stop") return null;
@@ -611,6 +631,7 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
   completedRetryProgress?: CompletedRetryProgressPlan;
   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   terminalizeNonAdvance: boolean;
+  registeredSelectionDefinitionDigests?: Readonly<Record<string, `sha256:${string}`>>;
 }>): TraversalTransitionCandidate | RouteProposalRefusal {
   const outcome = input.outcome;
   const blocked = outcome.disposition === "blocked";
@@ -684,6 +705,7 @@ export function proposeCCallOutcomeTransition(input: Readonly<{
             cCall.transitionContractRef,
             completedProgresses,
             input.boundInput,
+            input.registeredSelectionDefinitionDigests,
           );
   if (proposal.kind !== "traversal_route_candidate") return proposal;
   const evidence = blocked
@@ -828,6 +850,7 @@ export function proposeInteractionResumeRoute(
   contractRef: string,
   completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
+  definitionDigests: Readonly<Record<string, `sha256:${string}`>> = {},
 ): RouteCandidate | RouteProposalRefusal {
   const continuation = deriveCSourceContinuation(
     graph.template,
@@ -899,6 +922,7 @@ export function proposeFanOutRoute(
   contractRef: string,
   completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
   boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
+  definitionDigests: Readonly<Record<string, `sha256:${string}`>> = {},
 ): RouteCandidate | RouteProposalRefusal {
   const complete = completion.completionKind === "complete_vector";
   const taskRow = complete

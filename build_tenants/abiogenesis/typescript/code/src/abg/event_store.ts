@@ -1092,6 +1092,18 @@ const currentBindingVariants = LEGACY_ROOT_EVENT_CONTRACTS.actor_transport_bindi
     combinePayloadKeys(variant.requiredPayloadKeys, payloadKeys("livenessBinding"))));
 export const ROOT_EVENT_CONTRACTS: Readonly<Record<RootEventKind, RootEventContract>> = Object.freeze({
   ...LEGACY_ROOT_EVENT_CONTRACTS,
+  traversal_route_admitted: {
+    ...LEGACY_ROOT_EVENT_CONTRACTS.traversal_route_admitted,
+    payloadVariants: LEGACY_ROOT_EVENT_CONTRACTS.traversal_route_admitted.payloadVariants.map(variant =>
+      payloadVariant(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys("registeredSelectionApplicationRef")),
+        variant.requiredPayloadKeys, variant.expectedPayload, variant.nullablePayloadKeys)),
+  },
+  basis_admitted: {
+    ...LEGACY_ROOT_EVENT_CONTRACTS.basis_admitted,
+    payloadVariants: LEGACY_ROOT_EVENT_CONTRACTS.basis_admitted.payloadVariants.map(variant =>
+      payloadVariant(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys("registeredSelectionDefinitionDigests")),
+        variant.requiredPayloadKeys, variant.expectedPayload, variant.nullablePayloadKeys)),
+  },
   invocation_admitted: {
     ...LEGACY_ROOT_EVENT_CONTRACTS.invocation_admitted,
     payloadVariants: [

@@ -1,0 +1,138 @@
+{
+  "build/code/src/abg/event_store.js": {
+    "localSha256": "sha256:18781a354f782ab3e98e446b5c13d6e01e9845b4926bf02f01bf4bfd9eb5d365",
+    "installedSha256": "sha256:18781a354f782ab3e98e446b5c13d6e01e9845b4926bf02f01bf4bfd9eb5d365"
+  },
+  "build/code/src/abg/event_store.d.ts": {
+    "localSha256": "sha256:bbfc81b76a6afe574c3ca02241fea19524781a043cc1b6a6ed857b518be3070d",
+    "installedSha256": "sha256:bbfc81b76a6afe574c3ca02241fea19524781a043cc1b6a6ed857b518be3070d"
+  },
+  "build/code/src/abg/execution_basis.js": {
+    "localSha256": "sha256:4bb17fcef1d3394807fb01f5653fb34e864d450f3ae8488be7f919ade8a9a092",
+    "installedSha256": "sha256:4bb17fcef1d3394807fb01f5653fb34e864d450f3ae8488be7f919ade8a9a092"
+  },
+  "build/code/src/abg/execution_basis.d.ts": {
+    "localSha256": "sha256:3c3e901446491eae35bed57c9b88412c5b36765c6d791f0672cca533feebe489",
+    "installedSha256": "sha256:3c3e901446491eae35bed57c9b88412c5b36765c6d791f0672cca533feebe489"
+  },
+  "build/code/src/abg/registered_selection_provenance.js": {
+    "localSha256": "sha256:b4dacaa1ea4c69f8d0aa1f66aecf4b4abf6118879607fffa43a4036f85ac5765",
+    "installedSha256": "sha256:b4dacaa1ea4c69f8d0aa1f66aecf4b4abf6118879607fffa43a4036f85ac5765"
+  },
+  "build/code/src/abg/registered_selection_provenance.d.ts": {
+    "localSha256": "sha256:7faef861fe0b8c7557ea03eb9f7202f4f583954a8a030addd787374de870a95c",
+    "installedSha256": "sha256:7faef861fe0b8c7557ea03eb9f7202f4f583954a8a030addd787374de870a95c"
+  },
+  "build/code/src/abg/replay.js": {
+    "localSha256": "sha256:9870b837c09a2c80128847fae6706ec182d0dd352f7ff9f776fd8a0a10ae578d",
+    "installedSha256": "sha256:9870b837c09a2c80128847fae6706ec182d0dd352f7ff9f776fd8a0a10ae578d"
+  },
+  "build/code/src/abg/replay.d.ts": {
+    "localSha256": "sha256:6ba4c342ee7ef5a30ff602d8ec233d91069aab7942c883af3922a3815a337254",
+    "installedSha256": "sha256:6ba4c342ee7ef5a30ff602d8ec233d91069aab7942c883af3922a3815a337254"
+  },
+  "build/code/src/abg/traversal_cursor.js": {
+    "localSha256": "sha256:9b40d0bf7f4bb791edfbf54599f03faab1b94b963345ac651edacfff7b35a510",
+    "installedSha256": "sha256:9b40d0bf7f4bb791edfbf54599f03faab1b94b963345ac651edacfff7b35a510"
+  },
+  "build/code/src/abg/traversal_cursor.d.ts": {
+    "localSha256": "sha256:ff1ac1cfe1d73e2c93183f94e275d1253d85d8131b693477fd5a74292b0c4297",
+    "installedSha256": "sha256:ff1ac1cfe1d73e2c93183f94e275d1253d85d8131b693477fd5a74292b0c4297"
+  },
+  "build/code/src/abg/traversal_route.js": {
+    "localSha256": "sha256:d630abfe47cacf12f784935c599b05edeb8e1b545658635a358f35e9777510fb",
+    "installedSha256": "sha256:d630abfe47cacf12f784935c599b05edeb8e1b545658635a358f35e9777510fb"
+  },
+  "build/code/src/abg/traversal_route.d.ts": {
+    "localSha256": "sha256:ca22fd713015f561ab2f52fa1a5ef047f645fbda4b1d02120c98afc6e2a6e3b8",
+    "installedSha256": "sha256:ca22fd713015f561ab2f52fa1a5ef047f645fbda4b1d02120c98afc6e2a6e3b8"
+  },
+  "build/code/src/abg/traversal_transition.js": {
+    "localSha256": "sha256:de31da9f77610b5e9c3f53508b3bbac327bedc06d425d4692735869d76c54012",
+    "installedSha256": "sha256:de31da9f77610b5e9c3f53508b3bbac327bedc06d425d4692735869d76c54012"
+  },
+  "build/code/src/abg/traversal_transition.d.ts": {
+    "localSha256": "sha256:4ce896e29f8ee2574377261b69fe6e30643071d5dda4ab88d1f0a374e2471f87",
+    "installedSha256": "sha256:4ce896e29f8ee2574377261b69fe6e30643071d5dda4ab88d1f0a374e2471f87"
+  },
+  "build/code/src/gtl/contracts.js": {
+    "localSha256": "sha256:8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
+    "installedSha256": "sha256:8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881"
+  },
+  "build/code/src/gtl/contracts.d.ts": {
+    "localSha256": "sha256:c712cc50ae6ea93c6d2a28bd539ab839d592afc5620c933c026308ba31efd0cf",
+    "installedSha256": "sha256:c712cc50ae6ea93c6d2a28bd539ab839d592afc5620c933c026308ba31efd0cf"
+  },
+  "build/code/src/gtl/declaration_references.js": {
+    "localSha256": "sha256:b699d575020ebadfd94cf6c6bb80dcd42038c9052779f7f160c30ac5c5d89fd3",
+    "installedSha256": "sha256:b699d575020ebadfd94cf6c6bb80dcd42038c9052779f7f160c30ac5c5d89fd3"
+  },
+  "build/code/src/gtl/declaration_references.d.ts": {
+    "localSha256": "sha256:074b8a4fc5819fe4531be9c9bed100b7e9968cf9846f8e3c98489aa8af14f35a",
+    "installedSha256": "sha256:074b8a4fc5819fe4531be9c9bed100b7e9968cf9846f8e3c98489aa8af14f35a"
+  },
+  "build/code/src/gtl/graph_applications.js": {
+    "localSha256": "sha256:d9da4ab80fa5529bf9bdd39824cf5e4861d7d1d9a3a5804c9d99bb95b4ba5c00",
+    "installedSha256": "sha256:d9da4ab80fa5529bf9bdd39824cf5e4861d7d1d9a3a5804c9d99bb95b4ba5c00"
+  },
+  "build/code/src/gtl/graph_applications.d.ts": {
+    "localSha256": "sha256:d57dc20e473ff80daa94f36a97a2ea20b760e2765e46e9a87f64936373b6a9c7",
+    "installedSha256": "sha256:d57dc20e473ff80daa94f36a97a2ea20b760e2765e46e9a87f64936373b6a9c7"
+  },
+  "build/code/src/gtl/index.js": {
+    "localSha256": "sha256:41068556b4f6cf6b566f307d00186b395a95313af67decdbab967ddf3ba54c8a",
+    "installedSha256": "sha256:41068556b4f6cf6b566f307d00186b395a95313af67decdbab967ddf3ba54c8a"
+  },
+  "build/code/src/gtl/index.d.ts": {
+    "localSha256": "sha256:9a11de3824e752d03558e5969bd35babc23a63d16aa26412f482a000659d861b",
+    "installedSha256": "sha256:9a11de3824e752d03558e5969bd35babc23a63d16aa26412f482a000659d861b"
+  },
+  "build/code/src/gtl/registered_selection.js": {
+    "localSha256": "sha256:2b5622dee9e3ff239112306f26e90061729fb15b9ef6db98d2542df7754b73a1",
+    "installedSha256": "sha256:2b5622dee9e3ff239112306f26e90061729fb15b9ef6db98d2542df7754b73a1"
+  },
+  "build/code/src/gtl/registered_selection.d.ts": {
+    "localSha256": "sha256:0315fb6a68caaa88c3e9e6405956e5d0d9d04fcf7991952f206f79fb308a9d27",
+    "installedSha256": "sha256:0315fb6a68caaa88c3e9e6405956e5d0d9d04fcf7991952f206f79fb308a9d27"
+  },
+  "build/code/src/hog/ccall_lifecycle.js": {
+    "localSha256": "sha256:15fb5124fc9e36c6e5d2ce32cb393117c970725965e05c9612a0ce2f6add14d2",
+    "installedSha256": "sha256:15fb5124fc9e36c6e5d2ce32cb393117c970725965e05c9612a0ce2f6add14d2"
+  },
+  "build/code/src/hog/ccall_lifecycle.d.ts": {
+    "localSha256": "sha256:c2bdb9be9e0bab6cd62506643fd21cdd72c9036adb89936f480e6f00741dfd0f",
+    "installedSha256": "sha256:c2bdb9be9e0bab6cd62506643fd21cdd72c9036adb89936f480e6f00741dfd0f"
+  },
+  "build/code/src/hog/route_proposal.js": {
+    "localSha256": "sha256:452345bbf9f3220b6382e3bb29bd0d466f4d4a6989cfadb194008e0080367039",
+    "installedSha256": "sha256:452345bbf9f3220b6382e3bb29bd0d466f4d4a6989cfadb194008e0080367039"
+  },
+  "build/code/src/hog/route_proposal.d.ts": {
+    "localSha256": "sha256:772b6c3475f6e83b11916a6021df5ebcdfc194e2589d6f76dd9b116c5e2db2bf",
+    "installedSha256": "sha256:772b6c3475f6e83b11916a6021df5ebcdfc194e2589d6f76dd9b116c5e2db2bf"
+  },
+  "build/code/src/owner_bindings/run_invocation.js": {
+    "localSha256": "sha256:ce808e2a0f68c8334937acf4880d1178e0b03fd5b3dc289292f6e62085eaf0a3",
+    "installedSha256": "sha256:ce808e2a0f68c8334937acf4880d1178e0b03fd5b3dc289292f6e62085eaf0a3"
+  },
+  "build/code/src/owner_bindings/run_invocation.d.ts": {
+    "localSha256": "sha256:571d11ee9f7fda8a7aae67670df6b2447d899a115b3181590e508b1291eb35f3",
+    "installedSha256": "sha256:571d11ee9f7fda8a7aae67670df6b2447d899a115b3181590e508b1291eb35f3"
+  },
+  "build/code/src/product/execution_resolution.js": {
+    "localSha256": "sha256:0979ad36e30e5830c2f4ede2edeb5ba7aeca8465178f717c0984648a600e2f85",
+    "installedSha256": "sha256:0979ad36e30e5830c2f4ede2edeb5ba7aeca8465178f717c0984648a600e2f85"
+  },
+  "build/code/src/product/execution_resolution.d.ts": {
+    "localSha256": "sha256:09ccda9d6b4838f2f54b64d7951a27b2732608a07647f14fd031bfa21d86927c",
+    "installedSha256": "sha256:09ccda9d6b4838f2f54b64d7951a27b2732608a07647f14fd031bfa21d86927c"
+  },
+  "build/code/src/validator/validation.js": {
+    "localSha256": "sha256:7db37dee9e7402c8562c53b549858b4795b3dcc1c84087721fd224daecdc4f5d",
+    "installedSha256": "sha256:7db37dee9e7402c8562c53b549858b4795b3dcc1c84087721fd224daecdc4f5d"
+  },
+  "build/code/src/validator/validation.d.ts": {
+    "localSha256": "sha256:432bde6af9d0a25dc4a69c7e006efa5269cc40105c06056d6379a31177d8217a",
+    "installedSha256": "sha256:432bde6af9d0a25dc4a69c7e006efa5269cc40105c06056d6379a31177d8217a"
+  }
+}

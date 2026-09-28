@@ -1,0 +1,27 @@
+{
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "commands": [
+    {
+      "command": "ABI5_SELECTION_EVIDENCE_ROOT=/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-repeat-repair/predecessor ABI5_SELECTION_REPEAT_ONLY=1 node --test test_env/tests/t287-registered-graph-selection.test.mjs",
+      "exitCode": 1,
+      "log": "predecessor-test.log",
+      "meaning": "expected old-archive reproduction: A completes, B fails"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": "build.log"
+    },
+    {
+      "command": "ABI5_SELECTION_EVIDENCE_ROOT=/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-repeat-repair/current ABI5_SELECTION_REPEAT_ONLY=1 node --test test_env/tests/t287-registered-graph-selection.test.mjs",
+      "exitCode": 0,
+      "log": "current-test.log",
+      "meaning": "one focused test with two Public runs, four fresh reads and controlled provenance refusal"
+    }
+  ],
+  "packCommand": "npm pack --ignore-scripts --json --pack-destination <scratch>/artifacts",
+  "packOwner": "existing setupInstalledRootCatalog; exactly one corrected ABI archive",
+  "unaffectedEvidence": "first S2 negatives/gap and structural checks retained; no blanket rerun",
+  "selfCheck": "git diff --check passed; all 717 emitted files equal local/archive/installed; original S2 proof hashes unchanged",
+  "testSourceNote": "The evidence-directory default was changed to current after the passing invocation; both executions explicitly set ABI5_SELECTION_EVIDENCE_ROOT, so this changes no executed branch."
+}

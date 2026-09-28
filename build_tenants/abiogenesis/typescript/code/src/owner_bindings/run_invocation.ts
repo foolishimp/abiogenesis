@@ -395,6 +395,16 @@ const GRAPH_FUNCTION_APPLICATION_SCHEMA = v.union([
   }),
   v.strictObject({
     kind: v.literal("graph_function_application"),
+    relationKind: v.literal("registered_selection"),
+    applicationRef: nonblankSchema,
+    inputContractRef: nonblankSchema,
+    outputContractRef: nonblankSchema,
+    sourceProgramLocusRef: nonblankSchema,
+    evaluatorRef: nonblankSchema,
+    ruleRef: nonblankSchema,
+  }),
+  v.strictObject({
+    kind: v.literal("graph_function_application"),
     relationKind: v.literal("re_enter"),
     applicationRef: nonblankSchema,
     inputContractRef: nonblankSchema,

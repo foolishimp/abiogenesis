@@ -1,0 +1,8 @@
+{
+  "canonicalInputRef": "raw-admission://abiogenesis/96d7755eba20bccea9287353f8b9ad0a49cfa013fcfcb47b79593e333bdc8a76",
+  "earlierRouteRef": "traversal-route://abiogenesis/8f4fbef4cd76a40d4190643e29d8bb807274fbca39353f87a48c782ec2d9bbad",
+  "currentRouteRef": "traversal-route://abiogenesis/ccc2156dd7aa8204bf9b54d5f55e1e24b9c9b41e40aea5634354b59afd50c1d9",
+  "recoveredEventRef": "event://abiogenesis/e50ef71d8c8deefcb9704e69ab46abc2e99740b7ada6ca0c2becd16aea575c84",
+  "currentProvenanceTamper": "refused",
+  "proofBoundary": "installed read-only projection over a controlled copied prefix; not another Public execution"
+}

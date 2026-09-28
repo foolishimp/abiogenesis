@@ -1,3 +1,4 @@
+import { resolveRegisteredSelection } from "../gtl/registered_selection.js";
 import { RETAINED_GRAPH_INPUT_CONTRACT, constructRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
 import { hasJsonNulJoinedKeys as hasExactKeys } from "../shared/admission_predicates.js";
 import { constructRetainedWorksiteInput } from "../product/worksite_preparation.js";
@@ -149,6 +150,7 @@ export interface RouteCandidate {
   readonly contractRef: string | null;
   readonly replayStateDigest: Sha256Digest;
   readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
+  readonly registeredSelectionApplicationRef?: string;
   readonly nextActionProjectionRef?: string;
   readonly nextActionProjectionDigest?: Sha256Digest;
   readonly nextActionProjection?: Readonly<Record<string, JsonValue>>;
@@ -181,6 +183,7 @@ export interface AdmittedRoute {
   readonly admissionEventRef: string;
   readonly runStoppedEventRef: string | null;
   readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
+  readonly registeredSelectionApplicationRef?: string;
   readonly nextActionProjectionRef?: string;
   readonly nextActionProjectionDigest?: Sha256Digest;
   readonly nextActionProjection?: NextActionProjection;
@@ -534,6 +537,7 @@ export interface HistoricalTraversalRouteProjection {
   readonly executionBasisRef: string;
   readonly materializationRef: string;
   readonly boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
+  readonly registeredSelectionApplicationRef?: string;
   readonly nextActionProjectionRef?: string;
   readonly nextActionProjectionDigest?: Sha256Digest;
   readonly nextActionProjection?: NextActionProjection;
@@ -640,6 +644,7 @@ function projectHistoricalTraversalRoute(
     routeRef,
     routeDigest: routeDigest as Sha256Digest,
     ...(projected.boundInput === undefined ? {} : { boundInput: projected.boundInput }),
+    ...(projected.registeredSelectionApplicationRef === undefined ? {} : { registeredSelectionApplicationRef: projected.registeredSelectionApplicationRef }),
     routeKind: projected.routeKind,
     declarationRef: projected.declarationRef,
     declarationDigest: projected.declarationDigest,
@@ -740,6 +745,7 @@ function projectAdmittedRoute(
     routeRef: projected.routeRef,
     routeDigest: projected.routeDigest,
     ...(projected.boundInput === undefined ? {} : { boundInput: projected.boundInput }),
+    ...(projected.registeredSelectionApplicationRef === undefined ? {} : { registeredSelectionApplicationRef: projected.registeredSelectionApplicationRef }),
     routeKind: projected.routeKind,
     declarationRef: projected.declarationRef,
     declarationDigest: projected.declarationDigest,
@@ -3690,6 +3696,19 @@ function hasFanOutRouteEvidence(
     targetTerm.graphFunctionRef === fanInApplication.reducerGraphFunctionRef;
 }
 
+function registeredSelectionContinuationMatches(basis: ExecutionBasis, graph: Readonly<GtlGraph>,
+  source: TraversalCursorCandidate, target: TraversalCursorCandidate | null,
+  evidence: RouteAdmissionEvidence, boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>): boolean | null {
+  const selected = resolveRegisteredSelection(graph.template, source, evidence.cCall.outputContractRef,
+    evidence.result.value, basis.registeredSelectionDefinitionDigests ?? {});
+  if (selected === null) return null;
+  return selected.disposition === "selected" && target !== null && boundInput !== undefined &&
+    hasSameCursorLineage(source, target) && target.currentNodeRef === selected.nodeRef &&
+    sameValues(target.termPath, selected.termPath) && target.taskOrdinal === null && target.retryPath.length === 0 && target.attempt === 1 &&
+    target.inputRef === boundInput.admissionRef && target.inputDigest === boundInput.subjectDigest &&
+    boundInput.contractRef === selected.contractRef && sha256Canonical(selected.value) === boundInput.subjectDigest;
+}
+
 function isDeclaredContinuationTarget(
   prefix: ValidatedRuntimeEventPrefix,
   graph: Readonly<GtlGraph>,
@@ -3999,6 +4018,7 @@ function recursionRouteCausation(input: Readonly<{
 
 const RETAINED_CCALL_INPUT = Symbol("retained_c_call_input");
 type RetainedCCallInput = Readonly<{
+  registeredSelectionApplicationRef?: string;
   input: RawAdmittedValue<Readonly<Record<string, JsonValue>>>;
   causationEventRefs: readonly string[];
 }>;
@@ -4034,6 +4054,21 @@ export function deriveRetainedCCallInputAtPrefix(
     inputs.every((value, index) => value === previous.inputs[index])) return previous.retained;
   const executionBasis = typeof basis === "string" ? rehydrateExecutionBasisAtPrefix(prefix, basis) : basis;
   if (executionBasis === null) throw new TypeError("retention lacks the exact admitted ExecutionBasis");
+  const selection = resolveRegisteredSelection(graph.template, source, cCall.outputContractRef, result.value,
+    executionBasis.registeredSelectionDefinitionDigests ?? {});
+  if (selection !== null) {
+    if (selection.disposition !== "selected" || !hasAdmittedExecutionBasisAtPrefix(prefix, executionBasis) ||
+      !hasAdmittedTraversalCursorAtPrefix(prefix, source) || executionBasis.basisRef !== source.executionBasisRef ||
+      executionBasis.graphRef !== graph.materializationRef || executionBasis.graphDigest !== graph.materializationDigest ||
+      cCall.basisId !== executionBasis.basisRef || cCall.graphCallId !== source.graphCallId || cCall.frameId !== source.frameId ||
+      cCall.runId !== source.runId || result.resultClass !== "success" || judgment.judgment !== "advance" ||
+      projectAdmittedCCallOutcomeAtPrefix(prefix, cCall, result, judgment) === null) {
+      throw new TypeError("registered selection lacks the exact admitted successful source");
+    }
+    const input = rawAdmitValue<Readonly<Record<string, JsonValue>>>(selection.value, "invocation_input", selection.contractRef);
+    if (input.kind !== "raw_admitted_value") throw new TypeError(input.message);
+    return Object.freeze({ input, registeredSelectionApplicationRef: selection.applicationRef, causationEventRefs: Object.freeze([executionBasis.admissionEventRef, result.admissionEventRef, judgment.admissionEventRef]) });
+  }
   const continuation = deriveCSourceContinuation(graph.template, source.currentNodeRef, source.termPath);
   if (continuation.kind === "c_source_path_refusal" || continuation.relation !== "graph_edge") return null;
   const edges = graph.template.edges.filter((edge) => edge.fromNodeRef === source.currentNodeRef);
@@ -4148,7 +4183,8 @@ function admitRoute(
     retained = candidate.routeKind === "advance" && judgedRouteEvidence !== null
       ? deriveRetainedCCallInputAtPrefix(authorityPrefix, executionBasis, graph, sourceCursor,
           judgedRouteEvidence.cCall, judgedRouteEvidence.result, judgedRouteEvidence.judgment) : null;
-    if ((retained === null) !== (candidate.boundInput === undefined) ||
+    if (candidate.registeredSelectionApplicationRef !== retained?.registeredSelectionApplicationRef ||
+      (retained === null) !== (candidate.boundInput === undefined) ||
       retained !== null && retained.input !== candidate.boundInput &&
         sha256Canonical(retained.input as unknown as JsonValue) !== sha256Canonical(candidate.boundInput as unknown as JsonValue)) {
       return refusal("candidate_mismatch", "route bound input is not the exact owner-derived entry/source binding");
@@ -4499,17 +4535,12 @@ function admitRoute(
           judgedRouteEvidence,
           authorityPrefix,
         ) ||
-        !isDeclaredContinuationTarget(
-          authorityPrefix,
-          graph,
-          sourceCursor,
-          targetCursor,
-          candidate,
-          {
-            inputRef: retained?.input.admissionRef ?? judgedRouteEvidence.result.resultRef,
-            inputDigest: retained?.input.subjectDigest ?? judgedRouteEvidence.result.valueDigest,
-          },
-        )
+        !(registeredSelectionContinuationMatches(executionBasis, graph, sourceCursor, targetCursor,
+          judgedRouteEvidence, retained?.input) ?? isDeclaredContinuationTarget(
+          authorityPrefix, graph, sourceCursor, targetCursor, candidate,
+          { inputRef: retained?.input.admissionRef ?? judgedRouteEvidence.result.resultRef,
+            inputDigest: retained?.input.subjectDigest ?? judgedRouteEvidence.result.valueDigest },
+        ))
       ) {
         return refusal(
           "judgment_mismatch",

@@ -9,6 +9,7 @@ import type {
   FanOutApplication,
   FoldbackDeclaration,
   GateApplication,
+  RegisteredSelectionApplication,
   GtlEdge,
   GtlEdgeInputBinding,
   GraphFunctionApplication,
@@ -282,4 +283,11 @@ export function sameObjectWitnessRef(objectRef: string): string {
   requireRef(objectRef, "objectRef");
   const digest = sha256Canonical({ objectRef });
   return `identity-witness://abiogenesis/${digest.slice("sha256:".length)}`;
+}
+
+export function registeredSelectionApplication(input: ApplicationInput<RegisteredSelectionApplication>): RegisteredSelectionApplication {
+  requireRef(input.sourceProgramLocusRef, "sourceProgramLocusRef");
+  requireRef(input.evaluatorRef, "evaluatorRef");
+  requireRef(input.ruleRef, "ruleRef");
+  return constructApplication("registered_selection", input);
 }

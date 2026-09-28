@@ -392,6 +392,8 @@ function hasExactApplicationShape(
         "ruleRef",
         "targetRef",
       ]);
+    case "registered_selection":
+      return hasExactKeys(application, [...base, "sourceProgramLocusRef", "evaluatorRef", "ruleRef"]);
     case "re_enter":
       return hasExactKeys(application, [
         ...base,
@@ -906,7 +908,11 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
       const from = nodes.get(edge.fromNodeRef);
       const to = nodes.get(edge.toNodeRef);
       if (binding === undefined) {
-        if (from !== undefined && to !== undefined && from.term.outputCarrierRef !== to.term.inputCarrierRef) {
+        const selection = from?.term.kind === "c_of" ? graphFunction.template.applications.find(a =>
+          a.relationKind === "registered_selection" && a.sourceProgramLocusRef === (from.term as { programLocusRef: string }).programLocusRef) : undefined;
+        const selectedJoin = selection?.relationKind === "registered_selection" && to?.term.kind === "c_workflow" &&
+          selection.inputContractRef === from?.term.outputCarrierRef && selection.outputContractRef === to.term.inputCarrierRef;
+        if (from !== undefined && to !== undefined && !selectedJoin && from.term.outputCarrierRef !== to.term.inputCarrierRef) {
           diagnostics.push({ code: "carrier_mismatch", path: `$.graphFunctions[${graphFunction.name}].template.edges[${edge.edgeRef}]`,
             message: "ordinary graph edge requires exact source-output and target-input equality" });
         }
@@ -1136,6 +1142,36 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
           path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}].evaluatorRefs`,
           message: "gate application requires published Rule and Evaluator declarations",
         });
+      }
+      if (application.relationKind === "registered_selection") {
+        const sources = graphFunction.template.nodes.filter(n => n.term.kind === "c_of" && n.term.programLocusRef === application.sourceProgramLocusRef);
+        const source = sources.length === 1 ? sources[0] : undefined;
+        const leaf = source?.term.kind === "c_of" ? source.term : undefined;
+        const evaluator = publishedEvaluatorByRef.get(application.evaluatorRef);
+        const edges = graphFunction.template.edges.filter(e => e.fromNodeRef === source?.nodeRef);
+        const targets = edges.map(e => graphFunction.template.nodes.find(n => n.nodeRef === e.toNodeRef));
+        const targetRefs = targets.map(n => n?.term.kind === "c_workflow" ? n.term.graphFunctionRef : "");
+        const childOutputs = new Set(targets.map(n => n?.term.outputCarrierRef));
+        const valid = leaf !== undefined && source !== undefined && leaf.fibre !== "F_H" &&
+          isExecutableCLeaf(leaf) && !leaf.resultBearing && leaf.stageRole === "evaluate" &&
+          leaf.outputCarrierRef === application.inputContractRef && evaluator !== undefined &&
+          evaluator.regime === leaf.fibre && evaluator.binding === bindingByRef.get(leaf.requirement.implementationBindingRef)?.implementationRef &&
+          publishedRuleRefs.has(application.ruleRef) && edges.length > 0 && edges.every(e => e.inputBinding === undefined) && childOutputs.size === 1 &&
+          new Set(targetRefs).size === targetRefs.length &&
+          graphFunction.template.applications.filter(a => a.relationKind === "registered_selection" && a.sourceProgramLocusRef === application.sourceProgramLocusRef).length === 1 &&
+          !graphFunction.template.terminalNodeRefs.includes(source.nodeRef) &&
+          targets.every(n => {
+            if (n?.term.kind !== "c_workflow" || n.term.inputCarrierRef !== application.outputContractRef) return false;
+            const child = applicationGraphByRef.get(n.term.graphFunctionRef);
+            return child !== undefined && program.callableMembership.includes(child.name) &&
+              child.inputs.length === 1 && child.inputs[0] === application.outputContractRef &&
+              child.outputs.length === 1 && child.outputs[0] === n.term.outputCarrierRef &&
+              (child.declarations["abg.functional_purpose"]?.trim().length ?? 0) > 0 &&
+              (child.declarations["abg.conditions_for_use"]?.trim().length ?? 0) > 0 &&
+              graphFunction.template.edges.filter(e => e.toNodeRef === n.nodeRef).length === 1;
+          });
+        if (!valid) diagnostics.push({ code: "invalid_application", path: `$.graphFunctions[${graphFunction.name}].template.applications[${application.applicationRef}]`,
+          message: "registered selection requires an exact evaluator/policy source and unique permitted workflow targets with one shared interface and purpose" });
       }
       if (application.relationKind === "gate") {
         const attachedLeaves = graphFunction.template.nodes

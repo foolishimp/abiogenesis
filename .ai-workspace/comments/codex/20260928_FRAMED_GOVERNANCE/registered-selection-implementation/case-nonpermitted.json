@@ -1,0 +1,215 @@
+{
+  "wallMs": 1367.8894999999975,
+  "cliPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Xtssi4/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "requestPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Xtssi4/st4-nonpermitted-request.jsonl",
+  "output": {
+    "acquisitionKind": "reopen",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "start",
+        "operationId": "abg.operation.run.invoke"
+      },
+      "exitCode": 0,
+      "failure": null,
+      "invocationRef": "invocation://abiogenesis/034d96ae7e0ebe8f0eb0093514c8b2fe0400f15bd319a61b45920cb7a02bce73",
+      "kind": "definition_host_receipt",
+      "ownerOutput": {
+        "outcomeKind": "result",
+        "value": {
+          "disposition": "runtime_failed",
+          "evidence": [
+            {
+              "digest": "sha256:6cb20e946e8841d33cee28cfa36a2faf6cface307baae9a0963ce3b9198c8eab",
+              "ref": "event://abiogenesis/c1503c702d916f67f370f657d1b19c71cef855701fe5aa6d4324642c24b33956"
+            },
+            {
+              "digest": "sha256:c95ea512ad2f87a75723482b37584ea1cb584a5752d818ebd0067cf92f30c64e",
+              "ref": "event://abiogenesis/4d6293351aae99167cbe3cf3a26ebb4640350c4486331256965ce7c2cade3d6d"
+            },
+            {
+              "digest": "sha256:5eb6f627b03d7d6331de233c5763851cb3247d7fa92efd3f2384a1236e6a7065",
+              "ref": "event://abiogenesis/ff0b18ebd7728b9f0fbde0281db5459ed15406e7468e333b5df645824d4eec8e"
+            },
+            {
+              "digest": "sha256:946365cbfdaae1362d93356e4a8c2224966e463fc2b08d8d3b1b40265e9bf6b9",
+              "ref": "event://abiogenesis/3973583cf8114b70944a87f229f2ca5ce765ee665a26b32e2795d181d9c296a4"
+            },
+            {
+              "digest": "sha256:1a39f32f2af69f9dcd9df3b2a6fc59bbb2cb7ae8865f51b6405c83c933ad5dfe",
+              "ref": "event://abiogenesis/f054c4e667206e18a8af9d62f09ce541c7ffdc5828a81101966b6adfea65b18a"
+            },
+            {
+              "digest": "sha256:728a39da5eec40cee83817ea4bfea77672c9f723d4ff3f26d7240aa9a52b60cb",
+              "ref": "event://abiogenesis/3d232c69a3e9a591cd129d7edef23d2ba70ff81407403a1c1615572633be4816"
+            },
+            {
+              "digest": "sha256:f63a13bcb5cd9df4c28de98b9d6057a4b1aec774613b13d61e8de4fab706841f",
+              "ref": "event://abiogenesis/ed7edb94810f2c61edb96f21756799f7b4b04c8189b78092724da024348260f8"
+            },
+            {
+              "digest": "sha256:5200fe25c5f332bb0503d2d4d6b76a17de922a03396d26afc98088b66446260b",
+              "ref": "event://abiogenesis/a573293900874eff10cda3cb073323c0a8caec252e1f0444ca675699b844b4b9"
+            },
+            {
+              "digest": "sha256:fe7c4619b73378c3c3237a66b4dd77d3f5609e8f7938759aa6d1446661176e6e",
+              "ref": "event://abiogenesis/b8306dbe3621c1856269071719f558cb771a332ba23d80d3369ee8664e0c63cd"
+            },
+            {
+              "digest": "sha256:37de89f5465f73e939aa4c0637a9aadc479bf97a0ee155bc28b79619fe5e3731",
+              "ref": "event://abiogenesis/7f959bec68312cab071c5d1a2ae49e26376888839af70c2e1302ba1a5088daee"
+            },
+            {
+              "digest": "sha256:e54f93e60ce757218f9178e1caeb9d79e3230ef0fc85c1cde61079be36d92d9f",
+              "ref": "event://abiogenesis/c415515acfbb7e40fada7775d8629630fd04144df2068d6b1310f7f0eb6fcff4"
+            },
+            {
+              "digest": "sha256:c69c81505eb8347e0b1474bf6efb02ae04d507f327c543d33fef63e063873e7b",
+              "ref": "event://abiogenesis/1b1f1f536b532efa61eae459de1e01fb830da2e050668f88cc5bde794156aef7"
+            },
+            {
+              "digest": "sha256:b20a90eec2ad11caff8623112c5b63309a854fcecb12debe0be0009fb7c113ea",
+              "ref": "event://abiogenesis/84ce12d83a1702cf17c91780dab6d0bc0d5195990a3b524a529985ed72cf9633"
+            },
+            {
+              "digest": "sha256:d16ef49c6ad8b58295b2fdfb83d5eb6fba90a5f8708d2f0871781026f9db0e2e",
+              "ref": "event://abiogenesis/4cb4b813d4e700db9cb76e23be2ae72cd360460d77ddf981a0444b603172ca29"
+            },
+            {
+              "digest": "sha256:9a4484408de5821430a5bf511393c488f5f6519300ddcab086e0f507b3732349",
+              "ref": "event://abiogenesis/e0085cdc608f8327f3b50c63920bdaa2e9bf9039b5be7608894ae6742f742ef0"
+            },
+            {
+              "digest": "sha256:7e284af6b3a703c20badb5c32f9f179ba5e345fd9cb745946861785966c269f6",
+              "ref": "event://abiogenesis/718dc406043d913b588c6d5d25de54a3bb59b8466c6920db42562dd62f4b9a9d"
+            },
+            {
+              "digest": "sha256:d8e4123e7191274aaa327a2101e1fbbb9a98f9da4b43236e1a1d4ccf5625691b",
+              "ref": "event://abiogenesis/a80a8c3dfbacd2aa4f63ec4ecf13c673ecd7886bb42503bb451a8e2c7beebbf1"
+            },
+            {
+              "digest": "sha256:653631abb4c0b0e314c65bb083dadd1eb7d2a0514091a476b14e51992b18f35e",
+              "ref": "event://abiogenesis/2229901fc795c41448ae2f665a16008d679ac3c4ae8fd270b69e6619f9e4cec6"
+            },
+            {
+              "digest": "sha256:852c3affeac12f6c6c338258f7f440941ad6e9e58a7be23115897408166c091a",
+              "ref": "event://abiogenesis/bb0353cc12e6564ae9be5341af3220bb84d77c5c18c07f5164e86370b18fc00f"
+            },
+            {
+              "digest": "sha256:71d429b7c9f3a2d7c1efdc7f5761038c47a114ddd86fec785d3711d94651d06e",
+              "ref": "event://abiogenesis/ccab29d6d45749f531ef059042e1d050c4a5a6ed06ef3771a0ef1513ebfeca00"
+            },
+            {
+              "digest": "sha256:001461a5aa5a149fb943b68e0b349e4a093047be7bfe37f1829b05e40af29ae4",
+              "ref": "event://abiogenesis/2a9d6d55e3ada4e75758b09d1b1dc0148ac275608d619cd7fc6253773ecc1fa4"
+            },
+            {
+              "digest": "sha256:690a1b3f3a88ae0537cfb88f81c6b632ef19c730a55134641e0759f010772c62",
+              "ref": "event://abiogenesis/db7bb13fe2fc7d7df24eaaaaef7a663da5c9e527019d5d52791e254461eb566d"
+            },
+            {
+              "digest": "sha256:6ae833a49587174c552f56ce4f4afe5e07e13f7435db55b9d7195d0dfb8f2480",
+              "ref": "event://abiogenesis/d9429200ea311b99ef62b5202b0c5e1b6b73892a8a8db986201607b2b91c70c5"
+            },
+            {
+              "digest": "sha256:b3039f23d5f5f24b28efda51c5635a19fcb87c39fce7ea4513974f7dc2c56799",
+              "ref": "event://abiogenesis/34779405b1af18c981128494e77ad6b44e3a1e5883aae31218ae94bf773f21c7"
+            },
+            {
+              "digest": "sha256:d93dc04b232488bcd0ef6f42c1a8b6386988c712847108b6e469f7654644eae2",
+              "ref": "event://abiogenesis/d2ff93d4a5c645e955fa80be859f6a5f8b9b7446c3f0dd8901821ab3b9c792e4"
+            }
+          ],
+          "gap": null,
+          "graphCall": {
+            "digest": "sha256:728a39da5eec40cee83817ea4bfea77672c9f723d4ff3f26d7240aa9a52b60cb",
+            "ref": "graph-call://abiogenesis/df7ebb4611391d476ab408c3fb5e06dd603667db42d3145c72cb0881bffddd0f"
+          },
+          "interaction": null,
+          "invocationKind": "start",
+          "replay": {
+            "digest": "sha256:4b2409298ced75c1b4157fcb8bd14c79e235490e605067482369059606d2fa09",
+            "ref": "replay://abiogenesis/4b2409298ced75c1b4157fcb8bd14c79e235490e605067482369059606d2fa09"
+          },
+          "result": null,
+          "run": {
+            "digest": "sha256:1a39f32f2af69f9dcd9df3b2a6fc59bbb2cb7ae8865f51b6405c83c933ad5dfe",
+            "ref": "run://abiogenesis/b8444ad456d08993b363fa7a9e56e202616dbb3ffb4ad0795936ca4714be2e64"
+          },
+          "stop": {
+            "digest": "sha256:d93dc04b232488bcd0ef6f42c1a8b6386988c712847108b6e469f7654644eae2",
+            "ref": "event://abiogenesis/d2ff93d4a5c645e955fa80be859f6a5f8b9b7446c3f0dd8901821ab3b9c792e4"
+          },
+          "terminalResult": null
+        }
+      },
+      "resources": {
+        "eventResource": {
+          "acquisitionKind": "reopen",
+          "closeHandoff": {
+            "prefix": {
+              "coordinateDigest": "sha256:3c41360aec4b6f91b6c6e771d5400d84257168f996a03a80b31936cf7f8ae2ed",
+              "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Xtssi4/runtime/events.jsonl",
+              "kind": "durable_prefix_coordinate",
+              "prefixDigest": "sha256:2807e20a5938a6b9555cd9cb60dd1ff3aa9a7b85ebeaef612f75f02c0f83c85b",
+              "prefixLength": 2919992,
+              "schemaVersion": "5.0.0",
+              "storeIdentity": {
+                "device": 16777230,
+                "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+                "inode": 462248190
+              }
+            },
+            "reopenAuthority": {
+              "authorityDigest": "sha256:475c58c48b8daeb1455ba7adf8e4a526344c514936158e3a96af2c651be4ff3d",
+              "device": 16777230,
+              "durableByteLength": 2919992,
+              "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+              "eventLogDigest": "sha256:2807e20a5938a6b9555cd9cb60dd1ff3aa9a7b85ebeaef612f75f02c0f83c85b",
+              "eventLogPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Xtssi4/runtime/events.jsonl",
+              "inode": 462248190,
+              "kind": "event_store_reopen_authority",
+              "schemaVersion": "5.0.0"
+            }
+          },
+          "entryPrefix": {
+            "coordinateDigest": "sha256:311ab4bbee27cb8c50bd4ac9d619a6118135d7510b0e489452923b93f25ba263",
+            "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Xtssi4/runtime/events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:9e6e41e606f64351b5d2669f618af8d84eb2fd09ec4a4ade9f237f9be8cc0626",
+            "prefixLength": 2823867,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777230,
+              "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+              "inode": 462248190
+            }
+          },
+          "kind": "abg_event_resource_receipt",
+          "receiptDigest": "sha256:f0d04b8ad99810565268447380d8b0daf21b8df6c5136c57aef7990189bcd316",
+          "schemaVersion": "5.0.0"
+        },
+        "invocationAdmission": {
+          "digest": "sha256:1513c077870526ac8f18c97fde955e3212bafe67e18dafe6f7f55a17877b3caa",
+          "ref": "invocation-admission://abiogenesis/1513c077870526ac8f18c97fde955e3212bafe67e18dafe6f7f55a17877b3caa"
+        },
+        "kind": "run_invocation_resource_receipt",
+        "productExecutionResolution": {
+          "digest": "sha256:33c1ac1cf53545e7a560b223b41df2afc4cd02c00656708367ac36e1140fbab2",
+          "ref": "product-execution-resolution://abiogenesis/33c1ac1cf53545e7a560b223b41df2afc4cd02c00656708367ac36e1140fbab2"
+        },
+        "replay": {
+          "digest": "sha256:4b2409298ced75c1b4157fcb8bd14c79e235490e605067482369059606d2fa09",
+          "ref": "replay://abiogenesis/4b2409298ced75c1b4157fcb8bd14c79e235490e605067482369059606d2fa09"
+        },
+        "run": {
+          "digest": "sha256:1a39f32f2af69f9dcd9df3b2a6fc59bbb2cb7ae8865f51b6405c83c933ad5dfe",
+          "ref": "run://abiogenesis/b8444ad456d08993b363fa7a9e56e202616dbb3ffb4ad0795936ca4714be2e64"
+        },
+        "schemaVersion": "5.0.0"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  }
+}

@@ -17,16 +17,16 @@
 - updated_at: 2026-09-28
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_REGISTERED_GRAPH_SELECTION_01
-- current_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/core-06/selected-core.json
-- current_candidate_archive_sha256: df47a7a2c9d7f25cb2b1c22e7097e027c68ec25d05179b5c6d8f15dbe0319944
-- current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/executive-disposition.md
-- current_accepted_archive_sha256: df47a7a2c9d7f25cb2b1c22e7097e027c68ec25d05179b5c6d8f15dbe0319944
-- current_worker_return: .ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-01/return.md
-- current_candidate_scope: core52_canonical_contraction_source_package_and_installed_owner_conservation_accepted
+- current_activation: T287_REGISTERED_SELECTION_NATIVE_IMPLEMENT_01
+- current_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-repeat-repair/subject.json
+- current_candidate_archive_sha256: 99338053df3a690ed21616ed2a519443c596b7d144e343256d39a23d0220ac39
+- current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s2-acceptance-and-s3-implementation-grant
+- current_accepted_archive_sha256: 99338053df3a690ed21616ed2a519443c596b7d144e343256d39a23d0220ac39
+- current_worker_return: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-repeat-repair/return.md
+- current_candidate_scope: S2_deterministic_registered_selection_and_repeated_input_provenance_accepted_native_and_recursion_open
 - current_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-11/activation.json
 - current_live_execution_status: PC05_11_process_heap_aborted_before_admission_zero_appended_events
-- current_activation_status: preregistered_graph_selection_definition_consistency_accepted
+- current_activation_status: S2_accepted_S3_owned_native_selection_implementation_selected
 - current_native_execution_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#framed-governance-definition-re-entry'
@@ -48,8 +48,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: design_smallest_registered_choice_execution_through_existing_owners
-- next_bounded_task_status: narrowed_definition_review_closed_design_and_implementation_not_activated
+- next_bounded_task: prove_owned_native_context_observed_choice_and_actual_registered_child
+- next_bounded_task_status: accepted_S3_HOW_three_real_native_cases_authorized_under_bounded_grant
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -302,16 +302,23 @@ primitives, outside current delivery acceptance.
 | Scope | Existing GTL declarations, HoG computation and ABG admission; preregistered, Program-permitted graph selection under reference frames, without another topology entity or interpreter. |
 | Release | Selected ordinary Executive/default library under the existing fifteen families and S02/S03/S06; dedicated F12/S04, autonomous out-of-traversal routing and native human response remain deferred. Product owns the exact allocation. |
 | Evidence | Definition and review only. Installed code and historical native results do not establish this new capability or resolve the retained pre-admission heap failure. |
-| Current grant | Bounded Writer documentation effects and independent read-only consistency review; no implementation, code deletion, recovery, native execution or release. |
+| Current grant | Owner-authorized execution of the seven-step plan; accepted direct-selection HOW now authorizes implementation and the first installed two-choice proof. |
 
 [Exact Writer grant and disposition](../../comments/codex/20260928_FRAMED_GOVERNANCE/catalogue-selection-disposition.md)
-own the bounded activation and subject.
+own the accepted definition. The
+[execution record](../../comments/codex/20260928_FRAMED_GOVERNANCE/execution.md)
+owns current bounded activations and evidence for the following plan.
 
 - [x] Triage against the existing Intent/Product and selected STDO basis.
 - [x] Capture direction, calculus, release scope and derived acceptance in their owners.
 - [x] Independent consistency review of the narrowed catalogue-selection definition.
-- [ ] Design the smallest installed selection between registered graphs; resolve admitted choice to actual HoG dispatch without a new planner.
-- [ ] Implement and qualify the selected sandbox discriminator, then continue release work.
+- [x] Design the smallest installed selection between registered graphs; accepted direct path removes mandatory One Surface phases and preserves exact dispatch/input checks.
+- [x] Prove installed registered selection and refusal boundaries with deterministic choices, including identical input reused in separate Runs.
+- [ ] Add bounded native F_P selection over declared purposes and current observations.
+- [ ] Prove counterevidence changes the registered choice and recursion preserves parent obligations.
+- [ ] Assemble default lifecycle graphs from existing capabilities.
+- [ ] Complete the installed Hello discriminator with correction and independent assessment.
+- [ ] Reconcile remaining qualification and execute the exact RC lifecycle.
 
 The preceding definition and execution-verification clarification passed
 [independent review](../../comments/codex/20260928_FRAMED_GOVERNANCE/review-03.md).
@@ -319,10 +326,18 @@ That exact historical judgment remains; the narrowed selection delta passed
 [independent review](../../comments/codex/20260928_FRAMED_GOVERNANCE/catalogue-selection-review.md)
 and Executive accepts its bounded definition consistency. FG-01's discriminator now requires a changed registered choice and
 actual execution, without graph generation. QUAL-072 remains the execution
-conformance owner. Implementation and qualification remain unassessed; the
-fixed-callee integration gap and PC05-11 failure remain open. The next design
+conformance owner. Deterministic registered selection is accepted within the
+bounded S2 proof; native suitability, recursion, PC05-11 and qualification remain
+open. The accepted
+[selection design](../../../build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md)
 maps declared purpose, frame/context, admitted choice, HoG dispatch and foldback
 through existing owners. Runtime graph publication is no longer a dependency.
+The [S2 disposition and S3 grant](../../comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s2-acceptance-and-s3-implementation-grant)
+accept the corrected installed choice/input/foldback proof and select the
+[native HOW](../../../build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md)
+for one actual F_P selector through owned context and three bounded native cases.
+The rejected odd_glc planner is removed and pushed at `36d40d552b68e8be91cc490f93bffea9e781f6c7`;
+retained reusable graph assets and native continuation owners remain available.
 
 Verification impact: the calculus is constitutional. Design/implementation
 must map each changed relation to its actual execution boundary and evidence
@@ -1453,10 +1468,16 @@ owner re-ruling; the generic pruning direction supplies neither permission.
 
 ### Current Management Debt
 
+Latest `CALLER-EVIDENCE-VOLUME-01` sample: the [S2 caller-volume observation](../../comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s2-caller-volume-observation)
+measures 16.37 MB per CLI request, chiefly 15.99 MB of catalogue readiness data.
+Installed execution remains 1.3–1.4 s. Keep that acquisition body out of native
+context; no new runtime failure, optimization campaign or S2 gate follows.
+
 Current RC1 opportunities remain under Executive-owned T-287 disposition for one trusted developer laptop; this register grants no extra implementation. Unexplained expensive execution, repeated derivation and excess hardening are red flags: retain exact subject, work extent and elapsed evidence, distinguish observation from attribution, and return the supported-rule question to Root. No heap/timeout increase, universal timing/read quota, automatic delivery gate or separate optimization campaign is selected.
 
 | Opportunity | Evidence / status | Next bounded scope |
 |---|---|---|
+| TEST-PUBLIC-LEGACY-01 | OPEN stale-harness debt, made concrete by the [S2 return](../../comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-implementation/return.md): `root-cli-environment.mjs/buildRootCliScenario` constructs retired Public envelopes and still has historical installed-test callers. The new selection proof uses current DefinitionCall helpers. | Owner: test fixture / Proof frame. Local realization retirement when those callers are selected for evidence reuse or qualification; remove the obsolete envelope path while preserving applicable tests through current owners. No supported-runtime defect or S2 blocker is established. Close with no active obsolete callers and a current-entry installed proof; never restore retired Public APIs to make old tests pass. |
 | INSTALL-VERIFY-COMPUTE-01 | OBSERVED opportunity, not a demonstrated redundant-work defect: [required core40 Product verification](../../comments/codex/20260923_COMPOSITE_READINESS/compiled-40/return.md) takes 9.252 s; whole verifier process 9.55 s wall, 13.56 s user+system CPU, 1,443,217,408 B peak RSS for a 5,233-member package. This is installer computation, distinct from file copying and graph execution. | Owner: Product verification, Computational Whole-Path/Reuse frame. Internal attribution is unknown. Re-entry is bounded realization investigation if this cost materially obstructs the installed delivery path; no profiling detour or new gate now. Close with attributed necessary work or an accepted contraction preserving Product admission. |
 | CALCULUS-SETUP-VOLUME-01 | ACCOUNTED at phase level in the [required ABG fixture run](../../comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-02/accounting.json), not odd_glc live timing. Compose: artifact preparation/pack 17.442 s; extraction, verification, installation/content check and workspace admission 16.292 s; execution preparation/open scope 2.388 s; traversal 2.347 s; mixed owner loading/candidate preparation 0.539 s. Archive 10,165,702 B, unpacked 66,857,195 B, 5,231 members. Artifact verification alone is 12.068 s; CPU/I/O attribution remains unknown. | Owner's functional phases are scenario fixture, Product provisioning, execution. Candidate build/pack and post-run assertions are separate; pre-CLI Program/invocation work stays execution preparation. Necessary copying/installing is acceptable. The old 23 s aggregate proves neither runtime overhead nor copying cost. Current accounting answers that conflation; no further profiling or optimization gate is selected, and no odd_glc/native performance claim follows. |
 | CALCULUS-RUN-WORDING-01 | CLOSED bounded wording correction: Product now says associated Run. [Independent rank-1 review](../../comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-01/review.md) verifies the frozen Product and finds no wording blocker. | Executive accepts the documentation correction; source relation unchanged. Broader rank-1 readiness remains separate. |

@@ -113,6 +113,10 @@ export function projectGraphFunctionApplicationDeclarationReferences(
       evaluatorRefs.push(...application.evaluatorRefs);
       ruleRefs.push(application.ruleRef);
       break;
+    case "registered_selection":
+      evaluatorRefs.push(application.evaluatorRef);
+      ruleRefs.push(application.ruleRef);
+      break;
     case "re_enter":
       graphFunctionRefs.push(application.graphFunctionRef);
       break;

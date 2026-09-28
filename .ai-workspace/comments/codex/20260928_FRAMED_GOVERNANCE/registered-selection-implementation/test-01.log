@@ -1,0 +1,31 @@
+✖ registered selection through installed Public CLI, child foldback and fresh reads (20842.778416ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 20920.45525
+
+✖ failing tests:
+
+test at test_env/tests/t287-registered-graph-selection.test.mjs:13:1
+✖ registered selection through installed Public CLI, child foldback and fresh reads (20842.778416ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"product_execution_resolution_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"wrong_owner","stage":"semantics","message":"Product semantics callable is not carried by its resolved admitted owner install"}
+  + actual - expected
+  
+  + 'product_execution_resolution_refusal'
+  - 'loaded_product_execution_resolution'
+  
+      at constructInstalledStartCall (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs:251:10)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-registered-graph-selection.test.mjs:51:29)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'product_execution_resolution_refusal',
+    expected: 'loaded_product_execution_resolution',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

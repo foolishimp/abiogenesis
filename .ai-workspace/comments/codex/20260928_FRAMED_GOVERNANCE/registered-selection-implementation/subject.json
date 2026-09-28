@@ -1,0 +1,175 @@
+{
+  "productBase": "e27f72bc2037130d3261694da40af0148269f142",
+  "sourceFiles": {
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts": "sha256:8073f5340046a5709cef86c27f2bb51f8e006fb473db4969c5fe7707c4772e99",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts": "sha256:daef2ec655bb7f2cbf6b174c0342a43030daf65a325205f5cdd0b95ab0c2dae5",
+    "build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts": "sha256:8da7f15f0eba72d5e20fc423610d688bc97058ebd60bd1acea773da6239f8fc3",
+    "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts": "sha256:db57002098ace36cc173b3e3544ecf43ea5b4748af297fc940dda9f03cd4950c",
+    "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts": "sha256:79c9eff058b3d054a30fa00894d91c962dc6037ce060f27eea88b2e59ac2a576",
+    "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts": "sha256:9b9244ddabba8a6c805a6fd46cbfa7515855efb7c5d56a1f3e359a4e904e709b",
+    "build_tenants/abiogenesis/typescript/code/src/abg/traversal_transition.ts": "sha256:91da813b3a661a96784403e01b2e3252963001b98fdf38a14b659188d5304354",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts": "sha256:a474670f70f5d9e7b8648dc3f0b8144204d836d4b596b707c7f9704038c901c2",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/declaration_references.ts": "sha256:78b2ad3f837724c5a41c95e2c37d49b9f53661be45a38f4e752752dad93edab6",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/graph_applications.ts": "sha256:bb578aa145aee5f0a43823d0b6271392c5750bd3d53adde4aeb8bb6eb0dc874b",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/index.ts": "sha256:6daa31238370e9a5bbd64824bc905dab2e27810a890ab6563d1c116d4b2fe57d",
+    "build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts": "sha256:732d5f6d68ea82377e4de760118a09b02529caa8c28cc52935ae66d58afd5824",
+    "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts": "sha256:8126a77801c028612835f6ba3995777fa2de8b85afd8220a32c691aa681ef205",
+    "build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts": "sha256:031e2c3829e711d45523d4b83472670b2d42f5179e465c424fffcdd9bfa90200",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts": "sha256:18ba4565d164c92eb5f2801849cb15f8cd2674b0fe46767981c7f15df62ec804",
+    "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts": "sha256:9ec29aa5bc93d934042c741582bf036bd313676d9205765a9d4e7c381bc7b1cd",
+    "build_tenants/abiogenesis/typescript/code/src/validator/validation.ts": "sha256:f74055b27496707775f6a0e7f15e2331ae385364ba43ce703fc15cd2ff8a65e0"
+  },
+  "fixtureFiles": {
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-registered-graph-selection.test.mjs": "sha256:9692142a7160e01872fd974da6833b1bc901d6402a0f967029c1b92784bda438",
+    "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs": "sha256:196f3320d5bae01429bd23a2c342c3c08cb35be7a08c3512ee625cd35bd5dd2a",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs": "sha256:ecfa477dd5620ef8ff87ace68fd811d8e007675c91bc112b09ac290f513512d8"
+  },
+  "generatedFiles": {
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js": "sha256:18781a354f782ab3e98e446b5c13d6e01e9845b4926bf02f01bf4bfd9eb5d365",
+    "build_tenants/abiogenesis/typescript/build/code/src/product/execution_resolution.js": "sha256:0979ad36e30e5830c2f4ede2edeb5ba7aeca8465178f717c0984648a600e2f85",
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": "sha256:464c43418b42d3772e17ab2857bb08641f918d93c3d1849275100cc5527261c6",
+    "build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json": "sha256:866eebd2a7cfe2d3aafac965aecb9ba69dfb8611ce86a5288cf354f6ba49f957",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": "sha256:af5ca3269672519b2e3777a54ba5e09b734673333eb663da00a49b26821c4e46"
+  },
+  "emittedManifestSha256": "sha256:e32899c09231951bcacefb9d96f37259499b7cf3ef9ad2a654709b2d72e3505c",
+  "artifactSha256": "sha256:780f944ce5b6e271cff68f43b58c8f8dc01a7636b0169e2406c5e2354a2441ce",
+  "retainedArtifacts": {
+    "abiogenesis-fixtures-registered-selection-5.0.0.tgz": "sha256:badb0c77571afb37953424b936adaefd71a335bec33058e4d21f0b24748668ec",
+    "abiogenesis-typescript-tenant-5.0.0-rc.1.tgz": "sha256:780f944ce5b6e271cff68f43b58c8f8dc01a7636b0169e2406c5e2354a2441ce"
+  },
+  "productContentDigest": "sha256:749af79de6b4ac79f5dfca5645e8df9de46fab9671c75bc38db5c25b06224ae3",
+  "manifestSha256": "sha256:af5ca3269672519b2e3777a54ba5e09b734673333eb663da00a49b26821c4e46",
+  "netSource": {
+    "additions": 357,
+    "deletions": 35,
+    "net": 322
+  },
+  "newFixtureLines": 774,
+  "installedCases": [
+    {
+      "name": "A",
+      "disposition": "completed",
+      "wallMs": 1403.098249999999,
+      "eventCount": 75,
+      "eventBytes": 253877,
+      "childrenOpened": [
+        "graph-function://registered-selection/A@5"
+      ],
+      "foldbacks": 1,
+      "parentClosures": 1,
+      "terminalValue": {
+        "child": "A",
+        "kind": "selection_result",
+        "payload": "payload:A",
+        "schemaVersion": "5.0.0"
+      }
+    },
+    {
+      "name": "B",
+      "disposition": "completed",
+      "wallMs": 1444.0023330000004,
+      "eventCount": 75,
+      "eventBytes": 253951,
+      "childrenOpened": [
+        "graph-function://registered-selection/B@5"
+      ],
+      "foldbacks": 1,
+      "parentClosures": 1,
+      "terminalValue": {
+        "child": "B",
+        "kind": "selection_result",
+        "payload": "payload:B",
+        "schemaVersion": "5.0.0"
+      }
+    },
+    {
+      "name": "nonpermitted",
+      "disposition": "runtime_failed",
+      "wallMs": 1367.8894999999975,
+      "eventCount": 25,
+      "eventBytes": 96126,
+      "childrenOpened": [],
+      "foldbacks": 0,
+      "parentClosures": 0,
+      "terminalValue": null
+    },
+    {
+      "name": "stale",
+      "disposition": "runtime_failed",
+      "wallMs": 1355.8131670000002,
+      "eventCount": 25,
+      "eventBytes": 95918,
+      "childrenOpened": [],
+      "foldbacks": 0,
+      "parentClosures": 0,
+      "terminalValue": null
+    },
+    {
+      "name": "wrong-contract",
+      "disposition": "runtime_failed",
+      "wallMs": 1360.0000419999997,
+      "eventCount": 25,
+      "eventBytes": 96161,
+      "childrenOpened": [],
+      "foldbacks": 0,
+      "parentClosures": 0,
+      "terminalValue": null
+    },
+    {
+      "name": "wrong-input",
+      "disposition": "runtime_failed",
+      "wallMs": 1380.153542,
+      "eventCount": 27,
+      "eventBytes": 103327,
+      "childrenOpened": [],
+      "foldbacks": 0,
+      "parentClosures": 0,
+      "terminalValue": null
+    },
+    {
+      "name": "gap",
+      "disposition": "blocked",
+      "wallMs": 1367.637292000003,
+      "eventCount": 27,
+      "eventBytes": 101377,
+      "childrenOpened": [],
+      "foldbacks": 0,
+      "parentClosures": 0,
+      "terminalValue": null
+    }
+  ],
+  "freshProcessReads": {
+    "read-A-run_result": {
+      "wallMs": 605.5032080000019,
+      "receiptSha256": "sha256:6ba1b81b08ab18b2fdbcb7619ffe933c3837d6c7c972328e664906b14efabc87"
+    },
+    "read-A-run_replay": {
+      "wallMs": 606.7110409999987,
+      "receiptSha256": "sha256:18a4e73577a2a80515c4a5ad00fb27ef0886827d8b51f479779c837e4d9ad9e3"
+    },
+    "read-B-run_result": {
+      "wallMs": 623.2353330000005,
+      "receiptSha256": "sha256:02997d63b997cff57726653e09420ff174ec1d59bda6a8ca8ae4e84d46e744d5"
+    },
+    "read-B-run_replay": {
+      "wallMs": 620.3234169999996,
+      "receiptSha256": "sha256:2b57ef9487a458cbdb3e1ce3c19585e6b1124b67d78c4f3858d172a0d8c413bc"
+    }
+  },
+  "setup": {
+    "wallMs": {
+      "bootstrap_owner_loading_and_candidate_preparation": 440.444708,
+      "provisioning_verify_artifact": 11526.652708000001,
+      "provisioning_install": 2637.3315000000002,
+      "provisioning_installed_content_check": 556.1701670000002,
+      "provisioning_additional_products": 229.02745800000048,
+      "installed_owner_loading": 250.1421250000003,
+      "environment_install_and_workspace_admission": 518.5985830000009,
+      "execution_preparation_publication_program_and_catalog": 310.080665999998
+    }
+  },
+  "eventLog": {
+    "sha256": "sha256:05177bac1a4609685fa6bb84fbafd7642c7f21ed42279850ed543e51a4c7ff51",
+    "bytes": 3316771
+  }
+}

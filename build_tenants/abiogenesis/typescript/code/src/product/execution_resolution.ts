@@ -101,6 +101,7 @@ export interface ProgramGraphFunctionMembership {
 }
 
 export interface ProductExecutionResolution {
+  readonly registeredSelectionDefinitionDigests?: Readonly<Record<string, Sha256Digest>>;
   readonly kind: "product_execution_resolution";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "resolved";
@@ -975,8 +976,25 @@ async function resolveProductExecution(
       `program-graph-function-membership://abiogenesis/${membershipDigest.slice("sha256:".length)}`,
     digest: membershipDigest,
   }) as ReferenceDigest<ProgramGraphFunctionMembership>;
+  const registeredSelectionDefinitionDigests: Record<string, Sha256Digest> = {};
+  for (const publication of publications) for (const candidate of publication.graphFunctions) {
+    if (!declarationClosure.graphFunctionOwners.some(o => o.declarationRef === candidate.name)) continue;
+    for (const application of candidate.template.applications) {
+      if (application.relationKind !== "registered_selection") continue;
+      const source = candidate.template.nodes.find(n => n.term.kind === "c_of" && n.term.programLocusRef === application.sourceProgramLocusRef);
+      for (const edge of candidate.template.edges.filter(e => e.fromNodeRef === source?.nodeRef)) {
+        const target = candidate.template.nodes.find(n => n.nodeRef === edge.toNodeRef);
+        const entry = target?.term.kind === "c_workflow" ? reconstructedView.byHandle[target.term.graphFunctionRef] : undefined;
+        if (entry === undefined || !program.callableMembership.includes(entry.definitionRef)) {
+          return refusal("wrong_owner", "catalog", "registered selection target is outside the exact admitted catalogue view/Program");
+        }
+        registeredSelectionDefinitionDigests[entry.definitionRef] = entry.definitionDigest;
+      }
+    }
+  }
   const body = deepFreeze({
     catalogBasisDigest: reconstructedCatalog.basisDigest,
+    ...(Object.keys(registeredSelectionDefinitionDigests).length === 0 ? {} : { registeredSelectionDefinitionDigests }),
     catalogViewDigest: reconstructedView.viewDigest,
     programRef: program.programRef,
     programDigest: sha256Canonical(program as unknown as JsonValue),
