@@ -1,0 +1,18 @@
+[
+  {
+    memberKey: 'run_replay',
+    wallMs: 669.130666,
+    requestBytes: 9299,
+    outcomeKind: 'result',
+    projectionKeys: [
+      'fromOrdinal',
+      'kind',
+      'limit',
+      'replay',
+      'status',
+      'subject',
+      'terminalResult'
+    ],
+    ownerValue: null
+  }
+]

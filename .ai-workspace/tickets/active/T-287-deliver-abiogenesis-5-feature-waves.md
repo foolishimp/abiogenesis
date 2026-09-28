@@ -17,19 +17,21 @@
 - updated_at: 2026-09-29
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_DEFAULT_LIBRARY_IMPLEMENT_01
-- current_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-recursive/subject.json
-- current_candidate_archive_sha256: 287e5bf32374fc713299038cf4a458244dc24f4994887e0949718a48a113c98a
-- current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s4-acceptance-and-s5-design-review
-- current_accepted_archive_sha256: 287e5bf32374fc713299038cf4a458244dc24f4994887e0949718a48a113c98a
-- current_worker_return: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-recursive/return.md
-- current_candidate_scope: S4_installed_recursive_native_thread_accepted_default_library_and_release_open
-- current_live_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-recursive/return.md
-- current_live_execution_status: two_Opus55_xhigh_calls_changed_choice_parent_reevaluation_and_fresh_reads_accepted
+- current_activation: T287_S6_WITNESS_PLAN_01
+- current_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/correction-02/subject-04.json
+- current_candidate_archive_sha256: 27914d23b68684fe5c1ef523bcf1b75c08e2e4a9da5e0b38f596e9cdc064a562
+- current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s5-framed-synthesis-acceptance
+- current_accepted_archive_sha256: 27914d23b68684fe5c1ef523bcf1b75c08e2e4a9da5e0b38f596e9cdc064a562
+- current_worker_return: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/correction-02/return.md
+- current_candidate_scope: accepted_S5_subject04_framed_synthesis_supplied_work_and_faulty_correction_pair_complete_S6_and_release_open
+- current_live_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/correction-02/outcome.json
+- current_live_execution_status: both_installed_cases_pass_actual_choices_effects_independent_UAT_parent_Run_closure_and_four_fresh_Public_reads
+- current_cost_evidence: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/correction-02/timing-accounting.json
+- current_cost_disposition: supplied_140_671s_native127_090s_framework13_581s_faulty303_258s_native278_160s_framework25_098s_setup_separate_largest_nonactor_gap_under1s_readiness_volume_remains_existing_observation
 - prior_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-11/activation.json
 - prior_live_execution_status: PC05_11_process_heap_aborted_before_admission_zero_appended_events_unresolved
-- current_activation_status: S4_accepted_S5_HOW_accepted_bounded_default_library_implementation_selected
-- current_native_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-recursive/return.md
+- current_activation_status: S5_independently_reviewed_Executive_accepted_S6_minimal_complete_lifecycle_fixture_plan_selected_no_new_native_grant
+- current_native_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/correction-02/return.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#framed-governance-definition-re-entry'
 - current_management_plan: '#current-management-prerequisite-plan'
@@ -50,8 +52,8 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: implement_default_library_and_observed_input_testing_through_existing_native_owners
-- next_bounded_task_status: accepted_HOW_f9e7f51a_one_installed_consumer_proof_selected_after_frozen_witness_readiness
+- next_bounded_task: select_smallest_S6_fresh_lifecycle_with_own_consequential_revision_and_existing_requirement_proof_pairing_on_accepted_archive
+- next_bounded_task_status: bounded_fixture_HOW_planning_no_new_runtime_mechanism_or_paid_launch_authorized
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -72,8 +74,8 @@
 - prior_recovery_candidate_record: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/recovery-how-01/implementation/freeze.json
 - prior_recovery_candidate_disposition: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/recovery-how-01/implementation/executive-disposition.md
 - prior_recovery_resource_disposition: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/recovery-how-01/installed/installed-disposition.json
-- current_review_record: .ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/review.md
-- current_review_disposition: R_ST01_resolved_ranks1_3_source_and_finite_composition_accepted_full_native_continuation_open
+- current_review_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/review.md
+- current_review_disposition: S5_closed_no_blocker_Executive_accepted_exact_installed_pair_full_S6_and_release_open
 - prior_bounded_native_review_disposition: Root_accepted_tenant_service_c0c2697b_diagnostics_f35f4f1d_budget_d173512d_native_nonclosing_residuals_preserved
 - technical_debt_checklist: '#current-management-debt'
 - completed_technical_debt_checklist: ../completed/T-288-remove-duplicated-runtime-construction.md
@@ -98,7 +100,7 @@
 - prior_fixture_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-prep-03/manifest.json
 - prior_live08_execution_record: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/live08.json
 - prior_native03_execution_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-native-03/execution-manifest.json
-- current_activation_record: '#program-construction-calculus-definition'
+- current_activation_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s6-minimal-installed-lifecycle-planning
 - prior_generic_job_activation_record: .ai-workspace/comments/codex/20260918_GENERIC_JOB_BINDING_REPAIR/implementation/activation.md
 - prior_mvp_continuation_activation_record: .ai-workspace/comments/codex/20260916_ABG5_MVP_CONTINUATION/activation.md
 - prior_native03_input_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-native-03/records/call-14.jsonl
@@ -304,7 +306,7 @@ primitives, outside current delivery acceptance.
 | Scope | Existing GTL declarations, HoG computation and ABG admission; preregistered, Program-permitted graph selection under reference frames, without another topology entity or interpreter. |
 | Release | Selected ordinary Executive/default library under the existing fifteen families and S02/S03/S06; dedicated F12/S04, autonomous out-of-traversal routing and native human response remain deferred. Product owns the exact allocation. |
 | Evidence | Definition and review only. Installed code and historical native results do not establish this new capability or resolve the retained pre-admission heap failure. |
-| Current grant | Owner-authorized execution of the seven-step plan; accepted direct-selection HOW now authorizes implementation and the first installed two-choice proof. |
+| Current grant | Owner-authorized seven-step plan; S1–S5 accepted within recorded proof. S6 selects the smallest complete lifecycle fixture and its existing admitted proof relations; the execution record owns exact scope. |
 
 [Exact Writer grant and disposition](../../comments/codex/20260928_FRAMED_GOVERNANCE/catalogue-selection-disposition.md)
 own the accepted definition. The
@@ -316,10 +318,10 @@ owns current bounded activations and evidence for the following plan.
 - [x] Independent consistency review of the narrowed catalogue-selection definition.
 - [x] Design the smallest installed selection between registered graphs; accepted direct path removes mandatory One Surface phases and preserves exact dispatch/input checks.
 - [x] Prove installed registered selection and refusal boundaries with deterministic choices, including identical input reused in separate Runs.
-- [ ] Add bounded native F_P selection over declared purposes and current observations.
-- [ ] Prove counterevidence changes the registered choice and recursion preserves parent obligations.
-- [ ] Assemble default lifecycle graphs from existing capabilities.
-- [ ] Complete the installed Hello discriminator with correction and independent assessment.
+- [x] Add bounded native F_P selection over declared purposes and current observations.
+- [x] Prove counterevidence changes the registered choice and recursion preserves parent obligations.
+- [x] Assemble default lifecycle graphs from existing capabilities; framed synthesis and the installed supplied/faulty pair are accepted within their bounded scope.
+- [ ] Complete the full installed Hello lifecycle, with its own revision and admitted requirement-proof correspondence.
 - [ ] Reconcile remaining qualification and execute the exact RC lifecycle.
 
 The preceding definition and execution-verification clarification passed
@@ -328,9 +330,10 @@ That exact historical judgment remains; the narrowed selection delta passed
 [independent review](../../comments/codex/20260928_FRAMED_GOVERNANCE/catalogue-selection-review.md)
 and Executive accepts its bounded definition consistency. FG-01's discriminator now requires a changed registered choice and
 actual execution, without graph generation. QUAL-072 remains the execution
-conformance owner. Deterministic registered selection is accepted within the
-bounded S2 proof; native suitability, recursion, PC05-11 and qualification remain
-open. The accepted
+conformance owner. Deterministic selection, bounded native choices and installed
+recursive changed choice are accepted within S2–S4's recorded limits. S5's default
+library and finite installed pair are accepted. The full lifecycle witness,
+PC05-11 and qualification remain open. The accepted
 [selection design](../../../build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md)
 maps declared purpose, frame/context, admitted choice, HoG dispatch and foldback
 through existing owners. Runtime graph publication is no longer a dependency.

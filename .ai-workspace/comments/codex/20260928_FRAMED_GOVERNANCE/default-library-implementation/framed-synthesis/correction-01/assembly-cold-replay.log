@@ -1,0 +1,29 @@
+(node:55791) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "componentOnly": true,
+  "authoritativeHistoryChanged": false,
+  "providerInvoked": false,
+  "sourceBindingEvent": "event://abiogenesis/1c2c5bc2bf0e60a0289ee06933f5029ebaa54658ced7145fc0a72aad7026721d",
+  "sourceBindingOrdinal": 53,
+  "invocationAdmissionRef": "invocation-admission://abiogenesis/7a1cd119f7a9e79e7e73ed3a761a5c797b22237748aa36d4ae7d4cc66a11908e",
+  "historicalMissingIdentityRefuses": true,
+  "serializedCurrentAssemblyProjects": true,
+  "crossedInvocationEnvironmentAndEvidenceRefuse": true,
+  "rawHistoricalResponseStillRefuses": true,
+  "currentAssemblyDigest": "sha256:03f4ba71c515747a893d275a9db2f22cd21e0d74a5f6f4a8edfffda8ef45c02d",
+  "runEnvironment": {
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/7a1cd119f7a9e79e7e73ed3a761a5c797b22237748aa36d4ae7d4cc66a11908e",
+    "environmentRef": "environment://default-library-witness/selected@5",
+    "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+    "evidenceDigest": "sha256:dda4ef429072b162310c8255c5d658aac6ccfde0c2514e5d038e8b91f07b2ad6",
+    "frameRefs": [
+      "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+    ],
+    "policyRef": "policy://default-library-witness/selector@5",
+    "policyDigest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+    "contextPolicyDigest": "sha256:02179a3ad42e1dc8d4d2693cad6ce7aa333ee068bc7b8b0d5a0604fc595d05e4"
+  },
+  "ownerSource": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/replay.js",
+  "scope": "Only retained binding selected for actual private owner fact projection; actual invocation rehydration and authenticated assembly owners, no mocked environment admission."
+}

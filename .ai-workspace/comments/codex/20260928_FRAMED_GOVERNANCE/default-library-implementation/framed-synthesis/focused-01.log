@@ -1,0 +1,82 @@
+✖ default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation (10.131666ms)
+✖ independent consumer restricts choices while preserving actual native role and schema owners (22.159458ms)
+✔ retention and execution share root, imported and exact external semantics owner selection (8.567375ms)
+✔ declared wrapper judgments advance actual observations, including red C2, without satisfying parent state (30.883584ms)
+✔ default role content is the selected STDO source with capability instructions separate (0.705042ms)
+(node:33170) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ framed synthesis binds imported contracts, exact raw judgment and compact choice provenance (34.848208ms)
+✖ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (14.35475ms)
+✔ parent conservation joins the pre-Run root basis through exact invocation and root implementation set (1.520167ms)
+✔ consumer-authored source and scope remain exact application data; no solution is in library (0.745375ms)
+✔ observed child provenance joins the current preparation and rejects crossed or missing causal facts (43.459416ms)
+﹣ one installed Public default-library invocation reuses observed files, corrects actual work and independently closes (0.038125ms) # SKIP
+✔ generic registered F_P keeps its own task/raw contract when the profile is unselected (1.16975ms)
+✔ selected exact role requires runtime correspondence and cannot fall back on another input shape (0.746375ms)
+✔ missing or misbound selected environment refuses at preparation and result guard (1.113792ms)
+✔ an unrelated locus remains outside this profile even with choice-shaped data (0.131834ms)
+✔ observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol (20.453208ms)
+✔ observed C2 refuses foreign, absent, duplicate, mixed and writable source claims (6.454041ms)
+(node:33172) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ observed root source gate binds actual input and refuses stale, crossed and child authority (45.453458ms)
+✔ later admitted failed native residue invalidates observed inputs without requiring physical mismatch (31.298417ms)
+✔ changed physical observed source refuses before archive creation or command dispatch (4.564375ms)
+✔ observed C2 result, native acknowledgment and closure bind the same task without turning red execution green (19.449459ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 17
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 446.2895
+
+✖ failing tests:
+
+test at test_env/tests/t287-default-library.test.mjs:34:1
+✖ default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation (10.131666ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"static_validation_refusal","schemaVersion":"5.0.0","disposition":"invalid","stage":"program","subjectDigest":"sha256:ed4f7469cbdc8178ac6fc8bc10d1ad9357ff778e93ec460a1654f2f7b6bd8427","diagnostics":[{"code":"invalid_application","path":"$.graphFunctions[graph-function://abiogenesis/default-library/executive-step@5].template.applications[graph-function-application://abiogenesis/82d81452e4476d800f937ce6165eab4f867259987397720a3507f06bd99e197f]","message":"registered selection requires an exact evaluator/policy source and unique permitted workflow targets with one shared interface and purpose"}]}
+  + actual - expected
+  
+  + 'static_validation_refusal'
+  - 'program_validation'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:39:68)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'static_validation_refusal',
+    expected: 'program_validation',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-default-library.test.mjs:48:1
+✖ independent consumer restricts choices while preserving actual native role and schema owners (22.159458ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"static_validation_refusal","schemaVersion":"5.0.0","disposition":"invalid","stage":"program","subjectDigest":"sha256:f2aec23f74bdc81c65c9dc00f5c4c0b7baba192b155ef9641c262a31cec5365d","diagnostics":[{"code":"invalid_application","path":"$.graphFunctions[graph-function://default-library-witness/executive-step@5].template.applications[graph-function-application://abiogenesis/82d81452e4476d800f937ce6165eab4f867259987397720a3507f06bd99e197f]","message":"registered selection requires an exact evaluator/policy source and unique permitted workflow targets with one shared interface and purpose"}]}
+  + actual - expected
+  
+  + 'static_validation_refusal'
+  - 'program_validation'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:54:84)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'static_validation_refusal',
+    expected: 'program_validation',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/t287-default-library.test.mjs:167:1
+✖ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (14.35475ms)
+  TypeError [Error]: product.constructNativeWorkspaceWorkObservation is not a function
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:197:24)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

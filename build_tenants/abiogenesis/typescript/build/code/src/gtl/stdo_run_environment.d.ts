@@ -498,5 +498,12 @@ export declare function runEnvironmentForProgram(publication: Readonly<ModulePub
  * their content. null is unselected and false is an invalid applicable binding.
  * Payloads and reconstructed runtime evidence never select or disable it. */
 export declare function registeredSelectionNativeRole(publication: Readonly<ModulePublication> | undefined, programRef: string, graph: Readonly<GraphFunction>, programLocusRef: string): Readonly<RunEnvironmentRole> | null | false;
+/** Narrow library profile: applicability precedes payload inspection. */
+export declare function framedSynthesisAtLocus(graph: Readonly<GraphFunction>, locus: string): false | {
+    node: import("./contracts.js").GtlNode;
+    projection: import("./contracts.js").GtlNode;
+    application: import("./contracts.js").RegisteredSelectionApplication;
+} | null;
+export declare function framedSynthesisNativeRole(publication: Readonly<ModulePublication> | undefined, programRef: string, graph: Readonly<GraphFunction>, locus: string): Readonly<RunEnvironmentRole> | null | false;
 export declare function validRunEnvironmentPublication(publication: Readonly<ModulePublication>): boolean;
 export declare function validRunEnvironmentProgram(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>, graphFunctions: readonly Readonly<GraphFunction>[]): boolean;

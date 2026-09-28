@@ -1,0 +1,41 @@
+{
+  "sourceResultEvent": "event://abiogenesis/598ccad08eebb996bfc0a97f2614e83947b5135612082653153fa4e738aed70f",
+  "sourceOrdinal": 4455,
+  "rawFile": "failed-native-response.json",
+  "rawSha256": "7a97cbbe4d57024a7de19047cb20b04770fb3cf4d7a564f832d2dbc2579bb351",
+  "rawByteLength": 7967,
+  "governingRenderedAssembly": "attempt-02/assembly-5.json",
+  "roleInstruction": "Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Purpose/membership confers no permission or success. Select exact existing observation Result refs for subject evidence; a C2 measurement is observation provenance, not authorship. Do not execute tools, rewrite original task/authority, or invent observed success. Return only the closed response JSON.",
+  "dependsOnSchema": {
+    "items": {
+      "enum": [
+        "graph-function://abiogenesis/default-library/construction@5",
+        "graph-function://abiogenesis/default-library/testing@5",
+        "graph-function://abiogenesis/default-library/uat@5"
+      ],
+      "type": "string"
+    },
+    "type": "array",
+    "uniqueItems": true
+  },
+  "contributionsSchemaDescription": null,
+  "manifestRunEnvironment": {
+    "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+    "environmentRef": "environment://default-library-witness/selected@5",
+    "evidenceDigest": "sha256:dda4ef429072b162310c8255c5d658aac6ccfde0c2514e5d038e8b91f07b2ad6",
+    "frameRefs": [
+      "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+    ],
+    "policyDigest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180"
+  },
+  "planRunEnvironment": {
+    "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+    "environmentRef": "environment://default-library-witness/selected@5",
+    "evidenceDigest": "sha256:dda4ef429072b162310c8255c5d658aac6ccfde0c2514e5d038e8b91f07b2ad6",
+    "frameRefs": [
+      "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+    ],
+    "policyDigest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180"
+  },
+  "rawNotAdmitted": true
+}

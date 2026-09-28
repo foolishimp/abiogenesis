@@ -1,0 +1,27 @@
+(node:67585) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (126.330834ms)
+✔ observed child provenance joins the current preparation and rejects crossed or missing causal facts (36.587625ms)
+✖ observed command correspondence conserves explicit input across empty and different process environments (555.030083ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 978.075959
+
+✖ failing tests:
+
+test at test_env/tests/t287-default-library.test.mjs:316:1
+✖ observed command correspondence conserves explicit input across empty and different process environments (555.030083ms)
+  DataCloneError: function isSha256Digest(value) {
+      return typeof value === "string" && /^sha256:[0-9a-f]{64}$/.test(value);
+  } could not be cloned.
+      at new DOMException (node:internal/per_context/domexception:77:18)
+      at structuredClone (node:internal/worker/js_transferable:126:26)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:336:15)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

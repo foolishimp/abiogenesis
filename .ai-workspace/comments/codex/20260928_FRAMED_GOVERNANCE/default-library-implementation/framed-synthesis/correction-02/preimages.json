@@ -1,0 +1,22 @@
+{
+  "code/src/product/worksite_command_execution.ts": {
+    "sha256": "dd9747f3444ee74a4d971b53aeba20c859adab319513887a127807d301a6e162",
+    "bytes": 129031
+  },
+  "code/src/abg/default_library.ts": {
+    "sha256": "dfbc6abf38a301a251cf2ea9cafb136721e905d3a2afd79a0946c01f13757b77",
+    "bytes": 21822
+  },
+  "test_env/support/default-library.mjs": {
+    "sha256": "f3572ef0a4a3f31e532b83bc4a1f7a5827d4d685a5fe1be79caa19e950bef320",
+    "bytes": 8652
+  },
+  "test_env/tests/t287-default-library.test.mjs": {
+    "sha256": "414bd04d423fb8b5c1c23bd5ae9933b6111ac26be9e513791b0ec15c61f3a8c4",
+    "bytes": 71021
+  },
+  "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": {
+    "sha256": "c64db8cba549a460a6bf20b9c85dddc59236e92f2c97de167c30c566c9e32c6c",
+    "bytes": 32514
+  }
+}

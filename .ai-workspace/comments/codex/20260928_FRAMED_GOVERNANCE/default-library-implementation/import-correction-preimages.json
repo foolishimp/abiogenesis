@@ -1,0 +1,12 @@
+{
+  "code/src/implementation/contracts.ts": "180aae06742fb28ca9c2dad48299e6867f84ec409e1d4f4dee6fb0119cf72f06",
+  "code/src/implementation/leaf_invocation_port.ts": "5e0b33920ed2e68f52425c3e416e31853faeec69fa00a5c087f7d922cf8e0724",
+  "code/src/abg/actor_process.ts": "55e068032197d33d9464acd4ebc006f75c8a8ac9528a4540b0944baf0ad12ece",
+  "code/src/abg/instruction_assembly.ts": "14b1f9036b6c1aaac6b6ab75006bd3ec06d2eef76416c1be3180d269a28e55be",
+  "code/src/abg/c_call_outcome.ts": "02261c91dadab2ae184fa4c0ef31d7c3c1f2becb5e308d9f2519e960b956e8f8",
+  "code/src/gtl/default_library.ts": "9595da7a684848d1a26f1bbb9412c3df7622678989f57131fa8da65fd356a36c",
+  "code/src/product/default_library.ts": "3650c3df10acea7f59e6e4427a10e936771e601afbb81be8714f1c6bfc8a3c81",
+  "scripts/generate-product-manifest.mjs": "1e7385a5e7c2e2c7c63de35e2b292ff3e9773b7ed121d455d6f0905492a9dbd4",
+  "test_env/support/default-library.mjs": "1e3fb6c62850a1e06d1b699da28a82cff4fae4c5cf3f6b9c160911053b975f48",
+  "test_env/tests/t287-default-library.test.mjs": "47dfb94f734528131384a0acc1fc4f6209992dd2b651e6eced83859ad15c7532"
+}

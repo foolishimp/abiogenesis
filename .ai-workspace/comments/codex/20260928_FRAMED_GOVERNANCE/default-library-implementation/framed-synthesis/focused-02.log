@@ -1,0 +1,45 @@
+✔ default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation (13.385625ms)
+✔ independent consumer restricts choices while preserving actual native role and schema owners (21.630625ms)
+✔ retention and execution share root, imported and exact external semantics owner selection (9.392291ms)
+✔ declared wrapper judgments advance actual observations, including red C2, without satisfying parent state (29.144167ms)
+✔ default role content is the selected STDO source with capability instructions separate (0.688791ms)
+(node:33919) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ framed synthesis binds imported contracts, exact raw judgment and compact choice provenance (34.0645ms)
+✖ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (24.8435ms)
+✔ parent conservation joins the pre-Run root basis through exact invocation and root implementation set (1.769166ms)
+✔ consumer-authored source and scope remain exact application data; no solution is in library (0.798209ms)
+✔ observed child provenance joins the current preparation and rejects crossed or missing causal facts (44.625167ms)
+﹣ one installed Public default-library invocation reuses observed files, corrects actual work and independently closes (0.042459ms) # SKIP
+✔ generic registered F_P keeps its own task/raw contract when the profile is unselected (1.120291ms)
+✔ selected exact role requires runtime correspondence and cannot fall back on another input shape (0.738917ms)
+✔ missing or misbound selected environment refuses at preparation and result guard (1.129875ms)
+✔ an unrelated locus remains outside this profile even with choice-shaped data (0.145834ms)
+✔ observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol (20.70425ms)
+✔ observed C2 refuses foreign, absent, duplicate, mixed and writable source claims (6.482ms)
+(node:33921) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ observed root source gate binds actual input and refuses stale, crossed and child authority (46.390667ms)
+✔ later admitted failed native residue invalidates observed inputs without requiring physical mismatch (32.922666ms)
+✔ changed physical observed source refuses before archive creation or command dispatch (5.161417ms)
+✔ observed C2 result, native acknowledgment and closure bind the same task without turning red execution green (19.805916ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 19
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 462.663125
+
+✖ failing tests:
+
+test at test_env/tests/t287-default-library.test.mjs:167:1
+✖ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (24.8435ms)
+  TypeError [Error]: native workspace task requires one bound worksite, context and declared scope
+      at constructNativeWorkspaceWorkTask (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_work.js:40:15)
+      at nativeTask (/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/default_library.js:149:12)
+      at Module.projectGovernanceNativeTask (/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/default_library.js:159:38)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:200:13)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

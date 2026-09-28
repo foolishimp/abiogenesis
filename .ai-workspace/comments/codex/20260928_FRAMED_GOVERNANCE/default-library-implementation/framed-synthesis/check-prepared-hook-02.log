@@ -1,0 +1,11 @@
+{
+  kind: 'prepared_probabilistic_leaf_owner_invocation',
+  callRef: 'c-call:sha256:53c342ebf107f1a07335a247c9da2721ffaf1cb6f339c93c75fbb0d4c4d8a64b',
+  openedEvent: 'event://abiogenesis/d84f8cbe38631a7dc992405800105dc3481d634bc1f492f961f8f4d2106f4e99',
+  requestDigest: 'sha256:19f9c776be7dc097a9546884cc1469856639ab9a1736931d72555d78278a5020',
+  requestMatchesExactOwnedAssembly: true,
+  deeplyFrozen: true,
+  actorInvoked: false,
+  changedImplementation: 'build/code/src/implementation/default_library.js',
+  installedPort: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-R772ou/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js'
+}

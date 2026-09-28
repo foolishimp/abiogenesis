@@ -164,7 +164,7 @@ export interface ActorProcessInvocationInput {
  * the assembly, but cannot supply or replace the value retained by this owner.
  * Only the existing immutable native basis permits reuse; raw/copy callers
  * retain the standalone cold dispatch authentication path. */
-export declare function prepareActorProcessInvocation(value: Readonly<Record<string, JsonValue>>, occurrence: ActorProcessInvocationInput["occurrence"]): Readonly<{
+export declare function prepareActorProcessInvocation(value: Readonly<Record<string, JsonValue>>, occurrence: ActorProcessInvocationInput["occurrence"], contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>): Readonly<{
     prepareInstructionAssembly(): Readonly<NativeInstructionAssembly>;
     invokeActorProcess(input: ActorProcessInvocationInput): Promise<Readonly<ActorProcessEffectResult>>;
 }>;

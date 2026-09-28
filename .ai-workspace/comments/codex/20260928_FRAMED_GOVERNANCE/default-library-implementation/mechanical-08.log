@@ -1,0 +1,23 @@
+✔ default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation (10.481917ms)
+✔ independent consumer restricts choices while preserving actual native role and schema owners (22.420666ms)
+✔ consumer-authored source and scope remain exact application data; no solution is in library (1.232583ms)
+(node:24243) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ observed child provenance joins the current preparation and rejects crossed or missing causal facts (70.261875ms)
+﹣ one installed Public default-library invocation reuses observed files, corrects actual work and independently closes (0.065875ms) # SKIP
+✔ observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol (20.297041ms)
+✔ observed C2 refuses foreign, absent, duplicate, mixed and writable source claims (6.93175ms)
+(node:24244) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ observed root source gate binds actual input and refuses stale, crossed and child authority (45.865083ms)
+✔ later admitted failed native residue invalidates observed inputs without requiring physical mismatch (31.716542ms)
+✔ changed physical observed source refuses before archive creation or command dispatch (4.303792ms)
+✔ observed C2 result, native acknowledgment and closure bind the same task without turning red execution green (19.514083ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 408.514

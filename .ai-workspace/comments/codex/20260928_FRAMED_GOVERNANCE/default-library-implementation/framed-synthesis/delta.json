@@ -1,0 +1,119 @@
+{
+  "comparison": "captured source04/current-synthesis preimages to frozen subject02",
+  "files": [
+    {
+      "path": "code/src/abg/c_call_outcome.ts",
+      "addedLines": 6,
+      "removedLines": 2,
+      "net": 4,
+      "priorSha256": "dec0e1f9c30f3766b87ca498ad893278d478cdc3401e9ef353975012345cd4a8",
+      "currentSha256": "49666e39d3d52171b3f385ce9879e0ac2e2f4531de5d04cfb89bb4e664a631e4"
+    },
+    {
+      "path": "code/src/abg/default_library.ts",
+      "addedLines": 74,
+      "removedLines": 40,
+      "net": 34,
+      "priorSha256": "c93a3bc126ad87e180e6b5832d4e396d6159c6e9648f280decca8eb462719b57",
+      "currentSha256": "dfbc6abf38a301a251cf2ea9cafb136721e905d3a2afd79a0946c01f13757b77"
+    },
+    {
+      "path": "code/src/abg/execution_basis.ts",
+      "addedLines": 1,
+      "removedLines": 1,
+      "net": 0,
+      "priorSha256": "61d0d7205e1551647e2c272778ed32f4cfe12de2750660562c02ff6caa0ed74b",
+      "currentSha256": "c690981e21731982b4dabe7c6551d5a73e3c0edac1c3c7f57999d40daa86ac41"
+    },
+    {
+      "path": "code/src/abg/instruction_assembly.ts",
+      "addedLines": 96,
+      "removedLines": 1,
+      "net": 95,
+      "priorSha256": "5ef56aca8c43e6f60b3a0f8cbce6b2bc9a5f17c800f7667dccf8e002d7a462c9",
+      "currentSha256": "2286b6b18ea053a6977581eb3c2a975ef2b9100e2ed2cfc5e384781841b53045"
+    },
+    {
+      "path": "code/src/abg/traversal_cursor.ts",
+      "addedLines": 4,
+      "removedLines": 1,
+      "net": 3,
+      "priorSha256": "a8aa3217320db26085a892cab3d76230b3e0bb7a68179f514e8741fe6718ce80",
+      "currentSha256": "84952e40e6689afac9a1471c92eb3385e60eefa5ce5cf8d305269d2d395d9b90"
+    },
+    {
+      "path": "code/src/gtl/default_library.ts",
+      "addedLines": 18,
+      "removedLines": 17,
+      "net": 1,
+      "priorSha256": "f371304860f8547d744ca3c1e147739ef2f0c9d156ef90c2592511d59a2b004a",
+      "currentSha256": "7159ce9beea02a912ae848a21aab477df13aa0aaca97e4718c8500564e995a1c"
+    },
+    {
+      "path": "code/src/gtl/stdo_run_environment.ts",
+      "addedLines": 35,
+      "removedLines": 0,
+      "net": 35,
+      "priorSha256": "7380d7656df4737e0a279c55dbbc3c22529582b1b1f454544a9d68b485436a92",
+      "currentSha256": "72956854a41c02f9eab5147f4dc72cb9148a67720470943a8dcaf87c861ab8b9"
+    },
+    {
+      "path": "code/src/implementation/default_library.ts",
+      "addedLines": 12,
+      "removedLines": 6,
+      "net": 6,
+      "priorSha256": "49ae4dfeb28595ed8cceb3c949381137623d5b4d4c9f7b7833ebc500394f5179",
+      "currentSha256": "6e51be1a4bc71d3fe11d05821b09309a99397a4281da84f34f073473ad21adc7"
+    },
+    {
+      "path": "code/src/product/builtin_semantics.ts",
+      "addedLines": 10,
+      "removedLines": 7,
+      "net": 3,
+      "priorSha256": "201560dd0fc17e278a457206c6f567d0d86ce61f7b4d3ecc3a27b9d392a65f8a",
+      "currentSha256": "ef34e8eac564e24ce6890178a4dfbf9451fa74a720b9f66c42de982d7eb19f93"
+    },
+    {
+      "path": "code/src/product/default_library.ts",
+      "addedLines": 89,
+      "removedLines": 6,
+      "net": 83,
+      "priorSha256": "3650c3df10acea7f59e6e4427a10e936771e601afbb81be8714f1c6bfc8a3c81",
+      "currentSha256": "bc5faab4092e9c39d017f278ca4cd9a8e0ade6d1f187a7a12d9d588dd745c725"
+    },
+    {
+      "path": "code/src/product/default_library_identity.ts",
+      "addedLines": 3,
+      "removedLines": 0,
+      "net": 3,
+      "priorSha256": null,
+      "currentSha256": "3140281c1df90c337cffb65553195698672e23dcc045e1bfceb747db3faff0a2"
+    },
+    {
+      "path": "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "addedLines": 105,
+      "removedLines": 21,
+      "net": 84,
+      "priorSha256": "b3b7626fbf25eeb6429e22288ee7854ea533caeb63ce3fcc4c617fcdef672d0c",
+      "currentSha256": "ab619d7eb27ace00b0e5f6abf50f147225c753504609bf6559ca83a21d579e04"
+    },
+    {
+      "path": "test_env/support/default-library.mjs",
+      "addedLines": 3,
+      "removedLines": 3,
+      "net": 0,
+      "priorSha256": "d0aacf59545a2c2c6a711e530c2fbdf94ae11deb5dd1f92536b2adeeeca90272",
+      "currentSha256": "f3572ef0a4a3f31e532b83bc4a1f7a5827d4d685a5fe1be79caa19e950bef320"
+    },
+    {
+      "path": "test_env/tests/t287-default-library.test.mjs",
+      "addedLines": 149,
+      "removedLines": 31,
+      "net": 118,
+      "priorSha256": "4b43f7a3cbc411396e16a8ee8df673d1d4253252a7cf48ee6f6ec42e3359477b",
+      "currentSha256": "3e3065cbb426d349c61e94ee94b7ee4d31be2df5f26396decda3f422b19cb1e3"
+    }
+  ],
+  "added": 605,
+  "removed": 136
+}

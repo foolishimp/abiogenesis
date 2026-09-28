@@ -1,0 +1,569 @@
+{
+  "wallMs": 1271.7256670000206,
+  "cliPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-S0GpFA/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "requestPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-S0GpFA/st4-default-library-run_result-request.jsonl",
+  "output": {
+    "acquisitionKind": "reopen",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "run_result",
+        "operationId": "abg.operation.project.read"
+      },
+      "exitCode": 0,
+      "failure": null,
+      "invocationRef": "invocation://abiogenesis/3bbee71a7a88578510791632674e8f230df7398254f12d1ed91493b5aa820932",
+      "kind": "definition_host_receipt",
+      "ownerOutput": {
+        "outcomeKind": "result",
+        "value": {
+          "caseKey": "run_result",
+          "projection": {
+            "kind": "run_result_projection",
+            "replay": {
+              "digest": "sha256:2cbd62b72f6ef273b03cde4635a2c8bc5b2632b6549b23682823877e699cd7ae",
+              "ref": "replay://abiogenesis/2cbd62b72f6ef273b03cde4635a2c8bc5b2632b6549b23682823877e699cd7ae"
+            },
+            "result": {
+              "digest": "sha256:9cfe8b38561297dcc34c16f65ee45eea97c470add81661b42c1f54078216fc2a",
+              "ref": "result://abiogenesis/9cfe8b38561297dcc34c16f65ee45eea97c470add81661b42c1f54078216fc2a"
+            },
+            "subject": {
+              "digest": "sha256:ba4f2a619086bd3890ed359c082faba73629d768b32782244a443e7e3b552838",
+              "ref": "run://abiogenesis/da60b46f46d0655eb4ee0c3caf67d8151aa3cd208290125a471092336ddad80c"
+            },
+            "terminalResult": {
+              "contract": {
+                "digest": "sha256:31fcca7cf6e6932a7a340d47d2ec70f7525fa612b3320a65c2f06234486bcdb6",
+                "ref": "contract://abiogenesis/default-library/state@5"
+              },
+              "kind": "abg_typed_terminal_result",
+              "producer": {
+                "cCallRef": "c-call:sha256:a6509ebfca7cab9b2cbb30b7c02b165759cb6dc1ff50243c9dc21a4cf60d6823",
+                "executionBasis": {
+                  "digest": "sha256:439f7ae39f7ef0a11b45a821264d8141048579de7890291616979c8c24cbf64e",
+                  "ref": "execution-basis://abiogenesis/439f7ae39f7ef0a11b45a821264d8141048579de7890291616979c8c24cbf64e"
+                },
+                "graphCallRef": "graph-call://abiogenesis/c78bbf16fe7d2cc76ad123558ff0427e047e818db1803c6dcc5b6af8188a5d7b",
+                "graphFunction": {
+                  "digest": "sha256:19a1e17626593ccf1bfad6b6e3485904fabb040deeda0dfc8bc3b38a8da5a4e1",
+                  "ref": "graph-function://default-library-witness/executive@5"
+                },
+                "invocationAdmissionRef": "invocation-admission://abiogenesis/c60aae1969164772439741b43975657e942541c20adf6eb990fcd21c38193e06",
+                "judgmentAdmissionEventRef": "event://abiogenesis/f6123e28bd206973ad31701023c1c20988084777a74fcd188e11a6510c542dd1",
+                "judgmentRef": "judgment://abiogenesis/de78a9a6066932b6a93da36624667bed3dc62c15ab482396741d887589669fd3",
+                "program": {
+                  "digest": "sha256:bb32f3575892aed8375677dc0da95983841c6b3f52a397eed2b06a4d02c22d88",
+                  "ref": "program://default-library-witness/witness@5"
+                },
+                "resultAdmissionEventRef": "event://abiogenesis/71973aab1f44b74d147a5f72ec0df48b4e444d8adb49c534abad499cd96485f5",
+                "runRef": "run://abiogenesis/da60b46f46d0655eb4ee0c3caf67d8151aa3cd208290125a471092336ddad80c",
+                "terminalRoute": {
+                  "digest": "sha256:69f9b4319916e3624d695bc8dd3b9b9fac955fa28c0ba953865a6ee794009870",
+                  "ref": "traversal-route://abiogenesis/69f9b4319916e3624d695bc8dd3b9b9fac955fa28c0ba953865a6ee794009870"
+                }
+              },
+              "projectionBasis": {
+                "digest": "sha256:eaacc8a79ae0ef446510e2c90e213d1aa15530dc3909dc9e1fb71955f0dcddab",
+                "ref": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-S0GpFA/runtime/events.jsonl"
+              },
+              "result": {
+                "digest": "sha256:9cfe8b38561297dcc34c16f65ee45eea97c470add81661b42c1f54078216fc2a",
+                "ref": "result://abiogenesis/9cfe8b38561297dcc34c16f65ee45eea97c470add81661b42c1f54078216fc2a"
+              },
+              "schemaVersion": "5.0.0",
+              "value": {
+                "kind": "governance_work_state",
+                "observations": [
+                  {
+                    "actorInvocationRef": "actor-invocation://abiogenesis/c2348c5300de9abfaf94017882ae59175be501d7d767703db7947e5516f85b1c",
+                    "cCallRef": "c-call:sha256:2e0f64e95bf1446b8f06b8263a179ff2e723aed5d0ee810113467a6645ab0434",
+                    "purpose": "testing",
+                    "resultDigest": "sha256:b245e79e31fce93cff8cb1b5579260059482b36bafe53bac432110c55d1845a3",
+                    "resultRef": "result://abiogenesis/b245e79e31fce93cff8cb1b5579260059482b36bafe53bac432110c55d1845a3",
+                    "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+                    "synthesisResultRef": "result://abiogenesis/6bf1a26d82f344392d2e25beafe8ddfad024b39caff3574927233c8b9ce67741",
+                    "value": {
+                      "commandResults": [
+                        {
+                          "args": [
+                            "generated/hello-world.mjs"
+                          ],
+                          "commandId": "command://default-library-witness/0@5",
+                          "environment": [
+                            {
+                              "kind": "worksite_command_environment_entry",
+                              "name": "HOME",
+                              "schemaVersion": "5.0.0",
+                              "value": "/Users/jim"
+                            },
+                            {
+                              "kind": "worksite_command_environment_entry",
+                              "name": "LANG",
+                              "schemaVersion": "5.0.0",
+                              "value": "C.UTF-8"
+                            },
+                            {
+                              "kind": "worksite_command_environment_entry",
+                              "name": "LC_ALL",
+                              "schemaVersion": "5.0.0",
+                              "value": "C.UTF-8"
+                            },
+                            {
+                              "kind": "worksite_command_environment_entry",
+                              "name": "PATH",
+                              "schemaVersion": "5.0.0",
+                              "value": "/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0lswucm:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+                            },
+                            {
+                              "kind": "worksite_command_environment_entry",
+                              "name": "TMPDIR",
+                              "schemaVersion": "5.0.0",
+                              "value": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/"
+                            }
+                          ],
+                          "executable": "node",
+                          "exitStatus": 0,
+                          "kind": "worksite_command_result",
+                          "observationDigest": "sha256:46f72954f7121f69cb8bc5ce27292b51d689fbcf1b2f04fc9ee17952219c0ba4",
+                          "observationRef": "worksite-command-observation://abiogenesis/46f72954f7121f69cb8bc5ce27292b51d689fbcf1b2f04fc9ee17952219c0ba4",
+                          "ordinal": 0,
+                          "processSignal": null,
+                          "relativeCwd": ".",
+                          "reportCount": 0,
+                          "reports": [],
+                          "schemaVersion": "5.0.0",
+                          "signalSequence": [],
+                          "stderr": {
+                            "byteLength": 0,
+                            "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                            "encoding": "utf8",
+                            "text": ""
+                          },
+                          "stdout": {
+                            "byteLength": 14,
+                            "digest": "sha256:d9014c4624844aa5bac314773d6b689ad467fa4e1d1a50a1b8a99d5a95f72ff5",
+                            "encoding": "utf8",
+                            "text": "Hello, world!\n"
+                          },
+                          "terminationConfirmed": true,
+                          "terminationGraceMs": 2000,
+                          "timedOut": false,
+                          "timeoutMs": 20000
+                        },
+                        {
+                          "args": [
+                            "--test",
+                            "test/component/hello-cli.test.mjs",
+                            "test/uat/hello-cli.uat.test.mjs"
+                          ],
+                          "commandId": "command://default-library-witness/1@5",
+                          "environment": [
+                            {
+                              "kind": "worksite_command_environment_entry",
+                              "name": "HOME",
+                              "schemaVersion": "5.0.0",
+                              "value": "/Users/jim"
+                            },
+                            {
+                              "kind": "worksite_command_environment_entry",
+                              "name": "LANG",
+                              "schemaVersion": "5.0.0",
+                              "value": "C.UTF-8"
+                            },
+                            {
+                              "kind": "worksite_command_environment_entry",
+                              "name": "LC_ALL",
+                              "schemaVersion": "5.0.0",
+                              "value": "C.UTF-8"
+                            },
+                            {
+                              "kind": "worksite_command_environment_entry",
+                              "name": "PATH",
+                              "schemaVersion": "5.0.0",
+                              "value": "/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0lswucm:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+                            },
+                            {
+                              "kind": "worksite_command_environment_entry",
+                              "name": "TMPDIR",
+                              "schemaVersion": "5.0.0",
+                              "value": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/"
+                            }
+                          ],
+                          "executable": "node",
+                          "exitStatus": 0,
+                          "kind": "worksite_command_result",
+                          "observationDigest": "sha256:2c62c0e2c3c88c726f3b7fc4ad21fed82ffd3b11569b05f2f3c4dab3b0dd80a5",
+                          "observationRef": "worksite-command-observation://abiogenesis/2c62c0e2c3c88c726f3b7fc4ad21fed82ffd3b11569b05f2f3c4dab3b0dd80a5",
+                          "ordinal": 1,
+                          "processSignal": null,
+                          "relativeCwd": ".",
+                          "reportCount": 0,
+                          "reports": [],
+                          "schemaVersion": "5.0.0",
+                          "signalSequence": [],
+                          "stderr": {
+                            "byteLength": 0,
+                            "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                            "encoding": "utf8",
+                            "text": ""
+                          },
+                          "stdout": {
+                            "byteLength": 234,
+                            "digest": "sha256:7708a33a76499cedf9f446631433775a29b5ea8fb8c79b30c35db1b59ddd226b",
+                            "encoding": "utf8",
+                            "text": "✔ CLI process satisfies its output contract (23.677792ms)\n✔ a user receives the exact promised greeting (23.597959ms)\nℹ tests 2\nℹ suites 0\nℹ pass 2\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 56.9515\n"
+                          },
+                          "terminationConfirmed": true,
+                          "terminationGraceMs": 2000,
+                          "timedOut": false,
+                          "timeoutMs": 20000
+                        }
+                      ],
+                      "predicateObservations": []
+                    }
+                  },
+                  {
+                    "actorInvocationRef": "actor-invocation://abiogenesis/de16e58c58f9b26e934b0572e65b854f1e17428b796009b8ed4d23745fb880cd",
+                    "cCallRef": "c-call:sha256:6ac1764fe3b8202b021436fa275bb6aa48bcefdf7d039394b7a61986dafb2a39",
+                    "purpose": "uat",
+                    "resultDigest": "sha256:c7269cf64de326d295ffd291667ec483b67cecae71e41de0b1ac4a4ce6232800",
+                    "resultRef": "result://abiogenesis/c7269cf64de326d295ffd291667ec483b67cecae71e41de0b1ac4a4ce6232800",
+                    "selectedGraphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+                    "synthesisResultRef": "result://abiogenesis/a387fdca70891f755a49c4c0bde44deef0d1675732010b686216855592d9be34",
+                    "value": {
+                      "disposition": "satisfied",
+                      "kind": "consumer_outcome_assessment",
+                      "reason": "I checked the exact declared subject myself. The SHA-256 hashes I computed for all ten basis files match the declared basis, including candidate generated/hello-world.mjs (fe8f4080…) and rubric source/basic-cli.oracle.json (028073e4…). The hashes of the files in the archived command-execution sandbox also match, so the admitted observations ran against these exact files.\n\nOracle case: in admitted observation command 0, `node generated/hello-world.mjs` was run with no user arguments from cwd '.'. It exited 0 with no signal and no timeout, stderr was empty, and stdout was exactly 'Hello, world!\\n' (14 bytes; the base64 payload decodes to that string). This meets the oracle's stdout and exit-status case. The candidate is a single line, console.log(\"Hello, world!\"), with no imports, so it needs no package installation.\n\nRequired artifacts: all 7 artifacts listed in the rubric are present, and I read their contents:\n- specification/project-conformance.md declares a minimal Node CLI traversal. It names generated/hello-world.mjs as the source surface, requires stdout of exactly Hello, world! plus one newline with status 0, and contains no source, tests or plans.\n- design/implementation-design.md defines the sole entry generated/hello-world.mjs and its exact output. It names test/component/hello-cli.test.mjs and test/uat/hello-cli.uat.test.mjs as surfaces that run the real CLI and assert status and exact stdout. Its content is consistent with the conformance document, but it does not cite that document explicitly.\n- design/test-design.md specifies component and UAT tests that both run the real entry with process.execPath and spawnSync and assert status 0 and exact stdout.\n- The component and UAT test files each import node:test, node:assert/strict and spawnSync from node:child_process. Each runs spawnSync(process.execPath, ['generated/hello-world.mjs']) with no cwd override, so they depend on the process cwd; the plan's cwd '.' is the project root. Each asserts status === 0 and stdout === 'Hello, world!\\n'. These are precise checks that discriminate the real CLI's behavior and are not copies of the implementation.\n- test-execution-plan.json has command 'node' and exactly the required args. It sets expectedTestPassCount 2 (at least 2), expectedStdoutMatch 'fail 0' (a zero-failure check, not a pinned pass count), assertedReturnValue 'Hello, world!', cwd '.' and env {}.\n\nExecution result: admitted observation command 1 ran `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`. It exited 0, and stdout reported tests 2, pass 2, fail 0, cancelled 0 and skipped 0, naming both the component test and the UAT test. So the observed pass count (2) is at least the expected count (2), 'fail 0' appears in stdout, and the assertedReturnValue 'Hello, world!' equals the observed CLI stdout without its trailing newline. The plan is therefore satisfied. There is no test-execution-result.json in the worksite. The rubric deliberately leaves it out of requiredArtifacts and says admitted execution evidence supplies the execution-result meaning. That evidence records the command, args, integer status, stdout, stderr, cwd and environment.\n\nCorroborating run (not admitted): I re-ran the commands myself without writing any files. `node generated/hello-world.mjs` produced exactly the bytes 'Hello, world!\\n' with status 0. My first `node --test` run was not valid because my shell had NODE_TEST_CONTEXT=child-v8 set, which made node:test skip the test files. After unsetting that variable, the run gave pass 2, fail 0, status 0, matching the admitted evidence.\n\nAll eight required stage meanings are met by current file contents and the admitted execution evidence. This assessment gives no admission, acceptance or continuation; applying the verdict to the parent outcome is the parent's decision.",
+                      "unresolvedCriteria": []
+                    }
+                  }
+                ],
+                "original": {
+                  "assessment": {
+                    "candidatePath": "generated/hello-world.mjs",
+                    "resultContract": {
+                      "contractKind": "output",
+                      "contractRef": "contract://default-library-witness/assessment@5",
+                      "contractVersion": "5.0.0",
+                      "valueKind": "consumer_outcome_assessment"
+                    },
+                    "rubricPath": "source/basic-cli.oracle.json",
+                    "satisfiedValue": "satisfied",
+                    "schemaAsset": {
+                      "bytesBase64": "eyIkaWQiOiJjb250cmFjdDovL2RlZmF1bHQtbGlicmFyeS13aXRuZXNzL2Fzc2Vzc21lbnRANSIsInR5cGUiOiJvYmplY3QiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInJlcXVpcmVkIjpbImtpbmQiLCJkaXNwb3NpdGlvbiIsInJlYXNvbiIsInVucmVzb2x2ZWRDcml0ZXJpYSJdLCJwcm9wZXJ0aWVzIjp7ImtpbmQiOnsiY29uc3QiOiJjb25zdW1lcl9vdXRjb21lX2Fzc2Vzc21lbnQifSwiZGlzcG9zaXRpb24iOnsidHlwZSI6InN0cmluZyIsImVudW0iOlsic2F0aXNmaWVkIiwidW5tZXQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyJ9LCJ1bnJlc29sdmVkQ3JpdGVyaWEiOnsidHlwZSI6ImFycmF5IiwiaXRlbXMiOnsidHlwZSI6InN0cmluZyJ9fX19Cg==",
+                      "contractId": "contract://default-library-witness/assessment@5",
+                      "productId": "product://default-library-witness/consumer@5"
+                    },
+                    "sources": [
+                      "design/implementation-design.md",
+                      "design/test-design.md",
+                      "source/original-basic-cli.txt",
+                      "source/witness-contract.md",
+                      "specification/project-conformance.md",
+                      "test/component/hello-cli.test.mjs",
+                      "test/uat/hello-cli.uat.test.mjs",
+                      "test-execution-plan.json"
+                    ],
+                    "verdictField": "disposition"
+                  },
+                  "authorityRefs": [
+                    "authority://default-library-witness/consumer-scope@5"
+                  ],
+                  "maxContextBytes": 131072,
+                  "maxContextFiles": 128,
+                  "maxPromptBytes": 131072,
+                  "readRoots": [
+                    "design/implementation-design.md",
+                    "design/test-design.md",
+                    "generated/hello-world.mjs",
+                    "source/basic-cli.oracle.json",
+                    "source/original-basic-cli.txt",
+                    "source/witness-contract.md",
+                    "specification/project-conformance.md",
+                    "test-execution-plan.json",
+                    "test/component/hello-cli.test.mjs",
+                    "test/uat/hello-cli.uat.test.mjs"
+                  ],
+                  "requiredSupportRefs": [
+                    "support://default-library-witness/complete-source-outcome@5"
+                  ],
+                  "sources": [
+                    {
+                      "digest": "sha256:b96765496fe0c3888365ba72780af33824fa7f34acdb042af45df4d120ba0145",
+                      "path": "design/implementation-design.md"
+                    },
+                    {
+                      "digest": "sha256:617dd54841f7128842616ce42a3befb15b30cd454215894c067980e5ede43406",
+                      "path": "design/test-design.md"
+                    },
+                    {
+                      "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+                      "path": "source/basic-cli.oracle.json"
+                    },
+                    {
+                      "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+                      "path": "source/original-basic-cli.txt"
+                    },
+                    {
+                      "digest": "sha256:35264dc6830838f7037ea97acf7131b3396342a88604730bd5cf290a350a697d",
+                      "path": "source/witness-contract.md"
+                    },
+                    {
+                      "digest": "sha256:9aaa62cadeaa74520e5e45542e699c9a97e55bf4b475b2de7f7347b3fb4cee81",
+                      "path": "specification/project-conformance.md"
+                    },
+                    {
+                      "digest": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613",
+                      "path": "test/component/hello-cli.test.mjs"
+                    },
+                    {
+                      "digest": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4",
+                      "path": "test/uat/hello-cli.uat.test.mjs"
+                    },
+                    {
+                      "digest": "sha256:e3250aae29261ebf20fc942aa31ddce5d152b14d4e9c6262e4eab820be34a350",
+                      "path": "test-execution-plan.json"
+                    }
+                  ],
+                  "task": "  sdlcComplianceScenario({\n    key: \"basic-cli\",\n    scenarioId: \"SCN-GLC-HELLO-WORLD-CLI-BASIC\",\n    kind: \"node_cli\",\n    stagePlan: [\n      {\n        stage: \"conformance_project\",\n        filesToProduce: [\"specification/project-conformance.md\"],\n        instructions: [\n          \"Write only specification/project-conformance.md.\",\n          \"Declare a minimal CLI Hello World software-build traversal.\",\n          \"The source surface must be generated/hello-world.mjs.\",\n          \"The execution proof must run the CLI and observe stdout exactly \\\"Hello, world!\\\\n\\\".\",\n          \"Do not write source, tests, package files, or execution plans in this vector.\"\n        ]\n      },\n      {\n        stage: \"implementation_design\",\n        filesToProduce: [\"design/implementation-design.md\"],\n        instructions: [\n          \"Write only design/implementation-design.md.\",\n          \"Use the prior conformance_project artifact as authority.\",\n          \"Define a minimal Node CLI script at generated/hello-world.mjs.\",\n          \"The script must print exactly \\\"Hello, world!\\\" followed by one newline.\",\n          \"Name component and UAT test source surfaces that execute the CLI and assert stdout.\"\n        ]\n      },\n      {\n        stage: \"source\",\n        filesToProduce: [\"generated/hello-world.mjs\"],\n        instructions: [\n          \"Write only generated/hello-world.mjs.\",\n          \"The script must execute under node without package installation.\",\n          \"It must write exactly \\\"Hello, world!\\\\n\\\" to stdout.\"\n        ]\n      },\n      {\n        stage: \"test_design\",\n        filesToProduce: [\"design/test-design.md\"],\n        instructions: [\n          \"Write only design/test-design.md.\",\n          \"Specify component and UAT validation of the CLI stdout contract.\",\n          \"Both tests must spawn node generated/hello-world.mjs and assert status 0 and stdout exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"component_test_source\",\n        filesToProduce: [\"test/component/hello-cli.test.mjs\"],\n        instructions: [\n          \"Write only test/component/hello-cli.test.mjs.\",\n          \"Use node:test, node:assert/strict, and node:child_process spawnSync.\",\n          \"Run process.execPath with [\\\"generated/hello-world.mjs\\\"] from the project root.\",\n          \"Assert status 0 and stdout exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"uat_test_source\",\n        filesToProduce: [\"test/uat/hello-cli.uat.test.mjs\"],\n        instructions: [\n          \"Write only test/uat/hello-cli.uat.test.mjs.\",\n          \"Use node:test, node:assert/strict, and node:child_process spawnSync.\",\n          \"Run process.execPath with [\\\"generated/hello-world.mjs\\\"] from the project root.\",\n          \"Assert the user-visible CLI output is exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"test_execution_plan\",\n        workerExecutes: true,\n        filesToProduce: [\"test-execution-plan.json\", \"test-execution-result.json\"],\n        instructions: [\n          \"Write test-execution-plan.json and test-execution-result.json only.\",\n          \"The JSON command must be node.\",\n          \"The args must be [\\\"--test\\\", \\\"test/component/hello-cli.test.mjs\\\", \\\"test/uat/hello-cli.uat.test.mjs\\\"].\",\n          \"expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.\",\n          \"expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.\",\n          \"assertedReturnValue must be \\\"Hello, world!\\\".\",\n          \"EXECUTION-DEFAULT LAW: run node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs yourself inside this turn; the framework executes nothing.\",\n          \"Record the truthful observed command, args, integer status, stdout, stderr, expectedTestPassCount, expectedStdoutMatch, assertedReturnValue, cwd, and env in test-execution-result.json.\"\n        ]\n      },\n      {\n        stage: \"test_execution_result\",\n        instructions: [\n          \"Produce no files.\",\n          \"Accept only if the execution plan command exited 0, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true.\"\n        ]\n      }\n    ]\n  }),\n\n# Independent supplied-work assessment witness\n\nEstablish the complete original basic-cli outcome using the supplied candidate,\ndesign, verification artifacts and test plan. These are ordinary existing files,\nnot current-Run evidence of success or an author invocation in this Run. Preserve\nthem and establish their behavior through actual current command observations.\n\nThe unchanged source/original-basic-cli.txt and source/basic-cli.oracle.json own\nthe application outcome. All their behavior and artifact obligations apply.\nExecute the declared CLI and tests against the supplied files. A historical\npass, an author's report or the file contents alone does not establish success.\n\nOnly the Testing and UAT capabilities are selected for this case. Do not author,\nrepair or replace application, design, test or source files. Declared execution\nevidence may be written under execution-evidence. If the supplied work fails its\nchecks or required evidence is missing, preserve that result and the unresolved\noutcome; do not invent a pass or gain an author capability.\n\nIndependent user-outcome assessment must consume the original source, oracle,\ncurrent candidate and actual command evidence. The assessment's selected producer\nis the current measurement producer, not a claim that it authored the files.\nParent reevaluation alone determines whether the original outcome is satisfied.\nDo not import another Run's events or manufacture author lineage.\n\nThis case tests current evaluation and independent acceptance of supplied work\nwith no native author call. The caller supplies permitted capabilities, not an\nexpected graph schedule. Preserve the actual selection, evidence and disposition.\n",
+                  "taskRef": "task://default-library-witness/original@5",
+                  "testing": {
+                    "allowedWriteTerritories": [
+                      {
+                        "pathKind": "subtree",
+                        "relativePath": "execution-evidence"
+                      }
+                    ],
+                    "commands": [
+                      {
+                        "args": [
+                          "generated/hello-world.mjs"
+                        ],
+                        "commandId": "command://default-library-witness/0@5",
+                        "environment": {},
+                        "executable": "node",
+                        "expectedReports": [],
+                        "relativeCwd": ".",
+                        "terminationGraceMs": 2000,
+                        "timeoutMs": 20000
+                      },
+                      {
+                        "args": [
+                          "--test",
+                          "test/component/hello-cli.test.mjs",
+                          "test/uat/hello-cli.uat.test.mjs"
+                        ],
+                        "commandId": "command://default-library-witness/1@5",
+                        "environment": {},
+                        "executable": "node",
+                        "expectedReports": [],
+                        "relativeCwd": ".",
+                        "terminationGraceMs": 2000,
+                        "timeoutMs": 20000
+                      }
+                    ],
+                    "outcomePredicates": [],
+                    "selectedPaths": [
+                      "design/implementation-design.md",
+                      "design/test-design.md",
+                      "generated/hello-world.mjs",
+                      "source/basic-cli.oracle.json",
+                      "source/original-basic-cli.txt",
+                      "source/witness-contract.md",
+                      "specification/project-conformance.md",
+                      "test/component/hello-cli.test.mjs",
+                      "test/uat/hello-cli.uat.test.mjs",
+                      "test-execution-plan.json"
+                    ]
+                  },
+                  "workOrders": {
+                    "construction": {
+                      "checks": [],
+                      "instructions": [
+                        "# Independent supplied-work assessment witness\n\nEstablish the complete original basic-cli outcome using the supplied candidate,\ndesign, verification artifacts and test plan. These are ordinary existing files,\nnot current-Run evidence of success or an author invocation in this Run. Preserve\nthem and establish their behavior through actual current command observations.\n\nThe unchanged source/original-basic-cli.txt and source/basic-cli.oracle.json own\nthe application outcome. All their behavior and artifact obligations apply.\nExecute the declared CLI and tests against the supplied files. A historical\npass, an author's report or the file contents alone does not establish success.\n\nOnly the Testing and UAT capabilities are selected for this case. Do not author,\nrepair or replace application, design, test or source files. Declared execution\nevidence may be written under execution-evidence. If the supplied work fails its\nchecks or required evidence is missing, preserve that result and the unresolved\noutcome; do not invent a pass or gain an author capability.\n\nIndependent user-outcome assessment must consume the original source, oracle,\ncurrent candidate and actual command evidence. The assessment's selected producer\nis the current measurement producer, not a claim that it authored the files.\nParent reevaluation alone determines whether the original outcome is satisfied.\nDo not import another Run's events or manufacture author lineage.\n\nThis case tests current evaluation and independent acceptance of supplied work\nwith no native author call. The caller supplies permitted capabilities, not an\nexpected graph schedule. Preserve the actual selection, evidence and disposition.\n"
+                      ],
+                      "outcome": "Perform the selected construction work needed for the original task.",
+                      "readFirst": [
+                        "design/implementation-design.md",
+                        "design/test-design.md",
+                        "source/basic-cli.oracle.json",
+                        "source/original-basic-cli.txt",
+                        "source/witness-contract.md",
+                        "specification/project-conformance.md",
+                        "test/component/hello-cli.test.mjs",
+                        "test/uat/hello-cli.uat.test.mjs",
+                        "test-execution-plan.json",
+                        "generated/hello-world.mjs"
+                      ],
+                      "writeRoots": []
+                    },
+                    "testing": {
+                      "checks": [],
+                      "instructions": [
+                        "# Independent supplied-work assessment witness\n\nEstablish the complete original basic-cli outcome using the supplied candidate,\ndesign, verification artifacts and test plan. These are ordinary existing files,\nnot current-Run evidence of success or an author invocation in this Run. Preserve\nthem and establish their behavior through actual current command observations.\n\nThe unchanged source/original-basic-cli.txt and source/basic-cli.oracle.json own\nthe application outcome. All their behavior and artifact obligations apply.\nExecute the declared CLI and tests against the supplied files. A historical\npass, an author's report or the file contents alone does not establish success.\n\nOnly the Testing and UAT capabilities are selected for this case. Do not author,\nrepair or replace application, design, test or source files. Declared execution\nevidence may be written under execution-evidence. If the supplied work fails its\nchecks or required evidence is missing, preserve that result and the unresolved\noutcome; do not invent a pass or gain an author capability.\n\nIndependent user-outcome assessment must consume the original source, oracle,\ncurrent candidate and actual command evidence. The assessment's selected producer\nis the current measurement producer, not a claim that it authored the files.\nParent reevaluation alone determines whether the original outcome is satisfied.\nDo not import another Run's events or manufacture author lineage.\n\nThis case tests current evaluation and independent acceptance of supplied work\nwith no native author call. The caller supplies permitted capabilities, not an\nexpected graph schedule. Preserve the actual selection, evidence and disposition.\n"
+                      ],
+                      "outcome": "Perform the selected testing work needed for the original task.",
+                      "readFirst": [
+                        "design/implementation-design.md",
+                        "design/test-design.md",
+                        "source/basic-cli.oracle.json",
+                        "source/original-basic-cli.txt",
+                        "source/witness-contract.md",
+                        "specification/project-conformance.md",
+                        "test/component/hello-cli.test.mjs",
+                        "test/uat/hello-cli.uat.test.mjs",
+                        "test-execution-plan.json",
+                        "generated/hello-world.mjs"
+                      ],
+                      "writeRoots": []
+                    },
+                    "uat": {
+                      "checks": [],
+                      "instructions": [
+                        "# Independent supplied-work assessment witness\n\nEstablish the complete original basic-cli outcome using the supplied candidate,\ndesign, verification artifacts and test plan. These are ordinary existing files,\nnot current-Run evidence of success or an author invocation in this Run. Preserve\nthem and establish their behavior through actual current command observations.\n\nThe unchanged source/original-basic-cli.txt and source/basic-cli.oracle.json own\nthe application outcome. All their behavior and artifact obligations apply.\nExecute the declared CLI and tests against the supplied files. A historical\npass, an author's report or the file contents alone does not establish success.\n\nOnly the Testing and UAT capabilities are selected for this case. Do not author,\nrepair or replace application, design, test or source files. Declared execution\nevidence may be written under execution-evidence. If the supplied work fails its\nchecks or required evidence is missing, preserve that result and the unresolved\noutcome; do not invent a pass or gain an author capability.\n\nIndependent user-outcome assessment must consume the original source, oracle,\ncurrent candidate and actual command evidence. The assessment's selected producer\nis the current measurement producer, not a claim that it authored the files.\nParent reevaluation alone determines whether the original outcome is satisfied.\nDo not import another Run's events or manufacture author lineage.\n\nThis case tests current evaluation and independent acceptance of supplied work\nwith no native author call. The caller supplies permitted capabilities, not an\nexpected graph schedule. Preserve the actual selection, evidence and disposition.\n"
+                      ],
+                      "outcome": "Perform the selected uat work needed for the original task.",
+                      "readFirst": [
+                        "design/implementation-design.md",
+                        "design/test-design.md",
+                        "source/basic-cli.oracle.json",
+                        "source/original-basic-cli.txt",
+                        "source/witness-contract.md",
+                        "specification/project-conformance.md",
+                        "test/component/hello-cli.test.mjs",
+                        "test/uat/hello-cli.uat.test.mjs",
+                        "test-execution-plan.json",
+                        "generated/hello-world.mjs"
+                      ],
+                      "writeRoots": []
+                    }
+                  }
+                },
+                "schemaVersion": "5.0.0",
+                "synthesis": {
+                  "basis": {
+                    "contextRef": "worksite-context-observation://abiogenesis/6c10d714042d0ec2153424cea57a89930b19cee4e32acefa1a1dcdd517006177",
+                    "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+                    "environmentRef": "environment://default-library-witness/selected@5",
+                    "frameEvidenceDigest": "sha256:5b23c2c02082748923d2783b16662ff0ea19d0a9611924be4274f3e5c3f73254",
+                    "frameRefs": [
+                      "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+                    ],
+                    "inputDigest": "sha256:a134d7ff7d07ebd0464031b6890401a1cd952c5d272040ac524a7b7e17a4e5cd",
+                    "inputRef": "result://abiogenesis/0783c0db5d02ad3b9f932a392beab5c882264846c916668faf38f09691c34c6c",
+                    "previousResultRef": "result://abiogenesis/6bf1a26d82f344392d2e25beafe8ddfad024b39caff3574927233c8b9ce67741",
+                    "taskRef": "task://default-library-witness/original@5"
+                  },
+                  "judgment": {
+                    "contributions": [
+                      {
+                        "contribution": "Do a read-only, independent consumer-outcome assessment of the exact candidate generated/hello-world.mjs. Assess it against source/original-basic-cli.txt, the rubric source/basic-cli.oracle.json and the supporting sources: the conformance spec, both designs, both test files and test-execution-plan.json. Use the current Testing measurement Result b245e79e… as observation evidence. Check each oracle criterion: (a) the direct CLI with no arguments exits 0 with stdout exactly \"Hello, world!\\n\"; (b) both the component and UAT test bodies spawn the real CLI with process.execPath and ['generated/hello-world.mjs'], and assert status 0 and exact stdout; (c) the combined `node --test` run exits 0 with at least 2 passes and `fail 0`, as in the plan's expectedTestPassCount and expectedStdoutMatch; (d) all required artifacts are present and their content is genuine and consistent with the original stage obligations; (e) the test_execution_result meaning is supplied by this admitted measurement, not a prewritten report, and the missing test-execution-result.json file is judged under the oracle's stated rule. Return a consumer_outcome_assessment with disposition satisfied, unmet or indeterminate, and keep every unmet or indeterminate criterion in unresolvedCriteria. Do not edit files. Treat the measurement as provenance, not authorship.",
+                        "dependsOn": [],
+                        "evidenceRefs": [
+                          "task://default-library-witness/original@5",
+                          "worksite-context-observation://abiogenesis/6c10d714042d0ec2153424cea57a89930b19cee4e32acefa1a1dcdd517006177",
+                          "result://abiogenesis/b245e79e31fce93cff8cb1b5579260059482b36bafe53bac432110c55d1845a3",
+                          "result://abiogenesis/6bf1a26d82f344392d2e25beafe8ddfad024b39caff3574927233c8b9ce67741"
+                        ],
+                        "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+                        "reason": "The measurement exists and is current. But the policy and witness contract say that neither a completed Testing child nor successful command output establishes the original outcome. An independent assessment against the original source and oracle is the only remaining permitted capability that can inform the parent's re-evaluation of complete-source-outcome@5. Its conditions for use are now met: there is an explicitly selectable current C2 measurement Result, the consumer source and rubric, and the installed assessment contract.",
+                        "supportRefs": [
+                          "support://default-library-witness/complete-source-outcome@5"
+                        ]
+                      }
+                    ],
+                    "gaps": [],
+                    "interpretation": "Executive frame applied again after the Testing measurement. The outcome is still defined by the unchanged source/original-basic-cli.txt and the rubric source/basic-cli.oracle.json. The supplied candidate, designs, tests and execution plan are kept as they are. Only Testing and UAT are permitted, and no author or repair is authorized. The current Testing Result (b245e79e…) ran against the same supplied files and recorded two commands. First, `node generated/hello-world.mjs` from cwd `.` exited 0 with no signal or timeout, stdout exactly \"Hello, world!\\n\" (14 bytes) and empty stderr. Second, `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs` exited 0 with empty stderr. Its stdout reports 2 tests, pass 2, fail 0, and names the component test and the UAT test. No outcome predicates were declared, so none were evaluated. This establishes the exercised steel thread: the real CLI entry and both test files, which spawn it, on the current files. The policy says a completed Testing child or a successful measurement does not establish application success. So complete-source-outcome@5 remains unresolved until an independent UAT checks the original source, the oracle, the exact candidate and this measurement. Some criteria remain for UAT to judge, not for Executive to presume. Do the stdout and exit status match the oracle case? Do both test bodies really run the real CLI? Is the pass-count floor of 2 with fail 0 met? Is the conformance, design, test-design and plan content genuine? And how should the original's test-execution-result.json obligation be read? The oracle says admitted C2 evidence supplies that meaning, not a prewritten report, and no such file exists in the worksite. The Testing Result is reused and not rerun, because its subject files are unchanged. Priority is to get the independent assessment. There is no boundary effect yet. No STDO-UP-020 disposition is claimed, and only the parent projects a verdict.",
+                    "nextEvidenceRefs": [
+                      "task://default-library-witness/original@5",
+                      "worksite-context-observation://abiogenesis/6c10d714042d0ec2153424cea57a89930b19cee4e32acefa1a1dcdd517006177",
+                      "result://abiogenesis/b245e79e31fce93cff8cb1b5579260059482b36bafe53bac432110c55d1845a3"
+                    ],
+                    "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+                    "nextReason": "Testing has produced a current C2 measurement Result against the unchanged supplied files, so UAT's precondition is met. Running Testing again would add no information unless something invalidates the result. UAT is the only step that can independently check the original outcome against the oracle and this evidence, and the parent needs that before re-evaluating complete-source-outcome@5.",
+                    "revisionEvidenceRefs": [
+                      "result://abiogenesis/6bf1a26d82f344392d2e25beafe8ddfad024b39caff3574927233c8b9ce67741",
+                      "result://abiogenesis/b245e79e31fce93cff8cb1b5579260059482b36bafe53bac432110c55d1845a3"
+                    ],
+                    "revisionReason": "This revises the previous mapping (6bf1a26d…) because Testing has now run and admitted a current measurement Result (b245e79e…). Two things change. Testing's contribution is fulfilled and is reused as cited evidence instead of being scheduled again. UAT's blocker, the lack of a selectable current Result, is gone, so UAT is now the next step with that Result as its subject. The original task, authority, sources, supplied files, UAT criteria and the unresolved support ref are all unchanged.",
+                    "subjectEvidenceRef": "result://abiogenesis/b245e79e31fce93cff8cb1b5579260059482b36bafe53bac432110c55d1845a3"
+                  },
+                  "resultDigest": "sha256:a387fdca70891f755a49c4c0bde44deef0d1675732010b686216855592d9be34",
+                  "resultRef": "result://abiogenesis/a387fdca70891f755a49c4c0bde44deef0d1675732010b686216855592d9be34"
+                },
+                "terminal": true,
+                "unresolvedSupportRefs": []
+              },
+              "valueDigest": "sha256:4063c40c8769a55e72a6197ecd47e248e525869754fc974451d687abf3c6e1f6",
+              "valueKind": "governance_work_state"
+            },
+            "terminalRoute": {
+              "digest": "sha256:69f9b4319916e3624d695bc8dd3b9b9fac955fa28c0ba953865a6ee794009870",
+              "ref": "traversal-route://abiogenesis/69f9b4319916e3624d695bc8dd3b9b9fac955fa28c0ba953865a6ee794009870"
+            }
+          },
+          "projectionBasis": {
+            "digest": "sha256:eaacc8a79ae0ef446510e2c90e213d1aa15530dc3909dc9e1fb71955f0dcddab",
+            "ref": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-S0GpFA/runtime/events.jsonl"
+          },
+          "source": {
+            "digest": "sha256:ba4f2a619086bd3890ed359c082faba73629d768b32782244a443e7e3b552838",
+            "ref": "run://abiogenesis/da60b46f46d0655eb4ee0c3caf67d8151aa3cd208290125a471092336ddad80c"
+          }
+        }
+      },
+      "resources": {
+        "eventResource": {
+          "acquisitionKind": "reopen",
+          "closeHandoff": {
+            "prefix": {
+              "coordinateDigest": "sha256:eaacc8a79ae0ef446510e2c90e213d1aa15530dc3909dc9e1fb71955f0dcddab",
+              "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-S0GpFA/runtime/events.jsonl",
+              "kind": "durable_prefix_coordinate",
+              "prefixDigest": "sha256:725d7e29e050f20cb010a316a91f02375e3841506544c4bbaba3688030549279",
+              "prefixLength": 12661934,
+              "schemaVersion": "5.0.0",
+              "storeIdentity": {
+                "device": 16777230,
+                "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+                "inode": 462848264
+              }
+            },
+            "reopenAuthority": {
+              "authorityDigest": "sha256:e2c38d0d0afd91e2d156abfc4ce1db6c192d51e2ac5a54703a6775dc80916a41",
+              "device": 16777230,
+              "durableByteLength": 12661934,
+              "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+              "eventLogDigest": "sha256:725d7e29e050f20cb010a316a91f02375e3841506544c4bbaba3688030549279",
+              "eventLogPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-S0GpFA/runtime/events.jsonl",
+              "inode": 462848264,
+              "kind": "event_store_reopen_authority",
+              "schemaVersion": "5.0.0"
+            }
+          },
+          "entryPrefix": {
+            "coordinateDigest": "sha256:eaacc8a79ae0ef446510e2c90e213d1aa15530dc3909dc9e1fb71955f0dcddab",
+            "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-S0GpFA/runtime/events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:725d7e29e050f20cb010a316a91f02375e3841506544c4bbaba3688030549279",
+            "prefixLength": 12661934,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777230,
+              "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+              "inode": 462848264
+            }
+          },
+          "kind": "abg_event_resource_receipt",
+          "receiptDigest": "sha256:a55e7c066a23d9a1519c42ba3c10b1dc9e3887c1710138625b3e939d818059a7",
+          "schemaVersion": "5.0.0"
+        },
+        "kind": "abg_project_read_resource_receipt",
+        "schemaVersion": "5.0.0"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  }
+}

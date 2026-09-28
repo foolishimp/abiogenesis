@@ -1,3 +1,4 @@
+import { projectObservedWorksiteCommandChildAtPrefix } from "./worksite_input_provenance.js";
 import type { WorksiteExecutionTask } from "../product/worksite_revision.js";
 import { admittedNativeTask } from "./native_worksite_execution.js";
 import { isC2WorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
@@ -204,7 +205,7 @@ function deriveNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBa
     const environment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth,
       { ref: execution.workspaceBindingId, digest: execution.workspaceBindingDigest });
     return { events, prefix, execution, graph, call, resolution: resolutions[0]!, program,
-      environment, inputRef, inputDigest, inputValue };
+      environment, inputRef, inputDigest, inputValue, inputOrigin: input };
   } catch { return null; }
 }
 
@@ -978,11 +979,12 @@ export function hasExactWorksiteCommandLeafSourceAtDurablePrefix(
     const invocation = rehydrateInvocationAdmissionAtPrefix(prefix, execution.invocationAdmissionRef);
     if (invocation === null || invocation.capabilityGrants.length !== 1 || !sameCanonical(invocation.capabilityGrants[0], value.capabilityGrant)) return false;
     if (execution.basisClass === "root") return exactC2SourceEnvironment(predecessor, prefix, invocation, task);
-    if (isObservedWorksiteCommandExecutionTask(value)) return false; // This source arm has no child route.
     if (execution.parentExecutionBasisRef === null || execution.parentCCallRef === null || typeof opened.runId !== "string") return false;
     const parent = rehydrateExecutionBasisAtPrefix(prefix, execution.parentExecutionBasisRef);
     const basisEvent = events.find((event) => event.eventId === execution.admissionEventRef);
     if (parent === null || basisEvent === undefined) return false;
+    if (isObservedWorksiteCommandExecutionTask(value)) return projectObservedWorksiteCommandChildAtPrefix(prefix, {
+      parentBasis: parent, parentCCallRef: execution.parentCCallRef, runId: opened.runId, task: value }) !== null;
     // Native provenance and currentness must include later admitted mutations
     // through the held pre-effect prefix. C1/revision preparation retains its
     // historical child-admission cut and separate latest-currentness check.
@@ -2410,10 +2412,12 @@ function admitChildExecutionBasisUsing(
   }
   const commandTask = worksiteCommandTask(rawInputValue);
   if (commandTask !== null && (input.graphFunction.name !== (commandTask.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef : WORKSITE_REVISION_IDS.graphFunctionRef) ||
-    deriveSameRunWorksiteCommandSourceBasisAtPrefix(authorityPrefix, {
-      parentBasis: parent, parentCCallRef: current.parentCCall.cCallRef,
-      runId: parentScope.runId, task: commandTask,
-    }, predecessorPrefix) === null)) {
+    (isObservedWorksiteCommandExecutionTask(commandTask)
+      ? projectObservedWorksiteCommandChildAtPrefix(authorityPrefix, { parentBasis: parent, parentCCallRef: current.parentCCall.cCallRef, runId: parentScope.runId, task: commandTask })
+      : deriveSameRunWorksiteCommandSourceBasisAtPrefix(authorityPrefix, {
+        parentBasis: parent, parentCCallRef: current.parentCCall.cCallRef,
+        runId: parentScope.runId, task: commandTask,
+      }, predecessorPrefix)) === null)) {
     return childRefusal("child_input_mismatch", "C2 child requires the exact completed source and admitted preparation route in this Run");
   }
   if (

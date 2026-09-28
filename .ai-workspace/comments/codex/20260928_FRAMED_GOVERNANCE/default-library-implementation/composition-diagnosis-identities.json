@@ -1,0 +1,33 @@
+{
+  "source": {
+    "code/src/product/execution_resolution.ts": "9ec29aa5bc93d934042c741582bf036bd313676d9205765a9d4e7c381bc7b1cd",
+    "code/src/implementation/leaf_invocation_port.ts": "8e3bd474bc81eb24e835f051a3c4bf87cb755982928a4aafd486332e6946bb6c",
+    "code/src/gtl/default_library.ts": "6d6e326566e81643a280dae5a0305b6b50fe77699d8b6e2390452b9030b9f88b",
+    "code/src/abg/execution_basis.ts": "61d0d7205e1551647e2c272778ed32f4cfe12de2750660562c02ff6caa0ed74b",
+    "code/src/abg/worksite_input_provenance.ts": "8c43a3433a486b7c71c8c3118d2c72f8a339bc50ec188af3b891fa40d8c72e3f",
+    "code/src/abg/native_worksite_execution.ts": "a5e70f315b6f95599d71e59117735edac425dbc11939ec8eee77ece5b776c466",
+    "code/src/abg/invocation_admission.ts": "4f47f3084d8079d0dd04989e4aa35c7beeb56ed59cd92d05046b555b8d440cba",
+    "code/src/abg/traversal_route.ts": "9b9244ddabba8a6c805a6fd46cbfa7515855efb7c5d56a1f3e359a4e904e709b",
+    "code/src/abg/traversal_cursor.ts": "a8aa3217320db26085a892cab3d76230b3e0bb7a68179f514e8741fe6718ce80",
+    "code/src/abg/replay.ts": "b65667b8cd6309bce2ebca0492635c088c095e0b9bc66dd1ee2930d91039b879",
+    "code/src/hog/graph_execute.ts": "b15acbbc0280833b7e7e5f0e367fbc7ebffee4e3ecf503d11253d8bd0f01bb55",
+    "code/src/hog/workflow_lifecycle.ts": "dc5d35bfb88d3d8c1b5fe224d63324477c5478dd0413ec706bc790002657d256",
+    "code/src/product/native_workspace_assessment.ts": "fb140fcb9868ff66147e677216442f6f501aaa73d87288318a6fddf057d7aa8a",
+    "code/src/abg/instruction_assembly.ts": "5ef56aca8c43e6f60b3a0f8cbce6b2bc9a5f17c800f7667dccf8e002d7a462c9",
+    "code/src/product/builtin_semantics.ts": "201560dd0fc17e278a457206c6f567d0d86ce61f7b4d3ecc3a27b9d392a65f8a"
+  },
+  "attempt02": {
+    "archive.json": "edb708bb9441234b829d4c2b7f19252ef165f5395c654dc8277683627df3fb50",
+    "setup.json": "2ca8acc12492636ed59fd306dd242a62197efa5f390a6381233bec9a9a6c8d0a",
+    "consumer.tgz": "788b140eb8f0ea6616fdab9e213491c0b2e5e17d1be64788364ce51dab1873e9",
+    "input.json": "be7bbe6a1bef717ad5c4f6d85b2e31e3aba9e3c01879ef729a2dbcb78a395f2a",
+    "seed-copy.json": "e7e28a59bd8bd754a69a5aab63aa4e28df90fedf192b93a240d711898727e99d",
+    "run-environment.json": "abe27e05b8a7dbc5be5c8051640f612895f8f4eee8e997966bfd21f67be1b197",
+    "selection.json": "ca439cb9aa144477a6aa1d5956d51a5a2c29c084283e2b028a5b94af74c55dbc",
+    "provider.json": "729a4a7fa0c5934e0bad263cf72c8ee7dd6367f4dffab49e6eb48020dbbefa6b",
+    "publication.json": "7ce87e57cf8a9c86e00e6fe78f8661be2f519830a5b676fb86707d99928dba0b",
+    "core.tgz": "352bc730596cd02fc46c9059662bdec2d814c0d294123dfcfb4db4436e54577f"
+  },
+  "installedLog": "3ec1e626ef5f0ad371db38b7a6740ac875a4478e4269857947855487d85069ee",
+  "subject": "ebc82e2c4c10b0f2b5d570aa5ad9797941d38c13f7c603060e5bdfc497776395"
+}

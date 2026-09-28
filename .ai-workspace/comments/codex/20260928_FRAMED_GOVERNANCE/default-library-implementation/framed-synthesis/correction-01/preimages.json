@@ -1,0 +1,26 @@
+{
+  "code/src/abg/instruction_assembly.ts": {
+    "sha256": "2286b6b18ea053a6977581eb3c2a975ef2b9100e2ed2cfc5e384781841b53045",
+    "bytes": 116017
+  },
+  "code/src/product/default_library.ts": {
+    "sha256": "bc5faab4092e9c39d017f278ca4cd9a8e0ade6d1f187a7a12d9d588dd745c725",
+    "bytes": 15693
+  },
+  "code/src/gtl/stdo_run_environment.ts": {
+    "sha256": "72956854a41c02f9eab5147f4dc72cb9148a67720470943a8dcaf87c861ab8b9",
+    "bytes": 24813
+  },
+  "test_env/tests/t287-default-library.test.mjs": {
+    "sha256": "3e3065cbb426d349c61e94ee94b7ee4d31be2df5f26396decda3f422b19cb1e3",
+    "bytes": 68106
+  },
+  "test_env/support/default-library.mjs": {
+    "sha256": "f3572ef0a4a3f31e532b83bc4a1f7a5827d4d685a5fe1be79caa19e950bef320",
+    "bytes": 8652
+  },
+  "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": {
+    "sha256": "ab619d7eb27ace00b0e5f6abf50f147225c753504609bf6559ca83a21d579e04",
+    "bytes": 32138
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "code/src/hog/ccall_lifecycle.ts": "6e282ac82affe4c794a447be9aaf4eb8566bd6ea91f6b9051216dae6c383e5fe",
+  "code/src/abg/c_call_outcome.ts": "87154ec0faebb4beffd7cef3ab39a6139e72998d957dd5dd87b12304377d06a1",
+  "code/src/abg/execution_basis.ts": "daef2ec655bb7f2cbf6b174c0342a43030daf65a325205f5cdd0b95ab0c2dae5",
+  "code/src/abg/worksite_input_provenance.ts": "c092a78ada894d2e9220487011fc30cfcdc87d8da7ec2b3f1845d30be59dcbca",
+  "code/src/abg/replay.ts": "db57002098ace36cc173b3e3544ecf43ea5b4748af297fc940dda9f03cd4950c",
+  "code/src/abg/index.ts": "9e29009f9d2eed792f777407317e2722e1f6d3a91182de9c0a7aa2a1ffe3c30b",
+  "code/src/gtl/index.ts": "6daa31238370e9a5bbd64824bc905dab2e27810a890ab6563d1c116d4b2fe57d",
+  "code/src/product/index.ts": "7eb00e531b3b650a053a62a901ee93035bbb97584fc14854ae88eb8a171cc482",
+  "code/src/implementation/index.ts": "38b95712ab6e0e7bc79233ea7273c51f744e4c8c17e48a375a4a49efe07bd5fe",
+  "code/src/product/builtin_semantics.ts": "eea876f7e55d734042a9505eb01e448058435b410d3a6489d1f5f94ac62d6a73",
+  "scripts/generate-product-manifest.mjs": "2963cabc8531ae0e1d5688706e4d4af9d46fcad14a0e1d4c5931bfdb606bfd7a",
+  "design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md": "1918f94eb8c289e0af71386a88631a903a40dd6f43a0aa0de2ed9ef59d03cca3"
+}

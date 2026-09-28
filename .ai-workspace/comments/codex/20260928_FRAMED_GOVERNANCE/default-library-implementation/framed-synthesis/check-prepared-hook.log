@@ -1,0 +1,10 @@
+file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/check-prepared-hook.mjs:4
+import {SourceTextModule,SyntheticModule} from 'node:vm';
+        ^^^^^^^^^^^^^^^^
+SyntaxError: The requested module 'node:vm' does not provide an export named 'SourceTextModule'
+    at #_instantiate (node:internal/modules/esm/module_job:254:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:363:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:683:26)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.7.0

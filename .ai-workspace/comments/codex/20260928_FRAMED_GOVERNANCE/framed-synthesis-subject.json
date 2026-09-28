@@ -1,0 +1,271 @@
+{
+  "kind": "framed_synthesis_design_subject",
+  "status": "closed_proposal_only",
+  "activation": "T287_FRAMED_SYNTHESIS_DESIGN_01",
+  "model": "Astra",
+  "reasoning": "xhigh",
+  "method": {
+    "basis": "stdo://releases/v2.5.1-rc.1/",
+    "manifestSha256": "5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64",
+    "sourceMember": {
+      "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+      "bytes": 133684
+    },
+    "qualification": "Selected authority and applicable frame spans reuse closed S5 source correspondence; no new whole-release qualification."
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "frozenSubject04": {
+    "all32FilesMatch": true,
+    "files": {
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts": {
+        "sha256": "904103fed326cfbbf6fdbb2e9cbf5bcc7e171a4558cad5b5403e66609619fbc3",
+        "bytes": 59021
+      },
+      "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts": {
+        "sha256": "dec0e1f9c30f3766b87ca498ad893278d478cdc3401e9ef353975012345cd4a8",
+        "bytes": 66675
+      },
+      "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts": {
+        "sha256": "c93a3bc126ad87e180e6b5832d4e396d6159c6e9648f280decca8eb462719b57",
+        "bytes": 18313
+      },
+      "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts": {
+        "sha256": "61d0d7205e1551647e2c272778ed32f4cfe12de2750660562c02ff6caa0ed74b",
+        "bytes": 122233
+      },
+      "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts": {
+        "sha256": "5ef56aca8c43e6f60b3a0f8cbce6b2bc9a5f17c800f7667dccf8e002d7a462c9",
+        "bytes": 106387
+      },
+      "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts": {
+        "sha256": "b65667b8cd6309bce2ebca0492635c088c095e0b9bc66dd1ee2930d91039b879",
+        "bytes": 88348
+      },
+      "build_tenants/abiogenesis/typescript/code/src/abg/worksite_input_provenance.ts": {
+        "sha256": "8c43a3433a486b7c71c8c3118d2c72f8a339bc50ec188af3b891fa40d8c72e3f",
+        "bytes": 43094
+      },
+      "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts": {
+        "sha256": "f371304860f8547d744ca3c1e147739ef2f0c9d156ef90c2592511d59a2b004a",
+        "bytes": 18020
+      },
+      "build_tenants/abiogenesis/typescript/code/src/gtl/index.ts": {
+        "sha256": "a4104a9a6a7aeb3b0511b2eb509b86a93759e64b7b1f1239a4ce08022c373983",
+        "bytes": 13129
+      },
+      "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts": {
+        "sha256": "3cb0d09a18e00af62bbb1d8ff4518fa7de04befdb3ba979fe06b1d2bb1ad01e4",
+        "bytes": 35923
+      },
+      "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts": {
+        "sha256": "4d78de7b3bb8f4b214fb947634c265a05d641d7717a9e1431df0a0346af8ba60",
+        "bytes": 18471
+      },
+      "build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts": {
+        "sha256": "49ae4dfeb28595ed8cceb3c949381137623d5b4d4c9f7b7833ebc500394f5179",
+        "bytes": 5684
+      },
+      "build_tenants/abiogenesis/typescript/code/src/implementation/index.ts": {
+        "sha256": "bfdf9150a844cb4f14c433eb52d8ceb405a9ae7ba9b5c06f12bb882b3d901cd0",
+        "bytes": 7640
+      },
+      "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts": {
+        "sha256": "9256376a949855528be4b53c4835230ab3b6ddda87c844b0377fa10600130e9d",
+        "bytes": 73115
+      },
+      "build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts": {
+        "sha256": "201560dd0fc17e278a457206c6f567d0d86ce61f7b4d3ecc3a27b9d392a65f8a",
+        "bytes": 65185
+      },
+      "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts": {
+        "sha256": "3650c3df10acea7f59e6e4427a10e936771e601afbb81be8714f1c6bfc8a3c81",
+        "bytes": 7772
+      },
+      "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts": {
+        "sha256": "73d296ac7dbcab675c5a1f9a1399459356d81f9cd34772a0d037a6daf0a1e920",
+        "bytes": 46996
+      },
+      "build_tenants/abiogenesis/typescript/code/src/product/index.ts": {
+        "sha256": "273ddc342f19df1b7013e3e19fb37dbd1cba5e346342f0d9456ae323647b2a23",
+        "bytes": 25105
+      },
+      "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+        "sha256": "d7fd338307a4f88693ea52335488d4300658699181a856ae8cdfa987120792e0",
+        "bytes": 197474
+      },
+      "build_tenants/abiogenesis/typescript/contracts/default-library/policy.txt": {
+        "sha256": "abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+        "bytes": 891
+      },
+      "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/context.inventory.json": {
+        "sha256": "cbb32c0ba1775cd2656986ab43079025e817b9969c63679e95b2408aeb24b83b",
+        "bytes": 245
+      },
+      "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md": {
+        "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+        "bytes": 133684
+      },
+      "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": {
+        "sha256": "b3b7626fbf25eeb6429e22288ee7854ea533caeb63ce3fcc4c617fcdef672d0c",
+        "bytes": 26558
+      },
+      "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md": {
+        "sha256": "72a21030d65bdc18a66c98b17e585b05e3c73bd3146bb8d8f8f42349b17e27ec",
+        "bytes": 61435
+      },
+      "build_tenants/abiogenesis/typescript/design/T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md": {
+        "sha256": "b1290a84e7c44e8a73486923ab254c7c8cedeea2568c018bc9be1b73273f0f36",
+        "bytes": 30820
+      },
+      "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+        "sha256": "1f4a1296521790e5339ea2691d18859bacb3e0dcb9fe151b508dba3a30adbd17",
+        "bytes": 2522948
+      },
+      "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs": {
+        "sha256": "79ce13a2998a3b3a805391650eaaf6d0f7d12592e7d0df0937bd0f7e06def4c8",
+        "bytes": 42963
+      },
+      "build_tenants/abiogenesis/typescript/test_env/fixtures/default-library-product/index.mjs": {
+        "sha256": "e8cde80b6ca3093f65857eac23fa6969260567f1220f705f9ac5ca316e089c41",
+        "bytes": 730
+      },
+      "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs": {
+        "sha256": "d0aacf59545a2c2c6a711e530c2fbdf94ae11deb5dd1f92536b2adeeeca90272",
+        "bytes": 8592
+      },
+      "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs": {
+        "sha256": "221d3d8dfab58da9b96ff926b8a5e3548a9f8c2b8dfc42b26cac7e1b3b467449",
+        "bytes": 21381
+      },
+      "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs": {
+        "sha256": "cf0a778870128c4afc13e8fb535c01bc67ac009cb23233324b1242a6b44eb65d",
+        "bytes": 37822
+      },
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs": {
+        "sha256": "4b43f7a3cbc411396e16a8ee8df673d1d4253252a7cf48ee6f6ec42e3359477b",
+        "bytes": 44400
+      }
+    }
+  },
+  "preservedAttempt04": {
+    "all27FilesMatch": true,
+    "identityRecord": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/attempt-04-identities.json",
+    "fileCount": 27
+  },
+  "additionalSourceOwners": {
+    "AGENTS.md": {
+      "sha256": "06304989adf8e27244946493c7554ebcbd84a229e9354815f8dbcc8a5a94b26c",
+      "bytes": 9431
+    },
+    "specification/PRODUCT.md": {
+      "sha256": "179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1",
+      "bytes": 93561
+    },
+    "specification/requirements/abg/REQ-R-ABG3-EVENTS.md": {
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+      "bytes": 16630
+    },
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md": {
+      "sha256": "1a44403256c6d31b8d3a8091e1086c3885104cc44e5e29f014f0eb2e9a6d3739",
+      "bytes": 17728
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md": {
+      "sha256": "26828f12e74aa06e9621344d1c594157668242f8c76a549c8ac0ce50e731d53a",
+      "bytes": 24123
+    },
+    "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts": {
+      "sha256": "7380d7656df4737e0a279c55dbbc3c22529582b1b1f454544a9d68b485436a92",
+      "bytes": 21689
+    },
+    "build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts": {
+      "sha256": "32f44f7aba5d77ab5255f29b2300cafcae202fed3eb27f5ad46ff6dbc2e6fdbd",
+      "bytes": 5701
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/registered_selection_native.ts": {
+      "sha256": "2e4413c1431f1abdd6d19e267364196b0a0986628976829e00aab04da987f280",
+      "bytes": 5591
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts": {
+      "sha256": "fb140fcb9868ff66147e677216442f6f501aaa73d87288318a6fddf057d7aa8a",
+      "bytes": 8161
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts": {
+      "sha256": "d70f556ba83d6c5060b924e9ef0a5755d6c9c3adfb7f42023405e76a1954fed5",
+      "bytes": 20435
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_preparation_contracts.ts": {
+      "sha256": "cc3294baf7f4dbb9b33f79341517d11721d0ee938e47479dc17b6384f8113be2",
+      "bytes": 15071
+    },
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts": {
+      "sha256": "eb27713ba7e25b865f7fb9c42bc088237c7c3dc79abfe3948f4d80c20428a761",
+      "bytes": 48762
+    },
+    "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts": {
+      "sha256": "0ef1238ca721bd2877a5ba1e257119544c6705f940324138012934f6d04b8d9a",
+      "bytes": 6736
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts": {
+      "sha256": "a5e70f315b6f95599d71e59117735edac425dbc11939ec8eee77ece5b776c466",
+      "bytes": 12998
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts": {
+      "sha256": "a8aa3217320db26085a892cab3d76230b3e0bb7a68179f514e8741fe6718ce80",
+      "bytes": 38100
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts": {
+      "sha256": "8073f5340046a5709cef86c27f2bb51f8e006fb473db4969c5fe7707c4772e99",
+      "bytes": 171106
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts": {
+      "sha256": "354dde450eda3c986c25ec4919f2884ef54a13d4bebde8647693a6af97f2ed0e",
+      "bytes": 75468
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts": {
+      "sha256": "2e89f692ad9fcce0e066a2c370396384e86a4b2bd5941a6b4f24538722267941",
+      "bytes": 25550
+    }
+  },
+  "closedRecords": {
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md": {
+      "sha256": "3a6348e2cf76a00e5debb78769bd1cafcc968b6380326d7405ae79b2bc649d97",
+      "bytes": 66664
+    },
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/framed-synthesis-plan.md": {
+      "sha256": "9ea4e635b04d66f2120e8af7972eac703d76891584b1b2c9512689782940e476",
+      "bytes": 19582
+    },
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/prelaunch-subject-04.json": {
+      "sha256": "049507ee44719b9dd2ca013f07996891accf25de00fc433dfc93520c0f9eafa1",
+      "bytes": 5253
+    },
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/attempt-04-identities.json": {
+      "sha256": "d9dd7a8d585a7194a75f80876ac20d4af457c98fbde6a2a35a4501b51df5fe95",
+      "bytes": 3744
+    },
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/pre-actor-review.md": {
+      "sha256": "bc096ae37b25899aea908615324e9dde25f8ef73f79e860b876a111c7408ba84",
+      "bytes": 9083
+    },
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/attempt-04-diagnosis.md": {
+      "sha256": "e95492cace7e31f3a9b75de955144108f6a3ee500e81896e70d6f883a09e7877",
+      "bytes": 5407
+    },
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/diagnose-attempt-04.json": {
+      "sha256": "0b7db6241420f19460cfdbe78890a52dc3c89ac9215f6280ed41acd3e9815799",
+      "bytes": 2670
+    },
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/selection.json": {
+      "sha256": "ca439cb9aa144477a6aa1d5956d51a5a2c29c084283e2b028a5b94af74c55dbc",
+      "bytes": 5835
+    }
+  },
+  "effects": [
+    "write framed-synthesis-plan.md",
+    "write framed-synthesis-subject.json"
+  ],
+  "nonEffects": [
+    "no source/fixture/HOW/requirements changes",
+    "no build/test/install/provider/Git mutation"
+  ]
+}

@@ -1,0 +1,244 @@
+{
+  "setup": {
+    "wallMs": {
+      "bootstrap_owner_loading_and_candidate_preparation": 402.68979099999996,
+      "provisioning_verify_artifact": 11559.638625,
+      "provisioning_install": 2619.714,
+      "provisioning_installed_content_check": 537.9604170000002,
+      "provisioning_additional_products": 1438.158207999999,
+      "installed_owner_loading": 250.4354170000006,
+      "environment_install_and_workspace_admission": 565.2747500000005,
+      "execution_preparation_publication_program_and_catalog": 351.74108299999716
+    }
+  },
+  "executionMs": 303257.556208,
+  "native": [
+    {
+      "actor": 1,
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "args": [
+        "-p",
+        "--disable-slash-commands",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--include-partial-messages",
+        "--verbose",
+        "--permission-mode",
+        "bypassPermissions",
+        "--safe-mode",
+        "--tools",
+        "",
+        "--json-schema",
+        "{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"interpretation\":{\"type\":\"string\",\"minLength\":1},\"contributions\":{\"type\":\"array\",\"maxItems\":3,\"description\":\"At most one contribution row per graphFunctionRef in this current mapping.\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"graphFunctionRef\":{\"type\":\"string\",\"enum\":[\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"]},\"contribution\":{\"type\":\"string\",\"minLength\":1},\"reason\":{\"type\":\"string\",\"minLength\":1},\"supportRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"support://default-library-witness/complete-source-outcome@5\"]}},\"evidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f\"]}},\"dependsOn\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"]},\"description\":\"Every dependency must name a different contribution in THIS response. Prior completed work outside this current mapping belongs in evidenceRefs, not dependsOn. Mapping membership does not require execution; only the explicit next member executes.\"}},\"required\":[\"graphFunctionRef\",\"contribution\",\"reason\",\"supportRefs\",\"evidenceRefs\",\"dependsOn\"]}},\"gaps\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"supportRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"support://default-library-witness/complete-source-outcome@5\"]},\"minItems\":1},\"reason\":{\"type\":\"string\",\"minLength\":1},\"evidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f\"]}}},\"required\":[\"supportRefs\",\"reason\",\"evidenceRefs\"]}},\"nextGraphFunctionRef\":{\"type\":[\"string\",\"null\"],\"enum\":[\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\",null],\"description\":\"Must name a contribution row in THIS response, explicitly chosen to execute next. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule.\"},\"nextReason\":{\"type\":\"string\",\"minLength\":1},\"nextEvidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f\"]}},\"subjectEvidenceRef\":{\"type\":[\"string\",\"null\"],\"enum\":[null],\"description\":\"For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null.\"},\"revisionReason\":{\"type\":\"string\",\"minLength\":1},\"revisionEvidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f\"]}}},\"required\":[\"interpretation\",\"contributions\",\"gaps\",\"nextGraphFunctionRef\",\"nextReason\",\"nextEvidenceRefs\",\"subjectEvidenceRef\",\"revisionReason\",\"revisionEvidenceRefs\"]}",
+        "--model",
+        "claude-opus-5-5",
+        "--effort",
+        "xhigh"
+      ],
+      "reportedModels": [
+        "claude-opus-5-5"
+      ],
+      "nativeIntervalMs": 26424,
+      "promptBytes": 48797
+    },
+    {
+      "actor": 2,
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "args": [
+        "-p",
+        "--disable-slash-commands",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--include-partial-messages",
+        "--verbose",
+        "--permission-mode",
+        "bypassPermissions",
+        "--json-schema",
+        "{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"kind\",\"schemaVersion\",\"taskRef\",\"taskDigest\",\"attemptRef\",\"helperArtifactRef\",\"helperArtifactDigest\"],\"properties\":{\"kind\":{\"const\":\"worksite_command_execution_worker_result\"},\"schemaVersion\":{\"const\":\"5.0.0\"},\"taskRef\":{\"const\":\"worksite-command-execution-task://abiogenesis/464a09b23c11d6acb553b27729b7eae4923bcb1ca33e562f0cddab84e509a5ac\"},\"taskDigest\":{\"const\":\"sha256:464a09b23c11d6acb553b27729b7eae4923bcb1ca33e562f0cddab84e509a5ac\"},\"attemptRef\":{\"const\":\"worksite-command-attempt://abiogenesis/3f62187cd1f1b887080fe135699720b1385fbacf837d188588d5272dfc9c25d2\"},\"helperArtifactRef\":{\"type\":\"string\",\"pattern\":\"^worksite-command-helper-artifact://abiogenesis/[a-f0-9]{64}$\"},\"helperArtifactDigest\":{\"type\":\"string\",\"pattern\":\"^sha256:[a-f0-9]{64}$\"}}}",
+        "--model",
+        "claude-opus-5-5",
+        "--effort",
+        "xhigh"
+      ],
+      "reportedModels": [
+        "claude-opus-5-5"
+      ],
+      "nativeIntervalMs": 11642,
+      "promptBytes": 32959
+    },
+    {
+      "actor": 3,
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "args": [
+        "-p",
+        "--disable-slash-commands",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--include-partial-messages",
+        "--verbose",
+        "--permission-mode",
+        "bypassPermissions",
+        "--safe-mode",
+        "--tools",
+        "",
+        "--json-schema",
+        "{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"interpretation\":{\"type\":\"string\",\"minLength\":1},\"contributions\":{\"type\":\"array\",\"maxItems\":3,\"description\":\"At most one contribution row per graphFunctionRef in this current mapping.\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"graphFunctionRef\":{\"type\":\"string\",\"enum\":[\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"]},\"contribution\":{\"type\":\"string\",\"minLength\":1},\"reason\":{\"type\":\"string\",\"minLength\":1},\"supportRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"support://default-library-witness/complete-source-outcome@5\"]}},\"evidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f\",\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",\"result://abiogenesis/7c4f52c489a49c06f092e4898b4008b25b797c51fdcd92f390336e72a8fde720\"]}},\"dependsOn\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"]},\"description\":\"Every dependency must name a different contribution in THIS response. Prior completed work outside this current mapping belongs in evidenceRefs, not dependsOn. Mapping membership does not require execution; only the explicit next member executes.\"}},\"required\":[\"graphFunctionRef\",\"contribution\",\"reason\",\"supportRefs\",\"evidenceRefs\",\"dependsOn\"]}},\"gaps\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"supportRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"support://default-library-witness/complete-source-outcome@5\"]},\"minItems\":1},\"reason\":{\"type\":\"string\",\"minLength\":1},\"evidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f\",\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",\"result://abiogenesis/7c4f52c489a49c06f092e4898b4008b25b797c51fdcd92f390336e72a8fde720\"]}}},\"required\":[\"supportRefs\",\"reason\",\"evidenceRefs\"]}},\"nextGraphFunctionRef\":{\"type\":[\"string\",\"null\"],\"enum\":[\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\",null],\"description\":\"Must name a contribution row in THIS response, explicitly chosen to execute next. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule.\"},\"nextReason\":{\"type\":\"string\",\"minLength\":1},\"nextEvidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f\",\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",\"result://abiogenesis/7c4f52c489a49c06f092e4898b4008b25b797c51fdcd92f390336e72a8fde720\"]}},\"subjectEvidenceRef\":{\"type\":[\"string\",\"null\"],\"enum\":[\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",null],\"description\":\"For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null.\"},\"revisionReason\":{\"type\":\"string\",\"minLength\":1},\"revisionEvidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f\",\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",\"result://abiogenesis/7c4f52c489a49c06f092e4898b4008b25b797c51fdcd92f390336e72a8fde720\"]}}},\"required\":[\"interpretation\",\"contributions\",\"gaps\",\"nextGraphFunctionRef\",\"nextReason\",\"nextEvidenceRefs\",\"subjectEvidenceRef\",\"revisionReason\",\"revisionEvidenceRefs\"]}",
+        "--model",
+        "claude-opus-5-5",
+        "--effort",
+        "xhigh"
+      ],
+      "reportedModels": [
+        "claude-opus-5-5"
+      ],
+      "nativeIntervalMs": 39856,
+      "promptBytes": 64002
+    },
+    {
+      "actor": 4,
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "args": [
+        "-p",
+        "--disable-slash-commands",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--include-partial-messages",
+        "--verbose",
+        "--permission-mode",
+        "bypassPermissions",
+        "--tools",
+        "Read,Edit,Write,Glob,Grep,Bash",
+        "--json-schema",
+        "{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"summary\",\"gaps\"],\"properties\":{\"summary\":{\"type\":\"string\"},\"gaps\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}}",
+        "--model",
+        "claude-opus-5-5",
+        "--effort",
+        "xhigh"
+      ],
+      "reportedModels": [
+        "claude-opus-5-5"
+      ],
+      "nativeIntervalMs": 29277,
+      "promptBytes": 33272
+    },
+    {
+      "actor": 5,
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "args": [
+        "-p",
+        "--disable-slash-commands",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--include-partial-messages",
+        "--verbose",
+        "--permission-mode",
+        "bypassPermissions",
+        "--safe-mode",
+        "--tools",
+        "",
+        "--json-schema",
+        "{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"interpretation\":{\"type\":\"string\",\"minLength\":1},\"contributions\":{\"type\":\"array\",\"maxItems\":3,\"description\":\"At most one contribution row per graphFunctionRef in this current mapping.\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"graphFunctionRef\":{\"type\":\"string\",\"enum\":[\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"]},\"contribution\":{\"type\":\"string\",\"minLength\":1},\"reason\":{\"type\":\"string\",\"minLength\":1},\"supportRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"support://default-library-witness/complete-source-outcome@5\"]}},\"evidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87\",\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",\"result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348\",\"result://abiogenesis/7914dbef0a74ccaf43fd9cdc1a1cc6f1e2daa619f7ec4da3f25140690d86d982\"]}},\"dependsOn\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"]},\"description\":\"Every dependency must name a different contribution in THIS response. Prior completed work outside this current mapping belongs in evidenceRefs, not dependsOn. Mapping membership does not require execution; only the explicit next member executes.\"}},\"required\":[\"graphFunctionRef\",\"contribution\",\"reason\",\"supportRefs\",\"evidenceRefs\",\"dependsOn\"]}},\"gaps\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"supportRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"support://default-library-witness/complete-source-outcome@5\"]},\"minItems\":1},\"reason\":{\"type\":\"string\",\"minLength\":1},\"evidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87\",\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",\"result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348\",\"result://abiogenesis/7914dbef0a74ccaf43fd9cdc1a1cc6f1e2daa619f7ec4da3f25140690d86d982\"]}}},\"required\":[\"supportRefs\",\"reason\",\"evidenceRefs\"]}},\"nextGraphFunctionRef\":{\"type\":[\"string\",\"null\"],\"enum\":[\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\",null],\"description\":\"Must name a contribution row in THIS response, explicitly chosen to execute next. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule.\"},\"nextReason\":{\"type\":\"string\",\"minLength\":1},\"nextEvidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87\",\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",\"result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348\",\"result://abiogenesis/7914dbef0a74ccaf43fd9cdc1a1cc6f1e2daa619f7ec4da3f25140690d86d982\"]}},\"subjectEvidenceRef\":{\"type\":[\"string\",\"null\"],\"enum\":[\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",\"result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348\",null],\"description\":\"For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null.\"},\"revisionReason\":{\"type\":\"string\",\"minLength\":1},\"revisionEvidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87\",\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",\"result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348\",\"result://abiogenesis/7914dbef0a74ccaf43fd9cdc1a1cc6f1e2daa619f7ec4da3f25140690d86d982\"]}}},\"required\":[\"interpretation\",\"contributions\",\"gaps\",\"nextGraphFunctionRef\",\"nextReason\",\"nextEvidenceRefs\",\"subjectEvidenceRef\",\"revisionReason\",\"revisionEvidenceRefs\"]}",
+        "--model",
+        "claude-opus-5-5",
+        "--effort",
+        "xhigh"
+      ],
+      "reportedModels": [
+        "claude-opus-5-5"
+      ],
+      "nativeIntervalMs": 63752,
+      "promptBytes": 69581
+    },
+    {
+      "actor": 6,
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "args": [
+        "-p",
+        "--disable-slash-commands",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--include-partial-messages",
+        "--verbose",
+        "--permission-mode",
+        "bypassPermissions",
+        "--json-schema",
+        "{\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"kind\",\"schemaVersion\",\"taskRef\",\"taskDigest\",\"attemptRef\",\"helperArtifactRef\",\"helperArtifactDigest\"],\"properties\":{\"kind\":{\"const\":\"worksite_command_execution_worker_result\"},\"schemaVersion\":{\"const\":\"5.0.0\"},\"taskRef\":{\"const\":\"worksite-command-execution-task://abiogenesis/083035897cc0be7d21f396c69e042a5fe04a5d02d51bca23c28d239c08e10650\"},\"taskDigest\":{\"const\":\"sha256:083035897cc0be7d21f396c69e042a5fe04a5d02d51bca23c28d239c08e10650\"},\"attemptRef\":{\"const\":\"worksite-command-attempt://abiogenesis/a9df3b74e3b3c3a32fdd30242f15e22febf42374e6b01cf77fca889a741e1d0c\"},\"helperArtifactRef\":{\"type\":\"string\",\"pattern\":\"^worksite-command-helper-artifact://abiogenesis/[a-f0-9]{64}$\"},\"helperArtifactDigest\":{\"type\":\"string\",\"pattern\":\"^sha256:[a-f0-9]{64}$\"}}}",
+        "--model",
+        "claude-opus-5-5",
+        "--effort",
+        "xhigh"
+      ],
+      "reportedModels": [
+        "claude-opus-5-5"
+      ],
+      "nativeIntervalMs": 10384,
+      "promptBytes": 32895
+    },
+    {
+      "actor": 7,
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "args": [
+        "-p",
+        "--disable-slash-commands",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--include-partial-messages",
+        "--verbose",
+        "--permission-mode",
+        "bypassPermissions",
+        "--safe-mode",
+        "--tools",
+        "",
+        "--json-schema",
+        "{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"interpretation\":{\"type\":\"string\",\"minLength\":1},\"contributions\":{\"type\":\"array\",\"maxItems\":3,\"description\":\"At most one contribution row per graphFunctionRef in this current mapping.\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"graphFunctionRef\":{\"type\":\"string\",\"enum\":[\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"]},\"contribution\":{\"type\":\"string\",\"minLength\":1},\"reason\":{\"type\":\"string\",\"minLength\":1},\"supportRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"support://default-library-witness/complete-source-outcome@5\"]}},\"evidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87\",\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",\"result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348\",\"result://abiogenesis/c4a857ca096ef8aba07b71b3231f3b102d0e9c378726b435a8c6e5b5f9a3c5b5\",\"result://abiogenesis/0e173f49dba50bc1bd354576bbd2f0a74ae7b8f68ca128d2cb4d3d5f36d8c92c\"]}},\"dependsOn\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\"]},\"description\":\"Every dependency must name a different contribution in THIS response. Prior completed work outside this current mapping belongs in evidenceRefs, not dependsOn. Mapping membership does not require execution; only the explicit next member executes.\"}},\"required\":[\"graphFunctionRef\",\"contribution\",\"reason\",\"supportRefs\",\"evidenceRefs\",\"dependsOn\"]}},\"gaps\":{\"type\":\"array\",\"items\":{\"type\":\"object\",\"additionalProperties\":false,\"properties\":{\"supportRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"support://default-library-witness/complete-source-outcome@5\"]},\"minItems\":1},\"reason\":{\"type\":\"string\",\"minLength\":1},\"evidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87\",\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",\"result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348\",\"result://abiogenesis/c4a857ca096ef8aba07b71b3231f3b102d0e9c378726b435a8c6e5b5f9a3c5b5\",\"result://abiogenesis/0e173f49dba50bc1bd354576bbd2f0a74ae7b8f68ca128d2cb4d3d5f36d8c92c\"]}}},\"required\":[\"supportRefs\",\"reason\",\"evidenceRefs\"]}},\"nextGraphFunctionRef\":{\"type\":[\"string\",\"null\"],\"enum\":[\"graph-function://abiogenesis/default-library/construction@5\",\"graph-function://abiogenesis/default-library/testing@5\",\"graph-function://abiogenesis/default-library/uat@5\",null],\"description\":\"Must name a contribution row in THIS response, explicitly chosen to execute next. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule.\"},\"nextReason\":{\"type\":\"string\",\"minLength\":1},\"nextEvidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87\",\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",\"result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348\",\"result://abiogenesis/c4a857ca096ef8aba07b71b3231f3b102d0e9c378726b435a8c6e5b5f9a3c5b5\",\"result://abiogenesis/0e173f49dba50bc1bd354576bbd2f0a74ae7b8f68ca128d2cb4d3d5f36d8c92c\"]}},\"subjectEvidenceRef\":{\"type\":[\"string\",\"null\"],\"enum\":[\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",\"result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348\",\"result://abiogenesis/c4a857ca096ef8aba07b71b3231f3b102d0e9c378726b435a8c6e5b5f9a3c5b5\",null],\"description\":\"For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null.\"},\"revisionReason\":{\"type\":\"string\",\"minLength\":1},\"revisionEvidenceRefs\":{\"type\":\"array\",\"uniqueItems\":true,\"items\":{\"type\":\"string\",\"enum\":[\"task://default-library-witness/original@5\",\"worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87\",\"result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7\",\"result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348\",\"result://abiogenesis/c4a857ca096ef8aba07b71b3231f3b102d0e9c378726b435a8c6e5b5f9a3c5b5\",\"result://abiogenesis/0e173f49dba50bc1bd354576bbd2f0a74ae7b8f68ca128d2cb4d3d5f36d8c92c\"]}}},\"required\":[\"interpretation\",\"contributions\",\"gaps\",\"nextGraphFunctionRef\",\"nextReason\",\"nextEvidenceRefs\",\"subjectEvidenceRef\",\"revisionReason\",\"revisionEvidenceRefs\"]}",
+        "--model",
+        "claude-opus-5-5",
+        "--effort",
+        "xhigh"
+      ],
+      "reportedModels": [
+        "claude-opus-5-5"
+      ],
+      "nativeIntervalMs": 46364,
+      "promptBytes": 76618
+    },
+    {
+      "actor": 8,
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "args": [
+        "-p",
+        "--disable-slash-commands",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--include-partial-messages",
+        "--verbose",
+        "--permission-mode",
+        "bypassPermissions",
+        "--tools",
+        "Read,Edit,Write,Glob,Grep,Bash",
+        "--json-schema",
+        "{\"$id\":\"contract://default-library-witness/assessment@5\",\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"kind\",\"disposition\",\"reason\",\"unresolvedCriteria\"],\"properties\":{\"kind\":{\"const\":\"consumer_outcome_assessment\"},\"disposition\":{\"type\":\"string\",\"enum\":[\"satisfied\",\"unmet\",\"indeterminate\"]},\"reason\":{\"type\":\"string\"},\"unresolvedCriteria\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}}",
+        "--model",
+        "claude-opus-5-5",
+        "--effort",
+        "xhigh"
+      ],
+      "reportedModels": [
+        "claude-opus-5-5"
+      ],
+      "nativeIntervalMs": 50461,
+      "promptBytes": 59714
+    }
+  ],
+  "frameworkOutsideNativeIntervalsMs": 25097.556207999995,
+  "publicRequestBytes": 17451473,
+  "eventCount": 4213
+}

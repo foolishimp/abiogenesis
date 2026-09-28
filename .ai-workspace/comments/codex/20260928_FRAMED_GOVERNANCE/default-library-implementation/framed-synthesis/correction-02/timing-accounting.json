@@ -1,0 +1,184 @@
+{
+  "companion-01": {
+    "outsideActorEventGapsMs": 10923.0,
+    "CLIEntryAndExitOutsideEventSpanMs": 2657.9638339999947,
+    "groupedByNextAdmittedEventKind": {
+      "c_call_evidenced": {
+        "wallMs": 3843.0,
+        "gaps": 19
+      },
+      "traversal_cursor_entered": {
+        "wallMs": 3793.0,
+        "gaps": 7
+      },
+      "actor_transport_binding_admitted": {
+        "wallMs": 1565.0,
+        "gaps": 4
+      },
+      "c_call_judged": {
+        "wallMs": 435.0,
+        "gaps": 19
+      },
+      "basis_admitted": {
+        "wallMs": 318.0,
+        "gaps": 7
+      },
+      "traversal_route_admitted": {
+        "wallMs": 288.0,
+        "gaps": 19
+      },
+      "c_call_opened": {
+        "wallMs": 257.0,
+        "gaps": 19
+      },
+      "c_call_result_admitted": {
+        "wallMs": 175.0,
+        "gaps": 19
+      },
+      "child_foldback_admitted": {
+        "wallMs": 71.0,
+        "gaps": 6
+      },
+      "terminal_reached": {
+        "wallMs": 62.0,
+        "gaps": 7
+      },
+      "implementation_admitted": {
+        "wallMs": 42.0,
+        "gaps": 1
+      },
+      "graph_call_opened": {
+        "wallMs": 40.0,
+        "gaps": 7
+      },
+      "run_segment_opened": {
+        "wallMs": 20.0,
+        "gaps": 1
+      },
+      "actor_invocation_started": {
+        "wallMs": 7.0,
+        "gaps": 4
+      },
+      "graph_call_closed": {
+        "wallMs": 4.0,
+        "gaps": 7
+      },
+      "frame_opened": {
+        "wallMs": 2.0,
+        "gaps": 7
+      },
+      "c_call_fibre_selected": {
+        "wallMs": 1.0,
+        "gaps": 19
+      },
+      "invocation_admitted": {
+        "wallMs": 0.0,
+        "gaps": 1
+      },
+      "runtime_activity_probe_observed": {
+        "wallMs": 0.0,
+        "gaps": 203
+      },
+      "frame_closed": {
+        "wallMs": 0.0,
+        "gaps": 7
+      },
+      "run_closed": {
+        "wallMs": 0.0,
+        "gaps": 1
+      }
+    },
+    "scope": "Timing groups localize intervals to their next event, not a claim of sampled CPU attribution."
+  },
+  "faulty-01": {
+    "outsideActorEventGapsMs": 22367.0,
+    "CLIEntryAndExitOutsideEventSpanMs": 2730.5562079999945,
+    "groupedByNextAdmittedEventKind": {
+      "c_call_evidenced": {
+        "wallMs": 7540.0,
+        "gaps": 37
+      },
+      "traversal_cursor_entered": {
+        "wallMs": 7406.0,
+        "gaps": 13
+      },
+      "actor_transport_binding_admitted": {
+        "wallMs": 3116.0,
+        "gaps": 8
+      },
+      "c_call_judged": {
+        "wallMs": 1067.0,
+        "gaps": 37
+      },
+      "traversal_route_admitted": {
+        "wallMs": 806.0,
+        "gaps": 37
+      },
+      "basis_admitted": {
+        "wallMs": 748.0,
+        "gaps": 13
+      },
+      "c_call_opened": {
+        "wallMs": 706.0,
+        "gaps": 37
+      },
+      "c_call_result_admitted": {
+        "wallMs": 381.0,
+        "gaps": 37
+      },
+      "child_foldback_admitted": {
+        "wallMs": 229.0,
+        "gaps": 12
+      },
+      "terminal_reached": {
+        "wallMs": 191.0,
+        "gaps": 13
+      },
+      "graph_call_opened": {
+        "wallMs": 88.0,
+        "gaps": 13
+      },
+      "implementation_admitted": {
+        "wallMs": 40.0,
+        "gaps": 1
+      },
+      "run_segment_opened": {
+        "wallMs": 21.0,
+        "gaps": 1
+      },
+      "actor_invocation_started": {
+        "wallMs": 16.0,
+        "gaps": 8
+      },
+      "graph_call_closed": {
+        "wallMs": 6.0,
+        "gaps": 13
+      },
+      "c_call_fibre_selected": {
+        "wallMs": 5.0,
+        "gaps": 37
+      },
+      "frame_opened": {
+        "wallMs": 1.0,
+        "gaps": 13
+      },
+      "invocation_admitted": {
+        "wallMs": 0.0,
+        "gaps": 1
+      },
+      "runtime_activity_probe_observed": {
+        "wallMs": 0.0,
+        "gaps": 393
+      },
+      "frame_closed": {
+        "wallMs": 0.0,
+        "gaps": 13
+      },
+      "run_closed": {
+        "wallMs": 0.0,
+        "gaps": 1
+      }
+    },
+    "scope": "Timing groups localize intervals to their next event, not a claim of sampled CPU attribution."
+  }
+}

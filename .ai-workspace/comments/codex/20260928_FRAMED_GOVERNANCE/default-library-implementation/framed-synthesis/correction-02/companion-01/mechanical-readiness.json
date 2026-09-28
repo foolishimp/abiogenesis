@@ -1,0 +1,16 @@
+{
+  "companion": true,
+  "selectionSha256": "sha256:ca439cb9aa144477a6aa1d5956d51a5a2c29c084283e2b028a5b94af74c55dbc",
+  "providerSha256": "sha256:387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d",
+  "inputDigest": "sha256:2e9defa920d152af447be1e4ada42bf3734032ed30a654eb9156b1915237b30b",
+  "callableMembership": [
+    "graph-function://abiogenesis/default-library/testing@5",
+    "graph-function://abiogenesis/default-library/uat@5",
+    "graph-function://abiogenesis/worksite/command-execution@5",
+    "graph-function://abiogenesis/worksite/native-work/assessment@5",
+    "graph-function://abiogenesis/worksite/native-work@5",
+    "graph-function://default-library-witness/executive-step@5",
+    "graph-function://default-library-witness/executive@5"
+  ],
+  "ready": true
+}

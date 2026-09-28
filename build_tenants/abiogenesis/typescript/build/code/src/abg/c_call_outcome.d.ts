@@ -44,6 +44,7 @@ interface CCallOutcomeCommonInput extends CCallAdmissionContext {
     readonly failureValueKind: string;
 }
 interface LeafCCallOutcomeInput extends CCallOutcomeCommonInput {
+    readonly nativeInstructionAssemblyBasis?: import("./execution_basis.js").NativeInstructionAssemblyBasis;
     readonly outcomeClass: "leaf";
     readonly implementationSet: AdmittedImplementationSet;
     readonly resolution: AdmittedImplementationResolutionRow;

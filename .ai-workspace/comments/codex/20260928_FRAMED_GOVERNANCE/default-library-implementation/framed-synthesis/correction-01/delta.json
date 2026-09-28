@@ -1,0 +1,22 @@
+{
+  "code/src/abg/instruction_assembly.ts": {
+    "added": 10,
+    "removed": 6
+  },
+  "code/src/product/default_library.ts": {
+    "added": 3,
+    "removed": 3
+  },
+  "code/src/gtl/stdo_run_environment.ts": {
+    "added": 24,
+    "removed": 20
+  },
+  "test_env/tests/t287-default-library.test.mjs": {
+    "added": 25,
+    "removed": 5
+  },
+  "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": {
+    "added": 5,
+    "removed": 0
+  }
+}

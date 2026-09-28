@@ -15,7 +15,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. [T-287 selected plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry) owns registered selection, native and recursive governance, default graph reuse, installed Hello and the remaining exact release obligations. Deterministic selection, bounded native selection and installed recursive changed choice are accepted; default-library implementation is the current bounded increment. Preserve accepted bounded outcomes and original sources/oracles. Data Mapper is held; LIFE-01, fifteen-family qualification, QUAL056/F11/sole AF22 and RC1 remain open; T288/T289 stay closed. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. [T-287 selected plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry) owns registered selection, native and recursive governance, default graph reuse, installed Hello and the remaining exact release obligations. Deterministic selection, native/recursive choice and the default-library supplied/faulty installed pair are accepted within their evidence limits; complete lifecycle fixture planning is the current bounded increment. Preserve accepted bounded outcomes and original sources/oracles. Data Mapper is held; LIFE-01, fifteen-family qualification, QUAL056/F11/sole AF22 and RC1 remain open; T288/T289 stay closed. |
 
 ## Current Selection
 
@@ -39,9 +39,18 @@ owns the execution plan and acceptance. Deterministic registered selection,
 exact child input, ordinary foldback and fresh Public reads are accepted. Three
 real native choices/gap, the reviewed profile-scope correction and the installed
 changed-choice/recursive-parent composition are accepted within their recorded
-evidence limits. The corrected default-library HOW is accepted; the next bounded
-step implements its capability coverage and preparation/foldback through existing
-native owners, then exercises the independently selected installed Hello witness.
+evidence limits. The owner's problem-to-selected-synthesis clarification is
+accepted as one frame-bound library capability under the existing calculus and
+Event Calculus. T-287 selects implementation of its typed result and declared
+consumption, compact current judgment, admitted foldback provenance and truthful
+supplied-work assessment. S5's reviewed installed pair is accepted: supplied work
+passes Testing/UAT without an author; faulty input produces actual failing Testing,
+revised Construction, passing Testing and independent UAT. Both parents/Runs close
+and fresh Public result/replay agree. The event log preserves each framed mapping,
+reason, explicit choice and actual consequence. Prior failed outcomes remain
+preserved. T-287 now selects the smallest full lifecycle fixture with its own
+consequential revision and existing admitted requirement-proof correspondence.
+Fresh lifecycle authorship, complete S6 and release remain open.
 [T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#default-library-asset-handoff)
 owns consumer asset reuse and retirement tracking. The rejected planner and its
 dedicated tests are removed; valid graph assets and native continuation remain.

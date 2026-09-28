@@ -1,0 +1,39 @@
+{
+  "build": {
+    "cwd": "build_tenants/abiogenesis/typescript",
+    "command": "npm run build",
+    "log": "build-01.log",
+    "exitCode": 0
+  },
+  "focused": {
+    "command": "node --experimental-vm-modules --test --test-name-pattern='framed synthesis|default catalogue|independent consumer|fold and assessment' test_env/tests/t287-default-library.test.mjs",
+    "log": "focused-01.log",
+    "exitCode": 0
+  },
+  "profile": {
+    "command": "node --experimental-vm-modules --test test_env/tests/t287-native-selection-profile-scope.test.mjs",
+    "log": "profile-01.log",
+    "exitCode": 0
+  },
+  "coldReplay": {
+    "cwd": "repository root",
+    "command": "node --experimental-vm-modules .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/correction-01/check-assembly-replay.mjs",
+    "log": "assembly-cold-replay.log",
+    "exitCode": 0,
+    "scope": "Read-only component counterfactual; no authoritative old history rewritten."
+  },
+  "companion": {
+    "command": "node --experimental-vm-modules --test --test-name-pattern='one installed Public' test_env/tests/t287-default-library.test.mjs",
+    "log": "companion-01.log",
+    "environment": {
+      "ABI5_DEFAULT_LIBRARY_LIVE": "1",
+      "ABI5_DEFAULT_LIBRARY_SUPPLIED_VALID": "1",
+      "ABI5_NATIVE_SELECTION_PROVIDER": "registered-selection-native/provider-preflight.json",
+      "ABI5_DEFAULT_LIBRARY_EVIDENCE_ROOT": "correction-01/companion-01",
+      "ABI5_DEFAULT_LIBRARY_VALID_CANDIDATE": "attempt-02/worksite-result/generated/hello-world.mjs",
+      "ABI5_DEFAULT_LIBRARY_CANDIDATE_EVENTS": "attempt-02/events.json"
+    },
+    "firstAttempt": true
+  },
+  "note": "One core build; packing uses --ignore-scripts. Script-generation preparation initially used the tenant cwd with a repository-relative path and failed before writing; corrected path, no second build."
+}

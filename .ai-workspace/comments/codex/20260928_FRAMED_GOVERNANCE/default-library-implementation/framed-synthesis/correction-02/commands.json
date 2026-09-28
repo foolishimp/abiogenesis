@@ -1,0 +1,28 @@
+{
+  "build": [
+    "npm run build (build-01.log: tsc passed, expected source-coordinate guard failed)",
+    "npm run build (build-02.log: passed after authorized metadata refresh)"
+  ],
+  "focused": "node --experimental-vm-modules --test --test-name-pattern='observed command correspondence|observed child|fold and assessment|independent consumer' test_env/tests/t287-default-library.test.mjs",
+  "firstFocusedFailure": "focused-01.log: test-only structuredClone included fixture function; corrected explicit workspace fields, focused-02 passed",
+  "coldRead": "node correction-02/check-cold-read-environment.mjs; current code against unchanged retained failed history, four separate processes",
+  "live": "node --experimental-vm-modules --test --test-name-pattern='one installed Public' test_env/tests/t287-default-library.test.mjs",
+  "companionEnvironment": {
+    "ABI5_DEFAULT_LIBRARY_LIVE": "1",
+    "ABI5_DEFAULT_LIBRARY_SUPPLIED_VALID": "1",
+    "ABI5_NATIVE_SELECTION_PROVIDER": "registered-selection-native/provider-preflight.json",
+    "ABI5_DEFAULT_LIBRARY_VALID_CANDIDATE": "framed-synthesis/attempt-02/worksite-result/generated/hello-world.mjs",
+    "ABI5_DEFAULT_LIBRARY_CANDIDATE_EVENTS": "framed-synthesis/attempt-02/events.json",
+    "ABI5_DEFAULT_LIBRARY_EVIDENCE_ROOT": "correction-02/companion-01"
+  },
+  "pack": "--ignore-scripts, one corrected core archive; no build after freeze",
+  "companionExitCode": 0,
+  "faultyEnvironment": {
+    "ABI5_DEFAULT_LIBRARY_LIVE": "1",
+    "ABI5_NATIVE_SELECTION_PROVIDER": "registered-selection-native/provider-preflight.json",
+    "ABI5_DEFAULT_LIBRARY_EVIDENCE_ROOT": "correction-02/faulty-01",
+    "ABI5_DEFAULT_LIBRARY_FROZEN_ARTIFACT": "correction-02/companion-01/frozen-artifact.json"
+  },
+  "faultyExitCode": 0,
+  "summaryNote": "Post-run summary initially assumed repeated archive-volume accounting exists in the frozen-artifact setup; corrected optional accounting without changing any execution or read receipt."
+}

@@ -1,3 +1,4 @@
+import { GOVERNANCE_IMPLEMENTATION_REFS } from "../product/default_library.js";
 import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
 import { isNativeWorkspaceWorkTask, nativeWorkspaceWorkGraphFunctionRef, NATIVE_WORKSPACE_WORK_IDS as nativeIds, NATIVE_WORKSPACE_WORK_HANDLER_DIGEST } from "../product/native_workspace_work.js";
 import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
@@ -253,7 +254,7 @@ export function evaluateExecutableCCall(input) {
             .map(leaf => nativeContextLeafFamily(input.graphFunction, leaf));
         const selectorRole = resolution.computeRegime === "F_P"
             ? registeredSelectionNativeRole(input.programPublication, input.executionBasis.programRef, input.graphFunction, opened.cCall.programLocusRef) : null;
-        const nativeAssemblyRequired = selectorRole !== null || input.programPublication !== undefined &&
+        const nativeAssemblyRequired = GOVERNANCE_IMPLEMENTATION_REFS.includes(resolution.implementationRef) || selectorRole !== null || input.programPublication !== undefined &&
             (resolution.implementationRef === nativeIds.implementationRef ||
                 runEnvironmentForProgram(input.programPublication, input.program) !== null &&
                     selectedContextFamily.length === 1 && ["constructor", "command_executor"].includes(selectedContextFamily[0] ?? ""));
@@ -341,6 +342,7 @@ export function evaluateExecutableCCall(input) {
             input: input.input,
             inputDigest: input.stop.cursor.inputDigest,
             ownerReceipt: completedOwner,
+            ...(nativeInstructionAssemblyBasis === null ? {} : { nativeInstructionAssemblyBasis }),
             ...(input.programPublication === undefined ? {} : { programPublication: input.programPublication }),
             outputValueKind,
             failureValueKind,

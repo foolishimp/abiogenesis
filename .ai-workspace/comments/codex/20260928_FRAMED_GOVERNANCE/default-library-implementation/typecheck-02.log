@@ -1,0 +1,3 @@
+code/src/gtl/default_library.ts(100,5): error TS2322: Type '["terminal_reached", "frame_closed", "graph_call_closed", ..."run_closed"[]]' is not assignable to type 'readonly ["terminal_reached", "frame_closed", "graph_call_closed", "run_closed"] | readonly ["terminal_reached", "frame_closed", "graph_call_closed"]'.
+  Type '["terminal_reached", "frame_closed", "graph_call_closed", ..."run_closed"[]]' is not assignable to type 'readonly ["terminal_reached", "frame_closed", "graph_call_closed"]'.
+    Target allows only 3 element(s) but source may have more.

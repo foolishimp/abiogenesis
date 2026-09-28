@@ -1,0 +1,14 @@
+✔ independent consumer restricts choices while preserving actual native role and schema owners (26.354542ms)
+(node:68732) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (140.186875ms)
+✔ observed child provenance joins the current preparation and rejects crossed or missing causal facts (38.623917ms)
+✔ observed command correspondence conserves explicit input across empty and different process environments (869.872042ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1356.742792

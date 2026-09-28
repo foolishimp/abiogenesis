@@ -1,0 +1,627 @@
+{
+  "status": "first paid attempt failed; no retry or companion",
+  "publicOutcome": {
+    "outcomeKind": "refusal",
+    "value": {
+      "code": "invalid_intent",
+      "evidenceRefs": [
+        "data:application/json;charset=utf-8,%7B%22cause%22%3A%7B%22message%22%3A%22STDO%20assembly%20lacks%20its%20exact%20environment%20evidence%22%2C%22name%22%3A%22TypeError%22%7D%2C%22code%22%3A%22invalid_history%22%2C%22kind%22%3A%22abg_run_truth_diagnostic%22%2C%22message%22%3A%22ABG%20Run%20truth%20has%20no%20exact%20joined%20terminal%20history%22%2C%22prefixCoordinateDigest%22%3A%22sha256%3A136662f812114b22be71b146eb320eda18fb64d2fdd7a80269b6513b7f450989%22%2C%22schemaVersion%22%3A%225.0.0%22%2C%22stage%22%3A%22run_truth%22%2C%22targetRef%22%3A%22run%3A%2F%2Fabiogenesis%2F18345ba34d6195cd620000a464ef0d20c4a11f2daa3f1470e6015794b70cb0ae%22%7D"
+      ],
+      "issuePaths": [
+        "/run_truth"
+      ]
+    }
+  },
+  "correspondence": [
+    {
+      "assembly": {
+        "ordinal": 53,
+        "eventId": "event://abiogenesis/1c2c5bc2bf0e60a0289ee06933f5029ebaa54658ced7145fc0a72aad7026721d",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "transport-binding://abiogenesis/d36acea688a1dae63acb9acfe79ac5a7a3ab549c3be3de86161be5a103b24e1a"
+      },
+      "synthesis": {
+        "ordinal": 922,
+        "eventId": "event://abiogenesis/baee533f168b0834e679cd8941c192a7d7f07b13d611c675238f7e862513b18d",
+        "resultRef": "result://abiogenesis/69cab5c0774d91eb1890a30bb9d80da95ed017b834ed58c5320108ce64a7df9d",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "c-call:sha256:739d2e0745dc4ab5b4d8867cf1eb4f6ec037f135f4bf3446eef3384410867273"
+      },
+      "boundBasis": {
+        "contextRef": "worksite-context-observation://abiogenesis/6e1e5c25637493ff15c7ae7dcf27dd42d3dbad4fbba72e0e488ae43a1ee014c7",
+        "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+        "environmentRef": "environment://default-library-witness/selected@5",
+        "frameEvidenceDigest": "sha256:dda4ef429072b162310c8255c5d658aac6ccfde0c2514e5d038e8b91f07b2ad6",
+        "frameRefs": [
+          "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+        ],
+        "inputDigest": "sha256:e235254029104de1c617bcad6ba503f166fc31b8108dc9ef21dd6390eaf67221",
+        "inputRef": "result://abiogenesis/507d369dd493e39c21fee81ef47302e9b3226ef39167a9c4202045099b451801",
+        "previousResultRef": null,
+        "taskRef": "task://default-library-witness/original@5"
+      },
+      "contributions": [
+        {
+          "contribution": "Run the two declared commands against the supplied files as they are, with subject null. Command 0 is `node generated/hello-world.mjs` and command 1 is `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`, both from cwd '.'. Keep the actual status, stdout, stderr and pass/fail counts, including any nonzero exit or assertion failure, as evidence under execution-evidence.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/6e1e5c25637493ff15c7ae7dcf27dd42d3dbad4fbba72e0e488ae43a1ee014c7"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+          "reason": "The witness contract requires an actual command observation of the supplied candidate before deciding what to change, and a failure must stay as evidence for a later, different work choice. The selected paths and a complete command plan are available and need no author. The static read suggests stdout will be 'Hello world!\\n' and both tests will fail, but only a real observation can establish that.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        },
+        {
+          "contribution": "If the testing observation confirms the output defect, make the smallest repair to generated/hello-world.mjs so that it writes exactly \"Hello, world!\\n\" and exits 0. Leave the original source, oracle, contract, design/conformance documents, test sources and test plan unchanged.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/testing@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/6e1e5c25637493ff15c7ae7dcf27dd42d3dbad4fbba72e0e488ae43a1ee014c7"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+          "reason": "The contract allows repair only of a materially established defect, and only inside generated/hello-world.mjs. Construction depends on the testing observation to establish that defect. If testing instead shows the candidate conforms, construction is not needed and valid work is kept. The author's own checks do not count as acceptance; the repaired file needs fresh testing evidence.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        },
+        {
+          "contribution": "Independently assess the full original outcome against source/basic-cli.oracle.json. The subject is the exact current candidate plus the current admitted execution Result: direct CLI stdout and status, and the `node --test` result with at least 2 passes and 0 failures. Any unmet or indeterminate criterion must be recorded as such.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/testing@5",
+            "graph-function://abiogenesis/default-library/construction@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/6e1e5c25637493ff15c7ae7dcf27dd42d3dbad4fbba72e0e488ae43a1ee014c7"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "reason": "The oracle requires independent user-outcome assessment based on current evidence, not on a report, file presence or stage count. It depends on testing because it needs a real execution Result. If a repair is made, it also depends on construction, and testing must then be re-run on the repaired bytes so the Result UAT assesses is current. No such Result exists yet, so UAT cannot be selected now.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        }
+      ],
+      "revisionReason": "This is the first Executive judgment in this Run, so no earlier judgment or observation is being revised. It rests on the original task and on the current worksite observation of the supplied files. That observation shows the candidate bytes `console.log(\"Hello world!\");` alongside tests and an oracle that expect \"Hello, world!\\n\".",
+      "revisionEvidenceRefs": [
+        "task://default-library-witness/original@5",
+        "worksite-context-observation://abiogenesis/6e1e5c25637493ff15c7ae7dcf27dd42d3dbad4fbba72e0e488ae43a1ee014c7"
+      ],
+      "choice": {
+        "ordinal": 935,
+        "eventId": "event://abiogenesis/bf83ef8621b71fa80111d070c0e34eda8e64469c46086b9da0aa641293420143",
+        "resultRef": "result://abiogenesis/eb9cd9a10f8369d927b1b9da41309f843b751253eef0e894745704af26ef3e1d",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "c-call:sha256:e31593a31704bf9533199b9bf775ec1a9b5130ef4dd2a17a9fcb08a3de702394"
+      },
+      "choiceReason": "There are no observations yet, and the contract calls for evaluating the supplied candidate before any change. Testing is the one member that can produce that evidence now: the declared plan and selected files are present and no author is required. The reading that the comma is missing is still unconfirmed, so starting with construction would repair a defect that has not been established. Starting with UAT would lack a current execution Result to assess.",
+      "fixedChildResult": {
+        "ordinal": 1163,
+        "eventId": "event://abiogenesis/e5a0dc0e91bb4ec52c88622c33bab2c6e7c3b552e2ded8dadb725ba9b0680d32",
+        "resultRef": "result://abiogenesis/648bb54aa05d48f3d8ca77031c0bd3e2a9636725af681fd005f7e38dbedcb8b2",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "cCallRef": "c-call:sha256:f73a0e9bbcb69f5024d9603a685ba3209d73411aea1b0da5fd1649c19d522dac"
+      },
+      "retainedSourceResult": {
+        "ordinal": 1163,
+        "eventId": "event://abiogenesis/e5a0dc0e91bb4ec52c88622c33bab2c6e7c3b552e2ded8dadb725ba9b0680d32",
+        "resultRef": "result://abiogenesis/648bb54aa05d48f3d8ca77031c0bd3e2a9636725af681fd005f7e38dbedcb8b2",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "cCallRef": "c-call:sha256:f73a0e9bbcb69f5024d9603a685ba3209d73411aea1b0da5fd1649c19d522dac"
+      },
+      "fold": {
+        "ordinal": 1193,
+        "eventId": "event://abiogenesis/43a6affa28eac99223427d28ccdfd04eb5d0b94870a76adefd7675d79710e6c4",
+        "resultRef": "result://abiogenesis/5888e3385426aa7e7e51b82411dd79a94b502557232743207e5c2c9d8b2ac8af",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+        "cCallRef": "c-call:sha256:412b9a293e1764693281f4a521662aeddfc786031443efdd9f33dd5d9ce84152"
+      },
+      "parentReevaluation": {
+        "ordinal": 1234,
+        "eventId": "event://abiogenesis/4a06d1b8876000f41eefd9cfda5243759c07a39dd74f72027af1a06140209bb2",
+        "resultRef": "result://abiogenesis/c76a3c6b377518b10df04fc75342caa590016cd2d6806a0cb2c43ac5263146af",
+        "graphFunctionRef": "graph-function://default-library-witness/executive@5",
+        "cCallRef": "c-call:sha256:26509f8e274fb79fd4b3833de5c0c5b2f2ec584e2092b47f1a41dd1e5d2d420a"
+      },
+      "parentTerminal": false
+    },
+    {
+      "assembly": {
+        "ordinal": 1267,
+        "eventId": "event://abiogenesis/3b664eccf7c02121597a345d84703d6a6b9ab1246d3e899c820e7a59bb0efba1",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "transport-binding://abiogenesis/78e1fa95a0ada195a385fb7efee9bea347e941f5f7b8939a175763c9801fd3a3"
+      },
+      "synthesis": {
+        "ordinal": 2514,
+        "eventId": "event://abiogenesis/1e4ac39fcef329bd4c204f28e8506b12f33fda93722cb444ec576397956a02dc",
+        "resultRef": "result://abiogenesis/49145a3e3676280c1cb37af26a273406950294a1fcea582228dbf5be45e33da1",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "c-call:sha256:f991ffa989d69607e064b86bff069bcf6ca9513ce23751a5e7da498467b73298"
+      },
+      "boundBasis": {
+        "contextRef": "worksite-context-observation://abiogenesis/6e1e5c25637493ff15c7ae7dcf27dd42d3dbad4fbba72e0e488ae43a1ee014c7",
+        "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+        "environmentRef": "environment://default-library-witness/selected@5",
+        "frameEvidenceDigest": "sha256:dda4ef429072b162310c8255c5d658aac6ccfde0c2514e5d038e8b91f07b2ad6",
+        "frameRefs": [
+          "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+        ],
+        "inputDigest": "sha256:6491d8b0a8585b3bea8c5551fa13dfa854640a8bd835645319afcadc7b3c1ffa",
+        "inputRef": "result://abiogenesis/9d86e2511c1dd840662bff11e256ed2de3dab76aa7d73d64b65c684edb83fff2",
+        "previousResultRef": "result://abiogenesis/69cab5c0774d91eb1890a30bb9d80da95ed017b834ed58c5320108ce64a7df9d",
+        "taskRef": "task://default-library-witness/original@5"
+      },
+      "contributions": [
+        {
+          "contribution": "Make the smallest repair to generated/hello-world.mjs so that, run by Node with no arguments, it writes exactly \"Hello, world!\\n\" to stdout and exits 0 (for example, `console.log(\"Hello, world!\");`). Do not install packages, read arguments or change the filesystem. Leave unchanged: the original source, the oracle, the witness contract, the conformance and design documents, both test sources, test-execution-plan.json and any installed policy or schema assets.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/testing@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/6e1e5c25637493ff15c7ae7dcf27dd42d3dbad4fbba72e0e488ae43a1ee014c7",
+            "result://abiogenesis/648bb54aa05d48f3d8ca77031c0bd3e2a9636725af681fd005f7e38dbedcb8b2"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+          "reason": "The current testing Result establishes the defect. Direct CLI stdout was 'Hello world!\\n', not the required 'Hello, world!\\n', and both the component and UAT tests failed with that exact diff. The witness contract allows repair only of a materially established implementation defect, and only in generated/hello-world.mjs. The tests and plan match the oracle, so the defect is in the candidate, not in the verification assets. The construction author's own check does not count as acceptance.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        },
+        {
+          "contribution": "After the repair, run the same two declared commands again on the repaired bytes: `node generated/hello-world.mjs` and `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`, both from cwd '.'. Record the actual status, stdout, stderr and pass/fail counts under execution-evidence, including any failure. The subject is the construction Result that repairs generated/hello-world.mjs.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/construction@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/6e1e5c25637493ff15c7ae7dcf27dd42d3dbad4fbba72e0e488ae43a1ee014c7",
+            "result://abiogenesis/648bb54aa05d48f3d8ca77031c0bd3e2a9636725af681fd005f7e38dbedcb8b2"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+          "reason": "The existing testing Result applies only to the supplied bytes. Once construction changes generated/hello-world.mjs, that Result no longer describes the current candidate. Assurance for the affected thread must be re-run so that UAT has current execution evidence: direct stdout/status, and at least 2 passes with 0 failures.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        },
+        {
+          "contribution": "Independently assess the full original outcome against source/basic-cli.oracle.json and the complete original source. The subject is the exact repaired candidate and the current post-repair testing Result: exact direct CLI stdout 'Hello, world!\\n' with status 0, and `node --test` with at least 2 passes and 0 failures, where both tests run the real CLI. Record any unmet or indeterminate criterion as such.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/construction@5",
+            "graph-function://abiogenesis/default-library/testing@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/6e1e5c25637493ff15c7ae7dcf27dd42d3dbad4fbba72e0e488ae43a1ee014c7",
+            "result://abiogenesis/648bb54aa05d48f3d8ca77031c0bd3e2a9636725af681fd005f7e38dbedcb8b2"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "reason": "The oracle requires independent user-outcome assessment of current execution evidence, not of a report, file presence or stage count. The only execution Result so far shows unmet criteria on the unrepaired candidate. A meaningful acceptance verdict therefore needs the post-repair testing Result, which depends on both construction and re-testing.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        }
+      ],
+      "revisionReason": "The previous judgment (69cab5c0\u2026) chose testing first because the missing-comma defect had only been inferred from a static read. That testing has now run (648bb54a\u2026), and the actual observations confirm the defect: command 0 exited 0 with stdout 'Hello world!\\n', and command 1 exited 1 with 2 failing assertions whose diff is the missing comma. The candidate therefore moves from \"likely defect, no disposition yet\" to an established defect with a local_repair disposition. Construction, which was conditional on this confirmation, is now selected. Re-testing and UAT stay pending until the repaired bytes exist. The previous judgment's other elements are kept: the protected assets, the confined write root and the dependency of UAT on current execution evidence.",
+      "revisionEvidenceRefs": [
+        "result://abiogenesis/69cab5c0774d91eb1890a30bb9d80da95ed017b834ed58c5320108ce64a7df9d",
+        "result://abiogenesis/648bb54aa05d48f3d8ca77031c0bd3e2a9636725af681fd005f7e38dbedcb8b2",
+        "worksite-context-observation://abiogenesis/6e1e5c25637493ff15c7ae7dcf27dd42d3dbad4fbba72e0e488ae43a1ee014c7"
+      ],
+      "choice": {
+        "ordinal": 2527,
+        "eventId": "event://abiogenesis/0b3faef3320fc69d501022e24ba5c41ee2d1f6d2421b9b7180c8762548652131",
+        "resultRef": "result://abiogenesis/318337bacd971d5157d4870d387dec1545bb10314dec07cd02fbfe83dd2065b0",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "c-call:sha256:fcbaebd965fa9b2a67c2d2c133532cfed07e0d4d3c88bdd00984052f688d4c43"
+      },
+      "choiceReason": "Actual execution has now established the defect. Direct stdout was 'Hello world!\\n', and `node --test` exited 1 with pass 0 and fail 2 on the missing comma. The witness contract calls for a change only after this kind of evaluation, and a material failure must feed a different registered work choice. Construction, confined to generated/hello-world.mjs, is that choice. Running testing again on the unchanged bytes would add no new information. UAT on the current Result could only confirm unmet criteria and would not move the outcome forward.",
+      "fixedChildResult": {
+        "ordinal": 2950,
+        "eventId": "event://abiogenesis/5539f928ba97377ee971a9c4337305416059b3676bc8349bf061d96c71c8b8bf",
+        "resultRef": "result://abiogenesis/dae35a130247e5f64abd488266967ee8b0d8be7d29c7e6ed0805c661b4f25dd7",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+        "cCallRef": "c-call:sha256:b4896798c894696bc99ab9c4b701f9f7252b6f762994da4f0ea6046e4ae7a76e"
+      },
+      "retainedSourceResult": {
+        "ordinal": 2950,
+        "eventId": "event://abiogenesis/5539f928ba97377ee971a9c4337305416059b3676bc8349bf061d96c71c8b8bf",
+        "resultRef": "result://abiogenesis/dae35a130247e5f64abd488266967ee8b0d8be7d29c7e6ed0805c661b4f25dd7",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+        "cCallRef": "c-call:sha256:b4896798c894696bc99ab9c4b701f9f7252b6f762994da4f0ea6046e4ae7a76e"
+      },
+      "fold": {
+        "ordinal": 2980,
+        "eventId": "event://abiogenesis/89afd4da0aedd1dd9b163bba2aaee6a379cf4ed7e5b1fe11dbef20f3b4535e34",
+        "resultRef": "result://abiogenesis/08ce4aae816fe3656b9b1a73a5bca1108c81874e0cf7851daf3b67b3eff47db7",
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+        "cCallRef": "c-call:sha256:686692a10f21012282df7dd31a6ad50cace552559126571782d164f4c70de8cb"
+      },
+      "parentReevaluation": {
+        "ordinal": 3021,
+        "eventId": "event://abiogenesis/d81fa39cb1924c9774b9aac9dd9c88dfeffb54584c5e50adc888cc4aea4e326f",
+        "resultRef": "result://abiogenesis/18dfd25809c6421391a708aa692a9e44c2adfcd11860dce6835f69279ebe3631",
+        "graphFunctionRef": "graph-function://default-library-witness/executive@5",
+        "cCallRef": "c-call:sha256:4b49081bc7f89879d6c93946f0ef6f45b96e94b0a28186d3377fc1437ecf55dc"
+      },
+      "parentTerminal": false
+    }
+  ],
+  "failedRaw": {
+    "artifact": {
+      "ordinal": 4455,
+      "eventId": "event://abiogenesis/598ccad08eebb996bfc0a97f2614e83947b5135612082653153fa4e738aed70f",
+      "resultRef": null,
+      "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+      "cCallRef": "actor-invocation://abiogenesis/955fa56a56b7437427eaa283786bdfae0feeccea6daba25a4b88c3ca50183e4a"
+    },
+    "disposition": "failure",
+    "failureClass": "contract_failure",
+    "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+    "contributionMembers": [
+      "graph-function://abiogenesis/default-library/testing@5",
+      "graph-function://abiogenesis/default-library/uat@5"
+    ],
+    "outOfMappingDependencies": [
+      {
+        "member": "graph-function://abiogenesis/default-library/testing@5",
+        "dependency": "graph-function://abiogenesis/default-library/construction@5"
+      },
+      {
+        "member": "graph-function://abiogenesis/default-library/uat@5",
+        "dependency": "graph-function://abiogenesis/default-library/construction@5"
+      }
+    ],
+    "bytes": 7967,
+    "sha256": "7a97cbbe4d57024a7de19047cb20b04770fb3cf4d7a564f832d2dbc2579bb351"
+  },
+  "assemblyReplayOmission": {
+    "missingField": "manifest.runEnvironment.invocationAdmissionRef",
+    "observedBindings": [
+      {
+        "ordinal": 53,
+        "eventId": "event://abiogenesis/1c2c5bc2bf0e60a0289ee06933f5029ebaa54658ced7145fc0a72aad7026721d",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "transport-binding://abiogenesis/d36acea688a1dae63acb9acfe79ac5a7a3ab549c3be3de86161be5a103b24e1a"
+      },
+      {
+        "ordinal": 1267,
+        "eventId": "event://abiogenesis/3b664eccf7c02121597a345d84703d6a6b9ab1246d3e899c820e7a59bb0efba1",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "transport-binding://abiogenesis/78e1fa95a0ada195a385fb7efee9bea347e941f5f7b8939a175763c9801fd3a3"
+      },
+      {
+        "ordinal": 3054,
+        "eventId": "event://abiogenesis/ba55e61fd9562925f1d6b33cbb82f3a65eabbf748a1be8f8f3261c4af2e796cb",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "transport-binding://abiogenesis/db6297809358589d23fab7284b0be99bc385e040d031d6455770b80d08e4a0da"
+      }
+    ]
+  },
+  "observedCommands": [
+    {
+      "result": {
+        "ordinal": 1163,
+        "eventId": "event://abiogenesis/e5a0dc0e91bb4ec52c88622c33bab2c6e7c3b552e2ded8dadb725ba9b0680d32",
+        "resultRef": "result://abiogenesis/648bb54aa05d48f3d8ca77031c0bd3e2a9636725af681fd005f7e38dbedcb8b2",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "cCallRef": "c-call:sha256:f73a0e9bbcb69f5024d9603a685ba3209d73411aea1b0da5fd1649c19d522dac"
+      },
+      "sourceObservedInput": true,
+      "observations": [
+        {
+          "exitStatus": 0,
+          "stdout": "Hello world!\n",
+          "stderr": ""
+        },
+        {
+          "exitStatus": 1,
+          "stdout": "\u2716 CLI process satisfies its output contract (25.002875ms)\n\u2716 a user receives the exact promised greeting (24.999292ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 0\n\u2139 fail 2\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 60.524583\n\n\u2716 failing tests:\n\ntest at test/component/hello-cli.test.mjs:5:1\n\u2716 CLI process satisfies its output contract (25.002875ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'Hello world!\\n'\n  - 'Hello, world!\\n'\n          ^\n  \n      at TestContext.<anonymous> (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Mao3w9/workspace/.ai-workspace/archive/worksite-command-execution/fdf49c1242ec4c74cb6f0ae8b25dc2c3edd3062c64b43befeb70b53c1e2853fb/971a1dcad41680180b4525a406b18b77218eba170984c17db70b3867a42adb71/sandbox/test/component/hello-cli.test.mjs:8:10)\n      at Test.runInAsyncScope (node:async_hooks:214:14)\n      at Test.run (node:internal/test_runner/test:1106:25)\n      at Test.start (node:internal/test_runner/test:1003:17)\n      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'Hello world!\\n',\n    expected: 'Hello, world!\\n',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at test/uat/hello-cli.uat.test.mjs:5:1\n\u2716 a user receives the exact promised greeting (24.999292ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  + actual - expected\n  \n  + 'Hello world!\\n'\n  - 'Hello, world!\\n'\n          ^\n  \n      at TestContext.<anonymous> (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Mao3w9/workspace/.ai-workspace/archive/worksite-command-execution/fdf49c1242ec4c74cb6f0ae8b25dc2c3edd3062c64b43befeb70b53c1e2853fb/971a1dcad41680180b4525a406b18b77218eba170984c17db70b3867a42adb71/sandbox/test/uat/hello-cli.uat.test.mjs:8:10)\n      at Test.runInAsyncScope (node:async_hooks:214:14)\n      at Test.run (node:internal/test_runner/test:1106:25)\n      at Test.start (node:internal/test_runner/test:1003:17)\n      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 'Hello world!\\n',\n    expected: 'Hello, world!\\n',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n",
+          "stderr": ""
+        }
+      ]
+    }
+  ],
+  "nativeWork": [
+    {
+      "result": {
+        "ordinal": 2950,
+        "eventId": "event://abiogenesis/5539f928ba97377ee971a9c4337305416059b3676bc8349bf061d96c71c8b8bf",
+        "resultRef": "result://abiogenesis/dae35a130247e5f64abd488266967ee8b0d8be7d29c7e6ed0805c661b4f25dd7",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+        "cCallRef": "c-call:sha256:b4896798c894696bc99ab9c4b701f9f7252b6f762994da4f0ea6046e4ae7a76e"
+      },
+      "changedPaths": [
+        "generated/hello-world.mjs"
+      ],
+      "report": {
+        "gaps": [
+          "My checks are not admitted execution evidence. The only admitted observations are the earlier failing ones against the defective candidate. A fresh admitted run of the CLI and of the planned node --test command against the repaired file is still needed.",
+          "Wherever the test command is run, it must be launched without an inherited NODE_TEST_CONTEXT. Otherwise Node skips the test files and the exit status is 0 with no tests actually run.",
+          "The original test_execution_plan stage requires a test-execution-result.json recording the observed command. It was not written because it is outside my declared write scope (generated/hello-world.mjs only). No files were written under execution-evidence either, for the same reason.",
+          "An independent user-outcome assessment against the original source, oracle and current admitted evidence has not been done. The parent reevaluation of support://default-library-witness/complete-source-outcome@5 also remains open; both belong to other owners."
+        ],
+        "summary": "Established and repaired one implementation defect in generated/hello-world.mjs, the only file in write scope. Before the edit, the admitted observation and my own run agreed: `node generated/hello-world.mjs` exited 0 but printed \"Hello world!\\n\" (13 bytes, missing the comma). Because of that, `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs` exited 1 with pass 0 and fail 2. I changed the single line from console.log(\"Hello world!\") to console.log(\"Hello, world!\"). I then ran two local checks. (1) The direct CLI exited 0, stderr was empty, and stdout was 14 bytes matching printf 'Hello, world!\\n' byte for byte. (2) My first run of the planned test command used my host's environment, which carries NODE_TEST_CONTEXT=child-v8. Node warned that run() was called recursively, skipped the test files and exited 0, so that run is not valid test evidence. I reran it with that variable removed (env -u NODE_TEST_CONTEXT): both tests passed, output showed tests 2, pass 2, fail 0, and the command exited 0. This meets expectedTestPassCount 2 and expectedStdoutMatch \"fail 0\" in test-execution-plan.json. The original source, oracle, witness contract, conformance and design documents, test sources and test plan were read and left unchanged. These are my own checks, not admitted observations and not independent acceptance."
+      }
+    }
+  ],
+  "protectedSeedBytesUnchanged": {
+    "design/implementation-design.md": true,
+    "design/test-design.md": true,
+    "source/basic-cli.oracle.json": true,
+    "source/original-basic-cli.txt": true,
+    "source/witness-contract.md": true,
+    "specification/project-conformance.md": true,
+    "test/component/hello-cli.test.mjs": true,
+    "test/uat/hello-cli.uat.test.mjs": true,
+    "test-execution-plan.json": true
+  },
+  "actors": [
+    {
+      "actor": 1,
+      "start": {
+        "ordinal": 54,
+        "eventId": "event://abiogenesis/c571c8e1c11852ec87fb301e54bf1e409d16438835b22be08967e8eac9e66ad6",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "actor-invocation://abiogenesis/9ee9b0dcafbf33a8c9049a12124fd83d9d5e320bfb9802ebdfb719399ad470f7"
+      },
+      "end": {
+        "ordinal": 918,
+        "eventId": "event://abiogenesis/7471e25f292c096c37d6be2ed03e981a1a9923a4b4c23b2255caea66a60855a4",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "actor-invocation://abiogenesis/9ee9b0dcafbf33a8c9049a12124fd83d9d5e320bfb9802ebdfb719399ad470f7"
+      },
+      "endKind": "actor_invocation_closed",
+      "wallMs": 37646.0,
+      "promptBytes": 47773,
+      "reportedModels": [
+        "claude-opus-5-5"
+      ]
+    },
+    {
+      "actor": 2,
+      "start": {
+        "ordinal": 986,
+        "eventId": "event://abiogenesis/1f267aa1a22fe1e92e27fcf05d0737a77fbbdf80719f90b92c59d5c60146679e",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "cCallRef": "actor-invocation://abiogenesis/595846b408d0dbbf7277aaf0f00f1a9879450aa5d72bbdef97d7118474414869"
+      },
+      "end": {
+        "ordinal": 1159,
+        "eventId": "event://abiogenesis/263ab5453219f3974d596bad3aed6669f04d530edbcaf3b8832d31012cc46075",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "cCallRef": "actor-invocation://abiogenesis/595846b408d0dbbf7277aaf0f00f1a9879450aa5d72bbdef97d7118474414869"
+      },
+      "endKind": "actor_invocation_closed",
+      "wallMs": 10672.0,
+      "promptBytes": 32959,
+      "reportedModels": [
+        "claude-opus-5-5"
+      ]
+    },
+    {
+      "actor": 3,
+      "start": {
+        "ordinal": 1268,
+        "eventId": "event://abiogenesis/39df8d10585ef3f369c87cb4a4e3d062c5f41cc1146db31737d1eb5fcc24acd9",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "actor-invocation://abiogenesis/0882f6d56465b901141674b60903895cb699cd2ac1a07953482900ed7332328d"
+      },
+      "end": {
+        "ordinal": 2510,
+        "eventId": "event://abiogenesis/a1edfb4b34964b2831bd3756e55d43835a654931f895d026eea6fbf1cfe71676",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "actor-invocation://abiogenesis/0882f6d56465b901141674b60903895cb699cd2ac1a07953482900ed7332328d"
+      },
+      "endKind": "actor_invocation_closed",
+      "wallMs": 37864.0,
+      "promptBytes": 63448,
+      "reportedModels": [
+        "claude-opus-5-5"
+      ]
+    },
+    {
+      "actor": 4,
+      "start": {
+        "ordinal": 2578,
+        "eventId": "event://abiogenesis/3ea83315232f4d3eb2380525f24faa3913caec4d2d20059a90d0161b9534e9e3",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+        "cCallRef": "actor-invocation://abiogenesis/55e14d3949f7df32364c318f55972e889f6a770029242eb49aab828bc511ae61"
+      },
+      "end": {
+        "ordinal": 2946,
+        "eventId": "event://abiogenesis/fe803c0fb57bceab096f7f81b5f264bf2c5df7b27ace128364e299551046d7fa",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+        "cCallRef": "actor-invocation://abiogenesis/55e14d3949f7df32364c318f55972e889f6a770029242eb49aab828bc511ae61"
+      },
+      "endKind": "actor_invocation_closed",
+      "wallMs": 28530.0,
+      "promptBytes": 33272,
+      "reportedModels": [
+        "claude-opus-5-5"
+      ]
+    },
+    {
+      "actor": 5,
+      "start": {
+        "ordinal": 3055,
+        "eventId": "event://abiogenesis/99e348fa07e0eedeeadaa7874afb6e9bafc94e789aeeca51cb6027090c2117e5",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "actor-invocation://abiogenesis/955fa56a56b7437427eaa283786bdfae0feeccea6daba25a4b88c3ca50183e4a"
+      },
+      "end": {
+        "ordinal": 4457,
+        "eventId": "event://abiogenesis/eb2ed5647fa08e2c3f658e6d10b7452475b95614c79048df5b18b4428d164501",
+        "resultRef": null,
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "actor-invocation://abiogenesis/955fa56a56b7437427eaa283786bdfae0feeccea6daba25a4b88c3ca50183e4a"
+      },
+      "endKind": "actor_invocation_failed",
+      "wallMs": 51501.0,
+      "promptBytes": 68592,
+      "reportedModels": [
+        "claude-opus-5-5"
+      ]
+    }
+  ],
+  "timing": {
+    "setupMs": 21503.752417,
+    "executionMs": 180422.763041,
+    "actorMs": 166213.0,
+    "outsideActorMs": 14209.763040999998,
+    "largestOutsideActorEventGaps": [
+      {
+        "wallMs": 936.0,
+        "fromOrdinal": 953,
+        "fromKind": "runtime_activity_probe_observed",
+        "toOrdinal": 954,
+        "toKind": "traversal_cursor_entered"
+      },
+      {
+        "wallMs": 924.0,
+        "fromOrdinal": 2545,
+        "fromKind": "runtime_activity_probe_observed",
+        "toOrdinal": 2546,
+        "toKind": "traversal_cursor_entered"
+      },
+      {
+        "wallMs": 912.0,
+        "fromOrdinal": 980,
+        "fromKind": "runtime_activity_probe_observed",
+        "toOrdinal": 981,
+        "toKind": "traversal_cursor_entered"
+      },
+      {
+        "wallMs": 881.0,
+        "fromOrdinal": 2572,
+        "fromKind": "runtime_activity_probe_observed",
+        "toOrdinal": 2573,
+        "toKind": "traversal_cursor_entered"
+      },
+      {
+        "wallMs": 647.0,
+        "fromOrdinal": 2977,
+        "fromKind": "runtime_activity_probe_observed",
+        "toOrdinal": 2978,
+        "toKind": "c_call_evidenced"
+      },
+      {
+        "wallMs": 632.0,
+        "fromOrdinal": 1190,
+        "fromKind": "runtime_activity_probe_observed",
+        "toOrdinal": 1191,
+        "toKind": "c_call_evidenced"
+      },
+      {
+        "wallMs": 629.0,
+        "fromOrdinal": 984,
+        "fromKind": "runtime_activity_probe_observed",
+        "toOrdinal": 985,
+        "toKind": "actor_transport_binding_admitted"
+      },
+      {
+        "wallMs": 589.0,
+        "fromOrdinal": 2576,
+        "fromKind": "runtime_activity_probe_observed",
+        "toOrdinal": 2577,
+        "toKind": "actor_transport_binding_admitted"
+      },
+      {
+        "wallMs": 574.0,
+        "fromOrdinal": 959,
+        "fromKind": "runtime_activity_probe_observed",
+        "toOrdinal": 960,
+        "toKind": "c_call_evidenced"
+      },
+      {
+        "wallMs": 563.0,
+        "fromOrdinal": 2551,
+        "fromKind": "runtime_activity_probe_observed",
+        "toOrdinal": 2552,
+        "toKind": "c_call_evidenced"
+      },
+      {
+        "wallMs": 221.0,
+        "fromOrdinal": 2524,
+        "fromKind": "runtime_activity_probe_observed",
+        "toOrdinal": 2525,
+        "toKind": "c_call_evidenced"
+      },
+      {
+        "wallMs": 188.0,
+        "fromOrdinal": 932,
+        "fromKind": "runtime_activity_probe_observed",
+        "toOrdinal": 933,
+        "toKind": "c_call_evidenced"
+      }
+    ]
+  },
+  "volumes": {
+    "publicRequestBytes": 17451284,
+    "readinessBytes": 16683190,
+    "promptBytes": [
+      47773,
+      32959,
+      63448,
+      33272,
+      68592
+    ],
+    "eventCount": 4464,
+    "eventLogBytes": 19880950,
+    "eventKinds": {
+      "public_operation_admitted": 1,
+      "invocation_admitted": 1,
+      "implementation_admitted": 1,
+      "basis_admitted": 8,
+      "run_segment_opened": 1,
+      "graph_call_opened": 8,
+      "frame_opened": 8,
+      "runtime_activity_probe_observed": 2251,
+      "traversal_cursor_entered": 8,
+      "c_call_opened": 21,
+      "c_call_fibre_selected": 21,
+      "c_call_evidenced": 21,
+      "c_call_result_admitted": 21,
+      "c_call_judged": 21,
+      "traversal_route_admitted": 20,
+      "actor_transport_binding_admitted": 5,
+      "actor_invocation_started": 5,
+      "actor_process_started": 5,
+      "actor_process_stdout_observed": 1997,
+      "actor_process_exited": 5,
+      "actor_result_artifact_observed": 5,
+      "actor_invocation_closed": 4,
+      "terminal_reached": 6,
+      "frame_closed": 6,
+      "graph_call_closed": 6,
+      "child_foldback_admitted": 6,
+      "actor_invocation_failed": 1,
+      "runtime_failure_observed": 1
+    },
+    "setup": {
+      "archiveBytes": 10312726,
+      "archiveUnpackedBytes": 67481876,
+      "archiveMemberCount": 5252,
+      "installedTreeBytes": null
+    }
+  }
+}

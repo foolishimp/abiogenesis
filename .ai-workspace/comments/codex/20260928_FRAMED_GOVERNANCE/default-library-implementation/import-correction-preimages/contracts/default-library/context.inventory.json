@@ -1,0 +1,1 @@
+{"kind":"run_environment_member_inventory","members":[{"digest":"sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180","path":"contracts/default-library/policy.txt","target":null,"type":"file"}],"schemaVersion":"5.0.0"}

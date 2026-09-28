@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ 'traversal-cursor://abiogenesis/f722b10df35f03e9250dc7925b773cc03d1f18599dedb18b1f61bd28d26610ee'
+- 'traversal-cursor://abiogenesis/ecc3077a0a5e85ee514e668693b426dbda5a44645f5092db942fce741159d15b'
+
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/diagnose-attempt-04.mjs:19:9 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: 'traversal-cursor://abiogenesis/f722b10df35f03e9250dc7925b773cc03d1f18599dedb18b1f61bd28d26610ee',
+  expected: 'traversal-cursor://abiogenesis/ecc3077a0a5e85ee514e668693b426dbda5a44645f5092db942fce741159d15b',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.7.0

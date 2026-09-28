@@ -1,0 +1,36 @@
+{
+  "preparationEvent": "event://abiogenesis/30256d0145da3a792a50c2a7940207ce53e9674115bebd8788777491395bcfdc",
+  "ordinal": 744,
+  "originalDeclaredEnvironments": [
+    {},
+    {}
+  ],
+  "admittedEnvironmentNames": [
+    [
+      "HOME",
+      "LANG",
+      "LC_ALL",
+      "PATH",
+      "TMPDIR"
+    ],
+    [
+      "HOME",
+      "LANG",
+      "LC_ALL",
+      "PATH",
+      "TMPDIR"
+    ]
+  ],
+  "ownerCall": "abg/default_library.ts observedGovernanceTaskMatches -> constructObservedWorksiteCommandExecutionTask -> environmentEntries",
+  "environmentExpansionSource": "code/src/product/worksite_command_execution.ts:852-884",
+  "ambientInputs": [
+    "HOME",
+    "TMPDIR",
+    "LANG",
+    "LC_ALL",
+    "PATH"
+  ],
+  "preservedNativeTaskEnvironment": true,
+  "diagnosis": "Reconstruction reselects ambient defaults from raw original command objects rather than reusing the already-admitted normalized environments. This changes a reconstructed input under fresh read env={}.",
+  "prospectiveSmallestRelation": "Separate actual preparation acquisition from replay correspondence. Consume the admitted normalized command environment at provenance/replay while preserving exact original explicit command/environment constraints; do not supply inherited host env merely to hide drift."
+}

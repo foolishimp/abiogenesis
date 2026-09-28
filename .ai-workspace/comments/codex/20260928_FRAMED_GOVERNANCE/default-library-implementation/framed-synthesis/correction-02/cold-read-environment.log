@@ -1,0 +1,50 @@
+[
+  {
+    "name": "repo-inherited",
+    "cwd": "/Users/jim/src/apps/abiogenesis",
+    "truth": {
+      "kind": "abg_run_truth_projection",
+      "runtimeStatus": "failed"
+    },
+    "prepared": {
+      "ref": "run://abiogenesis/f2b9a018fb965443e7418cfb6350aed3906536a12b66563bdc57bdba0d9ca813",
+      "digest": "sha256:a64e0119c21f690076e73656a4dd736cb3f635b17e38e43a50a45f31b0cf4434"
+    }
+  },
+  {
+    "name": "scratch-inherited",
+    "cwd": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-gehEGi",
+    "truth": {
+      "kind": "abg_run_truth_projection",
+      "runtimeStatus": "failed"
+    },
+    "prepared": {
+      "ref": "run://abiogenesis/f2b9a018fb965443e7418cfb6350aed3906536a12b66563bdc57bdba0d9ca813",
+      "digest": "sha256:a64e0119c21f690076e73656a4dd736cb3f635b17e38e43a50a45f31b0cf4434"
+    }
+  },
+  {
+    "name": "scratch-empty",
+    "cwd": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-gehEGi",
+    "truth": {
+      "kind": "abg_run_truth_projection",
+      "runtimeStatus": "failed"
+    },
+    "prepared": {
+      "ref": "run://abiogenesis/f2b9a018fb965443e7418cfb6350aed3906536a12b66563bdc57bdba0d9ca813",
+      "digest": "sha256:a64e0119c21f690076e73656a4dd736cb3f635b17e38e43a50a45f31b0cf4434"
+    }
+  },
+  {
+    "name": "scratch-different",
+    "cwd": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-gehEGi",
+    "truth": {
+      "kind": "abg_run_truth_projection",
+      "runtimeStatus": "failed"
+    },
+    "prepared": {
+      "ref": "run://abiogenesis/f2b9a018fb965443e7418cfb6350aed3906536a12b66563bdc57bdba0d9ca813",
+      "digest": "sha256:a64e0119c21f690076e73656a4dd736cb3f635b17e38e43a50a45f31b0cf4434"
+    }
+  }
+]

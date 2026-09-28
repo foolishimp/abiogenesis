@@ -1,0 +1,37 @@
+✔ default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation (10.255583ms)
+✔ independent consumer restricts choices while preserving actual native role and schema owners (22.133125ms)
+✔ consumer-authored source and scope remain exact application data; no solution is in library (1.410708ms)
+(node:21961) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ observed child provenance joins the current preparation and rejects crossed or missing causal facts (67.729625ms)
+﹣ one installed Public default-library invocation reuses observed files, corrects actual work and independently closes (0.414542ms) # SKIP
+✔ observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol (21.192583ms)
+✔ observed C2 refuses foreign, absent, duplicate, mixed and writable source claims (5.041125ms)
+(node:21962) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ observed root source gate binds actual input and refuses stale, crossed and child authority (58.126375ms)
+✔ later admitted failed native residue invalidates observed inputs without requiring physical mismatch (31.93525ms)
+✔ changed physical observed source refuses before archive creation or command dispatch (4.059167ms)
+✔ observed C2 result, native acknowledgment and closure bind the same task without turning red execution green (17.948375ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 397.744792
+
+✖ failing tests:
+
+test at test_env/tests/t287-default-library.test.mjs:64:1
+✖ observed child provenance joins the current preparation and rejects crossed or missing causal facts (67.729625ms)
+  TypeError [Error]: runtime event payload matches no admitted event-contract variant
+      at assertRuntimeEventContract (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:1624:15)
+      at projectRuntimeEventAtContract (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:1331:5)
+      at admitRuntimeEventInternal (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:2573:36)
+      at Module.admitRuntimeEvent (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:2546:12)
+      at append (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:77:74)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:86:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

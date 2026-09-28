@@ -1,0 +1,15 @@
+{
+  "companion": false,
+  "choiceRefs": [
+    "graph-function://abiogenesis/default-library/testing@5",
+    "graph-function://abiogenesis/default-library/construction@5",
+    "graph-function://abiogenesis/default-library/testing@5",
+    "graph-function://abiogenesis/default-library/uat@5"
+  ],
+  "commandResultRefs": [
+    "result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7",
+    "result://abiogenesis/c4a857ca096ef8aba07b71b3231f3b102d0e9c378726b435a8c6e5b5f9a3c5b5"
+  ],
+  "assessmentRef": "result://abiogenesis/028dfe2d4e6e4fe332c00cb04be5ea09be916e7cd6945759b7659264bad1d6d4",
+  "parentRef": "result://abiogenesis/abdd2cc15c1587c3c1c7ecd365e7f7702774f8d63beb555b2fb1d5528e6171e9"
+}

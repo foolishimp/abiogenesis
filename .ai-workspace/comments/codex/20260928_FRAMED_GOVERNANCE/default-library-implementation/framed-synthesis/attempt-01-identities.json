@@ -1,0 +1,118 @@
+{
+  "attempt-01/archive.json": {
+    "sha256": "3995125a33bf4559b67e827d5588fa7adbdd76dd6e09c5d09ff7246c46adabaf",
+    "bytes": 734
+  },
+  "attempt-01/consumer.tgz": {
+    "sha256": "7f49e126e3977347b91f4fc8315fc5d83d9a1b650113c74c0013dad2de476073",
+    "bytes": 11298
+  },
+  "attempt-01/context-readiness.json": {
+    "sha256": "5644790dbdd3547a49b7ba7ab01246f663750c969f780b5efa158bbda71a973a",
+    "bytes": 18384
+  },
+  "attempt-01/core.tgz": {
+    "sha256": "557fa10ec9a7b5d81548e268aee715b911b1ef9e49d0d0ccd211a0fde3601f40",
+    "bytes": 10312739
+  },
+  "attempt-01/events.json": {
+    "sha256": "2541b8d32c317623614c8ac214436e257cc12d453bcae0b55e3a01d565142494",
+    "bytes": 2106995
+  },
+  "attempt-01/events.jsonl": {
+    "sha256": "6b10ec191915038e3865725d79f5d3dc0cf484659dbe11ade8dc8a7030dfd88a",
+    "bytes": 4451051
+  },
+  "attempt-01/execution.json": {
+    "sha256": "497484a53b2230e5a6da33d9c9b2a96cf1025854db65bc2206147892b27f5ab1",
+    "bytes": 19421
+  },
+  "attempt-01/frozen-artifact.json": {
+    "sha256": "ed759c6764319067e2e0d466b8c3a90db69a4095f21f0818cabd7078c36ea80d",
+    "bytes": 431
+  },
+  "attempt-01/handoff.json": {
+    "sha256": "652bc8ac38b7b2ead23ddf6f59a507f5d477b254d2c2789de822dc245eb6b660",
+    "bytes": 1230
+  },
+  "attempt-01/imported-contract-owners.json": {
+    "sha256": "9a9cbb3876c1f10c4fd3c850e9f120162b0b94c085924a117e6abfde01ec0e12",
+    "bytes": 3237
+  },
+  "attempt-01/input.json": {
+    "sha256": "d0eb02c822074254280643556d992e543be70eaaeebd2729ee1bcb5ef56611e1",
+    "bytes": 18960
+  },
+  "attempt-01/mechanical-readiness.json": {
+    "sha256": "02e5d862a44c4f11cc9de7cc27bfdd8d53a1f304b1f3bdcd9b427772119ef341",
+    "bytes": 861
+  },
+  "attempt-01/provider.json": {
+    "sha256": "729a4a7fa0c5934e0bad263cf72c8ee7dd6367f4dffab49e6eb48020dbbefa6b",
+    "bytes": 560
+  },
+  "attempt-01/publication.json": {
+    "sha256": "ae2c582d89a448b77dfa3fc2cd1147549c2212056ee9f66d39f985cee35a1e80",
+    "bytes": 59444
+  },
+  "attempt-01/run-environment.json": {
+    "sha256": "abe27e05b8a7dbc5be5c8051640f612895f8f4eee8e997966bfd21f67be1b197",
+    "bytes": 35816
+  },
+  "attempt-01/seed-copy.json": {
+    "sha256": "adcca8eb32f669df92f4a2990a8db9ccc3e349047bb1bdc75a8ede2d735fd9e3",
+    "bytes": 1556
+  },
+  "attempt-01/selection.json": {
+    "sha256": "ca439cb9aa144477a6aa1d5956d51a5a2c29c084283e2b028a5b94af74c55dbc",
+    "bytes": 5835
+  },
+  "attempt-01/setup.json": {
+    "sha256": "e0a07d3a0303188322e7a0789863c40a64369445ba17aad937f1fecf0eda27d2",
+    "bytes": 1573
+  },
+  "attempt-01/timing.json": {
+    "sha256": "5186f32733aa11f2828e0388003656da1e8faf798fbfcaa2dcb39976a989d692",
+    "bytes": 980
+  },
+  "attempt-01/worksite-result/design/implementation-design.md": {
+    "sha256": "b96765496fe0c3888365ba72780af33824fa7f34acdb042af45df4d120ba0145",
+    "bytes": 639
+  },
+  "attempt-01/worksite-result/design/test-design.md": {
+    "sha256": "617dd54841f7128842616ce42a3befb15b30cd454215894c067980e5ede43406",
+    "bytes": 684
+  },
+  "attempt-01/worksite-result/generated/hello-world.mjs": {
+    "sha256": "647697a5fb5d141a2b1163363170a7a845b61a36096ff52f7a369f1736cd4993",
+    "bytes": 29
+  },
+  "attempt-01/worksite-result/source/basic-cli.oracle.json": {
+    "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+    "bytes": 1112
+  },
+  "attempt-01/worksite-result/source/original-basic-cli.txt": {
+    "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+    "bytes": 4325
+  },
+  "attempt-01/worksite-result/source/witness-contract.md": {
+    "sha256": "29e669318aa0c9dc2fceca23f8caf22b01e475cd3f918070f980c70ac00355b3",
+    "bytes": 1674
+  },
+  "attempt-01/worksite-result/specification/project-conformance.md": {
+    "sha256": "9aaa62cadeaa74520e5e45542e699c9a97e55bf4b475b2de7f7347b3fb4cee81",
+    "bytes": 751
+  },
+  "attempt-01/worksite-result/test/component/hello-cli.test.mjs": {
+    "sha256": "8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613",
+    "bytes": 369
+  },
+  "attempt-01/worksite-result/test/uat/hello-cli.uat.test.mjs": {
+    "sha256": "5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4",
+    "bytes": 371
+  },
+  "attempt-01/worksite-result/test-execution-plan.json": {
+    "sha256": "e3250aae29261ebf20fc942aa31ddce5d152b14d4e9c6262e4eab820be34a350",
+    "bytes": 268
+  }
+}

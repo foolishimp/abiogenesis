@@ -1,0 +1,39 @@
+[
+  {
+    "name": "repo-inherited",
+    "cwd": "/Users/jim/src/apps/abiogenesis",
+    "truth": {
+      "kind": "abg_run_truth_projection",
+      "runtimeStatus": "failed"
+    },
+    "prepared": {
+      "ref": "run://abiogenesis/f2b9a018fb965443e7418cfb6350aed3906536a12b66563bdc57bdba0d9ca813",
+      "digest": "sha256:a64e0119c21f690076e73656a4dd736cb3f635b17e38e43a50a45f31b0cf4434"
+    }
+  },
+  {
+    "name": "scratch-inherited",
+    "cwd": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-gehEGi",
+    "truth": {
+      "kind": "abg_run_truth_projection",
+      "runtimeStatus": "failed"
+    },
+    "prepared": {
+      "ref": "run://abiogenesis/f2b9a018fb965443e7418cfb6350aed3906536a12b66563bdc57bdba0d9ca813",
+      "digest": "sha256:a64e0119c21f690076e73656a4dd736cb3f635b17e38e43a50a45f31b0cf4434"
+    }
+  },
+  {
+    "name": "scratch-empty",
+    "cwd": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-gehEGi",
+    "truth": {
+      "kind": "abg_run_truth_refusal",
+      "schemaVersion": "5.0.0",
+      "code": "invalid_history",
+      "targetRef": "run://abiogenesis/f2b9a018fb965443e7418cfb6350aed3906536a12b66563bdc57bdba0d9ca813",
+      "message": "ABG Run truth has no exact joined terminal history",
+      "diagnosticRef": "data:application/json;charset=utf-8,%7B%22cause%22%3A%7B%22message%22%3A%22observed%20C2%20child%20preparation%20does%20not%20reproduce%20at%20admission%20cut%22%2C%22name%22%3A%22TypeError%22%7D%2C%22code%22%3A%22invalid_history%22%2C%22kind%22%3A%22abg_run_truth_diagnostic%22%2C%22message%22%3A%22ABG%20Run%20truth%20has%20no%20exact%20joined%20terminal%20history%22%2C%22prefixCoordinateDigest%22%3A%22sha256%3A6bcb64cd92156ae8e6e6d5a2356c79ce7926fc1c2569d3ac90d924da05b19979%22%2C%22schemaVersion%22%3A%225.0.0%22%2C%22stage%22%3A%22run_truth%22%2C%22targetRef%22%3A%22run%3A%2F%2Fabiogenesis%2Ff2b9a018fb965443e7418cfb6350aed3906536a12b66563bdc57bdba0d9ca813%22%7D"
+    },
+    "prepared": null
+  }
+]

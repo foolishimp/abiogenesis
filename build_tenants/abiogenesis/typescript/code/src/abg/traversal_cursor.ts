@@ -230,12 +230,14 @@ export function hasAdmittedTraversalCursorAtPrefix(
   return traversalCursorAdmissionEventRefAtPrefix(prefix, cursor) !== null;
 }
 
-interface TraversalInputOrigin {
+export interface TraversalInputOrigin {
   readonly inputRef: string;
   readonly inputDigest: Sha256Digest;
   readonly value: JsonValue;
   readonly event: RuntimeEvent | null;
   readonly retained?: true;
+  /** Existing route proof retained in process; never a serialized input field. */
+  readonly retainedProjection?: NonNullable<ReturnType<typeof projectRetainedWorksiteInputAtPrefix>>;
 }
 
 /** Select the admitted origin by reference through the existing prefix index.
@@ -294,6 +296,7 @@ export function projectTraversalInputAtPrefix(prefix: ValidatedRuntimeEventPrefi
       const retained = projectRetainedWorksiteInputAtPrefix(prefix, event);
       if (retained === null || retained.entryBasis.basisRef !== execution.basisRef ||
         retained.input.admissionRef !== cursor.inputRef || retained.input.subjectDigest !== cursor.inputDigest) return null;
+      return { ...origin, retainedProjection: retained };
     }
     return origin;
   }

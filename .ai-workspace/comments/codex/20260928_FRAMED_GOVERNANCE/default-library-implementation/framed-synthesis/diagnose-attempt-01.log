@@ -1,0 +1,8 @@
+file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/diagnose-attempt-01.mjs:17
+const origin=events.find(e=>e.kind==='traversal_cursor_entered'&&e.payload.cursorRef===opened.payload.cursorRef),p=origin.payload;
+                                                                                                                          ^
+
+TypeError: Cannot read properties of undefined (reading 'payload')
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/diagnose-attempt-01.mjs:17:123
+
+Node.js v24.7.0

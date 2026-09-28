@@ -28,6 +28,7 @@ export declare function authenticateSemanticJobBasis(basis: SemanticStageNativeB
     inputRef: string;
     inputDigest: `sha256:${string}`;
     inputValue: JsonValue;
+    inputOrigin: import("./traversal_cursor.js").TraversalInputOrigin;
 } | null;
 export declare function semanticJobInputMatchesBasis(basis: SemanticStageNativeBasis, input: unknown): input is SemanticJobEnvelope;
 export declare function projectSemanticJobIntake(basis: SemanticStageNativeBasis, input: unknown): Readonly<SemanticJobEnvelope> | null;

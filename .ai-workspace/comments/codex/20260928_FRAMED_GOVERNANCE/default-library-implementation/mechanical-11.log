@@ -1,0 +1,41 @@
+✔ default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation (10.685333ms)
+✔ independent consumer restricts choices while preserving actual native role and schema owners (22.925292ms)
+✔ retention and execution share root, imported and exact external semantics owner selection (8.834958ms)
+✖ declared wrapper judgments advance actual observations, including red C2, without satisfying parent state (10.539167ms)
+✔ default role content is the selected STDO source with capability instructions separate (1.039625ms)
+(node:42330) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ selector assembly and raw-result correspondence consume imported owner contracts and refuse missing owners (6.11125ms)
+✔ consumer-authored source and scope remain exact application data; no solution is in library (1.075375ms)
+✔ observed child provenance joins the current preparation and rejects crossed or missing causal facts (59.703375ms)
+﹣ one installed Public default-library invocation reuses observed files, corrects actual work and independently closes (0.06125ms) # SKIP
+✔ generic registered F_P keeps its own task/raw contract when the profile is unselected (1.148083ms)
+✔ selected exact role requires runtime correspondence and cannot fall back on another input shape (0.721416ms)
+✔ missing or misbound selected environment refuses at preparation and result guard (1.067791ms)
+✔ an unrelated locus remains outside this profile even with choice-shaped data (0.145292ms)
+✔ observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol (20.667166ms)
+✔ observed C2 refuses foreign, absent, duplicate, mixed and writable source claims (6.747041ms)
+(node:42332) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ observed root source gate binds actual input and refuses stale, crossed and child authority (46.442958ms)
+✔ later admitted failed native residue invalidates observed inputs without requiring physical mismatch (31.848292ms)
+✔ changed physical observed source refuses before archive creation or command dispatch (4.317375ms)
+✔ observed C2 result, native acknowledgment and closure bind the same task without turning red execution green (19.405084ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 17
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 406.80275
+
+✖ failing tests:
+
+test at test_env/tests/t287-default-library.test.mjs:78:1
+✖ declared wrapper judgments advance actual observations, including red C2, without satisfying parent state (10.539167ms)
+  TypeError [Error]: native workspace task requires one bound worksite, context and declared scope
+      at Module.constructNativeWorkspaceWorkTask (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/native_workspace_work.js:40:15)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:85:22)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

@@ -1,0 +1,26 @@
+{
+  "prefix": {
+    "coordinateDigest": "sha256:6bcb64cd92156ae8e6e6d5a2356c79ce7926fc1c2569d3ac90d924da05b19979",
+    "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-gehEGi/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:926aeed65a30cee6e22c9bc7026bebb2e3f64de2bd2a25f3110623d0a6aa3d00",
+    "prefixLength": 12531099,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+      "inode": 462796116
+    }
+  },
+  "reopenAuthority": {
+    "authorityDigest": "sha256:fce53befdfab16550c97b451aeb34f88424ed22c20b742a5457cb47c820840cd",
+    "device": 16777230,
+    "durableByteLength": 12531099,
+    "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+    "eventLogDigest": "sha256:926aeed65a30cee6e22c9bc7026bebb2e3f64de2bd2a25f3110623d0a6aa3d00",
+    "eventLogPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-gehEGi/runtime/events.jsonl",
+    "inode": 462796116,
+    "kind": "event_store_reopen_authority",
+    "schemaVersion": "5.0.0"
+  }
+}

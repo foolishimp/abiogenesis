@@ -386,7 +386,7 @@ function outputDigest(output) {
  * the assembly, but cannot supply or replace the value retained by this owner.
  * Only the existing immutable native basis permits reuse; raw/copy callers
  * retain the standalone cold dispatch authentication path. */
-export function prepareActorProcessInvocation(value, occurrence) {
+export function prepareActorProcessInvocation(value, occurrence, contractByRef) {
     const { semanticStageBasis, nativeInstructionAssemblyBasis } = occurrence;
     const coordinates = { cCallRef: occurrence.cCallRef, runId: occurrence.runId,
         graphCallId: occurrence.graphCallId, frameId: occurrence.frameId,
@@ -403,7 +403,7 @@ export function prepareActorProcessInvocation(value, occurrence) {
             assembly = semanticStageBasis !== undefined
                 ? requireNativeInstructionAssembly(semanticStageBasis, value)
                 : nativeInstructionAssemblyBasis !== undefined
-                    ? requireDeclaredNativeInstructionAssembly(nativeInstructionAssemblyBasis, value)
+                    ? requireDeclaredNativeInstructionAssembly(nativeInstructionAssemblyBasis, value, contractByRef)
                     : null;
             if (assembly === null)
                 throw new TypeError("native assembly preparation requires its admitted basis");
@@ -421,7 +421,7 @@ export function prepareActorProcessInvocation(value, occurrence) {
                     input.cCall.cCallDigest !== basis.cCall.cCallDigest)) ||
                 Object.keys(coordinates).some(key => input.occurrence[key] !== coordinates[key]))
                 return refuseActorProcessEffect("actor_process_invocation_refused", "prepared native assembly crosses actor coordinates", input.predecessorPrefix, input.predecessorPrefix);
-            return invokeActorProcessWithAssembly(input, ownedBasis ? assembly : undefined);
+            return invokeActorProcessWithAssembly(input, ownedBasis ? assembly : undefined, contractByRef);
         },
     });
 }
@@ -429,7 +429,7 @@ export function prepareActorProcessInvocation(value, occurrence) {
 export async function invokeActorProcess(input) {
     return invokeActorProcessWithAssembly(input);
 }
-async function invokeActorProcessWithAssembly(input, preparedAssembly) {
+async function invokeActorProcessWithAssembly(input, preparedAssembly, contractByRef) {
     const predecessorPrefix = input.predecessorPrefix;
     let successorPrefix = predecessorPrefix;
     try {
@@ -466,7 +466,7 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly) {
         const instructionAssembly = preparedAssembly ?? (semanticCall && semanticBasis !== undefined
             ? constructNativeInstructionAssembly(semanticBasis, semanticInputValueAtBasis(semanticBasis))
             : worksiteBasis !== undefined && worksiteOwner !== null
-                ? constructDeclaredNativeInstructionAssembly(worksiteBasis, worksiteOwner.inputValue) : null);
+                ? constructDeclaredNativeInstructionAssembly(worksiteBasis, worksiteOwner.inputValue, contractByRef) : null);
         const invocation = rehydrateInvocationAdmissionAtPrefix(selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix)), input.executionBasis.invocationAdmissionRef);
         const assemblyRequired = semanticCall || invocation?.runEnvironment !== undefined || worksiteBasis !== undefined;
         if (worksiteOwner !== null && (worksiteOwner.call.cCallRef !== input.cCall.cCallRef ||

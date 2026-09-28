@@ -33,6 +33,7 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
         inputRef: string;
         inputDigest: `sha256:${string}`;
         inputValue: JsonValue;
+        inputOrigin: import("./traversal_cursor.js").TraversalInputOrigin;
     };
     request: SemanticRevisionRequest | SemanticRevisionSelectionInput;
     parent: import("./c_call.js").RehydratedAdmittedCCallState;
@@ -75,6 +76,7 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
         inputRef: string;
         inputDigest: `sha256:${string}`;
         inputValue: JsonValue;
+        inputOrigin: import("./traversal_cursor.js").TraversalInputOrigin;
     };
     request: SemanticRevisionRequest | SemanticRevisionSelectionInput;
     parent: import("./c_call.js").RehydratedAdmittedCCallState;

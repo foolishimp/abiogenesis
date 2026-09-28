@@ -1,0 +1,58 @@
+{
+  "calls": [
+    {
+      "callRef": "c-call:sha256:3a2a874d40fffdc1423b5428a436c11af7b1e50b0a421348d08a17a14bf593c4",
+      "implementationRef": "implementation://abiogenesis/default-library/evaluate-parent@5",
+      "actualAssemblyBasis": true,
+      "projectedNull": false,
+      "resultGuard": true
+    },
+    {
+      "callRef": "c-call:sha256:b39fbf6505609c42048381cbfd807b249ce91fbabe3b47c1bb3232738501f152",
+      "implementationRef": "implementation://abiogenesis/default-library/prepare-selection@5",
+      "actualAssemblyBasis": true,
+      "projectedNull": true,
+      "resultGuard": null,
+      "workspaceRoots": {
+        "archiveRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Cqqryy/workspace/.ai-workspace/archive",
+        "eventLogRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Cqqryy/workspace/.ai-workspace/events",
+        "productRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Cqqryy/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection",
+        "projectionRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Cqqryy/workspace/.ai-workspace/projections",
+        "runtimeStateRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Cqqryy/workspace/.ai-workspace/runtime",
+        "toolchainRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Cqqryy/consumer"
+      },
+      "currentReadRoots": [
+        "."
+      ],
+      "actualContext": {
+        "kind": "worksite_effect_refusal",
+        "schemaVersion": "5.0.0",
+        "disposition": "refused",
+        "code": "subject_outside_territory",
+        "message": "worksite path escapes A or enters a protected install/runtime root",
+        "lastObservation": null,
+        "substrateCode": null
+      },
+      "prospectiveReadRoots": [
+        "design/implementation-design.md",
+        "design/test-design.md",
+        "generated/hello-world.mjs",
+        "source/basic-cli.oracle.json",
+        "source/original-basic-cli.txt",
+        "source/witness-contract.md",
+        "specification/project-conformance.md",
+        "test-execution-plan.json",
+        "test/component/hello-cli.test.mjs",
+        "test/uat/hello-cli.uat.test.mjs"
+      ],
+      "prospectiveContext": {
+        "kind": "worksite_context_observation",
+        "observationRef": "worksite-context-observation://abiogenesis/2bd4c235dc30643939031d926289bca7dd92eb37e9981c96a9235d435c5109ee",
+        "entryCount": 10,
+        "fileBytes": 10222,
+        "allOriginalSources": true
+      }
+    }
+  ],
+  "providerCalls": 0
+}

@@ -1,0 +1,8 @@
+{
+  "kind": "abg_run_truth_projection",
+  "runtimeStatus": "failed",
+  "run": {
+    "ref": "run://abiogenesis/f2b9a018fb965443e7418cfb6350aed3906536a12b66563bdc57bdba0d9ca813",
+    "digest": "sha256:a64e0119c21f690076e73656a4dd736cb3f635b17e38e43a50a45f31b0cf4434"
+  }
+}

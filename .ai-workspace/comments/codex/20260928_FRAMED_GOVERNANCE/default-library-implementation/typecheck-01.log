@@ -1,0 +1,40 @@
+code/src/abg/c_call_outcome.ts(1082,23): error TS2339: Property 'nativeInstructionAssemblyBasis' does not exist on type 'AdmitCCallResultInput'.
+  Property 'nativeInstructionAssemblyBasis' does not exist on type 'CCallOutcomeCommonInput & Readonly<{ outcomeClass: "workflow"; resultDisposition: "success"; resultCandidate: Readonly<Record<string, JsonValue>>; foldback: ChildFoldbackAdmission; }>'.
+code/src/abg/c_call_outcome.ts(1082,77): error TS2339: Property 'nativeInstructionAssemblyBasis' does not exist on type 'AdmitCCallResultInput'.
+  Property 'nativeInstructionAssemblyBasis' does not exist on type 'CCallOutcomeCommonInput & Readonly<{ outcomeClass: "workflow"; resultDisposition: "success"; resultCandidate: Readonly<Record<string, JsonValue>>; foldback: ChildFoldbackAdmission; }>'.
+code/src/abg/c_call_outcome.ts(1083,47): error TS2339: Property 'nativeInstructionAssemblyBasis' does not exist on type 'AdmitCCallResultInput'.
+  Property 'nativeInstructionAssemblyBasis' does not exist on type 'CCallOutcomeCommonInput & Readonly<{ outcomeClass: "workflow"; resultDisposition: "success"; resultCandidate: Readonly<Record<string, JsonValue>>; foldback: ChildFoldbackAdmission; }>'.
+code/src/abg/default_library.ts(29,80): error TS2339: Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.
+code/src/abg/default_library.ts(29,137): error TS2339: Property 'workspaceBinding' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'workspaceBinding' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.
+code/src/abg/default_library.ts(30,66): error TS2339: Property 'productInstalls' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'productInstalls' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.
+code/src/abg/default_library.ts(30,86): error TS7006: Parameter 'i' implicitly has an 'any' type.
+code/src/abg/default_library.ts(32,104): error TS2339: Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.
+code/src/abg/default_library.ts(33,61): error TS2339: Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.
+code/src/abg/default_library.ts(112,113): error TS2345: Argument of type 'WorksiteSubject | WorksiteEffectRefusal' is not assignable to parameter of type 'WorksiteSubject'.
+  Type 'WorksiteEffectRefusal' is missing the following properties from type 'WorksiteSubject': subjectRef, subjectDigest, workspaceBindingIdentity, workspaceBindingDigest, and 2 more.
+code/src/abg/default_library.ts(114,26): error TS2322: Type 'WorksiteSubject | WorksiteEffectRefusal' is not assignable to type 'WorksiteSubject'.
+  Type 'WorksiteEffectRefusal' is missing the following properties from type 'WorksiteSubject': subjectRef, subjectDigest, workspaceBindingIdentity, workspaceBindingDigest, and 2 more.
+code/src/abg/default_library.ts(167,63): error TS2339: Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.
+code/src/abg/default_library.ts(167,136): error TS2339: Property 'workspaceBinding' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'workspaceBinding' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.
+code/src/abg/default_library.ts(171,148): error TS2339: Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentProjectionResult'.
+  Property 'workspaceAuthorityBasis' does not exist on type 'ExactPrefixWorkspaceEnvironmentRefusal'.
+code/src/gtl/default_library.ts(100,78): error TS2322: Type 'string' is not assignable to type '"run_closed"'.
+code/src/implementation/default_library.ts(54,63): error TS2345: Argument of type 'JsonValue | undefined' is not assignable to parameter of type 'readonly NativeRegisteredSelectionTarget[]'.
+  Type 'undefined' is not assignable to type 'readonly NativeRegisteredSelectionTarget[]'.
+code/src/product/builtin_semantics.ts(1090,14): error TS2322: Type 'Readonly<{ bindingRef: string; admitInput(contractRef: string, value: unknown): Readonly<Record<string, JsonValue>> | null; validateContractValue(kind: string, value: unknown): boolean; ... 7 more ...; validateInvocationBasis: (basis: Readonly<...>) => boolean; }>' is not assignable to type 'ProductSemanticsProvider'.
+  Types of property 'validateContractValue' are incompatible.
+    Type '(kind: string, value: unknown) => boolean' is not assignable to type '(valueKind: string, value: unknown) => value is Readonly<Record<string, JsonValue>>'.
+      Signature '(kind: string, value: unknown): boolean' must be a type predicate.
+code/src/product/builtin_semantics.ts(1109,39): error TS7006: Parameter 'basis' implicitly has an 'any' type.
+npm notice
+npm notice New minor version of npm available! 11.5.1 -> 11.20.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.20.0
+npm notice To update run: npm install -g npm@11.20.0
+npm notice

@@ -1,0 +1,11 @@
+{
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/attempt-02/worksite-result/generated/hello-world.mjs",
+  "digest": "sha256:fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef",
+  "byteLength": 30,
+  "sourceEventsSha256": "sha256:6bec3e5dcf21b67c994a68b000ed21e795f6d2aaf349e572a044838835f45bea",
+  "sourceEvent": "event://abiogenesis/5539f928ba97377ee971a9c4337305416059b3676bc8349bf061d96c71c8b8bf",
+  "sourceResult": "result://abiogenesis/dae35a130247e5f64abd488266967ee8b0d8be7d29c7e6ed0805c661b4f25dd7",
+  "contract": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/supplied-work-contract.md",
+  "contractDigest": "sha256:35264dc6830838f7037ea97acf7131b3396342a88604730bd5cf290a350a697d",
+  "runtimeImport": false
+}

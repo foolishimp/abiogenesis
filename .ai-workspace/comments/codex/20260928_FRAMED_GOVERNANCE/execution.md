@@ -25,8 +25,8 @@ generation or revival of the withdrawn odd_glc planner is selected.
 | S2 | Installed two-choice deterministic proof with scope/contract refusals | Accepted, including repeated-input correction; native suitability remains S3 |
 | S3 | Native F_P Executive with bounded frame/catalogue context | Accepted bounded native evidence and reviewed RS-N01 source correction; installed successor is S4 |
 | S4 | Changed registered choice and recursive result/foldback | Accepted first installed attempt after independent review; no production change |
-| S5 | Reused default induction/specification/design/testing/UAT declarations | Corrected HOW accepted; bounded implementation and installed proof selected |
-| S6 | Installed consumer-authored Hello, correction, assessment and Public readback | Pending applicable library capability |
+| S5 | Reused default induction/specification/design/testing/UAT declarations | Accepted bounded library implementation and installed supplied/faulty pair; full lifecycle authorship remains S6 |
+| S6 | Installed consumer-authored Hello, correction, assessment and Public readback | Minimal complete lifecycle/requirement-proof fixture planning selected |
 | S7 | Remaining Product qualification and exact RC lifecycle | Pending selected obligations |
 
 ## S1 Worker grant: T287_REGISTERED_SELECTION_DESIGN_01
@@ -827,3 +827,583 @@ one first installed attempt after its ordinary mechanical readiness checks.
 Root separately enters Writer to checkpoint/push only these S5 planning/review
 records, T-287/GOALS and the frozen consumer witness. Concurrent implementation
 and unrelated files are excluded. Root then resumes Executive.
+
+## S5 imported contracts and selected STDO frames
+
+Owner clarification on 2026-09-29: STDO 2.5.1 supplies the governing reference
+frames; the default GraphFunctions need the MVP capabilities of an SDLC.
+Reusable odd_glc assets do not require its old orchestration. This fits the
+selected Product and preserves the current independent witness and seven
+callable purposes. The immutable method basis remains v2.5.1-rc.1.
+
+Executive consumes the closed Worker exception: attempt-01 refused at Public
+declaration closure before any provider call because the consumer copied
+library-owned contracts to satisfy selector assembly's local-publication-only
+lookup. The refusal, archives and seed remain preserved. Unique ownership is
+correct; the selector's projection is incomplete for imported capabilities.
+
+Extend `T287_DEFAULT_LIBRARY_IMPLEMENT_01` to
+`implementation/contracts.ts`, `implementation/leaf_invocation_port.ts`,
+`abg/actor_process.ts` and `abg/instruction_assembly.ts`, relative to the tenant's
+`code/src/`. Expose the existing `uniqueContractByRef` owner projection through
+`LeafInvocationPort.contractByRef` and carry that bound operation through actor
+preparation, selector assembly and its result guard. Remove the consumer's
+copied library contracts. An admitted owner returning null refuses without
+falling back; existing standalone local-publication use retains only its
+bounded meaning. Add no resolver, serialized carrier, cache or rehashing.
+
+Bind the default library's governing frame content and role references to
+selected STDO v2.5.1-rc.1 source through existing run-environment inventory and
+assets. Keep task/capability instructions distinct from source authority; use
+the applicable source spans, not an indiscriminate whole-method prompt. No new
+frame mechanism, Product scope or donor-method adoption is selected.
+
+Self-check imported selector/target contract assembly and result correspondence,
+missing-contract refusal, unchanged duplicate-owner refusal and exact frame
+source bindings. Build/package after these source changes and execute the
+first native witness through the corrected installed candidate. Attempt-01
+remains unchanged; this authorizes the corrected pre-native retry, not an
+automatic paid retry. Existing effect/model/timing/oracle limits and the
+single independent implementation checkpoint remain. Root acts as Writer for
+this grant only, then resumes Executive.
+
+## S5 complete imported-composition correction
+
+Executive accepts the bounded diagnosis
+`default-library-implementation/composition-diagnosis.md`, SHA-256
+`421b1a4d4c033de7f505db0c6e45a715f11bf6144ff05260dd2d8a5e2027395b`.
+Attempt-02 stopped before any provider call. The complete selected-path read
+supports two corrections: retention admission uses the root Program owner where
+the enclosing imported GraphFunction owner is required; S5 wrapper judgments
+use state-fold predicates where native/C2 task-to-observation predicates apply.
+Existing Product ownership and traversal law is sufficient. Unexecuted native
+composition remains unproved.
+
+Continue the same Worker activation. Add only `code/src/product/execution_resolution.ts`
+and `design/T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md` to its
+territory. Share/move the existing GraphFunction semantics-owner selector between
+retention resolution and the leaf port, preserving exact root, imported and
+external-provider relations, fixed C2 target, source/entry/target ownership and
+the existing narrowly declared exception. Remove the private duplicate selector;
+add no carrier, cache, hashing pass or new authority. Correct the S5 workflow
+predicate references and clarify their existing HOW. Keep the fold predicate
+and parent closure separate from successful child observation.
+
+Apply the diagnosis's focused imported-owner positive/negative and actual
+task-to-observation checks, then build/package/install the coherent correction
+and execute the unchanged one-start witness. Preserve both earlier attempts;
+no fresh provider attempt has occurred. The existing first-native-attempt
+authorization, effects, model, oracle, evidence and review boundaries remain.
+No broader implementation or additional design cycle is selected. Root records
+this disposition as Writer and returns to Executive.
+
+## S5 pre-actor quality checkpoint
+
+Attempts 03 and 04 reached runtime but no provider: 2.829 s and 2.996 s,
+respectively. After correcting the pre-Run basis join, initial evaluation
+advanced; preparation then refused. Repeated new-library join failures trigger
+the selected end-to-end/state/owner and reuse frames. Worker diagnoses the
+complete local evaluation/preparation/result relation against retained 04
+events before another source/build/installed successor.
+
+Activate the existing Astra/max Reviewer for a bounded read-only quality
+checkpoint over `default-library-implementation/prelaunch-subject-04.json`,
+`attempt-04-identities.json`, the new library owners/declarations and applicable
+HOW. Judge the actual carrier and authority correspondence of the default
+library path; distinguish code defects from an incomplete owning relation and
+identify further concrete blockers before another attempt. Do not repeat the
+Worker's incident investigation, reopen accepted S2–S4, scan unrelated code,
+build, test or launch providers. Write only
+`default-library-implementation/pre-actor-review.md`. This supplies the focused
+checkpoint now; its valid conclusions are reused when later reviewing the
+correction and actual native result. Root records this activation as Writer,
+then resumes Executive.
+
+## Problem-to-synthesis clarification and current S5 disposition
+
+Owner clarification on 2026-09-29: `{problem A} -> {g1, g2, g3}` means a
+reasoned selection of registered synthesis capabilities for a category of
+problems. The problem formulation, selected contributions, resulting evidence
+and revisions must be reviewable through the existing event log. This is F_P
+judgment constrained intentionally by STDO 2.5.1, with F_D limited to declared
+mechanical relations. It is not permission to reconstruct a deterministic
+planner, generate graph definitions or introduce another controller. Existing
+S4 single-choice evidence remains valid but does not alone establish that
+complete problem-to-work mapping. Executive owns its Intent/Product/HOW triage
+before extending the implementation; no semantic mapping design is adopted by
+this tracking paragraph.
+
+Consume the closed `default-library-implementation/pre-actor-review.md` and
+`attempt-04-diagnosis.md`. Accept the fixture read-root diagnosis and DL-I01.
+Keep DL-I02 open: assessment provenance is incorrectly restricted to a
+Construction-labelled producer, and already-valid supplied work lacks a
+specified assessment relation. Do not manufacture authorship or require a
+dummy construction call. A successful faulty-candidate witness cannot close
+that distinct reusable-work obligation.
+
+The existing Worker may now repair only the consumer fixture/support and its
+affected readiness check: derive the ten explicit application/source read roots
+from the frozen seed, and select the unchanged oracle once as assessment rubric
+while preserving it in original/read-first context. Validate complete current
+context with the actual installed owner and retain the protected-root refusal.
+Reuse subject04's core archive; no core rebuild, Product change or provider
+launch is authorized by this bounded fixture activation. Original seed,
+selection, oracle, effects and prior attempts remain unchanged. Return the
+small fixture delta and readiness evidence, leaving native execution and the
+semantic clarification pending Executive disposition. Root records this ruling
+and grant as Writer, then resumes Executive.
+
+## Frame-bound synthesis calculus fit assessment
+
+Owner explicitly requested a step back before adding requirements: assess the
+existing calculus, Event Calculus compliance, and isolation within the
+problem-to-solution work under a particular frame. All implementation, fixture,
+build and provider work is held; the preceding fixture grant was not activated.
+Root selected the bounded read-only `T287_FRAMED_SYNTHESIS_TRIAGE_01` assessment.
+Existing max Reviewer independently checked the Event Calculus relation; Root
+checked Intent/Product and current selection/library contracts. No Product,
+requirements, design, code or qualification claim is changed by this assessment.
+
+The existing calculus is sufficient to represent the proposed module:
+`PRODUCT.md` Task/Basis/State, Graph Composition/Reference Frames, Execution/
+Admission/Advancement and Live State/Recovery already own its governing
+relations. The isolated application capability belongs at the default library's
+problem interpretation/Executive selection boundary, using ordinary registered
+GraphFunction work under an explicitly bound frame. Its problem model, selected
+contributions, reasons, dependencies and gaps are F_P application results, not
+generic HoG semantics or an additional execution plan language.
+
+Event Calculus correspondence is available through ordinary C-call Result and
+evidence (`event_store.ts:766`, `event_calculus.ts:260`), causation, foldback and
+currentness (`REQ-R-ABG3-EVENTS-007/027/030`). Admission records the attributed
+judgment; it does not prove semantic sufficiency. Subsequent admitted results
+can identify the prior mapping and changed evidence. Existing incremental state
+and cold recovery remain; no new event family, ledger, controller or repeated
+history pass is required by this meaning.
+
+Two local obligations remain before implementation: define the typed
+problem-to-synthesis result within its particular frame, and define how the
+existing admitted traversal consumes/revises it. The current closed
+`registered_graph_choice` (`gtl/registered_selection.ts:15–26,61–83`) represents
+one target/input and remains useful; it does not itself encode a work-set
+mapping. A proposed set neither rewrites Program topology nor grants effects,
+proves member execution or closes the parent. This is representability and
+scope assessment, not an adopted module contract or qualification. The next
+bounded definition must conserve existing owners and avoid a deterministic
+semantic planner. Source04, open fixture/DL-I01/DL-I02 findings and accepted S4
+evidence remain preserved. Root updates only this tracking disposition and
+T-287/GOALS current-state projections as Writer, then returns to Executive.
+
+## Framed synthesis definition activation
+
+Owner's `ok continue` resumes the bounded work after the calculus fit
+assessment. Re-entry is `design_reframe` at the default library's
+problem-to-solution/Executive contract; existing Product and Event Calculus
+relations govern. A discovered additional WHAT or authority change returns for
+explicit re-entry rather than being encoded as an implementation convenience.
+Root enters Writer only to record this grant and T-287's current activation,
+then resumes Executive. Source04 and its proof remain frozen.
+
+Activate the existing Astra/xhigh Worker as
+`T287_FRAMED_SYNTHESIS_DESIGN_01`. Selected frame:
+`repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration`,
+with Product/Design/Owner and Reuse/Foundation under exact STDO v2.5.1-rc.1.
+Outcome: one bounded, implementable module contract and declared consumption
+relation for frame-bound F_P problem-to-registered-synthesis judgment.
+
+Write only `framed-synthesis-plan.md` and its exact source/subject identity
+record in this commentary directory. Reuse closed calculus and Event Calculus
+assessments and S2–S4 results. Specify the input/result, explicit problem/frame/
+observation basis, selected graph contributions and necessary dependency
+relations, reason/evidence/gaps, and revision/supersession relation. Keep these
+application data within an ordinary GraphFunction, not another task aggregate,
+executable plan language or event ledger. Preserve the original outcome and
+frame/authority bounds.
+
+Show the actual path from F_P result admission to existing registered-choice
+selection, child invocation, result/foldback and parent reevaluation. Suitability,
+decomposition, prioritization and semantic sufficiency stay F_P. F_D validates
+declared closed structural/identity/contract relations; it does not choose the
+work or infer an SDLC pipeline. Explain each changed owner seam against actual
+code. Add no C operator, graph generator, runtime controller or repeated history
+derivation. Public decision reasons and their executed consequences stay in the
+existing log and projections.
+
+Conjoin open S5 findings: the read-root and rubric-overlap fixes are consumer
+corrections. For DL-I02, identify the smallest existing-owner relation supporting
+assessment of any actual native-produced subject and already-valid supplied
+work; preserve observation versus authorship and required independence. Do not
+insert a dummy construction call or silently weaken the capability claim.
+If an additional owning relation is required, state it before implementation.
+
+Propose one finite incremental discriminator using the unchanged independent
+Hello source/oracle: actual problem-to-work mapping, admissible consumption,
+counterevidence and revision, current reused work, genuine graph execution and
+independent parent closure. Preserve structural refusal/gap cases without a
+new campaign or benchmark budget. Return one exact closed proposal for the
+existing max Reviewer's applicable checkpoint. No owning Product/requirements/
+HOW, source, fixture, build, provider or Git changes are granted at this stage.
+
+## Framed synthesis design review
+
+Root consumes the closed proposal `framed-synthesis-plan.md`, SHA-256
+`9ea4e635b04d66f2120e8af7972eac703d76891584b1b2c9512689782940e476`,
+and `framed-synthesis-subject.json`, SHA-256
+`f6fa5d8c748ff046d27d0a143821ef7616b6d67a81c7b81edc875a5c5b07676d`.
+The Worker reports all 32 subject04 and 27 attempt04 members unchanged.
+Root enters Writer only for this activation/current-ticket projection, then
+returns to Executive; no design or implementation is adopted yet.
+
+Activate existing Astra/max Reviewer as `T287_FRAMED_SYNTHESIS_REVIEW_01`,
+read-only except `framed-synthesis-review.md`. Use the same exact STDO and
+End-To-End Interface Integration, Product/Design/Owner and Reuse/Foundation
+frames. Reuse the closed calculus/EC assessment, pre-actor review and S2–S4.
+Check the typed result and actual declared assembly/result/choice/child/foldback
+joins, F_P semantic ownership, scoped frame, preserved original authority,
+revision attribution and honest existing-event correspondence. Check explicitly
+that carried current judgment does not recursively embed prior input states or
+whole Results and that ordinary handoffs gain no history walk. Assess DL-I02's
+selected native or C2 observation provenance against current assessment owners,
+currentness and independence, and whether the finite paired witness discriminates
+the claimed behavior. Report concrete blockers or precise implementation
+conditions, not a second architecture exercise. No repair, broad test/build,
+provider, Git or unrelated source survey. Return one closed review for Executive
+disposition; source04 stays frozen.
+
+## Framed synthesis acceptance and implementation
+
+Root accepts `framed-synthesis-plan.md` at
+`9ea4e635b04d66f2120e8af7972eac703d76891584b1b2c9512689782940e476`
+with mandatory FS-C01/FS-C02 from the closed `framed-synthesis-review.md`,
+SHA-256 `61bbb69ea56fe5d3b7947bbb313cb6f2e9eab9d9f9dc2f8a5f42fe1040185120`.
+This is bounded HOW selection under the existing Product/calculus, not completed
+implementation, qualification or release. Incorporate the selected relation and
+both conditions into `T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md`; that owning
+HOW remains the technical truth surface. Proposal/review/source04 stay historical
+and byte-preserved. Root records only this grant and current T-287/GOALS state as
+Writer, then returns to Executive.
+
+Activate existing Astra/xhigh Worker as `T287_FRAMED_SYNTHESIS_IMPLEMENT_01`
+under the same frame and exact STDO basis. Outcome: implement the accepted local
+library relation and resolve the two fixture corrections, DL-I02, FS-C01 and
+FS-C02 through existing owners. Scope is the proposal's named default-library,
+run-environment, instruction assembly, result/semantics and exact operation
+wiring owners, owning library HOW, affected contracts/exports/policy/manifest,
+focused tests and current S5 fixture/proof directory. Do not change Product,
+requirements, core selection/Event Calculus meaning, accepted S2–S4, original
+consumer seeds/oracle, release identities or Git state.
+
+Carry compact current raw judgment and exact references only; derive folded
+Result/CCall/actor through actual admitted child/foldback facts. Preserve the
+explicit F_P work/next/evidence judgment, exact frame/input and original support,
+existing currentness/independence/effect gates and native task owners. A closed
+mechanical projection may transport the chosen member; it cannot infer work,
+readiness or sufficiency. No new runtime controller, semantic planner, event
+ledger, graph generation, history-by-value join or repeated whole-history pass.
+
+Self-check the changed declaration/raw-result/projection/fold/assessment family
+before packaging. Include real C2 and assessment carrier variants, nonrecursive
+state, crossed/stale evidence refusal and protected context/rubric selection.
+Reuse unaffected S2–S4 and pre-actor evidence. Build/package the coherent successor
+once after those checks; repeated tests/builds need changed code or a failure.
+Freeze the exact source/archive before its installed witnesses.
+
+The existing owner authority to execute S5 now covers the accepted finite pair:
+the unchanged faulty-candidate witness, then one fresh supplied-valid companion
+using its actually corrected bytes, the same original source/oracle and only
+Testing/UAT. Preserve the original witness selection and all previous attempts.
+Use one coherent core archive, ordinary Public start and genuine native actors:
+`/Users/jim/.local/share/claude/versions/2.1.280 --model claude-opus-5-5 --effort xhigh`.
+No model fallback, forced graph schedule, oracle relaxation, transplanted events,
+dummy author or automatic paid retry. Prepare complete real context before
+dispatch; if an unresolved owner/contract gap or a first live failure appears,
+retain it and return the exact diagnosis for Executive disposition. Do not launch
+the companion unless the corrected supplied artifact is actually established.
+
+Separate setup/actor/framework/readback timings and data volume; investigate
+unexplained deterministic work over the owner's expected scale without inventing
+a latency limit. Finish with actual event-linked mapping/choice/fold/revision/
+parent evidence, fresh Public Result/replay, exact identities and one closed
+self-checked return. Existing max Reviewer then checks the changed subject and
+retained outcomes without repeating the design review. Full S6/S7 and RC1 remain
+open; no Git mutation, publication or release grant is part of this Worker task.
+
+### FS-C02 existing input-origin reuse
+
+Worker reports that native-basis acquisition already calls
+`projectTraversalInputAtPrefix`, whose retained-input arm obtains and validates
+the `projectRetainedWorksiteInputAtPrefix` source Result/foldback relation, then
+discards it. Root selects the smallest conservation correction within this
+activation: `abg/traversal_cursor.ts` may retain that already-derived relation
+on its existing input-origin return, and `abg/execution_basis.ts` may expose the
+same origin through its existing authenticated internal basis. The library fold
+consumes it directly. This is passing an established fact, not a new proof,
+cache, authority, event or serialized carrier. Preserve occurrence/prefix scope
+and root/direct/retained input semantics; do not redo the prefix projector or
+weaken acquisition checks. These two exact plumbing owners join the bounded
+source grant and its existing focused checks/review. Root records this scope
+clarification as Writer and returns to Executive; no new design cycle is needed.
+
+### Prepared-hook realization correction
+
+The first framed-synthesis installed attempt admitted parent/task preparation
+after complete ten-file readiness, then refused `malformed_preparation` at
+Result ordinal 55 with no actor binding or provider call. Worker isolated the
+exact installed join without dispatch: `selectGovernanceWork` supplies valid
+fields and a deeply frozen owned assembly/request (47,773 prompt bytes), but
+its outer prepared hook is mutable. Existing `leaf_invocation_port.ts:398–408`
+requires a deeply frozen hook. That actual guard is false on the retained
+return and true when only the existing `deepFreeze` is applied. The prior
+focused checks covered assembly/binder/projection, omitting the exported hook
+through the prepared-port immutability boundary.
+
+Root accepts this bounded realization diagnosis and authorizes the same Worker
+to freeze that return in `implementation/default_library.ts`, add the actual
+hook-through-`invokeLeafOwnerBoundary` check without a provider, and rebuild/
+package only because this source changed. Keep the failed archive, events,
+readback and diagnostic byte-preserved and record their exact identities in
+the closed return. Reuse unaffected checks and readiness evidence. After the
+affected test passes, the existing first-provider witness grant resumes for
+the corrected candidate; the supplied-valid companion remains contingent on
+actual corrected bytes. No API weakening, new owning relation, authority,
+timing change or further paid retry is selected. Root records this disposition
+as Writer and returns to Executive.
+
+## Framed synthesis source and installed-outcome review
+
+The corrected source is frozen at
+`default-library-implementation/framed-synthesis/subject-02.json`, SHA-256
+`3f5b967468cb46219f757848dacc2118ff7f5ec0b5a01db81f19b3c8249d7391`.
+Worker reports the hook-through-port check and the actual retained installed
+basis/assembly join pass without a provider. Failed attempt01's 29 retained
+members, its truthful `not_found` Result read and successful replay are preserved.
+Its identities record is `4e43ac74053231345e1a471274f17fe61dfb84225a09e4e6f5b08a4ced82bad6`.
+
+Root selects existing Astra/max Reviewer for
+`T287_FRAMED_SYNTHESIS_IMPLEMENTATION_REVIEW_01`. Begin the bounded read-only
+source delta review now while the Worker performs the already-authorized native
+witness; this overlaps independent work without another acceptance cycle.
+Write only `default-library-implementation/framed-synthesis/review.md`.
+Reuse the closed design/EC and unaffected pre-actor/S2–S4 conclusions. Judge
+accepted HOW correspondence, FS-C01/02, explicit F_P choice and source/evidence
+scope, reused input-origin provenance, actual hook/port/assembly joins and
+DL-I02 currentness/independence. Use the exact changed source, emitted/archive
+correspondence and focused evidence; do not repeat broad suites or acquisition
+inventory work merely because the Reviewer changed. Send any actionable finding
+promptly; never modify Worker source, fixtures or running workspace.
+
+The source is frozen for the native attempt. Wait for the Worker's closed outcome
+and then assess the actual installed mapping/choice/child/fold/revision/parent
+correspondence and supplied-valid no-author case, truthful failures and fresh
+Public reads. Root will deliver that closed return; do not poll live logs or
+invent success while waiting. Return one final scoped judgment with remaining
+limitations and source identity. No tests/build/provider/Git or unrelated survey.
+Root records this grant as Writer and resumes Executive.
+
+## First native synthesis outcome and bounded correction
+
+Attempt02 reached five native actors. Its admitted prefix establishes synthesis
+selection of Testing, actual failing measurement, fold/parent reevaluation,
+revised synthesis selection of Construction and actual native work/fold/parent
+reevaluation. The third synthesis response selected Testing with contributions
+Testing/UAT but named omitted Construction in both dependency lists. The strict
+same-mapping relation refused it; no repair of the answer or extra child occurred.
+Worker's retained coordinates are `922→935→1163→1193→1234` and
+`2514→2527→2950→2980→3021`; raw refusal is artifact4455/actor_failed4457.
+These are partial execution facts, not completion of the selected witness.
+
+Conjoined Worker and Reviewer diagnosis establishes two local omissions:
+the actual response schema admits any permitted graph in `dependsOn`, while
+the rendered instruction does not explain the narrower current-mapping relation;
+and the synthesis assembly's persisted `runEnvironment` omits
+`invocationAdmissionRef`, which the existing cold replay owner requires.
+Both fresh Public reads refuse `invalid_history`. The first issue is an omitted
+context obligation, not an adequately instructed semantic failure. The second
+is a realization correspondence defect, not authority to reinterpret the old
+history. Corrected elapsed accounting is 166.213 s in native actor intervals and
+14.210 s outside them over 21 calls/four child admissions; the largest observed
+non-actor gap is 0.936 s. The earlier 65.711 s subtraction omitted the failed
+actor and is not framework latency evidence.
+
+Root selects bounded corrections in the same activation after the Worker freezes
+its closed attempt02 return and exact evidence. State the accepted same-mapping
+dependency rule in the actual response schema/instruction, using admitted
+evidence references for prior completed work; retain the strict predicate and
+unchanged raw output. Reuse the small existing registered-selection projection
+of run-environment identity, including invocation admission, with the existing
+assembly identity/finish owners. Do not wrap the synthesis task in a different
+task contract or introduce another manifest constructor. Preserve old history
+and its refusal. Add the focused actual rendered-context and persisted-assembly
+to cold-replay checks before another provider. A read-only retained counterfactual
+check is component diagnosis, never a rewritten authoritative Run.
+
+Also resolve the Reviewer's bounded reuse finding in
+`gtl/stdo_run_environment.ts`: synthesis role lookup currently revalidates/hashes
+the full declaration, while the existing registered selector projects its
+already-bound declaration. Use the same bounded Program/environment/role lookup;
+retain full validation at its actual acquisition owner. No cache, new authority,
+inventory walk or separate performance campaign is selected. This is a pure
+construction contraction with unmeasured latency contribution.
+
+After changed-source checks, freeze/build/package one corrected successor and
+resume the accepted finite pair with its next order reversed: first the supplied
+candidate companion, using exact actual Construction output from attempt02 as
+ordinary unverified files with only Testing/UAT and no imported runtime events;
+then the original unchanged faulty-input witness on the same archive. Preserve
+all original outcomes/oracles, scopes and required proof conditions. This order
+tests the unexercised assessment/readback path without immediately repeating
+author work. It grants no credit for the failed first witness and does not lower
+its required complete one-start outcome. If the supplied files do not satisfy
+their actual checks, retain that result rather than correcting them outside HoG.
+One attempt per case under the existing Opus5.5/xhigh controls; another paid
+failure returns for disposition. The existing max review consumes the exact
+small correction and closed outcomes; no further architecture cycle is selected.
+Root records this bounded re-entry as Writer, then resumes Executive.
+
+### Prospective companion contract
+
+Root's Writer creates `default-library-witness/supplied-work-contract.md` for the
+fresh supplied-work companion. That file is copied as its own
+`source/witness-contract.md` before input freeze. The original faulty case's
+contract explicitly requires a failing measurement and changed work; applying
+that extra scenario obligation to the supplied-valid case would contradict its
+selected purpose. Original faulty selection/seed/contract remain unchanged.
+The companion keeps identical original Product source/oracle, design, tests and
+plan and uses the exact genuinely produced candidate as unverified supplied
+bytes. Its independent criteria require current measurement, fresh assessment,
+parent reevaluation and zero native author calls; failure remains failure/gap.
+This is the already-selected companion's prospective input, not relaxation of
+either case or a changed Product oracle. Root returns to Executive.
+
+### Attempt02 readback precision
+
+Independent review verified all 133 retained proof members and the 921 selected
+archive/output members, plus unchanged raw judgment → synthesis → choice and
+actual child → fold → open parent correspondence. It corrects the initial
+return's readback wording: the fresh `run_result` and `run_replay` receipts return
+`unknown_source`; the initial Public run-truth refusal contains the missing
+environment-identity diagnostic. The process/attempt ended, but no admitted Run
+closure exists in its retained history. Keep the original frozen return and
+receipts unchanged; this disposition and subsequent reports carry that precise
+distinction. It does not change the selected local correction or confer completion.
+
+## Supplied-work interface corrections
+
+Root accepts `framed-synthesis/correction-01/return.md`
+(`523d55e9e36bedb877105fcbde85630881846feda208feb7a221ab55036db0c8`)
+as closed incomplete evidence. Core `a99d84c9f78ec99cb12ca96c4b2af176ababa9ce7a1b6905946d32b73864fd3d`
+reached real Testing, a revised UAT selection and UAT preparation without an
+author call. Both commands passed; the provider rejected the fixture's optional
+schema dialect before UAT model execution. No UAT verdict, parent completion or
+Run closure is claimed. Exact-source fresh Public reads also refuse; cold owner
+comparison isolates reconstruction from current ambient command defaults.
+
+Under `T287_FRAMED_SYNTHESIS_IMPLEMENT_01` and the existing end-to-end/interface
+and Reuse/Foundation frames, the same Worker corrects the shared original-command
+to admitted-task correspondence. Acquire ambient defaults only at preparation;
+thereafter consume the task's admitted normalized command environment. Preserve
+every explicit original command/environment constraint, exact causal/task identity,
+currentness and malformed-provenance refusal. Reuse existing command owners;
+do not add another state carrier, history walk, cache or environment requirement
+on readers. The bounded grant includes `abg/default_library.ts`, its existing
+command-construction/matching owner if needed, and their directly affected checks.
+Prove reconstruction under a different/empty reader environment and refusal of
+changed explicit commands/environment. No calculus or Product extension is needed.
+
+Separately omit only the optional `$schema` dialect annotation from the consumer
+assessment fixture, retaining its `$id`, operative keyword constraints and strict
+consumer validation. Correct the read helper to use the actual admitted Public
+source coordinates, preserving both previous wrong-input and exact-source receipts.
+The same max Reviewer checks these narrow deltas and the closed outcomes; no new
+review cycle or broad test campaign is selected.
+
+After affected checks, freeze/build/package one successor because source changed.
+Run the supplied-work companion first, then the unchanged faulty-input witness on
+that same archive, under the existing exact Opus5.5/xhigh controls and independent
+oracles. The companion's supplied bytes stay unverified until actually measured
+and assessed. Preserve prior evidence and stop at another paid failure for
+Executive disposition; no automatic retry, forced graph order or out-of-band
+application repair. Root's separate Writer activation records this disposition
+and updates only current T-287/GOALS tracking, then returns to Executive.
+
+The same grant includes the mechanically required source-binding refresh in
+`gtl/worksite_command_execution.ts`: owner digest, byte count and selected span
+offsets change with the admitted command-owner edit; renderer/policy meaning
+does not. Normal generated inventory follows those exact bytes. Independent
+review also corrects the prior frozen companion narrative: synthesis2108
+retained Testing and UAT, with UAT depending on Testing and selected next.
+Retaining a completed contribution does not schedule another execution. Its
+actual events, rather than the inaccurate prose summary, are the evidence.
+
+While the finite pair runs, the same Product-frame Reviewer may give bounded
+next-case selection input against Product S06 and SCENARIOS-013/018: which
+complete lifecycle/carry-through relations remain after S5, and whether the
+smallest fresh-source case can reuse S5's correction evidence. Record the scoped
+answer in the existing review; no new mechanism, broad investigation or S6
+launch is authorized by this planning question. It does not expand S5 acceptance.
+
+## S6 minimal installed lifecycle planning
+
+The Reviewer has closed the finite S5 evidence checks with no remaining blocker:
+161 current proof members, earlier 133+87, 32 source and 921 generated members,
+both exact installations, six synthesis/choice/child/fold chains, independent
+current UAT and four successful fresh Public reads. Final review is being written.
+Root separately selects `T287_S6_WITNESS_PLAN_01` for the same Astra/xhigh Worker
+while Root closes acceptance/checkpoint. No runtime code or new provider is granted.
+
+Frame: Product S06, SCENARIOS-013/018, requirement-proof carry-through, and the
+existing End-To-End Interface Integration/Reuse frame. Subject: accepted HOW and
+archive `27914d23b68684fe5c1ef523bcf1b75c08e2e4a9da5e0b38f596e9cdc064a562`,
+complete original basic-cli source/oracle already frozen in the witness selection.
+Write only `s6-lifecycle-plan.md`: the smallest constructible consumer case that
+authors the missing lifecycle assets, carries source/obligation/evidence roles
+through existing admitted owners, and performs a consequential revision within
+its own lineage before current assessment/closure/readback. A supplied unverified
+faulty CLI with otherwise missing lifecycle assets is a candidate, not a prescribed
+schedule. Preserve all original outcomes and prospectively declare the source and
+case contract before execution.
+
+Name the exact existing publication, native, command, fulfillment/coverage and
+continuation seams. Fixed commands are lawful when prospectively selected; an
+authored plan is not their runtime source without an explicit existing relation.
+Scalar UAT is not requirement-proof coverage. Resolve those two selection points
+in the plan, without another obligation engine, semantic planner, event ledger or
+mandatory role roster. Reuse S5's proved joins; do not rerun them for counts.
+Report a concrete missing owner relation before proposing code if existing owners
+cannot construct the case. Return a compact input/outcome/owner/evidence mapping,
+effect scope, execution order only where actually governed, and first-failure
+stop. No broad scan, build, tests, install, provider, Product edit or Git. Root's
+Writer records this grant and returns to Executive.
+
+## S5 framed synthesis acceptance
+
+Root conjoins the closed Worker return
+`default-library-implementation/framed-synthesis/correction-02/return.md`
+(`b281c2500f7e4e7b507aed29935d7d46b30c0a024cbba3b59aa4662303c15e18`)
+and independent max review
+`default-library-implementation/framed-synthesis/review.md`
+(`05c1f1ae44c3bb55e17e8767f6dcf85ad57c2b35b229953456a45d71950b36de`).
+Accept S5's exercised implementation and installed pair at subject04
+`34263bbf658b0340251fabab01db6bd0437fab516a71678865ae6e584d4b7d8a`,
+archive `27914d23b68684fe5c1ef523bcf1b75c08e2e4a9da5e0b38f596e9cdc064a562`.
+
+The supplied case executes Testing→UAT without an author; the faulty case
+executes Testing→Construction→Testing→UAT after real counterevidence. All six
+problem/frame/judgment/choice/child/fold relations are independently checked.
+Independent current assessments precede parent and Run closure; all four fresh
+Public reads agree. Prior failures retain their identities. S5's selected grant
+is exhausted. Full S6, requirement-proof correspondence, qualification and RC1
+remain open; seven declarations are not seven qualified lifecycle capabilities.
+Invocation accounting is 140.671/303.258 s, of which 127.090/278.160 s are native
+intervals. Framework work is 13.581/25.098 s over 19/37 CCalls; maximum adjacent
+non-native gaps are below one second. Setup is separate. Readiness volume remains
+the existing recorded observation, not a new cleanup campaign or claimed cure.
+
+Root separately enters Writer for the acceptance/tracking update and a scoped
+checkpoint commit/push to the existing remote branch. Include accepted subject04
+source/HOW/fixture and normal tracked/generated members, this activation's
+implementation/proof records, framed-synthesis proposal/reviews, supplied-work
+contract, and current execution/T-287/GOALS tracking. Preserve unrelated dirty
+paths and scratch, ignored local installs and the not-yet-returned S6 plan.
+No release tag/version, rebuild or further test is needed for this checkpoint.
+Root then resumes Executive on the already-selected S6 plan.

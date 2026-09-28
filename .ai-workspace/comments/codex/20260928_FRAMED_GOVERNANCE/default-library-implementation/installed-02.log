@@ -1,0 +1,39 @@
+✔ default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation (11.584958ms)
+✔ independent consumer restricts choices while preserving actual native role and schema owners (18.965083ms)
+✔ default role content is the selected STDO source with capability instructions separate (0.830167ms)
+(node:34606) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ selector assembly and raw-result correspondence consume imported owner contracts and refuse missing owners (6.772083ms)
+✔ consumer-authored source and scope remain exact application data; no solution is in library (1.025125ms)
+✔ observed child provenance joins the current preparation and rejects crossed or missing causal facts (56.275167ms)
+✖ one installed Public default-library invocation reuses observed files, corrects actual work and independently closes (21974.123917ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22378.962417
+
+✖ failing tests:
+
+test at test_env/tests/t287-default-library.test.mjs:145:1
+✖ one installed Public default-library invocation reuses observed files, corrects actual work and independently closes (21974.123917ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"product_execution_resolution_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"wrong_owner","stage":"declaration_closure","message":"retained input requires the fixed ABI pair and exact entry, source and consumer semantics owners"}
+  + actual - expected
+  
+  + 'product_execution_resolution_refusal'
+  - 'loaded_product_execution_resolution'
+  
+      at constructInstalledStartCall (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs:259:10)
+      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:180:15)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'product_execution_resolution_refusal',
+    expected: 'loaded_product_execution_resolution',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

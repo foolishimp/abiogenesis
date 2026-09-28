@@ -1,0 +1,8 @@
+{
+  "code/src/product/execution_resolution.ts": "9ec29aa5bc93d934042c741582bf036bd313676d9205765a9d4e7c381bc7b1cd",
+  "code/src/implementation/leaf_invocation_port.ts": "8e3bd474bc81eb24e835f051a3c4bf87cb755982928a4aafd486332e6946bb6c",
+  "code/src/gtl/default_library.ts": "6d6e326566e81643a280dae5a0305b6b50fe77699d8b6e2390452b9030b9f88b",
+  "design/T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md": "8841b08ee447cb31d2488bd408c8e1a44d04be640be59db604a407b17ffa72ae",
+  "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": "9123cb7abe2f863a333023f7cc5c32ca4c63adb5746cfa8c519e4846b7b3d58a",
+  "test_env/tests/t287-default-library.test.mjs": "2b0c529fdb6cdb5c61d3bab01e477ed98e4189378a3959412e328e071525cd92"
+}

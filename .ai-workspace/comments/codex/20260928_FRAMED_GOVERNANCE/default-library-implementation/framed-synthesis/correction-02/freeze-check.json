@@ -1,0 +1,16 @@
+{
+  "frozenAt": "2026-09-28T19:21:27.931742+00:00",
+  "subjectSha256": "34263bbf658b0340251fabab01db6bd0437fab516a71678865ae6e584d4b7d8a",
+  "sourceMembersUnchanged": 32,
+  "generatedMembersUnchangedAndMatchBothInstalls": 921,
+  "priorProofMembersUnchanged": [
+    133,
+    87
+  ],
+  "priorReturnsUnchanged": [
+    "b3610be1377ce4016978418c83e96310593f6efa173ea0b33a5a378b333849f2",
+    "523d55e9e36bedb877105fcbde85630881846feda208feb7a221ab55036db0c8"
+  ],
+  "proofMembers": 161,
+  "proofManifestSha256": "cfa441f2ffce746fc11a91a07ef3f34a9c93c86c72b3829d891775e1473e1956"
+}

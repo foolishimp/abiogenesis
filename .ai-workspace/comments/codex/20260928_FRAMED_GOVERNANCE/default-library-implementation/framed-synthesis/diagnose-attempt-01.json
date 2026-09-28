@@ -1,0 +1,60 @@
+{
+  "callRef": "c-call:sha256:53c342ebf107f1a07335a247c9da2721ffaf1cb6f339c93c75fbb0d4c4d8a64b",
+  "openedEvent": "event://abiogenesis/d84f8cbe38631a7dc992405800105dc3481d634bc1f492f961f8f4d2106f4e99",
+  "openedOrdinal": 50,
+  "fibreEvent": "event://abiogenesis/6dd2e3a0aac38b43d48acfcaa95f52a03d1e7e6a4cdcba6c458d486b133ba8f5",
+  "assembly": {
+    "kind": "native_instruction_assembly",
+    "planRef": "prompt-plan://abiogenesis/framed-synthesis/e822c243261829cee4fc7dbe7d0f3d05f4c5adbf4e26aff71967bd01d29cb1aa",
+    "promptBytes": 47773,
+    "requestFields": [
+      "actorRef",
+      "implementationRef",
+      "inputDigest",
+      "instructionContractRef",
+      "materializationPlanRef",
+      "prompt",
+      "rendererRef",
+      "responseJsonSchema",
+      "resultContractRef",
+      "transportLane",
+      "workerBindingRef"
+    ],
+    "requestDeeplyFrozen": true
+  },
+  "implementation": {
+    "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-R772ou/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js",
+    "namedSymbol": "selectGovernanceWork",
+    "descriptor": {
+      "kind": "packaged_leaf_implementation_descriptor",
+      "schemaVersion": "5.0.0",
+      "implementationRef": "implementation://abiogenesis/default-library/select@5",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1",
+      "modulePath": "build/code/src/implementation/default_library.js",
+      "namedSymbol": "selectGovernanceWork",
+      "computeRegime": "F_P",
+      "inputContractRef": "contract://abiogenesis/default-library/selection-task@5",
+      "outputContractRef": "contract://abiogenesis/default-library/synthesis@5",
+      "failureContractRef": "contract://abiogenesis/default-library/failure@5",
+      "refusalContractRef": "contract://abiogenesis/default-library/refusal@5",
+      "descriptorDigest": "sha256:e3e1ce2ee4d561af6d483d431bcf7a52e1f2c43fa36cf818fcb91489ff7732b5"
+    }
+  },
+  "prepared": {
+    "fields": [
+      "complete",
+      "kind",
+      "schemaVersion",
+      "workerRequest"
+    ],
+    "kind": "prepared_probabilistic_leaf_invocation",
+    "completeType": "function",
+    "outerFrozen": false,
+    "deeplyFrozen": false,
+    "installedGuard": false
+  },
+  "providerStarts": 0,
+  "prospectiveGuardAfterOnlyFreeze": true,
+  "note": "Read-only installed preparation diagnosis. No complete(), actor dispatch, event append or source mutation. Existing immutable prepared-hook contract was missed by assembly/binder-only focused checks."
+}

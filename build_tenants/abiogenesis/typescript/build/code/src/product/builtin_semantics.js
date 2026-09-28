@@ -1,3 +1,8 @@
+import { isGovernanceWorkState, governanceRef, governanceContract, GOVERNANCE_OPERATIONS, isFramedSynthesisTask, isFramedSynthesisResult, isFramedSynthesisJudgment } from "./default_library.js";
+import { isNativeRegisteredSelectionTask, isNativeRegisteredSelectionResponse } from "./registered_selection_native.js";
+import { isRegisteredGraphChoice } from "../gtl/registered_selection.js";
+import { isRetainedGraphInput } from "./worksite_preparation_contracts.js";
+import { isDeepStrictEqual as governanceSame } from "node:util";
 import { NATIVE_WORK_REACQUISITION_IDS as reacquireIds, isNativeWorksiteCommandReacquisitionRequest } from "./worksite_command_execution.js";
 import { nativeWorkReacquisitionResultMatches } from "../abg/native_work_reacquisition.js";
 import { isJsonRecordShape as isRecord } from "../shared/admission_predicates.js";
@@ -868,3 +873,57 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS = Object.freeze({
 });
 /** Distinct D2 contract interpretation; existing D1 owner remains singular. */
 export const ABI5_SEMANTIC_REVISION_PRODUCT_SEMANTICS = Object.freeze({ ...ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS, bindingRef: revisionIds.semanticsBindingRef });
+export const ABI5_DEFAULT_LIBRARY_PRODUCT_SEMANTICS = Object.freeze({
+    ...ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS,
+    bindingRef: governanceRef("semantics", "default"),
+    admitInput(contractRef, value) {
+        if (contractRef === governanceContract("state") && isGovernanceWorkState(value) ||
+            contractRef === governanceContract("selection-task") && isFramedSynthesisTask(value) ||
+            contractRef === governanceContract("synthesis") && isFramedSynthesisResult(value) ||
+            contractRef === "contract://abiogenesis/worksite/retained-graph-input@5" && isRetainedGraphInput(value))
+            return value;
+        return ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS.admitInput(contractRef, value);
+    },
+    validateContractValue(kind, value) {
+        if (kind === "governance_work_state")
+            return isGovernanceWorkState(value);
+        if (kind === "framed_synthesis_task")
+            return isFramedSynthesisTask(value);
+        if (kind === "framed_synthesis_result")
+            return isFramedSynthesisResult(value);
+        if (kind === "framed_synthesis_response")
+            return isFramedSynthesisJudgment(value);
+        if (kind === "registered_graph_choice")
+            return isRegisteredGraphChoice(value);
+        if (kind === "retained_graph_input")
+            return isRetainedGraphInput(value);
+        if (kind === "governance_failure" || kind === "governance_refusal")
+            return typeof value === "object" && value !== null && "kind" in value && value.kind === kind;
+        return ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS.validateContractValue(kind, value);
+    },
+    resolveProbabilisticWorkerContracts(basis) {
+        if (basis.inputContractRef === governanceContract("selection-task") && isFramedSynthesisTask(basis.input))
+            return { instructionContractRef: basis.inputContractRef, resultContractRef: governanceContract("native-response") };
+        return ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS.resolveProbabilisticWorkerContracts?.(basis) ?? null;
+    },
+    resolveJudgmentRelation(predicateRef) {
+        const operation = GOVERNANCE_OPERATIONS.find(n => governanceRef("predicate", n) === predicateRef);
+        if (operation === undefined)
+            return ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS.resolveJudgmentRelation(predicateRef);
+        return { predicateRef, advanceReasonRef: governanceRef("reason", "conserved"), rejectionReasonRef: governanceRef("reason", "gap"),
+            evaluate(input, output) {
+                if (operation === "select")
+                    return isFramedSynthesisTask(input) && isFramedSynthesisResult(output) && governanceSame(input.state, output.state);
+                if (operation === "project-choice")
+                    return isFramedSynthesisResult(input) && isRegisteredGraphChoice(output) && output.disposition === "selected";
+                if (operation === "prepare-selection")
+                    return isGovernanceWorkState(input) && isFramedSynthesisTask(output) && governanceSame(output.state, input);
+                if (operation === "prepare-native")
+                    return isGovernanceWorkState(input) && isNativeWorkspaceWorkTask(output);
+                if (operation === "prepare-testing")
+                    return isGovernanceWorkState(input) && isC2WorksiteCommandExecutionTask(output);
+                const state = isRetainedGraphInput(input) ? input.entry : input;
+                return isGovernanceWorkState(state) && isGovernanceWorkState(output) && governanceSame(state.original, output.original);
+            } };
+    },
+});

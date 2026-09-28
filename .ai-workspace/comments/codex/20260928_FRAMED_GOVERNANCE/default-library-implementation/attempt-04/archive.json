@@ -1,0 +1,14 @@
+{
+  "core": {
+    "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-Cqqryy/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "sha256:6230a8433cbfb5ce0d67cbeb8bff4b63757cf8d8944cddc63d992bc8f32156ab"
+  },
+  "consumer": {
+    "artifactDigest": "sha256:9f3538bb374d894e9865ebb65b4f00a0f8222cac3088ea05f7b32f3a38ff7042",
+    "manifestDigest": "sha256:28dd3b8773988e68586c33059cb1daf9cc14492e00c835c964f5f851a4212979",
+    "productContentDigest": "sha256:68d7ba7a0f9b09322be9a2396c1305352344cb3506ebf37969a7e7936e791d2f",
+    "productId": "product://default-library-witness/consumer@5",
+    "packageName": "@abiogenesis-fixtures/registered-selection",
+    "packageVersion": "5.0.0"
+  }
+}

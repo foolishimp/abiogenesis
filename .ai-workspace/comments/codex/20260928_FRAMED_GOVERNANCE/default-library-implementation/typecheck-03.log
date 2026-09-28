@@ -1,0 +1,11 @@
+code/src/abg/default_library.ts(25,108): error TS2339: Property 'rawInputValue' does not exist on type 'InvocationAdmission'.
+code/src/abg/default_library.ts(26,16): error TS2339: Property 'rawInputValue' does not exist on type 'InvocationAdmission'.
+code/src/abg/default_library.ts(26,70): error TS2339: Property 'rawInputValue' does not exist on type 'InvocationAdmission'.
+code/src/abg/default_library.ts(28,72): error TS2339: Property 'rawInputValue' does not exist on type 'InvocationAdmission'.
+code/src/abg/worksite_input_provenance.ts(336,23): error TS2339: Property 'inputContractRef' does not exist on type 'ExecutionBasis'.
+code/src/gtl/default_library.ts(96,57): error TS2322: Type '{ kind: "closure_contract"; closureContractRef: string; predicateRef: string; evidenceContractRef: string; resultContractRef: string; refusalContractRef: string; refusalValueKind: string; ... 6 more ...; eventKindRefs: [...] | [...]; }' is not assignable to type 'ClosureContract'.
+  Type '{ kind: "closure_contract"; closureContractRef: string; predicateRef: string; evidenceContractRef: string; resultContractRef: string; refusalContractRef: string; refusalValueKind: string; ... 6 more ...; eventKindRefs: [...] | [...]; }' is not assignable to type 'ClosureContractBasis & { readonly closureScope: "graph_call"; readonly eventKindRefs: readonly ["terminal_reached", "frame_closed", "graph_call_closed"]; }'.
+    Type '{ kind: "closure_contract"; closureContractRef: string; predicateRef: string; evidenceContractRef: string; resultContractRef: string; refusalContractRef: string; refusalValueKind: string; ... 6 more ...; eventKindRefs: [...] | [...]; }' is not assignable to type '{ readonly closureScope: "graph_call"; readonly eventKindRefs: readonly ["terminal_reached", "frame_closed", "graph_call_closed"]; }'.
+      Types of property 'closureScope' are incompatible.
+        Type '"graph_call" | "run"' is not assignable to type '"graph_call"'.
+          Type '"run"' is not assignable to type '"graph_call"'.

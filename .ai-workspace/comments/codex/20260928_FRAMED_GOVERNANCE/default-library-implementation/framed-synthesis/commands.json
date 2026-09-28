@@ -1,0 +1,65 @@
+{
+  "scope": "T287_FRAMED_SYNTHESIS_IMPLEMENT_01",
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "provider": "/Users/jim/.local/share/claude/versions/2.1.280 --model claude-opus-5-5 --effort xhigh",
+  "commands": [
+    {
+      "command": "npx tsc -p tsconfig.json --noEmit",
+      "results": [
+        "typecheck-01.log",
+        "typecheck-02.log"
+      ]
+    },
+    {
+      "command": "npm run build",
+      "results": [
+        "build-01.log",
+        "build-02.log",
+        "build-03.log",
+        "build-04.log"
+      ],
+      "causes": [
+        "new source initial build exposed import cycle",
+        "identity-only cycle correction",
+        "focused check corrected projection stage declaration",
+        "authorized immutable prepared-hook correction"
+      ]
+    },
+    {
+      "command": "node --experimental-vm-modules --test test_env/tests/t287-default-library.test.mjs test_env/tests/t287-observed-worksite-command.test.mjs test_env/tests/t287-native-selection-profile-scope.test.mjs",
+      "results": [
+        "focused-01.log",
+        "focused-02.log"
+      ],
+      "followups": [
+        "focused-03.log",
+        "focused-projection-01.log",
+        "focused-prepared-hook-01.log"
+      ]
+    },
+    {
+      "command": "node --experimental-vm-modules --test --test-name-pattern=one installed Public default-library test_env/tests/t287-default-library.test.mjs",
+      "environment": {
+        "ABI5_DEFAULT_LIBRARY_LIVE": "1",
+        "ABI5_NATIVE_SELECTION_PROVIDER": "registered-selection-native/provider-preflight.json",
+        "ABI5_DEFAULT_LIBRARY_EVIDENCE_ROOT": "explicit fresh attempt directory"
+      },
+      "results": [
+        "attempt-01.log",
+        "attempt-02.log"
+      ]
+    },
+    {
+      "command": "node --experimental-vm-modules diagnose-attempt-01.mjs",
+      "result": "diagnose-attempt-01b.log"
+    },
+    {
+      "command": "node --experimental-vm-modules check-prepared-hook.mjs",
+      "result": "check-prepared-hook-02.log"
+    }
+  ],
+  "priorAttemptPreservation": {
+    "members": 29,
+    "unchanged": true
+  }
+}

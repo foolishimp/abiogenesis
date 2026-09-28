@@ -1,0 +1,33 @@
+✔ default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation (11.606292ms)
+✔ independent consumer restricts choices while preserving actual native role and schema owners (21.470583ms)
+✔ consumer-authored source and scope remain exact application data; no solution is in library (1.418209ms)
+(node:21567) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✖ observed child provenance joins the current preparation and rejects crossed or missing causal facts (48.770167ms)
+﹣ one installed Public default-library invocation reuses observed files, corrects actual work and independently closes (0.382167ms) # SKIP
+✔ observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol (20.815083ms)
+✔ observed C2 refuses foreign, absent, duplicate, mixed and writable source claims (5.621583ms)
+(node:21568) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ observed root source gate binds actual input and refuses stale, crossed and child authority (51.882459ms)
+✔ later admitted failed native residue invalidates observed inputs without requiring physical mismatch (31.886542ms)
+✔ changed physical observed source refuses before archive creation or command dispatch (4.081875ms)
+✔ observed C2 result, native acknowledgment and closure bind the same task without turning red execution green (18.270917ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 9
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 408.011959
+
+✖ failing tests:
+
+test at test_env/tests/t287-default-library.test.mjs:64:1
+✖ observed child provenance joins the current preparation and rejects crossed or missing causal facts (48.770167ms)
+  TypeError [Error]: store.snapshot is not a function
+      at check (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:84:123)
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:85:16)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)

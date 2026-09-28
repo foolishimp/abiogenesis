@@ -1,0 +1,31 @@
+✖ one installed Public default-library invocation reuses observed files, corrects actual work and independently closes (204345.138083ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 204621.506458
+
+✖ failing tests:
+
+test at test_env/tests/t287-default-library.test.mjs:306:1
+✖ one installed Public default-library invocation reuses observed files, corrects actual work and independently closes (204345.138083ms)
+  AssertionError [ERR_ASSERTION]: {"outcomeKind":"refusal","value":{"code":"invalid_intent","evidenceRefs":["data:application/json;charset=utf-8,%7B%22cause%22%3A%7B%22message%22%3A%22STDO%20assembly%20lacks%20its%20exact%20environment%20evidence%22%2C%22name%22%3A%22TypeError%22%7D%2C%22code%22%3A%22invalid_history%22%2C%22kind%22%3A%22abg_run_truth_diagnostic%22%2C%22message%22%3A%22ABG%20Run%20truth%20has%20no%20exact%20joined%20terminal%20history%22%2C%22prefixCoordinateDigest%22%3A%22sha256%3A136662f812114b22be71b146eb320eda18fb64d2fdd7a80269b6513b7f450989%22%2C%22schemaVersion%22%3A%225.0.0%22%2C%22stage%22%3A%22run_truth%22%2C%22targetRef%22%3A%22run%3A%2F%2Fabiogenesis%2F18345ba34d6195cd620000a464ef0d20c4a11f2daa3f1470e6015794b70cb0ae%22%7D"],"issuePaths":["/run_truth"]}}
+  + actual - expected
+  
+  + 'refusal'
+  - 'result'
+       ^
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs:387:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'refusal',
+    expected: 'result',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

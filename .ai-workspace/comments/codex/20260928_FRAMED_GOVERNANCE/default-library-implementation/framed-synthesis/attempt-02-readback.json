@@ -1,0 +1,30 @@
+[
+  {
+    "memberKey": "run_result",
+    "wallMs": 1716.429042,
+    "requestBytes": 9276,
+    "outcomeKind": "refusal",
+    "projectionKeys": [],
+    "ownerValue": {
+      "code": "unknown_source",
+      "evidenceRefs": [],
+      "issuePaths": [
+        "/source/sourceRef"
+      ]
+    }
+  },
+  {
+    "memberKey": "run_replay",
+    "wallMs": 1724.8681660000002,
+    "requestBytes": 9313,
+    "outcomeKind": "refusal",
+    "projectionKeys": [],
+    "ownerValue": {
+      "code": "unknown_source",
+      "evidenceRefs": [],
+      "issuePaths": [
+        "/source/sourceRef"
+      ]
+    }
+  }
+]

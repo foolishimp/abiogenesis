@@ -92,6 +92,42 @@ function exactInstallForCoordinate(installs, coordinate) {
 function exactInstallForPublication(installs, publication) {
     return exact(installs, (install) => installMatchesPublication(install, publication));
 }
+/** Same declared provider selection at installed retention admission and leaf
+ * execution. The caller supplies its existing exact owner projection; this
+ * relation adds no publication registry or authentication pass. */
+export function graphFunctionSemanticsOwner(closure, graphFunctionRef, ownerBinding, selectedRootGraphFunctionRef = closure.selectedGraphFunctionRef) {
+    if (graphFunctionRef === selectedRootGraphFunctionRef)
+        return closure.semanticsOwner;
+    const graphOwners = closure.graphFunctionOwners.filter(owner => owner.declarationRef === graphFunctionRef);
+    if (graphOwners.length !== 1)
+        return null;
+    const graph = ownerBinding(graphOwners[0]);
+    if (graph === null)
+        return null;
+    const binding = graph.publication.productSemanticsBinding;
+    const ownsProvider = (owner) => owner.install.packageName === binding.packageName && owner.install.packageVersion === binding.packageVersion;
+    if (ownsProvider(graph))
+        return {
+            ...graphOwners[0], declarationKind: "semantics", declarationRef: binding.bindingRef,
+        };
+    // Preserve external-provider selection from required declarations only.
+    const coordinates = [...closure.graphFunctionOwners, ...closure.contractOwners,
+        ...closure.evaluatorOwners, ...closure.ruleOwners, ...closure.implementationBindingOwners,
+        ...closure.closureContractOwners, closure.semanticsOwner];
+    const matches = closure.publications.flatMap(publication => {
+        if (sha256Canonical(publication.productSemanticsBinding) !==
+            sha256Canonical(binding))
+            return [];
+        const coordinate = coordinates.find(owner => owner.moduleRef === publication.moduleRef &&
+            owner.productId === publication.owningProductId &&
+            owner.publicationDigest === modulePublicationSemanticDigest(publication));
+        const owner = coordinate === undefined ? null : ownerBinding(coordinate);
+        return owner !== null && ownsProvider(owner)
+            ? [{ ...coordinate, declarationKind: "semantics", declarationRef: binding.bindingRef }]
+            : [];
+    });
+    return matches.length === 1 ? matches[0] : null;
+}
 function publicationForCoordinate(publications, coordinate) {
     return exact(publications, (publication) => publication.moduleRef === coordinate.moduleRef &&
         publication.owningProductId === coordinate.productId &&
@@ -307,15 +343,15 @@ async function resolveProductExecution(input) {
                 return publication.kind === "one" && installs.length === 1;
             };
             if (binding.targetContractRef === RETAINED_GRAPH_INPUT_CONTRACT.contractRef) {
-                const exactOwner = (owners, ref) => {
-                    const matches = owners.filter(owner => owner.declarationRef === ref);
-                    if (matches.length !== 1)
-                        return null;
-                    const owner = matches[0];
+                const exactBinding = (owner) => {
                     const publication = publicationForCoordinate(programDeclarationClosure.publications, owner);
                     const installs = input.admittedInstalls.filter(install => install.installId === owner.installId && install.productId === owner.productId &&
                         install.contributionManifest.publicationBindings.some(row => row.moduleRef === owner.moduleRef && row.publicationDigest === owner.publicationDigest));
-                    return publication.kind === "one" && installs.length === 1 ? owner : null;
+                    return publication.kind === "one" && installs.length === 1 ? { publication: publication.value, install: installs[0] } : null;
+                };
+                const exactOwner = (owners, ref) => {
+                    const matches = owners.filter(owner => owner.declarationRef === ref);
+                    return matches.length === 1 && exactBinding(matches[0]) !== null ? matches[0] : null;
                 };
                 const entry = exactOwner(programDeclarationClosure.contractOwners, binding.entryContractRef);
                 const target = exactOwner(programDeclarationClosure.contractOwners, binding.targetContractRef);
@@ -331,10 +367,11 @@ async function resolveProductExecution(input) {
                 const declaredGraphOwner = graphOwner === null ? null : publicationForCoordinate(programDeclarationClosure.publications, graphOwner);
                 const nativeSemantic = declaredGraphOwner?.kind === "one" && entry !== null && [SEMANTIC_STAGE_IDS.moduleRef, SEMANTIC_REVISION_IDS.moduleRef].some(ref => exactAbiOwner(entry, ref)) &&
                     nativeSemanticRetentionOwnersMatch(declaredGraphOwner.value, graph, graphOwner, entry, targetOwner, programDeclarationClosure.semanticsOwner);
+                const semanticsOwner = graphFunctionSemanticsOwner(programDeclarationClosure, graph.name, exactBinding, declarationClosure.selectedGraphFunctionRef);
                 if (!isGraphInputRetentionContractRelation(binding, contracts) || source === null ||
                     target === null || !exactAbiOwner(target, WORKSITE_COMMAND_EXECUTION_IDS.moduleRef) ||
                     (!sameOwner(entry, graphOwner) && !nativeSemantic) || !sameOwner(entry, targetOwner) ||
-                    (!sameOwner(entry, programDeclarationClosure.semanticsOwner) && !nativeSemantic)) {
+                    (!sameOwner(entry, semanticsOwner) && !nativeSemantic)) {
                     return refusal("wrong_owner", "declaration_closure", "retained input requires the fixed ABI pair and exact entry, source and consumer semantics owners");
                 }
                 continue;

@@ -431,6 +431,9 @@ export interface WorksiteCommandExecutionFailure {
 }
 export declare function worksiteCommandExecutionHelperPlan(task: WorksiteExecutionTask, attemptRef: string): WorksiteCommandExecutionHelperPlan;
 export declare function isWorksiteCommandExecutionHelperPlan(task: WorksiteExecutionTask, value: unknown): value is WorksiteCommandExecutionHelperPlan;
+/** Pure original-configuration correspondence using the task's bound context.
+ * Command and HTTP launch environments share the same acquisition-only law. */
+export declare function worksiteCommandConfigurationMatches(input: WorksiteCommandConfigurationInput, bound: ReturnType<typeof constructWorksiteCommandConfiguration>): boolean;
 export declare function worksitePathIsAllowed(path: string, territories: readonly WorksiteCommandWriteTerritory[]): boolean;
 export declare function matchingWorksiteTerritoryRef(path: string, territories: readonly WorksiteCommandWriteTerritory[]): string | null;
 export interface WorksiteCommandConfigurationInput {

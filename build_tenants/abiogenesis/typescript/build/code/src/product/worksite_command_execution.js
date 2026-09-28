@@ -426,6 +426,55 @@ function environmentEntries(value) {
         ...row,
     })));
 }
+/** Match explicit declaration constraints against an already captured environment.
+ * The allowed ambient entries were selected at preparation, never at replay. */
+function declaredEnvironmentMatches(input, bound) {
+    if (!bound.some(row => row.name === "PATH") || !same(bound, environmentEntries(bound)))
+        return false;
+    const declared = Array.isArray(input) ? input : Object.entries(input ?? {}).map(([name, value]) => ({ name, value }));
+    if (new Set(declared.map(row => row.name)).size !== declared.length)
+        return false;
+    const prefix = declared.find(row => row.name === "PATH_PREFIX")?.value;
+    const actual = new Map(bound.map(row => [row.name, row.value]));
+    const defaults = Array.isArray(input) ? ["PATH"] : ["PATH", "HOME", "TMPDIR", "LANG", "LC_ALL"];
+    if (bound.some(row => !defaults.includes(row.name) && !declared.some(d => d.name === row.name)))
+        return false;
+    if (declared.some(row => row.name !== "PATH_PREFIX" && actual.get(row.name) !==
+        (row.name === "PATH" && prefix !== undefined ? `${prefix}${pathDelimiter}${row.value}` : row.value)))
+        return false;
+    return prefix === undefined || (typeof prefix === "string" && prefix.length > 0 &&
+        actual.get("PATH").startsWith(`${prefix}${pathDelimiter}`) && actual.get("PATH").length > prefix.length + 1);
+}
+/** Pure original-configuration correspondence using the task's bound context.
+ * Command and HTTP launch environments share the same acquisition-only law. */
+export function worksiteCommandConfigurationMatches(input, bound) {
+    try {
+        if (input.commands.length !== bound.commands.length || input.outcomePredicates.length !== bound.predicates.length)
+            return false;
+        const commands = input.commands.map((command, i) => {
+            const environment = bound.commands[i].environment;
+            if (!declaredEnvironmentMatches(command.environment, environment))
+                throw new TypeError("changed explicit command environment");
+            return { ...command, environment };
+        });
+        const outcomePredicates = input.outcomePredicates.map((predicate, i) => {
+            if (predicate.predicateKind !== "http_response_exact")
+                return predicate;
+            const declaration = predicate.declaration, retained = bound.predicates[i].declaration;
+            if (!isRecord(declaration) || !isRecord(declaration.launch) || !isRecord(retained) || !isRecord(retained.launch) ||
+                !Array.isArray(retained.launch.environment))
+                throw new TypeError("missing bound HTTP environment");
+            const environment = retained.launch.environment;
+            if (!declaredEnvironmentMatches(declaration.launch.environment, environment))
+                throw new TypeError("changed explicit HTTP environment");
+            return { ...predicate, declaration: { ...declaration, launch: { ...declaration.launch, environment } } };
+        });
+        return same(bound, constructWorksiteCommandConfiguration({ ...input, commands, outcomePredicates }));
+    }
+    catch {
+        return false;
+    }
+}
 function constructExpectedReport(input, ordinal) {
     if (!nonempty(input.reportIdentity) || !safeRelativePath(input.relativePath)) {
         throw new TypeError("expected report requires one identity and safe relative path");

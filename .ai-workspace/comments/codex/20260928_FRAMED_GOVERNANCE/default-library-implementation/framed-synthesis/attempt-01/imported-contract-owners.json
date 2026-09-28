@@ -1,0 +1,51 @@
+{
+  "owners": [
+    {
+      "declarationKind": "contract",
+      "declarationRef": "contract://abiogenesis/default-library/choice@5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/1335de0939a863c049368052e38f8bc9c98d48e0583cfb123977df69744578c2/9696a93bc81ed40f2b56bd142d89767ddec65a36f2100aff55de8a3349749a48",
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "publicationDigest": "sha256:f9e7018da24fd09ffa220bba53c33287226705170168ba2f53ca83aae32020c0"
+    },
+    {
+      "declarationKind": "contract",
+      "declarationRef": "contract://abiogenesis/default-library/native-response@5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/1335de0939a863c049368052e38f8bc9c98d48e0583cfb123977df69744578c2/9696a93bc81ed40f2b56bd142d89767ddec65a36f2100aff55de8a3349749a48",
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "publicationDigest": "sha256:f9e7018da24fd09ffa220bba53c33287226705170168ba2f53ca83aae32020c0"
+    },
+    {
+      "declarationKind": "contract",
+      "declarationRef": "contract://abiogenesis/default-library/selection-task@5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/1335de0939a863c049368052e38f8bc9c98d48e0583cfb123977df69744578c2/9696a93bc81ed40f2b56bd142d89767ddec65a36f2100aff55de8a3349749a48",
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "publicationDigest": "sha256:f9e7018da24fd09ffa220bba53c33287226705170168ba2f53ca83aae32020c0"
+    },
+    {
+      "declarationKind": "contract",
+      "declarationRef": "contract://abiogenesis/default-library/state@5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/1335de0939a863c049368052e38f8bc9c98d48e0583cfb123977df69744578c2/9696a93bc81ed40f2b56bd142d89767ddec65a36f2100aff55de8a3349749a48",
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "publicationDigest": "sha256:f9e7018da24fd09ffa220bba53c33287226705170168ba2f53ca83aae32020c0"
+    },
+    {
+      "declarationKind": "contract",
+      "declarationRef": "contract://abiogenesis/default-library/synthesis@5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/1335de0939a863c049368052e38f8bc9c98d48e0583cfb123977df69744578c2/9696a93bc81ed40f2b56bd142d89767ddec65a36f2100aff55de8a3349749a48",
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "publicationDigest": "sha256:f9e7018da24fd09ffa220bba53c33287226705170168ba2f53ca83aae32020c0"
+    }
+  ],
+  "duplicateProbe": {
+    "kind": "execution_declaration_closure_refusal",
+    "schemaVersion": "5.0.0",
+    "disposition": "refused",
+    "code": "ambiguous",
+    "message": "Contract contract://abiogenesis/default-library/state@5 does not resolve to one exact compatible publication owner"
+  }
+}

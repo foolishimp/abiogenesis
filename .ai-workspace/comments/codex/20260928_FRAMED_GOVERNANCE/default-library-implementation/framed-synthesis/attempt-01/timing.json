@@ -1,0 +1,27 @@
+{
+  "setup": {
+    "wallMs": {
+      "provisioning_pack": 3131.3957920000003,
+      "provisioning_extract": 493.9082920000001,
+      "bootstrap_owner_loading_and_candidate_preparation": 399.16116699999975,
+      "provisioning_verify_artifact": 11736.955416,
+      "provisioning_install": 2689.618083000001,
+      "provisioning_installed_content_check": 561.1080409999995,
+      "provisioning_additional_products": 1451.8258330000026,
+      "installed_owner_loading": 245.63370799999757,
+      "environment_install_and_workspace_admission": 572.679167000002,
+      "execution_preparation_publication_program_and_catalog": 348.6847909999997
+    },
+    "volumes": {
+      "archiveBytes": 10312739,
+      "archiveUnpackedBytes": 67481864,
+      "archiveMemberCount": 5252,
+      "installedTreeBytes": null
+    }
+  },
+  "executionMs": 3199.5109580000026,
+  "native": [],
+  "frameworkOutsideNativeIntervalsMs": 3199.5109580000026,
+  "publicRequestBytes": 17451284,
+  "eventCount": 58
+}

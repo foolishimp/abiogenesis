@@ -1,0 +1,105 @@
+{
+  "baseline": "1186379e9fa154613af439c72636acd3f2a6aedf",
+  "files": {
+    "code/src/abg/c_call_outcome.ts": {
+      "sha256": "02261c91dadab2ae184fa4c0ef31d7c3c1f2becb5e308d9f2519e960b956e8f8",
+      "bytes": 66645
+    },
+    "code/src/abg/default_library.ts": {
+      "sha256": "216622007013457329cedd785b2aeabef838b2deede3770b9f407ac89a147ff9",
+      "bytes": 18262
+    },
+    "code/src/abg/execution_basis.ts": {
+      "sha256": "61d0d7205e1551647e2c272778ed32f4cfe12de2750660562c02ff6caa0ed74b",
+      "bytes": 122233
+    },
+    "code/src/abg/replay.ts": {
+      "sha256": "b65667b8cd6309bce2ebca0492635c088c095e0b9bc66dd1ee2930d91039b879",
+      "bytes": 88348
+    },
+    "code/src/abg/worksite_input_provenance.ts": {
+      "sha256": "8c43a3433a486b7c71c8c3118d2c72f8a339bc50ec188af3b891fa40d8c72e3f",
+      "bytes": 43094
+    },
+    "code/src/gtl/default_library.ts": {
+      "sha256": "9595da7a684848d1a26f1bbb9412c3df7622678989f57131fa8da65fd356a36c",
+      "bytes": 15951
+    },
+    "code/src/gtl/index.ts": {
+      "sha256": "a4104a9a6a7aeb3b0511b2eb509b86a93759e64b7b1f1239a4ce08022c373983",
+      "bytes": 13129
+    },
+    "code/src/hog/ccall_lifecycle.ts": {
+      "sha256": "3cb0d09a18e00af62bbb1d8ff4518fa7de04befdb3ba979fe06b1d2bb1ad01e4",
+      "bytes": 35923
+    },
+    "code/src/implementation/default_library.ts": {
+      "sha256": "49ae4dfeb28595ed8cceb3c949381137623d5b4d4c9f7b7833ebc500394f5179",
+      "bytes": 5684
+    },
+    "code/src/implementation/index.ts": {
+      "sha256": "bfdf9150a844cb4f14c433eb52d8ceb405a9ae7ba9b5c06f12bb882b3d901cd0",
+      "bytes": 7640
+    },
+    "code/src/product/builtin_semantics.ts": {
+      "sha256": "201560dd0fc17e278a457206c6f567d0d86ce61f7b4d3ecc3a27b9d392a65f8a",
+      "bytes": 65185
+    },
+    "code/src/product/default_library.ts": {
+      "sha256": "3650c3df10acea7f59e6e4427a10e936771e601afbb81be8714f1c6bfc8a3c81",
+      "bytes": 7772
+    },
+    "code/src/product/index.ts": {
+      "sha256": "273ddc342f19df1b7013e3e19fb37dbd1cba5e346342f0d9456ae323647b2a23",
+      "bytes": 25105
+    },
+    "contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "ddb2129a623e50b4e662ad0954378aec0a98c5eb16cbf8d4805a6cd8641bd403",
+      "bytes": 197474
+    },
+    "contracts/default-library/context.inventory.json": {
+      "sha256": "1ed50428ca54c72301cae129c01de37c431048945089f6b6a1909987034a7694",
+      "bytes": 239
+    },
+    "contracts/default-library/policy.txt": {
+      "sha256": "abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+      "bytes": 891
+    },
+    "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": {
+      "sha256": "b0c2c9c8e20873de9ac70824c829e4e3a1878b4529e133d9dd27f57a6c7c3be0",
+      "bytes": 24575
+    },
+    "design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md": {
+      "sha256": "72a21030d65bdc18a66c98b17e585b05e3c73bd3146bb8d8f8f42349b17e27ec",
+      "bytes": 61435
+    },
+    "product-toolchain-manifest.json": {
+      "sha256": "7c3b8c7213f637b616551e83ca99b85d2e5d67e53e0394a64b0751e0167882a1",
+      "bytes": 2522867
+    },
+    "scripts/generate-product-manifest.mjs": {
+      "sha256": "1e7385a5e7c2e2c7c63de35e2b292ff3e9773b7ed121d455d6f0905492a9dbd4",
+      "bytes": 42438
+    },
+    "test_env/fixtures/default-library-product/index.mjs": {
+      "sha256": "e8cde80b6ca3093f65857eac23fa6969260567f1220f705f9ac5ca316e089c41",
+      "bytes": 730
+    },
+    "test_env/support/default-library.mjs": {
+      "sha256": "1e3fb6c62850a1e06d1b699da28a82cff4fae4c5cf3f6b9c160911053b975f48",
+      "bytes": 8613
+    },
+    "test_env/support/registered-graph-selection.mjs": {
+      "sha256": "221d3d8dfab58da9b96ff926b8a5e3548a9f8c2b8dfc42b26cac7e1b3b467449",
+      "bytes": 21381
+    },
+    "test_env/support/root-installed-environment.mjs": {
+      "sha256": "cf0a778870128c4afc13e8fb535c01bc67ac009cb23233324b1242a6b44eb65d",
+      "bytes": 37822
+    },
+    "test_env/tests/t287-default-library.test.mjs": {
+      "sha256": "47dfb94f734528131384a0acc1fc4f6209992dd2b651e6eced83859ad15c7532",
+      "bytes": 23814
+    }
+  }
+}

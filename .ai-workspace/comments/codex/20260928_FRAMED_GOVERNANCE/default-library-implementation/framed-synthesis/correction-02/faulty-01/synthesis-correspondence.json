@@ -1,0 +1,331 @@
+[
+  {
+    "synthesisEvent": "event://abiogenesis/2a09273c57be95d6db09ada532db31dfbbeec586157d56a7ab97b186b58f03e8",
+    "synthesisOrdinal": 216,
+    "resultRef": "result://abiogenesis/7c4f52c489a49c06f092e4898b4008b25b797c51fdcd92f390336e72a8fde720",
+    "basis": {
+      "contextRef": "worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "frameEvidenceDigest": "sha256:5b04bbc366bcddd1cb4aa8303cf48c7169bdab85744fa6b57ae95543adabb3e4",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "inputDigest": "sha256:dc11f2d374a9bc20893da0d7289d6f5c9ab22ebe80d729e3d091ec3aead8ec9c",
+      "inputRef": "result://abiogenesis/2f29ac1bf751cf66fe494d23049d5b588beffb3258770dd79e01d50516247610",
+      "previousResultRef": null,
+      "taskRef": "task://default-library-witness/original@5"
+    },
+    "judgment": {
+      "contributions": [
+        {
+          "contribution": "Run the declared testing plan against the supplied files as they are, with subjectEvidenceRef null. Command 0 is `node generated/hello-world.mjs`; command 1 is `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`, both from cwd '.'. Keep the exact commands, integer exit statuses, stdout, stderr and pass/fail counts, including nonzero exits and assertion failures. Write evidence only under execution-evidence.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+          "reason": "The witness contract and the Steel-Thread rule both require an actual end-to-end observation of the unverified candidate before deciding what to change. Testing needs no author, and its selected paths and command plan are fully declared. Its result will confirm or rule out the defect suspected from reading the file (missing comma), and a failure becomes the evidence that justifies a separate construction choice.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        },
+        {
+          "contribution": "If the observed commands show the stdout mismatch, make a minimal repair confined to generated/hello-world.mjs so it writes exactly \"Hello, world!\\n\" to stdout and exits 0, with no package installation. Leave the source, oracle, contract, design, conformance, test sources and test plan untouched.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/testing@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+          "reason": "The work order allows editing only generated/hello-world.mjs, and only for an implementation defect that has been materially established. That can come only from actual Testing observation of the supplied candidate, not from static reading alone. A self-check by construction is not independent acceptance.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        },
+        {
+          "contribution": "Read-only, independent assessment of the full original outcome. It uses the exact current candidate, the source/basic-cli.oracle.json rubric and the admitted current execution evidence, and returns satisfied, unmet or indeterminate, keeping any unresolved criteria.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/testing@5",
+            "graph-function://abiogenesis/default-library/construction@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "reason": "The parent's termination rule needs an independent assessment of the user outcome that consumes current evidence. UAT needs an exact current native-work or C2 measurement Result, and none exists yet. It must assess the candidate as it stands after any repair and after execution evidence has been observed.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        }
+      ],
+      "gaps": [],
+      "interpretation": "Executive frame on the conserved basic-cli task. The goal is the full original outcome: `node generated/hello-world.mjs` must print exactly \"Hello, world!\\n\" and exit 0. The component and UAT tests must both run the real CLI, with at least 2 passes and 0 failures. An independent assessment against source/basic-cli.oracle.json must then consume current execution evidence. The state has no observations yet, so no behaviour is established in this Run. The supplied candidate decodes to `console.log(\"Hello world!\");`, which lacks the comma the source, oracle, design and both test bodies require. Static reading suggests a real defect, but the witness contract requires an actual command observation of the supplied candidate first, with no native author prerequisite. Any material failure must remain evidence for a later, different work choice. The design, conformance, test sources, test plan, oracle and original source look consistent with the task, so they are preserved unchanged. Construction may edit only generated/hello-world.mjs, and only after a failure is established. A completed child or a passing measurement does not by itself complete the application.",
+      "nextEvidenceRefs": [
+        "task://default-library-witness/original@5",
+        "worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f"
+      ],
+      "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "nextReason": "No execution evidence exists in this Run, and the contract requires an actual command observation of the supplied candidate before any repair. Testing needs no author and has a fully declared command plan. Its result, pass or fail, will be the current evidence that decides whether construction is justified. Testing observes the supplied files directly, so subjectEvidenceRef is null.",
+      "revisionEvidenceRefs": [
+        "worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f"
+      ],
+      "revisionReason": "This is the first selection on this state. There are no prior observations or judgments to revise; the supplied worksite files are the only basis, and the unresolved outcome support ref stays open.",
+      "subjectEvidenceRef": null
+    },
+    "choiceEvent": "event://abiogenesis/0d2450644c62a4503e8ec9eeadfc4106431ae421be233fd1814b3c3bde186561",
+    "choiceOrdinal": 229,
+    "childResultEvent": "event://abiogenesis/fdf457d19723932fe7891e8a19af7fff02c4cb048f8be83073304f40c52d751f",
+    "childResultOrdinal": 387,
+    "childGraphFunction": "graph-function://abiogenesis/worksite/command-execution@5",
+    "foldEvent": "event://abiogenesis/75f1b851aeb2b7fddfd6a2b0c6e038a97a0de25e1f15657949471c091c0cb7db",
+    "foldOrdinal": 417,
+    "parentEvent": "event://abiogenesis/d299280bb6e3f868ee5fa563cdd7cfd29633065c0b63534f9caa0066378956cf"
+  },
+  {
+    "synthesisEvent": "event://abiogenesis/a305fcfcbd8e6d6250fa01e91e4fd07d0250eb48df9a9942497440aecad503ec",
+    "synthesisOrdinal": 1358,
+    "resultRef": "result://abiogenesis/7914dbef0a74ccaf43fd9cdc1a1cc6f1e2daa619f7ec4da3f25140690d86d982",
+    "basis": {
+      "contextRef": "worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "frameEvidenceDigest": "sha256:5b04bbc366bcddd1cb4aa8303cf48c7169bdab85744fa6b57ae95543adabb3e4",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "inputDigest": "sha256:49da6aebfbe0cb58ed8ee1c47773297d986ced5f659af44deb9267b42b0b01a6",
+      "inputRef": "result://abiogenesis/612efa978d74cef54de9548bc0a12ec0e6e373f249cc309f4c28f40f63d89072",
+      "previousResultRef": "result://abiogenesis/7c4f52c489a49c06f092e4898b4008b25b797c51fdcd92f390336e72a8fde720",
+      "taskRef": "task://default-library-witness/original@5"
+    },
+    "judgment": {
+      "contributions": [
+        {
+          "contribution": "Make a minimal repair confined to generated/hello-world.mjs so that it writes exactly \"Hello, world!\\n\" to stdout and exits 0 under node, with no package installation. For example, change the string literal to \"Hello, world!\" and keep console.log. Do not touch the original source, oracle, witness contract, conformance and design documents, test sources, test plan, or protected installation assets. Do not claim acceptance. A self-check, if run, is only a report, not independent acceptance.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f",
+            "result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7",
+            "result://abiogenesis/7c4f52c489a49c06f092e4898b4008b25b797c51fdcd92f390336e72a8fde720"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+          "reason": "The Testing result shows a material implementation defect on the exact supplied candidate. The CLI printed 'Hello world!\\n' instead of 'Hello, world!\\n', and both the component and the UAT test failed on that assertion (exit 1, pass 0, fail 2). All other artifacts agree with the original source and oracle, so the defect is only in the application file, and that file is the construction work order's only write root. The witness contract allows repairing only a defect that has been materially established, and that condition is now met.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        },
+        {
+          "contribution": "After the repair, re-run the declared command plan against the repaired files from cwd '.'. Command 0 is `node generated/hello-world.mjs`. Command 1 is `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`. Keep the exact commands, integer exit statuses, stdout, stderr and pass/fail counts, including any nonzero exits. Write evidence only under execution-evidence.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/construction@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f",
+            "result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+          "reason": "The existing Testing result describes the candidate before the repair. A repair invalidates it as evidence of the current candidate. Fresh observations are needed to show directly that the CLI prints 'Hello, world!\\n' with status 0, and that at least 2 tests pass with 0 failures. The previous failing observation stays on record for the disposition.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        },
+        {
+          "contribution": "A read-only, independent assessment of the full original outcome. It uses the exact repaired candidate, the source/basic-cli.oracle.json rubric, the actual test bodies, and the current admitted execution evidence from the re-run. It returns satisfied, unmet or indeterminate, and keeps any unresolved criteria.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/construction@5",
+            "graph-function://abiogenesis/default-library/testing@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f",
+            "result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "reason": "The parent's termination rule requires an independent assessment of the user outcome that consumes current evidence. Assessing the current failing Testing result now would only restate a defect that is already known. The consequential assessment is of the repaired candidate, backed by fresh execution observations.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        }
+      ],
+      "gaps": [],
+      "interpretation": "This is the Executive frame applied to the conserved basic-cli task. The required outcome is unchanged. `node generated/hello-world.mjs` must print exactly \"Hello, world!\\n\" and exit 0. The component and UAT tests must both run the real CLI, with at least 2 passes and 0 failures. An independent assessment against source/basic-cli.oracle.json must then consume current execution evidence. The previous selection chose Testing, and it has now run against the supplied candidate (result 2512641e…). Command 0 (`node generated/hello-world.mjs`) exited 0 with stdout \"Hello world!\\n\". The comma is missing. Command 1 (`node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`) exited 1 with tests 2, pass 0, fail 2. Both assertions failed on the same mismatch, actual 'Hello world!\\n' against expected 'Hello, world!\\n'. So the implementation defect is now established by actual observation, not just by reading the file. It is located only in generated/hello-world.mjs, which contains `console.log(\"Hello world!\");`. The source, oracle, contract, conformance and design documents, both test bodies and the test plan all agree on \"Hello, world!\\n\". They are valid supplied work and stay unchanged. The failed observation is kept as evidence of the first attempt. Under the witness contract, it justifies a different registered work choice, Construction, confined to the one permitted write root. A passing re-test or a completed child after the repair still would not complete the application. That requires fresh execution evidence on the repaired candidate and an independent UAT verdict.",
+      "nextEvidenceRefs": [
+        "task://default-library-witness/original@5",
+        "worksite-context-observation://abiogenesis/836fb1741207e0605ef93967ec6ca34cfe452c324ae5d511ecd5d2ab447e3e2f",
+        "result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7",
+        "result://abiogenesis/7c4f52c489a49c06f092e4898b4008b25b797c51fdcd92f390336e72a8fde720"
+      ],
+      "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+      "nextReason": "Current Testing evidence shows that the supplied candidate fails the original outcome. Stdout was 'Hello world!\\n', not 'Hello, world!\\n', and both tests failed with exit 1. The defect is confined to generated/hello-world.mjs, the one permitted write root. Construction is the different registered work choice the contract calls for after a material observation failure. Re-running Testing or running UAT before the repair would not change the known result. Construction works on the files, so subjectEvidenceRef is null.",
+      "revisionEvidenceRefs": [
+        "result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7",
+        "result://abiogenesis/7c4f52c489a49c06f092e4898b4008b25b797c51fdcd92f390336e72a8fde720"
+      ],
+      "revisionReason": "The previous judgment (7c4f52c…) chose Testing to confirm or rule out the missing comma suspected from reading the file. Construction was made conditional on a mismatch being observed. Testing has now run (2512641e…) and confirmed the defect by actual command observation: exit 0 with 'Hello world!\\n', and the test run exited 1 with pass 0 and fail 2. The condition for construction is met, so construction becomes the next member. Testing is kept as a later re-run on the repaired candidate, because the earlier observation no longer describes the current files after the repair. UAT still depends on that fresh evidence.",
+      "subjectEvidenceRef": null
+    },
+    "choiceEvent": "event://abiogenesis/4d04e2d534ac21471526685dab5e6a34bf4fa28c94b8f3013a9d5610d3e2434c",
+    "choiceOrdinal": 1371,
+    "childResultEvent": "event://abiogenesis/0afb6446c4c42af71582608c3598eac99f2f9f0bb4266c21740c2eba047838c9",
+    "childResultOrdinal": 1664,
+    "childGraphFunction": "graph-function://abiogenesis/worksite/native-work@5",
+    "foldEvent": "event://abiogenesis/fb1eb3434065a9c44c0639e9279c3e66c79c3825b12dd41eaab5ed800446aea8",
+    "foldOrdinal": 1694,
+    "parentEvent": "event://abiogenesis/db6362cbaaa89c9f3e436816f665bb2c31b0423a53382756339f8d6407f78cd0"
+  },
+  {
+    "synthesisEvent": "event://abiogenesis/f9ae4b3910fef529c34f1f093fb075400928379ea406206f980f62a27a41d865",
+    "synthesisOrdinal": 2109,
+    "resultRef": "result://abiogenesis/0e173f49dba50bc1bd354576bbd2f0a74ae7b8f68ca128d2cb4d3d5f36d8c92c",
+    "basis": {
+      "contextRef": "worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "frameEvidenceDigest": "sha256:5b04bbc366bcddd1cb4aa8303cf48c7169bdab85744fa6b57ae95543adabb3e4",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "inputDigest": "sha256:92de6c5c42e4e4f988c8262a784cfda83883a711f7e44aaa1bd4d49caad33c58",
+      "inputRef": "result://abiogenesis/dfe7c469b34326bf0eb6c16ae8d6a91b1701caa8f9b88ae5b940d5ee3c296927",
+      "previousResultRef": "result://abiogenesis/7914dbef0a74ccaf43fd9cdc1a1cc6f1e2daa619f7ec4da3f25140690d86d982",
+      "taskRef": "task://default-library-witness/original@5"
+    },
+    "judgment": {
+      "contributions": [
+        {
+          "contribution": "Run the declared command plan from cwd '.' against the current repaired files, using the declared environment only.\n- Command 0: `node generated/hello-world.mjs`.\n- Command 1: `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`.\n\nRecord the actual executable, args, integer exit status, stdout and stderr (with byte lengths and digests), and the tests/pass/fail counts, including any nonzero exit or zero-test run.\n\nPredicates to evaluate:\n- Command 0 exits 0 with stdout exactly \"Hello, world!\\n\" (14 bytes).\n- Command 1 exits 0, reports at least 2 tests executed, pass ≥ 2 (plan expectedTestPassCount), and stdout contains \"fail 0\" (plan expectedStdoutMatch).\n- NODE_TEST_CONTEXT is absent, so an exit 0 with no tests run cannot pass as success.\n\nDo not edit any files. Write evidence only under execution-evidence.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87",
+            "result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348",
+            "result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7",
+            "result://abiogenesis/7914dbef0a74ccaf43fd9cdc1a1cc6f1e2daa619f7ec4da3f25140690d86d982"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+          "reason": "Construction changed the candidate, so the existing Testing result (2512641e…) no longer describes the current files. The only passing runs are the author's own and are not admitted. An actual command observation of the repaired candidate is the missing evidence. It decides whether the one-line repair satisfies the source and oracle, and UAT cannot proceed without it. The planned commands and predicates are fully declared, so no author prerequisite or invented plan is needed.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        },
+        {
+          "contribution": "Read-only, independent assessment of the full original basic-cli outcome. Inputs:\n- the exact repaired candidate generated/hello-world.mjs\n- the source/basic-cli.oracle.json rubric\n- the original source and witness contract\n- the actual component and UAT test bodies\n- test-execution-plan.json\n- the fresh admitted Testing observations of the repaired candidate\n\nCheck that the CLI's real stdout and status match the oracle case. Check that both tests run the real CLI and that at least 2 pass with 0 failures in an execution that actually ran the tests. Check that the required artifacts are genuine and unchanged. Return satisfied, unmet or indeterminate, and keep any unresolved criteria.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/testing@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87",
+            "result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348",
+            "result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "reason": "Under the parent's termination rule, only an independent user-outcome verdict based on current evidence can resolve complete-source-outcome. Neither a completed Construction child nor a passing Testing run establishes application success. Assessing now would only restate the stale pre-repair failure or rely on the author's unadmitted report. So UAT must wait for the fresh Testing result, and its subject must be that Result or the Construction result, backed by it.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        }
+      ],
+      "gaps": [],
+      "interpretation": "Executive frame applied to the unchanged basic-cli task. The required outcome is that `node generated/hello-world.mjs` writes exactly \"Hello, world!\\n\" and exits 0 with no package installation. Both the component test and the UAT test must run the real CLI, with at least 2 passing and 0 failing. An independent assessment against source/basic-cli.oracle.json must then use current execution evidence. Per the oracle, the test_execution_result meaning comes from admitted C2 measurement plus assessed evidence, not from a prewritten report.\n\nHistory so far:\n- The first Testing run (2512641e…) showed the defect on the supplied candidate. The CLI printed \"Hello world!\\n\", and the test run exited 1 with pass 0 and fail 2.\n- The previous selection (7914dbef…) chose Construction.\n- Construction has now finished (8efce789…). It changed only generated/hello-world.mjs.\n\nCurrent state: the latest worksite observation (827ee295…) shows the file is now `console.log(\"Hello, world!\");` (30 bytes, sha256:fe8f4080…). Every protected asset still matches its original declared digest: source, oracle, witness contract, conformance and design documents, both test bodies, and test-execution-plan.json. The valid supplied work is intact.\n\nWhat is not yet established:\n- The earlier Testing result describes the file before the repair, so it no longer applies to the current candidate. It stays on record as the failed first attempt.\n- The passes Construction reported are the author's own runs, not admitted observations.\n- The author flagged a real risk: if NODE_TEST_CONTEXT is inherited, `node --test` can exit 0 without running any tests. Fresh evidence must therefore show that tests actually ran (tests 2, pass ≥2, fail 0), not just exit 0.\n\nThe application is not complete. It needs a fresh Testing observation of the repaired candidate, then an independent UAT verdict. Construction should run again only if that fresh evidence shows a remaining defect in generated/hello-world.mjs.",
+      "nextEvidenceRefs": [
+        "task://default-library-witness/original@5",
+        "worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87",
+        "result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348",
+        "result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7",
+        "result://abiogenesis/7914dbef0a74ccaf43fd9cdc1a1cc6f1e2daa619f7ec4da3f25140690d86d982"
+      ],
+      "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "nextReason": "The repair is done (8efce789…). The current observation confirms that generated/hello-world.mjs now contains `console.log(\"Hello, world!\");` and that all protected assets are unchanged. No admitted execution observation of this repaired candidate exists yet. The only Testing result is from before the repair, and the Construction passes are the author's own runs. Fresh Testing is the smallest step that decides the remaining uncertainty, and it must confirm the tests actually ran (tests 2, pass ≥2, fail 0) given the NODE_TEST_CONTEXT risk. UAT requires that current evidence. Construction should not run again without a newly observed defect. The subject is the Construction native-work Result (8efce789…), so the observation is tied to the repaired candidate it produced.",
+      "revisionEvidenceRefs": [
+        "result://abiogenesis/7914dbef0a74ccaf43fd9cdc1a1cc6f1e2daa619f7ec4da3f25140690d86d982",
+        "result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348",
+        "worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87",
+        "result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7"
+      ],
+      "revisionReason": "The previous judgment (7914dbef…) chose Construction and planned to re-run Testing after the repair, then UAT. Construction has now finished (8efce789…) and changed only generated/hello-world.mjs. The current observation (827ee295…) confirms the new content, and every protected asset still matches its original digest. The Construction row is therefore completed work: it is cited as evidence and not selected again. Testing moves up to be the next member, with the Construction Result as its subject. Its predicates now also cover the author-reported NODE_TEST_CONTEXT risk. UAT now depends only on Testing, because the repair it was waiting for is done. The pre-repair Testing failure (2512641e…) stays on record as the first attempt, but it is no longer current evidence for the repaired candidate.",
+      "subjectEvidenceRef": "result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348"
+    },
+    "choiceEvent": "event://abiogenesis/9085350d96f2e724173ba0a162d05ceaf5f514a5528abbd3b79d8c44069f4e92",
+    "choiceOrdinal": 2122,
+    "childResultEvent": "event://abiogenesis/471224bfcb4ec279c12c4c4965b0c42d4412fd677c87917ef9e7ffb2fbdce392",
+    "childResultOrdinal": 2314,
+    "childGraphFunction": "graph-function://abiogenesis/worksite/command-execution@5",
+    "foldEvent": "event://abiogenesis/950dea1a955befca85839d5e734b39756fe44738ee167f08265c3f8102cbf682",
+    "foldOrdinal": 2344,
+    "parentEvent": "event://abiogenesis/e5630b601e863a0e898d1e6b593faa482eeb230e6e57a70e5605d04914f56aec"
+  },
+  {
+    "synthesisEvent": "event://abiogenesis/5979465657e751a24703ff22d1aa2cb9a6a5ca10b1762877aff994a0dce6fd9d",
+    "synthesisOrdinal": 3641,
+    "resultRef": "result://abiogenesis/2ae44b2774373890f333f433ee9885ba4e4805b9ecb07b9c5044969b5b43591a",
+    "basis": {
+      "contextRef": "worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "frameEvidenceDigest": "sha256:5b04bbc366bcddd1cb4aa8303cf48c7169bdab85744fa6b57ae95543adabb3e4",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "inputDigest": "sha256:d09b791f4e39a26bbe837499a58e4fa175e3d3264ba234da0c049525e9877729",
+      "inputRef": "result://abiogenesis/c9aea504780d365586b02919a73444f33ff9c95b738b96fdf7db799d63b89925",
+      "previousResultRef": "result://abiogenesis/0e173f49dba50bc1bd354576bbd2f0a74ae7b8f68ca128d2cb4d3d5f36d8c92c",
+      "taskRef": "task://default-library-witness/original@5"
+    },
+    "judgment": {
+      "contributions": [
+        {
+          "contribution": "Read-only, independent assessment of the full original basic-cli outcome. The subject is the admitted Testing measurement c4a857ca…, which observed the repaired candidate produced by Construction 8efce789….\n\nInputs:\n- The exact current generated/hello-world.mjs (sha256:fe8f4080…).\n- The rubric source/basic-cli.oracle.json.\n- source/original-basic-cli.txt and source/witness-contract.md.\n- specification/project-conformance.md, design/implementation-design.md and design/test-design.md.\n- The actual bodies of test/component/hello-cli.test.mjs and test/uat/hello-cli.uat.test.mjs.\n- test-execution-plan.json.\n- The admitted command streams and statuses in c4a857ca….\n\nJudge each item yourself:\n1. The oracle case: no arguments, stdout exactly \"Hello, world!\\n\", exit status 0.\n2. Both test files run the real CLI through spawnSync(process.execPath, ['generated/hello-world.mjs']) and assert status and exact stdout.\n3. The plan command ran the tests and exited 0. At least 2 tests passed (the plan's expectedTestPassCount), and stdout contains \"fail 0\".\n4. All required artifacts are genuine and unchanged.\n5. The test_execution_result stage meaning is supplied by the admitted C2 measurement plus this assessment, not by a prewritten report file.\n\nReturn satisfied, unmet or indeterminate. Keep every unresolved or indeterminate criterion. Edit nothing.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "task://default-library-witness/original@5",
+            "worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87",
+            "result://abiogenesis/c4a857ca096ef8aba07b71b3231f3b102d0e9c378726b435a8c6e5b5f9a3c5b5",
+            "result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348",
+            "result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "reason": "The oracle and witness contract require an independent user-outcome assessment that consumes current evidence. Neither a completed Construction child nor a passing Testing child completes the application. Fresh admitted execution evidence for the repaired candidate now exists (c4a857ca…), so the dependency UAT was waiting on is met. The evidence was produced in a clean environment and shows the tests actually ran. UAT is the only remaining registered contribution that can decide complete-source-outcome.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        }
+      ],
+      "gaps": [],
+      "interpretation": "This applies the Executive frame to the unchanged basic-cli task. The required outcome has three parts:\n- `node generated/hello-world.mjs`, run from the project root without installing packages, writes exactly \"Hello, world!\\n\" and exits 0.\n- The component and UAT tests both run the real CLI. At least 2 pass and 0 fail.\n- An independent assessment against source/basic-cli.oracle.json, using current admitted execution evidence, establishes the outcome. A prewritten report does not.\n\nRun history:\n1. The first Testing run (2512641e…) found a defect in the supplied candidate. The CLI printed \"Hello world!\\n\", and the test command exited 1 with pass 0 and fail 2. That result is kept as the first attempt.\n2. Construction (8efce789…) changed only generated/hello-world.mjs, to `console.log(\"Hello, world!\");`. The worksite observation (827ee295…) confirms this content (sha256:fe8f4080…). All protected assets still match their declared digests.\n3. The previous selection (0e173f49…) chose Testing on the repaired candidate.\n4. That Testing run (c4a857ca…) produced admitted observations of the current files, using an environment without NODE_TEST_CONTEXT:\n   - Command 0, `node generated/hello-world.mjs`: exit 0, stdout exactly \"Hello, world!\\n\" (14 bytes), empty stderr.\n   - Command 1, `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`: exit 0, stdout reports tests 2, pass 2, fail 0 and names both tests as passed, empty stderr. The tests actually ran, so this is not a zero-test exit 0.\n\nTesting is non-mutating, so these observations still describe the current candidate. The measurement does not by itself establish that the application succeeded. support://default-library-witness/complete-source-outcome@5 stays unresolved until an independent UAT verdict against the oracle consumes this evidence. Only the parent turns that verdict into termination.",
+      "nextEvidenceRefs": [
+        "task://default-library-witness/original@5",
+        "worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87",
+        "result://abiogenesis/c4a857ca096ef8aba07b71b3231f3b102d0e9c378726b435a8c6e5b5f9a3c5b5",
+        "result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348",
+        "result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7"
+      ],
+      "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+      "nextReason": "Testing (c4a857ca…) has produced current admitted observations of the repaired candidate. The CLI exits 0 with exactly \"Hello, world!\\n\". The combined test command exits 0 with tests 2, pass 2, fail 0, and both named tests passed. No admitted evidence shows a remaining defect, so running Construction again is not justified. Running Testing again would only repeat a valid current measurement. The unresolved support can only be decided by an independent assessment against the oracle rubric.\n\nThe subject is the C2 measurement Result c4a857ca…. It is the exact current execution observation of the candidate and serves as observation provenance, not authorship. Construction 8efce789… is cited as evidence for authorship of the candidate.",
+      "revisionEvidenceRefs": [
+        "result://abiogenesis/0e173f49dba50bc1bd354576bbd2f0a74ae7b8f68ca128d2cb4d3d5f36d8c92c",
+        "result://abiogenesis/c4a857ca096ef8aba07b71b3231f3b102d0e9c378726b435a8c6e5b5f9a3c5b5",
+        "result://abiogenesis/8efce789e7cbd852917cfc6d2a81ab843bedf178d45926189b3167e8cf681348",
+        "worksite-context-observation://abiogenesis/827ee295b50cd2cf16277d27edca29037e3d3a9cdbd06abca22eba7cbb35cc87",
+        "result://abiogenesis/2512641e99d2268b4c8ed3f5b541f7973aea43b006c4569778c079d98e8730f7"
+      ],
+      "revisionReason": "The previous judgment (0e173f49…) chose Testing on the repaired candidate, with UAT depending on it. That Testing has now finished (c4a857ca…). It observed both declared commands on the current files: exit 0 each, exact CLI stdout, and tests 2, pass 2, fail 0. It ran without NODE_TEST_CONTEXT, which resolves the zero-test risk the author reported.\n\nTesting is therefore completed work. It is cited as evidence and not selected again, and UAT's dependency on it moves from dependsOn to evidenceRefs. Construction is also completed and remains evidence only, since nothing observed shows a remaining defect. UAT becomes the next member, with the Testing measurement as its subject. The pre-repair failure (2512641e…) is kept as the first attempt but is superseded as current evidence.",
+      "subjectEvidenceRef": "result://abiogenesis/c4a857ca096ef8aba07b71b3231f3b102d0e9c378726b435a8c6e5b5f9a3c5b5"
+    },
+    "choiceEvent": "event://abiogenesis/cdf8201a7ab0386d7f75a70328c6dc285e055a23bf7a546c10647c748231c0cc",
+    "choiceOrdinal": 3654,
+    "childResultEvent": "event://abiogenesis/79e805a2c419bfab2b54a5759171acb1125688e631f1a7d6f91da3caa0c55c1a",
+    "childResultOrdinal": 4131,
+    "childGraphFunction": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+    "foldEvent": "event://abiogenesis/43e787353427a1ca38a757d5f2b618d4e1e1807b5aeda77b28465b64a7578cf5",
+    "foldOrdinal": 4161,
+    "parentEvent": "event://abiogenesis/3712ddf52f4eeafa3aedcb1cfddb6587dfec5dd183d277ec4c03eb30b2ccacc5"
+  }
+]

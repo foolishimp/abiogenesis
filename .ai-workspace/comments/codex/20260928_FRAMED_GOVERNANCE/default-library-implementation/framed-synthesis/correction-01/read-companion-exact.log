@@ -1,0 +1,18 @@
+[
+  {
+    memberKey: 'run_result',
+    wallMs: 1264.4182500000002,
+    requestBytes: 9296,
+    outcomeKind: 'refusal',
+    projectionKeys: [],
+    ownerValue: { code: 'unknown_source', evidenceRefs: [], issuePaths: [Array] }
+  },
+  {
+    memberKey: 'run_replay',
+    wallMs: 1250.0111249999998,
+    requestBytes: 9333,
+    outcomeKind: 'refusal',
+    projectionKeys: [],
+    ownerValue: { code: 'unknown_source', evidenceRefs: [], issuePaths: [Array] }
+  }
+]

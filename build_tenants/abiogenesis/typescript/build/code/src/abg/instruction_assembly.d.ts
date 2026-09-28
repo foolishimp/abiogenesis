@@ -2,7 +2,7 @@ import { type JsonValue } from "../shared/canonical_json.js";
 import { type Sha256Digest } from "../shared/digests.js";
 import { type SemanticEvidenceInput } from "../product/semantic_stage.js";
 import { type SemanticStageNativeBasis } from "./semantic_stage.js";
-import type { ProbabilisticWorkerRequest } from "../implementation/contracts.js";
+import type { ProbabilisticWorkerRequest, LeafInvocationPort } from "../implementation/contracts.js";
 import { type NativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
 export interface NativeInstructionAssembly {
@@ -39,13 +39,24 @@ export declare function worksiteCommandExecutionAttemptRef(occurrence: Readonly<
 export declare function constructWorksiteNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, supplied: unknown): Readonly<NativeInstructionAssembly> | null;
 export declare function requireWorksiteNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, supplied: unknown): Readonly<NativeInstructionAssembly>;
 /** This branch is applicable only at the declared registered-selection source. */
-export declare function evaluateRegisteredSelectionInstructionAssembly(basis: NativeInstructionAssemblyBasis, supplied: unknown): Readonly<NativeInstructionAssembly | NativeInstructionAssemblyRefusal>;
-export declare function constructDeclaredNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, input: unknown): Readonly<NativeInstructionAssembly> | null;
-export declare function requireDeclaredNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, input: unknown): Readonly<NativeInstructionAssembly>;
+export declare function evaluateRegisteredSelectionInstructionAssembly(basis: NativeInstructionAssemblyBasis, supplied: unknown, contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>): Readonly<NativeInstructionAssembly | NativeInstructionAssemblyRefusal>;
+export declare function evaluateFramedSynthesisInstructionAssembly(basis: NativeInstructionAssemblyBasis, input: unknown, contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>): Readonly<NativeInstructionAssembly | NativeInstructionAssemblyRefusal>;
+/** Actor admission already authenticates the consumed raw artifact/request.
+ * Reuse the existing owned basis and bind that exact raw judgment, without
+ * reconstructing a second assembly or walking actor history at this hop. */
+export declare function framedSynthesisInstructionResultMatches(basis: NativeInstructionAssemblyBasis, input: unknown, output: unknown, observation: Readonly<{
+    disposition: string;
+    toolCallCount: number;
+    finalOutput: string;
+    inputDigest: string;
+    implementationRef: string;
+}> | null, contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>): boolean;
+export declare function constructDeclaredNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, input: unknown, contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>): Readonly<NativeInstructionAssembly> | null;
+export declare function requireDeclaredNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis, input: unknown, contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>): Readonly<NativeInstructionAssembly>;
 /** Conserve the observed native answer through the one mechanical binder. */
 export declare function registeredSelectionInstructionResultMatches(candidate: Omit<NativeInstructionAssemblyBasis, "publication"> & {
     readonly publication: NativeInstructionAssemblyBasis["publication"] | undefined;
-}, input: unknown, output: unknown): boolean;
+}, input: unknown, output: unknown, contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>): boolean;
 /** Deterministic projection of required admitted evidence. Artifact/log bytes
  * are exact; no truncation, normalization, inferred judgment or raw-envelope
  * replacement occurs. Historical task/inventory bodies are not role material. */
@@ -292,7 +303,6 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
         kind: "worksite_command_execution_observation";
         schemaVersion: "5.0.0";
         provenance: import("../product/worksite_command_execution.js").WorksiteCommandExecutionProvenance;
-        observationRef: string;
         observationDigest: Sha256Digest;
         snapshotMembers: readonly import("../product/worksite_command_execution.js").WorksiteSnapshotMember[];
         predicateObservations: readonly import("../product/worksite_command_execution.js").WorksitePredicateObservation[];
@@ -300,6 +310,7 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
         productDelta: readonly import("../product/worksite_command_execution.js").WorksitePathDelta[];
         snapshotRef: string;
         snapshotDigest: Sha256Digest;
+        observationRef: string;
         helperArtifactRef: string;
         helperArtifactDigest: Sha256Digest;
     } | {
@@ -507,13 +518,13 @@ export declare function renderSemanticEvidenceTextView(evidence: SemanticEvidenc
         snapshotMembers: readonly import("../index.js").WorksiteRevisionSnapshotMember[];
         schemaVersion: "5.0.0";
         provenance: import("../product/worksite_command_execution.js").WorksiteCommandExecutionProvenance;
-        observationRef: string;
         observationDigest: Sha256Digest;
         predicateObservations: readonly import("../product/worksite_command_execution.js").WorksitePredicateObservation[];
         worksiteDelta: readonly import("../product/worksite_command_execution.js").WorksitePathDelta[];
         productDelta: readonly import("../product/worksite_command_execution.js").WorksitePathDelta[];
         snapshotRef: string;
         snapshotDigest: Sha256Digest;
+        observationRef: string;
         helperArtifactRef: string;
         helperArtifactDigest: Sha256Digest;
     } | {

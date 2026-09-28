@@ -1,0 +1,26 @@
+{
+  "code/src/product/worksite_command_execution.ts": {
+    "added": 40,
+    "removed": 0
+  },
+  "code/src/abg/default_library.ts": {
+    "added": 4,
+    "removed": 3
+  },
+  "test_env/support/default-library.mjs": {
+    "added": 1,
+    "removed": 1
+  },
+  "test_env/tests/t287-default-library.test.mjs": {
+    "added": 27,
+    "removed": 0
+  },
+  "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md": {
+    "added": 4,
+    "removed": 0
+  },
+  "code/src/gtl/worksite_command_execution.ts": {
+    "added": 3,
+    "removed": 3
+  }
+}
