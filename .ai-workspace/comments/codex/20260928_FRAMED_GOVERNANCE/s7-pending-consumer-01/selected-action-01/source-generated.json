@@ -1,0 +1,103 @@
+{
+  "status": "incomplete_compile_only_draft",
+  "sourceCheckpoint": "1aec3999f5c92d432a9b687b3d70e93a81ad179e",
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 55002,
+      "sha256": "1f17e85d8ef7f9daceae48b93a40dfd9a78332773bad464c94b85c54271ca6b7",
+      "class": "source_draft"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "bytes": 9695,
+      "sha256": "343df4e16c118b9b8585d3c93156d4311237473b13452d6cd3fe0f990ea6983b",
+      "class": "source_draft"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "bytes": 76308,
+      "sha256": "a6b0b65fc68168de3a7c913f6921035803f453f2eeb4cb314327820811cfd5c8",
+      "class": "source_draft"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 175024,
+      "sha256": "bc34094fd232bd8438b4bb34dd380e823fbcd0689b67d90d0e8d9854f3a63d91",
+      "class": "source_draft"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "bytes": 47203,
+      "sha256": "b59a6df19c1aa876c5377315152105630ed50d240b7916a9523de73b7cc1723e",
+      "class": "source_draft"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "bytes": 90575,
+      "sha256": "02a549dc4598d125ac69b42ebc10193a7854694b80fe5291ab800aff015102ec",
+      "class": "source_draft"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "bytes": 43665,
+      "sha256": "05667f40c7410f80fcbac902860f148971562208fec5757af4d5aba8c1a84cde",
+      "class": "source_draft"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "bytes": 64205,
+      "sha256": "5e781d63c47024abe1053592edb74c411b234f525978e967c6900e535e68a714",
+      "class": "source_draft"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 81816,
+      "sha256": "ee13568ec2193ea7cd7c89bd275eab63f2ee16e8dbca89b1291e462a30758546",
+      "class": "source_draft"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 28096,
+      "sha256": "683b2e179b56b19826774f0bfbf14086e716c4413cfded3fdf3bacaa07e26100",
+      "class": "source_draft"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "bytes": 20482,
+      "sha256": "77091f5e1099f6523254000252386f28791cfa4874424cbaf0f53b78fcfd9a9d",
+      "class": "source_draft"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "24e8ff59088036270ffb1eb6a806f1a1cd55fd0accc2396d9171537631a077e6",
+      "class": "preserved_unbuilt_output"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 146280,
+      "sha256": "cee74016c9fede3f367a1c645e13521f95f050fe212ebbe404394e7c890135c3",
+      "class": "preserved_unbuilt_output"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2552681,
+      "sha256": "b9b8bf33ffbc008ead7ce72ae52134b0b5bed7f0efbca47923ffa9026e5e5985",
+      "class": "preserved_unbuilt_output"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "bytes": 55138,
+      "sha256": "89cad42042a4517cf4f5cf216b47972d444e41be5280d43dfb53ac55d9b33906",
+      "class": "preserved_unbuilt_output"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+      "bytes": 160216,
+      "sha256": "3d0f3405765fbf5e6a3a728f120b9fcb2110e71bbee68b8f44bc77c888af7ae8",
+      "class": "preserved_unbuilt_output"
+    }
+  ],
+  "generatedCorrespondence": "Not established: no build or regeneration selected after budget steering. Two emitted JS diffs predated this re-entry and remain untouched."
+}

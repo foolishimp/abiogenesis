@@ -3414,3 +3414,106 @@ disposition, T-287 and GOALS acceptance projections, then resumes Executive.
 Root enters Writer to checkpoint/push only this acceptance/grant projection,
 T-287/GOALS, the closed exact-intent review and selected-action owner intake/read
 identities. Ongoing selected-action source/HOW changes are excluded; then Executive.
+
+### Selected-action covered current selection
+
+Root consumes the Worker's concrete authority_changed data flow and selects it
+under T287_S7_SELECTED_ACTION_IMPLEMENT_01. Product and the published request
+remain unchanged. request.run/continuation identify the old unconsumed occurrence;
+request.selectedAction identifies a separately admitted current NextActionProjection,
+intent and cursor under its own current InvocationAdmission and work grant.
+Request authority slots, including execution_basis/input, bind that current
+occurrence. coveringReprice identifies the actual witness Result's witnessedAct
+ref/digest and covers the exact old basis/WorkspaceBinding to current pair.
+
+The current semantic selection must follow the cover and cite both the old
+continuation and covering witness in existing lawfulBasisRefs. It preserves the
+selected outcome and all old target obligations and passes the current installed
+declaration, input and authority checks. The current graph has actually performed
+model/gap/evaluateNext under current authority; the cover alone establishes no
+selection freshness. Both occurrences must still be pending. Admission consumes
+or supersedes them once through existing lifecycle owners, retains old historical
+facts, and HoG executes only the selected current cursor in its own Run with
+current grants. Same-basis requires source=current. Missing, stale, unknown or
+crossed selections/covers refuse truthfully.
+
+Encode this subordinate relation in the owning HOW and realization. Include a
+real covered positive plus stale, mismatched and missing-cover refusals in the
+selected finite installed discriminator, reusing the same fixture/transport where
+applicable. Do not broaden arbitrary authority transfer or add a second pending
+store/controller. This settles the requested data-flow decision; routine local
+realization choices proceed without another approval.
+
+The acceptance/control checkpoint55a8a452 is pushed to origin/main; source/preimage
+base1aec3999 remains unchanged by that control-only commit. Root enters Writer
+solely for this disposition record, then resumes Executive.
+
+### Native qualification input preparation
+
+Select T287_F11_INPUT_PREPARATION_01, existing Astra/max Reviewer, under
+Product/Qualification/Proof/End-To-End Interface Integration and the exact STDO
+2.5.1-rc.1 basis. Outcome: a concrete, bounded continuation of the closed release
+applicability intake identifying reusable native F11 task-construction controls,
+adequate source/group partitions and the seven existing seeded-mutant inputs.
+This prepares executable inputs while selected_action is implemented; it is not
+another review of accepted runtime changes or qualification itself.
+
+Read the stable governing Product/SELF/QUAL and D4/D5 HOW at checkpoint1aec3999,
+closed successor05 control/implementation returns and scope-policy, successor06
+and core44 preparation relations, and actual existing qualification task/seed
+fixtures as needed. Reuse the already closed s7-release-applicability.md and
+s7-release-scenario-inputs.md; do not repeat their surveys. The source/package
+and changed selected_action relation remain unbound until its closed return.
+Name precise constructor/launcher donors, actual unresolved inputs, smallest
+adequate grouping under the existing per-rule domain support, and exact seed
+mutations/expected owning diagnostics. Preserve complete rule/member coverage,
+source context and required independence without a rule-by-file campaign.
+Record concrete context-volume concerns and unavailable inputs; no fabricated
+attribution, native J, provider estimate or assessment-completeness claim.
+
+No canonical edits, tests, package/install, provider/native actor or Git effect.
+Do not create a new harness/planner or full-code audit. Sole write:
+s7-f11-input-preparation.md, compact closed preparation with exact source routes
+and identity. Return a material Product/constructability gap if observed; do not
+solve it speculatively. Root enters Writer for this grant, then resumes Executive.
+
+Root enters Writer solely to reconcile T-287's four current status/route fields
+with the accepted exact-intent review and selected-action covered-selection
+disposition above; historical evidence is unchanged. Then resumes Executive.
+
+### Remaining allowance and incomplete selected-action checkpoint
+
+Owner reports6percent allowance remaining and20percent consumed in three hours.
+Root stops further F11 preparation searches and dependent qualification work.
+Reviewer closes its already established input findings only. Worker reports the
+selected-action source/HOW draft spans occurrence/use, Public admission, operation
+truth, replay and supersession; first no-emit compile has five local typing
+errors. No installed discriminator or required interruption/covered fixture exists.
+No new Product decision is identified. This is incomplete implementation, not
+readiness or accepted capability. Earlier accepted exact-intent proof is unchanged.
+
+Root selects only correction of those local typing errors, one necessary
+no-emit check and an exact incomplete source freeze/return. No new fixture,
+build/install/provider/review or qualification campaign follows automatically.
+Worker names changed paths and remaining evidence; preserve every current edit
+and predecessor. Root will checkpoint the closed result without presenting it as
+accepted or release-ready. This limits expenditure; it does not discharge the
+remaining Product operation or qualification obligations. Root enters Writer
+for this disposition and current ticket projection, then resumes Executive.
+
+Root consumes the incomplete closed return d4b0c110a14b5a5a3aea945d45459cac0ed3d8461bdea8c96e72aa2211c4e1b2
+and freeze304e8a98c4631254a01e3d413a980f8992807c7baec4ecd00c4d86119626fa46.
+The second no-emit compile passes; 11 source/HOW paths are draft only, +441/-21.
+No installed proof or regression correspondence is claimed. Source acceptance
+remains the prior exact-intent checkpoint. Worker is stopped.
+
+Root enters Writer to preserve these exact11 draft paths, the40 compact frozen
+source/preimage/control members, this execution record, T-287 projection and the
+closed F11 preparation (if available) on remote checkpoint branch
+checkpoint/t287-selected-action-incomplete-20260929. Use an isolated Git index;
+retain current branch, working tree and ordinary index. Existing emitted-output
+differences are saved only in the frozen evidence, not promoted as fresh build
+outputs. This is an explicitly incomplete source checkpoint, no merge into main,
+release or qualification. Then resumes Executive.
+
+Closed F11 preparation260aca847013874e06b8820215f9f6d03d5b35a74b04f28a1b7edf9c615f89bb is retained as input guidance only. Final domain, attribution, native judgments and seven valid-companion mutants remain unbound; no further search or qualification is active.

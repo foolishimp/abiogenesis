@@ -306,7 +306,7 @@ function sourceBasis(
 }
 
 export function runOperationAuthorityMatches(
-  invocation: ExactDirectRunInvocation | ExactStartRunInvocation | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.current_intent, unknown>["invocation"] | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.selected_action, unknown>["invocation"],
+  invocation: ExactDirectRunInvocation | ExactStartRunInvocation | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.current_intent, unknown>["invocation"],
   resources: ProductRunInvocationResourceAssertion,
   resolution: LoadedProductExecutionResolution,
   workspaceBinding: WorkspaceBinding,
@@ -328,7 +328,7 @@ export function runOperationAuthorityMatches(
   const capabilities = slots.capability_grants;
   const steering = slots.transport_steering;
   const isContinue = invocation.definitionKey.operationId === "abg.operation.run.continue";
-  const requiredCapabilities = (isContinue ? RUN_OPERATION_CONTRACTS.continue[invocation.definitionKey.memberKey as "current_intent" | "selected_action"]
+  const requiredCapabilities = (isContinue ? RUN_OPERATION_CONTRACTS.continue.current_intent
     : packet(invocation.definitionKey.memberKey as RunInvocationMemberKey)).metadata.capabilityRefs;
   const steeringDigest = sha256Canonical(transportResourceAssertion);
   const authorityRequest = invocation.request as Readonly<
@@ -338,9 +338,7 @@ export function runOperationAuthorityMatches(
   // The public binder authenticates slot syntax/digests; this owner joins the
   // exact asserted input to the selected request, just as the other coordinates.
   const exactInputAuthority = inputSlot !== null && (isContinue
-    ? invocation.definitionKey.memberKey === "selected_action"
-      ? inputSlot.valueDigest === sha256Canonical(inputSlot.value) // exact selected cursor/input joins in its owner
-      : isRecord(authorityRequest.continuationInput) && inputSlot.valueDigest === authorityRequest.continuationInput.digest
+    ? isRecord(authorityRequest.continuationInput) && inputSlot.valueDigest === authorityRequest.continuationInput.digest
     : invocation.definitionKey.memberKey === "start"
     ? exactJson(inputSlot, authorityRequest.input)
     : exactJson(inputSlot.contract, authorityRequest.inputContract) && exactJson(inputSlot.value, authorityRequest.input) &&

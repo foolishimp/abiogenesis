@@ -1,4 +1,3 @@
-import { projectSelectedActionOperation } from "./construction_continuation.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -206,12 +205,6 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
     facts.push({ operationId: "abg.operation.run.continue", publicInvocationRef: p.invocationRef,
       ownerInvocationRef: p.invocationRef, ownerInvocationDigest: p.invocationDigest as Sha256Digest,
       publicOperationEventRef: operation.eventId, admissionEventRef: basis.admissionEventRef });
-  }
-  for (const operation of events.filter(e => e.kind === "public_operation_admitted" &&
-    isRecord(e.payload) && e.payload.continuationKind === "selected_action")) {
-    const fact = projectSelectedActionOperation(validatedPrefix, operation);
-    if (fact === null) return invalidHistory(prefix, invocationRef, "invocation_pair_invalid", [operation.eventId]);
-    facts.push(fact);
   }
   const byPublicRef = new Map<string, EffectfulPublicInvocationPriorAdmission[]>();
   for (const fact of facts) {
