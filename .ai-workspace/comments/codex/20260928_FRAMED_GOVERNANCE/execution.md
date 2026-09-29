@@ -2462,3 +2462,95 @@ acceptance checkpoint. Preserve unrelated work, reproducible bootstrap installs,
 old raw failures and immutable source/package identities. No Product requirement
 or runtime bytes change in this activation. Root resumes Executive after the
 recorded effects.
+
+
+### S7 design disposition and bounded implementation
+
+Root consumes review `d3b76a440e69851f5fba164df99b0d7487ad4b07f723880d1af1ab991235f611`.
+S7-D01 is accepted: the predecessor's single invoke grant cannot authorize the
+new current_intent operation, and existing exact invocation admission omits that
+case. The review also fixes replacement waiting-parent CCall/evaluator-use,
+typed pending eligibility, mutable refresh and prefix-bound one-consumption
+conditions. These are necessary existing-owner joins, not a new Product outcome.
+Native-human and arbitrary changed-authority recovery remain outside this grant.
+
+Root explicitly enters Writer to preserve the reviewed HOW byte-for-byte as
+`s7-pending-consumer-01/proposal.md` and incorporate exactly those corrections
+into the owning HOW. Accepted HOW SHA-256: `55ecbd1fc8df93bde7b6343394dd023e2da3a58e185fbf0005b5ac6d9d0919f1`.
+The closed design return/review retain their original proposal identity. This
+local application follows the review's implementation disposition; no additional
+architecture review loop is selected. Root then resumes Executive.
+
+Select `T287_S7_PENDING_CONSUMER_IMPLEMENT_01`, existing Astra/xhigh Worker,
+Product/Owner + Continuation + End-To-End Interface Integration/Reuse frame under
+exact STDO2.5.1-rc.1. Outcome: one complete Public pending-consumer continuation
+relation implementing the accepted HOW and S7-D01, conserving successful work
+and truthful predecessor/successor state. Subject begins at core1722953b and its
+unchanged source owners; S6 remains accepted on its exact prior archive.
+
+Permitted source territory under the TypeScript tenant: existing
+`owner_bindings/run_invocation.ts`, `product/run_operation_contracts.ts` and
+`product/index.ts`; `abg/continuation.ts`, continuation projections,
+`invocation_admission.ts`, `execution_basis.ts`, `open_call.ts`,
+`traversal_cursor.ts`, `event_calculus.ts`, replay/event variant definitions,
+`runtime_failure.ts`, `default_library.ts` and directly required retained-source
+use guards; `hog/entry.ts`, `parent_rehydration.ts` and the existing traversal/
+workflow/recursion fold owners; `public/continuation_authority.ts` and exact
+Public request/installed binding owners only where the declared current_intent
+case requires it. Shared types/callers may change only to carry this same tagged
+relation. No global authority rewrite, second ledger/controller/cache, new graph
+language, Product/requirement edits, security controls or retired API restoration.
+Report any required owner outside this causal relation before extending scope.
+
+Reuse current fixtures and add only the finite actual-owner checks and installed
+case required by the accepted HOW. Start from the complete producer-to-pending-
+consumer path; do not build independent feature mini-campaigns. Self-check one
+build and affected tests, preserve first failure and causal disposition, then
+package/freeze the exact candidate through existing tools. Return exact source/
+generated/package delta, retained responsibilities, code added/removed, controls,
+proof scope, setup/build time and the ready installed positive/negative selection.
+Use the existing source/install correspondence; do not copy historical campaigns.
+Write proof and return under `s7-pending-consumer-01/implementation/`; retain prior
+proposal/review and S6 evidence unchanged. No Git effects.
+
+No native/provider execution is authorized in this source increment. After the
+closed return, independent review checks this complete relation while isolated
+installation preparation may proceed on the frozen package. The one finite
+same-candidate installed proof is selected after those results close; it uses a
+successful producer, a real assessment-only missing-input refusal, permitted
+input supply and cold continuation through actual independent assessment/parent
+fold and both fresh reads. No full Hello rerun, fabricated success, original-
+input substitution, caller-side selection or forced schedule. On unexpected
+failure, retain first cause and classify before any new attempt. Stop for
+Executive re-entry on new governing decisions or an unavailable declared route.
+
+
+### Remaining qualification applicability intake
+
+While the separate Worker implements accepted recovery, select
+`T287_S7_RELEASE_APPLICABILITY_01` for the existing Astra/max Reviewer under
+Product/Proof/Release and End-To-End Interface Integration, exact STDO2.5.1-rc.1.
+This is a finite evidence-applicability intake, not another source audit or
+qualification campaign. The authority subject is current Product/requirements
+with accepted S1–S6 and their exact closed sources; ongoing S7 implementation is
+out of frame and never presumed complete. Read current QUAL062–070B, the existing
+D4/D5 qualification HOW and closed recipe successors/authority-refresh routes only
+as needed to identify the remaining delivery dependencies.
+
+Return one compact source-linked table: required remaining outcome; existing
+owner and evidence; evidence reusable subject to which exact conditions; actual
+missing implementation, execution or judgment; first sufficient next action.
+Prioritize whether the existing F11/sole AF22/release path is already constructable
+from a next frozen candidate, separating unknowns from demonstrated gaps. Preserve
+the 15-family retained scope, complete S01/S02/S03/S06 applicability, positive and
+nearest-negative sufficiency, actual installed-RC and human acceptance boundaries.
+Do not resurrect a per-behavior executable roster, request all tests again, expand
+security scope, reopen accepted outcomes without a concrete contradiction, or
+claim the draft table is admitted qualification. No source/build/install/native/
+Git effects or inspection of the moving S7 source. Write only
+`s7-release-applicability.md`; return its closed limits and stops. Root enters
+Writer only to retain this grant and then resumes Executive.
+
+Root enters Writer for a scoped checkpoint/push of the closed S7 proposal,
+review, accepted HOW and these grants/T-287. Concurrent implementation and the
+open release-applicability return are excluded; then Root resumes Executive.
