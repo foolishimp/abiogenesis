@@ -1,0 +1,76 @@
+{
+  "reviewedCalls": 36,
+  "exactCalls": [
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 457,
+      "toolUseRef": "toolu_014idwGffMB1xDRTDNTFpSsX",
+      "name": "Bash",
+      "input": {
+        "command": "node --version && which node && echo \"--- cli bytes\" && od -c generated/hello-world.mjs | head -5 && echo \"--- cmd1\" && node generated/hello-world.mjs | od -c; echo \"status(pipe-last)=$?\"; node generated/hello-world.mjs >/dev/null; echo \"cli exit=$?\"; node generated/hello-world.mjs | shasum -a 256; echo \"--- cmd2\"; node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs 2>&1 | cat; echo \"exit=${pipestatus[1]}\"; echo \"--- TAP reporter format\"; node --test --test-reporter=tap test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs 2>&1 | grep -E '^(ok|not ok|# (tests|pass|fail|cancelled))'",
+        "description": "Check Node version and run both fixed commands via pipes"
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 1639,
+      "toolUseRef": "toolu_01CCHW8BfpSzDjF91USPERV8",
+      "name": "Bash",
+      "input": {
+        "command": "cd /tmp && node generated/hello-world.mjs 2>&1 | grep -E \"code|Error\" | head -3; node generated/hello-world.mjs >/dev/null 2>&1; echo \"exit=$?\"",
+        "description": "Observe CLI error when run outside project root"
+      }
+    },
+    {
+      "actor": 12,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "rawStdout": "actor-12-stdout-fp-54262548fdfd0a8d-stdout.log",
+      "rowIndex": 105,
+      "toolUseRef": "toolu_01J423DC9hdWD9iT7WscrCw5",
+      "name": "Bash",
+      "input": {
+        "command": "cat source/original-basic-cli.txt; echo ----; cat source/basic-cli.oracle.json; echo ----; cat -A generated/hello-world.mjs 2>/dev/null || od -c generated/hello-world.mjs; echo ----; cat test/component/hello-cli.test.mjs; echo ----; cat test/uat/hello-cli.uat.test.mjs",
+        "description": "Read original source, oracle, CLI, and tests"
+      }
+    }
+  ],
+  "authorDisclosures": [
+    {
+      "ordinal": 3625,
+      "actorInvocationRef": "actor-invocation://abiogenesis/7ce97699540c3071e3153939d864b473ad56201205459b1b77c65392c87b5ed9",
+      "resultRef": "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+      "disclosures": []
+    },
+    {
+      "ordinal": 12285,
+      "actorInvocationRef": "actor-invocation://abiogenesis/1fef0e0deb9fd1547c4a1a136b87efd8eb9439a12c8cad4083156b9d77805693",
+      "resultRef": "result://abiogenesis/33db8d198f2a1114256e2cda6fb6ed740af20bc95de2a7c8bb44ee1dcff12b08",
+      "disclosures": [
+        "`design/implementation-design.md` and `design/test-design.md` are still missing (both the `design/` directory and the files). Both are outside my write scope. The implementation-design and test-design obligations stay open.",
+        "Unresolved unknowns: the Node version is not in the recorded evidence (U-1); the source does not constrain stderr (U-2); arguments, stdin and running from another directory are unspecified (U-3); only one macOS host is evidenced (U-4).",
+        "Not an unscoped write, but disclosed: writing the document also created the `specification/` directory, since the file's parent did not exist. I used pipes only to compute the expected output's SHA-256 and created no temporary files."
+      ]
+    },
+    {
+      "ordinal": 19633,
+      "actorInvocationRef": "actor-invocation://abiogenesis/9fb67c0ad7be41b7d9d91e06599dd885e7cc99d0a511ecfa4666583a4365145d",
+      "resultRef": "result://abiogenesis/4fbf98755483b8f9bf0f6bc34c0646ccc367ce1fb55fe6c30824c3096b4c2b2b",
+      "disclosures": [
+        "Side effect outside the listed paths: writing the design files created the `design/` folder, which did not exist before. No other off-scope writes. The checks I ran locally (both fixed commands, the TAP-format run, the run from /tmp, and the plan check) created no files, but they are not recorded evidence."
+      ]
+    }
+  ],
+  "observations": [
+    "Construction used declared CLI Edit and pipe-based checks; no regular scratch file action appears in its retained tools.",
+    "Specification wrote its declared file; it disclosed creation of the required specification/ parent directory.",
+    "Design wrote and edited only its three declared regular files, disclosed creation of design/, and ran an off-worksite cd /tmp check of a relative absent CLI. Its commands redirect output to the /dev/null device, outside named regular file grants.",
+    "UAT used read-only file reads and in-memory checks; one shell command redirects an unsupported cat option error to /dev/null. No regular worksite file changed in the admitted assessment.",
+    "No actor-created off-worksite regular temporary file appears in the retained calls. This observation is bounded to captured tools, not a containment or perfect-detection claim."
+  ],
+  "assessmentClaim": "The admitted satisfied assessment states no files were created or modified by the assessor. That is consistent with the retained regular-file observations; it is not proof that no outside-scope tool action occurred. Design reports no other off-scope writes besides parent directory creation; literal null-device redirections remain explicit contrary-scope actions for Executive disposition.",
+  "ownerScopeRuling": "Security containment is outside selected Product scope. These facts and old-case judgments are preserved separately from application/runtime/assessment completion; no security mechanism, fresh Product/release blocker or retroactive history repair is inferred."
+}

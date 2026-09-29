@@ -1,0 +1,15 @@
+{
+  "unchangedFiles": [
+    "input-files.json",
+    "fulfillment-policy.json"
+  ],
+  "inputChangedPaths": [
+    "original.assessment.schemaAsset.bytesBase64"
+  ],
+  "oldSchemaSha256": "sha256:5cef9b2bd43d576bc16043c397dd398a7b26912ca349cd6721381905369d8266",
+  "newSchemaSha256": "sha256:9403a74ef49e75f7f4fe15809345540271ac02927aa8a5390533748d5bcbf2cf",
+  "caseContractSha256": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+  "providerCalls": 0,
+  "oldInstallationReused": false,
+  "oldRunModified": false
+}

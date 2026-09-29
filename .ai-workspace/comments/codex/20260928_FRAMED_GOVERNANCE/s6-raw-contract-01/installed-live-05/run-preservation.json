@@ -1,0 +1,101 @@
+{
+  "oldManifests": [
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/proof-manifest.json",
+      "sha256": "bfbada46d255c21162f8215f5dd411201ccad7029d496c139e99111240cfeca5",
+      "bytes": 4559,
+      "members": 35
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/launcher-manifest.json",
+      "sha256": "617c4e0a87c68515c273eb0c31c9a85b18e9c33b4e323894c6b422fc9f148e21",
+      "bytes": 1023,
+      "members": 8
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/proof-manifest.json",
+      "sha256": "6fb97a9a18b42a0eb5bb534e7eb39ae3c3ee4e911ce8581165e5abaeeb8993d6",
+      "bytes": 7726,
+      "members": 52
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/run-proof-manifest.json",
+      "sha256": "ca9aff9ae938bff96cd7b0c91e1bdcb53565ca3f76189ccdeb963f3591738511",
+      "bytes": 17795,
+      "members": 120
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/proof-manifest.json",
+      "sha256": "a4c250f57e9f890f224b48092f7ab9e4378a5e7343a05f462dc4d721fe3bece9",
+      "bytes": 4162,
+      "members": 32
+    }
+  ],
+  "installed": [
+    {
+      "name": "core",
+      "archive": {
+        "sha256": "1722953b7391e593079e3436b729b13c55457c734fb441d5e08b604edf9c462d",
+        "bytes": 10338146
+      },
+      "installedRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/consumer/node_modules/@abiogenesis/typescript-tenant",
+      "members": 5254,
+      "unchanged": true
+    },
+    {
+      "name": "consumer",
+      "archive": {
+        "sha256": "b6c67144ce8ceeb27943c69cce0befa2cd1d901653907e80586b04d4ef043c7a",
+        "bytes": 11952
+      },
+      "installedRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection",
+      "members": 7,
+      "unchanged": true
+    }
+  ],
+  "sourceGeneratedMembers": [
+    "code/src/product/default_library_fulfillment.ts",
+    "code/src/product/native_workspace_work.ts",
+    "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "test_env/tests/t287-default-library-fulfillment.test.mjs",
+    "test_env/tests/t287-native-workspace-work.test.mjs",
+    "code/src/abg/default_library.ts",
+    "code/src/product/default_library.ts",
+    "code/src/abg/instruction_assembly.ts",
+    "code/src/gtl/default_library.ts",
+    "code/src/gtl/semantic_stage.ts",
+    "code/src/product/requirement_handoff.ts",
+    "code/src/product/semantic_job.ts",
+    "test_env/support/default-library-fulfillment.mjs",
+    "test_env/tests/t287-default-library.test.mjs",
+    "code/src/implementation/default_library.ts",
+    "code/src/product/index.ts",
+    "test_env/support/default-library.mjs",
+    "test_env/support/registered-graph-selection.mjs",
+    "test_env/support/root-installed-environment.mjs",
+    "test_env/fixtures/default-library-product/index.mjs",
+    "build/code/src/product/default_library_fulfillment.d.ts",
+    "build/code/src/product/default_library_fulfillment.js",
+    "build/code/src/product/native_workspace_work.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "sourceGenerated": {
+    "sha256": "616407f6e297e02d3bf2babd7f9623ba942c4f665143e964cc8afc26fcf67600",
+    "bytes": 6034
+  },
+  "readinessReturn": {
+    "sha256": "38ae364e0b1de99ed5444494e53e6acf2abc771e66cb572fc922eb5ada6350d6",
+    "bytes": 5839
+  },
+  "readinessFreeze": {
+    "sha256": "7bd8902a6b0224a3cbefc6b83f54cf00417f95a0309528fc60412f4b5bb9263c",
+    "bytes": 986
+  },
+  "priorRunReturn": {
+    "sha256": "16ccef5d2d8b3b6ecc5a9cf15abe7975777fb5ce537c0de1ee07b976d029913c",
+    "bytes": 10732
+  },
+  "analysisCorrection": "Initial local summary treated actor_transport_binding.parentAggregateId (a CCall) as actor identity and therefore skipped raw/admitted assessment comparison. Corrected summary uses actual actor-start aggregate for actor identity and matches assessment CCall to transport parent CCall. Initial script/output/log preserved; actual raw/admitted equality now asserted. No Run/event/receipt/response changed."
+}

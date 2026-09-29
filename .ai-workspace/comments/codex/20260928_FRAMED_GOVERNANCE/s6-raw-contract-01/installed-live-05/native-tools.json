@@ -1,0 +1,1474 @@
+{
+  "scope": "Read-only projection of retained native tool calls for effect review; no global host audit or deterministic semantic verdict. Content strings are represented by byte identities; raw stdout retains exact content.",
+  "calls": [
+    {
+      "actor": 1,
+      "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+      "rawStdout": "actor-1-stdout-fp-fd24bffeb4c03c65-stdout.log",
+      "rowIndex": 533,
+      "toolUseRef": "toolu_01CyhZfGU59ZHb19yrtLb94v",
+      "name": "StructuredOutput",
+      "input": {
+        "interpretation": "Initial Executive mapping with no prior judgment or admitted observations. The worksite has the original source, oracle, contract and both supplied tests unchanged. It has the supplied unverified 29-byte generated/hello-world.mjs. The four authored assets (conformance, implementation design, test design, execution plan) are absent. All seven obligations are open. The contract requires the supplied CLI's actual behavior to be measured before any change, and that failure must be kept as historical evidence for a later, justified correction in the same lineage. The steel-thread approach therefore starts by running the fixed commands on the exact supplied bytes. That result determines whether and how construction is justified. Specification and design work can be done independently. Final acceptance needs an independent UAT of the corrected current subject, backed by fresh current C2 evidence.",
+        "contributions": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+            "contribution": "Baseline measurement: run the fixed command plan on the unchanged supplied files. The commands are `node generated/hello-world.mjs` and `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`. Record the real command, args, cwd, env, exit status, stdout, stderr and test pass/fail counts, including any nonzero exit, as evidence about these exact CLI bytes.",
+            "reason": "The contract requires the supplied CLI's actual behavior to be established before it is changed. The revision obligation expects a nonzero baseline on command 1. The supplied files and a fixed command plan exist, and testing needs no author. Its evidence justifies construction and becomes historical support for revision.",
+            "supportRefs": [
+              "obligation://default-library-witness/revision@5",
+              "obligation://default-library-witness/behavior@5",
+              "obligation://default-library-witness/complete-original@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/8e48f0d7a3888cff05d203ffb536f1f99581cba67f3521180a072edc2bf8dc68"
+            ],
+            "dependsOn": []
+          },
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+            "contribution": "Author specification/project-conformance.md. It should cover the Intent, Product boundary, source-grounded requirements and completion criteria for a minimal Node CLI Hello World traversal. The source surface is generated/hello-world.mjs. The execution proof runs the CLI and checks stdout is exactly \"Hello, world!\\n\" with exit 0, with at least two passing tests and zero failures.",
+            "reason": "The file is absent and the conformance obligation requires fresh substantive content. It is independent of the CLI's baseline behavior, and design uses it as its authority.",
+            "supportRefs": [
+              "obligation://default-library-witness/conformance@5",
+              "obligation://default-library-witness/complete-original@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/8e48f0d7a3888cff05d203ffb536f1f99581cba67f3521180a072edc2bf8dc68"
+            ],
+            "dependsOn": []
+          },
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+            "contribution": "Author three files. First, design/implementation-design.md: a minimal Node CLI at generated/hello-world.mjs that prints exactly \"Hello, world!\" plus one newline, and names the component and UAT test surfaces. Second, design/test-design.md: component and UAT tests that spawn node generated/hello-world.mjs and assert status 0 and exact stdout. Third, test-execution-plan.json: command node, args [\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"], expectedTestPassCount >= 2, expectedStdoutMatch including zero-failure evidence such as fail 0, and assertedReturnValue \"Hello, world!\".",
+            "reason": "All three files are absent, and each has an obligation requiring fresh content that matches the source and the conformance predecessor. The plan must agree with the fixed prospective commands but does not control execution.",
+            "supportRefs": [
+              "obligation://default-library-witness/implementation-design@5",
+              "obligation://default-library-witness/test-design@5",
+              "obligation://default-library-witness/execution-plan@5",
+              "obligation://default-library-witness/complete-original@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/8e48f0d7a3888cff05d203ffb536f1f99581cba67f3521180a072edc2bf8dc68"
+            ],
+            "dependsOn": [
+              "graph-function://abiogenesis/default-library/specification@5"
+            ]
+          },
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+            "contribution": "Make a bounded correction to generated/hello-world.mjs only, if the admitted baseline shows a material failure. After the change it must run under node without package installation, exit 0 and write exactly \"Hello, world!\\n\" to stdout.",
+            "reason": "The contract forbids an unobserved CLI repair. Construction must follow and cite the actual baseline failure as a different registered choice. The implementation design is the authority for the source surface.",
+            "supportRefs": [
+              "obligation://default-library-witness/revision@5",
+              "obligation://default-library-witness/behavior@5",
+              "obligation://default-library-witness/complete-original@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/8e48f0d7a3888cff05d203ffb536f1f99581cba67f3521180a072edc2bf8dc68"
+            ],
+            "dependsOn": [
+              "graph-function://abiogenesis/default-library/testing@5",
+              "graph-function://abiogenesis/default-library/design@5"
+            ]
+          },
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+            "contribution": "Independent read-only assessment against the original source, oracle rubric and contract. It covers: authored content; verifier adequacy; plan correspondence; the causal link from the historical baseline failure to the correction; and current C2 evidence on the corrected CLI (exit 0, exact stdout, at least two passes, zero failures).",
+            "reason": "Parent completion requires a distinct actor's semantic assessment of current evidence. This is possible only after authored assets, correction and fresh current-subject execution evidence exist.",
+            "supportRefs": [
+              "obligation://default-library-witness/complete-original@5",
+              "obligation://default-library-witness/conformance@5",
+              "obligation://default-library-witness/implementation-design@5",
+              "obligation://default-library-witness/test-design@5",
+              "obligation://default-library-witness/execution-plan@5",
+              "obligation://default-library-witness/behavior@5",
+              "obligation://default-library-witness/revision@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/8e48f0d7a3888cff05d203ffb536f1f99581cba67f3521180a072edc2bf8dc68"
+            ],
+            "dependsOn": [
+              "graph-function://abiogenesis/default-library/specification@5",
+              "graph-function://abiogenesis/default-library/design@5",
+              "graph-function://abiogenesis/default-library/construction@5",
+              "graph-function://abiogenesis/default-library/testing@5"
+            ]
+          }
+        ],
+        "gaps": [],
+        "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+        "nextReason": "The supplied CLI's baseline behavior is unobserved. The contract requires measuring it before any change, and construction's justification depends on that failure evidence. Testing has its files and fixed command plan and needs no author. It observes the supplied files directly, so subjectEvidenceRef is null.",
+        "nextEvidenceRefs": [
+          "task://default-library-witness/s6-original@5",
+          "worksite-context-observation://abiogenesis/8e48f0d7a3888cff05d203ffb536f1f99581cba67f3521180a072edc2bf8dc68"
+        ],
+        "subjectEvidenceRef": null,
+        "revisionReason": "This is the first mapping; there is no prior judgment to revise. It is based on the original task and the current worksite inventory: supplied CLI and tests present, four authored assets absent, no admitted observations.",
+        "revisionEvidenceRefs": [
+          "task://default-library-witness/s6-original@5",
+          "worksite-context-observation://abiogenesis/8e48f0d7a3888cff05d203ffb536f1f99581cba67f3521180a072edc2bf8dc68"
+        ],
+        "requirementProposals": []
+      }
+    },
+    {
+      "actor": 2,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "rawStdout": "actor-2-stdout-fp-a5fa1589c8f5a0ab-stdout.log",
+      "rowIndex": 49,
+      "toolUseRef": "toolu_01V7bNMDYvrUbgacC1Z3yBZu",
+      "name": "Bash",
+      "input": {
+        "command": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/.ai-workspace/archive/worksite-command-execution/5fa73ea9e94d25268a73b05188779e26582bcdaecbb5eb27359dddb6b94ff72a/24dd0017bbb11bec0959263531f33b5ff154cf9b9618815880e96a437a09011b/launch.json'",
+        "description": "Run the worksite command helper for the declared task"
+      }
+    },
+    {
+      "actor": 2,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "rawStdout": "actor-2-stdout-fp-a5fa1589c8f5a0ab-stdout.log",
+      "rowIndex": 106,
+      "toolUseRef": "toolu_01XimnA4iZ3hycPb3obXFDDr",
+      "name": "StructuredOutput",
+      "input": {
+        "kind": "worksite_command_execution_worker_result",
+        "schemaVersion": "5.0.0",
+        "taskRef": "worksite-command-execution-task://abiogenesis/5fa73ea9e94d25268a73b05188779e26582bcdaecbb5eb27359dddb6b94ff72a",
+        "taskDigest": "sha256:5fa73ea9e94d25268a73b05188779e26582bcdaecbb5eb27359dddb6b94ff72a",
+        "attemptRef": "worksite-command-attempt://abiogenesis/1bab2467f3c2ac22159fd97a023ea12a816000990d739f74f13381ac63ee7e99",
+        "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/d981a10753b29b1327f109d0e4da8bd16f8daae85578436c9eacd70f6dfdddba",
+        "helperArtifactDigest": "sha256:d981a10753b29b1327f109d0e4da8bd16f8daae85578436c9eacd70f6dfdddba"
+      }
+    },
+    {
+      "actor": 3,
+      "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+      "rawStdout": "actor-3-stdout-fp-7ac3b62ffee748c6-stdout.log",
+      "rowIndex": 821,
+      "toolUseRef": "toolu_011XB1cV7uVinwgUuGrWEvUW",
+      "name": "StructuredOutput",
+      "input": {
+        "interpretation": "We now have the baseline measurement for the unchanged supplied CLI (29 bytes, sha256:647697a5…) in result 6514754a. Command 0 (`node generated/hello-world.mjs`) exited 0 but printed `Hello world!\\n` without the comma. Command 1 (the component and UAT test run) exited 1: 2 tests, 0 passes, 2 failures, both on the same stdout mismatch against `Hello, world!\\n`. This is the material baseline failure the contract asks for. It also matches the adverse nonzero expectation declared for command 1 under the revision obligation. It remains historical evidence about those exact earlier bytes. The two supplied tests work as verifiers: both actually spawned the CLI and caught the defect, so they can be reused. The four authored assets are still absent, and all seven obligations remain open. The baseline justifies a different registered choice: a bounded construction correction limited to `generated/hello-world.mjs`. The failure pinpoints the exact defect, and the source requirement comes directly from the original task, so the correction does not need the design documents first. This is the steel-thread path: correct the runnable path early, then re-measure the corrected current subject. Specification and design can be written against the corrected worksite. They are not affected by the CLI bytes, except that the implementation design should describe the actual corrected source surface. Final completion still needs fresh command evidence on the corrected bytes and an independent UAT covering all mandatory outcomes.",
+        "contributions": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+            "contribution": "Make a bounded correction to `generated/hello-world.mjs` only, justified by the admitted baseline failure in result 6514754a. The CLI printed `Hello world!\\n` and both tests failed on the missing comma. After the change, the script must run under plain `node` with no package installation, exit 0, and write exactly `Hello, world!` followed by one newline to stdout, with nothing else on stdout. Do not modify tests, source, oracle, contract or any other path.",
+            "reason": "The contract requires the actual baseline failure to justify a different registered choice and a real correction in the same lineage. That failure is now observed: command 1 exited nonzero with 0 passes and 2 failures, and command 0 printed the wrong stdout. The defect is exactly located, and the original source stage defines the required behavior directly. The implementation design is therefore not a prerequisite for this minimal fix, so I've dropped the earlier dependency on design. Correcting now creates the direct causal link from failure to correction and establishes the steel thread early.",
+            "supportRefs": [
+              "obligation://default-library-witness/revision@5",
+              "obligation://default-library-witness/behavior@5",
+              "obligation://default-library-witness/complete-original@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/8e48f0d7a3888cff05d203ffb536f1f99581cba67f3521180a072edc2bf8dc68",
+              "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+              "result://abiogenesis/bc7d9d04c2fe7c8104f819f3dd260128ecc3faca42dc57446927b3ca7df16e7c"
+            ],
+            "dependsOn": []
+          },
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+            "contribution": "Re-measure the corrected current subject with the same fixed command plan: `node generated/hello-world.mjs` and `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`. Record the real command, args, cwd, env, exit status, stdout, stderr and pass/fail counts for the new CLI bytes. Record any failure as observed. The baseline result stays historical evidence about the earlier bytes and is not retargeted.",
+            "reason": "The behavior obligation needs current evidence on the corrected subject: exit 0, exact stdout, at least two passes and zero failures. The baseline evidence becomes stale for current-behavior claims once construction changes the CLI bytes. The revision obligation also needs proof that the correction had a real effect.",
+            "supportRefs": [
+              "obligation://default-library-witness/behavior@5",
+              "obligation://default-library-witness/revision@5",
+              "obligation://default-library-witness/complete-original@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c"
+            ],
+            "dependsOn": [
+              "graph-function://abiogenesis/default-library/construction@5"
+            ]
+          },
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+            "contribution": "Write `specification/project-conformance.md`. It should state the Intent, Product boundary, source-grounded requirements and completion criteria for a minimal Node CLI Hello World traversal. The source surface is `generated/hello-world.mjs`. The execution proof runs the CLI and observes stdout of exactly `Hello, world!\\n` with exit 0. Completion requires the component and UAT tests to execute the real CLI, with at least two passes and zero failures, backed by truthful admitted execution evidence. No source, tests, package files or execution plans belong in this file.",
+            "reason": "The file is absent, and the conformance obligation needs fresh substantive content. It is independent of the CLI bytes and serves as the authority for the implementation design.",
+            "supportRefs": [
+              "obligation://default-library-witness/conformance@5",
+              "obligation://default-library-witness/complete-original@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/8e48f0d7a3888cff05d203ffb536f1f99581cba67f3521180a072edc2bf8dc68"
+            ],
+            "dependsOn": []
+          },
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+            "contribution": "Write three files:\n1. `design/implementation-design.md`: uses the conformance artifact as its authority and defines the minimal Node CLI at `generated/hello-world.mjs` that prints exactly `Hello, world!` and one newline. It names the component and UAT test source surfaces, which execute the CLI and assert stdout.\n2. `design/test-design.md`: specifies component and UAT tests that spawn `node generated/hello-world.mjs` and assert status 0 and stdout of exactly `Hello, world!\\n`.\n3. `test-execution-plan.json`: command `node`; args `[\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"]`; `expectedTestPassCount` of at least 2; `expectedStdoutMatch` containing stable zero-failure evidence such as `fail 0`, without pinning an exact pass-count fragment; `assertedReturnValue` of `Hello, world!`.",
+            "reason": "All three files are absent. Each has an obligation that requires fresh content consistent with the source and the conformance artifact. The plan must agree with the fixed prospective commands but does not control execution. The implementation design should describe the actual corrected source surface.",
+            "supportRefs": [
+              "obligation://default-library-witness/implementation-design@5",
+              "obligation://default-library-witness/test-design@5",
+              "obligation://default-library-witness/execution-plan@5",
+              "obligation://default-library-witness/complete-original@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/8e48f0d7a3888cff05d203ffb536f1f99581cba67f3521180a072edc2bf8dc68"
+            ],
+            "dependsOn": [
+              "graph-function://abiogenesis/default-library/specification@5"
+            ]
+          },
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+            "contribution": "Independent, read-only assessment against the original source, the oracle rubric and the witness contract. It covers:\n- the content of the authored conformance, implementation design, test design and execution plan, and how they correspond to the source and to each other;\n- whether the supplied tests are adequate verifiers of the real CLI;\n- whether the plan agrees with the fixed commands;\n- the causal link from the historical baseline failure (result 6514754a) to the correction;\n- current command evidence on the corrected CLI: exit 0, exact stdout, at least two passes, zero failures.\nUnmet and indeterminate criteria must be preserved.",
+            "reason": "Parent completion requires a semantic assessment of current evidence by a distinct actor. It can only run once the authored assets, the correction and fresh evidence on the current subject exist.",
+            "supportRefs": [
+              "obligation://default-library-witness/complete-original@5",
+              "obligation://default-library-witness/conformance@5",
+              "obligation://default-library-witness/implementation-design@5",
+              "obligation://default-library-witness/test-design@5",
+              "obligation://default-library-witness/execution-plan@5",
+              "obligation://default-library-witness/behavior@5",
+              "obligation://default-library-witness/revision@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c"
+            ],
+            "dependsOn": [
+              "graph-function://abiogenesis/default-library/specification@5",
+              "graph-function://abiogenesis/default-library/design@5",
+              "graph-function://abiogenesis/default-library/construction@5",
+              "graph-function://abiogenesis/default-library/testing@5"
+            ]
+          }
+        ],
+        "gaps": [],
+        "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+        "nextReason": "The baseline result 6514754a shows the supplied CLI fails: stdout was `Hello world!\\n` instead of `Hello, world!\\n`, and command 1 exited nonzero with both tests failing. This is the evidence the contract requires before a correction. Construction is a different registered choice from the testing that produced the failure. Running it now creates the explicit same-lineage correction that the revision obligation needs and establishes the steel thread. Construction is not assessing a Result, so `subjectEvidenceRef` is null.",
+        "nextEvidenceRefs": [
+          "task://default-library-witness/s6-original@5",
+          "worksite-context-observation://abiogenesis/8e48f0d7a3888cff05d203ffb536f1f99581cba67f3521180a072edc2bf8dc68",
+          "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c"
+        ],
+        "subjectEvidenceRef": null,
+        "revisionReason": "The prior judgment (bc7d9d04) chose baseline testing next, and it has now run (6514754a) and found a material failure. It is kept as historical evidence. I've removed construction's dependency on design: the failure pinpoints the defect and the original source stage directly defines the required output, so the design is not needed for this bounded fix. Testing is now a re-measurement of the corrected subject, so it depends on construction. Specification, design and UAT are unchanged from the prior judgment.",
+        "revisionEvidenceRefs": [
+          "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+          "result://abiogenesis/bc7d9d04c2fe7c8104f819f3dd260128ecc3faca42dc57446927b3ca7df16e7c",
+          "task://default-library-witness/s6-original@5"
+        ],
+        "requirementProposals": []
+      }
+    },
+    {
+      "actor": 4,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-4-stdout-fp-e85b48606aff37dd-stdout.log",
+      "rowIndex": 46,
+      "toolUseRef": "toolu_013VgaxMJsBBkCdXCQpjKf8T",
+      "name": "Bash",
+      "input": {
+        "command": "cat generated/hello-world.mjs && echo ---- && cat test/component/hello-cli.test.mjs && echo ---- && cat test/uat/hello-cli.uat.test.mjs && echo ---- && cat source/basic-cli.oracle.json && echo ---- && ls -la specification design test-execution-plan.json 2>&1; shasum -a 256 generated/hello-world.mjs",
+        "description": "Read CLI, tests, oracle, and check asset inventory"
+      }
+    },
+    {
+      "actor": 4,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-4-stdout-fp-e85b48606aff37dd-stdout.log",
+      "rowIndex": 61,
+      "toolUseRef": "toolu_01KWxBMTUfXYFPvtheqXMHSx",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/source/original-basic-cli.txt"
+      }
+    },
+    {
+      "actor": 4,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-4-stdout-fp-e85b48606aff37dd-stdout.log",
+      "rowIndex": 76,
+      "toolUseRef": "toolu_01V3TFzhxsGUKofDvntquMsq",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/source/witness-contract.md"
+      }
+    },
+    {
+      "actor": 4,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-4-stdout-fp-e85b48606aff37dd-stdout.log",
+      "rowIndex": 148,
+      "toolUseRef": "toolu_01WjUv4ghgoMTsJMRJ4UFGtT",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/generated/hello-world.mjs",
+        "old_string": {
+          "bytes": 28,
+          "sha256": "sha256:ca3d2c5bee8b20d5f3ddc1e8c11cb1e4cfea62624ce59f5da8d1fc4114d963ea"
+        },
+        "new_string": {
+          "bytes": 29,
+          "sha256": "sha256:3b8b000e04c38f910ff3a79f56d38423be8d90a65ea0a1d1cd02250758f8f0b8"
+        }
+      }
+    },
+    {
+      "actor": 4,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-4-stdout-fp-e85b48606aff37dd-stdout.log",
+      "rowIndex": 217,
+      "toolUseRef": "toolu_01DqCb9Lz27foCTdi2beUbw3",
+      "name": "Bash",
+      "input": {
+        "command": "shasum -a 256 generated/hello-world.mjs && node generated/hello-world.mjs | od -c; echo \"exit=${pipestatus[1]}\"; node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs; echo \"exit=$?\"; shasum -a 256 source/original-basic-cli.txt source/basic-cli.oracle.json source/witness-contract.md test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs",
+        "description": "Run CLI and both test files, verify protected digests"
+      }
+    },
+    {
+      "actor": 4,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-4-stdout-fp-e85b48606aff37dd-stdout.log",
+      "rowIndex": 433,
+      "toolUseRef": "toolu_01UjCDzDaeUFi7AanF8p8A6d",
+      "name": "StructuredOutput",
+      "input": {
+        "summary": "Made one bounded fix to the CLI, justified by the recorded baseline run. That run (dependency sha256:647697a5..., the same bytes that were in place before the edit) showed `node generated/hello-world.mjs` exits 0 but prints \"Hello world!\\n\" (13 bytes, no comma). Both supplied tests then failed (0 pass, 2 fail, exit 1): each asserts stdout === \"Hello, world!\\n\". Edited only generated/hello-world.mjs: `console.log(\"Hello world!\");` became `console.log(\"Hello, world!\");` (new sha256:fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef). console.log adds exactly one \"\\n\", Node needs no packages, and nothing else changed. My own check afterwards, run with in-memory pipes and no files created: `node generated/hello-world.mjs` gives stdout \"Hello, world!\\n\" and exit 0. `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs` gives tests 2, pass 2, fail 0, exit 0. The digests of source/original-basic-cli.txt (ce602ce2...), source/basic-cli.oracle.json (028073e4...), source/witness-contract.md (f97359de...), test/component/hello-cli.test.mjs (8b55bf3f...) and test/uat/hello-cli.uat.test.mjs (5449c227...) all match their recorded values. The baseline failure still applies to the old bytes (647697a5...) and is the recorded reason for this fix. It should not be treated as describing the corrected file. My check is not recorded evidence and not an independent acceptance. No writes outside generated/hello-world.mjs.",
+        "gaps": [
+          "specification/project-conformance.md does not exist; writing it is outside this grant's write territory. Obligation conformance@5 is still open.",
+          "design/implementation-design.md does not exist; writing it is outside this grant's write territory. Obligation implementation-design@5 is still open.",
+          "design/test-design.md does not exist; writing it is outside this grant's write territory. Obligation test-design@5 is still open.",
+          "test-execution-plan.json does not exist; writing it is outside this grant's write territory. Obligation execution-plan@5 is still open.",
+          "The passing run on the corrected CLI (sha256:fe8f4080...) is only my own check, not recorded evidence. Obligations behavior@5 and revision@5 each need a new recorded run of both fixed commands against these bytes, linked to the earlier failing run (result 6514754a...).",
+          "No independent semantic assessment has been done by a different actor/call. complete-original@5 and every other parent obligation stay open until that assessment and the required evidence roles exist."
+        ]
+      }
+    },
+    {
+      "actor": 5,
+      "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+      "rawStdout": "actor-5-stdout-fp-03235f96bf65e58a-stdout.log",
+      "rowIndex": 919,
+      "toolUseRef": "toolu_01CWmkH81L62fSddaB6qzRKB",
+      "name": "StructuredOutput",
+      "input": {
+        "interpretation": "The prior judgment chose construction, and construction has now run (result e897db22). It changed only `generated/hello-world.mjs`: `console.log(\"Hello world!\")` became `console.log(\"Hello, world!\")`. The new file is 30 bytes (sha256:fe8f4080…). The current worksite observation (08dd3a89) confirms that digest and shows the protected source, oracle, contract and both supplied tests unchanged. The baseline C2 measurement (6514754a) still describes the earlier bytes (sha256:647697a5…): command 0 exited 0 but printed `Hello world!\\n`, and command 1 exited 1 with 0 passes and 2 failures. For that reason its support now lists `generated/hello-world.mjs` as a stale dependency. That result stays historical evidence and the recorded justification for the correction; it must not be retargeted to the new bytes. The constructor says its own post-edit run passed, but that is an attributed report, not admitted evidence. So there is currently no admitted observation of the corrected CLI, and the behavior and revision obligations both lack current verifier execution. The construction work is complete and sufficient for its bounded purpose. It should be reused, not rerun. Under the steel-thread approach, the next consequential uncertainty is whether the corrected runnable path actually works when measured. This needs a fresh C2 run of both fixed commands against the current bytes, tied to the construction result so the chain from baseline failure through correction to current evidence is explicit. `specification/project-conformance.md`, `design/implementation-design.md`, `design/test-design.md` and `test-execution-plan.json` are still absent, so their four obligations remain open. The final independent UAT still has to assess everything once these exist. All seven obligations remain open.",
+        "contributions": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+            "contribution": "Re-measure the corrected current CLI (sha256:fe8f4080…) produced by construction result e897db22, using the fixed command plan:\n1. `node generated/hello-world.mjs`\n2. `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`\n\nFor each command, record the real executable, args, cwd, environment, exit status, signal, stdout, stderr, and the resulting test/pass/fail counts, exactly as observed, including any nonzero exit or failure. Do not edit any file. Baseline result 6514754a stays historical evidence about the earlier bytes; do not merge it with or overwrite it by the new observation.",
+            "reason": "Behavior requires admitted current evidence on the corrected subject: exit 0, stdout exactly `Hello, world!\\n`, at least two real passing tests and zero failures. Revision requires a consequential same-lineage correction whose effect is actually observed. The only admitted execution evidence (6514754a) is stale for current-behavior claims, and the constructor's self-check is not recorded evidence. Selecting the construction result as the testing subject keeps the chain from failure through correction to re-measurement explicit.",
+            "supportRefs": [
+              "obligation://default-library-witness/behavior@5",
+              "obligation://default-library-witness/revision@5",
+              "obligation://default-library-witness/complete-original@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/08dd3a898b57a4f0437501a4ad2f9345963e3371c4b5cb84aaef6ea4161fa827",
+              "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+              "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c"
+            ],
+            "dependsOn": []
+          },
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+            "contribution": "Write `specification/project-conformance.md` for a minimal CLI Hello World software-build traversal. It must state:\n- the Intent;\n- the Product boundary: a Node CLI with no package or network dependency;\n- source-grounded requirements;\n- completion criteria.\n\nThe source surface is `generated/hello-world.mjs`. The execution proof runs the CLI and observes stdout of exactly `Hello, world!\\n` with exit 0. Completion also requires both supplied component and UAT tests to execute the real CLI, with at least two passes and zero failures, backed by truthful admitted execution evidence rather than a prewritten report. Write no source, tests, package files or execution plans.",
+            "reason": "The file is absent, and the conformance obligation needs fresh substantive content grounded in the original conformance_project stage. The content does not depend on the CLI bytes. It is the authority for the implementation design.",
+            "supportRefs": [
+              "obligation://default-library-witness/conformance@5",
+              "obligation://default-library-witness/complete-original@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/08dd3a898b57a4f0437501a4ad2f9345963e3371c4b5cb84aaef6ea4161fa827"
+            ],
+            "dependsOn": []
+          },
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+            "contribution": "Write three files:\n1. `design/implementation-design.md`: uses the conformance artifact as authority. Defines the minimal Node CLI at `generated/hello-world.mjs`, which prints exactly `Hello, world!` followed by one newline, and describes the actual corrected source surface. Names the component and UAT test source surfaces (`test/component/hello-cli.test.mjs`, `test/uat/hello-cli.uat.test.mjs`) that execute the CLI and assert stdout.\n2. `design/test-design.md`: specifies component and UAT validation. Both tests spawn `node generated/hello-world.mjs` from the project root and assert status 0 and stdout of exactly `Hello, world!\\n`.\n3. `test-execution-plan.json`: command `node`; args `[\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"]`; `expectedTestPassCount` of at least 2; `expectedStdoutMatch` with stable zero-failure evidence such as `fail 0` and no exact pass-count fragment; `assertedReturnValue` of `Hello, world!`.\n\nThe plan must agree with the fixed commands but does not control execution.",
+            "reason": "All three files are absent. Each obligation needs fresh content that is faithful to the original source and to the conformance predecessor. The implementation design should describe the corrected current CLI surface that construction has already produced.",
+            "supportRefs": [
+              "obligation://default-library-witness/implementation-design@5",
+              "obligation://default-library-witness/test-design@5",
+              "obligation://default-library-witness/execution-plan@5",
+              "obligation://default-library-witness/complete-original@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/08dd3a898b57a4f0437501a4ad2f9345963e3371c4b5cb84aaef6ea4161fa827",
+              "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c"
+            ],
+            "dependsOn": [
+              "graph-function://abiogenesis/default-library/specification@5"
+            ]
+          },
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+            "contribution": "Independent, read-only assessment against the original source, the oracle rubric and the witness contract. It covers:\n- the authored conformance, implementation design, test design and execution-plan content, and how each corresponds to the source and to its predecessor;\n- whether the supplied component and UAT tests are adequate verifiers of the real CLI;\n- whether the plan agrees with the fixed commands and original expectations;\n- the causal chain from the historical baseline failure (6514754a) through the bounded correction (e897db22);\n- current admitted command evidence on the corrected CLI: exit 0, exact stdout, at least two passes, zero failures.\n\nUnmet and indeterminate criteria must be kept, not dropped.",
+            "reason": "Parent completion requires a semantic assessment of exact current evidence by an actor distinct from the authors and the measurement producer. It can only run once the authored assets and fresh current-subject evidence exist.",
+            "supportRefs": [
+              "obligation://default-library-witness/complete-original@5",
+              "obligation://default-library-witness/conformance@5",
+              "obligation://default-library-witness/implementation-design@5",
+              "obligation://default-library-witness/test-design@5",
+              "obligation://default-library-witness/execution-plan@5",
+              "obligation://default-library-witness/behavior@5",
+              "obligation://default-library-witness/revision@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+              "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c"
+            ],
+            "dependsOn": [
+              "graph-function://abiogenesis/default-library/specification@5",
+              "graph-function://abiogenesis/default-library/design@5",
+              "graph-function://abiogenesis/default-library/testing@5"
+            ]
+          }
+        ],
+        "gaps": [],
+        "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+        "nextReason": "Construction (e897db22) changed the CLI bytes, so the only admitted execution evidence (6514754a) is stale for current behavior. The constructor's passing self-check is not admitted evidence. Re-measuring the corrected subject now, with the fixed commands, is the cheapest step that settles the main open question: does the corrected steel thread actually run and pass? It also supplies the verifier-execution role that behavior and revision both require. The construction native-work result is selected as the testing subject so the measurement is explicitly tied to the correction that follows the historical baseline failure.",
+        "nextEvidenceRefs": [
+          "task://default-library-witness/s6-original@5",
+          "worksite-context-observation://abiogenesis/08dd3a898b57a4f0437501a4ad2f9345963e3371c4b5cb84aaef6ea4161fa827",
+          "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+          "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c"
+        ],
+        "subjectEvidenceRef": "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+        "revisionReason": "The prior judgment (3967846e) chose construction next. It ran as result e897db22 and made the bounded fix to `generated/hello-world.mjs` only (now sha256:fe8f4080…); the worksite observation 08dd3a89 confirms protected files are unchanged. That work is complete and sufficient, so I removed construction from the current mapping and cite its result as evidence instead of rerunning it. As a result, testing no longer depends on a construction row: it cites e897db22 and uses it as the subject. The design row now also cites e897db22 so the implementation design describes the corrected surface. UAT keeps its dependencies on specification, design and testing, and cites the baseline and construction results as evidence. The specification contribution is unchanged. The baseline failure 6514754a stays historical evidence about the earlier bytes.",
+        "revisionEvidenceRefs": [
+          "result://abiogenesis/3967846950f8541f65b2ed43747537d5f0acce0f5f31bca5d8bc4fa2561d8612",
+          "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+          "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+          "worksite-context-observation://abiogenesis/08dd3a898b57a4f0437501a4ad2f9345963e3371c4b5cb84aaef6ea4161fa827"
+        ],
+        "requirementProposals": []
+      }
+    },
+    {
+      "actor": 6,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "rawStdout": "actor-6-stdout-fp-0726244d2025a5ab-stdout.log",
+      "rowIndex": 47,
+      "toolUseRef": "toolu_018cHCgzmXU5B4Pe1NYqiKW7",
+      "name": "Bash",
+      "input": {
+        "command": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/.ai-workspace/archive/worksite-command-execution/222051c97282f94add03db886dd66302b63160502804893c6130067daf1c9257/af6527f4d985100a039305f148634c34f25e1b5c369f3a99900af8279c267abf/launch.json'",
+        "description": "Run worksite command helper for declared task"
+      }
+    },
+    {
+      "actor": 6,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "rawStdout": "actor-6-stdout-fp-0726244d2025a5ab-stdout.log",
+      "rowIndex": 102,
+      "toolUseRef": "toolu_01Wr9GSAfzLgnpRqHBxQPSvX",
+      "name": "StructuredOutput",
+      "input": {
+        "kind": "worksite_command_execution_worker_result",
+        "schemaVersion": "5.0.0",
+        "taskRef": "worksite-command-execution-task://abiogenesis/222051c97282f94add03db886dd66302b63160502804893c6130067daf1c9257",
+        "taskDigest": "sha256:222051c97282f94add03db886dd66302b63160502804893c6130067daf1c9257",
+        "attemptRef": "worksite-command-attempt://abiogenesis/a19f53006dcf98d89d0b566ea5693034eb6c64c58ff3e4cf5a98f35d85dbf406",
+        "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/8477c4396dcc2ee3e6ece91bf6738be09b2b4ed5de408fa62fcf8805ac1dd209",
+        "helperArtifactDigest": "sha256:8477c4396dcc2ee3e6ece91bf6738be09b2b4ed5de408fa62fcf8805ac1dd209"
+      }
+    },
+    {
+      "actor": 7,
+      "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+      "rawStdout": "actor-7-stdout-fp-e97c6de6d5f94332-stdout.log",
+      "rowIndex": 1067,
+      "toolUseRef": "toolu_01T7QoyqX8JgTEWWAeuLA3u7",
+      "name": "StructuredOutput",
+      "input": {
+        "interpretation": "The prior judgment (0daeab7d) chose testing. It ran as C2 measurement db34d3cf against the corrected CLI (sha256:fe8f4080…, current at context, with no stale dependencies). Both fixed commands ran:\n- `node generated/hello-world.mjs` exited 0 with stdout exactly `Hello, world!\\n` (14 bytes) and empty stderr.\n- `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs` exited 0: tests 2, pass 2, fail 0, empty stderr.\n\nThe two supplied tests are unchanged and each spawns the real CLI through process.execPath. The steel thread from the supported CLI entry to the promised output is therefore established by admitted current evidence.\n\nThe same lineage is now complete:\n1. Baseline C2 result 6514754a, on the earlier bytes sha256:647697a5…: command 0 exited 0 but printed `Hello world!\\n`; command 1 exited 1 with 0 passes and 2 failures.\n2. A different registered choice (construction) made a bounded correction in e897db22.\n3. Current re-measurement db34d3cf.\n\nThe baseline stays historical evidence about its exact earlier subject. It is not retargeted and not discarded. Behavior and revision now have their realization, verifier-artifact and verifier-execution roles, and each still needs an independent semantic assessment. The construction and testing work are complete and sufficient, so they are reused as evidence and not rerun.\n\nThe four newly authored assets are still absent according to worksite observation 08dd3a89:\n- `specification/project-conformance.md`\n- `design/implementation-design.md`\n- `design/test-design.md`\n- `test-execution-plan.json`\n\nThe obligations for conformance, implementation-design, test-design and execution-plan therefore have no realization. Complete-original also stays open until those assets exist and an independent UAT has assessed everything.\n\nFollowing the witness contract, the original stage's handwritten `test-execution-result.json` receipt is realized by admitted C2 evidence, not by an authored file. No application write is planned for it.\n\nAll seven obligations remain open. The next consequential step is the conformance asset, because it is the authority the design assets must follow.",
+        "contributions": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+            "contribution": "Write only `specification/project-conformance.md`. It declares a minimal CLI Hello World software-build traversal and states:\n- Intent: a Node CLI that greets the user.\n- Product boundary: a single script, `generated/hello-world.mjs`, run with `node` with no package installation and no network dependency. Supplied component and UAT tests are verifiers.\n- Source-grounded requirements, each traced to `source/original-basic-cli.txt`:\n  - the source surface is `generated/hello-world.mjs`;\n  - it must run under node without package installation;\n  - it must write exactly `Hello, world!\\n` to stdout and exit 0;\n  - both the component and UAT tests spawn `node generated/hello-world.mjs` from the project root and assert status 0 and exact stdout.\n- Completion criteria:\n  - executing the CLI shows exact stdout `Hello, world!\\n` with exit status 0;\n  - `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs` shows at least 2 passes and `fail 0`;\n  - execution evidence is truthful, admitted evidence (real command, args, cwd, env, status, stdout, stderr), not a prewritten report;\n  - the implementation design, test design and execution plan are present and faithful.\n\nThe file may cite the current admitted observations (baseline failure 6514754a, correction e897db22, current passing run db34d3cf) as context only. It must not declare the obligations met. Do not write source, tests, package files or execution plans.",
+            "reason": "The file is absent. The conformance obligation needs fresh, substantive, source-grounded Intent, Product, requirements and completion criteria from the original conformance_project stage. Its content does not depend on the CLI bytes. It is the stated authority for the implementation design, so it comes before the design assets.",
+            "supportRefs": [
+              "obligation://default-library-witness/conformance@5",
+              "obligation://default-library-witness/complete-original@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/08dd3a898b57a4f0437501a4ad2f9345963e3371c4b5cb84aaef6ea4161fa827",
+              "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+              "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+              "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4"
+            ],
+            "dependsOn": []
+          },
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+            "contribution": "Write only these three files:\n\n1. `design/implementation-design.md`\n- Takes `specification/project-conformance.md` as authority.\n- Defines the minimal Node CLI at `generated/hello-world.mjs`. The actual current surface is `console.log(\"Hello, world!\");`, which prints exactly `Hello, world!` followed by one newline and needs no packages.\n- Names the component and UAT test source surfaces, `test/component/hello-cli.test.mjs` and `test/uat/hello-cli.uat.test.mjs`. Both execute the CLI through `spawnSync(process.execPath, ['generated/hello-world.mjs'])` and assert status and stdout.\n\n2. `design/test-design.md`\n- Specifies component and UAT validation of the CLI stdout contract, matching the actual supplied tests.\n- Both tests use `node:test`, `node:assert/strict` and `node:child_process` `spawnSync`.\n- Both spawn `node generated/hello-world.mjs` from the project root and assert status 0 and stdout exactly `Hello, world!\\n`.\n- States the pass criterion: at least 2 passes and 0 failures under `node --test`.\n\n3. `test-execution-plan.json`\n- `command`: `\"node\"`\n- `args`: `[\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"]`\n- `expectedTestPassCount`: at least 2\n- `expectedStdoutMatch`: stable zero-failure evidence such as `fail 0`, with no exact pass-count fragment\n- `assertedReturnValue`: `\"Hello, world!\"`\n- The plan may additionally list the direct CLI check `node generated/hello-world.mjs`, expecting exit 0 and stdout `Hello, world!\\n`, as long as the required top-level fields stay exactly as above.\n- The plan is prospective. It must agree with the fixed commands, does not control execution, and must not embed fabricated observed results.\n\nWrite no `test-execution-result.json`. Truthful execution-result meaning is carried by admitted C2 evidence.",
+            "reason": "All three files are absent. Each obligation needs fresh content faithful to the original source and to the conformance predecessor, which will not exist until specification runs. The implementation design and test design should describe the actual corrected CLI and the actual supplied verifiers. The current passing measurement db34d3cf confirms the surfaces these designs describe.",
+            "supportRefs": [
+              "obligation://default-library-witness/implementation-design@5",
+              "obligation://default-library-witness/test-design@5",
+              "obligation://default-library-witness/execution-plan@5",
+              "obligation://default-library-witness/complete-original@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/08dd3a898b57a4f0437501a4ad2f9345963e3371c4b5cb84aaef6ea4161fa827",
+              "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+              "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4"
+            ],
+            "dependsOn": [
+              "graph-function://abiogenesis/default-library/specification@5"
+            ]
+          },
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+            "contribution": "Read-only independent assessment against the original source, the oracle rubric (`source/basic-cli.oracle.json`) and the witness contract. It covers:\n- The authored conformance, implementation-design, test-design and execution-plan content. For each, assess whether it is substantive, how it corresponds to the source, and how it corresponds to its predecessor.\n- Whether the supplied component and UAT tests are adequate verifiers: they must execute the real CLI and assert status 0 and exact stdout.\n- Whether the execution plan agrees with the fixed commands and original expectations.\n- The consequential revision chain:\n  1. baseline failure 6514754a on the earlier bytes, which stays historical;\n  2. a changed registered choice and bounded correction, e897db22;\n  3. current re-measurement db34d3cf on the corrected bytes.\n- The current admitted command evidence: exit 0, stdout exactly `Hello, world!\\n`, at least 2 passes, 0 failures.\n\nKeep every unmet or indeterminate criterion. Do not certify from reports, file presence or stage counts.",
+            "reason": "Parent completion requires a semantic assessment of exact current evidence by an actor distinct from the authors and the measurement producer. It covers every obligation, including behavior and revision, which already have their verifier-execution evidence. It can run only once the four authored assets exist, so it depends on specification and design. The completed testing result is cited as evidence, not as a dependency.",
+            "supportRefs": [
+              "obligation://default-library-witness/complete-original@5",
+              "obligation://default-library-witness/conformance@5",
+              "obligation://default-library-witness/implementation-design@5",
+              "obligation://default-library-witness/test-design@5",
+              "obligation://default-library-witness/execution-plan@5",
+              "obligation://default-library-witness/behavior@5",
+              "obligation://default-library-witness/revision@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/08dd3a898b57a4f0437501a4ad2f9345963e3371c4b5cb84aaef6ea4161fa827",
+              "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+              "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+              "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4"
+            ],
+            "dependsOn": [
+              "graph-function://abiogenesis/default-library/specification@5",
+              "graph-function://abiogenesis/default-library/design@5"
+            ]
+          }
+        ],
+        "gaps": [],
+        "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+        "nextReason": "The corrected steel thread is now settled by admitted current evidence (db34d3cf): CLI exit 0 with exact stdout, and 2 passes with 0 failures. The remaining consequential uncertainty is in the four absent authored assets. The conformance asset is the authority that the implementation design, test design and execution plan must follow, so it comes first. Specification is native work, so no subject result is selected.",
+        "nextEvidenceRefs": [
+          "task://default-library-witness/s6-original@5",
+          "worksite-context-observation://abiogenesis/08dd3a898b57a4f0437501a4ad2f9345963e3371c4b5cb84aaef6ea4161fa827",
+          "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+          "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+          "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4"
+        ],
+        "subjectEvidenceRef": null,
+        "revisionReason": "The prior judgment (0daeab7d) chose testing next. It ran as C2 measurement db34d3cf on the corrected current CLI:\n- `node generated/hello-world.mjs` exited 0 with stdout exactly `Hello, world!\\n`.\n- The `node --test` command exited 0 with 2 passes and 0 failures.\n\nThat work is complete and sufficient, so the testing row is removed from the mapping and its result is cited as evidence instead of being rerun. The UAT row therefore no longer depends on testing; it depends only on specification and design and cites db34d3cf as evidence. Specification and design now also cite db34d3cf as confirmation of the actual surfaces. Construction (e897db22) stays reused evidence. Baseline 6514754a stays historical evidence about the earlier bytes. With no rerun pending, the next member moves from testing to specification.",
+        "revisionEvidenceRefs": [
+          "result://abiogenesis/0daeab7dc02de940a7e1b1e2e48b367644fa6bd9b5c393f8a30699298af40db6",
+          "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+          "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+          "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+          "worksite-context-observation://abiogenesis/08dd3a898b57a4f0437501a4ad2f9345963e3371c4b5cb84aaef6ea4161fa827"
+        ],
+        "requirementProposals": []
+      }
+    },
+    {
+      "actor": 8,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-8-stdout-fp-9b849619bd9f9e01-stdout.log",
+      "rowIndex": 42,
+      "toolUseRef": "toolu_011uR5rcT1AUd7LzKHU4QonD",
+      "name": "Bash",
+      "input": {
+        "command": "cat source/original-basic-cli.txt; echo ----; cat source/basic-cli.oracle.json; echo ----; cat generated/hello-world.mjs; echo ----; cat test/component/hello-cli.test.mjs; echo ----; cat test/uat/hello-cli.uat.test.mjs",
+        "description": "Read source, oracle, CLI, and test files"
+      }
+    },
+    {
+      "actor": 8,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-8-stdout-fp-9b849619bd9f9e01-stdout.log",
+      "rowIndex": 86,
+      "toolUseRef": "toolu_01UFGRBkXLypJmzLpWCCFRn2",
+      "name": "Bash",
+      "input": {
+        "command": "cat source/witness-contract.md; echo ----; ls -la specification design test-execution-plan.json 2>&1; shasum -a 256 source/original-basic-cli.txt source/basic-cli.oracle.json source/witness-contract.md generated/hello-world.mjs test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs",
+        "description": "Read witness contract, check inventory and digests"
+      }
+    },
+    {
+      "actor": 8,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-8-stdout-fp-9b849619bd9f9e01-stdout.log",
+      "rowIndex": 240,
+      "toolUseRef": "toolu_01EmbVBDT92QPmntERLHQEGh",
+      "name": "Bash",
+      "input": {
+        "command": "printf 'Hello, world!\\n' | shasum -a 256; printf 'Hello world!\\n' | shasum -a 256; printf 'Hello, world!\\n' | od -An -tx1",
+        "description": "Compute digests of expected and baseline stdout via pipes"
+      }
+    },
+    {
+      "actor": 8,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-8-stdout-fp-9b849619bd9f9e01-stdout.log",
+      "rowIndex": 1924,
+      "toolUseRef": "toolu_013hXazzATLo5UvSL3ymU2Wv",
+      "name": "Write",
+      "input": {
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/specification/project-conformance.md",
+        "content": {
+          "bytes": 24005,
+          "sha256": "sha256:9d02e5fb3f2793e187a7afa673594340a8cb311d6e212cd3b77ba1a764eb43ee"
+        }
+      }
+    },
+    {
+      "actor": 8,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-8-stdout-fp-9b849619bd9f9e01-stdout.log",
+      "rowIndex": 1977,
+      "toolUseRef": "toolu_01KjSkFNinh3YuYfCebwJWZW",
+      "name": "Bash",
+      "input": {
+        "command": "shasum -a 256 source/original-basic-cli.txt source/basic-cli.oracle.json source/witness-contract.md generated/hello-world.mjs test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs specification/project-conformance.md; ls design test-execution-plan.json 2>&1",
+        "description": "Verify protected digests unchanged and inventory"
+      }
+    },
+    {
+      "actor": 8,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-8-stdout-fp-9b849619bd9f9e01-stdout.log",
+      "rowIndex": 2307,
+      "toolUseRef": "toolu_01K2cqTyrAzRXjNVn3JWgdcs",
+      "name": "StructuredOutput",
+      "input": {
+        "summary": "I wrote `specification/project-conformance.md` (sha256 9d02e5fb…43ee). No other file was changed. Writing it created the parent `specification/` directory, which did not exist before; that directory is the only side effect of this write. I did not run either fixed command.\n\nWhat the document covers:\n- **Intent and scope:** the Intent of the basic-cli task, the product (`generated/hello-world.mjs`, run as `node generated/hello-world.mjs` from the project root with no arguments), the two supplied tests and the test command, what is out of scope, and which files are protected or writable.\n- **Stage table:** all 8 original stages, each saying whether its file is authored here, supplied, reused, corrected, or carried by recorded command evidence.\n- **Requirements R-01..R-14:** each cites the original source (by stage), the oracle, or the witness contract. The key ones:\n  - stdout is exactly `Hello, world!\\n` (14 bytes, hex and SHA-256 given; I recomputed the digest through a pipe and it matches the recorded run).\n  - exit status is 0, with no package installation.\n  - both tests use `node:test`, `node:assert/strict` and `spawnSync`, run the real CLI from the project root, and assert status 0 and the exact stdout.\n  - the test run has at least 2 passes and 0 failures, with at least one pass from each test file (a pass count alone is not enough).\n  - the fields `test-execution-plan.json` must contain, what the two design documents must contain, the baseline-then-fix history, and the write limits.\n- **Acceptance criteria AC-01..AC-12:** each has a decidable pass rule, including the original \"accept only if\" rule for the test result (exit 0, observed passes ≥ expected, plan satisfied).\n- **Oracle mapping:** every oracle field is traced to a requirement or criterion.\n\nConflicts I kept visible rather than resolving silently:\n- **C-1:** the original asks for a handwritten `test-execution-result.json`. The witness contract confines writes to other paths and requires recorded command evidence instead, and the oracle does not list the file. I kept the file's meaning and assigned it to the recorded evidence.\n- **C-2:** the original says the worker runs the tests itself. The witness contract says an author's own report is not evidence.\n- **C-3:** the original stage order versus the CLI and tests being supplied up front.\n- **C-4:** `assertedReturnValue` is `\"Hello, world!\"` while stdout is `\"Hello, world!\\n\"`. These are consistent and neither should be \"normalized\" into the other.\n- **C-5:** the UAT stage only asks for an output check, but the test-design stage requires status 0 too.\n- **C-6:** the conformance stage wording mentions only stdout.\n- **C-7:** the supplied CLI did not conform.\n\nUnknowns U-1..U-6: Node version, stderr, other invocations, line endings on other platforms, how the plan should encode the direct CLI command, and the library's internal mechanics.\n\nSection 7 records the recorded history, tied to exact file hashes and marked as information only, not acceptance:\n- **Baseline run** (result 6514754a, CLI 647697a5): the CLI printed `Hello world!\\n` without the comma, and the tests exited 1 with 0 passes and 2 failures.\n- **One-line fix** (result e897db22): the CLI's hash changed to fe8f4080.\n- **Run after the fix** (result db34d3cf): the CLI printed `Hello, world!\\n` and exited 0, and the tests exited 0 with 2 passes and 0 failures.\n\nThe baseline failure stays attached to the old bytes. I re-checked the hashes: the original source, oracle, witness contract, both test files and the current CLI (fe8f4080…) all match their recorded values.",
+        "gaps": [
+          "The conformance obligation is not closed: this document still needs recorded evidence of this write and an independent assessment by a different actor/call. My own reading is not acceptance.",
+          "`design/implementation-design.md` and `design/test-design.md` are still missing (both the `design/` directory and the files). Both are outside my write scope. The implementation-design and test-design obligations stay open.",
+          "`test-execution-plan.json` is still missing and outside my write scope. The execution-plan obligation stays open. How it should encode the direct CLI command (`node generated/hello-world.mjs`) is an open choice (U-5).",
+          "The behavior and revision obligations have baseline and post-fix command evidence on CLI fe8f4080…. Whether that evidence is current and correctly paired is for the runtime to compute. Both obligations still need the independent assessment.",
+          "The complete-original obligation stays open until all four written assets exist and the independent assessment has accepted current evidence.",
+          "Unresolved unknowns: the Node version is not in the recorded evidence (U-1); the source does not constrain stderr (U-2); arguments, stdin and running from another directory are unspecified (U-3); only one macOS host is evidenced (U-4).",
+          "Not an unscoped write, but disclosed: writing the document also created the `specification/` directory, since the file's parent did not exist. I used pipes only to compute the expected output's SHA-256 and created no temporary files."
+        ]
+      }
+    },
+    {
+      "actor": 9,
+      "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+      "rawStdout": "actor-9-stdout-fp-dd04a21de2fe2815-stdout.log",
+      "rowIndex": 950,
+      "toolUseRef": "toolu_01EWEPojsQidiaz4BE5hvXuT",
+      "name": "StructuredOutput",
+      "input": {
+        "interpretation": "The prior judgment (a5bb1448) chose specification, and it ran as native work 33db8d19. It wrote only `specification/project-conformance.md` (24005 bytes, sha256:9d02e5fb…43ee), which worksite observation 5c740741 shows is current. Its report says the document contains:\n- Intent, Product boundary and scope.\n- An 8-stage table.\n- Source-traced requirements R-01..R-14 and decidable criteria AC-01..AC-12.\n- An oracle mapping.\n- Conflicts C-1..C-7, kept visible. C-1 assigns the handwritten `test-execution-result.json` receipt to admitted C2 evidence.\n- Unknowns U-1..U-6. U-5 is how the plan should encode the direct CLI command.\n- The history baseline 6514754a → correction e897db22 → re-measurement db34d3cf, marked as information only.\n\nThat report is the author's own account, not an independent adequacy judgment. The conformance obligation now has a realization but still needs semantic assessment.\n\nThe rest of the lineage is unchanged and current:\n- Baseline C2 6514754a is historical evidence about the earlier bytes 647697a5. There, `Hello world!\\n` caused 0 passes and 2 failures.\n- Construction e897db22 made the bounded one-line correction, giving CLI fe8f4080.\n- C2 db34d3cf on the current CLI: `node generated/hello-world.mjs` exited 0 with exactly `Hello, world!\\n`, and `node --test …` exited 0 with 2 passes and 0 failures.\n\nThe supplied tests are unchanged, and each spawns the real CLI and asserts status 0 and exact stdout.\n\nThree authored assets are still absent: `design/implementation-design.md`, `design/test-design.md` and `test-execution-plan.json`. So the implementation-design, test-design and execution-plan obligations have no realization. Complete-original stays open until those exist and an independent UAT has assessed everything. Behavior and revision already have their realization, verifier-artifact and verifier-execution roles, and each still needs the independent semantic assessment. All seven obligations remain open. The design capability can write all three missing files, and its predecessor authority, the conformance asset, now exists.",
+        "contributions": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+            "contribution": "Write only these three files. Treat the current `specification/project-conformance.md` (sha256:9d02e5fb…) as authority, and trace to its R-/AC- identifiers where applicable.\n\n1. `design/implementation-design.md`\n- Uses the conformance asset as authority.\n- Defines the minimal Node CLI at `generated/hello-world.mjs`. The actual current surface is `console.log(\"Hello, world!\");`, which prints exactly `Hello, world!` followed by one newline, exits 0 and needs no package installation or network.\n- Names the component and UAT test source surfaces, `test/component/hello-cli.test.mjs` and `test/uat/hello-cli.uat.test.mjs`. Both run `spawnSync(process.execPath, ['generated/hello-world.mjs'], { encoding: 'utf8' })` from the project root and assert status and stdout.\n- Keeps the conformance conflicts and unknowns visible, including C-1: execution-result meaning is carried by admitted C2 evidence, not by an authored receipt.\n\n2. `design/test-design.md`\n- Specifies component and UAT validation of the CLI stdout contract, matching the actual supplied tests.\n- Both tests use `node:test`, `node:assert/strict` and `node:child_process` `spawnSync`.\n- Both spawn `node generated/hello-world.mjs` from the project root and assert status 0 and stdout exactly `Hello, world!\\n`.\n- The pass criterion under `node --test` is at least 2 passes and `fail 0`, with at least one pass from each test file.\n- Records that the baseline failure (6514754a, on earlier bytes) showed these verifiers detect the missing comma.\n\n3. `test-execution-plan.json`\n- `command`: `\"node\"`\n- `args`: `[\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"]`\n- `expectedTestPassCount`: at least 2\n- `expectedStdoutMatch`: stable zero-failure evidence such as `fail 0`, with no exact pass-count fragment\n- `assertedReturnValue`: `\"Hello, world!\"`\n- Resolve U-5 explicitly. The plan may add a separate entry for the direct CLI check `node generated/hello-world.mjs`, expecting exit 0 and stdout `Hello, world!\\n`, as long as the required top-level fields stay exactly as above.\n- The plan is prospective. It must agree with the two fixed commands, does not control execution, and must not embed fabricated observed results.\n\nWrite no `test-execution-result.json`. Do not modify the CLI, tests, sources or specification. Do not declare any obligation met.",
+            "reason": "All three files are absent according to observation 5c740741. The implementation-design, test-design and execution-plan obligations each need fresh content faithful to the original source and to the conformance predecessor, which now exists as 33db8d19. The corrected CLI and the supplied verifiers are current, and db34d3cf confirms them, so the designs can describe the actual surfaces. The conformance asset is completed work outside this mapping and is cited as evidence, not as a dependency.",
+            "supportRefs": [
+              "obligation://default-library-witness/implementation-design@5",
+              "obligation://default-library-witness/test-design@5",
+              "obligation://default-library-witness/execution-plan@5",
+              "obligation://default-library-witness/complete-original@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/5c740741e5e2ad1cd771ec579e6ef56a4803711188ff110ea05e2a107e7097a0",
+              "result://abiogenesis/33db8d198f2a1114256e2cda6fb6ed740af20bc95de2a7c8bb44ee1dcff12b08",
+              "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+              "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+              "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c"
+            ],
+            "dependsOn": []
+          },
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+            "contribution": "Read-only independent assessment against the original source, the oracle rubric (`source/basic-cli.oracle.json`) and the witness contract. It covers:\n- The authored conformance (33db8d19), implementation-design, test-design and execution-plan content. For each, assess whether it is substantive, how it corresponds to the source, and how it corresponds to its predecessor.\n- Whether the supplied component and UAT tests are adequate verifiers: they must execute the real CLI and assert status 0 and exact stdout.\n- Whether the execution plan agrees with the fixed commands and original expectations.\n- The consequential revision chain:\n  1. baseline failure 6514754a on the earlier bytes, which stays historical;\n  2. a changed registered choice and bounded correction, e897db22;\n  3. current re-measurement db34d3cf on the corrected bytes.\n- The current admitted command evidence: exit 0, stdout exactly `Hello, world!\\n`, at least 2 passes, 0 failures.\n\nKeep every unmet or indeterminate criterion. Do not certify from reports, file presence or stage counts. The actor/call must be distinct from the authors and the measurement producer.",
+            "reason": "Parent completion requires independent semantic assessment of exact current evidence for every obligation. It can cover the whole outcome only once the remaining three authored assets exist, so it depends on design. Specification, construction and testing are completed work cited as evidence. The exact subject result will be selected when UAT is chosen to run.",
+            "supportRefs": [
+              "obligation://default-library-witness/complete-original@5",
+              "obligation://default-library-witness/conformance@5",
+              "obligation://default-library-witness/implementation-design@5",
+              "obligation://default-library-witness/test-design@5",
+              "obligation://default-library-witness/execution-plan@5",
+              "obligation://default-library-witness/behavior@5",
+              "obligation://default-library-witness/revision@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/5c740741e5e2ad1cd771ec579e6ef56a4803711188ff110ea05e2a107e7097a0",
+              "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+              "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+              "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+              "result://abiogenesis/33db8d198f2a1114256e2cda6fb6ed740af20bc95de2a7c8bb44ee1dcff12b08"
+            ],
+            "dependsOn": [
+              "graph-function://abiogenesis/default-library/design@5"
+            ]
+          }
+        ],
+        "gaps": [],
+        "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+        "nextReason": "Admitted current evidence (db34d3cf) settles the corrected steel thread, and the conformance authority now exists (33db8d19). The remaining consequential uncertainty is in the three absent authored assets: implementation design, test design and execution plan. Only the design capability can write them, and UAT cannot assess the complete outcome without them. Design is native work, so no subject result is selected.",
+        "nextEvidenceRefs": [
+          "task://default-library-witness/s6-original@5",
+          "worksite-context-observation://abiogenesis/5c740741e5e2ad1cd771ec579e6ef56a4803711188ff110ea05e2a107e7097a0",
+          "result://abiogenesis/33db8d198f2a1114256e2cda6fb6ed740af20bc95de2a7c8bb44ee1dcff12b08",
+          "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+          "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+          "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c"
+        ],
+        "subjectEvidenceRef": null,
+        "revisionReason": "The prior judgment (a5bb1448) chose specification next. It ran as native work 33db8d19 and wrote only `specification/project-conformance.md` (sha256:9d02e5fb…), which observation 5c740741 shows is current. That work is complete for its realization role, so the specification row is removed from the mapping and its result is cited as evidence instead of being rerun.\n\nDesign therefore no longer depends on specification. It cites 33db8d19 as its conformance authority, and its work order now tells it to resolve U-5 and keep C-1 visible. UAT now depends only on design and adds 33db8d19 to its evidence.\n\nConstruction (e897db22) and testing (db34d3cf) stay reused current evidence. Baseline 6514754a stays historical evidence about the earlier bytes. The next member moves from specification to design.",
+        "revisionEvidenceRefs": [
+          "result://abiogenesis/a5bb14481704b1846a3ec5fcc21cf3a8eab60d52f9e009ea1c0dd40fd373b3ae",
+          "result://abiogenesis/33db8d198f2a1114256e2cda6fb6ed740af20bc95de2a7c8bb44ee1dcff12b08",
+          "worksite-context-observation://abiogenesis/5c740741e5e2ad1cd771ec579e6ef56a4803711188ff110ea05e2a107e7097a0",
+          "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+          "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+          "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c"
+        ],
+        "requirementProposals": []
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 62,
+      "toolUseRef": "toolu_01XasiAZM1W1tSuk3mLbGo34",
+      "name": "Bash",
+      "input": {
+        "command": "ls -la . source generated test test/component test/uat design specification 2>&1; ls test-execution-plan.json 2>&1; shasum -a 256 source/original-basic-cli.txt source/basic-cli.oracle.json generated/hello-world.mjs test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs source/witness-contract.md specification/project-conformance.md 2>&1",
+        "description": "List worksite inventory and compute file digests"
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 86,
+      "toolUseRef": "toolu_018z6pBZnK2jYwhd1vYwfxqX",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/source/original-basic-cli.txt"
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 102,
+      "toolUseRef": "toolu_019nsbLiwWRwrAUjps65YiKc",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/source/basic-cli.oracle.json"
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 118,
+      "toolUseRef": "toolu_013V2arPJKRUngzoSdoUuUsp",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/generated/hello-world.mjs"
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 134,
+      "toolUseRef": "toolu_012RVJGbRumGwrbC2qvGsiDo",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/test/component/hello-cli.test.mjs"
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 151,
+      "toolUseRef": "toolu_01Q9edMahdWDFa89RDQWwHrP",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/test/uat/hello-cli.uat.test.mjs"
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 179,
+      "toolUseRef": "toolu_01BGn7Hct3yqMBcG5Guo6x5i",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/source/witness-contract.md"
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 227,
+      "toolUseRef": "toolu_015o3wnuHSX2qoMRGEJMbiwi",
+      "name": "Read",
+      "input": {
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/specification/project-conformance.md"
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 457,
+      "toolUseRef": "toolu_014idwGffMB1xDRTDNTFpSsX",
+      "name": "Bash",
+      "input": {
+        "command": "node --version && which node && echo \"--- cli bytes\" && od -c generated/hello-world.mjs | head -5 && echo \"--- cmd1\" && node generated/hello-world.mjs | od -c; echo \"status(pipe-last)=$?\"; node generated/hello-world.mjs >/dev/null; echo \"cli exit=$?\"; node generated/hello-world.mjs | shasum -a 256; echo \"--- cmd2\"; node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs 2>&1 | cat; echo \"exit=${pipestatus[1]}\"; echo \"--- TAP reporter format\"; node --test --test-reporter=tap test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs 2>&1 | grep -E '^(ok|not ok|# (tests|pass|fail|cancelled))'",
+        "description": "Check Node version and run both fixed commands via pipes"
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 1584,
+      "toolUseRef": "toolu_01W7hAdd1TqZo9Jqer8AUghU",
+      "name": "Write",
+      "input": {
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/design/implementation-design.md",
+        "content": {
+          "bytes": 13800,
+          "sha256": "sha256:dbf366885332db95c6dfcedd125e8ab90d1e34e79e70068a43388abcdc3b49b4"
+        }
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 1639,
+      "toolUseRef": "toolu_01CCHW8BfpSzDjF91USPERV8",
+      "name": "Bash",
+      "input": {
+        "command": "cd /tmp && node generated/hello-world.mjs 2>&1 | grep -E \"code|Error\" | head -3; node generated/hello-world.mjs >/dev/null 2>&1; echo \"exit=$?\"",
+        "description": "Observe CLI error when run outside project root"
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 1682,
+      "toolUseRef": "toolu_01WqUMRgN4Ff6y2EuKUYdSqm",
+      "name": "Edit",
+      "input": {
+        "replace_all": false,
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/design/implementation-design.md",
+        "old_string": {
+          "bytes": 160,
+          "sha256": "sha256:216cccce9a218be1d73f7a28588ce776502cdaa729140051a19b99940069b6e8"
+        },
+        "new_string": {
+          "bytes": 235,
+          "sha256": "sha256:2671fb96bc63c0c111baec4b8d9471ed5ea95d64d27327beaffaa9d7ebe30fb1"
+        }
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 2812,
+      "toolUseRef": "toolu_01GwwGBQxUwKudiPkJGG7G4q",
+      "name": "Write",
+      "input": {
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/design/test-design.md",
+        "content": {
+          "bytes": 13662,
+          "sha256": "sha256:1995fa7ef6862034ba2257cd32b62e3395cdcba44477762d651fc7fd9a5ec32c"
+        }
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 3400,
+      "toolUseRef": "toolu_01SctJHyhQfyZbxDXoG9sYjF",
+      "name": "Write",
+      "input": {
+        "file_path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace/test-execution-plan.json",
+        "content": {
+          "bytes": 5584,
+          "sha256": "sha256:e940dcf297eab1d9eafe127b93f56a6b43e0133a0015fee8b1a02818c5e4def3"
+        }
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 3645,
+      "toolUseRef": "toolu_01KwZoHccJLhfQhq3qnQYKBU",
+      "name": "Bash",
+      "input": {
+        "command": "node --input-type=module -e '\nimport { readFileSync } from \"node:fs\";\nimport assert from \"node:assert/strict\";\nconst p = JSON.parse(readFileSync(\"test-execution-plan.json\",\"utf8\"));\nassert.equal(p.command, \"node\");\nassert.deepEqual(p.args, [\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"]);\nassert.ok(Number.isInteger(p.expectedTestPassCount) && p.expectedTestPassCount >= 2);\nassert.ok(p.expectedStdoutMatch.includes(\"fail 0\"));\nassert.ok(!/pass \\d/.test(p.expectedStdoutMatch));\nassert.equal(p.assertedReturnValue, \"Hello, world!\");\nassert.equal(p.cliCheck.expectedStdout, p.assertedReturnValue + \"\\n\");\nassert.equal(Buffer.byteLength(p.cliCheck.expectedStdout), p.cliCheck.expectedStdoutByteLength);\nconst post = \"✔ CLI process satisfies its output contract (25.308042ms)\\n✔ a user receives the exact promised greeting (25.320375ms)\\nℹ tests 2\\nℹ suites 0\\nℹ pass 2\\nℹ fail 0\\nℹ cancelled 0\\nℹ skipped 0\\nℹ todo 0\\nℹ duration_ms 60.277041\\n\";\nconst base = \"✖ CLI process satisfies its output contract (25.371083ms)\\n✖ a user receives the exact promised greeting (25.168375ms)\\nℹ tests 2\\nℹ suites 0\\nℹ pass 0\\nℹ fail 2\\n\";\nconst judge = (exit, out, cliExit, cliOut) => {\n  const pass = Number(/(?:ℹ|#) pass (\\d+)/.exec(out)[1]);\n  const fail = Number(/(?:ℹ|#) fail (\\d+)/.exec(out)[1]);\n  const named = p.requiredPassingTests.every(t => out.includes(\"✔ \" + t.name) || new RegExp(\"^ok \\\\d+ - \" + t.name, \"m\").test(out));\n  const planSatisfied = out.includes(p.expectedStdoutMatch) && fail === p.expectedFailCount && named && cliExit === 0 && cliOut === p.cliCheck.expectedStdout && cliOut.slice(0,-1) === p.assertedReturnValue;\n  return { pass, fail, named, planSatisfied, accept: exit === 0 && pass >= p.expectedTestPassCount && planSatisfied };\n};\nconsole.log(\"post-correction admitted:\", JSON.stringify(judge(0, post, 0, \"Hello, world!\\n\")));\nconsole.log(\"baseline admitted:       \", JSON.stringify(judge(1, base, 0, \"Hello world!\\n\")));\nconsole.log(\"plan predicates OK\");\n' && shasum -a 256 source/original-basic-cli.txt source/basic-cli.oracle.json source/witness-contract.md test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs generated/hello-world.mjs specification/project-conformance.md design/implementation-design.md design/test-design.md test-execution-plan.json && ls -la design",
+        "description": "Validate plan predicates and recheck all digests"
+      }
+    },
+    {
+      "actor": 10,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "rawStdout": "actor-10-stdout-fp-c1192dd1c7b29d2d-stdout.log",
+      "rowIndex": 4014,
+      "toolUseRef": "toolu_018kwBpJ5yytoukrYbkVZZXE",
+      "name": "StructuredOutput",
+      "input": {
+        "summary": "I wrote the three missing files in my write scope. No other file was changed. Writing them also created the `design/` folder, which did not exist before. I did not touch the CLI; it was already corrected (sha256 fe8f4080…).\n\n1. **`design/implementation-design.md`** (sha256 3cacf757…). This is the design for the CLI itself, based on `specification/project-conformance.md` (9d02e5fb…).\n   - It defines `generated/hello-world.mjs` as a single file with no imports and one line: `console.log(\"Hello, world!\");`.\n   - It explains why that line produces exactly the required 14 bytes, why a line ending is always a single LF, and why the script must not call `process.exit()` (that can cut off output written to a pipe).\n   - It checks the current file against the design: it matches. It records the history tied to each version of the file: the failing baseline run on the old version (result 6514754a), the one-line fix (e897db22), and the passing run on the current version (db34d3cf). It also says what would make the design out of date.\n   - It names the component test, the UAT test and both fixed commands, and maps every conformance requirement R-01..R-14 to a part of the design.\n\n2. **`design/test-design.md`** (sha256 1995fa7e…). This is the test design.\n   - It states what the CLI must do: exit status 0, and stdout exactly `Hello, world!\\n`.\n   - It checks both supplied tests line by line against the original instructions. Both run the real CLI and use strict equality for the checks.\n   - It lists which faults the tests catch, and cites the baseline run where both tests failed on the missing comma. That shows the tests actually detect a wrong greeting and do not pass by default.\n   - It specifies both fixed commands and how to read the test counts under both reporter formats. It requires a passing test from each file, not just a total of 2 passes, and spells out the original rule: exit 0, passes at least the expected count, and the plan satisfied.\n   - It lists where the tests fall short (R-T1..R-T4).\n\n3. **`test-execution-plan.json`** (sha256 e940dcf2…).\n   - It has the fields the original requires: `command` \"node\", the exact `args`, `expectedTestPassCount` 2, `expectedStdoutMatch` \"fail 0\" (no exact pass count pinned), and `assertedReturnValue` \"Hello, world!\".\n   - It adds: a direct CLI check (`node generated/hello-world.mjs`, exit 0, exact 14-byte stdout and its hash); the two test names that must pass, one per file; a mapping to both fixed command IDs; the acceptance rule; the fields recorded run evidence must contain; the hashes of the input files; and the baseline → fix → current history.\n   - It states that the plan only declares expectations and does not decide which commands run.\n\n**My own checks (informative only, not recorded evidence):**\n- On local Node v24.7.0, command 1 printed exactly the 14 required bytes and exited 0, and command 2 had 2 passes, 0 failures and exit 0.\n- \"fail 0\" appears in both the default and TAP report formats.\n- Running outside the project root gives `MODULE_NOT_FOUND` and exit 1.\n- I applied the plan's acceptance rule to the recorded test output: it accepts the run on the current CLI and rejects the baseline run.\n- The original source, oracle, witness contract, both tests, the CLI and the conformance file all still match their recorded hashes.\n- I created no temporary files; all checks used pipes or in-memory processing.",
+        "gaps": [
+          "None of the seven obligations is closed. Each of the three new files needs a record of it being written, plus an independent assessment by a different actor/call. My own checks are not acceptance.",
+          "complete-original@5 needs all four written files, current recorded runs of both fixed commands, and an independent assessment that consumes them. behavior@5 and revision@5 need the same assessment. Whether the recorded runs (6514754a before the fix, db34d3cf after it) are current and correctly paired is for the runtime to compute; I did not establish it.",
+          "Side effect outside the listed paths: writing the design files created the `design/` folder, which did not exist before. No other off-scope writes. The checks I ran locally (both fixed commands, the TAP-format run, the run from /tmp, and the plan check) created no files, but they are not recorded evidence.",
+          "The component and UAT tests are identical in mechanics (same spawn, same two checks). Two files each run the real CLI and pass, but the UAT test adds nothing the component test does not check. Strengthening it would require changing a protected test file, which needs a new decision by whoever owns it.",
+          "The tests have no timeout of their own. A hanging CLI is stopped only by the execution harness timeout (20000 ms in the recorded runs).",
+          "The tests run the CLI with the same Node binary as the test runner, while fixed command 1 finds `node` through PATH. The Node version is not in the recorded evidence; locally it is v24.7.0.",
+          "Unknowns carried over from the conformance file: stderr is not constrained, arguments/stdin/other working directories are not specified, and only one macOS host has been tested.",
+          "The original's handwritten `test-execution-result.json` is not written, following conformance C-1/C-2. Its meaning is supposed to be carried by recorded command evidence; the assessor must confirm that this substitution is acceptable."
+        ]
+      }
+    },
+    {
+      "actor": 11,
+      "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+      "rawStdout": "actor-11-stdout-fp-8e8910b51e0b03d9-stdout.log",
+      "rowIndex": 1049,
+      "toolUseRef": "toolu_01RQeu1YxXamdGkF2oG597wj",
+      "name": "StructuredOutput",
+      "input": {
+        "interpretation": "The prior judgment (3ee588af) chose design. It ran as native work 4fbf9875 and wrote only its three permitted files. Worksite observation 50521f4b shows all three are current, with byte identities that match the author's report:\n- `design/implementation-design.md` (3cacf757…)\n- `design/test-design.md` (1995fa7e…)\n- `test-execution-plan.json` (e940dcf2…)\n\nThat run's only side effect was creating the `design/` folder, which it disclosed. Together with `specification/project-conformance.md` (9d02e5fb…, from 33db8d19), all four authored assets now exist and are current. None of the protected files changed: the original source (ce602ce2…), the oracle (028073e4…), the witness contract (f97359de…) and both tests (8b55bf3f…, 5449c227…) keep their declared digests.\n\nThe CLI is still fe8f4080…, and design did not touch it or the verifiers. So the C2 measurement db34d3cf is still current evidence on the corrected subject:\n- `node generated/hello-world.mjs` exited 0, printed exactly `Hello, world!\\n` (14 bytes) and wrote nothing to stderr.\n- `node --test …` exited 0 with 2 passes and 0 failures, one named pass from each test file.\n\nBaseline C2 6514754a stays historical evidence about the earlier bytes 647697a5. On those bytes the CLI printed `Hello world!\\n`, and the tests exited 1 with 0 passes and 2 failures. Its staleness applies only to the old CLI, and it remains the reason for the bounded one-line correction e897db22 in the same lineage.\n\nThe reports from specification, design and construction are the authors' own accounts, not adequacy judgments. Every required realization, verifier-artifact and verifier-execution role now has actual current support. No further authoring or measurement is needed before assessment, and the steel thread plus the authored assets are complete enough to qualify. All seven obligations stay open because each one still needs an independent semantic assessment.\n\nIssues the assessment must weigh rather than assume, as disclosed by the authors:\n- The UAT test uses the same mechanics as the component test.\n- The Node version is not recorded (U-1).\n- stderr, arguments and working directory are unconstrained or unspecified.\n- Only one host has been evidenced.\n- C-1 replaces the handwritten `test-execution-result.json` with admitted C2 evidence.\n- The execution plan contains extra fields beyond those the original requires.",
+        "contributions": [
+          {
+            "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+            "contribution": "Read-only independent assessment of the complete original outcome. Use the complete original source, the oracle rubric `source/basic-cli.oracle.json`, the witness contract and the exact current candidate `generated/hello-world.mjs` (fe8f4080…). Subject: current C2 measurement db34d3cf. Assess every obligation separately, and preserve every unmet or indeterminate criterion.\n\n1. conformance: `specification/project-conformance.md` (9d02e5fb…, from 33db8d19). Check that its content is substantive and matches the conformance_project stage:\n- It declares a minimal CLI Hello World build traversal.\n- The source surface is `generated/hello-world.mjs`.\n- The execution proof runs the CLI and observes stdout exactly `Hello, world!\\n`.\n- It covers Intent, Product boundary, requirements and completion criteria.\n- Conflicts C-1..C-7 and unknowns U-1..U-6 are handled honestly.\n\n2. implementation-design: `design/implementation-design.md` (3cacf757…). Check that it:\n- uses the conformance asset as authority;\n- defines a minimal Node CLI at `generated/hello-world.mjs` that prints exactly `Hello, world!` followed by one newline, needs no package installation and exits 0;\n- names the component and UAT test surfaces that execute the CLI and assert stdout;\n- is realizable against the actual current CLI.\n\n3. test-design: `design/test-design.md` (1995fa7e…). Check that it specifies component and UAT validation in which both tests spawn `node generated/hello-world.mjs` and assert status 0 and stdout exactly `Hello, world!\\n`, and that it matches the actual supplied tests.\n\n4. execution-plan: `test-execution-plan.json` (e940dcf2…). Check:\n- `command` is `\"node\"`.\n- `args` is exactly `[\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"]`.\n- `expectedTestPassCount` is at least 2.\n- `expectedStdoutMatch` includes stable zero-failure evidence such as `fail 0`, with no pinned pass-count fragment.\n- `assertedReturnValue` is `\"Hello, world!\"`.\n- It agrees with fixed commands 0 and 1.\n- It is prospective: it does not control execution and contains no fabricated observed results.\n- Its extra fields (direct CLI check, hashes, history, acceptance rule) do not contradict the original.\n\n5. Verifier adequacy. Check that both supplied tests:\n- use `node:test`, `node:assert/strict` and `spawnSync`;\n- run `process.execPath` with `['generated/hello-world.mjs']` from the project root;\n- assert status 0 and exact stdout.\nBaseline 6514754a shows they detect the missing comma. Judge whether the UAT test, which uses the same mechanics as the component test, still meets the uat_test_source meaning: it must assert the user-visible output exactly.\n\n6. behavior: current C2 db34d3cf. Check:\n- Command 0 exited 0 with stdout exactly `Hello, world!\\n` (14 bytes, digest d9014c46…) and empty stderr.\n- Command 1 exited 0 with tests 2, pass 2, fail 0, and one named pass per file.\n- Apply the original test_execution_result rule: the command exited 0, observed passes are at least the plan's expectedTestPassCount, and the plan is satisfied.\n- Judge whether admitted C2 evidence (command, args, declared environment and cwd, exit status, stdout/stderr) is enough to carry the meaning of the original handwritten `test-execution-result.json`, per C-1 and the oracle's assessment statement.\n\n7. revision. Check the chain:\n- the baseline failure 6514754a is on bytes 647697a5, before any CLI change, and stays historical, neither retargeted nor discarded;\n- a changed registered choice, construction e897db22, made a bounded one-line correction;\n- re-measurement db34d3cf ran on the corrected bytes fe8f4080 in the same lineage.\n\n8. complete-original. Check:\n- Every original stage meaning is realized or legitimately carried by the declared mechanism.\n- Application writes stay within the CLI and the four asset paths. The created `specification/` and `design/` parent folders were disclosed.\n- Protected sources are unchanged.\n- There is no package or network dependency.\n\nPreserve the residual unknowns as indeterminate where they matter: Node version not recorded, stderr unconstrained, other arguments and working directories unspecified, one host only. Do not certify from author reports, file presence or stage counts. The actor/call must be distinct from the authors (33db8d19, e897db22, 4fbf9875) and from the measurement producer (db34d3cf). Write nothing.",
+            "reason": "Parent completion requires an independent semantic assessment of exact current evidence for all seven obligations. The prerequisites for that now exist:\n- The four authored assets exist and are current (50521f4b).\n- The corrected CLI and the verifiers are unchanged, so C2 db34d3cf is current execution evidence on the exact candidate.\n- Baseline 6514754a and correction e897db22 establish the revision lineage.\n\nNo further authoring or re-measurement is needed first. Specification, construction, testing and design are completed work, cited as evidence, not as dependencies.",
+            "supportRefs": [
+              "obligation://default-library-witness/complete-original@5",
+              "obligation://default-library-witness/conformance@5",
+              "obligation://default-library-witness/implementation-design@5",
+              "obligation://default-library-witness/test-design@5",
+              "obligation://default-library-witness/execution-plan@5",
+              "obligation://default-library-witness/behavior@5",
+              "obligation://default-library-witness/revision@5"
+            ],
+            "evidenceRefs": [
+              "task://default-library-witness/s6-original@5",
+              "worksite-context-observation://abiogenesis/50521f4b9ce56f8bbd62f0d849c15b83f57a2f7ee13140d83684ec581fa3a054",
+              "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+              "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+              "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+              "result://abiogenesis/33db8d198f2a1114256e2cda6fb6ed740af20bc95de2a7c8bb44ee1dcff12b08",
+              "result://abiogenesis/4fbf98755483b8f9bf0f6bc34c0646ccc367ce1fb55fe6c30824c3096b4c2b2b"
+            ],
+            "dependsOn": []
+          }
+        ],
+        "gaps": [],
+        "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+        "nextReason": "UAT runs next because it is the only remaining step that can close the obligations. All realization and verifier roles have current support: the four authored assets (33db8d19, 4fbf9875), the corrected CLI (e897db22) and the C2 execution evidence on it (db34d3cf), linked to the historical baseline 6514754a.\n\nSubject: db34d3cf. It is the current C2 measurement of the exact candidate `generated/hello-world.mjs` (fe8f4080…), with both fixed commands, and all its support files are current. The UAT work order already reads the four authored assets directly. Selecting a measurement is a choice of observation provenance, not authorship.",
+        "nextEvidenceRefs": [
+          "task://default-library-witness/s6-original@5",
+          "worksite-context-observation://abiogenesis/50521f4b9ce56f8bbd62f0d849c15b83f57a2f7ee13140d83684ec581fa3a054",
+          "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+          "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+          "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+          "result://abiogenesis/33db8d198f2a1114256e2cda6fb6ed740af20bc95de2a7c8bb44ee1dcff12b08",
+          "result://abiogenesis/4fbf98755483b8f9bf0f6bc34c0646ccc367ce1fb55fe6c30824c3096b4c2b2b"
+        ],
+        "subjectEvidenceRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+        "revisionReason": "The prior judgment (3ee588af) chose design next. It ran as native work 4fbf9875 and wrote only `design/implementation-design.md`, `design/test-design.md` and `test-execution-plan.json`. Observation 50521f4b shows all three are current. Its realization role is fulfilled, so the design row is removed from the mapping. Its result is now cited as evidence and is not rerun.\n\nUAT therefore no longer depends on design. Its evidence now includes 4fbf9875 and the new worksite observation 50521f4b, which replaces 5c740741. Its subject is set to the current C2 measurement db34d3cf. That measurement is still current because design did not change the CLI or the verifiers, so no re-measurement is needed.\n\nThe rest carries over unchanged:\n- Specification 33db8d19, construction e897db22 and testing db34d3cf are reused current evidence.\n- Baseline 6514754a is still historical evidence about the earlier bytes.\n- The disclosed issues from design (identical test mechanics, Node version unknown, C-1 substitution) go to UAT to judge.\n\nThe next member moves from design to UAT.",
+        "revisionEvidenceRefs": [
+          "result://abiogenesis/3ee588afbda63abb5d1406c30202aad127111ab61e4c2b217f8ec91a194d092d",
+          "result://abiogenesis/4fbf98755483b8f9bf0f6bc34c0646ccc367ce1fb55fe6c30824c3096b4c2b2b",
+          "worksite-context-observation://abiogenesis/50521f4b9ce56f8bbd62f0d849c15b83f57a2f7ee13140d83684ec581fa3a054",
+          "result://abiogenesis/33db8d198f2a1114256e2cda6fb6ed740af20bc95de2a7c8bb44ee1dcff12b08",
+          "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+          "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+          "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c"
+        ],
+        "requirementProposals": []
+      }
+    },
+    {
+      "actor": 12,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "rawStdout": "actor-12-stdout-fp-54262548fdfd0a8d-stdout.log",
+      "rowIndex": 58,
+      "toolUseRef": "toolu_01JTs8SQ9KHC7Ax3bnYYBST5",
+      "name": "Bash",
+      "input": {
+        "command": "shasum -a 256 source/original-basic-cli.txt source/basic-cli.oracle.json generated/hello-world.mjs test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs source/witness-contract.md specification/project-conformance.md design/implementation-design.md design/test-design.md test-execution-plan.json",
+        "description": "Compute SHA-256 digests of declared worksite files"
+      }
+    },
+    {
+      "actor": 12,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "rawStdout": "actor-12-stdout-fp-54262548fdfd0a8d-stdout.log",
+      "rowIndex": 105,
+      "toolUseRef": "toolu_01J423DC9hdWD9iT7WscrCw5",
+      "name": "Bash",
+      "input": {
+        "command": "cat source/original-basic-cli.txt; echo ----; cat source/basic-cli.oracle.json; echo ----; cat -A generated/hello-world.mjs 2>/dev/null || od -c generated/hello-world.mjs; echo ----; cat test/component/hello-cli.test.mjs; echo ----; cat test/uat/hello-cli.uat.test.mjs",
+        "description": "Read original source, oracle, CLI, and tests"
+      }
+    },
+    {
+      "actor": 12,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "rawStdout": "actor-12-stdout-fp-54262548fdfd0a8d-stdout.log",
+      "rowIndex": 160,
+      "toolUseRef": "toolu_0152dDXaDKvPnjCkNvjh56UV",
+      "name": "Bash",
+      "input": {
+        "command": "cat source/witness-contract.md | head -c 3000; echo; echo ======; cat specification/project-conformance.md",
+        "description": "Read witness contract and conformance document"
+      }
+    },
+    {
+      "actor": 12,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "rawStdout": "actor-12-stdout-fp-54262548fdfd0a8d-stdout.log",
+      "rowIndex": 193,
+      "toolUseRef": "toolu_01QeFozETAD9R8EcovrrM5Le",
+      "name": "Bash",
+      "input": {
+        "command": "cat design/implementation-design.md",
+        "description": "Read implementation design document"
+      }
+    },
+    {
+      "actor": 12,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "rawStdout": "actor-12-stdout-fp-54262548fdfd0a8d-stdout.log",
+      "rowIndex": 245,
+      "toolUseRef": "toolu_01Mns4PTFx8umhmDQ2cYajkM",
+      "name": "Bash",
+      "input": {
+        "command": "tail -c +2990 source/witness-contract.md; echo; echo \"--- CONFORMANCE ---\"; cat specification/project-conformance.md",
+        "description": "Read rest of witness contract and conformance document"
+      }
+    },
+    {
+      "actor": 12,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "rawStdout": "actor-12-stdout-fp-54262548fdfd0a8d-stdout.log",
+      "rowIndex": 282,
+      "toolUseRef": "toolu_01LoRikZxd9hzvr4TN5DDk9G",
+      "name": "Bash",
+      "input": {
+        "command": "cat design/test-design.md; echo \"--- PLAN ---\"; cat test-execution-plan.json",
+        "description": "Read test design and execution plan"
+      }
+    },
+    {
+      "actor": 12,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "rawStdout": "actor-12-stdout-fp-54262548fdfd0a8d-stdout.log",
+      "rowIndex": 395,
+      "toolUseRef": "toolu_01B9Q74YJoRN1U7jn8FhVRNS",
+      "name": "Bash",
+      "input": {
+        "command": "for r in \"1228 1310\" \"1373 1452\" \"1536 1612\" \"1692 1769\" \"2270 2347\" \"2631 2711\"; do set -- $r; echo \"[$1-$2]\"; tail -c +$(($1+1)) source/witness-contract.md | head -c $(($2-$1)); echo; done; printf 'Hello, world!\\n' | shasum -a 256; printf 'Hello world!\\n' | shasum -a 256; wc -c < generated/hello-world.mjs",
+        "description": "Extract obligation source spans and verify stdout digests"
+      }
+    },
+    {
+      "actor": 12,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "rawStdout": "actor-12-stdout-fp-54262548fdfd0a8d-stdout.log",
+      "rowIndex": 514,
+      "toolUseRef": "toolu_016nWL6kizpCw9oZRgXzZaGS",
+      "name": "Bash",
+      "input": {
+        "command": "node -e '\nconst fs=require(\"fs\"),c=require(\"crypto\");\nconst b=fs.readFileSync(\"source/witness-contract.md\");\nfor (const [s,e] of [[1228,1310],[1373,1452],[1536,1612],[1692,1769],[2270,2347],[2631,2711]]) {\n  const sl=b.subarray(s,e);\n  console.log(`[${s}-${e}] sha256:${c.createHash(\"sha256\").update(sl).digest(\"hex\").slice(0,16)}… ${JSON.stringify(sl.toString())}`);\n}\nfor (const t of [\"Hello, world!\\n\",\"Hello world!\\n\"]) console.log(JSON.stringify(t), Buffer.byteLength(t), c.createHash(\"sha256\").update(t).digest(\"hex\"));\nconsole.log(\"cli bytes\", fs.readFileSync(\"generated/hello-world.mjs\").length);\nconst p=JSON.parse(fs.readFileSync(\"test-execution-plan.json\",\"utf8\"));\nconsole.log(\"plan ok:\", p.command===\"node\", JSON.stringify(p.args)===JSON.stringify([\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"]), Number.isInteger(p.expectedTestPassCount)&&p.expectedTestPassCount>=2, p.expectedStdoutMatch.includes(\"fail 0\"), !/pass \\d/.test(p.expectedStdoutMatch), p.assertedReturnValue===\"Hello, world!\", p.cliCheck.expectedStdout===\"Hello, world!\\n\", p.cliCheck.expectedStdout===p.assertedReturnValue+\"\\n\");\n'",
+        "description": "Check span text, stdout digests, and plan fields in memory"
+      }
+    },
+    {
+      "actor": 12,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "rawStdout": "actor-12-stdout-fp-54262548fdfd0a8d-stdout.log",
+      "rowIndex": 682,
+      "toolUseRef": "toolu_01NSF53LJH61wGpwdNjRnmo3",
+      "name": "Bash",
+      "input": {
+        "command": "node -e 'const c=require(\"crypto\");for(const s of [\"console.log(\\\"Hello world!\\\");\\n\",\"console.log(\\\"Hello world!\\\");\"]) console.log(JSON.stringify(s), c.createHash(\"sha256\").update(s).digest(\"hex\"));'",
+        "description": "Compute digest of the hypothesized pre-correction CLI bytes in memory"
+      }
+    },
+    {
+      "actor": 12,
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "rawStdout": "actor-12-stdout-fp-54262548fdfd0a8d-stdout.log",
+      "rowIndex": 2596,
+      "toolUseRef": "toolu_01UXDXAj8rZCVaNa5PR6c74E",
+      "name": "StructuredOutput",
+      "input": {
+        "kind": "consumer_outcome_assessment",
+        "disposition": "satisfied",
+        "reason": "Independent UAT assessment of the exact candidate generated/hello-world.mjs (sha256 fe8f4080…, recomputed; 30 bytes = `console.log(\"Hello, world!\");\\n`, no imports) against the complete original source (ce602ce2…), the oracle (028073e4…) and the witness contract (f97359de…). All digests were recomputed. The four authored assets match their admitted digests: conformance 9d02e5fb…, implementation design 3cacf757…, test design 1995fa7e…, plan e940dcf2…. The protected supplied tests are unchanged (8b55bf3f…, 5449c227…).\n\nCurrent admitted C2 result db34d3cf binds the current CLI and test digests. Command 0 (`node generated/hello-world.mjs`, cwd \".\") exited 0 and printed exactly \"Hello, world!\\n\": 14 bytes, digest d9014c46…, recomputed. stderr was empty; no timeout, no signal. Command 1 (`node --test` over both files) exited 0 with tests 2, pass 2, fail 0, and each file's named test was reported passing.\n\nThe original test_execution_result predicate holds over this evidence and the authored plan. The command exited 0. observedTestPassCount 2 ≥ expectedTestPassCount 2. planSatisfied holds: 'fail 0' is present, both paired names pass, the cliCheck stdout is exact, and stdout minus its single LF equals assertedReturnValue \"Hello, world!\". The handwritten test-execution-result.json is lawfully replaced, per the witness contract and the oracle's assessment text. Its truthful meaning (command, args, env, cwd, integer status, stdout/stderr, test observations) is carried by admitted C2 evidence joined with the plan here.\n\nRevision lineage checks out. Baseline C2 6514754a ran on 647697a5…, which I confirmed equals `console.log(\"Hello world!\");\\n`. It printed \"Hello world!\\n\" and command 1 exited 1 (pass 0, fail 2): the declared nonzero adverse command. A different registered choice, native construction e897db22, then made only the one-comma edit. db34d3cf proves the corrected bytes. The baseline stays attached to the old bytes in every authored asset.\n\nResiduals (none blocks a criterion):\n- The Node version is not recorded in the C2 evidence.\n- stderr is unconstrained by the source.\n- Only one macOS host is evidenced.\n- The UAT test is mechanically identical to the component test; that is adequate for the source, but UAT depth is thin.\n- The designs and plan were authored after the correction; no schedule is mandated.\n- Parent completion still needs owner-computed admitted coverage, plus agreement between the Public result and replay. This assessment does not evaluate those.\n\nMy actions: read-only cat/od/shasum over the ten scoped files. In-memory node -e and printf|shasum for digests, span extraction and JSON field checks. No files created or modified. I did not run the CLI or tests myself; behavior conclusions rest on admitted C2 evidence.",
+        "unresolvedCriteria": [],
+        "fulfillment": {
+          "obligations": [
+            {
+              "obligationRef": "obligation://default-library-witness/complete-original@5",
+              "policyRef": "proof-policy://default-library-witness/complete-original@5",
+              "shapeRef": "proof-shape://default-library-witness/complete-original@5",
+              "judgment": "satisfied",
+              "reason": "Every original stage meaning is realized on the current subject.\n- conformance_project, implementation_design and test_design: substantive fresh assets (see their obligations).\n- source: current CLI fe8f4080 prints exactly \"Hello, world!\\n\" and exits 0 with no package installation (admitted C2 db34d3cf, command 0).\n- component_test_source and uat_test_source: supplied, unchanged and reused. Both use node:test, node:assert/strict and spawnSync on process.execPath with ['generated/hello-world.mjs'] from the inherited project-root cwd, asserting status 0 and exact stdout.\n- test_execution_plan: plan fields exact.\n- test_execution_result: accept predicate holds over db34d3cf command 1 (exit 0, pass 2 ≥ 2, planSatisfied true).\n\nOracle checks: cases[0] (no arguments, exact stdout, exit 0) is matched; minimumTestPasses 2 is met, with one pass from each required test file; all seven requiredArtifacts are present with substantive content.\n\nThe honest execution-result meaning is preserved through admitted C2 evidence rather than a handwritten receipt, as the witness contract selects. Protected inputs are digest-unchanged.",
+              "support": [
+                {
+                  "role": "realization",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": "generated/hello-world.mjs",
+                  "commandId": null
+                },
+                {
+                  "role": "verifier_artifact",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": "test/component/hello-cli.test.mjs",
+                  "commandId": null
+                },
+                {
+                  "role": "verifier_artifact",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": "test/uat/hello-cli.uat.test.mjs",
+                  "commandId": null
+                },
+                {
+                  "role": "verifier_execution",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": null,
+                  "commandId": "command://default-library-witness/0@5"
+                },
+                {
+                  "role": "verifier_execution",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": null,
+                  "commandId": "command://default-library-witness/1@5"
+                }
+              ],
+              "adverseEvidenceRefs": [],
+              "criteria": [
+                {
+                  "criterionRef": "criterion://default-library-witness/complete-original@5",
+                  "judgment": "satisfied",
+                  "reason": "All eight original stage meanings and all oracle fields are met on current bytes. Behavior comes from admitted C2 evidence, not from author reports. The original acceptance rule (exit 0 ∧ observedTestPassCount ≥ expectedTestPassCount ∧ planSatisfied) evaluates true over db34d3cf and plan e940dcf2. No original obligation was dropped: test-execution-result.json's meaning is carried by C2 plus this assessment, as the witness contract and oracle require."
+                }
+              ],
+              "depth": [
+                {
+                  "classRef": "depth://default-library-witness/complete-original@5",
+                  "judgment": "satisfied",
+                  "reason": "I assessed at content depth rather than file presence:\n- recomputed all ten file digests, the expected stdout digest and the pre-correction CLI digest;\n- read each authored asset against the original stage instructions and oracle fields;\n- read both test sources for real-process execution and strict assertions;\n- confirmed verifier discrimination from the admitted baseline, where both tests failed on the comma defect;\n- evaluated the plan predicates against the current C2 stdout.\n\nResiduals kept: Node version unrecorded; single macOS host; stderr unconstrained; UAT and component tests identical in mechanics.",
+                  "evidenceRefs": [
+                    "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                    "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+                    "result://abiogenesis/33db8d198f2a1114256e2cda6fb6ed740af20bc95de2a7c8bb44ee1dcff12b08",
+                    "result://abiogenesis/4fbf98755483b8f9bf0f6bc34c0646ccc367ce1fb55fe6c30824c3096b4c2b2b",
+                    "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c"
+                  ]
+                }
+              ]
+            },
+            {
+              "obligationRef": "obligation://default-library-witness/conformance@5",
+              "policyRef": "proof-policy://default-library-witness/conformance@5",
+              "shapeRef": "proof-shape://default-library-witness/conformance@5",
+              "judgment": "satisfied",
+              "reason": "specification/project-conformance.md (9d02e5fb…, current) was authored fresh by native result 33db8d19, whose changedPaths list only this file. It is substantive:\n- §1 states the Intent: a minimal Hello World CLI software-build traversal.\n- §2 states the Product boundary: subject generated/hello-world.mjs, supported entry and cwd, verification surfaces, stage table, exclusions, protected inputs and write territory.\n- R-01..R-14 each quote their grounding in original stages, oracle fields or the witness contract.\n- AC-01..AC-12 are decidable predicates, plus a Completion rule that requires independent assessment.\n- It traces to the oracle and keeps conflicts C-1..C-7 visible with dispositions consistent with the witness contract.\n\nThe original conformance_project instructions are met: the traversal is declared, the source surface is generated/hello-world.mjs, and the execution proof observes exact stdout. Its 14-byte hex and digest are correct; I recomputed d9014c46…. No source, tests, package files or plan were written in that vector.",
+              "support": [
+                {
+                  "role": "realization",
+                  "resultRef": "result://abiogenesis/33db8d198f2a1114256e2cda6fb6ed740af20bc95de2a7c8bb44ee1dcff12b08",
+                  "artifactPath": "specification/project-conformance.md",
+                  "commandId": null
+                }
+              ],
+              "adverseEvidenceRefs": [],
+              "criteria": [
+                {
+                  "criterionRef": "criterion://default-library-witness/conformance@5",
+                  "judgment": "satisfied",
+                  "reason": "Intent, Product boundary, source-grounded requirements and completion criteria are all present and accurate against the original source, oracle and witness contract. Content is specific (exact bytes, exit, invocation, pairing rule, plan fields, lineage rule), not generic. No claim depends on the superseded CLI bytes."
+                }
+              ],
+              "depth": [
+                {
+                  "classRef": "depth://default-library-witness/conformance@5",
+                  "judgment": "satisfied",
+                  "reason": "I checked each requirement's quoted grounding against source/original-basic-cli.txt and the oracle. I verified the byte/digest facts independently, and confirmed the C-1/C-2 dispositions match the witness contract's selected mechanism. The asset's digest equals the current file and the authoring result's recorded output.",
+                  "evidenceRefs": [
+                    "result://abiogenesis/33db8d198f2a1114256e2cda6fb6ed740af20bc95de2a7c8bb44ee1dcff12b08"
+                  ]
+                }
+              ]
+            },
+            {
+              "obligationRef": "obligation://default-library-witness/implementation-design@5",
+              "policyRef": "proof-policy://default-library-witness/implementation-design@5",
+              "shapeRef": "proof-shape://default-library-witness/implementation-design@5",
+              "judgment": "satisfied",
+              "reason": "design/implementation-design.md (3cacf757…, current) was authored by native result 4fbf9875. It uses the current conformance asset (9d02e5fb…) as authority, with an R-01..R-14 traceability matrix.\n- It defines a minimal one-statement ESM CLI at generated/hello-world.mjs: no imports, no process.exit, natural exit 0.\n- It explains why the output is exactly \"Hello, world!\" plus one LF (console.log appends \"\\n\").\n- It names the component and UAT test surfaces and both fixed commands.\n\nThe design is realizable. I confirmed the current 30-byte CLI realizes §2 exactly. Its technical claims are accurate: .mjs loads as ESM without package.json; spawnSync status is null on a signal; running outside the root gives MODULE_NOT_FOUND. It correctly says the correction was justified by the baseline, not by the design.",
+              "support": [
+                {
+                  "role": "realization",
+                  "resultRef": "result://abiogenesis/4fbf98755483b8f9bf0f6bc34c0646ccc367ce1fb55fe6c30824c3096b4c2b2b",
+                  "artifactPath": "design/implementation-design.md",
+                  "commandId": null
+                }
+              ],
+              "adverseEvidenceRefs": [],
+              "criteria": [
+                {
+                  "criterionRef": "criterion://default-library-witness/implementation-design@5",
+                  "judgment": "satisfied",
+                  "reason": "It is faithful to the original implementation_design instructions and to the predecessor conformance asset. It includes both source and verification surfaces, and the current candidate bytes realize it."
+                }
+              ],
+              "depth": [
+                {
+                  "classRef": "depth://default-library-witness/implementation-design@5",
+                  "judgment": "satisfied",
+                  "reason": "I compared §2 against the actual CLI bytes (od and sha256) and §4 against the actual test sources. I checked that the §0 basis digests equal current files, and that §3's lineage matches the admitted baseline, correction and post-correction results.",
+                  "evidenceRefs": [
+                    "result://abiogenesis/4fbf98755483b8f9bf0f6bc34c0646ccc367ce1fb55fe6c30824c3096b4c2b2b",
+                    "result://abiogenesis/33db8d198f2a1114256e2cda6fb6ed740af20bc95de2a7c8bb44ee1dcff12b08",
+                    "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4"
+                  ]
+                }
+              ]
+            },
+            {
+              "obligationRef": "obligation://default-library-witness/test-design@5",
+              "policyRef": "proof-policy://default-library-witness/test-design@5",
+              "shapeRef": "proof-shape://default-library-witness/test-design@5",
+              "judgment": "satisfied",
+              "reason": "design/test-design.md (1995fa7e…, current) specifies component and UAT validation of the CLI stdout contract: T1 status 0, T2 exact 14-byte stdout.\n- It binds line by line to the actual supplied test sources; L1–L8 match the files I read.\n- Both tests spawn process.execPath with ['generated/hello-world.mjs'] from the project root and strictly assert status 0 and stdout 'Hello, world!\\n'.\n- It specifies both fixed commands and reporter-independent 'fail 0' matching.\n- It requires one named passing test per file (pairing), not a scalar count.\n- It reproduces the original acceptance predicate.\n- It shows non-vacuity with the admitted baseline, where both tests failed on the comma defect.\n\nIt discloses its verifier limits (R-T1..R-T4) honestly.",
+              "support": [
+                {
+                  "role": "realization",
+                  "resultRef": "result://abiogenesis/4fbf98755483b8f9bf0f6bc34c0646ccc367ce1fb55fe6c30824c3096b4c2b2b",
+                  "artifactPath": "design/test-design.md",
+                  "commandId": null
+                }
+              ],
+              "adverseEvidenceRefs": [],
+              "criteria": [
+                {
+                  "criterionRef": "criterion://default-library-witness/test-design@5",
+                  "judgment": "satisfied",
+                  "reason": "It preserves the original stdout and successful-exit conditions. It targets the actual test surfaces and the real CLI process, and it gives meaningful component and user-outcome checks with an explicit pairing rule. The identical mechanics of the UAT and component tests are disclosed as a residual; the original source does not require more."
+                }
+              ],
+              "depth": [
+                {
+                  "classRef": "depth://default-library-witness/test-design@5",
+                  "judgment": "satisfied",
+                  "reason": "I checked its fault-detection table against strict-equality semantics and spawnSync status behavior, and checked its pairing rule against the actual C2 stdout names. It cites the admitted adverse baseline as discrimination evidence; that evidence is retained as historical only.",
+                  "evidenceRefs": [
+                    "result://abiogenesis/4fbf98755483b8f9bf0f6bc34c0646ccc367ce1fb55fe6c30824c3096b4c2b2b",
+                    "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+                    "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4"
+                  ]
+                }
+              ]
+            },
+            {
+              "obligationRef": "obligation://default-library-witness/execution-plan@5",
+              "policyRef": "proof-policy://default-library-witness/execution-plan@5",
+              "shapeRef": "proof-shape://default-library-witness/execution-plan@5",
+              "judgment": "satisfied",
+              "reason": "I parsed test-execution-plan.json (e940dcf2…, current) in memory. The required fields match:\n- command \"node\"\n- args exactly [\"--test\",\"test/component/hello-cli.test.mjs\",\"test/uat/hello-cli.uat.test.mjs\"]\n- expectedTestPassCount 2 (an integer ≥ 2)\n- expectedStdoutMatch \"fail 0\", with no pass-count pin\n- assertedReturnValue \"Hello, world!\"\n\nThe cliCheck block agrees with fixed command 1: expected stdout \"Hello, world!\\n\" equals assertedReturnValue plus one LF, with 14 bytes and a correct digest. fixedCommandCorrespondence maps both fixed commands to the declared command IDs. planRole explicitly says the plan does not control execution. Its basis digests equal the current protected inputs.\n\nEvaluated against current C2 db34d3cf, every planSatisfied clause holds.",
+              "support": [
+                {
+                  "role": "realization",
+                  "resultRef": "result://abiogenesis/4fbf98755483b8f9bf0f6bc34c0646ccc367ce1fb55fe6c30824c3096b4c2b2b",
+                  "artifactPath": "test-execution-plan.json",
+                  "commandId": null
+                }
+              ],
+              "adverseEvidenceRefs": [],
+              "criteria": [
+                {
+                  "criterionRef": "criterion://default-library-witness/execution-plan@5",
+                  "judgment": "satisfied",
+                  "reason": "The plan agrees with both fixed prospective commands and the original test_execution_plan expectations. It declares observed-result criteria and coverage (pairing), and it is not the runtime source of the commands."
+                }
+              ],
+              "depth": [
+                {
+                  "classRef": "depth://default-library-witness/execution-plan@5",
+                  "judgment": "satisfied",
+                  "reason": "Field checks ran programmatically in memory, all true. I applied its acceptance rule to the admitted current C2 stdout: 'ℹ fail 0' is present; both ✔ names are present; pass 2 ≥ 2; command 0 stdout is exact. I confirmed that its lineage entries match the admitted results.",
+                  "evidenceRefs": [
+                    "result://abiogenesis/4fbf98755483b8f9bf0f6bc34c0646ccc367ce1fb55fe6c30824c3096b4c2b2b",
+                    "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4"
+                  ]
+                }
+              ]
+            },
+            {
+              "obligationRef": "obligation://default-library-witness/behavior@5",
+              "policyRef": "proof-policy://default-library-witness/behavior@5",
+              "shapeRef": "proof-shape://default-library-witness/behavior@5",
+              "judgment": "satisfied",
+              "reason": "Admitted C2 db34d3cf binds current CLI fe8f4080 and the unchanged tests.\n- Command 0, `node generated/hello-world.mjs` (cwd \".\", recorded env): exit 0, timedOut false, no signal, stdout exactly \"Hello, world!\\n\" (14 bytes; digest d9014c46… recomputed), stderr empty.\n- Command 1, `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`: exit 0; stdout shows ✔ 'CLI process satisfies its output contract' and ✔ 'a user receives the exact promised greeting'; tests 2, pass 2, fail 0.\n\nBoth tests really spawn the current CLI; there is no stub. The CLI has no imports, so no package installation is involved.",
+              "support": [
+                {
+                  "role": "realization",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": "generated/hello-world.mjs",
+                  "commandId": null
+                },
+                {
+                  "role": "verifier_artifact",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": "test/component/hello-cli.test.mjs",
+                  "commandId": null
+                },
+                {
+                  "role": "verifier_artifact",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": "test/uat/hello-cli.uat.test.mjs",
+                  "commandId": null
+                },
+                {
+                  "role": "verifier_execution",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": null,
+                  "commandId": "command://default-library-witness/0@5"
+                },
+                {
+                  "role": "verifier_execution",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": null,
+                  "commandId": "command://default-library-witness/1@5"
+                }
+              ],
+              "adverseEvidenceRefs": [],
+              "criteria": [
+                {
+                  "criterionRef": "criterion://default-library-witness/behavior@5",
+                  "judgment": "satisfied",
+                  "reason": "Current stdout is exact and the exit is successful. There are two real passing tests, one from each required file, and zero failures, all on current digests in the same admitted invocation."
+                }
+              ],
+              "depth": [
+                {
+                  "classRef": "depth://default-library-witness/behavior@5",
+                  "judgment": "satisfied",
+                  "reason": "I verified the currentness of the evidence subject by recomputing the CLI and test digests. I checked the stdout text, length and digest coherence, and pairing by test name rather than scalar count. I checked that both verifiers execute the real process with strict assertions.\n\nResiduals: Node version not recorded; single macOS host; stderr unconstrained (observed empty).",
+                  "evidenceRefs": [
+                    "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4"
+                  ]
+                }
+              ]
+            },
+            {
+              "obligationRef": "obligation://default-library-witness/revision@5",
+              "policyRef": "proof-policy://default-library-witness/revision@5",
+              "shapeRef": "proof-shape://default-library-witness/revision@5",
+              "judgment": "satisfied",
+              "reason": "Baseline: admitted C2 6514754a (testing@5) ran on the supplied CLI 647697a5…, which I reconstructed as `console.log(\"Hello world!\");\\n`. Command 0 exited 0 but printed \"Hello world!\\n\", a material R-03 failure. Command 1 exited 1 with pass 0, fail 2, both on strictEqual comma mismatches; this is the declared adverse command with nonzero disposition.\n\nCorrection: a different registered work choice, native construction@5 result e897db22, cites that baseline result and digest. It changed only generated/hello-world.mjs, inserting one comma, giving fe8f4080. The bounded change is confirmed by digest reconstruction.\n\nPost-correction: admitted C2 db34d3cf proves the corrected current bytes.\n\nThe old failure is kept as historical counterevidence attached to 647697a5… in the conformance, design and plan assets. It is neither retargeted nor discarded. Support that is unaffected (protected tests, source, oracle) survives unchanged.",
+              "support": [
+                {
+                  "role": "realization",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": "generated/hello-world.mjs",
+                  "commandId": null
+                },
+                {
+                  "role": "verifier_artifact",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": "test/component/hello-cli.test.mjs",
+                  "commandId": null
+                },
+                {
+                  "role": "verifier_artifact",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": "test/uat/hello-cli.uat.test.mjs",
+                  "commandId": null
+                },
+                {
+                  "role": "verifier_execution",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": null,
+                  "commandId": "command://default-library-witness/0@5"
+                },
+                {
+                  "role": "verifier_execution",
+                  "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                  "artifactPath": null,
+                  "commandId": "command://default-library-witness/1@5"
+                }
+              ],
+              "adverseEvidenceRefs": [
+                "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c"
+              ],
+              "criteria": [
+                {
+                  "criterionRef": "criterion://default-library-witness/revision@5",
+                  "judgment": "satisfied",
+                  "reason": "There is an actual baseline failure before the CLI change, a changed registered choice, a consequential bounded same-lineage correction, and current proof on the corrected bytes. The old failure stays historical and bound to its own subject."
+                }
+              ],
+              "depth": [
+                {
+                  "classRef": "depth://default-library-witness/revision@5",
+                  "judgment": "satisfied",
+                  "reason": "I independently reconstructed the pre-correction bytes from the baseline digest, which proves the correction was exactly one character. The baseline's dependency digests show it measured the unchanged supplied CLI before any edit. The construction result's changedPaths cover only the CLI, and the post-correction evidence binds the new digest.",
+                  "evidenceRefs": [
+                    "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+                    "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+                    "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4"
+                  ]
+                }
+              ]
+            }
+          ],
+          "discoveries": [
+            {
+              "classRef": "discovery://default-library-witness/source-obligations@5",
+              "judgment": "satisfied",
+              "reason": "I found no uncovered source obligation.\n- Every original stage meaning (conformance_project … test_execution_result) and every oracle field maps to one of the seven declared obligations.\n- The handwritten test-execution-result.json meaning is covered under complete-original through admitted C2 evidence plus this assessment, as the witness contract selects.\n- The supplied component and UAT test stages are covered as reused verifier artifacts.\n\nObserved residuals are not source-required and are recorded, not proposed as new requirements: Node version unrecorded, single-platform evidence, unconstrained stderr, and identical UAT/component mechanics.",
+              "evidenceRefs": [
+                "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+                "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+                "result://abiogenesis/33db8d198f2a1114256e2cda6fb6ed740af20bc95de2a7c8bb44ee1dcff12b08",
+                "result://abiogenesis/4fbf98755483b8f9bf0f6bc34c0646ccc367ce1fb55fe6c30824c3096b4c2b2b",
+                "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

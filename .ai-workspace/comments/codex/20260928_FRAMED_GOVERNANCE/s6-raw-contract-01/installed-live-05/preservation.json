@@ -1,0 +1,42 @@
+{
+  "proofs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/proof-manifest.json",
+      "sha256": "6fb97a9a18b42a0eb5bb534e7eb39ae3c3ee4e911ce8581165e5abaeeb8993d6",
+      "bytes": 7726,
+      "members": 52
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/run-proof-manifest.json",
+      "sha256": "ca9aff9ae938bff96cd7b0c91e1bdcb53565ca3f76189ccdeb963f3591738511",
+      "bytes": 17795,
+      "members": 120
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/proof-manifest.json",
+      "sha256": "a4c250f57e9f890f224b48092f7ab9e4378a5e7343a05f462dc4d721fe3bece9",
+      "bytes": 4162,
+      "members": 32
+    }
+  ],
+  "priorRunReturn": {
+    "sha256": "16ccef5d2d8b3b6ecc5a9cf15abe7975777fb5ce537c0de1ee07b976d029913c",
+    "bytes": 10732
+  },
+  "sourceFreeze": {
+    "sha256": "21bb6116ca623e22b209c14bf97b20f99b2cc54f9a4ddca24ce6254406b10d6a",
+    "bytes": 957
+  },
+  "review": {
+    "sha256": "89c9aad6066961b5586cce0b5c95cf46fae84479fd42c950a4f91e3cf231fa4d",
+    "bytes": 11486
+  },
+  "case": {
+    "sha256": "f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+    "bytes": 5656
+  },
+  "consumerExecutableUnchanged": true,
+  "oldRunResumed": false,
+  "recoveryProved": false,
+  "oldScopeFailurePreserved": true
+}

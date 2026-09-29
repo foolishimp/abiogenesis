@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/launch.mjs",
+    "--dispatch-once"
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 1206.8958064592443
+}

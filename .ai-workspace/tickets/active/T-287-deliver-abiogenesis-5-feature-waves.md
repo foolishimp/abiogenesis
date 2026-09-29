@@ -17,21 +17,21 @@
 - updated_at: 2026-09-29
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_S6_LIVE05_EXECUTE_01
+- current_activation: T287_S7_PENDING_CONSUMER_DESIGN_REVIEW_01
 - current_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/freeze.json
 - current_candidate_archive_sha256: 1722953b7391e593079e3436b729b13c55457c734fb441d5e08b604edf9c462d
-- current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s5-framed-synthesis-acceptance
-- current_accepted_archive_sha256: 27914d23b68684fe5c1ef523bcf1b75c08e2e4a9da5e0b38f596e9cdc064a562
-- current_worker_return: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/return.md
-- current_candidate_scope: generic_schema_binder_and_native_scope_instruction_correction_source_package_readiness_accepted_installed_verification_pending
+- current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s6-complete-installed-lifecycle-acceptance
+- current_accepted_archive_sha256: 1722953b7391e593079e3436b729b13c55457c734fb441d5e08b604edf9c462d
+- current_worker_return: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/design-return.md
+- current_candidate_scope: S6_complete_installed_lifecycle_accepted_S7_pending_consumer_HOW_proposed_not_implemented
 - current_live_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/execution.json
-- current_live_execution_status: S6_live05_dispatched_once_2026_09_29T001723513Z_outcome_pending_live04_failed_and_disqualified
-- current_cost_evidence: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/timing.json
-- current_cost_disposition: S6_live04_1271_040s_native1221_457s_other49_583s_max_adjacent_non_native2_572s_log99106301B_setup19_617s_separate
+- current_live_execution_status: S6_live05_independently_accepted_19_populated_supports_7_eligible_rows_parent26568_Run26582_two_cold_reads_agree
+- current_cost_evidence: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/timing.json
+- current_cost_disposition: S6_live05_1185_031s_native1134_158s_other50_873s_max_adjacent_non_native1_129s_log99536719B_reads8_386s_9_041s_setup20_562s_separate
 - prior_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-11/activation.json
 - prior_live_execution_status: PC05_11_process_heap_aborted_before_admission_zero_appended_events_unresolved
-- current_activation_status: closed_correction_review_and_installed_readiness_conjoined_one_live_execution_selected
-- current_native_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/run-return.md
+- current_activation_status: S6_accepted_S7_complete_pending_consumer_owner_relation_in_independent_design_review_no_native_run_active
+- current_native_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/run-return.md
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
 - current_activation_disposition: '#framed-governance-definition-re-entry'
 - current_management_plan: '#current-management-prerequisite-plan'
@@ -52,8 +52,9 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: execute_prepared_live05_once_retain_actual_outcome_and_cold_Public_reads_then_independent_complete_S6_review
-- next_bounded_task_status: one_changed_candidate_verification_no_automatic_retry_source_or_control_change
+- next_bounded_task: review_S7_pending_consumer_HOW_then_select_smallest_complete_existing_owner_implementation
+- next_bounded_task_status: closed_HOW_frozen_independent_review_selected_no_new_provider_or_source_implementation
+- failure_disposition_rule: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#owner-ruling-classify-the-cause-before-the-next-iteration
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -67,7 +68,7 @@
 - native_reacquisition_cost_debt: NW-DEBT-03_99percent_append_is_repeated_bodies_measured_complexity_01
 - current_continuation_debt: LIFE01_observed_recovery_native_freshread_RSS_request_cost_redflags_not_isolated_benchmark_attribution_or_OOM_cure
 - current_recovery_reentry: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-recovery-readiness.md#independent-entry-check--closed
-- current_recovery_status: S7_R01_declared_current_intent_locator_has_no_installed_owner_callable_positive_pending_consumer_recovery_not_ready
+- current_recovery_status: S7_R01_framework_gap_non_FH_pending_admission_progressed_input_replacement_causal_reuse_HOW_proposed_positive_recovery_unproved
 - prior_recovery_reentry: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-recovery-02/recovery-return.md
 - current_correction_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/executive-selection.md
 - current_lifecycle_model_reentry: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/owned-module-continuation-01/lifecycle-model-selection.json
@@ -76,8 +77,8 @@
 - prior_recovery_candidate_record: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/recovery-how-01/implementation/freeze.json
 - prior_recovery_candidate_disposition: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/recovery-how-01/implementation/executive-disposition.md
 - prior_recovery_resource_disposition: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/recovery-how-01/installed/installed-disposition.json
-- current_review_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/review.md
-- current_review_disposition: review89c9aad6_no_blocking_finding_source_build_package_ready_actual_provider_and_complete_S6_unproved_live04_disqualified
+- current_review_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/design-review.md
+- current_review_disposition: S7_design_review_active_S6_independently_accepted_review18aa2f12
 - prior_bounded_native_review_disposition: Root_accepted_tenant_service_c0c2697b_diagnostics_f35f4f1d_budget_d173512d_native_nonclosing_residuals_preserved
 - technical_debt_checklist: '#current-management-debt'
 - completed_technical_debt_checklist: ../completed/T-288-remove-duplicated-runtime-construction.md
@@ -102,7 +103,7 @@
 - prior_fixture_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-prep-03/manifest.json
 - prior_live08_execution_record: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/live08.json
 - prior_native03_execution_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-native-03/execution-manifest.json
-- current_activation_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s6-live-05-execution
+- current_activation_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s7-complete-owner-relation-design-review
 - prior_generic_job_activation_record: .ai-workspace/comments/codex/20260918_GENERIC_JOB_BINDING_REPAIR/implementation/activation.md
 - prior_mvp_continuation_activation_record: .ai-workspace/comments/codex/20260916_ABG5_MVP_CONTINUATION/activation.md
 - prior_native03_input_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-native-03/records/call-14.jsonl
@@ -1498,7 +1499,7 @@ Current RC1 opportunities remain under Executive-owned T-287 disposition for one
 |---|---|---|
 | FRAMED-CONTEXT-SOURCE-01 | CLOSED for the demonstrated selector defect: independently reviewed declared-source projection passes all six actual live-03 choices, including post-Design UAT selection; maximum prompt 92,162 B under unchanged 131,072. | [Installed evidence](../../comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/run-return.md). Full assessment material and authoritative state remain; no arbitrary-context-size or S6 completion claim. |
 | FRAMED-UAT-DEPENDENCIES-01 | CLOSED bounded correction: independently reviewed6311b520 passes live-04 UAT preparation with the earlier C2 producer and admits actual independent assessment26469. | [Installed evidence](../../comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/run-return.md). Changed-dependency refusals remain; later raw-contract fold failure is distinct and S6 remains open. |
-| FRAMED-RAW-CONTRACT-01 | ACTIVE generic profile mismatch: live-04 satisfied assessment has nonempty support accepted by the supplied schema but refused by the binder at artifact commandId/null applicability. Nine rows expose the missing relation; prior empty-support probe did not cover it. | [Current grant](../../comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s6-live-04-disposition-and-raw-contract-correspondence-correction). One static relation governs generated schema and strict binder; cover full supported row forms and actual fold, preserve semantic judgment and unmodified raw evidence. Review before any new native verification. |
+| FRAMED-RAW-CONTRACT-01 | CLOSED for the demonstrated full supported-row path: reviewed core1722953b produces LIVE05's unchanged raw/admitted assessment with 19 populated supports, seven eligible coverage rows and ordinary parent/Run closure. | [S6 acceptance](../../comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s6-complete-installed-lifecycle-acceptance). Generated schema and strict binder share the role relation; actual installed fold and both cold reads agree. Preserve LIVE04's nine-row counterexample and original failure. No universal assessment-reliability, recovery or release claim. |
 | FRAMED-NATIVE-SCOPE-01 | NOTED; owner excludes security containment from delivery scope. Live-04's outside-path scratch writes and false positive scope judgment remain recorded and do not become compliant retroactively. The original frozen case failed that criterion; no independent security-release blocker follows under the later owner ruling. | [Current owner ruling](../../comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#owner-ruling-security-out-of-scope-violations-noted). Record observed violations separately from application correctness, truthful assessment and ABG completion. Preserve raw evidence and original-case findings; no sandbox, permission broker, host audit or exhaustive-detection claim. Prospective qualification must not silently reintroduce security containment. |
 | FRAMED-RECOVERY-01 | OPEN retained capability gap S7-R01: [closed entry check](../../comments/codex/20260928_FRAMED_GOVERNANCE/s7-recovery-readiness.md#independent-entry-check--closed) traces current_intent to RUN_DEFINITION_BINDINGS.continue.current_intent; the frozen package exposes only invoke.{invoke,start}. Installed dispatch would refuse before recovery; ordinary start does not restore the pending cursor. Lower recovery mechanisms are not claimed absent. | Owner-level implementation intake for the existing continuation composition, then one installed successful-producer / failed-consumer-preparation / cold recovery discriminator with actual progressed input, conserved work/obligations, current observations and fresh replay, without producer repetition. CONTINUATION-014/-015/-016 and QUAL-064A govern; preserve distinct basis-fork refusal. No new recovery controller, copied history, arbitrary migration adapter or full lifecycle rerun. Fresh S6 does not close S7. |
 | TEST-PUBLIC-LEGACY-01 | OPEN stale-harness debt, made concrete by the [S2 return](../../comments/codex/20260928_FRAMED_GOVERNANCE/registered-selection-implementation/return.md): `root-cli-environment.mjs/buildRootCliScenario` constructs retired Public envelopes and still has historical installed-test callers. The new selection proof uses current DefinitionCall helpers. | Owner: test fixture / Proof frame. Local realization retirement when those callers are selected for evidence reuse or qualification; remove the obsolete envelope path while preserving applicable tests through current owners. No supported-runtime defect or S2 blocker is established. Close with no active obsolete callers and a current-entry installed proof; never restore retired Public APIs to make old tests pass. |

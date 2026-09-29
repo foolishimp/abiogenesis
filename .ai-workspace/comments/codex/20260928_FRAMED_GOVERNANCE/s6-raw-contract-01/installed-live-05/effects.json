@@ -1,0 +1,42 @@
+{
+  "design/implementation-design.md": {
+    "bytes": 13875,
+    "sha256": "sha256:3cacf757f17d4e7fe6e16f3afe6355c8b2f5415e1d0cde7e5091dfaa8a800c8d"
+  },
+  "design/test-design.md": {
+    "bytes": 13662,
+    "sha256": "sha256:1995fa7ef6862034ba2257cd32b62e3395cdcba44477762d651fc7fd9a5ec32c"
+  },
+  "generated/hello-world.mjs": {
+    "bytes": 30,
+    "sha256": "sha256:fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef"
+  },
+  "source/basic-cli.oracle.json": {
+    "bytes": 1112,
+    "sha256": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+  },
+  "source/original-basic-cli.txt": {
+    "bytes": 4325,
+    "sha256": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+  },
+  "source/witness-contract.md": {
+    "bytes": 5656,
+    "sha256": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b"
+  },
+  "specification/project-conformance.md": {
+    "bytes": 24005,
+    "sha256": "sha256:9d02e5fb3f2793e187a7afa673594340a8cb311d6e212cd3b77ba1a764eb43ee"
+  },
+  "test-execution-plan.json": {
+    "bytes": 5584,
+    "sha256": "sha256:e940dcf297eab1d9eafe127b93f56a6b43e0133a0015fee8b1a02818c5e4def3"
+  },
+  "test/component/hello-cli.test.mjs": {
+    "bytes": 369,
+    "sha256": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613"
+  },
+  "test/uat/hello-cli.uat.test.mjs": {
+    "bytes": 371,
+    "sha256": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4"
+  }
+}

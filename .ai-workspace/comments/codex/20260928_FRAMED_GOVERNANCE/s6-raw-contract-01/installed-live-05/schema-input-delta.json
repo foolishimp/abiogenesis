@@ -1,0 +1,140 @@
+{
+  "input": {
+    "before": {
+      "sha256": "377bae203c2ac43bf0e0339a24ce979998aa4247807c68c2fe383d274a74ee87",
+      "bytes": 84605
+    },
+    "after": {
+      "sha256": "2821278c30b0528fc890a1de30534d1879a60a25bb084ee3467cb8f76fa3f930",
+      "bytes": 85461
+    },
+    "changedPaths": [
+      "original.assessment.schemaAsset.bytesBase64"
+    ],
+    "otherFieldsIdentical": true
+  },
+  "schema": {
+    "before": {
+      "sha256": "5cef9b2bd43d576bc16043c397dd398a7b26912ca349cd6721381905369d8266",
+      "bytes": 2613
+    },
+    "after": {
+      "sha256": "9403a74ef49e75f7f4fe15809345540271ac02927aa8a5390533748d5bcbf2cf",
+      "bytes": 3253
+    },
+    "changedPath": "properties.fulfillment.properties.obligations.items.properties.support.items",
+    "beforeSupport": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "type": "string",
+          "enum": [
+            "realization",
+            "verifier_artifact",
+            "verifier_execution"
+          ]
+        },
+        "resultRef": {
+          "type": "string",
+          "minLength": 1
+        },
+        "artifactPath": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "commandId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "role",
+        "resultRef",
+        "artifactPath",
+        "commandId"
+      ]
+    },
+    "afterSupport": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "role": {
+              "enum": [
+                "realization",
+                "verifier_artifact"
+              ],
+              "type": "string"
+            },
+            "resultRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "artifactPath": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Select the realization or verifier artifact path from this prior Result's files."
+            },
+            "commandId": {
+              "type": "null",
+              "description": "Must be null for realization and verifier_artifact, including artifacts observed by C2."
+            }
+          },
+          "required": [
+            "role",
+            "resultRef",
+            "artifactPath",
+            "commandId"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "role": {
+              "const": "verifier_execution"
+            },
+            "resultRef": {
+              "type": "string",
+              "minLength": 1
+            },
+            "artifactPath": {
+              "type": "null",
+              "description": "Must be null for verifier_execution; select the command, not an artifact path."
+            },
+            "commandId": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Select a command ID from this prior execution Result's commands."
+            }
+          },
+          "required": [
+            "role",
+            "resultRef",
+            "artifactPath",
+            "commandId"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "otherSchemaFieldsIdentical": true
+  },
+  "initialFiles": {
+    "sha256": "4674f8517924d394b6239bae5a723b01aebe18dc106f6a5c75c050378e98b030",
+    "bytes": 891
+  },
+  "policy": {
+    "sha256": "f5cfa9df3369a46892745b1d9207448ba560402544541bb2460b39dcafc55a72",
+    "bytes": 28692
+  },
+  "prospectiveCase": {
+    "sha256": "f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+    "bytes": 5656
+  }
+}

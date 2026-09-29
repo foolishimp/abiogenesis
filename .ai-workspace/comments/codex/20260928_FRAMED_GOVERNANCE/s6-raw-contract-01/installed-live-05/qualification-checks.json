@@ -1,0 +1,106 @@
+{
+  "mechanicalCompleted": true,
+  "actualAdmittedNativeJudgment": "satisfied",
+  "actualRawSupportCount": 19,
+  "roles": [
+    "realization",
+    "verifier_artifact",
+    "verifier_execution"
+  ],
+  "branchFieldsConform": true,
+  "actualRawEqualsAdmitted": {
+    "actor": 12,
+    "rawStdout": "actor-12-stdout-fp-54262548fdfd0a8d-stdout.log",
+    "rawStructuredOutputDigest": "sha256:b68064d5bfef79d6355351bd3402e685d43d5affcc1226178c7f978f01ccd50a",
+    "admittedAssessmentDigest": "sha256:b68064d5bfef79d6355351bd3402e685d43d5affcc1226178c7f978f01ccd50a",
+    "equal": true,
+    "assessment": {
+      "ordinal": 26497,
+      "eventId": "event://abiogenesis/9ec1b8e1fbe89b71b6dd901ec585f115764b3fa61c65a8fb9a6873c2d9f7ef84",
+      "kind": "c_call_result_admitted",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "cCallRef": "c-call:sha256:cadce5063a56cb5e485d04975dd971253b5e9ed060ed97138805688e0b4df25f",
+      "resultRef": "result://abiogenesis/8339edb09a1e9ba184fe01e5784317fd8cde4043b64ffcc7ece50c7b09e2083a"
+    },
+    "providerIsError": false,
+    "subtype": "success",
+    "sourceResultRef": "result://abiogenesis/8339edb09a1e9ba184fe01e5784317fd8cde4043b64ffcc7ece50c7b09e2083a"
+  },
+  "sevenCoverageRowsEligible": true,
+  "assessmentRef": "result://abiogenesis/8339edb09a1e9ba184fe01e5784317fd8cde4043b64ffcc7ece50c7b09e2083a",
+  "newObligationAdditions": 0,
+  "originalConservedEveryParent": true,
+  "protectedFiveFiles": [
+    {
+      "path": "source/original-basic-cli.txt",
+      "bytes": 4325,
+      "sha256": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+      "unchanged": true
+    },
+    {
+      "path": "source/basic-cli.oracle.json",
+      "bytes": 1112,
+      "sha256": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+      "unchanged": true
+    },
+    {
+      "path": "test/component/hello-cli.test.mjs",
+      "bytes": 369,
+      "sha256": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613",
+      "unchanged": true
+    },
+    {
+      "path": "test/uat/hello-cli.uat.test.mjs",
+      "bytes": 371,
+      "sha256": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4",
+      "unchanged": true
+    },
+    {
+      "path": "source/witness-contract.md",
+      "bytes": 5656,
+      "sha256": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+      "unchanged": true
+    }
+  ],
+  "baselineObservedInputNoAuthor": true,
+  "baselineExitStatus": 1,
+  "historicalBaselineRetainedInRevision": true,
+  "currentProducerRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+  "currentProducerActor": "actor-invocation://abiogenesis/17b6beb2abf3e9feacd9c36d77cfef3c4ff2f3fdeac7c9fd4dfc80b7a69cbfdc",
+  "independentAssessmentActor": "actor-invocation://abiogenesis/32f133cb65c98e3ab700cf826775bd3017151f12673442326b1c978c3fa59389",
+  "assessmentWorksiteChanges": [],
+  "ordinaryClosure": [
+    {
+      "ordinal": 26582,
+      "eventId": "event://abiogenesis/cff60d347be95b753ac051a0b049327ab29aabbd3d3221b766606a3593ed9135",
+      "kind": "run_closed",
+      "graphFunctionRef": "graph-function://default-library-witness/executive@5",
+      "cCallRef": "run://abiogenesis/f02822f75c7662a3f4c9311a1731e2b86e369009e437b984e6fc635ac5d30c61",
+      "resultRef": null
+    }
+  ],
+  "coldReads": [
+    {
+      "memberKey": "run_result",
+      "wallMs": 8386.077749999939,
+      "requestBytes": 9238,
+      "source": {
+        "digest": "sha256:3f7c6d8acbcc81a18c60d50dd72db18258de002539a780e991991420ce46d617",
+        "ref": "run://abiogenesis/f02822f75c7662a3f4c9311a1731e2b86e369009e437b984e6fc635ac5d30c61"
+      },
+      "outcomeKind": "result"
+    },
+    {
+      "memberKey": "run_replay",
+      "wallMs": 9040.569707999937,
+      "requestBytes": 9275,
+      "source": {
+        "digest": "sha256:3f7c6d8acbcc81a18c60d50dd72db18258de002539a780e991991420ce46d617",
+        "ref": "run://abiogenesis/f02822f75c7662a3f4c9311a1731e2b86e369009e437b984e6fc635ac5d30c61"
+      },
+      "outcomeKind": "result"
+    }
+  ],
+  "scopeEvidence": "native-scope-evidence.json",
+  "limit": "Actual mechanical chain plus attributed F_P judgment. Worker does not replace independent qualification, infer absence of unobserved effects, claim security containment, recovery, broader platform qualification or release acceptance."
+}

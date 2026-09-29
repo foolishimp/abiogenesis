@@ -26,8 +26,8 @@ generation or revival of the withdrawn odd_glc planner is selected.
 | S3 | Native F_P Executive with bounded frame/catalogue context | Accepted bounded native evidence and reviewed RS-N01 source correction; installed successor is S4 |
 | S4 | Changed registered choice and recursive result/foldback | Accepted first installed attempt after independent review; no production change |
 | S5 | Reused default induction/specification/design/testing/UAT declarations | Accepted bounded library implementation and installed supplied/faulty pair; full lifecycle authorship remains S6 |
-| S6 | Installed consumer-authored Hello, correction, assessment and Public readback | Corrected core1722953b passes independent source/package review; live-05 dispatched once at2026-09-29T00:17:23.513Z. Actual outcome pending; live-04 remains failed and scope-disqualified |
-| S7 | Remaining Product qualification and exact RC lifecycle | S7-R01 identifies a missing installed current-intent continuation callable; positive pending-consumer recovery and complete qualification/RC lifecycle remain open |
+| S6 | Installed consumer-authored Hello, correction, assessment and Public readback | Accepted bounded LIVE05 on core1722953b after independent review: actual correction, four authored assets, 19 supports, seven eligible rows, parent/Run closure and both cold reads agree. Old failures and observed scope actions remain recorded |
+| S7 | Remaining Product qualification and exact RC lifecycle | Pending-consumer HOW is in independent review: complete progressed-input and replacement-Run provenance repair precedes installed positive recovery. Exact qualification and RC lifecycle remain open |
 
 ## S1 Worker grant: T287_REGISTERED_SELECTION_DESIGN_01
 
@@ -2320,3 +2320,145 @@ tooling, host audit, extra paid call or exhaustive-detection promise follows.
 Future selected qualification must reflect this scope explicitly instead of
 silently reinstating an agent-perfection/security condition. Root enters Writer
 only for this owner ruling/T-287 projection, then resumes Executive.
+
+
+### S7 continuation design intake — queued after the live return
+
+Select `T287_S7_PENDING_CONSUMER_HOW_01` for the same Astra/xhigh Worker only
+after it closes and returns live-05; the unrelated pending agent is not used.
+Frame: Product/Owner, Continuation and End-To-End Interface Integration under
+the existing exact basis. Subject: core1722953b / source checkpoint9ba8b2dd,
+closed S7-R01 and Product recovery/reuse law with CONTINUATION-014/-015/-016.
+This independent design intake may proceed while the max Reviewer assesses the
+closed S6 result; it does not alter that frozen subject or presume its outcome.
+
+First reuse the accepted owning HOW and lower runtime/HoG owners. Return the
+smallest complete pending-consumer relation from declared Public input through
+installed owner binding, durable state/input recovery, mutable-observation
+refresh, actual HoG continuation and fresh result/replay. Merely adding an
+export is insufficient. Explicitly preserve successful producer work, causal
+identity, assessment status and unresolved obligations; distinguish same-basis
+recovery from changed-authority reprice and deferred native-human operations.
+State which existing owners/carriers suffice and the first required extension,
+without another controller, private traversal route or initial-input fallback.
+
+Write only a compact owning HOW proposal (reuse its current file if sufficient,
+otherwise `design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md`) and
+`s7-pending-consumer-01/design-return.md`. Include one finite installed positive
+discriminator and applicable negative evidence reuse. No source/test changes,
+build/install/provider, retired API restoration, security work, broad rewrite,
+new Product family or Git effect. Return for Executive disposition and the
+applicable independent design check before implementation. Root enters Writer
+only for this queued grant, then resumes Executive.
+
+
+### Live-05 frozen return and actual-outcome review
+
+Root consumes closed run-return
+`19635b68a821e4eaedf4fe46520585671421300eb9722ca2cc8c0fe0a8293b59`,
+run freeze `0cb9a40b35f67f86718a71c7761893c763322e819028944c64724d269ee64561`,
+123-member proof `038a0c76e3b758708c30440c05f4dd97efbce923e8a5ee0ac0696b8798959294`.
+Actual installed execution completed: baseline failure, F_P-selected correction,
+current retest, four authored assets, independent populated assessment, seven
+eligible coverage rows, terminal parent26568 and Run26582. Both genuine cold
+reads agree. Runtime1185.031s / native1134.158s / other50.873s; reads8.386s and
+9.041s. Source/install and prior proof are unchanged. This is no recovery or RC
+claim. Observed device redirects, off-worksite read/check and parent-directory
+creation remain distinct recorded facts under the owner's security exclusion.
+
+Select `T287_S6_LIVE05_REVIEW_01`, same max Reviewer, Product/Owner and End-To-End
+Interface Integration under the exact basis. Review this frozen instance against
+the original task/case and explicit owner disposition: actual asset meaning,
+causal correction/registered selection, independent assessment, current support,
+coverage and terminal/fresh Public correspondence. Reuse accepted source/package
+and still-valid evidence. Preserve adverse actions and false claims; do not
+reintroduce a security-containment release gate. Write only
+`s6-raw-contract-01/installed-live-05/review.md`; no repair, new tests/install/
+provider, broad source audit or Git. Return exact bounded S6 disposition and
+residuals. The Worker may now execute the separate queued S7 HOW intake; keep
+the S6 frozen source/HOW/proof selection unchanged during review, placing any
+proposal against an existing frozen HOW in the new proposal directory first.
+Root enters Writer only for this disposition/T-287 projection, then resumes
+Executive. No live native run remains active.
+
+
+### Owner ruling: classify the cause before the next iteration
+
+At this stage each failed iteration receives a bounded root-cause disposition:
+first causal failure and evidence, owning boundary, framework defect versus
+tuning/optimisation opportunity versus genuine task complexity/iteration,
+selected action and next discriminator, with unaffected work preserved. Unknown
+cause remains unknown; an additional attempt is not itself a diagnosis. Use the
+relevant end-to-end/owner/reuse frames when repeated symptoms or unexplained
+processing expose a shared relation. This is execution discipline under the
+selected method, not another ticket family or qualification campaign.
+
+Current applications: the schema/binder mismatch is a framework correspondence
+defect; baseline missing-comma failure is expected task iteration with observed
+correction; the assessor's unsupported global-scope inference is an evidence-use
+failure/tuning concern even though security containment is out of scope. S7's
+missing export is the first concrete boundary failure, not assumed full cause.
+The Worker's ongoing design intake reports that existing continuation projects
+F_H holds and terminated Runs need explicit causal reuse of progressed state;
+await its closed owner model before choosing implementation. Do not repair just
+the export and discover those same dependencies through successive paid runs.
+Root enters Writer only for this owner ruling and its ticket route, then resumes
+Executive.
+
+
+### S6 complete installed lifecycle acceptance
+
+Root consumes the closed max review
+`18aa2f128c5f3acdace6a8fde41c2731325bb25596a6d30bac17000116a655a6`
+and accepts LIVE05 as the bounded S6 witness on core
+`1722953b7391e593079e3436b729b13c55457c734fb441d5e08b604edf9c462d`.
+The source/readiness acceptance and frozen run return remain unchanged. Actual
+baseline failure, F_P-selected correction, current retest, four authored assets,
+19 independently assessed support entries, seven eligible coverage rows, parent
+26568 and Run26582 closure agree with both cold installed Public reads. Existing
+tests were reused, not authored. Prior failures remain historical observations.
+
+This closes FRAMED-RAW-CONTRACT-01 for the demonstrated full populated-support
+path. It establishes neither general model reliability nor recovery, whole-Product
+qualification or release acceptance. The observed scope deviations and overbroad
+compliance statements remain recorded under the owner's security exclusion.
+Runtime1185.031s comprises native1134.158s and other50.873s; setup20.562s and cold
+reads8.386s/9.041s are separately recorded, not hidden in actor cost. No further
+full lifecycle rerun follows merely from this acceptance.
+
+### S7 complete owner-relation design review
+
+Root consumes the closed HOW proposal
+`7dacc73e6e5abc7ef0e7e026c549d36aef295cea89e3ae0e8ee09513f93f67b5`
+and return `0a22f04be8a334bcfbab0a47c5b31ebfb5ad0bff9be3d85f5b7bddfa93d5a3e7`.
+Classification remains a framework realization gap: the undeclared callable
+implementation, non-F_H pending projection, failed-Run successor correspondence,
+progressed input and retained producer applicability must form one lawful path.
+The proposal is not implementation authority yet.
+
+Select `T287_S7_PENDING_CONSUMER_DESIGN_REVIEW_01` for the existing Astra/max
+Reviewer. Frame: Product/Owner, Continuation and
+`repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration`,
+with Reuse/Foundation applied to the same relation, under exact STDO2.5.1-rc.1.
+Subject: the two frozen proposal files above and core1722953b/source9ba8b2dd.
+First reconstruct Product recovery/reuse and CONTINUATION-004/-011/-013/-014/-015/
+-016; distinguish required positive recovery from optional broader mechanisms.
+Then check the complete declared Public-to-pending-input-to-HoG-to-readback path,
+real owner/carrier availability, exact immutable authority, replacement causal
+identity, parent reconstruction, currentness and single consumption. Challenge
+unnecessary mechanisms and any claim that prose alone supplies missing runtime
+relations. Preserve native-human deferral and changed-authority limits.
+
+Return actionable design counterexamples or a bounded implementation disposition
+and smallest sufficient installed discriminator. Write only
+`s7-pending-consumer-01/design-review.md`. No repair, build, install, provider,
+broad source audit, extra review activation, security work or Git effects. The
+implementation Worker remains stopped pending Executive disposition.
+
+Root explicitly enters Writer for these acceptance/grant records, T-287 and
+GOALS projections, and a scoped checkpoint commit/push of the closed S6 evidence
+and reviewed tracking only. Active/proposed S7 design is excluded from that
+acceptance checkpoint. Preserve unrelated work, reproducible bootstrap installs,
+old raw failures and immutable source/package identities. No Product requirement
+or runtime bytes change in this activation. Root resumes Executive after the
+recorded effects.

@@ -1,0 +1,102 @@
+{
+  "oldReadiness": {
+    "sha256": "c6c4de18489b3f666e9d579512da3f15c9a0fc478f9bce7a5398d410123be195",
+    "bytes": 3565
+  },
+  "newReadiness": {
+    "sha256": "1f6bbcfc77e1ae4a447efff90f539c264cfeadf6ebdf956bd16f479c827ffc77",
+    "bytes": 3547
+  },
+  "oldInstalledFreeze": "sha256:43af8c7aed06d99ff98b55ff92150f5e049a394713e2d3adbd2b222cf292c683",
+  "newInstalledFreeze": "sha256:8279a1873820a06d97e5c8ee3dccb32edacb7692f92922de7eabb8826868ed96",
+  "sources": {
+    "freeze.json": {
+      "before": {
+        "sha256": "sha256:43af8c7aed06d99ff98b55ff92150f5e049a394713e2d3adbd2b222cf292c683"
+      },
+      "after": {
+        "sha256": "sha256:8279a1873820a06d97e5c8ee3dccb32edacb7692f92922de7eabb8826868ed96"
+      }
+    },
+    "core.tgz": {
+      "before": {
+        "sha256": "sha256:6311b520520efb19f6d042fb11c00bf7abe5ad335f0b274915726c482d7bdf07"
+      },
+      "after": {
+        "sha256": "sha256:1722953b7391e593079e3436b729b13c55457c734fb441d5e08b604edf9c462d"
+      }
+    },
+    "consumer.tgz": {
+      "before": {
+        "sha256": "sha256:6cf3780dadeeddce756fdfe903e0c7da2ec8f894a4619a104650ab5128792e12"
+      },
+      "after": {
+        "sha256": "sha256:b6c67144ce8ceeb27943c69cce0befa2cd1d901653907e80586b04d4ef043c7a"
+      }
+    },
+    "input.json": {
+      "before": {
+        "sha256": "sha256:377bae203c2ac43bf0e0339a24ce979998aa4247807c68c2fe383d274a74ee87"
+      },
+      "after": {
+        "sha256": "sha256:2821278c30b0528fc890a1de30534d1879a60a25bb084ee3467cb8f76fa3f930"
+      }
+    },
+    "assessment.schema.json": {
+      "before": {
+        "sha256": "sha256:5cef9b2bd43d576bc16043c397dd398a7b26912ca349cd6721381905369d8266"
+      },
+      "after": {
+        "sha256": "sha256:9403a74ef49e75f7f4fe15809345540271ac02927aa8a5390533748d5bcbf2cf"
+      }
+    },
+    "start-prepared.json": {
+      "before": {
+        "sha256": "sha256:46f6eaae126e018cb47031b5d5c760ad5e84730d02250281f0515a9cf739b2d7"
+      },
+      "after": {
+        "sha256": "sha256:facff66b4cdfdc2d717e4ba86953e04cbf5522b7f96271984fb489b62e6138fb"
+      }
+    },
+    "handoff-before-start.json": {
+      "before": {
+        "sha256": "sha256:7164af9412ea226e87c26a8ff133b942c15fe29f5260c7950ba6ed4d2a9d0c74"
+      },
+      "after": {
+        "sha256": "sha256:3fa4aacce021c89a2c3fb0fab6fc270e466df7c65cfdf92fcff87cde74b5ffb1"
+      }
+    }
+  },
+  "coordinates": {
+    "installedRoot": {
+      "before": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/consumer/node_modules/@abiogenesis/typescript-tenant",
+      "after": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/consumer/node_modules/@abiogenesis/typescript-tenant"
+    },
+    "scratch": {
+      "before": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH",
+      "after": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC"
+    },
+    "worksite": {
+      "before": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace",
+      "after": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace"
+    },
+    "commands": {
+      "before": {
+        "launch": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/launch.mjs --dispatch-once",
+        "readback": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/readback.mjs"
+      },
+      "after": {
+        "launch": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/launch.mjs --dispatch-once",
+        "readback": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/readback.mjs"
+      }
+    }
+  },
+  "schemaInputDelta": {
+    "sha256": "b64000607f03b2bcea42769df2fdb4e52ce52ea5bea11afae2960cc90ea970ea",
+    "bytes": 3721
+  },
+  "semantics": "Same original six-file/four-absent-asset/seven-obligation case; changed generic schema bytes/required identities only. New qualification instance, no imported runtime Results or recovery credit.",
+  "openRecoveryLimit": "FRAMED-RECOVERY-01",
+  "bootstrap": "Derived exact extraction of pinned core. No irreplaceable proof in bootstrap bodies; retained archive/correspondence/scripts reproduce them.",
+  "dispatchAuthorized": false
+}

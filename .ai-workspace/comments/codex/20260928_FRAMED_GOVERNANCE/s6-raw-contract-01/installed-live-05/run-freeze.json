@@ -1,0 +1,84 @@
+{
+  "readinessFreeze": {
+    "sha256": "7bd8902a6b0224a3cbefc6b83f54cf00417f95a0309528fc60412f4b5bb9263c",
+    "bytes": 986
+  },
+  "sourceFreeze": {
+    "sha256": "21bb6116ca623e22b209c14bf97b20f99b2cc54f9a4ddca24ce6254406b10d6a",
+    "bytes": 957
+  },
+  "core": {
+    "sha256": "1722953b7391e593079e3436b729b13c55457c734fb441d5e08b604edf9c462d",
+    "bytes": 10338146
+  },
+  "consumer": {
+    "sha256": "b6c67144ce8ceeb27943c69cce0befa2cd1d901653907e80586b04d4ef043c7a",
+    "bytes": 11952
+  },
+  "input": {
+    "sha256": "2821278c30b0528fc890a1de30534d1879a60a25bb084ee3467cb8f76fa3f930",
+    "bytes": 85461
+  },
+  "launcherReadiness": {
+    "sha256": "38ae364e0b1de99ed5444494e53e6acf2abc771e66cb572fc922eb5ada6350d6",
+    "bytes": 5839
+  },
+  "proofManifest": {
+    "sha256": "038a0c76e3b758708c30440c05f4dd97efbce923e8a5ee0ac0696b8798959294",
+    "bytes": 18220
+  },
+  "proofMembers": 123,
+  "events": {
+    "sha256": "3e4500b71d8124701cd1bfd76f375a431af3e7e80c8595ffe59cf57323e69280",
+    "bytes": 99536719
+  },
+  "execution": {
+    "sha256": "b9c2409846f7b30458540180cacc6345741bdcf25d1aab8ab4573ef85992715f",
+    "bytes": 6499072
+  },
+  "actualAssessment": {
+    "sha256": "2fdcc4a8902303fc97a47af5070c01caf55a560e86c329672c120733eb2cf9df",
+    "bytes": 27795
+  },
+  "rawCorrespondence": {
+    "sha256": "9eb892907be826f165ec5578098cc838ff2356ea303b4a15d1659bae46d7fd7e",
+    "bytes": 952
+  },
+  "chain": {
+    "sha256": "65a3762809d54583846ef75b2e7e9d6c65e3b40a09ef28c59fc3c5b1cb85bb71",
+    "bytes": 94330
+  },
+  "nativeScopeEvidence": {
+    "sha256": "a703fa14f2db3ad16016e29afb211b40525715b7dd867f84e21d8ef69730552c",
+    "bytes": 5902
+  },
+  "outcomeEvidence": {
+    "sha256": "4cc4ca65cf2ed215829e74d3d1267992639e7ff217257289b0321c4f5a51a317",
+    "bytes": 6226032
+  },
+  "qualificationChecks": {
+    "sha256": "2b70353067af0d06cc6d8a259199e07a5873417f747d89b7621ebb3042943506",
+    "bytes": 4435
+  },
+  "reads": {
+    "run_result": {
+      "sha256": "b5464dd2250ba1b236f2cb912fc4f6a8f1ad5914ebe58fcf2430fed7a4578dcd",
+      "bytes": 230637
+    },
+    "run_replay": {
+      "sha256": "380f3cbd3b39beb2f8c587de9d34901c1a5e94d304a085ecf8fb1747bda51b53",
+      "bytes": 230216
+    }
+  },
+  "outcome": "completed",
+  "providerCalls": 12,
+  "runClosed": true,
+  "nativeAssessmentCompleted": true,
+  "assessmentFoldAccepted": true,
+  "coverageRowsEligible": 7,
+  "actualRawSupportCount": 19,
+  "sourceAndOldProofPreserved": true,
+  "nativeSettingsUnchanged": true,
+  "qualificationKind": "new whole-witness instance; no prior Run recovery credit",
+  "scope": "Observed tool actions/disclosures retained separately; no containment or release acceptance claim."
+}

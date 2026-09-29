@@ -15,7 +15,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. [T-287 selected plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry) owns registered selection, native and recursive governance, default graph reuse, installed Hello and the remaining exact release obligations. Deterministic selection, native/recursive choice and the default-library supplied/faulty installed pair are accepted within their evidence limits. S6's fulfillment connection is implemented and mechanically accepted; T-287 now selects its complete installed lifecycle case and actual outcome review. Preserve accepted bounded outcomes and original sources/oracles. Data Mapper is held; LIFE-01, fifteen-family qualification, QUAL056/F11/sole AF22 and RC1 remain open; T288/T289 stay closed. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. [T-287 selected plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry) owns registered selection, native and recursive governance, default graph reuse, installed Hello and the remaining exact release obligations. Deterministic selection, native/recursive choice and the default-library supplied/faulty installed pair are accepted within their evidence limits. S6's complete installed Hello lifecycle is independently accepted, including consequential correction, actual authorship, assessment, coverage and fresh Public closure. T-287 selects pending-consumer recovery and exact release qualification. Preserve accepted bounded outcomes and original sources/oracles. Data Mapper is held; LIFE-01, fifteen-family qualification, QUAL056/F11/sole AF22 and RC1 remain open; T288/T289 stay closed. |
 
 ## Current Selection
 
@@ -48,11 +48,15 @@ passes Testing/UAT without an author; faulty input produces actual failing Testi
 revised Construction, passing Testing and independent UAT. Both parents/Runs close
 and fresh Public result/replay agree. The event log preserves each framed mapping,
 reason, explicit choice and actual consequence. Prior failed outcomes remain
-preserved. S6 planning identified the missing connection from library observations
-to admitted requirement/proof pairing and coverage-gated completion. T-287 selects
-that bounded relation under existing owners before the full lifecycle fixture,
-which must carry its own consequential revision and proof correspondence.
-Fresh lifecycle authorship, complete S6 and release remain open.
+preserved. S6's complete installed Hello lifecycle is now
+[independently accepted](../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s6-complete-installed-lifecycle-acceptance):
+a failing baseline leads to selected correction and passing retest; four lifecycle
+assets are authored; actual independent assessment supports all seven obligations;
+ordinary parent/Run closure agrees with fresh Public reads. This is a bounded
+witness, not a general model-reliability claim. T-287 now selects the existing
+pending-consumer recovery obligation and exact-candidate release qualification.
+Security containment remains outside the owner's selected scope; observed
+violations remain recorded without making contrary assessment claims true.
 [T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#default-library-asset-handoff)
 owns consumer asset reuse and retirement tracking. The rejected planner and its
 dedicated tests are removed; valid graph assets and native continuation remain.
@@ -67,10 +71,12 @@ owners. Preserve the accepted execution/context calculus, generic core repairs,
 original task/oracle and still-valid evidence. The withdrawn consumer extension
 cannot serve as current implementation authority or release acceptance.
 
-Continue through reused default lifecycle graphs, then the installed consumer-authored Hello
-thread with correction, independent assessment and fresh Public readback.
-Use that evidence to resolve remaining Product obligations and qualify the exact
-candidate before RC1 through existing F11, sole AF22 and release owners.
+Preserve the accepted installed Hello thread, including correction, independent
+assessment and fresh Public readback. Complete pending-consumer recovery while
+retaining valid producer work and exact causal identity, then resolve remaining
+Product obligations and qualify the exact candidate before RC1 through existing
+F11, sole AF22 and release owners. Each failed iteration receives a bounded
+causal disposition before further execution; unaffected evidence is reused.
 Publication, installed-RC qualification and actual owner acceptance remain distinct.
 
 T-287 owns remaining runtime and release work; T-043 owns the paired lifecycle

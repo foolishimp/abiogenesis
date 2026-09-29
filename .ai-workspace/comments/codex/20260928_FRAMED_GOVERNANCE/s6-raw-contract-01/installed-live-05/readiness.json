@@ -1,0 +1,53 @@
+{
+  "ready": true,
+  "launchAuthorized": false,
+  "providerCalls": 0,
+  "setupMs": 20418.768958,
+  "accounting": {
+    "wallMs": {
+      "bootstrap_owner_loading_and_candidate_preparation": 565.384333,
+      "provisioning_verify_artifact": 11958.359583,
+      "provisioning_install": 2803.7557909999996,
+      "provisioning_installed_content_check": 522.2735410000005,
+      "provisioning_additional_products": 1545.4075420000008,
+      "installed_owner_loading": 224.80125000000044,
+      "environment_install_and_workspace_admission": 559.2404999999999,
+      "execution_preparation_publication_program_and_catalog": 364.14991700000246
+    }
+  },
+  "sourceCaseSha256": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+  "inputSha256": "sha256:583da132f421828beb50c6c2a6239c8603560f2d269c130d2dbc335d5dc6117e",
+  "publicCallBytes": 17685915,
+  "contextBytes": 11862,
+  "initialFiles": 6,
+  "absentAssets": [
+    "specification/project-conformance.md",
+    "design/implementation-design.md",
+    "design/test-design.md",
+    "test-execution-plan.json"
+  ],
+  "initialObligations": 7,
+  "schemaInstalled": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection/contracts/assessment.schema.json",
+  "worksite": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace",
+  "callableMembership": [
+    "graph-function://abiogenesis/default-library/construction@5",
+    "graph-function://abiogenesis/default-library/design@5",
+    "graph-function://abiogenesis/default-library/specification@5",
+    "graph-function://abiogenesis/default-library/testing@5",
+    "graph-function://abiogenesis/default-library/uat@5",
+    "graph-function://abiogenesis/worksite/command-execution@5",
+    "graph-function://abiogenesis/worksite/native-work/assessment@5",
+    "graph-function://abiogenesis/worksite/native-work@5",
+    "graph-function://default-library-witness/executive-step@5",
+    "graph-function://default-library-witness/executive@5"
+  ],
+  "checks": [
+    "actual core/consumer verify/install/catalog",
+    "imported exact pair contract owners",
+    "Program profile selection",
+    "exact original source/span binding",
+    "four assets absent",
+    "installed immutable schema equals input",
+    "prepared Public start only; no run or actor"
+  ]
+}

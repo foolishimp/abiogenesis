@@ -1,0 +1,12 @@
+{
+  "completed": true,
+  "parentEvent": "event://abiogenesis/e908a1bc001c95a9e19fbdd11d7c8f9dd6659a647806044526351d81f136c18c",
+  "assessmentEvent": "event://abiogenesis/9ec1b8e1fbe89b71b6dd901ec585f115764b3fa61c65a8fb9a6873c2d9f7ef84",
+  "baselineEvent": "event://abiogenesis/62bdb787a7483a56e0556c37645a0fdda8b67c2856a5cfe29a711da401b5c3f2",
+  "correctionEvent": "event://abiogenesis/e7f714a254fd7d440d1ebb74a8d74e59a8571d22cfc6b07587c16f23ee8bcc39",
+  "finalCommandEvent": "event://abiogenesis/94793296c7d959a80232f3215935ccb86df774229fb1461fa9b5f382520da304",
+  "runClosureEvents": [
+    "event://abiogenesis/cff60d347be95b753ac051a0b049327ab29aabbd3d3221b766606a3593ed9135"
+  ],
+  "sourceFreeze": "sha256:8279a1873820a06d97e5c8ee3dccb32edacb7692f92922de7eabb8826868ed96"
+}

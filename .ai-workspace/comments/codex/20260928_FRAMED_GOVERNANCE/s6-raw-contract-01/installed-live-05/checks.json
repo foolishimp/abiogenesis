@@ -1,0 +1,68 @@
+{
+  "syntax": [
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/prepare.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/launch.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/readback.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/prepare-launch.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "logicDelta": "Launcher and readiness logic byte-identical; read request identity s6-live-04 -> s6-live-05 only. Preparation regenerates the generic schema and verifies the exact single input-field delta.",
+  "providerControlsByteIdentical": true,
+  "installedReadOwnersAndSharedHelperUnchanged": true,
+  "priorReadinessProof": {
+    "manifest": {
+      "sha256": "a4c250f57e9f890f224b48092f7ab9e4378a5e7343a05f462dc4d721fe3bece9",
+      "bytes": 4162
+    },
+    "members": 32,
+    "allMatch": true
+  },
+  "priorReadinessReturn": {
+    "sha256": "4bc20a3e8d0bebcd8c8b30c34041da0491a8989ec0dbca50e606e4dc9af90afe",
+    "bytes": 5612
+  },
+  "priorReadinessFreeze": {
+    "sha256": "0a9a9d9bdcf9393ca1b657133d33abe66f16e555d250726905d8d00037117bca",
+    "bytes": 857
+  },
+  "freshQualificationInstance": true,
+  "oldRunResumed": false,
+  "importedRuntimeResults": false,
+  "runStarted": false,
+  "providerCalls": 0
+}

@@ -1,0 +1,53 @@
+{
+  "sourceFreeze": {
+    "sha256": "21bb6116ca623e22b209c14bf97b20f99b2cc54f9a4ddca24ce6254406b10d6a",
+    "bytes": 957
+  },
+  "sourceReturn": {
+    "sha256": "e9ee063a4b2ec5990de41b1df745f9d4701add178c665410ffa2df2312058210",
+    "bytes": 7689
+  },
+  "review": {
+    "sha256": "89c9aad6066961b5586cce0b5c95cf46fae84479fd42c950a4f91e3cf231fa4d",
+    "bytes": 11486
+  },
+  "core": {
+    "sha256": "1722953b7391e593079e3436b729b13c55457c734fb441d5e08b604edf9c462d",
+    "bytes": 10338146
+  },
+  "consumer": {
+    "sha256": "b6c67144ce8ceeb27943c69cce0befa2cd1d901653907e80586b04d4ef043c7a",
+    "bytes": 11952
+  },
+  "installedCorrespondence": {
+    "sha256": "491a126e827c3ad9b90582e422564610d7efafa590abbba56d2d4ad6ef45e630",
+    "bytes": 1375891
+  },
+  "input": {
+    "sha256": "2821278c30b0528fc890a1de30534d1879a60a25bb084ee3467cb8f76fa3f930",
+    "bytes": 85461
+  },
+  "schema": {
+    "sha256": "9403a74ef49e75f7f4fe15809345540271ac02927aa8a5390533748d5bcbf2cf",
+    "bytes": 3253
+  },
+  "schemaInputDelta": {
+    "sha256": "b64000607f03b2bcea42769df2fdb4e52ce52ea5bea11afae2960cc90ea970ea",
+    "bytes": 3721
+  },
+  "readiness": {
+    "sha256": "063bb2ed3afb94882698067365d6e07261d59fac72baa80fe392c45bfc3913a0",
+    "bytes": 2405
+  },
+  "closeHandoff": {
+    "sha256": "3fa4aacce021c89a2c3fb0fab6fc270e466df7c65cfdf92fcff87cde74b5ffb1",
+    "bytes": 1230
+  },
+  "preparedStart": {
+    "sha256": "facff66b4cdfdc2d717e4ba86953e04cbf5522b7f96271984fb489b62e6138fb",
+    "bytes": 32484671
+  },
+  "qualificationKind": "separately selected fresh instance; not recovery",
+  "providerCalls": 0,
+  "runStarted": false
+}

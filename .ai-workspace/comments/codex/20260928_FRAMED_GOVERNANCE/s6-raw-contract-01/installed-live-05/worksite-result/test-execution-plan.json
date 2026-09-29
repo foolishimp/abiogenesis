@@ -1,0 +1,81 @@
+{
+  "scenarioId": "SCN-GLC-HELLO-WORLD-CLI-BASIC",
+  "stage": "test_execution_plan",
+  "command": "node",
+  "args": ["--test", "test/component/hello-cli.test.mjs", "test/uat/hello-cli.uat.test.mjs"],
+  "cwd": ".",
+  "expectedExitStatus": 0,
+  "expectedTestPassCount": 2,
+  "expectedFailCount": 0,
+  "expectedStdoutMatch": "fail 0",
+  "expectedStdoutMatchSemantics": "substring of the recorded stdout; 'fail 0' is present in both the spec ('ℹ fail 0') and TAP ('# fail 0') reporter summaries; no exact pass-count fragment is pinned so added test depth still satisfies the plan",
+  "assertedReturnValue": "Hello, world!",
+  "requiredPassingTests": [
+    { "file": "test/component/hello-cli.test.mjs", "role": "component", "name": "CLI process satisfies its output contract" },
+    { "file": "test/uat/hello-cli.uat.test.mjs", "role": "uat", "name": "a user receives the exact promised greeting" }
+  ],
+  "cliCheck": {
+    "command": "node",
+    "args": ["generated/hello-world.mjs"],
+    "cwd": ".",
+    "expectedExitStatus": 0,
+    "expectedStdout": "Hello, world!\n",
+    "expectedStdoutByteLength": 14,
+    "expectedStdoutSha256": "d9014c4624844aa5bac314773d6b689ad467fa4e1d1a50a1b8a99d5a95f72ff5",
+    "stderr": "recorded, not constrained",
+    "assertedReturnValueRelation": "expectedStdout equals assertedReturnValue followed by exactly one '\\n'"
+  },
+  "fixedCommandCorrespondence": [
+    { "ordinal": 0, "commandId": "command://default-library-witness/0@5", "line": "node generated/hello-world.mjs", "planField": "cliCheck" },
+    { "ordinal": 1, "commandId": "command://default-library-witness/1@5", "line": "node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs", "planField": "command/args" }
+  ],
+  "acceptance": {
+    "rule": "command exited 0 AND observedTestPassCount >= expectedTestPassCount AND planSatisfied",
+    "observedTestPassCount": "integer N from the recorded runner summary line 'pass N' (spec 'ℹ pass N' or TAP '# pass N')",
+    "planSatisfied": [
+      "recorded test-command stdout contains expectedStdoutMatch",
+      "recorded fail count equals expectedFailCount (0)",
+      "every requiredPassingTests name is reported as passing ('✔ <name>' or 'ok N - <name>')",
+      "cliCheck recorded exitStatus is 0 and stdout equals expectedStdout exactly",
+      "cliCheck recorded stdout without its single trailing '\\n' equals assertedReturnValue",
+      "evidence binds the current digests of generated/hello-world.mjs and both test files; test digests equal the basis below"
+    ]
+  },
+  "evidence": {
+    "carrier": "admitted command-execution (C2) observations from an actual run of both fixed commands on the current subject",
+    "mustRecord": ["command", "args", "integer exit status", "signal", "timedOut", "stdout (text, byteLength, digest)", "stderr (text, byteLength, digest)", "cwd", "env", "input file digests", "resulting test observations (tests, pass, fail, test names)"],
+    "planValuesCompared": ["expectedTestPassCount", "expectedStdoutMatch", "assertedReturnValue"],
+    "notEvidence": ["a handwritten test-execution-result.json", "a fabricated success file", "an author's report or local run"],
+    "planRole": "declares expectations that must agree with the fixed commands; it is not the runtime source of the commands"
+  },
+  "basis": {
+    "source/original-basic-cli.txt": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+    "source/basic-cli.oracle.json": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+    "source/witness-contract.md": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+    "specification/project-conformance.md": "sha256:9d02e5fb3f2793e187a7afa673594340a8cb311d6e212cd3b77ba1a764eb43ee",
+    "test/component/hello-cli.test.mjs": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613",
+    "test/uat/hello-cli.uat.test.mjs": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4"
+  },
+  "lineage": {
+    "baseline": {
+      "cliSha256": "647697a5fb5d141a2b1163363170a7a845b61a36096ff52f7a369f1736cd4993",
+      "resultRef": "result://abiogenesis/6514754aa979c64827c955c618e60ece86ef79274b734c3844f2a13243a95d5c",
+      "observed": "command 0 exit 0 stdout 'Hello world!\\n'; command 1 exit 1, pass 0, fail 2",
+      "adverseCommand": { "commandId": "command://default-library-witness/1@5", "disposition": "nonzero" },
+      "status": "historical counterevidence about these exact bytes; not retargeted and not discarded"
+    },
+    "correction": {
+      "resultRef": "result://abiogenesis/e897db2208fad8afe99c5a184cddd24cb96421de5bb7df496a193774769cc41c",
+      "changedPaths": ["generated/hello-world.mjs"],
+      "change": "console.log(\"Hello world!\") -> console.log(\"Hello, world!\")",
+      "cliSha256After": "fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef"
+    },
+    "postCorrection": {
+      "cliSha256": "fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef",
+      "resultRef": "result://abiogenesis/db34d3cf4111de970877f4698262cc2802f4878a7e5ada89145a02c7abf0e4c4",
+      "observed": "command 0 exit 0 stdout 'Hello, world!\\n'; command 1 exit 0, pass 2, fail 0"
+    },
+    "currentnessRule": "only evidence bound to the current generated/hello-world.mjs digest supports current behavior; a later CLI change makes behavior evidence historical but does not invalidate this plan's expectations"
+  },
+  "authoredFrom": ["specification/project-conformance.md R-08..R-10, AC-04, AC-06..AC-08", "design/test-design.md §5-§7"]
+}

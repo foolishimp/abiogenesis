@@ -1,0 +1,18 @@
+{
+  "core": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/core.tgz",
+    "sha256": "sha256:1722953b7391e593079e3436b729b13c55457c734fb441d5e08b604edf9c462d"
+  },
+  "consumer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/consumer.tgz",
+    "sha256": "sha256:b6c67144ce8ceeb27943c69cce0befa2cd1d901653907e80586b04d4ef043c7a",
+    "basis": {
+      "artifactDigest": "sha256:b6c67144ce8ceeb27943c69cce0befa2cd1d901653907e80586b04d4ef043c7a",
+      "manifestDigest": "sha256:8e63a3f0f4ef9cf358ef962daca4219d5e7f5d0e3dcd6dd4958a1048e62f56ec",
+      "productContentDigest": "sha256:eb8ca6518abd6e85af680ef41dad7b5f7c087d6a69e118a6f2a0ea3706161f5a",
+      "productId": "product://default-library-witness/consumer@5",
+      "packageName": "@abiogenesis-fixtures/registered-selection",
+      "packageVersion": "5.0.0"
+    }
+  }
+}

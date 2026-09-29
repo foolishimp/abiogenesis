@@ -1,0 +1,94 @@
+{
+  "core": [
+    {
+      "path": "build/code/src/product/default_library_fulfillment.d.ts",
+      "before": {
+        "sha256": "b501c8eabaa4e27e05e7d3e81b0a766b346278e88506a8a6d6e0a6c54dfc7d4b",
+        "bytes": 32419
+      },
+      "after": {
+        "sha256": "85564dd541039b20ed463b4a149f5a20a2c24e64c7178d8a7fc09032931fdb3d",
+        "bytes": 33289
+      }
+    },
+    {
+      "path": "build/code/src/product/default_library_fulfillment.js",
+      "before": {
+        "sha256": "b3cb400c8b3b95250e13b00e8176eb8e9645a2ca0ca71d94794924dfed18ffa9",
+        "bytes": 20807
+      },
+      "after": {
+        "sha256": "9dc5d6126e4eb7588077faeefd1a1c220df34e2f46f5b4ae80906f012691c9a2",
+        "bytes": 21407
+      }
+    },
+    {
+      "path": "build/code/src/product/native_workspace_work.js",
+      "before": {
+        "sha256": "4cd4e9fc1cd42cd375aa5f58c936318fbddcef0f140012024cfc2ebb2e45a1bc",
+        "bytes": 16915
+      },
+      "after": {
+        "sha256": "34629cd2b095c629e10d61b4fd660c7d3fb90ac89ffcd7ccc01e01da7834a529",
+        "bytes": 17715
+      }
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "sha256": "8a686040d438c9274cfc34328460add2d91810a271552ace902325e386f942f6",
+        "bytes": 197474
+      },
+      "after": {
+        "sha256": "05b7770a7190b0d52ef9f064f6423626e38cfbdc11c9f523e1aa2496ef953909",
+        "bytes": 197474
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "sha256": "c2ab958bc002c90a735f17f85725f6f9797cc133ca85f17405f60032ccce0125",
+        "bytes": 2545310
+      },
+      "after": {
+        "sha256": "9c9caa3f19159e838de9190061606a8876a41d662066b3c0c7a673cf6db8e764",
+        "bytes": 2545310
+      }
+    }
+  ],
+  "consumer": [
+    {
+      "path": "contracts/assessment.schema.json",
+      "before": {
+        "sha256": "5cef9b2bd43d576bc16043c397dd398a7b26912ca349cd6721381905369d8266",
+        "bytes": 2613
+      },
+      "after": {
+        "sha256": "9403a74ef49e75f7f4fe15809345540271ac02927aa8a5390533748d5bcbf2cf",
+        "bytes": 3253
+      }
+    },
+    {
+      "path": "package.json",
+      "before": {
+        "sha256": "92f0376dde8955a50172e0fd8da167f60a9dca0b9095fc7eeceb3298cf5d31b0",
+        "bytes": 450
+      },
+      "after": {
+        "sha256": "a725cd1343538544198f3822f6f588d688c1faf10a7c6768e5b29d0c5c0d24d6",
+        "bytes": 441
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "sha256": "46b46b46558e8f69fce02d03afe32501799521980772981a1f8d5bb09a2d382d",
+        "bytes": 4898
+      },
+      "after": {
+        "sha256": "b1de0950b2f8454e44da9e4dd66e5f7017d9eb7e66362190fe57eae7ae2025a0",
+        "bytes": 4898
+      }
+    }
+  ]
+}

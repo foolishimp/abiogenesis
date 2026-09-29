@@ -1,0 +1,88 @@
+{
+  "observedAt": "2026-09-29T00:28:04.093128+00:00",
+  "dispatchStartedAt": "2026-09-29T00:17:23.513Z",
+  "elapsedSeconds": 640.580128,
+  "eventLogBytes": 58602563,
+  "tailBytes": 262144,
+  "completeTailEvents": 85,
+  "latestEvents": [
+    {
+      "admissionOrdinal": 14939,
+      "eventTime": "2026-09-29T00:28:02.889Z",
+      "kind": "actor_process_stdout_observed",
+      "aggregateId": "process://abiogenesis/6a8225de891af7f63b4c322c6d75a13c5dbff602809a0e141327d240e2e563dc",
+      "parentAggregateId": "actor-invocation://abiogenesis/9fb67c0ad7be41b7d9d91e06599dd885e7cc99d0a511ecfa4666583a4365145d",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "cCallRef": null
+    },
+    {
+      "admissionOrdinal": 14940,
+      "eventTime": "2026-09-29T00:28:02.889Z",
+      "kind": "runtime_activity_probe_observed",
+      "aggregateId": "actor-invocation://abiogenesis/9fb67c0ad7be41b7d9d91e06599dd885e7cc99d0a511ecfa4666583a4365145d",
+      "parentAggregateId": "c-call:sha256:b3edbe60907190e33d3c78a3e3aaedeaaf16d7fb1dbd47a7b4530dfb0aa53b61",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "cCallRef": null
+    },
+    {
+      "admissionOrdinal": 14941,
+      "eventTime": "2026-09-29T00:28:03.207Z",
+      "kind": "actor_process_stdout_observed",
+      "aggregateId": "process://abiogenesis/6a8225de891af7f63b4c322c6d75a13c5dbff602809a0e141327d240e2e563dc",
+      "parentAggregateId": "actor-invocation://abiogenesis/9fb67c0ad7be41b7d9d91e06599dd885e7cc99d0a511ecfa4666583a4365145d",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "cCallRef": null
+    },
+    {
+      "admissionOrdinal": 14942,
+      "eventTime": "2026-09-29T00:28:03.207Z",
+      "kind": "runtime_activity_probe_observed",
+      "aggregateId": "actor-invocation://abiogenesis/9fb67c0ad7be41b7d9d91e06599dd885e7cc99d0a511ecfa4666583a4365145d",
+      "parentAggregateId": "c-call:sha256:b3edbe60907190e33d3c78a3e3aaedeaaf16d7fb1dbd47a7b4530dfb0aa53b61",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "cCallRef": null
+    },
+    {
+      "admissionOrdinal": 14943,
+      "eventTime": "2026-09-29T00:28:03.361Z",
+      "kind": "actor_process_stdout_observed",
+      "aggregateId": "process://abiogenesis/6a8225de891af7f63b4c322c6d75a13c5dbff602809a0e141327d240e2e563dc",
+      "parentAggregateId": "actor-invocation://abiogenesis/9fb67c0ad7be41b7d9d91e06599dd885e7cc99d0a511ecfa4666583a4365145d",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "cCallRef": null
+    },
+    {
+      "admissionOrdinal": 14944,
+      "eventTime": "2026-09-29T00:28:03.361Z",
+      "kind": "runtime_activity_probe_observed",
+      "aggregateId": "actor-invocation://abiogenesis/9fb67c0ad7be41b7d9d91e06599dd885e7cc99d0a511ecfa4666583a4365145d",
+      "parentAggregateId": "c-call:sha256:b3edbe60907190e33d3c78a3e3aaedeaaf16d7fb1dbd47a7b4530dfb0aa53b61",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "cCallRef": null
+    },
+    {
+      "admissionOrdinal": 14945,
+      "eventTime": "2026-09-29T00:28:03.377Z",
+      "kind": "actor_process_stdout_observed",
+      "aggregateId": "process://abiogenesis/6a8225de891af7f63b4c322c6d75a13c5dbff602809a0e141327d240e2e563dc",
+      "parentAggregateId": "actor-invocation://abiogenesis/9fb67c0ad7be41b7d9d91e06599dd885e7cc99d0a511ecfa4666583a4365145d",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "cCallRef": null
+    },
+    {
+      "admissionOrdinal": 14946,
+      "eventTime": "2026-09-29T00:28:03.377Z",
+      "kind": "runtime_activity_probe_observed",
+      "aggregateId": "actor-invocation://abiogenesis/9fb67c0ad7be41b7d9d91e06599dd885e7cc99d0a511ecfa4666583a4365145d",
+      "parentAggregateId": "c-call:sha256:b3edbe60907190e33d3c78a3e3aaedeaaf16d7fb1dbd47a7b4530dfb0aa53b61",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "cCallRef": null
+    }
+  ],
+  "activeProcesses": [
+    "66415 66413       10:42 S    node .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/launch.mjs --dispatch-once",
+    "66424 66415       10:41 S    /opt/homebrew/Cellar/node/24.7.0/bin/node /private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js --jsonl /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/start-request.jsonl",
+    "72984 66424       01:24 Ss   /Users/jim/.local/share/claude/versions/2.1.280 -p --disable-slash-commands --no-session-persistence --output-format stream-json --include-partial-messages --verbose --permission-mode bypassPermissions --tools Read,Edit,Write,Glob,Grep,Bash --json-schema {\"type\":\"object\",\"additionalProperties\":false,\"required\":[\"summary\",\"gaps\"],\"properties\":{\"summary\":{\"type\":\"string\"},\"gaps\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}}} --model claude-opus-5-5 --effort xhigh"
+  ],
+  "scope": "Single authorized bounded 256KiB existing event-tail/process observation after 600s; no full history scan or intervention."
+}

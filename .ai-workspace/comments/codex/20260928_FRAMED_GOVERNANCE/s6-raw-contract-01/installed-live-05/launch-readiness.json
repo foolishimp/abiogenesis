@@ -1,0 +1,80 @@
+{
+  "ready": true,
+  "dispatchAuthorized": false,
+  "runStarted": false,
+  "providerCalls": 0,
+  "sourceFreeze": "sha256:8279a1873820a06d97e5c8ee3dccb32edacb7692f92922de7eabb8826868ed96",
+  "sources": {
+    "freeze.json": {
+      "sha256": "sha256:8279a1873820a06d97e5c8ee3dccb32edacb7692f92922de7eabb8826868ed96"
+    },
+    "core.tgz": {
+      "sha256": "sha256:1722953b7391e593079e3436b729b13c55457c734fb441d5e08b604edf9c462d"
+    },
+    "consumer.tgz": {
+      "sha256": "sha256:b6c67144ce8ceeb27943c69cce0befa2cd1d901653907e80586b04d4ef043c7a"
+    },
+    "input.json": {
+      "sha256": "sha256:2821278c30b0528fc890a1de30534d1879a60a25bb084ee3467cb8f76fa3f930"
+    },
+    "assessment.schema.json": {
+      "sha256": "sha256:9403a74ef49e75f7f4fe15809345540271ac02927aa8a5390533748d5bcbf2cf"
+    },
+    "fulfillment-policy.json": {
+      "sha256": "sha256:f5cfa9df3369a46892745b1d9207448ba560402544541bb2460b39dcafc55a72"
+    },
+    "start-prepared.json": {
+      "sha256": "sha256:facff66b4cdfdc2d717e4ba86953e04cbf5522b7f96271984fb489b62e6138fb"
+    },
+    "handoff-before-start.json": {
+      "sha256": "sha256:3fa4aacce021c89a2c3fb0fab6fc270e466df7c65cfdf92fcff87cde74b5ffb1"
+    }
+  },
+  "installedFiles": {
+    "public/cli.js": {
+      "sha256": "sha256:94d13d72e79246f35c12062cc75549da7225639edcc976aca5fa3b16313f4f25"
+    },
+    "abg/actor_process.js": {
+      "sha256": "sha256:9d847a558c26e6074fcd98ecebfffad3d05589b5c6c349282d16ef37bbdf2179"
+    },
+    "abg/transport_contracts.js": {
+      "sha256": "sha256:8982b031d637c4ed12b0abfff6a60a38cb9c0b0f939144ba03a03438e43affd7"
+    },
+    "abg/runtime_liveness_contracts.js": {
+      "sha256": "sha256:deda733c710a88ab29d5ff6152d05275dd0a381a3b3e3216e3ca13131a52a627"
+    }
+  },
+  "helper": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+    "sha256": "sha256:221d3d8dfab58da9b96ff926b8a5e3548a9f8c2b8dfc42b26cac7e1b3b467449"
+  },
+  "installedRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "scratch": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC",
+  "worksite": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-73tWaC/workspace",
+  "publicCallBytes": 17685915,
+  "preparedInputDigest": "sha256:583da132f421828beb50c6c2a6239c8603560f2d269c130d2dbc335d5dc6117e",
+  "provider": {
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "sha256": "sha256:387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d",
+    "requestedModel": "claude-opus-5-5",
+    "requestedEffort": "xhigh",
+    "appendArgs": [
+      "--model",
+      "claude-opus-5-5",
+      "--effort",
+      "xhigh"
+    ],
+    "providerInvocations": 0
+  },
+  "commands": {
+    "launch": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/launch.mjs --dispatch-once",
+    "readback": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/installed-live-05/readback.mjs"
+  },
+  "limits": [
+    "no pack/install/source/input edits",
+    "one Public start; no caller work selection or retry",
+    "raw capture precedes outcome assertions",
+    "fresh CLI process and empty environment for each Public read",
+    "stop first unexpected provider/runtime/contract failure; expected adverse command observation is retained"
+  ]
+}
