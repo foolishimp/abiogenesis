@@ -1,4 +1,4 @@
-import { projectSelectedActionOperation, continuationOperationWorkspaceCorresponds } from "./construction_continuation.js";
+import { projectSelectedActionOperation } from "./construction_continuation.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -197,7 +197,6 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
     const original = use === undefined ? null : projectExactExecutionBasisAtPrefix(validatedPrefix, use.sourceExecutionBasisRef);
     const invocation = original === null ? null : projectExactInvocationAdmissionAtPrefix(validatedPrefix, original.invocationAdmissionRef);
     if (basis === null || use === undefined || original === null || invocation === null ||
-      !continuationOperationWorkspaceCorresponds(operation, invocation) ||
       basis.invocationAdmissionRef !== original.invocationAdmissionRef || p.operationId !== "abg.operation.run.continue" ||
       p.memberKey !== "current_intent" || p.continuationRef !== use.continuationRef || p.continuationDigest !== use.continuationDigest ||
       p.currentIntentRef !== use.constructionIntentRef || p.currentIntentDigest !== use.constructionIntentDigest ||

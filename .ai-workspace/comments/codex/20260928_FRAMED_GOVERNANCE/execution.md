@@ -3517,3 +3517,73 @@ outputs. This is an explicitly incomplete source checkpoint, no merge into main,
 release or qualification. Then resumes Executive.
 
 Closed F11 preparation260aca847013874e06b8820215f9f6d03d5b35a74b04f28a1b7edf9c615f89bb is retained as input guidance only. Final domain, attribution, native judgments and seven valid-companion mutants remain unbound; no further search or qualification is active.
+
+### Repeated continuation causation: shared transition correction
+
+Owner selects applying escalation now. T287_S7_CAUSATION_RECURRENCE_01 is a
+realization_refactor under the existing Product/event calculus. Subject is the
+incomplete selected-action checkpoint059d858a and accepted current-intent relation.
+The draft repeats exact-intent-02 attempt02: a workspace operation cites Run
+selection events as envelope causes; event_store.ts rejects this. Source-traced,
+not a new execution. The shared transition, rather than another isolated retry,
+is the selected scope.
+
+Existing Astra/xhigh Worker applies Product/Owner/Reuse and
+repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration.
+Trace admission, consumption and cold replay together. Preserve workspace-only
+envelope causation and authenticated Run references in payload. Reuse/factor the
+existing owning relation for both continuation variants; no relaxed event guard,
+new controller, event family, Product law or broader recovery. Write territory:
+construction_continuation.ts, directly affected existing continuation truth owners,
+owning HOW, focused existing fixture/support and necessary emitted artifacts.
+A newly necessary owner or authority decision returns before extension.
+
+Verify actual event-owner admission and cold correspondence, including rejection
+of the former illegal causation, and conserve the accepted current-intent path.
+Use the smallest existing real-owner fixture; one coherent build/check selection.
+Do not claim full selected-action/changed-authority/HoG qualification from a narrower
+check. A further distinct failure returns its first cause before another cycle.
+No provider or release campaign. Freeze compact source delta and evidence in
+s7-pending-consumer-01/causation-recurrence-01; no whole predecessor archive copy.
+Return first relation/owner, prior occurrence, changed premise, preserved evidence,
+actual verification and next justified action, then stop for Executive disposition.
+
+Root enters Writer for this grant, ticket projection and a compact incident case
+for later Executive-graph qualification, then resumes Executive. The case records
+expected escalation decisions; it is not an implemented HoG policy or a new RC gate.
+
+Causation repair checkpoint: Worker reports two owning source changes plus HOW;
+build20.771s passes. First focused test fails before admission on direct internal
+module import (LEGACY_ROOT_EVENT_CONTRACT_DIGEST initialization cycle). Root
+classifies the observed failure as fixture entry/load order, not a recurrence of
+causation or an established Product-entry defect. Select the existing supported
+Product entry load order and rerun this same focused check once, unchanged source.
+Preserve first failure; no import-cycle architecture repair or further retry is
+automatically selected. Root Writer records this decision, then Executive.
+
+Worker returns frozen repair4733fa87e6208f045b581a1c687e463dbc53035d6b1fefb596693e397c35239f, build passed, boundary unproved. Second fixture error is ordinal selection of activity65 instead of the actual route64. Root inspected the full95-line check and its eight controlled carriers, and resolved the selection's explicit cause against the retained source digest: exact Run/frame/route/target cursor and digest agree. Root enters Worker solely to correct this fixture selection, assert the route relation before admission and execute the same focused test once with the unchanged build. No production or authority change. Preserve both failures and save the successor evidence separately, then return to Executive.
+
+Root fixture inspection exposed a second identity assumption in the same small
+check: current declarations regenerate a Program whose digest differs from the
+retained invocation. The repaired current-intent candidate/admission checks had
+already passed before this fixture-policy assertion. Existing policy refusal is
+correct. Root selects only the exact retained consumer publication Program from
+archive1228b754 (publication5cd63fa1), selected by invocation Program identity,
+plus pre-admission Program/policy/grant correspondence checks. This completes the
+fixture's identity alignment; no production/build change or broadened proof claim.
+Root Worker preserves the failed fixture, applies this data correction and reruns
+the same boundary check, then returns to Executive.
+
+Fixture identity RCA: the consumer archive carries the authored Program, while the retained invocation binds the acquired publication with callableMembership ordered child/root. The only Program difference is that array order. The exact prepared continuation input reproduces both the admitted Program and policy digests and constructs the member-specific selected-action grant through current owners. This is a fixture acquisition-layer mismatch, not changed runtime behavior. Root enters Worker for that exact data correction and one unchanged focused test; no production/build edit. Preserve the failed calculation and actual source pointer. Then return to Executive.
+
+Root Worker returns causation-recurrence-04: focused real-owner admission/cold check passed in378.814ms, body90.655ms. Production/HOW/generated bytes equal the closed01 build; only fixture source identity changed. Root resumes Executive and selects one independent review of the shared transition delta and this bounded evidence. Full installed selected-action/covered-selection proof remains open; no provider or release campaign selected here.
+
+### Shared continuation causation bounded acceptance
+
+Executive consumes independent review631d25b6: no blocking finding, all21 frozen members unchanged. Accept the shared constructor/cold-envelope correction only. The build and focused event-owner check support workspace causation, authenticated Run payload, refusals and cold reopen. Full selected-action installed/HoG and covered-authority execution remain open. Prior accepted archives and release status are unchanged.
+
+The fixture required five component-test invocations, four failing on fixture premises. These were import order, ordinal selection and authored-versus-admitted Program identity; the first Program correction still selected the authored archive rather than the prepared publication. No runtime change followed the one build. The retained records expose that fixture churn; a green final check does not erase it.
+
+Codex Executive applies recurrence-aware sequencing now. ABG receives this concrete shared-transition repair. The existing future Executive-graph case records expected decisions; no new automatic Executive subsystem or qualification gate is selected.
+
+Root enters Writer to reconcile the current T-287 fields and incident case, then preserve the exact repaired source/HOW, focused fixture/test, already produced generated members, frozen evidence01–04, this record and ticket on checkpoint/t287-selected-action-incomplete-20260929. Use an isolated index and fast-forward that checkpoint only. Preserve main, the ordinary index and unrelated work. This is a bounded repaired source checkpoint, not installed selected-action acceptance or a release. Then resume Executive.

@@ -1,0 +1,32 @@
+✖ shared continuation constructor admits workspace causes and authenticates pending Run payload after cold reopen (51.052708ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 347.572042
+
+✖ failing tests:
+
+test at test_env/tests/t287-continuation-causation.test.mjs:32:1
+✖ shared continuation constructor admits workspace causes and authenticates pending Run payload after cold reopen (51.052708ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'sha256:ddaf97589f4fbb46fb9841a7549190130fae5717a490e81327d9392aa3be1e10'
+  - 'sha256:44f0f5bb24ed6f48633223d11b17477015f18d5b6a001a5d7351218378f77f47'
+  
+      at TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs:54:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'sha256:ddaf97589f4fbb46fb9841a7549190130fae5717a490e81327d9392aa3be1e10',
+    expected: 'sha256:44f0f5bb24ed6f48633223d11b17477015f18d5b6a001a5d7351218378f77f47',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

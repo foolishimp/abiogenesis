@@ -1,0 +1,22 @@
+{
+  "subject": "unchanged causation-recurrence-01 production build; fixture-only correction",
+  "source": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/final-events.json",
+    "sha256": "4e96fd895487a6b9e581467e6cad6ad60415a15dd411e9fbc68e39eb18e8a6a8",
+    "ordinals": [
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      64,
+      66
+    ],
+    "routeSelection": "Exact construction_intent_selected causation reference to traversal_route_admitted; ordinal retained as observation only."
+  },
+  "fixtureSha256": "52026f9552d93391da8f9a11443e528669e26c2d03241a4d78e5de4e38e1f36f",
+  "testSha256": "2eba8af0060fbb067e913924bd2ea5c9be3481a433a8801a9c0ceb7843b6cb38",
+  "productionChanges": false,
+  "proofLimit": "controlled event-owner boundary only, no installed/HoG qualification"
+}

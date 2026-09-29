@@ -1,0 +1,20 @@
+--- before/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
++++ after/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
+@@ -290,3 +290,17 @@
+ selection/cursor transaction is durable, retains the complete prefix, then uses
+ existing physical resource recovery and cold Public continuation. Fixture injection
+ must not truncate history, invent failure truth or alter the model's answer.
++
++
++Both continuation variants use the construction-continuation owner's shared
++workspace operation envelope. Its causes are the admitted workspace invocation
++and any separately admitted workspace operation basis (including an exact cover).
++Run-scoped intent/selection/opening events are authenticated through the typed
++continuation/source coordinates and their actual predecessor projection. They
++are not causes of a workspace event. A Run-scoped supersession may cite its own
++Run source and the workspace operation; it cannot cite another Run's event.
++Admission and cold continuation truth share this envelope correspondence while
++retaining each variant's distinct pending/use checks. The event-store cross-Run
++causation guard remains unchanged. This corrects the selected-action recurrence
++of exact-intent-02's earlier envelope defect; it does not qualify the still-unproved
++selected-action traversal or covered-authority path.

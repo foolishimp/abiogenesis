@@ -1,0 +1,67 @@
+{
+  "status": "build_passed_boundary_unproved",
+  "checkpoint": "059d858a",
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 54810,
+      "sha256": "cd5b939c22d664b1028190cfec954a8d5927b2356fc012cf5d6fe8ba41ecc686"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "bytes": 9813,
+      "sha256": "c188ccf49dd15c0417ee9b7aa3883f45b6390590efe0412daae89615c606d4d6"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "bytes": 21411,
+      "sha256": "b7bae0ca0810fab82cbc2dcd1741f765a452f8914fe539306ddeeba2afbc1b90"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+      "bytes": 8794,
+      "sha256": "277ae9e3df7f586f83786f0c7cd1947faadab157499049d16fa7deb62c180f38"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/continuation-causation.json",
+      "bytes": 474265,
+      "sha256": "5b3110a3495d79466b89f783169d6a8470afc1d48f77b94999d82695d2126c54"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.js",
+      "bytes": 51069,
+      "sha256": "896dc26c81671ff33e35b41a128d121cca0078ca73e97871840b12a089a07e6c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.d.ts",
+      "bytes": 15197,
+      "sha256": "d52656ca48bb2d3b7aee841648b7521d208349eb66ffdd4c6e0f854bd614d332"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/effectful_invocation_truth.js",
+      "bytes": 7201,
+      "sha256": "1f44deadbda92521708a668ab6333df7cdfdfb2514d47f92a60ac5366602f47a"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/effectful_invocation_truth.d.ts",
+      "bytes": 1981,
+      "sha256": "c01fac174e61881003955a1e49176695960e25ff1f2a00ef8d52131ed8c7227d"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "0c0550535dfd2143518178d6505162b8e6574351674bbd8e11fcdb61f63ea792"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 150149,
+      "sha256": "9858e5dbffe6065a450dd9665365939707f0b4276655d77dd8bc67a624020a37"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2559987,
+      "sha256": "79fd5431dedf123ef49b8905be2638cf85da373d71e6a9c4483cf7e83545ba12"
+    }
+  ],
+  "emissionLimit": "Normal coherent build also emits the prior unproved selected-action draft. No package or installed readiness is claimed."
+}

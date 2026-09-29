@@ -1,0 +1,6 @@
+{
+  "command": "node --test test_env/tests/t287-continuation-causation.test.mjs",
+  "exitCode": 1,
+  "wallMs": 362.0728747919202,
+  "delta": "fixture Product-entry import order only; unchanged built implementation"
+}

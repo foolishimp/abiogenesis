@@ -1,0 +1,26 @@
+file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:504
+if (legacyDescriptorDigest !== LEGACY_ROOT_EVENT_CONTRACT_DIGEST) {
+                               ^
+
+ReferenceError: Cannot access 'LEGACY_ROOT_EVENT_CONTRACT_DIGEST' before initialization
+    at file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js:504:32
+    at ModuleJob.run (node:internal/modules/esm/module_job:371:25)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:683:26)
+    at async file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs:11:13
+
+Node.js v24.7.0
+✖ test_env/tests/t287-continuation-causation.test.mjs (289.356125ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 292.783
+
+✖ failing tests:
+
+test at test_env/tests/t287-continuation-causation.test.mjs:1:1
+✖ test_env/tests/t287-continuation-causation.test.mjs (289.356125ms)
+  'test failed'
