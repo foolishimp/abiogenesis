@@ -1,0 +1,47 @@
+{
+  "status": "unbuilt incomplete draft; held by Executive before further wiring",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/consumer_preparation.ts",
+      "sha256": "9f6ac7680ade6f91c3f0c2b17a0bebaa7258da5335c4ebf59f95db9a74672e2b",
+      "bytes": 2235,
+      "preserved": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/implementation/draft-hold-01/code/src/gtl/consumer_preparation.ts"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "sha256": "dcf130d13d505cb8e4c4e6bd3daacfdd99e85973ba5c36a934a6c44811e07197",
+      "bytes": 19004,
+      "preserved": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/implementation/draft-hold-01/code/src/gtl/default_library.ts"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+      "sha256": "560b48528c017a24f909bb9148c3722a8a02e2890e8e55039a7400057d68dbb7",
+      "bytes": 81057,
+      "preserved": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/implementation/draft-hold-01/code/src/validator/validation.ts"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/pending_consumer_projection.ts",
+      "sha256": "21761a8a3b997095fe981a7d201378e80d7ba116c0d0d3b5cb405f2cea780159",
+      "bytes": 10078,
+      "preserved": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/implementation/draft-hold-01/code/src/abg/pending_consumer_projection.ts"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "sha256": "7e49a086b929df1824f7058daf902c6b6689e765292522856e95bd6c07cf668c",
+      "bytes": 273501,
+      "preserved": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/implementation/draft-hold-01/code/src/abg/c_call.ts"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "sha256": "1c4c78b1c495de7629c8837fd1b9cf76c12d612ef5116e70b20986bcdd729920",
+      "bytes": 171495,
+      "preserved": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/implementation/draft-hold-01/code/src/abg/event_store.ts"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "sha256": "56165b3a91b8c610d0ff7103dbd2cf8a52fafa3e6ef5e7027b272531ff5db3dd",
+      "bytes": 73860,
+      "preserved": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/implementation/draft-hold-01/code/src/abg/invocation_admission.ts"
+    }
+  ]
+}

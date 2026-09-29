@@ -64,6 +64,18 @@ Result, Judgment or actor is not copied into replacement success. Canonical cont
 identity remains distinct from current admitted route-use provenance. Keep graph
 entry input and progressed cursor input separate.
 
+Recoverable preparation is explicitly declared through the existing
+GraphFunction declarations map: exact preparation locus and its fixed consumer
+child locus, with F_D, input/output and actual edge/workflow correspondence
+validated by the existing whole-Program owner. The default library authors that
+same generic relation. This is runtime eligibility for the unchanged declared
+work, not a new graph term, implicit retry policy or semantic graph selector.
+Absence of that relation does not make an ordinary F_D failure recoverable.
+Neither a built-in graph name, a preparation profile name alone nor diagnostic
+text may establish the relation. The Result owner retains the declared relation's
+exact failed Result, cursor and input coordinates as necessary admitted evidence;
+it does not add full graph snapshots or a rival failure ledger.
+
 Use typed undispatched/preparation failure evidence bounded to its actual scope
 to establish the pending frontier. Fresh preparation admits a new task from its
 retained source/input relation. If invalidation needs new semantic judgment, use

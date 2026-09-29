@@ -2554,3 +2554,185 @@ Writer only to retain this grant and then resumes Executive.
 Root enters Writer for a scoped checkpoint/push of the closed S7 proposal,
 review, accepted HOW and these grants/T-287. Concurrent implementation and the
 open release-applicability return are excluded; then Root resumes Executive.
+
+
+### Remaining qualification intake disposition
+
+Root consumes closed max intake
+`5cea45b788b774fec91cfd3851c7e4060927ef3afe22e75b16adc6172631ba26`
+in `s7-release-applicability.md`. The existing F11/sole AF22/release route has
+bounded implementation and installed non-green evidence. No additional missing
+capability was demonstrated. F16 acceptance is already implemented; the older
+D6 status does not authorize rebuilding it. S7 recovery remains the selected
+implementation dependency.
+
+After its closed disposition, freeze the actual qualification subject and use
+the existing authority/package/recipe rebind owners. Then bind actual native
+material, complete coverage/applicability/independent judgment and the sole
+verdict. Old native Results retain their original candidate identities; a source
+conservation judgment does not relabel them as execution of the changed candidate.
+Select only missing or affected exact joined evidence. Publication, installed-RC
+qualification, actual owner ruling and terminal remote-install proof retain their
+separate conditions. This intake supplies planning, not a green verdict or launch
+grant. Root enters Writer for this disposition and the current ticket projection,
+then resumes Executive; ongoing Worker code and earlier proof remain untouched.
+
+
+### S7 declared preparation correspondence intake
+
+Worker returned a concrete design-carrier gap before building: default-library
+prepare-to-fixed-workflow topology exists, but its GraphFunction declaration does
+not state generic preparation ownership. The existing undispatched evidence is
+F_P-only; the relevant preparation fails as F_D. Ordinary deterministic failure
+cannot itself prove recoverable consumer preparation. The unbuilt draft's UAT
+profile special case is rejected and will be removed, with no installed claim.
+
+Classify this as a missing realization declaration under the already selected
+recovery outcome, not task complexity or a new Product capability. Root enters
+Writer to make the HOW's eligibility correspondence explicit (SHA `175f9b071cc2df3b1f5994f5dbbeb13680ff00f8a2bbe510292aa80f5fff1390`)
+and extends the same Worker grant to `gtl/default_library.ts`, the current
+GraphFunction declaration/whole-Program validation owner and one shared structural
+helper as needed. Declare preparation-locus to fixed-child-locus refs in the
+existing declarations map; validate actual F_D, contract, edge and workflow
+correspondence. No new C term, plan language, registry, graph-name inference,
+semantic failure classifier, implicit retry policy or mandatory universal profile.
+Missing/foreign/mismatched declarations refuse eligibility; original producer
+work and declared F_D/F_P authority remain unchanged.
+
+The Worker may continue the complete relation and cover this declaration in its
+finite component proof. The already selected whole-source review checks the
+actual carrier and admission before an installed attempt. This is a bounded
+HOW/territory correction within the current increment, not another architecture
+or paid-discovery loop. Root resumes Executive.
+
+
+### Owner-triggered whole recovery design triage
+
+The owner asks what gap was missed and whether lifecycle re-entry is needed.
+Re-entry is Design under Product live-state/recovery/reuse and CONT015/016. The
+outcome is already constitutional. Fresh execution, durable history and F_H
+continuation had separate evidence; their existence did not establish automatic
+failed-handoff recovery. The initial HOW also omitted exact operation authority
+and a generic declared preparation relation. These are model/composition gaps,
+not evidence that an LLM needed another attempt.
+
+Hold `T287_S7_PENDING_CONSUMER_IMPLEMENT_01` at its next safe boundary; preserve
+its unbuilt drafts. No reset or native execution. Select
+`T287_S7_WHOLE_RECOVERY_MODEL_REVIEW_01`, existing Astra/max Reviewer, Product/
+Owner, Entity, Continuation, Reuse/Foundation and End-To-End Interface Integration.
+Exact subject: accepted HOW175f9b071cc2df3b1f5994f5dbbeb13680ff00f8a2bbe510292aa80f5fff1390,
+closed S7-D01 and declaration-intake record; pre-change runtime from immutable
+Git b90249e0d18a4c7040711167eabbc676f24b0b59 / accepted core1722953b. Inspect no
+moving implementation. Method remains selected STDO2.5.1-rc.1; fixed 15-family
+Product and accepted S6 remain unchanged.
+
+Review the complete state transition from producer success through consumer
+preparation failure, resource close, lawful current-intent admission, restored
+pending work and parent closure. Return one compact relation/table identifying
+necessary admitted state, ownership, transition preconditions and conserved
+facts; test its active/failed-Run, refreshed input, changed authority and duplicate
+boundaries against the existing calculus. Determine whether the new declaration
+is necessary and sufficient, or adds a rival model of relations already owned by
+GTL/HoG. Challenge scope inflation and lifecycle changes hidden in construction;
+name any actual Product insufficiency rather than inventing one. Explain why the
+previous component/design reviews missed the complete relation and the one
+end-to-end discriminator that would expose it. Do not merely accumulate the next
+missing helper or design a second recovery controller.
+
+Write only `s7-pending-consumer-01/whole-model-review.md`, target <=1000 words,
+with bounded implementation/resume disposition and explicit unknowns. No code,
+HOW edits, tests/build/install/provider/Git, broad source audit or further agents.
+Root enters Writer for this triage/grant and the ticket hold, then resumes
+Executive. Other accepted delivery evidence remains usable; release preparation
+is dependent on the next complete recovery model and its actual proof.
+
+
+### Owner correction: state and event calculus first
+
+The owner identifies incompleteness in the underlying ABG/HoG state model and
+states that Event Calculus is intended to prevent this. Root retracts the prior
+assumption that the re-entry is necessarily Design-only. A recovery outcome in
+Product/CONT015 does not itself supply a complete operational state calculus.
+The current review now traces Product, runtime requirements, owning Event
+Calculus design and HoG realization to the first insufficient definition before
+selecting repairs. No Product/requirement mutation is yet selected by this record.
+
+The review must account for open obligations across actual failure phases,
+events that initiate/suspend/resolve/terminate their state, derivation of pending
+inputs and parent state, distinct failed/successor Run identity, retained
+producer/evaluator validity and lawful next dispositions. Recovery reconstructs
+admitted state; it must not manufacture missing state semantics in a helper.
+Return whether the constitutional calculus needs refinement, the owning design
+lacks realization, or both, with source evidence. This updates the current
+whole-model review, not a second review activation or framework project.
+
+The Worker has closed its safe boundary at `implementation/draft-hold-01/return.md`
+SHA `8cd0f4f699c8409750807e23d3456bb5ce9517f38ff4d118d19e0aac2747d5ec`:
+seven preserved unbuilt files, no build/test/package/install/provider/Git effects.
+They are drafts, not accepted implementation. Root enters Writer only for this
+owner correction and ticket projection, then resumes Executive.
+
+
+### Complete state-model disposition and definition increment
+
+Root consumes closed whole-model review
+`e41d4f7680c8d62c4a136b705f4bf332cff62bda2cdd0ec088813535cd240f28`.
+Both the constitutional pending-state relation and its EC/HoG realization need
+refinement. The first insufficient definition is the successor state when
+preparation cannot establish an admitted consumer input/Result. Product's success
+equations and conservation prose do not define the complete phase-dependent
+transition. PROJECTION004 is the controlling completeness law. Earlier source/
+F_H/fresh-run proofs remain bounded; the HOW acceptance treated unsettled state
+semantics as implementation conditions and was premature. S7 implementation
+remains held. S6 acceptance and the earlier failed records remain unchanged.
+
+Select `T287_S7_STATE_CALCULUS_DEFINITION_01` for the existing Astra/xhigh Worker.
+Change class: requirement_reprice with dependent design_reframe, under unchanged
+Intent/Product outcome and the existing execution/context calculus. Purpose:
+close one complete state/event relation before source realization. Frame:
+Product/Owner, Entity, Continuation, Reuse/Foundation and End-To-End Interface
+Integration under STDO2.5.1-rc.1. Subject: the closed review, actual Product/
+CONTINUATION/PROJECTION/RUN/EVENTS/ITERATION source, existing owning EC HOW and
+pre-change runtime b90249e0/core1722953b. Seven unbuilt drafts are observations of
+missing construction, not normative input or accepted code.
+
+Write only `s7-pending-consumer-01/state-model/definition-proposal.md`,
+`owning-changes.patch` and `return.md`, with exact source preimages/digests and
+proposed edits to the existing Product calculus/owning requirements and EC/
+continuation HOW where needed. Do not apply those edits, change Intent/GOALS,
+create a new aggregate/controller/ledger or turn the proposal into another truth
+surface. Name one owner for each clause; references should avoid duplicated law.
+Code/build/test/install/provider/Git remain prohibited in this definition grant.
+
+Define the minimal admitted state and complete transition for handoff, actual
+failure phase, resource release/acquisition, continuation authorization, mutable
+refresh, resumed/replacement execution, pending parent fold and closure. Distinguish
+failed Result, no Result yet and admitted child success awaiting fold from their
+persisted facts; an F_D throw may already be totalized to a failure candidate.
+Map initiation/termination/inertia and derived pending obligation/input/parent
+relations to their existing owning carriers, naming only necessary additions.
+Keep operation authority separate from work authority; conserve Result/actor
+provenance, assessment obligations, applicable retry/recursion consumption and
+effect uncertainty. Every admitted prefix has a declared next disposition,
+including explicit unknown/block; failure alone grants neither retry nor success.
+
+The declaration correspondence references existing graph topology only and
+cannot supply the missing transition by itself. Show how the proposed relation
+can be encoded through current ABG/HoG owners without fabricated historical facts,
+private stack authority, repeated warm reconstruction, initial-input substitution
+or library-specific runtime behavior. Resolve exact generic currentIntent and
+parent/evaluator source-use meaning in the model rather than delegating them to
+future helper design. Preserve same-authority scope and governing authority-fork
+refusal; no arbitrary migration/native-human/security extension. Reuse the single
+installed discriminator and finite controlled phase checks from the closed
+review; no execution roster or broad new assurance campaign.
+
+Return one coherent model and source correspondence for the same max Reviewer;
+identify unresolved semantic decisions explicitly and do not proceed by guessing.
+Only after independent model consistency/realizability review and Executive
+application will implementation resume. Root enters Writer for this disposition
+and T-287 projection, then resumes Executive.
+
+Root enters Writer to checkpoint/push only the closed state-model reviews,
+held draft evidence, current HOW and tracking. Live unbuilt source and the
+active definition proposal are excluded; then Root resumes Executive.
