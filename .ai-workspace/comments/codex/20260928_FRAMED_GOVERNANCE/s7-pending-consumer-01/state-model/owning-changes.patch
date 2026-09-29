@@ -1,0 +1,511 @@
+--- a/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md
++++ b/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md
+@@ -35,3 +35,173 @@
+ The EC layer is not a controller. It derives fluent truth from event truth.
+ ABG iteration still decides traversal advancement and closure through the
+ existing runtime decision path.
++
++
++## Task, Workspace And Run Correspondence
++
++This derivation uses Product's existing `T/P/B/S/W/L` subjects. The selected
++specification/requirements own the ideal outcome. `W` owns mutable application
++state; ABG history owns admitted attempts, observations, judgments and provenance.
++`S` is an immutable successor projection over the admitted prefix (maintained
++incrementally while live), not another persistent application authority. A
++bounded graph traversal observes and affects a dependency-selected part of an
++open-ended workspace through its declared overlays, frames and effect owners.
++No complete world model, FeatureVector aggregate or global feature lifecycle is
++introduced. A feature/obligation may be pursued through arbitrarily many bounded
++Runs; that does not make one Run or its retry/recursion allowance unbounded.
++
++The existing default-library fulfillment specialization supplies obligation refs,
++requirement bindings, source-grounded additions and coverage. Its
++`eligible/open/stale` projection is not identical to a semantic
++`satisfied/falsified/indeterminate` judgment. Applicability, dependency validity
++and declared policy completeness constrain reliance; F_P supplies semantic
++sufficiency wherever no total rule is declared. Failure of a Run and satisfaction
++of its selected outcome are independent. A later admitted judgment can establish
++current satisfaction without rewriting any failed historical Run.
++
++## Two Operations, One History
++
++| Selected operation | Existing law | Execution consequence |
++|---|---|---|
++| New graph work toward the same outcome | CONTINUATION-012/-013, Product framed evaluation, One Surface or the actually selected library composition | New bounded invocation/Run, current observations and applicable retained evidence; fresh declared evaluation selects work. New calls have their own parents and normal HoG foldback. Old call-stack restoration is unnecessary. |
++| Resume an exact admitted pending execution | CONTINUATION-011/-015/-016 | Preserve the selected position, progressed input, remaining return obligations, original work authority and consumed allowances. A terminal predecessor stays terminal; any linked replacement needs the explicit use/restoration relation below. |
++
++`evaluateNext -> admitConstructionIntent -> invokeGraphFunction` is the existing
++One Surface relation. Its construction-specific carriers apply where that
++composition is selected; they are not silently imposed on the default library
++or every GTL Program. The latter use their admitted evaluation, registered-choice
++and call owners under Product. Public ingress never substitutes for semantic
++next-work selection. Reuse of the same obligation ref is not a request to resume
++an earlier execution, and a fresh start cannot impersonate that request.
++
++CONTINUATION-015 is not weakened: it governs the second row. The earlier HOW
++mistakenly made that row the universal prerequisite for continued progress.
++Neither row authorizes a caller to copy old runtime events, claim old success as
++new execution, reset applicable bounds or erase an unresolved obligation.
++
++## Complete Phase Projection
++
++At each committed prefix, derive the following from existing admissions, calls,
++Results/Judgments, routes, cursor/input origins, child/parent bindings, effect
++facts, Run/Continuation lifecycle and their declarations. These are relations,
++not a new serialized state carrier or private stack.
++
++| Actual admitted frontier | Derived pending relation and state effect | Admissible consequence under existing owners |
++|---|---|---|
++| Declared handoff/selected position, no consumer call | Consumer position with its causal current input; retain separate graph-entry input | Open/prepare the declared call under current authority, or gap/refuse if required material is unavailable |
++| Preparation attempted, no admitted consumer task | Preparation remains unfinished; retain actual failed Result if one was admitted and the exact source/cursor | No blanket retry. Only an explicitly selected continuation with changed failed support or an applicable declared correction/allowance may reprepare; otherwise new semantic work, block or unknown |
++| Admitted task, consumer proven undispatched | Consumer dispatch pending; task/effect dependencies remain relevant | Refresh changed required mutable inputs through the owner; then only an eligible authorized dispatch |
++| Effect active, interrupted, or completion uncertain | Retain actual dispatch/effect evidence; activity and dependent currentness are known or explicitly unknown | Existing liveness wait/block/observation authority; no duplicate dispatch inferred from absence of Result |
++| Raw/effect facts exist, Result not admitted | Admission pending, with exact available material and provenance | Existing result owner admits or refuses that material; no invented answer or automatic repeated effect |
++| Result admitted, judgment or transfer pending | Preserve Result/call/actor and its actual class; required judgment/route remains unfinished | Existing judgment/route owners; a failed Result follows declared failure/correction rather than a success transfer |
++| Child complete, fold not admitted | Parent return still due, naming the actual child Result/closure and binding | Existing fold owner performs only that remaining return if selected and eligible; do not execute the child again to rebuild a stack |
++| Fold admitted, parent evaluation pending | Exact post-fold input and required evaluation remain due | Ordinary parent reevaluation/route before parent closure |
++| Local remainder discharged | That pending position is complete; other declared obligations may remain | Resolve only the discharged continuation/return; normal Run closure still uses its complete declared condition |
++| Missing or conflicting causal/phase/effect facts | Unknown/invalid relation with preserved known facts | Refuse/block or obtain the declared evidence/judgment; do not infer a missing phase from prose, file presence or elapsed time |
++
++An F_D throw can be totalized by `leaf_invocation_port.ts` to a failed candidate;
++its subsequently admitted Result is part of the frontier. Existing F_P-only
++undispatched-owner evidence does not attest an F_D execution. A preparation
++locus/fixed-child declaration can establish applicability and topology only.
++The actual owner must establish phase and effects. Default-library names, a
++failure diagnostic, or deterministic compute means do not establish safety to
++repeat an operation.
++
++## Event Effects, Inertia And Validity
++
++- Existing call/selection/transfer and child-basis admissions establish the
++  derived pending position/parent return. Their exact completion events advance
++  it. Successful child admission alone leaves a parent return unresolved.
++- Run failure/stop terminates its existing activity fluents, not historical
++  Result truth or the unmet outcome. Closed resource ownership has no effect on
++  obligation satisfaction. Reopening reconstructs once at the admitted prefix;
++  ordinary internal hops use established projections.
++- Workspace changes become evidence only through their admitted observations.
++  The existing dependency relation controls current reliance; do not terminate
++  the historical event or reinterpret a historic adverse claim as current
++  behavior. Unknown affectedness withdraws only dependent currentness.
++- Original and newly admitted obligation identities remain referenced by their
++  declarations and admitted Results. A later Run does not mutate a global
++  coverage store. Its current coverage is a checked projection over its selected
++  evidence and observations, with unknown/open obligations retained.
++- No new clipping/de-clipping convention is needed. Keep existing event effects
++  and validity projection; do not force old transient availability fluents to
++  become active in a new Run. A new use is established by its current admission.
++
++Fresh work needs no new Continuation event merely because its task/obligations
++were seen before. Its current invocation's source-use binding names any reused
++historical Result with the old identity. New events retain their own Run scope.
++The event store's prohibition on cross-Run envelope causation remains unchanged:
++historical refs go in checked payload bindings and applicable workspace links,
++not in a foreign Run's `causationEventRef`.
++
++## Exact Execution Resumption: Conditional Realization
++
++This subsection defines the separate operation, not the foundation of normal
++progress or an implementation selection. Current root generic resumption is
++incomplete. Before exposing it, the existing Continuation family needs a typed
++pending-work opening, single-use execution admission and actual resolution;
++F_H events cannot be relabelled as these facts. Candidate names are
++`continuation_opened`, `continuation_execution_admitted`, and
++`continuation_resolved`. Their exact contracts/effects must be registered through
++the existing event profile/census owners before use; no event is proposed for
++ordinary fresh-run evidence reuse.
++
++Opening initiates the run-local open condition and names exact position/input,
++phase, source authority, parent-edge and consumed-limit refs. It stores neither
++a graph snapshot nor a stack. Execution admission initiates a durable one-use
++claim under the separate current operation authority, without resolving the
++condition. Actual remaining transfer/fold/evaluation discharge resolves it.
++Existing supersession/abandonment and reentry-link facts retain their meaning.
++A successor opening never removes a predecessor's consumption or failure.
++
++The existing `current_intent` request's `continuationInput` must name the pending
++position's actual causal input, and `expectedBasis` its exact ExecutionBasis.
++`currentIntent` names the admitted ConstructionIntent if that declaration governs
++the position; otherwise it names its original invocation's admitted work
++InvocationAuthority, constrained by the admitted Program/position/selection.
++This is an exact reference alternative, not a synthetic intent. A separately
++admitted continue operation grants the action of continuation; it does not
++replace or enlarge the original work/effect authorization. Required basis-fork
++cover under CONTINUATION-014 remains mandatory. Native-human and arbitrary
++authority migration remain excluded.
++
++An active eligible unconsumed position can resume within its Run. A failed or
++stopped Run cannot be reactivated. Explicit execution resumption from it creates
++new Run-local execution identities for unfinished work and relates them to the
++old frontier. Applicable retry/recursion and non-progress consumption follows
++the selected old lineage. New identities are not a fresh allowance.
++
++A replaced waiting parent needs a current CCall whose application/input/contracts
++match the old admitted evaluation. Use an explicit retained-evaluator variant
++of existing CCall evidence: current call -> original call/Result/Judgment,
++application, input origin, dependencies and limits. It is not a new Result,
++Judgment or actor execution. The parent projector, child admission, route/fold
++and HoG restoration must all consume this same relation. If the old child is
++already complete, the existing fold owner needs a retained-child variant binding
++the current parent to the exact historical terminal child Result/closure;
++creating a fictitious replacement child is forbidden. Required new parent
++evaluation still runs at the actual post-fold input. Invalid evaluator support
++requires its declared correction/evaluation or block, never silent reuse.
++
++Before effects, stage the complete operation/claim, applicable successor
++invocation/scopes/cursors/current parents, retained uses and links in the existing
++checked event transaction. Physical resource recovery remains its separate owner.
++The transaction's batch/rollback implementation is not a guarantee against every
++crash prefix: incomplete physical or semantic publication remains unknown/refused,
++not a license to synthesize absent events. Duplicates project the existing
++claim/successor, never dispatch again. After partial execution the actual frontier
++above governs. A later owned unresolved boundary may separately open a new exact
++continuation; a consumed permission never resets itself.
++
++## Totality And Selection
++
++Existing ITERATION-004/-008/-010 govern precedence and the constructors
++`terminate`, `redispatch`, and `suspend`. The table is total for derived state and
++admissible dispositions, not an F_D semantic next-action controller. Unknown
++support/effects require the declared evidence or judgment; an exhausted bound
++cannot be silently refreshed; wrong authority refuses before effect; active
++work cannot be duplicated; a completed remainder does not imply the task is
++satisfied. HoG traverses the admitted Program. F_P remains the owner of open
++semantic sufficiency and work selection. No event calculus, projection or Public
++adapter introduces another loop.
+--- a/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
++++ b/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
+@@ -1,189 +1,162 @@
+-# T-287 pending-consumer continuation
++# T-287 Continued Work And Exact Execution Resumption
+ 
+-Accepted HOW, 2026-09-29, with S7-D01 and the closed review conditions incorporated.
+-Implementation and qualification remain separate. Origin: `T287_S7_PENDING_CONSUMER_HOW_01`; Astra/xhigh;
+-Product/Owner, Continuation and End-To-End Interface Integration under selected
+-STDO `v2.5.1-rc.1`. Subject: core
+-`1722953b7391e593079e3436b729b13c55457c734fb441d5e08b604edf9c462d`,
+-the closed S7-R01 entry finding, and Product recovery/reuse law. This neither
+-changes S6 nor claims recovery of any earlier Run. Exact source identities and
+-the closed return are in
+-`../../../../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/design-return.md`.
++**Status**: Proposed corrected definition; implementation held until review and
++Executive selection. Replaces the overbroad pending-consumer implementation plan,
++not CONTINUATION-015 or the existing Product foundation.
++**Authority**: Product Execution And Context Calculus; CONTINUATION-011/-012/-013/
++-014/-015/-016; RUN-002/-005/-008; PROJECTION-002/-004/-025/-026; EVENTS-018/-024/
++-027/-031; ITERATION-004/-008/-010. The EC derivation owns the complete phase,
++effect and exact-resumption semantics; this file owns source correspondence.
++**Source basis**: `b90249e0d18a4c7040711167eabbc676f24b0b59`, core
++`1722953b7391e593079e3436b729b13c55457c734fb441d5e08b604edf9c462d`.
++Seven later unbuilt drafts are held observations, not accepted realization.
+ 
+-## Outcome and cause
++## Governing Distinction
+ 
+-After a producer succeeds and its consumer cannot start, a cold installed
+-`abg.operation.run.continue#current_intent` must reach that pending consumer
+-with its actual progressed input. It preserves the producer's original
+-Result/call/actor, existing assessment status and unresolved obligations;
+-reacquires mutable dependencies; and lets HoG execute, fold and close through
+-the existing graph. Recovery is not another initial `start`.
++The framework records admitted history and derives traversal state. It does not
++own a second persistent application state beside the mutable workspace. Selected
++specification/requirements define the ideal; bounded observations and admitted
++judgments establish the current relation to it. A fresh Run can make new progress
++on the same task/obligations without rebuilding a failed Run's scopes/parents.
++An explicitly selected `current_intent` operation is different: it must restore
++the exact pending execution under CONTINUATION-015, including its unfinished
++returns. Neither operation can impersonate the other.
+ 
+-This is a **missing framework realization**, not provider tuning, prompt size,
+-or task complexity. S7-R01's missing export is the first symptom. Three actual
+-downstream restrictions prevent an export-only repair:
++Product already declares this foundation and optional composition. One Surface's
++model/gap/next-action/action authorities and the default library's framed
++synthesis/registered selection both run on HoG. No feature aggregate, universal
++ConstructionComposition, exhaustive workspace model, new planner or telemetry
++implementation is needed. Existing fulfillment declarations bind requirements,
++obligation refs, policies and evidence roles; immutable coverage states are
++Results/projections, not a cross-Run application database.
+ 
+-* `abg/fh_continuation_projection.ts:39` admits only `fh_interaction`;
+-  `abg/continuation.ts:1227,1350` requires that projection and a responded
+-  interaction for `run.continue`. An undispatched F_D consumer is neither.
+-* `abg/event_calculus.ts:1257` terminates Run/graph-call/frame activity on a
+-  run-level `runtime_failure_observed`; a failed route may also stop the Run.
+-  `hog/entry.ts:310`'s `resume` member is not authority to reactivate it.
+-* `abg/default_library.ts:30–61,116–130` binds original state and reusable
+-  Results to their admitted invocation/Run. A replacement cannot transplant
+-  those identities or merely supply a populated state as ordinary root input.
++## Ordinary Fresh Work And Retained Evidence
+ 
+-Product:816–835 and CONTINUATION-004/-011/-013/-014/-015/-016 already prescribe
+-the outcome. No new Product family or semantic selection rule is needed.
+-Existing F_H and declared-retry HOWs establish narrower relations; their retired
+-vector/interpreter descriptions are not an implementation route. The event
+-resource recovery HOW only reacquires durable ownership, not execution.
++Normal supplied-work fresh invocation is already proven by S5: files can be
++observed/tested/assessed without inventing an author or replaying a prior stack.
++That does not prove generic cross-Run reuse of admitted Result evidence.
+ 
+-## Accepted admission and parent correspondence
++At the frozen source, `product/default_library.ts:73–78` constructs empty initial
++observations/coverage. `abg/default_library.ts:28–42` accepts only that initial
++shape, and `result():58–62` restricts Result lookup to the current Run. Those are
++real boundary restrictions. Do not bypass them by passing a user-authored populated
++state, deleting all source guards or claiming that file equality proves old
++Result ownership. Conversely, they are not a reason to construct old parents.
+ 
+-The independent design review
+-`d3b76a440e69851f5fba164df99b0d7487ad4b07f723880d1af1ab991235f611`
+-identified S7-D01: the predecessor has exactly one operation-scoped invoke/start
+-grant, while current request admission and its reentry arm only admit invoke/start.
+-It cannot authorize current_intent. Extend the existing exact Public invocation
+-admission with the declared current_intent request case and its newly admitted
+-operation capability. Bind that authority to the unchanged predecessor actor,
+-workspace, execution and work authorization. Preserve the predecessor's single
+-grant, policy and original invocation; do not add grants, broaden an invoke grant,
+-rewrite history or fabricate a start request. The generic currentIntent ref/digest
+-identifies the admitted construction intent when present, otherwise the exact
+-predecessor root work-authorization basis; bind that choice from admitted facts,
+-never caller prose. The tagged pending reentry retains both authorities and their
+-exact correspondence under these existing owners.
++The smallest missing relation for ordinary cross-Run use is **a selected prior
++admitted library state Result -> current invocation input/evidence use**. Reuse
++the existing Product invocation `sourceResultBasis` admission and retained-input
++ownership instead of a new continuation, import ledger or recovery adapter.
++`invocation_admission.ts:1324–1367` already requires the selected source Result,
++its public projection authority and the exact rederived source basis together.
++That is the owning cold ingress. Its public derivation at lines 406–526 requires
++a judged/advance Result **and a closed Run** (line 475). A valid intermediate
++Result in a later failed Run therefore cannot enter this path today. The existing
++internal C2 helper's `requireClosedRun: false` route is not Public permission.
++The minimum extension is a declared source-use admission for a successfully
++admitted/judged intermediate library state Result from an inactive failed/stopped
++Run, with its exact invocation/Result/Judgment and prefix provenance. Preserve
++existing closed-Run cases. Refuse active/unknown predecessor execution, malformed
++source facts, unbound dependencies or unauthorized use. Run-level failure alone
++neither invalidates every earlier Result nor attests absence of later effects;
++currentness must include the actual later effect/observation frontier for the
++selected dependencies. This follows Product's existing reusable(a), rather than
++changing a failed Run into a closed-success source. Reusing this owner is a
++design decision; the extension and downstream joins remain unimplemented.
+ 
+-Replacement parent restoration establishes waiting parent CCalls as well as new
+-scopes and cursors. Derive their exact old parent/call/route relation, establish
+-current workflow_open or applicable deferred_application_ready ownership and the
+-retained evaluator-result use, then let ordinary HoG foldback proceed. An old
+-Result, Judgment or actor is not copied into replacement success. Canonical content
+-identity remains distinct from current admitted route-use provenance. Keep graph
+-entry input and progressed cursor input separate.
++The selected source is one actual admitted `GovernanceWorkState` Result after
++producer fold (or a lawful later state), not a reconstructed whole history. It
++already names original task/obligations, additions, observations and source
++Results. At cold admission, derive the current input from that exact source:
+ 
+-Recoverable preparation is explicitly declared through the existing
+-GraphFunction declarations map: exact preparation locus and its fixed consumer
+-child locus, with F_D, input/output and actual edge/workflow correspondence
+-validated by the existing whole-Program owner. The default library authors that
+-same generic relation. This is runtime eligibility for the unchanged declared
+-work, not a new graph term, implicit retry policy or semantic graph selector.
+-Absence of that relation does not make an ordinary F_D failure recoverable.
+-Neither a built-in graph name, a preparation profile name alone nor diagnostic
+-text may establish the relation. The Result owner retains the declared relation's
+-exact failed Result, cursor and input coordinates as necessary admitted evidence;
+-it does not add full graph snapshots or a rival failure ledger.
++1. Conserve original task, source identities, required/admitted obligations and
++   their declarations. Retain exact source Result/call/actor/evidence identities.
++   Reject altered originals, missing/foreign Result references or ungrounded
++   caller-supplied coverage. Prior semantic judgments remain attributed history.
++2. Establish the new invocation's actual work authority and its permitted use of
++   the prior evidence under the same immutable basis or required explicit cover.
++   An old invoke grant is provenance, not the new operation's permission.
++3. Acquire only required current mutable observations. Apply existing
++   `reusable(a)` to the selected claim/dependencies and current use. Unchanged
++   producer dependencies remain valid when an unrelated assessment document is
++   supplied; that document is separately acquired/bound for assessment. Unknown
++   or stale dependent support stays open. Preserve historic adverse evidence as
++   historic, never retarget it to current output proof.
++4. Enter the new graph normally with a nonterminal current projection. Retained
++   synthesis is prior judgment, not a current next-choice instruction; current
++   framed evaluation selects graph work. Reuse eligible old assessment support
++   only where its declared scope/currentness/independence remains sufficient.
++   No old terminal flag grants new closure and no reset discards admitted new
++   obligations. Current parent evaluation applies its declared completion rule.
+ 
+-Use typed undispatched/preparation failure evidence bounded to its actual scope
+-to establish the pending frontier. Fresh preparation admits a new task from its
+-retained source/input relation. If invalidation needs new semantic judgment, use
+-an existing declared evaluation/correction route; absent one, preserve an explicit
+-gap instead of inventing a backward transition. Opening, consumption, predecessor
+-termination, successor linkage and replacement admission form one prefix-bound
+-causal relation. A partial continuation resumes from already-committed successor
+-truth; duplicate requests cannot create another consumer.
++Extend the existing authenticated input-origin/source-use projection to carry
++this established admission internally, not a copied evidence packet. Library
++source/fulfillment/native/C2/assessment guards consume that same relation only
++when its declaration applies; ordinary fresh input retains current strictness.
++`abg/default_library.ts` joins are `owner`, `result`, `subjectEvidence`,
++`projectGovernanceFold`, and `projectGovernanceParent`. Their current-Run checks
++must become current-owned-or-explicit-admitted-source-use checks, preserving
++exact call/actor/contract/subject and independence checks. The unchanged result,
++route, child and parent owners still produce all new runtime facts. Warm calls
++must not rederive the history or rehash established declarations.
+ 
+-## Complete owner relation
++Carry the selected source basis through the existing invocation/input admission;
++no new event kind is proposed for ordinary evidence use. The actual extension
++must preserve its published payload contract/validation and source projection
++correspondence. The event's current Run scope and payload references remain distinct. Selecting a prior Result for evidence does
++not reopen its Run or consume a `current_intent` continuation. New admission is
++idempotent under the existing operation/invocation key; deliberate later Runs
++remain separate bounded attempts. Applicable lineage/policy limits still apply;
++a caller cannot relabel an exact retry as fresh work merely to reset a bound.
+ 
+-| Boundary | Reuse and minimum necessary extension |
++## Exact Pending-Execution Resumption
++
++This remains a distinct unimplemented relation, not a prerequisite for the
++previous section. The EC derivation fixes currentIntent reference meaning,
++phase/effect eligibility, original work versus current operation authority,
++claim consumption, partial progression and retained parent/evaluator use. The
++complete concrete owner correspondence is:
++
++| Required relation | Existing owner and minimum missing realization |
+ |---|---|
+-| Public declaration to installed callable | Keep `product/run_operation_contracts.ts`'s five-reference current-intent request and its existing operation identity. Add `RUN_DEFINITION_BINDINGS.continue.current_intent` in `owner_bindings/run_invocation.ts`, using the existing exact-prefix transition/resource close protocol. `shared/owner_contract_source_set.ts` and installed transport already carry that member path. This binding must call the complete owner relation below, never `start` with reconstructed input. |
+-| Cold acquisition | Acquire the exact durable prefix/reopen handoff and installed Product/Program/catalog/lock/WorkspaceBinding through current owners. Reconstruct the predecessor invocation and admitted execution bases once at acquisition. Resolve declarations from the exact installed publications; materialize against their original admission coordinates and compare admitted identities. Do not persist another full graph snapshot or reauthenticate definitions at each subsequent handoff. |
+-| Pending position | Extend the existing ABG Continuation projection/admission with a non-F_H pending-consumer case derived from the actual failed/undispatched consumer frontier. Its opening cause is the admitted failure/evidence/route, not diagnostic prose or wall time. The projection names the exact source Run, invocation, execution basis, graph call/frame, cursor, input origin and unresolved parent chain. Existing `projectOpenedCCallTraversalInputAtPrefix` / `projectTraversalInputAtPrefix` recover the progressed value, including retained and registered-selection origins. A caller does not author a cursor or input value. |
+-| Public request correspondence | `run` matches the predecessor Run; `continuation` matches that projected open obligation; `continuationInput` matches its exact input ref/digest; `expectedBasis` matches its admitted execution authority. `currentIntent` binds the already-admitted ConstructionIntent where applicable, otherwise the root invocation's existing work authorization, with the actual selected child relation retained. This is explicit correspondence for the currently unrealized request field, not a fabricated ConstructionIntent or mandatory ConstructionComposition. Replay must expose these exact request coordinates. |
+-| Admission and lifecycle | Extend `abg/continuation.ts`'s operation admission to accept the pending-consumer variant without pretending it has a human response. Match the newly admitted current_intent operation grant/request to the unchanged predecessor work authority as specified above; enforce one consumption at the selected prefix. A still-active, unconsumed cursor may continue within its Run. A failed/stopped Run uses a new Run and run-local continuation with explicit predecessor linkage; it is never reopened as active. Use the existing continuation terminal/reentry-link, invocation/basis/scope and cursor/route owners. The new pending variant, exact current_intent invocation admission and its opening/resolution/consumption projection are defined together in existing Event Calculus/replay. No second continuation ledger, controller or event store. |
+-| Replacement execution correspondence | The missing generic extension is an **admitted pending-consumer reentry binding**, subordinate to invocation/execution admission. It relates the old exact frontier and its retained input to newly admitted Run/scope/cursor coordinates under the same immutable definitions. Reuse the existing `InvocationReentryBasis` ownership, adding a tagged pending-consumer case; its current case is gap/next-action-specific and cannot be relabelled. Extend `open_call` / traversal-cursor admission to establish the selected position and input origin on the replacement, rather than admitting only the graph entry. Persist exact causal refs in those existing admissions, not an opaque process-local resume object. |
+-| Producer reuse | Extend existing source-origin applicability at that admitted reentry boundary. The old Result/call/actor remain old facts; the new consumer receives a proven use relation, not copied events or a new producer Result. Existing library/native/C2/assessment guards must consume that exact relation where they currently require same Run/invocation. Ordinary invocations keep their current strict rules. `sourceResultBasis` alone is insufficient: it does not restore pending position or parent obligations. No general “any prior Result with equal bytes” lookup is permitted. |
+-| HoG and parents | Feed the admitted continuation projection into the existing `executeGraphTraversalEffect`, preserving separate graph-entry and progressed inputs. Reuse `traverseFromCursor`, `enterTraversal`, declared retry resume when its actual retry frontier exists, and workflow/recursion fold owners. `parent_rehydration.ts` validates supplied held parent frames today; cold pending recovery additionally must derive the exact parent chain from admitted execution-parent/call/route relations. For a replacement, establish current waiting parent CCalls, evaluator-use correspondence and parent scopes linked to those old facts before traversing; copying old suspension identities does not suffice. The runtime machine, not Public ingress, completes the consumer and parent reevaluations. |
+-| Readback and close | Use the existing owner finish/close handoff and Public result/replay source coordinates. Replay projects the old failed Run, exact predecessor/successor relation, newly admitted consumer and actual parent closure. No terminal Result exists until normal graph/Run closure. Duplicate continuation must not launch a second consumer. |
++| Preparation applicability | Existing GraphFunction declaration map/whole-Program validator can bind a preparation locus to its actual fixed child via F_D/contracts/edge/workflow. This does not attest nondispatch or authorize retries. Absent/foreign/mismatched declarations cannot turn arbitrary F_D failure into eligibility. |
++| Actual frontier | `runtime_failure.ts`, `c_call.ts`, `traversal_cursor.ts`, Result/input-origin and route indexes project the exact known failure/Result/cursor/input and effect status. `leaf_invocation_port.ts:598–611` may totalize an F_D throw; `c_call.ts:6039`'s F_P-only nondispatch evidence cannot be reused as an F_D attestation. Missing effect facts remain unknown. |
++| Operation and original work | Existing five-reference `product/run_operation_contracts.ts` and exact invocation admission gain the actual current_intent arm. The continue grant and original invoke/work authorization remain separately bound, including selected generic InvocationAuthority versus ConstructionIntent meaning from the EC HOW. |
++| Continuation lifecycle | `continuation.ts`, `event_store.ts`, `event_calculus.ts`, `replay.ts` and published event-profile contracts gain the conditional generic opening/claim/resolution relation specified by the EC HOW. Existing F_H, supersession/abandonment/reentry-link rules retain their meanings. No private resume marker. |
++| Position and source use | `execution_basis.ts`, `open_call.ts`, `traversal_cursor.ts` and invocation reentry add the exact pending alternative: selected progressed input, separate entry input, source/currentness refs and original consumed limits. Existing gap/next-action reentry cannot be relabelled. Reuse the same source-use admission as above where applicable. |
++| Current waiting parents | `c_call.ts`, child admission, `traversal_route.ts`, `hog/parent_rehydration.ts` share the retained evaluator-use/retained child-fold variants specified in EC. New unfinished scopes/calls have new identities; original evaluator/producer/child Results stay original. No copied stack and no forged new success. |
++| Publication, traversal and cold reads | Existing checked transaction/resource owners publish a complete admitted reentry relation before effects. `owner_bindings/run_invocation.ts` then exposes the actual current_intent member and calls ordinary HoG traversal. Public result/replay project the real original failure and successor, including incomplete/unknown rather than fabricated closure. |
+ 
+-The reentry binding is an admitted source/use relation within existing runtime
+-owners. Its cold projection is discardable. It is not a new graph, planner,
+-cache, recovery language or external work queue. References to historic scopes
+-are preserved; newly executed scopes have new identities. The failure record
+-and original assessment status stay unchanged.
++All rows are necessary if exact failed-Run resumption is selected. A declaration,
++sourceResultBasis, export or held parent object alone is insufficient. An already
++completed child requires its pending fold/evaluation, not child reexecution.
++Resource acquisition does not grant traversal. One live Run per scope, exact
++basis-fork cover, independence and uncertainty remain binding. No historical
++phase/effect fact may be manufactured during cold acquisition.
+ 
+-## Mutable facts and preserved work
++## Scope, Contraction And Evidence
+ 
+-Before consumer effect, reacquire its actual declared mutable dependencies through
+-the existing worksite observation/preparation owners. Default-library
+-`currentContext` already observes current roots; native/C2/assessment preparation
+-already distinguishes producer dependencies from separately acquired assessment
+-inputs. Keep those relations. An unrelated newly supplied assessment document
+-does not invalidate unchanged measured output. A changed measured dependency
+-invalidates its applicable support; unknown affectedness remains an explicit
+-gap. Historic adverse evidence remains evidence of its historic claim.
++The strongest contraction is to remove pending preparation declarations, new
++Continuation lifecycle, replacement cursors, retained evaluator use and parent
++rehydration from **ordinary fresh-work** implementation scope. These are neither
++normal feature progress nor generic evidence reuse. Keep the held drafts held;
++none is a foundation to complete by momentum. No code is deleted by this HOW.
+ 
+-If the pending consumer's current input is a preparation result whose mutable
+-observations are stale, the owning preparation must run again from its admitted
+-entry/source relation and admit a new task. This does not repeat the successful
+-producer. Do not edit an old task in place or silently replace its input digest.
+-If fresh facts invalidate a semantic selection, resume the graph's declared
+-evaluation/correction boundary with the preserved state and unresolved
+-obligations. F_D checks correspondence and declared transition applicability;
+-F_P makes any new adequacy, choice or assessment judgment. No Public adapter
+-chooses a graph or routes around a failed judgment.
++The prior one producer -> missing assessment-only input -> supply that input
++case can distinguish the two operations without rerunning a full lifecycle:
++for normal progress, close the first failed Run, then perform a newly authorized
++fresh invocation with the exact selected retained state/evidence and current
++workspace. F_P selects lawful needed work; same producer Result/call/actor remain
++historical support, no author replay, and new consumer/current parents close
++normally with two cold Public reads. This is **fresh continued-work evidence**,
++not execution-recovery credit. If Executive instead selects exact current_intent,
++the same physical case must resume the pending position and discharge its old
++return obligations through all rows above. Fresh success cannot qualify it.
+ 
+-## Boundaries and refusal
+-
+-The first positive qualification uses an unchanged installed candidate for both
+-failure and continuation. Changed Program/GraphFunction/implementation/Product/
+-lock/WorkspaceBinding authority is a different relation: CONTINUATION-014
+-requires the exact crossed-pair reprice and applicable new binding before
+-execution. Current-intent must refuse absent cover; it cannot invent cover from
+-equal worksite bytes. The current Public refusal vocabulary has `basis_mismatch`;
+-preserve `basis_fork_detected` as the precise cause rather than silently claiming
+-the request already carries an implemented changed-authority path. The declared
+-`selected_action` contract and narrower existing reprice/gap owners do not prove
+-that generic path implemented. Earlier live02–04 recovery remains unproved.
+-
+-Reject wrong/stale prefix, resolved/consumed continuation, foreign cursor or
+-origin, initial-input substitution, altered explicit input, wrong parent chain,
+-changed authority without cover, changed producer dependency without affected
+-support invalidation, and missing independently required judgment. A terminal
+-successful Run is not a pending consumer. A malformed provider answer is not
+-retroactively repaired by this operation. Native-human response remains the
+-separately deferred F_H path; no human prompt or fabricated response is needed
+-for this automatic pending-consumer case.
+-
+-## Finite proof and implementation re-entry
+-
+-Qualify one installed ordinary graph using the
+-default-library/native/C2/assessment ownership joins, not a retired retry fixture:
+-
+-1. A producer succeeds once with distinguishable output. Its selected consumer's
+-   real preparation refuses because one declared assessment-only mutable input is absent.
+-   That path is readable by assessment but is neither original.sources immutable
+-   authority nor a required producer dependency; otherwise it tests a different failure.
+-   Retain the exact progressed state, producer evidence, pending position,
+-   assessment absence and unresolved obligations; close the host resource.
+-2. Supply only that declared missing mutable input through the permitted fixture
+-   effect. Use the same archive, definitions and WorkspaceBinding; launch one
+-   fresh Public current-intent call, with no source/definition repair and no
+-   caller-side selector. The owner restores the pending consumer, reacquires
+-   observations, preserves the producer's refs and performs the required actual
+-   independent assessment and parent evaluation.
+-3. Both cold Public reads must agree on predecessor failure, successor linkage,
+-   no repeated producer, progressed input, fresh assessment/support and truthful
+-   closure or remaining gap. Positive completion credit requires the actual
+-   assessment and parent to complete, not merely a typed refusal. Freeze raw
+-   commands/events/effects first. Stop on
+-   the first unexpected failure; no paid discovery loop.
+-
+-Use controlled actual-owner checks for malformed/currentness/duplicate/authority
+-negatives and the active-prefix versus failed-Run split. Reuse accepted S2 input
+-origin, S6 producer-dependency, assessment independence and basis-fork evidence
+-where still applicable; these do not replace the installed positive. No full
+-Hello/lifecycle replay or qualification roster expansion is necessary.
+-
+-The implementation territory necessarily exceeds an export: existing Public
+-binding, Continuation/Event Calculus/replay, invocation/execution/open-scope/input
+-origin admission, HoG entry/parent rehydration, and the affected retained-source
+-guards need the same causal relation. Their exact edits and finite fixture are
+-selected together by the linked Executive implementation grant. This HOW defines
+-that missing relation; it does **not** claim these generic replacement APIs already
+-exist or that current F_H/retry helpers can be wired unchanged. The retained proposal and closed review
+-are in s7-pending-consumer-01. Acceptance applies only their bounded owner relation;
+-no implemented recovery or qualification is inferred from this document.
++Finite affected owner checks are phase distinctions (including totalized F_D
++failure), exact source/input/authority refusal, changed producer dependencies
++versus new assessment inputs, required independence, duplicate/partial admission
++and normal fold/closure. Reuse accepted S5 supplied-work and S6 actual fulfillment
++proof. No new provider campaign, generic reliability claim or broad test roster
++is selected by this proposal. Do not implement or launch either extension until
++review and Executive selection of its actual relation and evidence claim.

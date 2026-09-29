@@ -2736,3 +2736,167 @@ and T-287 projection, then resumes Executive.
 Root enters Writer to checkpoint/push only the closed state-model reviews,
 held draft evidence, current HOW and tracking. Live unbuilt source and the
 active definition proposal are excluded; then Root resumes Executive.
+
+
+### Owner foundation clarified and drift bounded
+
+The owner uses feature and obligation as perspectives on the same driver: a
+specification/requirement bound to a mutable workspace and measured against its
+required outcome. Potentially unbounded bounded Runs contribute observations,
+effects and evidence. The framework records history and operates through
+immutable successor traversal state over a graph; overlays/reference frames bind
+finite scoped interactions with an open-ended workspace. Runtime state is not
+an independent persistent application-state authority. Eventual Product telemetry
+is further lifecycle evidence, not a newly selected implementation feature here.
+
+This foundation already exists: selected STDO SPEC_METHOD's homeostatic loop,
+Product's T/P/B/S/W/L and frame relations, System/One Surface, CONT011/012's
+continuation/new-action distinction and CONT013's observation refresh. It is not
+new Product direction. Root's recent recovery selection drifted by centering
+reconstructed Run scopes/parents before establishing which continuation relation
+was actually needed. The earlier blanket statement that both constitutional and
+HOW revisions are necessarily required is narrowed: a proposed refinement must
+identify an actual missing semantic relation, not restate or weaken existing law.
+PROJECTION004 and CONT015 already demand truthful recovery; they do not require
+all ordinary future work to restore an earlier Run's stack.
+
+Bounded pre-change source inspection (b90249e0/core1722953b) confirms two separate
+realization questions. `abg/default_library.ts` requires empty initial observations/
+coverage and accepts retained assessment producer Results only in the current
+Run/invocation. Accepted S5 proves fresh evaluation of supplied files; these guards
+do not prove that new Runs cannot continue development. Reusing an earlier admitted
+Result requires an exact source/use validity join, not automatic parent restoration.
+Explicit interrupted-execution recovery still has the independently found missing
+pending-state/authority/parent correspondence. Accepted S6 proves its bounded
+ordinary execution path and is unchanged; no whole-codebase conformance is inferred.
+
+Update the same definition grant: freeze one proposal that first reuses existing
+law and separates ordinary fresh graph work over current observations and applicable
+evidence from explicitly selected execution resumption. Map necessary changes to
+those actual relations; remove universal replacement-stack machinery from the
+proposed foundation. No FeatureVector search or duplicate lifecycle aggregate is
+needed to honor the owner's terminology. Any constitutional edit must carry its
+specific insufficiency; none is presumed from an implementation defect alone.
+Root enters Writer only for this ruling/drift record and ticket projection, then
+resumes Executive. Seven unbuilt source drafts remain held, and no source build,
+provider or release effect is selected by this clarification.
+
+### Product-frame review miss and course correction
+
+The owner confirms this is correction of drift from the existing Product model.
+Root enters Writer for this record and the current T-287 projection only, then
+resumes Executive. No source, law, accepted evidence or historical review is
+changed by this activation.
+
+AGENTS.md already requires accepted design to be tested against the Product
+frame. The S7 reviews and Executive disposition instead centered the proposed
+recovery mechanism and accepted its missing joins as implementation conditions.
+They did not challenge whether ordinary progress over the mutable workspace
+required reconstruction of the failed Run at all. This is a missed application
+of the existing frame, not evidence that another review framework is needed.
+
+The closed model proposal must compare its behavior with existing Product
+T/P/B/S/W/L, reuse and completion law: valid earlier work remains evidence;
+current observations establish current workspace claims; new bounded graph work
+does not require restoring an old call stack; explicitly selected resumption
+still owes the exact recovery relation. The next bounded Product/Owner review
+must test that correspondence at the actual source-use and traversal owners,
+identify unnecessary proposed machinery, and challenge every claimed need for
+new law. It must not accept agreement among documents as implementation proof.
+
+Keep S6's accepted installed outcome and the seven unbuilt S7 drafts at their
+recorded scopes. Correct the stale live recovery-register selection; historical
+review findings remain intact with this later Executive disposition.
+
+### Contracted S7 Product-conformance review
+
+Root consumes the closed aligned return `d6338e631cc8780b4b47d9624aa71f8f4aa210a40155abd1d68e2de1e4fd3e24`.
+Its proposal is `e2c764519cdd2c5a582f5bb5c10825076271f898fb643c16b2ecea2d299d0289`;
+unapplied two-HOW patch is `09b9c6930e4acd813f3918d739d5f89d933ff61d98e17bf7142de028f2858d59`.
+Product and requirements are unchanged. Existing law is sufficient; the earlier
+unconditional constitutional-reprice selection is withdrawn. Select design_reframe
+for the two existing HOWs, subject to this review. Source drafts remain held.
+
+Select `T287_S7_PRODUCT_CONFORMANCE_REVIEW_01`, existing Astra/max Reviewer.
+Frame: Product/Owner with Entity, Continuation, Reuse and
+`repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration`,
+under selected STDO 2.5.1-rc.1. Subject: the three frozen proposal files, their
+exact owning preimages and immutable b90249e0 runtime owners. Reconstruct the
+Product frame first; test actual behavioral correspondence, including existing
+source-use admission, default-library initial/evidence guards and retained-result
+consumers. Determine whether the proposal restores ordinary workspace progress
+without importing a failed Run's execution hierarchy, preserves exact resumption
+obligations without making them universal, and reuses existing mechanisms rather
+than introducing another runtime or evidence authority. Challenge unnecessary
+HOW machinery as well as semantic gaps. Do not infer implementation or release
+readiness from the proposal or from S6.
+
+Reviewer may write only `s7-pending-consumer-01/state-model/product-conformance-review.md`.
+Return findings, smallest necessary correction, admissible implementation slice
+and explicit unproved obligations. No repairs, broad scans, builds, tests, native
+calls or Git effects; one bounded closed return to Root. Root enters Writer only
+for this grant and current ticket projection, then resumes Executive.
+
+Root enters Writer for GOALS.md's current-selection projection only: retain
+GOAL-035 and all release obligations, while replacing the conflation of ordinary
+workspace progress with exact failed-Run resumption by the two distinct relations
+under the current T-287 review. No Product or requirement change; then Executive.
+
+Owner adds saga-pattern inspiration for eventual distributed recovery: preserve
+immutable execution history; continuation, correction or compensation is further
+declared work, with its own admitted outcomes. Historical effects are not erased
+and a failed Run does not imply rollback of valid work. Root records this in
+Writer under this commentary territory, then returns to Executive. Distribution
+mechanisms and a saga aggregate/controller are not selected; current work remains
+the single-machine source/use correction under existing GTL/HoG/ABG ownership.
+
+### Product disposition and bounded retained-work repair
+
+Accept closed Product review `a172717de4c387afd268ad0e73b4eb7669c4b1e238c6733a747deea973cf97f4`:
+existing law suffices; ordinary source-use is the next realization slice.
+S7-PC01 requires deleting prescriptive future event/parent/transaction choices
+from the two-HOW proposal before application. Preserve the exact-resumption
+obligation and its conservation conditions without selecting its implementation.
+No further model cycle is needed for this local contraction.
+
+Select `T287_S7_RETAINED_WORK_IMPLEMENT_01`, existing Astra/xhigh Worker, under
+unchanged Product/requirements and the reviewed design_reframe. Same Product/Owner,
+Entity/Reuse and End-To-End Interface Integration frame and immutable runtime
+b90249e0/core1722953b apply. Implement one fresh invocation using an exact
+successful intermediate library state Result from an inactive failed/stopped
+Run, with current observation/applicability and downstream source-use joins.
+Use existing invocation sourceResultBasis, durable acquisition, replay external
+ownership and ordinary HoG entry/fold. F_P makes the current semantic selection.
+Original Result/call/actor identity, later relevant facts and obligations,
+dependency validity, independent judgment and applicable limits must survive.
+No copied terminal/coverage authority or automatic acceptance of an older snapshot.
+
+First apply the two corrected owning HOWs, retaining the frozen proposal/review.
+Then retire only the seven held draft changes after matching both live bytes and
+preserved copies against draft-hold-01/source.json: restore the five tracked paths
+to b90249e0 and remove the two exact new draft files. Stop on foreign changes;
+never reset another path or delete the preserved evidence. This removes the
+unfinished recovery construction before implementing the narrower source-use fix.
+
+Write territory: the two existing HOWs; that exact seven-file retirement; existing
+invocation-source, default-library and required native/C2/assessment source-use
+owners/types under the TypeScript tenant code/src; their directly affected
+test_env fixtures; ordinary emitted output; and s7-pending-consumer-01/source-use-01
+for readiness and frozen return. No Product/requirements, tracking, Git, new
+Public operation/event family, parent-restoration subsystem or distribution work.
+Unexpected semantic/authority insufficiency returns to Root before expansion.
+
+Run one appropriate build and finite actual-owner checks of successful retained
+state, malformed/foreign source, relevant later work, changed/unknown dependency,
+new assessment input, independent judgment and cold replay correspondence. Reuse
+existing applicable checks; do not add a parallel test roster or repeatedly run
+the full lifecycle. Record meaningful processing volume/time, separating setup;
+no profiling detour or provider execution is granted. Freeze exact changed bytes,
+removals, remaining limits and one installed discriminator ready for later
+selection. Return once and stop for review; no installed or release claim follows
+from local readiness. Root enters Writer only for this disposition and ticket
+projection, then resumes Executive.
+
+Root enters Writer for one checkpoint of the closed state-model proposal/review,
+this execution record, T-287 and GOALS only; commit and push those exact paths.
+Active source/HOW implementation and unrelated files are excluded. Then Executive.
