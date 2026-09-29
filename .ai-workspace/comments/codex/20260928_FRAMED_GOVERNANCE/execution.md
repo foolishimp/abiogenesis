@@ -3587,3 +3587,7 @@ The fixture required five component-test invocations, four failing on fixture pr
 Codex Executive applies recurrence-aware sequencing now. ABG receives this concrete shared-transition repair. The existing future Executive-graph case records expected decisions; no new automatic Executive subsystem or qualification gate is selected.
 
 Root enters Writer to reconcile the current T-287 fields and incident case, then preserve the exact repaired source/HOW, focused fixture/test, already produced generated members, frozen evidence01–04, this record and ticket on checkpoint/t287-selected-action-incomplete-20260929. Use an isolated index and fast-forward that checkpoint only. Preserve main, the ordinary index and unrelated work. This is a bounded repaired source checkpoint, not installed selected-action acceptance or a release. Then resume Executive.
+
+### Clean-session handoff
+
+Owner requests a compact durable handoff with2percent allowance remaining. Root enters Writer solely for comments/codex/20260929_HANDOFF_ABG_5_RC1.md, the T-287 current_handoff pointer, this control record and their checkpoint commit/push. No code, tests, package/install or provider execution. Preserve the ordinary index, main and all other work. The handoff selects no additional Product scope; next session resumes the existing selected-action delivery grant. Then return to Executive and stop for handoff.

@@ -18,6 +18,7 @@
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
 - current_activation: T287_S7_CAUSATION_RECURRENCE_01
+- current_handoff: .ai-workspace/comments/codex/20260929_HANDOFF_ABG_5_RC1.md
 - current_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/freeze.json
 - current_candidate_archive_sha256: fba5643f0fa5272ca6abed7bf5a92810eb2b535e51a774d368a10cc4b8f30e5e
 - current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#exact-intent-bounded-acceptance-and-selected-action-how-disposition
