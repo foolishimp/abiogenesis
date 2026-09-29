@@ -2900,3 +2900,72 @@ projection, then resumes Executive.
 Root enters Writer for one checkpoint of the closed state-model proposal/review,
 this execution record, T-287 and GOALS only; commit and push those exact paths.
 Active source/HOW implementation and unrelated files are excluded. Then Executive.
+
+### Owner clarification: cumulative reality
+
+Root enters Writer for this owner clarification only, then resumes Executive.
+All work contributes to cumulative reality. Replay reconstructs admitted runtime
+facts and their projections; it cannot restore the mutable workspace or undo
+intervening effects. An earlier library state Result is retained evidence, not
+an authoritative snapshot of current reality. Fresh work observes current W and
+accounts for relevant later actions, obligations and uncertainty. Restoring old
+file bytes or compensating an effect is itself new work with new history. Apply
+this distinction within the existing retained-work grant; no new law, lifecycle,
+distributed machinery or separate review is selected.
+
+### Retained-work freeze, review and installed preparation
+
+Root consumes closed implementation return `89013f011fa16fa5a3ebf84e9882c9822eab79f3c79d7f445a4e6a50ff581805`,
+freeze `04d247226253c07a8fe2d208613f385838639131fbeefefb14ac4869f2330fef`
+and source/generated manifest `431e37c2e97a1f477d8dac79b597a6fa1e42dd6967d4a89a7ed8eb9a29ac437d`.
+Build-03 and finite checks pass; controlled premises and the skipped installed
+case remain explicit. This is readiness, not installed or release acceptance.
+The owner confirms continuation through 5.0; no further broad refactoring is selected.
+
+Select `T287_S7_RETAINED_WORK_REVIEW_01` for the existing Astra/max Reviewer:
+Product/Owner, Reuse and End-To-End Interface Integration under the same RC1
+basis. Inspect this exact source/HOW/generated/test subject and its original
+preimages for the actual fresh-work relation, source admission, currentness,
+independence, later work, input/parent guards and cold projection. Use the closed
+finite proof at its stated limits. Check that history work is at the owning cold
+or admission boundary, not repeatedly introduced into warm handoffs. No broad
+audit, speculative hardening or repeated full suite. Write only
+source-use-01/review.md; no source repair, provider/install or Git effects. Return
+one closed disposition and any smallest concrete blocking correction.
+
+In parallel select `T287_S7_RETAINED_WORK_INSTALLED_PREPARE_01`, existing
+Astra/xhigh Worker, to prepare one installed discriminator from the frozen bytes.
+Use existing package/install and S5/S6 scenario machinery. Work only in
+s7-pending-consumer-01/source-use-installed-01 and a specifically recorded private
+candidate/sandbox root. The canonical frozen subject is read-only; no rebuild,
+source/HOW/contract edit, previous-workspace mutation, Git or provider/native Run.
+Prepare same-candidate successful producer -> actual missing assessment-only
+input -> failed Run -> supply that input -> fresh authorized invocation using
+the exact admitted source. Preserve original sources/oracle, producer/actor refs,
+current observations, obligations and independent assessment. New F_P selection
+and ordinary HoG parents must supply the actual result; no restored old stack.
+Record exact installed/archive/caller/fixture identities, finite effect territory,
+first-failure stop, actual model/budget configuration and expected Public readback.
+No automatic retry, full lifecycle rerun or solution-specific runtime branch.
+Return ready preparation and launch commands; launch remains dependent on source
+review and Executive selection. Exact resumption receives no acceptance credit.
+
+Root enters Writer only for these grants and current T-287 projection, then
+resumes Executive. Saga/Git/transaction robustness remains future work; existing
+bounded rollback behavior and all release obligations are unchanged.
+
+### Retained-work source acceptance
+
+Root accepts review `4d13e058fa3e376245a5f2865538a8745b9f1ba6a20d787c63a6130b3c333627`
+and the exact source readiness it identifies. No blocking finding; S7-PC01 and
+draft retirement are closed. Reuse the recorded build/check evidence; do not
+repeat it. This acceptance covers source/mechanical correspondence only.
+Installed fresh invocation and exact execution resumption remain distinct and
+unproved. The already selected installed preparation continues; no further
+refactoring or robustness scope is selected.
+
+Root enters Writer to checkpoint/push the nine frozen source/HOW/test members,
+tracked generated members, exact closed proof members/controls/review and current
+execution/T-287 records. Ordinary ignored build trees, active installed preparation
+and unrelated work are excluded. Then resume Executive and consume the prepared
+installed subject before authorizing its first native attempt.

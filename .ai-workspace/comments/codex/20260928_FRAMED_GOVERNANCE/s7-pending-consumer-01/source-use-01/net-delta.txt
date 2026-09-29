@@ -1,0 +1,12 @@
+10	1	build_tenants/abiogenesis/typescript/build/code/src/product/builtin_semantics.js
+21	9	build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts
+70	1	build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts
+17	0	build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts
+9	6	build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts
+10	1	build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts
+7	0	build_tenants/abiogenesis/typescript/code/src/product/default_library.ts
+1	1	build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json
+131	0	build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md
+169	189	build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
+1	1	build_tenants/abiogenesis/typescript/product-toolchain-manifest.json
+9	5	build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs

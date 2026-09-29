@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "providerCalls": 0,
+  "installed": false,
+  "controlledNewInvocationExternalOwnerFact": true,
+  "actualSource": {
+    "runId": "run://abiogenesis/84764df20910bad2b2a486114044650e27dad19fdc1a4fb6986a06637fd970c6",
+    "stateResultRef": "result://abiogenesis/9d536fe7f58f7fbc34fa24f57196b7e4ac83e1df2586c886e44b7a9667c8b34b",
+    "stateCCallRef": "c-call:sha256:28e1473bd0a87d38774d44605072d0a2264d07e46424775aa52352f13eb3e3fc",
+    "producerResultRef": "result://abiogenesis/90c54252e300fabf76d5e2da77bfe35a13d1306d40910227af75b7893904d1f2",
+    "producerCCallRef": "c-call:sha256:a9bfd2c3fbf0e77f4d4ee29bdc06333bf96751c484493c0b1e9f7c79bd67ebee",
+    "producerActorRef": "actor-invocation://abiogenesis/f678e234875c611cba472bfb773dc2e29b4f5741e7eaa225712bdf6ed15a8101",
+    "sourceReplayRef": "replay://abiogenesis/8973c235c9809dcdedb2cfbf88aa0aac2ce4b0a81a63301e173aabc59c3a532f",
+    "sourceReplayDigest": "sha256:8973c235c9809dcdedb2cfbf88aa0aac2ce4b0a81a63301e173aabc59c3a532f"
+  },
+  "laterWork": {
+    "olderResultRef": "result://abiogenesis/e9beef896a5a3cb6d5c0aaaebe1f0d5d66c546fa69252db8bc03e954cbfc60ae",
+    "latestResultRef": "result://abiogenesis/d9f537e4708a5873f408883b296874e3465dd51f3f10928227c713d650f82787"
+  },
+  "timings": {
+    "failedBaseline": {
+      "readMs": 235.08304099999998,
+      "eventCount": 1815,
+      "historyBytes": 11264229,
+      "sourceMs": 299.57649999999995,
+      "coldMs": 488.5833329999999
+    },
+    "laterWork": {
+      "readMs": 1557.2240419999998,
+      "eventCount": 21866,
+      "historyBytes": 81386224
+    }
+  },
+  "limits": "Actual immutable failed histories and cold source owner; Product input correspondence and internal use identity. Actual cold replay external-owner projection uses a controlled new-invocation admission premise. No new invocation/actor, effect or installed-success claim."
+}

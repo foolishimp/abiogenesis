@@ -1,0 +1,9 @@
+{
+  "command": [
+    "npm",
+    "run",
+    "build"
+  ],
+  "seconds": 18.815733417402953,
+  "exitCode": 0
+}

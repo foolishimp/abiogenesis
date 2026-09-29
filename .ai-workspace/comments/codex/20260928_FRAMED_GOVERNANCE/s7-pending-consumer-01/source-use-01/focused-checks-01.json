@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "test_env/tests/t287-default-library.test.mjs",
+    "test_env/tests/t287-default-library-fulfillment.test.mjs"
+  ],
+  "seconds": 1.4692107499577105,
+  "exitCode": 0
+}

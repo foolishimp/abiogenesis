@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "immutableInputs": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/state-model/definition-proposal.md",
+      "sha256": "e2c764519cdd2c5a582f5bb5c10825076271f898fb643c16b2ecea2d299d0289",
+      "bytes": 10033
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/state-model/owning-changes.patch",
+      "sha256": "09b9c6930e4acd813f3918d739d5f89d933ff61d98e17bf7142de028f2858d59",
+      "bytes": 43766
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/state-model/return.md",
+      "sha256": "d6338e631cc8780b4b47d9624aa71f8f4aa210a40155abd1d68e2de1e4fd3e24",
+      "bytes": 8273
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/state-model/product-conformance-review.md",
+      "sha256": "a172717de4c387afd268ad0e73b4eb7669c4b1e238c6733a747deea973cf97f4",
+      "bytes": 10623
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/implementation/draft-hold-01/source.json",
+      "sha256": "cea76043bc747b89d5f62ee205648838d040526ab36c7ec42d2092c8ba5570e0",
+      "bytes": 2684
+    }
+  ]
+}

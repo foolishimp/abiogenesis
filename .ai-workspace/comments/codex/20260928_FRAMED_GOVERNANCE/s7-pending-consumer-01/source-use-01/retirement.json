@@ -1,0 +1,56 @@
+{
+  "review": "a172717de4c387afd268ad0e73b4eb7669c4b1e238c6733a747deea973cf97f4",
+  "base": "b90249e0d18a4c7040711167eabbc676f24b0b59",
+  "records": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "before": "92ea54e41eab60c9b51930b7f34c0e7d593a26b71e88ffe25658a0cb91465c74",
+      "after": "54961c85863537c019d2553b33346c39555d3952eed326d3a538019f88455c9f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "before": "175f9b071cc2df3b1f5994f5dbbeb13680ff00f8a2bbe510292aa80f5fff1390",
+      "after": "a424c728ee0e780a488380bdad9aa23d7fe2acfdedd4e7b403b825e61ae6abed"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/consumer_preparation.ts",
+      "before": "9f6ac7680ade6f91c3f0c2b17a0bebaa7258da5335c4ebf59f95db9a74672e2b",
+      "action": "removed new held draft"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "before": "dcf130d13d505cb8e4c4e6bd3daacfdd99e85973ba5c36a934a6c44811e07197",
+      "action": "restored read-only immutable blob",
+      "after": "3170884eacec34f80ed2e940e95ae20801eeba6f36cfc7966782db5121941d35"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+      "before": "560b48528c017a24f909bb9148c3722a8a02e2890e8e55039a7400057d68dbb7",
+      "action": "restored read-only immutable blob",
+      "after": "f74055b27496707775f6a0e7f15e2331ae385364ba43ce703fc15cd2ff8a65e0"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/pending_consumer_projection.ts",
+      "before": "21761a8a3b997095fe981a7d201378e80d7ba116c0d0d3b5cb405f2cea780159",
+      "action": "removed new held draft"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "before": "7e49a086b929df1824f7058daf902c6b6689e765292522856e95bd6c07cf668c",
+      "action": "restored read-only immutable blob",
+      "after": "bda88474783e415f8a5e0d08518f14af08a9bd660e582aa2813120a5c543981d"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "before": "1c4c78b1c495de7629c8837fd1b9cf76c12d612ef5116e70b20986bcdd729920",
+      "action": "restored read-only immutable blob",
+      "after": "8073f5340046a5709cef86c27f2bb51f8e006fb473db4969c5fe7707c4772e99"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "before": "56165b3a91b8c610d0ff7103dbd2cf8a52fafa3e6ef5e7027b272531ff5db3dd",
+      "action": "restored read-only immutable blob",
+      "after": "4f47f3084d8079d0dd04989e4aa35c7beeb56ed59cd92d05046b555b8d440cba"
+    }
+  ]
+}

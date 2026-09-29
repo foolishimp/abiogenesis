@@ -1,0 +1,25 @@
+{
+  "immutableReadOnlyInputs": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-fulfillment-implementation/live-01/handoff.json",
+      "sha256": "95280248633c3274b97ac666c606bdb6c6b238bf28a7405c5016c6431a441887",
+      "bytes": 1232
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-fulfillment-implementation/live-01/events.jsonl",
+      "sha256": "d96209e575ffc538050e3b2d84c82a432bfe3eda9b506fa62a1a6297dc309070",
+      "bytes": 11264229
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/handoff.json",
+      "sha256": "ba0f8c408bf3f771f55251226d14ee7f23eceb4b345f5113a7374eeefe4c7872",
+      "bytes": 1232
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-context-projection-01/live-02/events.jsonl",
+      "sha256": "821a9935dc7051dff36a97a967ad16d9e770aeb33f299178cbd4dac14a92f284",
+      "bytes": 81386224
+    }
+  ],
+  "meaning": "Historical Run facts only; never current workspace state or new invocation credit."
+}

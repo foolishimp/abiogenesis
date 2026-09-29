@@ -1,0 +1,10 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-01/check-source.mjs",
+    "final"
+  ],
+  "seconds": 5.880150415934622,
+  "exitCode": 0
+}

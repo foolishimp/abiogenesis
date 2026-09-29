@@ -1,0 +1,23 @@
+{
+  "task": "T287_S7_RETAINED_WORK_IMPLEMENT_01",
+  "status": "closed mechanical readiness; stopped for Executive review",
+  "members": [
+    {
+      "path": "return.md",
+      "sha256": "89013f011fa16fa5a3ebf84e9882c9822eab79f3c79d7f445a4e6a50ff581805",
+      "bytes": 7644
+    },
+    {
+      "path": "source-generated.json",
+      "sha256": "431e37c2e97a1f477d8dac79b597a6fa1e42dd6967d4a89a7ed8eb9a29ac437d",
+      "bytes": 5519
+    },
+    {
+      "path": "proof-manifest.json",
+      "sha256": "09c5a22a44b6a104e2027d420eb781c60cee26b4c32a4f08ad4c20d73f7e83e3",
+      "bytes": 15521
+    }
+  ],
+  "providerCalls": 0,
+  "packOrInstall": false
+}
