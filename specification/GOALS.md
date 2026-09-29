@@ -56,8 +56,12 @@ ordinary parent/Run closure agrees with fresh Public reads. This is a bounded
 witness, not a general model-reliability claim. The [retained-work installed proof](../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#retained-work-installed-acceptance)
 is independently accepted: current F_P selection consumes the original admitted
 producer through a fresh invocation, independent assessment and new parent/Run
-closure. This is ordinary workspace progress. The separately selected exact
-ConstructionIntent continuation and exact-candidate release qualification remain.
+closure. This is ordinary workspace progress. The separately selected
+[exact ConstructionIntent continuation](../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#exact-intent-bounded-acceptance-and-selected-action-how-disposition)
+is independently accepted for the scalar same-authority pure-producer and
+undispatched-consumer case, including parent/Run closure and cold reads. This is
+installed deterministic fixture proof. The selected-action operation, remaining
+scenario coverage and exact-candidate release qualification remain.
 Security containment remains outside the owner's selected scope; observed
 violations remain recorded without making contrary assessment claims true.
 [T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#default-library-asset-handoff)
@@ -77,8 +81,9 @@ cannot serve as current implementation authority or release acceptance.
 Preserve the accepted installed Hello thread, including correction, independent
 assessment and fresh Public readback. Preserve accepted retained-work source/use;
 ordinary continued work does not require rebuilding a failed Run's parent stack.
-Complete and qualify the selected exact ConstructionIntent continuation, then
-qualify the final candidate before RC1 through existing
+Preserve the bounded accepted exact ConstructionIntent continuation. Complete
+the existing selected-action operation and applicable remaining scenario joins,
+then qualify the final candidate before RC1 through existing
 F11, sole AF22 and release owners. Each failed iteration receives a bounded
 causal disposition before further execution; unaffected evidence is reused.
 Publication, installed-RC qualification and actual owner acceptance remain distinct.

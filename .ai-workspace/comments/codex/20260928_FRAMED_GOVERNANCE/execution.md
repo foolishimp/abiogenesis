@@ -3318,3 +3318,99 @@ and a retrieval receipt. No new evidence system or deletion of local originals.
 After archive preparation, checkpoint/push only these frozen source/HOW/test/
 generated and selected evidence/control files; preserve unrelated dirty work.
 Root enters Writer for these records and checkpoint work, then resumes Executive.
+
+### Selected-action continuation implementation
+
+Checkpoint `1aec3999` is pushed to origin/main. Its ordinary zstd archive retains
+all587 selected proof/control/source members (936,133,403 expanded bytes) in
+66,911,848 bytes split into two Git-sized parts. Exact member and tar equality
+checks passed; original local proof remains. This is lossless retention, not a
+runtime performance repair or new qualification. Current-intent independent
+review continues on the frozen subject and does not read moving source.
+
+Select `T287_S7_SELECTED_ACTION_IMPLEMENT_01`, existing Astra/xhigh Worker,
+Product/Public Contract, Owner/Reuse and End-To-End Interface Integration frames.
+Closed intake is continue-family-intake.md. Complete the existing published
+`run.continue/selected_action` through existing One Surface, Continuation,
+AF-14, child and parent owners. First settle its genuine pending-selection
+occurrence and single-consumption relation in the existing owning HOW using
+actual owner facts. A read row, completed action, fabricated selection or fresh
+start is not that occurrence. Preserve an already admitted still-pending intent;
+do not mint a duplicate or implement a second semantic selector. If a material
+Product/authority decision is actually missing, return that exact gap before
+coding it as a convenience.
+
+Use the checkpoint as source/preimage base. Existing continuation, route,
+execution-basis/cursor, Public run bindings and necessary HoG parent/child,
+projection/admission/closure owners are the write territory, with existing HOWs,
+directly necessary generation and focused fixture/support. Reuse the current
+continuation relations; no new controller, pending store, event importer, action
+language or default mandatory pipeline. Preserve current_intent and ordinary
+execution. Respect the published same-basis and covering-reprice request arms
+through their existing authority owners; explicitly report any unsupported
+declared join, rather than treating one positive as both arms' qualification.
+
+One installed model-free discriminator must reach a real post-disposition
+evaluateNext selection of a distinct declared action, preserve the actual pending
+boundary, invoke this exact Public member, consume the occurrence once, execute
+only the selected child/input and close required action evaluation/parents with
+agreeing cold reads. Include duplicate and crossed basis/selection refusals.
+Reuse the existing complete transport envelope and verify it mechanically before
+launch; source/fixture-only corrections reuse unchanged package/install where
+lawful. Check the complete owner chain before rebuilding. Existing S03 donors
+are in s7-release-scenario-inputs.md; record actual four-authority/refresh/correction
+coverage, but do not add a separate S03 campaign under this grant.
+
+One coherent build and its actual ordinary disposable package/install are
+selected, repeated only for an actual source change/failure. No provider, broad
+qualification, publication or Git effects. Preserve failed attempts and report
+setup versus traversal cost. Minimize duplicate proof retention by sharing exact
+unchanged fixture acquisition data where existing tools already support it;
+do not alter the Public contract or build an evidence framework for this task.
+Freeze exact source/generated/evidence, concise closed return in
+s7-pending-consumer-01/selected-action-01, and stop. Root will reconcile any
+current-intent review finding before final acceptance. Root enters Writer for
+this grant/T-287 projection, then resumes Executive.
+
+### Exact-intent bounded acceptance and selected-action HOW disposition
+
+Root accepts review `404c8383bc2ef152af0fd85ecaf54d89ded5ae138f6912c4ccb6c60e51f0ded0`
+on frozen core `fba5643f0fa5272ca6abed7bf5a92810eb2b535e51a774d368a10cc4b8f30e5e`:
+the scalar same-authority pure-producer/undispatched-consumer path, separate
+operation grant, actual child/parent evaluation/refresh, five refusals and cold
+reads are independently accepted. General recovery, live-model behavior, the
+complete S03 loop, selected_action and release remain unqualified.
+
+Consume selected-action owner intake
+`ea827214eee2a6f96f06a169c3f7666905ad59b16c0d410bdfe81d684c94d78f`.
+Product remains sufficient. Select the following HOW disposition within the
+existing implementation grant; no narrower Public profile or new Product law:
+
+- The same-basis discriminator uses an actual interruption of its own fixture
+  host at the durably committed selection/current-cursor boundary, before any
+  workflow CCall. Prefer existing fault/boundary hooks; injection stays in test
+  code. Preserve the entire actual persisted prefix, end that host and cold-
+  acquire with its successor. No truncation, fabricated failure, pause API or
+  caller scheduler. Pending truth comes from admitted selection/cursor and
+  non-consumption, not elapsed time or an inference from process death.
+- A covering reprice is necessary for crossed authority, not a transfer of old
+  semantic judgment or work permission. The selected-action owner must relate
+  the exact covered pair to actual current applicable selection and current
+  work/operation authority. Materially stale or unknown support needs the existing
+  GTL semantic owners to establish a fresh selection, or truthful refusal; an old
+  intent may not simply be relabelled. Defining that subordinate admission/HOW
+  relation is authorized work within existing owners. Do not force the current-
+  intent clone-old-basis construction into this path or always refuse the arm.
+  Before encoding this arm, state the concrete data flow through the current
+  request fields and admitted facts. A truly missing Product/carrier decision
+  returns to Root; absence of a helper alone does not require another approval.
+
+Same-basis construction may continue independently while that covered relation
+is settled. Existing graph-span reentry supplies post-disposition selection;
+do not extend the eight-term construction or build a second pipeline. No new
+provider/qualification campaign is selected. Root enters Writer for this
+disposition, T-287 and GOALS acceptance projections, then resumes Executive.
+
+Root enters Writer to checkpoint/push only this acceptance/grant projection,
+T-287/GOALS, the closed exact-intent review and selected-action owner intake/read
+identities. Ongoing selected-action source/HOW changes are excluded; then Executive.

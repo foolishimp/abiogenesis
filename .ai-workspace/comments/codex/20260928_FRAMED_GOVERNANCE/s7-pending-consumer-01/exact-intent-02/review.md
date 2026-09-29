@@ -1,0 +1,47 @@
+# T287_S7_EXACT_INTENT_REVIEW_02 — closed independent review
+
+Reviewer: **GPT-6 Astra / max**. Product/Owner, Continuation, End-To-End Interface Integration and Reuse/Code Construction frames; selected immutable STDO **2.5.1-rc.1**, manifest `5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64`. Authority and prior accepted S1–S6/retained-work judgments are reused under [the exact grant](../../execution.md#exact-intent-readiness-and-independent-review).
+
+**Product Frame.** A failed Run remains a bounded failed attempt. An explicitly selected `current_intent` continuation must conserve the admitted ConstructionIntent, successful producer, actual pending position/input, unresolved work and required parent evaluation. The new operation needs its own permission; it cannot select another action, reset unsupported allowances or treat historic observations as current reality. ABG owns admission/events/continuation; HoG owns traversal. [Product recovery/reuse law](../../../../../../specification/PRODUCT.md#execution-and-context-calculus) and [CONTINUATION-003/-004/-011/-013–016](../../../../../../specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md) control this review.
+
+**Disposition: accept the bounded implementation and installed discriminator; no blocking finding.** This closes the selected scalar, same-authority, pure-producer/undispatched-consumer relation. It does not close general recovery, S03, `selected_action` or release qualification.
+
+## Exact subject and inspection
+
+- Return: `ff17fb3f62065e8dcb667c4ae6d90b4caca46b4d673bc24cedd4f6591b2faf0f`.
+- Freeze: `7868194a12c73375df6fc952576c50ec18ad33b7f317ab30414185a6808db891`.
+- Source/generated manifest: `681faa152c3cb131f8ef4d0238d9dfed8273f0619ab7c49afca53cc23dcd037a`.
+- Core: `fba5643f0fa5272ca6abed7bf5a92810eb2b535e51a774d368a10cc4b8f30e5e`; consumer: `1228b7548c2a525b38d60e7eaf31b7382ad8fffe524d2d8294b9eae4bffd55d8`.
+- Proof manifest: `7efc323709e5bae15d1b1e0dca70be05a9f66e07d4d724fc0b9fe54d267bc385`.
+
+These identities were checked directly. All **68** manifest-bound source/HOW/fixture/generated members matched before and after inspection. Both preimage sets matched: **24** original members from base `e9034d85b17e37d3d844aca8702528221c10f507` and **28** successor preimages. I reviewed the full original implementation plus successor changes, including the new continuation owner, rather than treating the successor's +137/−27 lines as the complete change. Retained controlling events, receipts, actor artifacts and readbacks were checked against the proof manifest. Existing build and 5,256-member installed/package correspondence are consumed from [archive-installed.json](archive-installed.json) and [identity-checks.json](identity-checks.json); no build, test, installation or actor was run for this review.
+
+## Owner correspondence
+
+| Relation | Reviewed result |
+| --- | --- |
+| Failure → pending work | [construction_continuation.ts](../../../../../../build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts), lines 43–184, requires the actual typed undispatched F_P preparation observation, failed Result, blocked judgment, child/parent and original intent. The existing leaf receipt's `not_dispatched` meaning is preserved; a diagnostic or arbitrary F_D failure does not authorize this entry. |
+| Source applicability → current operation | The same owner, lines 202–322, consumes existing cursor/input, call, scope, declaration and invocation owners. It restricts this entry to the supported effects-free child, pure deterministic producer and initial scalar coordinates. ProgramValidation equality also conserves the Product declaration closure's catalogue/view identity; a second catalogue-authentication mechanism is unnecessary. [run_invocation.ts](../../../../../../build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts), lines 1762–1845, checks the five references, actual input contract/value, original attribution and separately constructed continue grant. |
+| Consumption → new scopes | [execution_basis.ts](../../../../../../build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts), lines 2655–2691, admits operation and basis claim together. [entry.ts](../../../../../../build_tenants/abiogenesis/typescript/code/src/hog/entry.ts), lines 455–524, reuses normal root/child scope, fixed workflow, cursor and parent-return owners. [traversal_cursor.ts](../../../../../../build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts), lines 377–452 and 648–686, conserves source position/input and coordinates while assigning current Run identities. Child entry input and resumed producer input remain distinct. |
+| Child → parent output | The shared [c_call.ts](../../../../../../build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts) relation at lines 5443–5469 permits the derived parent output only through the admitted composition/intent, fixed child closure and immediate declared action evaluator. Ordinary workflows retain output equality. Workflow output uses the existing contract-by-reference owner; the leaf output checks remain. Child foldback/output and derived parent Result/output are checked separately, not relabelled. |
+| Evaluation → continuation resolution → closure | [traversal_route.ts](../../../../../../build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts), lines 1953–2049, 2644–2681 and 2736–2865, joins the original intent to current child/evaluator facts and requires post-evidence refresh. The current delta terminates `continuation_open`; no new resolved-state store is introduced. [replay.ts](../../../../../../build_tenants/abiogenesis/typescript/code/src/abg/replay.ts), lines 1659–1671, conserves only the authenticated original-intent reference as an external owner fact. Current event atoms and envelope causation remain scoped. |
+
+The new carrier is a projection/use of existing event-owned facts, not an alternative controller, selected-work planner or saved stack. F_H-specific consumers now discriminate their variant. Cold preparation and continuation admission reconstruct the selected relation; this review makes no general incremental-runtime performance claim.
+
+## Installed outcome
+
+[final-events.json](final-events.json), [prepared-relation.json](attempt-07/prepared-relation.json) and [closed-correspondence.json](attempt-07/closed-correspondence.json) establish:
+
+- Original ordinals **1–121** remain unchanged. Producer Result **86**, `result://abiogenesis/f2f994879eda7a0b522b33ad5544cd1f88383802b86a4b974938f5af3435c600`, is the exact reference/digest used at pending cursor **138** and actor **146**. There is one producer execution and no actor before the original failed stop **120**.
+- Original intent **66** remains the sole intent. Operation **122** has a new continue grant and retains the original invocation/work authority. New scopes, supersession **139**, link **140** and continuation **141** preserve historical identity without reopening the failed Run.
+- The one actual subprocess's retained prompt, stdout and output agree with admitted child Result **167**. Actual child close **176**, fold **177**, evidence **178** and parent Result **180** preserve distinct child `consumed` and parent `evaluation-basis` contracts/digests. Evaluation **197**, delta **205**, declared refresh and terminal Run **263** complete the new obligation and parent.
+- All four pre-continuation negative requests leave the **121-event** history unchanged and dispatch nothing. The consumed request refuses and leaves the completed persisted log byte-identical. [result.json](attempt-07/result.json) records the exact five refusal dispositions.
+- Independent CLI processes for [run_result](attempt-07/run_result.json) and [run_replay](attempt-07/run_replay.json) return the same terminal Result `7140f815…` and replay `2a3365af…` for the new closed Run. Persisted body-reference records retain the same event identities/ordinals as the expanded event projection; they are not additional or copied execution events.
+
+## Limits retained
+
+This is an actual installed **model-free** F_P transport/admission proof: the fixture subprocess echoes the declared typed answer. It is not a live model judgment or a complete automatic correction loop. Producer support is immutable and pure; the pending preparation freshly reads the supplied ready file. Broader mutable/unknown support, other failure phases, repeated recovery, composite allowances, native-human continuation and changed-authority reprice remain outside this result. The ordinary-output negative is a controlled structural probe, not an installed ordinary-workflow case.
+
+The six builds/seven successor fixture attempts and their causal corrections remain disclosed in [causal-corrections.json](causal-corrections.json); the rolled-back attempt-06 terminal predicate is not falsely presented as recovered evidence. Measured continuation **2.102 s** includes the **0.420 s** fixture actor; build **20.406 s** and setup **21.997 s** are separate. The 448-member/~894 MB retained proof, including approximately 653 MB of acquisition requests, remains existing acquisition/evidence-cost debt rather than a claim about a 263-event runtime bottleneck. No security-containment or additional release credit is inferred.
+
+Closed return to Executive. No further action is selected by this review.
