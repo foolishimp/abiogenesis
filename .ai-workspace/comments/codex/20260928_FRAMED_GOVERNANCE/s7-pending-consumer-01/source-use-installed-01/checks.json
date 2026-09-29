@@ -1,0 +1,62 @@
+{
+  "syntax": [
+    {
+      "file": "prepare.mjs",
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/prepare.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 0.020933874882757664,
+      "output": ""
+    },
+    {
+      "file": "prepare-launch.mjs",
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/prepare-launch.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 0.020220916718244553,
+      "output": ""
+    },
+    {
+      "file": "launch.mjs",
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/launch.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 0.02038049977272749,
+      "output": ""
+    },
+    {
+      "file": "readback.mjs",
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/readback.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 0.019911167211830616,
+      "output": ""
+    },
+    {
+      "file": "prepare-retained.mjs",
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/prepare-retained.mjs"
+      ],
+      "exitCode": 0,
+      "seconds": 0.019930209033191204,
+      "output": ""
+    }
+  ],
+  "frozenSourceGeneratedUnchanged": true,
+  "acceptedReviewSha256": "4d13e058fa3e376245a5f2865538a8745b9f1ba6a20d787c63a6130b3c333627",
+  "providerCalls": 0
+}

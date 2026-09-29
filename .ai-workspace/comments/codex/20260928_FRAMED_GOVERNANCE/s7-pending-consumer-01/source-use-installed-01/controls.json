@@ -1,0 +1,118 @@
+{
+  "actor": {
+    "timeout": {
+      "environmentKey": "ABG_TS_FP_TIMEOUT_MS",
+      "inherited": null,
+      "default": 60000,
+      "effective": 60000
+    },
+    "absolute": {
+      "environmentKey": "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
+      "inherited": null,
+      "default": 3600000,
+      "effective": 3600000
+    },
+    "grace": {
+      "environmentKey": "ABG_TS_FP_TERMINATION_GRACE_MS",
+      "inherited": null,
+      "default": 1000,
+      "effective": 1000
+    },
+    "watchdog": {
+      "kind": "runtime_watchdog_policy",
+      "schemaVersion": "5.0.0",
+      "startupMs": 60000,
+      "inactivityMs": 60000,
+      "hardCapMs": 3600000,
+      "terminationGraceMs": 1000,
+      "policyDigest": "sha256:b73722489c99bbb3a2a0a93cd7229d645becea630a93e0f1e1035721b64a862f",
+      "policyRef": "runtime-watchdog-policy://abiogenesis/b73722489c99bbb3a2a0a93cd7229d645becea630a93e0f1e1035721b64a862f"
+    },
+    "activitySources": [
+      "stdout",
+      "stderr",
+      "structured_output",
+      "tool_progress",
+      "api_progress",
+      "process_lifecycle",
+      "archive",
+      "result_artifact"
+    ]
+  },
+  "transport": {
+    "contract": {
+      "kind": "worker_transport_contract",
+      "schemaVersion": "5.0.0",
+      "agentKey": "claude",
+      "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "prefixArgs": [],
+      "argsTemplate": [
+        "-p",
+        "--disable-slash-commands",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--include-partial-messages",
+        "--verbose",
+        "--permission-mode",
+        "bypassPermissions"
+      ],
+      "parser": "claude_stream_json",
+      "promptTransport": "stdin",
+      "sanitizedEnvironmentPrefixes": [
+        "CLAUDE_CODE_ENABLE_EXPERIMENTAL_ADVISOR_TOOL",
+        "CLAUDE_CODE_SSE_",
+        "CLAUDE_CODE_ENTRYPOINT",
+        "CLAUDE_CODE_EXECPATH"
+      ]
+    },
+    "appendArgs": [
+      "--model",
+      "claude-opus-5-5",
+      "--effort",
+      "xhigh"
+    ],
+    "sandbox": "agent_default",
+    "sandboxEnvironment": null
+  },
+  "cli": {
+    "outerTimeoutMs": null,
+    "maxBufferBytes": 10485760
+  },
+  "case": {
+    "recursionBound": 4,
+    "maxContextFiles": 128,
+    "maxContextBytes": 131072,
+    "maxPromptBytes": 131072,
+    "commands": [
+      {
+        "commandId": "command://default-library-witness/0@5",
+        "executable": "node",
+        "args": [
+          "generated/hello-world.mjs"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 20000,
+        "terminationGraceMs": 2000,
+        "expectedReports": []
+      },
+      {
+        "commandId": "command://default-library-witness/1@5",
+        "executable": "node",
+        "args": [
+          "--test",
+          "test/component/hello-cli.test.mjs",
+          "test/uat/hello-cli.uat.test.mjs"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 20000,
+        "terminationGraceMs": 2000,
+        "expectedReports": []
+      }
+    ]
+  },
+  "automaticPaidRetry": false,
+  "controlChanges": []
+}

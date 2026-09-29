@@ -1,0 +1,171 @@
+[
+  {
+    "synthesisEvent": "event://abiogenesis/efe6b9c4d4cb2030c77364f03e86364d2176e6a587cf741bca065f84bd66d698",
+    "synthesisOrdinal": 864,
+    "resultRef": "result://abiogenesis/5614fa7a5006466741aa3ae2aac161973fafe14298f0be53d42112241ad1c89b",
+    "basis": {
+      "contextRef": "worksite-context-observation://abiogenesis/c40b12682dd25d6ff3077cfada8a7e70044bc62640e52a519f62d23d993d3221",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "frameEvidenceDigest": "sha256:9c80714fad90a3e8d34ad1d98082fe6f1acfd74022f15f4199d3957a5998a735",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "inputDigest": "sha256:262d86db3e11613314a42a1f82e1af6d5e515fbe6f6374a045c7a1a37ef47aca",
+      "inputRef": "result://abiogenesis/4cfbf863a3300485414fd06ef94faeb6d76c96c1cc0e4a97e1a083e5ec61be29",
+      "previousResultRef": null,
+      "taskRef": "task://default-library-witness/retained-supplied-work@5"
+    },
+    "judgment": {
+      "contributions": [
+        {
+          "contribution": "Run the two fixed declared commands against the supplied files from the project root. Command 0 is `node generated/hello-world.mjs`, capturing the direct stdout and status. Command 1 is `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`. Keep the actual command, args, cwd, env, integer exit status, stdout, stderr and timing, including any nonzero exit, timeout or failure. Write only under execution-evidence. Do not author, repair or replace any application, specification, design, test or plan file.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "task://default-library-witness/retained-supplied-work@5",
+            "worksite-context-observation://abiogenesis/c40b12682dd25d6ff3077cfada8a7e70044bc62640e52a519f62d23d993d3221"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+          "reason": "No current execution observation exists. The oracle and original task require actual CLI stdout and status, plus a combined test run with at least 2 passes and 0 failures. Presence and digests establish byte identity only, not behavior. The selected command plan and selected paths are available, and Testing has no author prerequisite. It is the only capability that can produce the current measurement Result that UAT needs as its subject.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        },
+        {
+          "contribution": "Independently assess the whole original basic-cli outcome, read-only, using: the original source and oracle rubric, the exact candidate generated/hello-world.mjs, the supplied conformance/design/test/plan artifacts, the current admitted Testing measurement Result, and assessment/consumer-context.md. Keep every unmet or indeterminate criterion. Do not certify from file presence, a report or a stage count.",
+          "dependsOn": [
+            "graph-function://abiogenesis/default-library/testing@5"
+          ],
+          "evidenceRefs": [
+            "task://default-library-witness/retained-supplied-work@5",
+            "worksite-context-observation://abiogenesis/c40b12682dd25d6ff3077cfada8a7e70044bc62640e52a519f62d23d993d3221"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "reason": "Only an independent assessment against the rubric can settle the complete-source-outcome support. It depends on the Testing contribution because it must assess an exact current measurement Result, and none exists yet. It also needs the user-supplied assessment/consumer-context.md, which is currently absent. It is included for mapping completeness only and must not run in this step.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "evidenceRefs": [
+            "task://default-library-witness/retained-supplied-work@5",
+            "worksite-context-observation://abiogenesis/c40b12682dd25d6ff3077cfada8a7e70044bc62640e52a519f62d23d993d3221"
+          ],
+          "reason": "The worksite observes assessment/consumer-context.md as absent. Independent UAT requires it as a user-supplied assessment input. Native actors may not create or infer it, so UAT preparation is blocked, and the complete outcome stays unmet until the user supplies it between bounded Runs. Its arrival alone would not prove the outcome.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        },
+        {
+          "evidenceRefs": [
+            "worksite-context-observation://abiogenesis/c40b12682dd25d6ff3077cfada8a7e70044bc62640e52a519f62d23d993d3221"
+          ],
+          "reason": "There is no admitted current execution observation, either C2 measurement or native-work Result, for the direct CLI invocation or the combined node --test run. The CLI stdout/status contract and the requirement of at least 2 passes with 0 failures are therefore unestablished. The candidate body is not visible to this frame, so it cannot be judged here.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        }
+      ],
+      "interpretation": "This is a fresh bounded Run with no prior judgment and no admitted execution observations. The worksite observation shows that all protected sources are present with their digests: the specification, both designs, the oracle, the original source, the witness contract, the component and UAT tests, and test-execution-plan.json. The candidate generated/hello-world.mjs is present (30 bytes), but its body is not shown to this frame. The oracle's case requires stdout \"Hello, world!\\n\" and exit status 0, with at least two tests passing and none failing. The component and UAT test bodies both spawn process.execPath with generated/hello-world.mjs and assert status 0 and that exact stdout. The execution plan matches the command the original task requires. None of this is execution evidence: supplied files are unverified input, and no current C2 measurement or native-work Result exists. The steel-thread basis is therefore unestablished. Testing is the capable frame that can produce truthful current observations using the two declared commands: the direct CLI invocation and node --test over both test files. UAT needs an exact current measurement Result to assess, and also needs assessment/consumer-context.md, which is observed absent. Native actors must not create or infer that file, so UAT preparation currently has a missing input. That fact must be preserved rather than hidden. Complete-source-outcome support remains unresolved.",
+      "nextEvidenceRefs": [
+        "task://default-library-witness/retained-supplied-work@5",
+        "worksite-context-observation://abiogenesis/c40b12682dd25d6ff3077cfada8a7e70044bc62640e52a519f62d23d993d3221"
+      ],
+      "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "nextReason": "Testing is the only member that can run now without missing inputs. The command plan and selected files are present, and it needs no author. Establishing the steel thread first gives current, truthful CLI and test-run observations, and later UAT needs those as its exact subject. subjectEvidenceRef is null because no current native-work Result exists and Testing observes the supplied files directly. UAT is not selected because it has no current measurement subject and its required consumer-context input is absent.",
+      "revisionEvidenceRefs": [
+        "worksite-context-observation://abiogenesis/c40b12682dd25d6ff3077cfada8a7e70044bc62640e52a519f62d23d993d3221"
+      ],
+      "revisionReason": "This is the initial mapping for this Run: there is no prior judgment to revise and no prior admitted Result evidence. The mapping is based only on the current task projection and worksite observation.",
+      "subjectEvidenceRef": null
+    },
+    "choiceEvent": "event://abiogenesis/95f09817571304bb709a13d2f4dcac0d736f6a0bbc7ba3cb866e1879b00cbdf7",
+    "childEvent": "event://abiogenesis/3960916d19e70ce24fbba6e6d10906525b4b6701b311bf7ceaa63fcf3eaf5dbc",
+    "childResultRef": "result://abiogenesis/b425dc00b52424043757cd6dcfee11a0b48f6a1acf05bc1baa725567d85fe7ac",
+    "childGraphFunction": "graph-function://abiogenesis/worksite/command-execution@5",
+    "foldEvent": "event://abiogenesis/971a064becd360954576ddba8d88c71de249cc984dea5f7114b84fb4436f4824",
+    "parentEvent": "event://abiogenesis/196d77a90357f94b92e0fdf46c019ee76f149105ad0fa9b770096128722dafbb"
+  },
+  {
+    "synthesisEvent": "event://abiogenesis/0bf8cb50e254a703957cfce9242c1f9a8c97537aa2e67c136c25827bbbeef9a3",
+    "synthesisOrdinal": 2292,
+    "resultRef": "result://abiogenesis/499bf10021293f3f1fb4df43dc266e4cd6460d5d24a88dbbd2072f49bc5e2718",
+    "basis": {
+      "contextRef": "worksite-context-observation://abiogenesis/c40b12682dd25d6ff3077cfada8a7e70044bc62640e52a519f62d23d993d3221",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "frameEvidenceDigest": "sha256:9c80714fad90a3e8d34ad1d98082fe6f1acfd74022f15f4199d3957a5998a735",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+      ],
+      "inputDigest": "sha256:9d4c38aea75da1b4921ff3a4ee09bf25d194d7b574c184319f581887db5f7723",
+      "inputRef": "result://abiogenesis/6e1f818c64cd25994f8d30f171e6781472e0b4730477e8864735c155df46e8bb",
+      "previousResultRef": "result://abiogenesis/5614fa7a5006466741aa3ae2aac161973fafe14298f0be53d42112241ad1c89b",
+      "taskRef": "task://default-library-witness/retained-supplied-work@5"
+    },
+    "judgment": {
+      "contributions": [
+        {
+          "contribution": "Assess the whole original basic-cli outcome independently and read-only. The exact subject is the existing Testing measurement result b425…. Assess it against source/original-basic-cli.txt and the source/basic-cli.oracle.json rubric. Use the exact candidate generated/hello-world.mjs and the supplied conformance, implementation-design, test-design, component and UAT test, and execution-plan artifacts. Include the user-supplied assessment/consumer-context.md. Keep every unmet or indeterminate criterion. Do not certify success from file presence, a report, a stage count or the measurement alone. Do not edit any file.",
+          "dependsOn": [],
+          "evidenceRefs": [
+            "task://default-library-witness/retained-supplied-work@5",
+            "worksite-context-observation://abiogenesis/c40b12682dd25d6ff3077cfada8a7e70044bc62640e52a519f62d23d993d3221",
+            "result://abiogenesis/b425dc00b52424043757cd6dcfee11a0b48f6a1acf05bc1baa725567d85fe7ac"
+          ],
+          "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+          "reason": "Only an independent assessment can settle the complete-source-outcome support. A current measurement subject now exists: b425… records the direct CLI stdout/status and a combined test run with 2 passes and 0 failures on files whose digests are unchanged. That result is prior completed work, so this row cites it through evidenceRefs rather than dependsOn. UAT still cannot run because its required user-supplied input, assessment/consumer-context.md, is observed as absent. This row is listed for mapping completeness only and is not selected to execute.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        }
+      ],
+      "gaps": [
+        {
+          "evidenceRefs": [
+            "task://default-library-witness/retained-supplied-work@5",
+            "worksite-context-observation://abiogenesis/c40b12682dd25d6ff3077cfada8a7e70044bc62640e52a519f62d23d993d3221"
+          ],
+          "reason": "assessment/consumer-context.md is still observed as absent in the current worksite. Independent UAT requires it as a user-supplied assessment input, and native actors may not create or infer it. UAT preparation therefore cannot proceed in this Run. The complete original outcome stays unmet until the user supplies the file between bounded Runs and an independent assessment then runs. The file's arrival alone would not prove the outcome.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        },
+        {
+          "evidenceRefs": [
+            "result://abiogenesis/b425dc00b52424043757cd6dcfee11a0b48f6a1acf05bc1baa725567d85fe7ac",
+            "result://abiogenesis/5614fa7a5006466741aa3ae2aac161973fafe14298f0be53d42112241ad1c89b",
+            "worksite-context-observation://abiogenesis/c40b12682dd25d6ff3077cfada8a7e70044bc62640e52a519f62d23d993d3221"
+          ],
+          "reason": "No independent verdict exists on the complete source outcome. Testing result b425… is an attributed measurement: both commands exited 0, the CLI stdout was exactly \"Hello, world!\\n\", and the run reported 2 passed and 0 failed. A successful measurement does not establish application success. The remaining oracle criteria are still unassessed: genuine conformance, design, test-design and execution-plan content; both tests executing the real CLI; and the stage meanings, including test_execution_result acceptance. b425… should be reused as the UAT subject, not rerun, as long as the measured files keep their current digests.",
+          "supportRefs": [
+            "support://default-library-witness/complete-source-outcome@5"
+          ]
+        }
+      ],
+      "interpretation": "The previous judgment (result 5614…) picked Testing, and that run finished as result b425…. It ran the two declared commands against the supplied files from the project root. Command 0 (`node generated/hello-world.mjs`) exited 0 with no signal and no timeout. Its stdout was exactly \"Hello, world!\\n\" (14 bytes) and stderr was empty. Command 1 (`node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`) exited 0. It reported 2 passing tests, one per file ('CLI process satisfies its output contract' and 'a user receives the exact promised greeting'), 0 failed, 0 cancelled, 0 skipped and 0 todo. Stderr was empty. No outcome predicates were declared, so none were observed. These are attributed measurements of the current files. They are not an independent verdict. The current worksite observation still has the same digests for the candidate (generated/hello-world.mjs, 30 bytes, sha256:fe8f…) and for every protected source, so this measurement matches the current bytes. That match covers byte identity only, not adequacy. The prior gap, that no current execution observation existed, is now closed at the measurement level. The execution basis for the steel thread is present. The complete-source-outcome support is still unresolved, because only an independent UAT against the oracle rubric can settle it. UAT's conditions for use are still not met: assessment/consumer-context.md is still observed as absent. This input comes from the user, and native actors may not create or infer it. Rerunning Testing would only create new authorship or provenance, and the task forbids that. Running UAT now would run it without a required input. The truthful disposition is therefore to keep result b425… as reusable measurement evidence, report the missing consumer context as an explicit gap, and stop without selecting a next member. A later bounded Run can reuse b425… as admitted prior evidence once the user supplies the context file, provided the measured dependencies are still unchanged.",
+      "nextEvidenceRefs": [
+        "task://default-library-witness/retained-supplied-work@5",
+        "worksite-context-observation://abiogenesis/c40b12682dd25d6ff3077cfada8a7e70044bc62640e52a519f62d23d993d3221",
+        "result://abiogenesis/b425dc00b52424043757cd6dcfee11a0b48f6a1acf05bc1baa725567d85fe7ac"
+      ],
+      "nextGraphFunctionRef": null,
+      "nextReason": "No member can run legitimately right now. Testing already produced the current measurement b425… on unchanged file bytes, so running it again would only create duplicate authorship or provenance, which the task forbids. UAT has a valid measurement subject, but its required user-supplied input, assessment/consumer-context.md, is still absent, and native actors may not create or infer it. The truthful result for this bounded Run is therefore the explicit gaps above. The user can supply the consumer context before a later Run, and that Run can reuse b425… as admitted prior evidence for an independent UAT.",
+      "revisionEvidenceRefs": [
+        "result://abiogenesis/5614fa7a5006466741aa3ae2aac161973fafe14298f0be53d42112241ad1c89b",
+        "result://abiogenesis/b425dc00b52424043757cd6dcfee11a0b48f6a1acf05bc1baa725567d85fe7ac",
+        "worksite-context-observation://abiogenesis/c40b12682dd25d6ff3077cfada8a7e70044bc62640e52a519f62d23d993d3221"
+      ],
+      "revisionReason": "This revises the previous judgment (5614…). That judgment picked Testing because there was no execution observation. Testing has now completed as b425…, with both commands exiting 0, the exact greeting on stdout, and 2 passed / 0 failed. The prior 'no current execution observation' gap is therefore replaced by a retained measurement, which is not an independent verdict. The Testing row is removed from this mapping because it has been fulfilled and must not be rerun. The prior gap about the absent assessment/consumer-context.md is unchanged: the current worksite observation still shows it absent. As a result, UAT stays unselected, and the next member is null with explicit gaps.",
+      "subjectEvidenceRef": null
+    },
+    "choiceEvent": null,
+    "childEvent": null,
+    "childResultRef": null,
+    "childGraphFunction": null,
+    "foldEvent": null,
+    "parentEvent": null
+  }
+]

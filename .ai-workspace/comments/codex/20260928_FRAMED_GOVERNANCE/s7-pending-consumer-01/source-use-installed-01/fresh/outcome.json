@@ -1,0 +1,15 @@
+{
+  "completed": true,
+  "assessmentEvent": "event://abiogenesis/0a7d1500fa136a57db5c99bc91f6d10ca08b76cb30d36d76298e7597d6640d6c",
+  "parentEvent": "event://abiogenesis/883118c7ab8c53b0530875c7e300b291f81af54853bd2cbcf2ad878a52cd0343",
+  "priorProducer": {
+    "actorInvocationRef": "actor-invocation://abiogenesis/8f685f519ab978b50b717aff95f123beeb8884520644c61f86442823fef5ec56",
+    "cCallRef": "c-call:sha256:76c4c1dae218f0a9df0bfa6716e3325fea5776237942b6d1631d8843737f6a44",
+    "resultDigest": "sha256:b425dc00b52424043757cd6dcfee11a0b48f6a1acf05bc1baa725567d85fe7ac",
+    "resultRef": "result://abiogenesis/b425dc00b52424043757cd6dcfee11a0b48f6a1acf05bc1baa725567d85fe7ac"
+  },
+  "runClosureEvents": [
+    "event://abiogenesis/3d831e762c272faefd034cc16cd0aaf42abd494c53dadfbb51a9957f0881fff1"
+  ],
+  "claim": "new ordinary invocation, not exact execution recovery"
+}

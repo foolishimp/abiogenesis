@@ -2969,3 +2969,194 @@ tracked generated members, exact closed proof members/controls/review and curren
 execution/T-287 records. Ordinary ignored build trees, active installed preparation
 and unrelated work are excluded. Then resume Executive and consume the prepared
 installed subject before authorizing its first native attempt.
+
+### Retained-work first native selection
+
+Root accepts prepared return `77fa16cc145882c58d68d32a9652aea9954eda9c5045f59586f41bca7623d885`
+and readiness freeze `154d50603ccb621e260097bfca49a1f80f43eb66d46b92573734a7a46211b2f6`.
+Core archive `c4bff846362ac59cd928fffcacb6a33a669c178d0380d03aea6c1e3b1fbd9ee1`
+and consumer `e87fde5dac78c67cc3811df63fec579fad306986b2d7280a0511d20f39441cb3`
+match their installation; frozen source remains accepted. Setup23.409s includes
+11.735s artifact verification of 5,254 members/67.6MB. The 17,517,123B prepared
+Public carrier is recorded setup/acquisition volume, not native prompt size or
+an execution measurement. Preserve phase attribution; do not add a profiling gate.
+
+Select `T287_S7_RETAINED_WORK_FIRST_NATIVE_01`, existing Astra/xhigh Worker,
+under the same Product/Owner and End-To-End Interface Integration frame. Execute
+exactly `node source-use-installed-01/launch.mjs --dispatch-once first` using
+the frozen launcher at its actual repository path. Native actors use pinned
+Claude Opus5.5/xhigh with the prepared unchanged controls; no fallback or timer
+increase. Territory is `/private/tmp/abi5-s7-retained-work-s5CZt2` and the existing
+evidence directory. Runtime effects remain bounded by the prepared declaration;
+application/original/oracle files remain protected. No source, install, fixture,
+Git or prior-workspace modification is granted during this attempt.
+
+Retain actual command/actor/assembly/events/files/timings and both genuine cold
+Public reads. The intended first frontier is producer success followed by an
+actual missing-assessment-input preparation failure. F_P may instead lawfully
+select a gap; preserve the actual outcome without coercion. Stop on the first
+unexpected failure after its first-cause evidence and genuine resource close.
+No automatic retry, answer repair, second dispatch or supply/fresh phase under
+this grant. Return `first-run-return.md` with exact source candidates, outcome,
+processing extent/times and bounded RCA; freeze the run evidence and stop for
+Root disposition. Observed security violations remain noted under owner scope.
+This attempt cannot establish exact current_intent recovery or release readiness.
+
+Root enters Writer only for this selection/T-287 projection, then resumes
+Executive; the native execution effects belong to the separate Worker activation.
+
+
+### Retained-work stopped frontier and fresh-use selection
+
+Root accepts closed first-return `62e1bd0ebc52cc02a171b8186613cb509f049f267679e6d3b76cb1c8a4bbca27`
+and freeze `45b76225fd09c993ca0e8306c7fdce9dbcf4a4fd04d449de23471697f4479970`.
+Testing passed; F_P then truthfully selected a missing-input gap. Run stopped
+at event 2318; both cold reads agree. Source acquisition succeeds for Result
+`7987f78e6e7f4c5dc073d285a752e2ebe4ae69d0a398435d2a6606ae06e53fa3`.
+The launcher's final assertion wrongly required a failed UAT preparation. This
+is a fixture realization defect, not a demonstrated runtime defect. Preserve
+all first-attempt files and the failed assertion. Execution87.660s comprises
+78.897s native and8.763s framework; cold reads2.528s. No timer change follows.
+
+Select `T287_S7_RETAINED_WORK_FRESH_NATIVE_01`: existing Astra/xhigh Worker,
+Product/Owner and `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration`.
+Purpose: demonstrate current independent assessment over earlier valid work in
+a new ordinary invocation. Source authority remains existing Product, CONTINUATION,
+accepted source-use HOW/repair and exact installed core c4bff846/consumer e87fde5d.
+Smallest re-entry is fixture realization_refactor. Grant new successor fixture
+files only in source-use-installed-01, preserving all frozen preparation/first
+members. Adapt the preparation guard to the actual stopped-gap/source relation;
+no fabricated failed Result or changed runtime/catalog/prompt. Syntax and exact
+precondition checks suffice for that local fixture correction; no broad review.
+
+After verifying original ten files and installed/source identities, supply only
+the exact predeclared assessment/consumer-context.md bytes in the existing
+/private/tmp/abi5-s7-retained-work-s5CZt2 worksite, prepare the exact source-bearing
+fresh ordinary Public invocation and freeze its launch identities. Then execute
+exactly one fresh dispatch through the already frozen launch.mjs. Native remains
+Opus5.5/xhigh with all prepared controls unchanged. These dependent effects are
+selected together; no extra permission or second planning return is needed when
+the stated preconditions hold. Any preparation refusal stops before dispatch.
+
+Retain new F_P selection, actual original producer/call/actor use, independent
+assessment, current observations, ordinary new parent/Run closure and both cold
+Public reads. No producer repetition for provenance, old event/parent transplant,
+automatic retry, answer repair, source/install/Git change or full lifecycle rerun.
+On unexpected failure preserve first cause and actual termination, then return
+for Root triage. Freeze one fresh-run-return.md and stop. This proves no exact
+current_intent resumption or general release readiness. First failure's evidence
+and source readiness acceptance remain unchanged.
+
+Root enters Writer only for this disposition and current T-287 projection, then
+resumes Executive. The separate Worker owns the above fixture/runtime effects.
+
+
+### Exact-resumption remaining-join intake
+
+Select `T287_S7_EXACT_RESUMPTION_JOIN_INTAKE_01`, existing Astra/max Reviewer,
+Product/Owner, Continuation/Reuse and End-To-End Interface Integration under
+STDO2.5.1-rc.1. This read-only intake is distinct from the running fresh-use
+proof. Product: Live State Recovery And Valid Reuse and CONTINUATION-011/-015/-016
+retain automatic current-intent as5.0; fresh evidence use does not discharge it.
+The corrected EC HOW and S7-PC01 remove prospective implementation prescriptions.
+
+Inspect only the actual missing exact-operation joins: published run.continue
+current_intent contract, existing continuation/F_H and HoG resume/parent owners,
+latest accepted source-use relation and relevant closed findings. Determine the
+smallest complete implementation/discriminator, existing pieces to reuse and
+actual irreducible gaps. Challenge requirements implied only by retired designs
+or the old fixture. Keep same-authority recovery scoped; no universal recovery
+manager, new evidence ledger, code generator, broad phase campaign or revived
+held code. Classification precedes promotion of any runtime carrier.
+
+Return a compact owner/dependency map and concrete steel-thread construction
+hypothesis with evidence, open decisions and unsupported claims. Establish whether
+the required pending position and parent returns can use current owners without
+another hierarchy; do not present coherent prose as proven constructability.
+S6 and source-use reviews are reused, not repeated. No tests, build, source edits,
+provider/native calls or Git. Only permitted output is
+s7-pending-consumer-01/exact-resumption-join-intake.md. Stop after closed return.
+Root enters Writer for this grant only, then resumes Executive. No new operation
+implementation or native exact-resumption attempt is selected by this intake.
+
+
+### Retained-work installed review selection
+
+Select `T287_S7_RETAINED_WORK_INSTALLED_REVIEW_01`, existing Astra/max Reviewer,
+Product/Owner, Reuse and End-To-End Interface Integration. Exact subject:
+first-return62e1bd0e/freeze45b76225 and fresh-return44858934/freeze c8c445cb under
+source-use-installed-01, source review4d13e058 and unchanged core c4bff846.
+Independently inspect actual source admission, original producer provenance,
+current F_P choice, new independent assessment/fold/parent/Run and both cold reads.
+Account for the first fixture assertion and assessor shell corroboration; no
+security containment, exact-resumption or whole-release credit. Check conserved
+frozen identities once; reuse source/package verification rather than redoing it.
+No new tests, native calls, source/Git effects or broad review. Sole write:
+source-use-installed-01/review.md. Closed findings/claim disposition to Root.
+
+### Exact ConstructionIntent continuation implementation
+
+Root consumes intake `a2678673a451c11ec38a7e28f068c57e130399e0e7f8580ae1bb40fce4723f90`.
+Select `T287_S7_EXACT_INTENT_IMPLEMENT_01`, existing Astra/xhigh Worker,
+Product/Owner, Continuation and End-To-End Interface Integration. Current-intent
+means the existing admitted ConstructionIntent in One Surface. No generic
+InvocationAuthority alternative, new intent admission or default-library recovery
+promise is selected. Same immutable authority; native F_H remains deferred.
+
+Purpose is one complete existing-owner path: actual selected consumer cannot
+prepare; valid producer and its progressed input remain; exact current_intent
+operation admits eligible remainder, HoG executes it and required parent returns,
+then ordinary closure/readback. First settle pending identity/consumption, separate
+continue permission and original-intent/current-cursor/parent correspondence
+*together* in the existing accepted S7 HOW, using current owner facts. Then
+implement that bounded construction with preimages recorded. Product/requirements
+stay fixed. Do not revive the held draft or merely expose a helper.
+
+Write territory: the existing S7 and EC HOWs, continuation/invocation/cursor/route/
+execution-basis/event and corresponding HoG parent/entry owners, current Public
+run owner binding/registration, directly necessary generated declarations and
+focused owner tests in the TypeScript tenant. New internal helper is permitted
+only for one responsibility those owners need; no alternative representation,
+controller, evidence store or global recovery hierarchy. Record exact touched
+paths/preimages in s7-pending-consumer-01/exact-intent-01 before mutation. Any
+Product/request-domain change or materially different authority gap returns to
+Root before implementation. Unrelated source and all prior evidence stay intact.
+
+Readiness covers the actual admitted One Surface intent, current-operation grant,
+progressed input and current parent relation; duplicate/no-dispatch, wrong basis,
+material invalidation and unknown effect refusal. Preserve original actor/Result
+and consumed limits. Existing owners do all event/transition/closure work. Reuse
+sufficient tests; one focused real-owner construction discriminator precedes paid
+work. Other phases may refuse explicitly; do not claim generic recovery from
+one path or add a broad phase matrix. Ordinary warm handoffs remain incremental.
+Build once after coherent changes; repeat only on actual failure/change. Freeze
+source/generated identities, readiness evidence, actual delta and a concise
+return. No provider/native Run, broad qualification, install/publication or Git
+under this grant. Root selects the installed discriminator after the closed return.
+The parallel retained-work review reads its immutable frozen subject, not these
+moving canonical bytes.
+
+Root enters Writer solely to record these grants and T-287 current projection,
+then resumes Executive. Existing source acceptance, S6 and all release obligations
+remain unchanged; no new ticket or Product definition cycle is selected.
+
+
+### Retained-work installed acceptance
+
+Root accepts independent review `8dfc054bd0dc1f2b4429f10ad657f3e2e7cd6943725cea614d1546ecabea28a7`
+and the exact first/fresh frozen returns it binds. Source acquisition from the
+stopped Run, original producer/call/actor use, fresh F_P selection, independent
+assessment, new parent/Run closure and both cold Public reads are accepted in
+this bounded installed case. First Run was a lawful gap, not failed preparation.
+No Testing/C2 producer repeated; UAT Bash corroboration is expressly retained.
+No exact current_intent, arbitrary Result import or whole-release credit follows.
+Execution totals: first87.660s/native78.897s/framework8.763s; fresh119.741s/
+native110.709s/framework9.032s; cold reads2.528s/3.785s. Setup23.409s is separate.
+
+Root enters Writer to project this acceptance in T-287/GOALS and commit/push only
+the 142 manifest-selected frozen proof members, their controlling manifests/freezes,
+review, closed exact-resumption intake and these tracking records. Preserve ignored
+unselected bootstrap/install trees and every unrelated change. Canonical exact-intent
+source work is moving under its separate Worker and is excluded from this commit.
+No rebuild, rerun or proof rewrite. Then Root resumes Executive; selected exact-intent
+implementation and remaining qualification/release work continue.

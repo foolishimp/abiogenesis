@@ -1,0 +1,216 @@
+{
+  "runId": "run://abiogenesis/f61e015d1da8c85836bf1cbeeb842f53b04c83203795cf14ef198fcca32365a2",
+  "ownerOutcome": {
+    "outcomeKind": "result",
+    "disposition": "blocked"
+  },
+  "replay": {
+    "runtimeStatus": "blocked",
+    "runtimeFailureEventRef": null,
+    "runStoppedEventRef": "event://abiogenesis/300ff5605c85f48592a3d7b8e7ed7814317cc7f094c209ece625b39b6d5de91a",
+    "runClosedEventRef": null,
+    "actorProcesses": [
+      {
+        "status": "closed",
+        "terminationConfirmed": true
+      },
+      {
+        "status": "closed",
+        "terminationConfirmed": true
+      },
+      {
+        "status": "closed",
+        "terminationConfirmed": true
+      }
+    ]
+  },
+  "chain": [
+    {
+      "synthesis": {
+        "ordinal": 864,
+        "eventRef": "event://abiogenesis/efe6b9c4d4cb2030c77364f03e86364d2176e6a587cf741bca065f84bd66d698",
+        "resultRef": "result://abiogenesis/5614fa7a5006466741aa3ae2aac161973fafe14298f0be53d42112241ad1c89b",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "c-call:sha256:e0f720756cfd46a5a07da7309a4d5a0ddf6dfb2253afba404f4a26ab71d1dcee"
+      },
+      "next": "graph-function://abiogenesis/default-library/testing@5",
+      "reason": "Testing is the only member that can run now without missing inputs. The command plan and selected files are present, and it needs no author. Establishing the steel thread first gives current, truthful CLI and test-run observations, and later UAT needs those as its exact subject. subjectEvidenceRef is null because no current native-work Result exists and Testing observes the supplied files directly. UAT is not selected because it has no current measurement subject and its required consumer-context input is absent.",
+      "choice": {
+        "ordinal": 877,
+        "eventRef": "event://abiogenesis/95f09817571304bb709a13d2f4dcac0d736f6a0bbc7ba3cb866e1879b00cbdf7",
+        "resultRef": "result://abiogenesis/841d97edc14b148b812b9b30e47e9b0ea3358d157017bc8dc85a9baaab805a99",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "c-call:sha256:daf87c368ca9342ba3b0ee235b08947a3d97db3e32b3e23fb330385ab8f6309c"
+      }
+    },
+    {
+      "synthesis": {
+        "ordinal": 2292,
+        "eventRef": "event://abiogenesis/0bf8cb50e254a703957cfce9242c1f9a8c97537aa2e67c136c25827bbbeef9a3",
+        "resultRef": "result://abiogenesis/499bf10021293f3f1fb4df43dc266e4cd6460d5d24a88dbbd2072f49bc5e2718",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "c-call:sha256:f7b709d2aa4fd32e07215b2980d02b5cbb4747d147e858ccf23fd0166fb8538a"
+      },
+      "next": null,
+      "reason": "No member can run legitimately right now. Testing already produced the current measurement b425… on unchanged file bytes, so running it again would only create duplicate authorship or provenance, which the task forbids. UAT has a valid measurement subject, but its required user-supplied input, assessment/consumer-context.md, is still absent, and native actors may not create or infer it. The truthful result for this bounded Run is therefore the explicit gaps above. The user can supply the consumer context before a later Run, and that Run can reuse b425… as admitted prior evidence for an independent UAT.",
+      "choice": {
+        "ordinal": 2305,
+        "eventRef": "event://abiogenesis/fd3e5e48424cf9ddc1189920bc1931a30c97d9040af605634705808ca017ae40",
+        "resultRef": "result://abiogenesis/8d2b3523a30a0a1f804d04e54d402c001c0e09591f336e570901abdc6a4f0f29",
+        "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+        "cCallRef": "c-call:sha256:76dd1603d055b1a148f61ccf7b33718661f5d6aaca90c2b78253e88de13df18d"
+      }
+    }
+  ],
+  "measurement": [
+    {
+      "event": {
+        "ordinal": 1087,
+        "eventRef": "event://abiogenesis/3960916d19e70ce24fbba6e6d10906525b4b6701b311bf7ceaa63fcf3eaf5dbc",
+        "resultRef": "result://abiogenesis/b425dc00b52424043757cd6dcfee11a0b48f6a1acf05bc1baa725567d85fe7ac",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "cCallRef": "c-call:sha256:76c4c1dae218f0a9df0bfa6716e3325fea5776237942b6d1631d8843737f6a44"
+      },
+      "actorRef": "actor-invocation://abiogenesis/8f685f519ab978b50b717aff95f123beeb8884520644c61f86442823fef5ec56",
+      "commands": [
+        {
+          "commandId": "command://default-library-witness/0@5",
+          "exitStatus": 0,
+          "stdout": "Hello, world!\n",
+          "stderr": ""
+        },
+        {
+          "commandId": "command://default-library-witness/1@5",
+          "exitStatus": 0,
+          "stdout": "✔ CLI process satisfies its output contract (23.63525ms)\n✔ a user receives the exact promised greeting (23.694416ms)\nℹ tests 2\nℹ suites 0\nℹ pass 2\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 58.206167\n",
+          "stderr": ""
+        }
+      ]
+    }
+  ],
+  "stateCandidate": {
+    "ordinal": 1158,
+    "eventRef": "event://abiogenesis/196d77a90357f94b92e0fdf46c019ee76f149105ad0fa9b770096128722dafbb",
+    "resultRef": "result://abiogenesis/7987f78e6e7f4c5dc073d285a752e2ebe4ae69d0a398435d2a6606ae06e53fa3",
+    "graphFunctionRef": "graph-function://default-library-witness/executive@5",
+    "cCallRef": "c-call:sha256:b22107e70885811791101b9f5371e5f11fe47ea4683886de1d0af07581619713",
+    "sourceApplicable": true,
+    "inputDigest": "sha256:edac07854a59d26479a179e975d25d0c176e0b75d78460bbfe48c3945e89d014",
+    "producerResultRefs": [
+      "result://abiogenesis/b425dc00b52424043757cd6dcfee11a0b48f6a1acf05bc1baa725567d85fe7ac"
+    ],
+    "unresolvedSupportRefs": [
+      "support://default-library-witness/complete-source-outcome@5"
+    ]
+  },
+  "failedResults": [],
+  "runClosures": [
+    {
+      "kind": "run_stopped",
+      "ordinal": 2318,
+      "eventRef": "event://abiogenesis/300ff5605c85f48592a3d7b8e7ed7814317cc7f094c209ece625b39b6d5de91a",
+      "resultRef": null,
+      "graphFunctionRef": "graph-function://default-library-witness/executive@5",
+      "cCallRef": "run://abiogenesis/f61e015d1da8c85836bf1cbeeb842f53b04c83203795cf14ef198fcca32365a2"
+    }
+  ],
+  "reads": [
+    {
+      "member": "run_result",
+      "outcomeKind": "refusal",
+      "code": null,
+      "valueKind": null,
+      "keys": [
+        "outcomeKind",
+        "value"
+      ],
+      "refusal": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "not_found",
+          "evidenceRefs": [],
+          "issuePaths": []
+        }
+      }
+    },
+    {
+      "member": "run_replay",
+      "outcomeKind": "result",
+      "code": null,
+      "valueKind": null,
+      "keys": [
+        "outcomeKind",
+        "value"
+      ],
+      "refusal": null
+    }
+  ],
+  "timing": {
+    "executionMs": 87659.81104100001,
+    "nativeMs": 78897,
+    "frameworkMs": 8762.811041000008,
+    "actors": [
+      {
+        "actor": 1,
+        "ms": 25933,
+        "promptBytes": 31342,
+        "models": [
+          "claude-opus-5-5"
+        ],
+        "costUsd": 0.181932
+      },
+      {
+        "actor": 2,
+        "ms": 9437,
+        "promptBytes": 32929,
+        "models": [
+          "claude-opus-5-5"
+        ],
+        "costUsd": 0.2783196
+      },
+      {
+        "actor": 3,
+        "ms": 43527,
+        "promptBytes": 40291,
+        "models": [
+          "claude-opus-5-5"
+        ],
+        "costUsd": 0.245944
+      }
+    ],
+    "readback": [
+      {
+        "memberKey": "run_result",
+        "wallMs": 1231.9500410000037,
+        "requestBytes": 9181,
+        "source": {
+          "digest": "sha256:3426633ea33683d9ce5c11e2676e7cc46110f2b451638c18e46d68b216e5f693",
+          "ref": "run://abiogenesis/f61e015d1da8c85836bf1cbeeb842f53b04c83203795cf14ef198fcca32365a2"
+        },
+        "outcomeKind": "refusal"
+      },
+      {
+        "memberKey": "run_replay",
+        "wallMs": 1295.9859579999902,
+        "requestBytes": 9218,
+        "source": {
+          "digest": "sha256:3426633ea33683d9ce5c11e2676e7cc46110f2b451638c18e46d68b216e5f693",
+          "ref": "run://abiogenesis/f61e015d1da8c85836bf1cbeeb842f53b04c83203795cf14ef198fcca32365a2"
+        },
+        "outcomeKind": "result"
+      }
+    ],
+    "eventCount": 2318,
+    "eventBytes": 12261430
+  },
+  "effects": {
+    "allTenInputFilesUnchanged": true,
+    "assessmentInputStillAbsent": true,
+    "observedToolUses": 4
+  },
+  "classification": {
+    "runtime": "truthful declared F_P gap for missing user input after successful measurement; no failed CCall Result",
+    "harness": "final assertion expected an attempted prepare-native failure and rejected the permitted gap; preserved unchanged",
+    "claim": "retained producer exists; fresh source-use invocation and independent assessment remain unexecuted"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/prepare-retained-gap.mjs",
+    "--prepare-retained-once"
+  ],
+  "seconds": 1.0294584999792278,
+  "exitCode": 0
+}

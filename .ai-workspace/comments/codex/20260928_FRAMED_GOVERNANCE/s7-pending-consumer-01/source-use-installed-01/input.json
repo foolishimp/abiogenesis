@@ -1,0 +1,194 @@
+{
+  "kind": "governance_work_state",
+  "schemaVersion": "5.0.0",
+  "original": {
+    "taskRef": "task://default-library-witness/retained-supplied-work@5",
+    "task": "  sdlcComplianceScenario({\n    key: \"basic-cli\",\n    scenarioId: \"SCN-GLC-HELLO-WORLD-CLI-BASIC\",\n    kind: \"node_cli\",\n    stagePlan: [\n      {\n        stage: \"conformance_project\",\n        filesToProduce: [\"specification/project-conformance.md\"],\n        instructions: [\n          \"Write only specification/project-conformance.md.\",\n          \"Declare a minimal CLI Hello World software-build traversal.\",\n          \"The source surface must be generated/hello-world.mjs.\",\n          \"The execution proof must run the CLI and observe stdout exactly \\\"Hello, world!\\\\n\\\".\",\n          \"Do not write source, tests, package files, or execution plans in this vector.\"\n        ]\n      },\n      {\n        stage: \"implementation_design\",\n        filesToProduce: [\"design/implementation-design.md\"],\n        instructions: [\n          \"Write only design/implementation-design.md.\",\n          \"Use the prior conformance_project artifact as authority.\",\n          \"Define a minimal Node CLI script at generated/hello-world.mjs.\",\n          \"The script must print exactly \\\"Hello, world!\\\" followed by one newline.\",\n          \"Name component and UAT test source surfaces that execute the CLI and assert stdout.\"\n        ]\n      },\n      {\n        stage: \"source\",\n        filesToProduce: [\"generated/hello-world.mjs\"],\n        instructions: [\n          \"Write only generated/hello-world.mjs.\",\n          \"The script must execute under node without package installation.\",\n          \"It must write exactly \\\"Hello, world!\\\\n\\\" to stdout.\"\n        ]\n      },\n      {\n        stage: \"test_design\",\n        filesToProduce: [\"design/test-design.md\"],\n        instructions: [\n          \"Write only design/test-design.md.\",\n          \"Specify component and UAT validation of the CLI stdout contract.\",\n          \"Both tests must spawn node generated/hello-world.mjs and assert status 0 and stdout exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"component_test_source\",\n        filesToProduce: [\"test/component/hello-cli.test.mjs\"],\n        instructions: [\n          \"Write only test/component/hello-cli.test.mjs.\",\n          \"Use node:test, node:assert/strict, and node:child_process spawnSync.\",\n          \"Run process.execPath with [\\\"generated/hello-world.mjs\\\"] from the project root.\",\n          \"Assert status 0 and stdout exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"uat_test_source\",\n        filesToProduce: [\"test/uat/hello-cli.uat.test.mjs\"],\n        instructions: [\n          \"Write only test/uat/hello-cli.uat.test.mjs.\",\n          \"Use node:test, node:assert/strict, and node:child_process spawnSync.\",\n          \"Run process.execPath with [\\\"generated/hello-world.mjs\\\"] from the project root.\",\n          \"Assert the user-visible CLI output is exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"test_execution_plan\",\n        workerExecutes: true,\n        filesToProduce: [\"test-execution-plan.json\", \"test-execution-result.json\"],\n        instructions: [\n          \"Write test-execution-plan.json and test-execution-result.json only.\",\n          \"The JSON command must be node.\",\n          \"The args must be [\\\"--test\\\", \\\"test/component/hello-cli.test.mjs\\\", \\\"test/uat/hello-cli.uat.test.mjs\\\"].\",\n          \"expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.\",\n          \"expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.\",\n          \"assertedReturnValue must be \\\"Hello, world!\\\".\",\n          \"EXECUTION-DEFAULT LAW: run node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs yourself inside this turn; the framework executes nothing.\",\n          \"Record the truthful observed command, args, integer status, stdout, stderr, expectedTestPassCount, expectedStdoutMatch, assertedReturnValue, cwd, and env in test-execution-result.json.\"\n        ]\n      },\n      {\n        stage: \"test_execution_result\",\n        instructions: [\n          \"Produce no files.\",\n          \"Accept only if the execution plan command exited 0, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true.\"\n        ]\n      }\n    ]\n  }),\n\n# Supplied-work evidence reuse across bounded Runs\n\nEstablish the complete original basic-cli outcome using the supplied CLI, specification, design, tests and execution plan. The unchanged source/original-basic-cli.txt and source/basic-cli.oracle.json own the application criteria. Supplied files are unverified input, not admitted proof or an author invocation in this Run. The predecessor vector mechanism is not runtime authority: actual admitted native execution and Evidence replace its old hand-written execution-result representation; do not prewrite claimed success.\n\nTesting and UAT are the permitted capabilities. Do not author, repair or replace application, specification, design, tests or source files. Declared execution evidence may be written only under execution-evidence. Execute the fixed declared commands against the supplied candidate when current measurements are needed. Preserve failures and uncertainty.\n\nIndependent assessment requires assessment/consumer-context.md as an additional user-supplied assessment input. This input is not a command dependency, test oracle or measurement result. It may be absent; the framework must preserve that fact and any resulting unmet outcome or preparation refusal. Native actors may not create or infer it. The user can supply it between bounded Runs. Its arrival does not by itself prove the application outcome.\n\nA fresh Run may use explicitly admitted applicable prior Result evidence. Observe the current workspace and assess whether the selected producer's measured dependencies remain unchanged; preserve original Result/call/actor attribution and unresolved obligations. Do not rerun work merely to manufacture current authorship or provenance. An independent assessment uses actual current observations and admissible retained measurements. Prior Run status and judgments remain historical; they do not grant current closure. The normal current parent evaluation determines closure.\n\nThe allowed catalogue is not an expected graph schedule. Select justified work or report a truthful gap. Do not fabricate a pass, hide missing input or restore an old execution stack. No exact current_intent recovery is requested.\n",
+    "sources": [
+      {
+        "path": "design/implementation-design.md",
+        "digest": "sha256:b96765496fe0c3888365ba72780af33824fa7f34acdb042af45df4d120ba0145"
+      },
+      {
+        "path": "design/test-design.md",
+        "digest": "sha256:617dd54841f7128842616ce42a3befb15b30cd454215894c067980e5ede43406"
+      },
+      {
+        "path": "source/basic-cli.oracle.json",
+        "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+      },
+      {
+        "path": "source/original-basic-cli.txt",
+        "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+      },
+      {
+        "path": "source/witness-contract.md",
+        "digest": "sha256:ada795c8f963e1028fe74314d90ece446628c1786bf355ff3db8efa0ffe87ba4"
+      },
+      {
+        "path": "specification/project-conformance.md",
+        "digest": "sha256:9aaa62cadeaa74520e5e45542e699c9a97e55bf4b475b2de7f7347b3fb4cee81"
+      },
+      {
+        "path": "test/component/hello-cli.test.mjs",
+        "digest": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613"
+      },
+      {
+        "path": "test/uat/hello-cli.uat.test.mjs",
+        "digest": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4"
+      },
+      {
+        "path": "test-execution-plan.json",
+        "digest": "sha256:e3250aae29261ebf20fc942aa31ddce5d152b14d4e9c6262e4eab820be34a350"
+      }
+    ],
+    "requiredSupportRefs": [
+      "support://default-library-witness/complete-source-outcome@5"
+    ],
+    "authorityRefs": [
+      "authority://default-library-witness/consumer-scope@5"
+    ],
+    "readRoots": [
+      "assessment/consumer-context.md",
+      "design/implementation-design.md",
+      "design/test-design.md",
+      "generated/hello-world.mjs",
+      "source/basic-cli.oracle.json",
+      "source/original-basic-cli.txt",
+      "source/witness-contract.md",
+      "specification/project-conformance.md",
+      "test-execution-plan.json",
+      "test/component/hello-cli.test.mjs",
+      "test/uat/hello-cli.uat.test.mjs"
+    ],
+    "maxContextFiles": 128,
+    "maxContextBytes": 131072,
+    "maxPromptBytes": 131072,
+    "workOrders": {
+      "testing": {
+        "outcome": "Perform the selected testing work needed for the original task.",
+        "instructions": [
+          "# Supplied-work evidence reuse across bounded Runs\n\nEstablish the complete original basic-cli outcome using the supplied CLI, specification, design, tests and execution plan. The unchanged source/original-basic-cli.txt and source/basic-cli.oracle.json own the application criteria. Supplied files are unverified input, not admitted proof or an author invocation in this Run. The predecessor vector mechanism is not runtime authority: actual admitted native execution and Evidence replace its old hand-written execution-result representation; do not prewrite claimed success.\n\nTesting and UAT are the permitted capabilities. Do not author, repair or replace application, specification, design, tests or source files. Declared execution evidence may be written only under execution-evidence. Execute the fixed declared commands against the supplied candidate when current measurements are needed. Preserve failures and uncertainty.\n\nIndependent assessment requires assessment/consumer-context.md as an additional user-supplied assessment input. This input is not a command dependency, test oracle or measurement result. It may be absent; the framework must preserve that fact and any resulting unmet outcome or preparation refusal. Native actors may not create or infer it. The user can supply it between bounded Runs. Its arrival does not by itself prove the application outcome.\n\nA fresh Run may use explicitly admitted applicable prior Result evidence. Observe the current workspace and assess whether the selected producer's measured dependencies remain unchanged; preserve original Result/call/actor attribution and unresolved obligations. Do not rerun work merely to manufacture current authorship or provenance. An independent assessment uses actual current observations and admissible retained measurements. Prior Run status and judgments remain historical; they do not grant current closure. The normal current parent evaluation determines closure.\n\nThe allowed catalogue is not an expected graph schedule. Select justified work or report a truthful gap. Do not fabricate a pass, hide missing input or restore an old execution stack. No exact current_intent recovery is requested.\n"
+        ],
+        "readFirst": [
+          "design/implementation-design.md",
+          "design/test-design.md",
+          "source/basic-cli.oracle.json",
+          "source/original-basic-cli.txt",
+          "source/witness-contract.md",
+          "specification/project-conformance.md",
+          "test/component/hello-cli.test.mjs",
+          "test/uat/hello-cli.uat.test.mjs",
+          "test-execution-plan.json",
+          "generated/hello-world.mjs"
+        ],
+        "writeRoots": [],
+        "checks": []
+      },
+      "uat": {
+        "outcome": "Perform the selected uat work needed for the original task.",
+        "instructions": [
+          "# Supplied-work evidence reuse across bounded Runs\n\nEstablish the complete original basic-cli outcome using the supplied CLI, specification, design, tests and execution plan. The unchanged source/original-basic-cli.txt and source/basic-cli.oracle.json own the application criteria. Supplied files are unverified input, not admitted proof or an author invocation in this Run. The predecessor vector mechanism is not runtime authority: actual admitted native execution and Evidence replace its old hand-written execution-result representation; do not prewrite claimed success.\n\nTesting and UAT are the permitted capabilities. Do not author, repair or replace application, specification, design, tests or source files. Declared execution evidence may be written only under execution-evidence. Execute the fixed declared commands against the supplied candidate when current measurements are needed. Preserve failures and uncertainty.\n\nIndependent assessment requires assessment/consumer-context.md as an additional user-supplied assessment input. This input is not a command dependency, test oracle or measurement result. It may be absent; the framework must preserve that fact and any resulting unmet outcome or preparation refusal. Native actors may not create or infer it. The user can supply it between bounded Runs. Its arrival does not by itself prove the application outcome.\n\nA fresh Run may use explicitly admitted applicable prior Result evidence. Observe the current workspace and assess whether the selected producer's measured dependencies remain unchanged; preserve original Result/call/actor attribution and unresolved obligations. Do not rerun work merely to manufacture current authorship or provenance. An independent assessment uses actual current observations and admissible retained measurements. Prior Run status and judgments remain historical; they do not grant current closure. The normal current parent evaluation determines closure.\n\nThe allowed catalogue is not an expected graph schedule. Select justified work or report a truthful gap. Do not fabricate a pass, hide missing input or restore an old execution stack. No exact current_intent recovery is requested.\n"
+        ],
+        "readFirst": [
+          "design/implementation-design.md",
+          "design/test-design.md",
+          "source/basic-cli.oracle.json",
+          "source/original-basic-cli.txt",
+          "source/witness-contract.md",
+          "specification/project-conformance.md",
+          "test/component/hello-cli.test.mjs",
+          "test/uat/hello-cli.uat.test.mjs",
+          "test-execution-plan.json",
+          "generated/hello-world.mjs",
+          "assessment/consumer-context.md"
+        ],
+        "writeRoots": [],
+        "checks": []
+      }
+    },
+    "testing": {
+      "selectedPaths": [
+        "design/implementation-design.md",
+        "design/test-design.md",
+        "generated/hello-world.mjs",
+        "source/basic-cli.oracle.json",
+        "source/original-basic-cli.txt",
+        "source/witness-contract.md",
+        "specification/project-conformance.md",
+        "test/component/hello-cli.test.mjs",
+        "test/uat/hello-cli.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "commands": [
+        {
+          "commandId": "command://default-library-witness/0@5",
+          "executable": "node",
+          "args": [
+            "generated/hello-world.mjs"
+          ],
+          "relativeCwd": ".",
+          "environment": {},
+          "timeoutMs": 20000,
+          "terminationGraceMs": 2000,
+          "expectedReports": []
+        },
+        {
+          "commandId": "command://default-library-witness/1@5",
+          "executable": "node",
+          "args": [
+            "--test",
+            "test/component/hello-cli.test.mjs",
+            "test/uat/hello-cli.uat.test.mjs"
+          ],
+          "relativeCwd": ".",
+          "environment": {},
+          "timeoutMs": 20000,
+          "terminationGraceMs": 2000,
+          "expectedReports": []
+        }
+      ],
+      "outcomePredicates": [],
+      "allowedWriteTerritories": [
+        {
+          "pathKind": "subtree",
+          "relativePath": "execution-evidence"
+        }
+      ]
+    },
+    "assessment": {
+      "sources": [
+        "design/implementation-design.md",
+        "design/test-design.md",
+        "source/original-basic-cli.txt",
+        "source/witness-contract.md",
+        "specification/project-conformance.md",
+        "test/component/hello-cli.test.mjs",
+        "test/uat/hello-cli.uat.test.mjs",
+        "test-execution-plan.json",
+        "assessment/consumer-context.md"
+      ],
+      "candidatePath": "generated/hello-world.mjs",
+      "rubricPath": "source/basic-cli.oracle.json",
+      "resultContract": {
+        "contractRef": "contract://default-library-witness/assessment@5",
+        "contractVersion": "5.0.0",
+        "contractKind": "output",
+        "valueKind": "consumer_outcome_assessment"
+      },
+      "schemaAsset": {
+        "productId": "product://default-library-witness/consumer@5",
+        "contractId": "contract://default-library-witness/assessment@5",
+        "bytesBase64": "eyIkaWQiOiJjb250cmFjdDovL2RlZmF1bHQtbGlicmFyeS13aXRuZXNzL2Fzc2Vzc21lbnRANSIsInR5cGUiOiJvYmplY3QiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInJlcXVpcmVkIjpbImtpbmQiLCJkaXNwb3NpdGlvbiIsInJlYXNvbiIsInVucmVzb2x2ZWRDcml0ZXJpYSJdLCJwcm9wZXJ0aWVzIjp7ImtpbmQiOnsiY29uc3QiOiJjb25zdW1lcl9vdXRjb21lX2Fzc2Vzc21lbnQifSwiZGlzcG9zaXRpb24iOnsidHlwZSI6InN0cmluZyIsImVudW0iOlsic2F0aXNmaWVkIiwidW5tZXQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyJ9LCJ1bnJlc29sdmVkQ3JpdGVyaWEiOnsidHlwZSI6ImFycmF5IiwiaXRlbXMiOnsidHlwZSI6InN0cmluZyJ9fX19Cg=="
+      },
+      "verdictField": "disposition",
+      "satisfiedValue": "satisfied"
+    }
+  },
+  "synthesis": null,
+  "observations": [],
+  "unresolvedSupportRefs": [
+    "support://default-library-witness/complete-source-outcome@5"
+  ],
+  "terminal": false
+}

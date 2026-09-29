@@ -1,0 +1,24 @@
+--- frozen/prepare-retained.mjs
++++ successor/prepare-retained-gap.mjs
+@@ -5,15 +5,18 @@
+ const base=dirname(fileURLToPath(import.meta.url)),here=join(base,'fresh'),read=async p=>JSON.parse(await readFile(p,'utf8')),save=(n,v)=>writeFile(join(here,n),JSON.stringify(v,null,2)+'\n',{flag:'wx'});
+ assert.deepEqual(process.argv.slice(2),['--prepare-retained-once'],'Run only after Executive accepts the actual first frontier and selects supply/fresh preparation.');
+ await mkdir(here,{recursive:true});
+-const setup=await read(join(base,'setup.json')),ready=await read(join(base,'readiness.json')),initial=await read(join(base,'start-prepared.json')),original=await read(join(base,'input.json')),ids=await read(join(base,'input-files.json')),frontier=await read(join(base,'first/expected-frontier.json')),handoff=await read(join(base,'first/handoff.json'));
+-assert.equal(frontier.missingInput,ready.missingAssessmentInput);
++const setup=await read(join(base,'setup.json')),ready=await read(join(base,'readiness.json')),initial=await read(join(base,'start-prepared.json')),original=await read(join(base,'input.json')),ids=await read(join(base,'input-files.json')),stopped=await read(join(base,'first/closed-outcome.json')),handoff=await read(join(base,'first/handoff.json'));
++assert.equal(stopped.replay.runtimeStatus,'blocked');assert.equal(stopped.replay.runtimeFailureEventRef,null);assert.equal(stopped.replay.runClosedEventRef,null);assert.ok(stopped.replay.runStoppedEventRef);assert.equal(stopped.failedResults.length,0);assert.equal(stopped.chain.at(-1).next,null);assert.equal(stopped.effects.assessmentInputStillAbsent,true);assert.ok(stopped.stateCandidate.sourceApplicable);
++const frontier={missingInput:ready.missingAssessmentInput,producerResultRefs:stopped.measurement.map(m=>m.event.resultRef)},accepted=await read(join(base,'first/source-candidate.json'));
++assert.ok(frontier.producerResultRefs.length>0&&stopped.measurement.every(m=>m.commands.every(c=>c.exitStatus===0)));
++assert.ok(stopped.replay.actorProcesses.every(a=>a.status==='closed'&&a.terminationConfirmed));
+ const load=p=>import(pathToFileURL(join(setup.installedRoots[0],'build/code/src',p+'.js')).href),[product,publicApi,store,prefixOwner,admission,physical]=await Promise.all(['product/index','public/index','abg/event_store','abg/event_prefix','abg/invocation_admission','product/worksite_operations'].map(load));
+ for(const [path,id]of Object.entries(ids))assert.equal(await product.sha256File(join(ready.worksite,path)),'sha256:'+id.sha256,path+' changed since prepared supplied input');
+ const events=store.readRuntimeEventsAtDurablePrefix(handoff.prefix),prefix=prefixOwner.selectValidatedRuntimeEventPrefix(events),stateEvent=events.findLast(e=>e.kind==='c_call_result_admitted'&&e.payload.resultClass==='success'&&product.isGovernanceWorkState(e.payload.value)&&e.payload.value.observations.length>0);
+ assert.ok(stateEvent,'actual prior folded state required');
+ const root=events.find(e=>e.kind==='basis_admitted'&&e.payload.basisRef===stateEvent.basisId),invocation=admission.rehydrateInvocationAdmissionAtPrefix(prefix,root.payload.invocationAdmissionRef);assert.ok(invocation);
+ const source=admission.deriveInvocationSourceResultBasisAtPrefix(prefix,{publicAuthorityDigest:invocation.publicRequestDigest,runtimeInvocationRef:invocation.invocationRef,invocationAdmissionRef:invocation.invocationAdmissionRef,runId:stateEvent.runId,resultRef:stateEvent.payload.resultRef});
+-assert.ok(source,'actual inactive failed-source admission is required; no fabricated basis');assert.deepEqual(source.sourceResultValue.original,original.original);assert.ok(source.sourceResultValue.observations.some(o=>frontier.producerResultRefs.includes(o.resultRef)));
++assert.ok(source,'actual stopped-source admission is required; no fabricated basis');assert.deepEqual(source,accepted.source,'exact accepted stopped-source relation');assert.deepEqual(source.sourceResultValue.original,original.original);assert.ok(source.sourceResultValue.observations.some(o=>frontier.producerResultRefs.includes(o.resultRef)));
+ assert.equal(await lstat(join(ready.worksite,ready.missingAssessmentInput)).then(()=>true,e=>e.code==='ENOENT'?false:Promise.reject(e)),false);
+ const supplied=await readFile(join(base,'consumer-context.md'));
+ await save('source-result-basis.json',source);await save('handoff-before-start.json',handoff);

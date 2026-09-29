@@ -1,0 +1,19 @@
+{
+  "return": {
+    "sha256": "77fa16cc145882c58d68d32a9652aea9954eda9c5045f59586f41bca7623d885",
+    "bytes": 6911
+  },
+  "proofManifest": {
+    "sha256": "79985e3dd33fd1883f7bf0bec9525310a5b7272f2e5792b5ee8be7448ed693c2",
+    "bytes": 4267
+  },
+  "installationFreeze": {
+    "sha256": "1737231c45c1d8cff7f5beb534baf3f8623739c96a4a411f51a07801ebb99122",
+    "bytes": 1043
+  },
+  "launcherReadiness": {
+    "sha256": "fc6326ab6e3b356d715bac214121fa0e5f334b286b4056c8838a5db806e8d5b4",
+    "bytes": 4116
+  },
+  "nativeDispatch": false
+}

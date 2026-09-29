@@ -1,0 +1,36 @@
+{
+  "sourceReturn": {
+    "sha256": "89013f011fa16fa5a3ebf84e9882c9822eab79f3c79d7f445a4e6a50ff581805",
+    "bytes": 7644
+  },
+  "sourceGenerated": {
+    "sha256": "431e37c2e97a1f477d8dac79b597a6fa1e42dd6967d4a89a7ed8eb9a29ac437d",
+    "bytes": 5519
+  },
+  "core": {
+    "sha256": "c4bff846362ac59cd928fffcacb6a33a669c178d0380d03aea6c1e3b1fbd9ee1",
+    "bytes": 10340796
+  },
+  "consumer": {
+    "sha256": "e87fde5dac78c67cc3811df63fec579fad306986b2d7280a0511d20f39441cb3",
+    "bytes": 11206
+  },
+  "correspondence": {
+    "sha256": "049de2265e78449c993df7b3043756e59afffae486b97b62ab34273a024a6969",
+    "bytes": 1375860
+  },
+  "input": {
+    "sha256": "8a579ebfb90ddca5e7c3d1fd60c66bf91313aa2bb697000ee4adfe29dede1940",
+    "bytes": 18092
+  },
+  "preparedStart": {
+    "sha256": "37f7cf8659a77bbdfbd589d994486b412cf4f3fe025a9c3c33acddd7246278ba",
+    "bytes": 32179198
+  },
+  "handoff": {
+    "sha256": "536f935ce376b52de0ed479ba83a3e94fa5d15cc6067f7e675cb87e1e4bd9179",
+    "bytes": 1200
+  },
+  "runStarted": false,
+  "providerCalls": 0
+}

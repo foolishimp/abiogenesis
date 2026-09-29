@@ -1,0 +1,50 @@
+{
+  "ready": true,
+  "dispatchAuthorized": false,
+  "providerCalls": 0,
+  "setupMs": 23369.690875,
+  "accounting": {
+    "wallMs": {
+      "provisioning_pack": 3479.586291,
+      "provisioning_extract": 462.6082500000002,
+      "bootstrap_owner_loading_and_candidate_preparation": 403.9590839999996,
+      "provisioning_verify_artifact": 11735.348375,
+      "provisioning_install": 2575.1224170000005,
+      "provisioning_installed_content_check": 474.51137500000186,
+      "provisioning_additional_products": 1451.2599169999994,
+      "installed_owner_loading": 218.65374999999767,
+      "environment_install_and_workspace_admission": 553.289499999999,
+      "execution_preparation_publication_program_and_catalog": 351.39420900000187
+    },
+    "volumes": {
+      "archiveBytes": 10340796,
+      "archiveUnpackedBytes": 67642991,
+      "archiveMemberCount": 5254,
+      "installedTreeBytes": null
+    }
+  },
+  "worksite": "/private/tmp/abi5-s7-retained-work-s5CZt2/abi5-root-env-fUBDTm/workspace",
+  "privateRoot": "/private/tmp/abi5-s7-retained-work-s5CZt2",
+  "inputDigest": "sha256:3566ea194376b23aa87ff0d97be8b9f6853cc9b756e04eef17f8f6f1d1047af3",
+  "publicCallBytes": 17517123,
+  "initialFiles": 10,
+  "missingAssessmentInput": "assessment/consumer-context.md",
+  "contextFileBytes": 10737,
+  "callableMembership": [
+    "graph-function://abiogenesis/default-library/testing@5",
+    "graph-function://abiogenesis/default-library/uat@5",
+    "graph-function://abiogenesis/worksite/command-execution@5",
+    "graph-function://abiogenesis/worksite/native-work/assessment@5",
+    "graph-function://abiogenesis/worksite/native-work@5",
+    "graph-function://default-library-witness/executive-step@5",
+    "graph-function://default-library-witness/executive@5"
+  ],
+  "checks": [
+    "exact frozen source/output before packaging",
+    "actual core/consumer verification/install/catalog",
+    "ordinary Program/input resolution",
+    "initial source/oracle exact",
+    "assessment-only input absent and excluded from producer dependencies",
+    "no Run/actor dispatched"
+  ]
+}

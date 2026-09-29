@@ -1,0 +1,20 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: first unexpected frontier returns for triage
++ actual - expected
+
++ undefined
+- 'implementation://abiogenesis/default-library/prepare-native@5'
+
+    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/launch.mjs:54:10 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: undefined,
+  expected: 'implementation://abiogenesis/default-library/prepare-native@5',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.7.0

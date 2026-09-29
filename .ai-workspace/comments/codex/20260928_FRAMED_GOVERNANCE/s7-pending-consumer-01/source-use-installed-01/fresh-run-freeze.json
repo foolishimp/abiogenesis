@@ -1,0 +1,47 @@
+{
+  "return": {
+    "sha256": "44858934eb327086bb01db7df1a3cdac79b72c0305b9a7bc73ea37857f819e4e",
+    "bytes": 6194
+  },
+  "proofManifest": {
+    "sha256": "6b3e078952ce149a6dac94df54cd9639b9c185332cc0f3f6111a8d4dc0674ba6",
+    "bytes": 8523
+  },
+  "launchFreeze": {
+    "sha256": "fba67a768e10d44ea197b5ba66110684f94cd5bdbc0742a5fb5f318a21222266",
+    "bytes": 2130
+  },
+  "firstFreeze": {
+    "sha256": "45b76225fd09c993ca0e8306c7fdce9dbcf4a4fd04d449de23471697f4479970",
+    "bytes": 954
+  },
+  "acceptedReadiness": {
+    "sha256": "154d50603ccb621e260097bfca49a1f80f43eb66d46b92573734a7a46211b2f6",
+    "bytes": 536
+  },
+  "core": {
+    "sha256": "c4bff846362ac59cd928fffcacb6a33a669c178d0380d03aea6c1e3b1fbd9ee1",
+    "bytes": 10340796
+  },
+  "consumer": {
+    "sha256": "e87fde5dac78c67cc3811df63fec579fad306986b2d7280a0511d20f39441cb3",
+    "bytes": 11206
+  },
+  "genuineHandoff": {
+    "sha256": "ede732575aeb931a56c0724b91807bc6bd7c1220864ae6beb99373e854c49466",
+    "bytes": 1202
+  },
+  "sourceAdmission": {
+    "ordinal": 2320,
+    "eventRef": "event://abiogenesis/d3975ddd49affe919135053209dfb4cf2ed7a1e71d7c1af4d18df3ef41e400ee",
+    "invocationAdmissionRef": "invocation-admission://abiogenesis/ee2f74ac138869f69a5334ffbd410551991e831ec6ae58009361878eeae03711",
+    "sourceResultRef": "result://abiogenesis/7987f78e6e7f4c5dc073d285a752e2ebe4ae69d0a398435d2a6606ae06e53fa3",
+    "sourceBasisRef": "invocation-source-result://abiogenesis/e55aee9e89307fd0cc351c72ad0846c28c7a83e83cf069b30d034e49d59bdfd2"
+  },
+  "terminalResult": {
+    "digest": "sha256:aa8d21c746b03b96698ec40b0f27eac86fbd7d6bb7ecd47e4d0af3dfdb5e715d",
+    "ref": "result://abiogenesis/aa8d21c746b03b96698ec40b0f27eac86fbd7d6bb7ecd47e4d0af3dfdb5e715d"
+  },
+  "providerCalls": 2,
+  "retry": false
+}

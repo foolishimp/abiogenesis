@@ -1,0 +1,11 @@
+{
+  "ready": true,
+  "providerCalls": 0,
+  "runStarted": false,
+  "inputDigest": "sha256:edac07854a59d26479a179e975d25d0c176e0b75d78460bbfe48c3945e89d014",
+  "publicCallBytes": 17575483,
+  "priorSourceResult": "result://abiogenesis/7987f78e6e7f4c5dc073d285a752e2ebe4ae69d0a398435d2a6606ae06e53fa3",
+  "oldRun": "run://abiogenesis/f61e015d1da8c85836bf1cbeeb842f53b04c83203795cf14ef198fcca32365a2",
+  "onlyWrite": "assessment/consumer-context.md",
+  "claim": "new ordinary invocation with admitted source use; no old parents restored"
+}

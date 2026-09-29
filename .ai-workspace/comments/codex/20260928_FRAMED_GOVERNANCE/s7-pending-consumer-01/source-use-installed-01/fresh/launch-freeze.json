@@ -1,0 +1,68 @@
+{
+  "task": "T287_S7_RETAINED_WORK_FRESH_NATIVE_01",
+  "source": {
+    "sha256": "8428973889fa501aa6ceb6cf2148ab01daf7c7b565fb0760e1968d4d91e62385",
+    "bytes": 38883
+  },
+  "acceptedFirstFreeze": {
+    "sha256": "45b76225fd09c993ca0e8306c7fdce9dbcf4a4fd04d449de23471697f4479970",
+    "bytes": 954
+  },
+  "successorFixture": {
+    "sha256": "0023667eecc71a4b4631aafd1c58b21b913ac1f57970cd9a401db78d8426a14b",
+    "bytes": 7052
+  },
+  "preconditions": {
+    "sha256": "1fbd9de7e44b4a5f60164ed6516c48f280df9d62a99f4772623f1944483893ec",
+    "bytes": 183
+  },
+  "launch": {
+    "sha256": "cc1298c1550d08178d019f1d38eecd0f6a3c82477af33fd3b17a27ff1e772190",
+    "bytes": 11736
+  },
+  "readback": {
+    "sha256": "3109f7b431a26505a61de77e25c9daba92f43778ab9a7ad3e907a3b6ff320d87",
+    "bytes": 3457
+  },
+  "provider": {
+    "sha256": "55774985b9e4873306260e83d6cb081a7885706ff935135ca26d6c2fe55abad3",
+    "bytes": 343
+  },
+  "controls": {
+    "sha256": "edfb6fc7ec188503f61704b876e1914b014a32984464609393aee552eaf49fdb",
+    "bytes": 3085
+  },
+  "members": {
+    "source-result-basis.json": {
+      "sha256": "e113778fa38314aa66771d78d5e6f5d866f6d3ba7f723069549b8ef332930355",
+      "bytes": 37251
+    },
+    "handoff-before-start.json": {
+      "sha256": "d541800570ac960b3166587af1ca2a308b76f8e9f72e09f02b562f40751a07fd",
+      "bytes": 1202
+    },
+    "supplied-input.json": {
+      "sha256": "758e4e055eeb79d9423e12c374d619d846706a46dd346d6a201987a6ae853119",
+      "bytes": 444
+    },
+    "context.json": {
+      "sha256": "ee1bc9dd672746856dd1e3f81af096d5a4b77901e460fa89d7d6fe426de3a9a4",
+      "bytes": 19654
+    },
+    "start-prepared.json": {
+      "sha256": "08bc9f0aacceb0cdf6f15a6764e82c2160e51ee6858cf20ff7409537a2b0d7d0",
+      "bytes": 32257863
+    },
+    "input.json": {
+      "sha256": "14a9e7de4fbef2e040b00a03c8ae0e2623f56709159e5c3a53ec249ab04bdeb9",
+      "bytes": 34205
+    },
+    "preparation.json": {
+      "sha256": "b8849c01fe7376fc7b41d18eecc9bbac6b6df909e8e55a6b8d331526d9dc4dec",
+      "bytes": 535
+    }
+  },
+  "noRuntimeCatalogOrPromptChange": true,
+  "documentSupplied": true,
+  "runStarted": false
+}

@@ -1,0 +1,33 @@
+{
+  "return": {
+    "sha256": "62e1bd0ebc52cc02a171b8186613cb509f049f267679e6d3b76cb1c8a4bbca27",
+    "bytes": 5853
+  },
+  "proofManifest": {
+    "sha256": "7a7b1ff4285f4bbac0a909945025f024ea4209b3d2acb7e812e065a7054b319e",
+    "bytes": 7692
+  },
+  "acceptedReadiness": {
+    "sha256": "154d50603ccb621e260097bfca49a1f80f43eb66d46b92573734a7a46211b2f6",
+    "bytes": 536
+  },
+  "core": {
+    "sha256": "c4bff846362ac59cd928fffcacb6a33a669c178d0380d03aea6c1e3b1fbd9ee1",
+    "bytes": 10340796
+  },
+  "consumer": {
+    "sha256": "e87fde5dac78c67cc3811df63fec579fad306986b2d7280a0511d20f39441cb3",
+    "bytes": 11206
+  },
+  "genuineHandoff": {
+    "sha256": "d541800570ac960b3166587af1ca2a308b76f8e9f72e09f02b562f40751a07fd",
+    "bytes": 1202
+  },
+  "sourceCandidate": {
+    "sha256": "8428973889fa501aa6ceb6cf2148ab01daf7c7b565fb0760e1968d4d91e62385",
+    "bytes": 38883
+  },
+  "providerCalls": 3,
+  "secondDispatch": false,
+  "documentSupplied": false
+}

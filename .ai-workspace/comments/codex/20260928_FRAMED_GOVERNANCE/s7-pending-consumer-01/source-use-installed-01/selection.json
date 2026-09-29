@@ -1,0 +1,16 @@
+{
+  "purposes": [
+    "testing",
+    "uat"
+  ],
+  "bound": 4,
+  "missingAssessmentInput": "assessment/consumer-context.md",
+  "onlyBetweenRunWrite": "assessment/consumer-context.md",
+  "originalSourceSha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+  "oracleSha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+  "suppliedCandidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-implementation/framed-synthesis/correction-02/companion-01/worksite-result/generated/hello-world.mjs",
+    "sha256": "fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef"
+  },
+  "claim": "ordinary fresh invocation source use, not exact execution recovery"
+}

@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/launch.mjs",
+    "--dispatch-once",
+    "first"
+  ],
+  "startedAt": "2026-09-29T03:16:36.355740+00:00",
+  "seconds": 91.24959870893508,
+  "exitCode": 1
+}

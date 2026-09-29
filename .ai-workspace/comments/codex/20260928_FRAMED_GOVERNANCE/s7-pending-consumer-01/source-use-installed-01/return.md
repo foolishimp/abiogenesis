@@ -1,0 +1,34 @@
+# T287_S7_RETAINED_WORK_INSTALLED_PREPARE_01 — closed readiness
+
+One exact same-candidate installed discriminator is prepared; no Run or provider has started. Canonical source/HOW/output remains byte-identical to source-generated manifest `431e37c2e97a1f477d8dac79b597a6fa1e42dd6967d4a89a7ed8eb9a29ac437d`. Source review `4d13e058fa3e376245a5f2865538a8745b9f1ba6a20d787c63a6130b3c333627` is accepted; checkpoint e9034d85 changes no candidate bytes. No rebuild or source/contract repair occurred.
+
+Core archive SHA `sha256:c4bff846362ac59cd928fffcacb6a33a669c178d0380d03aea6c1e3b1fbd9ee1` (10,340,796 B); consumer SHA `sha256:e87fde5dac78c67cc3811df63fec579fad306986b2d7280a0511d20f39441cb3` (11,206 B). [archive-installed-correspondence.json](archive-installed-correspondence.json) verifies every regular archive member against the actual installation: 5,254 core members / 67,642,991 B, seven consumer members / 49,039 B. Core members also match canonical emitted/package bytes. [freeze.json](freeze.json) binds source, archives, installed correspondence, initial input, prepared Public call and closed handoff. [launcher-manifest.json](launcher-manifest.json) binds the five local preparation/launch/read scripts.
+
+The fixture reuses S5's supplied-work form and existing default-library/public/install machinery. Ten initial files include the unchanged complete original source (`ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f`) and oracle (`028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585`), protected lifecycle artifacts, and the actual valid CLI bytes from the accepted S5 companion as unverified supplied input. No prior events, Results, success claims or author lineage are imported. The new [case-contract.md](case-contract.md) declares only Testing/UAT, unchanged fixed CLI/test commands, and an additional assessment-only source `assessment/consumer-context.md`. That document starts absent, is excluded from original.sources and C2 selectedPaths, and is required by UAT. Its exact future bytes are [consumer-context.md](consumer-context.md); they claim no test or outcome success. Original application source/oracle criteria remain unchanged.
+
+The intended discriminator is actual successful C2 measurement -> selected UAT preparation blocked by the real absent assessment input -> preserved failed Run -> one external supply of that input -> newly authorized ordinary Public start using exact admitted intermediate state evidence. F_P retains selection authority over the unchanged declared catalogue. A gap or another first frontier is preserved and returned for triage, never coerced into the desired UAT attempt. This is prospective evidence, not a guarantee of a provider choice. The fresh invocation must use the original producer Result/call/actor without reauthoring or remeasurement merely for provenance; independent assessment and current parents must establish closure. This is not exact current_intent resumption.
+
+Write territory is the new private root `/private/tmp/abi5-s7-retained-work-s5CZt2`, recorded before setup, and this evidence directory. Actual worksite: `/private/tmp/abi5-s7-retained-work-s5CZt2/abi5-root-env-fUBDTm/workspace`. Runtime application files are read-only; only declared command evidence under `execution-evidence` is writable. The separately gated supply step writes exactly the absent assessment document and verifies every initial file remains unchanged. Prior workspaces and frozen proofs are untouched. Bootstrap/install/cache material under the recorded private root is derived from retained archives; durable handoff/runtime resources there must remain available for dispatch. No Git effects occurred.
+
+Setup completed in **23.409 s** (process 23.482 s): pack 3.480 s, extract 0.463 s, artifact verification 11.735 s, install 2.575 s, installed-content check 0.475 s, additional-product work 1.451 s, and remaining owner/catalog preparation. Verification processed the actual 5,254-member / 67.6 MB candidate; it is setup volume, not deterministic traversal delay. Five script syntax checks passed in 0.101 s. Initial observed files total 10,737 B; prepared Public call is 17,517,123 B (existing catalog/readiness acquisition carrier, not all selector context). No actor/framework/fresh-read timing exists yet.
+
+[provider.json](provider.json) pins `/Users/jim/.local/share/claude/versions/2.1.280`, SHA `387a5c5dcdbb815085edf0baf79591f9d8894efe922bceaf3d75b1b08055229d`, model `claude-opus-5-5`, effort `xhigh`, no fallback. [controls.json](controls.json) records actual unchanged inherited supervision: startup/inactivity 60000 ms, absolute 3600000 ms, termination grace 1000 ms; native transport unchanged. This small case declares recursion bound 4, context/prompt limit 131,072 B and command timeout 20,000 ms. No timer escalation or outer CLI deadline is added. Raw stdout/stderr, actors, assemblies, event history and file effects are retained before assertions. First unexpected failure stops; no automatic paid retry or second dispatch.
+
+After explicit Executive dispatch selection:
+
+```sh
+node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/launch.mjs --dispatch-once first
+```
+
+That command executes one installed Public request and both cold Public reads with fresh CLI processes and empty reader environments. Standalone read command (only if reads have not already been retained): `node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/readback.mjs first`.
+
+Only after the actual expected first frontier is accepted and the supply/fresh phase is selected:
+
+```sh
+node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/prepare-retained.mjs --prepare-retained-once
+node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/launch.mjs --dispatch-once fresh
+```
+
+The first command cold-derives the source from the actual history, refuses absent/foreign/inapplicable facts, conserves original input, supplies the one file, and prepares the separate ordinary call. It neither dispatches nor guesses future source refs. The second is independently dispatch-once gated, preserves raw output and both cold reads, and requires actual prior producer attribution, independent assessment and new parent/Run closure. The fresh input/source identities necessarily remain contingent on actual first-Run events; they are not fabricated at readiness. The launcher contains no next-graph selector or retry loop.
+
+Stop at this preparation freeze. Native launch remains subject to Executive selection. No installed execution, retained-work success or exact recovery claim is made.

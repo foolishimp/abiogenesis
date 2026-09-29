@@ -15,7 +15,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. [T-287 selected plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry) owns registered selection, native and recursive governance, default graph reuse, installed Hello and the remaining exact release obligations. Deterministic selection, native/recursive choice and the default-library supplied/faulty installed pair are accepted within their evidence limits. S6's complete installed Hello lifecycle is independently accepted, including consequential correction, actual authorship, assessment, coverage and fresh Public closure. T-287 owns the correction separating fresh workspace work and retained-evidence use from exact execution resumption, plus remaining exact release qualification. Preserve accepted bounded outcomes and original sources/oracles. Data Mapper is held; LIFE-01, fifteen-family qualification, QUAL056/F11/sole AF22 and RC1 remain open; T288/T289 stay closed. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | Bounded functional evidence establishes runtime capabilities; the graph/context/native-agent relation supports material workspace outcomes and their evaluation. Existing obligations for the 15 Product families, exact qualification and human release acceptance remain tracked; a version label is not a prerequisite for functional progress. Data Mapper supplies diagnostic evidence of generic framework and odd_glc behavior. | Active under STDO2.5.1RC1. [T-287 selected plan](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry) owns registered selection, native and recursive governance, default graph reuse, installed Hello and the remaining exact release obligations. Deterministic selection, native/recursive choice and the default-library supplied/faulty installed pair are accepted within their evidence limits. S6's complete installed Hello lifecycle is independently accepted, including consequential correction, actual authorship, assessment, coverage and fresh Public closure. Ordinary stopped-Run evidence reuse is independently accepted: a fresh invocation preserves the producer and completes independent assessment and current parent/Run closure. T-287 owns remaining exact execution resumption and exact release qualification. Preserve accepted bounded outcomes and original sources/oracles. Data Mapper is held; LIFE-01, fifteen-family qualification, QUAL056/F11/sole AF22 and RC1 remain open; T288/T289 stay closed. |
 
 ## Current Selection
 
@@ -53,10 +53,11 @@ preserved. S6's complete installed Hello lifecycle is now
 a failing baseline leads to selected correction and passing retest; four lifecycle
 assets are authored; actual independent assessment supports all seven obligations;
 ordinary parent/Run closure agrees with fresh Public reads. This is a bounded
-witness, not a general model-reliability claim. T-287 now selects the existing
-course correction separating fresh work over current workspace observations and
-applicable retained evidence from explicitly selected execution resumption. The
-existing recovery obligation and exact-candidate release qualification remain.
+witness, not a general model-reliability claim. The [retained-work installed proof](../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#retained-work-installed-acceptance)
+is independently accepted: current F_P selection consumes the original admitted
+producer through a fresh invocation, independent assessment and new parent/Run
+closure. This is ordinary workspace progress. The separately selected exact
+ConstructionIntent continuation and exact-candidate release qualification remain.
 Security containment remains outside the owner's selected scope; observed
 violations remain recorded without making contrary assessment claims true.
 [T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md#default-library-asset-handoff)
@@ -74,10 +75,10 @@ original task/oracle and still-valid evidence. The withdrawn consumer extension
 cannot serve as current implementation authority or release acceptance.
 
 Preserve the accepted installed Hello thread, including correction, independent
-assessment and fresh Public readback. Correct the retained-work source/use relation
-under existing Product law; ordinary continued work does not require rebuilding a
-failed Run's parent stack. Separately resolve and qualify the declared exact
-execution-recovery obligation, then qualify the exact candidate before RC1 through existing
+assessment and fresh Public readback. Preserve accepted retained-work source/use;
+ordinary continued work does not require rebuilding a failed Run's parent stack.
+Complete and qualify the selected exact ConstructionIntent continuation, then
+qualify the final candidate before RC1 through existing
 F11, sole AF22 and release owners. Each failed iteration receives a bounded
 causal disposition before further execution; unaffected evidence is reused.
 Publication, installed-RC qualification and actual owner acceptance remain distinct.

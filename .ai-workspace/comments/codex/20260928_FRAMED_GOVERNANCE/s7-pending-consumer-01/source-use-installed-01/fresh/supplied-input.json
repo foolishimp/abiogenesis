@@ -1,0 +1,8 @@
+{
+  "path": "assessment/consumer-context.md",
+  "digest": "sha256:12581e1c4682a5fc6e55e0f1c20c24d4c371c58694d7503043cb934e7420f314",
+  "bytes": 600,
+  "effect": "one user-supplied assessment-only file; not an execution success claim",
+  "oldRun": "run://abiogenesis/f61e015d1da8c85836bf1cbeeb842f53b04c83203795cf14ef198fcca32365a2",
+  "sourceResultRef": "result://abiogenesis/7987f78e6e7f4c5dc073d285a752e2ebe4ae69d0a398435d2a6606ae06e53fa3"
+}

@@ -1,0 +1,45 @@
+{
+  "assessment/consumer-context.md": {
+    "absent": true
+  },
+  "design/implementation-design.md": {
+    "bytes": 639,
+    "sha256": "sha256:b96765496fe0c3888365ba72780af33824fa7f34acdb042af45df4d120ba0145"
+  },
+  "design/test-design.md": {
+    "bytes": 684,
+    "sha256": "sha256:617dd54841f7128842616ce42a3befb15b30cd454215894c067980e5ede43406"
+  },
+  "generated/hello-world.mjs": {
+    "bytes": 30,
+    "sha256": "sha256:fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef"
+  },
+  "source/basic-cli.oracle.json": {
+    "bytes": 1112,
+    "sha256": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+  },
+  "source/original-basic-cli.txt": {
+    "bytes": 4325,
+    "sha256": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+  },
+  "source/witness-contract.md": {
+    "bytes": 2188,
+    "sha256": "sha256:ada795c8f963e1028fe74314d90ece446628c1786bf355ff3db8efa0ffe87ba4"
+  },
+  "specification/project-conformance.md": {
+    "bytes": 751,
+    "sha256": "sha256:9aaa62cadeaa74520e5e45542e699c9a97e55bf4b475b2de7f7347b3fb4cee81"
+  },
+  "test-execution-plan.json": {
+    "bytes": 268,
+    "sha256": "sha256:e3250aae29261ebf20fc942aa31ddce5d152b14d4e9c6262e4eab820be34a350"
+  },
+  "test/component/hello-cli.test.mjs": {
+    "bytes": 369,
+    "sha256": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613"
+  },
+  "test/uat/hello-cli.uat.test.mjs": {
+    "bytes": 371,
+    "sha256": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4"
+  }
+}
