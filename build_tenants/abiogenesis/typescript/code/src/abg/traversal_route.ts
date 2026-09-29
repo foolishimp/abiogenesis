@@ -1950,18 +1950,37 @@ export function rehydrateConstructionIntentForCursorAtDurablePrefix(
   );
 }
 
+function constructionIntentAppliesToBasis(intent: ConstructionIntentAdmission, basis: ExecutionBasis,
+  cursor: TraversalCursorCandidate): boolean {
+  if (intent.executionBasisRef === basis.basisRef && intent.runId === cursor.runId &&
+    intent.graphCallId === cursor.graphCallId && intent.frameId === cursor.frameId) return true;
+  const use = basis.constructionContinuationUse;
+  return basis.basisClass === "root" && use !== undefined && use.sourceExecutionBasisRef === intent.executionBasisRef &&
+    use.sourceRunId === intent.runId && use.constructionIntentRef === intent.constructionIntentRef &&
+    use.constructionIntentDigest === intent.constructionIntentDigest && cursor.executionBasisRef === basis.basisRef;
+}
+
 export function rehydrateConstructionIntentForCursorAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   cursor: TraversalCursorCandidate,
 ): ConstructionIntentAdmission | null {
+  const currentBasis = rehydrateExecutionBasisAtPrefix(prefix, cursor.executionBasisRef);
+  const use = currentBasis?.constructionContinuationUse;
+  const originEvent = use === undefined ? undefined : runtimeEventsFromValidatedPrefix(prefix).find(e =>
+    e.kind === "traversal_cursor_entered" && e.runId === cursor.runId && e.frameId === cursor.frameId &&
+    isJsonRecord(e.payload) && e.payload.cursorRef === cursor.cursorRef && isJsonRecord(e.payload.continuedFrom));
+  const origin = originEvent !== undefined && isJsonRecord(originEvent.payload) && isJsonRecord(originEvent.payload.continuedFrom)
+    ? originEvent.payload.continuedFrom : null;
+  const targetCursorRef = origin?.cursorRef ?? cursor.cursorRef;
+  const targetCursorDigest = origin?.cursorDigest ?? cursor.cursorDigest;
   const event = runtimeEventsFromValidatedPrefix(prefix).find(
     (candidate) =>
       candidate.kind === "construction_intent_selected" &&
-      candidate.runId === cursor.runId &&
-      candidate.graphCallId === cursor.graphCallId &&
-      candidate.frameId === cursor.frameId &&
+      candidate.runId === (origin?.runId ?? cursor.runId) &&
+      candidate.graphCallId === (origin?.graphCallId ?? cursor.graphCallId) &&
+      candidate.frameId === (origin?.frameId ?? cursor.frameId) &&
       isJsonRecord(candidate.payload) &&
-      candidate.payload.targetCursorRef === cursor.cursorRef,
+      candidate.payload.targetCursorRef === targetCursorRef,
   );
   if (event === undefined || !isJsonRecord(event.payload)) return null;
   const intentValue = event.payload.constructionIntent;
@@ -1984,6 +2003,9 @@ export function rehydrateConstructionIntentForCursorAtPrefix(
     ...body
   } = intentValue;
   if (
+    (origin !== null && (use === undefined || use.constructionIntentRef !== constructionIntentRef ||
+      use.constructionIntentDigest !== constructionIntentDigest || use.sourceExecutionBasisRef !== intentValue.executionBasisRef ||
+      use.sourceRunId !== intentValue.runId)) ||
     sha256Canonical(body) !== constructionIntentDigest ||
     constructionIntentRef !==
       `construction-intent://abiogenesis/${constructionIntentDigest.slice("sha256:".length)}` ||
@@ -1997,8 +2019,8 @@ export function rehydrateConstructionIntentForCursorAtPrefix(
     intentValue.nextActionProjectionDigest !== projection.projectionDigest ||
     intentValue.nextActionBasisRef !== selectedBasis.basisRef ||
     intentValue.nextActionBasisDigest !== selectedBasis.basisDigest ||
-    intentValue.targetCursorRef !== cursor.cursorRef ||
-    intentValue.targetCursorDigest !== cursor.cursorDigest ||
+    intentValue.targetCursorRef !== targetCursorRef ||
+    intentValue.targetCursorDigest !== targetCursorDigest ||
     typeof intentValue.selectedGraphFunctionRef !== "string" ||
     (
       intentValue.actionKind === "invoke_graph_function"
@@ -2068,7 +2090,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
   const resultEvent = events.find(
     (event) =>
       event.kind === "c_call_result_admitted" &&
-      event.runId === intent.runId &&
+      event.runId === cursor.runId &&
       event.graphFunctionRef === input.childGraphFunctionRef &&
       isJsonRecord(event.payload) &&
       event.payload.resultRef === input.childResultRef,
@@ -2076,7 +2098,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
   const judgmentEvent = events.find(
     (event) =>
       event.kind === "c_call_judged" &&
-      event.runId === intent.runId &&
+      event.runId === cursor.runId &&
       event.graphFunctionRef === input.childGraphFunctionRef &&
       isJsonRecord(event.payload) &&
       event.payload.judgmentRef === input.childJudgmentRef &&
@@ -2085,7 +2107,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
   const terminalEvent = events.find(
     (event) =>
       event.kind === "terminal_reached" &&
-      event.runId === intent.runId &&
+      event.runId === cursor.runId &&
       event.graphFunctionRef === input.childGraphFunctionRef &&
       isJsonRecord(event.payload) &&
       event.payload.closureRef === input.childClosureRef,
@@ -2094,7 +2116,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
     (event) =>
       terminalEvent !== undefined &&
       event.kind === "graph_call_closed" &&
-      event.runId === intent.runId &&
+      event.runId === cursor.runId &&
       event.graphFunctionRef === input.childGraphFunctionRef &&
       event.graphCallId === terminalEvent.graphCallId &&
       event.admissionOrdinal > terminalEvent.admissionOrdinal,
@@ -2496,10 +2518,7 @@ function constructionDeltaForAdvance(
     intent.constructionCompositionRef !== composition.compositionRef ||
     intent.constructionCompositionDigest !==
       composition.compositionDigest ||
-    intent.executionBasisRef !== executionBasis.basisRef ||
-    intent.runId !== sourceCursor.runId ||
-    intent.graphCallId !== sourceCursor.graphCallId ||
-    intent.frameId !== sourceCursor.frameId ||
+    !constructionIntentAppliesToBasis(intent, executionBasis, sourceCursor) ||
     (
       intent.actionKind !== "invoke_graph_function" &&
       sourceCursor.inputRef !== evaluationBasis.basisRef
@@ -2623,7 +2642,13 @@ function constructionDeltaForAdvance(
     actionEvaluationAdmissionDigest,
     ...actionEvaluationAdmissionBody,
   };
+  const continuedObligations = executionBasis.constructionContinuationUse === undefined ? [] : events.filter(event =>
+    event.kind === "construction_continuation_opened" && event.runId === sourceCursor.runId && isJsonRecord(event.payload) &&
+    event.payload.parentExecutionBasisRef === executionBasis.basisRef && event.payload.constructionIntentRef === intent.constructionIntentRef);
+  if (executionBasis.constructionContinuationUse !== undefined && continuedObligations.length !== 1)
+    return refusal("candidate_mismatch", "continued action evaluation lacks its exact current obligation");
   const deltaBody = {
+    ...(continuedObligations.length === 0 ? {} : { continuationRef: continuedObligations[0]!.aggregateId }),
     actionEvaluationAdmissionRef,
     actionEvaluationAdmissionDigest,
     constructionCompositionRef: composition.compositionRef,
@@ -2650,7 +2675,8 @@ function constructionDeltaForAdvance(
   };
   const deltaDigest = sha256Canonical(deltaBody as unknown as JsonValue);
   return {
-    causationEventRefs: runtimeEvidenceEventRefs,
+    causationEventRefs: executionBasis.constructionContinuationUse === undefined ? runtimeEvidenceEventRefs
+      : [executionBasis.admissionEventRef, ...runtimeEvidenceEventRefs.filter(ref => ref !== intent.admissionEventRef)],
     payload: {
       deltaRef:
         `construction-delta://abiogenesis/${deltaDigest.slice("sha256:".length)}`,
@@ -2670,12 +2696,15 @@ export function hasResolvedRunConstructionIntentLineage(
   runId: string,
   constructionCompositionRef: string,
   constructionCompositionDigest: string,
+  continuedUse?: ExecutionBasis["constructionContinuationUse"],
 ): boolean {
   const intentEvents = events.filter(
     (event) =>
       event.kind === "construction_intent_selected" &&
-      event.runId === runId &&
-      isJsonRecord(event.payload),
+      isJsonRecord(event.payload) && (event.runId === runId ||
+        (continuedUse !== undefined && event.runId === continuedUse.sourceRunId &&
+          event.payload.constructionIntentRef === continuedUse.constructionIntentRef &&
+          event.payload.constructionIntentDigest === continuedUse.constructionIntentDigest)),
   );
   return intentEvents.every((event) => {
     if (!isJsonRecord(event.payload)) return false;
@@ -2687,8 +2716,7 @@ export function hasResolvedRunConstructionIntentLineage(
         (candidate) =>
           candidate.kind === "construction_delta_observed" &&
           candidate.runId === runId &&
-          candidate.graphCallId === event.graphCallId &&
-          candidate.frameId === event.frameId &&
+          (event.runId !== runId || (candidate.graphCallId === event.graphCallId && candidate.frameId === event.frameId)) &&
           candidate.admissionOrdinal > event.admissionOrdinal &&
           isJsonRecord(candidate.payload) &&
           candidate.payload.constructionIntentRef === eventIntentRef &&
@@ -2739,10 +2767,13 @@ function hasGovernedConstructionClosure(
   const intentEvents = events.filter(
     (event) =>
       event.kind === "construction_intent_selected" &&
-      event.runId === sourceCursor.runId &&
-      isJsonRecord(event.payload),
+      isJsonRecord(event.payload) && (event.runId === sourceCursor.runId ||
+        (executionBasis.constructionContinuationUse !== undefined &&
+          event.runId === executionBasis.constructionContinuationUse.sourceRunId &&
+          event.payload.constructionIntentRef === executionBasis.constructionContinuationUse.constructionIntentRef &&
+          event.payload.constructionIntentDigest === executionBasis.constructionContinuationUse.constructionIntentDigest)),
   );
-  if (intentEvents.length === 0) return true;
+  if (intentEvents.length === 0) return executionBasis.constructionContinuationUse === undefined;
   if (evidence.evidenceClass === "interaction_resume") return false;
   const projection = convergedNextActionProjection(evidence.result.value);
   if (projection === null) return false;
@@ -2762,14 +2793,15 @@ function hasGovernedConstructionClosure(
     sourceCursor.runId,
     composition.compositionRef,
     composition.compositionDigest,
+    executionBasis.constructionContinuationUse,
   );
   if (!everyRunIntentResolved) return false;
   const deltaEvent = events.find(
     (event) =>
       event.kind === "construction_delta_observed" &&
       event.runId === sourceCursor.runId &&
-      event.graphCallId === intentEvent?.graphCallId &&
-      event.frameId === intentEvent?.frameId &&
+      event.graphCallId === sourceCursor.graphCallId &&
+      event.frameId === sourceCursor.frameId &&
       isJsonRecord(event.payload) &&
       event.payload.constructionIntentRef === intentRef &&
       event.payload.constructionCompositionRef ===
@@ -3435,7 +3467,7 @@ function hasInteractionResumeRouteEvidence(
     evidence.judgment.resultRef === evidence.result.resultRef &&
     evidence.judgment.resultDigest === evidence.result.resultDigest &&
     evidence.judgment.judgment === "pending" &&
-    continuation?.status === "resolved" &&
+    continuation?.continuationKind === "fh_interaction" && continuation.status === "resolved" &&
     continuation.cCallRef === evidence.cCall.cCallRef &&
     continuation.responseRef === evidence.resume.responseRef &&
     continuation.responseDigest === evidence.resume.responseDigest &&
@@ -4135,6 +4167,10 @@ function admitRoute(
 ): RouteAdmissionResult {
   const authorityPrefix = exactPrefix.authorityPrefix;
   const prefix = exactPrefix.runPrefix;
+  // A continued intent is an exact source use, while its evaluator/child facts
+  // remain current-Run facts. Ordinary construction stays on its run prefix.
+  const constructionPrefix = executionBasis.constructionContinuationUse === undefined
+    ? prefix : authorityPrefix;
   if (
     !hasAdmittedExecutionBasisAtPrefix(authorityPrefix, executionBasis) ||
     executionBasis.basisRef !== sourceCursor.executionBasisRef ||
@@ -4304,7 +4340,7 @@ function admitRoute(
       }
       if (
         !hasGovernedConstructionClosure(
-          prefix,
+          constructionPrefix,
           executionBasis,
           graph,
           sourceCursor,
@@ -4341,7 +4377,7 @@ function admitRoute(
       }
       if (
         !hasGovernedConstructionClosure(
-          prefix,
+          constructionPrefix,
           executionBasis,
           graph,
           sourceCursor,
@@ -4744,7 +4780,7 @@ function admitRoute(
       ? constructionIntent
       : null;
   const constructionDelta = constructionDeltaForAdvance(
-    prefix,
+    constructionPrefix,
     executionBasis,
     graph,
     sourceCursor,

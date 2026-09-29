@@ -147,13 +147,18 @@ active. Exact resumption must preserve Run-local identities and causal linkage;
 completion must include its required fold and parent evaluation. Duplicate or
 partial progression needs a truthful disposition rather than invented success.
 
-These are conserved relations, not selection of future event kinds, evaluator
-variants, parent reconstruction structures or a transaction design. Their
-complete realization and installed qualification remain unproved and outside
-the ordinary retained-work increment. Fresh invocation success does not supply
-that proof or alter existing F_H and Continuation meanings. Any later selected
-implementation must establish this relation through the existing owners before
-exposing the operation. No particular new carrier or algorithm is ratified here.
+The bounded exact-intent realization is selected in
+[T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md](T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md#exact-constructionintent-continuation-selected-bounded-realization).
+Its pending truth derives from the original selected ConstructionIntent and
+an actual admitted undispatched F_P preparation failure. It does not generalize
+F_D failure into permission. Continuation reentry consumes the old frontier and
+binds new Run-local cursor/parent identities to the original work authority and
+progressed input under a separately admitted continue operation. Normal child
+fold and parent predicates still own completion. A replacement continuation is
+new Run-local obligation truth; the historical failure and Result identities
+remain unchanged. Unsupported phases/effects/support remain explicit refusals.
+This owner relation does not change fresh retained-work semantics or existing
+F_H response meaning, and supplies no qualification by declaration alone.
 
 ## Totality And Selection
 

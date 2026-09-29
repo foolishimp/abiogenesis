@@ -1,0 +1,32 @@
+{
+  "task": "T287_S7_EXACT_INTENT_OUTPUT_JOIN_02",
+  "disposition": "mechanically ready; actual installed deterministic fixture continuation and cold reads pass; independent review pending",
+  "source": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/source-generated.json",
+    "bytes": 14419,
+    "sha256": "681faa152c3cb131f8ef4d0238d9dfed8273f0619ab7c49afca53cc23dcd037a"
+  },
+  "proof": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/proof-manifest.json",
+    "bytes": 127760,
+    "sha256": "7efc323709e5bae15d1b1e0dca70be05a9f66e07d4d724fc0b9fe54d267bc385"
+  },
+  "return": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/return.md",
+    "bytes": 7652,
+    "sha256": "ff17fb3f62065e8dcb667c4ae6d90b4caca46b4d673bc24cedd4f6591b2faf0f"
+  },
+  "core": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/archives/core.tgz",
+    "bytes": 10362562,
+    "sha256": "fba5643f0fa5272ca6abed7bf5a92810eb2b535e51a774d368a10cc4b8f30e5e"
+  },
+  "consumer": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/archives/consumer.tgz",
+    "bytes": 8145,
+    "sha256": "1228b7548c2a525b38d60e7eaf31b7382ad8fffe524d2d8294b9eae4bffd55d8"
+  },
+  "sourceFrozen": true,
+  "proofMembers": 448,
+  "proofBytes": 894035975
+}

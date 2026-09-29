@@ -305,15 +305,15 @@ function sourceBasis(
     : false;
 }
 
-function authorityMatches<M extends RunInvocationMemberKey>(
-  invocation: ExactRunInvocation<M>,
+export function runOperationAuthorityMatches(
+  invocation: ExactDirectRunInvocation | ExactStartRunInvocation | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.current_intent, unknown>["invocation"],
   resources: ProductRunInvocationResourceAssertion,
   resolution: LoadedProductExecutionResolution,
   workspaceBinding: WorkspaceBinding,
   admittedInstalls: readonly ProductInstall[],
   policy: ReturnType<typeof constructRootInvocationPolicy>,
   grants: readonly CapabilityGrant[],
-  authority: InvocationAuthority,
+  authority: Pick<InvocationAuthority, "authorityRef" | "authorityDigest">,
   transportResourceAssertion: JsonValue,
 ): boolean {
   const slots = invocation.invocationAuthority.slots;
@@ -327,8 +327,9 @@ function authorityMatches<M extends RunInvocationMemberKey>(
   const sessionPolicy = slots.session_policy;
   const capabilities = slots.capability_grants;
   const steering = slots.transport_steering;
-  const requiredCapabilities = packet(invocation.definitionKey.memberKey)
-    .metadata.capabilityRefs;
+  const isContinue = invocation.definitionKey.operationId === "abg.operation.run.continue";
+  const requiredCapabilities = (isContinue ? RUN_OPERATION_CONTRACTS.continue.current_intent
+    : packet(invocation.definitionKey.memberKey as RunInvocationMemberKey)).metadata.capabilityRefs;
   const steeringDigest = sha256Canonical(transportResourceAssertion);
   const authorityRequest = invocation.request as Readonly<
     Record<string, JsonValue>
@@ -336,14 +337,16 @@ function authorityMatches<M extends RunInvocationMemberKey>(
   const inputSlot = slots.input_contract;
   // The public binder authenticates slot syntax/digests; this owner joins the
   // exact asserted input to the selected request, just as the other coordinates.
-  const exactInputAuthority = inputSlot !== null && (invocation.definitionKey.memberKey === "start"
+  const exactInputAuthority = inputSlot !== null && (isContinue
+    ? isRecord(authorityRequest.continuationInput) && inputSlot.valueDigest === authorityRequest.continuationInput.digest
+    : invocation.definitionKey.memberKey === "start"
     ? exactJson(inputSlot, authorityRequest.input)
     : exactJson(inputSlot.contract, authorityRequest.inputContract) && exactJson(inputSlot.value, authorityRequest.input) &&
       inputSlot.valueDigest === sha256Canonical(authorityRequest.input!));
   const requestTarget = isRecord(authorityRequest.target)
     ? authorityRequest.target
     : null;
-  const requiresGraphFunction = invocation.definitionKey.memberKey ===
+  const requiresGraphFunction = isContinue || invocation.definitionKey.memberKey ===
       "invoke" || requestTarget?.kind === "graph_function";
   const exactGraphFunctionAuthority = requiresGraphFunction
     ? graphFunction !== null &&
@@ -554,7 +557,7 @@ export async function prepareProductRunInvocation<
   );
   if (
     authority.kind !== "invocation_authority" ||
-    !authorityMatches(
+    !runOperationAuthorityMatches(
       invocation,
       resources,
       resolution,

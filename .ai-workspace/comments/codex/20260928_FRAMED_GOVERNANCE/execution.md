@@ -3160,3 +3160,161 @@ unselected bootstrap/install trees and every unrelated change. Canonical exact-i
 source work is moving under its separate Worker and is excluded from this commit.
 No rebuild, rerun or proof rewrite. Then Root resumes Executive; selected exact-intent
 implementation and remaining qualification/release work continue.
+
+
+Exact-intent readiness grant clarification: the existing real-owner fixture's
+`setupInstalledRootExecutionBasis` may pack/materialize **one disposable local test
+install** after the coherent build, recording its exact private root and package
+basis. This necessary test setup is selected; the earlier blanket no-install
+wording was overbroad. It grants no development-Product adoption, publication,
+provider/native actor call or additional campaign. Do not weaken the discriminator
+to controlled lower-owner premises merely to avoid its ordinary setup. Root enters
+Writer for this clarification, then resumes Executive; same Worker/scope/return.
+
+
+### Run continuation family release completeness
+
+Root's finite Public-family check finds the same declaration also contains
+`selected_action`; PUBLIC-CONTRACTS:218/232 and CONTINUATION-012 retain distinct
+new-action admission in5.0, while current RUN_DEFINITION_BINDINGS exposes invoke
+and start only. Select `T287_S7_CONTINUE_FAMILY_INTAKE_01`, existing Astra/max
+Reviewer, Product/Public Contract and End-To-End Integration frame. Read-only
+closed question: does that sibling variant already have an actual supported
+owner route, or is a further binding/admission join required? Trace only this
+variant through existing One Surface/new-action/operation owners and exact law;
+identify minimum reuse and proof. Do not infer a missing behavior from an export
+alone, nor accept an export as behavior. Current-intent implementation continues
+unchanged; no broad census, tests, source/Git/provider effects or new family.
+Sole write: s7-pending-consumer-01/continue-family-intake.md; concise closed return.
+Root enters Writer for this grant, then resumes Executive. This is current-release
+applicability, not new Product scope or a duplicate review of retained-work use.
+
+
+Root accepts continue-family intake `3b08d9514e6843212006b0ac4ea64940bb827ed07763b9e8a4110efc8db2eb2e`.
+Record `S7-SELECTED-ACTION-01` as an open existing5.0 realization gap: the installed
+member refuses before execution. Reuse original selected route/ConstructionIntent
+and current operation authority; do not duplicate AF-14 or an already consumed
+child. Current-intent implementation remains the active slice. Its closed
+readiness is the next dependency for the sibling join, before final package and
+qualification. That later slice must first establish its genuine pending-selection
+handoff; a read projection alone supplies no permission or proof. No broad audit
+or additional feature family is selected. Root enters Writer to project this
+confirmed finding in T-287, then resumes Executive.
+
+Root enters Writer for current T-287 routing only: point the active grant to
+exact-constructionintent-continuation-implementation and distinguish accepted
+retained work from the two remaining continuation members; then Executive.
+
+Exact-intent fixture clarification: the existing local deterministic transport
+may execute the real F_P actor owner with fixed typed test output, without model
+credentials or a provider call. This permits the model-free remainder/parent
+closure discriminator already selected; record the transport and do not claim
+live LLM evidence. Admission, dispatch, Result and parent owners remain real.
+Root enters Writer for this clarification only, then resumes Executive.
+
+### Exact-intent child and parent output correction
+
+Root consumes exact-intent-01 closed return
+`2bc937533c86d8c475bee3eea9b447e8155850ca7a2a360616fa55ce543e3c85`
+and freeze `e29f874a4804a1988ec923485708a31a9d9d7f99b07cb0fc22c999cb4ca8fb2e`.
+Build is ready; continuation is not. Actual intent admission reaches the two
+existing workflow guards that conflate child closure output with the parent's
+derived action-evaluation basis. The later owning projection and declared One
+Surface construction already distinguish these values. Classify this as a
+bounded realization correction under unchanged Product/requirements; no new
+selection, controller, carrier relabeling or semantic authority is admitted.
+
+Select `T287_S7_EXACT_INTENT_OUTPUT_JOIN_02`, the same Astra/xhigh Worker and
+Product/Owner/End-To-End Interface Integration frames. In the existing owning
+relation, preserve exact child output/closure and separately validate the actual
+intent-bound parent action-evaluation output at both HoG and ABG admission.
+Ordinary workflows retain their exact-output relation. Use existing declarations
+and admitted intent correspondence, not a fixture-specific exception. Correct
+the two guards as one relation, including directly dependent replay/validation
+consumers only where necessary. Existing exact-intent HOW/code/test territory
+continues, with `hog/workflow_lifecycle.ts` and `abg/c_call.ts` explicit. Record
+preimages and the precise relation in the HOW; Product/requirements stay fixed.
+
+Reuse the assembled real-owner fixture and preserve all prior attempts. One
+coherent build/new exact archive follows the source correction. Run the original
+pending-consumer → continue → remainder/parent discriminator and its already
+selected refusals; retain an ordinary-workflow mismatch refusal through existing
+adequate checks. No broad campaign or provider calls. Fixture setup18.366s is
+separate from actual traversal0.139s. The repeated earlier fixture-carrier faults
+are a preparation quality issue, not framework latency; check the whole remaining
+fixture correspondence before another setup. Return any materially different
+authority/model gap with its first cause, rather than expanding phases. Freeze
+source/generated/evidence and close to Root; no Git or release effect.
+
+Root enters Writer solely to record this disposition/grant and T-287 projection,
+then resumes Executive. Retained-work and S6 acceptance remain; selected_action
+is still the separate next join. Independent review follows a complete closed
+current-intent result, not another review of unchanged failed evidence.
+
+### Final scenario input preparation
+
+Select `T287_RELEASE_SCENARIO_INPUTS_01`, existing Astra/max Reviewer, bounded
+read-only preparation under Product/Proof/End-To-End frames while the Worker
+repairs the workflow output join. Continue the closed release-applicability
+intake rather than repeat it. For S01/S02/S03 only, locate existing actual
+executable fixtures and retained positive/nearest-negative material, and identify
+the smallest joined execution input still required by current law on the eventual
+final candidate. Reuse accepted S6 and current retained-work/exact-intent evidence
+within their limits. Preserve the distinction between useful historical evidence
+and an actual same-candidate execution; no qualification conclusion yet.
+
+Question is concrete preparation, not another capability census: what existing
+program/recipe/launcher inputs can be used, which scenario obligations they
+actually exercise, and which exact data/input remains missing? Do not audit
+moving continuation source, re-review accepted implementations, design a new
+harness, run tests/install/provider calls or produce a per-behavior activation
+roster. Report a genuine absent fixture or authority join as such. Sole write:
+`s7-release-scenario-inputs.md`, concise closed table and exact locators. Existing
+S7 output correction and selected_action order remain; final-subject selection
+and actual coverage judgment follow their closed results. Root enters Writer
+for this preparation grant, then resumes Executive.
+
+### Exact-intent readiness and independent review
+
+Root consumes exact-intent-02 return
+`ff17fb3f62065e8dcb667c4ae6d90b4caca46b4d673bc24cedd4f6591b2faf0f`
+and freeze `7868194a12c73375df6fc952576c50ec18ad33b7f317ab30414185a6808db891`.
+Core `fba5643f0fa5272ca6abed7bf5a92810eb2b535e51a774d368a10cc4b8f30e5e`
+has actual installed bounded continuation, five refusals and two cold reads.
+Continuation2.102s includes fixture actor0.420s; setup21.997s and build20.406s
+are separate. This is mechanical readiness, not independent acceptance, live
+LLM evidence or full S03 qualification. Source remains held.
+
+Select `T287_S7_EXACT_INTENT_REVIEW_02`, existing Astra/max Reviewer, against
+the frozen source/generated snapshots and actual attempt07. Product/Owner,
+Continuation, End-To-End Interface Integration and Reuse/Code Construction
+frames apply. Check the complete original intent/work authority → new operation
+permission → pending input/cursor/parent → actor → fold/evaluation/refresh →
+closure/cold-read correspondence. Inspect the child/derived-parent output
+relation, strict ordinary/leaf boundaries, scoped causation, original-intent
+external fact, single consumption and applicable invalidation/unknown refusals.
+Check for duplicated state/authority machinery; do not extend threat or recovery
+scope. Use retained actual positives/negatives and unchanged installed inventory
+evidence; do not repeat the full inventory/build/campaign or add provider calls.
+Any indispensable missing check must be narrow and identified. Preserve evidence
+limits, especially pure producer support, deterministic transport and S03.
+Sole write: exact-intent-02/review.md; findings, disposition, exact subject, stop.
+
+Root also consumes scenario input preparation
+`44b378c6f542734898f0e800f7cabec50ea20eded0c1e1de418fbdcd1f9f1141`.
+Its concrete S01/S02 donors and unresolved automatic S03 join guide final input
+selection; no historical Result is relabeled. Source readiness now permits the
+already queued selected_action slice after this checkpoint; final release stays
+dependent on actual completion and applicable independent review.
+
+Evidence-volume red flag: exact-intent-02 retains448 proof members/~894MB,
+including~653MB of existing Public acquisition inputs, with individual calls
+~22.5MB. This is retained fixture/acquisition material, not a263-event runtime
+log of that size. Do not hide it in execution timing or infer a runtime bottleneck
+from storage alone. Record it with the existing acquisition/evidence-cost debt.
+Root selects ordinary lossless archive retention for this checkpoint: preserve
+all frozen member bytes/digests, verify archive members, retain concise controls
+and a retrieval receipt. No new evidence system or deletion of local originals.
+After archive preparation, checkpoint/push only these frozen source/HOW/test/
+generated and selected evidence/control files; preserve unrelated dirty work.
+Root enters Writer for these records and checkpoint work, then resumes Executive.

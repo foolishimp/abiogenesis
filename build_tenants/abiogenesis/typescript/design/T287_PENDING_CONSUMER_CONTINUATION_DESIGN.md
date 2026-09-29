@@ -121,22 +121,93 @@ idempotent under the existing operation/invocation key; deliberate later Runs
 remain separate bounded attempts. Applicable lineage/policy limits still apply;
 a caller cannot relabel an exact retry as fresh work merely to reset a bound.
 
-## Exact Pending-Execution Resumption
+## Exact ConstructionIntent Continuation: Selected Bounded Realization
 
-Exact current_intent remains a distinct unimplemented and unqualified operation.
-CONTINUATION-011/-015/-016 and the EC derivation retain its conservation
-obligations: exact causal input/position, original work versus current operation
-authority, consumed limits, phase/effect uncertainty, original producer identity,
-required parent returns/evaluation, duplicate and partial progression. A terminal
-predecessor stays terminal; resource acquisition alone grants no traversal.
-A completed child must not be rerun solely to recreate a missing return boundary.
+`T287_S7_EXACT_INTENT_IMPLEMENT_01` selects the existing five-reference
+`run.continue/current_intent` contract. It neither admits another intent nor
+turns a fresh invocation into recovery. The original `construction_intent_selected`
+Result/route and immutable invocation/work authority remain authoritative. A new
+continue operation has its own exact definition, actor, workspace and capability
+grant. Possession of the old invoke grant alone is insufficient.
 
-This HOW selects no future Continuation event family, currentIntent reference
-alternative, retained-evaluator/child variant, parent-restoration construction or
-transaction arrangement. Those earlier prescriptive candidates are removed under
-S7-PC01. They are not prerequisites for fresh workspace work. No export, source
-basis or held parent object alone qualifies exact resumption, and the fresh-work
-increment supplies no acceptance credit for that remaining operation.
+The first supported frontier is a sequential action GraphFunction under the
+One Surface root's fixed workflow call. An earlier producer has an admitted
+successful Result and advancing route; the later F_P consumer has an admitted
+`undispatched_owner_observation` and totalized failed Result. Its owning leaf port
+explicitly records `effectDisposition = not_dispatched`. A diagnostic, F_D throw,
+failed Result, absence of success, or graph/locus name is not this fact. The
+continuation owns the consumer obligation, not another invocation of the producer.
+Nested retry, fanout, recursion, dispatched/unknown effects, and producer support
+whose current applicability cannot be established are refused by this bounded
+realization. This is not a general safe-to-repeat rule.
+
+The continuation projection binds the original Run/failure event, original
+ConstructionIntent admission, pending CCall/cursor and exact progressed input.
+The existing event prefix and declaration/cursor owners establish every join;
+there is no saved runtime stack, graph snapshot or second evidence store. A
+failed Run remains failed. Cold acquisition reconstructs the selected relation
+once; established immutable relations pass through ordinary warm handoffs.
+
+A successful continue admission consumes that exact pending frontier before
+traversal. The existing continuation reentry owner records the old/new Run link
+and current operation, with historical coordinates in checked payload bindings,
+never cross-Run envelope causation. Duplicate operation or already-consumed
+frontier returns its actual disposition without another dispatch. The replacement
+has new Run-local scope/call/cursor identities, retains the original invocation
+and work grant, and explicitly binds its use of the original intent. No new
+`InvocationAuthority` alternative or `construction_intent_selected` event is
+created. The old continuation is superseded; the new Run's unresolved remainder
+has its own identity and ordinary completion/failure disposition. The new operation and execution-basis claim are admitted together before scopes are opened; that claim prevents a partial setup from being consumed again. Transfer of the old opening to the new continuation is one event-owner transaction after current scopes exist. The new continuation resolves only when the current action evaluation admits its construction delta; required refresh and ordinary Run closure still follow.
+
+For this selected shape there is one actual workflow parent. Existing basis and
+scope owners admit its current counterpart; cursor admission binds its original
+selected workflow coordinate and input; ordinary `openCCall` establishes a
+current waiting parent. The child basis retains its graph-entry input but its
+resume cursor uses the exact progressed producer Result/input. These values are
+distinct. HoG resumes the child there, uses the normal child fold, evaluates the
+One Surface action and remaining declared parent stages, and closes only under
+those current predicates. Original intent provenance is joined to current use;
+no historical evaluator Result is relabelled as a new CCall Result.
+
+The fixed child's GraphCall closure remains bound to its actual output contract.
+For the declared One Surface workflow locus, the parent's output is instead the
+existing owner-derived action-evaluation basis. One shared opening relation checks
+this distinction at HoG and ABG: exact declared composition and admitted intent,
+fixed callee, actual child closure/output, and the immediately following declared
+action evaluator's input. Absent that declaration/intent relation, ordinary
+workflows require child-output/parent-output equality. Existing foldback and
+action-basis derivation bind the actual admitted child Result, judgment and closure;
+no child result is relabelled. Replay conserves the existing separate
+`childOutputDigest` and parent `outputDigest` evidence fields against their own
+foldback and Result, respectively. Workflow output lookup and validation consume
+the exact declared contract by reference; the leaf-only implementation-output
+slot restriction remains on leaf outcomes, since no leaf emits the derived basis.
+
+The current admitted delta resolves the continued obligation by terminating its
+existing `continuation_open` fluent; no extra persistent resolved fluent is
+introduced. Run semantic replay keeps current-Run event atoms and envelope
+causation scoped. Only the delta's exact historical original-intent reference,
+authenticated by the already-admitted continuation use and its current parent,
+is retained as an external owner fact. It is neither imported as a local event
+nor accepted as cross-Run envelope causation. Other historical typed references
+still refuse. Closure and cold Public reads consume this same replay relation.
+
+The same immutable Program/catalog/workspace authority is required. Current
+preparation reacquires its own required mutable inputs. Producer support must
+remain admitted and applicable; immutable pure support is conserved unchanged,
+while stale or unsupported mutable support refuses before dispatch. The selected
+finite discriminator uses the existing typed undispatched boundary, not the
+default library's distinct F_D missing-document mechanism. Attempt/term/retry
+coordinates and consumed allowances are conserved; unsupported bounded-composite
+phases refuse rather than reset their budget.
+
+The Public adapter acquires the exact existing installed declarations and event
+resource, authenticates the five references and current-operation grant, then
+uses the owning continuation admission and HoG entry. It cannot select graph
+work, reconstruct authority from prompt fields, skip the pending consumer, or
+substitute initial input. Fresh cold Result/replay use the admitted link and
+normal closure facts. This HOW specifies the selected correspondence; mechanical
+and installed proof remain separate qualification obligations.
 
 ## Scope, Contraction And Evidence
 
@@ -166,4 +237,4 @@ and normal fold/closure. Reuse accepted S5 supplied-work and S6 actual fulfillme
 proof. No new provider campaign, generic reliability claim or broad test roster
 is selected. The current grant covers local retained-work implementation and
 mechanical readiness only; installed/native execution remains separately selected.
-Exact execution resumption remains unimplemented and unqualified.
+Exact execution resumption is selected for the bounded realization above; it remains unqualified until its actual-owner and installed evidence close.

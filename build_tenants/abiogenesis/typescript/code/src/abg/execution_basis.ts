@@ -106,6 +106,7 @@ import { hasAdmittedTraversalCursorAtPrefix, projectTraversalInputAtPrefix, type
 import {
   AbgEventStore,
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
+  admitRuntimeEventTransactionAtDurablePrefix,
   admitRuntimeEventBatch,
   admitRuntimeEventTransactionAtExpectedPrefix,
   isRuntimeEventTransactionActive,
@@ -121,6 +122,7 @@ import {
   validateDurablePrefixCoordinate,
   type DurablePrefixCoordinate,
   type RuntimeEventCandidateFactory,
+  type RuntimeEvent,
 } from "./event_store.js";
 import {
   runtimeEventsFromValidatedPrefix,
@@ -353,6 +355,13 @@ export interface AdmittedImplementationResolution {
 }
 
 export interface ExecutionBasis {
+  readonly constructionContinuationUse?: Readonly<{
+    continuationRef: string; continuationDigest: Sha256Digest; sourceRunId: string;
+    sourceExecutionBasisRef: string; pendingExecutionBasisRef: string;
+    pendingCursorRef: string; pendingCursorDigest: Sha256Digest;
+    constructionIntentRef: string; constructionIntentDigest: Sha256Digest;
+    operationAdmissionEventRef: string;
+  }>;
   readonly registeredSelectionDefinitionDigests?: Readonly<Record<string, Sha256Digest>>;
   readonly kind: "execution_basis";
   readonly schemaVersion: "5.0.0";
@@ -2639,4 +2648,47 @@ function admitChildExecutionBasisUsing(
     executionBasis,
     successorPrefix: committed.successorPrefix,
   }) as ChildExecutionBasisAdmission;
+}
+
+/** A new Run-local basis uses the same admitted invocation/work authority.
+ * The continuation owner supplies the separately admitted operation and exact
+ * pending-source relation; no invocation or ConstructionIntent is reminted. */
+import { isPreparedConstructionContinuationOperation, type PreparedConstructionContinuationOperation } from "./construction_continuation.js";
+
+export function admitConstructionContinuationExecutionBasis(
+  store: AbgEventStore, predecessorPrefix: DurablePrefixCoordinate,
+  plan: PreparedConstructionContinuationOperation, basis: RuntimeAdmissionBasis,
+): Readonly<{ executionBasis: ExecutionBasis; successorPrefix: DurablePrefixCoordinate; operation: RuntimeEvent }> {
+  const prefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix));
+  if (!isPreparedConstructionContinuationOperation(plan) || runtimeEventPrefixDigest(prefix) !== plan.predecessorDigest ||
+    !hasAdmittedExecutionBasisAtPrefix(prefix, plan.prepared.root))
+    throw new TypeError("continued basis requires its exact prepared operation and durable predecessor");
+  const source = plan.prepared.root;
+  const selected = plan.prepared.continuation;
+  const admitted = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, predecessorPrefix, () => {
+    const operation = admitRuntimeEvent(store, plan.candidate);
+    const use: NonNullable<ExecutionBasis["constructionContinuationUse"]> = {
+      continuationRef: selected.continuationRef, continuationDigest: selected.continuationDigest,
+      sourceRunId: selected.runId, sourceExecutionBasisRef: source.basisRef,
+      pendingExecutionBasisRef: selected.executionBasisRef, pendingCursorRef: selected.heldCursorRef,
+      pendingCursorDigest: selected.heldCursorDigest, constructionIntentRef: selected.constructionIntentRef,
+      constructionIntentDigest: selected.constructionIntentDigest, operationAdmissionEventRef: operation.eventId,
+    };
+    const { kind: _kind, schemaVersion: _version, disposition: _disposition, basisRef: _ref,
+      basisDigest: _digest, admissionEventRef: _event, ...sourceBody } = source;
+    const body = { ...sourceBody, constructionContinuationUse: use };
+    const basisDigest = sha256Canonical(body as unknown as JsonValue);
+    const basisRef = `execution-basis://abiogenesis/${basisDigest.slice(7)}`;
+    const event = admitRuntimeEvent(store, {
+      kind: "basis_admitted", eventTime: basis.eventTime, aggregateType: "workspace", aggregateId: source.workspaceBindingId,
+      parentAggregateId: source.invocationRef, causationEventRefs: [operation.eventId, source.admissionEventRef],
+      correlationId: basis.correlationId, workflowVersion: "5.0.0", scopeClass: "workspace", basisId: basisRef,
+      payload: { basisRef, basisDigest, ...body } as unknown as JsonValue,
+    });
+    const executionBasis = deepFreeze({ kind: "execution_basis" as const, schemaVersion: "5.0.0" as const,
+      disposition: "admitted" as const, basisRef, basisDigest, ...body, admissionEventRef: event.eventId });
+    return { executionBasis, operation };
+  });
+  executionBases.add(admitted.value.executionBasis);
+  return Object.freeze({ ...admitted.value, successorPrefix: admitted.successorPrefix });
 }

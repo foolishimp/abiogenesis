@@ -376,6 +376,30 @@ function routeCompletedInput(prefix: ValidatedRuntimeEventPrefix, route: Runtime
     ? inputCoordinate(results[0]!.payload.resultRef, results[0]!.payload.valueDigest) : null;
 }
 
+/** The basis binds this use to the original selected intent. Only the two
+ * admitted source cursors (workflow parent and undispatched child) can enter a
+ * replacement frame; no new position or input is chosen here. */
+function continuedCursorOrigin(prefix: ValidatedRuntimeEventPrefix, graph: Readonly<GtlGraph>,
+  basisRef: string, origin: unknown): TraversalCursorCandidate | null {
+  if (!isJsonRecord(origin) || Object.keys(origin).length !== 6 ||
+    !["cursorRef", "cursorDigest", "executionBasisRef", "runId", "graphCallId", "frameId"]
+      .every(key => typeof origin[key] === "string")) return null;
+  const basis = rehydrateExecutionBasisAtPrefix(prefix, basisRef);
+  const root = basis?.basisClass === "root" ? basis : basis?.parentExecutionBasisRef == null ? null
+    : rehydrateExecutionBasisAtPrefix(prefix, basis.parentExecutionBasisRef);
+  const use = root?.constructionContinuationUse;
+  if (basis === null || use === undefined || origin.runId !== use.sourceRunId ||
+    origin.executionBasisRef !== (basis.basisClass === "root" ? use.sourceExecutionBasisRef : use.pendingExecutionBasisRef)) return null;
+  const source = projectCursorAncestry(prefix, graph, origin as unknown as CursorIdentity)?.at(-1);
+  if (source === undefined || (basis.basisClass === "child" &&
+    (source.cursorRef !== use.pendingCursorRef || source.cursorDigest !== use.pendingCursorDigest))) return null;
+  if (basis.basisClass === "root" && !indexedRuntimeEvents(prefix, "kind:construction_intent_selected").some(e =>
+    e.runId === source.runId && e.basisId === source.executionBasisRef && isJsonRecord(e.payload) &&
+    e.payload.constructionIntentRef === use.constructionIntentRef && e.payload.constructionIntentDigest === use.constructionIntentDigest &&
+    e.payload.targetCursorRef === source.cursorRef && e.payload.targetCursorDigest === source.cursorDigest)) return null;
+  return source;
+}
+
 /** Reconstruct only the selected admitted cursor chain. Each actual transition
  * has one GTL target and one cursor hash; unrelated input origins are never
  * enumerated or proposed as cursor bodies. Raw admission remains independent. */
@@ -405,16 +429,21 @@ function projectCursorAncestry(prefix: ValidatedRuntimeEventPrefix, graph: Reado
   const initial = origins.pop()!;
   const p = initial.payload as Readonly<Record<string, JsonValue>>;
   const input = inputCoordinate(p.inputRef, p.inputDigest);
+  const continued = p.continuedFrom === undefined ? null
+    : continuedCursorOrigin(prefix, graph, selected.executionBasisRef, p.continuedFrom);
+  if (p.continuedFrom !== undefined && continued === null) return null;
   if (input === null || typeof p.programRef !== "string" || typeof p.traversalScopeRef !== "string" ||
     p.executionBasisRef !== selected.executionBasisRef || p.materializationRef !== graph.materializationRef ||
     !Array.isArray(p.termPath) || !p.termPath.every(part => typeof part === "string") ||
-    !sameCoordinates(p.termPath as string[], ["node", graph.template.startNodeRef, "c"]) ||
-    p.taskOrdinal !== null || p.attempt !== 1 || !Array.isArray(p.retryPath) || p.retryPath.length !== 0) return null;
+    !sameCoordinates(p.termPath as string[], continued?.termPath ?? ["node", graph.template.startNodeRef, "c"]) ||
+    p.taskOrdinal !== (continued?.taskOrdinal ?? null) || p.attempt !== (continued?.attempt ?? 1) ||
+    !Array.isArray(p.retryPath) || !sameCoordinates(p.retryPath, continued?.retryPath ?? []) ||
+    (continued !== null && (input.inputRef !== continued.inputRef || input.inputDigest !== continued.inputDigest))) return null;
   let current = constructTraversalCursorCandidate({
     programRef: p.programRef, executionBasisRef: selected.executionBasisRef, traversalScopeRef: p.traversalScopeRef,
     runId: selected.runId, graphCallId: selected.graphCallId, frameId: selected.frameId, graphRef: graph.materializationRef,
-    currentNodeRef: graph.template.startNodeRef, position: "at_term", termPath: p.termPath as string[],
-    taskOrdinal: null, attempt: 1, retryPath: [], ...input,
+    currentNodeRef: continued?.currentNodeRef ?? graph.template.startNodeRef, position: continued?.position ?? "at_term", termPath: p.termPath as string[],
+    taskOrdinal: continued?.taskOrdinal ?? null, attempt: continued?.attempt ?? 1, retryPath: continued?.retryPath ?? [], ...input,
   });
   if (current.cursorRef !== p.cursorRef || current.cursorDigest !== p.cursorDigest) return null;
   const ancestry = [current];
@@ -485,20 +514,23 @@ export function projectOpenedCCallTraversalInputAtPrefix(prefix: ValidatedRuntim
   graph: Readonly<GtlGraph>, cCallRef: string) {
   const openedRows = indexedRuntimeEvents(prefix, "aggregate:c_call:" + cCallRef).filter(e => e.kind === "c_call_opened");
   const opened = openedRows.length === 1 ? openedRows[0] : undefined;
-  if (opened === undefined || !isJsonRecord(opened.payload) || opened.payload.callClass !== "leaf" ||
+  if (opened === undefined || !isJsonRecord(opened.payload) || (opened.payload.callClass !== "leaf" && opened.payload.callClass !== "workflow") ||
     typeof opened.basisId !== "string" || typeof opened.payload.programLocusRef !== "string" ||
     typeof opened.payload.cursorRef !== "string" || typeof opened.payload.cursorDigest !== "string") return null;
   const execution = rehydrateExecutionBasisAtPrefix(prefix, opened.basisId);
-  const locus = resolveCProgramLocus(graph.template, opened.payload.programLocusRef);
-  if (execution === null || locus.kind === "c_source_path_refusal" || typeof opened.runId !== "string" ||
+  const locus = opened.payload.callClass === "leaf" ? resolveCProgramLocus(graph.template, opened.payload.programLocusRef) : null;
+  if (execution === null || locus?.kind === "c_source_path_refusal" || typeof opened.runId !== "string" ||
     typeof opened.graphCallId !== "string" || typeof opened.frameId !== "string" || !Array.isArray(opened.payload.retryPath)) return null;
   const ancestry = projectCursorAncestry(prefix, graph, { cursorRef: opened.payload.cursorRef,
     cursorDigest: opened.payload.cursorDigest as Sha256Digest, executionBasisRef: execution.basisRef,
     runId: opened.runId, graphCallId: opened.graphCallId, frameId: opened.frameId });
   const cursor = ancestry?.at(-1);
-  if (cursor === undefined || cursor.programRef !== execution.programRef || cursor.currentNodeRef !== locus.nodeRef ||
-    !sameCoordinates(cursor.termPath, locus.termPath) || cursor.taskOrdinal !== opened.payload.taskOrdinal ||
+  if (cursor === undefined || cursor.programRef !== execution.programRef || (locus !== null && (cursor.currentNodeRef !== locus.nodeRef || !sameCoordinates(cursor.termPath, locus.termPath))) || cursor.taskOrdinal !== opened.payload.taskOrdinal ||
     cursor.attempt !== opened.payload.attempt || !sameCoordinates(cursor.retryPath, opened.payload.retryPath.map(Number))) return null;
+  if (locus === null) {
+    const term = resolveCProgramTermAtSourcePath(graph.template, cursor.currentNodeRef, cursor.termPath);
+    if (term.kind !== "c_workflow" || term.graphFunctionRef !== opened.payload.childGraphFunctionRef) return null;
+  }
   const origin = traversalCursorAdmissionEventsAtPrefix(prefix, cursor);
   if (origin.length !== 1 || origin[0]!.admissionOrdinal >= opened.admissionOrdinal ||
     opened.causationEventRefs[0] !== origin[0]!.eventId) return null;
@@ -576,7 +608,7 @@ export function isTraversalCursorAdmission(value: object): boolean {
   return cursorAdmissions.has(value);
 }
 
-export function admitInitialTraversalCursor(
+function admitTraversalFrameCursor(
   store: AbgEventStore,
   predecessorPrefix: DurablePrefixCoordinate,
   executionBasis: ExecutionBasis,
@@ -585,6 +617,7 @@ export function admitInitialTraversalCursor(
   graphValidation: GraphValidation,
   cursor: TraversalCursorCandidate,
   basis: RuntimeAdmissionBasis,
+  continuedFrom?: TraversalCursorCandidate,
 ): TraversalCursorAdmissionResult {
   const transaction = admitRuntimeEventTransactionAtDurablePrefix(
     store,
@@ -614,6 +647,14 @@ export function admitInitialTraversalCursor(
   ) {
     return refusal("graph_mismatch", "cursor admission requires the exact validated original GTL Graph");
   }
+  const origin = continuedFrom === undefined ? undefined : {
+    cursorRef: continuedFrom.cursorRef, cursorDigest: continuedFrom.cursorDigest,
+    executionBasisRef: continuedFrom.executionBasisRef, runId: continuedFrom.runId,
+    graphCallId: continuedFrom.graphCallId, frameId: continuedFrom.frameId,
+  };
+  const source = origin === undefined ? null : continuedCursorOrigin(authorityPrefix, graph, executionBasis.basisRef, origin);
+  if (origin !== undefined && (source === null || source.cursorDigest !== continuedFrom!.cursorDigest))
+    return refusal("cursor_mismatch", "continued cursor lacks exact admitted intent, source position and input");
   const expectedDigest = sha256Canonical(cursorBody(cursor));
   if (
     cursor.kind !== "traversal_cursor" ||
@@ -628,19 +669,19 @@ export function admitInitialTraversalCursor(
     cursor.graphCallId !== scope.graphCallId ||
     cursor.frameId !== scope.frameId ||
     cursor.graphRef !== graph.materializationRef ||
-    cursor.inputRef !== executionBasis.rawInputAdmissionRef ||
-    cursor.inputDigest !== executionBasis.rawInputDigest
+    cursor.inputRef !== (source?.inputRef ?? executionBasis.rawInputAdmissionRef) ||
+    cursor.inputDigest !== (source?.inputDigest ?? executionBasis.rawInputDigest)
   ) {
     return refusal("cursor_mismatch", "cursor identity or opened lineage differs from the admitted basis");
   }
   if (
-    cursor.position !== "at_term" ||
-    cursor.currentNodeRef !== graph.template.startNodeRef ||
+    cursor.position !== (source?.position ?? "at_term") ||
+    cursor.currentNodeRef !== (source?.currentNodeRef ?? graph.template.startNodeRef) ||
     cursor.termPath.join("\0") !==
-      ["node", graph.template.startNodeRef, "c"].join("\0") ||
-    cursor.taskOrdinal !== null ||
-    cursor.attempt !== 1 ||
-    cursor.retryPath.length !== 0
+      (source?.termPath ?? ["node", graph.template.startNodeRef, "c"]).join("\0") ||
+    cursor.taskOrdinal !== (source?.taskOrdinal ?? null) ||
+    cursor.attempt !== (source?.attempt ?? 1) ||
+    !sameCoordinates(cursor.retryPath, source?.retryPath ?? [])
   ) {
     return refusal("cursor_not_initial", "initial cursor must name the exact root C term and initial coordinates");
   }
@@ -693,6 +734,7 @@ export function admitInitialTraversalCursor(
     frameId: scope.frameId,
     frameLineageId: scope.frameLineageId,
     payload: {
+      ...(origin === undefined ? {} : { continuedFrom: origin }),
       cursorRef: cursor.cursorRef,
       cursorDigest: cursor.cursorDigest,
       programRef: executionBasis.programRef,
@@ -739,4 +781,19 @@ export function admitInitialTraversalCursor(
   }) as TraversalCursorAdmission;
   cursorAdmissions.add(admission);
   return admission;
+}
+
+export function admitInitialTraversalCursor(...args: Parameters<typeof admitTraversalFrameCursor>): TraversalCursorAdmissionResult {
+  if (args[8] !== undefined) return refusal("cursor_mismatch", "initial cursor does not accept a continuation origin");
+  return admitTraversalFrameCursor(...args);
+}
+
+export function admitContinuedTraversalCursor(store: AbgEventStore, prefix: DurablePrefixCoordinate,
+  basis: ExecutionBasis, scope: OpenedTraversalScope, graph: Readonly<GtlGraph>, validation: GraphValidation,
+  source: TraversalCursorCandidate, admissionBasis: RuntimeAdmissionBasis) {
+  const { kind: _kind, schemaVersion: _schema, cursorRef: _ref, cursorDigest: _digest, ...body } = source;
+  const cursor = constructTraversalCursorCandidate({ ...body, executionBasisRef: basis.basisRef,
+    traversalScopeRef: scope.scopeRef, runId: scope.runId, graphCallId: scope.graphCallId, frameId: scope.frameId });
+  const admission = admitTraversalFrameCursor(store, prefix, basis, scope, graph, validation, cursor, admissionBasis, source);
+  return admission.kind === "traversal_cursor_admission" ? Object.freeze({ kind: "continued_traversal_cursor" as const, cursor, admission }) : admission;
 }

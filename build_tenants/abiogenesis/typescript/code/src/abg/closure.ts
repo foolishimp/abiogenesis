@@ -296,7 +296,7 @@ function projectCurrentClosureTruth(
     : currentReplay.continuations.find(
         (candidate) =>
           candidate.continuationRef === resume.continuationRef &&
-          candidate.status === "resolved" &&
+          candidate.continuationKind === "fh_interaction" && candidate.status === "resolved" &&
           candidate.resumedEventRef === resume.admissionEventRef &&
           candidate.responseRef === resume.responseRef &&
           candidate.responseDigest === resume.responseDigest &&

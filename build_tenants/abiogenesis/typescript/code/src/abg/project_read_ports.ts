@@ -841,7 +841,7 @@ function canonicalRunContext(
           gapRoute.nextActionProjectionRef,
           gapRoute.nextActionProjectionDigest,
         ),
-    interaction: continuation === undefined
+    interaction: continuation === undefined || continuation.continuationKind !== "fh_interaction"
       ? null
       : truthCoordinate(continuation.requestRef, continuation.requestDigest),
     evidence,
@@ -1181,7 +1181,7 @@ function projectInteractionReplay(
     const context = canonicalRunContext(prepared, runId);
     if (context === null) return [];
     return context.replay.continuations
-      .filter((row) => row.requestRef === targetRef)
+      .filter((row) => row.continuationKind === "fh_interaction" && row.requestRef === targetRef)
       .map((continuation) => ({ context, continuation }));
   });
   return matches.length === 1

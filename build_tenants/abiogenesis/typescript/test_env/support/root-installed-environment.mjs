@@ -418,7 +418,7 @@ export async function setupInstalledRootCatalog(
   const workspaceBinding = workspaceBindingResult.value;
   accountSetupPhase(options, "environment_install_and_workspace_admission", phaseStarted);
   phaseStarted = performance.now();
-  const publication = constructRootPublication(
+  const rootPublication = constructRootPublication(
     gtl,
     {
       productId: verified.productId,
@@ -446,7 +446,11 @@ export async function setupInstalledRootCatalog(
       productContentDigest: candidateBasis.productContentDigest, productManifestDigest: candidateBasis.manifestDigest,
       packageName: candidateBasis.packageName, packageVersion: candidateBasis.packageVersion });
   });
-  const publications = [publication, ...corePublications, ...additionalPublications];
+  const publications = [rootPublication, ...corePublications, ...additionalPublications];
+  const selectedPublications = options.programRef === undefined ? [rootPublication]
+    : publications.filter(p => p.programs.some(program => program.programRef === options.programRef));
+  assert.equal(selectedPublications.length, 1, "one exact selected Program publication");
+  const publication = selectedPublications[0];
   const publicationAdmission = requireRawAdmission(
     validator,
     publication,
@@ -668,10 +672,11 @@ export async function setupInstalledRootInvocation(
   );
   const actorRef = options.actorRef ??
     workspaceBinding.authorizedActorRef;
+  const supervised = program.policies["abg.root_mode"] === "supervised";
   const capabilityGrantBasis = {
     admittedInstalls,
     workspaceBinding,
-    fixedPacket: product.RUN_OPERATION_CONTRACTS.invoke.invoke,
+    fixedPacket: supervised ? product.RUN_OPERATION_CONTRACTS.invoke.start : product.RUN_OPERATION_CONTRACTS.invoke.invoke,
   };
   const capabilityGrant = product.constructCapabilityGrant(
     policy,
@@ -707,13 +712,14 @@ export async function setupInstalledRootInvocation(
       kind: "public_invocation",
       schemaVersion: "5.0.0",
       operationId: "abg.operation.run.invoke",
-      variant: "direct",
+      variant: supervised ? "start" : "direct",
       invocationRef: "invocation://t286/support/run-invoke",
       eventTime: "2026-07-21T00:00:00.000Z",
       correlationId: "correlation://t286/support/run-invoke",
       payload: {
         programRef: program.programRef,
         catalogHandle: graphFunction.name,
+        ...(supervised ? {scope:"program",target:program.policies["abg.default_start_ref"],startRef:program.policies["abg.default_start_ref"],until:"converged",rootMode:"supervised"} : {}),
       },
     },
     "public_operation_request",
@@ -734,7 +740,7 @@ export async function setupInstalledRootInvocation(
     capabilityGrants,
     capabilityGrantBasis,
   );
-  const invocation = product.constructDirectInvocation(
+  const invocation = (supervised ? product.constructStartInvocation : product.constructDirectInvocation)(
     workspaceBinding,
     catalogView,
     program,
@@ -745,6 +751,7 @@ export async function setupInstalledRootInvocation(
     capabilityGrants,
     invocationAuthority,
   );
+  assert.equal(invocation.kind, "public_invocation_candidate", JSON.stringify(invocation));
   const invocationAdmissionReceipt = abg.admitInvocation(
     store,
     {
@@ -770,6 +777,7 @@ export async function setupInstalledRootInvocation(
       workspaceBinding.bindingDigest,
       invocation.publicRequestInvocationRef,
       [workspaceBinding.admissionEventRef],
+      supervised ? "start" : "invoke",
     ),
   );
   assert.equal(

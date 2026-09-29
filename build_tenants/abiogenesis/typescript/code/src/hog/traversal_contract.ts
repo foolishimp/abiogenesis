@@ -123,9 +123,15 @@ export interface InteractionResumeTraversalEntryInput {
   readonly correlationId: string;
 }
 
+export interface ResumeConstructionIntentInput {
+  readonly constructionResume: true;
+  readonly current: InitialOrNonRetryExecuteGraphTraversalInput;
+  readonly parentSuspensions: readonly HeldWorkflowSuspension[];
+}
 export type ExecuteGraphTraversalRequest =
   | ExecuteGraphTraversalInput
-  | ResumeHeldInteractionInput;
+  | ResumeHeldInteractionInput
+  | ResumeConstructionIntentInput;
 
 export interface GraphTraversalEntryRefusal {
   readonly kind: "graph_traversal_entry_refusal";

@@ -129,7 +129,9 @@ import { RUN_ENVIRONMENT_RESOURCES_SCHEMA } from "../product/stdo_environment.js
 
 type InvokePacket = typeof RUN_OPERATION_CONTRACTS.invoke.invoke;
 type StartPacket = typeof RUN_OPERATION_CONTRACTS.invoke.start;
-type RunPacket = InvokePacket | StartPacket;
+type InvocationPacket = InvokePacket | StartPacket;
+type ContinuePacket = typeof RUN_OPERATION_CONTRACTS.continue.current_intent;
+type RunPacket = InvocationPacket | ContinuePacket;
 
 export interface RunInvocationResourceAssertion
   extends ProductRunInvocationResourceAssertion {
@@ -1165,7 +1167,7 @@ function operationBasis<TPacket extends RunPacket>(
 ): PublicOperationAdmissionBasis {
   const invocationCoordinate = constructExactOperationInvocationCoordinate(
     {
-      operationId: "abg.operation.run.invoke",
+      operationId: call.invocation.definitionKey.operationId,
       memberKey: call.invocation.definitionKey.memberKey,
       definitionDigest: call.invocation.definitionDigest,
     },
@@ -1174,7 +1176,7 @@ function operationBasis<TPacket extends RunPacket>(
   );
   return deepFreeze({
     ...invocationCoordinate,
-    operationId: "abg.operation.run.invoke" as const,
+    operationId: call.invocation.definitionKey.operationId,
     authorityScopeRef: binding.bindingId,
     authorityScopeDigest: binding.bindingDigest,
     correlationId: call.invocation.correlationRef,
@@ -1231,7 +1233,7 @@ function finish<TPacket extends RunPacket>(
   });
 }
 
-function runInvocationOwner<TPacket extends RunPacket>(
+function runInvocationOwner<TPacket extends InvocationPacket>(
   call: DefinitionCall<TPacket, RunInvocationResourceAssertion>,
 ): ReturnType<RunCallable<TPacket>> {
   return Effect.scoped(Effect.gen(function* () {
@@ -1745,6 +1747,104 @@ function runInvocationOwner<TPacket extends RunPacket>(
   }));
 }
 
+import { projectConstructionIntentContinuations, prepareConstructionIntentContinuation,
+  prepareConstructionContinuationOperation } from "../abg/construction_continuation.js";
+import { projectExactExecutionBasisAtPrefix } from "../abg/invocation_execution_truth.js";
+import { projectEffectfulPublicInvocationTruthAtPrefix } from "../abg/effectful_invocation_truth.js";
+import { prepareConstructionContinuationTraversal } from "../hog/entry.js";
+import { ProductExecutionResolutionPort } from "../product/execution_resolution.js";
+import { constructRootInvocationPolicy, constructCapabilityGrant } from "../product/invocation.js";
+import { runOperationAuthorityMatches } from "../product/run_invocation_operation.js";
+
+function runCurrentIntentOwner(call: DefinitionCall<ContinuePacket, RunInvocationResourceAssertion>): ReturnType<RunCallable<ContinuePacket>> {
+  return Effect.scoped(Effect.gen(function* () {
+    const resource = yield* Effect.acquireRelease(Effect.suspend(() => {
+      const acquired = acquireAbgEventResource(call.resources.eventResource);
+      return acquired.kind === "acquired_abg_event_resource" ? Effect.succeed(acquired.resource)
+        : Effect.fail(fault(call, "resource_acquisition", acquired.code, acquired.message));
+    }), held => Effect.sync(() => abandonAbgEventResource(held)));
+    const entryPrefix = resource.entryPrefix;
+    const refuse = (code: "missing_continuation" | "resolved_continuation" | "intent_mismatch" | "response_mismatch" | "replay_mismatch" | "basis_mismatch", field: string) =>
+      finish(call, resource, entryPrefix, { outcomeKind: "refusal", value: { code, issuePaths: [field], evidenceRefs: [] } } as OwnerSemanticOutput<ContinuePacket>, null, null, null);
+    const request = call.invocation.request;
+    if (!("currentIntent" in request) || !isRecord(request.currentIntent) || !isRecord(request.expectedBasis) ||
+      !isRecord(request.continuationInput) || call.resources.source.kind !== "none") return yield* refuse("intent_mismatch", "/request");
+    const setup = yield* syncStage(call, "setup_truth", () => projectSetupTruth(entryPrefix, call.resources.catalog));
+    if (setup === null) return yield* refuse("basis_mismatch", "/workspace");
+    const prefixes = yield* syncStage(call, "runtime_truth", () => projectRuntimePrefixesAtDurablePrefix(entryPrefix, request.run.ref));
+    const prefix = prefixes.authorityPrefix;
+    const duplicate = projectEffectfulPublicInvocationTruthAtPrefix(prefix, call.invocation.invocationRef);
+    if (duplicate.disposition !== "available") return yield* refuse(duplicate.disposition === "duplicate" ? "resolved_continuation" : "replay_mismatch", "/invocation");
+    const continuations = yield* syncStage(call, "runtime_truth", () => projectConstructionIntentContinuations(prefix, request.run.ref));
+    const selected = continuations.find(c => c.continuationRef === request.continuation.ref && c.continuationDigest === request.continuation.digest);
+    if (selected === undefined) return yield* refuse("missing_continuation", "/continuation");
+    if (selected.status !== "open") return yield* refuse("resolved_continuation", "/continuation");
+    const sourceRoot = projectExactExecutionBasisAtPrefix(prefix, selected.parentExecutionBasisRef);
+    if (sourceRoot === null) return yield* refuse("basis_mismatch", "/expectedBasis");
+    const resolution = yield* asyncStage(call, "product_execution_resolution", () => ProductExecutionResolutionPort.resolve({
+      catalog: call.resources.catalog, catalogView: call.resources.catalogView, admittedInstalls: setup.admittedInstalls,
+      verifyInstallAdmission: install => hasAdmittedProductInstall(setup.artifactTruth, install),
+      programRef: sourceRoot.programRef, selection: { kind: "admitted", graphFunctionRef: sourceRoot.graphFunctionRef },
+    }));
+    if (resolution.kind !== "loaded_product_execution_resolution") return yield* refuse("basis_mismatch", "/program");
+    const prepared = yield* syncStage(call, "runtime_truth", () => prepareConstructionIntentContinuation(prefix, selected, resolution));
+    if (prepared === null) return yield* refuse("basis_mismatch", "/continuation");
+    if (request.run.digest !== prepared.rootScope.runDigest ||
+      request.expectedBasis.ref !== prepared.child.basisRef || request.expectedBasis.digest !== prepared.child.basisDigest)
+      return yield* refuse("basis_mismatch", "/expectedBasis");
+    if (request.currentIntent.ref !== prepared.intent.constructionIntentRef || request.currentIntent.digest !== prepared.intent.constructionIntentDigest)
+      return yield* refuse("intent_mismatch", "/currentIntent");
+    if (request.continuationInput.ref !== prepared.pending.input.inputRef || request.continuationInput.digest !== prepared.pending.input.inputDigest)
+      return yield* refuse("response_mismatch", "/continuationInput");
+    const regimes = new Set([...resolution.programValidation.executableLeafRows, ...resolution.programValidation.interactionLeafRows].map(row => row.fibre));
+    const policy = constructRootInvocationPolicy(setup.workspaceBinding, resolution.program,
+      resolution.programValidation.interactionLeafRows.map(row => ({ requirementKey: row.requirementKey,
+        requirementKeyDigest: row.requirementKeyDigest, actorCapabilityRef: row.requirement.actorCapabilityRef })),
+      (["F_D", "F_P", "F_H"] as const).filter(regime => regimes.has(regime)), call.resources.applications);
+    const fixedPacket = RUN_OPERATION_CONTRACTS.continue.current_intent;
+    const grant = constructCapabilityGrant(policy, prepared.invocation.actorRef, "abg.operation.run.continue",
+      fixedPacket.metadata.capabilityRefs[0]!, { admittedInstalls: setup.admittedInstalls, workspaceBinding: setup.workspaceBinding, fixedPacket });
+    const slot = call.invocation.invocationAuthority.slots.input_contract;
+    const basisSlot = call.invocation.invocationAuthority.slots.execution_basis;
+    const inputContracts = resolution.declarationPublications.flatMap(p => p.contracts).filter(c => c.contractRef === prepared.failedCall.inputContractRef);
+    if (policy.policyRef !== prepared.invocation.policyRef || policy.policyDigest !== prepared.invocation.policyDigest ||
+      !runOperationAuthorityMatches(call.invocation, call.resources, resolution, setup.workspaceBinding, setup.admittedInstalls,
+        policy, [grant], prepared.invocation, call.resources.eventResource as unknown as JsonValue) ||
+      basisSlot?.ref !== prepared.child.basisRef || basisSlot.digest !== prepared.child.basisDigest ||
+      slot === null || inputContracts.length !== 1 || slot.contract.ref !== prepared.failedCall.inputContractRef ||
+      slot.contract.digest !== sha256Canonical(inputContracts[0] as unknown as JsonValue) ||
+      slot.valueDigest !== prepared.pending.input.inputDigest || sha256Canonical(slot.value) !== sha256Canonical(prepared.pendingInput))
+      return yield* refuse("basis_mismatch", "/invocationAuthority");
+    const operation = yield* syncStage(call, "runtime_truth", () => prepareConstructionContinuationOperation(prefix, prepared, grant,
+      operationBasis(call, setup.workspaceBinding)));
+    if (operation.kind !== "prepared_construction_continuation_operation") return yield* refuse("resolved_continuation", "/invocation");
+    const leafPort = yield* asyncStage(call, "leaf_port", () => constructAdmittedLeafInvocationPort(Object.freeze({
+      prefix, artifactTruth: setup.artifactTruth, implementationSet: prepared.implementationSet, executionResolution: resolution,
+      semanticsProjection: projectInstalledLeafSemantics(resolution.productSemantics),
+    })));
+    const continued = yield* syncStage(call, "open_call", () => prepareConstructionContinuationTraversal({
+      store: resource.store, predecessorPrefix: entryPrefix, operation, leafPort,
+      continuationProductBasis: { install: resolution.programInstall, workspaceBinding: setup.workspaceBinding,
+        artifactTruth: setup.artifactTruth, catalogView: call.resources.catalogView },
+      actorRuntimeBinding: { workspaceBinding: setup.workspaceBinding, artifactTruth: setup.artifactTruth },
+      eventTime: sampleNativeEventTime(), correlationId: `${call.invocation.correlationRef}/current-intent`,
+    }));
+    const traversal = yield* executeGraphTraversalEffect(continued);
+    const finalPrefix = "successorPrefix" in traversal ? traversal.successorPrefix : continued.current.predecessorPrefix;
+    const truth = yield* syncStage(call, "run_truth", () => projectRunTruthAtDurablePrefix(finalPrefix, continued.rootScope.runId));
+    if (truth.kind !== "abg_run_truth_projection")
+      return yield* finish(call, resource, finalPrefix, { outcomeKind: "refusal", value: { code: "replay_mismatch", issuePaths: ["/run"], evidenceRefs: [] } } as OwnerSemanticOutput<ContinuePacket>, null, prepared.invocation, null);
+    const successor = { ref: continued.continuation.continuationRef, digest: continued.continuation.continuationDigest };
+    const ownerOutput: OwnerSemanticOutput<ContinuePacket> = truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped"
+      ? { outcomeKind: "nonterminal", value: { continuationKind: "current_intent", disposition: truth.runtimeStatus === "held" ? "held" : "gap_stop",
+          run: truth.run, continuation: successor, evidence: [...truth.evidence], replay: truth.replay } }
+      : { outcomeKind: "result", value: { continuationKind: "current_intent", run: truth.run, graphCall: truth.graphCall,
+          admittedIntent: null, successor, disposition: truth.runtimeStatus === "closed" ? "completed" : truth.runtimeStatus === "blocked" ? "blocked" : "runtime_failed",
+          evidence: [...truth.evidence], replay: truth.replay } };
+    return yield* finish(call, resource, finalPrefix, ownerOutput, null, prepared.invocation, truth);
+  }));
+}
+
 const invoke = bindExactPrefixTransition(
   RUN_OPERATION_CONTRACTS.invoke.invoke,
   runInvocationOwner<InvokePacket>,
@@ -1759,7 +1859,11 @@ const start = bindExactPrefixTransition(
   RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA,
 );
 
+const current_intent = bindExactPrefixTransition(RUN_OPERATION_CONTRACTS.continue.current_intent,
+  runCurrentIntentOwner, RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA, RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA);
+
 export const RUN_DEFINITION_BINDINGS = Object.freeze({
   invoke: Object.freeze({ invoke, start }),
+  continue: Object.freeze({ current_intent }),
 });
 import type { CatalogApplicationResources } from "../product/declaration_application.js";

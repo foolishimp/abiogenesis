@@ -824,3 +824,31 @@ export function openTraversalScope(
     successorPrefix: committed.successorPrefix,
   }) as OpenTraversalScopeAdmission;
 }
+
+/** Cold selection by an admitted frame, sharing the existing scope validator.
+ * The events remain the carrier; no persisted parent stack is reconstructed. */
+export function projectOpenedTraversalScopeForFrameAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix, frameId: string,
+): OpenedTraversalScope | null {
+  const rows = runtimeEventsFromValidatedPrefix(prefix);
+  const frames = rows.filter(e => e.kind === "frame_opened" && e.aggregateId === frameId);
+  const frame = frames.length === 1 ? frames[0] : undefined;
+  if (frame === undefined || !isRecord(frame.payload) || typeof frame.graphCallId !== "string" || typeof frame.runId !== "string") return null;
+  const graphRows = rows.filter(e => e.kind === "graph_call_opened" && e.aggregateId === frame.graphCallId);
+  const runRows = rows.filter(e => e.kind === "run_segment_opened" && e.aggregateId === frame.runId);
+  const graph = graphRows.length === 1 ? graphRows[0] : undefined;
+  const run = runRows.length === 1 ? runRows[0] : undefined;
+  const execution = rehydrateExecutionBasisAtPrefix(prefix, frame.basisId);
+  if (execution === null || graph === undefined || run === undefined || !isRecord(graph.payload) || !isRecord(run.payload) ||
+    typeof graph.payload.graphCallDigest !== "string" || typeof run.payload.runDigest !== "string" ||
+    typeof frame.payload.frameDigest !== "string" || typeof frame.frameLineageId !== "string") return null;
+  const body = { executionBasisRef: execution.basisRef, executionBasisDigest: execution.basisDigest,
+    invocationAdmissionRef: execution.invocationAdmissionRef, invocationRef: execution.invocationRef,
+    programRef: execution.programRef, graphFunctionRef: execution.graphFunctionRef, graphRef: execution.graphRef,
+    runId: frame.runId, runDigest: run.payload.runDigest, runOpenEventRef: run.eventId,
+    graphCallId: frame.graphCallId, graphCallDigest: graph.payload.graphCallDigest, graphCallOpenEventRef: graph.eventId,
+    frameId, frameDigest: frame.payload.frameDigest, frameLineageId: frame.frameLineageId, frameOpenEventRef: frame.eventId };
+  const scopeDigest = sha256Canonical(body);
+  return rehydrateOpenedTraversalScopeAtPrefix(prefix, { ...body, scopeDigest,
+    scopeRef: `traversal-scope://abiogenesis/${scopeDigest.slice(7)}` });
+}

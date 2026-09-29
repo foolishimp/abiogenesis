@@ -1,7 +1,7 @@
 {
   "kind": "native_runtime_observation_contract",
   "schemaVersion": "5.0.0",
-  "currentEventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+  "currentEventContractDigest": "sha256:a25d2268d4b5fec1467292e36ea68e562f4e166f01d4ffb82da0da52e585d4f3",
   "historicalEventContractDigest": "sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c",
   "currentDescriptor": {
     "kind": "root_event_contract_profile",
@@ -74,6 +74,7 @@
       "frame_closed",
       "graph_call_closed",
       "run_closed",
+      "construction_continuation_opened",
       "runtime_activity_probe_observed",
       "runtime_external_interruption_observed"
     ],
@@ -347,6 +348,77 @@
             ],
             "expectedPayload": {
               "operationId": "abg.operation.witness.admit"
+            }
+          },
+          {
+            "allowedPayloadKeys": [
+              "actorRef",
+              "authorityDigest",
+              "authorityRef",
+              "capabilityGrant",
+              "capabilityGrantRefs",
+              "capabilityRef",
+              "catalogBasisDigest",
+              "catalogBasisRef",
+              "catalogViewDigest",
+              "catalogViewId",
+              "continuationKind",
+              "continuationRef",
+              "continuationDigest",
+              "currentIntentRef",
+              "currentIntentDigest",
+              "definitionDigest",
+              "graphFunctionDigest",
+              "graphFunctionRef",
+              "invocationDigest",
+              "invocationPayloadDigest",
+              "invocationRef",
+              "memberKey",
+              "operationId",
+              "policyDigest",
+              "policyRef",
+              "programDigest",
+              "programRef",
+              "variant",
+              "workspaceBindingDigest",
+              "workspaceBindingId"
+            ],
+            "requiredPayloadKeys": [
+              "actorRef",
+              "authorityDigest",
+              "authorityRef",
+              "capabilityGrant",
+              "capabilityGrantRefs",
+              "capabilityRef",
+              "catalogBasisDigest",
+              "catalogBasisRef",
+              "catalogViewDigest",
+              "catalogViewId",
+              "continuationKind",
+              "continuationRef",
+              "continuationDigest",
+              "currentIntentRef",
+              "currentIntentDigest",
+              "definitionDigest",
+              "graphFunctionDigest",
+              "graphFunctionRef",
+              "invocationDigest",
+              "invocationPayloadDigest",
+              "invocationRef",
+              "memberKey",
+              "operationId",
+              "policyDigest",
+              "policyRef",
+              "programDigest",
+              "programRef",
+              "variant",
+              "workspaceBindingDigest",
+              "workspaceBindingId"
+            ],
+            "expectedPayload": {
+              "operationId": "abg.operation.run.continue",
+              "memberKey": "current_intent",
+              "continuationKind": "construction_intent"
             }
           }
         ]
@@ -799,7 +871,8 @@
               "transitionContractRef",
               "workspaceBindingDigest",
               "workspaceBindingId",
-              "registeredSelectionDefinitionDigests"
+              "registeredSelectionDefinitionDigests",
+              "constructionContinuationUse"
             ],
             "requiredPayloadKeys": [
               "basisRef",
@@ -872,7 +945,8 @@
               "transitionContractRef",
               "workspaceBindingDigest",
               "workspaceBindingId",
-              "registeredSelectionDefinitionDigests"
+              "registeredSelectionDefinitionDigests",
+              "constructionContinuationUse"
             ],
             "requiredPayloadKeys": [
               "basisRef",
@@ -1380,7 +1454,8 @@
               "taskOrdinal",
               "termPath",
               "traversalScopeDigest",
-              "traversalScopeRef"
+              "traversalScopeRef",
+              "continuedFrom"
             ],
             "requiredPayloadKeys": [
               "cursorRef",
@@ -3125,7 +3200,8 @@
               "targetCursorRef",
               "targetOutcomeRef",
               "workspaceBindingDigest",
-              "workspaceBindingId"
+              "workspaceBindingId",
+              "continuationRef"
             ],
             "requiredPayloadKeys": [
               "actionEvaluation",
@@ -3841,6 +3917,68 @@
           }
         ]
       },
+      "construction_continuation_opened": {
+        "variants": [
+          {
+            "aggregateType": "continuation",
+            "scopeClass": "run",
+            "requiredEnvelopeIdentities": [
+              "runId",
+              "graphCallId",
+              "frameId"
+            ]
+          }
+        ],
+        "payloadVariants": [
+          {
+            "allowedPayloadKeys": [
+              "predecessorContinuationRef",
+              "continuationKind",
+              "continuationRef",
+              "continuationDigest",
+              "runId",
+              "graphCallId",
+              "frameId",
+              "cCallRef",
+              "heldCursorRef",
+              "heldCursorDigest",
+              "executionBasisRef",
+              "executionBasisDigest",
+              "parentExecutionBasisRef",
+              "parentCCallRef",
+              "constructionIntentRef",
+              "constructionIntentDigest",
+              "intentAdmissionEventRef",
+              "preparationEvidenceEventRef",
+              "preparationResultRef",
+              "preparationJudgmentRef",
+              "causedByEventRef"
+            ],
+            "requiredPayloadKeys": [
+              "continuationKind",
+              "continuationRef",
+              "continuationDigest",
+              "runId",
+              "graphCallId",
+              "frameId",
+              "cCallRef",
+              "heldCursorRef",
+              "heldCursorDigest",
+              "executionBasisRef",
+              "executionBasisDigest",
+              "parentExecutionBasisRef",
+              "parentCCallRef",
+              "constructionIntentRef",
+              "constructionIntentDigest",
+              "intentAdmissionEventRef",
+              "preparationEvidenceEventRef",
+              "preparationResultRef",
+              "preparationJudgmentRef",
+              "causedByEventRef"
+            ]
+          }
+        ]
+      },
       "runtime_activity_probe_observed": {
         "variants": [
           {
@@ -4363,6 +4501,14 @@
       "terminates": [
         "locus_active"
       ],
+      "clips": [],
+      "declips": []
+    },
+    "construction_continuation_opened": {
+      "initiates": [
+        "continuation_open"
+      ],
+      "terminates": [],
       "clips": [],
       "declips": []
     },

@@ -1,3 +1,4 @@
+import { isRecord } from "../shared/admission_predicates.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
@@ -20,6 +21,7 @@ import {
 } from "./fh_continuation_projection.js";
 import {
   projectExactRunInvocationFactsAtPrefix,
+  projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix,
 } from "./invocation_execution_truth.js";
 
 type ExplicitInvocationTruthPrefix =
@@ -180,6 +182,30 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
     );
   }
   facts.push(...continuationFacts.facts);
+  const constructionOperations = events.filter(e => e.kind === "public_operation_admitted" &&
+    typeof e.payload === "object" && e.payload !== null && !Array.isArray(e.payload) &&
+    (e.payload as Record<string, unknown>).continuationKind === "construction_intent");
+  for (const operation of constructionOperations) {
+    const p = operation.payload as Readonly<Record<string, import("../shared/canonical_json.js").JsonValue>>;
+    const bases = events.filter(e => e.kind === "basis_admitted" && typeof e.payload === "object" &&
+      e.payload !== null && !Array.isArray(e.payload) &&
+      isRecord(e.payload) && isRecord(e.payload.constructionContinuationUse) &&
+      e.payload.constructionContinuationUse.operationAdmissionEventRef === operation.eventId);
+    const basis = bases.length === 1 ? projectExactExecutionBasisAtPrefix(validatedPrefix, bases[0]!.basisId!) : null;
+    const use = basis?.constructionContinuationUse;
+    const original = use === undefined ? null : projectExactExecutionBasisAtPrefix(validatedPrefix, use.sourceExecutionBasisRef);
+    const invocation = original === null ? null : projectExactInvocationAdmissionAtPrefix(validatedPrefix, original.invocationAdmissionRef);
+    if (basis === null || use === undefined || original === null || invocation === null ||
+      basis.invocationAdmissionRef !== original.invocationAdmissionRef || p.operationId !== "abg.operation.run.continue" ||
+      p.memberKey !== "current_intent" || p.continuationRef !== use.continuationRef || p.continuationDigest !== use.continuationDigest ||
+      p.currentIntentRef !== use.constructionIntentRef || p.currentIntentDigest !== use.constructionIntentDigest ||
+      p.authorityRef !== invocation.authorityRef || p.authorityDigest !== invocation.authorityDigest ||
+      typeof p.invocationRef !== "string" || typeof p.invocationDigest !== "string")
+      return invalidHistory(prefix, invocationRef, "invocation_pair_invalid", [operation.eventId]);
+    facts.push({ operationId: "abg.operation.run.continue", publicInvocationRef: p.invocationRef,
+      ownerInvocationRef: p.invocationRef, ownerInvocationDigest: p.invocationDigest as Sha256Digest,
+      publicOperationEventRef: operation.eventId, admissionEventRef: basis.admissionEventRef });
+  }
   const byPublicRef = new Map<string, EffectfulPublicInvocationPriorAdmission[]>();
   for (const fact of facts) {
     const held = byPublicRef.get(fact.publicInvocationRef) ?? [];

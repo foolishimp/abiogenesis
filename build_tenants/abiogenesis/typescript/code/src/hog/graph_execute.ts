@@ -1,3 +1,4 @@
+import { admitPendingConstructionIntentContinuation } from "../abg/construction_continuation.js";
 import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
 import * as Exit from "effect/Exit";
@@ -1002,7 +1003,7 @@ function resumeEntryRefusal(
 }
 
 function preflightParentReturns(
-  input: ResumeHeldInteractionInput,
+  input: Pick<ResumeHeldInteractionInput, "parentSuspensions">,
   current: InitialOrNonRetryExecuteGraphTraversalInput,
 ): ParentReturnsPreflight | GraphTraversalEntryRefusal {
   const exact = rehydrateParentReturnFrames({
@@ -1313,6 +1314,13 @@ function traversalProgram(
     ExecuteGraphTraversalResult,
     GraphTraversalFailure
   > => {
+    if ("constructionResume" in input) {
+      const parents = preflightParentReturns(input, input.current);
+      if (parents.kind === "graph_traversal_entry_refusal") return Effect.succeed(parents);
+      return evaluateTraversalProgram(Object.freeze({ stateKind: "evaluate" as const,
+        frame: enterTraversal(input.current),
+        returns: exactParentReturns(input.current, parents.frames, input.current.predecessorPrefix) }));
+    }
     if ("interactionResume" in input) {
       const prepared = prepareHeldInteractionResume(input);
       if (isGraphTraversalEntryRefusal(prepared)) {
@@ -1344,7 +1352,13 @@ export function executeGraphTraversalEffect(
   return Effect.catchAll(
     traversalProgram(input),
     (failure) => Effect.succeed(projectGraphTraversalFailure(failure)),
-  );
+  ).pipe(Effect.map(result => {
+    if (!("successorPrefix" in result)) return result;
+    const current = "current" in input ? input.current : input;
+    const successorPrefix = admitPendingConstructionIntentContinuation(current.store, result.successorPrefix,
+      current.openedTraversalScope.runId, current.eventTime, `${current.correlationId}/pending-construction`);
+    return successorPrefix === result.successorPrefix ? result : Object.freeze({ ...result, successorPrefix });
+  }));
 }
 
 export async function executeGraphTraversal(

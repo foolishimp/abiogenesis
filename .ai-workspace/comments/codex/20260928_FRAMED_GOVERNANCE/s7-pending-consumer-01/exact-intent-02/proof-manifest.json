@@ -1,0 +1,2244 @@
+{
+  "members": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/actor-artifacts.json",
+      "bytes": 7520,
+      "sha256": "b8183a0604167486665bb07474841223d5b5d05309803fbbfec323b7067789ab"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/archive-installed.json",
+      "bytes": 1040397,
+      "sha256": "bcca34b56b7a8e5c1701e34bb5396598ed9bd358d49e699da18c655c51e8df99"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/archives/consumer.tgz",
+      "bytes": 8145,
+      "sha256": "1228b7548c2a525b38d60e7eaf31b7382ad8fffe524d2d8294b9eae4bffd55d8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/archives/core.tgz",
+      "bytes": 10362562,
+      "sha256": "fba5643f0fa5272ca6abed7bf5a92810eb2b535e51a774d368a10cc4b8f30e5e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/archives/consumer.tgz",
+      "bytes": 8145,
+      "sha256": "1228b7548c2a525b38d60e7eaf31b7382ad8fffe524d2d8294b9eae4bffd55d8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/archives/core.tgz",
+      "bytes": 10362053,
+      "sha256": "20920125ea61321727dd48c01883632d915675d8ce1440a86285697c71cc94ea"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/failure-events.json",
+      "bytes": 4425651,
+      "sha256": "06eac5ddfb2f14bbff0cc1d87433efce32e415c1cf36e5b2422c9deab8f24cf6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/failure.json",
+      "bytes": 607,
+      "sha256": "cc3321b1c5c627ef1c849484f38b46b6c7a5001e23e5cdf67bf65f05eee98b9d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/initial-completion.json",
+      "bytes": 79706,
+      "sha256": "5a00efdf629b6a673f2886860ca7831a4209084292215fd7161c6d46fad3bc57"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/initial-events.json",
+      "bytes": 4425651,
+      "sha256": "06eac5ddfb2f14bbff0cc1d87433efce32e415c1cf36e5b2422c9deab8f24cf6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/pending.json",
+      "bytes": 2359,
+      "sha256": "f7a138c8e424a010b282f6ee444619e63b9612198e4664f121cef4f9c6461259"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/setup.json",
+      "bytes": 1923,
+      "sha256": "6adecbc73d373509ea6db7ad713a30f3418aa4d3e424306b391196592c555539"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 275717,
+      "sha256": "72f51e49b72946812509ee94cb9e233ff4d3f3b40f7a0c95c8950d0a098bf9f5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/abg/closure.ts",
+      "bytes": 24488,
+      "sha256": "952966b7353125ee816e1f492c9af20bb5ce67526079aceee804c35f50f85655"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 32515,
+      "sha256": "224f744f468b3df6638193d8f1cff013a6a3915d3b3731c7ed70e86bdfdcc917"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "bytes": 9227,
+      "sha256": "55915e90a7ba8a5beab2094b321ebbbe2f8b86ce922a31301fe5f8bbd84a2025"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "bytes": 76162,
+      "sha256": "8f4219951692dad2cdb0ae35099b5cd7338058fb5ff3ffdffc95142c5392251d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 173736,
+      "sha256": "f651b7368a878a42f2acc65ec70f39c41070f1e66fdbb908ed67ba116121f3c8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "bytes": 125942,
+      "sha256": "7e4fe8c8d63c37860adfa5bc291adab84ed378d3d03306c6f34ff26fb71159b6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "bytes": 47051,
+      "sha256": "4ebb5088950ae571e04d940412d46ebb5b71d371520a41420fdec045e083de2c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+      "bytes": 31046,
+      "sha256": "ff9613bbe132debaf1121ea3374494f6c91fb3243d81f19784b0195eb0b6d241"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "bytes": 72530,
+      "sha256": "93d954f600c3c610ba4506458d96ea5151b54f3922f799a65fe0c7cf6b815ad5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "bytes": 88701,
+      "sha256": "93251763d0c382aebe01c8ac4608c5e01b378557fcfefa61d45de78387bf7fa7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "bytes": 43324,
+      "sha256": "1edc46e47d7e6eb7683bfb18b7676f18501cefe5a6fb429c48bde2cf952fa9ec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "bytes": 212282,
+      "sha256": "25174e2a61cbf2b362a2c3405e6c90faf027121228953fb245c128c94b7acfa7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/hog/entry.ts",
+      "bytes": 23223,
+      "sha256": "bb170c5b8a5f4e0836b12b3c08ea286fc9d6f8092e3aa374295f42eae781512d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "bytes": 47589,
+      "sha256": "de5bdeb9a4f7533a54ca200fe28865cb153364e9c2a2e9b41af665f2787cc7c6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/hog/traversal_contract.ts",
+      "bytes": 5946,
+      "sha256": "4072e05cc6c4a4a561cbc96b934d7f4ba7b6ed1ed5923d6863c13e64c0fcacb2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "bytes": 38732,
+      "sha256": "7bc2e36727a9f745ca6a594670ea882252ce12e24422b5d6e614b56a1e40ac24"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 72900,
+      "sha256": "98958921f936b14b422288e79c7731fc9f0db891f7cec945f4bf75aece89858f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 27715,
+      "sha256": "4b5c4fc45ee5efa4d9e732984456209bb1c4fc18152e08dfcdd222c23f0bdf56"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "ca8e88f2f207b4025b9cd7810ab43f42f329d8c82f30a8617d8afb40163c79be"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 146280,
+      "sha256": "cee74016c9fede3f367a1c645e13521f95f050fe212ebbe404394e7c890135c3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "bytes": 12048,
+      "sha256": "6e06ebd6ea90190f7a02efeffbf5ab8de2a462fc87c6472d833497c7eaac2862"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "bytes": 16050,
+      "sha256": "041d308476ee221653ce76d652084cd4fdc7b71fb0303afc7663a1983743b19c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2552681,
+      "sha256": "102c5fc5b0f344cb3f433a0867c228e9e88ace708ab07f4dfce5e11771dcf899"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/test_env/fixtures/exact-intent-product/index.mjs",
+      "bytes": 15792,
+      "sha256": "65e802111c4ff1cb54e4a4f11d489813b72033f29aa32f2c35284a2876f0c9e1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 38681,
+      "sha256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "bytes": 13525,
+      "sha256": "83c3bb729f0cee676d69a31c87c7d9571e96a29fe2eb21949f5f603eb247bef1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/source-generated.json",
+      "bytes": 5690,
+      "sha256": "ca2b2784465edd1198126b992cacd162ba4d0a09361f54dc975e6b708e128e44"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/test-process.json",
+      "bytes": 135,
+      "sha256": "a9a7146e4b3027f2f4386643e3c9a6b1938236e302c4ac86b05aa1e4f21fc6f4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-01/test.log",
+      "bytes": 990,
+      "sha256": "df6955bb2b14ece6df48507c26b9c166a48cdae762b532729e3e895c07358249"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/archives/consumer.tgz",
+      "bytes": 8145,
+      "sha256": "1228b7548c2a525b38d60e7eaf31b7382ad8fffe524d2d8294b9eae4bffd55d8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/archives/core.tgz",
+      "bytes": 10362107,
+      "sha256": "b5212ef5e7a7939aabb0f34e906f57bb9b6c76e57d04b94de9b7838a60160ba4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/consumer-ready.txt",
+      "bytes": 6,
+      "sha256": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/continue-call.json",
+      "bytes": 22500824,
+      "sha256": "cdb3fe723ed7c43fa2ab3f64c3c7c416f1cfc683a93824451ed7d7b0a9a7747e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/continue-events.jsonl",
+      "bytes": 2879218,
+      "sha256": "eaeb759e4acedd1ce2d7bd71e67f58f2a3bd2bd08d75d2ae5a343de326d3cf5a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/continue-handoff.json",
+      "bytes": 1230,
+      "sha256": "eea8a44b835295c86031d48f9624aa07c0ec51782a87df9e99d70db71e8b5477"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/continue-receipt.json",
+      "bytes": 6255,
+      "sha256": "842225e301fff46994e0d3a43c94462b3bc6b8e3b9346924a4d97a240d60f4d4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/failure-events.json",
+      "bytes": 4425646,
+      "sha256": "8b377246043a98c49983a25b5c39f80120b8f8360240a954e2dc66616ef6d073"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/failure.json",
+      "bytes": 22756,
+      "sha256": "b939f82e0a9aa2080a773383dfe1320e2183eeb25cbd1105697be843b256e246"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/fixed-transport.cjs",
+      "bytes": 329,
+      "sha256": "55044492a6b0b67d5749421db59852f9424c71bb3aa85c5d5a266172c52ed943"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/initial-completion.json",
+      "bytes": 79704,
+      "sha256": "91985d752fbd91376ca70df7932fdcaac5e3b71df478b42fa35364f59f89cd72"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/initial-events.json",
+      "bytes": 4425646,
+      "sha256": "8b377246043a98c49983a25b5c39f80120b8f8360240a954e2dc66616ef6d073"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/initial-handoff.json",
+      "bytes": 1230,
+      "sha256": "16c12a1805ebbedcf92ecd8939abad92ca34b24703306594a770cc1450cd5582"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/pending.json",
+      "bytes": 2359,
+      "sha256": "26c11aed788411547f45f4a439d76aea94b3b5331b72921dcc5f3ac6c960ef84"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/prepared-relation.json",
+      "bytes": 33675,
+      "sha256": "d5b8e97a8f19368fe2e9d4d02ba4460015c0b4ca2d2f0f4e4480073c8d4f9685"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/setup.json",
+      "bytes": 1913,
+      "sha256": "191d6225feb80fc0c23432af7d3d47b58684c14ee297277253da3554ce199fe8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 275717,
+      "sha256": "72f51e49b72946812509ee94cb9e233ff4d3f3b40f7a0c95c8950d0a098bf9f5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/abg/closure.ts",
+      "bytes": 24488,
+      "sha256": "952966b7353125ee816e1f492c9af20bb5ce67526079aceee804c35f50f85655"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 32605,
+      "sha256": "6d4056ba7b6751d60b99d7886067a2896198f03952ee1c5a472e55269de1264d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "bytes": 9227,
+      "sha256": "55915e90a7ba8a5beab2094b321ebbbe2f8b86ce922a31301fe5f8bbd84a2025"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "bytes": 76162,
+      "sha256": "8f4219951692dad2cdb0ae35099b5cd7338058fb5ff3ffdffc95142c5392251d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 173736,
+      "sha256": "f651b7368a878a42f2acc65ec70f39c41070f1e66fdbb908ed67ba116121f3c8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "bytes": 125942,
+      "sha256": "7e4fe8c8d63c37860adfa5bc291adab84ed378d3d03306c6f34ff26fb71159b6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "bytes": 47051,
+      "sha256": "4ebb5088950ae571e04d940412d46ebb5b71d371520a41420fdec045e083de2c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+      "bytes": 31046,
+      "sha256": "ff9613bbe132debaf1121ea3374494f6c91fb3243d81f19784b0195eb0b6d241"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "bytes": 72530,
+      "sha256": "93d954f600c3c610ba4506458d96ea5151b54f3922f799a65fe0c7cf6b815ad5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "bytes": 88701,
+      "sha256": "93251763d0c382aebe01c8ac4608c5e01b378557fcfefa61d45de78387bf7fa7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "bytes": 43324,
+      "sha256": "1edc46e47d7e6eb7683bfb18b7676f18501cefe5a6fb429c48bde2cf952fa9ec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "bytes": 212282,
+      "sha256": "25174e2a61cbf2b362a2c3405e6c90faf027121228953fb245c128c94b7acfa7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/hog/entry.ts",
+      "bytes": 23223,
+      "sha256": "bb170c5b8a5f4e0836b12b3c08ea286fc9d6f8092e3aa374295f42eae781512d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "bytes": 47589,
+      "sha256": "de5bdeb9a4f7533a54ca200fe28865cb153364e9c2a2e9b41af665f2787cc7c6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/hog/traversal_contract.ts",
+      "bytes": 5946,
+      "sha256": "4072e05cc6c4a4a561cbc96b934d7f4ba7b6ed1ed5923d6863c13e64c0fcacb2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "bytes": 38732,
+      "sha256": "7bc2e36727a9f745ca6a594670ea882252ce12e24422b5d6e614b56a1e40ac24"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 72900,
+      "sha256": "98958921f936b14b422288e79c7731fc9f0db891f7cec945f4bf75aece89858f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 27715,
+      "sha256": "4b5c4fc45ee5efa4d9e732984456209bb1c4fc18152e08dfcdd222c23f0bdf56"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "86ec8c8623de9f946fdb735535f23d57446f9cd85146d50cd4540526e9e2c699"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 146280,
+      "sha256": "cee74016c9fede3f367a1c645e13521f95f050fe212ebbe404394e7c890135c3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "bytes": 12048,
+      "sha256": "6e06ebd6ea90190f7a02efeffbf5ab8de2a462fc87c6472d833497c7eaac2862"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "bytes": 16050,
+      "sha256": "041d308476ee221653ce76d652084cd4fdc7b71fb0303afc7663a1983743b19c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2552681,
+      "sha256": "a8fda9eafed165bc693b4fc4b974c4f5608dc2a11cc517af742df99f2f5510af"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/test_env/fixtures/exact-intent-product/index.mjs",
+      "bytes": 15792,
+      "sha256": "65e802111c4ff1cb54e4a4f11d489813b72033f29aa32f2c35284a2876f0c9e1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 38681,
+      "sha256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "bytes": 13525,
+      "sha256": "83c3bb729f0cee676d69a31c87c7d9571e96a29fe2eb21949f5f603eb247bef1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/source-generated.json",
+      "bytes": 5690,
+      "sha256": "b61f921570a6493795093e32247c8420069b3c421a1c2fc731cafbe9399d062a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/test-process.json",
+      "bytes": 134,
+      "sha256": "5bd53554192df4a55ff667e7d3bb6aa6e1ee8fe0928bc7da971b01a1fa6f9c17"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/test.log",
+      "bytes": 14669,
+      "sha256": "0a0642d56e9a2d947e75633d5d9b4d4c6db7c3225a4591044cf7ed80cf1c6197"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/workflow-output-check.json",
+      "bytes": 226,
+      "sha256": "f733bd6ec6d35047d37904110e2dacd8a41451805e5e6778dd8aa7477bb9a35d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/wrong-basis-call.json",
+      "bytes": 22500830,
+      "sha256": "fa446f45aa4ef22128073e0b8ecd25c9fe82e0637177b48a0e4bbd79d0a11dad"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/wrong-basis-events.jsonl",
+      "bytes": 2879218,
+      "sha256": "eaeb759e4acedd1ce2d7bd71e67f58f2a3bd2bd08d75d2ae5a343de326d3cf5a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/wrong-basis-handoff.json",
+      "bytes": 1230,
+      "sha256": "eea8a44b835295c86031d48f9624aa07c0ec51782a87df9e99d70db71e8b5477"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/wrong-basis-receipt.json",
+      "bytes": 3836,
+      "sha256": "3c4de2e9ffd4d4b5df4c532a2b848b9da29df7f136558201b4c3d88a4ef7299b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/wrong-input-call.json",
+      "bytes": 22500830,
+      "sha256": "9772db38bacee320c47c5c292fb96dad904bcabfc5afbb1b7bc4ffa8b72798d0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/wrong-input-events.jsonl",
+      "bytes": 2879218,
+      "sha256": "eaeb759e4acedd1ce2d7bd71e67f58f2a3bd2bd08d75d2ae5a343de326d3cf5a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/wrong-input-handoff.json",
+      "bytes": 1230,
+      "sha256": "eea8a44b835295c86031d48f9624aa07c0ec51782a87df9e99d70db71e8b5477"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-02/wrong-input-receipt.json",
+      "bytes": 3843,
+      "sha256": "840a8a200d98efefc275ff8d00b073b374bd43e676e8c06153db0bd1c7b63f0c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/actor-artifacts/fp-4e725a42b8a5b914-output.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/actor-artifacts/fp-4e725a42b8a5b914-prompt.txt",
+      "bytes": 82,
+      "sha256": "bae4205b2f78eb77d88db5cb42a4e22523c3b8a6321464d8dcb5f542507b915c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/actor-artifacts/fp-4e725a42b8a5b914-stderr.log",
+      "bytes": 37,
+      "sha256": "058c3e7114a685e48c485c5eec7bf04ecd685fb818d18a9cf483d38fcc3eef35"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/actor-artifacts/fp-4e725a42b8a5b914-stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/actor-artifacts/fp-4e725a42b8a5b914-transport.json",
+      "bytes": 2592,
+      "sha256": "04172dac5329bd66468b9481a914ca56c093dab08752c3d1d19fee5a5a382e47"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/archives/consumer.tgz",
+      "bytes": 8145,
+      "sha256": "1228b7548c2a525b38d60e7eaf31b7382ad8fffe524d2d8294b9eae4bffd55d8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/archives/core.tgz",
+      "bytes": 10362105,
+      "sha256": "3f0706ba41ba634043036f874f37b73ee8b36fe08afb3961cda2d286de07b036"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/consumer-ready.txt",
+      "bytes": 6,
+      "sha256": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/continue-call.json",
+      "bytes": 22500824,
+      "sha256": "6ffd674601fb242df637a4a95eb692abe167c10dfe6e29589004edf152d01355"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/continue-events.jsonl",
+      "bytes": 3053114,
+      "sha256": "294d48801985316621f3454cf68cce3362664782090b946dd14c16b2cb483caa"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/continue-handoff.json",
+      "bytes": 1230,
+      "sha256": "65f2cc95c5c807944b9162bbdcb72810d01f45535b22a8a13a13ef3b557f486d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/continue-receipt.json",
+      "bytes": 18437,
+      "sha256": "849ee5dc4848b0000ae64bd1025caaf8a1f1ae0a6700d22dc047bd30a07ce19c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/failure-events.json",
+      "bytes": 4425643,
+      "sha256": "3e8bd4359bdd7139801dbfacbd75b17e95aa65ceefaab7f0c4785c154d2f7c8a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/failure.json",
+      "bytes": 22970,
+      "sha256": "669f05483d0561579aa246b7aa6a2dc00d054d6622c7cee6f2cca9695fd0fc6c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/fixed-transport.cjs",
+      "bytes": 329,
+      "sha256": "55044492a6b0b67d5749421db59852f9424c71bb3aa85c5d5a266172c52ed943"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/initial-completion.json",
+      "bytes": 79706,
+      "sha256": "fbec2fa37d4e20f6b32b0d1f8f5604724a4b374922e81e8ea9b7b4acdf03b929"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/initial-events.json",
+      "bytes": 4425643,
+      "sha256": "3e8bd4359bdd7139801dbfacbd75b17e95aa65ceefaab7f0c4785c154d2f7c8a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/initial-handoff.json",
+      "bytes": 1230,
+      "sha256": "b1c9cbe86426587787f46c4b3fe84445518f29c16acb20f394ad1612ff0136b6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/pending.json",
+      "bytes": 2359,
+      "sha256": "e9a175e48d9ea52dbb76e95141a1efffc41e1cccd341c2141b30159a8866ebd5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/prepared-relation.json",
+      "bytes": 33675,
+      "sha256": "6891b62b12eaac5c380aa0dee0c26ba688512fdfe867ac4bf03e4a4311867d2c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/setup.json",
+      "bytes": 1926,
+      "sha256": "62582ed6a5ce76d65f5ab8754c112b738252514f360444661ba1c6e101aeb57f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 275717,
+      "sha256": "72f51e49b72946812509ee94cb9e233ff4d3f3b40f7a0c95c8950d0a098bf9f5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "bytes": 67258,
+      "sha256": "49666e39d3d52171b3f385ce9879e0ac2e2f4531de5d04cfb89bb4e664a631e4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/abg/closure.ts",
+      "bytes": 24488,
+      "sha256": "952966b7353125ee816e1f492c9af20bb5ce67526079aceee804c35f50f85655"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 32571,
+      "sha256": "7a66557abd90f97743bdb5ac62341f120f7b86d46cc4962c1374707d8db09b1a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "bytes": 9227,
+      "sha256": "55915e90a7ba8a5beab2094b321ebbbe2f8b86ce922a31301fe5f8bbd84a2025"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "bytes": 76162,
+      "sha256": "8f4219951692dad2cdb0ae35099b5cd7338058fb5ff3ffdffc95142c5392251d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 173736,
+      "sha256": "f651b7368a878a42f2acc65ec70f39c41070f1e66fdbb908ed67ba116121f3c8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "bytes": 125942,
+      "sha256": "7e4fe8c8d63c37860adfa5bc291adab84ed378d3d03306c6f34ff26fb71159b6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "bytes": 47051,
+      "sha256": "4ebb5088950ae571e04d940412d46ebb5b71d371520a41420fdec045e083de2c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+      "bytes": 31046,
+      "sha256": "ff9613bbe132debaf1121ea3374494f6c91fb3243d81f19784b0195eb0b6d241"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "bytes": 72530,
+      "sha256": "93d954f600c3c610ba4506458d96ea5151b54f3922f799a65fe0c7cf6b815ad5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "bytes": 88701,
+      "sha256": "93251763d0c382aebe01c8ac4608c5e01b378557fcfefa61d45de78387bf7fa7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "bytes": 43324,
+      "sha256": "1edc46e47d7e6eb7683bfb18b7676f18501cefe5a6fb429c48bde2cf952fa9ec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "bytes": 212282,
+      "sha256": "25174e2a61cbf2b362a2c3405e6c90faf027121228953fb245c128c94b7acfa7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/hog/entry.ts",
+      "bytes": 23223,
+      "sha256": "bb170c5b8a5f4e0836b12b3c08ea286fc9d6f8092e3aa374295f42eae781512d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "bytes": 47589,
+      "sha256": "de5bdeb9a4f7533a54ca200fe28865cb153364e9c2a2e9b41af665f2787cc7c6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/hog/traversal_contract.ts",
+      "bytes": 5946,
+      "sha256": "4072e05cc6c4a4a561cbc96b934d7f4ba7b6ed1ed5923d6863c13e64c0fcacb2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "bytes": 38732,
+      "sha256": "7bc2e36727a9f745ca6a594670ea882252ce12e24422b5d6e614b56a1e40ac24"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 72900,
+      "sha256": "98958921f936b14b422288e79c7731fc9f0db891f7cec945f4bf75aece89858f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 27715,
+      "sha256": "4b5c4fc45ee5efa4d9e732984456209bb1c4fc18152e08dfcdd222c23f0bdf56"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "10ad16498a49d851de2edbed351fb9b3d18545541ec4db110bc363c539f1a24f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 146280,
+      "sha256": "cee74016c9fede3f367a1c645e13521f95f050fe212ebbe404394e7c890135c3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "bytes": 12048,
+      "sha256": "6e06ebd6ea90190f7a02efeffbf5ab8de2a462fc87c6472d833497c7eaac2862"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "bytes": 16050,
+      "sha256": "041d308476ee221653ce76d652084cd4fdc7b71fb0303afc7663a1983743b19c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2552681,
+      "sha256": "219f36007da72296be5448ecb2b120a84640eab6499af8329fa621240509e3e2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/test_env/fixtures/exact-intent-product/index.mjs",
+      "bytes": 15792,
+      "sha256": "65e802111c4ff1cb54e4a4f11d489813b72033f29aa32f2c35284a2876f0c9e1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 38681,
+      "sha256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "bytes": 13757,
+      "sha256": "3977964da6d5b865740e475b8f561bc267ab50eb2dbda837b1f9068ca0642039"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/source-generated.json",
+      "bytes": 5893,
+      "sha256": "b58b5847ba33cab1cd1ce8156e4140e1ab91a3ea0aa70e4f958ddf9af4a32514"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/test-process.json",
+      "bytes": 134,
+      "sha256": "1b4ec4205ddbf0b1fc0baab5b23c829fdd58de7d6a42068aff991fa522a01201"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/test.log",
+      "bytes": 11707,
+      "sha256": "2463a94ede62436d2b6583478ad5ab13ba09766a2dca6cc04d4d853a0bc861b4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/unknown-continuation-call.json",
+      "bytes": 22500848,
+      "sha256": "5c509ce6bc960dab1656e63b595e1eae72611bbf2d0e7aa90e16628f207245e8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/unknown-continuation-events.jsonl",
+      "bytes": 2879215,
+      "sha256": "e106e854bf25c6df376767160a88633300701ee66fc125317d3259f6d14d781e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/unknown-continuation-handoff.json",
+      "bytes": 1230,
+      "sha256": "a69e29d5b67403d88b2f74f898ad8ec78f8a60d9979bb2d5bec84c4645aea902"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/unknown-continuation-receipt.json",
+      "bytes": 3849,
+      "sha256": "ed39a0ea0364968b536dd653c02258bc9dbe9d878825fb97b5a53e5acec323cd"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/workflow-output-check.json",
+      "bytes": 226,
+      "sha256": "f733bd6ec6d35047d37904110e2dacd8a41451805e5e6778dd8aa7477bb9a35d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/wrong-basis-call.json",
+      "bytes": 22500830,
+      "sha256": "6e957519cca2d408b15a3552c191207cb954522e0958bf73a78be983d6fc3a8f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/wrong-basis-events.jsonl",
+      "bytes": 2879215,
+      "sha256": "e106e854bf25c6df376767160a88633300701ee66fc125317d3259f6d14d781e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/wrong-basis-handoff.json",
+      "bytes": 1230,
+      "sha256": "a69e29d5b67403d88b2f74f898ad8ec78f8a60d9979bb2d5bec84c4645aea902"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/wrong-basis-receipt.json",
+      "bytes": 3836,
+      "sha256": "e581da007712d88b9cdf9f4e1af28b1b8f0415fe79b72a84a59cabe3b724cc3e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/wrong-input-call.json",
+      "bytes": 22500830,
+      "sha256": "cca48d544d672680bcff4c9b7831bc490bf279d4174d47fc82f010efc636175b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/wrong-input-events.jsonl",
+      "bytes": 2879215,
+      "sha256": "e106e854bf25c6df376767160a88633300701ee66fc125317d3259f6d14d781e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/wrong-input-handoff.json",
+      "bytes": 1230,
+      "sha256": "a69e29d5b67403d88b2f74f898ad8ec78f8a60d9979bb2d5bec84c4645aea902"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/wrong-input-receipt.json",
+      "bytes": 3843,
+      "sha256": "f461d1823722a3bd6938c9d3734cb5a38c2cac645940f50bbd07e1599d23f835"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/wrong-intent-call.json",
+      "bytes": 22500832,
+      "sha256": "2e4f69b4d9bc935860dfbababb37f051b5ebf5ceaf02c07d46445ea60e8f9e52"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/wrong-intent-events.jsonl",
+      "bytes": 2879215,
+      "sha256": "e106e854bf25c6df376767160a88633300701ee66fc125317d3259f6d14d781e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/wrong-intent-handoff.json",
+      "bytes": 1230,
+      "sha256": "a69e29d5b67403d88b2f74f898ad8ec78f8a60d9979bb2d5bec84c4645aea902"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-03/wrong-intent-receipt.json",
+      "bytes": 3838,
+      "sha256": "f2dd671deaf0efffd8bf79e71d5a02d920178a6ef4f05f055c2013d7c30ce77e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/actor-artifacts/fp-3fa7f3a2d370d77e-output.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/actor-artifacts/fp-3fa7f3a2d370d77e-prompt.txt",
+      "bytes": 82,
+      "sha256": "bae4205b2f78eb77d88db5cb42a4e22523c3b8a6321464d8dcb5f542507b915c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/actor-artifacts/fp-3fa7f3a2d370d77e-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/actor-artifacts/fp-3fa7f3a2d370d77e-stdout.log",
+      "bytes": 282,
+      "sha256": "b5750488f3d2986202f994769df422e6afd9d550d3469eb4e0e73409509a7e7f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/actor-artifacts/fp-3fa7f3a2d370d77e-transport.json",
+      "bytes": 2887,
+      "sha256": "49783251ecb47df2b44f9f70c9083a9c97d0869dc71f86332580beda109ce02f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/consumer-ready.txt",
+      "bytes": 6,
+      "sha256": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/continue-call.json",
+      "bytes": 22500824,
+      "sha256": "17d0800c6bc416f339a65c92e0d6d6a5ef4722a11b457a15cd59d2552f79048f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/continue-events.jsonl",
+      "bytes": 3144158,
+      "sha256": "c7dbf5da159b0002c8cc29e16b056a44c3ba06f47a990d46b8d526893f9ca97d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/continue-handoff.json",
+      "bytes": 1230,
+      "sha256": "aeb77115ac25ceb4e626999097998099afb21137ebef33e0e17925df4fe2f6d7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/continue-receipt.json",
+      "bytes": 21505,
+      "sha256": "efad520dec47ebc927b008f923bc31cd4af5da4c8d9dfcb337d4fe294c5f2868"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/failure-events.json",
+      "bytes": 4482421,
+      "sha256": "273cc9aea9bd9bfada02c3f5f2d9d3a9a753c0be551d27a15b996eac15fadc53"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/failure.json",
+      "bytes": 27806,
+      "sha256": "7dee26feb94c59499797ebb0594264de19ba549df4f5c5582fdd317e33cde7b9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/fixed-transport.cjs",
+      "bytes": 381,
+      "sha256": "7a413a617e445739bdd7e3186421c23fcbe70e9ade11135bf6910cb4ec8ffadf"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/initial-completion.json",
+      "bytes": 83844,
+      "sha256": "a5bcdaee8376828298a6e6c5ada80fabd6788da396fb990d52ace0ee15e5fb5e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/initial-events.json",
+      "bytes": 4482421,
+      "sha256": "273cc9aea9bd9bfada02c3f5f2d9d3a9a753c0be551d27a15b996eac15fadc53"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/initial-handoff.json",
+      "bytes": 1230,
+      "sha256": "3365abf33ac9270e59526ad00d1d822c4e5858d27afc52ee7b60031c338dda01"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/pending.json",
+      "bytes": 2359,
+      "sha256": "9310801818c84dd2a01d690e200cfa7fcd91f7ce80af64bc4490dd523081fe51"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/prepared-relation.json",
+      "bytes": 33675,
+      "sha256": "ce9919c1742ffc92126ccc999054f058c0f5f6d030cf608d551b2d0268a500ca"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/setup.json",
+      "bytes": 1914,
+      "sha256": "2a4c2fe2ad6509e8455aeb10cc13684f7eae85b0a889a62a0b9ad64d0f37b922"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/test-preimage.mjs",
+      "bytes": 13788,
+      "sha256": "16725f5f9e91c13fe79e6d887447bd6db039b423be2dbe0cb03ae4c3dba5b4a1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/test-process.json",
+      "bytes": 135,
+      "sha256": "fff564d44940ba1d8515b0b2493a66c3957fdaefeb869caf29febe98e175aa8c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/test.log",
+      "bytes": 14021,
+      "sha256": "10c76d0494d679222f3b15f70a11be796a08a8b9420f5d61240a6f9e71c0152f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/transport-first-cause.json",
+      "bytes": 324,
+      "sha256": "f8d64eab2fa51a47b0c984ef2bd4f37225767382a44efc52aba66dc2bc437970"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/unknown-continuation-call.json",
+      "bytes": 22500848,
+      "sha256": "894d53a7cc4b1a99670ec2dc6684baaeed941fe211b6c985ac7620f7a7591d0b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/unknown-continuation-events.jsonl",
+      "bytes": 2929671,
+      "sha256": "5970c9635262d8c0612e8528cd156ae820fdd6568d44e56059ddc1c98bf8f7b7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/unknown-continuation-handoff.json",
+      "bytes": 1230,
+      "sha256": "6aefdad39a9e4f63bd2c86bccd254c525586b76079cec6b24662e065074ccabe"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/unknown-continuation-receipt.json",
+      "bytes": 3849,
+      "sha256": "d96ffe95c04365c31a697aa6911ce9bc891af97b9658d8dbae4e0c333468df7e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/workflow-output-check.json",
+      "bytes": 226,
+      "sha256": "f733bd6ec6d35047d37904110e2dacd8a41451805e5e6778dd8aa7477bb9a35d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/wrong-basis-call.json",
+      "bytes": 22500830,
+      "sha256": "05ca2e0b388afecdeed5913adafc5235d6026a1d5d67fd4349d693ece4ad8cd9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/wrong-basis-events.jsonl",
+      "bytes": 2929671,
+      "sha256": "5970c9635262d8c0612e8528cd156ae820fdd6568d44e56059ddc1c98bf8f7b7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/wrong-basis-handoff.json",
+      "bytes": 1230,
+      "sha256": "6aefdad39a9e4f63bd2c86bccd254c525586b76079cec6b24662e065074ccabe"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/wrong-basis-receipt.json",
+      "bytes": 3836,
+      "sha256": "541c1bacf600b6684b60ae4685b22c9aa7ca16a90ed507d43241bfbdb6875ee8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/wrong-input-call.json",
+      "bytes": 22500830,
+      "sha256": "2cd32ff9c0fb07617cc414ee7d97eca0c2628c9738f8bcea318f2a70020d82a5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/wrong-input-events.jsonl",
+      "bytes": 2929671,
+      "sha256": "5970c9635262d8c0612e8528cd156ae820fdd6568d44e56059ddc1c98bf8f7b7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/wrong-input-handoff.json",
+      "bytes": 1230,
+      "sha256": "6aefdad39a9e4f63bd2c86bccd254c525586b76079cec6b24662e065074ccabe"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/wrong-input-receipt.json",
+      "bytes": 3842,
+      "sha256": "935dfda6d7861c6abbf734fdfa0bb80fbff5c683f7d8fc41aa255f03259412a1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/wrong-intent-call.json",
+      "bytes": 22500832,
+      "sha256": "13d9a8c55cf567b10107eba7c530dca46f11c9debda450e795f04813fdb56ac2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/wrong-intent-events.jsonl",
+      "bytes": 2929671,
+      "sha256": "5970c9635262d8c0612e8528cd156ae820fdd6568d44e56059ddc1c98bf8f7b7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/wrong-intent-handoff.json",
+      "bytes": 1230,
+      "sha256": "6aefdad39a9e4f63bd2c86bccd254c525586b76079cec6b24662e065074ccabe"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-04/wrong-intent-receipt.json",
+      "bytes": 3838,
+      "sha256": "7e629313f7cd4214cffcaab3c5fb2c2c830fa1620d01be0e10da04df60576a80"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/actor-artifacts/output-fp-ab4b527eb7973b76-output.txt",
+      "bytes": 82,
+      "sha256": "c0313ee05276acdd3a1d6a58710582d817faeed3d74b66da2a005ea771600d23"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/actor-artifacts/prompt-fp-ab4b527eb7973b76-prompt.txt",
+      "bytes": 82,
+      "sha256": "bae4205b2f78eb77d88db5cb42a4e22523c3b8a6321464d8dcb5f542507b915c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/actor-artifacts/stderr-fp-ab4b527eb7973b76-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/actor-artifacts/stdout-fp-ab4b527eb7973b76-stdout.log",
+      "bytes": 299,
+      "sha256": "e991b1e6f2e33e302ffe14529b551b89b23db7b07c164bcde9145768b5f2f8f8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/actor-artifacts/transport-fp-ab4b527eb7973b76-transport.json",
+      "bytes": 4454,
+      "sha256": "c6973e2d143927eb44f4f04fb546706fb0ef19cdb54926d242b0886bfb353115"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/archives/consumer.tgz",
+      "bytes": 8145,
+      "sha256": "1228b7548c2a525b38d60e7eaf31b7382ad8fffe524d2d8294b9eae4bffd55d8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/archives/core.tgz",
+      "bytes": 10362096,
+      "sha256": "9e5d68a8310a8d8797f4766b6ca0f2860080a99d4cf4494772311c6d500cd474"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/consumer-ready.txt",
+      "bytes": 6,
+      "sha256": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/continue-call.json",
+      "bytes": 22500824,
+      "sha256": "f5e538b67d40fc7a6f305f4ffa7f8283e441391d9b5fe2b51d35b6ccd126b1be"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/continue-events.jsonl",
+      "bytes": 3231373,
+      "sha256": "ef5158edf57063c1d0aa69d764770a386a8ac9e7abe77a11561235ab04ad0f10"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/continue-handoff.json",
+      "bytes": 1230,
+      "sha256": "a79bbe279450a5d838807c6a28f43b36f358a8028f680cae220a1e03cf60e0e7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/continue-receipt.json",
+      "bytes": 26696,
+      "sha256": "2474ee7d6c7113405427f8286f77843d85ea8e5e06f2fe03ada4b60b1a879a36"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/failure-events.json",
+      "bytes": 4482437,
+      "sha256": "70035313bffd1827e7f2d8a47cd4cf4927102cd15a33f511156aab592a43646b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/failure.json",
+      "bytes": 35990,
+      "sha256": "f3d5885739b8ac20652678a273cd6a120d134a31e5a4f280e4eb1f7056774d15"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/fixed-transport.cjs",
+      "bytes": 396,
+      "sha256": "1a86fe61abbbb6141eb49da7732e62a3c2ea50c2de4f0ceb49495320941f0503"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/initial-completion.json",
+      "bytes": 83851,
+      "sha256": "96f5cef3901a769fb223875d74aa533640a5fd3751651b5374966d649302aa83"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/initial-events.json",
+      "bytes": 4482437,
+      "sha256": "70035313bffd1827e7f2d8a47cd4cf4927102cd15a33f511156aab592a43646b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/initial-handoff.json",
+      "bytes": 1230,
+      "sha256": "0721141c88935f50461d82beb4eb31c739601f1c9d1ede8028c637109b54d551"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/pending.json",
+      "bytes": 2359,
+      "sha256": "1b61bdab94addf22667ff0d1094f18870243f04a6583156bd0e5050d5929348a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/prepared-relation.json",
+      "bytes": 33675,
+      "sha256": "3ffec136be2018d6e350ea25b158c1a867b9304987d751cc4ce9aaffefac9b54"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/setup.json",
+      "bytes": 1665,
+      "sha256": "8849ada53534585342472207051a3749423f396d4e02e7a873a8ad0145c7e5c6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 275717,
+      "sha256": "72f51e49b72946812509ee94cb9e233ff4d3f3b40f7a0c95c8950d0a098bf9f5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "bytes": 67237,
+      "sha256": "e5c6fda5b10689d0df9f4c8c4c20a6ca6c557a9d861563fd5528adf88050047d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/abg/closure.ts",
+      "bytes": 24488,
+      "sha256": "952966b7353125ee816e1f492c9af20bb5ce67526079aceee804c35f50f85655"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 32571,
+      "sha256": "7a66557abd90f97743bdb5ac62341f120f7b86d46cc4962c1374707d8db09b1a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "bytes": 9227,
+      "sha256": "55915e90a7ba8a5beab2094b321ebbbe2f8b86ce922a31301fe5f8bbd84a2025"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "bytes": 76162,
+      "sha256": "8f4219951692dad2cdb0ae35099b5cd7338058fb5ff3ffdffc95142c5392251d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 173736,
+      "sha256": "f651b7368a878a42f2acc65ec70f39c41070f1e66fdbb908ed67ba116121f3c8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "bytes": 125942,
+      "sha256": "7e4fe8c8d63c37860adfa5bc291adab84ed378d3d03306c6f34ff26fb71159b6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "bytes": 47051,
+      "sha256": "4ebb5088950ae571e04d940412d46ebb5b71d371520a41420fdec045e083de2c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+      "bytes": 31046,
+      "sha256": "ff9613bbe132debaf1121ea3374494f6c91fb3243d81f19784b0195eb0b6d241"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "bytes": 72530,
+      "sha256": "93d954f600c3c610ba4506458d96ea5151b54f3922f799a65fe0c7cf6b815ad5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "bytes": 88701,
+      "sha256": "93251763d0c382aebe01c8ac4608c5e01b378557fcfefa61d45de78387bf7fa7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "bytes": 43324,
+      "sha256": "1edc46e47d7e6eb7683bfb18b7676f18501cefe5a6fb429c48bde2cf952fa9ec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "bytes": 212282,
+      "sha256": "25174e2a61cbf2b362a2c3405e6c90faf027121228953fb245c128c94b7acfa7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/hog/entry.ts",
+      "bytes": 23223,
+      "sha256": "bb170c5b8a5f4e0836b12b3c08ea286fc9d6f8092e3aa374295f42eae781512d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "bytes": 47589,
+      "sha256": "de5bdeb9a4f7533a54ca200fe28865cb153364e9c2a2e9b41af665f2787cc7c6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/hog/traversal_contract.ts",
+      "bytes": 5946,
+      "sha256": "4072e05cc6c4a4a561cbc96b934d7f4ba7b6ed1ed5923d6863c13e64c0fcacb2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "bytes": 38714,
+      "sha256": "b4f427f00750451ba646375a7dc8dca9cf01f1de118979f81ed3e20e46d17906"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 72900,
+      "sha256": "98958921f936b14b422288e79c7731fc9f0db891f7cec945f4bf75aece89858f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 27715,
+      "sha256": "4b5c4fc45ee5efa4d9e732984456209bb1c4fc18152e08dfcdd222c23f0bdf56"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "88fe6f3c35b0f71f393ffdc2cae2c01faec4f5eff82a59ce3f63c915c2fc6c7a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 146280,
+      "sha256": "cee74016c9fede3f367a1c645e13521f95f050fe212ebbe404394e7c890135c3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "bytes": 12048,
+      "sha256": "6e06ebd6ea90190f7a02efeffbf5ab8de2a462fc87c6472d833497c7eaac2862"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "bytes": 16256,
+      "sha256": "a7c1d308939e536e1ef5cbd0f64e4bd5a3e255be017fe76244ec95bc4cf822fc"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2552681,
+      "sha256": "512969a6c6e33017620d3a3f31a42c9165bb33d611b3a5498f4be9841e021a7f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/test_env/fixtures/exact-intent-product/index.mjs",
+      "bytes": 15792,
+      "sha256": "65e802111c4ff1cb54e4a4f11d489813b72033f29aa32f2c35284a2876f0c9e1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 38681,
+      "sha256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "bytes": 13803,
+      "sha256": "08757acfbe245d2470acc5e295822c18c508498ff8f51e414e93fe5af8bd3ae0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/source-generated.json",
+      "bytes": 5893,
+      "sha256": "b7ea08fbac3b66d4d87991fef20ccb071c0fb2b2ec05ef4af97ca71be7a5bc55"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/test-process.json",
+      "bytes": 230,
+      "sha256": "22db1c238a43736a8a0d530862a8ed07654d7ae0a323b8f85b5b822bf7fbcd5e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/test.log",
+      "bytes": 17937,
+      "sha256": "be34d67703434f17ef7abdaae45945a1122eeb7e72cdcd6557230e3dedf9ff3f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/unknown-continuation-call.json",
+      "bytes": 22500848,
+      "sha256": "d6748ff842b98c5bd587324ce26486e6d3ab3c1907c9ad62d0fd51f031d028fb"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/unknown-continuation-events.jsonl",
+      "bytes": 2929687,
+      "sha256": "ca71ba6030fd25fc05600dfd125f76c9e10cc670bd6a6c9da3ddf4dff1fa75b2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/unknown-continuation-handoff.json",
+      "bytes": 1230,
+      "sha256": "4794d3c5e044ab1a4c8343b4459270301692dc865700b319f3ee6aa675b804c9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/unknown-continuation-receipt.json",
+      "bytes": 3849,
+      "sha256": "8e2dd99d78fd5e11fab4fc513e2b27115cfb27c0f9297beafd45a02ca49d6b72"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/workflow-output-check.json",
+      "bytes": 226,
+      "sha256": "f733bd6ec6d35047d37904110e2dacd8a41451805e5e6778dd8aa7477bb9a35d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/wrong-basis-call.json",
+      "bytes": 22500830,
+      "sha256": "6d7197e254b4ce69736564d19869c556d54fb4faea1c23412c4941c3c0c10170"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/wrong-basis-events.jsonl",
+      "bytes": 2929687,
+      "sha256": "ca71ba6030fd25fc05600dfd125f76c9e10cc670bd6a6c9da3ddf4dff1fa75b2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/wrong-basis-handoff.json",
+      "bytes": 1230,
+      "sha256": "4794d3c5e044ab1a4c8343b4459270301692dc865700b319f3ee6aa675b804c9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/wrong-basis-receipt.json",
+      "bytes": 3836,
+      "sha256": "5c723cff188e7c2f4f286af327287c45b2bf93e82a943c7ad14fad60e77b1283"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/wrong-input-call.json",
+      "bytes": 22500830,
+      "sha256": "3172cc30f6e34073b416a58c2f1771fdd67dd56a575fdfdf8606e4f211bb2e5e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/wrong-input-events.jsonl",
+      "bytes": 2929687,
+      "sha256": "ca71ba6030fd25fc05600dfd125f76c9e10cc670bd6a6c9da3ddf4dff1fa75b2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/wrong-input-handoff.json",
+      "bytes": 1230,
+      "sha256": "4794d3c5e044ab1a4c8343b4459270301692dc865700b319f3ee6aa675b804c9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/wrong-input-receipt.json",
+      "bytes": 3843,
+      "sha256": "afe180c0b2fe91e0846f0471d9825fb701cb7edceda0fd28e7afd7c898ad2d6a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/wrong-intent-call.json",
+      "bytes": 22500832,
+      "sha256": "9f2a2f643a5c979a705723dbce8267ac70f2fe4530c091f17025f0575d587797"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/wrong-intent-events.jsonl",
+      "bytes": 2929687,
+      "sha256": "ca71ba6030fd25fc05600dfd125f76c9e10cc670bd6a6c9da3ddf4dff1fa75b2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/wrong-intent-handoff.json",
+      "bytes": 1230,
+      "sha256": "4794d3c5e044ab1a4c8343b4459270301692dc865700b319f3ee6aa675b804c9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-05/wrong-intent-receipt.json",
+      "bytes": 3838,
+      "sha256": "2a6a629001ab7daa466ce16593f2b634ca0fdfcb25df6a91c3b388d258e2d2c0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/actor-artifacts/output-fp-7e271732e699ef40-output.txt",
+      "bytes": 82,
+      "sha256": "c0313ee05276acdd3a1d6a58710582d817faeed3d74b66da2a005ea771600d23"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/actor-artifacts/prompt-fp-7e271732e699ef40-prompt.txt",
+      "bytes": 82,
+      "sha256": "bae4205b2f78eb77d88db5cb42a4e22523c3b8a6321464d8dcb5f542507b915c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/actor-artifacts/stderr-fp-7e271732e699ef40-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/actor-artifacts/stdout-fp-7e271732e699ef40-stdout.log",
+      "bytes": 299,
+      "sha256": "e991b1e6f2e33e302ffe14529b551b89b23db7b07c164bcde9145768b5f2f8f8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/actor-artifacts/transport-fp-7e271732e699ef40-transport.json",
+      "bytes": 4454,
+      "sha256": "9c384269e99b56d52b5487510110952725c9045db723c2ef048326332535cba6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/archives/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+      "bytes": 8145,
+      "sha256": "1228b7548c2a525b38d60e7eaf31b7382ad8fffe524d2d8294b9eae4bffd55d8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/archives/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10362231,
+      "sha256": "a3ce892d3821e0297b8be4536f40c7b2edbc56d71a0c7087014c7de49b7c9579"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/consumer-ready.txt",
+      "bytes": 6,
+      "sha256": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/continue-call.json",
+      "bytes": 22500824,
+      "sha256": "4f85830052c298f1b4947d916c49653b2cc712732dacd0d2cbcd9b5416d39af7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/continue-events.jsonl",
+      "bytes": 3422158,
+      "sha256": "0cc86e14ca796961ff291a056eee052b9d545eb9ef9b2fea7bab315555340aad"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/continue-handoff.json",
+      "bytes": 1230,
+      "sha256": "d36a2030adf57949a329fd88c5af3eb7a5e10610a8cff6fa0680d4697094a7f0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/continue-receipt.json",
+      "bytes": 4045,
+      "sha256": "a8371f1e195b014e47f374b42c0e973a792771572d12e909853f62cf5ee6aba1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/failure-events.json",
+      "bytes": 4482423,
+      "sha256": "109d9f75bdde6684db67f65354dd538a361abd375f86b1cc00eca87774fff83a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/failure.json",
+      "bytes": 816,
+      "sha256": "60330c3324ab849a36c849c582960d4d7203f1528632237946d7b00c41d5909e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/fixed-transport.cjs",
+      "bytes": 396,
+      "sha256": "1a86fe61abbbb6141eb49da7732e62a3c2ea50c2de4f0ceb49495320941f0503"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/initial-completion.json",
+      "bytes": 83844,
+      "sha256": "8af14c97cd2f5d3374e5574a842c3721fd2f2aa28d421e0fae210d977f7d7b00"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/initial-events.json",
+      "bytes": 4482423,
+      "sha256": "109d9f75bdde6684db67f65354dd538a361abd375f86b1cc00eca87774fff83a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/initial-handoff.json",
+      "bytes": 1230,
+      "sha256": "40b8be021e027250b3301890e534d7833fa5c4e5f681c43ddeaa48d057e58ff8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/pending.json",
+      "bytes": 2359,
+      "sha256": "a23aef529fbf627745dde4142776bc58aede16b2563c4b3a64059815e620cd7a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/prepared-relation.json",
+      "bytes": 33675,
+      "sha256": "5d208d8339915cd0b67b1d1fa63679865c3de05aab72616962a8a8025e2a1178"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/setup.json",
+      "bytes": 1921,
+      "sha256": "4002b60a8be86fb150c6be7a5d0e70913122ba2bffbda67c5b22edc5da08c239"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 275717,
+      "sha256": "72f51e49b72946812509ee94cb9e233ff4d3f3b40f7a0c95c8950d0a098bf9f5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "bytes": 67237,
+      "sha256": "e5c6fda5b10689d0df9f4c8c4c20a6ca6c557a9d861563fd5528adf88050047d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/abg/closure.ts",
+      "bytes": 24488,
+      "sha256": "952966b7353125ee816e1f492c9af20bb5ce67526079aceee804c35f50f85655"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 32571,
+      "sha256": "7a66557abd90f97743bdb5ac62341f120f7b86d46cc4962c1374707d8db09b1a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "bytes": 9227,
+      "sha256": "55915e90a7ba8a5beab2094b321ebbbe2f8b86ce922a31301fe5f8bbd84a2025"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "bytes": 76162,
+      "sha256": "8f4219951692dad2cdb0ae35099b5cd7338058fb5ff3ffdffc95142c5392251d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 173736,
+      "sha256": "f651b7368a878a42f2acc65ec70f39c41070f1e66fdbb908ed67ba116121f3c8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "bytes": 125942,
+      "sha256": "7e4fe8c8d63c37860adfa5bc291adab84ed378d3d03306c6f34ff26fb71159b6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "bytes": 47051,
+      "sha256": "4ebb5088950ae571e04d940412d46ebb5b71d371520a41420fdec045e083de2c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+      "bytes": 31046,
+      "sha256": "ff9613bbe132debaf1121ea3374494f6c91fb3243d81f19784b0195eb0b6d241"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "bytes": 72530,
+      "sha256": "93d954f600c3c610ba4506458d96ea5151b54f3922f799a65fe0c7cf6b815ad5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "bytes": 88701,
+      "sha256": "93251763d0c382aebe01c8ac4608c5e01b378557fcfefa61d45de78387bf7fa7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "bytes": 43324,
+      "sha256": "1edc46e47d7e6eb7683bfb18b7676f18501cefe5a6fb429c48bde2cf952fa9ec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "bytes": 212646,
+      "sha256": "6c2af3755c2c97514dda0206b5ab2927ae290739c4609b6a8ecfcaf28b882335"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/hog/entry.ts",
+      "bytes": 23223,
+      "sha256": "bb170c5b8a5f4e0836b12b3c08ea286fc9d6f8092e3aa374295f42eae781512d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "bytes": 47589,
+      "sha256": "de5bdeb9a4f7533a54ca200fe28865cb153364e9c2a2e9b41af665f2787cc7c6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/hog/traversal_contract.ts",
+      "bytes": 5946,
+      "sha256": "4072e05cc6c4a4a561cbc96b934d7f4ba7b6ed1ed5923d6863c13e64c0fcacb2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "bytes": 38714,
+      "sha256": "b4f427f00750451ba646375a7dc8dca9cf01f1de118979f81ed3e20e46d17906"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 72900,
+      "sha256": "98958921f936b14b422288e79c7731fc9f0db891f7cec945f4bf75aece89858f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 27715,
+      "sha256": "4b5c4fc45ee5efa4d9e732984456209bb1c4fc18152e08dfcdd222c23f0bdf56"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "fc198cc2fb9d6fd930c9218e4e77a490236e05335ee888bb1d56fe5a04f914f2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 146280,
+      "sha256": "cee74016c9fede3f367a1c645e13521f95f050fe212ebbe404394e7c890135c3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "bytes": 12048,
+      "sha256": "6e06ebd6ea90190f7a02efeffbf5ab8de2a462fc87c6472d833497c7eaac2862"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "bytes": 16256,
+      "sha256": "a7c1d308939e536e1ef5cbd0f64e4bd5a3e255be017fe76244ec95bc4cf822fc"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2552681,
+      "sha256": "179543c89382135eeea61929612e70ce2644fe351513b8ea4d827f4b8b27785e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/test_env/fixtures/exact-intent-product/index.mjs",
+      "bytes": 15792,
+      "sha256": "65e802111c4ff1cb54e4a4f11d489813b72033f29aa32f2c35284a2876f0c9e1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 38681,
+      "sha256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "bytes": 13803,
+      "sha256": "08757acfbe245d2470acc5e295822c18c508498ff8f51e414e93fe5af8bd3ae0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/source-generated.json",
+      "bytes": 5893,
+      "sha256": "5d96b89910dc143ab172df3b9d6fda9f84d627f52b50b40cc850da3ff594f207"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/test-process.json",
+      "bytes": 134,
+      "sha256": "cb5e97222dbb898996955fe75c007885f9bf551653ee7f145093b9a02c4d2615"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/test.log",
+      "bytes": 1103,
+      "sha256": "69f2144e63bbab14d9add43da2b8b99904a1f8a52eedba906c8475b9b2053538"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/unknown-continuation-call.json",
+      "bytes": 22500848,
+      "sha256": "fced774bce107ca2914c5426ad64305d86a7cc2ef9eec978eb085b65db9dfcf7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/unknown-continuation-events.jsonl",
+      "bytes": 2929673,
+      "sha256": "c8bab5b420b3259e4cf0f66826c42f59b2508aad627dc892b3102fd8d96f3561"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/unknown-continuation-handoff.json",
+      "bytes": 1230,
+      "sha256": "fba634a70627c5445781226d5d17901b5eab20b7be14cc9e434cb7d684dc0045"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/unknown-continuation-receipt.json",
+      "bytes": 3849,
+      "sha256": "9f539c4d58e2b81bb402bf0ad7e80e3f8d16751f717ad9c40741275a99b77fcb"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/workflow-output-check.json",
+      "bytes": 226,
+      "sha256": "f733bd6ec6d35047d37904110e2dacd8a41451805e5e6778dd8aa7477bb9a35d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/wrong-basis-call.json",
+      "bytes": 22500830,
+      "sha256": "01b5e907411ccff377b179c553986f67407169ade31065cb97d13f9d0ad8c886"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/wrong-basis-events.jsonl",
+      "bytes": 2929673,
+      "sha256": "c8bab5b420b3259e4cf0f66826c42f59b2508aad627dc892b3102fd8d96f3561"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/wrong-basis-handoff.json",
+      "bytes": 1230,
+      "sha256": "fba634a70627c5445781226d5d17901b5eab20b7be14cc9e434cb7d684dc0045"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/wrong-basis-receipt.json",
+      "bytes": 3829,
+      "sha256": "c0d62d00c95141a71edcdb6dc43a6d4de9d0dd84ede571e56bf2fd206441b6a7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/wrong-input-call.json",
+      "bytes": 22500830,
+      "sha256": "6c197c0097b22906f8c60e19a9904ef9c2ff12f2b3b8857f80c13e46eb06d7c5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/wrong-input-events.jsonl",
+      "bytes": 2929673,
+      "sha256": "c8bab5b420b3259e4cf0f66826c42f59b2508aad627dc892b3102fd8d96f3561"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/wrong-input-handoff.json",
+      "bytes": 1230,
+      "sha256": "fba634a70627c5445781226d5d17901b5eab20b7be14cc9e434cb7d684dc0045"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/wrong-input-receipt.json",
+      "bytes": 3843,
+      "sha256": "466a726f232ace4112d37b0cbe48ad8208cbae5de0b6633b8ab4edeb08e87d1a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/wrong-intent-call.json",
+      "bytes": 22500832,
+      "sha256": "439026b04cc9df8fbe717f7039228686b112dab3ce4be68d9f356175167c0362"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/wrong-intent-events.jsonl",
+      "bytes": 2929673,
+      "sha256": "c8bab5b420b3259e4cf0f66826c42f59b2508aad627dc892b3102fd8d96f3561"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/wrong-intent-handoff.json",
+      "bytes": 1230,
+      "sha256": "fba634a70627c5445781226d5d17901b5eab20b7be14cc9e434cb7d684dc0045"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-06/wrong-intent-receipt.json",
+      "bytes": 3838,
+      "sha256": "f6105fe7c437cefeb83bb804df6a73526523b180784aa88179733d957f9d9159"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/actor-artifacts/output-fp-c2e694bdc1f7e2f0-output.txt",
+      "bytes": 82,
+      "sha256": "c0313ee05276acdd3a1d6a58710582d817faeed3d74b66da2a005ea771600d23"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/actor-artifacts/prompt-fp-c2e694bdc1f7e2f0-prompt.txt",
+      "bytes": 82,
+      "sha256": "bae4205b2f78eb77d88db5cb42a4e22523c3b8a6321464d8dcb5f542507b915c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/actor-artifacts/stderr-fp-c2e694bdc1f7e2f0-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/actor-artifacts/stdout-fp-c2e694bdc1f7e2f0-stdout.log",
+      "bytes": 299,
+      "sha256": "e991b1e6f2e33e302ffe14529b551b89b23db7b07c164bcde9145768b5f2f8f8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/actor-artifacts/transport-fp-c2e694bdc1f7e2f0-transport.json",
+      "bytes": 4454,
+      "sha256": "421ed6296d72769c5ac2c747060d2379100256c7b6642a2fa74df5f17598862e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/closed-correspondence.json",
+      "bytes": 8400,
+      "sha256": "8a2cbfcdfd8f202151a072d379f279a227521abbf3414a66e7268aeffc40f47b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/consumed-call.json",
+      "bytes": 22500824,
+      "sha256": "8b26a50c4097dbc637da44ddebd629894639dc1a08942c6a1dfb1455c23f3320"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/consumed-events.jsonl",
+      "bytes": 3436479,
+      "sha256": "2c20ee65a66fe027bebe055c29ed22f962baffe09244cce2a2b0cfb0d493c9fb"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/consumed-handoff.json",
+      "bytes": 1230,
+      "sha256": "87bcd2205539700b24843b86405a9e8ffda8ed9773e7df79b83a808494f162cb"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/consumed-receipt.json",
+      "bytes": 3831,
+      "sha256": "a1aa5956d53c7a6db1768b36402e19a3f6c4ebc3d9a611cd30c4d76ebfc9dccb"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/consumer-ready.txt",
+      "bytes": 6,
+      "sha256": "ed1a545bb85e55816bbf9566b028b2a0bc456b88f49f6f266c0401048824194b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/continue-call.json",
+      "bytes": 22500824,
+      "sha256": "5c83dcf7daded0f8af1cc53ad7e070faa6b83d2d26f9604090b206c56b3ebf4c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/continue-events.jsonl",
+      "bytes": 3436479,
+      "sha256": "2c20ee65a66fe027bebe055c29ed22f962baffe09244cce2a2b0cfb0d493c9fb"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/continue-handoff.json",
+      "bytes": 1230,
+      "sha256": "87bcd2205539700b24843b86405a9e8ffda8ed9773e7df79b83a808494f162cb"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/continue-receipt.json",
+      "bytes": 40379,
+      "sha256": "124e20d4352abf4ad9ecbc903abe73bef5762f05e03cf5835ab807f0b9fb5410"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/fixed-transport.cjs",
+      "bytes": 396,
+      "sha256": "1a86fe61abbbb6141eb49da7732e62a3c2ea50c2de4f0ceb49495320941f0503"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/initial-completion.json",
+      "bytes": 83846,
+      "sha256": "8b8b9d3d07467d0bad48ce97faa6b4f522ff3f07249ac6a6ff5f06ba6df8e71c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/initial-events.json",
+      "bytes": 4482423,
+      "sha256": "ed3ee499814da19a384f52758bd80374f1a55858e829fd33837daaf9b84791ff"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/initial-handoff.json",
+      "bytes": 1230,
+      "sha256": "cd6c5ced1f5ecc440632d5e162aacf68d9f47724b297ea3b7205fece0915b3c6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/pending.json",
+      "bytes": 2359,
+      "sha256": "e773f9f87b1e110f032570c8924be1f3f41425ec9d5705ae220dcb1827236229"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/prepared-relation.json",
+      "bytes": 33675,
+      "sha256": "eafa07fe98925c4ff68632e144efa9a78fddc15db3c4661f7b9bed70db7288cd"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/result.json",
+      "bytes": 38262,
+      "sha256": "8b6501f689193d907d2eb775086e04bb1666688e834e348f21b50f863080a491"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/run_replay.json",
+      "bytes": 9699,
+      "sha256": "f7255b8b3cd27c642547ee6e5f248e2944d56e0dfa09b2826ce66510f742c4e2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/run_result.json",
+      "bytes": 10120,
+      "sha256": "036d1a11fa72511b534a96cefba34217cf2af585ee7b71f25a4521b71a911b3b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/setup.json",
+      "bytes": 1909,
+      "sha256": "e1067e44e858c99e280f28604d64cc06badcb3519f1c939e1e4020908a087996"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/test-execution.json",
+      "bytes": 134,
+      "sha256": "1f549a10cc96e84fb5e003c463eee6f124d28a111cce2e465418f66932ab7530"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/test.log",
+      "bytes": 230,
+      "sha256": "1764d1452158e277b70ee7ba09013c118ed168e438a40c96de34b7d04c7f129f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/unknown-continuation-call.json",
+      "bytes": 22500848,
+      "sha256": "c43102e08c056be98d370199d390d188237c949bd145a58fcd8713da5625c11f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/unknown-continuation-events.jsonl",
+      "bytes": 2929673,
+      "sha256": "ff3ea421a570625ece4707bef35340c1123098ad9680c82762b46d9d0808eca3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/unknown-continuation-handoff.json",
+      "bytes": 1230,
+      "sha256": "1d70fc4f4117e4d2e3e4b9a7499970571cbef62dae945fd8a055cf38843a8180"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/unknown-continuation-receipt.json",
+      "bytes": 3848,
+      "sha256": "73a45d5dc0c3505556951626c1cb4a2d112755cc1dd9af6d834ea11de4d724a5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/workflow-output-check.json",
+      "bytes": 226,
+      "sha256": "f733bd6ec6d35047d37904110e2dacd8a41451805e5e6778dd8aa7477bb9a35d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/wrong-basis-call.json",
+      "bytes": 22500830,
+      "sha256": "9722dec59ec1e526fb9aaf2b41e65ff0052611b9880395324b9b2d8e27bca1a1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/wrong-basis-events.jsonl",
+      "bytes": 2929673,
+      "sha256": "ff3ea421a570625ece4707bef35340c1123098ad9680c82762b46d9d0808eca3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/wrong-basis-handoff.json",
+      "bytes": 1230,
+      "sha256": "1d70fc4f4117e4d2e3e4b9a7499970571cbef62dae945fd8a055cf38843a8180"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/wrong-basis-receipt.json",
+      "bytes": 3836,
+      "sha256": "cb393bb1b97ca7a0e22f81c0ed08607d33b89217efe87e37e190bc0b1d6bd27a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/wrong-input-call.json",
+      "bytes": 22500830,
+      "sha256": "361ac7ea56fefa4d04c8bbcdfd14da2b4f092d523228c334e517fcab0a13d646"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/wrong-input-events.jsonl",
+      "bytes": 2929673,
+      "sha256": "ff3ea421a570625ece4707bef35340c1123098ad9680c82762b46d9d0808eca3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/wrong-input-handoff.json",
+      "bytes": 1230,
+      "sha256": "1d70fc4f4117e4d2e3e4b9a7499970571cbef62dae945fd8a055cf38843a8180"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/wrong-input-receipt.json",
+      "bytes": 3843,
+      "sha256": "571cd690d4bcfbef063d91dbf163332f51691fdbd3e62cc8a2aea21c76efee9a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/wrong-intent-call.json",
+      "bytes": 22500832,
+      "sha256": "8c65e042dcecc1ec92c91777eef164d39ecf00376e1ca9e0c2321e96b50c3547"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/wrong-intent-events.jsonl",
+      "bytes": 2929673,
+      "sha256": "ff3ea421a570625ece4707bef35340c1123098ad9680c82762b46d9d0808eca3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/wrong-intent-handoff.json",
+      "bytes": 1230,
+      "sha256": "1d70fc4f4117e4d2e3e4b9a7499970571cbef62dae945fd8a055cf38843a8180"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/wrong-intent-receipt.json",
+      "bytes": 3837,
+      "sha256": "51bfe52a25741e99174121684a687a5a77e65750999f9b30cd99c25b4268740f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/build-01.json",
+      "bytes": 81,
+      "sha256": "60f75d084fd2c7477cb623307abcdbb10c03bb0e93f953294e570c68cb990866"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/build-01.log",
+      "bytes": 215,
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/build-02.json",
+      "bytes": 82,
+      "sha256": "6e63474bedb1cf651b4a1ebe89f7dcb5d4d25d8fe030643872255ba02a7a8d50"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/build-02.log",
+      "bytes": 215,
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/build-03.json",
+      "bytes": 82,
+      "sha256": "20da095e1945dd6eff51f23d2e2a454603abd5f9d0de9e44b0f2ddb1da2c294b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/build-03.log",
+      "bytes": 215,
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/build-04.json",
+      "bytes": 81,
+      "sha256": "55304bcf7787a39356e6ee4b2bc11dcea782d7b92c78a3b2281d53c5c6236fa2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/build-04.log",
+      "bytes": 215,
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/build-05.json",
+      "bytes": 82,
+      "sha256": "6f5903487f8f5977f19bef2ea2cf49db0441539f1d5b28d78d89f29b043e56f6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/build-05.log",
+      "bytes": 215,
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/build-06.json",
+      "bytes": 82,
+      "sha256": "9363966c959de41e19d5fe8106863cdb78087f185253ca15b8ff0ebad54e1dc9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/build-06.log",
+      "bytes": 215,
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/causal-chain.json",
+      "bytes": 202049,
+      "sha256": "cb1eeeaa4230faf640cdb8d993cba10d15ca17408f34b89d8578e0d2ee36ec92"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/causal-corrections.json",
+      "bytes": 3057,
+      "sha256": "dd0e9be2ebdc593e3061b894a6a668aee6aef1ff7b18d7e4b5274b310265d9ef"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/diagnose-pending.mjs",
+      "bytes": 4145,
+      "sha256": "c8721c7b2ec344af27aa5ca8f7b29a6596fb2f5fea4c565f9aed5dbc6bca8cad"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/diagnose-terminal.mjs",
+      "bytes": 1379,
+      "sha256": "c9cc3c2bf442585757ee61b3f6d8174eb8187d749b963b6b2bfe9ffc223c11b3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/final-events.json",
+      "bytes": 5070328,
+      "sha256": "4e96fd895487a6b9e581467e6cad6ad60415a15dd411e9fbc68e39eb18e8a6a8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/final-extraction.json",
+      "bytes": 18338,
+      "sha256": "6684afe1850429e57774c13d8c911fcd8c99f172cbf36f5e93f756e1eb31048c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/freeze-subject.py",
+      "bytes": 3610,
+      "sha256": "c0fc3f41be7406f234c292a21731ae9d3f5869c3f933c36aaafb9a7ef209e1eb"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/identity-checks.json",
+      "bytes": 184,
+      "sha256": "be6a3aa3dd4f1a9ceb5cdb48c1b7372109a1067ead13e92bbd5042f446490189"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/net-delta.json",
+      "bytes": 4964,
+      "sha256": "a79bd9341c0caf03eb29195146ac2b8a087403430587931c1c4d449806bacf24"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/pending-diagnosis.json",
+      "bytes": 51295,
+      "sha256": "90f8c33e1450725b859a791d6ba54fa5129d0bbd91dd2ed8a9593edfa48d7e03"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "bytes": 273186,
+      "sha256": "bda88474783e415f8a5e0d08518f14af08a9bd660e582aa2813120a5c543981d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "bytes": 67258,
+      "sha256": "49666e39d3d52171b3f385ce9879e0ac2e2f4531de5d04cfb89bb4e664a631e4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/closure.ts",
+      "bytes": 24488,
+      "sha256": "952966b7353125ee816e1f492c9af20bb5ce67526079aceee804c35f50f85655"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 32515,
+      "sha256": "224f744f468b3df6638193d8f1cff013a6a3915d3b3731c7ed70e86bdfdcc917"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "bytes": 9227,
+      "sha256": "55915e90a7ba8a5beab2094b321ebbbe2f8b86ce922a31301fe5f8bbd84a2025"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "bytes": 76162,
+      "sha256": "8f4219951692dad2cdb0ae35099b5cd7338058fb5ff3ffdffc95142c5392251d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 173736,
+      "sha256": "f651b7368a878a42f2acc65ec70f39c41070f1e66fdbb908ed67ba116121f3c8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "bytes": 125942,
+      "sha256": "7e4fe8c8d63c37860adfa5bc291adab84ed378d3d03306c6f34ff26fb71159b6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "bytes": 47051,
+      "sha256": "4ebb5088950ae571e04d940412d46ebb5b71d371520a41420fdec045e083de2c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+      "bytes": 31046,
+      "sha256": "ff9613bbe132debaf1121ea3374494f6c91fb3243d81f19784b0195eb0b6d241"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "bytes": 72530,
+      "sha256": "93d954f600c3c610ba4506458d96ea5151b54f3922f799a65fe0c7cf6b815ad5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "bytes": 88701,
+      "sha256": "93251763d0c382aebe01c8ac4608c5e01b378557fcfefa61d45de78387bf7fa7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "bytes": 43324,
+      "sha256": "1edc46e47d7e6eb7683bfb18b7676f18501cefe5a6fb429c48bde2cf952fa9ec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "bytes": 212282,
+      "sha256": "25174e2a61cbf2b362a2c3405e6c90faf027121228953fb245c128c94b7acfa7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/hog/entry.ts",
+      "bytes": 23223,
+      "sha256": "bb170c5b8a5f4e0836b12b3c08ea286fc9d6f8092e3aa374295f42eae781512d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "bytes": 47589,
+      "sha256": "de5bdeb9a4f7533a54ca200fe28865cb153364e9c2a2e9b41af665f2787cc7c6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/hog/traversal_contract.ts",
+      "bytes": 5946,
+      "sha256": "4072e05cc6c4a4a561cbc96b934d7f4ba7b6ed1ed5923d6863c13e64c0fcacb2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "bytes": 38486,
+      "sha256": "dc5d35bfb88d3d8c1b5fe224d63324477c5478dd0413ec706bc790002657d256"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 72900,
+      "sha256": "98958921f936b14b422288e79c7731fc9f0db891f7cec945f4bf75aece89858f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 27715,
+      "sha256": "4b5c4fc45ee5efa4d9e732984456209bb1c4fc18152e08dfcdd222c23f0bdf56"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "b618eac84fcd6d91f6cafeebc603fae8bd0c8a47d43c00db7cc86c4e9883299f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 146280,
+      "sha256": "cee74016c9fede3f367a1c645e13521f95f050fe212ebbe404394e7c890135c3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "bytes": 12048,
+      "sha256": "6e06ebd6ea90190f7a02efeffbf5ab8de2a462fc87c6472d833497c7eaac2862"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "bytes": 15219,
+      "sha256": "01449573d83ddd821e5ea3113edc5de7a63d0074969a7157b23a8a2c8a8bdb52"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2552681,
+      "sha256": "18c93e6676ac1111839e3a348f9c977bede649836bc3209ac541dc8ed729bffc"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/test_env/fixtures/exact-intent-product/index.mjs",
+      "bytes": 15792,
+      "sha256": "65e802111c4ff1cb54e4a4f11d489813b72033f29aa32f2c35284a2876f0c9e1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 38681,
+      "sha256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "bytes": 12085,
+      "sha256": "0ca805d86220b8d4142ec7c5062aa96a3340a33d2ca9bc6da8d2a3ca8261651b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/preimages.json",
+      "bytes": 5978,
+      "sha256": "49f9e1796a1b8c831e85761f02f78037e7efa5c0f9a2e734f343125a8af6b8a7"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/remaining-carrier-pass.json",
+      "bytes": 1271,
+      "sha256": "85b5dd310657cf9324f090845936050f3ba1857a5f617f62d3f3ee293b95be98"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/retain-final.mjs",
+      "bytes": 2478,
+      "sha256": "114548acf662d26490829da3ad16a96bfd8f3736fb2a50e04eac52ac7d487571"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/return.md",
+      "bytes": 7652,
+      "sha256": "ff17fb3f62065e8dcb667c4ae6d90b4caca46b4d673bc24cedd4f6591b2faf0f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/source-generated.json",
+      "bytes": 14419,
+      "sha256": "681faa152c3cb131f8ef4d0238d9dfed8273f0619ab7c49afca53cc23dcd037a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/terminal-diagnosis.json",
+      "bytes": 4451,
+      "sha256": "5e84442fc29bca510b3007483c77c10f51915ef0a68635688ab4833bec1506b3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/terminal-first-predicate.json",
+      "bytes": 3171,
+      "sha256": "aa8201d98b8d801cc6bb967b9e1ce55e6f643fde49711cb2b41d5d2d81fa5db3"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/timings.json",
+      "bytes": 1977,
+      "sha256": "d19b6c54be332436adc6c1081ae57a6c91578fea918a73342f380108c099fce9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/typecheck-01.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/typecheck-02.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

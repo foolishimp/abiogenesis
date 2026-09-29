@@ -10,6 +10,7 @@ import type {
 import { isExecutableCLeaf, isInteractionCLeaf } from "../gtl/c_algebra.js";
 import { sampleNativeEventTime } from "./native_event_time.js";
 import {
+  deriveCSourceContinuation,
   resolveCProgramLocus,
   resolveCProgramTermAtSourcePath,
   resolveEnclosingCBatchRef,
@@ -30,6 +31,8 @@ import {
   type ProgramValidation,
 } from "../validator/validation.js";
 import {
+  admittedConstructionComposition,
+  selectAdmittedConstructionAuthority,
   hasAdmittedExecutionBasisAtPrefix,
   hasAdmittedImplementationSetAtPrefix,
   isAdmittedImplementationSet,
@@ -4057,7 +4060,8 @@ export function projectWorkflowCCallInputDigestAtPrefix(
     payload.foldbackRef !== foldback.payload.foldbackRef || payload.foldbackDigest !== foldback.payload.foldbackDigest ||
     payload.childExecutionBasisRef !== foldback.payload.childExecutionBasisRef ||
     payload.childExecutionBasisDigest !== foldback.payload.childExecutionBasisDigest ||
-    payload.outputDigest !== foldback.payload.outputDigest ||
+    payload.childOutputDigest !== foldback.payload.outputDigest ||
+    payload.outputDigest !== result.payload.valueDigest ||
     !event.causationEventRefs.includes(foldback.eventId) ||
     !(foldback.admissionOrdinal < event.admissionOrdinal && event.admissionOrdinal < result.admissionOrdinal) ||
     !Array.isArray(result.payload.evidenceRefs) || !result.payload.evidenceRefs.includes(evidenceRef)) return null;
@@ -5436,6 +5440,37 @@ function openInteractionCCallLocus(
   });
 }
 
+/** Child closure always describes the child. One Surface's declared workflow
+ * returns its owned action-evaluation basis to the declared next evaluator;
+ * ordinary workflows conserve the child's output contract directly. */
+export function workflowOutputContractCorresponds(input: Readonly<{
+  prefix: ValidatedRuntimeEventPrefix; executionBasis: ExecutionBasis;
+  graph: Readonly<GtlGraph>; cursor: TraversalCursorCandidate;
+  childGraphFunction: Readonly<GraphFunction>; childClosureContract: Readonly<ClosureContract>;
+}>): boolean {
+  const { prefix, executionBasis, graph, cursor, childGraphFunction: child, childClosureContract: closure } = input;
+  const term = resolveCProgramTermAtSourcePath(graph.template, cursor.currentNodeRef, cursor.termPath);
+  if (term.kind !== "c_workflow" || term.graphFunctionRef !== child.name ||
+    child.declarations["abg.child_closure_contract"] !== closure.closureContractRef ||
+    closure.closureScope !== "graph_call" || child.outputs.length !== 1 ||
+    child.outputs[0] !== closure.resultContractRef) return false;
+  const composition = admittedConstructionComposition(executionBasis);
+  if (composition?.graphFunctionRef !== graph.graphFunctionRef ||
+    composition.interactionProgramLocusRef !== term.graphFunctionRef)
+    return closure.resultContractRef === term.outputCarrierRef;
+  const intent = rehydrateConstructionIntentForCursorAtPrefix(prefix, cursor);
+  const authority = selectAdmittedConstructionAuthority(executionBasis, "evaluateAction");
+  const continuation = deriveCSourceContinuation(graph.template, cursor.currentNodeRef, cursor.termPath);
+  if (intent?.actionKind !== "invoke_graph_function" || intent.selectedGraphFunctionRef !== child.name ||
+    intent.targetProgramLocusRef !== child.name || authority === null ||
+    continuation.kind !== "c_source_continuation" || continuation.relation !== "compose_next" ||
+    continuation.targetPath === null) return false;
+  const evaluator = resolveCProgramTermAtSourcePath(graph.template, cursor.currentNodeRef, continuation.targetPath);
+  return evaluator.kind === "c_of" && evaluator.compositionRef === composition.compositionRef &&
+    evaluator.programLocusRef === authority.initialProgramLocusRef &&
+    evaluator.inputCarrierRef === term.outputCarrierRef;
+}
+
 function openWorkflowCCallLocus(
   opening: CCallOpeningAuthority,
   store: AbgEventStore,
@@ -5495,7 +5530,8 @@ function openWorkflowCCallLocus(
     childGraphFunction.declarations["abg.child_closure_contract"] !==
       childClosureContract.closureContractRef ||
     childClosureContract.closureScope !== "graph_call" ||
-    childClosureContract.resultContractRef !== proposal.outputContractRef ||
+    !workflowOutputContractCorresponds({ prefix: openingAuthorityPrefix, executionBasis, graph, cursor,
+      childGraphFunction, childClosureContract }) ||
     graphFunction.declarations["abg.judgment_predicate"] !==
       proposal.judgmentPredicateRef ||
     programValidation.closureContractDigests.filter(

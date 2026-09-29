@@ -1,0 +1,31 @@
+{
+  "task": "T287_S7_EXACT_INTENT_IMPLEMENT_01",
+  "disposition": "blocked at existing workflow child/output versus derived parent output relation; no continuation readiness",
+  "source": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-01/source-generated.json",
+    "bytes": 5533,
+    "sha256": "2af36945ebd9ba9d4174f70c7d796b0b867e7d1fe74513dc73f414f9a2e50efa"
+  },
+  "proof": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-01/proof-manifest.json",
+    "bytes": 18545,
+    "sha256": "8d606e4d20ee9393511fba12fccd2432643e0b0d1541e0323d4a917ace02e6d1"
+  },
+  "return": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-01/return.md",
+    "bytes": 7624,
+    "sha256": "2bc937533c86d8c475bee3eea9b447e8155850ca7a2a360616fa55ce543e3c85"
+  },
+  "core": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-01/archives/core.tgz",
+    "bytes": 10361285,
+    "sha256": "991dbba9020ac8de57af9dfd4167975aa828cc4d5b5e05a02ad0a9b9ee06de6b"
+  },
+  "consumer": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-01/archives/consumer.tgz",
+    "bytes": 8145,
+    "sha256": "1228b7548c2a525b38d60e7eaf31b7382ad8fffe524d2d8294b9eae4bffd55d8"
+  },
+  "sourceFrozen": true,
+  "proofMembers": 67
+}

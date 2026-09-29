@@ -972,9 +972,8 @@ function stageCCallResult(
     resultDisposition === "success"
       ? (value: unknown) =>
           input.outcomeClass === "workflow"
-            ? input.leafPort.validateContractValue(
+            ? input.leafPort.validateContractValueByRef(
                 input.cCall.outputContractRef,
-                "output",
                 value,
               )
             : (input.regime !== "F_P" ||

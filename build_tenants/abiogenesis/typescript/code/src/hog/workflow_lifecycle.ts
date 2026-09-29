@@ -51,7 +51,7 @@ import {
   deriveGraphFunctionActionEvaluationBasis,
 } from "../abg/index.js";
 import { deriveCSourceContinuation } from "../gtl/source_path.js";
-import { resolveWorkflowFailureContract, prepareWorkflowChildFoldback } from "../abg/c_call.js";
+import { resolveWorkflowFailureContract, workflowOutputContractCorresponds, prepareWorkflowChildFoldback } from "../abg/c_call.js";
 
 export interface WorkflowLocusAuthority {
   readonly store: AbgEventStore;
@@ -325,7 +325,9 @@ export function beginWorkflowLocus(input: Readonly<{
       failureResolution.kind !== "workflow_failure_contract_resolution" ||
       childClosureContract === null ||
       childClosureContract.closureScope !== "graph_call" ||
-      childClosureContract.resultContractRef !== term.outputCarrierRef ||
+      !workflowOutputContractCorresponds({ prefix: Abg.projectRuntimePrefixesAtDurablePrefix(
+        runtime.predecessorPrefix, cursor.runId).authorityPrefix, executionBasis: runtime.executionBasis,
+        graph: runtime.graph, cursor, childGraphFunction, childClosureContract }) ||
       childClosureContract.predicateRef.length === 0 ||
       judgmentPredicateRef === undefined || judgmentPredicateRef.length === 0 ||
       childClosureDigest === null ||
@@ -584,10 +586,7 @@ export function completeWorkflowLocus(
       outputContractRef: null,
     };
   }
-  const outputKind = runtime.leafPort.contractValueKind(
-    workflowTerm.outputCarrierRef,
-    "output",
-  );
+  const outputKind = runtime.leafPort.contractValueKindByRef(workflowTerm.outputCarrierRef);
   const failureKind = runtime.leafPort.contractValueKind(
     parentCCall.failureContractRef,
     "failure",

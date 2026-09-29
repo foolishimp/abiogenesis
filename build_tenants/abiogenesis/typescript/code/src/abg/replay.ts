@@ -1,3 +1,4 @@
+import { projectConstructionIntentContinuations, type ConstructionIntentContinuation } from "./construction_continuation.js";
 import { projectObservedWorksiteCommandChildAtPrefix } from "./worksite_input_provenance.js";
 import { isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { projectRegisteredSelectionInputAtPrefix, registeredSelectionInputRelationVersion } from "./registered_selection_provenance.js";
@@ -413,7 +414,7 @@ export interface ReplayState {
   readonly routes: readonly ReplayRouteState[];
   readonly constructionDeltas: readonly ReplayConstructionDeltaState[];
   readonly fanOutCompletions: readonly FanOutCompletionAdmission[];
-  readonly continuations: readonly ReplayContinuationState[];
+  readonly continuations: readonly (ReplayContinuationState | ConstructionIntentContinuation)[];
   readonly actorProcesses: readonly ReplayActorProcessState[];
   readonly currentWorksiteObservations: readonly ReplayCurrentWorksiteObservation[];
   readonly activeFluents: readonly string[];
@@ -1124,7 +1125,8 @@ function deriveReplayPrefixFacts(
   ).values()];
 
   const runOpen = indexedRuntimeEvents(prefix, "kind:run_segment_opened")[0];
-  const continuations = indexedRuntimeEvents(prefix, "type:continuation").length === 0 ? [] : projectFhContinuations(prefix, eventCalculus, authorityPrefix);
+  const continuations = [...projectFhContinuations(prefix, eventCalculus, authorityPrefix),
+    ...projectConstructionIntentContinuations(authorityPrefix, events.find(e => e.kind === "run_segment_opened")?.runId ?? "")];
   const graphCallOpen = indexedRuntimeEvents(prefix, "kind:graph_call_opened").find(
     (event) =>
       event.kind === "graph_call_opened" &&
@@ -1537,6 +1539,7 @@ function relationEdges(
   events: readonly RuntimeEvent[],
   correspondence: ReadonlyMap<string, string>,
   fullEventIds: ReadonlySet<string>,
+  continuations: ReplayState["continuations"],
 ): readonly RunSemanticRelationEdge[] {
   const edges: RunSemanticRelationEdge[] = [];
   for (const event of events) {
@@ -1557,6 +1560,10 @@ function relationEdges(
             `run semantic relation requires one string event reference at ${reference.relation}`,
           );
         }
+        // This exact historical intent is an admitted owner fact, not a
+        // current-Run event atom or a permitted cross-Run envelope cause.
+        if (spec.path[0] === "payload" && reference.value ===
+          continuedIntentReference(event, continuations)) continue;
         const targetAtom = correspondence.get(reference.value);
         if (targetAtom === undefined) {
           throw new TypeError(
@@ -1578,6 +1585,7 @@ function replaceClosedTypedReferences(
   path: readonly ClosedPathSegment[],
   correspondence: ReadonlyMap<string, string>,
   fullEventIds: ReadonlySet<string>,
+  externalIntentRef: string | undefined,
   depth = 0,
   relation = "payload",
 ): JsonValue | undefined {
@@ -1588,6 +1596,7 @@ function replaceClosedTypedReferences(
         `run semantic relation requires one string event reference at ${relation}`,
       );
     }
+    if (current === externalIntentRef) return current;
     const atom = correspondence.get(current);
     if (atom === undefined) {
       throw new TypeError(
@@ -1615,6 +1624,7 @@ function replaceClosedTypedReferences(
         path,
         correspondence,
         fullEventIds,
+        externalIntentRef,
         depth + 1,
         `${relation}[${index}]`,
       )!
@@ -1642,16 +1652,31 @@ function replaceClosedTypedReferences(
       path,
       correspondence,
       fullEventIds,
+      externalIntentRef,
       depth + 1,
       `${relation}.${segment}`,
     )!,
   };
 }
 
+/** Reuse the continuation owner's already-validated original-intent/current
+ * parent relation. No other old Run reference becomes local replay evidence. */
+function continuedIntentReference(event: RuntimeEvent,
+  continuations: ReplayState["continuations"]): string | undefined {
+  if (event.kind !== "construction_delta_observed" || !isSemanticRecord(event.payload)) return undefined;
+  const payload = event.payload;
+  const continuation = continuations.find(row => row.continuationKind === "construction_intent" &&
+    row.predecessorContinuationRef !== undefined && row.runId === event.runId &&
+    row.parentExecutionBasisRef === event.basisId && row.continuationRef === payload.continuationRef &&
+    row.constructionIntentRef === payload.constructionIntentRef && row.terminalEventRef === event.eventId);
+  return continuation?.continuationKind === "construction_intent" ? continuation.intentAdmissionEventRef : undefined;
+}
+
 function semanticPayloadDigest(
   event: RuntimeEvent,
   correspondence: ReadonlyMap<string, string>,
   fullEventIds: ReadonlySet<string>,
+  externalIntentRef?: string,
 ): Sha256Digest {
   let payload = event.payload as JsonValue;
   if (event.kind === "fh_interaction_resume_admitted") {
@@ -1674,6 +1699,7 @@ function semanticPayloadDigest(
       spec.path.slice(1),
       correspondence,
       fullEventIds,
+      externalIntentRef,
     )!;
   }
   return sha256Canonical(payload);
@@ -1723,7 +1749,7 @@ function projectOwnerFacts(
   prefix: ValidatedRuntimeEventPrefix,
   authorityPrefix: ValidatedRuntimeEventPrefix,
   replayState: ReplayState,
-  continuations: readonly ReplayContinuationState[],
+  continuations: readonly (ReplayContinuationState | ConstructionIntentContinuation)[],
   correspondence: ReadonlyMap<string, string>,
   currentOwnerPrefix?: DurablePrefixCoordinate,
 ): readonly Readonly<Record<string, JsonValue>>[] {
@@ -1837,7 +1863,7 @@ function projectOwnerFacts(
     } }),
   } as Readonly<Record<string, JsonValue>>));
   const continuationFacts = continuations.map((continuation) => ({
-    owner: "fh_continuation",
+    owner: continuation.continuationKind === "fh_interaction" ? "fh_continuation" : "construction_continuation",
     ownerAtom: requiredAtom(
       continuation.openedEventRef,
       correspondence,
@@ -1845,8 +1871,11 @@ function projectOwnerFacts(
     ),
     continuationRef: continuation.continuationRef,
     cCallRef: continuation.cCallRef,
-    requestContractRef: continuation.requestContractRef,
-    responseContractRef: continuation.responseContractRef,
+    ...(continuation.continuationKind === "fh_interaction" ? { requestContractRef: continuation.requestContractRef,
+      responseContractRef: continuation.responseContractRef } : {
+        causedByEventRef: continuation.causedByEventRef,
+        intentAdmissionEventRef: continuation.intentAdmissionEventRef,
+      }),
     constructionIntentRef: continuation.constructionIntentRef,
     status: continuation.status,
   } as Readonly<Record<string, JsonValue>>));
@@ -1985,11 +2014,7 @@ function projectRunSemanticReplay(
   if (replayState.runId !== runId) {
     throw new TypeError("run semantic relation differs from its selected Run");
   }
-  const continuations = projectFhContinuations(
-    runPrefix,
-    context?.calculus ?? deriveRuntimeEventCalculusProjection(runPrefix),
-    fullPrefix,
-  );
+  const continuations = replayState.continuations;
   const eventAtoms = events.map((event): RunSemanticEventAtom => ({
     atomRef: correspondence.get(event.eventId)!,
     eventKind: event.kind,
@@ -1997,6 +2022,7 @@ function projectRunSemanticReplay(
       event,
       correspondence,
       fullEventIds,
+      continuedIntentReference(event, continuations),
     ),
     eventTime: event.eventTime,
     correlationId: event.correlationId,
@@ -2042,6 +2068,7 @@ function projectRunSemanticReplay(
       events,
       correspondence,
       fullEventIds,
+      continuations,
     ),
     ownerFacts: projectOwnerFacts(
       runPrefix,

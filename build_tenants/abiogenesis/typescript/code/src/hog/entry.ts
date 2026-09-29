@@ -440,3 +440,84 @@ export function enterTraversal(
     structuralOrdinal: 0,
   };
 }
+
+import { admitConstructionContinuationExecutionBasis } from "../abg/execution_basis.js";
+import { admitContinuedTraversalCursor } from "../abg/traversal_cursor.js";
+import { openTraversalScope } from "../abg/open_call.js";
+import { openCCall } from "../abg/c_call.js";
+import type { PreparedConstructionContinuationOperation } from "../abg/construction_continuation.js";
+import { admitConstructionContinuationReentry } from "../abg/construction_continuation.js";
+import { constructChildTraversalBasis, prepareWorkflowChildTraversalAtCursor } from "./child_traversal.js";
+import type { HeldWorkflowSuspension } from "./traversal_completion.js";
+
+/** Recreate only current owned scopes around the conserved original position.
+ * All children still enter through the ordinary fixed-workflow owner. */
+export function prepareConstructionContinuationTraversal(input: Readonly<{
+  store: AbgEventStore; predecessorPrefix: DurablePrefixCoordinate;
+  operation: PreparedConstructionContinuationOperation;
+  leafPort: LeafInvocationPort;
+  continuationProductBasis: InteractionResumeTraversalEntryInput["continuationProductBasis"];
+  actorRuntimeBinding: ActorRuntimeBinding;
+  eventTime: string; correlationId: string;
+}>) {
+  const { prepared: source } = input.operation;
+  const admissionBasis = { eventTime: input.eventTime, correlationId: input.correlationId, causationEventRefs: [] };
+  const root = admitConstructionContinuationExecutionBasis(input.store, input.predecessorPrefix, input.operation, admissionBasis);
+  const opened = openTraversalScope(input.store, root.successorPrefix, { kind: "root", executionBasis: root.executionBasis }, admissionBasis);
+  if (opened.kind !== "traversal_scope_open_admission") throw new TypeError(`continued root scope: ${opened.code}`);
+  const entered = admitContinuedTraversalCursor(input.store, opened.successorPrefix, root.executionBasis, opened.scope,
+    source.rootGraph, source.rootValidation, source.parent.cursor, admissionBasis);
+  if (entered.kind === "traversal_cursor_admission_refusal") throw new TypeError(`continued root cursor: ${entered.code}`);
+  const term = source.parentTerm;
+  if (term.kind !== "c_workflow" || source.parentCall.failureContractRef === null || source.parentCall.judgmentPredicateRef === null)
+    throw new TypeError("continued parent requires the original exact fixed workflow contract");
+  const childClosure = input.leafPort.closureContractByRef(source.child.closureContractRef);
+  if (childClosure === null) throw new TypeError("continued child closure unavailable");
+  const parent = openCCall({ locusClass: "workflow", store: input.store, predecessorPrefix: entered.admission.successorPrefix,
+    executionBasis: root.executionBasis, implementationSet: source.implementationSet, scope: opened.scope,
+    program: source.resolution.program, graphFunction: source.resolution.graphFunction, graph: source.rootGraph,
+    childGraphFunction: source.childFunction, childClosureContract: childClosure, programValidation: source.resolution.programValidation,
+    proposal: { kind: "workflow_c_call_proposal", schemaVersion: "5.0.0", cursor: entered.cursor,
+      traversalScopeRef: opened.scope.scopeRef, runId: opened.scope.runId, graphCallId: opened.scope.graphCallId, frameId: opened.scope.frameId,
+      childGraphFunctionRef: term.graphFunctionRef, inputContractRef: term.inputCarrierRef, outputContractRef: term.outputCarrierRef,
+      failureContractRef: source.parentCall.failureContractRef, judgmentPredicateRef: source.parentCall.judgmentPredicateRef }, basis: admissionBasis });
+  if (parent.kind !== "c_call_admission") throw new TypeError(`continued workflow parent: ${parent.code}`);
+  const childBasis = constructChildTraversalBasis({ graphFunctionByRef: input.leafPort.graphFunctionByRef,
+    closureContractByRef: input.leafPort.closureContractByRef, program: source.resolution.program,
+    programPublication: source.resolution.programPublication, programValidation: source.resolution.programValidation,
+    rootImplementationSet: source.implementationSet, rootInteractionSet: source.interactionSet });
+  const preparation = prepareWorkflowChildTraversalAtCursor(input.store, childBasis, parent.successorPrefix, entered.cursor);
+  if (preparation.intent?.constructionIntentRef !== source.intent.constructionIntentRef ||
+    preparation.intent.selectedGraphFunctionRef !== term.graphFunctionRef || source.intent.targetInput === null ||
+    source.intent.targetInputRef === null || source.intent.targetInputDigest === null)
+    throw new TypeError("continued workflow lost original intent/callee/input");
+  const child = preparation.prepare({ predecessorPrefix: parent.successorPrefix, parentExecutionBasis: root.executionBasis,
+    parentTraversalScope: opened.scope, parentCCallRef: parent.cCall.cCallRef, childGraphFunctionRef: term.graphFunctionRef,
+    inputRef: source.intent.targetInputRef, inputDigest: source.intent.targetInputDigest, input: source.intent.targetInput,
+    eventTime: input.eventTime, correlationId: input.correlationId });
+  if (child.kind !== "prepared_child_traversal") throw new TypeError(`continued workflow child: ${child.stage}`);
+  const pending = admitContinuedTraversalCursor(input.store, child.successorPrefix, child.executionBasis,
+    child.openedTraversalScope, child.graph, child.graphValidation, source.pending.cursor, admissionBasis);
+  if (pending.kind === "traversal_cursor_admission_refusal") throw new TypeError(`continued child cursor: ${pending.code}`);
+  const linked = admitConstructionContinuationReentry(input.store, pending.admission.successorPrefix, input.operation,
+    root.executionBasis, opened.scope, child.executionBasis, child.openedTraversalScope, parent.cCall, pending.cursor, admissionBasis);
+  const suspension: HeldWorkflowSuspension = Object.freeze({ kind: "held_workflow_suspension", schemaVersion: "5.0.0",
+    parentExecutionBasisRef: root.executionBasis.basisRef, parentTraversalScope: opened.scope, parentGraph: source.rootGraph,
+    parentClosureContract: source.resolution.closureContract, parentCCall: parent.cCall, application: null,
+    sourceCursor: entered.cursor, parentGraphInput: source.root.rawInputValue, parentGraphInputDigest: source.root.rawInputDigest,
+    parentInput: source.parentInput, parentInputDigest: source.parent.input.inputDigest,
+    childExecutionBasisRef: child.executionBasis.basisRef, childTraversalScopeRef: child.openedTraversalScope.scopeRef,
+    childInput: child.input, childInputDigest: child.inputDigest, terminalMode: "close_run" });
+  const current: InitialOrNonRetryExecuteGraphTraversalInput = Object.freeze({ store: input.store,
+    predecessorPrefix: linked.successorPrefix, executionBasis: child.executionBasis, openedTraversalScope: child.openedTraversalScope,
+    program: child.program, programPublication: source.resolution.programPublication, graphFunction: child.graphFunction,
+    graph: child.graph, graphValidation: child.graphValidation, programValidation: child.programValidation,
+    implementationSet: source.implementationSet, interactionSet: source.interactionSet,
+    continuationProductBasis: { ...input.continuationProductBasis, graphValidation: child.graphValidation, programValidation: child.programValidation },
+    leafPort: input.leafPort, closureContract: child.closureContract, actorRuntimeBinding: input.actorRuntimeBinding,
+    input: child.input, inputDigest: child.inputDigest,
+    resume: { cursor: pending.cursor, input: source.pendingInput, inputDigest: source.pending.input.inputDigest },
+    eventTime: input.eventTime, correlationId: input.correlationId });
+  return Object.freeze({ current, parentSuspensions: Object.freeze([suspension]), constructionResume: true as const,
+    rootScope: opened.scope, rootBasis: root.executionBasis, continuation: linked.continuation });
+}

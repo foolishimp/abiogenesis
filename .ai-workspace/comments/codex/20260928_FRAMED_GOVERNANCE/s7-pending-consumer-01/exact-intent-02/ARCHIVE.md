@@ -1,0 +1,1 @@
+Frozen proof members and source snapshots are preserved byte-for-byte in the [checkpoint archive](../exact-intent-checkpoint-01/README.md). Extract into a fresh directory to inspect the original repository-relative paths. The existing manifests and dispositions remain unchanged; local original files remain available.

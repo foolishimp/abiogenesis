@@ -298,6 +298,9 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     initiates: [],
     terminates: ["locus_active"], clips: [], declips: [],
   },
+  construction_continuation_opened: {
+    initiates: ["continuation_open"], terminates: [], clips: [], declips: [],
+  },
   construction_intent_selected: {
     initiates: ["construction_intent_available"],
     terminates: [], clips: [], declips: [],
@@ -1141,6 +1144,11 @@ function eventCalculusEffectRefs(
         declips: [],
       };
     }
+    case "construction_continuation_opened": {
+      const continuationRef = stringField(event, "continuationRef");
+      return { initiates: continuationRef === null ? [] : [fluent("continuation_open", continuationRef)],
+        terminates: [], clips: [], declips: [] };
+    }
     case "construction_intent_selected": {
       const constructionIntentRef = stringField(
         event,
@@ -1174,6 +1182,8 @@ function eventCalculusEffectRefs(
                 "construction_intent_available",
                 constructionIntentRef,
               ),
+              ...(stringField(event, "continuationRef") === null ? []
+                : [fluent("continuation_open", stringField(event, "continuationRef")!)]),
             ],
         clips: [],
         declips: [],
