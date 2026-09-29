@@ -26,7 +26,7 @@ generation or revival of the withdrawn odd_glc planner is selected.
 | S3 | Native F_P Executive with bounded frame/catalogue context | Accepted bounded native evidence and reviewed RS-N01 source correction; installed successor is S4 |
 | S4 | Changed registered choice and recursive result/foldback | Accepted first installed attempt after independent review; no production change |
 | S5 | Reused default induction/specification/design/testing/UAT declarations | Accepted bounded library implementation and installed supplied/faulty pair; full lifecycle authorship remains S6 |
-| S6 | Installed consumer-authored Hello, correction, assessment and Public readback | Live-02 retained actual correction and four authored assets; selector source-role projection repair selected after a second context overflow; full outcome remains open |
+| S6 | Installed consumer-authored Hello, correction, assessment and Public readback | Live-04 fails raw-profile fold correspondence and independently violates write scope. Generic schema/native-instruction correction is frozen with six focused checks, actual populated-fold proof and schema-to-transport correspondence; independent readiness review pending. Complete S6 remains open |
 | S7 | Remaining Product qualification and exact RC lifecycle | Pending selected obligations |
 
 ## S1 Worker grant: T287_REGISTERED_SELECTION_DESIGN_01
@@ -1998,3 +1998,218 @@ with the smallest decisive next proof if one is required. No code/design/ticket
 changes, provider/tests, broad inventory audit, waiver or new recovery mechanism.
 Write only `s7-recovery-coverage.md`. This is early release-scope clarification;
 it neither interrupts live-04 nor grants recovery implementation or RC acceptance.
+
+
+Root accepts `s7-recovery-coverage.md`
+(`edb70086fa0098adcb1a0665f53d2769ca607e7f3c803a6621c81657b4e01010`)
+as bounded applicability judgment. Same-authority producer-to-pending-consumer
+recovery remains mandatory and unqualified; the reviewed evidence does not
+establish absence of the general capability. Repaired-authority migration
+without exact covering reprice is a separate required-refusal case. S7 first
+reuses sufficient existing evidence or selects one installed positive recovery
+discriminator through current owners, with progressed input distinguishable from
+initial input and no producer repetition. Preserve existing negative evidence;
+no full lifecycle rerun, new recovery design or paid producer is selected by this
+scope ruling. Root enters Writer only for this disposition/T-287 projection and
+returns to Executive. The reviewed correction checkpoint is pushed and verified
+as 6c3b5ec1d00cae2d255476df8ff2d3cb542b9a66; live-04 remains active.
+
+
+## S6 live-04 disposition and raw-contract correspondence correction
+
+Root consumes closed live-04 return
+`16ccef5d2d8b3b6ecc5a9cf15abe7975777fb5ce537c0de1ee07b976d029913c`,
+freeze `9de48b37f653e9d89643f98df3feacf51fca492a7f6995d0b20a9902588777c5`.
+The prior dependency correction passes its actual installed boundary: native
+independent UAT Result 26469 is admitted. The next failure is fold CCall 26492,
+Evidence 26497 / Result 26499. The generic profile's schema permits command IDs
+on artifact-role support; its binder forbids them. Nine actual support rows
+exercise that omitted relation. The prior indeterminate test had empty support.
+No eligible coverage, parent or Run closure exists. Preserve raw satisfied
+judgment, both cold reads and attributed outside-scope tool actions without
+repairing answers or crediting scope compliance. Source checkpoint6c3b5ec1 is
+unchanged; live-04 is failed and final at its recorded subject.
+
+Select `T287_S6_RAW_CONTRACT_01`, same xhigh Worker, local realization correction
+at `product/default_library_fulfillment.ts`, its owning HOW and focused tests.
+Frame: existing End-To-End Interface Integration with Product/Owner and
+F_D/F_P contract correspondence, exact STDO2.5.1RC1. Existing HOW454–462 owns
+schema/binder correspondence; no new Product or calculus rule is needed.
+Declare the complete static role/field applicability in the generated structural
+schema using its supported dialect, with clear field meaning for the native
+assessor. Do not merely instruct the model to compute a structural rule tooling
+can express. Keep one owning relation for this static applicability where
+practical; no generalized schema engine, new runtime owner, dynamic schema enums,
+semantic-policy change, answer normalization or weakened binder. Dynamic refs,
+source applicability and semantic sufficiency retain their existing owners.
+
+Permitted territory: the generic schema/profile owner, directly necessary current
+presentation seam, owning HOW, focused tests, ordinary generated build/package
+outputs and proof under `s6-raw-contract-01/`. Generated consumer schema is a
+projection of that owner, not an S6-specific handwritten rule. Qualify schema
+versus binder on all supported static support forms, including populated artifact
+and execution rows, satisfied/falsified/indeterminate responses and nearest wrong
+role/field/reference cases. The original live-04 response must remain unchanged
+and demonstrably refused. Exercise the actual fold/input relation with explicitly
+controlled conforming nonempty support; do not call such data an admitted repair
+or semantic proof. Reuse current producer/currentness and unaffected evidence.
+One coherent source/build/package freeze, then stop for the same max Reviewer.
+No installation, native call, oracle/outcome/policy/control or Git change.
+
+Select `T287_S6_RAW_CONTRACT_REVIEW_01`, same max Reviewer. Review the closed
+actual failure and coming frozen correspondence correction, especially full
+nonempty support and the unchanged F_P/F_D division. Independently determine the
+exact consequence of live-04's attributed Construction and Design temporary-file
+writes for the original S6 scope condition, using actual commands and declared
+grants. Do not stop at a vague no-blanket-credit statement or invent global host
+containment. If existing native instructions need clarification, return the exact
+existing owner and bounded consequence before code is selected. First return
+that scope judgment; final correction readiness follows the Worker freeze.
+Write only `s6-raw-contract-01/review.md`; no repair, tests/provider, broad audit,
+Git or native retry. No new live verification is selected here.
+Root enters Writer only for this disposition/T-287 projection and returns to
+Executive. Current native outcome and release qualification remain separate.
+
+
+### Live-04 effect-scope disposition and native instruction clarification
+
+Root consumes the Reviewer's closed scope judgment: actual actor-directed
+Construction output redirections and Design's authored cwd probe fall outside
+the explicit file grants. Native instructions contain no temporary-file exception.
+The latter actual path is a host temporary directory under `/var/folders`, not
+a literal `/tmp` path. These are application-check effects, distinct from
+platform-owned transport/cache files. Deletion and the positive UAT claim do not
+cure the violation. **Live-04 fails the original S6 scope condition independently
+of the raw-contract fold refusal**; no schema repair can retroactively qualify it.
+The native HOW still makes no global host-containment promise.
+
+Extend `T287_S6_RAW_CONTRACT_01` only to the existing instruction text in
+`product/native_workspace_work.ts` and its owning native-work HOW, with a focused
+render check. Make explicit that actor-created temporary files, shell redirections
+and probe fixtures are writes even when deleted; auxiliary checks must use
+process memory/pipes or the declared writable territory, and violations or
+uncertainty must be disclosed. Preserve ordinary platform-owned runtime/cache
+responsibilities, exact effects/admission, supervision, tools, observation scope,
+case and permissions. This clarifies the already selected grant, adds no sandbox,
+transcript interpreter, permission broker, new capability or schema field.
+Include it in the same not-yet-frozen coherent package and max review. Native
+compliance remains an observed qualification question, never a guarantee from
+stronger wording. Root enters Writer only to record the bounded extension and
+T-287 disposition, then resumes Executive.
+
+
+The Reviewer also verifies that UAT received Construction's disclosed outside
+writes yet its positive assessment treated bounded `changedPaths` as scope proof.
+Include the corresponding existing-observation limit in the same native/assessment
+presentation clarification: before/after snapshots cover selected worksite facts;
+they do not establish absence of off-scope writes. Disclosed contrary actions and
+unknown scope remain material to assessment. No new observation field, scan,
+transcript inference or deterministic semantic verdict is selected. The old
+positive assessment is retained as a failed judgment against that scope criterion.
+
+Root enters Writer only to refresh the top S6 plan row to the closed live-04 outcome for the owner status request, then resumes Executive. Detailed grants and unchanged S7 recovery/qualification obligations remain below.
+
+
+### S7 recovery proof readiness
+
+Select `T287_S7_RECOVERY_READINESS_01`, a separate Astra/xhigh Worker in the
+Continuation / End-To-End Interface Integration frame, while the schema Worker
+finishes the independent S6 correction. This is bounded read-only proof readiness,
+not recovery implementation or another whole-code review. Consume the closed
+S7 applicability judgment, current declared Public/HoG/ABG recovery owners and
+the nearest retained installed proof. First identify reusable sufficient proof;
+otherwise identify one current supported installed entry and finite setup for
+successful producer -> failed pending-consumer preparation -> cold recovery
+using progressed input without repeating the producer. A computed state/input
+question should use deterministic actor fixtures if sufficient, not paid judgment.
+The actual future proof must use the selected exact candidate after its freeze.
+Return either that ordinary route with exact input/evidence boundaries, or the
+first missing supported relation; do not add private calls, copied history,
+retired Public envelopes, a recovery adapter, schema bypass or caller controller.
+Write only `s7-recovery-readiness.md`. No tests/build/install/provider, source,
+tracking or Git changes. The broad method/codebase is outside this grant.
+Root enters Writer only to record this assignment, then resumes Executive.
+
+
+The separate recovery-readiness activation could not start because the session
+agent-thread limit was reached; no new agent or effect occurred. Root retains
+this bounded read-only lookup as Executive while the existing Worker/Reviewer
+finish S6. Any readiness note is a separately declared Writer projection. No
+pending unrelated agent is activated and no extra implementation is selected.
+
+
+## S6 raw-contract frozen return
+
+At 2026-09-29T00:03:53Z, Root consumes the closed mechanical return
+`e9ee063a4b2ec5990de41b1df745f9d4701add178c665410ffa2df2312058210`,
+freeze `21bb6116ca623e22b209c14bf97b20f99b2cc54f9a4ddca24ce6254406b10d6a`,
+core `1722953b7391e593079e3436b729b13c55457c734fb441d5e08b604edf9c462d`.
+The existing typed union owns role/field applicability for generated schema and
+strict binder; dynamic checks and semantic judgment retain their owners.
+Six focused checks, populated controlled actual-fold reconstruction, and the
+schema asset-to-assembly-to-transport argument check pass. The original raw
+answer still refuses; controlled responses do not qualify semantic outcome or
+scope. All 5,254 packaged members match; five package members changed. Build
+20.624 s, pack 3.462 s and no provider execution. Prior evidence stays frozen.
+
+The same max Reviewer now consumes that exact freeze under the existing review
+grant. Its independently closed scope judgment disqualifies live-04 regardless
+of this repair. No install, new native attempt, evidence repair or RC acceptance
+is selected by receipt of the Worker return. Root enters Writer only for this
+tracking projection and the bounded recovery lookup note, then resumes Executive.
+
+
+## S6 raw-contract readiness and live-05 preparation
+
+Root conjoins the frozen Worker return with closed max review
+`89c9aad6066961b5586cce0b5c95cf46fae84479fd42c950a4f91e3cf231fa4d`.
+No blocking finding: source/build/package correspondence is accepted for core
+`1722953b7391e593079e3436b729b13c55457c734fb441d5e08b604edf9c462d`.
+Actual provider grammar, native compliance, full S6 and S7 remain unproved.
+The original live-04 scope judgment remains unchanged.
+
+Select `T287_S6_LIVE05_PREPARE_01`, same Astra/xhigh Worker, existing End-To-End
+Interface Integration frame and original `s6-witness-contract.md`. Prepare one
+fresh changed-candidate qualification under `s6-raw-contract-01/installed-live-05/`
+using the accepted existing installation/launcher route. Reuse the frozen core;
+no core build/pack. Regenerate the consumer schema through its generic owner and
+update only required dependency/schema identities. Preserve the original source
+task, case, oracle, initial faulty CLI, six initial files/four absent assets,
+policy, commands, controls, pinned Opus5.5/xhigh and F_P graph-selection freedom.
+Show exact mechanical binding deltas; do not falsely claim changed schema bytes
+or schema-bearing input are unchanged. No new runtime/source/HOW behavior.
+
+Freeze archive/install correspondence, exact input, controls and launcher with
+native dispatch prohibited; return once ready. Separate setup cost from later
+execution. Preserve all old Runs, raw answers, scope failures and proof hashes.
+Do not import Results, change scope, rewrite oracle/acceptance, force graph order,
+add containment, loosen limits, or call this recovery. No provider/Run dispatch,
+automatic retry, Git or release effect. Root will select execution from the
+closed readiness return, then assess the actual complete outcome independently.
+Root enters Writer for this record/T-287 only, then resumes Executive.
+
+
+### S7 pending-consumer entry check
+
+The same max Reviewer is now free after the closed S6 readiness judgment.
+Select a bounded read-only continuation-frame check under
+`T287_S7_RECOVERY_READINESS_01`: consume `s7-recovery-readiness.md` and the prior
+applicability judgment, then establish the exact existing supported installed
+entry for the pending-consumer discriminator, or identify the first absent
+joining relation with source evidence. Trace actual contract/owner dispatch;
+names, exported lower helpers and grep absence do not prove reachability or
+absence. Write only an appended disposition in `s7-recovery-readiness.md` and
+return a finite proof setup if reachable. No implementation/design invention,
+tests, install, provider, broad code audit, tracking/Git effect or waiver. This
+parallel lookup does not stop S6 preparation/execution or repeat its review.
+Root enters Writer only for this assignment and then resumes Executive.
+
+
+Root selects a Writer checkpoint under the standing commit/push authority: the
+reviewed raw-contract/native-instruction correction, ordinary derived bindings,
+closed live-04 evidence, closed correction proof/review and current tracking.
+Exclude the active live-05 preparation, active recovery-readiness note,
+reproducible bootstrap copies/host links and unrelated retained evidence. Keep
+the relative core-archive link and all irreplaceable frozen proof. This source
+checkpoint is not S6 acceptance, an RC cut or qualification credit. Return to
+Executive after exact scoped commit/push and remote readback.

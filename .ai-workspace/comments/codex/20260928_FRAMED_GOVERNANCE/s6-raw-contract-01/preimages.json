@@ -1,0 +1,52 @@
+[
+  {
+    "path": "code/src/product/default_library_fulfillment.ts",
+    "sha256": "772e6b6ae074e0f198297b173a9a9372ed5d15452b2e5154949444e88a26b322",
+    "bytes": 22127
+  },
+  {
+    "path": "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "sha256": "06a560b8410c51f340f0725cd4805c03513f93a59f793b028c62dd8f22f5fc6f",
+    "bytes": 42025
+  },
+  {
+    "path": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+    "sha256": "d07112ae835eed9340bdc08b286d610fc0d4e0835c14f426692624698842ae46",
+    "bytes": 39917
+  },
+  {
+    "path": "build/code/src/product/default_library_fulfillment.js",
+    "sha256": "b3cb400c8b3b95250e13b00e8176eb8e9645a2ca0ca71d94794924dfed18ffa9",
+    "bytes": 20807
+  },
+  {
+    "path": "product-toolchain-manifest.json",
+    "sha256": "c2ab958bc002c90a735f17f85725f6f9797cc133ca85f17405f60032ccce0125",
+    "bytes": 2545310
+  },
+  {
+    "path": "contracts/capabilities/capability-definition-graph.json",
+    "sha256": "8a686040d438c9274cfc34328460add2d91810a271552ace902325e386f942f6",
+    "bytes": 197474
+  },
+  {
+    "path": "code/src/product/native_workspace_work.ts",
+    "sha256": "d70f556ba83d6c5060b924e9ef0a5755d6c9c3adfb7f42023405e76a1954fed5",
+    "bytes": 20435
+  },
+  {
+    "path": "design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+    "sha256": "1a44403256c6d31b8d3a8091e1086c3885104cc44e5e29f014f0eb2e9a6d3739",
+    "bytes": 17728
+  },
+  {
+    "path": "test_env/tests/t287-native-workspace-work.test.mjs",
+    "sha256": "92d75e46a98ad979b02283e0fa9f3ecded429dca3b34c8ae952357f35f8cb041",
+    "bytes": 66124
+  },
+  {
+    "path": "build/code/src/product/native_workspace_work.js",
+    "sha256": "4cd4e9fc1cd42cd375aa5f58c936318fbddcef0f140012024cfc2ebb2e45a1bc",
+    "bytes": 16915
+  }
+]

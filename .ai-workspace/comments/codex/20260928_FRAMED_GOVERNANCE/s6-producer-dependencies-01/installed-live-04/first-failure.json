@@ -1,0 +1,31 @@
+{
+  "stage": "uat-retained-fold",
+  "firstEvidence": {
+    "ordinal": 26497,
+    "eventId": "event://abiogenesis/925fd13ceb220903b06f9438165a0672c688e8473f655a2952059c9d108c22b5",
+    "kind": "c_call_evidenced",
+    "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+    "cCallRef": "c-call:sha256:a09c9c6a879579df0cc2959b25ed01e4279adc440d555f5d88ec75a434eee1f1",
+    "resultRef": null
+  },
+  "firstResult": {
+    "ordinal": 26499,
+    "eventId": "event://abiogenesis/359b7cddb438c563ae861eeea53acca16288493ef76cfba7fbcf70ebebfbaa42",
+    "kind": "c_call_result_admitted",
+    "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+    "cCallRef": "c-call:sha256:a09c9c6a879579df0cc2959b25ed01e4279adc440d555f5d88ec75a434eee1f1",
+    "resultRef": "result://abiogenesis/6e032a57a6da597f9013b6c850b86cab93d7033ecdd9b7363c6fead8aa27510d"
+  },
+  "diagnosticRef": "diagnostic://abiogenesis/default-library/missing-owned-fold@5",
+  "exactCause": "Nine artifact-support rows have nonnull commandId; first complete-original.support[0] violates profile binder. Raw structural schema permits it; role applicability omitted from presentation.",
+  "downstreamRuntime": {
+    "ordinal": 26522,
+    "eventId": "event://abiogenesis/387f79b9540c76f3e9b604ea777ad359785fca21c45ca415bfa26f5e3b554ba9",
+    "kind": "runtime_failure_observed",
+    "graphFunctionRef": "graph-function://default-library-witness/executive@5",
+    "cCallRef": "run://abiogenesis/da41d97e13a5afa10c1ae0c9490d606a145fb1ded35b2a3b140321879201bacf",
+    "resultRef": null
+  },
+  "downstreamLauncher": "Both cold read receipts saved before readback expected-result assertion on actual not_found; assertion did not cause the Run failure.",
+  "noRetry": true
+}

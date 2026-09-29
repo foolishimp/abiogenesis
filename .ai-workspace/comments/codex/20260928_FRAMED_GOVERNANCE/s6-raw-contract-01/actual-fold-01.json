@@ -1,0 +1,9 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01/check-actual-fold.mjs"
+  ],
+  "exitCode": 1,
+  "elapsedSeconds": 8.775042057037354
+}

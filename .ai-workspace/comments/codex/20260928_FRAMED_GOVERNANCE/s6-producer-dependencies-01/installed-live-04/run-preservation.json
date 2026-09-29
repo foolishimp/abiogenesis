@@ -1,0 +1,96 @@
+{
+  "oldManifests": [
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/proof-manifest.json",
+      "sha256": "a4c250f57e9f890f224b48092f7ab9e4378a5e7343a05f462dc4d721fe3bece9",
+      "bytes": 4162,
+      "members": 32
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/launcher-manifest.json",
+      "sha256": "37b311da8309041986aec31ed22d1b03a35d1ab966d0688e9a4c1fee954782cf",
+      "bytes": 1023,
+      "members": 8
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/proof-manifest.json",
+      "sha256": "73088e128953fcf2a3df56f3ffd183d499e4f2363a9f84f67513e985842df996",
+      "bytes": 3858,
+      "members": 27
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/run-proof-manifest.json",
+      "sha256": "1df8e16ca76e589b1c3496c4a16310bc77f159ed46339abaf83f8f7ece5c4f9a",
+      "bytes": 16784,
+      "members": 113
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/proof-manifest.json",
+      "sha256": "26549de174974f26299f7a5aa5161ab85a94b39dea719e0d50505ac8cd5d3aff",
+      "bytes": 4162,
+      "members": 32
+    }
+  ],
+  "installed": [
+    {
+      "name": "core",
+      "archive": {
+        "sha256": "6311b520520efb19f6d042fb11c00bf7abe5ad335f0b274915726c482d7bdf07",
+        "bytes": 10337313
+      },
+      "installedRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/consumer/node_modules/@abiogenesis/typescript-tenant",
+      "members": 5254,
+      "unchanged": true
+    },
+    {
+      "name": "consumer",
+      "archive": {
+        "sha256": "6cf3780dadeeddce756fdfe903e0c7da2ec8f894a4619a104650ab5128792e12",
+        "bytes": 11777
+      },
+      "installedRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection",
+      "members": 7,
+      "unchanged": true
+    }
+  ],
+  "sourceGeneratedMembers": [
+    "code/src/abg/default_library.ts",
+    "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "test_env/tests/t287-default-library-fulfillment.test.mjs",
+    "code/src/product/default_library.ts",
+    "code/src/abg/instruction_assembly.ts",
+    "code/src/product/default_library_fulfillment.ts",
+    "code/src/gtl/default_library.ts",
+    "code/src/gtl/semantic_stage.ts",
+    "code/src/product/requirement_handoff.ts",
+    "code/src/product/semantic_job.ts",
+    "test_env/support/default-library-fulfillment.mjs",
+    "test_env/tests/t287-default-library.test.mjs",
+    "code/src/implementation/default_library.ts",
+    "code/src/product/index.ts",
+    "test_env/support/default-library.mjs",
+    "test_env/support/registered-graph-selection.mjs",
+    "test_env/support/root-installed-environment.mjs",
+    "test_env/fixtures/default-library-product/index.mjs",
+    "build/code/src/abg/default_library.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "product-toolchain-manifest.json"
+  ],
+  "sourceGenerated": {
+    "sha256": "866e53cd8170eb756f9e08d06cd9c0e50f2f1b6a89ee5ebcd1439bf3ed00ec99",
+    "bytes": 4546
+  },
+  "readinessReturn": {
+    "sha256": "4bc20a3e8d0bebcd8c8b30c34041da0491a8989ec0dbca50e606e4dc9af90afe",
+    "bytes": 5612
+  },
+  "readinessFreeze": {
+    "sha256": "0a9a9d9bdcf9393ca1b657133d33abe66f16e555d250726905d8d00037117bca",
+    "bytes": 857
+  },
+  "priorRunReturn": {
+    "sha256": "6ecbf5d923a43257c5f356cd34f75e8b7f9728733f84f37b400a4b203891af34",
+    "bytes": 10326
+  },
+  "analysisCorrection": "Initial summary used seeded pre-dispatch event3 timestamp for a runtime gap. Corrected summary excludes beforeEventCount3 and retains original summary/script/log as .initial. No Run/event/receipt/response changed."
+}

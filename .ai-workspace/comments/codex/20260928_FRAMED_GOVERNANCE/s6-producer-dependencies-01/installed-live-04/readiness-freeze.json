@@ -1,0 +1,30 @@
+{
+  "installedFreeze": {
+    "sha256": "43af8c7aed06d99ff98b55ff92150f5e049a394713e2d3adbd2b222cf292c683",
+    "bytes": 1250
+  },
+  "launcherManifest": {
+    "sha256": "37b311da8309041986aec31ed22d1b03a35d1ab966d0688e9a4c1fee954782cf",
+    "bytes": 1023
+  },
+  "proofManifest": {
+    "sha256": "a4c250f57e9f890f224b48092f7ab9e4378a5e7343a05f462dc4d721fe3bece9",
+    "bytes": 4162
+  },
+  "proofMembers": 32,
+  "launcherReadiness": {
+    "sha256": "c6c4de18489b3f666e9d579512da3f15c9a0fc478f9bce7a5398d410123be195",
+    "bytes": 3565
+  },
+  "core": {
+    "sha256": "6311b520520efb19f6d042fb11c00bf7abe5ad335f0b274915726c482d7bdf07",
+    "bytes": 10337313
+  },
+  "consumer": {
+    "sha256": "6cf3780dadeeddce756fdfe903e0c7da2ec8f894a4619a104650ab5128792e12",
+    "bytes": 11777
+  },
+  "providerCalls": 0,
+  "runStarted": false,
+  "dispatchAuthorized": false
+}

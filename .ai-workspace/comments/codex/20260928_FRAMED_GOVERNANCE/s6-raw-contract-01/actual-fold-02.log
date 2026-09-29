@@ -1,0 +1,48 @@
+(node:54100) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "passed": true,
+  "actualInput": "raw-admission://abiogenesis/eba601c75adbde92a5571f527d70004e011ab8e0de2880351e04aead8591bf22",
+  "oldRefusal": true,
+  "controlled": [
+    {
+      "status": "satisfied",
+      "supportCount": 21,
+      "coverage": [
+        "eligible",
+        "eligible",
+        "eligible",
+        "eligible",
+        "eligible",
+        "eligible",
+        "eligible"
+      ]
+    },
+    {
+      "status": "falsified",
+      "supportCount": 21,
+      "coverage": [
+        "open",
+        "open",
+        "open",
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    },
+    {
+      "status": "indeterminate",
+      "supportCount": 21,
+      "coverage": [
+        "open",
+        "open",
+        "open",
+        "open",
+        "open",
+        "open",
+        "open"
+      ]
+    }
+  ]
+}

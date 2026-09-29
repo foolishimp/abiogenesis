@@ -1,0 +1,82 @@
+{
+  "oldReadiness": {
+    "sha256": "f4ac25eddadb12c5591d412487a15b779a021e9a9863daf242d19faec908645c",
+    "bytes": 3575
+  },
+  "newReadiness": {
+    "sha256": "c6c4de18489b3f666e9d579512da3f15c9a0fc478f9bce7a5398d410123be195",
+    "bytes": 3565
+  },
+  "oldInstalledFreeze": "sha256:37450316a9f4d020cf3c1cf5d9f0aebd377025308c10d33367915a6e5d9a7d59",
+  "newInstalledFreeze": "sha256:43af8c7aed06d99ff98b55ff92150f5e049a394713e2d3adbd2b222cf292c683",
+  "sources": {
+    "freeze.json": {
+      "before": {
+        "sha256": "sha256:37450316a9f4d020cf3c1cf5d9f0aebd377025308c10d33367915a6e5d9a7d59"
+      },
+      "after": {
+        "sha256": "sha256:43af8c7aed06d99ff98b55ff92150f5e049a394713e2d3adbd2b222cf292c683"
+      }
+    },
+    "core.tgz": {
+      "before": {
+        "sha256": "sha256:08d95ee6fc816e413f8f6deaf43c1f106d1c202c942eead9af47bb962cd30110"
+      },
+      "after": {
+        "sha256": "sha256:6311b520520efb19f6d042fb11c00bf7abe5ad335f0b274915726c482d7bdf07"
+      }
+    },
+    "consumer.tgz": {
+      "before": {
+        "sha256": "sha256:5b27fb85a2c2153819b1c273c5f2a8816974af3d9eca3865f3519cec4f1e7a99"
+      },
+      "after": {
+        "sha256": "sha256:6cf3780dadeeddce756fdfe903e0c7da2ec8f894a4619a104650ab5128792e12"
+      }
+    },
+    "start-prepared.json": {
+      "before": {
+        "sha256": "sha256:70cb22516afc59cae854ed55065afffcfaa95b26825cc62c139438b21a507e13"
+      },
+      "after": {
+        "sha256": "sha256:46f6eaae126e018cb47031b5d5c760ad5e84730d02250281f0515a9cf739b2d7"
+      }
+    },
+    "handoff-before-start.json": {
+      "before": {
+        "sha256": "sha256:a5e460bc1e83f686bc20748dbc3172cf9787e5ce784bb2263d13e687d263a244"
+      },
+      "after": {
+        "sha256": "sha256:7164af9412ea226e87c26a8ff133b942c15fe29f5260c7950ba6ed4d2a9d0c74"
+      }
+    }
+  },
+  "coordinates": {
+    "installedRoot": {
+      "before": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-sg2xZg/consumer/node_modules/@abiogenesis/typescript-tenant",
+      "after": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/consumer/node_modules/@abiogenesis/typescript-tenant"
+    },
+    "scratch": {
+      "before": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-sg2xZg",
+      "after": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH"
+    },
+    "worksite": {
+      "before": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-sg2xZg/workspace",
+      "after": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace"
+    },
+    "commands": {
+      "before": {
+        "launch": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/launch.mjs --dispatch-once",
+        "readback": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/readback.mjs"
+      },
+      "after": {
+        "launch": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/launch.mjs --dispatch-once",
+        "readback": "node /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/readback.mjs"
+      }
+    }
+  },
+  "semantics": "Same frozen six-file/four-absent-asset/seven-obligation case; new qualification instance, no imported runtime Results or recovery credit",
+  "openRecoveryLimit": "FRAMED-RECOVERY-01",
+  "bootstrap": "Derived extraction of pinned core; all regular extracted members verified exact against archive. No irreplaceable authority or evidence in bootstrap bodies. Archive and correspondence are retained; bootstrap-host symlink is disposable.",
+  "dispatchAuthorized": false
+}

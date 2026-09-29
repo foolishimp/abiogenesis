@@ -1,0 +1,22 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: {"outcomeKind":"refusal","value":{"code":"not_found","evidenceRefs":[],"issuePaths":[]}}
++ actual - expected
+
++ 'refusal'
+- 'result'
+     ^
+
+    at Module.readback (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/readback.mjs:18:219)
+    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/launch.mjs:45:73 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: 'refusal',
+  expected: 'result',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.7.0

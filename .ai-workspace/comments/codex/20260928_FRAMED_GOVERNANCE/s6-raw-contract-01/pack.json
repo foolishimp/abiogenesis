@@ -1,0 +1,12 @@
+{
+  "command": [
+    "npm",
+    "pack",
+    "--ignore-scripts",
+    "--json",
+    "--pack-destination",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-raw-contract-01"
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 3.461829900741577
+}

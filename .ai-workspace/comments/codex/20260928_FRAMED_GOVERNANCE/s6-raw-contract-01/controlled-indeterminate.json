@@ -1,0 +1,345 @@
+{
+  "kind": "consumer_outcome_assessment",
+  "disposition": "indeterminate",
+  "reason": "CONTROLLED structural premise only; no actual semantic assessment or repaired answer.",
+  "unresolvedCriteria": [
+    "obligation://default-library-witness/complete-original@5",
+    "obligation://default-library-witness/conformance@5",
+    "obligation://default-library-witness/implementation-design@5",
+    "obligation://default-library-witness/test-design@5",
+    "obligation://default-library-witness/execution-plan@5",
+    "obligation://default-library-witness/behavior@5",
+    "obligation://default-library-witness/revision@5"
+  ],
+  "fulfillment": {
+    "obligations": [
+      {
+        "obligationRef": "obligation://default-library-witness/complete-original@5",
+        "policyRef": "proof-policy://default-library-witness/complete-original@5",
+        "shapeRef": "proof-shape://default-library-witness/complete-original@5",
+        "judgment": "indeterminate",
+        "reason": "Controlled profile correspondence; no native judgment credit.",
+        "support": [
+          {
+            "role": "realization",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "artifactPath": "generated/hello-world.mjs",
+            "commandId": null
+          },
+          {
+            "role": "verifier_artifact",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "artifactPath": "test/component/hello-cli.test.mjs",
+            "commandId": null
+          },
+          {
+            "role": "verifier_execution",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "artifactPath": null,
+            "commandId": "command://default-library-witness/1@5"
+          }
+        ],
+        "adverseEvidenceRefs": [],
+        "criteria": [
+          {
+            "criterionRef": "criterion://default-library-witness/complete-original@5",
+            "judgment": "indeterminate",
+            "reason": "Controlled criterion premise"
+          }
+        ],
+        "depth": [
+          {
+            "classRef": "depth://default-library-witness/complete-original@5",
+            "judgment": "indeterminate",
+            "reason": "Controlled depth premise",
+            "evidenceRefs": [
+              "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470"
+            ]
+          }
+        ]
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/conformance@5",
+        "policyRef": "proof-policy://default-library-witness/conformance@5",
+        "shapeRef": "proof-shape://default-library-witness/conformance@5",
+        "judgment": "indeterminate",
+        "reason": "Controlled profile correspondence; no native judgment credit.",
+        "support": [
+          {
+            "role": "realization",
+            "resultRef": "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+            "artifactPath": "specification/project-conformance.md",
+            "commandId": null
+          },
+          {
+            "role": "verifier_artifact",
+            "resultRef": "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+            "artifactPath": "test/component/hello-cli.test.mjs",
+            "commandId": null
+          },
+          {
+            "role": "verifier_execution",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "artifactPath": null,
+            "commandId": "command://default-library-witness/1@5"
+          }
+        ],
+        "adverseEvidenceRefs": [],
+        "criteria": [
+          {
+            "criterionRef": "criterion://default-library-witness/conformance@5",
+            "judgment": "indeterminate",
+            "reason": "Controlled criterion premise"
+          }
+        ],
+        "depth": [
+          {
+            "classRef": "depth://default-library-witness/conformance@5",
+            "judgment": "indeterminate",
+            "reason": "Controlled depth premise",
+            "evidenceRefs": [
+              "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470"
+            ]
+          }
+        ]
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/implementation-design@5",
+        "policyRef": "proof-policy://default-library-witness/implementation-design@5",
+        "shapeRef": "proof-shape://default-library-witness/implementation-design@5",
+        "judgment": "indeterminate",
+        "reason": "Controlled profile correspondence; no native judgment credit.",
+        "support": [
+          {
+            "role": "realization",
+            "resultRef": "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+            "artifactPath": "specification/project-conformance.md",
+            "commandId": null
+          },
+          {
+            "role": "verifier_artifact",
+            "resultRef": "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+            "artifactPath": "test/component/hello-cli.test.mjs",
+            "commandId": null
+          },
+          {
+            "role": "verifier_execution",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "artifactPath": null,
+            "commandId": "command://default-library-witness/1@5"
+          }
+        ],
+        "adverseEvidenceRefs": [],
+        "criteria": [
+          {
+            "criterionRef": "criterion://default-library-witness/implementation-design@5",
+            "judgment": "indeterminate",
+            "reason": "Controlled criterion premise"
+          }
+        ],
+        "depth": [
+          {
+            "classRef": "depth://default-library-witness/implementation-design@5",
+            "judgment": "indeterminate",
+            "reason": "Controlled depth premise",
+            "evidenceRefs": [
+              "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470"
+            ]
+          }
+        ]
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/test-design@5",
+        "policyRef": "proof-policy://default-library-witness/test-design@5",
+        "shapeRef": "proof-shape://default-library-witness/test-design@5",
+        "judgment": "indeterminate",
+        "reason": "Controlled profile correspondence; no native judgment credit.",
+        "support": [
+          {
+            "role": "realization",
+            "resultRef": "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+            "artifactPath": "specification/project-conformance.md",
+            "commandId": null
+          },
+          {
+            "role": "verifier_artifact",
+            "resultRef": "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+            "artifactPath": "test/component/hello-cli.test.mjs",
+            "commandId": null
+          },
+          {
+            "role": "verifier_execution",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "artifactPath": null,
+            "commandId": "command://default-library-witness/1@5"
+          }
+        ],
+        "adverseEvidenceRefs": [],
+        "criteria": [
+          {
+            "criterionRef": "criterion://default-library-witness/test-design@5",
+            "judgment": "indeterminate",
+            "reason": "Controlled criterion premise"
+          }
+        ],
+        "depth": [
+          {
+            "classRef": "depth://default-library-witness/test-design@5",
+            "judgment": "indeterminate",
+            "reason": "Controlled depth premise",
+            "evidenceRefs": [
+              "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470"
+            ]
+          }
+        ]
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/execution-plan@5",
+        "policyRef": "proof-policy://default-library-witness/execution-plan@5",
+        "shapeRef": "proof-shape://default-library-witness/execution-plan@5",
+        "judgment": "indeterminate",
+        "reason": "Controlled profile correspondence; no native judgment credit.",
+        "support": [
+          {
+            "role": "realization",
+            "resultRef": "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+            "artifactPath": "specification/project-conformance.md",
+            "commandId": null
+          },
+          {
+            "role": "verifier_artifact",
+            "resultRef": "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+            "artifactPath": "test/component/hello-cli.test.mjs",
+            "commandId": null
+          },
+          {
+            "role": "verifier_execution",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "artifactPath": null,
+            "commandId": "command://default-library-witness/1@5"
+          }
+        ],
+        "adverseEvidenceRefs": [],
+        "criteria": [
+          {
+            "criterionRef": "criterion://default-library-witness/execution-plan@5",
+            "judgment": "indeterminate",
+            "reason": "Controlled criterion premise"
+          }
+        ],
+        "depth": [
+          {
+            "classRef": "depth://default-library-witness/execution-plan@5",
+            "judgment": "indeterminate",
+            "reason": "Controlled depth premise",
+            "evidenceRefs": [
+              "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470"
+            ]
+          }
+        ]
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/behavior@5",
+        "policyRef": "proof-policy://default-library-witness/behavior@5",
+        "shapeRef": "proof-shape://default-library-witness/behavior@5",
+        "judgment": "indeterminate",
+        "reason": "Controlled profile correspondence; no native judgment credit.",
+        "support": [
+          {
+            "role": "realization",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "artifactPath": "generated/hello-world.mjs",
+            "commandId": null
+          },
+          {
+            "role": "verifier_artifact",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "artifactPath": "test/component/hello-cli.test.mjs",
+            "commandId": null
+          },
+          {
+            "role": "verifier_execution",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "artifactPath": null,
+            "commandId": "command://default-library-witness/1@5"
+          }
+        ],
+        "adverseEvidenceRefs": [],
+        "criteria": [
+          {
+            "criterionRef": "criterion://default-library-witness/behavior@5",
+            "judgment": "indeterminate",
+            "reason": "Controlled criterion premise"
+          }
+        ],
+        "depth": [
+          {
+            "classRef": "depth://default-library-witness/behavior@5",
+            "judgment": "indeterminate",
+            "reason": "Controlled depth premise",
+            "evidenceRefs": [
+              "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470"
+            ]
+          }
+        ]
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/revision@5",
+        "policyRef": "proof-policy://default-library-witness/revision@5",
+        "shapeRef": "proof-shape://default-library-witness/revision@5",
+        "judgment": "indeterminate",
+        "reason": "Controlled profile correspondence; no native judgment credit.",
+        "support": [
+          {
+            "role": "realization",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "artifactPath": "generated/hello-world.mjs",
+            "commandId": null
+          },
+          {
+            "role": "verifier_artifact",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "artifactPath": "test/component/hello-cli.test.mjs",
+            "commandId": null
+          },
+          {
+            "role": "verifier_execution",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "artifactPath": null,
+            "commandId": "command://default-library-witness/1@5"
+          }
+        ],
+        "adverseEvidenceRefs": [
+          "result://abiogenesis/b63cfd1dc0bc193ebab9987177c88119d945add00bc62eaf4b955388dc513aea"
+        ],
+        "criteria": [
+          {
+            "criterionRef": "criterion://default-library-witness/revision@5",
+            "judgment": "indeterminate",
+            "reason": "Controlled criterion premise"
+          }
+        ],
+        "depth": [
+          {
+            "classRef": "depth://default-library-witness/revision@5",
+            "judgment": "indeterminate",
+            "reason": "Controlled depth premise",
+            "evidenceRefs": [
+              "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470"
+            ]
+          }
+        ]
+      }
+    ],
+    "discoveries": [
+      {
+        "classRef": "discovery://default-library-witness/source-obligations@5",
+        "judgment": "indeterminate",
+        "reason": "Controlled discovery premise",
+        "evidenceRefs": [
+          "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,508 @@
+{
+  "passed": true,
+  "actual": {
+    "callRef": "c-call:sha256:a09c9c6a879579df0cc2959b25ed01e4279adc440d555f5d88ec75a434eee1f1",
+    "basisRef": "execution-basis://abiogenesis/7c357ecba4c5e4785d7023bfbd8cf2983ce0731b3f0964df74da9507826115f4",
+    "inputRef": "raw-admission://abiogenesis/eba601c75adbde92a5571f527d70004e011ab8e0de2880351e04aead8591bf22",
+    "inputDigest": "sha256:d251e4a1360c10573360d8c012beae0b54e996859601941926ffba114596819b",
+    "rawDigest": "sha256:b14379ca4bbbf6b870c950b48e83eed8e37155a235d6dfaa38946ecfaf52ace8",
+    "sourceResult": "result://abiogenesis/8b74a807620f662f841dcc69fbeb19b0dd9efae376b60e560a9578c72a41cd8f",
+    "authenticated": true,
+    "oldRawOldSchema": true,
+    "oldRawNewSchema": false,
+    "oldRawBinder": false,
+    "oldRawFold": false
+  },
+  "checks": [
+    {
+      "status": "satisfied",
+      "rawDigest": "sha256:adf848bca881b4ad459076393b25ddfdccdea17f979c703878dc0b0cfd3f967c",
+      "supportCount": 21,
+      "coverage": [
+        {
+          "obligationRef": "obligation://default-library-witness/complete-original@5",
+          "disposition": "eligible",
+          "gaps": []
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/conformance@5",
+          "disposition": "eligible",
+          "gaps": []
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/implementation-design@5",
+          "disposition": "eligible",
+          "gaps": []
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/test-design@5",
+          "disposition": "eligible",
+          "gaps": []
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/execution-plan@5",
+          "disposition": "eligible",
+          "gaps": []
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/behavior@5",
+          "disposition": "eligible",
+          "gaps": []
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/revision@5",
+          "disposition": "eligible",
+          "gaps": []
+        }
+      ],
+      "sourceFact": {
+        "resultRef": "result:controlled/satisfied",
+        "resultDigest": "sha256:0c717b855365c149804623ca4fadab7e505adfe3b9f950eecca744713358dcc4",
+        "contractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+        "cCallRef": "call:controlled/satisfied",
+        "actorInvocationRef": "actor:controlled-independent/satisfied",
+        "kind": "assessment",
+        "files": [
+          {
+            "path": "design/implementation-design.md",
+            "digest": "sha256:801f3ab5d524256ba91a1325f640dc2d77851b5c6fe2cdcd46c8a67afe838d0f"
+          },
+          {
+            "path": "design/test-design.md",
+            "digest": "sha256:a9bf5d5f5b7fe80f6cd24a9101fd2390433bcf56fde1adb2f39d76bf5bf3ba94"
+          },
+          {
+            "path": "generated/hello-world.mjs",
+            "digest": "sha256:fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef"
+          },
+          {
+            "path": "source/basic-cli.oracle.json",
+            "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+          },
+          {
+            "path": "source/original-basic-cli.txt",
+            "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+          },
+          {
+            "path": "source/witness-contract.md",
+            "digest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b"
+          },
+          {
+            "path": "specification/project-conformance.md",
+            "digest": "sha256:a74a75b6c83d4daf1eeb0e6a7517827869c7520094940873c4b645d680ac993c"
+          },
+          {
+            "path": "test-execution-plan.json",
+            "digest": "sha256:ed573966152bc05455c0a0e61cc1bd2fd8f7ad63fe2301eb3996bdfa2a68ac27"
+          },
+          {
+            "path": "test/component/hello-cli.test.mjs",
+            "digest": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613"
+          },
+          {
+            "path": "test/uat/hello-cli.uat.test.mjs",
+            "digest": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4"
+          }
+        ],
+        "dependencies": [
+          {
+            "path": "design/implementation-design.md",
+            "digest": "sha256:801f3ab5d524256ba91a1325f640dc2d77851b5c6fe2cdcd46c8a67afe838d0f"
+          },
+          {
+            "path": "design/test-design.md",
+            "digest": "sha256:a9bf5d5f5b7fe80f6cd24a9101fd2390433bcf56fde1adb2f39d76bf5bf3ba94"
+          },
+          {
+            "path": "generated/hello-world.mjs",
+            "digest": "sha256:fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef"
+          },
+          {
+            "path": "source/basic-cli.oracle.json",
+            "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+          },
+          {
+            "path": "source/original-basic-cli.txt",
+            "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+          },
+          {
+            "path": "source/witness-contract.md",
+            "digest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b"
+          },
+          {
+            "path": "specification/project-conformance.md",
+            "digest": "sha256:a74a75b6c83d4daf1eeb0e6a7517827869c7520094940873c4b645d680ac993c"
+          },
+          {
+            "path": "test-execution-plan.json",
+            "digest": "sha256:ed573966152bc05455c0a0e61cc1bd2fd8f7ad63fe2301eb3996bdfa2a68ac27"
+          },
+          {
+            "path": "test/component/hello-cli.test.mjs",
+            "digest": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613"
+          },
+          {
+            "path": "test/uat/hello-cli.uat.test.mjs",
+            "digest": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4"
+          }
+        ],
+        "commands": [],
+        "assessmentContractRef": "contract://default-library-witness/assessment@5",
+        "producerResultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "producerActorRef": "actor-invocation://abiogenesis/159b2b63bdd8f51b9f71f62cbed618a3a9c99b477039bdf78ed5f9edb3f05d09"
+      },
+      "controlledOccurrenceOnly": true
+    },
+    {
+      "status": "falsified",
+      "rawDigest": "sha256:35b4b117e4435fc9791e83ca202e1390352507b1d08d5809188cd2996a3d1995",
+      "supportCount": 21,
+      "coverage": [
+        {
+          "obligationRef": "obligation://default-library-witness/complete-original@5",
+          "disposition": "open",
+          "gaps": [
+            "semantic_falsified",
+            "semantic_criterion_incomplete",
+            "depth_policy_incomplete",
+            "discovery_incomplete:discovery://default-library-witness/source-obligations@5"
+          ]
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/conformance@5",
+          "disposition": "open",
+          "gaps": [
+            "semantic_falsified",
+            "semantic_criterion_incomplete",
+            "depth_policy_incomplete",
+            "discovery_incomplete:discovery://default-library-witness/source-obligations@5"
+          ]
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/implementation-design@5",
+          "disposition": "open",
+          "gaps": [
+            "semantic_falsified",
+            "semantic_criterion_incomplete",
+            "depth_policy_incomplete",
+            "discovery_incomplete:discovery://default-library-witness/source-obligations@5"
+          ]
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/test-design@5",
+          "disposition": "open",
+          "gaps": [
+            "semantic_falsified",
+            "semantic_criterion_incomplete",
+            "depth_policy_incomplete",
+            "discovery_incomplete:discovery://default-library-witness/source-obligations@5"
+          ]
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/execution-plan@5",
+          "disposition": "open",
+          "gaps": [
+            "semantic_falsified",
+            "semantic_criterion_incomplete",
+            "depth_policy_incomplete",
+            "discovery_incomplete:discovery://default-library-witness/source-obligations@5"
+          ]
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/behavior@5",
+          "disposition": "open",
+          "gaps": [
+            "semantic_falsified",
+            "semantic_criterion_incomplete",
+            "depth_policy_incomplete",
+            "discovery_incomplete:discovery://default-library-witness/source-obligations@5"
+          ]
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/revision@5",
+          "disposition": "open",
+          "gaps": [
+            "semantic_falsified",
+            "semantic_criterion_incomplete",
+            "depth_policy_incomplete",
+            "discovery_incomplete:discovery://default-library-witness/source-obligations@5"
+          ]
+        }
+      ],
+      "sourceFact": {
+        "resultRef": "result:controlled/falsified",
+        "resultDigest": "sha256:9decae54adc510550852f6be7ffe8485dc60265194e45dc549afc131387a03b9",
+        "contractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+        "cCallRef": "call:controlled/falsified",
+        "actorInvocationRef": "actor:controlled-independent/falsified",
+        "kind": "assessment",
+        "files": [
+          {
+            "path": "design/implementation-design.md",
+            "digest": "sha256:801f3ab5d524256ba91a1325f640dc2d77851b5c6fe2cdcd46c8a67afe838d0f"
+          },
+          {
+            "path": "design/test-design.md",
+            "digest": "sha256:a9bf5d5f5b7fe80f6cd24a9101fd2390433bcf56fde1adb2f39d76bf5bf3ba94"
+          },
+          {
+            "path": "generated/hello-world.mjs",
+            "digest": "sha256:fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef"
+          },
+          {
+            "path": "source/basic-cli.oracle.json",
+            "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+          },
+          {
+            "path": "source/original-basic-cli.txt",
+            "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+          },
+          {
+            "path": "source/witness-contract.md",
+            "digest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b"
+          },
+          {
+            "path": "specification/project-conformance.md",
+            "digest": "sha256:a74a75b6c83d4daf1eeb0e6a7517827869c7520094940873c4b645d680ac993c"
+          },
+          {
+            "path": "test-execution-plan.json",
+            "digest": "sha256:ed573966152bc05455c0a0e61cc1bd2fd8f7ad63fe2301eb3996bdfa2a68ac27"
+          },
+          {
+            "path": "test/component/hello-cli.test.mjs",
+            "digest": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613"
+          },
+          {
+            "path": "test/uat/hello-cli.uat.test.mjs",
+            "digest": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4"
+          }
+        ],
+        "dependencies": [
+          {
+            "path": "design/implementation-design.md",
+            "digest": "sha256:801f3ab5d524256ba91a1325f640dc2d77851b5c6fe2cdcd46c8a67afe838d0f"
+          },
+          {
+            "path": "design/test-design.md",
+            "digest": "sha256:a9bf5d5f5b7fe80f6cd24a9101fd2390433bcf56fde1adb2f39d76bf5bf3ba94"
+          },
+          {
+            "path": "generated/hello-world.mjs",
+            "digest": "sha256:fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef"
+          },
+          {
+            "path": "source/basic-cli.oracle.json",
+            "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+          },
+          {
+            "path": "source/original-basic-cli.txt",
+            "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+          },
+          {
+            "path": "source/witness-contract.md",
+            "digest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b"
+          },
+          {
+            "path": "specification/project-conformance.md",
+            "digest": "sha256:a74a75b6c83d4daf1eeb0e6a7517827869c7520094940873c4b645d680ac993c"
+          },
+          {
+            "path": "test-execution-plan.json",
+            "digest": "sha256:ed573966152bc05455c0a0e61cc1bd2fd8f7ad63fe2301eb3996bdfa2a68ac27"
+          },
+          {
+            "path": "test/component/hello-cli.test.mjs",
+            "digest": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613"
+          },
+          {
+            "path": "test/uat/hello-cli.uat.test.mjs",
+            "digest": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4"
+          }
+        ],
+        "commands": [],
+        "assessmentContractRef": "contract://default-library-witness/assessment@5",
+        "producerResultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "producerActorRef": "actor-invocation://abiogenesis/159b2b63bdd8f51b9f71f62cbed618a3a9c99b477039bdf78ed5f9edb3f05d09"
+      },
+      "controlledOccurrenceOnly": true
+    },
+    {
+      "status": "indeterminate",
+      "rawDigest": "sha256:847704508f7ba034cf0eeab3ed39f41845d8317c43d6b831da779fa20c1c08ae",
+      "supportCount": 21,
+      "coverage": [
+        {
+          "obligationRef": "obligation://default-library-witness/complete-original@5",
+          "disposition": "open",
+          "gaps": [
+            "semantic_indeterminate",
+            "semantic_criterion_incomplete",
+            "depth_policy_incomplete",
+            "discovery_incomplete:discovery://default-library-witness/source-obligations@5"
+          ]
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/conformance@5",
+          "disposition": "open",
+          "gaps": [
+            "semantic_indeterminate",
+            "semantic_criterion_incomplete",
+            "depth_policy_incomplete",
+            "discovery_incomplete:discovery://default-library-witness/source-obligations@5"
+          ]
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/implementation-design@5",
+          "disposition": "open",
+          "gaps": [
+            "semantic_indeterminate",
+            "semantic_criterion_incomplete",
+            "depth_policy_incomplete",
+            "discovery_incomplete:discovery://default-library-witness/source-obligations@5"
+          ]
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/test-design@5",
+          "disposition": "open",
+          "gaps": [
+            "semantic_indeterminate",
+            "semantic_criterion_incomplete",
+            "depth_policy_incomplete",
+            "discovery_incomplete:discovery://default-library-witness/source-obligations@5"
+          ]
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/execution-plan@5",
+          "disposition": "open",
+          "gaps": [
+            "semantic_indeterminate",
+            "semantic_criterion_incomplete",
+            "depth_policy_incomplete",
+            "discovery_incomplete:discovery://default-library-witness/source-obligations@5"
+          ]
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/behavior@5",
+          "disposition": "open",
+          "gaps": [
+            "semantic_indeterminate",
+            "semantic_criterion_incomplete",
+            "depth_policy_incomplete",
+            "discovery_incomplete:discovery://default-library-witness/source-obligations@5"
+          ]
+        },
+        {
+          "obligationRef": "obligation://default-library-witness/revision@5",
+          "disposition": "open",
+          "gaps": [
+            "semantic_indeterminate",
+            "semantic_criterion_incomplete",
+            "depth_policy_incomplete",
+            "discovery_incomplete:discovery://default-library-witness/source-obligations@5"
+          ]
+        }
+      ],
+      "sourceFact": {
+        "resultRef": "result:controlled/indeterminate",
+        "resultDigest": "sha256:4e6a7c34d881af0ca7558914715030d059a87ac3d7a2aa24ef330ddaa1b3643c",
+        "contractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+        "cCallRef": "call:controlled/indeterminate",
+        "actorInvocationRef": "actor:controlled-independent/indeterminate",
+        "kind": "assessment",
+        "files": [
+          {
+            "path": "design/implementation-design.md",
+            "digest": "sha256:801f3ab5d524256ba91a1325f640dc2d77851b5c6fe2cdcd46c8a67afe838d0f"
+          },
+          {
+            "path": "design/test-design.md",
+            "digest": "sha256:a9bf5d5f5b7fe80f6cd24a9101fd2390433bcf56fde1adb2f39d76bf5bf3ba94"
+          },
+          {
+            "path": "generated/hello-world.mjs",
+            "digest": "sha256:fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef"
+          },
+          {
+            "path": "source/basic-cli.oracle.json",
+            "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+          },
+          {
+            "path": "source/original-basic-cli.txt",
+            "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+          },
+          {
+            "path": "source/witness-contract.md",
+            "digest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b"
+          },
+          {
+            "path": "specification/project-conformance.md",
+            "digest": "sha256:a74a75b6c83d4daf1eeb0e6a7517827869c7520094940873c4b645d680ac993c"
+          },
+          {
+            "path": "test-execution-plan.json",
+            "digest": "sha256:ed573966152bc05455c0a0e61cc1bd2fd8f7ad63fe2301eb3996bdfa2a68ac27"
+          },
+          {
+            "path": "test/component/hello-cli.test.mjs",
+            "digest": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613"
+          },
+          {
+            "path": "test/uat/hello-cli.uat.test.mjs",
+            "digest": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4"
+          }
+        ],
+        "dependencies": [
+          {
+            "path": "design/implementation-design.md",
+            "digest": "sha256:801f3ab5d524256ba91a1325f640dc2d77851b5c6fe2cdcd46c8a67afe838d0f"
+          },
+          {
+            "path": "design/test-design.md",
+            "digest": "sha256:a9bf5d5f5b7fe80f6cd24a9101fd2390433bcf56fde1adb2f39d76bf5bf3ba94"
+          },
+          {
+            "path": "generated/hello-world.mjs",
+            "digest": "sha256:fe8f40803a256b5b65c97f5f4cae862fd55b37cb81f2a803c56c3f654c22e9ef"
+          },
+          {
+            "path": "source/basic-cli.oracle.json",
+            "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+          },
+          {
+            "path": "source/original-basic-cli.txt",
+            "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+          },
+          {
+            "path": "source/witness-contract.md",
+            "digest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b"
+          },
+          {
+            "path": "specification/project-conformance.md",
+            "digest": "sha256:a74a75b6c83d4daf1eeb0e6a7517827869c7520094940873c4b645d680ac993c"
+          },
+          {
+            "path": "test-execution-plan.json",
+            "digest": "sha256:ed573966152bc05455c0a0e61cc1bd2fd8f7ad63fe2301eb3996bdfa2a68ac27"
+          },
+          {
+            "path": "test/component/hello-cli.test.mjs",
+            "digest": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613"
+          },
+          {
+            "path": "test/uat/hello-cli.uat.test.mjs",
+            "digest": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4"
+          }
+        ],
+        "commands": [],
+        "assessmentContractRef": "contract://default-library-witness/assessment@5",
+        "producerResultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "producerActorRef": "actor-invocation://abiogenesis/159b2b63bdd8f51b9f71f62cbed618a3a9c99b477039bdf78ed5f9edb3f05d09"
+      },
+      "controlledOccurrenceOnly": true
+    }
+  ],
+  "providerCalls": 0,
+  "installation": false,
+  "limits": "The actual live04 admitted input is authenticated and remains refused. Nonempty responses and child occurrences are NEW controlled premises with explicit synthetic identity, not admitted replacements, answer repairs, semantic assurance, scope compliance or Run closure. Dynamic domains/task/entry/context and original predecessor history are conserved. Actual native/result/currentness qualification is reused from prior proof."
+}

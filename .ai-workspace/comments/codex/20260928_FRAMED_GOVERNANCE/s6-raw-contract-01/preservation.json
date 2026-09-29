@@ -1,0 +1,47 @@
+{
+  "manifests": [
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/proof-manifest.json",
+      "sha256": "73088e128953fcf2a3df56f3ffd183d499e4f2363a9f84f67513e985842df996",
+      "bytes": 3858,
+      "members": 27
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/run-proof-manifest.json",
+      "sha256": "ca9aff9ae938bff96cd7b0c91e1bdcb53565ca3f76189ccdeb963f3591738511",
+      "bytes": 17795,
+      "members": 120
+    },
+    {
+      "manifest": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/proof-manifest.json",
+      "sha256": "a4c250f57e9f890f224b48092f7ab9e4378a5e7343a05f462dc4d721fe3bece9",
+      "bytes": 4162,
+      "members": 32
+    }
+  ],
+  "priorRunReturn": {
+    "sha256": "16ccef5d2d8b3b6ecc5a9cf15abe7975777fb5ce537c0de1ee07b976d029913c",
+    "bytes": 10732
+  },
+  "priorCore": {
+    "sha256": "6311b520520efb19f6d042fb11c00bf7abe5ad335f0b274915726c482d7bdf07",
+    "bytes": 10337313
+  },
+  "priorConsumer": {
+    "sha256": "6cf3780dadeeddce756fdfe903e0c7da2ec8f894a4619a104650ab5128792e12",
+    "bytes": 11777
+  },
+  "originalInput": {
+    "sha256": "377bae203c2ac43bf0e0339a24ce979998aa4247807c68c2fe383d274a74ee87",
+    "bytes": 84605
+  },
+  "actualAssessment": {
+    "sha256": "19d7bae60935f4e9929a7e2c443ce22d9d173c319558bc58f514a2b25d25567a",
+    "bytes": 28857
+  },
+  "prospectiveCase": {
+    "sha256": "f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+    "bytes": 5656
+  },
+  "scopeDisposition": "Old live04 independently fails original actor write scope. Design actual temp path was under /var/folders/.../T/tmp.8H75oFgQeN, correcting the old return generalization without rewriting it."
+}

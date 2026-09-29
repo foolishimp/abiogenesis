@@ -1,0 +1,122 @@
+(node:40069) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+{
+  "actualBasisAuthenticated": true,
+  "trace": [
+    {
+      "function": "bindGovernanceFulfillmentAssessment",
+      "rawDigest": "sha256:772e49c0819f1ea02cea3ce34db68b795d8e999ea68ef7bd7983f61e7202e193",
+      "evidenceRefs": [
+        "result://abiogenesis/b63cfd1dc0bc193ebab9987177c88119d945add00bc62eaf4b955388dc513aea",
+        "result://abiogenesis/50dd6dafe6c0a3b5ba48e11fa757a465334ca180239d67d0a2b84a3768b5dee4",
+        "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "result://abiogenesis/7f26f5a0fa42da01286419f23462cd02fee4cd275eb5e48cc316ed8cef34ea1e",
+        "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571"
+      ],
+      "result": null
+    }
+  ],
+  "violations": [
+    {
+      "path": "obligations[0].support[0].commandId",
+      "obligationRef": "obligation://default-library-witness/complete-original@5",
+      "support": {
+        "artifactPath": "generated/hello-world.mjs",
+        "commandId": "command://default-library-witness/0@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "realization"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[0].support[1].commandId",
+      "obligationRef": "obligation://default-library-witness/complete-original@5",
+      "support": {
+        "artifactPath": "test/component/hello-cli.test.mjs",
+        "commandId": "command://default-library-witness/1@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "verifier_artifact"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[0].support[2].commandId",
+      "obligationRef": "obligation://default-library-witness/complete-original@5",
+      "support": {
+        "artifactPath": "test/uat/hello-cli.uat.test.mjs",
+        "commandId": "command://default-library-witness/1@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "verifier_artifact"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[5].support[0].commandId",
+      "obligationRef": "obligation://default-library-witness/behavior@5",
+      "support": {
+        "artifactPath": "generated/hello-world.mjs",
+        "commandId": "command://default-library-witness/0@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "realization"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[5].support[1].commandId",
+      "obligationRef": "obligation://default-library-witness/behavior@5",
+      "support": {
+        "artifactPath": "test/component/hello-cli.test.mjs",
+        "commandId": "command://default-library-witness/1@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "verifier_artifact"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[5].support[2].commandId",
+      "obligationRef": "obligation://default-library-witness/behavior@5",
+      "support": {
+        "artifactPath": "test/uat/hello-cli.uat.test.mjs",
+        "commandId": "command://default-library-witness/1@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "verifier_artifact"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[6].support[0].commandId",
+      "obligationRef": "obligation://default-library-witness/revision@5",
+      "support": {
+        "artifactPath": "generated/hello-world.mjs",
+        "commandId": "command://default-library-witness/0@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "realization"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[6].support[1].commandId",
+      "obligationRef": "obligation://default-library-witness/revision@5",
+      "support": {
+        "artifactPath": "test/component/hello-cli.test.mjs",
+        "commandId": "command://default-library-witness/1@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "verifier_artifact"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[6].support[2].commandId",
+      "obligationRef": "obligation://default-library-witness/revision@5",
+      "support": {
+        "artifactPath": "test/uat/hello-cli.uat.test.mjs",
+        "commandId": "command://default-library-witness/1@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "verifier_artifact"
+      },
+      "expected": null
+    }
+  ],
+  "assessmentDisposition": "satisfied",
+  "presentation": "Use exactly one row per current obligation, criterion, depth class and discovery class. Meanings and sufficiency are your independent judgments. Unknown support is indeterminate, never implicit success.\nSelect only prior Result refs, roles, paths and command ids from the owned domains below. Do not emit digests, CCall/actor identities or your own future Result ref. The owner attaches this assessment after admission. Realization and verifier artifacts are different selected subjects. Current support must match current dependency bytes. AdverseEvidenceRefs are historical C2 counterevidence for the declared adverse-command criterion, not proof of current behavior.\n"
+}

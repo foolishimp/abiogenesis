@@ -1,0 +1,940 @@
+{
+  "kind": "governance_work_state",
+  "schemaVersion": "5.0.0",
+  "original": {
+    "taskRef": "task://default-library-witness/s6-original@5",
+    "task": "  sdlcComplianceScenario({\n    key: \"basic-cli\",\n    scenarioId: \"SCN-GLC-HELLO-WORLD-CLI-BASIC\",\n    kind: \"node_cli\",\n    stagePlan: [\n      {\n        stage: \"conformance_project\",\n        filesToProduce: [\"specification/project-conformance.md\"],\n        instructions: [\n          \"Write only specification/project-conformance.md.\",\n          \"Declare a minimal CLI Hello World software-build traversal.\",\n          \"The source surface must be generated/hello-world.mjs.\",\n          \"The execution proof must run the CLI and observe stdout exactly \\\"Hello, world!\\\\n\\\".\",\n          \"Do not write source, tests, package files, or execution plans in this vector.\"\n        ]\n      },\n      {\n        stage: \"implementation_design\",\n        filesToProduce: [\"design/implementation-design.md\"],\n        instructions: [\n          \"Write only design/implementation-design.md.\",\n          \"Use the prior conformance_project artifact as authority.\",\n          \"Define a minimal Node CLI script at generated/hello-world.mjs.\",\n          \"The script must print exactly \\\"Hello, world!\\\" followed by one newline.\",\n          \"Name component and UAT test source surfaces that execute the CLI and assert stdout.\"\n        ]\n      },\n      {\n        stage: \"source\",\n        filesToProduce: [\"generated/hello-world.mjs\"],\n        instructions: [\n          \"Write only generated/hello-world.mjs.\",\n          \"The script must execute under node without package installation.\",\n          \"It must write exactly \\\"Hello, world!\\\\n\\\" to stdout.\"\n        ]\n      },\n      {\n        stage: \"test_design\",\n        filesToProduce: [\"design/test-design.md\"],\n        instructions: [\n          \"Write only design/test-design.md.\",\n          \"Specify component and UAT validation of the CLI stdout contract.\",\n          \"Both tests must spawn node generated/hello-world.mjs and assert status 0 and stdout exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"component_test_source\",\n        filesToProduce: [\"test/component/hello-cli.test.mjs\"],\n        instructions: [\n          \"Write only test/component/hello-cli.test.mjs.\",\n          \"Use node:test, node:assert/strict, and node:child_process spawnSync.\",\n          \"Run process.execPath with [\\\"generated/hello-world.mjs\\\"] from the project root.\",\n          \"Assert status 0 and stdout exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"uat_test_source\",\n        filesToProduce: [\"test/uat/hello-cli.uat.test.mjs\"],\n        instructions: [\n          \"Write only test/uat/hello-cli.uat.test.mjs.\",\n          \"Use node:test, node:assert/strict, and node:child_process spawnSync.\",\n          \"Run process.execPath with [\\\"generated/hello-world.mjs\\\"] from the project root.\",\n          \"Assert the user-visible CLI output is exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"test_execution_plan\",\n        workerExecutes: true,\n        filesToProduce: [\"test-execution-plan.json\", \"test-execution-result.json\"],\n        instructions: [\n          \"Write test-execution-plan.json and test-execution-result.json only.\",\n          \"The JSON command must be node.\",\n          \"The args must be [\\\"--test\\\", \\\"test/component/hello-cli.test.mjs\\\", \\\"test/uat/hello-cli.uat.test.mjs\\\"].\",\n          \"expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.\",\n          \"expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.\",\n          \"assertedReturnValue must be \\\"Hello, world!\\\".\",\n          \"EXECUTION-DEFAULT LAW: run node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs yourself inside this turn; the framework executes nothing.\",\n          \"Record the truthful observed command, args, integer status, stdout, stderr, expectedTestPassCount, expectedStdoutMatch, assertedReturnValue, cwd, and env in test-execution-result.json.\"\n        ]\n      },\n      {\n        stage: \"test_execution_result\",\n        instructions: [\n          \"Produce no files.\",\n          \"Accept only if the execution plan command exited 0, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true.\"\n        ]\n      }\n    ]\n  }),\n\n# Independent complete-lifecycle witness\n\nComplete the original basic-cli application outcome through the selected installed\nGTL/HoG/ABG library. This contract is prospective input, authored separately from\nthe implementation. The complete original source and independent oracle remain\nunchanged and available to every evaluation that needs them. They are not replaced\nby a shortened task summary or by this contract.\n\nThe original source is `source/original-basic-cli.txt`, SHA-256\n`ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f`.\nThe oracle is `source/basic-cli.oracle.json`, SHA-256\n`028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585`.\nCopy this contract to `source/witness-contract.md` before freezing the new case.\n\n## Supplied input and actual authorship\n\nSupply the original unverified `generated/hello-world.mjs` and the unchanged\ncomponent and UAT test sources from the independently selected basic-cli seed.\nThey have no accepted behavior or author provenance in this Run. No historical\nruntime event is imported. The initial conformance, implementation design,\ntest design and execution-plan files must be absent.\n\nNative work must actually produce these four substantive assets:\n\n- `specification/project-conformance.md`: the small task's Intent, Product boundary,\n  source-grounded requirements and criteria for completion.\n- `design/implementation-design.md`: a realizable design faithful to the original\n  outcome and the conformance asset, including source and verification surfaces.\n- `design/test-design.md`: meaningful component and user-outcome checks of the\n  actual CLI, preserving the original stdout and successful-exit conditions.\n- `test-execution-plan.json`: the declared commands, expected test coverage and\n  observed-result criteria required by the original source.\n\nNames and file presence do not establish these meanings. Independent assessment\nmust evaluate their content and source/predecessor correspondence. Valid supplied\nverifiers may be reused; they are not counted as newly authored work. No separate\ndocument or role activation is required merely to increase stage counts.\n\n## Evidence, correction and final outcome\n\nEstablish the supplied CLI's actual behavior before changing it. Its material\nfailure must remain admitted evidence for a subsequently justified, different\nregistered work choice and an actual bounded correction in this same witness\nlineage. Do not force graph names or a complete schedule. Earlier specification\nor design work is permitted when useful; it does not replace the baseline\nmeasurement or authorize an unobserved CLI repair.\n\nAt completion, the CLI runs under Node without package installation, exits zero,\nand prints exactly `Hello, world!` followed by one newline. Both supplied tests\nmust actually execute the current CLI, with at least two passes and zero failures.\nThe four newly authored assets must satisfy the original content requirements.\nFixed prospective command selection is:\n\n1. `node generated/hello-world.mjs`\n2. `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`\n\nThe authored plan must agree with these commands and the original expectations;\nit is not the runtime source of the commands. Preserve the already-selected\nmechanism distinction: the predecessor's stage ordering and handwritten\nexecution-receipt mechanics are realized by the current declared graph and actual\nadmitted C2 evidence. That evidence must retain the real command, arguments,\nenvironment, working directory, exit status, stdout/stderr and resulting test\nobservations. A fabricated success file or a native author's report is insufficient.\n\nThe baseline failure is evidence about its exact earlier subject. Current behavior\nmust be proved against the corrected current subject. Preserve the explicit causal\nrelation between them; neither retarget the old failure to new bytes nor discard\nit merely because the correction changed those bytes. Only support whose claim\ndepends on the old bytes remaining current becomes stale. Unaffected work survives.\n\n## Admitted completion and scope\n\nThe consumer declaration must bind the original and case obligations to explicit\nrealization/proof roles and the selected policy before execution. Meaning and\nsufficiency are attributed F_P judgments. Identity, role correspondence,\ncurrentness and completeness of the selected declared policy are computed from\nadmitted facts. Newly admitted obligations remain visible; missing or unknown\nrequired support leaves the parent open. Scalar UAT success cannot replace the\nrequired pairing and coverage relation.\n\nThe independent assessment must consume current actual evidence and examine all\nmandatory selected outcomes, including authored content, verifier adequacy,\nexecution-plan correspondence and the consequential revision. Its actor/call is\ndistinct from the selected author or measurement producer. Parent completion\nrequires that assessment and eligible admitted coverage. Fresh installed Public\nresult and replay must agree on the actual terminal state and evidence lineage.\n\nProtect original source, oracle, this contract, supplied test sources and installed\nassets. Application writes are confined to the CLI and the four absent asset\npaths above. Command evidence retains its separately declared territory. There\nis no package/network dependency for this application. No caller-owned loop,\nout-of-band application edit, solution-specific framework branch, answer repair\nor oracle change is permitted. Preserve and return the first unexpected failure;\ndo not run an automatic paid retry. Scope and criteria do not shrink after results.\n",
+    "sources": [
+      {
+        "path": "source/original-basic-cli.txt",
+        "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+      },
+      {
+        "path": "source/basic-cli.oracle.json",
+        "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+      },
+      {
+        "path": "test/component/hello-cli.test.mjs",
+        "digest": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613"
+      },
+      {
+        "path": "test/uat/hello-cli.uat.test.mjs",
+        "digest": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4"
+      },
+      {
+        "path": "source/witness-contract.md",
+        "digest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b"
+      }
+    ],
+    "requiredSupportRefs": [
+      "obligation://default-library-witness/complete-original@5",
+      "obligation://default-library-witness/conformance@5",
+      "obligation://default-library-witness/implementation-design@5",
+      "obligation://default-library-witness/test-design@5",
+      "obligation://default-library-witness/execution-plan@5",
+      "obligation://default-library-witness/behavior@5",
+      "obligation://default-library-witness/revision@5"
+    ],
+    "authorityRefs": [
+      "authority://default-library-witness/s6-case@5"
+    ],
+    "readRoots": [
+      "design/implementation-design.md",
+      "design/test-design.md",
+      "generated/hello-world.mjs",
+      "source/basic-cli.oracle.json",
+      "source/original-basic-cli.txt",
+      "source/witness-contract.md",
+      "specification/project-conformance.md",
+      "test-execution-plan.json",
+      "test/component/hello-cli.test.mjs",
+      "test/uat/hello-cli.uat.test.mjs"
+    ],
+    "maxContextFiles": 128,
+    "maxContextBytes": 131072,
+    "maxPromptBytes": 131072,
+    "workOrders": {
+      "specification": {
+        "outcome": "Perform the justified specification contribution to the complete original outcome.",
+        "instructions": [
+          "# Independent complete-lifecycle witness\n\nComplete the original basic-cli application outcome through the selected installed\nGTL/HoG/ABG library. This contract is prospective input, authored separately from\nthe implementation. The complete original source and independent oracle remain\nunchanged and available to every evaluation that needs them. They are not replaced\nby a shortened task summary or by this contract.\n\nThe original source is `source/original-basic-cli.txt`, SHA-256\n`ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f`.\nThe oracle is `source/basic-cli.oracle.json`, SHA-256\n`028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585`.\nCopy this contract to `source/witness-contract.md` before freezing the new case.\n\n## Supplied input and actual authorship\n\nSupply the original unverified `generated/hello-world.mjs` and the unchanged\ncomponent and UAT test sources from the independently selected basic-cli seed.\nThey have no accepted behavior or author provenance in this Run. No historical\nruntime event is imported. The initial conformance, implementation design,\ntest design and execution-plan files must be absent.\n\nNative work must actually produce these four substantive assets:\n\n- `specification/project-conformance.md`: the small task's Intent, Product boundary,\n  source-grounded requirements and criteria for completion.\n- `design/implementation-design.md`: a realizable design faithful to the original\n  outcome and the conformance asset, including source and verification surfaces.\n- `design/test-design.md`: meaningful component and user-outcome checks of the\n  actual CLI, preserving the original stdout and successful-exit conditions.\n- `test-execution-plan.json`: the declared commands, expected test coverage and\n  observed-result criteria required by the original source.\n\nNames and file presence do not establish these meanings. Independent assessment\nmust evaluate their content and source/predecessor correspondence. Valid supplied\nverifiers may be reused; they are not counted as newly authored work. No separate\ndocument or role activation is required merely to increase stage counts.\n\n## Evidence, correction and final outcome\n\nEstablish the supplied CLI's actual behavior before changing it. Its material\nfailure must remain admitted evidence for a subsequently justified, different\nregistered work choice and an actual bounded correction in this same witness\nlineage. Do not force graph names or a complete schedule. Earlier specification\nor design work is permitted when useful; it does not replace the baseline\nmeasurement or authorize an unobserved CLI repair.\n\nAt completion, the CLI runs under Node without package installation, exits zero,\nand prints exactly `Hello, world!` followed by one newline. Both supplied tests\nmust actually execute the current CLI, with at least two passes and zero failures.\nThe four newly authored assets must satisfy the original content requirements.\nFixed prospective command selection is:\n\n1. `node generated/hello-world.mjs`\n2. `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`\n\nThe authored plan must agree with these commands and the original expectations;\nit is not the runtime source of the commands. Preserve the already-selected\nmechanism distinction: the predecessor's stage ordering and handwritten\nexecution-receipt mechanics are realized by the current declared graph and actual\nadmitted C2 evidence. That evidence must retain the real command, arguments,\nenvironment, working directory, exit status, stdout/stderr and resulting test\nobservations. A fabricated success file or a native author's report is insufficient.\n\nThe baseline failure is evidence about its exact earlier subject. Current behavior\nmust be proved against the corrected current subject. Preserve the explicit causal\nrelation between them; neither retarget the old failure to new bytes nor discard\nit merely because the correction changed those bytes. Only support whose claim\ndepends on the old bytes remaining current becomes stale. Unaffected work survives.\n\n## Admitted completion and scope\n\nThe consumer declaration must bind the original and case obligations to explicit\nrealization/proof roles and the selected policy before execution. Meaning and\nsufficiency are attributed F_P judgments. Identity, role correspondence,\ncurrentness and completeness of the selected declared policy are computed from\nadmitted facts. Newly admitted obligations remain visible; missing or unknown\nrequired support leaves the parent open. Scalar UAT success cannot replace the\nrequired pairing and coverage relation.\n\nThe independent assessment must consume current actual evidence and examine all\nmandatory selected outcomes, including authored content, verifier adequacy,\nexecution-plan correspondence and the consequential revision. Its actor/call is\ndistinct from the selected author or measurement producer. Parent completion\nrequires that assessment and eligible admitted coverage. Fresh installed Public\nresult and replay must agree on the actual terminal state and evidence lineage.\n\nProtect original source, oracle, this contract, supplied test sources and installed\nassets. Application writes are confined to the CLI and the four absent asset\npaths above. Command evidence retains its separately declared territory. There\nis no package/network dependency for this application. No caller-owned loop,\nout-of-band application edit, solution-specific framework branch, answer repair\nor oracle change is permitted. Preserve and return the first unexpected failure;\ndo not run an automatic paid retry. Scope and criteria do not shrink after results.\n",
+          "Writable files for this capability: [\"specification/project-conformance.md\"]. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work."
+        ],
+        "readFirst": [
+          "source/original-basic-cli.txt",
+          "source/basic-cli.oracle.json",
+          "generated/hello-world.mjs",
+          "test/component/hello-cli.test.mjs",
+          "test/uat/hello-cli.uat.test.mjs",
+          "source/witness-contract.md"
+        ],
+        "writeRoots": [
+          "specification/project-conformance.md"
+        ],
+        "checks": []
+      },
+      "design": {
+        "outcome": "Perform the justified design contribution to the complete original outcome.",
+        "instructions": [
+          "# Independent complete-lifecycle witness\n\nComplete the original basic-cli application outcome through the selected installed\nGTL/HoG/ABG library. This contract is prospective input, authored separately from\nthe implementation. The complete original source and independent oracle remain\nunchanged and available to every evaluation that needs them. They are not replaced\nby a shortened task summary or by this contract.\n\nThe original source is `source/original-basic-cli.txt`, SHA-256\n`ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f`.\nThe oracle is `source/basic-cli.oracle.json`, SHA-256\n`028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585`.\nCopy this contract to `source/witness-contract.md` before freezing the new case.\n\n## Supplied input and actual authorship\n\nSupply the original unverified `generated/hello-world.mjs` and the unchanged\ncomponent and UAT test sources from the independently selected basic-cli seed.\nThey have no accepted behavior or author provenance in this Run. No historical\nruntime event is imported. The initial conformance, implementation design,\ntest design and execution-plan files must be absent.\n\nNative work must actually produce these four substantive assets:\n\n- `specification/project-conformance.md`: the small task's Intent, Product boundary,\n  source-grounded requirements and criteria for completion.\n- `design/implementation-design.md`: a realizable design faithful to the original\n  outcome and the conformance asset, including source and verification surfaces.\n- `design/test-design.md`: meaningful component and user-outcome checks of the\n  actual CLI, preserving the original stdout and successful-exit conditions.\n- `test-execution-plan.json`: the declared commands, expected test coverage and\n  observed-result criteria required by the original source.\n\nNames and file presence do not establish these meanings. Independent assessment\nmust evaluate their content and source/predecessor correspondence. Valid supplied\nverifiers may be reused; they are not counted as newly authored work. No separate\ndocument or role activation is required merely to increase stage counts.\n\n## Evidence, correction and final outcome\n\nEstablish the supplied CLI's actual behavior before changing it. Its material\nfailure must remain admitted evidence for a subsequently justified, different\nregistered work choice and an actual bounded correction in this same witness\nlineage. Do not force graph names or a complete schedule. Earlier specification\nor design work is permitted when useful; it does not replace the baseline\nmeasurement or authorize an unobserved CLI repair.\n\nAt completion, the CLI runs under Node without package installation, exits zero,\nand prints exactly `Hello, world!` followed by one newline. Both supplied tests\nmust actually execute the current CLI, with at least two passes and zero failures.\nThe four newly authored assets must satisfy the original content requirements.\nFixed prospective command selection is:\n\n1. `node generated/hello-world.mjs`\n2. `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`\n\nThe authored plan must agree with these commands and the original expectations;\nit is not the runtime source of the commands. Preserve the already-selected\nmechanism distinction: the predecessor's stage ordering and handwritten\nexecution-receipt mechanics are realized by the current declared graph and actual\nadmitted C2 evidence. That evidence must retain the real command, arguments,\nenvironment, working directory, exit status, stdout/stderr and resulting test\nobservations. A fabricated success file or a native author's report is insufficient.\n\nThe baseline failure is evidence about its exact earlier subject. Current behavior\nmust be proved against the corrected current subject. Preserve the explicit causal\nrelation between them; neither retarget the old failure to new bytes nor discard\nit merely because the correction changed those bytes. Only support whose claim\ndepends on the old bytes remaining current becomes stale. Unaffected work survives.\n\n## Admitted completion and scope\n\nThe consumer declaration must bind the original and case obligations to explicit\nrealization/proof roles and the selected policy before execution. Meaning and\nsufficiency are attributed F_P judgments. Identity, role correspondence,\ncurrentness and completeness of the selected declared policy are computed from\nadmitted facts. Newly admitted obligations remain visible; missing or unknown\nrequired support leaves the parent open. Scalar UAT success cannot replace the\nrequired pairing and coverage relation.\n\nThe independent assessment must consume current actual evidence and examine all\nmandatory selected outcomes, including authored content, verifier adequacy,\nexecution-plan correspondence and the consequential revision. Its actor/call is\ndistinct from the selected author or measurement producer. Parent completion\nrequires that assessment and eligible admitted coverage. Fresh installed Public\nresult and replay must agree on the actual terminal state and evidence lineage.\n\nProtect original source, oracle, this contract, supplied test sources and installed\nassets. Application writes are confined to the CLI and the four absent asset\npaths above. Command evidence retains its separately declared territory. There\nis no package/network dependency for this application. No caller-owned loop,\nout-of-band application edit, solution-specific framework branch, answer repair\nor oracle change is permitted. Preserve and return the first unexpected failure;\ndo not run an automatic paid retry. Scope and criteria do not shrink after results.\n",
+          "Writable files for this capability: [\"design/implementation-design.md\",\"design/test-design.md\",\"test-execution-plan.json\"]. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work."
+        ],
+        "readFirst": [
+          "source/original-basic-cli.txt",
+          "source/basic-cli.oracle.json",
+          "generated/hello-world.mjs",
+          "test/component/hello-cli.test.mjs",
+          "test/uat/hello-cli.uat.test.mjs",
+          "source/witness-contract.md"
+        ],
+        "writeRoots": [
+          "design/implementation-design.md",
+          "design/test-design.md",
+          "test-execution-plan.json"
+        ],
+        "checks": []
+      },
+      "construction": {
+        "outcome": "Perform the justified construction contribution to the complete original outcome.",
+        "instructions": [
+          "# Independent complete-lifecycle witness\n\nComplete the original basic-cli application outcome through the selected installed\nGTL/HoG/ABG library. This contract is prospective input, authored separately from\nthe implementation. The complete original source and independent oracle remain\nunchanged and available to every evaluation that needs them. They are not replaced\nby a shortened task summary or by this contract.\n\nThe original source is `source/original-basic-cli.txt`, SHA-256\n`ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f`.\nThe oracle is `source/basic-cli.oracle.json`, SHA-256\n`028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585`.\nCopy this contract to `source/witness-contract.md` before freezing the new case.\n\n## Supplied input and actual authorship\n\nSupply the original unverified `generated/hello-world.mjs` and the unchanged\ncomponent and UAT test sources from the independently selected basic-cli seed.\nThey have no accepted behavior or author provenance in this Run. No historical\nruntime event is imported. The initial conformance, implementation design,\ntest design and execution-plan files must be absent.\n\nNative work must actually produce these four substantive assets:\n\n- `specification/project-conformance.md`: the small task's Intent, Product boundary,\n  source-grounded requirements and criteria for completion.\n- `design/implementation-design.md`: a realizable design faithful to the original\n  outcome and the conformance asset, including source and verification surfaces.\n- `design/test-design.md`: meaningful component and user-outcome checks of the\n  actual CLI, preserving the original stdout and successful-exit conditions.\n- `test-execution-plan.json`: the declared commands, expected test coverage and\n  observed-result criteria required by the original source.\n\nNames and file presence do not establish these meanings. Independent assessment\nmust evaluate their content and source/predecessor correspondence. Valid supplied\nverifiers may be reused; they are not counted as newly authored work. No separate\ndocument or role activation is required merely to increase stage counts.\n\n## Evidence, correction and final outcome\n\nEstablish the supplied CLI's actual behavior before changing it. Its material\nfailure must remain admitted evidence for a subsequently justified, different\nregistered work choice and an actual bounded correction in this same witness\nlineage. Do not force graph names or a complete schedule. Earlier specification\nor design work is permitted when useful; it does not replace the baseline\nmeasurement or authorize an unobserved CLI repair.\n\nAt completion, the CLI runs under Node without package installation, exits zero,\nand prints exactly `Hello, world!` followed by one newline. Both supplied tests\nmust actually execute the current CLI, with at least two passes and zero failures.\nThe four newly authored assets must satisfy the original content requirements.\nFixed prospective command selection is:\n\n1. `node generated/hello-world.mjs`\n2. `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`\n\nThe authored plan must agree with these commands and the original expectations;\nit is not the runtime source of the commands. Preserve the already-selected\nmechanism distinction: the predecessor's stage ordering and handwritten\nexecution-receipt mechanics are realized by the current declared graph and actual\nadmitted C2 evidence. That evidence must retain the real command, arguments,\nenvironment, working directory, exit status, stdout/stderr and resulting test\nobservations. A fabricated success file or a native author's report is insufficient.\n\nThe baseline failure is evidence about its exact earlier subject. Current behavior\nmust be proved against the corrected current subject. Preserve the explicit causal\nrelation between them; neither retarget the old failure to new bytes nor discard\nit merely because the correction changed those bytes. Only support whose claim\ndepends on the old bytes remaining current becomes stale. Unaffected work survives.\n\n## Admitted completion and scope\n\nThe consumer declaration must bind the original and case obligations to explicit\nrealization/proof roles and the selected policy before execution. Meaning and\nsufficiency are attributed F_P judgments. Identity, role correspondence,\ncurrentness and completeness of the selected declared policy are computed from\nadmitted facts. Newly admitted obligations remain visible; missing or unknown\nrequired support leaves the parent open. Scalar UAT success cannot replace the\nrequired pairing and coverage relation.\n\nThe independent assessment must consume current actual evidence and examine all\nmandatory selected outcomes, including authored content, verifier adequacy,\nexecution-plan correspondence and the consequential revision. Its actor/call is\ndistinct from the selected author or measurement producer. Parent completion\nrequires that assessment and eligible admitted coverage. Fresh installed Public\nresult and replay must agree on the actual terminal state and evidence lineage.\n\nProtect original source, oracle, this contract, supplied test sources and installed\nassets. Application writes are confined to the CLI and the four absent asset\npaths above. Command evidence retains its separately declared territory. There\nis no package/network dependency for this application. No caller-owned loop,\nout-of-band application edit, solution-specific framework branch, answer repair\nor oracle change is permitted. Preserve and return the first unexpected failure;\ndo not run an automatic paid retry. Scope and criteria do not shrink after results.\n",
+          "Writable files for this capability: [\"generated/hello-world.mjs\"]. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work."
+        ],
+        "readFirst": [
+          "source/original-basic-cli.txt",
+          "source/basic-cli.oracle.json",
+          "generated/hello-world.mjs",
+          "test/component/hello-cli.test.mjs",
+          "test/uat/hello-cli.uat.test.mjs",
+          "source/witness-contract.md"
+        ],
+        "writeRoots": [
+          "generated/hello-world.mjs"
+        ],
+        "checks": []
+      },
+      "testing": {
+        "outcome": "Perform the justified testing contribution to the complete original outcome.",
+        "instructions": [
+          "# Independent complete-lifecycle witness\n\nComplete the original basic-cli application outcome through the selected installed\nGTL/HoG/ABG library. This contract is prospective input, authored separately from\nthe implementation. The complete original source and independent oracle remain\nunchanged and available to every evaluation that needs them. They are not replaced\nby a shortened task summary or by this contract.\n\nThe original source is `source/original-basic-cli.txt`, SHA-256\n`ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f`.\nThe oracle is `source/basic-cli.oracle.json`, SHA-256\n`028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585`.\nCopy this contract to `source/witness-contract.md` before freezing the new case.\n\n## Supplied input and actual authorship\n\nSupply the original unverified `generated/hello-world.mjs` and the unchanged\ncomponent and UAT test sources from the independently selected basic-cli seed.\nThey have no accepted behavior or author provenance in this Run. No historical\nruntime event is imported. The initial conformance, implementation design,\ntest design and execution-plan files must be absent.\n\nNative work must actually produce these four substantive assets:\n\n- `specification/project-conformance.md`: the small task's Intent, Product boundary,\n  source-grounded requirements and criteria for completion.\n- `design/implementation-design.md`: a realizable design faithful to the original\n  outcome and the conformance asset, including source and verification surfaces.\n- `design/test-design.md`: meaningful component and user-outcome checks of the\n  actual CLI, preserving the original stdout and successful-exit conditions.\n- `test-execution-plan.json`: the declared commands, expected test coverage and\n  observed-result criteria required by the original source.\n\nNames and file presence do not establish these meanings. Independent assessment\nmust evaluate their content and source/predecessor correspondence. Valid supplied\nverifiers may be reused; they are not counted as newly authored work. No separate\ndocument or role activation is required merely to increase stage counts.\n\n## Evidence, correction and final outcome\n\nEstablish the supplied CLI's actual behavior before changing it. Its material\nfailure must remain admitted evidence for a subsequently justified, different\nregistered work choice and an actual bounded correction in this same witness\nlineage. Do not force graph names or a complete schedule. Earlier specification\nor design work is permitted when useful; it does not replace the baseline\nmeasurement or authorize an unobserved CLI repair.\n\nAt completion, the CLI runs under Node without package installation, exits zero,\nand prints exactly `Hello, world!` followed by one newline. Both supplied tests\nmust actually execute the current CLI, with at least two passes and zero failures.\nThe four newly authored assets must satisfy the original content requirements.\nFixed prospective command selection is:\n\n1. `node generated/hello-world.mjs`\n2. `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`\n\nThe authored plan must agree with these commands and the original expectations;\nit is not the runtime source of the commands. Preserve the already-selected\nmechanism distinction: the predecessor's stage ordering and handwritten\nexecution-receipt mechanics are realized by the current declared graph and actual\nadmitted C2 evidence. That evidence must retain the real command, arguments,\nenvironment, working directory, exit status, stdout/stderr and resulting test\nobservations. A fabricated success file or a native author's report is insufficient.\n\nThe baseline failure is evidence about its exact earlier subject. Current behavior\nmust be proved against the corrected current subject. Preserve the explicit causal\nrelation between them; neither retarget the old failure to new bytes nor discard\nit merely because the correction changed those bytes. Only support whose claim\ndepends on the old bytes remaining current becomes stale. Unaffected work survives.\n\n## Admitted completion and scope\n\nThe consumer declaration must bind the original and case obligations to explicit\nrealization/proof roles and the selected policy before execution. Meaning and\nsufficiency are attributed F_P judgments. Identity, role correspondence,\ncurrentness and completeness of the selected declared policy are computed from\nadmitted facts. Newly admitted obligations remain visible; missing or unknown\nrequired support leaves the parent open. Scalar UAT success cannot replace the\nrequired pairing and coverage relation.\n\nThe independent assessment must consume current actual evidence and examine all\nmandatory selected outcomes, including authored content, verifier adequacy,\nexecution-plan correspondence and the consequential revision. Its actor/call is\ndistinct from the selected author or measurement producer. Parent completion\nrequires that assessment and eligible admitted coverage. Fresh installed Public\nresult and replay must agree on the actual terminal state and evidence lineage.\n\nProtect original source, oracle, this contract, supplied test sources and installed\nassets. Application writes are confined to the CLI and the four absent asset\npaths above. Command evidence retains its separately declared territory. There\nis no package/network dependency for this application. No caller-owned loop,\nout-of-band application edit, solution-specific framework branch, answer repair\nor oracle change is permitted. Preserve and return the first unexpected failure;\ndo not run an automatic paid retry. Scope and criteria do not shrink after results.\n",
+          "Writable files for this capability: []. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work."
+        ],
+        "readFirst": [
+          "source/original-basic-cli.txt",
+          "source/basic-cli.oracle.json",
+          "generated/hello-world.mjs",
+          "test/component/hello-cli.test.mjs",
+          "test/uat/hello-cli.uat.test.mjs",
+          "source/witness-contract.md"
+        ],
+        "writeRoots": [],
+        "checks": []
+      },
+      "uat": {
+        "outcome": "Perform the justified uat contribution to the complete original outcome.",
+        "instructions": [
+          "# Independent complete-lifecycle witness\n\nComplete the original basic-cli application outcome through the selected installed\nGTL/HoG/ABG library. This contract is prospective input, authored separately from\nthe implementation. The complete original source and independent oracle remain\nunchanged and available to every evaluation that needs them. They are not replaced\nby a shortened task summary or by this contract.\n\nThe original source is `source/original-basic-cli.txt`, SHA-256\n`ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f`.\nThe oracle is `source/basic-cli.oracle.json`, SHA-256\n`028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585`.\nCopy this contract to `source/witness-contract.md` before freezing the new case.\n\n## Supplied input and actual authorship\n\nSupply the original unverified `generated/hello-world.mjs` and the unchanged\ncomponent and UAT test sources from the independently selected basic-cli seed.\nThey have no accepted behavior or author provenance in this Run. No historical\nruntime event is imported. The initial conformance, implementation design,\ntest design and execution-plan files must be absent.\n\nNative work must actually produce these four substantive assets:\n\n- `specification/project-conformance.md`: the small task's Intent, Product boundary,\n  source-grounded requirements and criteria for completion.\n- `design/implementation-design.md`: a realizable design faithful to the original\n  outcome and the conformance asset, including source and verification surfaces.\n- `design/test-design.md`: meaningful component and user-outcome checks of the\n  actual CLI, preserving the original stdout and successful-exit conditions.\n- `test-execution-plan.json`: the declared commands, expected test coverage and\n  observed-result criteria required by the original source.\n\nNames and file presence do not establish these meanings. Independent assessment\nmust evaluate their content and source/predecessor correspondence. Valid supplied\nverifiers may be reused; they are not counted as newly authored work. No separate\ndocument or role activation is required merely to increase stage counts.\n\n## Evidence, correction and final outcome\n\nEstablish the supplied CLI's actual behavior before changing it. Its material\nfailure must remain admitted evidence for a subsequently justified, different\nregistered work choice and an actual bounded correction in this same witness\nlineage. Do not force graph names or a complete schedule. Earlier specification\nor design work is permitted when useful; it does not replace the baseline\nmeasurement or authorize an unobserved CLI repair.\n\nAt completion, the CLI runs under Node without package installation, exits zero,\nand prints exactly `Hello, world!` followed by one newline. Both supplied tests\nmust actually execute the current CLI, with at least two passes and zero failures.\nThe four newly authored assets must satisfy the original content requirements.\nFixed prospective command selection is:\n\n1. `node generated/hello-world.mjs`\n2. `node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs`\n\nThe authored plan must agree with these commands and the original expectations;\nit is not the runtime source of the commands. Preserve the already-selected\nmechanism distinction: the predecessor's stage ordering and handwritten\nexecution-receipt mechanics are realized by the current declared graph and actual\nadmitted C2 evidence. That evidence must retain the real command, arguments,\nenvironment, working directory, exit status, stdout/stderr and resulting test\nobservations. A fabricated success file or a native author's report is insufficient.\n\nThe baseline failure is evidence about its exact earlier subject. Current behavior\nmust be proved against the corrected current subject. Preserve the explicit causal\nrelation between them; neither retarget the old failure to new bytes nor discard\nit merely because the correction changed those bytes. Only support whose claim\ndepends on the old bytes remaining current becomes stale. Unaffected work survives.\n\n## Admitted completion and scope\n\nThe consumer declaration must bind the original and case obligations to explicit\nrealization/proof roles and the selected policy before execution. Meaning and\nsufficiency are attributed F_P judgments. Identity, role correspondence,\ncurrentness and completeness of the selected declared policy are computed from\nadmitted facts. Newly admitted obligations remain visible; missing or unknown\nrequired support leaves the parent open. Scalar UAT success cannot replace the\nrequired pairing and coverage relation.\n\nThe independent assessment must consume current actual evidence and examine all\nmandatory selected outcomes, including authored content, verifier adequacy,\nexecution-plan correspondence and the consequential revision. Its actor/call is\ndistinct from the selected author or measurement producer. Parent completion\nrequires that assessment and eligible admitted coverage. Fresh installed Public\nresult and replay must agree on the actual terminal state and evidence lineage.\n\nProtect original source, oracle, this contract, supplied test sources and installed\nassets. Application writes are confined to the CLI and the four absent asset\npaths above. Command evidence retains its separately declared territory. There\nis no package/network dependency for this application. No caller-owned loop,\nout-of-band application edit, solution-specific framework branch, answer repair\nor oracle change is permitted. Preserve and return the first unexpected failure;\ndo not run an automatic paid retry. Scope and criteria do not shrink after results.\n",
+          "Writable files for this capability: []. Use the actual current inventory and prior admitted assets; do not treat absent files as completed work."
+        ],
+        "readFirst": [
+          "source/original-basic-cli.txt",
+          "source/basic-cli.oracle.json",
+          "generated/hello-world.mjs",
+          "test/component/hello-cli.test.mjs",
+          "test/uat/hello-cli.uat.test.mjs",
+          "source/witness-contract.md",
+          "specification/project-conformance.md",
+          "design/implementation-design.md",
+          "design/test-design.md",
+          "test-execution-plan.json"
+        ],
+        "writeRoots": [],
+        "checks": []
+      }
+    },
+    "testing": {
+      "selectedPaths": [
+        "source/original-basic-cli.txt",
+        "source/basic-cli.oracle.json",
+        "generated/hello-world.mjs",
+        "test/component/hello-cli.test.mjs",
+        "test/uat/hello-cli.uat.test.mjs",
+        "source/witness-contract.md"
+      ],
+      "commands": [
+        {
+          "commandId": "command://default-library-witness/0@5",
+          "executable": "node",
+          "args": [
+            "generated/hello-world.mjs"
+          ],
+          "relativeCwd": ".",
+          "environment": {},
+          "timeoutMs": 20000,
+          "terminationGraceMs": 2000,
+          "expectedReports": []
+        },
+        {
+          "commandId": "command://default-library-witness/1@5",
+          "executable": "node",
+          "args": [
+            "--test",
+            "test/component/hello-cli.test.mjs",
+            "test/uat/hello-cli.uat.test.mjs"
+          ],
+          "relativeCwd": ".",
+          "environment": {},
+          "timeoutMs": 20000,
+          "terminationGraceMs": 2000,
+          "expectedReports": []
+        }
+      ],
+      "outcomePredicates": [],
+      "allowedWriteTerritories": [
+        {
+          "pathKind": "subtree",
+          "relativePath": "execution-evidence"
+        }
+      ]
+    },
+    "assessment": {
+      "sources": [
+        "source/original-basic-cli.txt",
+        "test/component/hello-cli.test.mjs",
+        "test/uat/hello-cli.uat.test.mjs",
+        "source/witness-contract.md",
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "design/test-design.md",
+        "test-execution-plan.json"
+      ],
+      "candidatePath": "generated/hello-world.mjs",
+      "rubricPath": "source/basic-cli.oracle.json",
+      "resultContract": {
+        "contractRef": "contract://default-library-witness/assessment@5",
+        "contractVersion": "5.0.0",
+        "contractKind": "output",
+        "valueKind": "consumer_outcome_assessment"
+      },
+      "schemaAsset": {
+        "productId": "product://default-library-witness/consumer@5",
+        "contractId": "contract://default-library-witness/assessment@5",
+        "bytesBase64": "eyIkaWQiOiJjb250cmFjdDovL2RlZmF1bHQtbGlicmFyeS13aXRuZXNzL2Fzc2Vzc21lbnRANSIsInR5cGUiOiJvYmplY3QiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInJlcXVpcmVkIjpbImtpbmQiLCJkaXNwb3NpdGlvbiIsInJlYXNvbiIsInVucmVzb2x2ZWRDcml0ZXJpYSIsImZ1bGZpbGxtZW50Il0sInByb3BlcnRpZXMiOnsia2luZCI6eyJjb25zdCI6ImNvbnN1bWVyX291dGNvbWVfYXNzZXNzbWVudCJ9LCJkaXNwb3NpdGlvbiI6eyJ0eXBlIjoic3RyaW5nIiwiZW51bSI6WyJzYXRpc2ZpZWQiLCJ1bm1ldCIsImluZGV0ZXJtaW5hdGUiXX0sInJlYXNvbiI6eyJ0eXBlIjoic3RyaW5nIn0sInVucmVzb2x2ZWRDcml0ZXJpYSI6eyJ0eXBlIjoiYXJyYXkiLCJpdGVtcyI6eyJ0eXBlIjoic3RyaW5nIn19LCJmdWxmaWxsbWVudCI6eyJ0eXBlIjoib2JqZWN0IiwiYWRkaXRpb25hbFByb3BlcnRpZXMiOmZhbHNlLCJwcm9wZXJ0aWVzIjp7Im9ibGlnYXRpb25zIjp7InR5cGUiOiJhcnJheSIsIml0ZW1zIjp7InR5cGUiOiJvYmplY3QiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsib2JsaWdhdGlvblJlZiI6eyJ0eXBlIjoic3RyaW5nIiwibWluTGVuZ3RoIjoxfSwicG9saWN5UmVmIjp7InR5cGUiOlsic3RyaW5nIiwibnVsbCJdfSwic2hhcGVSZWYiOnsidHlwZSI6WyJzdHJpbmciLCJudWxsIl19LCJqdWRnbWVudCI6eyJ0eXBlIjoic3RyaW5nIiwiZW51bSI6WyJzYXRpc2ZpZWQiLCJmYWxzaWZpZWQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyIsIm1pbkxlbmd0aCI6MX0sInN1cHBvcnQiOnsidHlwZSI6ImFycmF5IiwiaXRlbXMiOnsidHlwZSI6Im9iamVjdCIsImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZSwicHJvcGVydGllcyI6eyJyb2xlIjp7InR5cGUiOiJzdHJpbmciLCJlbnVtIjpbInJlYWxpemF0aW9uIiwidmVyaWZpZXJfYXJ0aWZhY3QiLCJ2ZXJpZmllcl9leGVjdXRpb24iXX0sInJlc3VsdFJlZiI6eyJ0eXBlIjoic3RyaW5nIiwibWluTGVuZ3RoIjoxfSwiYXJ0aWZhY3RQYXRoIjp7InR5cGUiOlsic3RyaW5nIiwibnVsbCJdfSwiY29tbWFuZElkIjp7InR5cGUiOlsic3RyaW5nIiwibnVsbCJdfX0sInJlcXVpcmVkIjpbInJvbGUiLCJyZXN1bHRSZWYiLCJhcnRpZmFjdFBhdGgiLCJjb21tYW5kSWQiXX19LCJhZHZlcnNlRXZpZGVuY2VSZWZzIjp7InR5cGUiOiJhcnJheSIsIml0ZW1zIjp7InR5cGUiOiJzdHJpbmciLCJtaW5MZW5ndGgiOjF9LCJ1bmlxdWVJdGVtcyI6dHJ1ZX0sImNyaXRlcmlhIjp7InR5cGUiOiJhcnJheSIsIml0ZW1zIjp7InR5cGUiOiJvYmplY3QiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsiY3JpdGVyaW9uUmVmIjp7InR5cGUiOiJzdHJpbmciLCJtaW5MZW5ndGgiOjF9LCJqdWRnbWVudCI6eyJ0eXBlIjoic3RyaW5nIiwiZW51bSI6WyJzYXRpc2ZpZWQiLCJmYWxzaWZpZWQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyIsIm1pbkxlbmd0aCI6MX19LCJyZXF1aXJlZCI6WyJjcml0ZXJpb25SZWYiLCJqdWRnbWVudCIsInJlYXNvbiJdfX0sImRlcHRoIjp7InR5cGUiOiJhcnJheSIsIml0ZW1zIjp7InR5cGUiOiJvYmplY3QiLCJhZGRpdGlvbmFsUHJvcGVydGllcyI6ZmFsc2UsInByb3BlcnRpZXMiOnsiY2xhc3NSZWYiOnsidHlwZSI6InN0cmluZyIsIm1pbkxlbmd0aCI6MX0sImp1ZGdtZW50Ijp7InR5cGUiOiJzdHJpbmciLCJlbnVtIjpbInNhdGlzZmllZCIsImZhbHNpZmllZCIsImluZGV0ZXJtaW5hdGUiLCJub3RfYXBwbGljYWJsZSJdfSwicmVhc29uIjp7InR5cGUiOiJzdHJpbmciLCJtaW5MZW5ndGgiOjF9LCJldmlkZW5jZVJlZnMiOnsidHlwZSI6ImFycmF5IiwiaXRlbXMiOnsidHlwZSI6InN0cmluZyIsIm1pbkxlbmd0aCI6MX0sInVuaXF1ZUl0ZW1zIjp0cnVlfX0sInJlcXVpcmVkIjpbImNsYXNzUmVmIiwianVkZ21lbnQiLCJyZWFzb24iLCJldmlkZW5jZVJlZnMiXX19fSwicmVxdWlyZWQiOlsib2JsaWdhdGlvblJlZiIsInBvbGljeVJlZiIsInNoYXBlUmVmIiwianVkZ21lbnQiLCJyZWFzb24iLCJzdXBwb3J0IiwiYWR2ZXJzZUV2aWRlbmNlUmVmcyIsImNyaXRlcmlhIiwiZGVwdGgiXX19LCJkaXNjb3ZlcmllcyI6eyJ0eXBlIjoiYXJyYXkiLCJpdGVtcyI6eyJ0eXBlIjoib2JqZWN0IiwiYWRkaXRpb25hbFByb3BlcnRpZXMiOmZhbHNlLCJwcm9wZXJ0aWVzIjp7ImNsYXNzUmVmIjp7InR5cGUiOiJzdHJpbmciLCJtaW5MZW5ndGgiOjF9LCJqdWRnbWVudCI6eyJ0eXBlIjoic3RyaW5nIiwiZW51bSI6WyJzYXRpc2ZpZWQiLCJmYWxzaWZpZWQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyIsIm1pbkxlbmd0aCI6MX0sImV2aWRlbmNlUmVmcyI6eyJ0eXBlIjoiYXJyYXkiLCJpdGVtcyI6eyJ0eXBlIjoic3RyaW5nIiwibWluTGVuZ3RoIjoxfSwidW5pcXVlSXRlbXMiOnRydWV9fSwicmVxdWlyZWQiOlsiY2xhc3NSZWYiLCJqdWRnbWVudCIsInJlYXNvbiIsImV2aWRlbmNlUmVmcyJdfX19LCJyZXF1aXJlZCI6WyJvYmxpZ2F0aW9ucyIsImRpc2NvdmVyaWVzIl19fX0K"
+      },
+      "verdictField": "disposition",
+      "satisfiedValue": "satisfied"
+    },
+    "fulfillment": {
+      "profileRef": "policy://abiogenesis/default-library/admitted-fulfillment@5",
+      "context": {
+        "contextRef": "context://default-library-witness/fulfillment-source@5",
+        "sourceLocator": "consumer:complete-basic-cli-and-case",
+        "inventoryDigest": "sha256:698194a2896f4b99998ca70c7cbb34acc85491912bcdf957e4f71d248d4b4ee9",
+        "members": [
+          {
+            "memberRef": "member://default-library-witness/source/original-basic-cli.txt@5",
+            "path": "source/original-basic-cli.txt",
+            "byteCount": 4325,
+            "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+          },
+          {
+            "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+            "path": "source/witness-contract.md",
+            "byteCount": 5656,
+            "digest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b"
+          },
+          {
+            "memberRef": "member://default-library-witness/source/basic-cli.oracle.json@5",
+            "path": "source/basic-cli.oracle.json",
+            "byteCount": 1112,
+            "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+          }
+        ]
+      },
+      "terms": [
+        {
+          "requirementRef": "requirement://default-library-witness/complete-original@5",
+          "sourceBindings": [
+            {
+              "contextRef": "context://default-library-witness/fulfillment-source@5",
+              "memberRef": "member://default-library-witness/source/original-basic-cli.txt@5",
+              "memberDigest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+              "startByte": 0,
+              "endByte": 4325,
+              "spanDigest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+            }
+          ]
+        },
+        {
+          "requirementRef": "requirement://default-library-witness/conformance@5",
+          "sourceBindings": [
+            {
+              "contextRef": "context://default-library-witness/fulfillment-source@5",
+              "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+              "memberDigest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+              "startByte": 1228,
+              "endByte": 1310,
+              "spanDigest": "sha256:600fed1d56f65d56979e2afd6044819eae0f7c87adca968d4901065bda8a0db8"
+            }
+          ]
+        },
+        {
+          "requirementRef": "requirement://default-library-witness/implementation-design@5",
+          "sourceBindings": [
+            {
+              "contextRef": "context://default-library-witness/fulfillment-source@5",
+              "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+              "memberDigest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+              "startByte": 1373,
+              "endByte": 1452,
+              "spanDigest": "sha256:e2e7592b2c4973e7c25d201a0b5ffffeaf5d428820ce95c89d505a4b1da49aea"
+            }
+          ]
+        },
+        {
+          "requirementRef": "requirement://default-library-witness/test-design@5",
+          "sourceBindings": [
+            {
+              "contextRef": "context://default-library-witness/fulfillment-source@5",
+              "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+              "memberDigest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+              "startByte": 1536,
+              "endByte": 1612,
+              "spanDigest": "sha256:71171c9cdff3584427963bef49dbc1edc0ea26f582922bd7e3e99dcf506a156c"
+            }
+          ]
+        },
+        {
+          "requirementRef": "requirement://default-library-witness/execution-plan@5",
+          "sourceBindings": [
+            {
+              "contextRef": "context://default-library-witness/fulfillment-source@5",
+              "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+              "memberDigest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+              "startByte": 1692,
+              "endByte": 1769,
+              "spanDigest": "sha256:9286da58195224fdf88735dbfb9aba6d6c6c48161af35eac3d72f58f6ba92736"
+            }
+          ]
+        },
+        {
+          "requirementRef": "requirement://default-library-witness/behavior@5",
+          "sourceBindings": [
+            {
+              "contextRef": "context://default-library-witness/fulfillment-source@5",
+              "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+              "memberDigest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+              "startByte": 2631,
+              "endByte": 2711,
+              "spanDigest": "sha256:860db814bfc023efad253942b1b87b914043efb10df1429f2805c67c6c24c0f9"
+            }
+          ]
+        },
+        {
+          "requirementRef": "requirement://default-library-witness/revision@5",
+          "sourceBindings": [
+            {
+              "contextRef": "context://default-library-witness/fulfillment-source@5",
+              "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+              "memberDigest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+              "startByte": 2270,
+              "endByte": 2347,
+              "spanDigest": "sha256:ec6ed086903ef1691a195adcd1f6c05fc3d8d14e344901ce3b9426efcfced3ee"
+            }
+          ]
+        }
+      ],
+      "bindings": [
+        {
+          "requirementRef": "requirement://default-library-witness/complete-original@5",
+          "obligationRef": "obligation://default-library-witness/complete-original@5",
+          "realizationContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+          "proofContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+          "proofPolicyRef": "proof-policy://default-library-witness/complete-original@5",
+          "proofShapeRef": "proof-shape://default-library-witness/complete-original@5"
+        },
+        {
+          "requirementRef": "requirement://default-library-witness/conformance@5",
+          "obligationRef": "obligation://default-library-witness/conformance@5",
+          "realizationContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+          "proofContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+          "proofPolicyRef": "proof-policy://default-library-witness/conformance@5",
+          "proofShapeRef": "proof-shape://default-library-witness/conformance@5"
+        },
+        {
+          "requirementRef": "requirement://default-library-witness/implementation-design@5",
+          "obligationRef": "obligation://default-library-witness/implementation-design@5",
+          "realizationContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+          "proofContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+          "proofPolicyRef": "proof-policy://default-library-witness/implementation-design@5",
+          "proofShapeRef": "proof-shape://default-library-witness/implementation-design@5"
+        },
+        {
+          "requirementRef": "requirement://default-library-witness/test-design@5",
+          "obligationRef": "obligation://default-library-witness/test-design@5",
+          "realizationContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+          "proofContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+          "proofPolicyRef": "proof-policy://default-library-witness/test-design@5",
+          "proofShapeRef": "proof-shape://default-library-witness/test-design@5"
+        },
+        {
+          "requirementRef": "requirement://default-library-witness/execution-plan@5",
+          "obligationRef": "obligation://default-library-witness/execution-plan@5",
+          "realizationContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+          "proofContractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+          "proofPolicyRef": "proof-policy://default-library-witness/execution-plan@5",
+          "proofShapeRef": "proof-shape://default-library-witness/execution-plan@5"
+        },
+        {
+          "requirementRef": "requirement://default-library-witness/behavior@5",
+          "obligationRef": "obligation://default-library-witness/behavior@5",
+          "realizationContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+          "proofContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+          "proofPolicyRef": "proof-policy://default-library-witness/behavior@5",
+          "proofShapeRef": "proof-shape://default-library-witness/behavior@5"
+        },
+        {
+          "requirementRef": "requirement://default-library-witness/revision@5",
+          "obligationRef": "obligation://default-library-witness/revision@5",
+          "realizationContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+          "proofContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+          "proofPolicyRef": "proof-policy://default-library-witness/revision@5",
+          "proofShapeRef": "proof-shape://default-library-witness/revision@5"
+        }
+      ],
+      "policies": [
+        {
+          "policyRef": "proof-policy://default-library-witness/complete-original@5",
+          "sourceRequirementRef": "requirement://default-library-witness/complete-original@5",
+          "sourceBindings": [
+            {
+              "contextRef": "context://default-library-witness/fulfillment-source@5",
+              "memberRef": "member://default-library-witness/source/original-basic-cli.txt@5",
+              "memberDigest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+              "startByte": 0,
+              "endByte": 4325,
+              "spanDigest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+            }
+          ],
+          "scope": "Complete original outcome; preserve every original obligation and honest execution-result meaning.",
+          "realizationMeaning": [
+            "Complete original outcome; preserve every original obligation and honest execution-result meaning."
+          ],
+          "proofMeaning": [
+            "Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected."
+          ],
+          "unprovedScope": [],
+          "closureRule": "All selected evidence roles and semantic/depth criteria under the declared current-independent rule.",
+          "obligationRef": "obligation://default-library-witness/complete-original@5"
+        },
+        {
+          "policyRef": "proof-policy://default-library-witness/conformance@5",
+          "sourceRequirementRef": "requirement://default-library-witness/conformance@5",
+          "sourceBindings": [
+            {
+              "contextRef": "context://default-library-witness/fulfillment-source@5",
+              "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+              "memberDigest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+              "startByte": 1228,
+              "endByte": 1310,
+              "spanDigest": "sha256:600fed1d56f65d56979e2afd6044819eae0f7c87adca968d4901065bda8a0db8"
+            }
+          ],
+          "scope": "Fresh substantive source-grounded conformance, Intent/Product/Requirements and completion criteria.",
+          "realizationMeaning": [
+            "Fresh substantive source-grounded conformance, Intent/Product/Requirements and completion criteria."
+          ],
+          "proofMeaning": [
+            "Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected."
+          ],
+          "unprovedScope": [],
+          "closureRule": "All selected evidence roles and semantic/depth criteria under the declared current-independent rule.",
+          "obligationRef": "obligation://default-library-witness/conformance@5"
+        },
+        {
+          "policyRef": "proof-policy://default-library-witness/implementation-design@5",
+          "sourceRequirementRef": "requirement://default-library-witness/implementation-design@5",
+          "sourceBindings": [
+            {
+              "contextRef": "context://default-library-witness/fulfillment-source@5",
+              "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+              "memberDigest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+              "startByte": 1373,
+              "endByte": 1452,
+              "spanDigest": "sha256:e2e7592b2c4973e7c25d201a0b5ffffeaf5d428820ce95c89d505a4b1da49aea"
+            }
+          ],
+          "scope": "Fresh realizable implementation design faithful to source and actual predecessor conformance.",
+          "realizationMeaning": [
+            "Fresh realizable implementation design faithful to source and actual predecessor conformance."
+          ],
+          "proofMeaning": [
+            "Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected."
+          ],
+          "unprovedScope": [],
+          "closureRule": "All selected evidence roles and semantic/depth criteria under the declared current-independent rule.",
+          "obligationRef": "obligation://default-library-witness/implementation-design@5"
+        },
+        {
+          "policyRef": "proof-policy://default-library-witness/test-design@5",
+          "sourceRequirementRef": "requirement://default-library-witness/test-design@5",
+          "sourceBindings": [
+            {
+              "contextRef": "context://default-library-witness/fulfillment-source@5",
+              "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+              "memberDigest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+              "startByte": 1536,
+              "endByte": 1612,
+              "spanDigest": "sha256:71171c9cdff3584427963bef49dbc1edc0ea26f582922bd7e3e99dcf506a156c"
+            }
+          ],
+          "scope": "Fresh test-design meaning preserving exact CLI output/exit and actual test surfaces.",
+          "realizationMeaning": [
+            "Fresh test-design meaning preserving exact CLI output/exit and actual test surfaces."
+          ],
+          "proofMeaning": [
+            "Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected."
+          ],
+          "unprovedScope": [],
+          "closureRule": "All selected evidence roles and semantic/depth criteria under the declared current-independent rule.",
+          "obligationRef": "obligation://default-library-witness/test-design@5"
+        },
+        {
+          "policyRef": "proof-policy://default-library-witness/execution-plan@5",
+          "sourceRequirementRef": "requirement://default-library-witness/execution-plan@5",
+          "sourceBindings": [
+            {
+              "contextRef": "context://default-library-witness/fulfillment-source@5",
+              "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+              "memberDigest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+              "startByte": 1692,
+              "endByte": 1769,
+              "spanDigest": "sha256:9286da58195224fdf88735dbfb9aba6d6c6c48161af35eac3d72f58f6ba92736"
+            }
+          ],
+          "scope": "Fresh JSON plan agrees with fixed prospective commands and original expectations; it does not control execution.",
+          "realizationMeaning": [
+            "Fresh JSON plan agrees with fixed prospective commands and original expectations; it does not control execution."
+          ],
+          "proofMeaning": [
+            "Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected."
+          ],
+          "unprovedScope": [],
+          "closureRule": "All selected evidence roles and semantic/depth criteria under the declared current-independent rule.",
+          "obligationRef": "obligation://default-library-witness/execution-plan@5"
+        },
+        {
+          "policyRef": "proof-policy://default-library-witness/behavior@5",
+          "sourceRequirementRef": "requirement://default-library-witness/behavior@5",
+          "sourceBindings": [
+            {
+              "contextRef": "context://default-library-witness/fulfillment-source@5",
+              "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+              "memberDigest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+              "startByte": 2631,
+              "endByte": 2711,
+              "spanDigest": "sha256:860db814bfc023efad253942b1b87b914043efb10df1429f2805c67c6c24c0f9"
+            }
+          ],
+          "scope": "Actual current CLI stdout, successful exit, at least two real passing tests and zero failures.",
+          "realizationMeaning": [
+            "Actual current CLI stdout, successful exit, at least two real passing tests and zero failures."
+          ],
+          "proofMeaning": [
+            "Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected."
+          ],
+          "unprovedScope": [],
+          "closureRule": "All selected evidence roles and semantic/depth criteria under the declared current-independent rule.",
+          "obligationRef": "obligation://default-library-witness/behavior@5"
+        },
+        {
+          "policyRef": "proof-policy://default-library-witness/revision@5",
+          "sourceRequirementRef": "requirement://default-library-witness/revision@5",
+          "sourceBindings": [
+            {
+              "contextRef": "context://default-library-witness/fulfillment-source@5",
+              "memberRef": "member://default-library-witness/source/witness-contract.md@5",
+              "memberDigest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+              "startByte": 2270,
+              "endByte": 2347,
+              "spanDigest": "sha256:ec6ed086903ef1691a195adcd1f6c05fc3d8d14e344901ce3b9426efcfced3ee"
+            }
+          ],
+          "scope": "Actual baseline failure before CLI change, changed registered choice and consequential same-lineage correction; old failure remains historical.",
+          "realizationMeaning": [
+            "Actual baseline failure before CLI change, changed registered choice and consequential same-lineage correction; old failure remains historical."
+          ],
+          "proofMeaning": [
+            "Independent semantic assessment of exact current evidence; retain explicit historical counterevidence where selected."
+          ],
+          "unprovedScope": [],
+          "closureRule": "All selected evidence roles and semantic/depth criteria under the declared current-independent rule.",
+          "obligationRef": "obligation://default-library-witness/revision@5"
+        }
+      ],
+      "shapes": [
+        {
+          "proofShapeRef": "proof-shape://default-library-witness/complete-original@5",
+          "requirementRef": "requirement://default-library-witness/complete-original@5",
+          "obligationRef": "obligation://default-library-witness/complete-original@5",
+          "requiredEvidenceRoles": [
+            "realization",
+            "verifier_artifact",
+            "verifier_execution",
+            "semantic_assessment"
+          ],
+          "sharedBasis": [
+            "same-invocation",
+            "exact-source",
+            "current-subject"
+          ],
+          "requiredContent": [
+            "Complete original outcome; preserve every original obligation and honest execution-result meaning."
+          ],
+          "nativeCarrierBoundary": "Actual admitted native/C2/assessment child observations only.",
+          "roleContractRefs": {
+            "realization": "contract://abiogenesis/worksite/command-execution-observation@5",
+            "proof": "contract://abiogenesis/worksite/command-execution-observation@5"
+          }
+        },
+        {
+          "proofShapeRef": "proof-shape://default-library-witness/conformance@5",
+          "requirementRef": "requirement://default-library-witness/conformance@5",
+          "obligationRef": "obligation://default-library-witness/conformance@5",
+          "requiredEvidenceRoles": [
+            "realization",
+            "semantic_assessment"
+          ],
+          "sharedBasis": [
+            "same-invocation",
+            "exact-source",
+            "current-subject"
+          ],
+          "requiredContent": [
+            "Fresh substantive source-grounded conformance, Intent/Product/Requirements and completion criteria."
+          ],
+          "nativeCarrierBoundary": "Actual admitted native/C2/assessment child observations only.",
+          "roleContractRefs": {
+            "realization": "contract://abiogenesis/worksite/native-work/observation@5",
+            "proof": "contract://abiogenesis/worksite/native-work/observation@5"
+          }
+        },
+        {
+          "proofShapeRef": "proof-shape://default-library-witness/implementation-design@5",
+          "requirementRef": "requirement://default-library-witness/implementation-design@5",
+          "obligationRef": "obligation://default-library-witness/implementation-design@5",
+          "requiredEvidenceRoles": [
+            "realization",
+            "semantic_assessment"
+          ],
+          "sharedBasis": [
+            "same-invocation",
+            "exact-source",
+            "current-subject"
+          ],
+          "requiredContent": [
+            "Fresh realizable implementation design faithful to source and actual predecessor conformance."
+          ],
+          "nativeCarrierBoundary": "Actual admitted native/C2/assessment child observations only.",
+          "roleContractRefs": {
+            "realization": "contract://abiogenesis/worksite/native-work/observation@5",
+            "proof": "contract://abiogenesis/worksite/native-work/observation@5"
+          }
+        },
+        {
+          "proofShapeRef": "proof-shape://default-library-witness/test-design@5",
+          "requirementRef": "requirement://default-library-witness/test-design@5",
+          "obligationRef": "obligation://default-library-witness/test-design@5",
+          "requiredEvidenceRoles": [
+            "realization",
+            "semantic_assessment"
+          ],
+          "sharedBasis": [
+            "same-invocation",
+            "exact-source",
+            "current-subject"
+          ],
+          "requiredContent": [
+            "Fresh test-design meaning preserving exact CLI output/exit and actual test surfaces."
+          ],
+          "nativeCarrierBoundary": "Actual admitted native/C2/assessment child observations only.",
+          "roleContractRefs": {
+            "realization": "contract://abiogenesis/worksite/native-work/observation@5",
+            "proof": "contract://abiogenesis/worksite/native-work/observation@5"
+          }
+        },
+        {
+          "proofShapeRef": "proof-shape://default-library-witness/execution-plan@5",
+          "requirementRef": "requirement://default-library-witness/execution-plan@5",
+          "obligationRef": "obligation://default-library-witness/execution-plan@5",
+          "requiredEvidenceRoles": [
+            "realization",
+            "semantic_assessment"
+          ],
+          "sharedBasis": [
+            "same-invocation",
+            "exact-source",
+            "current-subject"
+          ],
+          "requiredContent": [
+            "Fresh JSON plan agrees with fixed prospective commands and original expectations; it does not control execution."
+          ],
+          "nativeCarrierBoundary": "Actual admitted native/C2/assessment child observations only.",
+          "roleContractRefs": {
+            "realization": "contract://abiogenesis/worksite/native-work/observation@5",
+            "proof": "contract://abiogenesis/worksite/native-work/observation@5"
+          }
+        },
+        {
+          "proofShapeRef": "proof-shape://default-library-witness/behavior@5",
+          "requirementRef": "requirement://default-library-witness/behavior@5",
+          "obligationRef": "obligation://default-library-witness/behavior@5",
+          "requiredEvidenceRoles": [
+            "realization",
+            "verifier_artifact",
+            "verifier_execution",
+            "semantic_assessment"
+          ],
+          "sharedBasis": [
+            "same-invocation",
+            "exact-source",
+            "current-subject"
+          ],
+          "requiredContent": [
+            "Actual current CLI stdout, successful exit, at least two real passing tests and zero failures."
+          ],
+          "nativeCarrierBoundary": "Actual admitted native/C2/assessment child observations only.",
+          "roleContractRefs": {
+            "realization": "contract://abiogenesis/worksite/command-execution-observation@5",
+            "proof": "contract://abiogenesis/worksite/command-execution-observation@5"
+          }
+        },
+        {
+          "proofShapeRef": "proof-shape://default-library-witness/revision@5",
+          "requirementRef": "requirement://default-library-witness/revision@5",
+          "obligationRef": "obligation://default-library-witness/revision@5",
+          "requiredEvidenceRoles": [
+            "realization",
+            "verifier_artifact",
+            "verifier_execution",
+            "semantic_assessment"
+          ],
+          "sharedBasis": [
+            "same-invocation",
+            "exact-source",
+            "current-subject"
+          ],
+          "requiredContent": [
+            "Actual baseline failure before CLI change, changed registered choice and consequential same-lineage correction; old failure remains historical."
+          ],
+          "nativeCarrierBoundary": "Actual admitted native/C2/assessment child observations only.",
+          "roleContractRefs": {
+            "realization": "contract://abiogenesis/worksite/command-execution-observation@5",
+            "proof": "contract://abiogenesis/worksite/command-execution-observation@5"
+          }
+        }
+      ],
+      "completeness": [
+        {
+          "policyRef": "proof-policy://default-library-witness/complete-original@5",
+          "semanticCriteria": [
+            "criterion://default-library-witness/complete-original@5"
+          ],
+          "depthClasses": [
+            {
+              "classRef": "depth://default-library-witness/complete-original@5",
+              "permitsNonApplicability": false
+            }
+          ],
+          "strengthRuleRef": "rule://abiogenesis/default-library/declared-current-independent-evidence@5",
+          "adverseCommands": []
+        },
+        {
+          "policyRef": "proof-policy://default-library-witness/conformance@5",
+          "semanticCriteria": [
+            "criterion://default-library-witness/conformance@5"
+          ],
+          "depthClasses": [
+            {
+              "classRef": "depth://default-library-witness/conformance@5",
+              "permitsNonApplicability": false
+            }
+          ],
+          "strengthRuleRef": "rule://abiogenesis/default-library/declared-current-independent-evidence@5",
+          "adverseCommands": []
+        },
+        {
+          "policyRef": "proof-policy://default-library-witness/implementation-design@5",
+          "semanticCriteria": [
+            "criterion://default-library-witness/implementation-design@5"
+          ],
+          "depthClasses": [
+            {
+              "classRef": "depth://default-library-witness/implementation-design@5",
+              "permitsNonApplicability": false
+            }
+          ],
+          "strengthRuleRef": "rule://abiogenesis/default-library/declared-current-independent-evidence@5",
+          "adverseCommands": []
+        },
+        {
+          "policyRef": "proof-policy://default-library-witness/test-design@5",
+          "semanticCriteria": [
+            "criterion://default-library-witness/test-design@5"
+          ],
+          "depthClasses": [
+            {
+              "classRef": "depth://default-library-witness/test-design@5",
+              "permitsNonApplicability": false
+            }
+          ],
+          "strengthRuleRef": "rule://abiogenesis/default-library/declared-current-independent-evidence@5",
+          "adverseCommands": []
+        },
+        {
+          "policyRef": "proof-policy://default-library-witness/execution-plan@5",
+          "semanticCriteria": [
+            "criterion://default-library-witness/execution-plan@5"
+          ],
+          "depthClasses": [
+            {
+              "classRef": "depth://default-library-witness/execution-plan@5",
+              "permitsNonApplicability": false
+            }
+          ],
+          "strengthRuleRef": "rule://abiogenesis/default-library/declared-current-independent-evidence@5",
+          "adverseCommands": []
+        },
+        {
+          "policyRef": "proof-policy://default-library-witness/behavior@5",
+          "semanticCriteria": [
+            "criterion://default-library-witness/behavior@5"
+          ],
+          "depthClasses": [
+            {
+              "classRef": "depth://default-library-witness/behavior@5",
+              "permitsNonApplicability": false
+            }
+          ],
+          "strengthRuleRef": "rule://abiogenesis/default-library/declared-current-independent-evidence@5",
+          "adverseCommands": []
+        },
+        {
+          "policyRef": "proof-policy://default-library-witness/revision@5",
+          "semanticCriteria": [
+            "criterion://default-library-witness/revision@5"
+          ],
+          "depthClasses": [
+            {
+              "classRef": "depth://default-library-witness/revision@5",
+              "permitsNonApplicability": false
+            }
+          ],
+          "strengthRuleRef": "rule://abiogenesis/default-library/declared-current-independent-evidence@5",
+          "adverseCommands": [
+            {
+              "commandId": "command://default-library-witness/1@5",
+              "disposition": "nonzero"
+            }
+          ]
+        }
+      ],
+      "discoveryClasses": [
+        {
+          "classRef": "discovery://default-library-witness/source-obligations@5",
+          "ruleRef": "rule://abiogenesis/default-library/admitted-requirement-proposals@5",
+          "templatePolicyRef": "proof-policy://default-library-witness/complete-original@5",
+          "templateShapeRef": "proof-shape://default-library-witness/complete-original@5"
+        }
+      ],
+      "assessmentContractRef": "contract://default-library-witness/assessment@5"
+    }
+  },
+  "synthesis": null,
+  "observations": [],
+  "unresolvedSupportRefs": [
+    "obligation://default-library-witness/complete-original@5",
+    "obligation://default-library-witness/conformance@5",
+    "obligation://default-library-witness/implementation-design@5",
+    "obligation://default-library-witness/test-design@5",
+    "obligation://default-library-witness/execution-plan@5",
+    "obligation://default-library-witness/behavior@5",
+    "obligation://default-library-witness/revision@5"
+  ],
+  "terminal": false,
+  "fulfillment": {
+    "additions": [],
+    "coverage": [
+      {
+        "obligationRef": "obligation://default-library-witness/complete-original@5",
+        "disposition": "open",
+        "gaps": [
+          "assessment_missing"
+        ],
+        "assessmentResultRef": null,
+        "supportResultRefs": [],
+        "dependencies": []
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/conformance@5",
+        "disposition": "open",
+        "gaps": [
+          "assessment_missing"
+        ],
+        "assessmentResultRef": null,
+        "supportResultRefs": [],
+        "dependencies": []
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/implementation-design@5",
+        "disposition": "open",
+        "gaps": [
+          "assessment_missing"
+        ],
+        "assessmentResultRef": null,
+        "supportResultRefs": [],
+        "dependencies": []
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/test-design@5",
+        "disposition": "open",
+        "gaps": [
+          "assessment_missing"
+        ],
+        "assessmentResultRef": null,
+        "supportResultRefs": [],
+        "dependencies": []
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/execution-plan@5",
+        "disposition": "open",
+        "gaps": [
+          "assessment_missing"
+        ],
+        "assessmentResultRef": null,
+        "supportResultRefs": [],
+        "dependencies": []
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/behavior@5",
+        "disposition": "open",
+        "gaps": [
+          "assessment_missing"
+        ],
+        "assessmentResultRef": null,
+        "supportResultRefs": [],
+        "dependencies": []
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/revision@5",
+        "disposition": "open",
+        "gaps": [
+          "assessment_missing"
+        ],
+        "assessmentResultRef": null,
+        "supportResultRefs": [],
+        "dependencies": []
+      }
+    ]
+  }
+}

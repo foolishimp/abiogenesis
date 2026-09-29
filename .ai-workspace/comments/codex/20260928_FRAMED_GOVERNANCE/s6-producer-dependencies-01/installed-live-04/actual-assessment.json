@@ -1,0 +1,321 @@
+{
+  "disposition": "satisfied",
+  "fulfillment": {
+    "discoveries": [
+      {
+        "classRef": "discovery://default-library-witness/source-obligations@5",
+        "evidenceRefs": [
+          "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+          "result://abiogenesis/b63cfd1dc0bc193ebab9987177c88119d945add00bc62eaf4b955388dc513aea",
+          "result://abiogenesis/50dd6dafe6c0a3b5ba48e11fa757a465334ca180239d67d0a2b84a3768b5dee4",
+          "result://abiogenesis/7f26f5a0fa42da01286419f23462cd02fee4cd275eb5e48cc316ed8cef34ea1e",
+          "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571"
+        ],
+        "judgment": "satisfied",
+        "reason": "No additional source obligation needs admission. Every original stage instruction and oracle field falls within one of the seven declared obligations: source, component/UAT test source and execution result fall under complete-original and behavior.\nNon-obligation observations, recorded as residuals for the owner:\n1. The implementation design's off-root error code wording (ERR_MODULE_NOT_FOUND; the actual code is MODULE_NOT_FOUND).\n2. The conformance's 'criteria fixed before results' wording, although it was authored after the admitted runs.\n3. The protected verifiers set no spawn timeout; only the executor timeout bounds a hang.\n4. The admitted evidence does not record the Node version.\n5. The component and UAT verifiers are mechanically identical, as the original prescribes.\n6. The admitted runs executed in a sandbox copy, bound to the worksite by identity.\nNone of these falsifies a source requirement or shrinks scope."
+      }
+    ],
+    "obligations": [
+      {
+        "adverseEvidenceRefs": [],
+        "criteria": [
+          {
+            "criterionRef": "criterion://default-library-witness/complete-original@5",
+            "judgment": "satisfied",
+            "reason": "Every original stage instruction and every oracle field has current, independently checked support. The honest execution-result meaning comes from admitted C2 observations of the current bytes, not from a report or a fabricated file. No original obligation was narrowed, and the authored criteria are stricter than or equal to the source."
+          }
+        ],
+        "depth": [
+          {
+            "classRef": "depth://default-library-witness/complete-original@5",
+            "evidenceRefs": [
+              "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+              "result://abiogenesis/7f26f5a0fa42da01286419f23462cd02fee4cd275eb5e48cc316ed8cef34ea1e",
+              "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+              "result://abiogenesis/50dd6dafe6c0a3b5ba48e11fa757a465334ca180239d67d0a2b84a3768b5dee4",
+              "result://abiogenesis/b63cfd1dc0bc193ebab9987177c88119d945add00bc62eaf4b955388dc513aea"
+            ],
+            "judgment": "satisfied",
+            "reason": "I did not stop at file presence or a green count. Checks performed:\n- byte-level stdout (14 bytes; digest equal to the independently computed expected value);\n- exit status, signal and timeout;\n- per-file pairing from the ✔ lines for each uniquely named test;\n- currentness of the CLI and both verifier dependencies against the worksite;\n- protected-file identity;\n- absence of package and result files;\n- write territory, from the native changedPaths;\n- content of all four authored assets against each original stage instruction."
+          }
+        ],
+        "judgment": "satisfied",
+        "obligationRef": "obligation://default-library-witness/complete-original@5",
+        "policyRef": "proof-policy://default-library-witness/complete-original@5",
+        "reason": "All eight original stage meanings are realized on current subjects.\n- conformance_project: conformance asset written alone by its vector. It declares a minimal CLI traversal, source surface generated/hello-world.mjs, and an execution proof that observes exact stdout.\n- implementation_design: cites the prior conformance as authority. Defines the minimal Node script and names both test surfaces.\n- source: a one-literal correction that touched only the CLI. It runs under node with no imports or package.\n- test_design: specifies component and UAT spawn checks asserting status 0 and exact stdout.\n- component_test_source and uat_test_source: supplied, protected verifiers that meet every instruction (node:test, node:assert/strict, spawnSync, process.execPath with ['generated/hello-world.mjs'], strict status and stdout assertions).\n- test_execution_plan: command node, the exact args, expectedTestPassCount 2, expectedStdoutMatch 'fail 0' with no pinned pass count, assertedReturnValue 'Hello, world!'. The execution and result-recording meaning is carried by admitted C2 b609386b, which records executable, args, environment, relativeCwd, integer exit status, stdout and stderr.\n- test_execution_result: the plan command exited 0, observed pass 2 >= 2, and planSatisfied holds, including fixed command 1 stdout = assertedReturnValue + LF.\nOracle checks: case (no args, stdout, exit 0), minimumTestPasses, requiredArtifacts and requiredTestFiles all hold.\nContract-permitted deviations:\n- stage order not canonical;\n- one design vector wrote three stage assets;\n- no handwritten test-execution-result.json.\nThe contract permits all three: no forced schedule, no activation just to raise stage counts, and the execution-receipt mechanism is realized by C2. None removes any original obligation.",
+        "shapeRef": "proof-shape://default-library-witness/complete-original@5",
+        "support": [
+          {
+            "artifactPath": "generated/hello-world.mjs",
+            "commandId": "command://default-library-witness/0@5",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "role": "realization"
+          },
+          {
+            "artifactPath": "test/component/hello-cli.test.mjs",
+            "commandId": "command://default-library-witness/1@5",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "role": "verifier_artifact"
+          },
+          {
+            "artifactPath": "test/uat/hello-cli.uat.test.mjs",
+            "commandId": "command://default-library-witness/1@5",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "role": "verifier_artifact"
+          },
+          {
+            "artifactPath": null,
+            "commandId": "command://default-library-witness/1@5",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "role": "verifier_execution"
+          }
+        ]
+      },
+      {
+        "adverseEvidenceRefs": [],
+        "criteria": [
+          {
+            "criterionRef": "criterion://default-library-witness/conformance@5",
+            "judgment": "satisfied",
+            "reason": "Intent, Product boundary, source-grounded requirements and completion criteria are all present and consistent with the original conformance_project instructions. It declares the traversal, the source surface generated/hello-world.mjs, and an execution proof that runs the CLI and observes exact stdout. Its vector wrote no source, tests, package files or plans."
+          }
+        ],
+        "depth": [
+          {
+            "classRef": "depth://default-library-witness/conformance@5",
+            "evidenceRefs": [
+              "result://abiogenesis/7f26f5a0fa42da01286419f23462cd02fee4cd275eb5e48cc316ed8cef34ea1e"
+            ],
+            "judgment": "satisfied",
+            "reason": "I checked each REQ citation against the original text, compared the AC predicates with the oracle, and verified the stated expected-stdout digest by computing it. I confirmed the asset is current and that its vector's changedPaths contain only this file. I read the conflict and unknown lists for silent resolution and found none."
+          }
+        ],
+        "judgment": "satisfied",
+        "obligationRef": "obligation://default-library-witness/conformance@5",
+        "policyRef": "proof-policy://default-library-witness/conformance@5",
+        "reason": "specification/project-conformance.md is fresh and substantive, and the specification vector wrote only this file. Contents:\n- Intent (§2): the minimal Node Hello World CLI through a complete traceable traversal.\n- Product boundary (§3): the single entry with no args from the project root, stdout and status as exits, and args/stdin/packages/network/other runtimes excluded. The GTL/HoG/ABG Development Product is kept separate.\n- Traversal (§4): all eight original stages mapped.\n- Requirements REQ-01 to REQ-14: each cites its exact original, contract or oracle instruction.\n- Acceptance AC-01 to AC-15: checkable predicates, including exact stdout bytes, the plan-field predicates, a precise planSatisfied, per-file pairing, currentness and the lineage rule.\n- Conflicts C1 to C8 are kept visible, not silently resolved. The interpretations stay faithful: C4 keeps the original top-level fields, C5 keeps exact stdout, C6 takes the stricter status reading.\nMinor non-material wording defect: §6 says criteria are 'fixed before results', but the asset was authored after admitted observations. Its criteria are not narrower than the original, so no scope shrank.",
+        "shapeRef": "proof-shape://default-library-witness/conformance@5",
+        "support": [
+          {
+            "artifactPath": "specification/project-conformance.md",
+            "commandId": null,
+            "resultRef": "result://abiogenesis/7f26f5a0fa42da01286419f23462cd02fee4cd275eb5e48cc316ed8cef34ea1e",
+            "role": "realization"
+          }
+        ]
+      },
+      {
+        "adverseEvidenceRefs": [],
+        "criteria": [
+          {
+            "criterionRef": "criterion://default-library-witness/implementation-design@5",
+            "judgment": "satisfied",
+            "reason": "It meets the original implementation_design instructions:\n- uses the conformance as authority;\n- defines a minimal Node CLI at generated/hello-world.mjs;\n- prints exactly 'Hello, world!' plus one newline;\n- names component and UAT surfaces that execute the CLI and assert stdout.\nIt is consistent with the actual predecessor conformance (the AC-09 correspondence table) and with the current CLI."
+          }
+        ],
+        "depth": [
+          {
+            "classRef": "depth://default-library-witness/implementation-design@5",
+            "evidenceRefs": [
+              "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+              "result://abiogenesis/7f26f5a0fa42da01286419f23462cd02fee4cd275eb5e48cc316ed8cef34ea1e"
+            ],
+            "judgment": "satisfied",
+            "reason": "I compared the specified bytes with the candidate's hex dump and checked the cited authority and verifier identities against current files. I probed one stated failure boundary (off-root invocation): the effect matches and the error-code wording is slightly off. I confirmed that the lineage section keeps the baseline attributed to the old bytes."
+          }
+        ],
+        "judgment": "satisfied",
+        "obligationRef": "obligation://default-library-witness/implementation-design@5",
+        "policyRef": "proof-policy://default-library-witness/implementation-design@5",
+        "reason": "design/implementation-design.md is realizable and faithful:\n- It names the prior conformance asset as governing authority; its cited identity matches the current file.\n- It defines one dependency-free ES module at generated/hello-world.mjs. The exact 30-byte content and hex it specifies equal the current CLI bytes, which I verified.\n- It explains why console.log emits exactly one LF, no CR or BOM, and exit 0.\n- It rules out competing paths (process.exit, missing or doubled newline, computed greeting, packages).\n- It names both component and UAT test surfaces, with their spawn and assertion behavior, plus both fixed commands and their cwd/interpreter/currentness seams.\nThe admitted C2 evidence on the current bytes shows the design is realized. Minor non-material inaccuracy: the off-root failure is described as ERR_MODULE_NOT_FOUND, but Node 24 reports MODULE_NOT_FOUND. The stated effect (exit 1, empty stdout, safe failure outside the supported entry) is correct.",
+        "shapeRef": "proof-shape://default-library-witness/implementation-design@5",
+        "support": [
+          {
+            "artifactPath": "design/implementation-design.md",
+            "commandId": null,
+            "resultRef": "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+            "role": "realization"
+          }
+        ]
+      },
+      {
+        "adverseEvidenceRefs": [],
+        "criteria": [
+          {
+            "criterionRef": "criterion://default-library-witness/test-design@5",
+            "judgment": "satisfied",
+            "reason": "It preserves the exact CLI output and exit conditions and binds to the actual test surfaces, whose file identities and test names match the protected sources. The component and user-outcome checks are meaningful, not tautological: the expected literals are independent of the CLI source, and a real child process runs."
+          }
+        ],
+        "depth": [
+          {
+            "classRef": "depth://default-library-witness/test-design@5",
+            "evidenceRefs": [
+              "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+              "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+              "result://abiogenesis/b63cfd1dc0bc193ebab9987177c88119d945add00bc62eaf4b955388dc513aea"
+            ],
+            "judgment": "satisfied",
+            "reason": "I checked the TD-01/TD-02 descriptions against the verifier source text and the pairing by unique test names against the admitted runner output. I checked the adequacy claims (strict equality, a BOM survives utf8 decoding, a wrong cwd causes a safe failure) and confirmed the red-then-green discrimination in admitted evidence on two distinct subjects."
+          }
+        ],
+        "judgment": "satisfied",
+        "obligationRef": "obligation://default-library-witness/test-design@5",
+        "policyRef": "proof-policy://default-library-witness/test-design@5",
+        "reason": "design/test-design.md specifies checks against the actual CLI:\n- TD-01, component process contract, and TD-02, UAT user-visible outcome: both spawn node generated/hello-world.mjs via process.execPath with no mocks, and strictly assert status 0 and stdout exactly 'Hello, world!\\n'.\n- TD-03: the direct fixed-command-1 execution proof.\n- TD-04: the suite run, with pass >= 2, fail 0 and per-file pairing.\nIt shows verifier adequacy with a defect-rejection table and the observed red-then-green discrimination, each result kept on its own CLI bytes. It discloses its limits: stderr, hangs, Node version.\nThe component and UAT checks use identical mechanics. The original test_design prescribes exactly that mechanism for both. For this single-statement CLI the process interface is the user's supported entry, and the UAT check uses no private path, so the distinct claims are adequately borne.",
+        "shapeRef": "proof-shape://default-library-witness/test-design@5",
+        "support": [
+          {
+            "artifactPath": "design/test-design.md",
+            "commandId": null,
+            "resultRef": "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+            "role": "realization"
+          }
+        ]
+      },
+      {
+        "adverseEvidenceRefs": [],
+        "criteria": [
+          {
+            "criterionRef": "criterion://default-library-witness/execution-plan@5",
+            "judgment": "satisfied",
+            "reason": "The fresh JSON plan agrees with both fixed commands and every original expectation: command, args, pass floor, zero-failure match without pinning, and asserted return value. Its planSatisfied and acceptance predicates hold on the admitted current C2 evidence."
+          }
+        ],
+        "depth": [
+          {
+            "classRef": "depth://default-library-witness/execution-plan@5",
+            "evidenceRefs": [
+              "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+              "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470"
+            ],
+            "judgment": "satisfied",
+            "reason": "I evaluated the plan's predicates programmatically and cross-checked fixedCommands against the contract's two commands and the admitted command ids. I checked that every authority and verifier identity it cites matches current files and that no observed-result fields are present. I evaluated the resultCriteria against b609386b stdout: exit 0, 'fail 0' present, pass 2 >= 2, pairing holds, and command 0 stdout equals assertedReturnValue + LF."
+          }
+        ],
+        "judgment": "satisfied",
+        "obligationRef": "obligation://default-library-witness/execution-plan@5",
+        "policyRef": "proof-policy://default-library-witness/execution-plan@5",
+        "reason": "test-execution-plan.json parses. I checked the original predicates myself:\n- command === 'node';\n- args deep-equal ['--test','test/component/hello-cli.test.mjs','test/uat/hello-cli.uat.test.mjs'];\n- expectedTestPassCount is the integer 2;\n- expectedStdoutMatch 'fail 0' pins no pass count;\n- assertedReturnValue === 'Hello, world!';\n- cwd is '.' (project root).\nIt agrees with both fixed prospective commands: fixedCommands maps them to command ids 0 and 1, and expectedStdout 'Hello, world!\\n' is derived as assertedReturnValue + LF, with the hex verified. It declares per-file coverage pairing, resultCriteria matching the original acceptance rule, and evidence requirements that exclude any handwritten result. It records no observed results. It was authored after, and independently of, the admitted C2 runs, so it does not control execution.",
+        "shapeRef": "proof-shape://default-library-witness/execution-plan@5",
+        "support": [
+          {
+            "artifactPath": "test-execution-plan.json",
+            "commandId": null,
+            "resultRef": "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571",
+            "role": "realization"
+          }
+        ]
+      },
+      {
+        "adverseEvidenceRefs": [],
+        "criteria": [
+          {
+            "criterionRef": "criterion://default-library-witness/behavior@5",
+            "judgment": "satisfied",
+            "reason": "Current CLI stdout is exact, exit is successful, and at least two real passing tests with zero failures come from both required files. Each test spawns the real current CLI. The pairing holds per file, not as a scalar total."
+          }
+        ],
+        "depth": [
+          {
+            "classRef": "depth://default-library-witness/behavior@5",
+            "evidenceRefs": [
+              "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470"
+            ],
+            "judgment": "satisfied",
+            "reason": "The evidence was checked at byte level, not by exit code alone. I checked signal and timeout flags and stderr, confirmed per-file ✔ lines, and verified that the dependency identities of the CLI and both verifiers equal the current worksite files. The runs executed in the harness sandbox copy with relativeCwd '.', and identity is bound by matching dependency digests. A local rerun in the real worksite root agreed."
+          }
+        ],
+        "judgment": "satisfied",
+        "obligationRef": "obligation://default-library-witness/behavior@5",
+        "policyRef": "proof-policy://default-library-witness/behavior@5",
+        "reason": "Admitted C2 b609386b, whose dependencies are the current CLI and both unchanged verifiers:\n- Command 0 (node generated/hello-world.mjs, relativeCwd '.') exited 0 with no signal and no timeout. stdout was exactly 'Hello, world!\\n' (14 bytes; its digest equals the expected value I computed), and stderr was empty.\n- Command 1 (node --test with both files) exited 0, with tests 2, pass 2, fail 0, cancelled/skipped/todo 0. The component test 'CLI process satisfies its output contract' and the UAT test 'a user receives the exact promised greeting' are both marked ✔.\nThe CLI has no imports and no package.json exists, so no installation is involved. My own local runs of both commands at the worksite root reproduced this (corroboration only).",
+        "shapeRef": "proof-shape://default-library-witness/behavior@5",
+        "support": [
+          {
+            "artifactPath": "generated/hello-world.mjs",
+            "commandId": "command://default-library-witness/0@5",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "role": "realization"
+          },
+          {
+            "artifactPath": "test/component/hello-cli.test.mjs",
+            "commandId": "command://default-library-witness/1@5",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "role": "verifier_artifact"
+          },
+          {
+            "artifactPath": "test/uat/hello-cli.uat.test.mjs",
+            "commandId": "command://default-library-witness/1@5",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "role": "verifier_artifact"
+          },
+          {
+            "artifactPath": null,
+            "commandId": "command://default-library-witness/1@5",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "role": "verifier_execution"
+          }
+        ]
+      },
+      {
+        "adverseEvidenceRefs": [
+          "result://abiogenesis/b63cfd1dc0bc193ebab9987177c88119d945add00bc62eaf4b955388dc513aea"
+        ],
+        "criteria": [
+          {
+            "criterionRef": "criterion://default-library-witness/revision@5",
+            "judgment": "satisfied",
+            "reason": "All required elements are present:\n- an actual baseline failure measured before the CLI change;\n- a changed registered choice, from testing to construction;\n- a consequential, bounded, same-lineage correction that exactly addresses the observed discrepancy;\n- current proof on the corrected bytes.\nThe old failure is kept as historical counterevidence."
+          }
+        ],
+        "depth": [
+          {
+            "classRef": "depth://default-library-witness/revision@5",
+            "evidenceRefs": [
+              "result://abiogenesis/b63cfd1dc0bc193ebab9987177c88119d945add00bc62eaf4b955388dc513aea",
+              "result://abiogenesis/50dd6dafe6c0a3b5ba48e11fa757a465334ca180239d67d0a2b84a3768b5dee4",
+              "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470"
+            ],
+            "judgment": "satisfied",
+            "reason": "Checks performed:\n- confirmed the baseline subject identity by recomputing the hash of the hypothesized pre-correction bytes; it matches the baseline dependency;\n- confirmed the edit is a single comma insertion by comparing those bytes with the current hex dump;\n- confirmed the construction's changedPaths contain only the CLI;\n- confirmed the protected verifier identities are equal across the baseline and current runs, so the red-then-green difference is caused by the CLI change alone;\n- confirmed each authored asset keeps the baseline attributed to the old bytes."
+          }
+        ],
+        "judgment": "satisfied",
+        "obligationRef": "obligation://default-library-witness/revision@5",
+        "policyRef": "proof-policy://default-library-witness/revision@5",
+        "reason": "Lineage from baseline to correction to current proof:\n- Baseline (testing, b63cfd1d): measured the supplied CLI before any change. I independently confirmed its subject bytes are exactly console.log(\"Hello world!\");. Command 0 exited 0 but printed 'Hello world!\\n', a material content failure. Command 1 exited nonzero (1) with pass 0 and fail 2. Both assertion diffs show actual 'Hello world!\\n' against expected 'Hello, world!\\n'. This meets the declared adverse-command criterion (command 1 nonzero).\n- Correction: a different registered work choice (construction), native 50dd6daf. It changed only generated/hello-world.mjs, inserting the single missing comma, and its report cites the baseline failure as justification.\n- Proof: testing b609386b on the corrected current bytes passes with the unchanged verifiers.\nThe baseline stays attributed to the old bytes in the conformance §7, the implementation design §7 and the test design §4. It is neither retargeted to the new bytes nor discarded. Only evidence that depended on the old bytes being current is stale, and the authored assets do not depend on the CLI bytes.",
+        "shapeRef": "proof-shape://default-library-witness/revision@5",
+        "support": [
+          {
+            "artifactPath": "generated/hello-world.mjs",
+            "commandId": "command://default-library-witness/0@5",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "role": "realization"
+          },
+          {
+            "artifactPath": "test/component/hello-cli.test.mjs",
+            "commandId": "command://default-library-witness/1@5",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "role": "verifier_artifact"
+          },
+          {
+            "artifactPath": "test/uat/hello-cli.uat.test.mjs",
+            "commandId": "command://default-library-witness/1@5",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "role": "verifier_artifact"
+          },
+          {
+            "artifactPath": null,
+            "commandId": "command://default-library-witness/1@5",
+            "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+            "role": "verifier_execution"
+          }
+        ]
+      }
+    ]
+  },
+  "kind": "consumer_outcome_assessment",
+  "reason": "I reread the original source, the witness contract, the oracle, the exact candidate CLI, both protected verifiers and the four authored assets directly from the worksite. Every byte identity matches the declared basis. All seven declared obligations are met on current evidence:\n- Fresh test run: result b609386b ran on the current CLI and unchanged verifiers. Command 0 printed exactly \"Hello, world!\\n\" (14 bytes), exited 0, and wrote nothing to stderr. Command 1 exited 0 with tests 2, pass 2, fail 0, and each file's uniquely named test is marked ✔.\n- Baseline and correction: the baseline b63cfd1d ran on the pre-correction bytes, which I confirmed are exactly console.log(\"Hello world!\");. Command 1 was nonzero with pass 0 and fail 2, and the diff showed the missing comma. The baseline is kept as history, attributed to those old bytes.\n- Correction: native construction 50dd6daf changed only generated/hello-world.mjs, inserting that comma.\n- Authored assets: the conformance, implementation design, test design and execution plan each carry their source-grounded meaning. Their cited identities match the current files, and the plan's fields meet every original predicate.\n- Permitted deviations: two things differ from the original's canonical shape, and the contract explicitly allows both. The stage order is non-canonical, and one design vector wrote three stage assets. The contract also realizes test-execution-result.json through admitted command evidence, so that file is correctly absent.\n- Minor wording defects: I found two, neither changing any obligation (details under discoveries).\n- My own local runs: I ran both fixed commands in the worksite root and got the same results. That is corroboration only, not admitted evidence.\nThis assessment grants no admission, acceptance or continuation. Parent completion still needs this assessment admitted, eligible coverage computed, and agreement between the fresh installed Public result and replay. The parent owns those.",
+  "unresolvedCriteria": []
+}

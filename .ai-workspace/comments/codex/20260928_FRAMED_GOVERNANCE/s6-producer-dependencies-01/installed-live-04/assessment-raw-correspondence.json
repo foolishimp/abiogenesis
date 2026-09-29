@@ -1,0 +1,18 @@
+{
+  "actor": 12,
+  "rawStdout": "actor-12-stdout-fp-a8dabdab24ce52cd-stdout.log",
+  "rawStructuredOutputDigest": "sha256:b14379ca4bbbf6b870c950b48e83eed8e37155a235d6dfaa38946ecfaf52ace8",
+  "admittedAssessmentDigest": "sha256:b14379ca4bbbf6b870c950b48e83eed8e37155a235d6dfaa38946ecfaf52ace8",
+  "equal": true,
+  "assessment": {
+    "ordinal": 26469,
+    "eventId": "event://abiogenesis/515324bbd1a6af07285e959cc7e1cc8b925ae24f2f6660a0c2b296ad2ef4b93c",
+    "kind": "c_call_result_admitted",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+    "cCallRef": "c-call:sha256:12da89a5ca20ccbae0c1d3d0c15886a0e0affa7c9a1600a6ca1d7ccd11be46b9",
+    "resultRef": "result://abiogenesis/8b74a807620f662f841dcc69fbeb19b0dd9efae376b60e560a9578c72a41cd8f"
+  },
+  "providerIsError": false,
+  "subtype": "success",
+  "sourceResultRef": "result://abiogenesis/8b74a807620f662f841dcc69fbeb19b0dd9efae376b60e560a9578c72a41cd8f"
+}

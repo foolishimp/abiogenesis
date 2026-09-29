@@ -1,0 +1,41 @@
+{
+  "sourceFreeze": {
+    "sha256": "75a1d75bf882180b267704e2e76f6619ff343552e2941dbbf91a82c246fad270",
+    "bytes": 939
+  },
+  "sourceReturn": {
+    "sha256": "269be2e1c0a7dfd6d50da578758f5c73ffef14e695ddb2b2ace70477a39e090f",
+    "bytes": 6669
+  },
+  "core": {
+    "sha256": "6311b520520efb19f6d042fb11c00bf7abe5ad335f0b274915726c482d7bdf07",
+    "bytes": 10337313
+  },
+  "consumer": {
+    "sha256": "6cf3780dadeeddce756fdfe903e0c7da2ec8f894a4619a104650ab5128792e12",
+    "bytes": 11777
+  },
+  "installedCorrespondence": {
+    "sha256": "d983a44c6581d830a1e765399bd7c2aca66bf9030a2305896753ac14092e8567",
+    "bytes": 1375891
+  },
+  "input": {
+    "sha256": "377bae203c2ac43bf0e0339a24ce979998aa4247807c68c2fe383d274a74ee87",
+    "bytes": 84605
+  },
+  "readiness": {
+    "sha256": "db5d623f3f4db6b79988d0634df12487694e165f130d84f20650d36324c8e067",
+    "bytes": 2402
+  },
+  "closeHandoff": {
+    "sha256": "7164af9412ea226e87c26a8ff133b942c15fe29f5260c7950ba6ed4d2a9d0c74",
+    "bytes": 1230
+  },
+  "preparedStart": {
+    "sha256": "46f6eaae126e018cb47031b5d5c760ad5e84730d02250281f0515a9cf739b2d7",
+    "bytes": 32482085
+  },
+  "qualificationKind": "separately selected fresh instance; not recovery",
+  "providerCalls": 0,
+  "runStarted": false
+}

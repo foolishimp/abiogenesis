@@ -1,0 +1,12 @@
+{
+  "exactFiles": [
+    "input.json",
+    "input-files.json",
+    "assessment.schema.json",
+    "fulfillment-policy.json"
+  ],
+  "caseContractSha256": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+  "providerCalls": 0,
+  "oldInstallationReused": false,
+  "oldRunModified": false
+}

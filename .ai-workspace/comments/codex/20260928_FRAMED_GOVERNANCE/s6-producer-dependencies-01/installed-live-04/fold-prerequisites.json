@@ -1,0 +1,101 @@
+{
+  "domainChecks": {
+    "obligationDomain": true,
+    "discoveryDomain": true
+  },
+  "preSupportRowChecks": [
+    {
+      "obligationRef": "obligation://default-library-witness/complete-original@5",
+      "policyRef": true,
+      "shapeRef": true,
+      "criteriaDomain": true,
+      "depthDomain": true,
+      "depthRefs": true,
+      "supportUnique": true,
+      "adverseUnique": true,
+      "adverseExecutionRefs": true
+    },
+    {
+      "obligationRef": "obligation://default-library-witness/conformance@5",
+      "policyRef": true,
+      "shapeRef": true,
+      "criteriaDomain": true,
+      "depthDomain": true,
+      "depthRefs": true,
+      "supportUnique": true,
+      "adverseUnique": true,
+      "adverseExecutionRefs": true
+    },
+    {
+      "obligationRef": "obligation://default-library-witness/implementation-design@5",
+      "policyRef": true,
+      "shapeRef": true,
+      "criteriaDomain": true,
+      "depthDomain": true,
+      "depthRefs": true,
+      "supportUnique": true,
+      "adverseUnique": true,
+      "adverseExecutionRefs": true
+    },
+    {
+      "obligationRef": "obligation://default-library-witness/test-design@5",
+      "policyRef": true,
+      "shapeRef": true,
+      "criteriaDomain": true,
+      "depthDomain": true,
+      "depthRefs": true,
+      "supportUnique": true,
+      "adverseUnique": true,
+      "adverseExecutionRefs": true
+    },
+    {
+      "obligationRef": "obligation://default-library-witness/execution-plan@5",
+      "policyRef": true,
+      "shapeRef": true,
+      "criteriaDomain": true,
+      "depthDomain": true,
+      "depthRefs": true,
+      "supportUnique": true,
+      "adverseUnique": true,
+      "adverseExecutionRefs": true
+    },
+    {
+      "obligationRef": "obligation://default-library-witness/behavior@5",
+      "policyRef": true,
+      "shapeRef": true,
+      "criteriaDomain": true,
+      "depthDomain": true,
+      "depthRefs": true,
+      "supportUnique": true,
+      "adverseUnique": true,
+      "adverseExecutionRefs": true
+    },
+    {
+      "obligationRef": "obligation://default-library-witness/revision@5",
+      "policyRef": true,
+      "shapeRef": true,
+      "criteriaDomain": true,
+      "depthDomain": true,
+      "depthRefs": true,
+      "supportUnique": true,
+      "adverseUnique": true,
+      "adverseExecutionRefs": true
+    }
+  ],
+  "firstSupport": {
+    "artifactPath": "generated/hello-world.mjs",
+    "commandId": "command://default-library-witness/0@5",
+    "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+    "role": "realization"
+  },
+  "firstSupportEvidenceFound": true,
+  "evidenceKind": "execution",
+  "artifactPathIsInEvidence": true,
+  "firstFalseTerm": "commandId !== null for role realization",
+  "schemaAuthor": "product/default_library_fulfillment.ts:145-154 governanceFulfillmentAssessmentJsonSchema",
+  "consumerComposition": "test_env/support/default-library-fulfillment.mjs:8-9 embeds generic schema without overriding support fields; installed-live-04/prepare.mjs:18 installs it",
+  "predicateOwner": "product/default_library_fulfillment.ts:170-174 bindGovernanceFulfillmentAssessment",
+  "presentationOwner": "abg/default_library.ts:156-160 supplies dynamic policy/evidence domains; no role-field applicability text",
+  "existingHow": "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md:454-462 immutable structural schema, owned domains, same selected-profile binder and malformed-reference refusal",
+  "boundedReentry": "Generic selected-profile raw-schema presentation: describe commandId/artifactPath applicability without changing structure, raw values or strict binder; regenerate consumer schema identity and verify nonempty support through actual fold. No S6-specific semantic rule is missing. Executive must select implementation."
+}

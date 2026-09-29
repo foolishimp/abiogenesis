@@ -1,0 +1,12 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=prospective installed declaration|fulfillment raw schema|pure projection separates|real task/child carriers|native and assessment renders",
+    "test_env/tests/t287-default-library-fulfillment.test.mjs",
+    "test_env/tests/t287-native-workspace-work.test.mjs"
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 0.6998100280761719
+}

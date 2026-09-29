@@ -1,0 +1,11 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=complete assessment preparation.*generated fulfillment",
+    "test_env/tests/t287-native-workspace-work.test.mjs"
+  ],
+  "exitCode": 0,
+  "elapsedSeconds": 0.3815608024597168
+}

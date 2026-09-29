@@ -1,0 +1,276 @@
+{
+  "$id": "contract://default-library-witness/assessment@5",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "disposition",
+    "reason",
+    "unresolvedCriteria",
+    "fulfillment"
+  ],
+  "properties": {
+    "kind": {
+      "const": "consumer_outcome_assessment"
+    },
+    "disposition": {
+      "type": "string",
+      "enum": [
+        "satisfied",
+        "unmet",
+        "indeterminate"
+      ]
+    },
+    "reason": {
+      "type": "string"
+    },
+    "unresolvedCriteria": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "fulfillment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "obligations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "obligationRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "policyRef": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "shapeRef": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "judgment": {
+                "type": "string",
+                "enum": [
+                  "satisfied",
+                  "falsified",
+                  "indeterminate"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "support": {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "role": {
+                          "enum": [
+                            "realization",
+                            "verifier_artifact"
+                          ],
+                          "type": "string"
+                        },
+                        "resultRef": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "artifactPath": {
+                          "type": "string",
+                          "minLength": 1,
+                          "description": "Select the realization or verifier artifact path from this prior Result's files."
+                        },
+                        "commandId": {
+                          "type": "null",
+                          "description": "Must be null for realization and verifier_artifact, including artifacts observed by C2."
+                        }
+                      },
+                      "required": [
+                        "role",
+                        "resultRef",
+                        "artifactPath",
+                        "commandId"
+                      ],
+                      "additionalProperties": false
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "role": {
+                          "const": "verifier_execution"
+                        },
+                        "resultRef": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "artifactPath": {
+                          "type": "null",
+                          "description": "Must be null for verifier_execution; select the command, not an artifact path."
+                        },
+                        "commandId": {
+                          "type": "string",
+                          "minLength": 1,
+                          "description": "Select a command ID from this prior execution Result's commands."
+                        }
+                      },
+                      "required": [
+                        "role",
+                        "resultRef",
+                        "artifactPath",
+                        "commandId"
+                      ],
+                      "additionalProperties": false
+                    }
+                  ]
+                }
+              },
+              "adverseEvidenceRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              },
+              "criteria": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "criterionRef": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "judgment": {
+                      "type": "string",
+                      "enum": [
+                        "satisfied",
+                        "falsified",
+                        "indeterminate"
+                      ]
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "criterionRef",
+                    "judgment",
+                    "reason"
+                  ]
+                }
+              },
+              "depth": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "classRef": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "judgment": {
+                      "type": "string",
+                      "enum": [
+                        "satisfied",
+                        "falsified",
+                        "indeterminate",
+                        "not_applicable"
+                      ]
+                    },
+                    "reason": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "evidenceRefs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "uniqueItems": true
+                    }
+                  },
+                  "required": [
+                    "classRef",
+                    "judgment",
+                    "reason",
+                    "evidenceRefs"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "obligationRef",
+              "policyRef",
+              "shapeRef",
+              "judgment",
+              "reason",
+              "support",
+              "adverseEvidenceRefs",
+              "criteria",
+              "depth"
+            ]
+          }
+        },
+        "discoveries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "classRef": {
+                "type": "string",
+                "minLength": 1
+              },
+              "judgment": {
+                "type": "string",
+                "enum": [
+                  "satisfied",
+                  "falsified",
+                  "indeterminate"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "evidenceRefs": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "uniqueItems": true
+              }
+            },
+            "required": [
+              "classRef",
+              "judgment",
+              "reason",
+              "evidenceRefs"
+            ]
+          }
+        }
+      },
+      "required": [
+        "obligations",
+        "discoveries"
+      ]
+    }
+  }
+}

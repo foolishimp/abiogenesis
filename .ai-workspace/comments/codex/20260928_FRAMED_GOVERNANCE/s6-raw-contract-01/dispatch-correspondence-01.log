@@ -1,0 +1,12 @@
+(node:55614) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ complete assessment preparation joins assessor context, declared schema and exact native owner without dispatch with generated fulfillment (86.53725ms)
+ℹ Generated support anyOf bytes conserved through exact schema asset resolution, actual owned assembly/render, leaf preparation and --json-schema transport input. Controlled lower occurrence/role admission only; dispatch prohibited.
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 356.497209

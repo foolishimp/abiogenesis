@@ -1,0 +1,2283 @@
+{
+  "envelope": {
+    "cCallDigest": "sha256:e26c739f5694df0c5df0973d6936c432d0add8792b56baa8f12f4e07336c2ce5",
+    "cCallRef": "c-call:sha256:e26c739f5694df0c5df0973d6936c432d0add8792b56baa8f12f4e07336c2ce5",
+    "executionBasisDigest": "sha256:75f0d55d2fb382e44d0101d1ebb2e1814a6289f210a616df3fc2c20f1b951736",
+    "executionBasisRef": "execution-basis://abiogenesis/75f0d55d2fb382e44d0101d1ebb2e1814a6289f210a616df3fc2c20f1b951736",
+    "inputDigest": "sha256:c8d8ea2feee357493077c9cbadb4566a73dbe47678660587614e8d59a2393207",
+    "inputRef": "result://abiogenesis/ec43542643c4e1a5db62f4681ef3de99c24caf7040ea2ac5b7af0a039ffbd0fe",
+    "nativeBasis": {
+      "cCall": {
+        "actorCapabilityRef": null,
+        "armId": "arm://abiogenesis/worksite/command-execution/fp@5",
+        "attempt": 1,
+        "basisId": "execution-basis://abiogenesis/75f0d55d2fb382e44d0101d1ebb2e1814a6289f210a616df3fc2c20f1b951736",
+        "batchRef": null,
+        "cCallDigest": "sha256:e26c739f5694df0c5df0973d6936c432d0add8792b56baa8f12f4e07336c2ce5",
+        "cCallRef": "c-call:sha256:e26c739f5694df0c5df0973d6936c432d0add8792b56baa8f12f4e07336c2ce5",
+        "callClass": "leaf",
+        "childGraphFunctionRef": null,
+        "closureContractDigest": "sha256:fe995671b9fc9797553bde96e74ef6bc0b61b8712fda8301076e83b63380bbf7",
+        "closureContractRef": "contract://abiogenesis/worksite/command-execution-child-closure@5",
+        "compositionRef": null,
+        "continuationContractRef": null,
+        "edgeRef": "child-entry://abiogenesis/b7456960c4aeb95be0eee2a7802de3bf0859b4198116b2837968ffeb57316aa7",
+        "evidenceContractRef": "contract://abiogenesis/worksite/command-execution-evidence@5",
+        "failureContractRef": "contract://abiogenesis/worksite/command-execution-failure@5",
+        "fibreSelectedEventRef": "event://abiogenesis/e083b6ea10030e0f9a1e68b19122b5a85eaa314dd861f232be202163315a6755",
+        "frameId": "frame://abiogenesis/7e0e86ec72c5030c164ec8f6d35cc0a6cd41b853fc39e0df4204a84c8945f850",
+        "graphCallId": "graph-call://abiogenesis/047ef457b2677ba0c173b9e39821e4f29a2e5bcac5fef4a2239551c056157ac3",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "implementationBindingRef": "implementation-binding://abiogenesis/worksite/command-execution-fp@5",
+        "implementationRef": "implementation://abiogenesis/worksite/command-execution-fp@5",
+        "implementationRequirementKey": "executable-leaf://abiogenesis/2298433bc8bcee205a5594d2249291e1e9ad484be19aec78968eeee60331f14a",
+        "implementationSetRef": "implementation-set://abiogenesis/36e70d5349b530f0ba5cc64c052acb10a26d23eb763a980522e02bbac4e6f8b2",
+        "inputContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+        "interactionKind": null,
+        "interactionRequirementKey": null,
+        "interactionSetRef": "interaction-set://abiogenesis/1f5f5334529eda9bcf241cb4cedb8820bb3d3f1b5779faaf07b9ff18a88cff81",
+        "judgmentContractRef": "contract://abiogenesis/worksite/command-execution-judgment@5",
+        "judgmentPredicateRef": "predicate://abiogenesis/worksite/command-execution-observation@5",
+        "kind": "c_call",
+        "openedEventRef": "event://abiogenesis/315362800c9b5a5e40e74064ac53e49d029a24245eef43a1a6fcbcbc5159e687",
+        "outputContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+        "programLocusRef": "node://abiogenesis/worksite/command-execution/fp@5",
+        "refusalContractRef": "contract://abiogenesis/worksite/command-execution-refusal@5",
+        "refusalValueKind": "worksite_command_execution_refusal",
+        "regime": "F_P",
+        "rejectionContractRef": "contract://abiogenesis/worksite/command-execution-refusal@5",
+        "replayProjectionRef": "projection://abiogenesis/worksite/command-execution@5",
+        "responseContractRef": null,
+        "retryPath": [],
+        "runId": "run://abiogenesis/da41d97e13a5afa10c1ae0c9490d606a145fb1ded35b2a3b140321879201bacf",
+        "schemaVersion": "5.0.0",
+        "stageRole": "command-execution",
+        "taskOrdinal": null,
+        "terminalKind": "completed",
+        "terminalPredicateRef": "predicate://abiogenesis/worksite/command-execution-observation@5",
+        "transitionContractRef": "contract://abiogenesis/worksite/command-execution-transition@5",
+        "vectorIndex": 0
+      },
+      "cursor": {
+        "attempt": 1,
+        "currentNodeRef": "node://abiogenesis/worksite/command-execution/fp@5",
+        "cursorDigest": "sha256:5945ad7c18f246f428ea23f958d07f37f29ce0c6350befe505158938f7cc5b54",
+        "cursorRef": "traversal-cursor://abiogenesis/5945ad7c18f246f428ea23f958d07f37f29ce0c6350befe505158938f7cc5b54",
+        "executionBasisRef": "execution-basis://abiogenesis/75f0d55d2fb382e44d0101d1ebb2e1814a6289f210a616df3fc2c20f1b951736",
+        "frameId": "frame://abiogenesis/7e0e86ec72c5030c164ec8f6d35cc0a6cd41b853fc39e0df4204a84c8945f850",
+        "graphCallId": "graph-call://abiogenesis/047ef457b2677ba0c173b9e39821e4f29a2e5bcac5fef4a2239551c056157ac3",
+        "graphRef": "graph-materialization://abiogenesis/f1042293c141752d2be77b47a1a153b6057c3bb9749604b2cdbf812a76fedc55",
+        "inputDigest": "sha256:c8d8ea2feee357493077c9cbadb4566a73dbe47678660587614e8d59a2393207",
+        "inputRef": "result://abiogenesis/ec43542643c4e1a5db62f4681ef3de99c24caf7040ea2ac5b7af0a039ffbd0fe",
+        "kind": "traversal_cursor",
+        "position": "at_term",
+        "programRef": "program://default-library-witness/witness@5",
+        "retryPath": [],
+        "runId": "run://abiogenesis/da41d97e13a5afa10c1ae0c9490d606a145fb1ded35b2a3b140321879201bacf",
+        "schemaVersion": "5.0.0",
+        "taskOrdinal": null,
+        "termPath": [
+          "node",
+          "node://abiogenesis/worksite/command-execution/fp@5",
+          "c"
+        ],
+        "traversalScopeRef": "traversal-scope://abiogenesis/8440e2fbed22081730a630aecf95f6fdcdda037594a0c3c94981b0e483e107d2"
+      },
+      "declarationGraphFunctions": [
+        {
+          "declarations": {
+            "abg.child_closure_contract": "contract://abiogenesis/worksite/command-execution-child-closure@5",
+            "abg.closure_contract": "contract://abiogenesis/worksite/command-execution-closure@5",
+            "abg.compute_regime": "F_P",
+            "abg.evidence_contract": "contract://abiogenesis/worksite/command-execution-evidence@5",
+            "abg.judgment_contract": "contract://abiogenesis/worksite/command-execution-judgment@5",
+            "abg.judgment_predicate": "predicate://abiogenesis/worksite/command-execution-observation@5",
+            "abg.raw_result_contract": "contract://abiogenesis/worksite/command-execution-worker-result@5",
+            "abg.transition_contract": "contract://abiogenesis/worksite/command-execution-transition@5"
+          },
+          "effects": [],
+          "environment": {
+            "carries": [
+              "contract://abiogenesis/worksite/command-execution-worker-result@5"
+            ],
+            "provides": [
+              "contract://abiogenesis/worksite/command-execution-observation@5"
+            ],
+            "requires": [
+              "contract://abiogenesis/worksite/command-execution-task@5"
+            ]
+          },
+          "inputs": [
+            "contract://abiogenesis/worksite/command-execution-task@5"
+          ],
+          "kind": "graph_function",
+          "name": "graph-function://abiogenesis/worksite/command-execution@5",
+          "outputs": [
+            "contract://abiogenesis/worksite/command-execution-observation@5"
+          ],
+          "tags": [
+            "abiogenesis",
+            "c2",
+            "command-execution",
+            "fp",
+            "worksite"
+          ],
+          "template": {
+            "applications": [],
+            "edges": [],
+            "graphRef": "graph://abiogenesis/worksite/command-execution@5",
+            "kind": "inline_graph",
+            "nodes": [
+              {
+                "nodeKind": "c_locus",
+                "nodeRef": "node://abiogenesis/worksite/command-execution/fp@5",
+                "term": {
+                  "armId": "arm://abiogenesis/worksite/command-execution/fp@5",
+                  "compositionRef": null,
+                  "fibre": "F_P",
+                  "inputCarrierRef": "contract://abiogenesis/worksite/command-execution-task@5",
+                  "judgmentPredicateRef": "predicate://abiogenesis/worksite/command-execution-observation@5",
+                  "kind": "c_of",
+                  "outputCarrierRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+                  "programLocusRef": "node://abiogenesis/worksite/command-execution/fp@5",
+                  "requirement": {
+                    "evidenceContractRef": "contract://abiogenesis/worksite/command-execution-evidence@5",
+                    "failureContractRef": "contract://abiogenesis/worksite/command-execution-failure@5",
+                    "implementationBindingRef": "implementation-binding://abiogenesis/worksite/command-execution-fp@5",
+                    "inputContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+                    "judgmentContractRef": "contract://abiogenesis/worksite/command-execution-judgment@5",
+                    "kind": "executable_leaf_requirement",
+                    "outputContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+                    "refusalContractRef": "contract://abiogenesis/worksite/command-execution-refusal@5"
+                  },
+                  "resultBearing": true,
+                  "stageRole": "command-execution",
+                  "vectorIndex": 0
+                }
+              }
+            ],
+            "startNodeRef": "node://abiogenesis/worksite/command-execution/fp@5",
+            "terminalNodeRefs": [
+              "node://abiogenesis/worksite/command-execution/fp@5"
+            ]
+          },
+          "version": "5.0.0"
+        }
+      ],
+      "executionBasis": {
+        "actionCatalogDigest": null,
+        "actionCatalogRef": null,
+        "actionCatalogRows": [],
+        "actorRef": "actor://abiogenesis/t286/trusted-developer",
+        "admissionEventRef": "event://abiogenesis/3c4427bb6e36635f4de53cafad145b48540ba5d22dc1782153147010f79b84e8",
+        "basisClass": "child",
+        "basisDigest": "sha256:75f0d55d2fb382e44d0101d1ebb2e1814a6289f210a616df3fc2c20f1b951736",
+        "basisRef": "execution-basis://abiogenesis/75f0d55d2fb382e44d0101d1ebb2e1814a6289f210a616df3fc2c20f1b951736",
+        "catalogBasisDigest": "sha256:6d3ea9e6e89e46ba028678cb781589bc09d6d5f871a7395f275644ddd6a5bf17",
+        "catalogBasisRef": "graph-function-catalog://abiogenesis/6d3ea9e6e89e46ba028678cb781589bc09d6d5f871a7395f275644ddd6a5bf17",
+        "catalogViewDigest": "sha256:4e64253353217a31aec870cf215431b3883562c3ca1105eb492beaac7c2c4e59",
+        "catalogViewId": "graph-function-catalog-view://abiogenesis/4e64253353217a31aec870cf215431b3883562c3ca1105eb492beaac7c2c4e59",
+        "closureContractDigest": "sha256:fe995671b9fc9797553bde96e74ef6bc0b61b8712fda8301076e83b63380bbf7",
+        "closureContractRef": "contract://abiogenesis/worksite/command-execution-child-closure@5",
+        "constructionComposition": null,
+        "constructionCompositionDigest": null,
+        "constructionCompositionRef": null,
+        "disposition": "admitted",
+        "entryRef": "child-entry://abiogenesis/b7456960c4aeb95be0eee2a7802de3bf0859b4198116b2837968ffeb57316aa7",
+        "evidenceContractRef": "contract://abiogenesis/worksite/command-execution-evidence@5",
+        "graphDigest": "sha256:f1042293c141752d2be77b47a1a153b6057c3bb9749604b2cdbf812a76fedc55",
+        "graphFunctionDigest": "sha256:5b33817eb4d092aea5179405fc21049dd3540a3845ecdb74f1c4f4c1de10c112",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "graphRef": "graph-materialization://abiogenesis/f1042293c141752d2be77b47a1a153b6057c3bb9749604b2cdbf812a76fedc55",
+        "graphValidationRef": "graph-validation://abiogenesis/75822eeba6162b89a8b881226b6b554ab4681fa8fec1128b61a9364164c3f0a9",
+        "implementationResolutionRef": null,
+        "implementationSetDigest": "sha256:36e70d5349b530f0ba5cc64c052acb10a26d23eb763a980522e02bbac4e6f8b2",
+        "implementationSetRef": "implementation-set://abiogenesis/36e70d5349b530f0ba5cc64c052acb10a26d23eb763a980522e02bbac4e6f8b2",
+        "interactionSetDigest": "sha256:1f5f5334529eda9bcf241cb4cedb8820bb3d3f1b5779faaf07b9ff18a88cff81",
+        "interactionSetRef": "interaction-set://abiogenesis/1f5f5334529eda9bcf241cb4cedb8820bb3d3f1b5779faaf07b9ff18a88cff81",
+        "invocationAdmissionRef": "invocation-admission://abiogenesis/98f9d535035a74d31675c8b9d233adffe419f474eac95d1443714eadfc5cd384",
+        "invocationDigest": "sha256:d439ddc5b4f7a4edafe8f8daddfae76a9eab78e0e2be14a639e2302130994600",
+        "invocationRef": "invocation://abiogenesis/d439ddc5b4f7a4edafe8f8daddfae76a9eab78e0e2be14a639e2302130994600",
+        "judgmentContractRef": "contract://abiogenesis/worksite/command-execution-judgment@5",
+        "kind": "execution_basis",
+        "localExecutableLeafKeys": [
+          "executable-leaf://abiogenesis/2298433bc8bcee205a5594d2249291e1e9ad484be19aec78968eeee60331f14a"
+        ],
+        "localImplementationSubsetDigest": "sha256:b052010318a58a8460cfa5bbf131e7019df25c59943ffd7919cdc0161165cedb",
+        "localInteractionLeafKeys": [],
+        "localInteractionSubsetDigest": "sha256:fc1391d878ef7ee318309335834ce381c48e5a56ca5f1a39074e63601ef71bf2",
+        "parentCCallRef": "c-call:sha256:c3eac023da2d99f3ff28b9d52786a2834eb3c8014092d0b36ea6a01466be061a",
+        "parentExecutionBasisRef": "execution-basis://abiogenesis/a83f90d2d6cb26747dbada9b52e6692d608d9139bbe509d68042ad1ae5bf27a0",
+        "parentTraversalScopeRef": "traversal-scope://abiogenesis/e03b34d74670ee2c446813ee534adfd197f4243309b22594bac4c2777562b9aa",
+        "programDigest": "sha256:6ef44879e0e82453e377a0260a2e470c4cb0d4e551a4ad621734c894815f5652",
+        "programRef": "program://default-library-witness/witness@5",
+        "programValidationRef": "program-validation://abiogenesis/5cd2f6d13b33713f801e34dc3ca9fb39ba493b6dd74d6c42fe3330a0649b199c",
+        "rawInputAdmissionRef": "result://abiogenesis/ec43542643c4e1a5db62f4681ef3de99c24caf7040ea2ac5b7af0a039ffbd0fe",
+        "rawInputDigest": "sha256:c8d8ea2feee357493077c9cbadb4566a73dbe47678660587614e8d59a2393207",
+        "rawInputValue": {
+          "allowedWriteTerritories": [
+            {
+              "kind": "worksite_command_write_territory",
+              "ordinal": 0,
+              "pathKind": "subtree",
+              "purpose": "execution_evidence",
+              "relativePath": "execution-evidence",
+              "schemaVersion": "5.0.0",
+              "territoryDigest": "sha256:ff4d0d486e43cfde78ee22bac417206db5bdf8f6231675000f5bd071166e05c1",
+              "territoryRef": "worksite-command-write-territory://abiogenesis/ff4d0d486e43cfde78ee22bac417206db5bdf8f6231675000f5bd071166e05c1"
+            }
+          ],
+          "capabilityGrant": {
+            "actorRef": "actor://abiogenesis/t286/trusted-developer",
+            "approvalDigest": "sha256:5beee18a67986c6153d9b0b78e46816ccfafce22bea74ddae21459632353729e",
+            "approvalRef": "workspace-authority://abiogenesis/5beee18a67986c6153d9b0b78e46816ccfafce22bea74ddae21459632353729e",
+            "authorityBasisDigest": "sha256:5beee18a67986c6153d9b0b78e46816ccfafce22bea74ddae21459632353729e",
+            "authorityBasisRef": "workspace-authority://abiogenesis/5beee18a67986c6153d9b0b78e46816ccfafce22bea74ddae21459632353729e",
+            "capabilityDefinition": {
+              "capabilityDefinitionDigest": "sha256:d3f3cc1df3945bcbc6a97e48b21828e0804ade018465380c153bd72fe0558f66",
+              "capabilityDefinitionRef": "capability-definition://abiogenesis/d3f3cc1df3945bcbc6a97e48b21828e0804ade018465380c153bd72fe0558f66",
+              "capabilityId": "abg.capability.catalog.invoke-graph-function@5",
+              "graphDigest": "sha256:fdfdad6693c41e9440144c02b4b0b32d36805b72d3385ebec6d39b35a57f1d87",
+              "graphId": "capability-definition-graph://abiogenesis/abg-5",
+              "graphVersion": "5.0.0"
+            },
+            "capabilityRef": "abg.capability.catalog.invoke-graph-function@5",
+            "definitionDigest": "sha256:6652d6863a66cf6934c907c20a02f1e2b45c44bf933ab902ec8c4ee7a223a8dc",
+            "definitionKey": {
+              "memberKey": "start",
+              "operationId": "abg.operation.run.invoke"
+            },
+            "definitionRef": "public-function://abiogenesis/run/invoke/start@5",
+            "grantDigest": "sha256:ad3be27bb06f0b36a27bd6c98783b1741bad36e950f7a0dffd7cc11601d88190",
+            "grantRef": "capability-grant://abiogenesis/ad3be27bb06f0b36a27bd6c98783b1741bad36e950f7a0dffd7cc11601d88190",
+            "kind": "capability_grant",
+            "operationContract": {
+              "contractCatalog": {
+                "catalogDigest": "sha256:02020e0abe6a1fea0dd6c046f2fcc99a8aea28c43809f3fb5ccc25896dc5352e",
+                "catalogId": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.1",
+                "catalogVersion": "5.0.0",
+                "productContentDigest": "sha256:3410cb865758fc338a1ba6e8b97f2f94a8ad48da60f9aa9fce6093ba0b353e8f",
+                "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1"
+              },
+              "flatRow": {
+                "contractDigest": "sha256:094af8f940b5a9712a9526df3f0a1c0f633204b556753c6e67a0e199b7ecf13b",
+                "contractId": "abg.operation.run.invoke",
+                "contractVersion": "5.0.0"
+              },
+              "nestedSelector": {
+                "definitionKey": null,
+                "definitionRef": null,
+                "selectorKind": "flat_contract",
+                "slot": null
+              }
+            },
+            "operationId": "abg.operation.run.invoke",
+            "policyDigest": "sha256:b523791a02a3fc44fbc6041dfb14adbc9a68f3d3a0bf4f36f6359b09321b6a5b",
+            "policyRef": "invocation-policy://abiogenesis/root/b523791a02a3fc44fbc6041dfb14adbc9a68f3d3a0bf4f36f6359b09321b6a5b",
+            "schemaVersion": "5.0.0",
+            "scopeDigest": "sha256:14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10",
+            "scopeRef": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10"
+          },
+          "commands": [
+            {
+              "args": [
+                "generated/hello-world.mjs"
+              ],
+              "commandId": "command://default-library-witness/0@5",
+              "environment": [
+                {
+                  "kind": "worksite_command_environment_entry",
+                  "name": "HOME",
+                  "schemaVersion": "5.0.0",
+                  "value": "/Users/jim"
+                },
+                {
+                  "kind": "worksite_command_environment_entry",
+                  "name": "LANG",
+                  "schemaVersion": "5.0.0",
+                  "value": "C.UTF-8"
+                },
+                {
+                  "kind": "worksite_command_environment_entry",
+                  "name": "LC_ALL",
+                  "schemaVersion": "5.0.0",
+                  "value": "C.UTF-8"
+                },
+                {
+                  "kind": "worksite_command_environment_entry",
+                  "name": "PATH",
+                  "schemaVersion": "5.0.0",
+                  "value": "/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0lswucm:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+                },
+                {
+                  "kind": "worksite_command_environment_entry",
+                  "name": "TMPDIR",
+                  "schemaVersion": "5.0.0",
+                  "value": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/"
+                }
+              ],
+              "executable": "node",
+              "expectedReports": [],
+              "kind": "worksite_declared_command",
+              "ordinal": 0,
+              "relativeCwd": ".",
+              "schemaVersion": "5.0.0",
+              "terminationGraceMs": 2000,
+              "timeoutMs": 20000
+            },
+            {
+              "args": [
+                "--test",
+                "test/component/hello-cli.test.mjs",
+                "test/uat/hello-cli.uat.test.mjs"
+              ],
+              "commandId": "command://default-library-witness/1@5",
+              "environment": [
+                {
+                  "kind": "worksite_command_environment_entry",
+                  "name": "HOME",
+                  "schemaVersion": "5.0.0",
+                  "value": "/Users/jim"
+                },
+                {
+                  "kind": "worksite_command_environment_entry",
+                  "name": "LANG",
+                  "schemaVersion": "5.0.0",
+                  "value": "C.UTF-8"
+                },
+                {
+                  "kind": "worksite_command_environment_entry",
+                  "name": "LC_ALL",
+                  "schemaVersion": "5.0.0",
+                  "value": "C.UTF-8"
+                },
+                {
+                  "kind": "worksite_command_environment_entry",
+                  "name": "PATH",
+                  "schemaVersion": "5.0.0",
+                  "value": "/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0lswucm:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+                },
+                {
+                  "kind": "worksite_command_environment_entry",
+                  "name": "TMPDIR",
+                  "schemaVersion": "5.0.0",
+                  "value": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/"
+                }
+              ],
+              "executable": "node",
+              "expectedReports": [],
+              "kind": "worksite_declared_command",
+              "ordinal": 1,
+              "relativeCwd": ".",
+              "schemaVersion": "5.0.0",
+              "terminationGraceMs": 2000,
+              "timeoutMs": 20000
+            }
+          ],
+          "instructionContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+          "kind": "worksite_command_execution_task",
+          "materializationPlanRef": "prompt-plan://abiogenesis/worksite/command-execution@5",
+          "outcomePredicates": [],
+          "protectedObservations": [
+            {
+              "kind": "worksite_protected_observation",
+              "observation": {
+                "byteLength": 4325,
+                "fileDigest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+                "fileIdentity": "16777230:463067528",
+                "kind": "worksite_observation",
+                "observationDigest": "sha256:5e7bb32e9f99987889642d048322682b65f26e1dffd20f7d92b72a76964ad798",
+                "observationRef": "worksite-observation://abiogenesis/5e7bb32e9f99987889642d048322682b65f26e1dffd20f7d92b72a76964ad798",
+                "schemaVersion": "5.0.0",
+                "state": "file",
+                "subjectDigest": "sha256:23acac58deba969e251b7ba397904d2d1ac9c438286209ca3257b4dcfb076843",
+                "subjectRef": "worksite-subject://abiogenesis/23acac58deba969e251b7ba397904d2d1ac9c438286209ca3257b4dcfb076843",
+                "workspaceBindingIdentity": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10"
+              },
+              "ordinal": 0,
+              "schemaVersion": "5.0.0",
+              "sourceMemberRef": "observed-worksite-execution-source://abiogenesis/f8cfb22159ed8730802fbfb34bc21890648f34e0d91e57cc9c1b1cc6dcf8e567",
+              "subject": {
+                "kind": "worksite_subject",
+                "relativePath": "source/original-basic-cli.txt",
+                "schemaVersion": "5.0.0",
+                "subjectDigest": "sha256:23acac58deba969e251b7ba397904d2d1ac9c438286209ca3257b4dcfb076843",
+                "subjectRef": "worksite-subject://abiogenesis/23acac58deba969e251b7ba397904d2d1ac9c438286209ca3257b4dcfb076843",
+                "subjectUri": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace/source/original-basic-cli.txt",
+                "workspaceBindingDigest": "sha256:14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10",
+                "workspaceBindingIdentity": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10"
+              }
+            },
+            {
+              "kind": "worksite_protected_observation",
+              "observation": {
+                "byteLength": 1112,
+                "fileDigest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+                "fileIdentity": "16777230:463067529",
+                "kind": "worksite_observation",
+                "observationDigest": "sha256:ce763b032a03e9b3640332fbbb6bc5f2016c6e0c72fb64ec956b235391525b6f",
+                "observationRef": "worksite-observation://abiogenesis/ce763b032a03e9b3640332fbbb6bc5f2016c6e0c72fb64ec956b235391525b6f",
+                "schemaVersion": "5.0.0",
+                "state": "file",
+                "subjectDigest": "sha256:c11d9ca3775b0ec75a89a68ec9d8d15905bf55df0acc447e713dbaee8c493506",
+                "subjectRef": "worksite-subject://abiogenesis/c11d9ca3775b0ec75a89a68ec9d8d15905bf55df0acc447e713dbaee8c493506",
+                "workspaceBindingIdentity": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10"
+              },
+              "ordinal": 1,
+              "schemaVersion": "5.0.0",
+              "sourceMemberRef": "observed-worksite-execution-source://abiogenesis/cb71c8dceaa82d453fd53d905638a58e602bb8093ca41186dad1bb93713664a6",
+              "subject": {
+                "kind": "worksite_subject",
+                "relativePath": "source/basic-cli.oracle.json",
+                "schemaVersion": "5.0.0",
+                "subjectDigest": "sha256:c11d9ca3775b0ec75a89a68ec9d8d15905bf55df0acc447e713dbaee8c493506",
+                "subjectRef": "worksite-subject://abiogenesis/c11d9ca3775b0ec75a89a68ec9d8d15905bf55df0acc447e713dbaee8c493506",
+                "subjectUri": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace/source/basic-cli.oracle.json",
+                "workspaceBindingDigest": "sha256:14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10",
+                "workspaceBindingIdentity": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10"
+              }
+            },
+            {
+              "kind": "worksite_protected_observation",
+              "observation": {
+                "byteLength": 29,
+                "fileDigest": "sha256:647697a5fb5d141a2b1163363170a7a845b61a36096ff52f7a369f1736cd4993",
+                "fileIdentity": "16777230:463067531",
+                "kind": "worksite_observation",
+                "observationDigest": "sha256:a63e597e1382246a57619b6a5f129e6cd0d25e275e98e178a64a0f0536c7350a",
+                "observationRef": "worksite-observation://abiogenesis/a63e597e1382246a57619b6a5f129e6cd0d25e275e98e178a64a0f0536c7350a",
+                "schemaVersion": "5.0.0",
+                "state": "file",
+                "subjectDigest": "sha256:0f729e1364d85e0469b1006484c320b37fd16dcada9c6e19b93e603310aa1097",
+                "subjectRef": "worksite-subject://abiogenesis/0f729e1364d85e0469b1006484c320b37fd16dcada9c6e19b93e603310aa1097",
+                "workspaceBindingIdentity": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10"
+              },
+              "ordinal": 2,
+              "schemaVersion": "5.0.0",
+              "sourceMemberRef": "observed-worksite-execution-source://abiogenesis/a169a5ccd20d3cf07248dbc5359875e63ef69f069f0f93975ab3aed257a06b09",
+              "subject": {
+                "kind": "worksite_subject",
+                "relativePath": "generated/hello-world.mjs",
+                "schemaVersion": "5.0.0",
+                "subjectDigest": "sha256:0f729e1364d85e0469b1006484c320b37fd16dcada9c6e19b93e603310aa1097",
+                "subjectRef": "worksite-subject://abiogenesis/0f729e1364d85e0469b1006484c320b37fd16dcada9c6e19b93e603310aa1097",
+                "subjectUri": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace/generated/hello-world.mjs",
+                "workspaceBindingDigest": "sha256:14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10",
+                "workspaceBindingIdentity": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10"
+              }
+            },
+            {
+              "kind": "worksite_protected_observation",
+              "observation": {
+                "byteLength": 369,
+                "fileDigest": "sha256:8b55bf3f6324da565a1de9a5186444e36c43f450484463aafc84b65fd9da4613",
+                "fileIdentity": "16777230:463067534",
+                "kind": "worksite_observation",
+                "observationDigest": "sha256:b569f6c7a20d303af3993a4bb3e0294754f5f1128957d0eedc100a2ccd798dbb",
+                "observationRef": "worksite-observation://abiogenesis/b569f6c7a20d303af3993a4bb3e0294754f5f1128957d0eedc100a2ccd798dbb",
+                "schemaVersion": "5.0.0",
+                "state": "file",
+                "subjectDigest": "sha256:b5b2e6a36809800a4e422bc6e2cfe347e32e48de51fea9e0c43b40bef696e3bf",
+                "subjectRef": "worksite-subject://abiogenesis/b5b2e6a36809800a4e422bc6e2cfe347e32e48de51fea9e0c43b40bef696e3bf",
+                "workspaceBindingIdentity": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10"
+              },
+              "ordinal": 3,
+              "schemaVersion": "5.0.0",
+              "sourceMemberRef": "observed-worksite-execution-source://abiogenesis/c3f0e8c0c187fb8a7d19c1f60e5f7fb319599ea315cfe993efde56818d2deb87",
+              "subject": {
+                "kind": "worksite_subject",
+                "relativePath": "test/component/hello-cli.test.mjs",
+                "schemaVersion": "5.0.0",
+                "subjectDigest": "sha256:b5b2e6a36809800a4e422bc6e2cfe347e32e48de51fea9e0c43b40bef696e3bf",
+                "subjectRef": "worksite-subject://abiogenesis/b5b2e6a36809800a4e422bc6e2cfe347e32e48de51fea9e0c43b40bef696e3bf",
+                "subjectUri": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace/test/component/hello-cli.test.mjs",
+                "workspaceBindingDigest": "sha256:14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10",
+                "workspaceBindingIdentity": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10"
+              }
+            },
+            {
+              "kind": "worksite_protected_observation",
+              "observation": {
+                "byteLength": 371,
+                "fileDigest": "sha256:5449c227c7173bb1b812e46e06d3341b1624e832a2a74105f9a109ee201134d4",
+                "fileIdentity": "16777230:463067536",
+                "kind": "worksite_observation",
+                "observationDigest": "sha256:fcae26f3653aa86e2a5354a0db10b430daa45346ace125b85f8a8b463781b91c",
+                "observationRef": "worksite-observation://abiogenesis/fcae26f3653aa86e2a5354a0db10b430daa45346ace125b85f8a8b463781b91c",
+                "schemaVersion": "5.0.0",
+                "state": "file",
+                "subjectDigest": "sha256:5a288aa14db1d46d9590bc34fa9b485c41eae3169817c41450d55921622beb09",
+                "subjectRef": "worksite-subject://abiogenesis/5a288aa14db1d46d9590bc34fa9b485c41eae3169817c41450d55921622beb09",
+                "workspaceBindingIdentity": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10"
+              },
+              "ordinal": 4,
+              "schemaVersion": "5.0.0",
+              "sourceMemberRef": "observed-worksite-execution-source://abiogenesis/1fd616551749488e2beb2ba88c2f3afab49c5941d73d930b081a8ac3864020c9",
+              "subject": {
+                "kind": "worksite_subject",
+                "relativePath": "test/uat/hello-cli.uat.test.mjs",
+                "schemaVersion": "5.0.0",
+                "subjectDigest": "sha256:5a288aa14db1d46d9590bc34fa9b485c41eae3169817c41450d55921622beb09",
+                "subjectRef": "worksite-subject://abiogenesis/5a288aa14db1d46d9590bc34fa9b485c41eae3169817c41450d55921622beb09",
+                "subjectUri": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace/test/uat/hello-cli.uat.test.mjs",
+                "workspaceBindingDigest": "sha256:14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10",
+                "workspaceBindingIdentity": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10"
+              }
+            },
+            {
+              "kind": "worksite_protected_observation",
+              "observation": {
+                "byteLength": 5656,
+                "fileDigest": "sha256:f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+                "fileIdentity": "16777230:463067537",
+                "kind": "worksite_observation",
+                "observationDigest": "sha256:54e57d995f95e1abe99190c23e98aed0ed22123f1b32f14ba9a68232dfaa1855",
+                "observationRef": "worksite-observation://abiogenesis/54e57d995f95e1abe99190c23e98aed0ed22123f1b32f14ba9a68232dfaa1855",
+                "schemaVersion": "5.0.0",
+                "state": "file",
+                "subjectDigest": "sha256:974399db2bce9ca9151dc4372a1b52760bcc34011ae4438c37db15725a9f7f6e",
+                "subjectRef": "worksite-subject://abiogenesis/974399db2bce9ca9151dc4372a1b52760bcc34011ae4438c37db15725a9f7f6e",
+                "workspaceBindingIdentity": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10"
+              },
+              "ordinal": 5,
+              "schemaVersion": "5.0.0",
+              "sourceMemberRef": "observed-worksite-execution-source://abiogenesis/ffb3d1ddfa9259bfa1528cfb128d65539213c174acd8ca9f73ec982564039b8e",
+              "subject": {
+                "kind": "worksite_subject",
+                "relativePath": "source/witness-contract.md",
+                "schemaVersion": "5.0.0",
+                "subjectDigest": "sha256:974399db2bce9ca9151dc4372a1b52760bcc34011ae4438c37db15725a9f7f6e",
+                "subjectRef": "worksite-subject://abiogenesis/974399db2bce9ca9151dc4372a1b52760bcc34011ae4438c37db15725a9f7f6e",
+                "subjectUri": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace/source/witness-contract.md",
+                "workspaceBindingDigest": "sha256:14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10",
+                "workspaceBindingIdentity": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10"
+              }
+            }
+          ],
+          "rendererRef": "renderer://abiogenesis/worksite/command-execution@5",
+          "resultContractRef": "contract://abiogenesis/worksite/command-execution-worker-result@5",
+          "schemaVersion": "5.0.0",
+          "sourceObservedInput": {
+            "kind": "observed_worksite_input",
+            "sourceSetDigest": "sha256:d79f7e764b1131291b9784976dfcc917114ccfb3d630076804707d6fafaabc78",
+            "sourceSetRef": "observed-worksite-execution-source-set://abiogenesis/d79f7e764b1131291b9784976dfcc917114ccfb3d630076804707d6fafaabc78"
+          },
+          "taskDigest": "sha256:d684df668b37bc4907b6092951bd427442632831326b01e5229788d9dbfd5149",
+          "taskRef": "worksite-command-execution-task://abiogenesis/d684df668b37bc4907b6092951bd427442632831326b01e5229788d9dbfd5149",
+          "transportLane": "worker_executes",
+          "workerActorRef": "actor://abiogenesis/worksite/command-execution-worker@5",
+          "workerBindingRef": "worker-binding://abiogenesis/worksite/command-execution-worker@5",
+          "workspaceAuthorityBasis": {
+            "authorityBasisDigest": "sha256:5beee18a67986c6153d9b0b78e46816ccfafce22bea74ddae21459632353729e",
+            "authorityBasisId": "workspace-authority://abiogenesis/5beee18a67986c6153d9b0b78e46816ccfafce22bea74ddae21459632353729e",
+            "authorityManifestDigest": "sha256:622c1792e7e8818bbe2e1c02b6112d3e56df89703002995aa076adb5513396c4",
+            "authorityManifestRef": "manifest://t286/root/workspace-authority",
+            "authorityMode": "trusted_developer",
+            "authorizedActorRef": "actor://abiogenesis/t286/trusted-developer",
+            "canonicalRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace",
+            "kind": "workspace_authority_basis",
+            "schemaVersion": "5.0.0",
+            "workspaceId": "workspace://t286/abi5-root"
+          },
+          "workspaceBinding": {
+            "admissionEventRef": "event://abiogenesis/e8fefad7e82f21a9ca6fcd6f8ec2eb36bc07a71a6b8fba0b1393125391220cfd",
+            "authorityBasisDigest": "sha256:5beee18a67986c6153d9b0b78e46816ccfafce22bea74ddae21459632353729e",
+            "authorityBasisId": "workspace-authority://abiogenesis/5beee18a67986c6153d9b0b78e46816ccfafce22bea74ddae21459632353729e",
+            "authorizedActorRef": "actor://abiogenesis/t286/trusted-developer",
+            "bindingDigest": "sha256:14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10",
+            "bindingId": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10",
+            "kind": "workspace_binding",
+            "lockDigest": "sha256:1108e7ba4d8a015bfd9e9daad57e5b027a6a37f81df3d1b30d4dd4ce7af425d0",
+            "lockId": "product-lock://abiogenesis/1108e7ba4d8a015bfd9e9daad57e5b027a6a37f81df3d1b30d4dd4ce7af425d0",
+            "productSetDigest": "sha256:cff18488ffc0f01da583e830ef37342fd835e1ea00683745a892e1596dd4c0ae",
+            "productSetId": "product-set://abiogenesis/cff18488ffc0f01da583e830ef37342fd835e1ea00683745a892e1596dd4c0ae",
+            "roots": {
+              "archiveRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace/.ai-workspace/archive",
+              "eventLogRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace/.ai-workspace/events",
+              "productRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection",
+              "projectionRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace/.ai-workspace/projections",
+              "runtimeStateRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace/.ai-workspace/runtime",
+              "toolchainRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/consumer"
+            },
+            "schemaVersion": "5.0.0",
+            "workspaceId": "workspace://t286/abi5-root"
+          }
+        },
+        "refusalContractRef": "contract://abiogenesis/worksite/command-execution-refusal@5",
+        "refusalValueKind": "worksite_command_execution_refusal",
+        "registeredSelectionDefinitionDigests": {
+          "graph-function://abiogenesis/default-library/construction@5": "sha256:fecb0d4153bb1498207b5b313f351ffcbc965d8ba72017eb08fc36596a760fe0",
+          "graph-function://abiogenesis/default-library/design@5": "sha256:e3204c6f7a03a95d130c5526d7be39616562e4f6b63fb07a817e8e7c641dd9f0",
+          "graph-function://abiogenesis/default-library/specification@5": "sha256:dfb8993011b050b6ca2a3b3fcd79e457ce9648692551e50756402c29e07e5d09",
+          "graph-function://abiogenesis/default-library/testing@5": "sha256:60ea9465493446e580a0088650616418d05fe99c2b063268dcfc6804c9b9ab80",
+          "graph-function://abiogenesis/default-library/uat@5": "sha256:42b98bd04fe0cd2abfeb467ecb86382f62d24b031156d7c3d288a3015a47e217"
+        },
+        "rejectionContractRef": "contract://abiogenesis/worksite/command-execution-failure@5",
+        "replayProjectionRef": "projection://abiogenesis/worksite/command-execution@5",
+        "resultContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+        "rootImplementationSetDigest": "sha256:36e70d5349b530f0ba5cc64c052acb10a26d23eb763a980522e02bbac4e6f8b2",
+        "rootImplementationSetRef": "implementation-set://abiogenesis/36e70d5349b530f0ba5cc64c052acb10a26d23eb763a980522e02bbac4e6f8b2",
+        "rootInteractionSetDigest": "sha256:1f5f5334529eda9bcf241cb4cedb8820bb3d3f1b5779faaf07b9ff18a88cff81",
+        "rootInteractionSetRef": "interaction-set://abiogenesis/1f5f5334529eda9bcf241cb4cedb8820bb3d3f1b5779faaf07b9ff18a88cff81",
+        "schemaVersion": "5.0.0",
+        "terminalKind": "completed",
+        "terminalPredicateRef": "predicate://abiogenesis/worksite/command-execution-observation@5",
+        "transitionContractRef": "contract://abiogenesis/worksite/command-execution-transition@5",
+        "workspaceBindingDigest": "sha256:14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10",
+        "workspaceBindingId": "workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10"
+      },
+      "graph": {
+        "admittedInputDigest": "sha256:c8d8ea2feee357493077c9cbadb4566a73dbe47678660587614e8d59a2393207",
+        "admittedInputRef": "result://abiogenesis/ec43542643c4e1a5db62f4681ef3de99c24caf7040ea2ac5b7af0a039ffbd0fe",
+        "fanOutMaterializations": [],
+        "graphFunctionDigest": "sha256:5b33817eb4d092aea5179405fc21049dd3540a3845ecdb74f1c4f4c1de10c112",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "invocationAdmissionRef": "invocation-admission://abiogenesis/98f9d535035a74d31675c8b9d233adffe419f474eac95d1443714eadfc5cd384",
+        "kind": "gtl_graph",
+        "materializationDigest": "sha256:f1042293c141752d2be77b47a1a153b6057c3bb9749604b2cdbf812a76fedc55",
+        "materializationRef": "graph-materialization://abiogenesis/f1042293c141752d2be77b47a1a153b6057c3bb9749604b2cdbf812a76fedc55",
+        "schemaVersion": "5.0.0",
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/worksite/command-execution@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/worksite/command-execution/fp@5",
+              "term": {
+                "armId": "arm://abiogenesis/worksite/command-execution/fp@5",
+                "compositionRef": null,
+                "fibre": "F_P",
+                "inputCarrierRef": "contract://abiogenesis/worksite/command-execution-task@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/worksite/command-execution-observation@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+                "programLocusRef": "node://abiogenesis/worksite/command-execution/fp@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/worksite/command-execution-evidence@5",
+                  "failureContractRef": "contract://abiogenesis/worksite/command-execution-failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/worksite/command-execution-fp@5",
+                  "inputContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+                  "judgmentContractRef": "contract://abiogenesis/worksite/command-execution-judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+                  "refusalContractRef": "contract://abiogenesis/worksite/command-execution-refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "command-execution",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/worksite/command-execution/fp@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/worksite/command-execution/fp@5"
+          ]
+        }
+      },
+      "graphFunction": {
+        "declarations": {
+          "abg.child_closure_contract": "contract://abiogenesis/worksite/command-execution-child-closure@5",
+          "abg.closure_contract": "contract://abiogenesis/worksite/command-execution-closure@5",
+          "abg.compute_regime": "F_P",
+          "abg.evidence_contract": "contract://abiogenesis/worksite/command-execution-evidence@5",
+          "abg.judgment_contract": "contract://abiogenesis/worksite/command-execution-judgment@5",
+          "abg.judgment_predicate": "predicate://abiogenesis/worksite/command-execution-observation@5",
+          "abg.raw_result_contract": "contract://abiogenesis/worksite/command-execution-worker-result@5",
+          "abg.transition_contract": "contract://abiogenesis/worksite/command-execution-transition@5"
+        },
+        "effects": [],
+        "environment": {
+          "carries": [
+            "contract://abiogenesis/worksite/command-execution-worker-result@5"
+          ],
+          "provides": [
+            "contract://abiogenesis/worksite/command-execution-observation@5"
+          ],
+          "requires": [
+            "contract://abiogenesis/worksite/command-execution-task@5"
+          ]
+        },
+        "inputs": [
+          "contract://abiogenesis/worksite/command-execution-task@5"
+        ],
+        "kind": "graph_function",
+        "name": "graph-function://abiogenesis/worksite/command-execution@5",
+        "outputs": [
+          "contract://abiogenesis/worksite/command-execution-observation@5"
+        ],
+        "tags": [
+          "abiogenesis",
+          "c2",
+          "command-execution",
+          "fp",
+          "worksite"
+        ],
+        "template": {
+          "applications": [],
+          "edges": [],
+          "graphRef": "graph://abiogenesis/worksite/command-execution@5",
+          "kind": "inline_graph",
+          "nodes": [
+            {
+              "nodeKind": "c_locus",
+              "nodeRef": "node://abiogenesis/worksite/command-execution/fp@5",
+              "term": {
+                "armId": "arm://abiogenesis/worksite/command-execution/fp@5",
+                "compositionRef": null,
+                "fibre": "F_P",
+                "inputCarrierRef": "contract://abiogenesis/worksite/command-execution-task@5",
+                "judgmentPredicateRef": "predicate://abiogenesis/worksite/command-execution-observation@5",
+                "kind": "c_of",
+                "outputCarrierRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+                "programLocusRef": "node://abiogenesis/worksite/command-execution/fp@5",
+                "requirement": {
+                  "evidenceContractRef": "contract://abiogenesis/worksite/command-execution-evidence@5",
+                  "failureContractRef": "contract://abiogenesis/worksite/command-execution-failure@5",
+                  "implementationBindingRef": "implementation-binding://abiogenesis/worksite/command-execution-fp@5",
+                  "inputContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+                  "judgmentContractRef": "contract://abiogenesis/worksite/command-execution-judgment@5",
+                  "kind": "executable_leaf_requirement",
+                  "outputContractRef": "contract://abiogenesis/worksite/command-execution-observation@5",
+                  "refusalContractRef": "contract://abiogenesis/worksite/command-execution-refusal@5"
+                },
+                "resultBearing": true,
+                "stageRole": "command-execution",
+                "vectorIndex": 0
+              }
+            }
+          ],
+          "startNodeRef": "node://abiogenesis/worksite/command-execution/fp@5",
+          "terminalNodeRefs": [
+            "node://abiogenesis/worksite/command-execution/fp@5"
+          ]
+        },
+        "version": "5.0.0"
+      },
+      "predecessorPrefix": {
+        "coordinateDigest": "sha256:0f9561d6ccdf191c48a98be34c33021740cffa4a01aa97f30cc4b1d0af4c9b01",
+        "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/runtime/events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:edb98b6df917dd3f31138066f4b178a45ba101733f8c426915f87c82e53e0f56",
+        "prefixLength": 8446204,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+          "inode": 463067499
+        }
+      },
+      "publication": {
+        "artifactDigest": "sha256:6cf3780dadeeddce756fdfe903e0c7da2ec8f894a4619a104650ab5128792e12",
+        "closureContracts": [],
+        "contracts": [
+          {
+            "contractKind": "output",
+            "contractRef": "contract://default-library-witness/assessment@5",
+            "contractVersion": "5.0.0",
+            "valueKind": "consumer_outcome_assessment"
+          }
+        ],
+        "contributionManifestRef": "contribution-manifest://default-library-witness/consumer@5",
+        "contributions": [
+          {
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://default-library-witness/executive-step@5",
+            "handle": "graph-function://default-library-witness/executive-step@5",
+            "kind": "graph_function",
+            "owningProductId": "product://default-library-witness/consumer@5",
+            "programMembershipRefs": [
+              "program://default-library-witness/witness@5"
+            ],
+            "provenanceRefs": [
+              "sha256:60957ef68f8305175c84bf0798b8efe5e376958b658c271a58cf524fe075daa8",
+              "sha256:6cf3780dadeeddce756fdfe903e0c7da2ec8f894a4619a104650ab5128792e12"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://default-library-witness/witness@5"
+            ]
+          },
+          {
+            "compatibilityRefs": [
+              "compatibility://abiogenesis/major/5"
+            ],
+            "declarationOrContractRef": "graph-function://default-library-witness/executive@5",
+            "handle": "graph-function://default-library-witness/executive@5",
+            "kind": "graph_function",
+            "owningProductId": "product://default-library-witness/consumer@5",
+            "programMembershipRefs": [
+              "program://default-library-witness/witness@5"
+            ],
+            "provenanceRefs": [
+              "sha256:60957ef68f8305175c84bf0798b8efe5e376958b658c271a58cf524fe075daa8",
+              "sha256:6cf3780dadeeddce756fdfe903e0c7da2ec8f894a4619a104650ab5128792e12"
+            ],
+            "readinessPrerequisiteRefs": [
+              "program://default-library-witness/witness@5"
+            ]
+          }
+        ],
+        "descriptorRef": "descriptor://default-library-witness/consumer@5",
+        "evaluators": [],
+        "graphFunctions": [
+          {
+            "declarations": {
+              "abg.child_closure_contract": "contract://abiogenesis/default-library/closure-child@5",
+              "abg.closure_contract": "contract://abiogenesis/default-library/closure-child@5",
+              "abg.compute_regime": "mixed",
+              "abg.conditions_for_use": "Unresolved original outcomes remain; the permitted domain and framed context are explicit.",
+              "abg.evidence_contract": "contract://abiogenesis/default-library/evidence@5",
+              "abg.framed_synthesis_locus": "node://abiogenesis/default-library/select@5",
+              "abg.framed_synthesis_projection": "node://abiogenesis/default-library/project-choice@5",
+              "abg.functional_purpose": "Map the conserved problem to framed registered contributions, reasons, dependencies and gaps; explicitly choose the next member or gap and revise against actual observations.",
+              "abg.judgment_contract": "contract://abiogenesis/default-library/judgment@5",
+              "abg.judgment_predicate": "predicate://abiogenesis/default-library/fold@5",
+              "abg.raw_result_contract": "contract://abiogenesis/default-library/native-response@5",
+              "abg.transition_contract": "contract://abiogenesis/default-library/transition@5"
+            },
+            "effects": [
+              "effect://abiogenesis/worksite/native-work/v1"
+            ],
+            "environment": {
+              "carries": [
+                "contract://abiogenesis/default-library/choice@5",
+                "contract://abiogenesis/default-library/selection-task@5",
+                "contract://abiogenesis/default-library/state@5",
+                "contract://abiogenesis/default-library/synthesis@5"
+              ],
+              "provides": [
+                "contract://abiogenesis/default-library/state@5"
+              ],
+              "requires": [
+                "contract://abiogenesis/default-library/state@5"
+              ]
+            },
+            "inputs": [
+              "contract://abiogenesis/default-library/state@5"
+            ],
+            "kind": "graph_function",
+            "name": "graph-function://default-library-witness/executive-step@5",
+            "outputs": [
+              "contract://abiogenesis/default-library/state@5"
+            ],
+            "tags": [
+              "default-library",
+              "executive"
+            ],
+            "template": {
+              "applications": [
+                {
+                  "applicationRef": "graph-function-application://abiogenesis/82d81452e4476d800f937ce6165eab4f867259987397720a3507f06bd99e197f",
+                  "evaluatorRef": "evaluator://abiogenesis/default-library/project-choice@5",
+                  "inputContractRef": "contract://abiogenesis/default-library/choice@5",
+                  "kind": "graph_function_application",
+                  "outputContractRef": "contract://abiogenesis/default-library/state@5",
+                  "relationKind": "registered_selection",
+                  "ruleRef": "rule://abiogenesis/default-library/project-choice@5",
+                  "sourceProgramLocusRef": "node://abiogenesis/default-library/project-choice@5"
+                }
+              ],
+              "edges": [
+                {
+                  "edgeRef": "graph-vector://abiogenesis/20293201baa3eb26d44de2d4025f793579c9ab0a769286691d9de52bb77798c7",
+                  "fromNodeRef": "graph-function://abiogenesis/default-library/executive-step@5/prepare",
+                  "toNodeRef": "node://abiogenesis/default-library/select@5"
+                },
+                {
+                  "edgeRef": "graph-vector://abiogenesis/7d625200f74d544f7a62ef1475689422a6e9ae27cdff1bb82581f63bbc938d0c",
+                  "fromNodeRef": "node://abiogenesis/default-library/select@5",
+                  "toNodeRef": "node://abiogenesis/default-library/project-choice@5"
+                },
+                {
+                  "edgeRef": "graph-vector://abiogenesis/3fe0734675550bfacb6aafa9fb2e14b70a0588fb735418a906908dd43de29bae",
+                  "fromNodeRef": "node://abiogenesis/default-library/project-choice@5",
+                  "toNodeRef": "graph-function://abiogenesis/default-library/specification@5/invoke"
+                },
+                {
+                  "edgeRef": "graph-vector://abiogenesis/5fa7984102d417e5aa93c17e55a36abcf19fb7c202778a6d547a4d65e3991773",
+                  "fromNodeRef": "node://abiogenesis/default-library/project-choice@5",
+                  "toNodeRef": "graph-function://abiogenesis/default-library/design@5/invoke"
+                },
+                {
+                  "edgeRef": "graph-vector://abiogenesis/c9bf41d3980bd3c2a9f8639633a7790463360b0eec092898ec46a152ba116343",
+                  "fromNodeRef": "node://abiogenesis/default-library/project-choice@5",
+                  "toNodeRef": "graph-function://abiogenesis/default-library/construction@5/invoke"
+                },
+                {
+                  "edgeRef": "graph-vector://abiogenesis/b1b6320ef60bc27ee057db35d252217bd9906e3c3a595120dbe182befc86c922",
+                  "fromNodeRef": "node://abiogenesis/default-library/project-choice@5",
+                  "toNodeRef": "graph-function://abiogenesis/default-library/testing@5/invoke"
+                },
+                {
+                  "edgeRef": "graph-vector://abiogenesis/2db7a75187ab2f58915ac75bde88cb1ece20d0b6ae85b8daa403548980a64a9a",
+                  "fromNodeRef": "node://abiogenesis/default-library/project-choice@5",
+                  "toNodeRef": "graph-function://abiogenesis/default-library/uat@5/invoke"
+                }
+              ],
+              "graphRef": "graph-function://default-library-witness/executive-step@5/graph",
+              "kind": "inline_graph",
+              "nodes": [
+                {
+                  "nodeKind": "c_locus",
+                  "nodeRef": "graph-function://abiogenesis/default-library/executive-step@5/prepare",
+                  "term": {
+                    "armId": "graph-function://abiogenesis/default-library/executive-step@5/prepare/arm",
+                    "compositionRef": null,
+                    "fibre": "F_D",
+                    "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                    "judgmentPredicateRef": "predicate://abiogenesis/default-library/prepare-selection@5",
+                    "kind": "c_of",
+                    "outputCarrierRef": "contract://abiogenesis/default-library/selection-task@5",
+                    "programLocusRef": "graph-function://abiogenesis/default-library/executive-step@5/prepare",
+                    "requirement": {
+                      "evidenceContractRef": "contract://abiogenesis/default-library/evidence@5",
+                      "failureContractRef": "contract://abiogenesis/default-library/failure@5",
+                      "implementationBindingRef": "binding://abiogenesis/default-library/prepare-selection@5",
+                      "inputContractRef": "contract://abiogenesis/default-library/state@5",
+                      "judgmentContractRef": "contract://abiogenesis/default-library/judgment@5",
+                      "kind": "executable_leaf_requirement",
+                      "outputContractRef": "contract://abiogenesis/default-library/selection-task@5",
+                      "refusalContractRef": "contract://abiogenesis/default-library/refusal@5"
+                    },
+                    "resultBearing": true,
+                    "stageRole": "result",
+                    "vectorIndex": 0
+                  }
+                },
+                {
+                  "nodeKind": "c_locus",
+                  "nodeRef": "node://abiogenesis/default-library/select@5",
+                  "term": {
+                    "armId": "node://abiogenesis/default-library/select@5/arm",
+                    "compositionRef": null,
+                    "fibre": "F_P",
+                    "inputCarrierRef": "contract://abiogenesis/default-library/selection-task@5",
+                    "judgmentPredicateRef": "predicate://abiogenesis/default-library/select@5",
+                    "kind": "c_of",
+                    "outputCarrierRef": "contract://abiogenesis/default-library/synthesis@5",
+                    "programLocusRef": "node://abiogenesis/default-library/select@5",
+                    "requirement": {
+                      "evidenceContractRef": "contract://abiogenesis/default-library/evidence@5",
+                      "failureContractRef": "contract://abiogenesis/default-library/failure@5",
+                      "implementationBindingRef": "binding://abiogenesis/default-library/select@5",
+                      "inputContractRef": "contract://abiogenesis/default-library/selection-task@5",
+                      "judgmentContractRef": "contract://abiogenesis/default-library/judgment@5",
+                      "kind": "executable_leaf_requirement",
+                      "outputContractRef": "contract://abiogenesis/default-library/synthesis@5",
+                      "refusalContractRef": "contract://abiogenesis/default-library/refusal@5"
+                    },
+                    "resultBearing": false,
+                    "stageRole": "evaluate",
+                    "vectorIndex": 0
+                  }
+                },
+                {
+                  "nodeKind": "c_locus",
+                  "nodeRef": "node://abiogenesis/default-library/project-choice@5",
+                  "term": {
+                    "armId": "node://abiogenesis/default-library/project-choice@5/arm",
+                    "compositionRef": null,
+                    "fibre": "F_D",
+                    "inputCarrierRef": "contract://abiogenesis/default-library/synthesis@5",
+                    "judgmentPredicateRef": "predicate://abiogenesis/default-library/project-choice@5",
+                    "kind": "c_of",
+                    "outputCarrierRef": "contract://abiogenesis/default-library/choice@5",
+                    "programLocusRef": "node://abiogenesis/default-library/project-choice@5",
+                    "requirement": {
+                      "evidenceContractRef": "contract://abiogenesis/default-library/evidence@5",
+                      "failureContractRef": "contract://abiogenesis/default-library/failure@5",
+                      "implementationBindingRef": "binding://abiogenesis/default-library/project-choice@5",
+                      "inputContractRef": "contract://abiogenesis/default-library/synthesis@5",
+                      "judgmentContractRef": "contract://abiogenesis/default-library/judgment@5",
+                      "kind": "executable_leaf_requirement",
+                      "outputContractRef": "contract://abiogenesis/default-library/choice@5",
+                      "refusalContractRef": "contract://abiogenesis/default-library/refusal@5"
+                    },
+                    "resultBearing": false,
+                    "stageRole": "evaluate",
+                    "vectorIndex": 0
+                  }
+                },
+                {
+                  "nodeKind": "c_locus",
+                  "nodeRef": "graph-function://abiogenesis/default-library/specification@5/invoke",
+                  "term": {
+                    "graphFunctionRef": "graph-function://abiogenesis/default-library/specification@5",
+                    "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                    "kind": "c_workflow",
+                    "outputCarrierRef": "contract://abiogenesis/default-library/state@5"
+                  }
+                },
+                {
+                  "nodeKind": "c_locus",
+                  "nodeRef": "graph-function://abiogenesis/default-library/design@5/invoke",
+                  "term": {
+                    "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+                    "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                    "kind": "c_workflow",
+                    "outputCarrierRef": "contract://abiogenesis/default-library/state@5"
+                  }
+                },
+                {
+                  "nodeKind": "c_locus",
+                  "nodeRef": "graph-function://abiogenesis/default-library/construction@5/invoke",
+                  "term": {
+                    "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                    "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                    "kind": "c_workflow",
+                    "outputCarrierRef": "contract://abiogenesis/default-library/state@5"
+                  }
+                },
+                {
+                  "nodeKind": "c_locus",
+                  "nodeRef": "graph-function://abiogenesis/default-library/testing@5/invoke",
+                  "term": {
+                    "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+                    "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                    "kind": "c_workflow",
+                    "outputCarrierRef": "contract://abiogenesis/default-library/state@5"
+                  }
+                },
+                {
+                  "nodeKind": "c_locus",
+                  "nodeRef": "graph-function://abiogenesis/default-library/uat@5/invoke",
+                  "term": {
+                    "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+                    "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                    "kind": "c_workflow",
+                    "outputCarrierRef": "contract://abiogenesis/default-library/state@5"
+                  }
+                }
+              ],
+              "startNodeRef": "graph-function://abiogenesis/default-library/executive-step@5/prepare",
+              "terminalNodeRefs": [
+                "graph-function://abiogenesis/default-library/specification@5/invoke",
+                "graph-function://abiogenesis/default-library/design@5/invoke",
+                "graph-function://abiogenesis/default-library/construction@5/invoke",
+                "graph-function://abiogenesis/default-library/testing@5/invoke",
+                "graph-function://abiogenesis/default-library/uat@5/invoke"
+              ]
+            },
+            "version": "5.0.0"
+          },
+          {
+            "declarations": {
+              "abg.child_closure_contract": "contract://abiogenesis/default-library/closure-child@5",
+              "abg.closure_contract": "contract://abiogenesis/default-library/closure-run@5",
+              "abg.compute_regime": "mixed",
+              "abg.conditions_for_use": "A complete original task, criterion/authority basis and bounded permitted library are declared.",
+              "abg.evidence_contract": "contract://abiogenesis/default-library/evidence@5",
+              "abg.functional_purpose": "Preserve original outcomes through bounded declared recursion; reevaluate the current independent verdict before parent closure.",
+              "abg.judgment_contract": "contract://abiogenesis/default-library/judgment@5",
+              "abg.judgment_predicate": "predicate://abiogenesis/default-library/evaluate-parent@5",
+              "abg.raw_result_contract": "contract://default-library-witness/assessment@5",
+              "abg.supported_fulfillment_profile": "policy://abiogenesis/default-library/admitted-fulfillment@5",
+              "abg.transition_contract": "contract://abiogenesis/default-library/transition@5"
+            },
+            "effects": [
+              "effect://abiogenesis/worksite/native-work/v1"
+            ],
+            "environment": {
+              "carries": [
+                "contract://abiogenesis/default-library/choice@5",
+                "contract://abiogenesis/default-library/selection-task@5",
+                "contract://abiogenesis/default-library/state@5",
+                "contract://abiogenesis/default-library/synthesis@5"
+              ],
+              "provides": [
+                "contract://abiogenesis/default-library/state@5"
+              ],
+              "requires": [
+                "contract://abiogenesis/default-library/state@5"
+              ]
+            },
+            "inputs": [
+              "contract://abiogenesis/default-library/state@5"
+            ],
+            "kind": "graph_function",
+            "name": "graph-function://default-library-witness/executive@5",
+            "outputs": [
+              "contract://abiogenesis/default-library/state@5"
+            ],
+            "tags": [
+              "default-library",
+              "executive"
+            ],
+            "template": {
+              "applications": [
+                {
+                  "applicationRef": "graph-function-application://abiogenesis/63a6587a02bc4537440f5b1e297f25fecd3b448ea40d91e7724dd98ac94157f7",
+                  "bound": 12,
+                  "foldback": {
+                    "binding": "$",
+                    "mode": "rebind",
+                    "requiresParentEvaluation": true
+                  },
+                  "foldbackRef": "foldback://abiogenesis/e7df59cd5dc25a9252febf61e03e386cd22158dca44e9380fab9c984465b9a17",
+                  "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+                  "inputContractRef": "contract://abiogenesis/default-library/state@5",
+                  "kind": "graph_function_application",
+                  "outputContractRef": "contract://abiogenesis/default-library/state@5",
+                  "relationKind": "recurse",
+                  "terminationEvaluatorRefs": [
+                    "evaluator://abiogenesis/default-library/parent@5"
+                  ],
+                  "terminationFieldRef": "$.terminal",
+                  "terminationRuleRef": "rule://abiogenesis/default-library/parent@5"
+                }
+              ],
+              "edges": [],
+              "graphRef": "graph-function://default-library-witness/executive@5/graph",
+              "kind": "inline_graph",
+              "nodes": [
+                {
+                  "nodeKind": "c_locus",
+                  "nodeRef": "node://abiogenesis/default-library/parent@5",
+                  "term": {
+                    "armId": "node://abiogenesis/default-library/parent@5/arm",
+                    "compositionRef": "graph-function-application://abiogenesis/63a6587a02bc4537440f5b1e297f25fecd3b448ea40d91e7724dd98ac94157f7",
+                    "fibre": "F_D",
+                    "inputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                    "judgmentPredicateRef": "predicate://abiogenesis/default-library/evaluate-parent@5",
+                    "kind": "c_of",
+                    "outputCarrierRef": "contract://abiogenesis/default-library/state@5",
+                    "programLocusRef": "node://abiogenesis/default-library/parent@5",
+                    "requirement": {
+                      "evidenceContractRef": "contract://abiogenesis/default-library/evidence@5",
+                      "failureContractRef": "contract://abiogenesis/default-library/failure@5",
+                      "implementationBindingRef": "binding://abiogenesis/default-library/evaluate-parent@5",
+                      "inputContractRef": "contract://abiogenesis/default-library/state@5",
+                      "judgmentContractRef": "contract://abiogenesis/default-library/judgment@5",
+                      "kind": "executable_leaf_requirement",
+                      "outputContractRef": "contract://abiogenesis/default-library/state@5",
+                      "refusalContractRef": "contract://abiogenesis/default-library/refusal@5"
+                    },
+                    "resultBearing": true,
+                    "stageRole": "termination",
+                    "vectorIndex": 0
+                  }
+                }
+              ],
+              "startNodeRef": "node://abiogenesis/default-library/parent@5",
+              "terminalNodeRefs": [
+                "node://abiogenesis/default-library/parent@5"
+              ]
+            },
+            "version": "5.0.0"
+          }
+        ],
+        "implementationBindings": [],
+        "kind": "module_publication",
+        "moduleRef": "module://default-library-witness/witness@5",
+        "moduleVersion": "5.0.0",
+        "owningProductId": "product://default-library-witness/consumer@5",
+        "productContentDigest": "sha256:e388c40ac3ae13ff9d399929811db2ce13ae90ad6c719f94a5996046bba5a31e",
+        "productManifestDigest": "sha256:60957ef68f8305175c84bf0798b8efe5e376958b658c271a58cf524fe075daa8",
+        "productSemanticsBinding": {
+          "bindingRef": "semantics://default-library-witness/consumer@5",
+          "kind": "product_semantics_binding",
+          "modulePath": "build/index.mjs",
+          "namedSymbol": "SEMANTICS",
+          "packageName": "@abiogenesis-fixtures/registered-selection",
+          "packageVersion": "5.0.0"
+        },
+        "programs": [
+          {
+            "callableMembership": [
+              "graph-function://abiogenesis/default-library/construction@5",
+              "graph-function://abiogenesis/default-library/design@5",
+              "graph-function://abiogenesis/default-library/specification@5",
+              "graph-function://abiogenesis/default-library/testing@5",
+              "graph-function://abiogenesis/default-library/uat@5",
+              "graph-function://abiogenesis/worksite/command-execution@5",
+              "graph-function://abiogenesis/worksite/native-work/assessment@5",
+              "graph-function://abiogenesis/worksite/native-work@5",
+              "graph-function://default-library-witness/executive-step@5",
+              "graph-function://default-library-witness/executive@5"
+            ],
+            "closureContractRef": "contract://abiogenesis/default-library/closure-run@5",
+            "kind": "gtl_program",
+            "moduleRef": "module://default-library-witness/witness@5",
+            "policies": {
+              "abg.compute_regime": "mixed",
+              "abg.default_library_fulfillment": "policy://abiogenesis/default-library/admitted-fulfillment@5",
+              "abg.default_start_ref": "start://default-library-witness/witness@5",
+              "abg.root_mode": "direct",
+              "abg.run_environment": "environment://default-library-witness/selected@5"
+            },
+            "programRef": "program://default-library-witness/witness@5",
+            "starts": [
+              {
+                "graphFunctionRef": "graph-function://default-library-witness/executive@5",
+                "startRef": "start://default-library-witness/witness@5"
+              }
+            ],
+            "version": "5.0.0"
+          }
+        ],
+        "rules": [],
+        "runEnvironments": [
+          {
+            "accesses": [
+              {
+                "accessRef": "access://registered-selection/source-corpus-validation@5",
+                "frameIndexRefs": [],
+                "maxOutputBytes": 2000000,
+                "mode": "validation",
+                "operation": "validate",
+                "timeoutMs": 30000
+              }
+            ],
+            "contexts": [
+              {
+                "contextRef": "context://registered-selection/executive@5",
+                "inventoryDigest": "sha256:4749995a7ade956846ca02efc5bc7e65884b1ce2be180c632ea77c6de08151ab",
+                "members": [
+                  {
+                    "byteCount": 133684,
+                    "digest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                    "memberRef": "member://registered-selection/standards/STDO_REFERENCE_FRAME_BASELINE.md@5",
+                    "path": "standards/STDO_REFERENCE_FRAME_BASELINE.md"
+                  },
+                  {
+                    "byteCount": 55118,
+                    "digest": "sha256:6e9148d7c8eff847abf172315b0e282e4477f3d40866b28f7fef21c41cb067e7",
+                    "memberRef": "member://registered-selection/standards/REFERENCE_FRAME_METHOD.md@5",
+                    "path": "standards/REFERENCE_FRAME_METHOD.md"
+                  }
+                ],
+                "sourceLocator": "stdo://releases/v2.5.1-rc.1/"
+              },
+              {
+                "contextRef": "context://default-library-witness/frames@5",
+                "inventoryDigest": "sha256:ed55127fb0b9d337929541cbf1f79d60330cbebab50c87e2ae9fb3db43fd4894",
+                "members": [
+                  {
+                    "byteCount": 133684,
+                    "digest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                    "memberRef": "member://default-library-witness/frames@5",
+                    "path": "standards/STDO_REFERENCE_FRAME_BASELINE.md"
+                  }
+                ],
+                "sourceLocator": "stdo://releases/v2.5.1-rc.1/"
+              }
+            ],
+            "corpusAccess": {
+              "axiomDependencyRef": "dependency://registered-selection/axiom@5",
+              "executablePath": "build_tenants/core/code/ac.py",
+              "kind": "axiom_indexer",
+              "map": {
+                "byteDigest": "sha256:a0c68f7a4cebf8166c7e436737d8fe5de68ac8f871dcd6a29196d719af89f9b1",
+                "canonicalDigest": "sha256:84443abb79c93ef7148cbb1a817afd8ad0ce5eeee986f09a3169241713c8806f",
+                "path": "build_tenants/axiom_indexer/representation/stdo-v2.5.1-rc.1/logical-constraint-map.json",
+                "uri": "urn:stdo-representation:map:stdo-v2.5.1-rc.1"
+              },
+              "outputContractPath": "skills/axiomatize-corpus/references/output-contract.md",
+              "program": {
+                "byteDigest": "sha256:f45bac9323a3058625325e6791ef8355f45c1bf8a3f8018203f3daf14db4e612",
+                "canonicalDigest": "sha256:7b922250c3fa601fa2cc9ef81084eac1ffbf8be74b7e4db2b53cb0c2a14b069f",
+                "path": "build_tenants/axiom_indexer/representation/stdo-v2.5.1-rc.1/axiomatic-program.json",
+                "uri": "urn:stdo-representation:program:a-c-text:stdo-v2.5.1-rc.1"
+              },
+              "pythonExecutableDigest": "sha256:a7f5b535d61d1c7326824204ac80f045a97a652abb154421e2c74fcc365a3539",
+              "pythonVersion": "Python 3.12.8",
+              "representationDependencyRef": "dependency://registered-selection/representation@5",
+              "sourceDependencyRef": "dependency://registered-selection/source@5"
+            },
+            "declarationRef": "environment://default-library-witness/selected@5",
+            "dependencies": [
+              {
+                "basisRef": "stdo://releases/v2.5.1-rc.1/",
+                "dependencyRef": "dependency://registered-selection/source@5",
+                "inventoryDigest": "sha256:e1033c8cf05aae028549db207cacfbe7b4e66822204725ddd83fcec02c564bcd",
+                "members": [
+                  {
+                    "digest": "sha256:cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+                    "path": "LICENSE",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:801249a7c8d15ce1d0beae0b3db9b7d3e853f605dc7a39e40be117c99d4cf248",
+                    "path": "plugins/spec/.claude-plugin/plugin.json",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:5b53c8cb19e32ed363b5804d179ebb916fbf5147a5e55ae1015a2732cad81724",
+                    "path": "plugins/spec/.codex-plugin/plugin.json",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+                    "path": "plugins/spec/LICENSE",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:a501d0d6df6e6736a33180d876f8c83a157f5f0248f195d1687bce876f3a2b79",
+                    "path": "plugins/spec/claude-skills/refresh/SKILL.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:bfde7bb046086e99f77bcb84bbb432fb814c8a1b9962297c6834c28e68bbdcc6",
+                    "path": "plugins/spec/references/GETTING_STARTED.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:4dcf0bb305732dcb280187804889426bd5abcd7188d9bb8df8b16af265a0b23f",
+                    "path": "plugins/spec/references/PRODUCT_BASIS.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:ced18a9ba499843f4321148d2d8df3ec0da7ebe8ecdb95ca282ff7dba5d53a8c",
+                    "path": "plugins/spec/references/REFRESH.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:3a77b5a010f4a30debce45e4b6cd846bc84a135358c0d7369178a9512d693ee2",
+                    "path": "plugins/spec/skills/stdo-help/SKILL.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:af3add1ac0464524f1fbb33dd63c49787c1c905e883a3cbd0d48a8075474a20e",
+                    "path": "plugins/spec/skills/stdo-help/agents/openai.yaml",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:99f3d12012c7c3a39fc6ac5b80f4cc54c40d2709c536ec17a535647608ecf4db",
+                    "path": "plugins/spec/skills/stdo-review/SKILL.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:e736f9789012d0365e5dec0973cd394a48009aa06548b83cea5912643eb7d9d4",
+                    "path": "plugins/spec/skills/stdo-review/agents/openai.yaml",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:eef2081ec8a3db8a4f76db6408aa563c34c26b1e65e24417967956cc65655678",
+                    "path": "plugins/spec/skills/stdo-status/SKILL.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:b8a9e5843fcb27d5a774ae34ebabe91b039d1999af1b4efd57dcdc5a16383e37",
+                    "path": "plugins/spec/skills/stdo-status/agents/openai.yaml",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:419f12c3339e70ab3c02aa391e619463ebd20f2602287e1028a91bfe2cdeff85",
+                    "path": "plugins/spec/skills/stdo-ticket/SKILL.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:0ca0733a5bf692cf9b9318c1eb1a64d66262b60b2357b59e24fa4d6dfc4d0d99",
+                    "path": "plugins/spec/skills/stdo-ticket/agents/openai.yaml",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:39d9f88af4b574c4e30f45adc3b19ed324c25ae453d7359112af71aa9d4d4d8f",
+                    "path": "plugins/spec/skills/stdo-work/SKILL.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:88995a63dc11355deb2f72948a84702f555cc52a4398843f391c7901c0bf7d3f",
+                    "path": "plugins/spec/skills/stdo-work/agents/openai.yaml",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:2e07329c6d378eb620dd1872b549c8f680551b3c774cffb48d5e600c40e41702",
+                    "path": "release/release-note.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:cbe2edb928d3e75e23446f6d525baea664966e8d5920e6fa389cbaa4af8f1f8d",
+                    "path": "standards/AXIOMATIC_CALCULUS.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:5cb69556bba1171ec347cac96811c50071f0648a367103aa215070239b93785e",
+                    "path": "standards/DESIGN_MODULE_METHOD.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:da6d81df61d61e685bcf1ef69187839a52d72af7f1d61af050244f856efe0cd0",
+                    "path": "standards/GLOSSARY_GUIDE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:e65b875464cc93a3f9186d915ad88603755de34bac6f27072562ed34c13f64cd",
+                    "path": "standards/IDENTITY_METHOD.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:b33dd5b868e66e27c583b3237e93421ab12d502b38368bf075973c1bf7faef2d",
+                    "path": "standards/ODD_METHOD.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:63ee8b6fde9803e38970e85fb2c4e0aa398632720b6a5f1cff8fb1291398c59a",
+                    "path": "standards/POSTING_GUIDE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:7eb1ab99072963acf373af422cf698f1623dbd0628e7aff7a3ec5af4e72f8659",
+                    "path": "standards/README.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:6e9148d7c8eff847abf172315b0e282e4477f3d40866b28f7fef21c41cb067e7",
+                    "path": "standards/REFERENCE_FRAME_METHOD.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:582bc15451855670495e559db3ae6a89ba37edaa3656f33499d02220cbdb141c",
+                    "path": "standards/RELEASE_METHOD.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:ff93375a862cd3c31b27a2cc79f8f6a4111586ca7e31e5514b8af88d3fbb99e3",
+                    "path": "standards/SPEC_METHOD.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                    "path": "standards/STDO_REFERENCE_FRAME_BASELINE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:f031ce7fb3b5b366ffaee5996ae76e861697ad86897cc04c06b67da249fe0eca",
+                    "path": "standards/TICKET_METHOD.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:618bb7c8f9f1eab8283cf595ac9da3533f0f9cf80a684c6f42e09142da6590c1",
+                    "path": "standards/TRAVERSAL_OCCURRENCE_PROFILE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:a7cca45d6064d7fc864edd86e3913c9462cfe2a52ae3d1519c6a031713dccae7",
+                    "path": "standards/UX_METHOD.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:123ddcd05130aa95508c9fcfa194bf083caae3657baedaba0ce9214009453762",
+                    "path": "standards/WORLD_MODEL_METHOD.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:29e50edc00997b76c20fad74724991b8cfffbe692ee6cabab208ad7a0c1b63fd",
+                    "path": "standards/WRITING_GUIDE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:ac695b50fbe503e65fd8cb50c69ebe14ec818cc19bdb24941f514cc3c403eb88",
+                    "path": "standards/authority_compressions/README.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:30d8615f171298e8b40d112eff4fee56e302b63f9e5968272b7e7291f76c7bda",
+                    "path": "standards/authority_compressions/axiomatic_calculus.compressed.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:a6edc3a5fdde1946e9e47f08841b34e1e0a6ea6b937a42e2a7d9b132f53692ee",
+                    "path": "standards/authority_compressions/design_module_method.compressed.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:49968bace86260d6ffa25433598245ec89a23646b3743872aaf40bc99dbc1c6b",
+                    "path": "standards/authority_compressions/odd_method.compressed.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:304840d327a7e372ad347dc6184b69458d293a547b9aa81d9aabccb0af7742bc",
+                    "path": "standards/authority_compressions/spec_method.compressed.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:5e63a0f13665fe5b0bcacdeff1514cb36194079d076065f6227af73ca691aca7",
+                    "path": "standards/authority_compressions/stdo_bootstrap.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:422f5b5882e62228db4397b69763090288e54ccdf69876cbb457bfeecfecca30",
+                    "path": "standards/authority_compressions/stdo_compressed.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:d7ad2a08f71a0f4f4ac9478e2f9f3c08ca22d947b27e30f08476dbbb926745d8",
+                    "path": "standards/authority_compressions/ticket_method.compressed.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:bfecda2c2e2f1c2f9e1ad97713d6a708227c2f47d4d95ce380d978b0df3877ce",
+                    "path": "standards/authority_compressions/traversal_occurrence_profile.compressed.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:f3323f1f4704360f59fea6d7a8a7ba92be3e1c7d0bc921725da97fdeaf44ad54",
+                    "path": "standards/authority_compressions/ux_method.compressed.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:711a2eea44b995a043d4d9e02c8427723fc830de1a9f0f3c8c66e8ddb7aee4c2",
+                    "path": "standards/schemas/installed-release-manifest.schema.json",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:e0a3b544dae6c83bf941096b440700d02fa988fd2767f3b4ab297a1a03f67abf",
+                    "path": "standards/schemas/product-definition.schema.json",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:e27610545d3b9648ca8655052a067b64f93941dd096afd8e8b25c8722b1cb20e",
+                    "path": "standards/templates/AGENTS_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:e27610545d3b9648ca8655052a067b64f93941dd096afd8e8b25c8722b1cb20e",
+                    "path": "standards/templates/CLAUDE_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:2dc711293f5e7129389efe0e5c3ea86e111c528569e6b72dad983cdbc2c71c3d",
+                    "path": "standards/templates/GOALS_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:85b1e6c83b30d619e9f7f8018315022b6963edaa03f908e7aac38a16d5bdab26",
+                    "path": "standards/templates/INTENT_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:e4189e5e51d525b7d7926ca88c9b9182b4686b8adf81108e72e24b847db94d34",
+                    "path": "standards/templates/PRODUCT_DEFINITION_TEMPLATE.json",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:0e5365e4c87faecbaccb20aa8a106364afcd07635ca52dffbbf4a223873256f9",
+                    "path": "standards/templates/PRODUCT_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:82ffcba100061fa4d63ef8b282815add4f85ae499530ea7f56b38befd5a68d8c",
+                    "path": "standards/templates/PROJECT_REFERENCE_FRAME_BASIS_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:6e30d6e945a758bb4d34612c181a4ac694f9c19b8533b67d7ae0e73a57195a31",
+                    "path": "standards/templates/README.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:8dd5d925a82f63683c9702a5fe8732eaa4afaead626ddfe49e270fb0a79e08a9",
+                    "path": "standards/templates/build_tenants/TENANT_REGISTRY_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:e88790f0521229ca41cadc82af434908e5d8782748ccc93eb287d0e2fb5efae8",
+                    "path": "standards/templates/build_tenants/common/README_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:7bfaf3873571c9d8a267aa8acc8e47522fc48cd90cfdef9d50216c9ae008e6bd",
+                    "path": "standards/templates/build_tenants/common/design/README_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:07d28d93675b86b51953b84584aa7119cf80269354a76aa2356ff18397c7c4cd",
+                    "path": "standards/templates/build_tenants/common/design/adrs/ADR_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:57fd95e135d36059611bca65bc091dafb94809ab521db834a4457513f91737e7",
+                    "path": "standards/templates/build_tenants/common/design/adrs/README_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:0236d71e75b917f4b008474478eda7662e62fc7b11cc7409b8299b2e26f3ef96",
+                    "path": "standards/templates/build_tenants/variant/README_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:da70241069c9f98d09f6e179c2687966fca70a4546b9c52d2e8aee78644626e1",
+                    "path": "standards/templates/build_tenants/variant/design/README_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:d2f77e99fcbafb0b3a2603e4c5854333ae22b65d78ed82a418f7a3b9ecbd988b",
+                    "path": "standards/templates/build_tenants/variant/design/adrs/ADR_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:ae46291f42650da55c279b2aa09ac9ae1c91285b50ff73c0f4d2e538f68a3591",
+                    "path": "standards/templates/build_tenants/variant/design/adrs/README_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:76e33d7a4a75d77644eec20f6d5d3611894320eab05e36580d29cf90c28a4490",
+                    "path": "standards/templates/build_tenants/variant/design/fp/INTENT_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:4542edc7e3a51bfba843530f1ee6b03fd3615f27a65d0f8815ae054225a5594c",
+                    "path": "standards/templates/build_tenants/variant/design/fp/README_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:996e1f2cd55090519e7c487ec46333afd2994a546c15190bb11d862e3a0683c4",
+                    "path": "standards/templates/build_tenants/variant/design/fp/edge-overrides/EDGE_OVERRIDE_TEMPLATE.json",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:1432362afe35b5816259e6bef0163ffc38db6639557cd4541d2804ff04d02991",
+                    "path": "standards/templates/build_tenants/variant/design/fp/edge-overrides/README_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:9c3425ff8b49c2b5573e9b8f0130b7a3e5f7d3ddcc01204aec363327e0872e7f",
+                    "path": "standards/templates/docs/README_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:4eacc1d3604e4859b60fc29c4bc6555fcd5de11d9ca1773258eedfb398e0f4a9",
+                    "path": "standards/templates/requirements/README_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:67e2061e7eb7757bdb71cff5775cfea90b33b5019ba31e1509e4d456cf66e5dd",
+                    "path": "standards/templates/requirements/STARTER_REQUIREMENTS_TEMPLATE.md",
+                    "target": null,
+                    "type": "file"
+                  }
+                ],
+                "recordDigest": "sha256:5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64",
+                "recordFormat": "stdo_source_manifest@1",
+                "recordRef": "stdo://releases/v2.5.1-rc.1/manifest.json"
+              },
+              {
+                "basisRef": "representation://releases/v2.5.1-rc.1/",
+                "dependencyRef": "dependency://registered-selection/representation@5",
+                "inventoryDigest": "sha256:74bdd3d0feb149b5a9abc72f66de2f00a619a083f3599b8328ee24a72d1ebf37",
+                "members": [
+                  {
+                    "digest": "sha256:92c6b8eb455f6bd656501d9496179af39f331ebf5df7114ee5e53825d91a6ddb",
+                    "path": ".agents/skills/stdo-representation",
+                    "target": "../../skills/stdo-representation",
+                    "type": "symlink"
+                  },
+                  {
+                    "digest": "sha256:92c6b8eb455f6bd656501d9496179af39f331ebf5df7114ee5e53825d91a6ddb",
+                    "path": ".claude/skills/stdo-representation",
+                    "target": "../../skills/stdo-representation",
+                    "type": "symlink"
+                  },
+                  {
+                    "digest": "sha256:f45bac9323a3058625325e6791ef8355f45c1bf8a3f8018203f3daf14db4e612",
+                    "path": "build_tenants/axiom_indexer/representation/stdo-v2.5.1-rc.1/axiomatic-program.json",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:a0c68f7a4cebf8166c7e436737d8fe5de68ac8f871dcd6a29196d719af89f9b1",
+                    "path": "build_tenants/axiom_indexer/representation/stdo-v2.5.1-rc.1/logical-constraint-map.json",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:7ee7d150ac4584959ca4f3ab6d52245bc36124255a013351111650543a0dfd18",
+                    "path": "skills/stdo-representation/SKILL.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:872aabc6e15b66dfcfe0f2d8c674a9d25511a94d74be781711304bc581619f5a",
+                    "path": "skills/stdo-representation/agents/openai.yaml",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:584189012cb0c414392e381969a9b02eda2c3cae826cd310218d92a1a3212c20",
+                    "path": "skills/stdo-representation/references/claude.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:4ddbe37bda55a3c8f9e8545f391a906754067ffc49d2d6f0299eae2d41559497",
+                    "path": "skills/stdo-representation/references/codex.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:0bab598e78b637e29e4ac816f33965f8baef78c44d858adc7f5d2cdc8fbeae85",
+                    "path": "skills/stdo-representation/references/frame-index-use.md",
+                    "target": null,
+                    "type": "file"
+                  }
+                ],
+                "recordDigest": "sha256:f81c6cba9c8a582e41ee8d4463eb7376ec1255aca0953cd11575bdcff5f4c147",
+                "recordFormat": "release_record@1",
+                "recordRef": "https://raw.githubusercontent.com/foolishimp/specification_methodology/4e83fdc4e31ad2161ab70a9759cecbbae5390b69/stdo_representation/releases/v2.5.1.md"
+              },
+              {
+                "basisRef": "axiom://releases/v2.5.1-rc.1/",
+                "dependencyRef": "dependency://registered-selection/axiom@5",
+                "inventoryDigest": "sha256:55a2061bd55ca29e349318a2869bc13518374ef2fa764a73b1688e76d35a63c1",
+                "members": [
+                  {
+                    "digest": "sha256:94f7720145baa135bb3d88ec352b4fe32e9841fcfc9a23dbf00ea54ab0fa7c40",
+                    "path": ".agents/skills/axiomatize-corpus",
+                    "target": "../../skills/axiomatize-corpus",
+                    "type": "symlink"
+                  },
+                  {
+                    "digest": "sha256:94f7720145baa135bb3d88ec352b4fe32e9841fcfc9a23dbf00ea54ab0fa7c40",
+                    "path": ".claude/skills/axiomatize-corpus",
+                    "target": "../../skills/axiomatize-corpus",
+                    "type": "symlink"
+                  },
+                  {
+                    "digest": "sha256:5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+                    "path": "build_tenants/core/code/ac.py",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:0b9443403d8d8ee56aad5ec1059d288dc2666c247191bb92b18258bc2758894d",
+                    "path": "skills/axiomatize-corpus/SKILL.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:409721119552f3e1ffded2a2aed5f81a92b40389c81f77c0792f305e507be990",
+                    "path": "skills/axiomatize-corpus/agents/openai.yaml",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:c124264d1fc564a8a054bba46b5c188c4e770da51862b4c2122e3c616efb1b6b",
+                    "path": "skills/axiomatize-corpus/references/output-contract.md",
+                    "target": null,
+                    "type": "file"
+                  },
+                  {
+                    "digest": "sha256:43326dbab520bd2d56fbdf605211f66499de1969b13e2e0226868bd6af9777a7",
+                    "path": "skills/axiomatize-corpus/references/program.schema.json",
+                    "target": null,
+                    "type": "file"
+                  }
+                ],
+                "recordDigest": "sha256:d7075ec17d1a5c62cae4665abb80a44fc4661378b067daa77afbc77c2a57f654",
+                "recordFormat": "release_record@1",
+                "recordRef": "https://raw.githubusercontent.com/foolishimp/specification_methodology/4e83fdc4e31ad2161ab70a9759cecbbae5390b69/axiom_indexer/releases/v2.5.1.md"
+              }
+            ],
+            "kind": "run_environment_declaration",
+            "roles": [
+              {
+                "accessRefs": [
+                  "access://registered-selection/source-corpus-validation@5"
+                ],
+                "contextPolicy": {
+                  "policyRef": "policy://default-library-witness/selector/context@5",
+                  "selectors": [
+                    "full_source",
+                    "active_binding_semantics"
+                  ]
+                },
+                "frameRefs": [
+                  "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-executive-frame"
+                ],
+                "graphFunctionRef": "graph-function://default-library-witness/executive-step@5",
+                "policy": {
+                  "digest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+                  "policyRef": "policy://default-library-witness/selector@5",
+                  "text": "Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\n"
+                },
+                "programLocusRef": "node://abiogenesis/default-library/select@5",
+                "role": "selector",
+                "sourceBindings": [
+                  {
+                    "contextRef": "context://default-library-witness/frames@5",
+                    "endByte": 35546,
+                    "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                    "memberRef": "member://default-library-witness/frames@5",
+                    "spanDigest": "sha256:462f85054e7a000076051c2fc0adb7c9b6c80726057ce4112e6da192e501c485",
+                    "startByte": 30700
+                  }
+                ]
+              },
+              {
+                "accessRefs": [
+                  "access://registered-selection/source-corpus-validation@5"
+                ],
+                "contextPolicy": {
+                  "policyRef": "policy://default-library-witness/constructor/context@5",
+                  "selectors": [
+                    "current_worksite",
+                    "admitted_execution_evidence"
+                  ]
+                },
+                "frameRefs": [
+                  "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-generic-specialist-frame-set",
+                  "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame"
+                ],
+                "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+                "policy": {
+                  "digest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+                  "policyRef": "policy://default-library-witness/constructor@5",
+                  "text": "Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\n"
+                },
+                "programLocusRef": "node://abiogenesis/worksite/native-work@5",
+                "role": "constructor",
+                "sourceBindings": [
+                  {
+                    "contextRef": "context://default-library-witness/frames@5",
+                    "endByte": 38401,
+                    "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                    "memberRef": "member://default-library-witness/frames@5",
+                    "spanDigest": "sha256:97fbe3a344cd77dd263495db42e334916e76d50fdf8f075452ecebe56fd58b26",
+                    "startByte": 35546
+                  },
+                  {
+                    "contextRef": "context://default-library-witness/frames@5",
+                    "endByte": 52663,
+                    "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                    "memberRef": "member://default-library-witness/frames@5",
+                    "spanDigest": "sha256:a837522281bdfbaa533e8e9ab048b21c183465e8094a8b43c599be40e1586c2b",
+                    "startByte": 42638
+                  }
+                ]
+              },
+              {
+                "accessRefs": [
+                  "access://registered-selection/source-corpus-validation@5"
+                ],
+                "contextPolicy": {
+                  "policyRef": "policy://default-library-witness/assessor/context@5",
+                  "selectors": [
+                    "current_worksite",
+                    "admitted_execution_evidence"
+                  ]
+                },
+                "frameRefs": [
+                  "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-product-testing-frame-set",
+                  "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-reviewer-frame"
+                ],
+                "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+                "policy": {
+                  "digest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+                  "policyRef": "policy://default-library-witness/assessor@5",
+                  "text": "Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\n"
+                },
+                "programLocusRef": "node://abiogenesis/worksite/native-work/assessment@5",
+                "role": "assessor",
+                "sourceBindings": [
+                  {
+                    "contextRef": "context://default-library-witness/frames@5",
+                    "endByte": 42638,
+                    "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                    "memberRef": "member://default-library-witness/frames@5",
+                    "spanDigest": "sha256:b5e9f2ac18af32a6586f860b9bfe23826d9b633ac844a880170652e35952791b",
+                    "startByte": 38401
+                  },
+                  {
+                    "contextRef": "context://default-library-witness/frames@5",
+                    "endByte": 76400,
+                    "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                    "memberRef": "member://default-library-witness/frames@5",
+                    "spanDigest": "sha256:89765aa681593fdcd6fece4bf88960bd8a883d7e15a32d7e7d433b3fbb53ba8b",
+                    "startByte": 52663
+                  }
+                ]
+              },
+              {
+                "accessRefs": [
+                  "access://registered-selection/source-corpus-validation@5"
+                ],
+                "contextPolicy": {
+                  "policyRef": "policy://default-library-witness/command_executor/context@5",
+                  "selectors": [
+                    "current_worksite",
+                    "admitted_execution_evidence"
+                  ]
+                },
+                "frameRefs": [
+                  "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-product-testing-frame-set",
+                  "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame"
+                ],
+                "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+                "policy": {
+                  "digest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+                  "policyRef": "policy://default-library-witness/command_executor@5",
+                  "text": "Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\n"
+                },
+                "programLocusRef": "node://abiogenesis/worksite/command-execution/fp@5",
+                "role": "command_executor",
+                "sourceBindings": [
+                  {
+                    "contextRef": "context://default-library-witness/frames@5",
+                    "endByte": 38401,
+                    "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                    "memberRef": "member://default-library-witness/frames@5",
+                    "spanDigest": "sha256:97fbe3a344cd77dd263495db42e334916e76d50fdf8f075452ecebe56fd58b26",
+                    "startByte": 35546
+                  },
+                  {
+                    "contextRef": "context://default-library-witness/frames@5",
+                    "endByte": 76400,
+                    "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+                    "memberRef": "member://default-library-witness/frames@5",
+                    "spanDigest": "sha256:89765aa681593fdcd6fece4bf88960bd8a883d7e15a32d7e7d433b3fbb53ba8b",
+                    "startByte": 52663
+                  }
+                ]
+              }
+            ],
+            "schemaVersion": "5.0.0"
+          }
+        ]
+      }
+    },
+    "planRef": "prompt-plan://abiogenesis/worksite-native/65f0dc547423f59c1b0e6c75722925c519f2a4abd775ebbf63ab83467df9e9c8",
+    "predecessorPrefix": {
+      "coordinateDigest": "sha256:0f9561d6ccdf191c48a98be34c33021740cffa4a01aa97f30cc4b1d0af4c9b01",
+      "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:edb98b6df917dd3f31138066f4b178a45ba101733f8c426915f87c82e53e0f56",
+      "prefixLength": 8446204,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:ddc961a2484be150193fa255d7dc7b933e52fb81b7b2c681f2bb97e1f9d5754c",
+        "inode": 463067499
+      }
+    },
+    "sections": {
+      "evidence": {
+        "environmentAccess": [
+          {
+            "accessRef": "access://registered-selection/source-corpus-validation@5",
+            "claim": "structural_corpus_access_not_frame_application",
+            "disposition": "omitted_not_required",
+            "operation": "validate",
+            "projection": null,
+            "projectionDigest": "sha256:762c96822e71889dfc6ecc40d9a1a3c6573563f8c49d65f83f2b4f72ab72462f"
+          }
+        ]
+      },
+      "response": {
+        "additionalProperties": false,
+        "properties": {
+          "attemptRef": {
+            "const": "worksite-command-attempt://abiogenesis/39ffdf626eebb7fbb17afc63581b301d9fac4830b69ff4357ddbd0348c5e3162"
+          },
+          "helperArtifactDigest": {
+            "pattern": "^sha256:[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "helperArtifactRef": {
+            "pattern": "^worksite-command-helper-artifact://abiogenesis/[a-f0-9]{64}$",
+            "type": "string"
+          },
+          "kind": {
+            "const": "worksite_command_execution_worker_result"
+          },
+          "schemaVersion": {
+            "const": "5.0.0"
+          },
+          "taskDigest": {
+            "const": "sha256:d684df668b37bc4907b6092951bd427442632831326b01e5229788d9dbfd5149"
+          },
+          "taskRef": {
+            "const": "worksite-command-execution-task://abiogenesis/d684df668b37bc4907b6092951bd427442632831326b01e5229788d9dbfd5149"
+          }
+        },
+        "required": [
+          "kind",
+          "schemaVersion",
+          "taskRef",
+          "taskDigest",
+          "attemptRef",
+          "helperArtifactRef",
+          "helperArtifactDigest"
+        ],
+        "type": "object"
+      },
+      "role": {
+        "contextPolicy": {
+          "policyRef": "policy://default-library-witness/command_executor/context@5",
+          "selectors": [
+            "current_worksite",
+            "admitted_execution_evidence"
+          ]
+        },
+        "frameRefs": [
+          "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-product-testing-frame-set",
+          "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame"
+        ],
+        "policy": {
+          "digest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+          "policyRef": "policy://default-library-witness/command_executor@5",
+          "text": "Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\n"
+        },
+        "role": "command_executor",
+        "sourceContent": [
+          {
+            "contextRef": "context://default-library-witness/frames@5",
+            "endByte": 38401,
+            "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+            "memberRef": "member://default-library-witness/frames@5",
+            "path": "standards/STDO_REFERENCE_FRAME_BASELINE.md",
+            "sourceLocator": "stdo://releases/v2.5.1-rc.1/",
+            "spanDigest": "sha256:97fbe3a344cd77dd263495db42e334916e76d50fdf8f075452ecebe56fd58b26",
+            "startByte": 35546,
+            "text": "## Derived Worker Frame\n\n| Frame element | Derived application |\n|---|---|\n| evaluation family | Can the exact authorized outcome be constructed through the smallest coherent causal cone while preserving every affected governing relation and disposing competing paths? |\n| subject and basis | `STDO-UP-020` sufficient execution intake plus the accepted `STDO-UP-017..019` design-to-execution basis where applicable |\n| material manifold | affected entities, lifecycles, transformations, authorities, capabilities, algorithms, inputs, outputs, dependencies, interaction seams, failure boundaries, and proof obligations |\n| coordinates | exact activation, source checkpoint, workspace, inputs, dependencies, configuration, actor envelope, outputs, candidate, and evidence identities |\n| governing invariants | the complete selected STDO and project relations material to the affected cone; `STDO-UP-020` owns construction and self-review |\n| authority | inherited bounded construction or transformation operation authority and self-review only; mutation is permitted only when the exact inherited owner grant names the subject and write territory; no admission, publication, independent acceptance, frame-set revision, or inferred next action |\n| evidence | live implementation, tests and test source, analysis, generated artifacts, installed or operational behavior where claimed, reconstruction, mutations, and exact transition evidence |\n| capability envelope | the declared method, domain, implementation, tool, access, and finite-context competence required by the causal cone |\n| exclusions | upstream semantic change, unauthorized cone expansion, self-acceptance, hidden competing paths, and advancement after returning the work result |\n| result | one Reference Frame Method result plus exactly one `candidate_ready`, `refused`, `incomplete`, or `re_entry_requested` profile work-result variant |\n| invalidation | material intake, basis, checkpoint, dependency, configuration, capability, or topology change |\n\n`candidate_ready` binds the exact candidate and the transition evidence required\nby `STDO-UP-020`. It is not `accept`. Green tests are evidence only for the\nrelations their production and test semantics actually exercise.\n\nThe Worker label grants no mutation authority. An effectful Worker may mutate\nonly the exact subject and write territory named by its inherited construction\nor transformation grant. Missing, ambiguous, or out-of-territory mutation\nauthority refuses the effect.\n\nRead scope follows the complete causal cone and may exceed write territory\nwithin the declared access grant. A narrow mutation grant does not justify\nomitting a material producer, consumer or governing owner from inspection.\nReturn a required repair outside that territory to its owner; understanding the\nrelation grants no cross-boundary effect.\n\n---\n\n"
+          },
+          {
+            "contextRef": "context://default-library-witness/frames@5",
+            "endByte": 76400,
+            "memberDigest": "sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+            "memberRef": "member://default-library-witness/frames@5",
+            "path": "standards/STDO_REFERENCE_FRAME_BASELINE.md",
+            "sourceLocator": "stdo://releases/v2.5.1-rc.1/",
+            "spanDigest": "sha256:89765aa681593fdcd6fece4bf88960bd8a883d7e15a32d7e7d433b3fbb53ba8b",
+            "startByte": 52663,
+            "text": "## Derived Product Testing Frame Set\n\nWhen this profile supports Product promotion, closure, or release assurance,\ntesting is configured as a claim-relative specialist-frame set. The kind of\nrunner does not select the frame. The evaluated claim, subject, path,\npopulation, oracle, and falsification boundary do.\n\nWhere the generic specialist set is adopted, testing frames supply\nclaim-congruent evidence to one or more Proof-frame evaluations. Proof is not a\ntesting hierarchy or aggregate-green frame: user-acceptance, end-to-end,\nintegration, and unit results retain their distinct claims and coordinates.\n\nThe ordinary configuration contains four distinct frames:\n\n- user acceptance evaluates the Product outcome from the user's supported\n  reference frame;\n- end to end evaluates the complete runnable causal realization of that\n  outcome;\n- integration evaluates one material composition boundary and its interaction\n  population; and\n- unit evaluates one module-owned law. Internal combinatorial complexity\n  determines the proportional size and strategy of that evidence, not whether\n  the module-owned law is eligible for unit proof.\n\nThese frames may overlap and one execution may supply evidence to several of\nthem. Every result remains bound to its own claim. A label such as `UAT`, `E2E`,\n`integration`, or `unit` has no assurance value without the corresponding frame\ndeclaration.\n\n### Derived User-Acceptance Frame\n\n| Frame element | Derived application |\n|---|---|\n| evaluation family | Can a declared user, with the user's admitted capability and information, obtain the exact Product-defined outcome through the supported ordinary Product surface? |\n| subject and basis | exact deployed, installed, or otherwise runnable Product form named by the claim; current Product, requirement, UX, identity, policy, and acceptance authority; declared user role, environment, and harnessed or live sandbox mode under `SPEC_METHOD.md` |\n| material manifold | user goal, supported entry surfaces, permissions, inputs, Product configuration, ordinary dependencies, any declared external-worker or transport substitution boundary, user-visible state and outputs, refusal and recovery behavior, and acceptance interval |\n| coordinates | exact Product and artifact identity, install, user role, capability, configuration, dependency realization, harnessed or live mode, data, workspace, invocation, time, outcome, and scenario identity |\n| governing invariants | applicable Product and requirement outcomes; supported-interface, identity, UX, safety, persistence, and release laws; `RF-001..017`; `STDO-UP-001`, `STDO-UP-008`, and `STDO-UP-022` |\n| authority | bounded evaluation only; the user-acceptance frame does not mint Product meaning or acceptance authority, and an automated actor does not become the human or Product acceptance owner |\n| evidence | actual supported-surface requests and responses, user-visible projections, durable side effects where claimed, refusals, recovery observations, scenario records, exact-subject identity, and declared live or substituted dependency identity |\n| capability envelope | ability to operate the Product as the declared user would, perceive the material outcome and refusal surfaces, and distinguish hidden setup or unsupported assistance |\n| exclusions | source imports, private APIs, direct Product-state injection, test-only endpoints, hidden administrator capability, undeclared fixtures or substitutes, a test double at a boundary claimed as real or live, compatibility bypasses, and internal success substituted for the user outcome |\n| result | one Reference Frame Method result bound to the exact user-outcome claim, plus witnessed paths, counterexamples, residual user populations, and invalidation conditions |\n| invalidation | material Product, supported interface, user role, capability, configuration, dependency or substitution mode, data contract, runnable subject, acceptance meaning, or ordinary-path change |\n\nUser acceptance is the primary Product-outcome evidence frame when the claim is\nthat a user can use the Product. It may be automated only when automation\nfaithfully occupies the declared user frame and does not gain a path or\ncapability unavailable to that user. Automation can execute acceptance\nevidence; it cannot assume acceptance authority.\n\nWhere `SPEC_METHOD.md` admits harnessed sandbox UAT, a deterministic, fake,\nrecorded, or injected external worker or transport limits the result to the\ncomposed Product relations actually exercised. It does not prove that the live\nexternal boundary works. When a Product or release claim depends on real\nexternal compute or transport, live sandbox UAT is mandatory for that claim;\nunit, integration, semantic, end-to-end evidence that uses the substitute, and\nharnessed UAT green are not sufficient.\n\n### Derived End-To-End Frame\n\n| Frame element | Derived application |\n|---|---|\n| evaluation family | Does the exact Product subject realize the claimed outcome through the complete authoritative Product path, including every material interface, owner, state transition, effect, persistence, continuation, recovery, and projection boundary? |\n| subject and basis | exact deployed, installed, or otherwise runnable Product form, composition design, supported entry, selected owner and dependency set, ordinary runtime configuration, and Product claim |\n| material manifold | complete causal producers and consumers from entry to outcome; interface contracts; authority transitions; state, event, persistence, process, continuation, retry, recovery, and projection relations; competing paths |\n| coordinates | artifact and installed-tree identity, entry, operation, selected definition and owner, path and edge identities, process, event prefix, state, configuration, dependency, result, replay, and scenario identity |\n| governing invariants | Product and accepted-design composition laws; exact-subject and assurance congruence; path singularity where required; lifecycle, authority, persistence, replay, recovery, and release law |\n| authority | bounded evaluation only; observation may expose internal evidence but may not bypass, repair, replace, or reinterpret the Product path |\n| evidence | supported entry invocation, observed semantic path and authority edges, owner receipts, durable events, state transitions, outputs, replay or reconstruction where claimed, installed artifact identity, and negative-path observations |\n| capability envelope | ability to execute and observe the complete Product path without changing it, distinguish authoritative from rival paths, and reproduce material state and failure relations |\n| exclusions | source-only substitutes for runnable-Product claims, direct invocation below the supported entry, test doubles at claimed real boundaries, test-only routing, hidden retries or repair, omitted persistence or fresh-process boundaries, and output equality without path evidence |\n| result | one Reference Frame Method result bound to the exact end-to-end claim, with exercised composition edges, unexercised material paths, counterexamples, and residual combinations |\n| invalidation | material artifact, install, dependency, configuration, interface, owner, path, lifecycle, persistence, recovery, projection, test semantics, or evidence-population change |\n\nThe expected output is necessary but not sufficient. Reaching it through a\nforbidden or obsolete path falsifies the end-to-end claim. A test is not end to\nend merely because it starts and finishes in one process, crosses many lines,\nor carries an end-to-end label.\n\n### Derived Integration Frame\n\n| Frame element | Derived application |\n|---|---|\n| evaluation family | Do the actual participants at one declared material composition boundary satisfy their joint contract across the combinations of state, authority, configuration, timing, failure, and recovery that can change the boundary result? |\n| subject and basis | exact interface or composition declaration, actual participating implementations or exact substitutes admitted by the bounded claim, governing Product/requirement/design law, and interaction population |\n| material manifold | both sides of the boundary, shared carriers, preconditions, postconditions, authority and ownership, ordering, state, configuration, failure, retry, recovery, translation, and competing participants |\n| coordinates | participant and version identities, interface and carrier revision, state, configuration, dependency, interaction case, input, output, failure, and evidence identity |\n| governing invariants | declared interface and composition laws, complete participant admission, atomicity and reconstruction where applicable, and exact assurance boundary under `STDO-UP-022` |\n| authority | bounded boundary evaluation only; no integration result establishes an unevaluated Product outcome or authorizes a substitute participant |\n| evidence | actual exchanges, admitted carriers, state transitions, contract verdicts, failures, retries, recovery observations, interaction combinations, and participant identities |\n| capability envelope | competence and access to exercise and observe the real composition seam, identify participant substitution, and vary every material interaction dimension |\n| exclusions | mocks or stubs that hide the claimed real contract, one-sided contract assertions, happy-path-only exchange, helper-call equivalence, flattened versions or states, and projection of a boundary result to the whole Product without a governing relation |\n| result | one Reference Frame Method result for the declared integration claim, with covered combinations, counterexamples, omitted interactions, and invalidation conditions |\n| invalidation | material participant, interface, carrier, state, configuration, dependency, timing, failure, recovery, or interaction-population change |\n\nA substitute or test double may support a deliberately narrower claim only when\nits equivalence boundary and exclusions are explicit. Its result cannot be\npromoted to evidence that the real participant or Product composition was\nexercised.\n\n### Derived Unit-Test Frame\n\n| Frame element | Derived application |\n|---|---|\n| evaluation family | Does one module-owned law hold across its material combinations of algebraic operator, calculation regime, state, transition, public or private boundary class, and failure case? |\n| subject and basis | one exact module boundary, accepted Ontology and design, active IACS or equivalent carrier inventory, module-owned requirements and public contracts, implementation, and a module-bounded decidable oracle |\n| material manifold | module-owned public contracts, algebras, calculations, parsers, reducers, state machines, transition functions, combinators, admission predicates, conservation laws, invariants, numerical boundaries, and failures |\n| coordinates | module and implementation revision, owned law, operator or function family, module state, input class, boundary class, expected relation, generated case, mutation, and result identity |\n| governing invariants | `DESIGN_MODULE_METHOD.md` module ownership and unit-proof law; accepted Ontology, IACS, domain, sequence, state, algorithm, and error relations material to the module |\n| authority | bounded local evidence only; a unit result has no Product, installed, integration, user-acceptance, architecture, path-selection, or release authority |\n| evidence | law-derived examples, equivalence classes, finite exhaustive cases where available, property-based or generative cases, metamorphic relations, calculation or algebra oracles, boundary cases, and killed internal mutations |\n| capability envelope | competence to derive an oracle independently from the owned law, identify the module-bounded combination population, and distinguish invariant violation from implementation restatement |\n| exclusions | Product outcomes, cross-module composition, supported user paths, packaging or installation, real external participants, orchestration topology, mocked-away interface behavior, incidental branches, private helper layout, assertion count, and source coverage used as broader assurance |\n| result | one Reference Frame Method result limited to the exact module-owned law and module-bounded population, with counterexamples, residual combinations, and invalidation conditions |\n| invalidation | material Ontology, IACS, module boundary, owned law, algorithm, state space, numerical regime, implementation, oracle, generator, or module-bounded population change |\n\nUnit testing is deliberately module-bounded. Every coded module requires the\nmodule-derived unit lane owned by `DESIGN_MODULE_METHOD.md`; public module\ncontracts are valid unit-proof subjects. Internal combinatorial complexity\ndetermines the proportional size and strategy of that evidence. Its highest\ndiscriminating value is often in algebras, calculations, transformations,\nparsers, reducers, state machines, decision tables, admission predicates,\nconservation relations, and bounded algorithms with strong independently\nderived oracles. A unit test whose oracle merely repeats the implementation or\nwhose cases follow incidental code branches provides weak or circular\nevidence.\n\nModules whose material complexity lies primarily in composition, orchestration,\nconfiguration, persistence, ownership, or user interaction require integration,\nend-to-end, or user-acceptance evidence at that actual boundary. Mocking those\nrelations into a unit test does not convert their complexity into unit evidence.\n\nThis profile does not waive the module-derived unit lane. It binds that lane to\nmodule-owned law and the smallest congruent evidence population. Low internal\ncombinatorial complexity justifies a small lane, not omission and not hundreds\nof implementation-shaped tests. Unit-test volume has no independent closure\nvalue.\n\nNo Product, user-outcome, installed-path, cross-module composition, or release\nclaim may be closed from unit evidence, regardless of test count, assertion\ncount, source coverage, mutation score, runtime, or historical pass rate.\nTreating unit green as broader assurance is a frame error.\n\n### Combinatorial Coverage And Testing-Value Index\n\nTesting value is indexed first by the material combinations a frame can\ndiscriminate for its exact claim. It is not indexed by test, assertion, file,\nline, branch, mock, snapshot, or runner count.\n\nFor one claim, the testing-value index considers at least:\n\n1. congruence between the claim and evaluated subject;\n2. the number and materiality of independent claim dimensions;\n3. the interaction strength actually covered among those dimensions;\n4. authoritative-path exactness;\n5. oracle independence and precision;\n6. sensitivity to realistic faults, rival paths, and historical failures;\n7. observability, reconstruction, and reproducibility of the result; and\n8. explicit residual combinations and invalidation conditions.\n\nNo universal scalar is required. A project may define one only through Product,\nrequirement, or accepted-design authority and must retain the underlying\ncoverage coordinates rather than flattening them into a score.\n\nAt unit altitude, the relevant dimensions are module-bounded. Unit-testing\nvalue normally rises with the internal combinatorial complexity of an algebra,\ncalculation, state machine, transition relation, or other module-owned closed\ndomain because local tests can cheaply discriminate many meaningful\ncombinations against a precise oracle.\n\nAt integration, end-to-end, and user-acceptance altitude, testing value can be\nmultiplicative rather than additive: each material interface composes\npreconditions, postconditions, authority, state, configuration, failure, and\nrecovery with every other traversed boundary. The evidence value comes from\nthe interactions actually discriminated, not from merely touching many\ninterfaces on one sunny path.\n\nMaterial Product factors commonly include:\n\n- user role and capability;\n- supported operation and Product composition;\n- selected definition, owner, implementation, and dependency;\n- lifecycle and persisted state;\n- configuration and version combination;\n- process, continuation, retry, re-entry, and recovery mode;\n- success, refusal, malformed result, partial failure, and competing-path case;\n- fresh-process, replay, reconstruction, and migration condition; and\n- user-visible outcome and projection.\n\nThe activated frame declares the finite interaction population and why its\ncovering set is adequate. Pairwise or other covering-array reduction is lawful\nonly where the basis explains why omitted higher-order interactions cannot\nchange the claim or retains them as residuals. High-consequence authority,\npersistence, concurrency, recovery, migration, and historically failure-prone\nrelations normally require explicit higher-strength combinations.\n\nSource, line, branch, and function coverage may diagnose whether code was\nvisited. They do not establish semantic combination coverage, authoritative\npath selection, user-outcome coverage, or the absence of a rival path.\n\n### Legitimate-Path And Technical-Debt Erasure\n\nEvery Product path claim requires two-sided evidence:\n\n1. **required-path reachability**: each required authoritative composition has\n   an exact witness in the deployed, installed, or otherwise runnable Product\n   form through the supported ordinary path; and\n2. **forbidden-path exclusion**: each material superseded, duplicate, fallback,\n   bypass, or otherwise forbidden production path is absent, unreachable, or\n   refused at its declared boundary.\n\nA successor passing does not prove predecessor removal. Technical-debt erasure\nevaluates two distinct, finite, subject-relative graphs:\n\n1. **production closure**: the exact deployed, installed, or otherwise runnable\n   Product form and configuration, including its transitive imports, exports,\n   package paths, configuration switches, registries, fallbacks, consumers,\n   generated runtime artifacts, recovery paths, and fresh-process\n   reconstruction. No obsolete, bypass, fallback, or rival production path may\n   remain reachable inside this graph for the claimed scope; and\n2. **assurance/source closure**: the source consumers, fixtures, proof scripts,\n   generators, mutations, and assurance tooling relied upon for the claim. No\n   obsolete assurance consumer may falsely supply closure evidence or\n   reintroduce the removed production path into the Product graph.\n\nA test-only seam is lawful when it is isolated from the Product distribution,\nexcluded from ordinary-path evidence, and declared in the assurance subject.\nIts mere presence outside the production graph is not a production-path\nfailure. A retained obsolete test or proof consumer remains an assurance defect\nwhen it can falsely establish the claim or reintroduce the removed path.\n\nWhere proportionate and safe, assurance includes path-sensitive mutation or\nsabotage:\n\n- disabling the selected authoritative path prevents the Product scenario from\n  succeeding;\n- forcing or restoring a rival path causes refusal or a detected\n  counterexample rather than silent success;\n- corrupting a material interface or owner result is detected at the owning\n  boundary; and\n- removing an asserted obsolete path does not change the accepted Product\n  outcome except through the declared deletion relation.\n\nA Product outcome reached through a forbidden path is a falsified path claim,\nnot a passing Product test. A negative-path test that mutates the exact subject\nwithout isolation, restoration, and subject revalidation invalidates its own\nassurance basis.\n\n### Testing Evidence Composition\n\nOne execution may provide several bound results. For example, a supported user\nscenario may supply user-acceptance evidence for the outcome, end-to-end\nevidence for the runnable causal path, integration evidence for selected\nseams, and unit counterexamples for a module-owned algebra. Those claims remain\ndistinct and are combined only through declared Reference Frame Method\nrelations.\n\nThe default proof responsibilities are:\n\n- user acceptance proves the outcome from the user's supported frame;\n- end to end proves the complete authoritative runnable Product path;\n- integration proves material participant composition; and\n- unit proves module-owned laws, with evidence size and strategy proportional\n  to their internal combinatorial complexity.\n\nUser acceptance alone may leave internal path singularity unevaluated.\nEnd-to-end success alone may leave unselected user populations or combinations\nunevaluated. Integration and unit results cannot substitute for either broader\nclaim. When the Product claim requires all of them, a conflict or missing result\nremains visible to Executive disposition and cannot be hidden by aggregate\ngreen status.\n\n### Assurance Subject Acquisition And Evaluation\n\nAcquiring the assurance subject and evaluating it are distinct relations.\nWhere a claim depends on owner-issued Product, runtime, lifecycle, admission,\nreplay, or projection truth, the testing frame acquires that truth through the\nexact runnable owner surface, validator, projection, receipt, or reconstruction\nrelation. A harness, fixture, expected-value builder, proof script, assurance\nevaluator, or Reviewer does not reconstruct a parallel owner state from raw\npayloads, events, logs, filenames, labels, or implementation fragments and then\nevaluate that self-authored state as if it were the Product subject.\n\nAfter lawful acquisition, an independently derived oracle may evaluate the\ngoverning claim. Generic assurance mechanics may compute bytes, digests,\nordering, equality, set membership, completeness, and conjunction over\nowner-issued evidence. Those mechanics remain evidence evaluators: they cannot\nmint owner carriers, choose current history, select the authoritative path,\ninterpret domain lifecycle or admission meaning, or become a runtime fallback.\n\nThis rule does not require an evaluator to trust the implementation under test\nas its semantic oracle. The oracle derives from Product, requirement, and\naccepted-design law. It does require the assurance subject to be the actual\nowner-issued subject rather than a second implementation of the owner's\nruntime meaning. If the required owner projection or observable seam is absent,\nthe result retains a named assurance or design gap; the proof harness does not\nfill it with rival semantics.\n\n### Counterexample Localization\n\nA testing counterexample is returned to its earliest supported causal frontier\non the declared path. The frontier contains the causally minimal violated owner\nrelations or seam coordinates established by the evidence; earliest means\nminimal under the declared causal relation, not first in log or clock order.\n\nThe localization result represents exactly one of:\n\n- one unique violated locus;\n- a jointly established set of incomparable earliest violated loci whose\n  combined violation is necessary to the supported causal explanation;\n- unresolved alternative frontiers when the evidence supports several possible\n  causal explanations but cannot establish which occurred; or\n- `indeterminate` when the evidence cannot support a bounded frontier.\n\nLocalization records the subject, basis, frontier form and members, causal\nevidence, expected relations, observed counterexample, and downstream claims\ninvalidated by it. It does not collapse a jointly established set into one\narbitrary owner or misreport unresolved alternatives as a joint cause.\n\nA localized frontier does not itself authorize broader test expansion,\ncompatibility repair, another controller, or reinterpretation of unchanged\nupstream meaning. Any resulting scope or design change follows the existing\nre-entry relation.\n\n---\n\n"
+          }
+        ]
+      },
+      "task": {
+        "ownerPrompt": "Invoke the Bash tool exactly once with the exact semantic tool-input object below. The ABI-owned helper executes every declared command in order and records its exact argv, cwd, environment, streams, exit status, reports, and protected-file observations.\n\n{\"command\":\"'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace/.ai-workspace/archive/worksite-command-execution/d684df668b37bc4907b6092951bd427442632831326b01e5229788d9dbfd5149/86577c330ea6fb35644b5cb505b87f632c6689005ae7e9f25eacb785c3fd1d23/launch.json'\"}\n\nDo not add timeout, run_in_background, or any other operational input field. An optional string description is metadata only. Preserve the command string exactly.\n\nReturn the helper's compact task/attempt/artifact acknowledgment unchanged. The helper retains every computed command, stream, and predicate in its full artifact; do not copy, summarize, or compute those rows.\n\nDo not run any declared command directly and do not use another tool call.\n\nA nonzero subject-command exit is an observation, not a transport failure.\n\nReturn only the JSON value required by the supplied schema.\n\n{\"attemptRef\":\"worksite-command-attempt://abiogenesis/39ffdf626eebb7fbb17afc63581b301d9fac4830b69ff4357ddbd0348c5e3162\",\"commands\":[{\"commandId\":\"command://default-library-witness/0@5\",\"ordinal\":0},{\"commandId\":\"command://default-library-witness/1@5\",\"ordinal\":1}],\"outcomePredicates\":[],\"sourceObservedInput\":{\"kind\":\"observed_worksite_input\",\"sourceSetDigest\":\"sha256:d79f7e764b1131291b9784976dfcc917114ccfb3d630076804707d6fafaabc78\",\"sourceSetRef\":\"observed-worksite-execution-source-set://abiogenesis/d79f7e764b1131291b9784976dfcc917114ccfb3d630076804707d6fafaabc78\"},\"taskDigest\":\"sha256:d684df668b37bc4907b6092951bd427442632831326b01e5229788d9dbfd5149\",\"taskRef\":\"worksite-command-execution-task://abiogenesis/d684df668b37bc4907b6092951bd427442632831326b01e5229788d9dbfd5149\",\"workspaceBindingDigest\":\"sha256:14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10\",\"workspaceBindingIdentity\":\"workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10\"}"
+      }
+    }
+  },
+  "envelopeDigest": "sha256:b7605be8f214ef13b904f26755b38cbd0ff577b1ce37c21f548057bbec5cad4e",
+  "kind": "native_instruction_assembly",
+  "manifest": {
+    "basePromptDigest": "sha256:25b9116cb190247cbd914d8df0bbddb6ba79bc313d65cbf27b18a9ccb5a815b0",
+    "envelopeDigest": "sha256:b7605be8f214ef13b904f26755b38cbd0ff577b1ce37c21f548057bbec5cad4e",
+    "planDigest": "sha256:65f0dc547423f59c1b0e6c75722925c519f2a4abd775ebbf63ab83467df9e9c8",
+    "planRef": "prompt-plan://abiogenesis/worksite-native/65f0dc547423f59c1b0e6c75722925c519f2a4abd775ebbf63ab83467df9e9c8",
+    "promptByteCount": 32959,
+    "promptBytesDigest": "sha256:2f3c7842766583e9c96c6edeebab0cc4300091ccaa75fd0b7bc2398643c6966f",
+    "promptDigest": "sha256:e83291b9aea7860a05556f07940eb3f22cf744a4f5e33d63a31606fb3ed7ce8c",
+    "rendererRef": "renderer://abiogenesis/worksite/command-execution@5",
+    "responseContractRef": "contract://abiogenesis/worksite/command-execution-worker-result@5",
+    "responseSchemaDigest": "sha256:51c03bd419455fa7812f638436d7720f19109233b6e1d0ddbb934bdcafc5eb08",
+    "runEnvironment": {
+      "accesses": [
+        {
+          "accessRef": "access://registered-selection/source-corpus-validation@5",
+          "projectionDigest": "sha256:762c96822e71889dfc6ecc40d9a1a3c6573563f8c49d65f83f2b4f72ab72462f"
+        }
+      ],
+      "contextPolicyDigest": "sha256:a76c2092664dfd6bc4bc2064ca32109b0d520ee4ce8ddbc2c29bbc7cc61fd683",
+      "contextPolicyRef": "policy://default-library-witness/command_executor/context@5",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "evidenceDigest": "sha256:b2cd07692b48c5a3a5c0133e70cc5f064ab1b2e38681807ed580ed67dd4bf03c",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-product-testing-frame-set",
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame"
+      ],
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/98f9d535035a74d31675c8b9d233adffe419f474eac95d1443714eadfc5cd384",
+      "policyDigest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+      "policyRef": "policy://default-library-witness/command_executor@5",
+      "programLocusRef": "node://abiogenesis/worksite/command-execution/fp@5",
+      "role": "command_executor"
+    },
+    "sections": [
+      {
+        "digest": "sha256:6bb19f80b00df9f271a3515dd4a17083308550859ca351508df45b300a3bc934",
+        "disposition": "included_full",
+        "name": "role"
+      },
+      {
+        "digest": "sha256:3a3f81937ba57c1cd0512ce23ddbbeef50cd9396e4a0c46254657c6e23a36d60",
+        "disposition": "included_full",
+        "name": "evidence"
+      },
+      {
+        "digest": "sha256:c2460f5249822c9c906c876c08a245235c540fc544bde7e4c4747e5d19897d9b",
+        "disposition": "included_full",
+        "name": "task"
+      },
+      {
+        "digest": "sha256:51c03bd419455fa7812f638436d7720f19109233b6e1d0ddbb934bdcafc5eb08",
+        "disposition": "included_full",
+        "name": "response"
+      }
+    ]
+  },
+  "manifestDigest": "sha256:6728332adeffbd2e47842e7d0e6fd675438127dca5cb0d2d8b192b03b47a6159",
+  "plan": {
+    "basePlanRef": "prompt-plan://abiogenesis/worksite/command-execution@5",
+    "baseRequestDigest": "sha256:87200e551f4a996807be12faa092915b4134d23db1e3a09bbb195e252d34813f",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+    "instructionContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+    "programLocusRef": "node://abiogenesis/worksite/command-execution/fp@5",
+    "rendererRef": "renderer://abiogenesis/worksite/command-execution@5",
+    "resultContractRef": "contract://abiogenesis/worksite/command-execution-worker-result@5",
+    "role": "command_executor",
+    "runEnvironment": {
+      "accesses": [
+        {
+          "accessRef": "access://registered-selection/source-corpus-validation@5",
+          "projectionDigest": "sha256:762c96822e71889dfc6ecc40d9a1a3c6573563f8c49d65f83f2b4f72ab72462f"
+        }
+      ],
+      "contextPolicyDigest": "sha256:a76c2092664dfd6bc4bc2064ca32109b0d520ee4ce8ddbc2c29bbc7cc61fd683",
+      "contextPolicyRef": "policy://default-library-witness/command_executor/context@5",
+      "environmentDigest": "sha256:73731a287b82ef25fdf9ae3f3fd480dd547306e41dd6d58f1e469671fcd9cdef",
+      "environmentRef": "environment://default-library-witness/selected@5",
+      "evidenceDigest": "sha256:b2cd07692b48c5a3a5c0133e70cc5f064ab1b2e38681807ed580ed67dd4bf03c",
+      "frameRefs": [
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-product-testing-frame-set",
+        "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame"
+      ],
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/98f9d535035a74d31675c8b9d233adffe419f474eac95d1443714eadfc5cd384",
+      "policyDigest": "sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180",
+      "policyRef": "policy://default-library-witness/command_executor@5",
+      "programLocusRef": "node://abiogenesis/worksite/command-execution/fp@5",
+      "role": "command_executor"
+    },
+    "sectionOrder": [
+      "role",
+      "evidence",
+      "task",
+      "response"
+    ],
+    "selectedContext": [
+      "current_worksite",
+      "admitted_execution_evidence"
+    ],
+    "variant": "worksite"
+  },
+  "planDigest": "sha256:65f0dc547423f59c1b0e6c75722925c519f2a4abd775ebbf63ab83467df9e9c8",
+  "planRef": "prompt-plan://abiogenesis/worksite-native/65f0dc547423f59c1b0e6c75722925c519f2a4abd775ebbf63ab83467df9e9c8",
+  "request": {
+    "actorRef": "actor://abiogenesis/worksite/command-execution-worker@5",
+    "implementationRef": "implementation://abiogenesis/worksite/command-execution-fp@5",
+    "inputDigest": "sha256:c8d8ea2feee357493077c9cbadb4566a73dbe47678660587614e8d59a2393207",
+    "instructionContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+    "materializationPlanRef": "prompt-plan://abiogenesis/worksite-native/65f0dc547423f59c1b0e6c75722925c519f2a4abd775ebbf63ab83467df9e9c8",
+    "prompt": "## role\n{\"contextPolicy\":{\"policyRef\":\"policy://default-library-witness/command_executor/context@5\",\"selectors\":[\"current_worksite\",\"admitted_execution_evidence\"]},\"frameRefs\":[\"stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-product-testing-frame-set\",\"stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-worker-frame\"],\"policy\":{\"digest\":\"sha256:abbc2ed3239364c44a5e62ffc811fd3f508a38e4366937ddd11e4af29e2d9180\",\"policyRef\":\"policy://default-library-witness/command_executor@5\",\"text\":\"Ordinary conditional governance capabilities. Preserve the complete original task, source, selected authority, valid work and unresolved outcomes. Reuse sufficient existing artifacts without rerunning their authors. Missing capability or authority remains an explicit gap. Open interpretation, suitability and sufficiency are native F_P judgments; deterministic adapters only project declared data and admitted observations. A completed child or successful measurement does not establish application success. Testing records actual commands, streams and predicates, including failures. UAT independently assesses the original source, exact candidate, rubric and current admitted execution evidence. Only the parent projects the independent verdict into its declared termination rule. No mandatory stage order, caller loop, invented source, claimed execution file or generated runtime graph.\\n\"},\"role\":\"command_executor\",\"sourceContent\":[{\"contextRef\":\"context://default-library-witness/frames@5\",\"endByte\":38401,\"memberDigest\":\"sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d\",\"memberRef\":\"member://default-library-witness/frames@5\",\"path\":\"standards/STDO_REFERENCE_FRAME_BASELINE.md\",\"sourceLocator\":\"stdo://releases/v2.5.1-rc.1/\",\"spanDigest\":\"sha256:97fbe3a344cd77dd263495db42e334916e76d50fdf8f075452ecebe56fd58b26\",\"startByte\":35546,\"text\":\"## Derived Worker Frame\\n\\n| Frame element | Derived application |\\n|---|---|\\n| evaluation family | Can the exact authorized outcome be constructed through the smallest coherent causal cone while preserving every affected governing relation and disposing competing paths? |\\n| subject and basis | `STDO-UP-020` sufficient execution intake plus the accepted `STDO-UP-017..019` design-to-execution basis where applicable |\\n| material manifold | affected entities, lifecycles, transformations, authorities, capabilities, algorithms, inputs, outputs, dependencies, interaction seams, failure boundaries, and proof obligations |\\n| coordinates | exact activation, source checkpoint, workspace, inputs, dependencies, configuration, actor envelope, outputs, candidate, and evidence identities |\\n| governing invariants | the complete selected STDO and project relations material to the affected cone; `STDO-UP-020` owns construction and self-review |\\n| authority | inherited bounded construction or transformation operation authority and self-review only; mutation is permitted only when the exact inherited owner grant names the subject and write territory; no admission, publication, independent acceptance, frame-set revision, or inferred next action |\\n| evidence | live implementation, tests and test source, analysis, generated artifacts, installed or operational behavior where claimed, reconstruction, mutations, and exact transition evidence |\\n| capability envelope | the declared method, domain, implementation, tool, access, and finite-context competence required by the causal cone |\\n| exclusions | upstream semantic change, unauthorized cone expansion, self-acceptance, hidden competing paths, and advancement after returning the work result |\\n| result | one Reference Frame Method result plus exactly one `candidate_ready`, `refused`, `incomplete`, or `re_entry_requested` profile work-result variant |\\n| invalidation | material intake, basis, checkpoint, dependency, configuration, capability, or topology change |\\n\\n`candidate_ready` binds the exact candidate and the transition evidence required\\nby `STDO-UP-020`. It is not `accept`. Green tests are evidence only for the\\nrelations their production and test semantics actually exercise.\\n\\nThe Worker label grants no mutation authority. An effectful Worker may mutate\\nonly the exact subject and write territory named by its inherited construction\\nor transformation grant. Missing, ambiguous, or out-of-territory mutation\\nauthority refuses the effect.\\n\\nRead scope follows the complete causal cone and may exceed write territory\\nwithin the declared access grant. A narrow mutation grant does not justify\\nomitting a material producer, consumer or governing owner from inspection.\\nReturn a required repair outside that territory to its owner; understanding the\\nrelation grants no cross-boundary effect.\\n\\n---\\n\\n\"},{\"contextRef\":\"context://default-library-witness/frames@5\",\"endByte\":76400,\"memberDigest\":\"sha256:29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d\",\"memberRef\":\"member://default-library-witness/frames@5\",\"path\":\"standards/STDO_REFERENCE_FRAME_BASELINE.md\",\"sourceLocator\":\"stdo://releases/v2.5.1-rc.1/\",\"spanDigest\":\"sha256:89765aa681593fdcd6fece4bf88960bd8a883d7e15a32d7e7d433b3fbb53ba8b\",\"startByte\":52663,\"text\":\"## Derived Product Testing Frame Set\\n\\nWhen this profile supports Product promotion, closure, or release assurance,\\ntesting is configured as a claim-relative specialist-frame set. The kind of\\nrunner does not select the frame. The evaluated claim, subject, path,\\npopulation, oracle, and falsification boundary do.\\n\\nWhere the generic specialist set is adopted, testing frames supply\\nclaim-congruent evidence to one or more Proof-frame evaluations. Proof is not a\\ntesting hierarchy or aggregate-green frame: user-acceptance, end-to-end,\\nintegration, and unit results retain their distinct claims and coordinates.\\n\\nThe ordinary configuration contains four distinct frames:\\n\\n- user acceptance evaluates the Product outcome from the user's supported\\n  reference frame;\\n- end to end evaluates the complete runnable causal realization of that\\n  outcome;\\n- integration evaluates one material composition boundary and its interaction\\n  population; and\\n- unit evaluates one module-owned law. Internal combinatorial complexity\\n  determines the proportional size and strategy of that evidence, not whether\\n  the module-owned law is eligible for unit proof.\\n\\nThese frames may overlap and one execution may supply evidence to several of\\nthem. Every result remains bound to its own claim. A label such as `UAT`, `E2E`,\\n`integration`, or `unit` has no assurance value without the corresponding frame\\ndeclaration.\\n\\n### Derived User-Acceptance Frame\\n\\n| Frame element | Derived application |\\n|---|---|\\n| evaluation family | Can a declared user, with the user's admitted capability and information, obtain the exact Product-defined outcome through the supported ordinary Product surface? |\\n| subject and basis | exact deployed, installed, or otherwise runnable Product form named by the claim; current Product, requirement, UX, identity, policy, and acceptance authority; declared user role, environment, and harnessed or live sandbox mode under `SPEC_METHOD.md` |\\n| material manifold | user goal, supported entry surfaces, permissions, inputs, Product configuration, ordinary dependencies, any declared external-worker or transport substitution boundary, user-visible state and outputs, refusal and recovery behavior, and acceptance interval |\\n| coordinates | exact Product and artifact identity, install, user role, capability, configuration, dependency realization, harnessed or live mode, data, workspace, invocation, time, outcome, and scenario identity |\\n| governing invariants | applicable Product and requirement outcomes; supported-interface, identity, UX, safety, persistence, and release laws; `RF-001..017`; `STDO-UP-001`, `STDO-UP-008`, and `STDO-UP-022` |\\n| authority | bounded evaluation only; the user-acceptance frame does not mint Product meaning or acceptance authority, and an automated actor does not become the human or Product acceptance owner |\\n| evidence | actual supported-surface requests and responses, user-visible projections, durable side effects where claimed, refusals, recovery observations, scenario records, exact-subject identity, and declared live or substituted dependency identity |\\n| capability envelope | ability to operate the Product as the declared user would, perceive the material outcome and refusal surfaces, and distinguish hidden setup or unsupported assistance |\\n| exclusions | source imports, private APIs, direct Product-state injection, test-only endpoints, hidden administrator capability, undeclared fixtures or substitutes, a test double at a boundary claimed as real or live, compatibility bypasses, and internal success substituted for the user outcome |\\n| result | one Reference Frame Method result bound to the exact user-outcome claim, plus witnessed paths, counterexamples, residual user populations, and invalidation conditions |\\n| invalidation | material Product, supported interface, user role, capability, configuration, dependency or substitution mode, data contract, runnable subject, acceptance meaning, or ordinary-path change |\\n\\nUser acceptance is the primary Product-outcome evidence frame when the claim is\\nthat a user can use the Product. It may be automated only when automation\\nfaithfully occupies the declared user frame and does not gain a path or\\ncapability unavailable to that user. Automation can execute acceptance\\nevidence; it cannot assume acceptance authority.\\n\\nWhere `SPEC_METHOD.md` admits harnessed sandbox UAT, a deterministic, fake,\\nrecorded, or injected external worker or transport limits the result to the\\ncomposed Product relations actually exercised. It does not prove that the live\\nexternal boundary works. When a Product or release claim depends on real\\nexternal compute or transport, live sandbox UAT is mandatory for that claim;\\nunit, integration, semantic, end-to-end evidence that uses the substitute, and\\nharnessed UAT green are not sufficient.\\n\\n### Derived End-To-End Frame\\n\\n| Frame element | Derived application |\\n|---|---|\\n| evaluation family | Does the exact Product subject realize the claimed outcome through the complete authoritative Product path, including every material interface, owner, state transition, effect, persistence, continuation, recovery, and projection boundary? |\\n| subject and basis | exact deployed, installed, or otherwise runnable Product form, composition design, supported entry, selected owner and dependency set, ordinary runtime configuration, and Product claim |\\n| material manifold | complete causal producers and consumers from entry to outcome; interface contracts; authority transitions; state, event, persistence, process, continuation, retry, recovery, and projection relations; competing paths |\\n| coordinates | artifact and installed-tree identity, entry, operation, selected definition and owner, path and edge identities, process, event prefix, state, configuration, dependency, result, replay, and scenario identity |\\n| governing invariants | Product and accepted-design composition laws; exact-subject and assurance congruence; path singularity where required; lifecycle, authority, persistence, replay, recovery, and release law |\\n| authority | bounded evaluation only; observation may expose internal evidence but may not bypass, repair, replace, or reinterpret the Product path |\\n| evidence | supported entry invocation, observed semantic path and authority edges, owner receipts, durable events, state transitions, outputs, replay or reconstruction where claimed, installed artifact identity, and negative-path observations |\\n| capability envelope | ability to execute and observe the complete Product path without changing it, distinguish authoritative from rival paths, and reproduce material state and failure relations |\\n| exclusions | source-only substitutes for runnable-Product claims, direct invocation below the supported entry, test doubles at claimed real boundaries, test-only routing, hidden retries or repair, omitted persistence or fresh-process boundaries, and output equality without path evidence |\\n| result | one Reference Frame Method result bound to the exact end-to-end claim, with exercised composition edges, unexercised material paths, counterexamples, and residual combinations |\\n| invalidation | material artifact, install, dependency, configuration, interface, owner, path, lifecycle, persistence, recovery, projection, test semantics, or evidence-population change |\\n\\nThe expected output is necessary but not sufficient. Reaching it through a\\nforbidden or obsolete path falsifies the end-to-end claim. A test is not end to\\nend merely because it starts and finishes in one process, crosses many lines,\\nor carries an end-to-end label.\\n\\n### Derived Integration Frame\\n\\n| Frame element | Derived application |\\n|---|---|\\n| evaluation family | Do the actual participants at one declared material composition boundary satisfy their joint contract across the combinations of state, authority, configuration, timing, failure, and recovery that can change the boundary result? |\\n| subject and basis | exact interface or composition declaration, actual participating implementations or exact substitutes admitted by the bounded claim, governing Product/requirement/design law, and interaction population |\\n| material manifold | both sides of the boundary, shared carriers, preconditions, postconditions, authority and ownership, ordering, state, configuration, failure, retry, recovery, translation, and competing participants |\\n| coordinates | participant and version identities, interface and carrier revision, state, configuration, dependency, interaction case, input, output, failure, and evidence identity |\\n| governing invariants | declared interface and composition laws, complete participant admission, atomicity and reconstruction where applicable, and exact assurance boundary under `STDO-UP-022` |\\n| authority | bounded boundary evaluation only; no integration result establishes an unevaluated Product outcome or authorizes a substitute participant |\\n| evidence | actual exchanges, admitted carriers, state transitions, contract verdicts, failures, retries, recovery observations, interaction combinations, and participant identities |\\n| capability envelope | competence and access to exercise and observe the real composition seam, identify participant substitution, and vary every material interaction dimension |\\n| exclusions | mocks or stubs that hide the claimed real contract, one-sided contract assertions, happy-path-only exchange, helper-call equivalence, flattened versions or states, and projection of a boundary result to the whole Product without a governing relation |\\n| result | one Reference Frame Method result for the declared integration claim, with covered combinations, counterexamples, omitted interactions, and invalidation conditions |\\n| invalidation | material participant, interface, carrier, state, configuration, dependency, timing, failure, recovery, or interaction-population change |\\n\\nA substitute or test double may support a deliberately narrower claim only when\\nits equivalence boundary and exclusions are explicit. Its result cannot be\\npromoted to evidence that the real participant or Product composition was\\nexercised.\\n\\n### Derived Unit-Test Frame\\n\\n| Frame element | Derived application |\\n|---|---|\\n| evaluation family | Does one module-owned law hold across its material combinations of algebraic operator, calculation regime, state, transition, public or private boundary class, and failure case? |\\n| subject and basis | one exact module boundary, accepted Ontology and design, active IACS or equivalent carrier inventory, module-owned requirements and public contracts, implementation, and a module-bounded decidable oracle |\\n| material manifold | module-owned public contracts, algebras, calculations, parsers, reducers, state machines, transition functions, combinators, admission predicates, conservation laws, invariants, numerical boundaries, and failures |\\n| coordinates | module and implementation revision, owned law, operator or function family, module state, input class, boundary class, expected relation, generated case, mutation, and result identity |\\n| governing invariants | `DESIGN_MODULE_METHOD.md` module ownership and unit-proof law; accepted Ontology, IACS, domain, sequence, state, algorithm, and error relations material to the module |\\n| authority | bounded local evidence only; a unit result has no Product, installed, integration, user-acceptance, architecture, path-selection, or release authority |\\n| evidence | law-derived examples, equivalence classes, finite exhaustive cases where available, property-based or generative cases, metamorphic relations, calculation or algebra oracles, boundary cases, and killed internal mutations |\\n| capability envelope | competence to derive an oracle independently from the owned law, identify the module-bounded combination population, and distinguish invariant violation from implementation restatement |\\n| exclusions | Product outcomes, cross-module composition, supported user paths, packaging or installation, real external participants, orchestration topology, mocked-away interface behavior, incidental branches, private helper layout, assertion count, and source coverage used as broader assurance |\\n| result | one Reference Frame Method result limited to the exact module-owned law and module-bounded population, with counterexamples, residual combinations, and invalidation conditions |\\n| invalidation | material Ontology, IACS, module boundary, owned law, algorithm, state space, numerical regime, implementation, oracle, generator, or module-bounded population change |\\n\\nUnit testing is deliberately module-bounded. Every coded module requires the\\nmodule-derived unit lane owned by `DESIGN_MODULE_METHOD.md`; public module\\ncontracts are valid unit-proof subjects. Internal combinatorial complexity\\ndetermines the proportional size and strategy of that evidence. Its highest\\ndiscriminating value is often in algebras, calculations, transformations,\\nparsers, reducers, state machines, decision tables, admission predicates,\\nconservation relations, and bounded algorithms with strong independently\\nderived oracles. A unit test whose oracle merely repeats the implementation or\\nwhose cases follow incidental code branches provides weak or circular\\nevidence.\\n\\nModules whose material complexity lies primarily in composition, orchestration,\\nconfiguration, persistence, ownership, or user interaction require integration,\\nend-to-end, or user-acceptance evidence at that actual boundary. Mocking those\\nrelations into a unit test does not convert their complexity into unit evidence.\\n\\nThis profile does not waive the module-derived unit lane. It binds that lane to\\nmodule-owned law and the smallest congruent evidence population. Low internal\\ncombinatorial complexity justifies a small lane, not omission and not hundreds\\nof implementation-shaped tests. Unit-test volume has no independent closure\\nvalue.\\n\\nNo Product, user-outcome, installed-path, cross-module composition, or release\\nclaim may be closed from unit evidence, regardless of test count, assertion\\ncount, source coverage, mutation score, runtime, or historical pass rate.\\nTreating unit green as broader assurance is a frame error.\\n\\n### Combinatorial Coverage And Testing-Value Index\\n\\nTesting value is indexed first by the material combinations a frame can\\ndiscriminate for its exact claim. It is not indexed by test, assertion, file,\\nline, branch, mock, snapshot, or runner count.\\n\\nFor one claim, the testing-value index considers at least:\\n\\n1. congruence between the claim and evaluated subject;\\n2. the number and materiality of independent claim dimensions;\\n3. the interaction strength actually covered among those dimensions;\\n4. authoritative-path exactness;\\n5. oracle independence and precision;\\n6. sensitivity to realistic faults, rival paths, and historical failures;\\n7. observability, reconstruction, and reproducibility of the result; and\\n8. explicit residual combinations and invalidation conditions.\\n\\nNo universal scalar is required. A project may define one only through Product,\\nrequirement, or accepted-design authority and must retain the underlying\\ncoverage coordinates rather than flattening them into a score.\\n\\nAt unit altitude, the relevant dimensions are module-bounded. Unit-testing\\nvalue normally rises with the internal combinatorial complexity of an algebra,\\ncalculation, state machine, transition relation, or other module-owned closed\\ndomain because local tests can cheaply discriminate many meaningful\\ncombinations against a precise oracle.\\n\\nAt integration, end-to-end, and user-acceptance altitude, testing value can be\\nmultiplicative rather than additive: each material interface composes\\npreconditions, postconditions, authority, state, configuration, failure, and\\nrecovery with every other traversed boundary. The evidence value comes from\\nthe interactions actually discriminated, not from merely touching many\\ninterfaces on one sunny path.\\n\\nMaterial Product factors commonly include:\\n\\n- user role and capability;\\n- supported operation and Product composition;\\n- selected definition, owner, implementation, and dependency;\\n- lifecycle and persisted state;\\n- configuration and version combination;\\n- process, continuation, retry, re-entry, and recovery mode;\\n- success, refusal, malformed result, partial failure, and competing-path case;\\n- fresh-process, replay, reconstruction, and migration condition; and\\n- user-visible outcome and projection.\\n\\nThe activated frame declares the finite interaction population and why its\\ncovering set is adequate. Pairwise or other covering-array reduction is lawful\\nonly where the basis explains why omitted higher-order interactions cannot\\nchange the claim or retains them as residuals. High-consequence authority,\\npersistence, concurrency, recovery, migration, and historically failure-prone\\nrelations normally require explicit higher-strength combinations.\\n\\nSource, line, branch, and function coverage may diagnose whether code was\\nvisited. They do not establish semantic combination coverage, authoritative\\npath selection, user-outcome coverage, or the absence of a rival path.\\n\\n### Legitimate-Path And Technical-Debt Erasure\\n\\nEvery Product path claim requires two-sided evidence:\\n\\n1. **required-path reachability**: each required authoritative composition has\\n   an exact witness in the deployed, installed, or otherwise runnable Product\\n   form through the supported ordinary path; and\\n2. **forbidden-path exclusion**: each material superseded, duplicate, fallback,\\n   bypass, or otherwise forbidden production path is absent, unreachable, or\\n   refused at its declared boundary.\\n\\nA successor passing does not prove predecessor removal. Technical-debt erasure\\nevaluates two distinct, finite, subject-relative graphs:\\n\\n1. **production closure**: the exact deployed, installed, or otherwise runnable\\n   Product form and configuration, including its transitive imports, exports,\\n   package paths, configuration switches, registries, fallbacks, consumers,\\n   generated runtime artifacts, recovery paths, and fresh-process\\n   reconstruction. No obsolete, bypass, fallback, or rival production path may\\n   remain reachable inside this graph for the claimed scope; and\\n2. **assurance/source closure**: the source consumers, fixtures, proof scripts,\\n   generators, mutations, and assurance tooling relied upon for the claim. No\\n   obsolete assurance consumer may falsely supply closure evidence or\\n   reintroduce the removed production path into the Product graph.\\n\\nA test-only seam is lawful when it is isolated from the Product distribution,\\nexcluded from ordinary-path evidence, and declared in the assurance subject.\\nIts mere presence outside the production graph is not a production-path\\nfailure. A retained obsolete test or proof consumer remains an assurance defect\\nwhen it can falsely establish the claim or reintroduce the removed path.\\n\\nWhere proportionate and safe, assurance includes path-sensitive mutation or\\nsabotage:\\n\\n- disabling the selected authoritative path prevents the Product scenario from\\n  succeeding;\\n- forcing or restoring a rival path causes refusal or a detected\\n  counterexample rather than silent success;\\n- corrupting a material interface or owner result is detected at the owning\\n  boundary; and\\n- removing an asserted obsolete path does not change the accepted Product\\n  outcome except through the declared deletion relation.\\n\\nA Product outcome reached through a forbidden path is a falsified path claim,\\nnot a passing Product test. A negative-path test that mutates the exact subject\\nwithout isolation, restoration, and subject revalidation invalidates its own\\nassurance basis.\\n\\n### Testing Evidence Composition\\n\\nOne execution may provide several bound results. For example, a supported user\\nscenario may supply user-acceptance evidence for the outcome, end-to-end\\nevidence for the runnable causal path, integration evidence for selected\\nseams, and unit counterexamples for a module-owned algebra. Those claims remain\\ndistinct and are combined only through declared Reference Frame Method\\nrelations.\\n\\nThe default proof responsibilities are:\\n\\n- user acceptance proves the outcome from the user's supported frame;\\n- end to end proves the complete authoritative runnable Product path;\\n- integration proves material participant composition; and\\n- unit proves module-owned laws, with evidence size and strategy proportional\\n  to their internal combinatorial complexity.\\n\\nUser acceptance alone may leave internal path singularity unevaluated.\\nEnd-to-end success alone may leave unselected user populations or combinations\\nunevaluated. Integration and unit results cannot substitute for either broader\\nclaim. When the Product claim requires all of them, a conflict or missing result\\nremains visible to Executive disposition and cannot be hidden by aggregate\\ngreen status.\\n\\n### Assurance Subject Acquisition And Evaluation\\n\\nAcquiring the assurance subject and evaluating it are distinct relations.\\nWhere a claim depends on owner-issued Product, runtime, lifecycle, admission,\\nreplay, or projection truth, the testing frame acquires that truth through the\\nexact runnable owner surface, validator, projection, receipt, or reconstruction\\nrelation. A harness, fixture, expected-value builder, proof script, assurance\\nevaluator, or Reviewer does not reconstruct a parallel owner state from raw\\npayloads, events, logs, filenames, labels, or implementation fragments and then\\nevaluate that self-authored state as if it were the Product subject.\\n\\nAfter lawful acquisition, an independently derived oracle may evaluate the\\ngoverning claim. Generic assurance mechanics may compute bytes, digests,\\nordering, equality, set membership, completeness, and conjunction over\\nowner-issued evidence. Those mechanics remain evidence evaluators: they cannot\\nmint owner carriers, choose current history, select the authoritative path,\\ninterpret domain lifecycle or admission meaning, or become a runtime fallback.\\n\\nThis rule does not require an evaluator to trust the implementation under test\\nas its semantic oracle. The oracle derives from Product, requirement, and\\naccepted-design law. It does require the assurance subject to be the actual\\nowner-issued subject rather than a second implementation of the owner's\\nruntime meaning. If the required owner projection or observable seam is absent,\\nthe result retains a named assurance or design gap; the proof harness does not\\nfill it with rival semantics.\\n\\n### Counterexample Localization\\n\\nA testing counterexample is returned to its earliest supported causal frontier\\non the declared path. The frontier contains the causally minimal violated owner\\nrelations or seam coordinates established by the evidence; earliest means\\nminimal under the declared causal relation, not first in log or clock order.\\n\\nThe localization result represents exactly one of:\\n\\n- one unique violated locus;\\n- a jointly established set of incomparable earliest violated loci whose\\n  combined violation is necessary to the supported causal explanation;\\n- unresolved alternative frontiers when the evidence supports several possible\\n  causal explanations but cannot establish which occurred; or\\n- `indeterminate` when the evidence cannot support a bounded frontier.\\n\\nLocalization records the subject, basis, frontier form and members, causal\\nevidence, expected relations, observed counterexample, and downstream claims\\ninvalidated by it. It does not collapse a jointly established set into one\\narbitrary owner or misreport unresolved alternatives as a joint cause.\\n\\nA localized frontier does not itself authorize broader test expansion,\\ncompatibility repair, another controller, or reinterpretation of unchanged\\nupstream meaning. Any resulting scope or design change follows the existing\\nre-entry relation.\\n\\n---\\n\\n\"}]}\n\n## evidence\n{\"environmentAccess\":[{\"accessRef\":\"access://registered-selection/source-corpus-validation@5\",\"claim\":\"structural_corpus_access_not_frame_application\",\"disposition\":\"omitted_not_required\",\"operation\":\"validate\",\"projection\":null,\"projectionDigest\":\"sha256:762c96822e71889dfc6ecc40d9a1a3c6573563f8c49d65f83f2b4f72ab72462f\"}]}\n\n## task\n{\"ownerPrompt\":\"Invoke the Bash tool exactly once with the exact semantic tool-input object below. The ABI-owned helper executes every declared command in order and records its exact argv, cwd, environment, streams, exit status, reports, and protected-file observations.\\n\\n{\\\"command\\\":\\\"'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_helper.js' --task '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-GGDyGH/workspace/.ai-workspace/archive/worksite-command-execution/d684df668b37bc4907b6092951bd427442632831326b01e5229788d9dbfd5149/86577c330ea6fb35644b5cb505b87f632c6689005ae7e9f25eacb785c3fd1d23/launch.json'\\\"}\\n\\nDo not add timeout, run_in_background, or any other operational input field. An optional string description is metadata only. Preserve the command string exactly.\\n\\nReturn the helper's compact task/attempt/artifact acknowledgment unchanged. The helper retains every computed command, stream, and predicate in its full artifact; do not copy, summarize, or compute those rows.\\n\\nDo not run any declared command directly and do not use another tool call.\\n\\nA nonzero subject-command exit is an observation, not a transport failure.\\n\\nReturn only the JSON value required by the supplied schema.\\n\\n{\\\"attemptRef\\\":\\\"worksite-command-attempt://abiogenesis/39ffdf626eebb7fbb17afc63581b301d9fac4830b69ff4357ddbd0348c5e3162\\\",\\\"commands\\\":[{\\\"commandId\\\":\\\"command://default-library-witness/0@5\\\",\\\"ordinal\\\":0},{\\\"commandId\\\":\\\"command://default-library-witness/1@5\\\",\\\"ordinal\\\":1}],\\\"outcomePredicates\\\":[],\\\"sourceObservedInput\\\":{\\\"kind\\\":\\\"observed_worksite_input\\\",\\\"sourceSetDigest\\\":\\\"sha256:d79f7e764b1131291b9784976dfcc917114ccfb3d630076804707d6fafaabc78\\\",\\\"sourceSetRef\\\":\\\"observed-worksite-execution-source-set://abiogenesis/d79f7e764b1131291b9784976dfcc917114ccfb3d630076804707d6fafaabc78\\\"},\\\"taskDigest\\\":\\\"sha256:d684df668b37bc4907b6092951bd427442632831326b01e5229788d9dbfd5149\\\",\\\"taskRef\\\":\\\"worksite-command-execution-task://abiogenesis/d684df668b37bc4907b6092951bd427442632831326b01e5229788d9dbfd5149\\\",\\\"workspaceBindingDigest\\\":\\\"sha256:14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10\\\",\\\"workspaceBindingIdentity\\\":\\\"workspace-binding://abiogenesis/14a02c0f27df3cd86084d9df0e37aa2e45209a2356a48431e5b1fadd7deb3b10\\\"}\"}\n\n## response\n{\"additionalProperties\":false,\"properties\":{\"attemptRef\":{\"const\":\"worksite-command-attempt://abiogenesis/39ffdf626eebb7fbb17afc63581b301d9fac4830b69ff4357ddbd0348c5e3162\"},\"helperArtifactDigest\":{\"pattern\":\"^sha256:[a-f0-9]{64}$\",\"type\":\"string\"},\"helperArtifactRef\":{\"pattern\":\"^worksite-command-helper-artifact://abiogenesis/[a-f0-9]{64}$\",\"type\":\"string\"},\"kind\":{\"const\":\"worksite_command_execution_worker_result\"},\"schemaVersion\":{\"const\":\"5.0.0\"},\"taskDigest\":{\"const\":\"sha256:d684df668b37bc4907b6092951bd427442632831326b01e5229788d9dbfd5149\"},\"taskRef\":{\"const\":\"worksite-command-execution-task://abiogenesis/d684df668b37bc4907b6092951bd427442632831326b01e5229788d9dbfd5149\"}},\"required\":[\"kind\",\"schemaVersion\",\"taskRef\",\"taskDigest\",\"attemptRef\",\"helperArtifactRef\",\"helperArtifactDigest\"],\"type\":\"object\"}",
+    "rendererRef": "renderer://abiogenesis/worksite/command-execution@5",
+    "responseJsonSchema": {
+      "additionalProperties": false,
+      "properties": {
+        "attemptRef": {
+          "const": "worksite-command-attempt://abiogenesis/39ffdf626eebb7fbb17afc63581b301d9fac4830b69ff4357ddbd0348c5e3162"
+        },
+        "helperArtifactDigest": {
+          "pattern": "^sha256:[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "helperArtifactRef": {
+          "pattern": "^worksite-command-helper-artifact://abiogenesis/[a-f0-9]{64}$",
+          "type": "string"
+        },
+        "kind": {
+          "const": "worksite_command_execution_worker_result"
+        },
+        "schemaVersion": {
+          "const": "5.0.0"
+        },
+        "taskDigest": {
+          "const": "sha256:d684df668b37bc4907b6092951bd427442632831326b01e5229788d9dbfd5149"
+        },
+        "taskRef": {
+          "const": "worksite-command-execution-task://abiogenesis/d684df668b37bc4907b6092951bd427442632831326b01e5229788d9dbfd5149"
+        }
+      },
+      "required": [
+        "kind",
+        "schemaVersion",
+        "taskRef",
+        "taskDigest",
+        "attemptRef",
+        "helperArtifactRef",
+        "helperArtifactDigest"
+      ],
+      "type": "object"
+    },
+    "resultContractRef": "contract://abiogenesis/worksite/command-execution-worker-result@5",
+    "transportLane": "worker_executes",
+    "workerBindingRef": "worker-binding://abiogenesis/worksite/command-execution-worker@5"
+  },
+  "schemaVersion": "5.0.0"
+}

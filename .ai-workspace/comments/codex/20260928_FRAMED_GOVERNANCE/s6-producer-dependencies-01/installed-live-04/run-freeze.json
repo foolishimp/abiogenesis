@@ -1,0 +1,92 @@
+{
+  "readinessFreeze": {
+    "sha256": "0a9a9d9bdcf9393ca1b657133d33abe66f16e555d250726905d8d00037117bca",
+    "bytes": 857
+  },
+  "sourceFreeze": {
+    "sha256": "75a1d75bf882180b267704e2e76f6619ff343552e2941dbbf91a82c246fad270",
+    "bytes": 939
+  },
+  "core": {
+    "sha256": "6311b520520efb19f6d042fb11c00bf7abe5ad335f0b274915726c482d7bdf07",
+    "bytes": 10337313
+  },
+  "consumer": {
+    "sha256": "6cf3780dadeeddce756fdfe903e0c7da2ec8f894a4619a104650ab5128792e12",
+    "bytes": 11777
+  },
+  "input": {
+    "sha256": "377bae203c2ac43bf0e0339a24ce979998aa4247807c68c2fe383d274a74ee87",
+    "bytes": 84605
+  },
+  "launcherReadiness": {
+    "sha256": "4bc20a3e8d0bebcd8c8b30c34041da0491a8989ec0dbca50e606e4dc9af90afe",
+    "bytes": 5612
+  },
+  "proofManifest": {
+    "sha256": "ca9aff9ae938bff96cd7b0c91e1bdcb53565ca3f76189ccdeb963f3591738511",
+    "bytes": 17795
+  },
+  "proofMembers": 120,
+  "events": {
+    "sha256": "429d8faad99164e3c17a1e4ea5e54063e021aaaeb5dc437eb922a52e0d3b55a0",
+    "bytes": 99106301
+  },
+  "execution": {
+    "sha256": "b1eef2f077bde768844c5bc2d0b825a8afa7a1b2cfa54eb074e49c855e999729",
+    "bytes": 6264274
+  },
+  "firstFailure": {
+    "sha256": "9e4dce0e709cb64477e18ac050a045f383335ba3bb09c2592039f64bd652700a",
+    "bytes": 1757
+  },
+  "diagnosis": {
+    "sha256": "6216084cacebf6d13c62e6d859f9100e09e4069e5a8ed8037e4c68c6a5cbfb68",
+    "bytes": 12151
+  },
+  "prerequisites": {
+    "sha256": "194f5bf6f9387cdfc922b58028bfeaba89776b4a7ebf796da946c1d66fbe45e3",
+    "bytes": 3812
+  },
+  "actualAssessment": {
+    "sha256": "19d7bae60935f4e9929a7e2c443ce22d9d173c319558bc58f514a2b25d25567a",
+    "bytes": 28857
+  },
+  "rawCorrespondence": {
+    "sha256": "74d5eff4cff2ec95caf752c335d87d4b5fa96b86f3095d625636734c41a6eca7",
+    "bytes": 952
+  },
+  "chain": {
+    "sha256": "51c9d44a23f0ac4be16276b2935be5f7e2a737c6becc0ad7bc03957cb89fe05a",
+    "bytes": 87326
+  },
+  "nativeScopeEvidence": {
+    "sha256": "980094eb7aa7c7597eb9d9a05c8f8be342bbe695fc10984675852c9b80978748",
+    "bytes": 46526
+  },
+  "outcomeEvidence": {
+    "sha256": "0f310de5888b43a6d4e25d7713d660dbd2c4fffb52eb3d7e79b180ef52f11e76",
+    "bytes": 44012
+  },
+  "reads": {
+    "run_result": {
+      "sha256": "530d6e47af4da98ce920148a3478d6574430a0d0921faac2196a9fae563c6a3c",
+      "bytes": 3724
+    },
+    "run_replay": {
+      "sha256": "04c6592f16d082fcff3d374915159095c8142b7f27b247590b479081ddc1551f",
+      "bytes": 4874
+    }
+  },
+  "outcome": "runtime_failed",
+  "firstCausalEvidenceOrdinal": 26497,
+  "firstFailureResultOrdinal": 26499,
+  "providerCalls": 12,
+  "runClosed": false,
+  "nativeAssessmentCompleted": true,
+  "assessmentFoldAccepted": false,
+  "coverageAccepted": false,
+  "sourceAndOldProofPreserved": true,
+  "nativeSettingsUnchanged": true,
+  "qualificationKind": "new whole-witness instance; no live-03 recovery credit"
+}

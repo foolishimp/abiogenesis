@@ -1,0 +1,58 @@
+{
+  "syntax": [
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/launch.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/readback.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/installed-live-04/prepare-launch.mjs"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "logicDelta": "Launcher and readiness logic byte-identical; read request identity s6-live-03 -> s6-live-04 only",
+  "providerControlsByteIdentical": true,
+  "installedReadOwnersAndSharedHelperUnchanged": true,
+  "priorReadinessProof": {
+    "manifest": {
+      "sha256": "26549de174974f26299f7a5aa5161ab85a94b39dea719e0d50505ac8cd5d3aff",
+      "bytes": 4162
+    },
+    "members": 32,
+    "allMatch": true
+  },
+  "priorReadinessReturn": {
+    "sha256": "85c1deed2341aeef4ab0d519f1ce3b4e4d3f092413e6ea3456a40751451954ce",
+    "bytes": 5400
+  },
+  "priorReadinessFreeze": {
+    "sha256": "ec4372708d7ccf23e16c8c97dd45f263931addd2702f7ad26fbe411a9bd680d2",
+    "bytes": 857
+  },
+  "freshQualificationInstance": true,
+  "oldRunResumed": false,
+  "importedRuntimeResults": false,
+  "runStarted": false,
+  "providerCalls": 0
+}

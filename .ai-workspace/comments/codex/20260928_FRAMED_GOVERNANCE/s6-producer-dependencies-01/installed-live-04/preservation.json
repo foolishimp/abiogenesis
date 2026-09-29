@@ -1,0 +1,35 @@
+{
+  "proofs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-producer-dependencies-01/proof-manifest.json",
+      "sha256": "73088e128953fcf2a3df56f3ffd183d499e4f2363a9f84f67513e985842df996",
+      "bytes": 3858,
+      "members": 27
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s6-declared-source-projection-01/installed-live-03/run-proof-manifest.json",
+      "sha256": "1df8e16ca76e589b1c3496c4a16310bc77f159ed46339abaf83f8f7ece5c4f9a",
+      "bytes": 16784,
+      "members": 113
+    }
+  ],
+  "priorRunReturn": {
+    "sha256": "6ecbf5d923a43257c5f356cd34f75e8b7f9728733f84f37b400a4b203891af34",
+    "bytes": 10326
+  },
+  "sourceFreeze": {
+    "sha256": "75a1d75bf882180b267704e2e76f6619ff343552e2941dbbf91a82c246fad270",
+    "bytes": 939
+  },
+  "unchangedInput": {
+    "sha256": "377bae203c2ac43bf0e0339a24ce979998aa4247807c68c2fe383d274a74ee87",
+    "bytes": 84605
+  },
+  "unchangedCase": {
+    "sha256": "f97359de0fe6181e44c334496993b20b82b49cdbbf0b8b66ee18de7eac34a63b",
+    "bytes": 5656
+  },
+  "consumerExecutableAndSchemaUnchanged": true,
+  "oldRunResumed": false,
+  "recoveryProved": false
+}

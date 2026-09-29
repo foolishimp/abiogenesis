@@ -1,0 +1,61 @@
+{
+  "core": [
+    {
+      "path": "build/code/src/abg/default_library.js",
+      "before": {
+        "sha256": "cb733ebe84298d5e9e3d9db43783d00d3e4e502fadd612143774f2a8908a1773",
+        "bytes": 27975
+      },
+      "after": {
+        "sha256": "8b95005216b7729e8b9b4802be30738c142368cf36608990e5d37687b761c5bb",
+        "bytes": 28313
+      }
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "sha256": "fafbba192f62ec277504b078f12d335ea5a6d4627bf05583460a0f4aa508559d",
+        "bytes": 197474
+      },
+      "after": {
+        "sha256": "8a686040d438c9274cfc34328460add2d91810a271552ace902325e386f942f6",
+        "bytes": 197474
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "sha256": "67e0edd2589c438fbb09a3a0ecde80d0249372469f5af27f7ab8e469c20005c4",
+        "bytes": 2545310
+      },
+      "after": {
+        "sha256": "c2ab958bc002c90a735f17f85725f6f9797cc133ca85f17405f60032ccce0125",
+        "bytes": 2545310
+      }
+    }
+  ],
+  "consumer": [
+    {
+      "path": "package.json",
+      "before": {
+        "sha256": "9b3010484dcaf2486dd8a5cd1f5f155c8081fdc4eeb555b72066ea7047fa4c80",
+        "bytes": 455
+      },
+      "after": {
+        "sha256": "92f0376dde8955a50172e0fd8da167f60a9dca0b9095fc7eeceb3298cf5d31b0",
+        "bytes": 450
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "sha256": "fe92dded1393e88655722835b000e14c7c39db639146953d77814d537e5043a9",
+        "bytes": 4898
+      },
+      "after": {
+        "sha256": "46b46b46558e8f69fce02d03afe32501799521980772981a1f8d5bb09a2d382d",
+        "bytes": 4898
+      }
+    }
+  ]
+}

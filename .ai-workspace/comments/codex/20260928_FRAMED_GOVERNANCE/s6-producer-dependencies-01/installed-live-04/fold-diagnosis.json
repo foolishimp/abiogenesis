@@ -1,0 +1,261 @@
+{
+  "scope": "Read-only reconstruction of the exact admitted fold CCall using installed durable-prefix, execution, graph, traversal-input and instruction-basis owners; binder instrumentation preserves arguments/return. No fabricated occurrence, response repair, source edit, native call, admission or effect.",
+  "actualBasisAuthenticated": true,
+  "inputRef": "raw-admission://abiogenesis/eba601c75adbde92a5571f527d70004e011ab8e0de2880351e04aead8591bf22",
+  "inputDigest": "sha256:d251e4a1360c10573360d8c012beae0b54e996859601941926ffba114596819b",
+  "expectedOutputContractRef": "contract://abiogenesis/default-library/state@5",
+  "sourceResult": {
+    "ordinal": 26469,
+    "eventId": "event://abiogenesis/515324bbd1a6af07285e959cc7e1cc8b925ae24f2f6660a0c2b296ad2ef4b93c",
+    "kind": "c_call_result_admitted",
+    "resultRef": "result://abiogenesis/8b74a807620f662f841dcc69fbeb19b0dd9efae376b60e560a9578c72a41cd8f",
+    "cCallRef": "c-call:sha256:12da89a5ca20ccbae0c1d3d0c15886a0e0affa7c9a1600a6ca1d7ccd11be46b9",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5"
+  },
+  "assessmentResult": {
+    "ordinal": 26469,
+    "eventId": "event://abiogenesis/515324bbd1a6af07285e959cc7e1cc8b925ae24f2f6660a0c2b296ad2ef4b93c",
+    "kind": "c_call_result_admitted",
+    "resultRef": "result://abiogenesis/8b74a807620f662f841dcc69fbeb19b0dd9efae376b60e560a9578c72a41cd8f",
+    "cCallRef": "c-call:sha256:12da89a5ca20ccbae0c1d3d0c15886a0e0affa7c9a1600a6ca1d7ccd11be46b9",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5"
+  },
+  "firstFailureEvidence": {
+    "ordinal": 26497,
+    "eventId": "event://abiogenesis/925fd13ceb220903b06f9438165a0672c688e8473f655a2952059c9d108c22b5",
+    "kind": "c_call_evidenced",
+    "resultRef": null,
+    "cCallRef": "c-call:sha256:a09c9c6a879579df0cc2959b25ed01e4279adc440d555f5d88ec75a434eee1f1",
+    "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5"
+  },
+  "firstFailureResult": {
+    "ordinal": 26499,
+    "eventId": "event://abiogenesis/359b7cddb438c563ae861eeea53acca16288493ef76cfba7fbcf70ebebfbaa42",
+    "kind": "c_call_result_admitted",
+    "resultRef": "result://abiogenesis/6e032a57a6da597f9013b6c850b86cab93d7033ecdd9b7363c6fead8aa27510d",
+    "cCallRef": "c-call:sha256:a09c9c6a879579df0cc2959b25ed01e4279adc440d555f5d88ec75a434eee1f1",
+    "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5"
+  },
+  "downstream": {
+    "ordinal": 26522,
+    "eventId": "event://abiogenesis/387f79b9540c76f3e9b604ea777ad359785fca21c45ca415bfa26f5e3b554ba9",
+    "kind": "runtime_failure_observed",
+    "resultRef": null,
+    "cCallRef": "run://abiogenesis/da41d97e13a5afa10c1ae0c9490d606a145fb1ded35b2a3b140321879201bacf",
+    "graphFunctionRef": "graph-function://default-library-witness/executive@5"
+  },
+  "trace": [
+    {
+      "function": "bindGovernanceFulfillmentAssessment",
+      "rawDigest": "sha256:772e49c0819f1ea02cea3ce34db68b795d8e999ea68ef7bd7983f61e7202e193",
+      "evidenceRefs": [
+        "result://abiogenesis/b63cfd1dc0bc193ebab9987177c88119d945add00bc62eaf4b955388dc513aea",
+        "result://abiogenesis/50dd6dafe6c0a3b5ba48e11fa757a465334ca180239d67d0a2b84a3768b5dee4",
+        "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "result://abiogenesis/7f26f5a0fa42da01286419f23462cd02fee4cd275eb5e48cc316ed8cef34ea1e",
+        "result://abiogenesis/f60d677d7ba660142f43eab3f26a2be1f49d94909926c39e485ae4b0bbfd8571"
+      ],
+      "result": null
+    }
+  ],
+  "earliestFalsePredicate": {
+    "source": "code/src/product/default_library_fulfillment.ts:170-174",
+    "predicate": "non-verifier_execution support requires commandId === null, artifactPath naming a selected evidence file",
+    "path": "obligations[0].support[0].commandId",
+    "actual": "command://default-library-witness/0@5",
+    "expected": null
+  },
+  "violations": [
+    {
+      "path": "obligations[0].support[0].commandId",
+      "obligationRef": "obligation://default-library-witness/complete-original@5",
+      "support": {
+        "artifactPath": "generated/hello-world.mjs",
+        "commandId": "command://default-library-witness/0@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "realization"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[0].support[1].commandId",
+      "obligationRef": "obligation://default-library-witness/complete-original@5",
+      "support": {
+        "artifactPath": "test/component/hello-cli.test.mjs",
+        "commandId": "command://default-library-witness/1@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "verifier_artifact"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[0].support[2].commandId",
+      "obligationRef": "obligation://default-library-witness/complete-original@5",
+      "support": {
+        "artifactPath": "test/uat/hello-cli.uat.test.mjs",
+        "commandId": "command://default-library-witness/1@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "verifier_artifact"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[5].support[0].commandId",
+      "obligationRef": "obligation://default-library-witness/behavior@5",
+      "support": {
+        "artifactPath": "generated/hello-world.mjs",
+        "commandId": "command://default-library-witness/0@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "realization"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[5].support[1].commandId",
+      "obligationRef": "obligation://default-library-witness/behavior@5",
+      "support": {
+        "artifactPath": "test/component/hello-cli.test.mjs",
+        "commandId": "command://default-library-witness/1@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "verifier_artifact"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[5].support[2].commandId",
+      "obligationRef": "obligation://default-library-witness/behavior@5",
+      "support": {
+        "artifactPath": "test/uat/hello-cli.uat.test.mjs",
+        "commandId": "command://default-library-witness/1@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "verifier_artifact"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[6].support[0].commandId",
+      "obligationRef": "obligation://default-library-witness/revision@5",
+      "support": {
+        "artifactPath": "generated/hello-world.mjs",
+        "commandId": "command://default-library-witness/0@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "realization"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[6].support[1].commandId",
+      "obligationRef": "obligation://default-library-witness/revision@5",
+      "support": {
+        "artifactPath": "test/component/hello-cli.test.mjs",
+        "commandId": "command://default-library-witness/1@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "verifier_artifact"
+      },
+      "expected": null
+    },
+    {
+      "path": "obligations[6].support[2].commandId",
+      "obligationRef": "obligation://default-library-witness/revision@5",
+      "support": {
+        "artifactPath": "test/uat/hello-cli.uat.test.mjs",
+        "commandId": "command://default-library-witness/1@5",
+        "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+        "role": "verifier_artifact"
+      },
+      "expected": null
+    }
+  ],
+  "assessment": {
+    "disposition": "satisfied",
+    "obligations": [
+      {
+        "obligationRef": "obligation://default-library-witness/complete-original@5",
+        "judgment": "satisfied"
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/conformance@5",
+        "judgment": "satisfied"
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/implementation-design@5",
+        "judgment": "satisfied"
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/test-design@5",
+        "judgment": "satisfied"
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/execution-plan@5",
+        "judgment": "satisfied"
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/behavior@5",
+        "judgment": "satisfied"
+      },
+      {
+        "obligationRef": "obligation://default-library-witness/revision@5",
+        "judgment": "satisfied"
+      }
+    ],
+    "unresolvedCriteria": [],
+    "producer": {
+      "actorInvocationRef": "actor-invocation://abiogenesis/159b2b63bdd8f51b9f71f62cbed618a3a9c99b477039bdf78ed5f9edb3f05d09",
+      "cCallRef": "c-call:sha256:cc957c884bea8a3f9e999083110ab939c1060d9dbc977e8ac2687df87e23ef17",
+      "resultDigest": "sha256:b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470",
+      "resultRef": "result://abiogenesis/b609386b5e8027ffe1e90f95657472fde395a9fdc36c9dcfeccd01825659b470"
+    },
+    "actorInvocationRef": "actor-invocation://abiogenesis/c38f643a39ae5794e737eba6fa547c2404be12caf790b288fb5db8c66cff75bc",
+    "changedPaths": []
+  },
+  "presentation": {
+    "promptBytes": 178229,
+    "instructions": "Use exactly one row per current obligation, criterion, depth class and discovery class. Meanings and sufficiency are your independent judgments. Unknown support is indeterminate, never implicit success.\nSelect only prior Result refs, roles, paths and command ids from the owned domains below. Do not emit digests, CCall/actor identities or your own future Result ref. The owner attaches this assessment after admission. Realization and verifier artifacts are different selected subjects. Current support must match current dependency bytes. AdverseEvidenceRefs are historical C2 counterevidence for the declared adverse-command criterion, not proof of current behavior.\n",
+    "schemaSupport": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "realization",
+              "verifier_artifact",
+              "verifier_execution"
+            ]
+          },
+          "resultRef": {
+            "type": "string",
+            "minLength": 1
+          },
+          "artifactPath": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "commandId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "role",
+          "resultRef",
+          "artifactPath",
+          "commandId"
+        ]
+      }
+    },
+    "conditionalSupportNullRuleInInstructions": false
+  },
+  "controlledComparison": {
+    "path": "../check-actual.mjs",
+    "raw": "indeterminate rows with support:[]",
+    "difference": "Controlled support loop was empty. Actual satisfied assessment has nonempty support with nine branch-inappropriate command IDs. The actual native task/currentness/result-source relation reaches the binder; coverage projection is not reached."
+  },
+  "classification": "Raw response is valid for the presented structural JSON Schema but violates the existing role-specific binder relation. It is not a semantic negative or producer-currentness failure. Prompt supplied domains but omitted commandId/artifactPath role applicability; owning re-entry is existing fulfillment contract presentation plus nonempty-support actual fold discriminator. No Product/calculus extension or raw repair."
+}
