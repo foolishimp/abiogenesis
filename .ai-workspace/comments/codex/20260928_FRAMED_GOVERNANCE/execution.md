@@ -26,8 +26,8 @@ generation or revival of the withdrawn odd_glc planner is selected.
 | S3 | Native F_P Executive with bounded frame/catalogue context | Accepted bounded native evidence and reviewed RS-N01 source correction; installed successor is S4 |
 | S4 | Changed registered choice and recursive result/foldback | Accepted first installed attempt after independent review; no production change |
 | S5 | Reused default induction/specification/design/testing/UAT declarations | Accepted bounded library implementation and installed supplied/faulty pair; full lifecycle authorship remains S6 |
-| S6 | Installed consumer-authored Hello, correction, assessment and Public readback | Live-04 fails raw-profile fold correspondence and independently violates write scope. Generic schema/native-instruction correction is frozen with six focused checks, actual populated-fold proof and schema-to-transport correspondence; independent readiness review pending. Complete S6 remains open |
-| S7 | Remaining Product qualification and exact RC lifecycle | Pending selected obligations |
+| S6 | Installed consumer-authored Hello, correction, assessment and Public readback | Corrected core1722953b passes independent source/package review; live-05 dispatched once at2026-09-29T00:17:23.513Z. Actual outcome pending; live-04 remains failed and scope-disqualified |
+| S7 | Remaining Product qualification and exact RC lifecycle | S7-R01 identifies a missing installed current-intent continuation callable; positive pending-consumer recovery and complete qualification/RC lifecycle remain open |
 
 ## S1 Worker grant: T287_REGISTERED_SELECTION_DESIGN_01
 
@@ -2213,3 +2213,110 @@ reproducible bootstrap copies/host links and unrelated retained evidence. Keep
 the relative core-archive link and all irreplaceable frozen proof. This source
 checkpoint is not S6 acceptance, an RC cut or qualification credit. Return to
 Executive after exact scoped commit/push and remote readback.
+
+
+## S6 live-05 execution
+
+Root accepts installed readiness return
+`38ae364e0b1de99ed5444494e53e6acf2abc771e66cb572fc922eb5ada6350d6`,
+freeze `7bd8902a6b0224a3cbefc6b83f54cf00417f95a0309528fc60412f4b5bb9263c`,
+conjoined with closed correction review `89c9aad6066961b5586cce0b5c95cf46fae84479fd42c950a4f91e3cf231fa4d`.
+Core 1722953b and consumer b6c67144 match all 5,261 installed members. The
+assessment schema 9403a74e is the sole input-field delta (input 2821278c);
+original source/case/oracle/policy/seed/controls are unchanged. Setup 20.562 s
+and extraction 0.477 s are separate from the selected execution.
+
+Select `T287_S6_LIVE05_EXECUTE_01`, same Astra/xhigh Worker, original case and
+existing End-To-End Interface Integration frame: invoke the frozen live-05
+`launch.mjs --dispatch-once` exactly once. Pinned native Opus5.5/xhigh and
+all existing controls remain. HoG owns choice and correction. Retain raw
+actors, effects, mappings, obligations, independent assessment, admitted
+coverage, parent/Run disposition and both genuine cold Public reads. Stop at
+the first unexpected failure; no code/input/case/policy/control change,
+reinstallation, fallback, automatic paid retry, Git or release effect. Preserve
+readiness and return a separate frozen run-return. A single bounded existing
+liveness observation is permitted only if still outstanding at least 600 s
+after actual dispatch; no repeated history scans. Prior Runs and deviations
+stay unchanged; this changed-candidate qualification is not recovery.
+
+The owner's workload comparison is that the 21-minute full lifecycle is in the
+ballpark of ABG 2.4.6/odd_glc for equivalent work. That is the owner's historical
+baseline, not a freshly measured comparison. Root withdraws the absolute-time
+overcost inference made from the one-line application alone. LLM time still
+includes framework-requested context/selection work; no comparative improvement
+or new optimization campaign is claimed. Finish accepted delivery and recovery
+before calling 5.0 a replacement. Root enters Writer only for this selection
+and T-287 projection, then resumes Executive.
+
+
+### Actual dispatch, recovery disposition and review latency
+
+The Worker records actual live-05 dispatch at 2026-09-29T00:17:23.513Z.
+No outcome is yet claimed. Reviewed source checkpoint
+`9ba8b2ddaffc28a7fd0d95e44febaac2c12eb524` is committed and pushed; local HEAD
+and remote main match. Active live-05 and the later recovery note were excluded.
+
+Root accepts the closed entry check in `s7-recovery-readiness.md`, SHA256
+`64619353ec5042719988ead507506c0d53707ae352a063d5a26e84ab48a56a96`.
+S7-R01 is a concrete declared-to-installed owner gap: the current-intent contract
+resolves through RUN_DEFINITION_BINDINGS.continue.current_intent, while the
+frozen package exports only invoke.{invoke,start}. Ordinary start opens a new
+root with supplied invocation input, not the pending cursor. This qualifies the
+first missing join, not every downstream recovery relation. Select the smallest
+existing-owner design/implementation intake after the current live result; no
+replacement controller, new Product family, native-human scope or arbitrary
+authority migration is admitted. Positive recovery still needs the finite
+installed producer/pending-consumer proof already specified. S6 continues.
+
+For the owner's latency question, saved-file times delimit worker-return to
+review-close 5m47s, review-close to installed-readiness 6m26s, and readiness to
+actual dispatch 2m22s: 14m35s outside the live run. These are elapsed intervals,
+not isolated reasoning measurements. Measured setup/extraction accounts for
+about21s; the remaining internal split is unknown. Subsequent independent
+installed preparation may run alongside review of a frozen source/package when
+its declared effects preserve that exact subject; actual live dispatch still
+requires both closed returns. Additional research stays off the critical path
+unless it identifies a governing blocker. No new timing gate or review waiver.
+Root enters Writer only for these tracking projections, then resumes Executive.
+
+
+### Owner ruling: iteration is the correction mechanism
+
+The owner clarifies that actor mistakes and incorrect assessments are expected;
+correction is through iteration. Apply the existing Product recovery/reuse law
+and registered graph selection: preserve the adverse fact, identify affected
+claims, retain unaffected completed work, select bounded correction or independent
+reassessment, and close only on sufficient current evidence. A scope deviation
+does not itself justify regenerating valid specification/design/code. It also
+does not become lawful retroactively or make an incorrect assessment true.
+
+This is a delivery/qualification interpretation under the existing calculus,
+not a new Executive loop, softened admission rule or erased witness condition.
+Live-05 remains on its frozen original case and controls; record its actual
+outcome without intervention. The next disposition must demonstrate correction
+and preservation of work rather than make agent perfection the recovery model.
+S7-R01 therefore remains on the direct delivery path. Any changed execution
+authority still requires its governing basis/reprice relation; no old Run is
+relabelled as having executed successor code. Root enters Writer only to retain
+this owner ruling and then resumes Executive.
+
+
+### Owner ruling: security out of scope, violations noted
+
+The owner explicitly excludes security containment from scope and requires each
+observed violation to be noted. This supersedes using off-scope scratch writes
+as an independent delivery/security-release gate. It does not authorize the
+acts, erase them, establish host isolation or make a contrary assessment true.
+The current native HOW already distinguishes trusted-developer worksite scope
+from hostile-host containment; no Product security capability is being added.
+
+Keep application correctness, truthful assessment and valid ABG completion as
+acceptance concerns. Preserve the original frozen live-04 criterion and its
+failure as historical evidence; the later owner scope ruling is a distinct
+disposition, not a revised claim about what happened. Live-05 runs unchanged;
+the Worker has been instructed to return actual outcome and observed violations
+separately. No active input/history mutation, native interruption, new security
+tooling, host audit, extra paid call or exhaustive-detection promise follows.
+Future selected qualification must reflect this scope explicitly instead of
+silently reinstating an agent-perfection/security condition. Root enters Writer
+only for this owner ruling/T-287 projection, then resumes Executive.
