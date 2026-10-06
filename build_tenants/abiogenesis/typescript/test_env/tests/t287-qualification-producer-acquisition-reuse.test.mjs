@@ -4,7 +4,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {syncBuiltinESMExports} from 'node:module';
+import {registerHooks,stripTypeScriptTypes,syncBuiltinESMExports} from 'node:module';
 import {mkdtempSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join,resolve} from 'node:path';
@@ -18,20 +18,41 @@ import {isSelfConformanceResult} from '../../build/code/src/validator/self_confo
 const root=resolve(import.meta.dirname,'../..'), c=(ref,digest=hash(ref))=>({ref,digest});
 const digest=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
 const evidence=process.env.ABI5_PRODUCER_HISTORY_FIXTURE,contextPath=process.env.ABI5_PRODUCER_CONTEXT_FIXTURE;
-assert(evidence&&contextPath,'explicit finite copied-history and selected retained context required');
+const ownerFixture=process.env.ABI5_PRODUCER_OWNER_FIXTURE,ownerSourceFixture=process.env.ABI5_PRODUCER_OWNER_SOURCE_FIXTURE;
+assert(evidence&&contextPath&&ownerFixture&&ownerSourceFixture,'explicit finite copied-history, retained context and exact historical owner fixtures required');
 const allBytes=fs.readFileSync(evidence);
 assert.equal(digest(allBytes),'sha256:e8147dd35d207590170bea4f4f2018935c6a5c7fc9893cc3f56585e332692667');
-const context=JSON.parse(fs.readFileSync(contextPath,'utf8')),bytes=allBytes.subarray(0,context.prefixLength);
+const contextBytes=fs.readFileSync(contextPath);assert.equal(digest(contextBytes),'sha256:831889537928213cf34909ae2e7d500d4fcbb521b790fa7b0d018e2b7f874058');
+const context=JSON.parse(contextBytes),bytes=allBytes.subarray(0,context.prefixLength);
+const ownerPins=JSON.parse(fs.readFileSync(ownerFixture)),sourcePins=JSON.parse(fs.readFileSync(ownerSourceFixture));
+assert.equal(ownerPins.ownerRoot,context.install.installedRoot);
+for(const pin of [...ownerPins.readOnlySources,sourcePins.source,sourcePins.freeze]){
+ const body=fs.readFileSync(pin.path);assert.equal(body.length,pin.bytes);assert.equal(digest(body),'sha256:'+pin.sha256);
+}
+assert.equal(sourcePins.source.sha256,'ca7b451a4f0ff231434ef985e53c2a5d215e2fac23161591cbf4e3f2bb9884bf');
+assert.equal(sourcePins.freeze.sha256,'4b47285b95656c83dd07f0d6cbcf794738b8328404aacc35cb9e0111e62559a3');
 // Plain physical rows select a fixture target only; the tested reader must
 // independently authenticate and decode them before they supply proof.
 const rows=bytes.toString('utf8').trim().split('\n').map(JSON.parse);
 const opened=rows.find(e=>e.kind==='c_call_opened'&&e.payload.callClass==='leaf');
 const basisRow=rows.find(e=>e.kind==='basis_admitted'&&e.payload.basisRef===opened.basisId).payload;
 const result=rows.find(e=>e.kind==='c_call_result_admitted'&&e.aggregateId===opened.aggregateId).payload;
-const modules={};
-for(const name of ['abg/event_store','abg/event_prefix','abg/artifact_truth','abg/environment_admission','abg/invocation_execution_truth','abg/execution_basis','abg/c_call','product/declaration_closure'])
- modules[name+'.js']={...await import(pathToFileURL(join(root,'build/code/src',name+'.js')))};
+const modules={},historicalEventStoreUrl=pathToFileURL(join(ownerPins.ownerRoot,'build/code/src/abg/event_store.js')).href;
+// The original accepted component used this exact source owner for currentness.
+// Its one module URL preserves the historical package's ordinary import identity;
+// the consumer and realization below continue to load the current copied tenant.
+const historicalSource=fs.readFileSync(sourcePins.source.path,'utf8');
+const sourceHook=registerHooks({load(url,context,next){return url===historicalEventStoreUrl
+ ?{format:'module',source:stripTypeScriptTypes(historicalSource,{mode:'transform',sourceUrl:url}),shortCircuit:true}:next(url,context);}});
+try{
+ for(const name of ['abg/event_store','abg/event_prefix','abg/artifact_truth','abg/environment_admission','abg/invocation_execution_truth','abg/execution_basis','abg/c_call','product/declaration_closure'])
+  modules[name+'.js']={...await import(pathToFileURL(join(ownerPins.ownerRoot,'build/code/src',name+'.js')))};
+}finally{sourceHook.deregister();}
 const events=modules['abg/event_store.js'],prefixes=modules['abg/event_prefix.js'],artifact=modules['abg/artifact_truth.js'];
+assert.equal(events.ROOT_EVENT_CONTRACT_DIGEST,'sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0');
+const historicalMaterializerPath=join(ownerPins.ownerRoot,'build/code/src/gtl/materialize.js');
+assert.equal(digest(fs.readFileSync(historicalMaterializerPath)),'sha256:82e4abcb65d7cb92d28683173916348331da995f5cda11d8a4af22f7528550ea');
+const historicalMaterializer=await import(pathToFileURL(historicalMaterializerPath));
 const catalog=JSON.parse(fs.readFileSync(join(root,'contracts/qualification/rule-catalog.json'),'utf8'));
 const law=JSON.parse(fs.readFileSync(join(root,'contracts/qualification/law-basis.json'),'utf8'));
 const role={roleRef:policy.roleRefs[0],authorityRef:policy.authorityRef,sourceBindings:policy.authoritySourceRefs.map(ref=>catalog.sources.find(s=>s.ref===ref)),
@@ -47,6 +68,13 @@ async function fixture(t){
  prefixDigest:digest(bytes),storeIdentity:{device:stat.dev,inode:stat.ino,eventContractDigest:events.ROOT_EVENT_CONTRACT_DIGEST}});
  const acquisitions=[],representations=new Set(),environments=[];let currentness=0;
  const nativeModules={...modules,
+  'abg/c_call.js':{...modules['abg/c_call.js'],projectOpenedCCallCarrierAtPrefix(prefix,graph,...args){
+    // This fixture composes two actual package owners. The historical CCall
+    // projector requires its own strict materialization receipt; equal JSON
+    // from the current materializer does not confer that nominal ownership.
+    const owned=historicalMaterializer.rehydrateMaterializedGtlGraph(graph);assert(owned,'exact historical materialization');
+    assert.deepEqual(owned,graph);assert.equal(owned.materializationDigest,graph.materializationDigest);
+    return modules['abg/c_call.js'].projectOpenedCCallCarrierAtPrefix(prefix,owned,...args);}},
   'abg/artifact_truth.js':{...artifact,projectExactPrefixArtifactTruth(p){const a=artifact.projectExactPrefixArtifactTruth(p);acquisitions.push(a);return a;},
     runtimePrefixFromArtifactTruth(a){const p=artifact.runtimePrefixFromArtifactTruth(a);if(p)representations.add(prefixes.runtimeEventsFromValidatedPrefix(p));return p;}},
   'abg/event_store.js':{...events,assertDurableRuntimePrefixCurrent(p){currentness++;return events.assertDurableRuntimePrefixCurrent(p);}},
@@ -87,9 +115,9 @@ async function fixture(t){
  // Execute the exact ordinary dispatch expression, retaining the actual owner
  // resolver; the unrelated dispatch/loading shell is outside this component.
  const dispatchSource=fs.readFileSync(join(root,'build/code/src/implementation/leaf_invocation_port.js'),'utf8');
- const expression=dispatchSource.match(/resolveSelfConformanceOwner\(qualificationOwnerBasis, call\.input, true\)/g);assert.equal(expression.length,1);
- const dispatch=Function('resolveSelfConformanceOwner','qualificationOwnerBasis','call','return '+expression[0]);
- const check=p=>dispatch(resolver.resolveSelfConformanceOwner,p.call.basis,{input:p.input});
+ const expression=dispatchSource.match(/resolveSelfConformanceOwner\(qualificationOwnerBasis, call\.input, true, authority\.qualificationResources\)/g);assert.equal(expression.length,1);
+ const dispatch=Function('resolveSelfConformanceOwner','qualificationOwnerBasis','call','authority','return '+expression[0]);
+ const check=p=>dispatch(resolver.resolveSelfConformanceOwner,p.call.basis,{input:p.input},{qualificationResources:undefined});
  const occurrence=p=>({...p.call.call,executionAuthority:null,qualificationOwnerBasis:p.call.basis});
  const realize=(p,o=occurrence(p))=>port.invokeLeafOwnerBoundary({resolution:{implementationRef:self.implementationRef,computeRegime:'F_D',inputContractRef:self.inputContractRef,outputContractRef:self.outputContractRef},
   value:p.input,inputDigest:hash(p.input),occurrence:o,failureValueKind:'self_conformance_failure',verifyAuthority:()=>true,

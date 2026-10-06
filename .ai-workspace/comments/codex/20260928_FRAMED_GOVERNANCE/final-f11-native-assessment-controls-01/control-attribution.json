@@ -1,0 +1,12 @@
+{
+  "writerActivation": "T287_F11_VALIDATION_CONTROLS_01",
+  "rootRole": "Writer",
+  "controlBasis": "stdo://releases/v2.5.1-rc.2/",
+  "grant": "owner-directed bounded F11 validation",
+  "operation": "construct exact seven-section installed a_c control request",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-controls-01",
+  "requestBytes": 6946,
+  "requestSha256": "65861539ac2c4a1e76b8f83a097cc893e2a67cb0d816cb364670b901a4edcc22",
+  "a_cPath": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+  "a_cSha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8"
+}

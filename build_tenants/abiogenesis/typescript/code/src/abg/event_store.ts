@@ -1113,7 +1113,15 @@ export const ROOT_EVENT_CONTRACTS: Readonly<Record<RootEventKind, RootEventContr
     ...LEGACY_ROOT_EVENT_CONTRACTS.public_operation_admitted,
     payloadVariants: [...LEGACY_ROOT_EVENT_CONTRACTS.public_operation_admitted.payloadVariants,
       payloadVariant(payloadKeys("actorRef authorityDigest authorityRef capabilityGrant capabilityGrantRefs capabilityRef catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId continuationKind continuationRef continuationDigest currentIntentRef currentIntentDigest definitionDigest graphFunctionDigest graphFunctionRef invocationDigest invocationPayloadDigest invocationRef memberKey operationId policyDigest policyRef programDigest programRef variant workspaceBindingDigest workspaceBindingId"),
-        undefined, { operationId: "abg.operation.run.continue", memberKey: "current_intent", continuationKind: "construction_intent" })],
+        undefined, { operationId: "abg.operation.run.continue", memberKey: "current_intent", continuationKind: "construction_intent" }),
+      payloadVariant(payloadKeys("actorRef authorityDigest authorityRef capabilityGrant capabilityGrantRefs capabilityRef catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId continuationKind continuationRef continuationDigest currentContinuationRef currentContinuationDigest sourceRunId sourceRunDigest currentRunId selectedActionRef selectedActionDigest currentIntentRef currentIntentDigest executionBasisRef executionBasisDigest basisRelation definitionDigest graphFunctionDigest graphFunctionRef invocationDigest invocationPayloadDigest invocationRef memberKey operationId policyDigest policyRef programDigest programRef variant workspaceBindingDigest workspaceBindingId"),
+        undefined, { operationId: "abg.operation.run.continue", memberKey: "selected_action", continuationKind: "selected_action" })],
+  },
+  continuation_superseded: {
+    ...LEGACY_ROOT_EVENT_CONTRACTS.continuation_superseded,
+    payloadVariants: [...LEGACY_ROOT_EVENT_CONTRACTS.continuation_superseded.payloadVariants,
+      payloadVariant(payloadKeys("candidateDigest candidateRef causedByEventRef constructionIntentRef continuationDigest continuationKind continuationRef terminalDisposition"),
+        undefined, { continuationKind: "selected_action", terminalDisposition: "superseded" })],
   },
   traversal_cursor_entered: {
     ...LEGACY_ROOT_EVENT_CONTRACTS.traversal_cursor_entered,

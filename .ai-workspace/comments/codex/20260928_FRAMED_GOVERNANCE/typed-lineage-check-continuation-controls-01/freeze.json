@@ -1,0 +1,43 @@
+{
+  "status": "CLOSED",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-check-continuation-controls-01/activation.json",
+      "bytes": 480,
+      "sha256": "7f01c7465f4568b6160d75b68239aa63107dee17515e282f8393056f8adcbe32",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-check-continuation-controls-01/closure.json",
+      "bytes": 119,
+      "sha256": "21fe56d0a0526f510cde396807a3756ef76f6bbbadef7f7a19d031a22d1a5862",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-check-continuation-controls-01/request.txt",
+      "bytes": 3048,
+      "sha256": "cefb346cec3bcb8388595dfc5c1ae483817458e6a9f905f62571f2e9980c500a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-check-continuation-controls-01/sections.json",
+      "bytes": 3319,
+      "sha256": "0e293037f857d671e16f8be03e76db29273c3f40e04c7cfcc0a178f46c2fc19f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-check-continuation-controls-01/test-control-basis.json",
+      "bytes": 2312,
+      "sha256": "a75b21864696a76ac03f68b8df02dbfebd088b1fe9eb88516e0da486dfb997ad",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-check-continuation-controls-01/triangulation.json",
+      "bytes": 1000,
+      "sha256": "8926f5c6e6fd195062f31d7ea7b0f1cb3add2e5d0e068656edb89e3e88147a91",
+      "mode": 420
+    }
+  ],
+  "directories": 0,
+  "links": 0
+}

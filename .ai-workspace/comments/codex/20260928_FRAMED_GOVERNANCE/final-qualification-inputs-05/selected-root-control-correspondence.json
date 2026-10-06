@@ -1,0 +1,129 @@
+{
+  "kind": "pre_freeze_complete_selected_root_correspondence",
+  "initialInventory": {
+    "ref": "qualification-inventory://abiogenesis/50504a8dd6c69bb20fa0ce7c1289658f9ae601911081ecc2f3e27b0d6cf8a384",
+    "digest": "sha256:50504a8dd6c69bb20fa0ce7c1289658f9ae601911081ecc2f3e27b0d6cf8a384",
+    "members": 4586
+  },
+  "finalInventory": {
+    "ref": "qualification-inventory://abiogenesis/3af377fd6965e792fddb0573725879faff18b9f140144f8d0af6ba9669abd566",
+    "digest": "sha256:3af377fd6965e792fddb0573725879faff18b9f140144f8d0af6ba9669abd566",
+    "members": 4604
+  },
+  "inheritedHistoricalControlsConserved": [
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/toolchain-host.json",
+      "bytes": 6543,
+      "sha256": "1b68a9991d68ffa4624a58826169cd7d2f2f29e105acf9aaaa3e797dfcf9e296",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/dependency-pins.json",
+      "bytes": 27198,
+      "sha256": "4b54b0196d7e0ab3b71980c61da1b777dda17b37bb00fd78ae5920dfd668eab8",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-archive-members.json",
+      "bytes": 1059222,
+      "sha256": "25e22c03bad6406cdb16bf0836bf954a6730773b7bce5c3a8b5a567bcf0a7c38",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-attribution.json",
+      "bytes": 1154,
+      "sha256": "4bb4da025fd16d4e4523b44ba993121fd876f627a7b55eed978cabee1cc4a5fa",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+      "bytes": 44443,
+      "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-install-population.json",
+      "bytes": 1433274,
+      "sha256": "c586539d9ad1d2bf09e8086526f9b4d6b8e54fda7774c8e10f1758e86480c944",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-law-verification.json",
+      "bytes": 19936,
+      "sha256": "300ddee41cf505bda7027492800e8e565a7291ddb6e816f5f655bac8d8f08c5c",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-publication-bindings.json",
+      "bytes": 671563,
+      "sha256": "e5dc7f07a4b65bbe70f4a06d2ff58ebc03263df7ee607942961b9ccc48c9a560",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-reader-binding.json",
+      "bytes": 230311,
+      "sha256": "cc524d0c6b152d335dd0645c9227e7345756fd3af7ec07e69a799e26b7096cf7",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-schema-seeds.json",
+      "bytes": 988,
+      "sha256": "ae52750fc800db441297dc7db1efe801ba29447a0bc48acf4255e1dc9e21c25d",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source-freeze-manifest.json",
+      "bytes": 588522,
+      "sha256": "7ecaaaef533131c3bccb42d81aba3cc133a34b53796c05a263e9edd44cac9a02",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source-members.json",
+      "bytes": 1326760,
+      "sha256": "b0708e0cec5a7d1362c4923f274764eac8fb227666f8317ec1e4b400c5274f2e",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/toolchain-pins.json",
+      "bytes": 1070997,
+      "sha256": "0c0aebb596beefcd66c5b49cc711f33ca12ba8afaf6b3a147dec9fb2e8b0aa66",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-03/freeze.json",
+      "bytes": 17557,
+      "sha256": "5c7d8a66e37f1de412ba3ff1b3f6e84c6c22476ea1d77f11157cc95ba967ac14",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/activation.json",
+      "bytes": 1349,
+      "sha256": "11bd70b2c773df7c20ff8621b800929a9a5668053dd309f237a931f00d0f985a",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/request.txt",
+      "bytes": 4493,
+      "sha256": "bc5f065d7e82e04296ba258dad8c7a51f45d8951843ce196661980da06549dcd",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-acceptance-01/acceptance.json",
+      "bytes": 1218,
+      "sha256": "bc9b3004543d2338487cb76f8ab98f44181d1b0a58421a53d2d734a4a0491e5f",
+      "role": "historical_control_only"
+    },
+    {
+      "ref": "repo://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q04-and-native-scope-controls-01/received-q03-review.md",
+      "bytes": 668,
+      "sha256": "aa8129dd0d38c157d8dec2f4827c7f78149b9061fe23bc65bd4cd1003e3cd43b",
+      "role": "historical_control_only"
+    }
+  ],
+  "currentCandidate": "C04",
+  "actualTaskChanged": false,
+  "protectedInputPopulationChanged": false,
+  "recipeChanged": false,
+  "ownerConstructorRepeated": false,
+  "reusableProjectorAlsoBindsInheritedRootControls": true
+}

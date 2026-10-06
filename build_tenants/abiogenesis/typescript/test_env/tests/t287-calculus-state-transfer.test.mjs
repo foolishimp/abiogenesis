@@ -1,56 +1,31 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {cp, mkdtemp, mkdir, readFile, rm, writeFile} from 'node:fs/promises';
 import {join, resolve} from 'node:path';
-import {tmpdir} from 'node:os';
 import {pathToFileURL} from 'node:url';
-import {execFile} from 'node:child_process';
-import {promisify} from 'node:util';
 import {executeAdmittedTestGraph} from '../support/admitted-graph-execution.mjs';
+import {prepareLanguageStructuralFixture} from '../support/language-structural-fixture.mjs';
+import {COMPOSED_IDS} from '../fixtures/language-structural/program.mjs';
 
 const root = resolve(import.meta.dirname, '../..');
-const exec = promisify(execFile);
 
-// Author this finite deterministic test artifact before manifest generation,
-// verification and installation. Its real leaf appends "!" and emits evidence
-// of the input it actually received. No admitted owner or runtime fact is mocked.
-async function changingLeafArtifact(t) {
-  const copyStarted = performance.now();
-  const scratch = await mkdtemp(join(tmpdir(), 'abg-calculus-transfer-'));
-  t.after(() => rm(scratch, {recursive: true, force: true}));
-  for (const name of ['build', 'contracts', 'scripts', 'package.json', 'package-lock.json', 'product-toolchain-manifest.json'])
-    await cp(join(root, name), join(scratch, name), {recursive: true});
-  await mkdir(join(scratch, 'test_env/fixtures'), {recursive: true});
-  await cp(join(root, 'test_env/fixtures/abi5-root-candidate-basis.json'), join(scratch, 'test_env/fixtures/abi5-root-candidate-basis.json'));
-  await cp(join(root, 'node_modules'), join(scratch, 'node_modules'), {recursive: true, dereference: true});
-  t.diagnostic(JSON.stringify({phase: 'fixture_file_provisioning_once', wallMs: performance.now() - copyStarted,
-    scope: 'copy ABG deterministic fixture files and dependencies; no odd_glc scenario setup'}));
-  const leafPath = join(scratch, 'build/code/src/implementation/hello_compose.js');
-  const leaf = await readFile(leafPath, 'utf8');
-  const before = 'deepFreeze({ ...input })';
-  assert.equal(leaf.split(before).length, 2);
-  const changingLeaf = leaf.replace(before, 'deepFreeze({ ...input, subject: input.subject + "!" })');
-  const lawPath = join(scratch, 'build/code/src/gtl/hello_world.js');
-  const law = await readFile(lawPath, 'utf8');
-  const identity = 'output.subject === input.subject;';
-  assert.equal(law.split(identity).length, 2);
-  const returnPublication = 'return modulePublication(publicationBody);';
-  assert.equal(law.split(returnPublication).length, 2);
-  return async shape => {
-    const selectedLeaf = shape === 'recovery' ? changingLeaf.replace('export function passNormalizedHello(input) {',
-      'export function passNormalizedHello(input) { if (input.subject === "seed!") throw new TypeError("deterministic failed consumer");') : changingLeaf;
-    assert.ok(shape !== 'recovery' || selectedLeaf !== changingLeaf);
-    await writeFile(leafPath, selectedLeaf);
-    const transform = `(${fixture.toString()})(${JSON.stringify(shape)})({COMPOSED_HELLO_IDS, C, cCarrier, modulePublication}, modulePublication(publicationBody)).publication`;
-    await writeFile(lawPath, law.replace(identity, 'output.subject === input.subject + "!";').replace(returnPublication, `return ${transform};`));
-    await exec(process.execPath, ['scripts/generate-product-manifest.mjs'], {cwd: scratch, maxBuffer: 8 * 1024 * 1024});
-    return scratch;
-  };
+// Author only the external test Product before manifest generation and packing.
+// Its real deterministic leaf changes the received value; ABG stays unchanged.
+function changingLeafArtifact() {
+  return shape => async basis => [await prepareLanguageStructuralFixture({...basis,sourceTransform(name,source){
+    if(name==='leaf.mjs'){
+      source=source.replace("candidate('pass',input,{...input})","candidate('pass',input,{...input,subject:input.subject+'!'})");
+      if(shape==='recovery')source=source.replace("export const pass=input=>candidate", "export const pass=input=>{if(input.subject==='seed!')throw new TypeError('deterministic failed consumer');return candidate").replace("subject:input.subject+'!'})", "subject:input.subject+'!'})};");
+      return source.replace("return output.subject===input.subject;","return output.subject===input.subject+'!';")
+        .replace("return output.message===input.subject.trim();","return output.message.startsWith(input.subject.trim());");
+    }
+    return source.replace('export function constructStructuralPublication','function baseStructuralPublication')+
+      '\nexport function constructStructuralPublication(gtl,artifact){return ('+fixture.toString()+')('+JSON.stringify(shape)+')({...gtl,COMPOSED_IDS,LEAF_SPECS},baseStructuralPublication(gtl,artifact)).publication;}\n';
+  }})];
 }
 
 function fixture(shape) {
   return (gtl, publication) => {
-    const ids = gtl.COMPOSED_HELLO_IDS;
+    const ids = gtl.COMPOSED_IDS;
     const graph = publication.graphFunctions.find(g => g.name === ids.graphFunctionRef);
     const leaves = t => t.kind === 'c_of' ? [t] : t.kind === 'c_compose' ? t.terms.flatMap(leaves)
       : t.kind === 'c_batch' ? t.tasks.flatMap(leaves) : t.kind === 'c_retry' ? leaves(t.term)
@@ -61,7 +36,7 @@ function fixture(shape) {
       compositionRef: null, vectorIndex: 0});
     const normalizer = clone(source.find(t => t.programLocusRef === ids.normalizeLocusRef), 'normalize');
     const render = clone(source.find(t => t.programLocusRef === ids.renderLocusRef), 'render');
-    const pass = source.find(t => t.programLocusRef === ids.batchFirstLocusRef);
+    const pass = source.find(t => t.kind === 'c_of' && t.requirement.implementationBindingRef === gtl.LEAF_SPECS.pass.ids.implementationBindingRef);
     const leaf = name => clone(pass, name);
     const batch = (name, tasks) => gtl.C.batch(tasks, 'batch://test/calculus/' + name);
     const terms = {
@@ -74,26 +49,31 @@ function fixture(shape) {
       recovery: () => gtl.C.compose(batch('equal-producers', [leaf('A'), leaf('B')]), leaf('F')),
     };
     const term = gtl.C.compose(normalizer, gtl.C.compose(terms[shape](), render));
-    const next = {...graph, template: {...graph.template, nodes: [{...graph.template.nodes[0], term}], edges: [], applications: []}};
-    return {publication: gtl.modulePublication({...publication, graphFunctions: publication.graphFunctions.map(g => g === graph ? next : g)}),
+    const final=gtl.LEAF_SPECS.project.ids;
+    const closureContracts=publication.closureContracts.map(c=>[ids.closureContractRef,ids.childClosureContractRef].includes(c.closureContractRef)?{...c,
+      predicateRef:final.judgmentPredicateRef,evidenceContractRef:final.evidenceContractRef,refusalContractRef:final.refusalContractRef,
+      judgmentContractRef:final.judgmentContractRef,rejectionContractRef:final.refusalContractRef,transitionContractRef:final.transitionContractRef}:c);
+    const next = {...graph,declarations:{...graph.declarations,'abg.evidence_contract':final.evidenceContractRef,'abg.judgment_contract':final.judgmentContractRef,
+      'abg.judgment_predicate':final.judgmentPredicateRef,'abg.transition_contract':final.transitionContractRef}, template: {...graph.template, nodes: [{...graph.template.nodes[0], term}], edges: [], applications: []}};
+    return {publication: gtl.modulePublication({...publication,closureContracts, graphFunctions: publication.graphFunctions.map(g => g === graph ? next : g)}),
       programRef: ids.programRef, graphFunctionRef: ids.graphFunctionRef,
-      input: {kind: 'hello_world_input', schemaVersion: '5.0.0', subject: ' seed '}};
+      input: {kind: 'data_input', schemaVersion: '5.0.0', subject: ' seed '}};
   };
 }
 
 test('real admitted compose and shared batches conserve changing inputs under one basis', {timeout: 300_000}, async t => {
-  const artifactFor = await changingLeafArtifact(t);
+  const artifactFor = changingLeafArtifact();
   const cases = {compose: ['seed', 'seed!'], batch: ['seed', 'seed'],
     nested: ['seed', 'seed!', 'seed', 'seed!'], progressed: ['seed', 'seed!', 'seed!'],
     batch_in_batch: ['seed', 'seed', 'seed', 'seed'], recovery: ['seed', 'seed', 'seed!'], identity_end: ['seed', 'seed']};
   for (const [shape, expected] of Object.entries(cases).filter(([shape]) => !process.env.ABI5_CALCULUS_CASES || process.env.ABI5_CALCULUS_CASES.split(',').includes(shape))) {
     await t.test(shape, async t => {
       const prepareStarted = performance.now();
-      const artifact = await artifactFor(shape);
+      const prepareAdditionalProducts = artifactFor(shape);
       const fixtureArtifactPreparationMs = performance.now() - prepareStarted;
-      const run = await executeAdmittedTestGraph(t, artifact, {candidateBasisSource: 'packed_artifact',
-        graphFunctionRef: 'graph-function://abiogenesis/conformance/hello-compose@5', programRef: 'program://abiogenesis/conformance/hello-compose@5',
-        input: {kind: 'hello_world_input', schemaVersion: '5.0.0', subject: ' seed '}});
+      const run = await executeAdmittedTestGraph(t, root, {candidateBasisSource: 'packed_artifact', prepareAdditionalProducts,
+        graphFunctionRef: COMPOSED_IDS.graphFunctionRef, programRef: COMPOSED_IDS.programRef,
+        input: {kind: 'data_input', schemaVersion: '5.0.0', subject: ' seed '}});
       if (shape !== 'recovery') assert.equal(run.completion.disposition, 'closed', JSON.stringify({kind:run.completion.kind,diagnosticRef:run.completion.diagnosticRef,code:run.completion.code}));
       const {abg, product, installedRoot} = run.environment;
       const cursorOwner = await import(pathToFileURL(join(installedRoot, 'build/code/src/abg/traversal_cursor.js')));

@@ -1,0 +1,245 @@
+{
+  "status": "CLOSED",
+  "activation": "T287_FINAL_CANDIDATE_REVIEW_02",
+  "role": "independent Reviewer; sole review-output Writer CLOSED",
+  "actor": "/root/s03_independent_review",
+  "separateSessionIdentity": "not separately available",
+  "frozenAt": "2026-09-30T07:53:01.757159+00:00",
+  "verdict": "no_findings_at_construction_install_static_publication_scope",
+  "return": {
+    "path": "return.md",
+    "bytes": 13814,
+    "sha256": "ca8088c55e696391f16d109aa5c8b9bf918d6f2154363432f783b3441e877b57"
+  },
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 1588,
+      "sha256": "e5bed7c8188ccea135023df6a29a45e23d02026055ff8a9785e094975c98a6e0"
+    },
+    {
+      "path": "close.py",
+      "bytes": 4490,
+      "sha256": "42639847b7c728b49e2a3e3d426c8114ab58be59de9f3c530a37e4dfff7de17e"
+    },
+    {
+      "path": "consumed-inputs.json",
+      "bytes": 6372801,
+      "sha256": "fe4bdefa5d332e198babbc959cd5f57e180cd171d1e3ec8b788896c606c2cdfb"
+    },
+    {
+      "path": "cost-and-effects.json",
+      "bytes": 4368,
+      "sha256": "a2edfe1d551884ecf0c819df93f456e0f5b3096f443c396ee55f39b92009b7da"
+    },
+    {
+      "path": "final-conservation.json",
+      "bytes": 313,
+      "sha256": "b37a6c9342d8112327787ebdd9f76ee168e124a80878327f57d347061456400a"
+    },
+    {
+      "path": "full11-execution.json",
+      "bytes": 1627,
+      "sha256": "51c8ce98f6796869eb10035e7f31a4e7d6c8daf20e62914039a0b60ced64c691"
+    },
+    {
+      "path": "full11-process.json",
+      "bytes": 49,
+      "sha256": "b3c1162cfd9f518f5e3a9ef12715547a69addbde2a23ca957a976bae907e60d3"
+    },
+    {
+      "path": "full11-started.json",
+      "bytes": 1319,
+      "sha256": "96476673d37d800b10b2f25e64f39f239c23148f9bb2a6e15696a9c787881fbb"
+    },
+    {
+      "path": "full11.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "full11.stdout",
+      "bytes": 85,
+      "sha256": "87b975442a5eec982c05361f243c1a9a22a1360012dc5624a27435b9b6e2dfc4"
+    },
+    {
+      "path": "generated-values.json",
+      "bytes": 115237,
+      "sha256": "ebda6b76a72af7c725adf0039275828d81686a4fcee2f8089dca610301e097f1"
+    },
+    {
+      "path": "independent-full11-results.json",
+      "bytes": 30633,
+      "sha256": "4ac6b0cfdbf52aad25fe82fe9cf0bb8ddac19a80700abec246364a0f6c9785b8"
+    },
+    {
+      "path": "independent-publication-bindings.json",
+      "bytes": 670988,
+      "sha256": "adf2bb9c73cb44ad7bf7baf09b3858fb8b4fc358256be9bbc6e5edd9013e0290"
+    },
+    {
+      "path": "independent-verification-request.json",
+      "bytes": 1058,
+      "sha256": "945643b06fdb0dd6e47a505b27f815c4ac321e873873a58678624cd2ce2a62e3"
+    },
+    {
+      "path": "independent-verification-result.json",
+      "bytes": 13240749,
+      "sha256": "73abadb8e051a7eab074d8f6da5256d41d1e5923525a881f286fe8b4c035baca"
+    },
+    {
+      "path": "independent-verification-summary.json",
+      "bytes": 3222,
+      "sha256": "4614213cc92b96e01818c72ef406af244ac2f80d69b1134480f901270263a89e"
+    },
+    {
+      "path": "inspect-before-bin-mode-triage.py",
+      "bytes": 9896,
+      "sha256": "ef7e4443e1930dd70b362583116ef46c272476501bf59027d505f1770723988e"
+    },
+    {
+      "path": "inspect.py",
+      "bytes": 10255,
+      "sha256": "c59a1f5cadffc11aa0b3a8ee95483fb60f51063743281afc1baba7a6c03b7e75"
+    },
+    {
+      "path": "inspection-execution.json",
+      "bytes": 1487,
+      "sha256": "0a3061408a77df624090ee91440f8391d91769032b139c679bf7eb9a97e10e38"
+    },
+    {
+      "path": "inspection-process.json",
+      "bytes": 49,
+      "sha256": "201c1e339a590bb43de8abf18084e6bdf965278535148d21d13990926fbed606"
+    },
+    {
+      "path": "inspection-started.json",
+      "bytes": 1180,
+      "sha256": "3e919ef1918e6ff1260a5ba52a7db613d2be9b6a85ebdfa5d7008ea0f09b1910"
+    },
+    {
+      "path": "inspection-triage.json",
+      "bytes": 1162,
+      "sha256": "db0a02cbedd43dd6489aaabf4c4b8f24b7d9600597cd0384883bb0a5df57d439"
+    },
+    {
+      "path": "inspection.json",
+      "bytes": 2918,
+      "sha256": "e0649165f53ae3fbd5ab003d4cb28698ed50e9182524aefadec9af547c963c9b"
+    },
+    {
+      "path": "inspection.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "inspection.stdout",
+      "bytes": 2624,
+      "sha256": "73cdae7653e05b232f4cf3ea3c08a3a6b9f260987c352a019d7c052cb7a38a54"
+    },
+    {
+      "path": "installed-check.mjs",
+      "bytes": 5950,
+      "sha256": "1bdfedcea718fb1c655bd8222d1e0256e95e1911b3270b8b2cddedd7c9acadc7"
+    },
+    {
+      "path": "nominal-execution.json",
+      "bytes": 1629,
+      "sha256": "8763a9184d2c80ba3395c868e4578cbc13944141c8fc1da76eb767f88ef4745f"
+    },
+    {
+      "path": "nominal-process.json",
+      "bytes": 49,
+      "sha256": "b5f93714df50220481f110496627b8e983a6e060ccc8b866f17148cbc9f2acf8"
+    },
+    {
+      "path": "nominal-started.json",
+      "bytes": 1322,
+      "sha256": "5410da53769a0be3527419f5fc8e38b00cfc31734c30115957944ae9f0f40122"
+    },
+    {
+      "path": "nominal.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "nominal.stdout",
+      "bytes": 533,
+      "sha256": "c065463405e185deb9c7d4e44ae9d18741049dafb1436aac5b31f93addc32c6b"
+    },
+    {
+      "path": "report-preparation-started.json",
+      "bytes": 194,
+      "sha256": "35de4db0a0bb583ff2b538a8242ffcbada391836378ec96542aeb38f9bec6073"
+    },
+    {
+      "path": "return.md",
+      "bytes": 13814,
+      "sha256": "ca8088c55e696391f16d109aa5c8b9bf918d6f2154363432f783b3441e877b57"
+    },
+    {
+      "path": "run-once.py",
+      "bytes": 2300,
+      "sha256": "c906dd755313a4af5a825fcc35924452129204e208964ea609c72537bb4725be"
+    }
+  ],
+  "criticalInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-review-controls-02/request.txt",
+      "bytes": 6289,
+      "sha256": "5326451a193f970c5bc3d23d3d9e5b4cb28b41693699da33c39c6455f744fd3d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+      "bytes": 4543994,
+      "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/return.md",
+      "bytes": 8084,
+      "sha256": "2676ea192b61bafb16f40c595d05b317cc9969f7936bcf6632c428cd327d0388"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze-manifest.json",
+      "bytes": 1045999,
+      "sha256": "98316a687a3ef45aa2e3fd1b6c94429c30c3feddd119b4f15600d3f771e11cc6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/freeze.json",
+      "bytes": 4534351,
+      "sha256": "f6199e3f9ce72f99ecd16307eabc9ca92cc2ecdbc320c70bdd075962eb09650f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/freeze.json",
+      "bytes": 1299934,
+      "sha256": "19f97fe0758b204829d4f4695c83f49cc641d1c4affdd7defd46022c36eaa01d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source.patch",
+      "bytes": 8434,
+      "sha256": "ebf54688aaebfb86d5bbbd0d38f9334d05a24248772d7f09799776a9a7c70708"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-review-01/freeze.json",
+      "bytes": 1180718,
+      "sha256": "a1670b454cb139baa508fdb97ad09553b65c9ebd40efba1d1d8ce196eeeac250"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-review-01/return.md",
+      "bytes": 7745,
+      "sha256": "33decf307f10b2c7501f5628faa1923cb47cd4afe9222225009fc07f3d0e93c5"
+    }
+  ],
+  "consumedInputManifest": {
+    "path": "consumed-inputs.json",
+    "bytes": 6372801,
+    "sha256": "fe4bdefa5d332e198babbc959cd5f57e180cd171d1e3ec8b788896c606c2cdfb"
+  },
+  "recommendation": "Accept exact bounded construction and new installed full11 seam; Root selects next ordinary installed Public setup.",
+  "limits": [
+    "No native admission/all-Program closure/ordinary user outcome/qualification/release claim",
+    "Own previously authored F11 scope grouping/material adequacy excluded",
+    "Original cuts conserved; old native prefixes remain old subjects"
+  ],
+  "stop": "Reviewer and output Writer CLOSED. No further effect or actor activation."
+}

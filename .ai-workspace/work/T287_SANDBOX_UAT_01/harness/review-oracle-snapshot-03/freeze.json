@@ -1,0 +1,60 @@
+{
+  "activation": "T287_UAT_ORACLE_SNAPSHOT_REVIEW_03",
+  "role": "Independent Reviewer",
+  "status": "STOPPED",
+  "verdict": "GO_executable_test_setup_only",
+  "frameResult": "satisfied",
+  "candidateFreezeSHA256": "7a98cfef9c16122b5705adb1cc151f7a3674452a4fc7bd32034106a73df83930",
+  "workerReturnSHA256": "e2b8262f0baea118f8c5d5bf4ca1c4c88de0259e9cabc77da0ab16a8300f3b15",
+  "originalReviewPreserved": true,
+  "allFrozenPinsMatch": true,
+  "sourcePinCount": 9,
+  "successorEvidencePinCount": 6,
+  "retainedEvidencePinCount": 14,
+  "changedSourceCount": 4,
+  "independentChecks": 14,
+  "sourceOnlyCasesAllNonGreen": true,
+  "affectedSyntaxCheckCount": 3,
+  "affectedSyntaxFailures": 0,
+  "actualCLIListCaseCount": 7,
+  "actualCLIListExitCode": 0,
+  "fixtureManifestSHA256": "e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+  "oracleModuleSHA256": "2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+  "closedFindings": [
+    "HARNESS-01",
+    "HARNESS-02"
+  ],
+  "retainedClaims": {
+    "cleanPublicPreparation": "bounded accepted evidence reused; unchanged",
+    "liveNativeRoute": "indeterminate; unexecuted",
+    "fullDataMapperApplication": "non-green until actual admitted baseline/mutant/restore and original outcome proof",
+    "identicalLegacy28StageTraversal": "unproved",
+    "qualificationAndRelease": "no credit"
+  },
+  "subjectDigest": "sha256:b2954fc4ef3c4139fb17838ee5cc603264d1e15bc9e9812a23e7d36a4de038e9",
+  "digestSerialization": "SHA256 of UTF8 JSON.stringify(path-sorted members), no trailing newline",
+  "members": [
+    {
+      "path": "checks.json",
+      "byteCount": 5341,
+      "digest": "sha256:c2944b116e1148c54df290a5808bb287520873f83714e82d910bdd92c4eed250"
+    },
+    {
+      "path": "checks.mjs",
+      "byteCount": 7006,
+      "digest": "sha256:a8736616d3978283f5ca5a51d3075a915b02c21bdda1554be57abf228e1545f9"
+    },
+    {
+      "path": "return.md",
+      "byteCount": 5516,
+      "digest": "sha256:e2ab3422ee74395666f73c95ff444d95c516e5cd985859583d1e150269ac5ce1"
+    }
+  ],
+  "providerDispatched": false,
+  "paidExecution": false,
+  "applicationUATPass": false,
+  "candidateMutated": false,
+  "reinstallation": false,
+  "scratchCopiesRemoved": true,
+  "consumingAuthority": "Root Executive"
+}

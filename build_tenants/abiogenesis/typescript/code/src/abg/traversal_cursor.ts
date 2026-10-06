@@ -509,6 +509,12 @@ function projectCursorAncestry(prefix: ValidatedRuntimeEventPrefix, graph: Reado
   return current.cursorRef === selected.cursorRef && current.cursorDigest === selected.cursorDigest ? ancestry : null;
 }
 
+/** Cold acquisition of one already-admitted cursor, never a proposed position. */
+export function projectAdmittedTraversalCursorAtPrefix(prefix: ValidatedRuntimeEventPrefix,
+  graph: Readonly<GtlGraph>, selected: CursorIdentity): TraversalCursorCandidate | null {
+  return projectCursorAncestry(prefix, graph, selected)?.at(-1) ?? null;
+}
+
 /** Historical calls retain their opened cursor even after failure/closure. */
 export function projectOpenedCCallTraversalInputAtPrefix(prefix: ValidatedRuntimeEventPrefix,
   graph: Readonly<GtlGraph>, cCallRef: string) {

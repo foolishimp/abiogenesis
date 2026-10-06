@@ -1,0 +1,48 @@
+{
+  "status": "GO_PREPARATION_CHECKS_ONLY",
+  "syntaxModules": 10,
+  "pureDiagnosticProbe": {
+    "status": "GO_PURE_DIAGNOSTIC_TRAP_PROBE",
+    "preparedOwnerPassed": true,
+    "wrongKindRefused": true,
+    "fullOwnerToJSONCalls": 0,
+    "pureStubPrepareCalls": 2,
+    "ProductImports": 0,
+    "RunOrResourceEffects": 0,
+    "suppliedPremises": "pure stub returns owner/input/resources; this proves only diagnostic execution and unchanged kind refusal"
+  },
+  "probeCost": {
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/diagnostic-trap-probe.mjs"
+    ],
+    "pid": 17625,
+    "processGroup": 17625,
+    "wait4Reaped": true,
+    "groupAfterWait": "absent",
+    "exitCode": 0,
+    "timedOut": false,
+    "elapsedMs": 31.63895895704627,
+    "maxRSSBytesMacOS": 46989312,
+    "userSeconds": 0.016876,
+    "systemSeconds": 0.0046489999999999995,
+    "defaultHeap": true,
+    "HOME": "/Users/jim",
+    "ProductImports": 0,
+    "RunOrResourceEffects": 0
+  },
+  "savedCorrespondence": {
+    "canonicalSharedSourceIdentity": true,
+    "observationAuthentication": true,
+    "rawValueAuthentication": true,
+    "assessmentInputAuthentication": true,
+    "admittedTransportAuthentication": true,
+    "admittedResultValueAuthentication": true,
+    "nativeRawAndOutputBinding": true,
+    "advanceJudgmentMatchesChildResult": true
+  },
+  "successAndFirstFailureFinalizerSyntaxReady": true,
+  "RootRuntime10ReleasePresent": false,
+  "ProductImports": 0,
+  "RunOrResourceEffects": 0
+}

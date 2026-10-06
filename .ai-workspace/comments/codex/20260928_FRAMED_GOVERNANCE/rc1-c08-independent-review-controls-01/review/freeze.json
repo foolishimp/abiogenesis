@@ -1,0 +1,45 @@
+{
+  "status": "CLOSED",
+  "role": "Reviewer",
+  "activation": "T287_C08_CONSTRUCTION_ASSURANCE_01",
+  "recommendation": "GO_CONSTRUCTION_ONLY",
+  "subjectFreezeSHA256": "5e9fd780078b081d83ae598a9e05ac84c58648b90e84324209305cbf8058f14b",
+  "records": [
+    {
+      "path": "a_c.literal.txt",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 420
+    },
+    {
+      "path": "activation.json",
+      "bytes": 997,
+      "sha256": "56291735f9ad9eb5667457154ff96fde0dc7bcc511631117bc6eb29d734beb1d",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 408,
+      "sha256": "90fef1aab5367cc3186ef8ea160905477f22fc3752fdc34a7193a8f96cb76ea3",
+      "mode": 420
+    },
+    {
+      "path": "pins.json",
+      "bytes": 18595,
+      "sha256": "1b7db1ec251a4e8b015fd0afe51634160ba6ad29a66315d1b3a11e38e344e31d",
+      "mode": 420
+    },
+    {
+      "path": "report.md",
+      "bytes": 3193,
+      "sha256": "355e6f717b80f45f856fb7ec26c37857bdfbe09094a60ab52742f2efe71587e6",
+      "mode": 420
+    }
+  ],
+  "recordCount": 5,
+  "bodyBytes": 61306,
+  "directories": [],
+  "links": [],
+  "noFurtherWrites": true,
+  "qualificationAccepted": false
+}

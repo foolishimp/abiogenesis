@@ -1,0 +1,336 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RUNTIME08_CALLER_PREPARATION_01",
+  "role": "Writer",
+  "workResult": "CONTROL_PREPARATION_ONLY",
+  "frozenAt": "2026-10-02T10:43:12.013512+00:00",
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 1298,
+      "sha256": "ba543768d753e7728a2bd20a9e7c7c39553dc5af507110a03445a76119aebd86",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "budgets.json",
+      "bytes": 461,
+      "sha256": "209bc77846cb1665a0bb8c252bf64e7d9523726b02059379466cd3d1be8014eb",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "caller-budget-proposal.json",
+      "bytes": 461,
+      "sha256": "209bc77846cb1665a0bb8c252bf64e7d9523726b02059379466cd3d1be8014eb",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "closure.json",
+      "bytes": 512,
+      "sha256": "820927d41ac89c832162cb1a369e9f7f7c7a70d7bc5899b403b025173fe271e8",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "config/globalnpmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "config/npmrc",
+      "bytes": 56,
+      "sha256": "e30f218c969b117fb179b8638f34d01a721c899543d0be38cb1e443bdcd392d7",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "controlled-helper.mjs",
+      "bytes": 1448,
+      "sha256": "1bf192b24cafa977507cc47efd333246db29d62455ed7b68eea48f22c1a49e08",
+      "mode": "0o755",
+      "kind": "file"
+    },
+    {
+      "path": "controller-adaptations.json",
+      "bytes": 2237,
+      "sha256": "393d486da2654d705c08e95afafa49bfc789e951866f984eb4058f7c9c5bcbe7",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "controls/conditional-runtime08-closure.json",
+      "bytes": 834,
+      "sha256": "cda8047c7417dce6590d35e324e02b06fd104f8e8201ce7380c49dd5824b2bac",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "controls/conditional-runtime08-request.txt",
+      "bytes": 4927,
+      "sha256": "164e80ba6d82189b23d0558462ae11af6114c28e1a9de8ad1021a85f5d4a221a",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "controls/conditional-runtime08-sections.json",
+      "bytes": 5198,
+      "sha256": "cc45fc3c8e78e8cdeabad09af2e3a2090b58f7c0c4107741e37a8cbba2b1866b",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "controls/donor07-driver-config.json",
+      "bytes": 10132,
+      "sha256": "a42beccba2007b73d69b29e10ab4a8731a2f00b399cf92181b79196b3f9313fa",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "controls/donor07-run-flow.mjs",
+      "bytes": 10721,
+      "sha256": "1329784b4e57e2a8982f52cedea983de872dcabf97819615af0116a5891757b5",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "controls/grant-closure.json",
+      "bytes": 446,
+      "sha256": "141d6e5b5db434ad39b295119ca622f86ec9f63c42757e05afc26ddaea0c0ecc",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "controls/original-runtime06-sections.json",
+      "bytes": 8413,
+      "sha256": "0081fd4a788cfa5eee797b0d7d09046afd80713255d19bbb0cdd58b8b17fd821",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "controls/request.txt",
+      "bytes": 2746,
+      "sha256": "ca10f8e6df97798ef53f86cbf985b8bd85e25481db139f02798ca5a37b8284f9",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "controls/sections.json",
+      "bytes": 3017,
+      "sha256": "ea9d17a5de2e670de9a9f1677ce9c1200b4467ee75185ef505c8a54647632944",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "controls/setup07-acceptance-closure.json",
+      "bytes": 1295,
+      "sha256": "af9af34997fe2bb26f75ad894893593fd444d2430200a25e9c06456ac8144ebe",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "controls/setup07-acceptance.json",
+      "bytes": 7276,
+      "sha256": "c4007c52781d9aaf3ee98f177a421d7b6e25e2712820c5cf523d02a256ecaab8",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "driver-config.template.json",
+      "bytes": 9853,
+      "sha256": "991f629cdafbcc6803dac8a3157a7daccb29581af408b86263707da208fb3dd2",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "f11/conformance-resources.mjs",
+      "bytes": 673,
+      "sha256": "62d160eba67201396730064290fefb1b9262ea20f7f93fa223b6e6c6867a7251",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "f11/flow-driver.mjs",
+      "bytes": 6502,
+      "sha256": "dda353346f8c66b49d506090697e453b07f9451e7c61e16900ab26c7b5f4cf51",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "f11/ordinary-caller.mjs",
+      "bytes": 18118,
+      "sha256": "af8b5625275c3fcdd11b9838505d942c62a12651f65fb6b90434289df970c676",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "f11/prepare-resources.mjs",
+      "bytes": 7684,
+      "sha256": "748f3137fe53c19fb489ea3c18adc491abbc775fc835b2de4f613f61f751a6d2",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "f11/proof-oracles.mjs",
+      "bytes": 9029,
+      "sha256": "0c7c2c87774a62a0a6baef6b6efcfacd30ec989dc10827c8b6394e6c36bc4f6f",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "f11/public-outcomes.mjs",
+      "bytes": 2366,
+      "sha256": "1936e1b8f6ef199f99df8ac6284fd7e06a7b166a1280fc09939ebc661155bf59",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "f11/public-support.mjs",
+      "bytes": 10660,
+      "sha256": "23eb2e8573059a840fd1a554cc53db5dc01fe96a933a329efba302e0a8eed9cd",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "parent-selection.json",
+      "bytes": 493,
+      "sha256": "9c7f75b1e5d1aaa08ad0982f1b5cba9fe997d034cbf4bfacacd505b2ccff0e30",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "preimages.json",
+      "bytes": 31348,
+      "sha256": "01786c29caf926a2cf098d672b0f93b76fcd6d78130c402656c073170d7cc17c",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "preparation.json",
+      "bytes": 2367,
+      "sha256": "af88eac7babea3b44f7c7185893c96016b37cbb1a94612fbc6ed75ad458ce8c8",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "prospective-cases.template.json",
+      "bytes": 3286,
+      "sha256": "9900293ed7118f312444a7b3c74bdcf4c4ba33b85c173caa3fe8b9c31e4d13eb",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "report-donors/close-failed-cut.py",
+      "bytes": 23414,
+      "sha256": "2e773de5128ee79d88785f6cb278715798fa446f735f0d474305f5f76d3f845c",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "report-donors/finalize-saved-reports.py",
+      "bytes": 17209,
+      "sha256": "173e37e5c4cbd25ed60de91a5290bb6b97efb6be56605b369a8f3667a10c9982",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "report-plan.json",
+      "bytes": 2037,
+      "sha256": "04b67befec2e420a0162c07dc1ae2d9cd429b254612ceb451f105c8bd1518fd1",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "resource-plan.template.json",
+      "bytes": 1542,
+      "sha256": "33686c72aa21e6f3fce4d00fb11a5a677cb2239bad450b4ceb91072cf8c3f5aa",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "return.md",
+      "bytes": 1037,
+      "sha256": "1a95f3c882772cbc9dc5f0bec058712c5a235ec79a9ce3045f42c6001ee27242",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "run-flow.mjs",
+      "bytes": 10803,
+      "sha256": "e27c5c8d5dff6b218a749e39a6166961b88cc65b4cb70a0e0626466b2cda03d1",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "runtime-activation.template.json",
+      "bytes": 1289,
+      "sha256": "496acf66900dee88125b538adc246922678e28d461f4820f621887e4a4b55618",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "runtime-environment.template.json",
+      "bytes": 1397,
+      "sha256": "bc3fdd5ea140d172e10ebe4bc10de910774bde104ef7865f6057693f205eb561",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "runtime-release.template.json",
+      "bytes": 208,
+      "sha256": "dedfdd4d9f74446de413af6b5177dbdf8e197d0f9c48ca5ccd51808c8c9d1aef",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "selected-core.template.json",
+      "bytes": 889,
+      "sha256": "f4c072dff7392fd3a984dc0ec9c85bd6746e7369f0141f178abf51a89f46e7d9",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "supervise.py",
+      "bytes": 4750,
+      "sha256": "f6dc0dfa5a6bcfd509fc88474390eb143c43d5c51aec448df5a9c8e5960653be",
+      "mode": "0o644",
+      "kind": "file"
+    }
+  ],
+  "directories": [
+    {
+      "path": "config",
+      "mode": "0o755"
+    },
+    {
+      "path": "controls",
+      "mode": "0o755"
+    },
+    {
+      "path": "f11",
+      "mode": "0o755"
+    },
+    {
+      "path": "report-donors",
+      "mode": "0o755"
+    }
+  ],
+  "recordCount": 43,
+  "recordBytes": 229163,
+  "directoryCount": 4,
+  "symlinks": 0,
+  "runtimeEffects": 0,
+  "excludedSelf": "freeze.json only",
+  "futureRuntimeRootNotCreated": true,
+  "acceptedQ09ReleaseRequired": true
+}

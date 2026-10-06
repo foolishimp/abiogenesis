@@ -1,0 +1,80 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_C09_INSTALLED_PATH_GRANTS_WRITER_01",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/activation.json",
+      "bytes": 597,
+      "sha256": "72c4dee34511f7e60f21265ab89d7c1606427458e3c61782e1d3fa58c376444f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/closure.json",
+      "bytes": 218,
+      "sha256": "b4173ac194297d9cdce698ce3bdae5d40730c22c03918caacdca54f74185834b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/inputs-request.txt",
+      "bytes": 4064,
+      "sha256": "379c849a296dcf001cbf1a5020be9dd213d50078184af7a0f8e7a741d26a7dac",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/inputs-sections.json",
+      "bytes": 4335,
+      "sha256": "e7f79bbb79a70e5669a75be10787da1fc718e2f489ca3452750de8291452f1bd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/literal-verification.json",
+      "bytes": 1929,
+      "sha256": "bd16f99bad0ff99668213966fbf87e2bc49c98c34ffad4f12a21559344292a52",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/operation-basis.json",
+      "bytes": 1823,
+      "sha256": "dda96dc848f8171bbe54c5b5d638973e3b8a883183173eedf1011a5d597eb090",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/review-request.txt",
+      "bytes": 3485,
+      "sha256": "dfe6c98f1bc6105837b628569ffe305475cd844b176042a580f205c7172e50b9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/review-sections.json",
+      "bytes": 3756,
+      "sha256": "cac4ac59ec77fd0e81af8239579b7c4c319f5c24c3b4698f7c01c361d705c7ff",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/runtime-request.txt",
+      "bytes": 4434,
+      "sha256": "72360717434d84a329c6594cea0c298525f0dd6af9545043f9dbf38c6ed4312f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/runtime-sections.json",
+      "bytes": 4705,
+      "sha256": "d2aecf2148309537d95bd5f2ec03c3acda5a81ec748957cbdd85958b81bc2a79",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/setup-request.txt",
+      "bytes": 3544,
+      "sha256": "ae31bfb3863c4cfad8126b3ff6561dab1020e252eacae7c3a0f062de29c2381a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-to-installed-path-controls-01/setup-sections.json",
+      "bytes": 3815,
+      "sha256": "887b4e1cf36fe4eb0a87039bad854add2c1a3799b9634b66aa15f46df90ea2b8",
+      "mode": 420
+    }
+  ],
+  "preparedGrantsOnly": true,
+  "effectActivationRequiresActualDependencyRelease": true
+}

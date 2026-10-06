@@ -1,0 +1,100 @@
+{
+  "status": "CLOSED_ROOT_CONTROL_BINDING",
+  "records": [
+    {
+      "path": "authority-postimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 468620,
+      "sha256": "89498a38d86813c2fecac6d202a1c733480494b917976f1ff47d0ce13b489f35"
+    },
+    {
+      "path": "authority-postimages/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24123,
+      "sha256": "46d6cd94f9fd7c1610dcba7933082d3b810188c7b6898672992b1a8d743e059c"
+    },
+    {
+      "path": "authority-postimages/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+      "bytes": 13748,
+      "sha256": "5e4a67b1c108df56ef4dede2d6ae6995d7420b9f1a5f5a70e125728a534e1cc8"
+    },
+    {
+      "path": "authority-postimages/specification/GOALS.md",
+      "bytes": 66413,
+      "sha256": "108207726681c787bae7a63271f1eff2834bbba83e65ca94396063c9ccab1363"
+    },
+    {
+      "path": "authority-postimages/specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094"
+    },
+    {
+      "path": "authority-postimages/specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+      "bytes": 6297,
+      "sha256": "9ca0057a69fd3f399e0fa6903378c7e1766fbf70c21df827e8b62a8eabfa3916"
+    },
+    {
+      "path": "authority-postimages/specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "bytes": 12093,
+      "sha256": "e09939e63164131f8dd8ea9a0a0030755897cce769d20cd719391b5d4140c32d"
+    },
+    {
+      "path": "authority-postimages/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "bytes": 10959,
+      "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65"
+    },
+    {
+      "path": "authority-postimages/specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+      "bytes": 4137,
+      "sha256": "068a34859896cc5ec8bda0a34a9b8a4571f924cc243abf21a22a320410b35c1d"
+    },
+    {
+      "path": "authority-postimages/specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+      "bytes": 3930,
+      "sha256": "6d9ed61cbb2042ab58c9d0ec04eafd862af422d5fe4c28164921c69325a2a24c"
+    },
+    {
+      "path": "authority-postimages/specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35509,
+      "sha256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831"
+    },
+    {
+      "path": "authority-postimages/specification/requirements/product/REQ-P-SCENARIOS.md",
+      "bytes": 16531,
+      "sha256": "33939c54db28a76cee08841731258cfdebcd870975a749d84a5d957466b7469d"
+    },
+    {
+      "path": "authority-postimages/stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c"
+    },
+    {
+      "path": "authority-postimages.json",
+      "bytes": 5753,
+      "sha256": "c74e6876ea7398a6092d2766e76dd69266e89abbe520dbc68968270a6e96b5f2"
+    },
+    {
+      "path": "received-independent-source-review.md",
+      "bytes": 1877,
+      "sha256": "339a9b13cf8255166adbdf778a5b2a112b865cecec8273b2b10a687ee565e145"
+    },
+    {
+      "path": "request.txt",
+      "bytes": 4527,
+      "sha256": "a953a72b8491c0fe9c9fd332e1d5f1f0cf093d04206b58cb70dc46c74d4e20dc"
+    },
+    {
+      "path": "root-preimages.json",
+      "bytes": 292,
+      "sha256": "82599349aed09e25ee7863528bc9a2615b8496ea3e4e6c412f1a4646aa06b358"
+    },
+    {
+      "path": "sections.json",
+      "bytes": 4798,
+      "sha256": "cb2b1861e7bc8597055f038760671b80023029e88a23070458b4b2f9d231c024"
+    },
+    {
+      "path": "source-conjunction.json",
+      "bytes": 749,
+      "sha256": "7d41779287c5d3375271eb08377c897e1f221d293802ac9fbadaecb27f73837d"
+    }
+  ]
+}

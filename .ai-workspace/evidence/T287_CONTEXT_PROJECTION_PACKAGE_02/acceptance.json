@@ -1,0 +1,80 @@
+{
+  "status": "ACCEPTED_SOURCE_COMPONENT_PRIVATE_PACKAGE",
+  "acceptedAt": "2026-10-06",
+  "executive": "/root",
+  "productFrame": {
+    "product": "ABG5 fixed fifteen families",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "features": [
+      "F05",
+      "F10",
+      "F11",
+      "F15"
+    ],
+    "method": "stdo://releases/v2.5.1-rc.2/",
+    "methodManifestSHA256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "revision": 2
+  },
+  "subject": {
+    "return": {
+      "path": ".ai-workspace/evidence/T287_CONTEXT_PROJECTION_PACKAGE_02/return.json",
+      "bytes": 18701,
+      "sha256": "878d8dd0a1c1a94aaf0b0724fe2eed813ac5eb709b55e0b1be39be8fbc983ad3"
+    },
+    "freeze": {
+      "path": ".ai-workspace/evidence/T287_CONTEXT_PROJECTION_PACKAGE_02/freeze.json",
+      "bytes": 10265,
+      "sha256": "746b5441e1c1af4f97743128adae2cde431b2407e41e2be57c640839c2d0a43d"
+    },
+    "archive": {
+      "path": ".ai-workspace/work/T287_CONTEXT_PROJECTION_PACKAGE_02/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10644887,
+      "sha256": "214c576620c5f552cbf22a82f8f318638903013ca23ff49e42496b2d190a47f6"
+    },
+    "productContentDigest": "sha256:b2d39ebb3ec99abbf70205eb0decf7c680bd47f5548632f3d967abc38a973b62"
+  },
+  "source": {
+    "qualificationSHA256": "0ee4bc36215f6fa7832d87d06f70e58909f75aa4d3b4c21d13bee59f55675ad5",
+    "testSHA256": "81184de399f520c72489b62baba8939b4ebb377bb723270b044bc3fa4c2af86f",
+    "nativeProofSHA256": "9b6b1ec6e0489455fb3aeadc3ebcbaf93459cf5a0cb65db13215c683a3e996e8",
+    "constructionOwner": ".ai-workspace/evidence/T287_CONTEXT_PROJECTION_REPAIR_01/source-construction"
+  },
+  "evidence": {
+    "compile": "reused exact completed strict compile",
+    "focused": "reused exact4/4",
+    "packedPreparationPublication": "9/9 without skips/timeouts",
+    "sourceBlindTypes": "zero diagnostics; three closed-type negatives",
+    "archiveMembers": 5281,
+    "archiveStageConsumerBytes": "all equal",
+    "delta": [
+      "compiled qualification.js",
+      "generated capability graph",
+      "generated Product manifest"
+    ],
+    "canonicalProductAndCapabilityOwners": "passed"
+  },
+  "reviewers": [
+    {
+      "actor": "/root/current_source_review",
+      "status": "CLOSED_GO",
+      "scope": "Source/component/private package",
+      "selectedPins": 48
+    },
+    {
+      "actor": "/root/current_reuse_cost_review",
+      "status": "CLOSED_GO",
+      "scope": "package Identity/Effect/reuse",
+      "selectedPins": 46
+    }
+  ],
+  "triageDisposition": "The actual two-site reuse preserves full records for C, metadata/spans and selected bodies for J, native authentication/independence and original Source. Package-only re-entry resolves premature packing from completed frozen stage; invalid337e archive remains unchanged failure evidence.",
+  "remaining": [
+    "new-candidate installed controlled conservation and six fresh reads",
+    "genuine independent assessment and contextsufficiency",
+    "parent paths, seven actual defects, whole-candidate coverage, QUAL056",
+    "RC publication/installed qualification/owner acceptance/terminal remote verification"
+  ]
+}
+

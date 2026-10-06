@@ -1,0 +1,58 @@
+{
+  "operation": "T287_Q12_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "status": "CLOSED",
+  "disposition": "NO_GO_INPUT_PREPARATION_ONLY",
+  "closedAt": "2026-10-03T03:04:14.182149+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-12/freeze.json",
+    "bytes": 17038,
+    "sha256": "9f04f0a6d097a0cc511e745153334691595bbf6a112a6942e1709d574c394f1c",
+    "mode": 292
+  },
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q11-stepback-scaffold-q12-controls-01/review",
+  "rootMode": 493,
+  "records": [
+    {
+      "path": "a_c.literal",
+      "kind": "file",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 420
+    },
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "bytes": 826,
+      "sha256": "594f2694967ffbf6f34b7a6fdb83d0b48344466b1a2235d0ee0f7b0c5ee61a72",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "kind": "file",
+      "bytes": 970,
+      "sha256": "06b09b8cc41c1592028040d3cdab47817e2f015768ceee8d45063e046c9049d8",
+      "mode": 420
+    },
+    {
+      "path": "pins.json",
+      "kind": "file",
+      "bytes": 15256,
+      "sha256": "f0d8b03dcb138a3ea414b93afff1b7ca0de7c55ff2b408b75a3768d13f35cf19",
+      "mode": 420
+    },
+    {
+      "path": "report.md",
+      "kind": "file",
+      "bytes": 4551,
+      "sha256": "046722f50bc6e901d6d9de571d6fecc77bb3e053f61dce6362bc5742a9628876",
+      "mode": 420
+    }
+  ],
+  "regularRecords": 5,
+  "regularBodyBytes": 59716,
+  "links": 0,
+  "originalOrSourceMutations": 0,
+  "runtimeOrSemanticQualificationAcceptance": false,
+  "freezeExcludedFromRecords": true
+}

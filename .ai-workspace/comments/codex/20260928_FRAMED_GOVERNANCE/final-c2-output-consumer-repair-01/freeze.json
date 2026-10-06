@@ -1,0 +1,316 @@
+{
+  "status": "CLOSED_EXTERNAL_CONSUMER_SUCCESSOR",
+  "activation": "T287_C2_OUTPUT_CONSUMER_REPAIR_01",
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01",
+  "records": [
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1580,
+      "sha256": "e41888e30a3003322b4f0feed988ca292dc59c01c108842c6c2d05140dde1a49"
+    },
+    {
+      "path": "attribution.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1885,
+      "sha256": "999f16c26540c1f82cb86dab6eed4682bddb864b14323fbc92702001732c2679"
+    },
+    {
+      "path": "causal-record.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1653,
+      "sha256": "bf776cf2e26284fba2f705eab959cf86e7c91f1d285774f46228ba9d5e85835a"
+    },
+    {
+      "path": "check-probe-01.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14802,
+      "sha256": "a6edcda9e3e2fd30524e68c4b3ebc985010b6627517fe393731c737cce23fc95"
+    },
+    {
+      "path": "check.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14803,
+      "sha256": "fce51ffea9f689004b830e3a4cb38c688b95cffed2a400ea0f417a01d195b97f"
+    },
+    {
+      "path": "checks.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2474,
+      "sha256": "749ea745f2cde74c50b34db534a90257a0e942bcb760e1ec16ca9eb112622d53"
+    },
+    {
+      "path": "conservation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1670,
+      "sha256": "7d5cfae340a3b57bf001a2931008b313973cafa755e920223f4cc158c42117f3"
+    },
+    {
+      "path": "cost-and-closure.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2134,
+      "sha256": "50786585da98ea441070bf90227d51cfa567af0ea0edf1dde505a8ae7e8e5b08"
+    },
+    {
+      "path": "fixture/original/input.txt",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 32,
+      "sha256": "64f7578e69e8ff38b5e79cd0a53f920ca80f641681bf192bcaa8414699d52b21"
+    },
+    {
+      "path": "fixture02/archive/worksite-command-execution/b3be2c87e85bb9733b4aa6d4e14dd6190145049ea519888d4cbbbe1846b055a1/2d140d392c2577f27475d5283c5a64a552c0324dc0b3ecd90bdf209fbfa88477/result.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6306,
+      "sha256": "fada7fc393d9c7ffddd1be481aaa33f2e864c5db6963085f10b97e58f1028ba9"
+    },
+    {
+      "path": "fixture02/archive/worksite-command-execution/b3be2c87e85bb9733b4aa6d4e14dd6190145049ea519888d4cbbbe1846b055a1/2d140d392c2577f27475d5283c5a64a552c0324dc0b3ecd90bdf209fbfa88477/sandbox/verification/alias.txt",
+      "kind": "symlink",
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/fixture02/original/input.txt"
+    },
+    {
+      "path": "fixture02/archive/worksite-command-execution/b3be2c87e85bb9733b4aa6d4e14dd6190145049ea519888d4cbbbe1846b055a1/2d140d392c2577f27475d5283c5a64a552c0324dc0b3ecd90bdf209fbfa88477/sandbox/verification/build/generated.js",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 40,
+      "sha256": "7c3e94489228bb7ea3fdc7a36ed52044dce3731c61d7d90537d7ea9a0db7b144"
+    },
+    {
+      "path": "fixture02/archive/worksite-command-execution/b3be2c87e85bb9733b4aa6d4e14dd6190145049ea519888d4cbbbe1846b055a1/2d140d392c2577f27475d5283c5a64a552c0324dc0b3ecd90bdf209fbfa88477/sandbox/verification/report.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 30,
+      "sha256": "8cb47b9915a0b36a781de196775607bf07b1c74489b5148229138f28d0359916"
+    },
+    {
+      "path": "fixture02/archive/worksite-command-execution/b3be2c87e85bb9733b4aa6d4e14dd6190145049ea519888d4cbbbe1846b055a1/2d140d392c2577f27475d5283c5a64a552c0324dc0b3ecd90bdf209fbfa88477/sandbox/verification/reports/generated-comparison.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 34,
+      "sha256": "827b640c75f5062a24d0a1cc520d7abf32134cc1bfb94919bd07c78e447e0218"
+    },
+    {
+      "path": "fixture02/archive/worksite-command-execution/b3be2c87e85bb9733b4aa6d4e14dd6190145049ea519888d4cbbbe1846b055a1/cbfe7bdb3acca3c4c1486a5951df9754d994dd4b952fe52223d60a101a3186f4/result.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6306,
+      "sha256": "fada7fc393d9c7ffddd1be481aaa33f2e864c5db6963085f10b97e58f1028ba9"
+    },
+    {
+      "path": "fixture02/original/input.txt",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 32,
+      "sha256": "64f7578e69e8ff38b5e79cd0a53f920ca80f641681bf192bcaa8414699d52b21"
+    },
+    {
+      "path": "fixture02/original/verification/build/generated.js",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 26,
+      "sha256": "c08ae2388db70c9208d76a2742b2940a46032b7ef0e60250f42cba357f1bbe1f"
+    },
+    {
+      "path": "fixture02/original/verification/report.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 26,
+      "sha256": "c08ae2388db70c9208d76a2742b2940a46032b7ef0e60250f42cba357f1bbe1f"
+    },
+    {
+      "path": "fixture02/original/verification/reports/generated-comparison.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 26,
+      "sha256": "c08ae2388db70c9208d76a2742b2940a46032b7ef0e60250f42cba357f1bbe1f"
+    },
+    {
+      "path": "future-caller-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1428,
+      "sha256": "795adaba3b8e19a9f59745f713fc5c9a24e0b834ad442e9d14d5acf868ae9195"
+    },
+    {
+      "path": "inputs.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1677,
+      "sha256": "805eeaf5e069cffb49c8c9b14a3625cdffb03dd83053594208e83e11f3e3a0b9"
+    },
+    {
+      "path": "output-checks.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 11908,
+      "sha256": "d59cebeeed35234f4d69f978030a5a1094919291513c523a0d34b07fcb6f8b2a"
+    },
+    {
+      "path": "output-checks.patch",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14523,
+      "sha256": "1cd58c0a1823b0a8b640e25b0b8bf953529a00efc4abac00f2d0091703f4b9a9"
+    },
+    {
+      "path": "preimages/driver.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15079,
+      "sha256": "cd719b09003d8a1268bc6e9b9783dfb729644ce37280a1a55fa3a25204ea7f7e"
+    },
+    {
+      "path": "preimages/output-checks.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9424,
+      "sha256": "2da7268570fb9a11ac023b653e82adccb889c696ea8fe2bbda14701a1546f923"
+    },
+    {
+      "path": "probe01-triage.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 524,
+      "sha256": "64473b1892d79750c2f8059cc185ea83e1e6d8da83a51dc8cb33dc87e76b2066"
+    },
+    {
+      "path": "pure-processes.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1023,
+      "sha256": "d6980ca2b6e3b9c47df94aa6eda165df2ee70c99c2d70da65f04bea6b63c197d"
+    },
+    {
+      "path": "pure-processes02.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1028,
+      "sha256": "6b62ad89a8636a64d9fe85e100a13b7e682a55577dc784653980433c707be362"
+    },
+    {
+      "path": "relation-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 382,
+      "sha256": "7be13350b387623195335a1fd19aa8ca189c23b5d6eed3897816d00345aa00eb"
+    },
+    {
+      "path": "relation.stderr",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1666,
+      "sha256": "051014c3d583c1c1948fc5048ed9f4ad1a406d214c7d5968f4e191468067011f"
+    },
+    {
+      "path": "relation.stdout",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "relation02-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 385,
+      "sha256": "0c5d56b17699cffde3e8bbe944cd10c26b5454691d6492c94a8869d15862559f"
+    },
+    {
+      "path": "relation02.stderr",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "relation02.stdout",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 549,
+      "sha256": "88b19ef18157d686f6a8c5a274770cd4bd3dcb5346a1ef063517135155ae6592"
+    },
+    {
+      "path": "return.md",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 3931,
+      "sha256": "1deaeb5758fdefd6bcda6a2f278e1b8130d636590a74504016ad7b319925d45b"
+    },
+    {
+      "path": "run-checks.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1625,
+      "sha256": "f511333be8ec04dc849ef7bced900f09ced02df200426ce0f0ff1c22f7a8ea33"
+    },
+    {
+      "path": "run-checks02.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1701,
+      "sha256": "abb0b51769a7748d4c175662a154c1ab0b3a767abf3692dfe93f71207251069b"
+    },
+    {
+      "path": "source-relations.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 47647,
+      "sha256": "08afe711530c21bf7770a8215681141fa472eafa6ab3c5fd78a8a89de2f650b2"
+    },
+    {
+      "path": "syntax-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 403,
+      "sha256": "cd3b953105cbd6b893188152973cbbbaf241fe0a4491e5570e2405aca90ec65f"
+    },
+    {
+      "path": "syntax.stderr",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "syntax.stdout",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "syntax02-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 406,
+      "sha256": "bb0b0b9299cd82135c197b772f54cf422037881faf790c88810f6f13b2426e1d"
+    },
+    {
+      "path": "syntax02.stderr",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "syntax02.stdout",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "recordCount": 44,
+  "nativeClaim": false,
+  "stop": "Worker/Writer CLOSED; no further mutations or execution"
+}

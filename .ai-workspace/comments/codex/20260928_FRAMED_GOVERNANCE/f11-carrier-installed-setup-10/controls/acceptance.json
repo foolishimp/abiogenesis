@@ -1,0 +1,135 @@
+{
+  "kind": "root_exact_candidate_construction_acceptance",
+  "status": "ACCEPTED_CONSTRUCTION_COMPONENT_ONLY",
+  "actor": "/root",
+  "role": "Writer",
+  "decisionRole": "Executive",
+  "operation": "T287_C10_CONSTRUCTION_ACCEPTANCE_SETUP_SELECTION_RECORD_01",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "acceptedAt": "2026-10-04T05:17:49.662007+00:00",
+  "constructionFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-freeze.json",
+    "bytes": 386759,
+    "sha256": "24cd23e713c0adac12f0fe62b2fda751ee6648936bd180439e63e65e609a8be3",
+    "mode": 420
+  },
+  "externalEffectCensusSupplement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c10-effect-census-supplement-01/freeze.json",
+    "bytes": 4018,
+    "sha256": "185f249369d39fdc139f07b72e90d4019c56bfc75ff8c8ef31af874dcea2288f",
+    "mode": 420
+  },
+  "independentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-review-record.md",
+    "bytes": 1732,
+    "sha256": "c94cd47de45bfc53486711e16561938f1e8603f3775de59ada03459f8469558b",
+    "mode": 420
+  },
+  "reviewAttribution": {
+    "actor": "/root/q03_input_review",
+    "activation": "T287_C10_CONSTRUCTION_ASSURANCE_CONTINUATION_02",
+    "status": "CLOSED_GO_CONSTRUCTION_ONLY",
+    "zeroEffects": true,
+    "documentaryCaptureBy": "/root Writer",
+    "notReviewerAuthoredFile": true
+  },
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md",
+    "relation": "accepted separately CLOSED independent G1/G3 Source/component reviews; sourceReview field in C10 is Root construction grant conjunction, not a distinct Review artifact"
+  },
+  "sourceCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/controls/source-cut.json",
+    "bytes": 27451027,
+    "sha256": "dfcbe13c1b667a9b16fb89caaf4afa59a1e911fa44b11e6508e847a2bd1c5aa8",
+    "mode": 420
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-source-freeze-manifest.json",
+    "bytes": 586362,
+    "sha256": "75200ef06e648629d68e2ddb75946a04930a2132e4ce58ff9d6081841a87a351",
+    "mode": 420
+  },
+  "candidate": {
+    "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:f9a14aa627049b79a0a22b7a0a117f823758d97ecc4b7a88c23c73ce66bc2edb",
+      "productContentDigest": "sha256:87140057006782589b2eddc325d42e781b7a4beaddc8df1f902ae45baeac4c5e",
+      "manifestDigest": "sha256:8e3d1d8c0a4a872d0c1f55388fc6748f986ad0addde22c5c7cb2924b8ec37d26",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "packageIdentity": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:f9a14aa627049b79a0a22b7a0a117f823758d97ecc4b7a88c23c73ce66bc2edb",
+    "archiveBytes": 10431333,
+    "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install/node_modules/@abiogenesis/typescript-tenant",
+    "bootstrapRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-install",
+    "archiveMembers": 5260
+  },
+  "catalogDigest": "sha256:610831905d4accc37c68643c4d7dae84d33b27e7e45d29e65b00f8fb21e177eb",
+  "actualSourceMembers": 1113,
+  "actualGeneratedMembers": 928,
+  "generatedDeltaMembers": 4,
+  "requiredContractRows": 3,
+  "historicalRequiredBodies": 309,
+  "currentRequiredBodies": 309,
+  "nativeRowObjectsChanged": 0,
+  "nativeContractDigestValuesChanged": 0,
+  "serializedAssetDigestsUnchanged": true,
+  "capabilityRows": 16,
+  "capabilitySelectors": 196,
+  "currentPublicationBindings": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-publication-bindings.json",
+    "bytes": 671659,
+    "sha256": "83701719ce884ffb2fd82219f9ba2c4251364ff27f940d166efa4f1fd758de6a",
+    "mode": 420
+  },
+  "currentNativeWrapperCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-required-wrapper-rows.json",
+    "bytes": 974591,
+    "sha256": "91c7ac4a058eac381915480733fabfd0f13ee082131d679b3612b16539f46427",
+    "mode": 420
+  },
+  "costs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-costs.json",
+    "bytes": 6673,
+    "sha256": "97f23630c109a32049d0b1539b8555868e9e8a7b61b530c13c93449235e56731",
+    "mode": 420
+  },
+  "processClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-process-closure.json",
+    "bytes": 1243,
+    "sha256": "f4146399bea0ed7767da6ab677faf9e31909f424441048278164b959da448e36",
+    "mode": 420
+  },
+  "completeEffectCensus": {
+    "fileLinkRecords": 16362,
+    "regularBytes": 538415091,
+    "directories": 1940,
+    "scratchFiles": 593,
+    "scratchBytes": 2934900,
+    "rootVerified": true,
+    "originalIncompleteClaimRejected": true,
+    "inheritedCacheEnvironmentUnknown": true,
+    "cacheIndependentReproducibility": false
+  },
+  "releasedConditionalOperation": "T287_G1_G3_C10_INSTALLED_SETUP_10",
+  "setupGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-setup-grant.txt",
+    "bytes": 5249,
+    "sha256": "2af1ad4cbeea06d17ac1d4c11fd5038e0b95d146c28a38230b359fceaa67ab14",
+    "mode": 420
+  },
+  "scope": "Bounded exact construction/physical bootstrap only; G2 moving Source excluded. Separate actual Setup10 has14Publiccalls. No ABG-admittedC10installation/semanticqualification/release acceptance.",
+  "notEstablished": [
+    "mandatoryPubliccompletion",
+    "actual C10 admitted installs/binding/catalog",
+    "fresh current J/direct-parent/F11failed/AF22red/sixreads",
+    "genuineF11/sevenmutants/QUAL056/scenarioqualification",
+    "greenAF22/RCpublication/installedRC/humanacceptance/terminalremoteinstall"
+  ]
+}

@@ -1,0 +1,23 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 492937,
+    "sha256": "22b3c22904be7baa24bbe75d523b12a22e1d0aaa29342209448ecd8c70523058",
+    "mode": 420,
+    "retainedPreimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/preimages/01-T-287-deliver-abiogenesis-5-feature-waves.md"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "bytes": 68143,
+    "sha256": "89713269fa893225b5aa9d8deecccdb67542475fde69aec17cb914c0dd5d360d",
+    "mode": 420,
+    "retainedPreimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/preimages/02-GOALS.md"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md",
+    "sha256": "bd104d1c395dd9f3b30b12f4afd99f0593d548bc0185080eed1dfe36e2a8c405",
+    "bytes": 32346,
+    "mode": 420,
+    "retainedPreimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/preimages/03-return.md"
+  }
+]

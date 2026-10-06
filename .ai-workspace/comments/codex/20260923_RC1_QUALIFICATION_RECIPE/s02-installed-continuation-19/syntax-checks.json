@@ -1,0 +1,30 @@
+[
+  {
+    "path": "caller.mjs",
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "path": "campaign.mjs",
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "path": "setup.mjs",
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "path": "fresh-read.mjs",
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  {
+    "path": "observe-action.py",
+    "astParse": true
+  }
+]

@@ -1,0 +1,97 @@
+{
+  "operation": "T287_PUBLIC_PREPARATION_ACCEPTANCE_01",
+  "status": "CLOSED_ROOT_ACCEPT",
+  "acceptedScope": "Source/component/package Public preparation bridge; no runtime or qualification acceptance",
+  "productFrame": "Fixed fifteen-family ABG5 / GOAL035 / T287 F05/F11/F15. Existing immutable resource and preparation owners, derived facade/publication; GTL/HoG, ABG admission/authentication, F11 and sole AF22 remain distinct.",
+  "basis": {
+    "release": "stdo://releases/v2.5.1-rc.2/",
+    "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "source": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/qualification/m05.ts",
+      "bytes": 697,
+      "sha256": "5609a3ca5ea8893ea66ea4330d358042bcf3c30940d26fc483b32a068ce6961e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-public-preparation.test.mjs",
+      "bytes": 17964,
+      "sha256": "f5c7d405c0a7b5e4bfdeef2a8d0898a7e2ba6bef8878f51be9406ed5d70c27e5"
+    }
+  ],
+  "frozenReturn": {
+    "path": ".ai-workspace/evidence/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/return.json",
+    "sha256": "0a11e6f3887c8846baaadc6a46a4a9a2aca3c96520c7202e1f0b32d36a28af1c"
+  },
+  "freeze": {
+    "path": ".ai-workspace/evidence/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/freeze.json",
+    "sha256": "8c03a76283c9dc580d2f4e5c45aa65ba20418eaa3eed96ee179342ef428d34c9"
+  },
+  "archive": {
+    "path": ".ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10661096,
+    "sha256": "c54721805a8adb73c3fa74ee8c3c04126dc5bd7ad2da542967b9292c6a4943e5"
+  },
+  "independentReview": {
+    "agent": "/root/current_source_review",
+    "status": "CLOSED_GO",
+    "effects": "read/hash/archive inspection only",
+    "findings": [],
+    "verified": "21 subject pins, unchanged canonical owners, complete 5283-file archive/extraction bytes and modes; seven passes/no failures or skips; intended refusal guards; strict caller with three type negatives; canonical capability owner correspondence"
+  },
+  "proof": {
+    "responsibilityBindings": 2,
+    "embeddedPreparations": 2,
+    "referencePreparations": 4,
+    "resourceAcquisitions": 1,
+    "assertionBytes": 89498,
+    "promptBytes": [
+      49279,
+      49286
+    ],
+    "focusedTestsPassed": 7,
+    "contractIds": 75,
+    "serializedAssets": 53,
+    "capabilityIdentities": 16,
+    "derivedGraphChangedIdentityLeaves": 551,
+    "changedPackageFiles": [
+      "build/code/src/qualification/m05.js",
+      "build/code/src/qualification/m05.d.ts",
+      "product-toolchain-manifest.json",
+      "contracts/capabilities/capability-definition-graph.json"
+    ]
+  },
+  "cost": {
+    "repairCommandElapsedMs": 24688.0032079971,
+    "repairCommandPeakRSSBytes": 1615675392,
+    "repairPackageBuilds": 0,
+    "repairFullStageCopies": 0,
+    "defaultHeap": true,
+    "HOMEUnchanged": true,
+    "allManagedGroupsReapedAndAbsent": true,
+    "standingScalingClaim": false
+  },
+  "runtimeEffects": 0,
+  "providerCalls": 0,
+  "qualificationClaims": 0,
+  "next": "Step2: fresh successor install/log, authentic controlled falsified A slot, required uncovered B outside finite plan, native F11 then sole AF22 and fresh reads. Honest incomplete inventory; all declared slots authenticated. Direct path only; G3 parent and genuine assessment remain separate.",
+  "residuals": [
+    "current installed F11/AF22 conservation",
+    "genuine independent assessment pilot and sufficient whole-candidate assessment",
+    "G3 installed parent path",
+    "remaining mandatory publication/drift/QUAL056/scenario/defect/RC1 gates",
+    "old 505MB enclosing-manifest acquisition dependency"
+  ],
+  "writer": {
+    "actor": "/root",
+    "role": "Writer",
+    "grant": "bounded acceptance and current routing only; no source/package/runtime mutations",
+    "entryPins": {
+      "goals": "baacf6a1548a2745e4a511e932d1c3e7da25a5764ecf319101f60ff0dd64e267",
+      "ticket": "5a453500f3065f7911414250d3e5329a93334f353b1e8fda859bd83394706c1e",
+      "closure": "13714a57023c56dc0bc9ad89abbc84075774463811eaf069a790ce0477c9f04a"
+    },
+    "status": "CLOSED_after_documentary_readback"
+  }
+}

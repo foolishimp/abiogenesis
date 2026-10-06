@@ -1,0 +1,45 @@
+{
+  "status": "CLOSED",
+  "role": "Reviewer",
+  "activation": "T287_Q09_CURRENT_INPUT_ASSURANCE_01",
+  "recommendation": "GO_BOUNDED_CURRENT_INPUT_ASSURANCE",
+  "subjectFreezeSHA256": "3ca693f27e86a063ce0f3d21da02852949e69b34a70da1bf11fd6f19e150b2a3",
+  "records": [
+    {
+      "path": "a_c.literal.txt",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 420
+    },
+    {
+      "path": "activation.json",
+      "bytes": 1098,
+      "sha256": "fa9854bd640057cd1ad44e6942e8cc155e6e50bc3d2a0eb4e8f4870a27951f72",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 336,
+      "sha256": "0588cc2256dedf36fc196023f30120124269c6a6ef6f8281b4e2ecc6a6d09f7f",
+      "mode": 420
+    },
+    {
+      "path": "pins.json",
+      "bytes": 16967,
+      "sha256": "26cf3d27836faf429dbaf411abeac25f6be8b846b4af459662599bba1af29797",
+      "mode": 420
+    },
+    {
+      "path": "report.md",
+      "bytes": 4388,
+      "sha256": "63955adbd67e077e2398564dc5615d6f33aad458590159b642884eac55a03774",
+      "mode": 420
+    }
+  ],
+  "recordCount": 5,
+  "bodyBytes": 60902,
+  "directories": [],
+  "links": [],
+  "noFurtherWrites": true,
+  "qualificationAccepted": false
+}

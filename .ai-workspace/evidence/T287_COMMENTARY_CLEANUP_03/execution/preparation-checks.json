@@ -1,0 +1,39 @@
+{
+  "actualExecution": 0,
+  "candidateManifest": {
+    "bytes": 147352629,
+    "mode": 420,
+    "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/alias-final/candidate-files.json",
+    "sha256": "05052fc15161aac77dde27c577dcb27d18d5f2fb91657fcade0a37570c52cbc0"
+  },
+  "closure": "synchronous standard-library helper; no child payload processes; preparation only",
+  "directories": "preserve all29137 selected directories, no rmtree/empty-directory removal",
+  "helper": {
+    "bytes": 17033,
+    "mode": 420,
+    "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_03/delete_exact_alias_plan.py",
+    "sha256": "aa33fdd4a84b94e96721880c70490dce194d1d0a7166c9e86c1a558a85f7c72c"
+  },
+  "limits": [
+    "Parser support and saved source inspection are not execution or independent assurance.",
+    "Missing/current-moved body or identity stops the actual payload before further effects; no force/retry.",
+    "Root must accept exact list and issue deletion grant before launching."
+  ],
+  "operation": "T287_COMMENTARY_CLEANUP_DELETE_03_PREPARE",
+  "originalHashPolicy": "hash104688 unique original paths once in each pre/post phase, never per duplicated copy",
+  "releaseGate": "--execute and actual separately granted Root release file with --release-sha256 required; no supplied release exists in preparation",
+  "remainingCopies": {
+    "protected": 16338,
+    "unproved": 8492
+  },
+  "selectedFreeze": {
+    "bytes": 9512,
+    "mode": 420,
+    "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/alias-final/freeze.json",
+    "sha256": "cee816b8f45826fc73d39f17522407db06008b6645cc307dc8702e448f642edc"
+  },
+  "selectedPath": "named copy-root no-follow ancestry -> complete222229 regular census+all hashes ->104688 distinct original/context/alias guards -> exact197399 immediate tuple/hash unlinks -> retained/original/census conservation",
+  "status": "PASS_STATIC_PREPARATION_ONLY",
+  "syntax": "ast.parse passed; helper never imported/executed",
+  "unlinks": 0
+}

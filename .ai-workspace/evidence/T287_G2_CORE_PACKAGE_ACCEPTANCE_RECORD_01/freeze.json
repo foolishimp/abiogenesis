@@ -1,0 +1,99 @@
+{
+  "operation": "T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01",
+  "status": "CLOSED_DOCUMENTARY_ONLY",
+  "roots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01"
+  ],
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/activation.json",
+      "bytes": 5426,
+      "sha256": "da2c8d53a6b6e7518249ebe7c859f416e9cc76f4d9e6e8252266b82f544f91f1",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/acceptance.json",
+      "bytes": 8960,
+      "sha256": "97912eaf2050c8b88c12c35f00444e7743069a3b60ddb3c59b27c5bba43280fb",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/closure.json",
+      "bytes": 2065,
+      "sha256": "e65c4609ae380f15a50f1f70a6b9dab374e4502ea2421275c57b382fc05b6bae",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/independent-review-root-record.md",
+      "bytes": 2637,
+      "sha256": "97570928a72a6e1d2b57af2b247093702aa774e4bea9c126fbd04d02e71ff131",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/preimages/01-T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 492937,
+      "sha256": "22b3c22904be7baa24bbe75d523b12a22e1d0aaa29342209448ecd8c70523058",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/preimages/02-GOALS.md",
+      "bytes": 68143,
+      "sha256": "89713269fa893225b5aa9d8deecccdb67542475fde69aec17cb914c0dd5d360d",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/preimages/03-return.md",
+      "bytes": 32346,
+      "sha256": "bd104d1c395dd9f3b30b12f4afd99f0593d548bc0185080eed1dfe36e2a8c405",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/preimages.json",
+      "bytes": 1196,
+      "sha256": "9d1fbc12898982e9488343a8aa152e43c3233502a95b154c9de22e990e3cf811",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/root-read-verification.json",
+      "bytes": 1405,
+      "sha256": "600600c7f27f68e7108d9f63bb3977c4d172f5796aebc9884274032ff9600485",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/tracking-postimages.json",
+      "bytes": 940,
+      "sha256": "fc2802535735beee8104def01ed5aebfeccade678ef6a3f46a9b31543fa2bc46",
+      "mode": 292
+    }
+  ],
+  "selfExclusion": "this final documentary freeze alone, independently returned by byte/hash",
+  "preservedSourceSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/source-postimages.json",
+    "bytes": 21822,
+    "sha256": "6d9482a52b982a3379a5c1f30d76f177a797b3320eb88e951c95a83d4b69943a",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 465291443
+  },
+  "exactMutableTrackingPostimagesAtClosure": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 493216,
+      "sha256": "42678bfa62fc29a0bd8b3263b6723dbd42a146a179b2831856a7c54ce7e6f2f6",
+      "preimageSHA256": "22b3c22904be7baa24bbe75d523b12a22e1d0aaa29342209448ecd8c70523058"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 67650,
+      "sha256": "7c36e9cd0b5fbc3eb09e2ba88c509f591b2c98e5ae3656651f13aaa0c7e3a09c",
+      "preimageSHA256": "89713269fa893225b5aa9d8deecccdb67542475fde69aec17cb914c0dd5d360d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md",
+      "bytes": 34710,
+      "sha256": "0997b84065a12fca31fdc4c407a2b319e6e4a6e5053a05ef01be9ee539b3a705",
+      "preimageSHA256": "bd104d1c395dd9f3b30b12f4afd99f0593d548bc0185080eed1dfe36e2a8c405"
+    }
+  ]
+}

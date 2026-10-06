@@ -1,0 +1,24 @@
+{
+  "checkedAt": "2026-10-01T15:41:21.712483+00:00",
+  "results": [
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-coverage-schedule-01/freeze.json",
+      "sha256": "2ff74d09ef5ab04c4b9d711dec1350295098966be10468bc4a9679e9a3e0dc5c",
+      "records": 11,
+      "mismatches": 0
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-review-01/freeze.json",
+      "sha256": "32459a4a72a03fe8df6950aa21e060449f64e6be07616c472b4bccdeab65d9d9",
+      "records": 5,
+      "mismatches": 0
+    },
+    {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/freeze.json",
+      "sha256": "dd277b5d479a5aca0af8610db99ae8728f190c20c2f55e28e786307068162048",
+      "records": 58,
+      "mismatches": 0
+    }
+  ],
+  "boundedS02Assurance": "Separate Reviewer verified all 6024 Worker records and actual producer/consumer/causal/projection relations. Root consumes that CLOSED result; no redundant native run."
+}

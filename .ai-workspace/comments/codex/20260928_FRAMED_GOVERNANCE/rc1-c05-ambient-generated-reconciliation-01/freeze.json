@@ -1,0 +1,115 @@
+{
+  "status": "CLOSED",
+  "role": "Worker",
+  "actor": "/root",
+  "operation": "T287_C05_AMBIENT_GENERATED_RECONCILIATION_01",
+  "records": [
+    {
+      "path": "preimages/build/code/src/product/install_product.js",
+      "bytes": 14359,
+      "sha256": "772a8171c1d74cb43dfff250464a83edfdc4f729cee35c0fad849fe9ace5428d",
+      "mode": 420
+    },
+    {
+      "path": "preimages/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "79ab564f42589c119cc7bc501c0776c0b325cd4a83b22e118957878d9039a2c6",
+      "mode": 420
+    },
+    {
+      "path": "preimages/product-toolchain-manifest.json",
+      "bytes": 2567514,
+      "sha256": "6862a7882cf7a457c1e79207aa78001e8d1742efbed38a34ddfaee297663e88d",
+      "mode": 420
+    },
+    {
+      "path": "readback.json",
+      "bytes": 3480,
+      "sha256": "843f89ff6bd3ed77c77440b5e4dc3daf01fd0149f7d96656ffa6aa51a0005c8e",
+      "mode": 420
+    },
+    {
+      "path": "request.txt",
+      "bytes": 2004,
+      "sha256": "1b8ce44f9b6a553451ed03221ab6d5164fdce96c43aa682d845ea0780f5b219e",
+      "mode": 420
+    },
+    {
+      "path": "sections.json",
+      "bytes": 2275,
+      "sha256": "ed98f5e46c337e987770997fb9663534d1e2c190664bf8b136e52ac8440666f7",
+      "mode": 420
+    },
+    {
+      "path": "target-preimages.json",
+      "bytes": 2097,
+      "sha256": "b58c3ad391d1278d269cbc1318a253de92c13843a3b9628a91c288b96c969754",
+      "mode": 420
+    }
+  ],
+  "recordCount": 7,
+  "targetRows": [
+    {
+      "target": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/install_product.js",
+        "bytes": 14488,
+        "sha256": "897785dc428d82a00cbe641791dc050a69606930e4ed6c7e132b5a3d81ae76c1",
+        "mode": 420
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c05-ambient-generated-reconciliation-01/preimages/build/code/src/product/install_product.js",
+        "bytes": 14359,
+        "sha256": "772a8171c1d74cb43dfff250464a83edfdc4f729cee35c0fad849fe9ace5428d",
+        "mode": 420
+      },
+      "donor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/build/code/src/product/install_product.js",
+        "bytes": 14488,
+        "sha256": "897785dc428d82a00cbe641791dc050a69606930e4ed6c7e132b5a3d81ae76c1",
+        "mode": 420
+      }
+    },
+    {
+      "target": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "0d9b18a13510b3880d12af6e8a2f9e81b7cd3d3e22dccb850ddea2e51eae8f4c",
+        "mode": 420
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c05-ambient-generated-reconciliation-01/preimages/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "79ab564f42589c119cc7bc501c0776c0b325cd4a83b22e118957878d9039a2c6",
+        "mode": 420
+      },
+      "donor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "bytes": 197474,
+        "sha256": "0d9b18a13510b3880d12af6e8a2f9e81b7cd3d3e22dccb850ddea2e51eae8f4c",
+        "mode": 420
+      }
+    },
+    {
+      "target": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 2567514,
+        "sha256": "87c8ccc41d4a6129cc01bf7b15dbd9673073e4672d359595b4df3d36b7b30f2c",
+        "mode": 420
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c05-ambient-generated-reconciliation-01/preimages/product-toolchain-manifest.json",
+        "bytes": 2567514,
+        "sha256": "6862a7882cf7a457c1e79207aa78001e8d1742efbed38a34ddfaee297663e88d",
+        "mode": 420
+      },
+      "donor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "bytes": 2567514,
+        "sha256": "87c8ccc41d4a6129cc01bf7b15dbd9673073e4672d359595b4df3d36b7b30f2c",
+        "mode": 420
+      }
+    }
+  ],
+  "generated": 926,
+  "payload": 5258
+}

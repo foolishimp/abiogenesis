@@ -1,0 +1,85 @@
+  sdlcComplianceScenario({
+    key: "rust-cli",
+    scenarioId: "SCN-GLC-HELLO-WORLD-RUST-CLI",
+    kind: "rust_cli",
+    expectedStdout: "Hello, world!\n",
+    stagePlan: [
+      {
+        stage: "conformance_project",
+        filesToProduce: ["specification/project-conformance.md"],
+        instructions: [
+          "Write only specification/project-conformance.md.",
+          "Declare a Rust CLI Hello World software-build traversal.",
+          "The source surface must include Cargo.toml and src/main.rs.",
+          "The execution proof must run cargo run --quiet and observe stdout exactly \"Hello, world!\\n\"."
+        ]
+      },
+      {
+        stage: "implementation_design",
+        filesToProduce: ["design/implementation-design.md"],
+        instructions: [
+          "Write only design/implementation-design.md.",
+          "Define a minimal Rust binary crate named glc_hello_world_rust.",
+          "The binary must print exactly \"Hello, world!\" followed by one newline.",
+          "Name component and UAT test source surfaces that execute cargo run --quiet and assert stdout."
+        ]
+      },
+      {
+        stage: "source",
+        filesToProduce: ["Cargo.toml", "src/main.rs"],
+        instructions: [
+          "Write only Cargo.toml and src/main.rs.",
+          "Cargo.toml must define package name glc_hello_world_rust, version 0.0.0, edition 2021, and no dependencies.",
+          "src/main.rs must define main() and print exactly \"Hello, world!\" followed by one newline."
+        ]
+      },
+      {
+        stage: "test_design",
+        filesToProduce: ["design/test-design.md"],
+        instructions: [
+          "Write only design/test-design.md.",
+          "Specify component and UAT validation of the Rust CLI stdout contract.",
+          "Both tests must spawn cargo run --quiet from the project root and assert status 0 and stdout exactly \"Hello, world!\\n\"."
+        ]
+      },
+      {
+        stage: "component_test_source",
+        filesToProduce: ["test/component/rust-cli.test.mjs"],
+        instructions: [
+          "Write only test/component/rust-cli.test.mjs.",
+          "Use node:test, node:assert/strict, and node:child_process spawnSync.",
+          "Run cargo with [\"run\", \"--quiet\"] from the project root.",
+          "Assert status 0 and stdout exactly \"Hello, world!\\n\"."
+        ]
+      },
+      {
+        stage: "uat_test_source",
+        filesToProduce: ["test/uat/rust-cli.uat.test.mjs"],
+        instructions: [
+          "Write only test/uat/rust-cli.uat.test.mjs.",
+          "Use node:test, node:assert/strict, and node:child_process spawnSync.",
+          "Run cargo with [\"run\", \"--quiet\"] from the project root.",
+          "Assert the user-visible Rust CLI output is exactly \"Hello, world!\\n\"."
+        ]
+      },
+      {
+        stage: "test_execution_plan",
+        filesToProduce: ["test-execution-plan.json"],
+        instructions: [
+          "Write only test-execution-plan.json.",
+          "The JSON command must be node.",
+          "The args must be [\"--test\", \"test/component/rust-cli.test.mjs\", \"test/uat/rust-cli.uat.test.mjs\"].",
+          "expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.",
+          "expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.",
+          "assertedReturnValue must be \"Hello, world!\"."
+        ]
+      },
+      {
+        stage: "test_execution_result",
+        instructions: [
+          "Produce no files.",
+          "Accept only if the planned node:test command exited 0, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true."
+        ]
+      }
+    ]
+  }),

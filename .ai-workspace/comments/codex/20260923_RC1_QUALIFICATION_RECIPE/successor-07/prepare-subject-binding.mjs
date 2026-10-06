@@ -1,0 +1,35 @@
+// One-time immutable input projection. Runtime bindings and judgments remain absent.
+import fs from 'node:fs/promises';
+import assert from 'node:assert/strict';
+import {join,dirname} from 'node:path';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {createRequire} from 'node:module';
+const E=dirname(fileURLToPath(import.meta.url)),R='/Users/jim/src/apps/abiogenesis',T=join(R,'build_tenants/abiogenesis/typescript');
+const read=async name=>JSON.parse(await fs.readFile(join(E,name),'utf8'));
+const write=async(name,value)=>fs.writeFile(join(E,name),JSON.stringify(value,null,2)+'\n');
+const ready=await read('package-readiness.json'),base=ready.installRoot;
+const p=await import(pathToFileURL(join(base,'build/code/src/product/index.js')).href);
+const q=await import(pathToFileURL(join(base,'build/code/src/validator/qualification_contracts.js')).href);
+const v=createRequire(join(base,'package.json'))('valibot');
+const inventoryRows=await read('source-inventory.json');
+const classify=path=>path.startsWith('design/')?['design']:path.startsWith('test_env/')?['proof']:path.startsWith('scripts/')?['execution_contract']:path.startsWith('contracts/qualification/')?['qualification']:path.startsWith('contracts/')?['public_contract']:path.startsWith('code/')||path.startsWith('build/')?['code']:['manifest'];
+const classificationRef='selection://abiogenesis/rc1/compiled13-source-and-material';
+const members=inventoryRows.map(x=>({ref:'repo://abiogenesis/build_tenants/abiogenesis/typescript/'+x.path,path:'build_tenants/abiogenesis/typescript/'+x.path,digest:'sha256:'+x.sha256,byteCount:x.bytes,surfaceRoles:classify(x.path),classificationEvidenceRefs:[classificationRef]}));
+const authority=JSON.parse(await fs.readFile(join(T,'contracts/qualification/authority-inputs.json'),'utf8'));
+for(const x of authority.sources.filter(x=>x.ref.startsWith('repo://abiogenesis/'))){const path=x.ref.slice('repo://abiogenesis/'.length),b=await fs.readFile(join(R,path));assert.equal(p.sha256Bytes(b),x.digest);const original=join(E,'../authority-originals',path);assert.equal(p.sha256Bytes(await fs.readFile(original)),x.digest);members.push({ref:x.ref,path,digest:x.digest,byteCount:b.length,surfaceRoles:['constitutional'],classificationEvidenceRefs:[classificationRef]});}
+const controlNames=['verification-recipe.json','recipe.mjs','recipe-stage.mjs','compare-generated.mjs','test-environment.mjs','config.json','input-manifest.json','expected-output-inventory.json','test-selection.json','lint-population.json','toolchain.json','npm-toolchain-inventory.json','release-claims.json'];
+for(const name of controlNames){const path='.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-07/'+name,b=await fs.readFile(join(E,name));members.push({ref:'repo://abiogenesis/'+path,path,digest:p.sha256Bytes(b),byteCount:b.length,surfaceRoles:[name==='release-claims.json'?'release_claim':name==='toolchain.json'||name==='npm-toolchain-inventory.json'?'manifest':'execution_contract'],classificationEvidenceRefs:[classificationRef]});}
+assert.equal(new Set(members.map(m=>m.ref)).size,members.length);
+const inventory=q.constructQualificationIdentity({kind:'qualification_subject_inventory',selectedRoots:['repo://abiogenesis/build_tenants/abiogenesis/typescript/','repo://abiogenesis/specification/','repo://abiogenesis/stdo_abiogenesis.json',...members.filter(m=>m.path.startsWith('.ai-workspace/')).map(m=>m.ref)],coverage:'complete_claim',members},'inventoryRef','inventoryDigest','qualification-inventory://abiogenesis/');
+v.parse(q.QUALIFICATION_INVENTORY_SCHEMA,inventory);await write('qualification-inventory.json',inventory);
+const recipeBytes=await fs.readFile(join(E,'verification-recipe.json')),recipeMember=members.find(m=>m.path.endsWith('/verification-recipe.json'));
+v.parse(q.QUALIFICATION_VERIFICATION_RECIPE_SCHEMA,JSON.parse(recipeBytes));
+const binding={recipe:{ref:recipeMember.ref,path:recipeMember.path,digest:recipeMember.digest,byteCount:recipeMember.byteCount,contentBase64:recipeBytes.toString('base64')},recipePath:'recipe/verification-recipe.json'};
+await write('verification-selection-binding.json',{...binding,missing:'executionSelectionRef must identify the actual same-subject admitted root-C2 Result selection. No synthetic coordinate supplied.'});
+const config=await read('verification-recipe.json'),input=await read('input-manifest.json');for(const row of config.sourceInputs){const m=members.filter(x=>x.ref===row.memberRef);assert.equal(m.length,1);const f=input.sourceFiles.find(x=>x.target===row.relativePath);assert.equal(m[0].digest,'sha256:'+f.sha256);}
+const law=JSON.parse(await fs.readFile(join(T,'contracts/qualification/law-basis.json'),'utf8')),coverage=JSON.parse(await fs.readFile(join(T,'contracts/qualification/coverage.json'),'utf8'));
+const claim=members.find(m=>m.path.endsWith('/release-claims.json')),tool=members.find(m=>m.path.endsWith('/toolchain.json'));
+const template={kind:'exact_candidate_qualification',projection:'basis',schemaVersion:'5.0.0',subjectKind:'pre_rc_candidate',productId:ready.productId,productVersion:ready.packageVersion,sourceInventory:{ref:inventory.inventoryRef,digest:inventory.inventoryDigest},artifact:{ref:pathToFileURL(ready.archive).href,digest:'sha256:'+ready.archiveSha256},productManifest:{ref:'repo://abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json',digest:ready.productManifestDigest},productContentDigest:ready.productContentDigest,toolchain:{ref:tool.ref,digest:tool.digest},installedProduct:null,workspaceBinding:null,prospectiveRelease:{productId:ready.productId,namespace:'abiogenesis',profile:'one_project_unqualified',projectSubtree:'.',versionLine:'5.0.0',ordinal:1,version:'5.0.0-rc.1',releaseClaim:{ref:claim.ref,digest:claim.digest}},tenantManifest:null,coverageCatalog:{ref:coverage.catalogRef,digest:coverage.catalogDigest},lawBasis:{ref:law.lawBasisRef,digest:law.lawBasisDigest}};
+await write('basis-template.json',{status:'unbound_preparation_only',body:template,requiredNativeBindings:['installedProduct','workspaceBinding','tenantManifest'],'construction':'Supply genuine current admitted install/workspace and exact tenant manifest, then existing constructQualificationIdentity(body, basisRef, basisDigest, qualification-basis://abiogenesis/). No ready basis or verdict is minted here.'});
+await write('subject-binding-readiness.json',{status:'passed_structural_preparation',inventoryRef:inventory.inventoryRef,inventoryDigest:inventory.inventoryDigest,members:members.length,sourceInputs:config.sourceInputs.length,recipeSchema:true,sourceInventoryBindings:true,coverageClaim:'Candidate finite inventory/classification claim only; independent source-grounded completeness/applicability judgment remains required. No native authority follows from complete_claim.',runtime:'none'});
+console.log(JSON.stringify({members:members.length,inventoryDigest:inventory.inventoryDigest,recipeDigest:recipeMember.digest,claimDigest:claim.digest,toolchainDigest:tool.digest}));

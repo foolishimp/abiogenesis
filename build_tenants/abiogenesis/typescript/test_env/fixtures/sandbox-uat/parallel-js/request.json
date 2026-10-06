@@ -1,0 +1,290 @@
+{
+  "scenarioId": "SCN-GLC-HELLO-WORLD-PARALLEL-JS",
+  "taskRef": "task://abiogenesis-sandbox-uat/parallel-js/original",
+  "task": "Implement the COMPLETE unchanged selected original test workload below. It is ABG-owned test data outside the Product package. Preserve all original outcomes and unresolved source obligations. Use only the installed generic lifecycle. The adaptation notes govern interpretation of legacy mechanisms, not weakening of original application outcomes.\n\n  sdlcComplianceScenario({\n    key: \"parallel-js\",\n    scenarioId: \"SCN-GLC-HELLO-WORLD-PARALLEL-JS\",\n    kind: \"parallel_js\",\n    expectedStdout: null,\n    expectedReturnValue: \"Hello, world!\",\n    stagePlan: [\n      {\n        stage: \"conformance_project\",\n        filesToProduce: [\"specification/project-conformance.md\"],\n        instructions: [\n          \"Write only specification/project-conformance.md.\",\n          \"Declare a JavaScript Hello World product with parallel branch implementation pressure.\",\n          \"The source surface must have a hello branch, a world branch, and a fan-in module that composes the greeting.\",\n          \"The execution proof must prove branch behavior and composed behavior.\"\n        ]\n      },\n      {\n        stage: \"implementation_design\",\n        filesToProduce: [\"design/implementation-design.md\"],\n        instructions: [\n          \"Write only design/implementation-design.md.\",\n          \"Define a type:module package with src/hello.mjs exporting helloPart(), src/world.mjs exporting worldPart(), and src/index.mjs exporting helloWorld().\",\n          \"helloWorld() must compose the branch functions and return exactly \\\"Hello, world!\\\".\",\n          \"State that this scenario proves product-level parallel branch shape inside the reusable SDLC graph; it does not claim ABG branch-frontier traversal.\"\n        ]\n      },\n      {\n        stage: \"source\",\n        filesToProduce: [\"package.json\", \"src/hello.mjs\", \"src/world.mjs\", \"src/index.mjs\"],\n        instructions: [\n          \"Write only package.json, src/hello.mjs, src/world.mjs, and src/index.mjs.\",\n          \"package.json must be private:true and type:module.\",\n          \"src/hello.mjs must export helloPart() returning \\\"Hello\\\".\",\n          \"src/world.mjs must export worldPart() returning \\\"world\\\".\",\n          \"src/index.mjs must export helloWorld() returning exactly \\\"Hello, world!\\\" by composing helloPart and worldPart.\"\n        ]\n      },\n      {\n        stage: \"test_design\",\n        filesToProduce: [\"design/test-design.md\"],\n        instructions: [\n          \"Write only design/test-design.md.\",\n          \"Specify separate component checks for helloPart and worldPart plus a UAT check for helloWorld.\",\n          \"The UAT check must prove the composed exported behavior returns exactly \\\"Hello, world!\\\".\"\n        ]\n      },\n      {\n        stage: \"component_test_source\",\n        filesToProduce: [\"test/component/parallel-branches.test.mjs\"],\n        instructions: [\n          \"Write only test/component/parallel-branches.test.mjs.\",\n          \"Use node:test and node:assert/strict.\",\n          \"Import helloPart from ../../src/hello.mjs and worldPart from ../../src/world.mjs.\",\n          \"Assert helloPart() returns \\\"Hello\\\" and worldPart() returns \\\"world\\\" in separate test() blocks.\"\n        ]\n      },\n      {\n        stage: \"uat_test_source\",\n        filesToProduce: [\"test/uat/parallel-fanin.uat.test.mjs\"],\n        instructions: [\n          \"Write only test/uat/parallel-fanin.uat.test.mjs.\",\n          \"Use node:test and node:assert/strict.\",\n          \"Import the named export exactly as: import { helloWorld } from \\\"../../src/index.mjs\\\".\",\n          \"Assert helloWorld() returns exactly \\\"Hello, world!\\\".\"\n        ]\n      },\n      {\n        stage: \"test_execution_plan\",\n        filesToProduce: [\"test-execution-plan.json\"],\n        instructions: [\n          \"Write only test-execution-plan.json.\",\n          \"The JSON command must be node.\",\n          \"The args must be [\\\"--test\\\", \\\"test/component/parallel-branches.test.mjs\\\", \\\"test/uat/parallel-fanin.uat.test.mjs\\\"].\",\n          \"expectedTestPassCount must be at least 3, matching the admitted branch and fan-in coverage floor.\",\n          \"expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.\",\n          \"assertedReturnValue must be \\\"Hello, world!\\\".\"\n        ]\n      },\n      {\n        stage: \"test_execution_result\",\n        instructions: [\n          \"Produce no files.\",\n          \"Accept only if the branch and fan-in tests passed, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true.\"\n        ]\n      }\n    ]\n  }),\n\nINTERPRETATION\n{\n  \"runtimeAuthority\": \"Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.\",\n  \"executionEvidence\": \"Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.\",\n  \"sourcePreservation\": \"Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.\",\n  \"legacyTraversal\": \"The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime.\"\n}",
+  "sourceMembers": [
+    {
+      "path": "source/parallel-js/source.original.txt",
+      "fixtureFile": "parallel-js/source.original.txt",
+      "digest": "sha256:d8cc8105e4d16eea10fa8f908656a2c82e5690fc145cfb91e70ed00f84aa6053"
+    },
+    {
+      "path": "source/parallel-js/obligations.json",
+      "fixtureFile": "parallel-js/obligations.json",
+      "digest": "sha256:34921c07256d35ea54b6a006bde5d5041b6f4fc760c75ef090f31365a8e5fb06"
+    },
+    {
+      "path": "source/parallel-js/oracle.json",
+      "fixtureFile": "parallel-js/oracle.json",
+      "digest": "sha256:82a35700c78d9a9c85d18b2727b6de6f9fcb1fbb6a44910f2e46825fbcc2527c"
+    }
+  ],
+  "requiredSupportRefs": [
+    "support://abiogenesis-sandbox-uat/parallel-js/complete-original-outcome"
+  ],
+  "authorityRefs": [
+    "authority://abiogenesis-sandbox-uat/parallel-js/test-workload"
+  ],
+  "readRoots": [
+    "source/parallel-js/source.original.txt",
+    "source/parallel-js/obligations.json",
+    "source/parallel-js/oracle.json",
+    "specification/project-conformance.md",
+    "design/implementation-design.md",
+    "package.json",
+    "src/hello.mjs",
+    "src/world.mjs",
+    "src/index.mjs",
+    "design/test-design.md",
+    "test/component/parallel-branches.test.mjs",
+    "test/uat/parallel-fanin.uat.test.mjs",
+    "test-execution-plan.json"
+  ],
+  "maxContextFiles": 256,
+  "maxContextBytes": 1048576,
+  "maxPromptBytes": 1048576,
+  "workOrders": {
+    "induction": {
+      "outcome": "Establish and preserve the complete original outcome, source obligations and unresolved meaning.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve private:true/type:module, distinct Hello and World branches and a fan-in that composes those functions. Component tests must assert each branch in separate test blocks; UAT must assert composed exported behavior. This is product-level branch shape, not ABG branch-frontier traversal. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/parallel-js/source.original.txt",
+        "source/parallel-js/obligations.json",
+        "source/parallel-js/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "package.json",
+        "src/hello.mjs",
+        "src/world.mjs",
+        "src/index.mjs",
+        "design/test-design.md",
+        "test/component/parallel-branches.test.mjs",
+        "test/uat/parallel-fanin.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "specification": {
+      "outcome": "Author every source-grounded governing, requirement, UAT and qualification surface required by the original source.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve private:true/type:module, distinct Hello and World branches and a fan-in that composes those functions. Component tests must assert each branch in separate test blocks; UAT must assert composed exported behavior. This is product-level branch shape, not ABG branch-frontier traversal. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/parallel-js/source.original.txt",
+        "source/parallel-js/obligations.json",
+        "source/parallel-js/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "package.json",
+        "src/hello.mjs",
+        "src/world.mjs",
+        "src/index.mjs",
+        "design/test-design.md",
+        "test/component/parallel-branches.test.mjs",
+        "test/uat/parallel-fanin.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "design": {
+      "outcome": "Author the complete source-grounded design and genuine executable proof plan, retaining all original dependencies.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve private:true/type:module, distinct Hello and World branches and a fan-in that composes those functions. Component tests must assert each branch in separate test blocks; UAT must assert composed exported behavior. This is product-level branch shape, not ABG branch-frontier traversal. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/parallel-js/source.original.txt",
+        "source/parallel-js/obligations.json",
+        "source/parallel-js/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "package.json",
+        "src/hello.mjs",
+        "src/world.mjs",
+        "src/index.mjs",
+        "design/test-design.md",
+        "test/component/parallel-branches.test.mjs",
+        "test/uat/parallel-fanin.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "construction": {
+      "outcome": "Construct the missing original application/test/lifecycle assets and repair observed failures without weakening any obligation.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve private:true/type:module, distinct Hello and World branches and a fan-in that composes those functions. Component tests must assert each branch in separate test blocks; UAT must assert composed exported behavior. This is product-level branch shape, not ABG branch-frontier traversal. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/parallel-js/source.original.txt",
+        "source/parallel-js/obligations.json",
+        "source/parallel-js/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "package.json",
+        "src/hello.mjs",
+        "src/world.mjs",
+        "src/index.mjs",
+        "design/test-design.md",
+        "test/component/parallel-branches.test.mjs",
+        "test/uat/parallel-fanin.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "testing": {
+      "outcome": "Execute the exact original proof commands against the real application. Preserve native observations, failing evidence, authentic depth and mutation evidence where required.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve private:true/type:module, distinct Hello and World branches and a fan-in that composes those functions. Component tests must assert each branch in separate test blocks; UAT must assert composed exported behavior. This is product-level branch shape, not ABG branch-frontier traversal. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/parallel-js/source.original.txt",
+        "source/parallel-js/obligations.json",
+        "source/parallel-js/oracle.json"
+      ],
+      "writeRoots": [],
+      "checks": [
+        "node --test test/component/parallel-branches.test.mjs test/uat/parallel-fanin.uat.test.mjs"
+      ]
+    },
+    "uat": {
+      "outcome": "Independently assess the full original source against every oracle obligation and actual admitted execution evidence. Preserve unmet and indeterminate outcomes.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve private:true/type:module, distinct Hello and World branches and a fan-in that composes those functions. Component tests must assert each branch in separate test blocks; UAT must assert composed exported behavior. This is product-level branch shape, not ABG branch-frontier traversal. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/parallel-js/source.original.txt",
+        "source/parallel-js/obligations.json",
+        "source/parallel-js/oracle.json"
+      ],
+      "writeRoots": [],
+      "checks": [
+        "Preserve private:true/type:module, distinct Hello and World branches and a fan-in that composes those functions. Component tests must assert each branch in separate test blocks; UAT must assert composed exported behavior. This is product-level branch shape, not ABG branch-frontier traversal. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ]
+    }
+  },
+  "testing": {
+    "selectedPaths": [
+      "specification/project-conformance.md",
+      "design/implementation-design.md",
+      "package.json",
+      "src/hello.mjs",
+      "src/world.mjs",
+      "src/index.mjs",
+      "design/test-design.md",
+      "test/component/parallel-branches.test.mjs",
+      "test/uat/parallel-fanin.uat.test.mjs",
+      "test-execution-plan.json",
+      "source/parallel-js/source.original.txt",
+      "source/parallel-js/obligations.json",
+      "source/parallel-js/oracle.json"
+    ],
+    "commands": [
+      {
+        "commandId": "command://abiogenesis-sandbox-uat/parallel-js/tests",
+        "executable": "node",
+        "args": [
+          "--test",
+          "test/component/parallel-branches.test.mjs",
+          "test/uat/parallel-fanin.uat.test.mjs"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 120000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      }
+    ],
+    "outcomePredicates": [
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/parallel-js/tests-exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/parallel-js/tests",
+          "equals": 0
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/parallel-js/test-count",
+        "predicateKind": "test_pass_count",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/parallel-js/tests",
+          "greaterThanOrEqual": 3
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/parallel-js/module-0",
+        "predicateKind": "module_export_return_exact",
+        "declaration": {
+          "path": "src/hello.mjs",
+          "export": "helloPart",
+          "equals": "Hello"
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/parallel-js/module-1",
+        "predicateKind": "module_export_return_exact",
+        "declaration": {
+          "path": "src/world.mjs",
+          "export": "worldPart",
+          "equals": "world"
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/parallel-js/module-2",
+        "predicateKind": "module_export_return_exact",
+        "declaration": {
+          "path": "src/index.mjs",
+          "export": "helloWorld",
+          "equals": "Hello, world!"
+        }
+      }
+    ],
+    "allowedWriteTerritories": [
+      {
+        "pathKind": "subtree",
+        "relativePath": "execution-evidence"
+      }
+    ]
+  },
+  "assessment": {
+    "sources": [
+      "source/parallel-js/source.original.txt",
+      "source/parallel-js/obligations.json"
+    ],
+    "candidatePath": "src/index.mjs",
+    "rubricPath": "source/parallel-js/oracle.json"
+  },
+  "legacyInterpretation": {
+    "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+    "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+    "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+    "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+  }
+}

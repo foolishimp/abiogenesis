@@ -1,0 +1,33 @@
+{
+  "foldbackNegatives": [
+    {
+      "name": "missing foldback",
+      "actualFirstRefusal": {
+        "name": "TypeError",
+        "message": "runtime event-prefix selection requires one explicit immutable snapshot"
+      }
+    },
+    {
+      "name": "crossed child graph call",
+      "actualFirstRefusal": {
+        "name": "TypeError",
+        "message": "runtime event-prefix selection requires one explicit immutable snapshot"
+      }
+    },
+    {
+      "name": "crossed child result",
+      "actualFirstRefusal": {
+        "name": "TypeError",
+        "message": "runtime event-prefix selection requires one explicit immutable snapshot"
+      }
+    }
+  ],
+  "conclusion": "Three counterfactual arrays were not minted by the existing immutable snapshot owner. Their refusal occurs before the foldback predicate. Exit0 does not establish the required nearest foldback negative coverage.",
+  "preservedPositive": "Real retained body-reference parent and direct-child CCall/Result/J owners reach one original producer. The pinned source preimage refuses its workflow owner.",
+  "lowerPremises": [
+    "Reference-task resource/declaration lookup supplies exact task/plan and full original declaration proofs; complete resource assembly and semantic sufficiency are untested.",
+    "Competing/duplicate-producer policy uses the unchanged explicit synthetic admitted-lookup fixture.",
+    "Counterfactual foldback rows are ordinary test data with a supplied read mapping; no Runtime admission occurred."
+  ],
+  "nextRootSelection": "Test-only corrected immutable-snapshot fixture construction through the existing RuntimeDerivationSource, with one bounded check proving missing/crossed foldback reaches its intended owner predicates. Source change, compiler result and real parent/direct-child positives are retained; no source expansion or retry selected here."
+}

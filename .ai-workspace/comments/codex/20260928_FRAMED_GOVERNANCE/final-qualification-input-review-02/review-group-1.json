@@ -1,0 +1,82 @@
+{
+  "group": 1,
+  "timeoutSeconds": 120,
+  "elapsedSeconds": 0.05673433281481266,
+  "snapshots": [
+    {
+      "label": "C02",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+      "bytes": 4543994,
+      "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469",
+      "keys": [
+        "status",
+        "work_result",
+        "activation",
+        "frozenAt",
+        "return",
+        "sourceFreeze",
+        "selected",
+        "records",
+        "effects",
+        "limits",
+        "stop"
+      ],
+      "recordCount": 16774
+    },
+    {
+      "label": "Q02",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/freeze.json",
+      "bytes": 15744,
+      "sha256": "a4c2b5afd94fd7402b6bbfc732e691eb345dbcf4334a0300de490f607b9aad79",
+      "keys": [
+        "status",
+        "work_result",
+        "activation",
+        "role",
+        "actor",
+        "separateSessionIdentity",
+        "frozenAt",
+        "return",
+        "records",
+        "externalInputs",
+        "candidateFreeze",
+        "donorFreeze",
+        "request",
+        "inventory",
+        "recipe",
+        "toolchain",
+        "nativeBindings",
+        "executionSelectionRef",
+        "effects",
+        "limits",
+        "stop"
+      ],
+      "recordCount": 82
+    },
+    {
+      "label": "Q01",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/freeze.json",
+      "bytes": 8013,
+      "sha256": "0a386fd10e1067abb3f09ba4d7f115b56593045ca0d0d1aa272fb7fcc0a46bbe",
+      "keys": [
+        "status",
+        "work_result",
+        "activation",
+        "frozenAt",
+        "return",
+        "records",
+        "externalInputs",
+        "effects",
+        "stop"
+      ],
+      "recordCount": 46
+    }
+  ],
+  "Q02LocalRecordsVerified": 82,
+  "Q01Review": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-input-review-01.md",
+    "bytes": 13107,
+    "sha256": "613c0dacf611a31a5253716a60b2801d2fb1ba949d554cfadc54e9263a37a3d6"
+  },
+  "requestJoinVerified": true
+}

@@ -1,4 +1,4 @@
-import { projectConstructionIntentContinuations, type ConstructionIntentContinuation } from "./construction_continuation.js";
+import { projectConstructionIntentContinuations, projectSelectedActionContinuations, type SelectedActionContinuation, type ConstructionIntentContinuation } from "./construction_continuation.js";
 import { projectObservedWorksiteCommandChildAtPrefix } from "./worksite_input_provenance.js";
 import { isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { projectRegisteredSelectionInputAtPrefix, registeredSelectionInputRelationVersion } from "./registered_selection_provenance.js";
@@ -414,7 +414,7 @@ export interface ReplayState {
   readonly routes: readonly ReplayRouteState[];
   readonly constructionDeltas: readonly ReplayConstructionDeltaState[];
   readonly fanOutCompletions: readonly FanOutCompletionAdmission[];
-  readonly continuations: readonly (ReplayContinuationState | ConstructionIntentContinuation)[];
+  readonly continuations: readonly (ReplayContinuationState | ConstructionIntentContinuation | SelectedActionContinuation)[];
   readonly actorProcesses: readonly ReplayActorProcessState[];
   readonly currentWorksiteObservations: readonly ReplayCurrentWorksiteObservation[];
   readonly activeFluents: readonly string[];
@@ -1126,7 +1126,8 @@ function deriveReplayPrefixFacts(
 
   const runOpen = indexedRuntimeEvents(prefix, "kind:run_segment_opened")[0];
   const continuations = [...projectFhContinuations(prefix, eventCalculus, authorityPrefix),
-    ...projectConstructionIntentContinuations(authorityPrefix, events.find(e => e.kind === "run_segment_opened")?.runId ?? "")];
+    ...projectConstructionIntentContinuations(authorityPrefix, events.find(e => e.kind === "run_segment_opened")?.runId ?? ""),
+    ...projectSelectedActionContinuations(authorityPrefix, events.find(e => e.kind === "run_segment_opened")?.runId ?? "")];
   const graphCallOpen = indexedRuntimeEvents(prefix, "kind:graph_call_opened").find(
     (event) =>
       event.kind === "graph_call_opened" &&
@@ -1749,7 +1750,7 @@ function projectOwnerFacts(
   prefix: ValidatedRuntimeEventPrefix,
   authorityPrefix: ValidatedRuntimeEventPrefix,
   replayState: ReplayState,
-  continuations: readonly (ReplayContinuationState | ConstructionIntentContinuation)[],
+  continuations: readonly (ReplayContinuationState | ConstructionIntentContinuation | SelectedActionContinuation)[],
   correspondence: ReadonlyMap<string, string>,
   currentOwnerPrefix?: DurablePrefixCoordinate,
 ): readonly Readonly<Record<string, JsonValue>>[] {

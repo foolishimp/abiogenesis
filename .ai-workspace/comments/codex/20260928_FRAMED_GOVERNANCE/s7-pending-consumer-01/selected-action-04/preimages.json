@@ -1,0 +1,24 @@
+{
+  "activation": "T287_S7_SELECTED_ACTION_INSTALLED_04",
+  "recordedAt": "2026-09-29T15:51:29.561229+00:00",
+  "requestSha256": "b71af53d473c8f4a257842a31294a02cf09c40aae54e348d0a55b25a0ff28450",
+  "head": "55a8a452141caf180ea6cee6365d2a1bfb9da34e",
+  "indexSha256": "ec46bac8e76e787d61fb13c2b4e7239643dcd42b699801c3ab79b705309801ae",
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+      "bytes": 16938,
+      "sha256": "e9a5b69d192606e89da1d024aca02b12472202b38501200660ed78bb8093ee9a"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+      "bytes": 6752,
+      "sha256": "112a427c52aa47b7c93777e1cd93e2ecb7129908f263c9958f3945d18e3262f8"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "bytes": 12214,
+      "sha256": "ffd7832f8440f85c23bd88847ef65b0ee8886e2078e3fb880e3d53fdf6b20617"
+    }
+  ]
+}

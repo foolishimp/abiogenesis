@@ -1,0 +1,85 @@
+{
+  "status": "ACCEPTED_INPUT_PREPARATION_ONLY",
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "phase": "phase1",
+  "executive": "/root",
+  "acceptedAt": "2026-10-06 Australia/Sydney",
+  "basis": {
+    "product": "Fixed fifteen-family ABG5; GOAL035/T287 F05/F10/F11/F15",
+    "method": "stdo://releases/v2.5.1-rc.2/",
+    "methodManifestSHA256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "frameRevision": 2
+  },
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/grant.md",
+    "bytes": 9251,
+    "sha256": "2740da3e83f1318613e9aae1f6db915202112a52c16f8ed012aa97e018db5c24"
+  },
+  "subject": {
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase1-return.json",
+      "bytes": 25549,
+      "sha256": "877b0d60f5caf4a8f11e643229efbb344ef817ffe00d7e04eb8f6f8ff39bbba9"
+    },
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase1-freeze.json",
+      "bytes": 20955,
+      "sha256": "e12887ab7a813c1a905d9b21db69a5c6d8cff432616aadd83ede27cfa9983cfa"
+    },
+    "archiveSHA256": "214c576620c5f552cbf22a82f8f318638903013ca23ff49e42496b2d190a47f6",
+    "requestFileSHA256": "88f338dd707e8a49a5c891b7903e4ff9b756837e1d9ddef8dc9b1ebc8df0de35",
+    "requestDigest": "sha256:8119ad295760f98334453f403de893e5949f0683a964d6519547dcb4fbbd3e24"
+  },
+  "reviews": [
+    {
+      "actor": "/root/current_source_review",
+      "status": "CLOSED_GO",
+      "scope": "Source/Proof input",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_04/review-source-phase1.json",
+      "bytes": 7131,
+      "sha256": "607ce3833c890c64aa9da62d4649941cca4669a5c46be49fe17d774692677c17"
+    },
+    {
+      "actor": "/root/current_reuse_cost_review",
+      "status": "CLOSED_GO",
+      "scope": "Identity/Effect/cost/reuse",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_04/review-identity-phase1.json",
+      "bytes": 5994,
+      "sha256": "cdb2e430ed0384bfa0c873911cd8e94a39761fddc948e60ec579d7cea96d73c6"
+    }
+  ],
+  "acceptedRelations": [
+    "Canonical Public m05 preparation preserves both actual current Source bodies and two actual construction selections; historical records/grants remain unchanged.",
+    "All35 selected Source data bodies occur once; validation retains complete provenance records while actor context uses existing metadata/span projection.",
+    "Frozen flow reloads current input/resource/declaration/continuation/request; owning request equality is checked before native dispatch.",
+    "The original109-event prefix, inode465654884, installed214c candidate and controlled archives remain unchanged."
+  ],
+  "observed": {
+    "promptBytes": 740737,
+    "selectedBodyBytes": 679886,
+    "canonicalPreparationMs": 278.63987500000076,
+    "processElapsedMs": 20910.542332996556,
+    "processLifetimePeakRSSBytes": 2383757312,
+    "phase1RuntimeEvents": 0,
+    "phase1CLIInvocations": 0
+  },
+  "phase2": {
+    "disposition": "RELEASE_READY_UNDER_EXISTING_GRANT_EXPLICIT_ROOT_FOLLOWUP_REQUIRED",
+    "frozenInputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04",
+    "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase2",
+    "exit": "One actual native independent assessment, authenticated original producer, affected F11, two closed Runs, four fresh Public Result/replay reads; preserve full terminals/source/producer, normalize only projectionBasis.",
+    "transport": "Configured Claude2.1.289/HOME/OAuth/model unchanged; existing closed_prompt_proof and neutral ['--system-prompt',' '] append args; actual effect remains to be observed.",
+    "effects": "Existing grant's original controlled02 TMPDIR/log append/archiveRoot only; no setup/install/source/package/method/Git/release mutation.",
+    "stop": "First material failure freezes and stops; no retry or repair without Root triage."
+  },
+  "remaining": [
+    "Semantic context sufficiency, attribution warrant, actual CLI context effect, genuine J/F11/fresh proof pending.",
+    "Whole-candidate semantic assessment, parent paths, seven actual defects, exact-candidate coverage/QUAL056/AF22 and RC sequence remain open."
+  ],
+  "writer": {
+    "ticketPreimageBytes": 495788,
+    "ticketPreimageSHA256": "62214bc6aa516e9255bb682b273c66c5bd20a0d473476b67c6a442ed39695f2e",
+    "effects": "Initially absent phase1-acceptance.json and selected ticket routing only; readback closes Writer to Executive."
+  }
+}

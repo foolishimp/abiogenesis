@@ -1,0 +1,861 @@
+{
+  "status": "complete_at_final_record_assembly",
+  "controls": [
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/activation.json",
+        "bytes": 1663,
+        "sha256": "5799216f54ea3232d1d3d73e05216cf6393ea5b7a9e578944130f6be2ba90b24"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/activation.json",
+        "bytes": 703,
+        "sha256": "9c069357f609a6fe5fb120c9255641a194f4f7da9aa68b763c5d0dfa2143c1d2"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/authority-correspondence.json",
+        "bytes": 68406,
+        "sha256": "0b17314b026a33368fdd489e402bc7f6f274bffc181819835fac8363979bf3d9"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/authority-correspondence.json",
+        "bytes": 55160,
+        "sha256": "5dfcba1118cbd2beb544a7ca8e0efc28659997d2143d50b2fcf9ca0d9cc8bc11"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/basis-template.json",
+        "bytes": 3155,
+        "sha256": "42ea5d5cdb5902318676136da6448441cc67e3bb8ada36589ae77d54b70e8214"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/basis-template.json",
+        "bytes": 2826,
+        "sha256": "4b87843eec704f44fe57e8aa88c241e3479206711d9d45bba0a1ae794a5aea90"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/bind-inputs.py",
+        "bytes": 14370,
+        "sha256": "2f609265b9a80e9ceeb3a277320890b4c730500ff6c30fbf6903e5281d2055e0"
+      },
+      "original": null,
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/budgets.json",
+        "bytes": 7717,
+        "sha256": "36492bd8ab8b6ce7bf6d9338254cd95ba88c2d949266933c71ae8f8899e238a9"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/budgets.json",
+        "bytes": 7717,
+        "sha256": "36492bd8ab8b6ce7bf6d9338254cd95ba88c2d949266933c71ae8f8899e238a9"
+      },
+      "relation": "exact copy",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/classification-evidence.json",
+        "bytes": 1321,
+        "sha256": "1a9590048ed31ca6c7b2d429bee78f3ff5547e38790a6976a8d28b64016eaa90"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/classification-evidence.json",
+        "bytes": 938,
+        "sha256": "dcc806aeb77b73382efef1fcd830a7f5f8805e4e56f7aa3a5b2c3ea0044812b5"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/close.py",
+        "bytes": 5726,
+        "sha256": "61ac71e4c70b2512752e2cc4673e9998a87c75e6ee1ded3055d29b3e82fe0005"
+      },
+      "original": null,
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/compare-generated.mjs",
+        "bytes": 1988,
+        "sha256": "5853d79e35d8be6347caa7f21576450bcc611e23f23cebbe85da4c767426a945"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/compare-generated.mjs",
+        "bytes": 1988,
+        "sha256": "5853d79e35d8be6347caa7f21576450bcc611e23f23cebbe85da4c767426a945"
+      },
+      "relation": "exact copy",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/config.json",
+        "bytes": 34145,
+        "sha256": "1bc12a49cdf8a8714e56ab590b94b834f690833651c6c67addbbfd9700b3b0b4"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/config.json",
+        "bytes": 34145,
+        "sha256": "1bc12a49cdf8a8714e56ab590b94b834f690833651c6c67addbbfd9700b3b0b4"
+      },
+      "relation": "exact copy",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/configuration-binding.json",
+        "bytes": 57649,
+        "sha256": "2c79866c8079a4f9396b7e3c928bdede7a8401dd1b7b79a5a21ca960cf37c650"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/configuration-binding.json",
+        "bytes": 57649,
+        "sha256": "2c79866c8079a4f9396b7e3c928bdede7a8401dd1b7b79a5a21ca960cf37c650"
+      },
+      "relation": "exact copy",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/conserved-component-evidence.json",
+        "bytes": 8719,
+        "sha256": "b66215a64ae24661a67083492561209d00dece1159a94ded6feec5e6627fabd7"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/conserved-component-evidence.json",
+        "bytes": 10921,
+        "sha256": "40ec8c8d3a8c6f582a751b960dc5665f818cb6e41e54a96bf5652d9e7acdec65"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/consumed-inputs.json",
+        "bytes": 5715367,
+        "sha256": "cf9f9c336075a439442cc44a63b87a3e8d875d3ae596a40e858d5acb89c0cc44"
+      },
+      "original": null,
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/cost-and-processes.json",
+        "bytes": 9966,
+        "sha256": "5d72b1535e8c7cca1cc310372be6f38e40e833fb0af21f786337fb451b028ede"
+      },
+      "original": null,
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/current-publication-closure.json",
+        "bytes": 4466,
+        "sha256": "bd0d062117d2f0fb77081671afb4567b805757748964f99d6ea81ebbe96ef6af"
+      },
+      "original": null,
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/donor-controls.json",
+        "bytes": 8145,
+        "sha256": "295ca4a44a66542fa04869540bb2c871cb58c5ffb8462a439ba80ed7c8a27351"
+      },
+      "original": null,
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/environment-delta.json",
+        "bytes": 891,
+        "sha256": "fb9844abe01ced67353c0157beb16d27ed62b50f04b0d23be9037785c8d2db8d"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/environment-delta.json",
+        "bytes": 1076,
+        "sha256": "8771011ad0cf8e5e0412e672b2b9fd3b951358736ccd0bae509797d06374f048"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/expected-output-inventory.json",
+        "bytes": 169792,
+        "sha256": "adc3c9f3dd7153a30e2314229a2f73d02b7f3a759dce264c03897ebdeae57300"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/expected-output-inventory.json",
+        "bytes": 169792,
+        "sha256": "93ee396c6c4ab55acd49a6e5a4ab4ba1695d00d5090d720ade5dcadfcb09af05"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/external-construction-context.json",
+        "bytes": 3255,
+        "sha256": "217ebdf129ebc3311c5fd5cccbb702714d0fbe62dd3c7199eab01b18e7b390eb"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/external-construction-context.json",
+        "bytes": 6646,
+        "sha256": "c83218cb2a3cbe0a0136f5d3673c2fb721827f9fe323b9771f21888e27275705"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/external-input-freeze.json",
+        "bytes": 5881198,
+        "sha256": "2fb436b9c9c654f4e5bb51451d6e36f11d57e1761c6c3aa7c5c8e7f474dc0d02"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/external-input-freeze.json",
+        "bytes": 629188,
+        "sha256": "927ea1c2d48fbdb715e7d51cef568ab1a8451ca9b1e1f4a6738e03462fb59584"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/final-check.py",
+        "bytes": 6613,
+        "sha256": "3d0d0c1909c049b3f777ee976d3ac8de66906ca48efcac2ec54626b9376ca87c"
+      },
+      "original": null,
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/final-conservation.json",
+        "bytes": 684,
+        "sha256": "aff714997daa1e3152f1836badfd87dd26dd425b39e0de4bdd1f787d9afdbf84"
+      },
+      "original": null,
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/input-joins.json",
+        "bytes": 1825,
+        "sha256": "437e131fe6e0bcc9ba3a5aff0c51a157290b3feed48d8b00e0312b76cb3b9508"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/input-joins.json",
+        "bytes": 1378,
+        "sha256": "283b3a33048d339664d0393a10dd6fc3bc20ef999e63040b4f03a5acd4f1c7d2"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/input-manifest.json",
+        "bytes": 526663,
+        "sha256": "28ea348979a2379dcee793a06a2c30932d5d40265f2640356925119ffd7ba94d"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/input-manifest.json",
+        "bytes": 526663,
+        "sha256": "31b2570099dca822979ac3b8f3ce9ba21f83fde070b07940bb81fca3b7068907"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/lint-population.json",
+        "bytes": 36068,
+        "sha256": "98ce74ab468c5a0668222916073c016f6cd51dac398c32275c577ed1eaa69f36"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/lint-population.json",
+        "bytes": 36068,
+        "sha256": "98ce74ab468c5a0668222916073c016f6cd51dac398c32275c577ed1eaa69f36"
+      },
+      "relation": "exact copy",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/native-obligations.json",
+        "bytes": 1380,
+        "sha256": "abb7e0de79480076759191bc8237c077c49956193c230e4d5389d9ac965c3b42"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/native-obligations.json",
+        "bytes": 8502,
+        "sha256": "cf57b43c1463b5a99322cf883c1db76f8b86e39f921af915e8e3c19b75f40875"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/next-setup-c2-inputs.json",
+        "bytes": 12930,
+        "sha256": "82a9d3dac6e5d6e51d64ebac122cc86ae111afdaf8f3da4280ed0af0dd17d029"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/next-setup-c2-inputs.json",
+        "bytes": 11336,
+        "sha256": "ae2422c8bc96915bd0a4c41b8e66997e980d9b60d9ba1deb3b8f668beeed0b5f"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/npm-toolchain-inventory.json",
+        "bytes": 414516,
+        "sha256": "780d6d76eeb6ca13bc10ac01ed6ad6ff5c55cfa68882e4555ae7fc880d5bfe9c"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/npm-toolchain-inventory.json",
+        "bytes": 414516,
+        "sha256": "54140b1ad3786cc658e0a04584fad6996685591b768e4ea0cb2274713ca00e03"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/package-readiness.json",
+        "bytes": 849,
+        "sha256": "35cf66bb051fe861c4083922fb3c4ff4d0ade901500cc8e835d464dbe38d06a3"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/package-readiness.json",
+        "bytes": 840,
+        "sha256": "eac96043aa246c8a289cedd27dfaabf8fff3fe81822e788af6db5877def399d1"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/population-binding.json",
+        "bytes": 1981,
+        "sha256": "7b13164b0f18efb3bd3a5f4b57f30078925d35b1d769dc839b318b6825831c0b"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/population-binding.json",
+        "bytes": 1983,
+        "sha256": "153f203737b096c34950ffdc475854a05ba8d06d619f3c61d4f6269e6a481222"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/prepare-inputs.py",
+        "bytes": 13085,
+        "sha256": "00077fd3b127883248022ff260a08a6fef2573d9913e2f875c582180cb2accc9"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/prepare-inputs.py",
+        "bytes": 11075,
+        "sha256": "626c557755398b89b0c0f4a973a87bc4f96819a8c73ebe6b1d30788f3494ee1d"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/prepare-subject-binding.mjs",
+        "bytes": 14458,
+        "sha256": "a18bd86d3056aa4566a618c2aff772d0c56dca827382f27b5ebdba0963a8801e"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/prepare-subject-binding.mjs",
+        "bytes": 14332,
+        "sha256": "fd637585b97289a83a1fa970d3f616899a23ef83b9957081f2987cfd08f39062"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/qualification-inventory.json",
+        "bytes": 1045681,
+        "sha256": "9e918b0ad678e707c823e1e280cd24d1445d5ddb83adc3a46328104a613ccfb2"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/qualification-inventory.json",
+        "bytes": 1045681,
+        "sha256": "64393d5791617ad2b50ed6f43a9fcca87e2a59384918ed44e39c362055e85348"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/qualification-member-correspondence.json",
+        "bytes": 3131398,
+        "sha256": "7fae01fb29cec4d5c39e4213faa6e8f13a0b2adbafa56d0686fc9f122718b145"
+      },
+      "original": null,
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/qualification-partition-inputs.json",
+        "bytes": 3494,
+        "sha256": "28cbb3f0d60adafe9dab60acd17d26f481e92e4b745c1dd10bc3b2555759027c"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/qualification-partition-inputs.json",
+        "bytes": 3315,
+        "sha256": "8db9cdda7e8ac618548af0bbb10fc7b7976c765dd0d3621bf44afe074fd7b851"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/recipe-stage.mjs",
+        "bytes": 1497,
+        "sha256": "1f0fb1cefe4b7b5da2ea0e0a060fb82733efbe03cc9f61d708728108af325f56"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/recipe-stage.mjs",
+        "bytes": 1497,
+        "sha256": "1f0fb1cefe4b7b5da2ea0e0a060fb82733efbe03cc9f61d708728108af325f56"
+      },
+      "relation": "exact copy",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/recipe.mjs",
+        "bytes": 3442,
+        "sha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/recipe.mjs",
+        "bytes": 3442,
+        "sha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68"
+      },
+      "relation": "exact copy",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/release-claims.json",
+        "bytes": 2228,
+        "sha256": "d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/release-claims.json",
+        "bytes": 2228,
+        "sha256": "d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0"
+      },
+      "relation": "exact copy",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/return.md",
+        "bytes": 11460,
+        "sha256": "93acef28bcceaf9dbf46a87f4ee9280aef3c0fa6f9be0f962748f73506fcc911"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/return.md",
+        "bytes": 5659,
+        "sha256": "cec7467d130cab1571c18fedb477f34f4ef49f3186d2a7f6a2e6fc08c9567313"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/run-group.py",
+        "bytes": 2579,
+        "sha256": "f93caebc4f9ee733a3aeee96cf78e2f0663c4c11e130e2166b30c6f6fc1d113f"
+      },
+      "original": null,
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/selection-conservation.json",
+        "bytes": 1627,
+        "sha256": "7ea6ea6af5b6d2799611a891ca4ee6ca9725fd2968678a45c1656fc81e921968"
+      },
+      "original": null,
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/source-inventory.json",
+        "bytes": 957197,
+        "sha256": "0807f36f50475a1f982a4904077c43f9934a69bc5b097bb270fefe3660bc0bf8"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/source-inventory.json",
+        "bytes": 957197,
+        "sha256": "0668cbd1518fe26e70c79941b979612eb2140caa30d54667606eed14a0ba4c28"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/staging-contract.json",
+        "bytes": 45539,
+        "sha256": "e069987e586a86a3b98137c2656ebd7ed104a6f16e96cd37c436b069a1074e25"
+      },
+      "original": null,
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/subject-binding-readiness.json",
+        "bytes": 694,
+        "sha256": "6b685c1659140c1838816c1b3d53884dec1161144744717d8af030f73a3db27c"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/subject-binding-readiness.json",
+        "bytes": 694,
+        "sha256": "6b685c1659140c1838816c1b3d53884dec1161144744717d8af030f73a3db27c"
+      },
+      "relation": "exact copy",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/syntax-selection-check.json",
+        "bytes": 48286,
+        "sha256": "9f2f284a123f4a3dcbbdc0db8fea7ccac3c40d5f24f2c4ae9b5171323325d58b"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/syntax-selection-check.json",
+        "bytes": 48286,
+        "sha256": "9f2f284a123f4a3dcbbdc0db8fea7ccac3c40d5f24f2c4ae9b5171323325d58b"
+      },
+      "relation": "exact copy",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/test-environment.mjs",
+        "bytes": 779,
+        "sha256": "2e578975a7bfe7b89e8c54e55cef3f7da318aa2e40d10572ae69ea54b13e2c15"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/test-environment.mjs",
+        "bytes": 779,
+        "sha256": "2e578975a7bfe7b89e8c54e55cef3f7da318aa2e40d10572ae69ea54b13e2c15"
+      },
+      "relation": "exact copy",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/test-selection.json",
+        "bytes": 8553,
+        "sha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/test-selection.json",
+        "bytes": 8553,
+        "sha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f"
+      },
+      "relation": "exact copy",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/test-source-selection-check.json",
+        "bytes": 33553,
+        "sha256": "4d3ea67d91352c2a343d78b517b65217a64ae909ac6663b7b49696e9d428db91"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/test-source-selection-check.json",
+        "bytes": 33553,
+        "sha256": "82abb16313e28014b4ed6b410e747448d249401f5071f3519e06163b16ba042c"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/toolchain-preview-binding.json",
+        "bytes": 1686,
+        "sha256": "edb2afc078fb34b4cde6134f5bf690c8128fea3a33907009471eb93dd85e69fa"
+      },
+      "original": null,
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/toolchain.json",
+        "bytes": 2223,
+        "sha256": "c8a694ddb749b3f8e2aa7c76afacf2e074b9b15ab12411b0dca8eb877037f8b1"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/toolchain.json",
+        "bytes": 2223,
+        "sha256": "a81c04f4613d8326bd1209bf9f65016c0c7cbc2a3e51a963f54aec3973589b1d"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/unbound-readiness.json",
+        "bytes": 1354,
+        "sha256": "099b7075a48cd5452345d789bc2537fabc1a703894ec1f6523897c551b91af97"
+      },
+      "original": null,
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/validate-inputs.mjs",
+        "bytes": 9742,
+        "sha256": "796d760cd7d095c7b7eb202525107df0e194af76e46a66236e54571ce3f81acd"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/validate-inputs.mjs",
+        "bytes": 8092,
+        "sha256": "ef4081fff7bc9082ae220fefc813ac3029a5c51fcf53072731ae83e61ed7ce55"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/validation-result.json",
+        "bytes": 2103,
+        "sha256": "79cee32ec412b85bb5c6b32f5574ad0c4dfbd89cae40f56af5f6fa096b8cb7ca"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/validation-result.json",
+        "bytes": 1140,
+        "sha256": "5063421d33f008b899d2756c1111eae97034f9152520ce314f763d3f4892af45"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/verification-recipe.json",
+        "bytes": 193070,
+        "sha256": "99770779369b9d7ee2470b8a1df7930b8e6aec2062e46acc2a375d4554b392f0"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/verification-recipe.json",
+        "bytes": 193070,
+        "sha256": "febe79e55253141fee1b9f4d3524efc775893a9fdfe96deb5d4d1fca6577cb5c"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    },
+    {
+      "successor": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/verification-selection-binding.json",
+        "bytes": 258043,
+        "sha256": "906df5e2d09d64da6d8450ccb66c820c20c3e793ae553149b87b53f2cb775e3e"
+      },
+      "original": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/verification-selection-binding.json",
+        "bytes": 258043,
+        "sha256": "472f1d4480d4d5644e37909f0940a5f485efff5eb23646f73ad34356c58dc640"
+      },
+      "relation": "current external input/control realization",
+      "actualConstructionActor": "/root/s03_independent_review",
+      "grant": "T287_FINAL_QUALIFICATION_INPUTS_02",
+      "scope": "Current external input or closure evidence only; no inherited Product semantic authorship or qualification-owner authority assigned"
+    }
+  ],
+  "completeQualificationMemberMap": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/qualification-member-correspondence.json",
+    "bytes": 3131398,
+    "sha256": "7fae01fb29cec4d5c39e4213faa6e8f13a0b2adbafa56d0686fc9f122718b145"
+  },
+  "retainedOriginalCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/freeze.json",
+    "bytes": 8013,
+    "sha256": "0a386fd10e1067abb3f09ba4d7f115b56593045ca0d0d1aa272fb7fcc0a46bbe"
+  },
+  "currentGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-input-controls-02/request.txt",
+    "bytes": 8021,
+    "sha256": "2f44595315f6ffa264b0414b6230cff96ebb03fe50c64b23cca648927bc62d6d"
+  },
+  "originalsNotReissued": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/bind-far-side.py",
+      "sha256": "9feedefa29dcf9332c8b0ee0960cfd7792484681b7ada0281c9707fcc9ca7bc4",
+      "disposition": "Retained immutable Q01 historical record; not reissued as current Q02 input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/causal-triage.json",
+      "sha256": "129c7ad232210ade86c6b6f32ecd5819ec779f51cd78a664b889cb67f1a2e658",
+      "disposition": "Retained immutable Q01 historical record; not reissued as current Q02 input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/complete-inputs.py",
+      "sha256": "374c911a7350a2bfa93f7613a334ec129b1a1775a6f35add6aa1ea50b430ba02",
+      "disposition": "Retained immutable Q01 historical record; not reissued as current Q02 input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/construction-check-01.json",
+      "sha256": "18dcb1a9a78077b3d17c2736fbc9ee671c5fb491f63ecd8bfd4f1a46db266dd9",
+      "disposition": "Retained immutable Q01 historical record; not reissued as current Q02 input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/first-material-failure.json",
+      "sha256": "4fa9032cf846d856bf5c98c067627d190ebe9c116ada23d9db893125e3b85c84",
+      "disposition": "Retained immutable Q01 historical record; not reissued as current Q02 input"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/missing-publication-owner.json",
+      "sha256": "3c358bfb7e73aa61c0b67f8472007f93248dc50da4757268e43c8487c871b4f9",
+      "disposition": "Retained immutable Q01 historical record; not reissued as current Q02 input"
+    }
+  ],
+  "acyclicLimit": "This metadata map and its diff have enclosing freeze identities; neither enters its own digest, protected recipe or qualification inventory. Final record assembly replaces the earlier pre-report capture with complete current closure metadata."
+}

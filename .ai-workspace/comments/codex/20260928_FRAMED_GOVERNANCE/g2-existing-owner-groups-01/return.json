@@ -1,0 +1,508 @@
+{
+  "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "CLOSED",
+  "disposition": "PAYLOADS_PASS_REPORT_FORMAT_REFUSAL_RETAINED",
+  "reentry": "realization_refactor",
+  "subject": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/package.json",
+      "repoPath": "build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 10997,
+      "sha256": "9be6214f72cb8665c925763e1d4ae6393b85abcd6f2a52c698236e983feab46a",
+      "mode": 420,
+      "preimageSHA256": "b01fad9ad6e172420abf9996f5d630122d914eb9a1fc6ea54b46bf64be60e396",
+      "preimageAbsent": false,
+      "immutableCopy": "postimages/package.json",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript/package.json",
+      "authoredBy": {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "actor": "/root/native_applicability_design",
+        "role": "Worker"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "repoPath": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 44203,
+      "sha256": "3ddf0224ad78e9fa58872f7e5115adb676749e7b447ff99b3df6bf77e3f3e02f",
+      "mode": 420,
+      "preimageSHA256": "79ce13a2998a3b3a805391650eaaf6d0f7d12592e7d0df0937bd0f7e06def4c8",
+      "preimageAbsent": false,
+      "immutableCopy": "postimages/scripts/generate-product-manifest.mjs",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "authoredBy": {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "actor": "/root/native_applicability_design",
+        "role": "Worker"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m01.ts",
+      "repoPath": "build_tenants/abiogenesis/typescript/code/src/gtl/m01.ts",
+      "bytes": 519,
+      "sha256": "936477eab1caec07060aa101956aec18c46369c72dd236756f49b9d451976c2d",
+      "mode": 420,
+      "preimageSHA256": null,
+      "preimageAbsent": true,
+      "immutableCopy": "postimages/code/src/gtl/m01.ts",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript/code/src/gtl/m01.ts",
+      "authoredBy": {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "actor": "/root/native_applicability_design",
+        "role": "Worker"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m02.ts",
+      "repoPath": "build_tenants/abiogenesis/typescript/code/src/gtl/m02.ts",
+      "bytes": 277,
+      "sha256": "4535916231be67481475c32c31aca6e7fff4ba11265a56162c6e631cbccdbecf",
+      "mode": 420,
+      "preimageSHA256": null,
+      "preimageAbsent": true,
+      "immutableCopy": "postimages/code/src/gtl/m02.ts",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript/code/src/gtl/m02.ts",
+      "authoredBy": {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "actor": "/root/native_applicability_design",
+        "role": "Worker"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/requirements.ts",
+      "repoPath": "build_tenants/abiogenesis/typescript/code/src/gtl/requirements.ts",
+      "bytes": 116,
+      "sha256": "42c8504b5a14bff680413c32942307a4ca8ff0f5819294d191d164a84eedc23c",
+      "mode": 420,
+      "preimageSHA256": null,
+      "preimageAbsent": true,
+      "immutableCopy": "postimages/code/src/gtl/requirements.ts",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript/code/src/gtl/requirements.ts",
+      "authoredBy": {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "actor": "/root/native_applicability_design",
+        "role": "Worker"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/requirements.ts",
+      "repoPath": "build_tenants/abiogenesis/typescript/code/src/abg/requirements.ts",
+      "bytes": 107,
+      "sha256": "4a2021d9e83971c2818d09fcfafd1b4c51047d7412cddf400cb0699adcdd92c3",
+      "mode": 420,
+      "preimageSHA256": null,
+      "preimageAbsent": true,
+      "immutableCopy": "postimages/code/src/abg/requirements.ts",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/requirements.ts",
+      "authoredBy": {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "actor": "/root/native_applicability_design",
+        "role": "Worker"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/m03.ts",
+      "repoPath": "build_tenants/abiogenesis/typescript/code/src/abg/m03.ts",
+      "bytes": 105,
+      "sha256": "db96e35ff64efea7bc6859eba8eb78924f709a9a5ffa343d04d3b78875b8daaf",
+      "mode": 420,
+      "preimageSHA256": null,
+      "preimageAbsent": true,
+      "immutableCopy": "postimages/code/src/abg/m03.ts",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/m03.ts",
+      "authoredBy": {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "actor": "/root/native_applicability_design",
+        "role": "Worker"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/m03/transport.ts",
+      "repoPath": "build_tenants/abiogenesis/typescript/code/src/abg/m03/transport.ts",
+      "bytes": 162,
+      "sha256": "1015ff15f7f0fec36ea030e48fff44c5f85d69424fd45d21b6cfa0c71f8d85b9",
+      "mode": 420,
+      "preimageSHA256": null,
+      "preimageAbsent": true,
+      "immutableCopy": "postimages/code/src/abg/m03/transport.ts",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript/code/src/abg/m03/transport.ts",
+      "authoredBy": {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "actor": "/root/native_applicability_design",
+        "role": "Worker"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/app/m04.ts",
+      "repoPath": "build_tenants/abiogenesis/typescript/code/src/app/m04.ts",
+      "bytes": 567,
+      "sha256": "46d1fbbd6e096fb56e97e71cda8e78a41a11e93e8a0bc0529dfb8303bff8b23a",
+      "mode": 420,
+      "preimageSHA256": null,
+      "preimageAbsent": true,
+      "immutableCopy": "postimages/code/src/app/m04.ts",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript/code/src/app/m04.ts",
+      "authoredBy": {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "actor": "/root/native_applicability_design",
+        "role": "Worker"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/qualification/m05.ts",
+      "repoPath": "build_tenants/abiogenesis/typescript/code/src/qualification/m05.ts",
+      "bytes": 240,
+      "sha256": "07400152e44fd769f137ac504f15da6d95e51749ecd9ca59c45bf2e53b4d7758",
+      "mode": 420,
+      "preimageSHA256": null,
+      "preimageAbsent": true,
+      "immutableCopy": "postimages/code/src/qualification/m05.ts",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript/code/src/qualification/m05.ts",
+      "authoredBy": {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "actor": "/root/native_applicability_design",
+        "role": "Worker"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-public-groups.test.mjs",
+      "repoPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-public-groups.test.mjs",
+      "bytes": 7101,
+      "sha256": "d94d4eb569a268a5a7f6ec730c2ff49008a3f9b7e2ade36f11ad7f1a19c22b26",
+      "mode": 420,
+      "preimageSHA256": null,
+      "preimageAbsent": true,
+      "immutableCopy": "postimages/test_env/tests/t287-public-groups.test.mjs",
+      "stagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-public-groups.test.mjs",
+      "authoredBy": {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "actor": "/root/native_applicability_design",
+        "role": "Worker"
+      }
+    }
+  ],
+  "ownerBindings": [
+    {
+      "contractId": "abg.contract.abg.m03",
+      "packageExportPath": "./abg/m03",
+      "namedSymbol": "RuntimeEvent",
+      "contractDigest": "sha256:6486a04e73d5f650e7d137f01b0bf051b63b1f02792166cdcaaab5192835c27b",
+      "declarationPath": "build/code/src/abg/m03.d.ts",
+      "declarationInventoryMembers": 308
+    },
+    {
+      "contractId": "abg.contract.abg.requirements",
+      "packageExportPath": "./abg/requirements",
+      "namedSymbol": "authenticateRequirementHandoffBasis",
+      "contractDigest": "sha256:624414ae486bad697f089a64c65dcb508b1b426cad091810fc3215d90a5a0ed1",
+      "declarationPath": "build/code/src/abg/requirements.d.ts",
+      "declarationInventoryMembers": 308
+    },
+    {
+      "contractId": "abg.contract.abg.transport",
+      "packageExportPath": "./abg/m03/transport",
+      "namedSymbol": "WorkerTransportContract",
+      "contractDigest": "sha256:310e0c4a21373a42ff895b3206b7488e9d87e72beab979cdd3f14ec06e0b5030",
+      "declarationPath": "build/code/src/abg/m03/transport.d.ts",
+      "declarationInventoryMembers": 308
+    },
+    {
+      "contractId": "abg.contract.app.m04",
+      "packageExportPath": "./app/m04",
+      "namedSymbol": "PUBLIC_FUNCTION_DEFINITION_FAMILY",
+      "contractDigest": "sha256:134909767fe2a42df3d36a1ba4253d914d818b55a79a01ef88b98fc5e8855083",
+      "declarationPath": "build/code/src/app/m04.d.ts",
+      "declarationInventoryMembers": 309
+    },
+    {
+      "contractId": "abg.contract.gtl.m01",
+      "packageExportPath": "./gtl/m01",
+      "namedSymbol": "C",
+      "contractDigest": "sha256:7aecd809ddaf1e83a0c4c53e1ea6a7b167b258860ccb8308dd8779a1dfa144f2",
+      "declarationPath": "build/code/src/gtl/m01.d.ts",
+      "declarationInventoryMembers": 308
+    },
+    {
+      "contractId": "abg.contract.gtl.m02",
+      "packageExportPath": "./gtl/m02",
+      "namedSymbol": "modulePublication",
+      "contractDigest": "sha256:a2dd852be1c7df33e978fede38f9faac8f6e5a903fdaada32c4dd64177c45e57",
+      "declarationPath": "build/code/src/gtl/m02.d.ts",
+      "declarationInventoryMembers": 19
+    },
+    {
+      "contractId": "abg.contract.gtl.requirements",
+      "packageExportPath": "./gtl/requirements",
+      "namedSymbol": "REQUIREMENT_HANDOFF_DECLARATION_SCHEMA",
+      "contractDigest": "sha256:92436c3ffaef9a1e93d36ab61961b127d11a86988646503e9e3eda38e256c2f4",
+      "declarationPath": "build/code/src/gtl/requirements.d.ts",
+      "declarationInventoryMembers": 11
+    },
+    {
+      "contractId": "abg.contract.qualification.m05",
+      "packageExportPath": "./qualification/m05",
+      "namedSymbol": "QualificationLawBasis",
+      "contractDigest": "sha256:9fbf71b87fd0cf29e9eb7841f86a83931d935438d0051fc2a5673dcd4aae9827",
+      "declarationPath": "build/code/src/qualification/m05.d.ts",
+      "declarationInventoryMembers": 308
+    }
+  ],
+  "scope": {
+    "addedAddressableGroups": 8,
+    "currentCatalogRows": 69,
+    "allExtantIdentitiesConserved": 61,
+    "genericExportsUnchanged": 7,
+    "previousSerializedAssetIdentitiesConserved": 47,
+    "packagedPhysicalFiles": 5276,
+    "packagedPhysicalBytes": 69480307,
+    "allPackageMembersRegular": true
+  },
+  "readiness": {
+    "actualPayloadReceipts": [
+      {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+          "node_modules/typescript/bin/tsc",
+          "-p",
+          "tsconfig.json"
+        ],
+        "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript",
+        "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01",
+        "capSeconds": 180,
+        "HOMEUnchanged": true,
+        "defaultHeap": true,
+        "environment": {
+          "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/tmp"
+        },
+        "pid": 27221,
+        "pgid": 27221,
+        "exitCode": 0,
+        "timedOut": false,
+        "wait4Reaped": true,
+        "wait4Status": 0,
+        "groupAbsent": true,
+        "elapsedMs": 7382.502582855523,
+        "userCPUSeconds": 11.563665,
+        "systemCPUSeconds": 0.43838499999999997,
+        "maxRSSPlatformBytes": 1089847296,
+        "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+          "scripts/generate-product-manifest.mjs"
+        ],
+        "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript",
+        "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01",
+        "capSeconds": 180,
+        "HOMEUnchanged": true,
+        "defaultHeap": true,
+        "environment": {
+          "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/tmp"
+        },
+        "pid": 27522,
+        "pgid": 27522,
+        "exitCode": 0,
+        "timedOut": false,
+        "wait4Reaped": true,
+        "wait4Status": 0,
+        "groupAbsent": true,
+        "elapsedMs": 20713.165959343314,
+        "userCPUSeconds": 23.704945,
+        "systemCPUSeconds": 1.814391,
+        "maxRSSPlatformBytes": 1613414400,
+        "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/npm/bin/npm-cli.js",
+          "pack",
+          "--ignore-scripts",
+          "--offline",
+          "--json",
+          "--pack-destination",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/packs"
+        ],
+        "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript",
+        "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01",
+        "capSeconds": 180,
+        "HOMEUnchanged": true,
+        "defaultHeap": true,
+        "environment": {
+          "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/tmp"
+        },
+        "pid": 27885,
+        "pgid": 27885,
+        "exitCode": 0,
+        "timedOut": false,
+        "wait4Reaped": true,
+        "wait4Status": 0,
+        "groupAbsent": true,
+        "elapsedMs": 3842.438291758299,
+        "userCPUSeconds": 3.809392,
+        "systemCPUSeconds": 0.49022299999999996,
+        "maxRSSPlatformBytes": 373571584,
+        "stdoutSHA256": "6295beb5549b97d8f1d586d6651bf2f110456a8445d1998fee20105ec6d91a9b",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+        "command": [
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+          "--test",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/consumer/t287-public-groups.test.mjs"
+        ],
+        "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript",
+        "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01",
+        "capSeconds": 180,
+        "HOMEUnchanged": true,
+        "defaultHeap": true,
+        "environment": {
+          "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+          "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/tmp"
+        },
+        "pid": 28565,
+        "pgid": 28565,
+        "exitCode": 0,
+        "timedOut": false,
+        "wait4Reaped": true,
+        "wait4Status": 0,
+        "groupAbsent": true,
+        "elapsedMs": 15797.32424998656,
+        "userCPUSeconds": 19.355788,
+        "systemCPUSeconds": 0.854163,
+        "maxRSSPlatformBytes": 1443708928,
+        "stdoutSHA256": "90380f2706730fd3af88afca392279ac05c5c76f30f05aec135c285996f4814e",
+        "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "actualFocusedProducer": "\u2714 all eight exact package addresses resolve canonical owner projections (402.085042ms)\n\u2714 catalog locates fresh complete declaration closures, retaining every extant identity (207.817417ms)\n\u2714 missing group and crossed locator are rejected by the same fixed oracle (16.723583ms)\n\u2139 tests 3\n\u2139 suites 0\n\u2139 pass 3\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 15752.232958\n",
+    "observedNodeSummary": {
+      "reporter": "Node spec",
+      "tests": 3,
+      "pass": 3,
+      "fail": 0
+    },
+    "negativeDiscriminators": [
+      "missing exact group row",
+      "crossed package-export locator",
+      "altered declaration-inventory digest"
+    ],
+    "SourceAndPackagedWiring": "PASS; independent assurance and Root acceptance not performed by Worker"
+  },
+  "productReadinessTuple": {
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10525055,
+      "sha256": "4e38b5cfec8ab81ec5f3f5374e69bf089ecac7f425c4744176459b155362aec7"
+    },
+    "productContentDigest": "sha256:671686c3c5c7f81526d859773420afff9671676efd7286b3575a0a14c68aa74d",
+    "catalogDigest": "sha256:8cb308c2d9be4ce21edfd5c08c12c5587b48961fb80f8ef9a5f2feeeb701a329",
+    "manifestSHA256": "2f016138e4d023e0e9322b2e6d3e4b68331302c27e2ee99db42b328709b0334e"
+  },
+  "firstReportRefusal": {
+    "path": "report-format-refusal.json",
+    "sha256": "95fd7607a1178748290c8ffa3fe7834510d3d9332e76eb1d569b2f8da8cb81cf",
+    "originatingRelation": "Final accounting caller assumed TAP prefix while actual frozen Node emitted spec reporter. Four completed payload receipts and three passing test outputs remain intact.",
+    "effectsBeforeRefusal": 0,
+    "disposition": "Frozen first-failure closure, not another Source/integration patch or payload retry. Root notified before this closure."
+  },
+  "lowerPremises": [
+    "Exact copied C09 construction/dependency/RC2 generated authority population; no new authority staging.",
+    "Current accepted G1 self_conformance and G3 qualification_proof postimages copied as original owner work.",
+    "Existing owner schemas/types/functions are projected through static facades. No new admission, serialization or installer meaning.",
+    "Native type anchors use the actual extracted NCC TypeScript resolver and complete declaration inventories; runtime witnesses use the extracted package.",
+    "No Public install/verify or Runtime resource was opened. Pack/extraction is isolated readiness, not successor acceptance."
+  ],
+  "stillOpen": [
+    "M01 required named structural-admission/serialization/schema APIs and conformance/diagnostic/repair semantics not implemented by these facades.",
+    "M03 required named canonical runtime-event/vocabulary content still needs owning design and realization; no aliases fabricated.",
+    "25 missing mandated serialized schema/vocabulary/corpus assets remain missing.",
+    "All44 required material content, installed G1/G3 composition, genuine F11 through AF22 and fresh reads, G5/G6 and RC1 closure remain OPEN."
+  ],
+  "authorship": "Eleven exact granted Source subjects authored by this Worker; copied current/frozen owners retain original authorship. Worker is not its independent Reviewer.",
+  "cost": {
+    "supervisedElapsedMs": 47735.431083943695,
+    "userCPUSeconds": 58.43379,
+    "systemCPUSeconds": 3.597162,
+    "maximumObservedRSSPlatformBytes": 1613414400,
+    "perOperationCapSeconds": 180,
+    "defaultHeap": true,
+    "HOMEUnchanged": true,
+    "knownSupervisedGroups": [
+      {
+        "pid": 27221,
+        "pgid": 27221,
+        "exitCode": 0,
+        "reaped": true,
+        "groupAbsent": true
+      },
+      {
+        "pid": 27522,
+        "pgid": 27522,
+        "exitCode": 0,
+        "reaped": true,
+        "groupAbsent": true
+      },
+      {
+        "pid": 27885,
+        "pgid": 27885,
+        "exitCode": 0,
+        "reaped": true,
+        "groupAbsent": true
+      },
+      {
+        "pid": 28565,
+        "pgid": 28565,
+        "exitCode": 0,
+        "reaped": true,
+        "groupAbsent": true
+      }
+    ],
+    "separateChildAccounting": "Nested npm dry-run/pack and Node test child enclosed by recorded supervised groups; no separately launched Runtime/helper/provider child."
+  },
+  "effects": {
+    "canonicalWrites": [
+      "build_tenants/abiogenesis/typescript/package.json",
+      "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/m01.ts",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/m02.ts",
+      "build_tenants/abiogenesis/typescript/code/src/gtl/requirements.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/requirements.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/m03.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/m03/transport.ts",
+      "build_tenants/abiogenesis/typescript/code/src/app/m04.ts",
+      "build_tenants/abiogenesis/typescript/code/src/qualification/m05.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-public-groups.test.mjs"
+    ],
+    "readinessTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01",
+    "allGeneratedPackAndConsumerWritesIsolated": true,
+    "PublicRuntimeCalls": 0,
+    "resourcesOpened": 0,
+    "providers": 0,
+    "network": 0,
+    "Git": 0,
+    "reviewerActivations": 0
+  },
+  "preparationDisposition": [
+    "C09/final-controls/commands.json absent; actual own command configuration authored from known producers",
+    "C09/final-command-plan.json absent; same zero-payload read-only lookup",
+    "abg/worker_protocol.ts absent; corrected facade to actual abg/worker_transport.ts before payload",
+    "hog/contracts.ts and shared/module_publication_digest.ts absent; consumed current canonical owners instead"
+  ],
+  "failedPayloadAttempts": 0,
+  "failedReportAttemptRetained": 1,
+  "payloadRetried": false,
+  "stopped": true
+}

@@ -1,0 +1,355 @@
+{
+  "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+  "passed": 12,
+  "failed": 0,
+  "passes": [
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "published seven-constructor/local-refusal cases exercise exact original recursive syntax",
+        "nesting": 0,
+        "testNumber": 1,
+        "details": {
+          "duration_ms": 2.3435,
+          "type": "test"
+        },
+        "line": 20,
+        "column": 1,
+        "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-language-corpus.test.mjs"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "fixed Program mutations reach the actual sole validator and restore the original positive",
+        "nesting": 0,
+        "testNumber": 2,
+        "details": {
+          "duration_ms": 108.70625,
+          "type": "test"
+        },
+        "line": 30,
+        "column": 1,
+        "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-language-corpus.test.mjs"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "current input is exact, owner branded and preserves actual resolved-publication matching",
+        "nesting": 0,
+        "testNumber": 3,
+        "details": {
+          "duration_ms": 9.081041,
+          "type": "test"
+        },
+        "line": 52,
+        "column": 1,
+        "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-language-corpus.test.mjs"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "strict published definitions and the complete composed tuple census are ready before carrier cases",
+        "nesting": 0,
+        "testNumber": 4,
+        "details": {
+          "duration_ms": 279.25625,
+          "type": "test"
+        },
+        "line": 32,
+        "column": 1,
+        "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "closed tuple arity and closure-event order agree in native admission and the published schema",
+        "nesting": 0,
+        "testNumber": 5,
+        "details": {
+          "duration_ms": 233.45725,
+          "type": "test"
+        },
+        "line": 57,
+        "column": 1,
+        "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "packaged environment scalar projections preserve the original predicate languages",
+        "nesting": 0,
+        "testNumber": 6,
+        "details": {
+          "duration_ms": 25.389875,
+          "type": "test"
+        },
+        "line": 107,
+        "column": 1,
+        "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "complete optional declarations roundtrip while native relational guards remain distinct",
+        "nesting": 0,
+        "testNumber": 7,
+        "details": {
+          "duration_ms": 564.654667,
+          "type": "test"
+        },
+        "line": 136,
+        "column": 1,
+        "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "exact extracted package binds all current schema/API/native declarations and preserves prior addresses",
+        "nesting": 0,
+        "testNumber": 8,
+        "details": {
+          "duration_ms": 20029.982042,
+          "type": "test"
+        },
+        "line": 217,
+        "column": 1,
+        "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "packed native types expose original recursively typed carriers and preserve constructor witnesses",
+        "nesting": 0,
+        "testNumber": 9,
+        "details": {
+          "duration_ms": 3180.379083,
+          "type": "test"
+        },
+        "line": 282,
+        "column": 1,
+        "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "recursive original seven-term syntax roundtrips without acquiring native metadata",
+        "nesting": 0,
+        "testNumber": 10,
+        "details": {
+          "duration_ms": 4.536958,
+          "type": "test"
+        },
+        "line": 312,
+        "column": 1,
+        "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "local admission rejects malformed erased structure and hostile I-JSON without stripping data",
+        "nesting": 0,
+        "testNumber": 11,
+        "details": {
+          "duration_ms": 7.693875,
+          "type": "test"
+        },
+        "line": 329,
+        "column": 1,
+        "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs"
+      }
+    },
+    {
+      "type": "test:pass",
+      "data": {
+        "name": "GraphFunction/module and all application variants preserve authored data and canonical identities",
+        "nesting": 0,
+        "testNumber": 12,
+        "details": {
+          "duration_ms": 23.824709,
+          "type": "test"
+        },
+        "line": 350,
+        "column": 1,
+        "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs"
+      }
+    }
+  ],
+  "summaries": [
+    {
+      "type": "test:summary",
+      "data": {
+        "success": true,
+        "counts": {
+          "tests": 3,
+          "failed": 0,
+          "passed": 3,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 3,
+          "suites": 0
+        },
+        "duration_ms": 127.66525,
+        "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-language-corpus.test.mjs"
+      }
+    },
+    {
+      "type": "test:summary",
+      "data": {
+        "success": true,
+        "counts": {
+          "tests": 9,
+          "failed": 0,
+          "passed": 9,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 9,
+          "suites": 0
+        },
+        "duration_ms": 24356.109792,
+        "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs"
+      }
+    },
+    {
+      "type": "test:summary",
+      "data": {
+        "success": true,
+        "counts": {
+          "tests": 12,
+          "failed": 0,
+          "passed": 12,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 12,
+          "suites": 0
+        },
+        "duration_ms": 25227.226834
+      }
+    }
+  ],
+  "diagnostics": [
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-language-corpus.test.mjs",
+      "line": 30,
+      "value": {
+        "actualOwner": "validator/conformance_operation",
+        "soleValidator": "validator/validation",
+        "programs": 1,
+        "mutations": 5,
+        "restorations": 5,
+        "RuntimeCalls": 0
+      }
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs",
+      "line": 32,
+      "value": {
+        "strictAjv2020": true,
+        "compiledDefinitions": [
+          "GraphFunction",
+          "ModulePublication",
+          "CProgramSyntax",
+          "GtlProgramConformanceInput",
+          "GtlLanguageConformanceCorpus"
+        ],
+        "closedComposedTuples": 23,
+        "publishedSchema": "contracts/schemas/gtl-serialization.schema.json"
+      }
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs",
+      "line": 57,
+      "value": {
+        "closedTuples": 3,
+        "arityOrderTailNegatives": 9,
+        "originalRestorations": 9,
+        "suppliedLocalAuthorityDeclaration": true,
+        "authorityOrderAndUniquenessRemainWholeProgramLaw": true,
+        "wholeProgramClaims": 0
+      }
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs",
+      "line": 107,
+      "value": {
+        "pathCases": 219,
+        "pathOwners": 2,
+        "originalSplitOracle": true,
+        "publishedSchema": "contracts/schemas/gtl-serialization.schema.json",
+        "nonemptyReferencePreserved": true
+      }
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs",
+      "line": 136,
+      "value": {
+        "optionalOwners": [
+          "semanticLifecycle",
+          "semanticJobLifecycle",
+          "requirementHandoffs",
+          "stdoRunEnvironments",
+          "runEnvironments"
+        ],
+        "guardNegatives": 11,
+        "originalRestorations": 11,
+        "assemblyPolicies": 2,
+        "assemblyLifecycleFamilies": 2,
+        "assemblyPositives": 4,
+        "assemblyNegatives": 16,
+        "assemblyRestorations": 16,
+        "suppliedLocalDeclarations": true,
+        "wholeProgramClaims": 0,
+        "RuntimeCalls": 0
+      }
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs",
+      "line": 217,
+      "value": {
+        "catalogRows": 75,
+        "oldIdentities": 69,
+        "packageExports": 15,
+        "nativeDeclarationSources": 1466,
+        "ctsMtsDeclarations": 5,
+        "completeProducerPopulation": true,
+        "pairedRows": 4,
+        "corpusDigest": "sha256:328401a41f1c82793b2cefc47c0faa7aaca663dce0ee946fb675da90a5236c07",
+        "diagnosticValues": 19
+      }
+    },
+    {
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/t287-gtl-serialization-publication.test.mjs",
+      "line": 282,
+      "value": {
+        "nativeConsumer": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/consumer/strict-native-consumer.mts",
+        "strict": true,
+        "diagnostics": 0,
+        "erasedWitnessNegative": true,
+        "crossedWitnessNegative": true
+      }
+    }
+  ],
+  "schemaPreflightBeforeFocusedInvocation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/schema-preflight-result.json",
+    "bytes": 6998,
+    "sha256": "68c1530674f4922762553d4cb7a1b2491df97ecb7a45cb3771b1ae3c3cc7f61d",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 465299074
+  },
+  "completeDeclaredTupleNodes": 23,
+  "suppliedLowerPremises": "Exact fixed corpus and authored complete local declarations; direct structural owner constructors, native raw admission, original canonical serialization and published schema all exercised. Whole Program laws are exercised separately through the sole validator fixed Program/mutations.",
+  "claimLimit": "Author component/package proof; no independent acceptance, installed Public Runtime, provider, genuine F11 or complete qualification proof."
+}

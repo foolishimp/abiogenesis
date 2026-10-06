@@ -1,0 +1,113 @@
+{
+  "checks": [
+    {
+      "name": "independent_conserved_command_selection_controls",
+      "status": "pass",
+      "detail": [
+        {
+          "path": "recipe.mjs",
+          "sha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68",
+          "bytes": 3442
+        },
+        {
+          "path": "recipe-stage.mjs",
+          "sha256": "1f0fb1cefe4b7b5da2ea0e0a060fb82733efbe03cc9f61d708728108af325f56",
+          "bytes": 1497
+        },
+        {
+          "path": "compare-generated.mjs",
+          "sha256": "5853d79e35d8be6347caa7f21576450bcc611e23f23cebbe85da4c767426a945",
+          "bytes": 1988
+        },
+        {
+          "path": "test-environment.mjs",
+          "sha256": "2e578975a7bfe7b89e8c54e55cef3f7da318aa2e40d10572ae69ea54b13e2c15",
+          "bytes": 779
+        },
+        {
+          "path": "test-selection.json",
+          "sha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f",
+          "bytes": 8553
+        },
+        {
+          "path": "config.json",
+          "sha256": "1bc12a49cdf8a8714e56ab590b94b834f690833651c6c67addbbfd9700b3b0b4",
+          "bytes": 34145
+        },
+        {
+          "path": "release-claims.json",
+          "sha256": "d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0",
+          "bytes": 2228
+        },
+        {
+          "path": "budgets.json",
+          "sha256": "36492bd8ab8b6ce7bf6d9338254cd95ba88c2d949266933c71ae8f8899e238a9",
+          "bytes": 7717
+        }
+      ]
+    },
+    {
+      "name": "independent_complete_inventory_delta",
+      "status": "not_established",
+      "error": "AssertionError(('.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md', 'classificationEvidenceRefs'))"
+    },
+    {
+      "name": "independent_complete_expected_output_inventory",
+      "status": "pass",
+      "detail": {
+        "expected": 925,
+        "generated": 828,
+        "preservedContractInputs": 97,
+        "completeExactPathSizeDigestEquality": true
+      }
+    },
+    {
+      "name": "independent_native_owner_toolchain_guard",
+      "status": "pass",
+      "detail": {
+        "source": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+          "bytes": 28309,
+          "sha256": "3e14d15f29656e9bb3e37b5d2bc110104523c349f09911b1f1353890d570eb81"
+        },
+        "lines123to134": [
+          "      role !== \"rule\" && role !== \"coverage\" && rows.some(r => r.disposition === \"inapplicable_with_reason\") ? \"blocked_incomplete\"",
+          "      : rows.every(r => r.disposition === \"inapplicable_with_reason\") ? \"inapplicable_with_reason\" : \"passed\";",
+          "    findings.push({ diagnostic, disposition, detail: \"Exact native scoped assessment: \" + detail, surfaceRefs, ruleRef, sourceRef,",
+          "      provenance: \"J\", evidenceRefs: [...new Set(rows.flatMap(r => r.refs))] });",
+          "  };",
+          "  if (basis.basisDigest !== qualificationIdentityDigest(basis, \"basisRef\", \"basisDigest\")) add(\"subject_basis_digest_mismatch\", \"failed\", \"Qualification basis content identity differs.\");",
+          "  if (basis.productContentDigest !== owner.productContentDigest || basis.productManifest.digest !== owner.manifestDigest || basis.toolchain.digest !== owner.manifestDigest)",
+          "    add(\"installed_candidate_basis_mismatch\", \"failed\", \"Subject does not match the actual native owner package content and manifest.\");",
+          "  if (basis.productId !== owner.productId || basis.productVersion !== owner.productVersion || basis.artifact.digest !== owner.artifactDigest || basis.installedProduct?.ref !== owner.installId || basis.installedProduct.digest !== owner.installDigest || !same(basis.workspaceBinding, owner.workspaceBinding))",
+          "    add(\"installed_admission_basis_mismatch\", \"failed\", \"Qualification input differs from actual current admitted install, artifact, or workspace truth.\");",
+          "  else add(\"installed_admission_basis_bound\", \"passed\", \"Exact native prefix, self-conformance CCall, publication, artifact, install and workspace are authenticated.\");",
+          "  if (!isQualificationBasisReady(basis))"
+        ],
+        "previewEquality": true,
+        "genuineNativeSlotsNull": true
+      }
+    },
+    {
+      "name": "existing_root_staging_contract",
+      "status": "pass",
+      "detail": {
+        "rootSource": "actual workspaceAuthorityBasis.canonicalRoot from the same genuine A/W consumed by constructObservedProducerTask",
+        "requiredOrder": [
+          "Obtain the genuine existing clean workspace A/W and preserve its owner metadata.",
+          "Call selectedFiles(); read and verify ALL 716 immutable input bodies against byte counts/digests before any write.",
+          "Resolve every declared target under that same canonical root and confirm ALL 716 destinations are absent before any write; do not overwrite .abiogenesis or other owner metadata.",
+          "Only after all byte and target prechecks pass, create required declared parent directories and write each selected body exclusively (wx).",
+          "Observe every staged protected file through the actual worksite owner under the same A/W; require exact selected bytes.",
+          "Only under a separately supplied genuine current capability grant, call constructObservedProducerTask against that same canonical root and bind the ordinary installed Public producer."
+        ],
+        "retainedHelper": "stageSelectedInputs(absentRoot) remains unchanged as a new-root helper; it is not the selected existing-workspace caller operation.",
+        "counterexample": "stageSelectedInputs(root) uses exclusive fs.mkdir(root); calling it unchanged after workspace.create.clean fails EEXIST, and staging elsewhere would not match constructObservedProducerTask canonicalRoot.",
+        "targetCount": 716,
+        "ownerMetadataTargets": 0,
+        "performed": false
+      }
+    }
+  ],
+  "qualifyingExecutionPerformed": false
+}

@@ -15,13 +15,13 @@ import {
   TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   uniqueArray,
 } from "../shared/public_function_contracts.js";
-import { STATIC_DIAGNOSTIC_CODE_VALUES } from "./validation.js";
+import { GTL_PROGRAM_DIAGNOSTIC_ID_VALUES } from "./validation.js";
 
 const CONFORMANCE_AUTHORITY =
   "authority://abiogenesis/validator/conformance@5";
 
 const stableDiagnosticSchema = v.strictObject({
-  code: v.picklist(STATIC_DIAGNOSTIC_CODE_VALUES),
+  code: v.picklist(GTL_PROGRAM_DIAGNOSTIC_ID_VALUES),
   path: nonblankSchema,
   message: nonblankSchema,
 });

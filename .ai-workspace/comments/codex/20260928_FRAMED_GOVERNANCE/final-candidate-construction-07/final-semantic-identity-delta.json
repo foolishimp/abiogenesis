@@ -1,0 +1,108 @@
+{
+  "baseline": "actual accepted C06 packaged/staged producers",
+  "current": "actual C07 packaged/staged/installed owner producers",
+  "beforeProduct": "sha256:7b7d18dd1292343672da68804784719c1d47937d8524167f8a15d12ecddc5ace",
+  "afterProduct": "sha256:5ba7ecd89da845d556cf830c4bae6ceaf5f34a27f921f0998a3cf4d56626cc3a",
+  "beforeCatalogDigest": "sha256:b7478dd735a8f74088c2423e59b66182a165376abcf220811a54b19a2254d1ae",
+  "afterCatalogDigest": "sha256:b7478dd735a8f74088c2423e59b66182a165376abcf220811a54b19a2254d1ae",
+  "beforeCatalogRows": 61,
+  "afterCatalogRows": 61,
+  "actualCompleteCatalogEqual": true,
+  "publicationBindings": [
+    {
+      "moduleRef": "module://abiogenesis/default-library/default@5",
+      "C06PublicationDigest": "sha256:41231fee9d03665ee2224b66ab7a01baf5db6a2bb743d7a64bf3cd3b260f9b58",
+      "C07PublicationDigest": "sha256:d34ed9091c89d6fa486f07c33d29aff861f853e627ce5f3cfc3a80a70e55de00",
+      "changed": true
+    },
+    {
+      "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+      "C06PublicationDigest": "sha256:cbc41c48f9e1724d3f1adb3eca7aab5cffa47e59bc29299422ac48c6aaebd4de",
+      "C07PublicationDigest": "sha256:30dd7399ccab4784dff8111b8e1674d2dffb037a391d520c71b36303c2e187fb",
+      "changed": true
+    },
+    {
+      "moduleRef": "module://abg/consensus@5",
+      "C06PublicationDigest": "sha256:53112eecb4c7157fd683163ef8cc8e1fcd22b38dcfab5beb36fa429f10cb98a6",
+      "C07PublicationDigest": "sha256:3d9884f1bd502b14800d50cda795d86750cb068d84c15f388293947c79419112",
+      "changed": true
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/construction@5",
+      "C06PublicationDigest": "sha256:947d57ffee38103ad81b6f0e1ddf615cb62b545f26900b31ed148a3efe6fce69",
+      "C07PublicationDigest": "sha256:4817106743b04c0ea429e85adde4537501dca4c8b48a4228c53a2f755b08f44e",
+      "changed": true
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/command-execution@5",
+      "C06PublicationDigest": "sha256:9b3c1a95a029b141f4a1bae6d734b0c3cc733468f7ab0ce330be275b1e12e3d3",
+      "C07PublicationDigest": "sha256:752b6fceb7c6b3c37f02ea571a3cdf494fbaf93bea010d2ad15e849ba0835b8f",
+      "changed": true
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/native-work@5",
+      "C06PublicationDigest": "sha256:06043c08c75f2723fc2969eddbacf39973ab00e63f23b5fc232aac5d052b4d47",
+      "C07PublicationDigest": "sha256:ae19e3c0c44ff4cb4d915f0a8120028fff75259f1670d1c89699b741e7065a4d",
+      "changed": true
+    },
+    {
+      "moduleRef": "module://abiogenesis/worksite/command-forward@5",
+      "C06PublicationDigest": "sha256:07feda3123a05ccec5e0c533ae03b274727a9da3f43aa2bb7ae4c6ae946cf6a1",
+      "C07PublicationDigest": "sha256:0a5920714460ea3418a00d38046370fad04aeacd8581517bb2bdb80660ac0a3e",
+      "changed": true
+    },
+    {
+      "moduleRef": "module://abiogenesis/requirement-handoff@5",
+      "C06PublicationDigest": "sha256:fe6b5a62d786ecf58eae6a6d69ee6cf603559ed999ffc080aceaea4e3a744281",
+      "C07PublicationDigest": "sha256:a1c5504dfa347e84413da9e64a9bfeaac8d6b7696ec87e2b3208a2d34075657c",
+      "changed": true
+    },
+    {
+      "moduleRef": "module://abiogenesis/semantic-stage@5",
+      "C06PublicationDigest": "sha256:73cf9bcdf37ce594ccbb3e966b5088c1566eccbd8f78c60089412b7f4f0bf62b",
+      "C07PublicationDigest": "sha256:f89cb4708f91beb054c94a3bd2921fd79dae887ab31d2e8d8fae9151944d97bb",
+      "changed": true
+    },
+    {
+      "moduleRef": "module://abiogenesis/semantic-revision@5",
+      "C06PublicationDigest": "sha256:f407449ea1036b0887c3f95039fb75641f859534fdbb7e5ed4d4d02df035079f",
+      "C07PublicationDigest": "sha256:7f1533e1edacdc4319a50ac14a8adaeb573665a4868bbc8ec42079973cb9e4f3",
+      "changed": true
+    },
+    {
+      "moduleRef": "module://abiogenesis/qualification/self-conformance@5",
+      "C06PublicationDigest": "sha256:f084f1ecd8db54b134822170461e16f7c86005b1e85cde96426971dac1f5a24e",
+      "C07PublicationDigest": "sha256:b73df1285501f6d34974974c4d852264642ee966c099da75d91d5668e8d42850",
+      "changed": true
+    }
+  ],
+  "generatedBodies": [
+    {
+      "path": "build/code/src/gtl/self_conformance.js",
+      "C06ActualStageSHA256": "4de8b39dbdbe7f1d1691ea326f6047fe95b19040655d284ca6b78f46036b6037",
+      "C07ActualStageSHA256": "1cda3500928d4d5aa754db23ca17c7197750ce9814458548deef606f77e48002",
+      "bytes": 19029,
+      "role": "generated_output"
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "C06ActualStageSHA256": "ba539af4ef3deb4d73fbe96f611469a575b966075df461fb827253b4d046a8c7",
+      "C07ActualStageSHA256": "012f7a5ab6633742ef51142559b4971992aa13c7b32b719d2a48503f1ee86dcf",
+      "bytes": 197474,
+      "role": "generated_output"
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "C06ActualStageSHA256": "e960ae9b27c03fcd370bb0408fe7dc51c92ec5bd27287a9c29116a5c9eed1729",
+      "C07ActualStageSHA256": "0a864bb480457dd8befee163ccf5fc2cadce3544b66a450d90cc11705557240a",
+      "bytes": 2567514,
+      "role": "generated_output"
+    }
+  ],
+  "completeNativeRows": 37,
+  "capabilityRows": 16,
+  "currentOwnerCoordinates": 196,
+  "ownerCoordinateChanges": 196,
+  "legacyGeneratedProducerField": "final-generated-delta.json C06GeneratedSHA256 is the inherited producer field for the current D/final-stage body; current names above resolve it from final-generated-after.json",
+  "qualification": "not claimed"
+}

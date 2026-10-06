@@ -1,0 +1,318 @@
+{
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "phase": "phase2",
+  "status": "stopped_first_material_provider_refusal",
+  "workerIdentity": "/root/public_preparation_worker",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/grant.md",
+    "bytes": 9251,
+    "sha256": "2740da3e83f1318613e9aae1f6db915202112a52c16f8ed012aa97e018db5c24"
+  },
+  "phase1AcceptedInput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase1-acceptance.json",
+    "bytes": 4868,
+    "sha256": "97a3089f14bdb5c2f72e96bba450b4b8624731018566a31fe9ab5dd8427eb131"
+  },
+  "phase1Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase1-freeze.json",
+    "bytes": 20955,
+    "sha256": "e12887ab7a813c1a905d9b21db69a5c6d8cff432616aadd83ede27cfa9983cfa"
+  },
+  "unchangedFrozenCaller": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/consumer/genuine-pilot.mjs",
+    "bytes": 39329,
+    "sha256": "db6c28138150218709c96a3bddecdae359e4a24cebac4213b1a160b174772271"
+  },
+  "unchangedFrozenInput": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/assessment-input.json",
+    "bytes": 40026,
+    "sha256": "fea8a1a879e9c2d22015ece337f6b5637c32b07341eb86d80633f1998bc39869"
+  },
+  "unchangedFrozenRequest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/prepared-request.json",
+    "bytes": 766415,
+    "sha256": "88f338dd707e8a49a5c891b7903e4ff9b756837e1d9ddef8dc9b1ebc8df0de35"
+  },
+  "firstMaterialFailure": {
+    "wrapper": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase2/first-failure.json",
+      "bytes": 1112,
+      "sha256": "6406a2d92d64d179f955e1d7db892e256ec355e057236a9afe82f9599d23ca0f"
+    },
+    "phase": "native-independent-Claude-dispatch",
+    "actualTerminalKind": "runtime_failed",
+    "nativeReasonRef": "diagnostic://abiogenesis/qualification/assessment_transport_mismatch@5",
+    "providerApiStatus": 400,
+    "providerError": "API Error: 400 system: text content blocks must contain non-whitespace text",
+    "actualTransportObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase2-transport-observation.json",
+      "bytes": 18679,
+      "sha256": "93d5b95b13b57a6f0aecccad5d47a508adbfa02b9f8d419eab8e7f45787dab31"
+    },
+    "noRetryOrRepair": true
+  },
+  "claim": "One actual native configured-Claude attempt consumed the accepted frozen request and failed before independent model judgment. Canonical m05/native preparation passed; provider rejected the exact authorized whitespace system argument. Actual transport, failed native lineage and current owner handoff are retained. This is stopped evidence, not semantic assessment or F11 qualification.",
+  "currentBoundary": {
+    "latestActualHandoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase2/assessment-handoff.json",
+      "bytes": 1235,
+      "sha256": "da5fd9d164f6d945b2977d7d70d7c21df8963630de6f71e4de002b8f3a41e171"
+    },
+    "handoffDigest": "sha256:273dc452823b929cacf8c2dd8ef36f540083bc45dbd73be62f2133804e695748",
+    "liveLog": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/events/runtime.events.jsonl",
+      "bytes": 5489354,
+      "sha256": "0fb336ea0a4f2c69ae3f2c629a8fa39bd8a96d12fecd551cc93728d94cf41811",
+      "device": 16777231,
+      "inode": 465654884,
+      "events": 150
+    },
+    "durablePrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/events/runtime.events.jsonl",
+      "prefixLength": 5489354,
+      "prefixDigest": "sha256:0fb336ea0a4f2c69ae3f2c629a8fa39bd8a96d12fecd551cc93728d94cf41811",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 465654884,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:4af7087efd8caf7789edff769773f176de4fc97cb5e52e07525849f26e4d6cc1"
+    },
+    "accepted109PrefixSnapshot": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_CONTEXT_CONSERVATION_02/accepted-prefix-bytes.snapshot",
+      "bytes": 5302025,
+      "sha256": "7208244c234cedf06b5785a1faecec4606063b40e87cf58b883109057bd33666"
+    },
+    "immutableNewSuffixSnapshot": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase2-event-suffix.snapshot",
+      "bytes": 187329,
+      "sha256": "681c858d9c51281b789c7a0403cd89edcf7d5b2f838c64a913a3b161dcbe1ebd"
+    },
+    "newEventBytes": 187329,
+    "newEvents": 41,
+    "originalTMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/tmp",
+    "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives",
+    "normalOwnerLockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/tmp/abiogenesis-event-store-locks-v5/16777231-465654884.lock",
+    "normalOwnerLockAbsent": true,
+    "prefixPreserved": true
+  },
+  "actualModelAndProfile": {
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02",
+    "model": "claude-opus-5-5",
+    "permissionMode": "bypassPermissions",
+    "apiKeySource": "none",
+    "claude_code_version": "2.1.289",
+    "output_style": "default",
+    "tools": [
+      "StructuredOutput"
+    ],
+    "mcp_servers": [],
+    "agents": [
+      "claude",
+      "Explore",
+      "general-purpose",
+      "Plan"
+    ],
+    "skills": [],
+    "plugins": [
+      {
+        "name": "spec",
+        "path": "/Users/jim/.claude/plugins/cache/specification_stack/spec/2.5.0-rc.6",
+        "source": "spec@specification_stack",
+        "version": "2.5.0-rc.6"
+      },
+      {
+        "name": "cc-plugin-agents-md",
+        "path": "builtin",
+        "source": "cc-plugin-agents-md@builtin"
+      },
+      {
+        "name": "cc-plugin-telemetry",
+        "path": "builtin",
+        "source": "cc-plugin-telemetry@builtin"
+      },
+      {
+        "name": "cc-plugin-plugin-authoring",
+        "path": "builtin",
+        "source": "cc-plugin-plugin-authoring@builtin"
+      }
+    ]
+  },
+  "actualCliUsage": {
+    "output_tokens_details": {
+      "thinking_tokens": 0
+    },
+    "input_tokens": 0,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "output_tokens": 0,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "actualCliModelUsage": {},
+  "actualCliCostUSD": 0,
+  "actualCliDurationMs": 851,
+  "actualCliApiDurationMs": 0,
+  "actualCliTerminalReason": "api_error",
+  "realNativeCliAttempts": 1,
+  "realHttpRequestCount": "unknown unless independently measured",
+  "nativeApiRetries": 0,
+  "nativeToolCalls": 0,
+  "authSecretsReadOrPrinted": false,
+  "independentJudgmentProduced": false,
+  "semanticContextSufficiency": "unassessed; provider envelope rejected before semantic judgment",
+  "F11Executed": false,
+  "freshPublicReadsExecuted": false,
+  "twoRunClosureGoalAchieved": false,
+  "cost": {
+    "command": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/consumer/genuine-pilot.mjs"
+    ],
+    "processReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase2/flow-process.json",
+      "bytes": 2178,
+      "sha256": "5469b6c4e7f76753dab5f5d3e102941df0f33ed9af354fd43cca7eb7624de514"
+    },
+    "elapsedMs": 30865.295041003264,
+    "processMaxRSSPlatformBytes": 2525364224,
+    "rssStanding": "Actual process-lifetime high water; no isolated preparation/CLI allocation peak is claimed.",
+    "defaultHeap": true,
+    "HOMEUnchanged": true,
+    "capSeconds": 600,
+    "actorInactivityMs": 120000,
+    "actorAbsoluteMs": 360000,
+    "newRuntimeBytes": 187329,
+    "canonicalPromptBytes": 740737,
+    "nativeActorPromptBytes": 740737,
+    "newActorArchiveBytes": 753224,
+    "ownedProcessGroupsReapedAndAbsent": true
+  },
+  "effects": {
+    "selectedOriginal109LogOnlyAdvancedThroughNativeOwner": true,
+    "originalDeviceInodePreserved": true,
+    "original109PrefixBytesPreserved": true,
+    "oneNewNativeActorAttempt": "fp-bc0a8d4516e6da49",
+    "newActorArchives": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-prompt.txt",
+        "bytes": 740737,
+        "sha256": "d7f998ee2cad3f45bf7815830e878145c9391fb82522f8875842898d3208c329"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-output.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-stdout.log",
+        "bytes": 3797,
+        "sha256": "493c4c3978360311620c3058f3e4e24dad347c0343c5955dd83dcd8b8fe7f90e"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-bc0a8d4516e6da49-transport.json",
+        "bytes": 8690,
+        "sha256": "a594f41fc7690cd6d970b223f53e06aa703e1a561d104b9887e38455c64ffd23"
+      }
+    ],
+    "oldControlledArchives": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-d004899fa8393233-output.txt",
+        "bytes": 2112,
+        "sha256": "2037eef04852db5be6e8f47687d5a9cc2add48633bd5fe5f88ce966b0c113ea8"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-d004899fa8393233-prompt.txt",
+        "bytes": 55988,
+        "sha256": "2ed496cc0eba48b7b12b73c4d318f3214ed683d80284c0d3dd68f359e1cda08e"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-d004899fa8393233-stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-d004899fa8393233-stdout.log",
+        "bytes": 4443,
+        "sha256": "b7f8b2c828268a9db7b067101e46f11c8bcf076f9ca9ac4ccb981c69b27845aa"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/archives/fp-d004899fa8393233-transport.json",
+        "bytes": 13011,
+        "sha256": "536d0e3a369dcfdc58431e0a644f2cdd4661a5db2108110232a62b008b974236"
+      }
+    ],
+    "originalInstallWLockCatalogUnchanged": {
+      "installCandidate": {
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/b2d39ebb3ec99abbf70205eb0decf7c680bd47f5548632f3d967abc38a973b62/97dee8b6679fc14f60794ada6febe9d4bb290e32cc1be270a69a42e9dfcf0c89",
+        "digest": "sha256:d3108e3418b4f97ecb505ada0511bb1aafce4989e63b003e77b03000c2668d70"
+      },
+      "installedAuthority": {
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/b2d39ebb3ec99abbf70205eb0decf7c680bd47f5548632f3d967abc38a973b62/97dee8b6679fc14f60794ada6febe9d4bb290e32cc1be270a69a42e9dfcf0c89",
+        "digest": "sha256:b2d39ebb3ec99abbf70205eb0decf7c680bd47f5548632f3d967abc38a973b62"
+      },
+      "installRowArtifact": {
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/b2d39ebb3ec99abbf70205eb0decf7c680bd47f5548632f3d967abc38a973b62/97dee8b6679fc14f60794ada6febe9d4bb290e32cc1be270a69a42e9dfcf0c89",
+        "digest": "sha256:41b8207656d82b7ecb46691ed48053631cccebb90dffbdbb9787e78df38a3fe0"
+      },
+      "lock": {
+        "ref": "product-lock://abiogenesis/97dee8b6679fc14f60794ada6febe9d4bb290e32cc1be270a69a42e9dfcf0c89",
+        "digest": "sha256:97dee8b6679fc14f60794ada6febe9d4bb290e32cc1be270a69a42e9dfcf0c89"
+      },
+      "binding": {
+        "ref": "workspace-binding://abiogenesis/6caa04b0df0326db88627628cb4354a82a2deacaed667dbc3222b4c97f88ff0f",
+        "digest": "sha256:6caa04b0df0326db88627628cb4354a82a2deacaed667dbc3222b4c97f88ff0f"
+      },
+      "workspaceId": "workspace://abiogenesis/0a0960feed232b8c645c7226bfea96f731778de12f8470894da0bbd0d148feaa",
+      "workspaceAuthority": {
+        "ref": "workspace-authority://abiogenesis/751bf6bd2abc5037f5c2b7afbd36e74ea5e94cdeaf3beeab45d388156d079c90",
+        "digest": "sha256:751bf6bd2abc5037f5c2b7afbd36e74ea5e94cdeaf3beeab45d388156d079c90"
+      },
+      "productSet": {
+        "ref": "product-set://abiogenesis/aefa906bdae8646d10e2d20390007a00edb36cd8ff4a848a6115aff048258403",
+        "digest": "sha256:aefa906bdae8646d10e2d20390007a00edb36cd8ff4a848a6115aff048258403"
+      },
+      "catalog": {
+        "ref": "graph-function-catalog://abiogenesis/baac3a4e9f5902c9a356cc31bedf4761bd7114fb3f0844779b78de39696008c0",
+        "digest": "sha256:baac3a4e9f5902c9a356cc31bedf4761bd7114fb3f0844779b78de39696008c0"
+      },
+      "catalogView": {
+        "ref": "graph-function-catalog-view://abiogenesis/6d1f89b82e3cfc454120422f51b4536d8e6e99dea9bce8cce57bfd44d644cd11",
+        "digest": "sha256:6d1f89b82e3cfc454120422f51b4536d8e6e99dea9bce8cce57bfd44d644cd11"
+      },
+      "subjectBasis": {
+        "ref": "qualification-basis://abiogenesis/a6e99a63ca3daf2667b91858f4c3c58c75172b0f64a207c026eb6530a5fb4114",
+        "digest": "sha256:a6e99a63ca3daf2667b91858f4c3c58c75172b0f64a207c026eb6530a5fb4114"
+      }
+    },
+    "SourcePackageProductHOWMethodGitReleaseWrites": false,
+    "installRecoverySetupAF22Effects": false,
+    "originalFrozenPhase1FilesUnchanged": true
+  },
+  "limitations": [
+    "The terminal assertion wrapper did not separately persist full failed ownerOutput before throwing. Exact admitted stop/evidence/route and real CLI result are retained; no invented failed owner value is supplied.",
+    "No authentic J, construction attribution judgment, F11 or cold reads exist for this attempt.",
+    "The earlier extra-context token source remains unlocalized; this attempt supplies no successful context-size acceptance evidence.",
+    "Whole-candidate qualification, parent paths, seven defects, QUAL056 and RC remain open."
+  ],
+  "workerEditsStopped": true,
+  "RootTriangulatesBeforeAnySuccessor": true
+}

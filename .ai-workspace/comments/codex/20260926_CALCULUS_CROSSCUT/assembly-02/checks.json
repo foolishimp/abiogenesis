@@ -1,0 +1,12 @@
+[
+  {
+    "subject": "before",
+    "exitCode": 0,
+    "elapsedSeconds": 1.933687792159617
+  },
+  {
+    "subject": "after",
+    "exitCode": 0,
+    "elapsedSeconds": 1.9334972500801086
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "status": "CLOSED_FIRST_MATERIAL_NATIVE_FAILURE",
+  "origin": "Selected provider process could not reach its API server and reports DNS ENOTFOUND; no helper dispatch occurred",
+  "firstCallerSymptom": "Supported Public start returned result carrier with disposition runtime_failed, null terminalResult/result, actual run/stop/replay. Current completed-outcome assertion failed and ended driver. Native CLI exit0 means successful projection of that failure, not successful C2.",
+  "causalChain": [
+    "Actual C02 Product/input/grant/context preparation passed and ABG admitted current invocation/basis/C-call/actor transport",
+    "Provider emitted10 internal API retry notices, then is_error:true ENOTFOUND; process exited1, zero tools/tokens/cost",
+    "Existing transport owner classifies nonzero process/API-retry/no result as transport_failure",
+    "C2 exactExchange also requires successful transport and one exact Bash call; this false relation projects generic transport_identity_mismatch, not evidence that immutable input identities differ",
+    "ABG admitted failure Result, blocked judgment, failure route and run_stopped; Public projects runtime_failed; caller success assertion refuses advancement"
+  ],
+  "frames": {
+    "ProductRequirements": "REQ-P-QUAL056/057 require actual native commands/reports tied to exact source selection. No successful helper or commands exist, so prepared recipe/component evidence cannot substitute. C02 and Q02 remain immutable; no qualification or release claim.",
+    "Design": "Existing observed-root C2 and packaged renderer environment are sufficient and reached. Native owner assembled exact context and helper launch manifests. This attempt does not indicate a missing declaration or revised architecture.",
+    "Integration": "Complete selected request/resource/authority/context joins passed actual Product preparation before native dispatch. The break is between actual Claude process and its API endpoint, before Bash/helper. Generic downstream transport_identity_mismatch must not be mistaken for a supplied carrier defect. Output/oracle success checks and cold reads remain pending.",
+    "Identity": "Same actual N03 A/W/install/catalog/actor; exact C02 artifact and Q02 config, actual direct grant/task/source set and admitted C-call/transport retained. Executable hash/model/effort match current grant. Public source Run has authentic failure lifecycle, not a successful verification producer.",
+    "Lifecycle": "One actual new C2 Run stopped failed, one actor invocation terminated, original33-event prefix conserved within84events. No root/child/actor retry or new Run by Worker. Genuine latest handoff retained; any future operation requires Root selection and current owner lifecycle/source inputs.",
+    "Authority": "Worker current author/session/grant distinct from native actor and Product-owned ABG authority. Root confirmed create-only context path within granted archive territory. Only read_context for current renderer dependency; no new Product/qualification authority.",
+    "Effect": "716 exclusive stage writes and one new archive/context preparation;7 owner archive files;51 event append. Protected716 and installed/canonical/frozen inputs unchanged. Verification subtree absent, helper tool count0, commands0, cold reads0. Existing provider internally retried10 API calls, one bounded process; no Worker retry.",
+    "Proof": "First actual runtime failure was preserved; assertion correctly refused completed status. No successful command/report/predicate/output comparison is claimed. Independent component/input/package checks and nominal verification did not probe ambient provider reachability; grant explicitly prohibited a paid probe."
+  },
+  "alternativesAndUncertainty": {
+    "supported": "Execution environment/provider reachability failure, specifically reported ENOTFOUND, before semantic/helper work. Exact lower network owner unresolved.",
+    "notEstablished": "Which hostname failed or whether sandbox DNS, local/proxy configuration or upstream endpoint infrastructure caused it. No extra network probe or configuration inspection performed.",
+    "callerOrProductFault": "No positive evidence; owner preparation and actual dispatch reached intended provider with requested args. Generic identity diagnostic is downstream of non-success/zero-tool exchange. Latent unexecuted successful output consumer issues remain possible but are not this cause.",
+    "oracleFailure": "No evidence; completed assertion truthfully rejects runtime_failed, and original Q02 recipe/oracles were unchanged."
+  },
+  "recurrenceAndEscape": "Unlike N1/N03 stale resource carriers and N04 producer-field typo, this is an observed provider-network failure. Prior preparation and bounded component proofs could not prove network availability. Missing Hello donor runEnvironmentResources was explicitly constructed using existing owner before staging, without a failed native attempt or source change. No recurrence of that caller omission reached native.",
+  "smallestReentry": "Root-owned execution-environment intake to establish a usable network/provider route for the exact existing executable/profile, followed by separately granted lawful current-resource execution/recovery and pending success/cold proof. Present evidence selects no C02/Product/Q02/source/recipe change. Worker performs no continuation.",
+  "requiredReproof": "One actual successful native C2,13 ordered commands,14 predicates,716 observations,strict5/30 test/lint reports,925 comparisons and two fresh reads remain open; preserve this failed attempt and accepted prior setup/S01."
+}

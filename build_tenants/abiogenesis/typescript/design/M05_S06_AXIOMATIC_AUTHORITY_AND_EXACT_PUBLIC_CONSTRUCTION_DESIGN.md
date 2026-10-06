@@ -2296,7 +2296,7 @@ families S06 must exercise:
 | exact catalog coordinate lookup | consume `product/exact_match.ts::resolveExactMatch` | Product-local exact zero/one/many atom; no Public fallback or new identity family |
 | verified installed-module loading | retain `product/installed_module.ts::loadVerifiedInstalledModule` | remains Product-local because it binds `ProductInstall`; no generic loader or ambient import |
 | Product dependency topology | extend `product/environment.ts::constructResolvedProductLock` behind `ProductEnvironmentPort.resolve` | consumes explicit verified carriers; no resolver registry, global selection, or second lock type |
-| GTL declaration/publication construction | consume `GTL_DECLARATION_CONSTRUCTORS` and existing Hello/Consensus/fan-out/recursion publication constructors | no new generic builder, compiler plan, discovery service, or Public construction meaning |
+| GTL declaration/publication construction | consume `GTL_DECLARATION_CONSTRUCTORS` and ordinary typed GTL constructors; test programs author their publications outside the ABG package | no scenario-specific publication constructor, new generic builder, compiler plan, discovery service, or Public construction meaning |
 
 These dispositions are implementation constraints inside S06. The distinct
 post-S06 Prime entropy-reduction milestone remains blocked.

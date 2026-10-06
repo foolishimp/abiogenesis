@@ -1,0 +1,24 @@
+{
+  "activation": "T287_S01_RETAINED_CAUSAL_SUPPLEMENT_02",
+  "actor": "/root/f11_attribution_inputs",
+  "status": "CLOSED",
+  "verdict": "ACCEPT_RETAINED_ORDINARY_S01_OUTCOME",
+  "counterexamplesEstablished": 0,
+  "selectedResidualsResolved": [
+    "strict terminal schema, all three carriers and owner digests",
+    "original input, causal native execution, admitted Result/J/route/closure and owner replay",
+    "both original fresh reads, no append, prefix conservation and historical physical identity",
+    "all twelve ordinary operations, actual CLI/install identity, owned process completion and preserved assertion frontier"
+  ],
+  "selectedResidualsOpen": [],
+  "proofRecords": ["terminal-checks.json", "causal-checks.json", "physical-process-checks-02.json", "setup-binding-checks-02.json"],
+  "originalDriverStatus": "failed and preserved; not relabeled as passed",
+  "priorReviewStatus": "CLOSED LIMITED and unchanged; this supplement adds the previously missing proof",
+  "rootProbeScope": "Root observation statement only; no separate raw artifact available",
+  "reviewerHarnessFailuresPreserved": 3,
+  "nativeCalls": 0,
+  "movingResourceReads": 0,
+  "repairs": 0,
+  "excluded": ["LLM usability", "live F_P", "Rust and wider scenarios", "moving C2", "QUAL056", "F11", "AF22", "RC qualification or publication", "human acceptance"],
+  "rootDecision": "Root alone adjudicates S01-OUTPUT-J-01 and any next scope"
+}

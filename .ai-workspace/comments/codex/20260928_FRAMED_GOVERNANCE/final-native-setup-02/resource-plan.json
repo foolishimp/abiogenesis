@@ -1,0 +1,23 @@
+{
+  "workspaceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/worksite",
+  "installRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/installed",
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/events/runtime.events.jsonl",
+  "lockNamespace": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/tmp/abiogenesis-event-store-locks-v5",
+  "lockFileRule": "<actual-device>-<actual-inode>.lock; original namespace maintained for every call",
+  "history": "Continue exact original2-event prefix; preserve N1 immutable snapshot/receipts and same dev/inode/lock",
+  "HOME": "unchanged",
+  "permittedWrites": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01",
+  "nativeCalls": 7,
+  "newProofRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02",
+  "initialHandoff": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/final-handoff.json",
+    "bytes": 1328,
+    "sha256": "f5f94c87a2d7cb174f8423c63ca370317966fabd9fafc4af25b1dc3bdf104fbf"
+  },
+  "initialSnapshot": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/failure-native-prefix.jsonl",
+    "bytes": 2475382,
+    "sha256": "5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348"
+  },
+  "canonicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/worksite"
+}

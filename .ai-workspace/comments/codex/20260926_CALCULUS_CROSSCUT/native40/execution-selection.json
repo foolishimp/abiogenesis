@@ -1,0 +1,98 @@
+{
+  "status": "EXECUTIVE_SELECTED_NOT_YET_EXECUTED",
+  "ticket": "T-287",
+  "activation": "T287_CALCULUS_REPAIR_01",
+  "frame": "stdo://releases/v2.5.1-rc.1/standards/STDO_REFERENCE_FRAME_BASELINE.md#derived-end-to-end-interface-integration-frame",
+  "core": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite40-install-m2b6dr1k/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-40/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:4ce1f74d1f71291bdb3fee2fedbf752a4c34212c87734e8ffb12014b61cc1a19",
+      "productContentDigest": "sha256:7186404335cb6101c54bade40e3fabd6b465f2845b47f22ec60e1a0f60287b6d",
+      "manifestDigest": "sha256:bc30eb781dcad666306341310f4dd5ec7cc60bb48ab4fb7cbdd5c9808a183f5d",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "coreSelectionSha256": "0ff087181dce6a799a5d94a39f70486129c9b5e7425be8eafe0fb1f31c5282a3",
+  "consumer": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/consumer-dev16/installed-consumer.json",
+  "callerSubjectSha256": "c3a491b68acf24256cf5132fec9e1efc3464d2e5d945f1f6edcd49bf537b1073",
+  "sourceRun": {
+    "digest": "sha256:43439dab56302bf8bc5bfa09184435276810d73475df61c3dfe16d6c91f0d127",
+    "ref": "run://abiogenesis/31c1969a2776ffb9e3120571e64fe06faac0ac290e0d9b78b1ecb4138db1f3b4"
+  },
+  "sourcePrefix": {
+    "coordinateDigest": "sha256:d9d7086ab47280c8b44b232bfeb6838349aabf30382e1823ae08d8e6381e85ea",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:22081c65ad328fac4dfc28e05e3050226d7f82085efdb03683bfbc555c180827",
+    "prefixLength": 399209962,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "physicalEntry": {
+    "coordinateDigest": "sha256:8edd4f46bdbdbe01ad7948161515167cfc46a79fcf12c5b42054b494020e1877",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:62d80e938a123809055cebcfbf2528061d78dab6c44c35de1cc95472ea386680",
+    "prefixLength": 402875828,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "permittedSequence": [
+    "ordinary current core40/dev16 verification, install, workspace binding, catalog, conformance and execution resolution",
+    "fresh ordinary Public source Run root and genuine current-binding witness",
+    "one native intake through installed CLI",
+    "fresh Public Result/replay",
+    "only actual admitted choice plus installed ordinary declaration lookup selects one whole suffix",
+    "HoG-owned suffix execution and terminal Public readback"
+  ],
+  "intakeControls": {
+    "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "expectedVersion": "2.1.280 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "extraArgs": [
+      "--max-budget-usd",
+      "12"
+    ],
+    "inactivityMs": 300000,
+    "absoluteMs": 900000,
+    "terminationGraceMs": 1000,
+    "wholeRunMs": 5400000
+  },
+  "suffixControls": {
+    "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "expectedVersion": "2.1.280 (Claude Code)",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "extraArgs": [
+      "--max-budget-usd",
+      "8"
+    ],
+    "inactivityMs": 300000,
+    "absoluteMs": 900000,
+    "terminationGraceMs": 1000,
+    "wholeRunMs": 5400000
+  },
+  "readbackMs": 600000,
+  "stops": [
+    "first causal setup/admission/runtime failure; retain actual close and diagnostics for Executive triage",
+    "intake lacks an admitted selection; do not fabricate or manually choose suffix",
+    "unsupported worksite or source change",
+    "limits as selected; no increase, fallback or automatic retry"
+  ],
+  "sourceAcceptance": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/state-transfer-02/review.md",
+  "contextAcceptance": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/context-01/review.md",
+  "authority": "Owner standing steel-thread implementation authority; Executive conjoins accepted repairs, package readiness and unchanged caller relation. No historical result retargeting, repeated author, application repair, shared default change or release publication."
+}

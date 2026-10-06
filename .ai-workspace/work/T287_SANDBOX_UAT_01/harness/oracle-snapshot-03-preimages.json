@@ -1,0 +1,26 @@
+{
+  "activation": "T287_UAT_ORACLE_SNAPSHOT_03",
+  "previousFreezeSHA256": "a5ecafe61ef6a2c4f9ab247a29dbb8632e263f9d5531bd4f90f78c183f731d61",
+  "preimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "sha256": "09d00bc36933df82249cde45802f60b37106b0d291995fc7d811c674d613437a",
+      "bytes": 4682
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "ff6ee480aa3b8e48158f41d717eb72971af56f8c242ba06ee68b30cce1a1287f",
+      "bytes": 20878
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "be3399fce7d7ffb5bda55fb1383bf621b55304582add867c6365d7791c0e7c0a",
+      "bytes": 3242
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/README.md",
+      "sha256": "661628656cfd296dcbfef88d61317c11a1c19a038d314d7e6ef3fa0f3daf3232",
+      "bytes": 3830
+    }
+  ]
+}

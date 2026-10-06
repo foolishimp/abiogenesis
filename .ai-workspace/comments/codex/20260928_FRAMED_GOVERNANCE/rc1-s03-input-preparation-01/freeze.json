@@ -1,0 +1,86 @@
+{
+  "kind": "s03a_input_preparation_freeze",
+  "activationRef": "T287_RC1_S03_INPUT_PREPARATION_01",
+  "status": "CLOSED",
+  "disposition": "preparation_ready",
+  "qualificationClaim": false,
+  "executionReady": false,
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/activation.json",
+      "bytes": 1396,
+      "sha256": "a7698aab2a0d637658306b2169b9b7a69bce975ad332545470c4a41b9a2a1a3b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/caller-draft.mjs",
+      "bytes": 14519,
+      "sha256": "efe102a1bde1e84879ff539cf92c2216d6f0f79c534a6f775141d2a17d953139"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/closed-state.json",
+      "bytes": 552,
+      "sha256": "8951fb5d53d1f0cf0f4a8d4b29ca28331a02dec9f3ed4e5563462307bf45e8e4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/donor-selection.json",
+      "bytes": 15629,
+      "sha256": "a702400cb78071725a6226247fb829aee2c139422dbcc6a41eb6507f3a1b8027"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/original-consumers.mjs",
+      "bytes": 16042,
+      "sha256": "69038fa5837745e3e57e3ec8cbf82808997d8cc68660138f01e4d666ff4992c6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/original-oracle.json",
+      "bytes": 1509,
+      "sha256": "69f61a7bd38d2f5a350fe50b783b597b3587bfb1a49b8edc3c1f0057ac67dc7c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/pair-inputs.json",
+      "bytes": 3730,
+      "sha256": "6d2d081557c9fa15ad6c354d2165e3838600e4eb4a68be7ec3d1a2edd2f4e4ad"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/preparation-validation.json",
+      "bytes": 1385,
+      "sha256": "9d569aa2676015f201f2268d3d4071ab10a135df724a7811275cd92afb601127"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/readback-contract.json",
+      "bytes": 2500,
+      "sha256": "ef3dfedf988ce011ba83d0c8c91c7ccdaf4f39500ddd5a1c49140afcc4dcd69c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/return.md",
+      "bytes": 5382,
+      "sha256": "8d787d5a6004f3f31e5a9cffffd51e219ac886fa4a393f984e336371b98c16d7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/sole-output-renderer.mjs",
+      "bytes": 862,
+      "sha256": "a53044eca98cff334a9fbd87a1b21a8d6a6fe15220e83ab78db6bcc45a85901b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/source-derivation.json",
+      "bytes": 1928,
+      "sha256": "807c78965f668b968ccfcd713ede687d398d4781b2b695365d703f19e541dfdc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/source-pins.json",
+      "bytes": 11984,
+      "sha256": "457f88b6007abfcb2662a3a44ab883bcace07d6283eec616e436b73ccc564286"
+    }
+  ],
+  "externalSourcePins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-input-preparation-01/source-pins.json",
+    "bytes": 11984,
+    "sha256": "457f88b6007abfcb2662a3a44ab883bcace07d6283eec616e436b73ccc564286"
+  },
+  "dependenciesPending": [
+    "Accepted exact C03 frozen candidate",
+    "Actual C03 installed owner nominal verification/environment/resource binding",
+    "Separate runtime grant and later independent evidence review"
+  ],
+  "stop": "All input/report writes stop at this freeze; old evidence and source remain unchanged."
+}

@@ -1,0 +1,43 @@
+{
+  "kind": "Root_exact_C05_dependency_accepted_for_Q06",
+  "status": "ACCEPTED_construction_only",
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c05-acceptance-and-installed-setup-controls-01/acceptance.json",
+    "bytes": 2343,
+    "sha256": "c996a24f9b96b12d31272582b6345e715253a2308def3f9ced11c4b5c7d4d74f",
+    "mode": 420
+  },
+  "constructionFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-freeze.json",
+    "bytes": 134613,
+    "sha256": "ac42878a8191fecc5718eb8aa4dbcbf6b30b2a3f0e1e29161f94203f56d9c47e",
+    "mode": 420
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-source-freeze-manifest.json",
+    "bytes": 581981,
+    "sha256": "e19851a1f9dd0e3d92495301d65dbaa86aa78d432511d0db2222ba7327b0630a",
+    "mode": 420
+  },
+  "sourceCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-05/source-cut.json",
+    "bytes": 2460667,
+    "sha256": "bbad7056fdc7a4ed844dcecf419cedc1be88831ebe162cb5e00a8dfbc4126bf5",
+    "mode": 420
+  },
+  "selected": {
+    "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-install/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:060f129747a51f29c07765fa802437f1b651d0109a79299d66de35f7a8cbe6f8",
+      "productContentDigest": "sha256:27fa7db21c6987976afdcaac1ac092ed5ff1b8af5e10fed51b72658390ca429a",
+      "manifestDigest": "sha256:d0da31f911c6ff7cdf5e22361d22c0ff75b878a040484f79328a8ceb1e96355e",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "actualRuntimeBindings": null,
+  "Q06RuntimeAuthority": false
+}

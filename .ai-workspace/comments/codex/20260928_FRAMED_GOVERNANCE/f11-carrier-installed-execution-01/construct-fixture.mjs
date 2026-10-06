@@ -1,0 +1,64 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile,mkdir,cp,readdir,lstat} from 'node:fs/promises';
+import {join,basename} from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
+import {loadRuntime} from './public-support.mjs';
+import {qualificationChildWrapperParts} from './child-wrapper-parts.mjs';
+const execFileAsync=promisify(execFile),schemaVersion='5.0.0';
+const read=async p=>JSON.parse(await readFile(p,'utf8'));
+export function materializeFixturePublication(gtl,data,basis){
+ return gtl.modulePublication({...data,artifactDigest:basis.artifactDigest,productContentDigest:basis.productContentDigest,productManifestDigest:basis.productManifestDigest??basis.manifestDigest,contributions:data.contributions.map(c=>({...c,provenanceRefs:[basis.artifactDigest,basis.productManifestDigest??basis.manifestDigest]}))});
+}
+export async function constructFixture(here){
+ const started=performance.now(),activation=await read(join(here,'runtime-activation.json'));
+ assert.equal(activation.operation,'T287_F11_CARRIER_INSTALLED_DISCRIMINATOR_01');assert.equal(activation.executionRoot,here);
+ const identity=await read(join(here,'selected-core.json')),{product,gtl}=await loadRuntime(identity.installedRoot);
+ const name='@abiogenesis-fixtures/f11-carrier-child',version='5.0.0',ref=(k,n)=>`${k}://abiogenesis-fixture/f11-carrier/${n}@5`;
+ const productId=ref('product','fixture'),moduleRef=ref('module','fixture'),descriptorRef=ref('descriptor','fixture'),contributionManifestRef=ref('contribution-manifest','fixture'),provenanceRef=ref('provenance','fixture');
+ const zero='sha256:'+'0'.repeat(64),parts=qualificationChildWrapperParts(gtl,{purpose:'mechanical_qualification_child_foldback',productId,moduleRef,artifactDigest:zero,productManifestDigest:zero});
+ const data={kind:'module_publication',moduleVersion:schemaVersion,moduleRef,owningProductId:productId,descriptorRef,contributionManifestRef,productSemanticsBinding:{kind:'product_semantics_binding',bindingRef:ref('product-semantics','fixture'),packageName:name,packageVersion:version,modulePath:'build/index.js',namedSymbol:'SEMANTICS'},contracts:[],evaluators:[],rules:[],implementationBindings:[],closureContracts:parts.closureContracts,graphFunctions:parts.graphFunctions,programs:parts.programs,contributions:parts.contributions};
+ const sourceRoot=join(here,'fixture-source'),artifacts=join(here,'fixture-artifacts');
+ await mkdir(join(sourceRoot,'build'),{recursive:true});await mkdir(join(sourceRoot,'contracts/capabilities'),{recursive:true});
+ const write=async (p,v)=>writeFile(p,JSON.stringify(v,null,2)+'\n',{flag:'wx'});
+ const semantics=`// Exact installed pure guards; native child owners load from the separate admitted core.\nimport {isQualificationAssessmentInput,isQualificationJudgment} from '@abiogenesis/typescript-tenant/validator';\nconst record=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);\nconst canonical=x=>JSON.stringify(x,(_,v)=>record(v)?Object.fromEntries(Object.keys(v).sort().map(k=>[k,v[k]])):v);\nexport const SEMANTICS=Object.freeze({kind:'product_semantics_provider',schemaVersion:'5.0.0',bindingRef:${JSON.stringify(data.productSemanticsBinding.bindingRef)},packageName:${JSON.stringify(name)},packageVersion:${JSON.stringify(version)},admitInput:(c,x)=>c===${JSON.stringify(gtl.QUALIFICATION_IDS.assessmentInput)}&&isQualificationAssessmentInput(x)?x:null,evaluateInteractionResponse:()=>null,validateContractValue:(k,x)=>k==='qualification_assessment_input'?isQualificationAssessmentInput(x):k==='qualification_judgment'?isQualificationJudgment(x):record(x)&&x.kind===k,resolveJudgmentRelation:p=>p===${JSON.stringify(parts.predicateRef)}?{predicateRef:p,advanceReasonRef:${JSON.stringify(ref('reason','typed-child-result'))},rejectionReasonRef:${JSON.stringify(ref('reason','typed-child-mismatch'))},evaluate:(i,o)=>isQualificationAssessmentInput(i)&&isQualificationJudgment(o)&&canonical(i.task)===canonical(o.task)&&canonical(i.plan)===canonical(o.plan)}:null});\n`;
+ await writeFile(join(sourceRoot,'build/index.js'),semantics,{flag:'wx'});
+ await write(join(sourceRoot,'build/publication.json'),data);
+ const catalogSchemaPath='contracts/public-contract-catalog.schema.json';
+ await write(join(sourceRoot,catalogSchemaPath),{$schema:'https://json-schema.org/draft/2020-12/schema',type:'object'});
+ await write(join(sourceRoot,'package.json'),{name,version,type:'module',exports:{'.':'./build/index.js','./publication':'./build/publication.json'},files:['build','contracts','product-toolchain-manifest.json'],dependencies:{'@abiogenesis/typescript-tenant':identity.basis.packageVersion},bundledDependencies:['@abiogenesis/typescript-tenant']});
+ const graph=product.constructCapabilityDefinitionGraph([]),graphBytes=product.capabilityDefinitionGraphAssetBytes(graph),graphCoordinate=product.capabilityDefinitionGraphCoordinate(graph);
+ await writeFile(join(sourceRoot,product.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH),graphBytes,{flag:'wx'});
+ const guardRoot=join(sourceRoot,'node_modules/@abiogenesis/typescript-tenant');
+ await mkdir(join(sourceRoot,'node_modules/@abiogenesis'),{recursive:true});await cp(identity.installedRoot,guardRoot,{recursive:true,errorOnExist:true,force:false});
+ const guardFiles=[];async function visit(p,rel){for(const n of (await readdir(p)).sort()){const q=join(p,n),r=rel+'/'+n,st=await lstat(q);assert(!st.isSymbolicLink(),'guard-only copy contains no symlink');if(st.isDirectory())await visit(q,r);else if(st.isFile())guardFiles.push(r);else throw Error('non-file guard copy');}}
+ await visit(guardRoot,'node_modules/@abiogenesis/typescript-tenant');
+ const guardPins=await Promise.all(guardFiles.map(async path=>{const source=join(identity.installedRoot,path.slice('node_modules/@abiogenesis/typescript-tenant/'.length)),destination=join(sourceRoot,path),a=await product.sha256File(source),b=await product.sha256File(destination);assert.equal(a,b);return {path,origin:source,digest:b,bytes:(await lstat(destination)).size,role:'pure exported validator guards only; no native authority'};}));
+ await write(join(here,'fixture-guard-dependency-pins.json'),{sourceBasis:identity.basis,sourceRoot:identity.installedRoot,copyRoot:guardRoot,records:guardPins,role:'immutable C03 guard-only dependency, distinct from admitted native core'});
+ const locators=['package.json',catalogSchemaPath,'build/publication.json','build/index.js',...guardFiles];
+ const inventory=await Promise.all(locators.map(async path=>({path,sha256:await product.sha256File(join(sourceRoot,path))})));
+ const productContentDigest=product.payloadInventoryDigest(inventory),draft=materializeFixturePublication(gtl,data,{artifactDigest:zero,productContentDigest,manifestDigest:zero});
+ const catalogBody={schemaVersion,catalogId:ref('catalog','public-contracts'),catalogVersion:schemaVersion,catalogSchemaPath,catalogSchemaDigest:await product.sha256File(join(sourceRoot,catalogSchemaPath)),rows:[]};
+ const publicContractCatalog={...catalogBody,catalogDigest:product.sha256Canonical(catalogBody)};
+ const contributionManifest={kind:'product_contribution_manifest',schemaVersion,contributionManifestRef,productId,productVersion:version,descriptorRef,productContentDigest,publicContractCatalogId:publicContractCatalog.catalogId,publicContractCatalogDigest:publicContractCatalog.catalogDigest,capabilityDefinitionGraph:graphCoordinate,publicationBindings:[{moduleRef,publicationDigest:product.modulePublicationSemanticDigest(draft)}],rows:draft.contributions.map(c=>({moduleRef,handle:c.handle,kind:c.kind,declarationOrContractRef:c.declarationOrContractRef,owningProductId:c.owningProductId,programMembershipRefs:[...c.programMembershipRefs],compatibilityRefs:[...c.compatibilityRefs],provenanceRef,readinessPrerequisiteRefs:[...c.readinessPrerequisiteRefs]}))};
+ const manifest={kind:'abg_product_toolchain_manifest',schemaVersion,productId,packageName:name,packageVersion:version,productContentDigest,productRelativeLocators:locators,descriptorRef,publisherNamespace:'abiogenesis-fixture',contributionManifestRef,contributionManifestDigest:product.sha256Canonical(contributionManifest),contributionManifest,compatibilityRefs:['compatibility://abiogenesis/major/5'],declaredDependencies:[{kind:'requires',productId:identity.basis.productId,packageVersion:identity.basis.packageVersion,compatibilityRef:'compatibility://abiogenesis/major/5',requiredContractRefs:['abg.contract.gtl.root-declaration','abg.schema.public-operation-invocation','abg.schema.exact-candidate-qualification'],requiredCapabilityRefs:['abg.capability.catalog.invoke-graph-function@5','abg.capability.gtl.declare@5']}],provenanceRef,declaredCapabilityRefs:[],capabilityDefinitionGraph:{...graphCoordinate,assetLocator:{path:product.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,mediaType:'application/json',schemaVersion,contentDigest:product.sha256Bytes(graphBytes)}},publicContractCatalog};
+ await writeFile(join(sourceRoot,'product-toolchain-manifest.json'),product.canonicalJson(manifest)+'\n',{flag:'wx'});
+ await write(join(here,'fixture-publication-data.json'),data);
+ const c03=join(here,'..','final-candidate-construction-03'),node=join(c03,'source-freeze/toolchain/bin/node'),npm=join(c03,'source-freeze/toolchain/npm/bin/npm-cli.js');
+ const npmrc=join(here,'task-config/npmrc'),globalrc=join(here,'task-config/globalnpmrc');
+ await writeFile(npmrc,'offline=true\nignore-scripts=true\naudit=false\nfund=false\n',{flag:'wx'});await writeFile(globalrc,'',{flag:'wx'});
+ const env={...process.env,TMPDIR:join(here,'task-tmp'),NPM_CONFIG_USERCONFIG:npmrc,NPM_CONFIG_GLOBALCONFIG:globalrc,NPM_CONFIG_CACHE:join(here,'task-cache'),NPM_CONFIG_PREFIX:join(here,'task-config/prefix'),NPM_CONFIG_OFFLINE:'true',NPM_CONFIG_IGNORE_SCRIPTS:'true',NPM_CONFIG_AUDIT:'false',NPM_CONFIG_FUND:'false',PATH:join(c03,'source-freeze/toolchain/bin')+':'+process.env.PATH};
+ const args=[npm,'pack','--offline','--ignore-scripts','--json','--pack-destination',artifacts];
+ await write(join(here,'fixture-pack-command.json'),{command:[node,...args],cwd:sourceRoot,environment:Object.fromEntries(Object.entries(env).filter(([k])=>k.startsWith('NPM_CONFIG_')||k==='TMPDIR'||k==='PATH')),timeoutMs:180000});
+ const packed=await execFileAsync(node,args,{cwd:sourceRoot,env,timeout:180000,maxBuffer:1048576});
+ await writeFile(join(here,'fixture-pack-stdout.json'),packed.stdout,{flag:'wx'});await writeFile(join(here,'fixture-pack-stderr.log'),packed.stderr,{flag:'wx'});
+ const [result]=JSON.parse(packed.stdout),artifactPath=join(artifacts,result.filename),basis={artifactDigest:await product.sha256File(artifactPath),productContentDigest,manifestDigest:product.sha256Canonical(manifest),productId,packageName:name,packageVersion:version};
+ const fixture={artifactPath,artifactRef:pathToFileURL(artifactPath).href,basis,sourceRoot,ids:{programRef:parts.programs[0].programRef,graphFunctionRef:parts.graphFunctions[0].name},exactLowerDependency:identity.basis};
+ const selectedCore=await read(join(c03,'final-selected-core.json'));
+ await write(join(here,'prospective-cases.json'),{core:{...selectedCore,installedRoot:selectedCore.packageRoot},fixture});
+ const environment=await read(join(here,'runtime-environment.json'));
+ await writeFile(join(here,'runtime-environment.json'),JSON.stringify({...environment,...Object.fromEntries(Object.entries(env).filter(([k])=>k.startsWith('NPM_CONFIG_')||k==='PATH'))},null,2)+'\n');
+ await write(join(here,'fixture-construction-result.json'),{status:'constructed_not_admitted',fixture,lowerContracts:parts.requiredLowerContracts,ownPredicate:parts.predicateRef,semantics:'exact exported C03 guards from byte-exact nested guard-only dependency; pure task/plan child-result equality; separately admitted core child owns native/J',guardOnlyFiles:guardPins.length,elapsedMs:performance.now()-started,mechanicalOnly:true});
+ console.log(JSON.stringify({phase:'fixture_constructed',basis,elapsedMs:performance.now()-started}));return fixture;
+}

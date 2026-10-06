@@ -315,10 +315,10 @@ async function admitStandardClosure(environment, store, opened, correlationRoot)
     resultReplay,
     input,
     {
-      predicateRef: gtl.HELLO_WORLD_IDS.judgmentPredicateRef,
+      predicateRef: gtl.LANGUAGE_TEST_IDS.judgmentPredicateRef,
       advanceReasonRef: "reason://abiogenesis/conformance/hello-world-satisfied@5",
       rejectionReasonRef: "reason://abiogenesis/conformance/hello-world-rejected@5",
-      evaluate: gtl.evaluateHelloWorldResult,
+      evaluate: gtl.evaluateLanguageTestResult,
     },
     closureContract.judgmentContractRef,
   );
@@ -710,13 +710,13 @@ test("historical traversal-route projection ignores later construction enrichmen
 
 test("structural retry lineage selects its Run while retaining workspace authority", async (context) => {
   const [gtl, cursorApi, routeApi, prefixApi] = await Promise.all([
-    import("../../build/code/src/gtl/index.js"),
+    import("../support/language-structural-gtl.mjs"),
     import("../../build/code/src/abg/traversal_cursor.js"),
     import("../../build/code/src/abg/traversal_route.js"),
     import("../../build/code/src/abg/event_prefix.js"),
   ]);
-  const ids = gtl.COMPOSED_HELLO_IDS;
-  const graphFunction = gtl.constructHelloWorldModulePublication({
+  const ids = gtl.COMPOSED_IDS;
+  const graphFunction = gtl.constructStructuralModulePublication({
     productId: "product://component/structural-scope@5",
     artifactDigest: sha256Canonical("component archive"),
     productContentDigest: sha256Canonical("component content"),
@@ -724,7 +724,7 @@ test("structural retry lineage selects its Run while retaining workspace authori
     packageName: "@abiogenesis/typescript-tenant", packageVersion: "5.0.0-rc.1",
   })
     .graphFunctions.find((value) => value.name === ids.graphFunctionRef);
-  const input = { kind: "hello_world_input", schemaVersion: "5.0.0", subject: "World" };
+  const input = { kind: "data_input", schemaVersion: "5.0.0", subject: "World" };
   const graph = gtl.materializeGraph(graphFunction, {
     invocationAdmissionRef: "invocation://structural-scope",
     admittedInputRef: "input://structural-scope",
@@ -737,7 +737,7 @@ test("structural retry lineage selects its Run while retaining workspace authori
     traversalScopeRef: "scope://structural-scope", runId: "run://structural-scope",
     graphCallId: "graph-call://structural-scope", frameId: "frame://structural-scope",
     graphRef: graph.materializationRef, inputRef: "result://normalized",
-    inputDigest: sha256Canonical({ kind: "normalized_hello_input", schemaVersion: "5.0.0", subject: "World" }),
+    inputDigest: sha256Canonical({ kind: "normalized_data", schemaVersion: "5.0.0", subject: "World" }),
     currentNodeRef: ids.nodeRef, position: "at_term",
     termPath: ["node", ids.nodeRef, "c", "terms", "2", "term"],
     taskOrdinal: null, attempt: 1, retryPath: [1],

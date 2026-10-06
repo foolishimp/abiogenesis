@@ -1,0 +1,15 @@
+{
+  "status": "REUSABLE_MECHANICAL_INPUT_FINAL_Q05_INDEPENDENT_ASSURANCE_REQUIRED",
+  "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-command-preparation-01/freeze.json",
+  "sha256": "e642d4c1968ae7947bb2ca5e87abf0db7ee9080d87747ab169c35f34624900c5",
+  "rootRecordsVerified": 3308,
+  "rootDirectoryModesVerified": 660,
+  "completeProtectedInputs": 3277,
+  "actualCompleteConstructorPassed": true,
+  "nearestNegatives": 8,
+  "qualificationCommandsExecuted": 0,
+  "genuineRuntimeCoordinates": null,
+  "actualQ05RecipeInventoryJoins": null,
+  "sourceAuthor": "/root/q03_input_review",
+  "algorithmSha256": "437288b5120b688ca2caa06e84385b3688e7f93aeb40666bccbdfbedf51644e4"
+}

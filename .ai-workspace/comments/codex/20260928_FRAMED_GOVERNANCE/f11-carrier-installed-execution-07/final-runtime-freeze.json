@@ -1,0 +1,1378 @@
+{
+  "status": "CLOSED",
+  "role": "Runtime Worker, stopped; report Writer CLOSED",
+  "operation": "T287_F11_C06_CARRIER_EXECUTION_07",
+  "actor": "/root/native_applicability_design",
+  "frozenAt": "2026-10-02T08:30:44.428818+00:00",
+  "returnTo": "/root Executive",
+  "workResult": "NO_GO_FIRST_NATIVE_ASSESSMENT_RAW_RESULT_CONTRACT_FAILURE",
+  "return": "return.md",
+  "closure": "closure.json",
+  "firstFailure": "first-violated-relations.json",
+  "resourceHandoff": "closed-event-resource-handoff.json",
+  "resourceHandoffDigest": "sha256:dd19e8beaebd802804788cdd179cbffe6ba2b39bc7e76117878d5e8e5fb3693a",
+  "recordCount": 104,
+  "bodyBytes": 1133319292,
+  "directoryCount": 9,
+  "symlinks": 0,
+  "records": [
+    {
+      "path": "accounting.json",
+      "kind": "file",
+      "bytes": 47017,
+      "sha256": "15d8630b4670aef2e5b91746f3d5dd9bf4ad87bf835645d817e2b246f1bfaeb7",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748801,
+      "mtimeNs": 1790928756649453282,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "actual-actor-transport-evidence.json",
+      "kind": "file",
+      "bytes": 105559,
+      "sha256": "2e417d452e72cd007bea4f27add6bb4cf2ea228a0776b5fa9f29078be838103f",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748449,
+      "mtimeNs": 1790928215501299372,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "actual-positive-flow-state.json",
+      "kind": "file",
+      "bytes": 48244208,
+      "sha256": "c70491e1bf31d70471232db817e53b68013477b71141d687c463da2fccd12664",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747998,
+      "mtimeNs": 1790927430037421514,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "appended-durable-records.bin",
+      "kind": "file",
+      "bytes": 259948,
+      "sha256": "c473ec4f2c586b4b9d9148cfababec0476c3fc3382bd2b546a34138696585fa2",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748448,
+      "mtimeNs": 1790928215499232900,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "appended-runtime-records.json",
+      "kind": "file",
+      "bytes": 305336,
+      "sha256": "d9d895d04e507d66bc549e24ee99e65c991831ff470d4f47131a007ea7f10645",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748450,
+      "mtimeNs": 1790928215503736707,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "assessment-owner-request-pin.json",
+      "kind": "file",
+      "bytes": 294,
+      "sha256": "9f474803e04833879938094df90e580418dc93c68500276bd125b0068c4a36a9",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747973,
+      "mtimeNs": 1790927419097096041,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "available-native-verification-preimages.json",
+      "kind": "file",
+      "bytes": 3228,
+      "sha256": "0c9bf2a282e38260884a31f4e90e971178aa58353322be47565add3bcc2b4c96",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748446,
+      "mtimeNs": 1790928215436396094,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "available-owner-preparation-prompt.txt",
+      "kind": "file",
+      "bytes": 349314,
+      "sha256": "f2f603d781a18a9fd018c53cfda4170f9ab350747a2f42e75736c9d90dad2099",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748445,
+      "mtimeNs": 1790928215436049064,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "available-owner-preparation-worker-request.json",
+      "kind": "file",
+      "bytes": 372940,
+      "sha256": "8f3df10e93efb9764f18f72e0cdebed8d1e7bc88a002364275f6a17b18224c2f",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748444,
+      "mtimeNs": 1790928215435278756,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "budgets.json",
+      "kind": "file",
+      "bytes": 461,
+      "sha256": "209bc77846cb1665a0bb8c252bf64e7d9523726b02059379466cd3d1be8014eb",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747632,
+      "mtimeNs": 1790926963893624234,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "caller-budget-proposal.json",
+      "kind": "file",
+      "bytes": 461,
+      "sha256": "209bc77846cb1665a0bb8c252bf64e7d9523726b02059379466cd3d1be8014eb",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747618,
+      "mtimeNs": 1790926963114422535,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "close-failed-cut-report-attempt-01.py",
+      "kind": "file",
+      "bytes": 23390,
+      "sha256": "8bcd9c3f3217d6e55716d7f404a4bd709e8c8008a835beb561643efa365785a9",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748531,
+      "mtimeNs": 1790928326858127535,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "close-failed-cut.py",
+      "kind": "file",
+      "bytes": 23414,
+      "sha256": "2e773de5128ee79d88785f6cb278715798fa446f735f0d474305f5f76d3f845c",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748373,
+      "mtimeNs": 1790928634128022508,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "closed-event-resource-handoff.json",
+      "kind": "file",
+      "bytes": 2612,
+      "sha256": "448bdb6a900500522a46e54f19b170629494b95d5257392c55071090ca34e21e",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748452,
+      "mtimeNs": 1790928215504914625,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "closed-runtime-events.jsonl",
+      "kind": "file",
+      "bytes": 2750762,
+      "sha256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748447,
+      "mtimeNs": 1790928215499080613,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "closure.json",
+      "kind": "file",
+      "bytes": 7457,
+      "sha256": "8c1088a5238d028f99134901504c7005e576abaa118efbb1f213ba50871861dc",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749699,
+      "mtimeNs": 1790929844222789646,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "conservation.json",
+      "kind": "file",
+      "bytes": 7929,
+      "sha256": "4e9c296728ba50edc2bd3fa24476bba005ddd0e703302d8e40682ed12895efe8",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748454,
+      "mtimeNs": 1790928215871954379,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "consumed-input-acceptance.json",
+      "kind": "file",
+      "bytes": 8311,
+      "sha256": "e225eaa727197629bc1df7e5906bddbec5cfe86ef02f14955272825fd6591a08",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747928,
+      "mtimeNs": 1790927399674148517,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "controlled-helper.mjs",
+      "kind": "file",
+      "bytes": 1448,
+      "sha256": "1bf192b24cafa977507cc47efd333246db29d62455ed7b68eea48f22c1a49e08",
+      "mode": 493,
+      "device": 16777230,
+      "inode": 464747614,
+      "mtimeNs": 1790926963113800284,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "controlled-raw-response.json",
+      "kind": "file",
+      "bytes": 15861,
+      "sha256": "05755288e2d8e40c98e4764a7be4e408b46388b3cc0fe0b68469a16a05053c8e",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747972,
+      "mtimeNs": 1790927419094832954,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "controlled-response-binding.json",
+      "kind": "file",
+      "bytes": 236,
+      "sha256": "eb6e8d739ad17f1e9b9f307274ab6a747e8b5d0123d871712cf6cfacccc958ce",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747971,
+      "mtimeNs": 1790927419094589746,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "controls/closure.json",
+      "kind": "file",
+      "bytes": 493,
+      "sha256": "74eb3b7290285c547f1b4fec2fdd57f7530f0eba5f3bc33e2b19e77de1aaa152",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747624,
+      "mtimeNs": 1790926963765443523,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "controls/donor06-run-flow.mjs",
+      "kind": "file",
+      "bytes": 10721,
+      "sha256": "ac5343052de03f5c86f8524ea11f0de47394e3318357bc64fa41ce1d9127980d",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747629,
+      "mtimeNs": 1790926963766025691,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "controls/q08-actual-owner-preparation-readiness.json",
+      "kind": "file",
+      "bytes": 1231,
+      "sha256": "d590c13e3786e52ded0c2c7ead1b333b9e6b16aa07e6b1759073ef3cb0395d1f",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747625,
+      "mtimeNs": 1790926963765553815,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "controls/q08-closure.json",
+      "kind": "file",
+      "bytes": 299,
+      "sha256": "cccf81b98ed5fcc07350f457a41c76704e6fac42682a3cddb0b50b2ed560194f",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747628,
+      "mtimeNs": 1790926963765898565,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "controls/q08-f11-packet-readiness.json",
+      "kind": "file",
+      "bytes": 5716,
+      "sha256": "25b673bed0b22476a64b8caa59a930f0acab6100c79c499aa394ffe5f7b8d178",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747626,
+      "mtimeNs": 1790926963765670273,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "controls/q08-input-pins.json",
+      "kind": "file",
+      "bytes": 5184,
+      "sha256": "94e96067cae5787fa30235176df60bf40b5e47ba2f8b2a55d6cae521ad8850cb",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747627,
+      "mtimeNs": 1790926963765785315,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "controls/request.txt",
+      "kind": "file",
+      "bytes": 4735,
+      "sha256": "260faac2f50bbbcf401200681029e2a038afea44f14c81f4a7d399c237ae081a",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747622,
+      "mtimeNs": 1790926963765198481,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "controls/sections.json",
+      "kind": "file",
+      "bytes": 5033,
+      "sha256": "89616a72b03a7e0bbf85bc12ffcf124a55ddda7fbed90336a6a9b08ff65f14c8",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747623,
+      "mtimeNs": 1790926963765327939,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "driver-config.json",
+      "kind": "file",
+      "bytes": 10132,
+      "sha256": "a42beccba2007b73d69b29e10ab4a8731a2f00b399cf92181b79196b3f9313fa",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747641,
+      "mtimeNs": 1790926963898588326,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "f11-bound-packet.json",
+      "kind": "file",
+      "bytes": 29337915,
+      "sha256": "ee08c36919f0a5e4a806e188b45cb2dbe99836e1b10682e0808bbb4fb92b5e7b",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747619,
+      "mtimeNs": 1790926963129011392,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "f11-bound-resource-manifest.json",
+      "kind": "file",
+      "bytes": 506298791,
+      "sha256": "529f8d01dac9a1219314127543d9df1bccdabeff983ea5db4ae761fafc6e4f42",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747620,
+      "mtimeNs": 1790926963404722471,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "f11/conformance-resources.mjs",
+      "kind": "file",
+      "bytes": 673,
+      "sha256": "62d160eba67201396730064290fefb1b9262ea20f7f93fa223b6e6c6867a7251",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747613,
+      "mtimeNs": 1790926963113618742,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "f11/flow-driver.mjs",
+      "kind": "file",
+      "bytes": 6502,
+      "sha256": "dda353346f8c66b49d506090697e453b07f9451e7c61e16900ab26c7b5f4cf51",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747610,
+      "mtimeNs": 1790926963113042532,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "f11/ordinary-caller.mjs",
+      "kind": "file",
+      "bytes": 18118,
+      "sha256": "af8b5625275c3fcdd11b9838505d942c62a12651f65fb6b90434289df970c676",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747607,
+      "mtimeNs": 1790926963112505198,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "f11/prepare-resources.mjs",
+      "kind": "file",
+      "bytes": 7684,
+      "sha256": "748f3137fe53c19fb489ea3c18adc491abbc775fc835b2de4f613f61f751a6d2",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747612,
+      "mtimeNs": 1790926963113384741,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "f11/proof-oracles.mjs",
+      "kind": "file",
+      "bytes": 9029,
+      "sha256": "0c7c2c87774a62a0a6baef6b6efcfacd30ec989dc10827c8b6394e6c36bc4f6f",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747611,
+      "mtimeNs": 1790926963113224699,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "f11/public-outcomes.mjs",
+      "kind": "file",
+      "bytes": 2366,
+      "sha256": "1936e1b8f6ef199f99df8ac6284fd7e06a7b166a1280fc09939ebc661155bf59",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747609,
+      "mtimeNs": 1790926963112880449,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "f11/public-support.mjs",
+      "kind": "file",
+      "bytes": 10660,
+      "sha256": "23eb2e8573059a840fd1a554cc53db5dc01fe96a933a329efba302e0a8eed9cd",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747608,
+      "mtimeNs": 1790926963112721199,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "failed-report-attempt-01.json",
+      "kind": "file",
+      "bytes": 3947,
+      "sha256": "e265a6afea1e60a0b997a5c96eac8d7b5c2ba60b4635793e8ae1a390224852d1",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748532,
+      "mtimeNs": 1790928326862706131,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "first-failure.json",
+      "kind": "file",
+      "bytes": 3846,
+      "sha256": "fc8baf4a246e53c7d53d779aae3ad3fe5959bef8a0b413a3901a04d88e302915",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747999,
+      "mtimeNs": 1790927430043743608,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "first-violated-relations.json",
+      "kind": "file",
+      "bytes": 20550,
+      "sha256": "047d03737ad283172f14ec938e6e5c3f1dbe441a035f4b32407adfccec6666cc",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748451,
+      "mtimeNs": 1790928215503983907,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "flow-parent-after-physical.json",
+      "kind": "file",
+      "bytes": 1275,
+      "sha256": "e9356b7735172a3b11aff6a9fe4b1d86b3142707208af67115462d12a83e2a86",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747996,
+      "mtimeNs": 1790927429871890658,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-parent-command.json",
+      "kind": "file",
+      "bytes": 2807,
+      "sha256": "370e1ce2a2702f07f5a4e38b22477ac90d9d74698f08df34c0c1ac826be8c570",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747978,
+      "mtimeNs": 1790927420847699590,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-parent-handoff.json",
+      "kind": "file",
+      "bytes": 1801,
+      "sha256": "85e2ec9c04e01591f1deb63f95d2b43a3b6807400811450639755d5bf885727d",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747995,
+      "mtimeNs": 1790927429870156322,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-parent-host-receipt.json",
+      "kind": "file",
+      "bytes": 19073,
+      "sha256": "8580e1948738891130953c361eb60a620dd0242932c7ba6a0bcb75c3ea1b8d26",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747994,
+      "mtimeNs": 1790927429870047780,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-parent-native-process.json",
+      "kind": "file",
+      "bytes": 797,
+      "sha256": "1893fb64967e55d7674f391f06de783ff635e0d3cd8b5e5b82d97dde91dc9815",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747990,
+      "mtimeNs": 1790927429865182606,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-parent-owner-outcome.json",
+      "kind": "file",
+      "bytes": 14655,
+      "sha256": "2413f2b5414dcc5daaf46ab3862a0b06e6cf61d7ca2465d71fc67ee60a4ad771",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747993,
+      "mtimeNs": 1790927429869898572,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-parent-process-start.json",
+      "kind": "file",
+      "bytes": 711,
+      "sha256": "dfb2e6765d7ff80dde5cb68b8c1580f51a2757818e42dc4f697c39f4e65ab9c1",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747979,
+      "mtimeNs": 1790927420848717884,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-parent-public-disposition.json",
+      "kind": "file",
+      "bytes": 59,
+      "sha256": "544563218f004e82f8b7e7f22abd445f02fd9640c5c9338aa1e4c0766ee75722",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747992,
+      "mtimeNs": 1790927429869715738,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-parent-stderr.log",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747977,
+      "mtimeNs": 1790927420847441965,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-parent-stdout.json",
+      "kind": "file",
+      "bytes": 15635,
+      "sha256": "9072b261fa87c1f6e27048e18728ac659ecf0d09e24439c05aa37e73924c1cd1",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747976,
+      "mtimeNs": 1790927429784555223,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-parent-timing.json",
+      "kind": "file",
+      "bytes": 292,
+      "sha256": "c8600324943c644668b283be82c6a696b5a078219f03a049d6e55f42c8153c33",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747991,
+      "mtimeNs": 1790927429869243987,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-parent.jsonl",
+      "kind": "file",
+      "bytes": 525424305,
+      "sha256": "e85eb701bb957bcfd4445f14c40ac0ada69a952d262ad811dc07b6b733c156e5",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747975,
+      "mtimeNs": 1790927420841763997,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-progress.jsonl",
+      "kind": "file",
+      "bytes": 933,
+      "sha256": "a9bc41286fd7f27e9856d17ffd5a919aaf92413398877b811fa5cdafdaca1647",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747929,
+      "mtimeNs": 1790927411680204036,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-supervised-stderr.log",
+      "kind": "file",
+      "bytes": 260,
+      "sha256": "2b8107020409c1db87df3fecfddabede5ed8d3af5a99b8147880246455d34ac0",
+      "mode": 384,
+      "device": 16777230,
+      "inode": 464747926,
+      "mtimeNs": 1790927430043817108,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-supervised-stdout.log",
+      "kind": "file",
+      "bytes": 281,
+      "sha256": "abfd6a569c0aa9eb954685c754aad9b3887ea2b606ee16136c3e485af4a430b5",
+      "mode": 384,
+      "device": 16777230,
+      "inode": 464747925,
+      "mtimeNs": 1790927429870412948,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-supervisor-close.json",
+      "kind": "file",
+      "bytes": 1106,
+      "sha256": "32773c0a80837bd531bec03ac8924c229949e6cf8e1faa08975bbbd69e6404da",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748000,
+      "mtimeNs": 1790927430151561578,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "flow-supervisor-start.json",
+      "kind": "file",
+      "bytes": 2198,
+      "sha256": "31b83a30655dc41e8a006802e87e44a01f13acbdb8401aaba2bd1f8c10b19f3b",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747927,
+      "mtimeNs": 1790927399650437436,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "freeze.json",
+      "kind": "file",
+      "bytes": 865006,
+      "sha256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747621,
+      "mtimeNs": 1790926963763958854,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "initial-resource-handoff.json",
+      "kind": "file",
+      "bytes": 1937,
+      "sha256": "2dba89ca67508b0171931120d465e905ecbf380aedf9ffabd1e38f88a869f3ce",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747940,
+      "mtimeNs": 1790927410937588814,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "nominal-preflight-completion.json",
+      "kind": "file",
+      "bytes": 457,
+      "sha256": "913d969aafe1d2187df363a8b604658e68e767ab0540d8c8a87afd1511eb736c",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747938,
+      "mtimeNs": 1790927410813092359,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "observe-process.py",
+      "kind": "file",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747615,
+      "mtimeNs": 1790926963113961326,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "owner-resource-census.json",
+      "kind": "file",
+      "bytes": 6837926,
+      "sha256": "c1f7b2e59a1001bf14411e88d7ce43b6f477ef20f3d563690637f0df0d50e437",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748453,
+      "mtimeNs": 1790928215870670505,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "parent-selection.json",
+      "kind": "file",
+      "bytes": 493,
+      "sha256": "9c7f75b1e5d1aaa08ad0982f1b5cba9fe997d034cbf4bfacacd505b2ccff0e30",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747617,
+      "mtimeNs": 1790926963114271701,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "preimages.json",
+      "kind": "file",
+      "bytes": 3790,
+      "sha256": "0e81d1cfd7bfcc4c85b26a3c3562658905504e452d742e6770829fe5d68430f3",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747395,
+      "mtimeNs": 1790926693676206825,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "preparation.json",
+      "kind": "file",
+      "bytes": 4014,
+      "sha256": "395372ad069c00849b6009b03f1b8a790fed3dd6a02a6c3947547c0db18a2aba",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747643,
+      "mtimeNs": 1790926964101186035,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "prospective-cases.json",
+      "kind": "file",
+      "bytes": 3286,
+      "sha256": "12780cae75c8cafaba7dd56f0c65b60632c5650562816552171fd5a0cab78ebf",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747631,
+      "mtimeNs": 1790926963893488484,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-01/activation.json",
+      "kind": "file",
+      "bytes": 5019,
+      "sha256": "2e96f4cb8a57d9ce11dd688b86c82295868287987c7a259ac29005f7513efa28",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748697,
+      "mtimeNs": 1790928634127462819,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-01/closure.json",
+      "kind": "file",
+      "bytes": 1527,
+      "sha256": "b534e9dfb339325c39e0858b5838ba3bab2281633b384f5d4c8e83252b2b13ee",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748800,
+      "mtimeNs": 1790928756648123035,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-01/preimage-close-failed-cut.py",
+      "kind": "file",
+      "bytes": 23390,
+      "sha256": "8bcd9c3f3217d6e55716d7f404a4bd709e8c8008a835beb561643efa365785a9",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748699,
+      "mtimeNs": 1790928634127751601,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-01/preimage-failed-report-attempt-01.json",
+      "kind": "file",
+      "bytes": 3947,
+      "sha256": "e265a6afea1e60a0b997a5c96eac8d7b5c2ba60b4635793e8ae1a390224852d1",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748700,
+      "mtimeNs": 1790928634127897887,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-01/receipt.json",
+      "kind": "file",
+      "bytes": 3658,
+      "sha256": "6f51bf7c0cccbe43192acbeed9c77bdb6119a138b22321e6b9c555b1feb11bf7",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748799,
+      "mtimeNs": 1790928756647878710,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-01/sole-home-producer-route-patch.json",
+      "kind": "file",
+      "bytes": 4238,
+      "sha256": "e066c153d1ac8123059fb6d752fa11067b6f7d3879c2bd6ed23aaae92193ea74",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748701,
+      "mtimeNs": 1790928634128808190,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-01/stopped-runtime-worker-closure.json",
+      "kind": "file",
+      "bytes": 438,
+      "sha256": "230c34899ad30873cad7b933daa3985424831641cbc15c3aad24edb740290f0f",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464748698,
+      "mtimeNs": 1790928634127584731,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/activation.json",
+      "kind": "file",
+      "bytes": 8378,
+      "sha256": "d3fe9897f7178c2477b16c2e58555c750d7cb4f7549d18c535c2aa3d402a9266",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749414,
+      "mtimeNs": 1790929392101245644,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/closure.json",
+      "kind": "file",
+      "bytes": 7528,
+      "sha256": "cd69b3656b2bd14a80bccc6217fafc99c7c612c1629ad6619ffccc77bfc7947e",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749698,
+      "mtimeNs": 1790929844222578815,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/failed-saved-tail-attempt.json",
+      "kind": "file",
+      "bytes": 7698,
+      "sha256": "f9342b282a7b9afa6faff6eea40cc8bc9679b6cce647dc4e5a7fd3706d61616f",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749425,
+      "mtimeNs": 1790929392103432071,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/failed-tail-preimages/accounting.json",
+      "kind": "file",
+      "bytes": 47017,
+      "sha256": "15d8630b4670aef2e5b91746f3d5dd9bf4ad87bf835645d817e2b246f1bfaeb7",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749423,
+      "mtimeNs": 1790929392102722845,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/failed-tail-preimages/activation.json",
+      "kind": "file",
+      "bytes": 5019,
+      "sha256": "2e96f4cb8a57d9ce11dd688b86c82295868287987c7a259ac29005f7513efa28",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749416,
+      "mtimeNs": 1790929392101454887,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/failed-tail-preimages/close-failed-cut.py",
+      "kind": "file",
+      "bytes": 23414,
+      "sha256": "2e773de5128ee79d88785f6cb278715798fa446f735f0d474305f5f76d3f845c",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749424,
+      "mtimeNs": 1790929392103145539,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/failed-tail-preimages/closure.json",
+      "kind": "file",
+      "bytes": 1527,
+      "sha256": "b534e9dfb339325c39e0858b5838ba3bab2281633b384f5d4c8e83252b2b13ee",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749417,
+      "mtimeNs": 1790929392101598216,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/failed-tail-preimages/preimage-close-failed-cut.py",
+      "kind": "file",
+      "bytes": 23390,
+      "sha256": "8bcd9c3f3217d6e55716d7f404a4bd709e8c8008a835beb561643efa365785a9",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749418,
+      "mtimeNs": 1790929392101987703,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/failed-tail-preimages/preimage-failed-report-attempt-01.json",
+      "kind": "file",
+      "bytes": 3947,
+      "sha256": "e265a6afea1e60a0b997a5c96eac8d7b5c2ba60b4635793e8ae1a390224852d1",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749419,
+      "mtimeNs": 1790929392102147989,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/failed-tail-preimages/receipt.json",
+      "kind": "file",
+      "bytes": 3658,
+      "sha256": "6f51bf7c0cccbe43192acbeed9c77bdb6119a138b22321e6b9c555b1feb11bf7",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749420,
+      "mtimeNs": 1790929392102284818,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/failed-tail-preimages/sole-home-producer-route-patch.json",
+      "kind": "file",
+      "bytes": 4238,
+      "sha256": "e066c153d1ac8123059fb6d752fa11067b6f7d3879c2bd6ed23aaae92193ea74",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749421,
+      "mtimeNs": 1790929392102426771,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/failed-tail-preimages/stopped-runtime-worker-closure.json",
+      "kind": "file",
+      "bytes": 438,
+      "sha256": "230c34899ad30873cad7b933daa3985424831641cbc15c3aad24edb740290f0f",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749422,
+      "mtimeNs": 1790929392102566391,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/finalize-saved-reports.py",
+      "kind": "file",
+      "bytes": 17209,
+      "sha256": "173e37e5c4cbd25ed60de91a5290bb6b97efb6be56605b369a8f3667a10c9982",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749631,
+      "mtimeNs": 1790929748017778296,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/local-bindings-validation.json",
+      "kind": "file",
+      "bytes": 1121,
+      "sha256": "7f22ba9daabdfd290a896e3a7d232fb169efeb3347ac6a0212ac6f3f9763b502",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749691,
+      "mtimeNs": 1790929834751595354,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "report-finalization-02/previous-writer-stopped.json",
+      "kind": "file",
+      "bytes": 942,
+      "sha256": "08859e8f60bb3047be970a711345cfbafdcc35a1b33d4d829d5b496713095cac",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749426,
+      "mtimeNs": 1790929392103555525,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "resource-plan.json",
+      "kind": "file",
+      "bytes": 1963,
+      "sha256": "1b1a59d3ad2e9a7b558575b0cba658b736c60972a30a4d91f5bd1e2a7ad82b4b",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747639,
+      "mtimeNs": 1790926963898295450,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "return.md",
+      "kind": "file",
+      "bytes": 3187,
+      "sha256": "4a1073677f6f8a008a7f133a676d10b83362185445d48e318e248fc66b2b79b8",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464749700,
+      "mtimeNs": 1790929844222866103,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "run-flow.mjs",
+      "kind": "file",
+      "bytes": 10721,
+      "sha256": "1329784b4e57e2a8982f52cedea983de872dcabf97819615af0116a5891757b5",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747640,
+      "mtimeNs": 1790926963898422367,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "runtime-activation.json",
+      "kind": "file",
+      "bytes": 3546,
+      "sha256": "b5c99842f6be23c583437641fd9df8630bbfac843f5d34da1e5f645343685f97",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747394,
+      "mtimeNs": 1790926693674622405,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "runtime-environment.json",
+      "kind": "file",
+      "bytes": 1397,
+      "sha256": "ec91eee2aeb14421fdedda012f98c1e3dd22a01bbb700bdb5c472bd997c5bb23",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747633,
+      "mtimeNs": 1790926963893748234,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "runtime-input-join.json",
+      "kind": "file",
+      "bytes": 2451,
+      "sha256": "3c3e890cfb482f042f3a9718434304f7c1c9b2dce8fbe16fead254110e79b544",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747942,
+      "mtimeNs": 1790927411679932286,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "runtime-release.json",
+      "kind": "file",
+      "bytes": 1464,
+      "sha256": "e3e2ff4192615a2f9a5eb93ec1d4fb63f7244e7f087d537cde6ef06f98c99c70",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747924,
+      "mtimeNs": 1790927399610488079,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "selected-core.json",
+      "kind": "file",
+      "bytes": 889,
+      "sha256": "8765d77b20e06752e74de51ecab067d5786d46da81f41d7946db69c4d83970ef",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747630,
+      "mtimeNs": 1790926963893246984,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "selected-flow-stop.json",
+      "kind": "file",
+      "bytes": 547,
+      "sha256": "f538af72a80f3c7b653ab1ef7db943c7fe428f65d3d2b40c3e55cd3c5b61a2d6",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747997,
+      "mtimeNs": 1790927429872271409,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "setup06-initial-durable-prefix.bin",
+      "kind": "file",
+      "bytes": 2490814,
+      "sha256": "5ba960061e7ad373b389c48c232f13f2dd80a08b2ad296f28f7783c2a5cf470f",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747939,
+      "mtimeNs": 1790927410936600979,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "setup06-initial-entry-pins.json",
+      "kind": "file",
+      "bytes": 9102127,
+      "sha256": "614140264a78796f9ea2db095a87981d5d0b4f907c361927fbcf9be2aa882104",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747642,
+      "mtimeNs": 1790926964100810659,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "supervise.py",
+      "kind": "file",
+      "bytes": 4750,
+      "sha256": "f6dc0dfa5a6bcfd509fc88474390eb143c43d5c51aec448df5a9c8e5960653be",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747616,
+      "mtimeNs": 1790926963114116951,
+      "bodyIdentitySource": "saved producer body identity reused; no payload reproof"
+    },
+    {
+      "path": "task-config/globalnpmrc",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747638,
+      "mtimeNs": 1790926963893929110,
+      "bodyIdentitySource": "first final report-population body census"
+    },
+    {
+      "path": "task-config/npmrc",
+      "kind": "file",
+      "bytes": 56,
+      "sha256": "e30f218c969b117fb179b8638f34d01a721c899543d0be38cb1e443bdcd392d7",
+      "mode": 420,
+      "device": 16777230,
+      "inode": 464747637,
+      "mtimeNs": 1790926963893897318,
+      "bodyIdentitySource": "first final report-population body census"
+    }
+  ],
+  "directories": [
+    {
+      "path": "controls",
+      "mode": 493
+    },
+    {
+      "path": "f11",
+      "mode": 493
+    },
+    {
+      "path": "report-finalization-01",
+      "mode": 493
+    },
+    {
+      "path": "report-finalization-02",
+      "mode": 493
+    },
+    {
+      "path": "report-finalization-02/failed-tail-preimages",
+      "mode": 493
+    },
+    {
+      "path": "task-cache",
+      "mode": 493
+    },
+    {
+      "path": "task-config",
+      "mode": 493
+    },
+    {
+      "path": "task-tmp",
+      "mode": 493
+    },
+    {
+      "path": "task-tmp/abiogenesis-event-store-locks-v5",
+      "mode": 493
+    }
+  ],
+  "authenticExternalEventResource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+    "bytes": 2750762,
+    "sha256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+    "device": 16777230,
+    "inode": 464698960,
+    "mode": "0o644"
+  },
+  "originalEventPrefix": {
+    "bytes": 2490814,
+    "sha256": "5ba960061e7ad373b389c48c232f13f2dd80a08b2ad296f28f7783c2a5cf470f",
+    "saved": "setup06-initial-durable-prefix.bin",
+    "byteExactPrefix": true,
+    "sameDeviceInode": true
+  },
+  "completeExternalCurrentResourceCensus": {
+    "report": "owner-resource-census.json",
+    "acceptedSetupFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/freeze.json",
+      "bytes": 3900408,
+      "sha256": "b44c8a054b19f7eeb84473ada9ba677d51001317d2dac5d213cb92e7469a0cd7",
+      "mode": 420
+    },
+    "originalMembers": 11309,
+    "savedNewlyEnumeratedMembers": 6,
+    "currentDirectories": 1174,
+    "oldBodyProof": "prior accepted complete Setup06 byte assurance reused; unchanged inode/size/mode/mtime for every old member except separately proven ABG prefix append",
+    "fullOldPayloadRehashOrRecopy": false
+  },
+  "externalActualActorArtifactPins": {
+    "output": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/archives/fp-e0b97de23b2d934e-output.txt",
+      "bytes": 15860,
+      "sha256": "bdf89722291e6b97769931cba2c2cfac0e002e682054714b4e1ac9f2e02be042",
+      "mode": 420
+    },
+    "prompt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/archives/fp-e0b97de23b2d934e-prompt.txt",
+      "bytes": 349314,
+      "sha256": "f2f603d781a18a9fd018c53cfda4170f9ab350747a2f42e75736c9d90dad2099",
+      "mode": 420
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/archives/fp-e0b97de23b2d934e-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/archives/fp-e0b97de23b2d934e-stdout.log",
+      "bytes": 32333,
+      "sha256": "eff211d9574220e228d4e3cfdb3d63f5171527aba5af732ec6e4ba50263638ce",
+      "mode": 420
+    },
+    "transport": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/archives/fp-e0b97de23b2d934e-transport.json",
+      "bytes": 54917,
+      "sha256": "d22c2e3660621f743aeb7fa7118aa99d544e19dad72c71676f861c1176055eff",
+      "mode": 420
+    }
+  },
+  "effects": {
+    "actualPublicCalls": 1,
+    "ABGAppendedRecords": 64,
+    "ABGAppendedBytes": 259948,
+    "controlledHelperLaunches": 1,
+    "realProviderCalls": 0,
+    "completedRuns": 0,
+    "successfulQualificationJ": 0,
+    "failedChildResult": "result://abiogenesis/011af2adc5c70b794b8f56e527895de1464a4b89e5be8a3b5e7aca9c15e0889c",
+    "failedParentResult": "result://abiogenesis/e2ff38b9942b8d067a2a288d1bfb2414ec5f9bd05ad50022de3804996aed43d7",
+    "failedFoldback": "child-foldback://abiogenesis/7e75c4bd6161d56b42b667ec8f4ad5ca440151417ce48d4ea14b3f93147d3b6f",
+    "run": {
+      "digest": "sha256:eb58179223d2ae7a43ca2829ac4ffbe46ddfe93569d0504056b5393ad6ac7de0",
+      "ref": "run://abiogenesis/292d603a097a7d2549330fa3105837534329c572b8052e81c31d289dae9a270e"
+    },
+    "runDisposition": "runtime_failed",
+    "coldReads": 0,
+    "F11Runs": 0,
+    "AF22Runs": 0,
+    "additionalRuntimeSourceSetupInstallGitNetworkQualificationCommands": 0
+  },
+  "runtimeElapsedMs": 30501.296541187912,
+  "peakWait4RSSBytes": 7498661888,
+  "heap": "default; unchanged",
+  "HOME": "/Users/jim",
+  "copiedPreparationFreeze": "freeze.json remains an exact Q08 input-control replica, never this Runtime cut",
+  "excludedSelf": "final-runtime-freeze.json only",
+  "reportFinalization": {
+    "operation": "T287_RUNTIME07_SAVED_REPORT_FINALIZATION_02",
+    "role": "Writer, report-only",
+    "grant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-saved-report-finalization-controls-02/request.txt",
+      "bytes": 3149,
+      "sha256": "d8ffaf440f9ef844292f61d273ae5be970294f5b46cd710ef0a2a9e14707e284",
+      "mode": 420
+    },
+    "selfContainedFinalizer": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/report-finalization-02/finalize-saved-reports.py",
+      "bytes": 17209,
+      "sha256": "173e37e5c4cbd25ed60de91a5290bb6b97efb6be56605b369a8f3667a10c9982",
+      "mode": 420
+    },
+    "savedRecordsProducer": "appended-runtime-records.json",
+    "protectedTenSavedReports": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/actual-actor-transport-evidence.json",
+        "bytes": 105559,
+        "sha256": "2e417d452e72cd007bea4f27add6bb4cf2ea228a0776b5fa9f29078be838103f"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/available-native-verification-preimages.json",
+        "bytes": 3228,
+        "sha256": "0c9bf2a282e38260884a31f4e90e971178aa58353322be47565add3bcc2b4c96"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/appended-runtime-records.json",
+        "bytes": 305336,
+        "sha256": "d9d895d04e507d66bc549e24ee99e65c991831ff470d4f47131a007ea7f10645"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/first-violated-relations.json",
+        "bytes": 20550,
+        "sha256": "047d03737ad283172f14ec938e6e5c3f1dbe441a035f4b32407adfccec6666cc"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/closed-event-resource-handoff.json",
+        "bytes": 2612,
+        "sha256": "448bdb6a900500522a46e54f19b170629494b95d5257392c55071090ca34e21e"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/closed-runtime-events.jsonl",
+        "bytes": 2750762,
+        "sha256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/appended-durable-records.bin",
+        "bytes": 259948,
+        "sha256": "c473ec4f2c586b4b9d9148cfababec0476c3fc3382bd2b546a34138696585fa2"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/owner-resource-census.json",
+        "bytes": 6837926,
+        "sha256": "c1f7b2e59a1001bf14411e88d7ce43b6f477ef20f3d563690637f0df0d50e437"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/conservation.json",
+        "bytes": 7929,
+        "sha256": "4e9c296728ba50edc2bd3fa24476bba005ddd0e703302d8e40682ed12895efe8"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/accounting.json",
+        "bytes": 47017,
+        "sha256": "15d8630b4670aef2e5b91746f3d5dd9bf4ad87bf835645d817e2b246f1bfaeb7",
+        "mode": 420
+      }
+    ],
+    "previousWriter": "CLOSED_STOPPED_REPORT_NAMESPACE_MISS",
+    "previousWriterEvidence": "report-finalization-02/failed-saved-tail-attempt.json",
+    "elapsedMsBeforeFinalReports": 17.176750116050243,
+    "RuntimeOwnerImportsReopensReadbacksHelpersProvidersPayloadReproof": 0
+  },
+  "reportOnlyElapsedMsToInventory": 223.72416593134403,
+  "noAdditionalRuntimeOrPayloadReproof": true,
+  "exactUnderlyingNativePreimageRefusal": "Unknown in this reporting cut; independent Root localization is separate",
+  "missingDownstream": [
+    "successful qualification J",
+    "child and parent graph closures",
+    "RunClosed",
+    "six fresh CLI reads",
+    "fresh F11 consuming the original J",
+    "sole truthful non-green AF22",
+    "nearest supported negatives"
+  ],
+  "noFunctionalityOrReleasePass": true,
+  "noFurtherWrites": true
+}

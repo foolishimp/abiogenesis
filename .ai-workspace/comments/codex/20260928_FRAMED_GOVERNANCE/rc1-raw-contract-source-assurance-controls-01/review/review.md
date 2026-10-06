@@ -1,0 +1,61 @@
+# CLOSED — GO_BOUNDED_SOURCE_ASSURANCE
+
+Independent Reviewer T287_QUALIFICATION_RAW_CONTRACT_SOURCE_ASSURANCE_01. Product Frame first: the fixed ABIogenesis 5.0 Product requires GTL as the constructive contract/topology carrier, exact native raw-contract owners, F_P integrity, ABG admission and replay-derived closure. Fifteen outcome families and the source/product/install distinction remain intact. Component proof and supplied admission booleans do not produce Product installation, Run truth, semantic qualification or release eligibility. The selected end-to-end integration, NativeDefinition, ContractIdentity, Effects and Proof/Reuse/Cost frames require exact producer → declared owner → native verifier correspondence without weakening its refusal boundaries.
+
+The inspected 84-byte F_P producer increment is sound. It declares its already published `q.assessmentRaw` through existing `abg.raw_result_contract`, so the unchanged selected declaration resolver can collect one exact raw owner. The targeted regression demonstrates the source relation under explicit lower component premises. No concrete blocking counterexample was found within this bounded grant. Root alone accepts and constructs the successor.
+
+## Exact cut, authority and source cone
+
+Author cut `qualification-raw-contract-realization-01/freeze.json` is CLOSED GO_SOURCE_COMPONENT_ONLY, 1,928,995 bytes, SHA256 `c97230b250baf64201468a6d4fce42e190a248c671cd0e82b75467f339f4d762`. This Reviewer independently reacquired all 6,550 records: 6,548 regular files totaling 150,983,800 bytes plus two exact symlinks, 656 directories, every recorded body/mode and complete census. Both canonical postimages match. The freeze's descriptive self-exclusion is `freeze.json itself`; the actual sole excluded member is freeze.json. No record discrepancy was found.
+
+The source preimage is accepted C06 `gtl/self_conformance.ts`, 18,649 bytes, SHA256 `814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92`. The exact postimage is 18,733 bytes, SHA256 `8396aee64c5d800861c97b9a5ce0ccdde06d5ba507539da7216f62080238614f`. Removing the one added 84-byte line reproduces the original body byte for byte:
+
+```ts
+...(fibre === "F_P" ? { "abg.raw_result_contract": q.assessmentRaw } : {}),
+```
+
+The new canonical test was absent before this grant. Its postimage is 14,115 bytes, SHA256 `f57e520c9a7ce2ca5ee61044bc70293b93618f4649a816b52d1fc4393d29334e`. The source change occurs inside the existing qualification leaf producer; only assessment uses F_P here. Existing F_D leaves, the separately constructed F_H ruling GraphFunction, templates, bindings, raw schema, environment, declarations other than the raw dependency, generic declaration resolver, leaf/native APIs and old wrapper are conserved.
+
+REQ-L-GTL3-GRAPHFUNCTION-016–018 and GTL_3_INTERFACE_CONTRACTS retain cumulative environment meaning and canonical governance declarations. D4/D5 already selects exact raw/output contracts from this producer and keeps `resolveExecutionDeclarationClosure` and the exact selector reusable; its additional-scope rule is respected. The current native-work producer explicitly publishes the same kind of raw dependency. Its retained test preserves the old missing-owner/result_contract_refused and separately demonstrates successor required ownership without restamping historical admission. The current change follows that constructive relation rather than changing generic environment collection or adding fixture metadata. The smallest lawful re-entry remains realization_refactor under accepted WHAT/HOW.
+
+Source-stage preservation was checked against actual C06 staged identities. Excluding dependency/toolchain material, 1,630 existing staged tenant bodies/modes are unchanged; exactly the canonical producer TS and its emitted JS differ, and the new test is the sole added member. Compared with the broader original source inputs, twelve packaged-law/authority copies differ by their already accepted staging derivation; all twelve match the actual C06 stage. They are preserved donors, not twelve new source effects. The unchanged collector, native verifier, transport, raw guard and implementation dependencies were independently pinned. No generic resolver/schema repair is accepted by this review.
+
+The source-authorship record retains the original `/root/f11_carrier_design_worker` body and C03→C04→C05→C06 predecessor records. The new Worker `/root/q03_input_review` owns this increment and new test. Copy/build authors remain distinct from original semantic authors; source/component reuse supplies no eventual F11 semantic independence. This Reviewer did not author either changed canonical body or the regression.
+
+## Actual regression and explicit premises
+
+The final test uses the actual complete Q08/Setup06 publication roster and unchanged wrapper import, the exact C06 old constructor, the source-built changed constructor, Q08 assessment input and closed Runtime07 request/raw. The retained constructor's semantic digest must equal the actual retained core publication. Removing only the new raw declaration from the changed publication restores the old semantic digest. Every non-assessment GraphFunction body is compared exactly with the old constructor.
+
+Bound values remain input `sha256:910738abe7190207d20bc5c0abec05de4d35f65bb82a90638264f73741f63ce0`, request `sha256:c5d12e83e7c1fd10e0bb18b3035cd3e48bf39ed4aa7fb586cdcccf38c1bf0062`, raw `sha256:bdf89722291e6b97769931cba2c2cfac0e002e682054714b4e1ac9f2e02be042`. Raw equals accepted Q08 exactly, is 15,860 serialized bytes, and preserves indeterminate/unknown meaning. It is not a supplied semantic pass.
+
+For both singleton assessment and mixed wrapper-root closure, the test executes real `buildGraphFunctionCatalog`, `narrowGraphFunctionCatalog` and `resolveExecutionDeclarationClosure`. Old constructor yields zero raw owners and real `verifyProbabilisticResultContractPreimage` returns result_contract_refused. Changed constructor yields exactly one raw owner from the core qualification module. The real admitted-port constructor, exact owner lookup, unchanged worker-contract selector, qualification raw guard and native preimage verifier yield a nominal verified preimage bound to the actual raw ref/digest. The mixed route preserves the wrapper publication's exact semantic digest. These results directly discriminate the missing explicit producer dependency identified during source localization.
+
+Lower premises are supplied and visible in the VM scaffold:
+
+- Catalog readiness/workspace/install/lock fields and old install coordinates are reused as component data. The changed publication under those fields is not a newly installed or admitted Product.
+- `hasAdmittedProductInstall` and `hasAdmittedImplementationSetAtPrefix` return supplied true premises. The test's empty prefix/artifact-truth inputs do not become authentic ABG facts.
+- `inspectProductLeafSemanticsProjection` supplies the declared core projection and the actual qualification semantics, with installed-content verification supplied true. Thus installed loading/authentication is not exercised. The current raw validator and worker-contract selector remain real.
+
+The owner lookup and preimage verifier are not mocked and no verified preimage artifact is supplied. The test directly constructs a core-selected port even for the mixed closure; it does not traverse the wrapper, invoke `forGraphFunction` dynamically, execute the actor, admit J or prove foldback. Prior accepted child-rebasing source assurance remains separate and the actual new installed composition remains mandatory.
+
+The final Node harness runs one test: pass1, fail0, skipped0, cancelled0, todo0. Its report contains 18 route observations (nine per route), not 18 separately named Node tests. Each route includes the paired old/new positive, malformed raw/result_contract_refused, crossed input digest/input_contract_refused, crossed instruction/raw contracts/contract_identity_mismatch, missing owner/absent, duplicate owner/ambiguous, incompatible owner manifest/wrong_owner, and unselected ambient graph isolation. The ownership negatives refuse through the actual catalog/closure boundaries before a port can use those owners; they do not pretend to be post-admission native failures.
+
+The unselected ambient graph changes its containing publication's semantic digest. Final isolation compares the selected dependency roster while independently checking that every owner coordinate binds its actual changed publication digest. It does not require a changed publication to retain an old digest or skip digest authentication.
+
+## Initial failure, supervision and costs
+
+One isolated compile and two bounded attempts of this targeted regression are preserved. The first test failed solely because its new ambient-isolation oracle compared complete owner coordinates including the legitimately changed publication digest. The original failing test body, output, process receipt and correction are retained. The final oracle conserves every other selected owner field and independently binds each publication digest. The canonical producer did not change during the correction; no compile or unrelated suite was repeated. This is correction of the newly authored component expectation, not weakening an existing original Product oracle.
+
+Recorded C06 Node24.7 is exact-pinned; HOME remains `/Users/jim`, default heap is retained, and task TMPDIR/npm config are isolated/offline. The Supervisor establishes PID=PGID before imports and records finite 180-second command deadlines, wait4 reaping and absent process group after each wait. PIDs/PGIDs are 8873 compile, 10063 first regression and 13583 final regression. No managed job timed out or left an unreaped main process/group according to these receipts. That group observation is not a claim of unrelated process census.
+
+Compile: 6.079712459s, exit0, peak supervised RSS1,087,733,760 bytes. Initial regression: 0.555467667s, exit1, RSS394,100,736 bytes. Final regression: 0.696659375s, exit0, RSS398,344,192 bytes. Managed total7.331839501s; isolated stage preparation1.759786584s. The declared total420-second figure is a managed-command budget; elapsed time between job starts includes the separate review/expectation-correction interval and is not reported as CPU/test execution. Final internal regression body time347.328833ms and Node harness duration635.462708ms are distinct from supervised wall duration.
+
+Worker effects are one canonical producer change, one new test, isolated compilation and the two preserved targeted attempts. Source tests execute no actual Runtime, actor/helper/model/provider/network/Git work or qualification recipe commands. This Reviewer executes no imports/tests/build/owner/preparation/Runtime/provider/network/Git effects; only pure reads/hash/comparison and the newly granted report writes. All old cuts and source-component evidence remain immutable.
+
+## Counterexamples, residuals and recommendation
+
+The source change prevents the observed missing raw-owner refusal within the tested relation. No actual counterexample requires another source, schema, resolver, Product or design increment here. Ordinary malformed, crossed and missing/nonunique/incompatible owner refusals are conserved by the regression. The old failed Runtime remains failed; successful component verification cannot retroactively repair its event history.
+
+This recommendation permits Root to accept this source-only increment and proceed to the already selected successor construction. It grants no new execution authority. Fresh C07 installation/binding and the actual current native preimage/actor exchange, child Result/J, completed child closure, parent foldback/completed Run, F11, sole truthful non-green AF22 and six cold reads remain separately unproved. Genuine F11/QUAL-056 coverage, semantic material-context/source-auth adequacy, whole scenarios, green AF22 and release eligibility remain unknown/open. No added prerequisite campaign or optional hardening is recommended.
+
+**CLOSED GO_BOUNDED_SOURCE_ASSURANCE** for the exact 84-byte producer increment, the new targeted regression and their recorded component proof. Root alone conjoins this result. Freeze completion ends this activation's writes and effects.

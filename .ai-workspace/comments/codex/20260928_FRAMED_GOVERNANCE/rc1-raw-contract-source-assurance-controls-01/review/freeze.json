@@ -1,0 +1,60 @@
+{
+  "status": "CLOSED",
+  "workResult": "GO_BOUNDED_SOURCE_ASSURANCE",
+  "activation": "T287_QUALIFICATION_RAW_CONTRACT_SOURCE_ASSURANCE_01",
+  "role": "independent Reviewer",
+  "frozenAt": "2026-10-02T09:29:21.423922+00:00",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-raw-contract-source-assurance-controls-01/review",
+  "records": [
+    {
+      "path": "a_c.literal.txt",
+      "kind": "file",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 420
+    },
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "bytes": 1710,
+      "sha256": "aea5d7916586b8d57f7f4fb81ce9146ec4d458c6d6b8ab1d9f4a9dfa7090ff4f",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "kind": "file",
+      "bytes": 1839,
+      "sha256": "42b84fdf9ade82aa810639b3e7ae22d132d8350fcf99e33ea1466d4e9d5b7e0c",
+      "mode": 420
+    },
+    {
+      "path": "pins.json",
+      "kind": "file",
+      "bytes": 28203,
+      "sha256": "93d4957b620933369e9f43b55fed1124c1d64a081e3b0444830ae17ed116d4c1",
+      "mode": 420
+    },
+    {
+      "path": "review.md",
+      "kind": "file",
+      "bytes": 12306,
+      "sha256": "31e29ef783544d43ac03334a6e3c046ef19d322ea42cc17e32ff2c6a888440b3",
+      "mode": 420
+    }
+  ],
+  "recordCount": 5,
+  "recordBytes": 82171,
+  "directories": [],
+  "directoryCount": 0,
+  "linkCount": 0,
+  "freezeExcludesItself": true,
+  "grantSHA256": "1b94f8a2e48685901634a6ffd0f8d456cee7aac9d568a137739dac44c6c31bbd",
+  "subjectFreezeSHA256": "c97230b250baf64201468a6d4fce42e190a248c671cd0e82b75467f339f4d762",
+  "report": "review.md",
+  "pins": "pins.json",
+  "closure": "closure.json",
+  "actualInstallOrAdmission": false,
+  "wholeRuntimeOrQualificationAccepted": false,
+  "RootAloneConjoins": true,
+  "stop": "CLOSED; no additional effects under this role"
+}

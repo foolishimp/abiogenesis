@@ -1,0 +1,55 @@
+{
+  "status": "CLOSED",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-typed-contract-controls-01/activation.json",
+      "bytes": 524,
+      "sha256": "c0664db8336939c2a14084ee23c6629f096422b9258379557790c2261f9cc66a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-typed-contract-controls-01/basis.json",
+      "bytes": 3264,
+      "sha256": "f67d884801b82d1c51e22b9fa1d95a2466fa419e94df4f603dac02a7837eda4d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-typed-contract-controls-01/closure.json",
+      "bytes": 187,
+      "sha256": "a616158ee0614d73ad56dfe4edf8b782c37c6cad959f9f7e0b82fe0fd82f3e07",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-typed-contract-controls-01/literal-verification.json",
+      "bytes": 913,
+      "sha256": "0a28c0112d9f7b4fad2be6524cb0f755048d577c118ac520a8e2eaa81fad7518",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-typed-contract-controls-01/request.txt",
+      "bytes": 5428,
+      "sha256": "e7b1a27fbe8ba4653e5c381f0f83e611702b1ef7a97c697a562de595b4e09e87",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-typed-contract-controls-01/review-request.txt",
+      "bytes": 2371,
+      "sha256": "e06c902cce33a5a404b25a2cc3dbce9ac8e4f0102f145b8dcdced54391f11bb1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-typed-contract-controls-01/review-sections.json",
+      "bytes": 2642,
+      "sha256": "f43ab5dc91ab0aee41ce99d677bca5166b338132655fd795f20fe17d9e349d43",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-typed-contract-controls-01/sections.json",
+      "bytes": 5699,
+      "sha256": "39a114200f75d5433a72bff087608118ec8afc2a28e2974d3c3ecc9cb466b5fe",
+      "mode": 420
+    }
+  ],
+  "directories": 0,
+  "links": 0
+}

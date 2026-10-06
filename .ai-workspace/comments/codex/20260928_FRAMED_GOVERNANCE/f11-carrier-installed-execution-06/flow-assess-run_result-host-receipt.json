@@ -1,0 +1,28 @@
+{
+  "definitionKey": {
+    "memberKey": "run_result",
+    "operationId": "abg.operation.project.read"
+  },
+  "exitCode": 70,
+  "failure": {
+    "cause": "Error: {\"kind\":\"definition_execution_fault\",\"schemaVersion\":\"5.0.0\",\"definitionKey\":{\"operationId\":\"abg.operation.project.read\",\"memberKey\":\"run_result\"},\"stage\":\"resource_admission\",\"code\":\"invalid_resource_assertion\",\"message\":\"definition resources differ from the owner-authored structural contract\",\"evidence\":{}}",
+    "failureKind": "typed_execution_fault",
+    "fault": {
+      "code": "invalid_resource_assertion",
+      "definitionKey": {
+        "memberKey": "run_result",
+        "operationId": "abg.operation.project.read"
+      },
+      "evidence": {},
+      "kind": "definition_execution_fault",
+      "message": "definition resources differ from the owner-authored structural contract",
+      "schemaVersion": "5.0.0",
+      "stage": "resource_admission"
+    }
+  },
+  "invocationRef": "invocation://abiogenesis/72aa8dcb5ddf11c8bfbaf97aabbc9bf4c4afa09ca8e18f7a5207d290918e5cc6",
+  "kind": "definition_host_receipt",
+  "ownerOutput": null,
+  "resources": null,
+  "schemaVersion": "5.0.0"
+}

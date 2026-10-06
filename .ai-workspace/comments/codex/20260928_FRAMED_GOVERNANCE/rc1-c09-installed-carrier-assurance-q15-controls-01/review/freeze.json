@@ -1,0 +1,56 @@
+{
+  "operation": "T287_C09_INSTALLED_CARRIER_ASSURANCE_01",
+  "role": "independent Reviewer",
+  "status": "CLOSED",
+  "disposition": "NO_GO_INSTALLED_MECHANICAL_CARRIER_ONLY",
+  "positiveCompanion": "GO_BOUNDED_ORIGINAL_ASSESSMENT_CARRIER_AND_TWO_READS",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-09/final-runtime-freeze.json",
+    "bytes": 25683,
+    "sha256": "fbd13541c072abe6ca683dda97ed03f8b5f341b7e980eb0cbc0e94c4e4e4c7fb",
+    "mode": 420
+  },
+  "records": [
+    {
+      "path": "a_c.literal",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 292
+    },
+    {
+      "path": "activation.json",
+      "bytes": 864,
+      "sha256": "6932c73609cf00f78ef785cf452cbdc6fcb4a9066fe3e6a8eef6ff656cf89efc",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 932,
+      "sha256": "be9fb270c588656c44172e6841119024e7006c91df3eded13eba67078416163c",
+      "mode": 292
+    },
+    {
+      "path": "pins.json",
+      "bytes": 24196,
+      "sha256": "8a131cdb2f7569d14ea36650291143c51791d4cf6443ebfff7d582b7ca7496e7",
+      "mode": 292
+    },
+    {
+      "path": "positive-companion.json",
+      "bytes": 9506,
+      "sha256": "44436de4d9ff04f2a54e23531c4ab903bb40c03d66a21e39af3e576caa97f243",
+      "mode": 292
+    },
+    {
+      "path": "report.md",
+      "bytes": 6033,
+      "sha256": "d20ac2abd4b5ae41c1285d21373a43cf632f518ecd4c1f1e2bef211c62215060",
+      "mode": 292
+    }
+  ],
+  "recordCount": 6,
+  "bodyBytes": 79644,
+  "directories": 0,
+  "links": 0,
+  "noFurtherWrites": true
+}

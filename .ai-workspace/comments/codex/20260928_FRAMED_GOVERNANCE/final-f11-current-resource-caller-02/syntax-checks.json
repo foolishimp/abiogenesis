@@ -1,0 +1,57 @@
+{
+  "status": "PASSED",
+  "checks": [
+    {
+      "name": "driver.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "ordinary-caller.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "public-support.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "native-checks.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "owner-checks.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "prefix-checks.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "owner-readiness.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "name": "prepare.py",
+      "syntax": "python AST passed; no execution/import"
+    },
+    {
+      "name": "observe-process.py",
+      "syntax": "python AST passed; no execution/import"
+    }
+  ],
+  "effectfulDriverImported": false,
+  "nativeCalls": 0
+}

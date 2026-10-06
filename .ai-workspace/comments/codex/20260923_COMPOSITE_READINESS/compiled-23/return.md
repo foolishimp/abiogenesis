@@ -1,0 +1,3 @@
+# CLOSED — compiled23 construction
+
+Exact Root-accepted SB01 source subject d321ffba… is preserved. Ordinary build18.921s, pack3.172s, offline install1.985s; all5,233 source/archive/install members match. Actual installed Product verification succeeded in8.732s (end RSS1,354,711,040B; not peak); all12 declared leaf exports match. [Coordinates](selected-core.json), [correspondence](package-correspondence.json), [verification](product-verification-summary.json). No source tests repeated, Run or actor. Dev13 downstream verification refused; this candidate is preserved and no runtime selection occurred.

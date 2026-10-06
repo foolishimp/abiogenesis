@@ -3,17 +3,17 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {SourceTextModule,SyntheticModule} from 'node:vm';
-import {product,retainedSource,packageRoot,hash} from './forward-command-harness.mjs';
+import {product,componentSource,packageRoot,hash} from './forward-command-harness.mjs';
 import * as eventOwner from '../../build/code/src/abg/event_store.js';
 import {WITNESS_CONTENT_CONTRACTS as contracts} from '../../build/code/src/abg/witness_admission_operation.js';
 
 // Execute the exact compiled owner algorithms. New bindings, CCalls, C0
 // transitions, invocation and Public-operation lookups are explicit synthetic
-// assumptions, not admitted events. The original task/receipts/observations
-// come from the actual closed prefix. Witness construction uses the unchanged
+// assumptions, not admitted events. The task/receipts/observations
+// are explicitly supplied local component data. Witness construction uses the unchanged
 // native event constructor; no store is opened or appended.
 export async function ownerLookups(){
-  const actual=retainedSource(),old=actual.originalTask,events=[],artifacts=[],bases=new Map(),transitions=new Map(),invocations=new Map();
+  const actual=componentSource(),old=actual.originalTask,events=[],artifacts=[],bases=new Map(),transitions=new Map(),invocations=new Map();
   const time='2026-09-11T11:00:00.000Z';let serial=0,transitionReads=0;
   function event(kind,payload,fields={}){const e={kind,payload,eventId:'lookup-event:'+ ++serial,admissionOrdinal:events.length+1,
     eventTime:time,correlationId:'correlation://forward-mechanical',causationEventRefs:[],aggregateId:'lookup-aggregate',...fields};events.push(e);return e;}
@@ -55,7 +55,7 @@ export async function ownerLookups(){
     transitions.set(result.eventId,{before:afterBinding?protectedObservations[index].observation.observationRef:'old-preimage:'+index,
       successorObservation:failed?null:row.observation});return {basis:b,evidence,result};
   }
-  for(let i=0;i<22;i++)c0.push(addC0(i,'original-'+i));
+  for(let i=0;i<old.protectedObservations.length;i++)c0.push(addC0(i,'original-'+i));
   function cover(before,after,basis,{name=`cover-${serial}`,mutate=()=>{}}={}){
     const old=before.workspaceBinding,current=after.workspaceBinding;
     const content={declarationRef:old.bindingId,beforeDigest:old.bindingDigest,afterDigest:current.bindingDigest,

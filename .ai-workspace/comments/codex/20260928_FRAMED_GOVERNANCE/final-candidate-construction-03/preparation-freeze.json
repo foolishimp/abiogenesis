@@ -1,0 +1,191 @@
+{
+  "status": "CLOSED_PREPARATION_ONLY",
+  "workResult": "preparation_ready",
+  "activation": "T287_RC1_SUCCESSOR_PREPARATION_03",
+  "frozenAt": "2026-10-01T19:25:56.692625+00:00",
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 1737,
+      "sha256": "78541c29cf68a288a2b56b85cc2344997142cd05482d362378bf9075adee67dc",
+      "mode": 420
+    },
+    {
+      "path": "baseline-pins.json",
+      "bytes": 2184,
+      "sha256": "313738769f8d14bf482cda40cd8a94d3f38e6b6081b358f4026b4be42ab4abfa",
+      "mode": 420
+    },
+    {
+      "path": "closed-state.json",
+      "bytes": 936,
+      "sha256": "4c03fe73d28e9e9af2d37f04c14b17a5d9a8315469c145d8379a286ae8fd7af2",
+      "mode": 420
+    },
+    {
+      "path": "correspondence.py",
+      "bytes": 2878,
+      "sha256": "f5b2745df4a2ea7e3bab7cacbf791a7209d338efb390bbcfd09b3f886ebcd5c6",
+      "mode": 420
+    },
+    {
+      "path": "dependency-pins.json",
+      "bytes": 27198,
+      "sha256": "4b54b0196d7e0ab3b71980c61da1b777dda17b37bb00fd78ae5920dfd668eab8",
+      "mode": 420
+    },
+    {
+      "path": "donor-controls/budgets.json",
+      "bytes": 449,
+      "sha256": "7ddc19b3a097c0087c1e08665ea1d3bdcbf59f447fcf8a4873d2af6d0d0eb865",
+      "mode": 420
+    },
+    {
+      "path": "donor-controls/correspondence.py",
+      "bytes": 2634,
+      "sha256": "19099eb8c3b470a40ea3177a9911eaba7214aa7da8326a40a3ca835da8e2b447",
+      "mode": 420
+    },
+    {
+      "path": "donor-controls/execute-once.py",
+      "bytes": 4081,
+      "sha256": "270a5b2b4e10e210047ffcf931e7804e74c85aac4db6977aef671d16ceb58669",
+      "mode": 420
+    },
+    {
+      "path": "donor-controls/prepare.py",
+      "bytes": 8600,
+      "sha256": "62a881d4351b09e79d35276ab5dc571e3d6ca4524db9fe578c14ac46b5310e02",
+      "mode": 420
+    },
+    {
+      "path": "donor-controls/validate-installed-publications.mjs",
+      "bytes": 3801,
+      "sha256": "4f9f51f222e5e9da24b55f748bcf5a8dfd1c6732450fd75357c4a961874cd15b",
+      "mode": 420
+    },
+    {
+      "path": "donor-controls/verify-installed.mjs",
+      "bytes": 4982,
+      "sha256": "c5980018fbc3f43652cfae2d23ce0665ea470833026134a6a2d2ea8904fecf1c",
+      "mode": 420
+    },
+    {
+      "path": "donor-rebinding.json",
+      "bytes": 6290,
+      "sha256": "f005735cfc1061b92ef2229802da0eb6f424e72b35cafd27f78317aba5482529",
+      "mode": 420
+    },
+    {
+      "path": "execute-once.py",
+      "bytes": 4325,
+      "sha256": "9df5cf1778253396db1378fdf016c9286d15df866c2e1d37157edf670881719a",
+      "mode": 420
+    },
+    {
+      "path": "future-execution-order.json",
+      "bytes": 1780,
+      "sha256": "2f4525f029d404f35286dfd7f0e6bbf98a000b61b2c7e73d901022ae8c5b31d9",
+      "mode": 420
+    },
+    {
+      "path": "pending-postimage-selection.json",
+      "bytes": 9463,
+      "sha256": "c5db3f168759e68a453ad59b0aa3ec0047e0ef2b5f7f0ae847d3e8f39dc659a5",
+      "mode": 420
+    },
+    {
+      "path": "pending-postimages/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "bytes": 13284,
+      "sha256": "0c896ab3132b2d934e9a1593cf6a54d4cc5bb58542b86d1a49ab697ce5c4a435",
+      "mode": 420
+    },
+    {
+      "path": "pending-postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+      "bytes": 10651,
+      "sha256": "ae8ee02debaed07e899d43a8c07382287b73e90c766f71aefd2c60414e438fa6",
+      "mode": 420
+    },
+    {
+      "path": "preparation-result.json",
+      "bytes": 666,
+      "sha256": "56d5cf4caae274cbc1f8a3fd35ea7944464c40c80cd1e94a06fea66b8b57b2e2",
+      "mode": 420
+    },
+    {
+      "path": "preparation-verification.json",
+      "bytes": 582,
+      "sha256": "09dba48f65afbde6f0a941c5fa48cf4ea993ba8b5f6a99dc746ae482a388706f",
+      "mode": 420
+    },
+    {
+      "path": "prepare.py",
+      "bytes": 15841,
+      "sha256": "6048255d515c5fdae9b9dc5e16109e25c7313a41a2c4012f280e7151194c06b3",
+      "mode": 420
+    },
+    {
+      "path": "return.md",
+      "bytes": 6504,
+      "sha256": "336a97f40d9da59316b4d492f1af5d82de9459be96b237fe2ca3fd5e6361f7bf",
+      "mode": 420
+    },
+    {
+      "path": "source-preparation.json",
+      "bytes": 2032705,
+      "sha256": "752e433020b316458d00b084be1c2e1984bf49dfaf881968cdcabd898a46b933",
+      "mode": 420
+    },
+    {
+      "path": "toolchain-pins.json",
+      "bytes": 1070997,
+      "sha256": "0c0aebb596beefcd66c5b49cc711f33ca12ba8afaf6b3a147dec9fb2e8b0aa66",
+      "mode": 420
+    },
+    {
+      "path": "validate-installed-publications.mjs",
+      "bytes": 4081,
+      "sha256": "3f5f24c3ccd67f59e0f0ea03e829ddfa8b8031e7d4840c8012d745ba6e685593",
+      "mode": 420
+    },
+    {
+      "path": "verify-installed.mjs",
+      "bytes": 5262,
+      "sha256": "05e978031443b6882a585bb57f71b7c527b0667f0ab885d9e1db958cd34fbc59",
+      "mode": 420
+    }
+  ],
+  "copyPopulations": {
+    "sourceMembers": 1088,
+    "sourcePhysicalCopies": 2176,
+    "knownPendingSelectedSourceAbsences": 15,
+    "heldLawPostimages": 2,
+    "toolchainRecords": 2328,
+    "lockedArchives": 16,
+    "cacheContents": 16
+  },
+  "boundCopyInventories": [
+    "source-preparation.json",
+    "toolchain-pins.json",
+    "dependency-pins.json"
+  ],
+  "pendingSelection": "pending-postimage-selection.json",
+  "verification": "preparation-verification.json",
+  "candidateFreeze": false,
+  "sourceSelectionComplete": false,
+  "constructionExecutionGrant": false,
+  "effects": {
+    "compilation": 0,
+    "authorityStaging": 0,
+    "generatedWrites": 0,
+    "dependencyInstallation": 0,
+    "pack": 0,
+    "install": 0,
+    "native": 0,
+    "provider": 0,
+    "network": 0,
+    "Git": 0
+  },
+  "historicalInputsPreserved": true,
+  "stop": "Preparation writes closed; no subsequent effect before explicit exact extension"
+}

@@ -1,0 +1,69 @@
+{
+  "activation": "T287_S7_SELECTED_ACTION_INSTALLED_05",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-05/request.txt",
+    "bytes": 6701,
+    "sha256": "4034b6fdaebf67ec36ab7972d5b887c1398c77eb5539cdd7a0574c988aad3cbc"
+  },
+  "head": "55a8a452141caf180ea6cee6365d2a1bfb9da34e",
+  "indexSha256": "ec46bac8e76e787d61fb13c2b4e7239643dcd42b699801c3ab79b705309801ae",
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+      "bytes": 17472,
+      "sha256": "199b244e17aae30e2d4713e6b837ad9730af28784df36adfba62c6dc687366e2"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+      "bytes": 16829,
+      "sha256": "f3b7ff7bc965ba9e777800d30699bfc6445f2f3bd12ac34b261af755c975c952"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "bytes": 33028,
+      "sha256": "d866cfce1640bd9505bdee9db9c02968abd97af991c86a7689b660419458593e"
+    }
+  ],
+  "reuseReferences": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/freeze.json",
+      "bytes": 33386,
+      "sha256": "243b67d1956cd01c21a26d6725c0e7e66f0d16de3cb70bc0ef3e11feb02a80d9"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/return.md",
+      "bytes": 12429,
+      "sha256": "dbe077ce7673bdcb9325ffcf2f1f8146a9dba181edd81f327a423d6a0074ce3c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/archive-installed.json",
+      "bytes": 1093618,
+      "sha256": "36e6c2d947279b90fb87bdada2b171180bbb55a603366860ea931443e3636345"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/source-generated.json",
+      "bytes": 10781,
+      "sha256": "39e31e2d7aaddcf21946e2d8d2a542e3788378d1e2ec99b7aa1968376fe356c1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/preservation-checks.json",
+      "bytes": 4773,
+      "sha256": "a8530bfc89985463d088605407d0f5b02ba6be0db2c0b47a4a99344132c4a717"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/same-basis-freeze.json",
+      "bytes": 13015,
+      "sha256": "3070f66b06419cd2e85bb79c107337dde0ae9b4eced8aaf97d9c0959fb55d159"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/diagnosis.json",
+      "bytes": 3846844,
+      "sha256": "0a3a7ae2f8340ac73350eca0471a81232556a26e9b6df3eda0db7ff21c4e4992"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/failed-grant-basis.json",
+      "bytes": 13335050,
+      "sha256": "9e6fe8be676c105f610977c023ad085e8790956113c344aee0f46693ebc27af6"
+    }
+  ]
+}

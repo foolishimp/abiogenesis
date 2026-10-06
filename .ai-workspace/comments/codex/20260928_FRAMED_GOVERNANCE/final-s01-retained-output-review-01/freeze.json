@@ -1,0 +1,140 @@
+{
+  "status": "CLOSED",
+  "activation": "T287_FINAL_S01_RETAINED_OUTPUT_REVIEW_01",
+  "actor": "/root/f11_attribution_inputs",
+  "verdict": "LIMITED",
+  "candidateCounterexamplesEstablished": 0,
+  "recordCount": 24,
+  "records": [
+    {
+      "path": "C02-freeze-acquired.json",
+      "bytes": 4543994,
+      "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+    },
+    {
+      "path": "N04-freeze-acquired.json",
+      "bytes": 24651,
+      "sha256": "b1f955be3959c8c17eba8254df5154342cd91a9d90f265ebf17d6deb1cbf0c5e"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 1070,
+      "sha256": "2eb4ccb178a6cc9eaf902b798912cddc51cbbd7ab2f17e7aeeadfa41a557c49c"
+    },
+    {
+      "path": "authority/AGENTS.md",
+      "bytes": 10653,
+      "sha256": "b7a3b21db5e6fe7369e144fcd8f00198caff4bcaae4b7acd43e6eff28813e709"
+    },
+    {
+      "path": "authority/CLAUDE.md",
+      "bytes": 4590,
+      "sha256": "e0ee14f7fa7094459f7cef099078174735fd7088388a1d31e90c67819dc34573"
+    },
+    {
+      "path": "authority/README.md",
+      "bytes": 3083,
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236"
+    },
+    {
+      "path": "authority/specification__GOALS.md",
+      "bytes": 66149,
+      "sha256": "9e8fbf4e6df444bba9153dd3a7e4100fe3afe0ca9e163cbf7fc27c0084619ded"
+    },
+    {
+      "path": "authority/specification__INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f"
+    },
+    {
+      "path": "authority/specification__PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1"
+    },
+    {
+      "path": "authority-observations.json",
+      "bytes": 51613,
+      "sha256": "8dac24b46d348747c48c66acf8316a53a643aae889c7db37a64ea449c7c9bdd1"
+    },
+    {
+      "path": "controls/join-process.json",
+      "bytes": 565,
+      "sha256": "cec9dc64de29666c00f0db254984e61df6b365b089c286dedb4dabbd76957894"
+    },
+    {
+      "path": "controls/joined-request.txt",
+      "bytes": 6761,
+      "sha256": "45144b1017940667251b035b696dd722c18367e711b55351f42b8e3ff6c5e151"
+    },
+    {
+      "path": "controls/request-sections.json",
+      "bytes": 7038,
+      "sha256": "9f8d0b5fba012fde36aface85eb2836c36675176bbeaaf1362ffced3d357b2f5"
+    },
+    {
+      "path": "controls/request.txt",
+      "bytes": 6761,
+      "sha256": "45144b1017940667251b035b696dd722c18367e711b55351f42b8e3ff6c5e151"
+    },
+    {
+      "path": "costs-summary.json",
+      "bytes": 1145,
+      "sha256": "8394c879aa0ff978cc561f128bc958262eea9d47ac1de973e8e3042b30197783"
+    },
+    {
+      "path": "disposition.json",
+      "bytes": 956,
+      "sha256": "1651456aff73338bb8799f8f5c4dd3b8767dfc467366548b8dff289bf85a054e"
+    },
+    {
+      "path": "frozen-native-source-observations.json",
+      "bytes": 191721,
+      "sha256": "2b3cec2b1b92edb50101844a64e49cf03730647866a5de9a759f89c41e32bc81"
+    },
+    {
+      "path": "n04-json-shapes.json",
+      "bytes": 28970,
+      "sha256": "64f865cafbe62f730edd0288607b91735b5e93a9346bed49ec4ca5e41aa542ef"
+    },
+    {
+      "path": "return.md",
+      "bytes": 13473,
+      "sha256": "a91b86e3031f02bf3736966d7cfd246e5be8bb3e3fc654695f1042d294d9ec56"
+    },
+    {
+      "path": "review-group-1.json",
+      "bytes": 196,
+      "sha256": "36add37610f18bbd477e29dd15a415f0b086205a08c53fb6658b27deb3d0d4f0"
+    },
+    {
+      "path": "review-group-2.json",
+      "bytes": 192,
+      "sha256": "76de1b02dbb92dbc714e9513ad3ab0d204765bb53166bd9504fb08a44ba29f78"
+    },
+    {
+      "path": "review-group-3.json",
+      "bytes": 224,
+      "sha256": "0508938d5558fd51f4752a4ac11f294d40b7fc19ade0559106456e16a97355b4"
+    },
+    {
+      "path": "review-group-3.py",
+      "bytes": 3431,
+      "sha256": "93502def30de35761f1aaca1f6d7a4eb5d699d1a38809f2e60c75d87738ba07f"
+    },
+    {
+      "path": "reviewer-harness-observations.json",
+      "bytes": 1319,
+      "sha256": "88a098734444627cbc94df972b82c6bb5d450e1302d19ec84903e346a95b70d9"
+    }
+  ],
+  "return": {
+    "path": "return.md",
+    "bytes": 13473,
+    "sha256": "a91b86e3031f02bf3736966d7cfd246e5be8bb3e3fc654695f1042d294d9ec56"
+  },
+  "hashBasis": "All records re-read from the report Writer territory during finalization; no candidate/source/runtime proof checks in finalization",
+  "reviewGroupsUsed": 3,
+  "reportWriterFinalizationSeparate": true,
+  "effects": "Only this report territory; zero native calls or moving-resource reads",
+  "stop": "Reviewer and report Writer CLOSED; Root owns adjudication and next scope"
+}

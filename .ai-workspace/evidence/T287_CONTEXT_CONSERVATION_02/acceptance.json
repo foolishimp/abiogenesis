@@ -1,0 +1,97 @@
+{
+  "status": "ACCEPTED_BOUNDED_INSTALLED_CONSERVATION",
+  "acceptedAt": "2026-10-06",
+  "executive": "/root",
+  "basis": "ABG5 fixed15; GOAL035/T287 F05/F10/F11/F15; STDO2.5.1RC2/interface-integrationrev2",
+  "return": {
+    "path": ".ai-workspace/evidence/T287_CONTEXT_CONSERVATION_02/return.json",
+    "bytes": 22697,
+    "sha256": "f52b3b9711b27afd84f54d55f4cb178b454942a058dbc994620d23555f8ca7dd"
+  },
+  "freeze": {
+    "path": ".ai-workspace/evidence/T287_CONTEXT_CONSERVATION_02/freeze.json",
+    "bytes": 25561,
+    "sha256": "b6596c8a6019547e0f5ee54229f9b9a0f4410d1de7a38e3d8481dba4fbd31dfa"
+  },
+  "archiveSHA256": "214c576620c5f552cbf22a82f8f318638903013ca23ff49e42496b2d190a47f6",
+  "log": {
+    "path": ".ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/events/runtime.events.jsonl",
+    "events": 109,
+    "bytes": 5302025,
+    "sha256": "7208244c234cedf06b5785a1faecec4606063b40e87cf58b883109057bd33666",
+    "device": 16777231,
+    "inode": 465654884,
+    "coordinateSHA256": "da04ed7bcc7be9605def2ab77e0198ceda8430e39b87e5a4e024b83d463fad9a"
+  },
+  "exit": {
+    "plannedSlots": 1,
+    "allPlannedSlotsAuthenticated": true,
+    "B": "required coverage outside complete finite plan; explicitly J_required/blocked_incomplete",
+    "A": "authenticated failure retains originalJ Result citation",
+    "F11": "failed; no lost citations",
+    "AF22": "red; links actual F11 Result1946135ae373290318108de4ed7f08072e9e24900026f774fe1110b4b231ca39",
+    "closedRuns": 3,
+    "freshPublicReads": 6,
+    "readComparison": "full terminals and Source/producer; only projectionBasis normalized, each current basis independently verified",
+    "freshEventsActorsSetup": 0,
+    "realProviderCalls": 0
+  },
+  "cost": {
+    "flowReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/flow.json",
+      "bytes": 2438,
+      "sha256": "4c5cb5b78c1cc097a85511e25ccbf51409b365f5cb17c4e2f38d9ea7a4bd4ded"
+    },
+    "coldReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/cold.json",
+      "bytes": 2718,
+      "sha256": "f592693833995a4f5f2444e8c1b9b10b7ebdac80098ff5aa74d31e09eddff2ad"
+    },
+    "flowCommand": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+      "--test",
+      "--test-concurrency=1",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/consumer/test_env/tests/t287-installed-qualification-conservation.test.mjs"
+    ],
+    "coldCommand": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+      "--test",
+      "--test-concurrency=1",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/consumer/test_env/tests/t287-installed-qualification-conservation.test.mjs"
+    ],
+    "flowCapSeconds": 300,
+    "coldCapSeconds": 180,
+    "flowElapsedMs": 75067.34941700415,
+    "flowProcessMaxRSSPlatformBytes": 3656990720,
+    "coldElapsedMs": 24286.843375004537,
+    "coldProcessMaxRSSPlatformBytes": 2592210944,
+    "nominalVerificationElapsedMs": 19304.408459,
+    "nominalVerificationCumulativePeakRssBytes": 1870462976,
+    "setupElapsedMs": 23353.661000000004,
+    "setupCalls": 10,
+    "nativeFlowElapsedMs": 31379.183291,
+    "rssLabels": "wait4 receipts are per-process-lifetime max RSS; owner phase reports explicitly carry cumulative high-water values, not independent allocation or per-call peaks.",
+    "diagnosticSerialization": "Full Public call diagnostic stringify disabled; selected bytes/time and current heap/RSS remain reported per owner call.",
+    "HOMEUnchanged": true,
+    "defaultHeap": true,
+    "pinnedNode": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "controlledActorTimeoutSeconds": {
+      "inactivity": 60,
+      "absolute": 120
+    }
+  },
+  "reviewers": [
+    {
+      "actor": "/root/current_source_review",
+      "status": "CLOSED_GO",
+      "scope": "native conservation/proof"
+    },
+    {
+      "actor": "/root/current_reuse_cost_review",
+      "status": "CLOSED_GO",
+      "scope": "Identity/Effect/cost/reuse"
+    }
+  ],
+  "remaining": "Genuine Source assessment and contextsufficiency; parent paths/seven actual defects/wholecandidate/QUAL056/RC publication/installed qualification/owner acceptance/terminal remote verification."
+}
+

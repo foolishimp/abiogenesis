@@ -1,0 +1,67 @@
+{
+  "status": "ACCEPTED_HOW_5_1_UNDER_UNCHANGED_PRODUCT_REQUIREMENTS",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_RESULT_LINEAGE_INTEGRATION_DESIGN_WRITER_01",
+  "lawfulReentry": "design_reframe",
+  "design": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+    "bytes": 39730,
+    "sha256": "6ebaae310885013645c238023d39d4c1f1b5c61c56cf2ff4e5d0a9cd6b75567c",
+    "mode": 420
+  },
+  "preimages": [
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+        "bytes": 36658,
+        "sha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+        "mode": 420
+      },
+      "frozenPreimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/preimage-0-T287_F11_CARRIER_RESOURCE_DESIGN.md",
+        "bytes": 36658,
+        "sha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+        "mode": 292
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 490257,
+        "sha256": "47b182a0404708219c0b01a726b542108ac2bd307b12c783d94fb88032533288",
+        "mode": 420
+      },
+      "frozenPreimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/preimage-1-T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 490257,
+        "sha256": "47b182a0404708219c0b01a726b542108ac2bd307b12c783d94fb88032533288",
+        "mode": 292
+      }
+    },
+    {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+        "bytes": 5260,
+        "sha256": "d1d049b06e0796eada52bef1363d418e1cf96934e2732b15addb24c752972082",
+        "mode": 420
+      },
+      "frozenPreimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/preimage-2-plan.md",
+        "bytes": 5260,
+        "sha256": "d1d049b06e0796eada52bef1363d418e1cf96934e2732b15addb24c752972082",
+        "mode": 292
+      }
+    }
+  ],
+  "typeContractIndependentDiagnosis": "CLOSED /root/rc1_c03_install_review; precise carrier/projection/mint cone",
+  "independentSourceAssuranceRequired": true,
+  "installedProofRequired": true,
+  "sourceWorkerGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+    "bytes": 5514,
+    "sha256": "d251e87d48e7becca466274623e3abb72e826106ec93fbebf728491a1540173d",
+    "mode": 420
+  },
+  "noQualificationCredit": true
+}

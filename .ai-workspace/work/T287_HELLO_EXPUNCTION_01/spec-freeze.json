@@ -1,0 +1,107 @@
+{
+  "activation": "T287_HELLO_EXPUNCTION_01",
+  "role": "constitutional Writer",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "status": "FROZEN_source_only_review_and_successor_proof_pending",
+  "members": [
+    {
+      "path": "specification/PRODUCT.md",
+      "preimageSha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094",
+      "bytes": 93690,
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-SCENARIOS.md",
+      "preimageSha256": "33939c54db28a76cee08841731258cfdebcd870975a749d84a5d957466b7469d",
+      "bytes": 17479,
+      "sha256": "5126f116cd64f64b48ccdd9126d3709a73c4090f73251c84320c6ae11c7a36dd"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-QUAL.md",
+      "preimageSha256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+      "bytes": 35987,
+      "sha256": "0366cdd8f4392f94e7a1f3fbfc91e265133dcd23cb0ebe13db4167e57fbe8c5b"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "preimageSha256": "d5badf6ede64c26f358102a438f603078af89684dab359bf8bf8f8194be3218a",
+      "bytes": 71135,
+      "sha256": "73e2a0af4a6c98f6468e26cd70f3a4fd8f1e5198669c26a4c6ee2995c9bbce6d"
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimageSha256": "c16811162542d4d2dd75352cb0c768aa9bdc164f54afaa6f08b71a3a155cd5f8",
+      "bytes": 501000,
+      "sha256": "2f52ef0e10402da28edaed8105173f4c369ab468282c62468ff50c896a4aa19b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_S1_ROOT_ARTIFACT_CARRIER_DESIGN.md",
+      "preimageSha256": "16626ef225754a783d738f6b988addc81669e83b90acba851e1b549c3054e2e0",
+      "bytes": 3484,
+      "sha256": "12bf29039b2abd6c9494f21cfc9605a78950c26506854d8d13184f39988e9ed9"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M02_M05_PACKED_INSTALLED_VERTICAL_BEHAVIOR_DESIGN.md",
+      "preimageSha256": "49324cd10fc8b689798faa25d2a9ee8887ff5f64512e9c06a2604b9efea9ea01",
+      "bytes": 3580,
+      "sha256": "d8be5f8faf215ed2804ff136ce83415ec10e5abeaa77f615116541e68a387a41"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+      "preimageSha256": "0ec673657519c0313406cf12b2fbc33fa458f9fe77b4c313290a97275c6929e5",
+      "bytes": 94493,
+      "sha256": "2e78eda04a01b97208839d656cacfb64063bd2606af947b17de118c338ac5091"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+      "preimageSha256": "4fd896dfe7b823785fc2c899cd96d366167aa4c66ac38b52762a01abc6bf278a",
+      "bytes": 36008,
+      "sha256": "bc5475bed4b20d84dc8fb391b3d5467a464f94ab50062a24d0d4fc1ba04363c7"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "preimageSha256": "a2b261e8ec0d24eb3ee48a39fe994110ded21a281091dbfd09bf5d6e8618c699",
+      "bytes": 152643,
+      "sha256": "afda91cea9df96a08f28e216af67a602961947a1d525218143db2e5f41931e94"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "preimageSha256": "8f87b9d6c476ed27650c1904bbfdaa3059d7e0c1b8912a74bf9e92b922a88c2b",
+      "bytes": 43221,
+      "sha256": "4bcaa90771f855f08b8fe36fa6a171ddfaa89dfeead7ff7a9f52bb766d8dcb2c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_DERIVATION.md",
+      "preimageSha256": "6279e7a8d3e03d9577b803d69866a7b6f9204e804158dba1f8542be41d213657",
+      "bytes": 34682,
+      "sha256": "090da5c8403e72864c17ce621df52f3dd28f02bf84e8800f789d3ae7aee360c7"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_IACS.md",
+      "preimageSha256": "0d6bb2922beab284f743dc73a268bf84ac606865749f676006cce7b4af50e767",
+      "bytes": 24584,
+      "sha256": "546519a2adddffba0162efe0fc24298ab7154078e299457c8803462ad7b8df84"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md",
+      "preimageSha256": "49ba94564dd5d804cd2171f2e403380ea788c0e7cd8f3984e7c98e73d81e4aff",
+      "bytes": 37146,
+      "sha256": "30dcaa9647c17d582e12579c27393f69ecb912e68959604d1f8c8aa63d9c1a55"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md",
+      "preimageSha256": "97f78626cb4af2b2eee181ffe8a96d7da2e83ab1e4f32b1f388b6f076a584d47",
+      "bytes": 161433,
+      "sha256": "e43a551a6f038edbdb59763a5b697a7043ed65322b603bc10be381c044a6ca1e"
+    }
+  ],
+  "checks": {
+    "dirtyPreimagesBound": true,
+    "removedFixedHelloRefsAbsent": true,
+    "markdownFencesBalanced": true,
+    "currentProductFeatureFamilies": 15,
+    "productionOrTestMutation": false,
+    "qualificationClaim": false
+  }
+}

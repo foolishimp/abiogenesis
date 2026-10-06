@@ -1,0 +1,74 @@
+{
+  "actor": "/root/rc1_c03_install_review",
+  "cost": {
+    "staticParserAndRecordSeconds": 0.05953116714954376
+  },
+  "counts": {
+    "candidateFiles": 197399,
+    "candidateLogicalBytes": 9634686370,
+    "contextPins": 8,
+    "copyDirectories": 29137,
+    "copyRegularFiles": 222229,
+    "distinctOriginalWitnesses": 104688,
+    "protectedFiles": 16338,
+    "unprovedFiles": 8492
+  },
+  "directories": [
+    {
+      "mode": 493,
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_03"
+    },
+    {
+      "mode": 493,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution"
+    }
+  ],
+  "directoryCount": 2,
+  "effects": {
+    "GitCodeBuildProductRuntimeNetwork": 0,
+    "commentsWrites": 0,
+    "copyOriginalWrites": 0,
+    "deletion": 0,
+    "helperExecution": 0,
+    "preparationWorkEvidenceWritesOnly": true
+  },
+  "excludedSelf": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/preparation-freeze.json",
+  "frozenUTC": "2026-10-04T07:28:55.281898+00:00",
+  "immutableDependency": {
+    "bytes": 9512,
+    "mode": 420,
+    "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/alias-final/freeze.json",
+    "sha256": "cee816b8f45826fc73d39f17522407db06008b6645cc307dc8702e448f642edc"
+  },
+  "limits": [
+    "Independent exact-list review and explicit Root release still required.",
+    "No actual deletion/candidate preflight/space reclamation proof."
+  ],
+  "operation": "T287_COMMENTARY_CLEANUP_DELETE_03_PREPARE",
+  "recordBytes": 23655,
+  "recordCount": 3,
+  "records": [
+    {
+      "bytes": 17033,
+      "mode": 420,
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_03/delete_exact_alias_plan.py",
+      "sha256": "aa33fdd4a84b94e96721880c70490dce194d1d0a7166c9e86c1a558a85f7c72c"
+    },
+    {
+      "bytes": 4637,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/preparation-activation.json",
+      "sha256": "f0c822735cf510d0a99fe22aa467efa722d976b150a07f7c86706917daee5382"
+    },
+    {
+      "bytes": 1985,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/preparation-checks.json",
+      "sha256": "0189fc74cca4de0585ce7256b099fc181ea16d97c1d3d5503b7fc36afba4ad96"
+    }
+  ],
+  "role": "Worker",
+  "status": "CLOSED",
+  "workResult": "GO_EXACT_UNLINK_PAYLOAD_PREPARED_ONLY",
+  "writesAfterFreeze": "STOPPED"
+}

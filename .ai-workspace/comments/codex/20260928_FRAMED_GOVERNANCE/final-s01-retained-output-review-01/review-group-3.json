@@ -1,0 +1,9 @@
+{
+  "group": 3,
+  "elapsedSeconds": 0.007442041300237179,
+  "nativeCalls": 0,
+  "movingResourceReads": 0,
+  "mode": "single bounded pure read/check process with explicit staged stdin",
+  "capMs": 120000,
+  "graceMs": 1000
+}

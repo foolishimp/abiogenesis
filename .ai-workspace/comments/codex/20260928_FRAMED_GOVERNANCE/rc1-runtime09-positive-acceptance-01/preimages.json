@@ -1,0 +1,20 @@
+{
+  "plan.md": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "bytes": 9060,
+    "sha256": "491b037c7ccd22ea92c5f5cc26aa35c2779c1d07aa00523f91e3be64eb1e7af5",
+    "mode": "0o644"
+  },
+  "ticket.md": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 492432,
+    "sha256": "062030ca25cf94ee43993df6ef0784a6de7579b63cfea69c992af95d09bacadd",
+    "mode": "0o644"
+  },
+  "execution.md": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 552615,
+    "sha256": "98f913f685f250396072216fffef139b8f182acec1d8c07c4d01e49dd57625c0",
+    "mode": "0o644"
+  }
+}

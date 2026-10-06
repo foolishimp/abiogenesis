@@ -1,0 +1,65 @@
+{
+  "status": "CLOSED",
+  "work_result": "independent_S02_graph_substitution_positive_satisfied",
+  "activation": "T287_RC1_S02_SUBSTITUTION_REVIEW_01",
+  "writerActivation": "T287_RC1_S02_SUBSTITUTION_REVIEW_REPORT_01",
+  "actor": "/root/rc1_s02_review",
+  "frozenAt": "2026-10-01T15:18:17.540111+00:00",
+  "result": "satisfied",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01",
+    "freezeSha256": "563a3db9354aac6616a42ce8350defb1fa9a27da1acd6c8bcae4adc149e74012",
+    "returnSha256": "a0dc22a22705c0dfcb2e74f61b86bfd994c25b55aa5bfdd22ebd52dab3be4b9d",
+    "recordCount": 6024,
+    "fileBytes": 721060002
+  },
+  "recordCount": 5,
+  "records": [
+    {
+      "path": "closure.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 839,
+      "sha256": "1e48e28b26bb458ca47c2d2b11a8d03073636d3f0e3abd1f0ecee28d989bb2ff"
+    },
+    {
+      "path": "evaluation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 4019,
+      "sha256": "b2886e88da7792e9a1a15f948fbf4a5e9dd88f9f6fc7a2b836c7e0a312462c6b"
+    },
+    {
+      "path": "evidence.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 43052,
+      "sha256": "d0536f1ac9e2cb243ef41d602d7e94d15941b24c4f78d7f44a8b3f47694d2f4a"
+    },
+    {
+      "path": "return.md",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 8758,
+      "sha256": "6cdfbf152fee0b760ef75b983575a874dd99cef5acb0855c36381f9f7620e01e"
+    },
+    {
+      "path": "writer-activation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1699,
+      "sha256": "b3ff1358638d2d17dedf68f8cc999895c771300b7585321c6396bf23ab804623"
+    }
+  ],
+  "return": {
+    "path": "return.md",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 8758,
+    "sha256": "6cdfbf152fee0b760ef75b983575a874dd99cef5acb0855c36381f9f7620e01e"
+  },
+  "qualificationVerdict": false,
+  "mutationScope": "Report only; inspected candidate/execution unchanged",
+  "consumer": "Root Executive",
+  "stop": "CLOSED; no further effects"
+}

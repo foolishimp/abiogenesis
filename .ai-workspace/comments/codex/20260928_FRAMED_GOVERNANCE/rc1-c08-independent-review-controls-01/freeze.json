@@ -1,0 +1,37 @@
+{
+  "status": "CLOSED",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-independent-review-controls-01/activation.json",
+      "bytes": 1250,
+      "sha256": "5c1abd33c930b29f5ce5d2406d46ea7aa7b312fb9c4614b9b0034a10b771537d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-independent-review-controls-01/sections.json",
+      "bytes": 4269,
+      "sha256": "8b65a9ef3e07a657cdb34cc9bad3facb83deac257a0bbc6436b47c748f47eed5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-independent-review-controls-01/request.txt",
+      "bytes": 3998,
+      "sha256": "2881bf783d959fb738ea1bf1fb8a758df38d86006568ae0630c659bce4c03d3e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-independent-review-controls-01/literal-verification.json",
+      "bytes": 591,
+      "sha256": "4446db6ced4a4dcb6792a4bf36d88108e25b0f1e848e8566146e40b5db9b4c5e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-independent-review-controls-01/closure.json",
+      "bytes": 223,
+      "sha256": "b46a7031b2ba3c2725d2e981bfba8e361ea8841f64ee4eb2f396c52b80613cf3",
+      "mode": 420
+    }
+  ],
+  "directories": 0,
+  "links": 0
+}

@@ -1,0 +1,92 @@
+{
+  "status": "Root_selected_preparation_not_final_qualification_basis",
+  "core": {
+    "packageRoot": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:64093fb74a474c7e246333975c556c4cb34797326dbc81d1c5929455a69498bb",
+      "productContentDigest": "sha256:ae0e2e5006bc08fd46eff798f71f8ce29bc5f03a31120f70f550d71319a4b64e",
+      "manifestDigest": "sha256:bd392df59fabfe2b47f6fd24dcbbf43817044cbb3e939bc49ea7f5ab41a48010",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "sourceCommit": "701026970da59538e6dcc203ada4538b80e3d6de",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/source-freeze-before-build.json",
+    "sha256": "50a634bbf311f688c6e7ce9b12b32bec5630e5e2434d8f12db5059a1cc88ceef",
+    "bytes": 317555
+  },
+  "generatedInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/generated-after.json",
+    "sha256": "fd59f207b6aabb20afc93fbd00ca1f0f49b803dacc5c5b95b830ce316315b2eb",
+    "bytes": 156341
+  },
+  "archiveMemberInventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/archive-members.json",
+    "sha256": "272253db47abb6958fdabae53e0c13b42b4ad7a9767ddc9d21fac0ac99dda3b1",
+    "bytes": 928679
+  },
+  "coreConstruction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/return.md",
+    "sha256": "ab8c7cafe599870574d5ed65083896064d6ee77ab12a0ac4942bd939cdb0dd3f",
+    "bytes": 2463
+  },
+  "lawBasis": {
+    "ref": "qualification-law://abiogenesis/ef42ec32f28b3e81a63841624bfdc89a0fdd0996c9154a422527c039350b85eb",
+    "digest": "sha256:ef42ec32f28b3e81a63841624bfdc89a0fdd0996c9154a422527c039350b85eb"
+  },
+  "coverage": {
+    "ref": "qualification-coverage://abiogenesis/482b5d4f3f7cd904bdfeda9b625482ecf0294a95c8a009ad356d6b4523d73513",
+    "digest": "sha256:482b5d4f3f7cd904bdfeda9b625482ecf0294a95c8a009ad356d6b4523d73513"
+  },
+  "consumer": {
+    "packageName": "@odd-glc/route-one-typescript",
+    "packageVersion": "0.2.0-dev.8",
+    "productId": "product://odd_glc/route-one-typescript@0.2.0-dev.8",
+    "moduleRef": "module://odd-glc/generic-lifecycle-witness@5",
+    "programRef": "program://odd-glc/generic-lifecycle-witness@5",
+    "graphFunctionRef": "graph-function://odd-glc/generic-lifecycle-witness@5",
+    "graphRef": "graph://odd-glc/generic-lifecycle-witness@5",
+    "startRef": "start://odd-glc/generic-lifecycle-witness@5",
+    "closureContractRef": "contract://odd-glc/generic-lifecycle-witness/closure@5",
+    "descriptorRef": "descriptor://odd_glc/route-one-typescript@0.2.0-dev.8",
+    "contributionManifestRef": "contribution-manifest://odd_glc/route-one-typescript@0.2.0-dev.8",
+    "catalogRef": "catalog://odd_glc/public-contracts@0.2.0-dev.8",
+    "provenanceRef": "provenance://odd_glc/route-one-typescript@0.2.0-dev.8",
+    "sourceDeclarationRef": "declaration://odd-glc/generic-lifecycle/source@5",
+    "sourceGraphFunctionRef": "graph-function://odd-glc/generic-lifecycle/source@5",
+    "sourceModuleRef": "module://odd-glc/generic-lifecycle-source-setup@5",
+    "sourceProgramRef": "program://odd-glc/generic-lifecycle-source-setup@5",
+    "sourceClosureContractRef": "contract://odd-glc/generic-lifecycle/source/closure@5",
+    "lifecycleDeclarationRef": "declaration://odd-glc/generic-lifecycle/stages@5",
+    "artifactDigest": "sha256:aef3df7a43da5d8af620c624a4c88f5eb30b6de26437458a8fd81156b6d877c9",
+    "productContentDigest": "sha256:e051c3c9a1260fac803b20c74658f34ba732699c972779a0b8aeed6950e21d16",
+    "manifestDigest": "sha256:36a0ff15d98dba52387d918a92014f7228ac17dbd80ec9d7e11394ef8004c526",
+    "artifactPath": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/resources/artifacts/odd-glc-route-one-typescript-0.2.0-dev.8.tgz",
+    "packageRoot": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/resources/development-product",
+    "payloadInventory": [
+      {
+        "path": "build/publication.json",
+        "sha256": "sha256:9372b18c5eca6e93ffb2179697b582b1642bf8637441d1474e165d777d442122"
+      },
+      {
+        "path": "contracts/public-contract-catalog.schema.json",
+        "sha256": "sha256:a69db2dd825711aba598d29d8880b20df39aa8ac691fa25b5d7c058eed964646"
+      },
+      {
+        "path": "package.json",
+        "sha256": "sha256:e5ee9ca705f3897a197ea647ea95aa5d66718b353a9b7e4d7fb2885f64a9f87e"
+      }
+    ],
+    "coordinateEvidence": {
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/opus-successor-04/caller/jobs/basic-cli/prepared.json",
+      "sha256": "33229e789152b51f6f85c9a6e7f3cdfb88bab9e29664fec25392038563f49c05",
+      "bytes": 7876
+    },
+    "scope": "unchanged dev8 witness dependency, not part of ABI candidate identity; coordinate record does not relabel historical core17 execution"
+  },
+  "executedHere": false
+}

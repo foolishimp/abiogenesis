@@ -1,0 +1,62 @@
+{
+  "status": "syntax_only_passed",
+  "tool": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+    "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+  },
+  "checks": [
+    {
+      "file": "recipe-stage.mjs",
+      "result": {
+        "chunk_id": "9046eb",
+        "wall_time_seconds": 0.00000575,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "file": "recipe.mjs",
+      "result": {
+        "chunk_id": "edca97",
+        "wall_time_seconds": 0.00000525,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "file": "compare-generated.mjs",
+      "result": {
+        "chunk_id": "d051c3",
+        "wall_time_seconds": 0.000005708,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "file": "test-environment.mjs",
+      "result": {
+        "chunk_id": "af211d",
+        "wall_time_seconds": 0.000004167,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    },
+    {
+      "file": "output-checks.mjs",
+      "result": {
+        "chunk_id": "6bbbbc",
+        "wall_time_seconds": 0.000004625,
+        "exit_code": 0,
+        "original_token_count": 0,
+        "output": ""
+      }
+    }
+  ],
+  "productOrHelperOwnerImports": 0,
+  "qualificationCommandsExecuted": 0,
+  "nativeCalls": 0
+}

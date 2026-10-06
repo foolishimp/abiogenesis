@@ -1,0 +1,10 @@
+{
+  "group": 2,
+  "status": "Reviewer_inspection_formatting_failure_not_candidate_counterexample",
+  "error": "TypeError: list indices must be integers or slices, not dict",
+  "cause": "Formatting helper assumed source-inventory.json was an object and iterated actual list records as keys. The resulting diagnostic was excessive. The process stopped before later planned owner reads or checks.",
+  "originalOutputLocation": "Original exec_command tool result in this review conversation, chunk_id 80b4b9; original_token_count 233564; exit_code 1. It is retained there; no later pass replaces that output.",
+  "projectCopy": "This bounded error record is an excerpt/description, not a complete copy of the original tool output.",
+  "candidateEffects": 0,
+  "sourceFinding": false
+}

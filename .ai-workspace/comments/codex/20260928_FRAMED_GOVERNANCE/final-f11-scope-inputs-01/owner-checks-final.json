@@ -1,0 +1,107 @@
+{
+  "status": "PASS bounded pure input structure and correspondence; no independent semantic assessment",
+  "scopePreview": {
+    "ref": "qualification-scope://abiogenesis/becf51cd1b0cbbd57cdca8b03a9ab33c99b535910dd1860b52451dee3cf0eda7",
+    "digest": "sha256:becf51cd1b0cbbd57cdca8b03a9ab33c99b535910dd1860b52451dee3cf0eda7",
+    "finalSubject": false
+  },
+  "inventory": {
+    "ref": "qualification-inventory://abiogenesis/ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+    "digest": "sha256:ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+    "members": 1950
+  },
+  "catalog": {
+    "ref": "catalog://abiogenesis/qualification/self-conformance@2",
+    "digest": "sha256:e9aa4d0a863050f17ca8ed89b1911ae237df08ce1727ee24e3016f2f7297f5c4",
+    "rules": 2137,
+    "sources": 95
+  },
+  "completeDisjointRulePartition": true,
+  "completeDisjointGlobalMemberPartition": true,
+  "completeDisjointPerRuleMemberPartitions": 187,
+  "domainPartitions": 772,
+  "existingOwnerDiagnostics": [],
+  "negativeDiscriminators": [
+    {
+      "name": "omitted current rule",
+      "diagnostic": "scope_rule_partition_incomplete"
+    },
+    {
+      "name": "omitted global member",
+      "diagnostic": "scope_surface_partition_incomplete"
+    },
+    {
+      "name": "omitted per-rule domain member",
+      "diagnostic": "scope_application_member_domain_incomplete"
+    },
+    {
+      "name": "duplicated per-rule domain member",
+      "diagnostic": "scope_application_member_domain_incomplete"
+    },
+    {
+      "name": "omitted current rule-group domain",
+      "diagnostic": "scope_application_rule_domain_incomplete"
+    }
+  ],
+  "contextChecks": 1003,
+  "subjectMemberDeclarationsChecked": 367241,
+  "criteriaChecked": 1109,
+  "materialRecordsChecked": 2958,
+  "materialOriginalBytesChecked": 150775662,
+  "sameRoleUnion": {
+    "labels": [
+      "catalog-0",
+      "catalog-1"
+    ],
+    "uniqueBodies": 21,
+    "criteria": 2
+  },
+  "binderMissingInputRefusals": [
+    "absent binding",
+    "absent final basis",
+    "nullable structural preview"
+  ],
+  "tenantCoverage": "Deferred actual manifest ref; no placeholder criterion",
+  "coverageBehaviorCriteria": 66,
+  "qualificationWorkerRequest": "existing owner retained as sole renderer; deliberately uninvoked until real basis/provenance/declarations/plan arrive",
+  "routedExternalConstructionActivations": [
+    "T287_FINAL_CANDIDATE_CONSTRUCTION_01",
+    "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+    "T287_S7_SELECTED_ACTION_INSTALLED_07",
+    "T287_FINAL_QUALIFICATION_INPUTS_01"
+  ],
+  "bindingLimits": {
+    "noDispatch": true,
+    "noSyntheticProvenance": true,
+    "noNativeOutcome": true,
+    "noIndependentJudgment": true,
+    "callerMustSupply": "Actual completed basis, observed execution selection, construction author Context, owner-validated declarations, role/independence, asset surface and exact finite plan.",
+    "authority": "Pure identity/schema/material checks do not authenticate a made-up caller record or replace ABG admission, attribution J, independence J or native authorization."
+  },
+  "rolePolicy": {
+    "roleRefs": [
+      "qualification-role://abiogenesis/catalog@5",
+      "qualification-role://abiogenesis/inventory@5",
+      "qualification-role://abiogenesis/tenant@5",
+      "qualification-role://abiogenesis/rule@5",
+      "qualification-role://abiogenesis/coverage@5"
+    ],
+    "actorRefs": [
+      "actor://abiogenesis/qualification/assessor-primary@5",
+      "actor://abiogenesis/qualification/assessor-peer@5"
+    ],
+    "workerBindingRef": "worker-binding://abiogenesis/qualification/assessor@5",
+    "rendererRef": "renderer://abiogenesis/qualification/assessment@5",
+    "materializationPlanRef": "materialization-plan://abiogenesis/qualification/assessment@5",
+    "authorityRef": "actor-capability://abiogenesis/qualification/product-owner@5",
+    "authoritySourceRefs": [
+      "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md"
+    ]
+  },
+  "limits": [
+    "Full task/plan/request and construction-attribution correspondence not asserted.",
+    "Body/schema/set correspondence does not close applicability, common scope, context adequacy, attribution or independence.",
+    "No native execution or selected provider call count."
+  ]
+}

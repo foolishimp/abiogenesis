@@ -1,0 +1,37 @@
+{
+  "status": "CLOSED",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-source-assurance-controls-01/activation.json",
+      "bytes": 1297,
+      "sha256": "6f9d501cb878a06f00487c2211a1de955d78836b8a67cc23110f685336711e5c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-source-assurance-controls-01/closure.json",
+      "bytes": 239,
+      "sha256": "2f339bc038a537dc82a3d6f9272520c4298a763b4a9d2386c3e6885a79fd236f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-source-assurance-controls-01/literal-verification.json",
+      "bytes": 600,
+      "sha256": "cd736e65fa04e3af632b330a7866b2f055ca782841e7345753ff056f8cf52113",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-source-assurance-controls-01/request.txt",
+      "bytes": 3813,
+      "sha256": "ff2bbe650a86d4e944057f453879c590c858469bb83c46510ceff5879713baa7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-source-assurance-controls-01/sections.json",
+      "bytes": 4084,
+      "sha256": "328e9f8390e7c661604c5da6a739667f0500e90ca7bac896a2a3b062417a43dc",
+      "mode": 420
+    }
+  ],
+  "declaredDirectories": 0,
+  "links": 0
+}

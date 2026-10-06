@@ -1,0 +1,43 @@
+{
+  "operation": "T287_Q08_CURRENT_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "status": "CLOSED",
+  "workResult": "GO_BOUNDED_CURRENT_INPUT_ASSURANCE",
+  "subjectFreezeSHA256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+  "records": [
+    {
+      "path": "a_c.literal.txt",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 420
+    },
+    {
+      "path": "activation.json",
+      "bytes": 1319,
+      "sha256": "e5f2538a9ef9232419cbcdecfdf61bca7d683affe624d1e266150b0067de3c3e",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 851,
+      "sha256": "c705b4ca2efc29abd0a1f5a517295c193d1d94f4e033bcb2eedb4fd8ca396fc8",
+      "mode": 420
+    },
+    {
+      "path": "pins.json",
+      "bytes": 21787,
+      "sha256": "9e1de9bfa0c32da43024e837a1213769c20b6f95fe703aae17a3685bb8b6ee4b",
+      "mode": 420
+    },
+    {
+      "path": "review.md",
+      "bytes": 12792,
+      "sha256": "895e2b56c8bd838bf3ce24a0baf460f9a5f01902a5e21107d95f53a976bcbc72",
+      "mode": 420
+    }
+  ],
+  "recordCount": 5,
+  "bodyBytes": 74862,
+  "excludedSelf": "freeze.json only",
+  "allWritesAfterFreeze": "STOPPED"
+}

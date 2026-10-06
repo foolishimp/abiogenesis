@@ -1,0 +1,39 @@
+{
+  "operation": "T287_G1_G3_C10_CONSTRUCTION_01",
+  "owner": "actual accepted G3 compiled declaration component; wrapper immutable dependency owns IDs/version/caps, not body digests",
+  "baseline": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-freeze.json",
+    "bytes": 388347,
+    "sha256": "c450c19f0c6cdb1475754ba2f6ddc9b3c442e477a2c77678c181487a22f7d3bb",
+    "mode": 420
+  },
+  "component": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/freeze.json",
+    "bytes": 170192,
+    "sha256": "153a3eced2061acbb7b32c96904ad791d667186dcd4e3121fb4a9dbc80262e2c",
+    "mode": 292
+  },
+  "allowedExistingDeclarationDeltas": [
+    {
+      "path": "build/code/src/abg/qualification_proof.d.ts",
+      "bytes": 7924,
+      "sha256": "cf2c82a34cdab62885dce9f985fc7ff12a2089228f023f5c0dbc7d96ed22cec9",
+      "mode": 420,
+      "actualAcceptedDeclaration": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/stage/build/code/src/abg/qualification_proof.d.ts",
+        "bytes": 7924,
+        "sha256": "cf2c82a34cdab62885dce9f985fc7ff12a2089228f023f5c0dbc7d96ed22cec9",
+        "mode": 420
+      }
+    }
+  ],
+  "allowedDeclarationAddition": null,
+  "requiredBodyCount": 309,
+  "contractAndCapabilityIdentities": "three contract/two capability IDs unchanged; all37 current native rows and16/196 capability graph must be authenticated",
+  "historicalTypedAmendment": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/controls/native-dependency-triage.json",
+    "bytes": 4885,
+    "sha256": "ec98cd863ec170ec1190340f2a16439ab3c8125a6da0dd2a80824f9d67a39169",
+    "mode": 420
+  }
+}

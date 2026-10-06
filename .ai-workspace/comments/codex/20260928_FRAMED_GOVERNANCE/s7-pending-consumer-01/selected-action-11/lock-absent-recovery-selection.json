@@ -1,0 +1,35 @@
+{
+  "lastCloseHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:432c6bbdb38b3d5564be4530fbc1ad16408159675e4b836feeb66334eb5a4dad",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abi5-root-env-QKFbH0/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:3c20f5806b6201ff462daf1285fbd390d4f75a87f7369d442213f3c341c6001b",
+      "prefixLength": 3760917,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 463748325
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:0054015ef1f947998c5139a24951dee39b0e766495806003e8a867794494b2cd",
+      "device": 16777230,
+      "durableByteLength": 3760917,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:3c20f5806b6201ff462daf1285fbd390d4f75a87f7369d442213f3c341c6001b",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abi5-root-env-QKFbH0/runtime/events.jsonl",
+      "inode": 463748325,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "expectedCurrent": {
+    "byteLength": 3786241,
+    "digest": "sha256:1d21d5637b8dde280581697af9814af66e655cc6e316cbd71d193c657ff1af79"
+  },
+  "ownerPid": 52471,
+  "recoveryCase": "lock_absent",
+  "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-09/disposable/abiogenesis-event-store-locks-v5/16777230-463748325.lock"
+}

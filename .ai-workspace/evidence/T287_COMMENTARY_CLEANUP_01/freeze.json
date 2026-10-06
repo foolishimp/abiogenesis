@@ -1,0 +1,168 @@
+{
+  "operation": "T287_COMMENTARY_CLEANUP_PLAN_01",
+  "continuation": "T287_COMMENTARY_CLEANUP_PLAN_CONTINUATION_01",
+  "role": "Worker",
+  "actor": "/root/rc1_c03_install_review",
+  "status": "CLOSED",
+  "workResult": "GO_PLAN_ONLY_NO_DELETION_AUTHORITY",
+  "frozenUTC": "2026-10-04T06:30:21.617892+00:00",
+  "writeTerritories": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01"
+  ],
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_01/activation.json",
+      "bytes": 1465,
+      "sha256": "c5bb1f47cbebce5ddf61bcf7799ecde9f90be7a9c2d3b5b12c38a085d4f4f853",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_01/build_plan.failed-original-symlink.py",
+      "bytes": 16209,
+      "sha256": "c282d92e749f9aa2d77eca9d6bc81b239d34096fe4fd89315ce9c7102470ee48",
+      "mode": 292
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_01/build_plan.py",
+      "bytes": 16787,
+      "sha256": "d6d0dbcad6b5bd596ed7fe2da36b5d78ae0b2a1a0c548f0fdd8aa27b4589eef2",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_01/continuation-activation.json",
+      "bytes": 1173,
+      "sha256": "c8f4abc60790f06039b7e2cd407fd0f4810c23a2cad2773a4c3a721ba14c370f",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_01/named-roots.json",
+      "bytes": 3613,
+      "sha256": "dd72d0fd0714f53100a5497f5b860aa034154b0f1f52dcb501fb02e596ad4975",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_01/return.md",
+      "bytes": 1726,
+      "sha256": "5ed881d6cc67334720a083d74a2e9fb0ce8c664c5957cb1d679343a228738cbd",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01/candidate-directories.json",
+      "bytes": 1214735,
+      "sha256": "60f3e41345d208eb1e8ff3a8c42ac67412dfdaa6b929e47985335e42cad753fb",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01/candidate-files.json",
+      "bytes": 11176154,
+      "sha256": "0df7d51303e2c63434fa78489642fbc8571969fe895d9ddd54df92f41a409242",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01/context-pins.json",
+      "bytes": 20599,
+      "sha256": "fb7eae4fe3beef57a1985ca23586e7db4b40335933de1cd66c74b28cebe9ccf6",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01/copied-original-witnesses.json",
+      "bytes": 4537346,
+      "sha256": "f908e4f8bfa30be8a09ea44c28199bb3d98b272d373867482289bb9a42a456cc",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01/excluded-candidate-files.json",
+      "bytes": 6045,
+      "sha256": "520154b07a297dba0e3f5fa4c48d9894a6ed779642e0f24c71a8170a0f78c1e2",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01/named-root-plan.json",
+      "bytes": 31218,
+      "sha256": "a9787601b7aa8ece4c6ddbbcbf003deebbf84c731f0991c57875e4866c5ff9d3",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01/nonregulars.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01/plan-joins.json",
+      "bytes": 1599,
+      "sha256": "b13507adb4c427faa9d957c66e4fcae15d8b5a636ecde14fd81fb3c0b0e8e967",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01/planning-failure-01.json",
+      "bytes": 1710,
+      "sha256": "6f0226889e0049f418bf2acc54a16758da685c701ce2b081ff6aab53ab1496d2",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01/protected-files.json",
+      "bytes": 11726797,
+      "sha256": "41dc23ff9bb4e0da4f48b71391405b69c0cd3ede7bdd4ab5b048c6c16e4f1b95",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01/summary.json",
+      "bytes": 1209,
+      "sha256": "2ddf4f3b4bc802889a319a0aaafa5c66730b40ed7417ac2b4ec32a8b55bc881a",
+      "mode": 420
+    }
+  ],
+  "recordCount": 17,
+  "recordBytes": 28758388,
+  "directories": [
+    {
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_01",
+      "mode": 493
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01",
+      "mode": 493
+    }
+  ],
+  "directoryCount": 2,
+  "excludedSelf": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01/freeze.json",
+  "plan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01/named-root-plan.json",
+    "candidateFiles": 34045,
+    "candidateBytes": 4535028820,
+    "protectedFiles": 38331,
+    "protectedBytes": 2178881113,
+    "rootCount": 59,
+    "copyOriginalWitnesses": 17900,
+    "contextPins": 75
+  },
+  "cost": {
+    "scanHashSeconds": 69.54855004092678,
+    "hashReadFiles": 90442,
+    "hashReadBytes": 10794998533,
+    "finalJoinsSeconds": 0.36016087466850877
+  },
+  "effects": {
+    "GitCommands": 0,
+    "ProductImports": 0,
+    "RuntimeCalls": 0,
+    "buildsTests": 0,
+    "commentsWrites": 0,
+    "deletions": 0,
+    "moves": 0,
+    "networkProviderCalls": 0,
+    "symlinksCreated": 0,
+    "writesOnly": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_01",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_01"
+    ]
+  },
+  "writesAfterFreeze": "STOPPED",
+  "limits": [
+    "planning-only mechanical disposition; Root alone accepts/delegates deletion after independent review",
+    "historical freezes unchanged; actual removals require separate ledger",
+    "no claimed disk bytes reclaimed, cache-independent reproduction, Runtime/Product/qualification acceptance"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "status": "READY",
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_08",
+  "phase": "continued-02-after-preimage-control-only-stop",
+  "actor": "/root/native_applicability_design",
+  "controlCount": 11,
+  "currentIdentityControls": 7,
+  "sourceOrPayloadEffects": 0,
+  "allPythonControlsSyntaxCompiledWithoutImport": true,
+  "operationBasisSHA256": "54e2cbf171123dc89b4a816d0d3cc598202fa53722ffe1821ec0488f40bd3db7",
+  "remainingPreparationSchemaInspection": {
+    "sourceCutKeys": "actual1109 members,2 replacements,1 additions and original author chains; all keys accessed by producer present",
+    "priorMemberRelation": "1108 present;2 changed;1 absent equal structural additions",
+    "acceptanceClosedDependencies": "all actual metadata pins matched",
+    "schemaSeeds": "both derived seeds present in C07 stage and absent in selected authored source",
+    "dependencyLock": "all16 frozen archive rows agree with selected package lock version/integrity",
+    "tools": "2328 pin records; actualnpm11.5.1 route",
+    "hostLawInputs": "actual host shared-cache/dynamic-library keys and manifest52-member schema agree"
+  },
+  "failurePredecessorUnchanged": true
+}

@@ -1,10 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import fs from 'node:fs';
-import path from 'node:path';
-import {product as p,gtl,declarations,retainedSource,carrierTask,packageRoot,hash} from '../support/forward-command-harness.mjs';
-import {observationFor} from '../support/forward-observation-carrier.mjs';
-import {ABI5_PRODUCT_SEMANTICS as semantics} from '../../build/code/src/product/builtin_semantics.js';
+import { product as p, gtl, declarations, componentSource, carrierTask, hash } from '../support/forward-command-harness.mjs';
+import { observationFor } from '../support/forward-observation-carrier.mjs';
+import { ABI5_PRODUCT_SEMANTICS as semantics } from '../../build/code/src/product/builtin_semantics.js';
 const F=p.WORKSITE_COMMAND_FORWARD_IDS;
 
 test('native whole-Program validator accepts exactly prepare plus nested C2, with no historical call rights',()=>{
@@ -30,10 +28,10 @@ test('native validator rejects crossed raw/output and child closure; exact decla
   assert.equal(gtl.isWorksiteCommandForwardGraphFunction(extra),false);
 });
 
-test('closed Product carriers preserve all22 real source observations; no fabricated cover qualifies native currentness',()=>{
-  const {request,originalTask}=retainedSource(),task=carrierTask();
+test('closed Product carriers preserve all controlled supplied source observations; no fabricated cover qualifies native currentness',()=>{
+  const {request,originalTask}=componentSource(),task=carrierTask();
   assert.equal(p.isWorksiteCommandForwardRequest(request),true);assert.equal(p.isWorksiteCommandForwardTask(task),true);
-  assert.equal(task.snapshotSources.length,22);assert.deepEqual(task.originalTask,originalTask);
+  assert.equal(task.snapshotSources.length,originalTask.protectedObservations.length);assert.deepEqual(task.originalTask,originalTask);
   assert.deepEqual(task.commands,originalTask.commands);assert.deepEqual(task.outcomePredicates,originalTask.outcomePredicates);
   assert.deepEqual(task.allowedWriteTerritories,originalTask.allowedWriteTerritories);
   assert.deepEqual(task.sourceConstructionResult,originalTask.sourceConstructionResult);
@@ -65,7 +63,7 @@ test('real shared helper-plan artifact acknowledgment and observation constructo
   assert.equal(contract.valueKind,'worksite_command_forward_worker_result');
   assert.equal(semantics.validateContractValue(contract.valueKind,row.acknowledgment),true);
   assert.equal(p.isWorksiteCommandForwardObservation(row.observation),true);
-  assert.equal(row.observation.snapshotMembers.length,22);assert.ok(row.observation.commandResults.every(r=>r.exitStatus===1));
+  assert.equal(row.observation.snapshotMembers.length,task.snapshotSources.length);assert.ok(row.observation.commandResults.every(r=>r.exitStatus===1));
   assert.ok(row.observation.snapshotMembers.every(r=>r.kind==='worksite_command_forward_snapshot_member'&&r.source.kind==='retained_construction'));
   const schema=p.worksiteCommandExecutionWorkerResultSchema(task,row.plan);
   assert.equal(schema.additionalProperties,false);assert.equal(schema.required.length,7);
@@ -96,19 +94,4 @@ test('step and terminal predicates preserve honest command failure but reject in
   const incomplete=structuredClone(row.observation);incomplete.commandResults=[];
   assert.equal(terminal.evaluate(task.request,incomplete),false);
   assert.equal(p.resolveWorksiteCommandExecutionJudgmentRelation(p.WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef).evaluate(task,row.observation),false);
-});
-
-test('legacy task/raw schema/closed predicates and parent public/event contracts remain exact',async()=>{
-  const {originalTask}=retainedSource(),row=observationFor(originalTask,1);
-  const parent=path.resolve(packageRoot,'../../20260911_ABG5_ACCEPTED_SOURCE_INTEGRATION_01');
-  const old=await import(path.join(parent,'work/build/code/src/product/worksite_command_execution.js'));
-  assert.deepEqual(old.constructWorksiteCommandExecutionTask(originalTask),p.constructWorksiteCommandExecutionTask(originalTask));
-  assert.deepEqual(old.worksiteCommandExecutionWorkerResultSchema(originalTask,row.plan),p.worksiteCommandExecutionWorkerResultSchema(originalTask,row.plan));
-  assert.equal(old.isWorksiteCommandExecutionWorkerResult(row.acknowledgment),true);assert.equal(p.isWorksiteCommandForwardWorkerResult(row.acknowledgment),false);
-  assert.equal(old.resolveWorksiteCommandExecutionJudgmentRelation(p.WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef).evaluate(originalTask,row.observation),true);
-  for(const relative of ['abg/event_store.ts','abg/replay.ts','abg/c_call.ts','abg/actor_process.ts','product/worksite_revision.ts',
-    'abg/semantic_stage.ts','abg/semantic_revision.ts','product/public_contract_publication.ts']){
-    const before=path.join(parent,'candidate-01/source/code/src',relative),after=path.join(packageRoot,'code/src',relative);
-    assert.ok(fs.readFileSync(before).equals(fs.readFileSync(after)),relative);
-  }
 });

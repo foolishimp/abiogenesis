@@ -4,8 +4,8 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
-import { prepareOddGlcDataProduct } from
-  "../support/developer-mini-product.mjs";
+import { prepareLanguageSmokeFixture } from
+  "../support/language-smoke-fixture.mjs";
 import {
   publicOperationBasis,
   setupInstalledRootCatalog,
@@ -24,7 +24,7 @@ test("ST-2A-E projects one exact immutable workspace environment without append"
   const environment = await setupInstalledRootCatalog(context, packageRoot, {
     candidateBasisSource: "packed_artifact",
     prepareAdditionalProducts: async (input) => [
-      await prepareOddGlcDataProduct(input),
+      await prepareLanguageSmokeFixture(input),
     ],
     workspaceProductIndex: 1,
   });

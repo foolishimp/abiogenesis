@@ -1,0 +1,627 @@
+{
+  "activation": "T287_SANDBOX_UAT_HARNESS_01",
+  "successorActivation": "T287_UAT_CONSUMER_PACKAGE_02",
+  "candidateArchiveSHA256": "89e2038de69b384dbef84fe6620d5269e57382971cc8e845f554fc6101084b52",
+  "sources": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 9744,
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "preimage": {
+        "path": "build_tenants/abiogenesis/typescript/package.json",
+        "bytes": 10997,
+        "sha256": "9be6214f72cb8665c925763e1d4ae6393b85abcd6f2a52c698236e983feab46a"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/sandbox-uat.mjs",
+      "bytes": 182,
+      "sha256": "9a88014f68f50ee592190b00d14f3b58ba5f744ec794cd017ce9e0b6a4fc1576",
+      "preimage": {
+        "path": "build_tenants/abiogenesis/typescript/scripts/sandbox-uat.mjs",
+        "exists": false
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 20878,
+      "sha256": "ff6ee480aa3b8e48158f41d717eb72971af56f8c242ba06ee68b30cce1a1287f",
+      "preimage": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+        "exists": false
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 26086,
+      "sha256": "11d91e396ad6926bf8d13c67fc6204922775ffcc87c691cb56c70d6d204fffdf",
+      "preimage": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+        "exists": false
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551",
+      "preimage": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+        "exists": false
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 4682,
+      "sha256": "09d00bc36933df82249cde45802f60b37106b0d291995fc7d811c674d613437a",
+      "preimage": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+        "exists": false
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "bytes": 3242,
+      "sha256": "be3399fce7d7ffb5bda55fb1383bf621b55304582add867c6365d7791c0e7c0a",
+      "preimage": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+        "exists": false
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/README.md",
+      "bytes": 3830,
+      "sha256": "661628656cfd296dcbfef88d61317c11a1c19a038d314d7e6ef3fa0f3daf3232",
+      "preimage": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/README.md",
+        "exists": false
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "bytes": 1821,
+      "sha256": "8d9420bf16d6178f5a72b7397140abfdf2b1727a6d459898763efdfb8a6a5e88",
+      "preimage": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+        "exists": false
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/SEALED.json",
+      "bytes": 267,
+      "sha256": "969c43206c4b507ac7ddd5e838d74440d8bd08a3386a7278a1878183f343a4cf"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/summary.json",
+      "bytes": 1473,
+      "sha256": "0a4577330ad759035f50d4b828b4ecc977d596d139753788220dbaea4c2cfddb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/run.json",
+      "bytes": 7753,
+      "sha256": "21c8b9e102994c9dc20e63e15b3b479b60a6b612c1ecd3a1eeec6eb0204cb53f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T00-49-50-139Z-5971a701-5228-4d17-99c2-e7173098f44c/SEALED.json",
+      "bytes": 281,
+      "sha256": "7f3cb25de499dbc424ccb71534033eda6e30551ec43d3142fad3e4447fbf2c5c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T00-49-50-139Z-5971a701-5228-4d17-99c2-e7173098f44c/summary.json",
+      "bytes": 470,
+      "sha256": "6dc576dddb0362960c0317fccdd580594caf834a86c84d9a6c4c1d8bb14f7a67"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T00-49-50-139Z-5971a701-5228-4d17-99c2-e7173098f44c/run.json",
+      "bytes": 7766,
+      "sha256": "de6864ec12385fea3ac6d527915f375d6642686e9ac0748951fec15c999ef14a"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T00-49-50-139Z-5971a701-5228-4d17-99c2-e7173098f44c/setup-identity.json",
+      "bytes": 9225801,
+      "sha256": "d0f7c2ea9292f9a1a96c69ebfe78796b8dfc356ccbd28602dea0bb4dcc01667f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T00-49-50-139Z-5971a701-5228-4d17-99c2-e7173098f44c/prepared-definition-call.json",
+      "bytes": 28913142,
+      "sha256": "84fb9ce508b0f4c9293b80d182c86fb82bec19f5321c3eeaacfd65dc0f5eca69"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T00-49-50-139Z-5971a701-5228-4d17-99c2-e7173098f44c/final-close-handoff.json",
+      "bytes": 1452,
+      "sha256": "1ba05d0d92af212dd1523bfda78caaa4a36af28c20c505d775adcc0fb4dcff8c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runs/preflight/2026-10-06T00-44-43-112Z-6c801218-10c1-44f7-8a94-f5068c693f79/SEALED.json",
+      "bytes": 65,
+      "sha256": "bc51a218937144289f58ad023db0cd3927fe0a551964e8f47b4cace82fd47268"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runs/preflight/2026-10-06T00-44-43-112Z-6c801218-10c1-44f7-8a94-f5068c693f79/summary.json",
+      "bytes": 4817,
+      "sha256": "62ab043171314dd5416059075d9c31e4adbd7d30b68804ce1458eefc7708a125"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_01/harness/component-checks.json",
+      "bytes": 740,
+      "sha256": "0a21049a26b6aa0305957cafc1d1befb40b49fe742b4737ff7714682cfbda642"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_01/harness/installer-projection-checks.json",
+      "bytes": 1445,
+      "sha256": "9ebe11216d1c06ab2fe6e0f21daf3acb3ef44a2b0454ae1edd008c638b01864a"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_01/harness/consumer-package-02-preimages.json",
+      "bytes": 1536,
+      "sha256": "7d0c02bd5e16f015e49ddfc62bb501260f656c7db0b0cee5485de8c2b1e81711"
+    }
+  ],
+  "fixtureManifestSHA256": "e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+  "oracleModuleSHA256": "2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+  "scriptPathChecks": [
+    {
+      "script": "test:r1",
+      "testPath": "test_env/tests/r1-packed-artifact.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r2",
+      "testPath": "test_env/tests/r1-packed-artifact.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r2",
+      "testPath": "test_env/tests/r2-clean-install.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r3",
+      "testPath": "test_env/tests/r1-packed-artifact.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r3",
+      "testPath": "test_env/tests/r2-clean-install.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r3",
+      "testPath": "test_env/tests/r3-workspace-binding.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r4",
+      "testPath": "test_env/tests/r1-packed-artifact.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r4",
+      "testPath": "test_env/tests/r2-clean-install.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r4",
+      "testPath": "test_env/tests/r3-workspace-binding.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r4",
+      "testPath": "test_env/tests/r4-catalog-admission.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r5",
+      "testPath": "test_env/tests/r1-packed-artifact.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r5",
+      "testPath": "test_env/tests/r2-clean-install.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r5",
+      "testPath": "test_env/tests/r3-workspace-binding.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r5",
+      "testPath": "test_env/tests/r4-catalog-admission.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r5",
+      "testPath": "test_env/tests/r5-invocation-admission.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r6",
+      "testPath": "test_env/tests/r1-packed-artifact.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r6",
+      "testPath": "test_env/tests/r2-clean-install.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r6",
+      "testPath": "test_env/tests/r3-workspace-binding.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r6",
+      "testPath": "test_env/tests/r4-catalog-admission.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r6",
+      "testPath": "test_env/tests/r5-invocation-admission.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r6",
+      "testPath": "test_env/tests/r6-implementation-resolution.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r7",
+      "testPath": "test_env/tests/r1-packed-artifact.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r7",
+      "testPath": "test_env/tests/r2-clean-install.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r7",
+      "testPath": "test_env/tests/r3-workspace-binding.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r7",
+      "testPath": "test_env/tests/r4-catalog-admission.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r7",
+      "testPath": "test_env/tests/r5-invocation-admission.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r7",
+      "testPath": "test_env/tests/r6-implementation-resolution.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r7",
+      "testPath": "test_env/tests/r7-graph-validation-basis.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r8",
+      "testPath": "test_env/tests/r1-packed-artifact.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r8",
+      "testPath": "test_env/tests/r2-clean-install.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r8",
+      "testPath": "test_env/tests/r3-workspace-binding.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r8",
+      "testPath": "test_env/tests/r4-catalog-admission.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r8",
+      "testPath": "test_env/tests/r5-invocation-admission.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r8",
+      "testPath": "test_env/tests/r6-implementation-resolution.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r8",
+      "testPath": "test_env/tests/r7-graph-validation-basis.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r8",
+      "testPath": "test_env/tests/r8-direct-hog-entry.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r9",
+      "testPath": "test_env/tests/r1-packed-artifact.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r9",
+      "testPath": "test_env/tests/r2-clean-install.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r9",
+      "testPath": "test_env/tests/r3-workspace-binding.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r9",
+      "testPath": "test_env/tests/r4-catalog-admission.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r9",
+      "testPath": "test_env/tests/r5-invocation-admission.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r9",
+      "testPath": "test_env/tests/r6-implementation-resolution.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r9",
+      "testPath": "test_env/tests/r7-graph-validation-basis.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r9",
+      "testPath": "test_env/tests/r8-direct-hog-entry.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:r9",
+      "testPath": "test_env/tests/r9-causal-result-closure.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m4",
+      "testPath": "test_env/tests/r1-packed-artifact.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m4",
+      "testPath": "test_env/tests/r2-clean-install.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m4",
+      "testPath": "test_env/tests/r3-workspace-binding.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m4",
+      "testPath": "test_env/tests/r4-catalog-admission.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m4",
+      "testPath": "test_env/tests/r5-invocation-admission.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m4",
+      "testPath": "test_env/tests/r6-implementation-resolution.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m4",
+      "testPath": "test_env/tests/r7-graph-validation-basis.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m4",
+      "testPath": "test_env/tests/r8-direct-hog-entry.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m4",
+      "testPath": "test_env/tests/r9-causal-result-closure.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m4",
+      "testPath": "test_env/tests/rival-authority-mutations.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m4",
+      "testPath": "test_env/tests/runtime-scope-regressions.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5:gtl",
+      "testPath": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5:graph-edge",
+      "testPath": "test_env/tests/m5-installed-graph-edge.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5:reopen",
+      "testPath": "test_env/tests/m5-event-store-reopen.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5:event-calculus",
+      "testPath": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5:s03-unit",
+      "testPath": "test_env/tests/m5-s03-authority.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5:consensus-unit",
+      "testPath": "test_env/tests/m5-consensus-module.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5:s06-prime",
+      "testPath": "test_env/tests/m5-s06-prime.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5:portability",
+      "testPath": "test_env/tests/m5-installed-portability.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5:conservation",
+      "testPath": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5:conservation",
+      "testPath": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5",
+      "testPath": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5",
+      "testPath": "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5",
+      "testPath": "test_env/tests/m5-installed-graph-edge.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5",
+      "testPath": "test_env/tests/m5-worker-transport.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5",
+      "testPath": "test_env/tests/m5-event-store-reopen.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5",
+      "testPath": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5",
+      "testPath": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5",
+      "testPath": "test_env/tests/m5-s03-authority.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5",
+      "testPath": "test_env/tests/m5-consensus-module.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5",
+      "testPath": "test_env/tests/m5-s06-prime.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5",
+      "testPath": "test_env/tests/m5-installed-portability.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5",
+      "testPath": "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:m5",
+      "testPath": "test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:unit",
+      "testPath": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:unit",
+      "testPath": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:unit",
+      "testPath": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:unit",
+      "testPath": "test_env/tests/m5-worker-transport.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:unit",
+      "testPath": "test_env/tests/forward-command-contracts.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:unit",
+      "testPath": "test_env/tests/forward-command-owners.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:unit",
+      "testPath": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:installed:language",
+      "testPath": "test_env/tests/installed-language-smoke.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:boundary",
+      "testPath": "test_env/tests/hello-product-boundary.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:public-groups",
+      "testPath": "test_env/tests/t287-public-groups.test.mjs",
+      "exists": true
+    },
+    {
+      "script": "test:uat:harness",
+      "testPath": "test_env/uat/harness.test.mjs",
+      "exists": true
+    }
+  ],
+  "claim": {
+    "sevenInputsLocal": true,
+    "componentChecks": {
+      "pass": 3,
+      "fail": 0
+    },
+    "toolchainPreflight": "seven-case ready; versions only",
+    "basicCliPublicInstallationAndLifecyclePreparation": "prepared",
+    "nativeRunExecuted": false,
+    "providerDispatched": false,
+    "applicationUATPass": false
+  }
+}

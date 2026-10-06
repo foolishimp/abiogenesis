@@ -1,0 +1,14 @@
+{
+  "process": "physical-process-checks-02",
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/physical-process-checks-02.mjs"
+  ],
+  "elapsedMs": 901.6958340071142,
+  "exitCode": 0,
+  "timedOut": false,
+  "ownedGroupSignals": [],
+  "stdout": "physical-process-checks-02.stdout",
+  "stderr": "physical-process-checks-02.stderr",
+  "nativeCalls": 0
+}

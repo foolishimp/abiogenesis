@@ -1,0 +1,30 @@
+{
+  "status": "CLOSED_FIRST_POST_NATIVE_PROOF_CONSUMER_MISMATCH",
+  "origin": "Donor-derived driver accesses terminalResult.provenance.runRef; current strict output has producer.runRef",
+  "notAnOwnerFailure": "Both conformance calls and Hello/result/replay native processes returned result and exit0. Driver exited1 only after native completion and earlier output comparisons.",
+  "actualOwnerContract": "ABG_TYPED_TERMINAL_RESULT_SCHEMA requires producer {runRef,graphCallRef,invocationAdmissionRef,program,graphFunction,executionBasis,cCallRef,resultAdmissionEventRef,judgmentRef,judgmentAdmissionEventRef,terminalRoute}; no provenance key. Current projector constructs producer explicitly.",
+  "frames": {
+    "ProductRequirements": "Original S01 expected typed Hello and fresh result/replay are present in actual supported outputs; original oracle was unchanged and equality passed. Root must adjudicate remaining complete proof; no broader qualification claim.",
+    "Design": "Typed output is a replay-derived carrier with one owner schema; terminal_result_contracts.ts explicitly denies independent result-ledger authority. Existing HOW fully defines the carrier; no new structural decision is required.",
+    "Integration": "The corrected input resources/auth wrapper reached both conformance owners. All five native paths completed. The later output consumer used an absent field rather than the current producer relation; complete integration scope includes output/oracle consumption as well as inbound resources.",
+    "Identity": "Actual Run/source/ref-digest comparisons reached and passed. Full producer, contract/value/result/projection coordinates are retained verbatim in three Public owner values. The absent provenance dereference is unrelated to current Product/install/WB/grant or resource identity.",
+    "Lifecycle": "Exactly one new Hello Run with31 appended events after the conserved two-event setup prefix. Both cold reads reuse genuine handoffs and append zero. Actual final handoff and physical original dev/inode retained. No new Run/retry is selected.",
+    "EffectAuthority": "Five actual native calls succeeded within caps, no provider/C2/qualification or setup replay. Worker current session01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4 is bound by bounded session03 metadata, not a Product-owner qualification or independent assessment grant.",
+    "Proof": "Preflight checked actual inbound resources/owners, including deferred genuine read source checks, but did not validate all donor post-result assertions against output contracts. Earlier Hello/result/replay equality assertions passed; failure and all reached/skipped checks are preserved in assertion-frontier.json."
+  },
+  "alternatives": {
+    "staleProofConsumer": "established by strict owner schema, actual projector and all three actual outputs versus unchanged donor expression",
+    "ProductCarrierDefect": "not supported: producer schema/constructor/output agree",
+    "nativeOrEnvironmentFailure": "not supported: all5 native exit0/result, stable same resource and absent original lock",
+    "oracleFailure": "not supported: exact original typed Hello output and cross-read values matched before failing expression"
+  },
+  "recurrenceAndEscape": "N1/N2/N03 donor assertion remained unexecuted behind earlier seams. N04 selected complete remaining caller cone but Worker preflight emphasized inbound resource admission and deferred actual read inputs; it failed to conjoin the terminal-result output consumer/oracle contract. Preserve this concrete proof-application escape rather than broadening Product authority.",
+  "completeAffectedCone": "All post-result typed terminal/root/result/replay consumers and actual producer-to-Run/CCall/Result/J/route/value/contract/projection joins. Inputs are now natively evidenced; preserve them and all native success.",
+  "smallestReentry": "Bounded read-only proof-consumer realization_refactor over retained source-linked outputs/events for Root selection; no native rerun, setup/build/package/Product/owner repair indicated.",
+  "requiredReproof": [
+    "Use current strict terminal-result schema and complete producer relation against the three retained actual Public outputs",
+    "Complete provenance/causal closure and skipped post-consumption checks using actual immutable evidence, with explicit original failure retained",
+    "Root independently adjudicates bounded S01 evidence and limits; no new Hello or fresh CLI needed on present facts"
+  ],
+  "effectState": "N04 driver controls unchanged, failure snapshot frozen, genuine resource retained. No corrected consumer or native call rerun performed."
+}

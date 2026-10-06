@@ -52,6 +52,8 @@ function runNpmInstall(targetRoot: string, artifactPath: string): Promise<void> 
       "npm",
       [
         "install",
+        // Preserve the verified immutable payload even when ambient npm enables bin links.
+        "--bin-links=false",
         "--ignore-scripts",
         "--no-audit",
         "--no-fund",

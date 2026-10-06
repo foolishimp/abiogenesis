@@ -48,7 +48,7 @@ test("correction: raw writer retired; C0 marker scope remains strict", async () 
   const end = source.indexOf("    const committedWorksiteOutput", start);
   assert.ok(start > 0 && end > start);
   const select = new Function("input", "resultDisposition", "resultCandidate", "projectWorksiteFailureBasis", "WORKSITE_C0_IDS", "WORKSITE_FILE_REPLACE_EFFECT_URI", source.slice(start, end) + "; return postPublication;");
-  const input = { cCall: { graphFunctionRef: gtl.HELLO_WORLD_IDS.graphFunctionRef, cCallRef: "probe" }, store: { readAll: () => [] }, outcomeClass: "leaf", regime: "F_D" };
+  const input = { cCall: { graphFunctionRef: gtl.LANGUAGE_TEST_IDS.graphFunctionRef, cCallRef: "probe" }, store: { readAll: () => [] }, outcomeClass: "leaf", regime: "F_D" };
   assert.equal(select(input, "failure", { phase: "post_publication" }, () => null, gtl.WORKSITE_C0_IDS, product.WORKSITE_FILE_REPLACE_EFFECT_URI), false);
   input.cCall.graphFunctionRef = gtl.WORKSITE_C0_IDS.graphFunctionRef;
   assert.throws(() => select(input, "failure", { phase: "post_publication" }, () => null, gtl.WORKSITE_C0_IDS, product.WORKSITE_FILE_REPLACE_EFFECT_URI), /exact admitted C0 basis/u);

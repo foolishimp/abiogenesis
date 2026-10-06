@@ -1,0 +1,144 @@
+{
+  "pin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-07/input-acceptance.json",
+    "bytes": 7372,
+    "sha256": "25daf2e829ca8a5b1139968e1356afd9e99d36f01ad36c61614698a166537f37"
+  },
+  "RootSeparateMessage": "Root Executive conjoins CLOSED independent Q08 GO e0f783af, accepts preparation, and explicitly releases exact input-acceptance.json 7372 B SHA256 25daf2e829ca8a5b1139968e1356afd9e99d36f01ad36c61614698a166537f37 for supervised actual whole carrier under unchanged grant. First failure stops/freeze/Root triangulation; no repair or retry.",
+  "actualAcceptance": {
+    "kind": "root_final_input_acceptance",
+    "status": "ACCEPTED_PREPARATION_ONLY",
+    "basis": "stdo://releases/v2.5.1-rc.2/",
+    "operation": "T287_Q08_ACCEPTANCE_AND_F11_RELEASE_01",
+    "actor": "/root Executive conjoined CLOSED independent Reviewer T287_Q08_CURRENT_INPUT_ASSURANCE_01",
+    "acceptedAt": "2026-10-02T07:47:48.309980+00:00",
+    "preparationFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/freeze.json",
+      "bytes": 865006,
+      "sha256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+      "mode": 292
+    },
+    "preparationFreezeSHA256": "f14c7a4b91747af9e72b0235d59b9ad2f88008cb8de44280f56b294334194b3e",
+    "review": {
+      "actor": "/root/rc1_c03_install_review",
+      "operation": "T287_Q08_CURRENT_INPUT_ASSURANCE_01",
+      "status": "CLOSED",
+      "workResult": "GO_BOUNDED_CURRENT_INPUT_ASSURANCE",
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q08-input-assurance-controls-01/review/freeze.json",
+        "bytes": 1237,
+        "sha256": "e0f783af7c1ea1097119b377f271246f3a6e176e4a5a12d1c7033ee635cec4f4",
+        "mode": 420
+      },
+      "report": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q08-input-assurance-controls-01/review/review.md",
+        "bytes": 12792,
+        "sha256": "895e2b56c8bd838bf3ce24a0baf460f9a5f01902a5e21107d95f53a976bcbc72",
+        "mode": 420
+      },
+      "scope": "Complete frozen cut, source-auth/aliases/material/inventory/scope/recipe and actual C06/Setup06 owner request joins; strict mandatory whole-carrier callers. Preparation only, not semantic qualification."
+    },
+    "verified": {
+      "records": 3414,
+      "recordBytes": 880596747,
+      "directories": 679,
+      "inventoryMembers": 4633,
+      "protectedInputs": 3284,
+      "effectiveSourceGenerated": 1937,
+      "generated": 926,
+      "expectedOutputs": 927,
+      "historicalComponent": 835,
+      "sourceAliases": 95,
+      "originalSourceAuthRecords": 110,
+      "originalSourceAuthChains": 10,
+      "perRuleDomains": 167,
+      "globalGroups": 50,
+      "referenceSets": 492,
+      "retainedRules": 1728,
+      "newOrChangedRules": 409
+    },
+    "candidate": {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+      "freezeSHA256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+      "artifactSHA256": "9ac4ca5a40940cc98de8080d9c119788f75596890dde3aae4050a058fe383ced",
+      "productContentDigest": "sha256:7b7d18dd1292343672da68804784719c1d47937d8524167f8a15d12ecddc5ace",
+      "manifestDigest": "sha256:42e82d4942736d5b97087cfdba143dda5cca0690ae05402b05066d2c518326f6"
+    },
+    "setup": {
+      "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/freeze.json",
+      "freezeSHA256": "b44c8a054b19f7eeb84473ada9ba677d51001317d2dac5d213cb92e7469a0cd7",
+      "acceptance": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-setup-acceptance-and-q07-controls-01/acceptance.json",
+        "bytes": 4695,
+        "sha256": "809698c1a88fa94c26d47d99744a0afe5148f0ec2efbe36fbeb8c1b366409358",
+        "mode": 420
+      },
+      "fullBinding": {
+        "ref": "workspace-binding://abiogenesis/7fd43fe81e798648cb57216f120bf74d7a0f5af7b92aed236a5c21c60be130b4",
+        "digest": "sha256:7fd43fe81e798648cb57216f120bf74d7a0f5af7b92aed236a5c21c60be130b4"
+      },
+      "currentActor": "actor://abiogenesis/t287/f11-c06-installed-setup-06/operator",
+      "coreInstalledRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/installed/core/node_modules/@abiogenesis/typescript-tenant",
+      "closeHandoff": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/closed-event-resource-handoff.json",
+        "bytes": 3581045,
+        "sha256": "ac695cf6d68cadf0daed6ebf8472d6c4f09b1489fda9d987fd088c59685802d9",
+        "mode": 420
+      },
+      "reopenAuthority": {
+        "authorityDigest": "sha256:11af6231fed937796aff303c96cf44e6dc3ef535e704f3d9ff4388e9390c106c",
+        "device": 16777230,
+        "durableByteLength": 2490814,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "eventLogDigest": "sha256:5ba960061e7ad373b389c48c232f13f2dd80a08b2ad296f28f7783c2a5cf470f",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+        "inode": 464698960,
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0"
+      },
+      "prefix": {
+        "coordinateDigest": "sha256:c972a5790053d1a99928363dd9952fd3236f1937add68adf4a3815e4fd674742",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:5ba960061e7ad373b389c48c232f13f2dd80a08b2ad296f28f7783c2a5cf470f",
+        "prefixLength": 2490814,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 464698960
+        }
+      },
+      "initialEventPhysical": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+        "bytes": 2490814,
+        "sha256": "5ba960061e7ad373b389c48c232f13f2dd80a08b2ad296f28f7783c2a5cf470f",
+        "mode": 420,
+        "device": 16777230,
+        "inode": 464698960
+      }
+    },
+    "resource": {
+      "digest": "sha256:68765fbe6053ec92ea6459ca2b1e4b6f97b25f31666b5d9db246cf95744c0bd9",
+      "fileBytes": 506298791,
+      "materialEntries": 4830,
+      "promptBytes": 349314
+    },
+    "releasedConditionalOperation": "T287_F11_C06_CARRIER_EXECUTION_07",
+    "runtimeGrant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-07/request.txt",
+      "bytes": 4735,
+      "sha256": "260faac2f50bbbcf401200681029e2a038afea44f14c81f4a7d399c237ae081a",
+      "mode": 420
+    },
+    "runtimeGranted": true,
+    "scope": "Exactly the previously granted controlled ordinary wrapper parent/core F_P child/Result/J/foldback/parent and Run closure; fresh F11 and sole truthful non-green AF22; six fresh CLI reads. Original prefix/inode and closed inputs/evidence conserved. Actual current owner-produced request/prompt authoritative. First failure stops/freezes for Root triage.",
+    "notEstablished": [
+      "Actual whole carrier execution and fresh downstream consumers",
+      "Independent context/attribution sufficiency or genuine semantic F11",
+      "Observed QUAL056 and 18 qualification commands",
+      "Complete final scenario applicability and sole green AF22",
+      "Publication, installed RC qualification, actual human acceptance and terminal remote installation"
+    ]
+  }
+}

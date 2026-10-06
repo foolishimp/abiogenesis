@@ -1,0 +1,25 @@
+{
+  "head": "99cbc50c174548b62d00603f42b13bc5ad5ed821",
+  "paths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "sha256": "1ee24400b6e27ae4676112e33731d4d93cd89b966584284f74ca4b65fb8b9515",
+      "byteLength": 48750
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "sha256": "6f61fd28225b1f19c73cad4ba30426529501b10a679108cda87e7dae7d255b0a",
+      "byteLength": 78483
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "sha256": "a1d094b4e87783748bcdac49ba83344d9c89d67493259f369a2746677915628c",
+      "byteLength": 32246
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "sha256": "ca5ac049892b817b07432baf7bf821de75b01898ad5c4d546fa26d262a89abde",
+      "byteLength": 60016
+    }
+  ]
+}

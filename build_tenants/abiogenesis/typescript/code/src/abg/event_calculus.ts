@@ -332,7 +332,7 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
   },
   continuation_superseded: {
     initiates: ["continuation_superseded"],
-    terminates: ["continuation_open", "interaction_pending", "continuation_response_available"], clips: [], declips: [],
+    terminates: ["continuation_open", "interaction_pending", "continuation_response_available", "construction_intent_available"], clips: [], declips: [],
   },
   continuation_reentry_link_admitted: {
     initiates: ["continuation_reentry_link_available"],
@@ -1249,6 +1249,8 @@ function eventCalculusEffectRefs(
               fluent("continuation_open", continuationRef),
               fluent("interaction_pending", continuationRef),
               fluent("continuation_response_available", continuationRef),
+              ...(stringField(event, "continuationKind") === "selected_action" && stringField(event, "constructionIntentRef") !== null
+                ? [fluent("construction_intent_available", stringField(event, "constructionIntentRef")!)] : []),
             ],
         clips: [], declips: [],
       };

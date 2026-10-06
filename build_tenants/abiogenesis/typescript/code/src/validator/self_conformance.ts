@@ -1,3 +1,5 @@
+import { resolveSelfConformanceInput, resolveQualificationAssessment, type QualificationResources } from "./qualification_resources.js";
+import type { SelfConformanceEmbeddedInput } from "./self_conformance_contracts.js";
 import * as v from "valibot";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -23,7 +25,8 @@ export function readSelfConformanceCatalog(): { catalog: QualificationRuleCatalo
 function same(a: unknown, b: unknown): boolean { return sha256Canonical(a as JsonValue) === sha256Canonical(b as JsonValue); }
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 /** Finite native relation. Citations remain unadmitted; no caller flag can establish J/O truth. */
-export function evaluateSelfConformance(input: SelfConformanceInput, owner: SelfConformanceOwner): Readonly<SelfConformanceResult> {
+export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: SelfConformanceOwner, resources?: QualificationResources): Readonly<SelfConformanceResult> {
+  const resolvedInput = resolveSelfConformanceInput(rawInput, resources), input = resolvedInput.input;
   const findings: SelfConformanceFinding[] = [];
   const add = (diagnostic: string, disposition: SelfConformanceFinding["disposition"], detail: string,
     surfaceRefs: string[] = [], ruleRef: string | null = null, sourceRef: string | null = null,
@@ -39,12 +42,12 @@ export function evaluateSelfConformance(input: SelfConformanceInput, owner: Self
     rootRefs: input.inventory?.selectedRoots ?? [], surfaceRoles: m.surfaceRoles, ownerRefs: [], sourceRefs: [m.ref] }));
   const ruleGroupByRef = new Map(ruleGroups.map(g => [g.groupRef, g])), surfaceGroupByRef = new Map(surfaceGroups.map(g => [g.groupRef, g]));
   if (scope !== undefined) {
-    for (const diagnostic of qualificationScopeCorrespondence(scope, catalog, sha256Bytes(bytes)))
+    for (const diagnostic of qualificationScopeCorrespondence(scope, catalog, sha256Bytes(bytes), resolvedInput.normalizedScope))
       add(diagnostic, diagnostic.includes("incomplete") ? "blocked_incomplete" : "failed", "Explicit grouped scope does not conserve its exact declared domain.");
     if (!same(scope.subjectBasis, { ref: basis.basisRef, digest: basis.basisDigest }) || !same(scope.lawBasis, basis.lawBasis) || !same(scope.inventory, input.inventory))
       add("scope_subject_basis_mismatch", "failed", "Scope differs from the exact evaluated subject/law/inventory.");
   }
-  const applicationRows = new Map<string, SelfConformanceInput["applications"]>();
+  const applicationRows = new Map<string, SelfConformanceEmbeddedInput["applications"]>();
   for (const application of input.applications) {
     const rows = applicationRows.get(application.ruleRef) ?? [];
     rows.push(application); applicationRows.set(application.ruleRef, rows);
@@ -60,17 +63,17 @@ export function evaluateSelfConformance(input: SelfConformanceInput, owner: Self
     ...(input.law === null ? [] : [typedMaterial(input.law.lawBasisRef, input.law)]),
   ];
   const executionProof = input.qualification === undefined ? null : resolveQualificationExecutionMaterial(
-    input.qualification.proof, basis, owner.nativeBasis, input.qualification.verification, input.inventory);
+    input.qualification.proof, basis, owner.nativeBasis, input.qualification.verification, input.inventory, resources);
   const executionMaterial = executionProof?.evidence ?? null, verification = executionProof?.verification ?? null;
   const coverage = input.qualification?.coverageCatalog;
   const coverageBound = coverage !== undefined && qualificationCoverageIsPublished(coverage) &&
     same(basis.coverageCatalog, { ref: coverage.catalogRef, digest: coverage.catalogDigest }) && same(basis.lawBasis, coverage.lawBasis);
   if (coverageBound) declarationMaterials.push(typedMaterial(coverage!.catalogRef, coverage));
   const resolved = input.qualification === undefined ? null : resolveQualificationAssessments(input.qualification.proof,
-    input.qualification.plan, owner.nativeBasis);
+    input.qualification.plan, owner.nativeBasis, resources)?.map(j => ({ ...j, task: resolveQualificationAssessment({ kind: "qualification_assessment_input", schemaVersion: "5.0.0", task: j.task, plan: j.plan }, resources).task }));
   const assessment = input.qualification === undefined || !same(input.qualification.plan.subjectBasis, { ref: basis.basisRef, digest: basis.basisDigest }) ||
     !same(input.qualification.plan.lawBasis, basis.lawBasis) || !coverageBound || executionMaterial === null ? null : resolved?.filter(j =>
-      same(j.task.inventory, basis.sourceInventory) && same(j.task.scope ?? null, scope ?? null) && input.law !== null && same(j.task.catalog, { ref: input.law.catalog.ref, digest: input.law.catalog.digest }) &&
+      same(j.task.inventory, basis.sourceInventory) && (j.task.scope === undefined ? scope === undefined : scope !== undefined && j.task.scope.scopeRef === scope.scopeRef && j.task.scope.scopeDigest === scope.scopeDigest) && input.law !== null && same(j.task.catalog, { ref: input.law.catalog.ref, digest: input.law.catalog.digest }) &&
       j.task.subjectMembers.every(m => input.inventory?.members.some(i => same(m, { ref: i.ref, path: i.path, digest: i.digest, byteCount: i.byteCount }))) &&
       j.task.material.every(m => [...declarationMaterials, ...input.authorityMembers, ...input.qualification!.sourceMembers,
         ...(executionMaterial ?? []),
@@ -117,12 +120,14 @@ export function evaluateSelfConformance(input: SelfConformanceInput, owner: Self
   const assessed = (diagnostic: string, detail: string, role: string, evidenceRole: string, surfaceRefs: string[], ruleRef: string | null = null, sourceRef: string | null = null) => {
     const results = surfaceRefs.map(s => assess(role, evidenceRole, s, ruleRef));
     const complete = results.length > 0 && results.every(r => r !== null);
-    if (!complete) { add(diagnostic, "blocked_incomplete", detail, surfaceRefs, ruleRef, sourceRef, "J_required"); return; }
-    const rows = results.map(r => r!);
-    const disposition = rows.some(r => r.disposition === "failed") ? "failed" : rows.some(r => r.disposition === "blocked_incomplete") ||
+    const rows = results.filter(r => r !== null);
+    if (!complete) add(diagnostic, "blocked_incomplete", detail, surfaceRefs.filter((_, i) => results[i] === null), ruleRef, sourceRef, "J_required");
+    if (rows.length === 0) return;
+    const disposition = rows.some(r => r.disposition === "failed") ? "failed" : !complete || rows.some(r => r.disposition === "blocked_incomplete") ||
       role !== "rule" && role !== "coverage" && rows.some(r => r.disposition === "inapplicable_with_reason") ? "blocked_incomplete"
       : rows.every(r => r.disposition === "inapplicable_with_reason") ? "inapplicable_with_reason" : "passed";
-    findings.push({ diagnostic, disposition, detail: "Exact native scoped assessment: " + detail, surfaceRefs, ruleRef, sourceRef,
+    findings.push({ diagnostic, disposition, detail: "Exact native scoped assessment: " + detail,
+      surfaceRefs: surfaceRefs.filter((_, i) => results[i] !== null), ruleRef, sourceRef,
       provenance: "J", evidenceRefs: [...new Set(rows.flatMap(r => r.refs))] });
   };
   if (basis.basisDigest !== qualificationIdentityDigest(basis, "basisRef", "basisDigest")) add("subject_basis_digest_mismatch", "failed", "Qualification basis content identity differs.");
@@ -211,7 +216,7 @@ export function evaluateSelfConformance(input: SelfConformanceInput, owner: Self
     const manifest = input.tenantManifest;
     if (!unique(manifest.claims.map(c => c.claimRef)) || manifest.claims.length === 0 || manifest.claims.some(c => c.publicContractRefs.length === 0 ||
         c.evidenceRefs.length === 0 || !unique(c.publicContractRefs))) add("tenant_claim_roster_mismatch", "failed", "Tenant claims require unique owned capability/contract and evidence coverage.");
-    if (!qualificationTenantClaimsMatch(owner.nativeBasis, input, manifest))
+    if (!qualificationTenantClaimsMatch(owner.nativeBasis, rawInput, manifest, resources))
       add("tenant_owned_capability_contract_mismatch", "failed", "Tenant capability/Public coordinates or claim ownership differ from the exact native installed Product.");
     assessed("tenant_realization_assessment_required", "Capability/catalog presence cannot establish realized conformance.", "tenant", "tenant_realization", [manifest.manifestRef]);
   }
@@ -254,8 +259,8 @@ export function evaluateSelfConformance(input: SelfConformanceInput, owner: Self
   }
   const body = { kind: "self_conformance_result" as const, schemaVersion: "5.0.0" as const,
     subjectBasis: { ref: basis.basisRef, digest: basis.basisDigest }, lawBasis: basis.lawBasis,
-    inventoryDigest: inventory?.inventoryDigest ?? null, inputDigest: sha256Canonical(input as unknown as JsonValue), owner,
-    ruleApplications: input.applications, ...(scope === undefined ? {} : { scope }), evidenceCitations: input.evidenceCitations, findings,
+    inventoryDigest: inventory?.inventoryDigest ?? null, inputDigest: sha256Canonical(rawInput as unknown as JsonValue), owner,
+    ruleApplications: input.applications, ...("representation" in rawInput ? { representation: "resource_refs_v1" as const, ...(rawInput.scope === undefined ? {} : { scope: rawInput.scope }) } : scope === undefined ? {} : { scope }), evidenceCitations: input.evidenceCitations, findings,
     disposition: findings.some(x => x.disposition === "failed") ? "failed" as const
       : findings.some(x => x.disposition === "blocked_incomplete" || x.disposition === "accepted_reentry") ? "blocked_incomplete" as const : "passed" as const,
     qualificationVerdict: false as const, verification };

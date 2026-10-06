@@ -1,0 +1,37 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/cases.json",
+    "bytes": 5413,
+    "sha256": "df772a1691c9b53a167f4ade6a6f12b3d79b367b0435ab6ed5d1a03526fb1eb3"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-13/assertions.mjs",
+    "bytes": 19538,
+    "sha256": "99aa99208be2a005504d523a9c9f0ec86f8398da38a106480c3f31807fb36d28"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-carrier-02/public-support.mjs",
+    "bytes": 8948,
+    "sha256": "2027f3ca8b7246f94a16e780911d76275b9f08db61fede54f32ee3f6b0591254"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/caller.mjs",
+    "bytes": 13232,
+    "sha256": "2d37f99b56337f2d58054eb6d42dca74edcf7a37f97e2da73e6b5f2c9fe4bc0a"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/driver.mjs",
+    "bytes": 14926,
+    "sha256": "6b133ac3285564a7f2e9c1ff9d27338cae341412b004e24bf78b3bdcdc803473"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/ordinary-caller.mjs",
+    "bytes": 14861,
+    "sha256": "84fbb92ff9ea64660e9a1502d8834bb73d7054de828e85ada8ccc8591ee0f351"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/owner-checks.mjs",
+    "bytes": 9469,
+    "sha256": "a0f54b19fc3fdb562b5f4e22f8dd93b94cd79efa1c9939ab271365a6e086a868"
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "operation": "T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "scripts/generate-product-manifest.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/stage/build_tenants/abiogenesis/typescript",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+  "capSeconds": 120,
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/tmp"
+  },
+  "pid": 18972,
+  "pgid": 18972,
+  "exitCode": 1,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "wait4Status": 256,
+  "groupAbsent": true,
+  "elapsedMs": 478.7468328140676,
+  "userCPUSeconds": 0.39593599999999995,
+  "systemCPUSeconds": 0.14899199999999999,
+  "maxRSSPlatformBytes": 202604544,
+  "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderrSHA256": "db5be3614e7f8f5770b75d4e11d6bcf00ebde52221983062159fd4735c702d92"
+}

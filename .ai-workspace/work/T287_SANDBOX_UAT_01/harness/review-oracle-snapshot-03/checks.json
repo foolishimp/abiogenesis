@@ -1,0 +1,130 @@
+{
+  "activation": "T287_UAT_ORACLE_SNAPSHOT_REVIEW_03",
+  "frozenCandidateSHA256": "7a98cfef9c16122b5705adb1cc151f7a3674452a4fc7bd32034106a73df83930",
+  "classification": "Provider-free independent identity/refusal checks; no native Run or UAT success evidence",
+  "checks": [
+    {
+      "id": "archive-local-selected-case-basic-cli",
+      "completeSelectedInventory": true,
+      "archivedManifestDigest": "sha256:e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+      "archivedCheckerDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+      "disposition": "unmet",
+      "originalSourceCriteria": 3,
+      "admittedExperiments": 0,
+      "noApplicationAcceptanceCredit": true
+    },
+    {
+      "id": "archive-local-selected-case-js-tenant-test",
+      "completeSelectedInventory": true,
+      "archivedManifestDigest": "sha256:e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+      "archivedCheckerDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+      "disposition": "unmet",
+      "originalSourceCriteria": 3,
+      "admittedExperiments": 0,
+      "noApplicationAcceptanceCredit": true
+    },
+    {
+      "id": "archive-local-selected-case-js-sdlc-bootstrap",
+      "completeSelectedInventory": true,
+      "archivedManifestDigest": "sha256:e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+      "archivedCheckerDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+      "disposition": "unmet",
+      "originalSourceCriteria": 3,
+      "admittedExperiments": 0,
+      "noApplicationAcceptanceCredit": true
+    },
+    {
+      "id": "archive-local-selected-case-rust-cli",
+      "completeSelectedInventory": true,
+      "archivedManifestDigest": "sha256:e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+      "archivedCheckerDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+      "disposition": "unmet",
+      "originalSourceCriteria": 3,
+      "admittedExperiments": 0,
+      "noApplicationAcceptanceCredit": true
+    },
+    {
+      "id": "archive-local-selected-case-rust-service",
+      "completeSelectedInventory": true,
+      "archivedManifestDigest": "sha256:e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+      "archivedCheckerDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+      "disposition": "unmet",
+      "originalSourceCriteria": 3,
+      "admittedExperiments": 0,
+      "noApplicationAcceptanceCredit": true
+    },
+    {
+      "id": "archive-local-selected-case-parallel-js",
+      "completeSelectedInventory": true,
+      "archivedManifestDigest": "sha256:e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+      "archivedCheckerDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+      "disposition": "unmet",
+      "originalSourceCriteria": 3,
+      "admittedExperiments": 0,
+      "noApplicationAcceptanceCredit": true
+    },
+    {
+      "id": "archive-local-selected-case-data-mapper-full",
+      "completeSelectedInventory": true,
+      "archivedManifestDigest": "sha256:e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+      "archivedCheckerDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+      "disposition": "unmet",
+      "originalSourceCriteria": 4,
+      "admittedExperiments": 0,
+      "noApplicationAcceptanceCredit": true
+    },
+    {
+      "id": "HARNESS-01-ambient-drift-then-removal",
+      "ambientChanged": [
+        "oracleModule",
+        "oracleFile",
+        "requestFile",
+        "scenarios.json"
+      ],
+      "ambientRemovedBeforeUse": true,
+      "actualArchivedJudgmentEqualsOriginal": true,
+      "archivedRequestEqualsInitialVerifiedBytes": true,
+      "freshAmbientAcquisitionRefused": true,
+      "disposition": "satisfied",
+      "applicationJudgment": "unmet"
+    },
+    {
+      "id": "archive-module-drift-refused",
+      "disposition": "satisfied",
+      "diagnostic": "TypeError: Acquisition digest mismatch: independent-oracle.mjs",
+      "alteredBytesRejectedBeforeCheckerImport": true,
+      "restoredCopyReauthenticated": true
+    },
+    {
+      "id": "archive-oracle-drift-refused",
+      "disposition": "satisfied",
+      "diagnostic": "TypeError: Acquisition digest mismatch: basic-cli/oracle.json",
+      "alteredBytesRejectedBeforeCheckerImport": true,
+      "restoredCopyReauthenticated": true
+    },
+    {
+      "id": "archive-request-drift-refused",
+      "disposition": "satisfied",
+      "diagnostic": "TypeError: Acquisition digest mismatch: basic-cli/request.json",
+      "alteredBytesRejectedBeforeCheckerImport": true,
+      "restoredCopyReauthenticated": true
+    },
+    {
+      "id": "archive-manifest-drift-refused",
+      "disposition": "satisfied",
+      "diagnostic": "TypeError: Archived manifest digest mismatch",
+      "alteredBytesRejectedBeforeCheckerImport": true,
+      "restoredCopyReauthenticated": true
+    },
+    {
+      "id": "HARNESS-02-omitted-source-revision-refused",
+      "disposition": "satisfied"
+    },
+    {
+      "id": "HARNESS-02-blank-source-revision-refused",
+      "disposition": "satisfied"
+    }
+  ],
+  "disposition": "satisfied",
+  "scratchCopiesRemoved": true
+}

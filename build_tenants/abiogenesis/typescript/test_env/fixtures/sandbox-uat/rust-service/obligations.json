@@ -1,0 +1,111 @@
+{
+  "scenarioId": "SCN-GLC-HELLO-WORLD-RUST-SERVICE",
+  "kind": "rust_service",
+  "expectedReturnValue": "Hello, world!",
+  "stageMeanings": [
+    {
+      "stage": "conformance_project",
+      "filesToProduce": [
+        "specification/project-conformance.md"
+      ],
+      "instructions": [
+        "Write only specification/project-conformance.md.",
+        "Declare a Rust service Hello World software-build traversal.",
+        "The source surface must include src/service.rs.",
+        "The test source must compile the service with rustc, start it on 127.0.0.1 using a system-assigned port, send one HTTP request, and observe response body exactly \"Hello, world!\\n\"."
+      ]
+    },
+    {
+      "stage": "implementation_design",
+      "filesToProduce": [
+        "design/implementation-design.md"
+      ],
+      "instructions": [
+        "Write only design/implementation-design.md.",
+        "Define a single-file Rust TCP HTTP service in src/service.rs.",
+        "The service must accept one command-line argument: a port-file path.",
+        "It must bind 127.0.0.1:0, write the selected port to the port file, handle one HTTP request, return 200 OK with body \"Hello, world!\\n\", then exit cleanly."
+      ]
+    },
+    {
+      "stage": "source",
+      "filesToProduce": [
+        "src/service.rs"
+      ],
+      "instructions": [
+        "Write only src/service.rs.",
+        "Use only Rust standard library modules.",
+        "Implement the service described by the implementation_design artifact.",
+        "The response body must be exactly \"Hello, world!\\n\"."
+      ]
+    },
+    {
+      "stage": "test_design",
+      "filesToProduce": [
+        "design/test-design.md"
+      ],
+      "instructions": [
+        "Write only design/test-design.md.",
+        "Specify a component test and UAT test for compiling the Rust service, starting it, making a real HTTP request, and asserting status 200 and body exactly \"Hello, world!\\n\".",
+        "The tests must use a temporary port file and terminate only after the service exits."
+      ]
+    },
+    {
+      "stage": "component_test_source",
+      "filesToProduce": [
+        "test/component/rust-service.test.mjs"
+      ],
+      "instructions": [
+        "Write only test/component/rust-service.test.mjs.",
+        "Use node:test, node:assert/strict, node:child_process spawn/spawnSync, node:fs/promises, node:os, and node:path.",
+        "Compile src/service.rs with rustc to a temporary binary.",
+        "Start the binary with a temporary port-file path, wait for the port file, fetch http://127.0.0.1:${port}/hello, and assert response status 200 and body exactly \"Hello, world!\\n\"."
+      ]
+    },
+    {
+      "stage": "uat_test_source",
+      "filesToProduce": [
+        "test/uat/rust-service.uat.test.mjs"
+      ],
+      "instructions": [
+        "Write only test/uat/rust-service.uat.test.mjs.",
+        "Use node:test and the same service-start/request pattern as the component test.",
+        "Assert the user-visible service contract: an HTTP GET to /hello returns 200 and body exactly \"Hello, world!\\n\"."
+      ]
+    },
+    {
+      "stage": "test_execution_plan",
+      "filesToProduce": [
+        "test-execution-plan.json"
+      ],
+      "instructions": [
+        "Write only test-execution-plan.json.",
+        "The JSON command must be node.",
+        "The args must be [\"--test\", \"test/component/rust-service.test.mjs\", \"test/uat/rust-service.uat.test.mjs\"].",
+        "expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.",
+        "expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.",
+        "assertedReturnValue must be \"Hello, world!\"."
+      ]
+    },
+    {
+      "stage": "test_execution_result",
+      "instructions": [
+        "Produce no files.",
+        "Accept only if both service tests passed, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true."
+      ]
+    }
+  ],
+  "requirements": [],
+  "requirementSpanStageMeanings": [],
+  "requiredDepthClassRefs": [],
+  "sourcePin": {
+    "repository": "odd_glc",
+    "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+    "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+    "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+    "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+    "startByte": 25509,
+    "endByte": 29684,
+    "selectedDigest": "sha256:a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d"
+  }
+}

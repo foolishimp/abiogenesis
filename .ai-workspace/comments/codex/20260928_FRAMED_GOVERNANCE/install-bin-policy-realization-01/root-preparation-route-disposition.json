@@ -1,0 +1,11 @@
+{
+  "status": "CONTINUE_MECHANICAL_PREPARATION",
+  "receivedAt": "2026-10-02T01:36:57.109381+00:00",
+  "actor": "/root",
+  "relation": "Root conjoined Product/Tool Identity/Integration/Effects/Proof: caller guessed conventional lib layout before any owner/compile; no actual Product/compiler counterexample",
+  "actualNpmSymlink": "source-freeze/toolchain/bin/npm -> ../npm/bin/npm-cli.js",
+  "selectedToolUnchanged": true,
+  "priorEffectAttempts": "none compile/install",
+  "preserveFailedLookup": "preparation-route-miss.json",
+  "territoryAndSourceGrant": "unchanged"
+}

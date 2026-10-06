@@ -1,0 +1,15 @@
+{
+  "pid": 22671,
+  "command": [
+    "node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01/owner-checks.mjs"
+  ],
+  "elapsedMs": 21.077,
+  "exitCode": 0,
+  "signal": null,
+  "peakRSSBytes": 44679168,
+  "userSeconds": 0.015031999999999998,
+  "systemSeconds": 0.0058319999999999995,
+  "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+}

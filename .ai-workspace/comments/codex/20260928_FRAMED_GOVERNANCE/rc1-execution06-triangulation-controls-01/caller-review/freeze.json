@@ -1,0 +1,41 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_EXEC06_CALLER_PROOF_REVIEW_01",
+  "workResult": "COUNTEREXAMPLE_AUTHOR_DIAGNOSTIC_ONLY",
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 1684,
+      "sha256": "14c020bf5c0272a1ac3855805abea9d26feb82eb2ebb1d4b3b5fb2699e5ed73e",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 423,
+      "sha256": "f47fa7fa907ade66e52408d421495697163bdfe6bef16f9648ea1063b2b92ed1",
+      "mode": 420
+    },
+    {
+      "path": "evidence.json",
+      "bytes": 6979,
+      "sha256": "a7f6f4942234560084466aaff6d65dfa1b2a94a0d41acba6374d4f4dc32d9dfc",
+      "mode": 420
+    },
+    {
+      "path": "result.json",
+      "bytes": 3375,
+      "sha256": "8dbc2d7e63c3a9e62d1390db43d1c0a4729187d1e71dd8919a1d695e4a6db203",
+      "mode": 420
+    },
+    {
+      "path": "return.md",
+      "bytes": 5665,
+      "sha256": "7e5016ab9cf30e49544aaa55c3005472648d56212c83bf09584ba144c0a0c6da",
+      "mode": 420
+    }
+  ],
+  "recordCount": 5,
+  "independentCallerAssurance": false,
+  "subjectSHA256": "fe57e75e52d32d12d81c70e0e2d48bee428b1ef30651fef36e45a55ed9f30026",
+  "noFurtherWrites": true
+}

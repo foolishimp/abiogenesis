@@ -1,0 +1,32 @@
+{
+  "operation": "T287_C07_ACCEPTANCE_AND_NEXT_EFFECT_SELECTION_01",
+  "status": "CLOSED",
+  "acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-acceptance-and-runtime-selection-01/acceptance.json",
+    "bytes": 4167,
+    "sha256": "85017f5b8ca8b321ddade38c561639881f37922ea24cb34d018528493615780c",
+    "mode": 420
+  },
+  "postimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 528603,
+      "sha256": "d92ad968dc6ffdbdd4ba490955809e629c873d7f34b830caba16fae45bf876b9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 484134,
+      "sha256": "b1776c6d85853c52001f6781f730896fb7dde77a69f8051fbfb5ed97ce7344a9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 5397,
+      "sha256": "693ee40c5a53934a59df22dff16e59788aba4afba371a63282e53a4fa25f429d",
+      "mode": 420
+    }
+  ],
+  "RootReturns": "Executive",
+  "RootPayloadRuntimeGitEffects": 0
+}

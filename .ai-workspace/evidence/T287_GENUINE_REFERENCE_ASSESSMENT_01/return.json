@@ -1,0 +1,85 @@
+{
+  "operation": "T287_GENUINE_REFERENCE_ASSESSMENT_01",
+  "status": "FROZEN_FIRST_PREREQUISITE_FAILURE",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_REFERENCE_ASSESSMENT_01/grant.md",
+    "bytes": 10599,
+    "sha256": "943fffe6a68428b06bda7c556b37089359849311d6baeb20055cbaded770f80f"
+  },
+  "worker": "/root/public_preparation_worker",
+  "frame": "fixed15 ABG5 GOAL035/T287 F05/F10/F11/F15; STDO2.5.1RC2; interface-integration rev2; one genuine native independent reference-attribution assessment",
+  "prerequisite": {
+    "status": "stopped_missing_grant_selected_executable",
+    "selectedExecutable": "/Users/jim/.local/bin/claude2.1.289",
+    "selectedExists": false,
+    "selectedExecutableAccessible": false,
+    "actualAlias": "/Users/jim/.local/bin/claude",
+    "actualAliasExists": true,
+    "actualAliasExecutable": true,
+    "actualResolvedPath": "/Users/jim/.local/share/claude/versions/2.1.289",
+    "actualVersionObserved": "2.1.289 (Claude Code)",
+    "providerDNSResolved": true,
+    "HOMEUnchanged": true,
+    "authProbeNotRun": true,
+    "providerModelCalls": 0,
+    "modelNotChanged": true,
+    "noFallbackOrRedirect": true,
+    "RootDisposition": "grant typo acknowledged; safe path/version observation permitted; exact successor required before any activation continuation"
+  },
+  "exactSubjectSource": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 82296,
+      "sha256": "9b6b1ec6e0489455fb3aeadc3ebcbaf93459cf5a0cb65db13215c683a3e996e8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "bytes": 63484,
+      "sha256": "8f92906d0fd7e2ecc36fbfbe0795bd582f561448d0ffd4a0bc4ab4bfecec099c"
+    }
+  ],
+  "unchangedArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10644849,
+    "sha256": "89b3dfde55e46c4e269b85ecf1671807fd10cac0371313220f9a03a078537e8a"
+  },
+  "unchanged109Prefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/resources/events/runtime.events.jsonl",
+    "bytes": 5302352,
+    "sha256": "f421f60d58bb6b9993180494fb230fff40a9733290b52d03bea6ab65c086011a",
+    "device": 16777231,
+    "inode": 465602484,
+    "events": 109
+  },
+  "latestGenuineHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_FRESH_CONSERVATION_READ_REPAIR_01/read-af22-run_replay-handoff.json",
+    "bytes": 1259,
+    "sha256": "dfd99cf9eb4e1aa57582e67e0da00306f5caea03ecf3e0dfc85f51fe1af06416"
+  },
+  "acceptedPredecessor": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_FRESH_CONSERVATION_READ_REPAIR_01/acceptance.json",
+    "bytes": 6347,
+    "sha256": "d312d66345053ec692ca93ccdd4052f46ea9e5d3bd73ed2d7a5431d71458544f"
+  },
+  "notExecuted": [
+    "auth probe",
+    "domain instance construction",
+    "canonical preparation",
+    "genuine Claude/provider request",
+    "assessment native Run",
+    "affected F11 consumer",
+    "four fresh reads"
+  ],
+  "effects": {
+    "canonicalSourceWrites": 0,
+    "packageCopies": 0,
+    "compileRepackInstallCalls": 0,
+    "newRuntimeEvents": 0,
+    "newProviderModelCalls": 0,
+    "newActors": 0,
+    "runtimePrefixAppendedBytes": 0,
+    "ownedLongRunningProcesses": 0
+  },
+  "diagnosticLimit": "auth state and semantic assessment are untested; actual local CLI version does not supply provider or semantic evidence",
+  "returnRelation": "Worker frozen/stopped; Root typo triage precedes exact successor02 grant; no redirection/repair/retry under01"
+}

@@ -1,0 +1,47 @@
+{
+  "status": "complete_for_owner_selected_expunction",
+  "date": "2026-10-06",
+  "decision": "Deleted built-in Hello-specific production code and removed its live Product, requirement and design grants. Hello World is solely an external minimal language test.",
+  "sourceFreeze": {
+    "path": "successor-freeze.json",
+    "sha256": "825d77eabb3a7ea554a71dd1111cf75cc51c42fc4e87e920295fde34a1980777",
+    "productionModulesDeleted": 9,
+    "sourceMembersVerified": 40
+  },
+  "package": {
+    "path": "packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "89e2038de69b384dbef84fe6620d5269e57382971cc8e845f554fc6101084b52",
+    "productContentDigest": "sha256:1c6e4baf3b2d67ebdef6041d851c10fb5dc2d9c405d89fca0e21cdb595b909ec",
+    "builtInHelloCodeOrPublication": false,
+    "testFixturesIncluded": false
+  },
+  "verification": {
+    "cleanTypeScriptBuild": "passed",
+    "absenceChecks": "production source, scripts, compiled production, packed production and obsolete package paths all passed",
+    "allFrozenPinsVerified": 118,
+    "targetedGenericChecksPassed": 40,
+    "structuralPureChecks": { "passed": 25, "failed": 0, "existingProofDependentSkips": 3 },
+    "nativeStructuralComponentChecks": { "passed": 9, "failed": 0, "syntheticLowerOwnerPremises": true },
+    "f04ComponentChecks": { "passed": 1, "failed": 0, "syntheticLowerOwnerPremises": true },
+    "installedBoundaryMinimalAndWorkspaceChecks": { "passed": 3, "failed": 0, "skipped": 0 },
+    "minimalInstalledProof": "External test owns declarations, ordinary leaf and oracle; installed DefinitionCall produces the expected admitted leaf value and one closed Run. Separate fresh run_result and run_replay CLI reads succeed at the returned handoff and append no bytes."
+  },
+  "independentReviews": [
+    {
+      "path": "source-review.md",
+      "sha256": "a1398644ae5dfa27f500729485a1651ab2b6c0537a14517033ced0c26da51fc6",
+      "decision": "CLOSED_GO_source_and_package"
+    },
+    {
+      "path": "test-review.md",
+      "sha256": "c2e6744cfdb34a9a6f0a3413c41523af921020936385f4dfa6391927c51f90ca",
+      "decision": "CLOSED_GO_expunction_and_bounded_installed_minimal_test"
+    }
+  ],
+  "limits": [
+    "The optional installed composition fixture refused before execution because static source GraphFunctions lack exact Catalog/View owner rows. Both failure logs and the rejected membership mutation are preserved; no installed composition pass is claimed.",
+    "Fresh-read assertions establish success and no append; complete terminal-value and closed-state equality between projections is unasserted and ephemeral bodies were cleaned.",
+    "Ten retired-protocol suites received fixture-reference cleanup only and remain unexecuted. No legacy production API was restored.",
+    "Historical immutable evidence is not successor qualification. No complete S01, QUAL058, genuine F_P, whole-RC qualification, release or Git mutation is claimed."
+  ]
+}

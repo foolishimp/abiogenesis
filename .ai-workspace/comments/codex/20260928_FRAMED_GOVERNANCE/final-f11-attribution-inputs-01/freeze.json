@@ -1,0 +1,143 @@
+{
+  "status": "CLOSED",
+  "work_result": "incomplete",
+  "activation": "T287_FINAL_F11_ATTRIBUTION_INPUTS_01",
+  "frozenAt": "2026-09-30T06:32:26.756430+00:00",
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-inputs-01/return.md",
+    "bytes": 8181,
+    "sha256": "6a9d4a88665966376b9075baab2b984c32414f0c3932880c2772ee883bf0e9c4"
+  },
+  "subjectInventory": {
+    "ref": "qualification-inventory://abiogenesis/ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+    "digest": "sha256:ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d"
+  },
+  "recordSet": {
+    "ref": "construction-record-set://abiogenesis/eb52efae108c9e671c87cc307725bf4ef84dd321f9613468f248e39df96878a8",
+    "digest": "sha256:eb52efae108c9e671c87cc307725bf4ef84dd321f9613468f248e39df96878a8"
+  },
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 962,
+      "sha256": "8fe9797f1bc1bb7dd325b863a2a4e2cf72ff1797aa9b1085e0cb76f690ef1553"
+    },
+    {
+      "path": "causal-triage.json",
+      "bytes": 15289,
+      "sha256": "a78cd5c29de4d303c0349f06557716449f4bd65adc1e733a7ae4576d964653b3"
+    },
+    {
+      "path": "close.py",
+      "bytes": 20835,
+      "sha256": "9d29c14ed0df2ed0a7c460fd70d5b03fd2e46b621a6e4561ee9db647f8094413"
+    },
+    {
+      "path": "conservation.json",
+      "bytes": 549,
+      "sha256": "86feef84200f9bd9dd6ddc70956c6e89c9458f1bce0b53036421948aa4d01272"
+    },
+    {
+      "path": "construction-class-summary.json",
+      "bytes": 3787,
+      "sha256": "ac09d3e97968931ad40533f14452683fd6fde077d5fc95354ed5f5fc74534601"
+    },
+    {
+      "path": "controls/joined-request.txt",
+      "bytes": 6222,
+      "sha256": "53bed891c2697db47e4694a9e8a268971794810d6ef7b3690710b5a3c7554d94"
+    },
+    {
+      "path": "controls/request-sections.json",
+      "bytes": 6494,
+      "sha256": "e729a66e99403b30d06a7fad88d3d428380624cc7ca4b85ff4d5cab8d52cbc16"
+    },
+    {
+      "path": "controls/request.txt",
+      "bytes": 6222,
+      "sha256": "53bed891c2697db47e4694a9e8a268971794810d6ef7b3690710b5a3c7554d94"
+    },
+    {
+      "path": "external-record-materials.json",
+      "bytes": 1086410,
+      "sha256": "edd5e4b85232ec1373087e747a33dcc2fd778c3beac64fb479d9f858b4a04de0"
+    },
+    {
+      "path": "git-blob-correspondence.json",
+      "bytes": 759292,
+      "sha256": "9915764cc8a7a9fcc5c6e0d702deefc19cedb59ee2e0fa8c595184c28e37a8d6"
+    },
+    {
+      "path": "git-commit-at-frozen-head.txt",
+      "bytes": 277,
+      "sha256": "198b4ffb370415715822264f5a912ff694d66d180cc9ca5acdc0371cfc8143e4"
+    },
+    {
+      "path": "git-tree-at-frozen-head.bin",
+      "bytes": 2328777,
+      "sha256": "eeee341e63e7ba2a14af53b9d9c9264e7927527b6e90bfb1c7a85137301428f1"
+    },
+    {
+      "path": "input-joins.json",
+      "bytes": 706925,
+      "sha256": "2e88b6ae24feed80afe44197f107cf0aee5054353ee6eb7ddd72683b17733c5c"
+    },
+    {
+      "path": "inventory-attribution-coverage.json",
+      "bytes": 3512559,
+      "sha256": "a8098676a5f4ad792eb8116f45a4e1389ec1513a73ff772bde96cd47a0792d6b"
+    },
+    {
+      "path": "next-inputs.json",
+      "bytes": 1616,
+      "sha256": "3d3192719110fcf06c76f7cb95de2d8109fc5366a664dd4856e9313dcde2d6f8"
+    },
+    {
+      "path": "owner-source-spans.json",
+      "bytes": 35484,
+      "sha256": "6e87927169e390f9e57821f1b47ce486478e1f01d9ccd52047aabecb5bac70ba"
+    },
+    {
+      "path": "prepare.py",
+      "bytes": 19394,
+      "sha256": "f0d861d2cfe9d66413471115ca9675e679fcca64043fa989265ef9b66e4253bb"
+    },
+    {
+      "path": "record-set.json",
+      "bytes": 422,
+      "sha256": "c74600ac4829c088bd21cc3a12cc6e90e0d12a3e01d9c8784ae08ca64c7fef9c"
+    },
+    {
+      "path": "return.md",
+      "bytes": 8181,
+      "sha256": "6a9d4a88665966376b9075baab2b984c32414f0c3932880c2772ee883bf0e9c4"
+    },
+    {
+      "path": "source-chain-inputs.json",
+      "bytes": 20075,
+      "sha256": "aa3e51c121b85ce1791d22997a4d087ec271209d8a0325a7ac145ab1450ecb2b"
+    },
+    {
+      "path": "source-transition-checks.json",
+      "bytes": 10488,
+      "sha256": "d32af69481fe62f0cc372852282ffd6e862def42431179be4c2ad74f02c0dea3"
+    },
+    {
+      "path": "validate-inputs.mjs",
+      "bytes": 4816,
+      "sha256": "21940a823df05942a892b2b1949fdb37d5285231402cffac9a8289376673ac9c"
+    },
+    {
+      "path": "validation-result.json",
+      "bytes": 2715,
+      "sha256": "0dc70afb8100a879422c862ab1402f2fd339fd8b09b255662906acc753c81876"
+    }
+  ],
+  "effects": "Only new external input/proof/control bytes in exact territory. No source, Git, native, provider, resource, assessor, ruling or qualification effect.",
+  "limits": [
+    "Original carrier/identity/authority joins incomplete",
+    "Full provenance is not ready",
+    "No new attribution judgment or candidate rebind",
+    "Worker stops; no self-review activation"
+  ]
+}

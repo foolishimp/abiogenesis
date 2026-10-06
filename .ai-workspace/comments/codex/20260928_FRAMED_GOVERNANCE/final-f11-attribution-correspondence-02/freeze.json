@@ -1,0 +1,291 @@
+{
+  "status": "CLOSED",
+  "work_result": "bounded_source_correspondence_complete_attribution_and_successor_binding_unresolved",
+  "activation": "T287_F11_EXTERNAL_ATTRIBUTION_CORRESPONDENCE_02",
+  "worker": "/root/f11_attribution_inputs",
+  "frozenAt": "2026-09-30T07:54:25.315227+00:00",
+  "return": {
+    "path": "return.md",
+    "bytes": 8953,
+    "sha256": "32003ec812e3dd1a827f9da8a981c114d4ad99d96f37c1c7990ecebb60f62cc4"
+  },
+  "records": [
+    {
+      "path": "acquire-supplements.py",
+      "bytes": 4016,
+      "sha256": "0f6c73a450a2930b8d198110f85326ba54fe3d81f436bf0f0633e95f90d11c5e"
+    },
+    {
+      "path": "acquired/publication-repair-selection.txt",
+      "bytes": 688,
+      "sha256": "a0c69a947750cf919e4abb8612ef74403aaf5917af7daf3819f15a56658309e3"
+    },
+    {
+      "path": "acquired/s03-handoff-selection.txt",
+      "bytes": 3620,
+      "sha256": "d14989b92db89ac804183207837535ba840df0a8824f2d97a0805984595d345d"
+    },
+    {
+      "path": "acquired/selected-action07-selection.txt",
+      "bytes": 1132,
+      "sha256": "dc46269a3021314e41646fa95b4da4eb818e213e396c0db63aec3e3895aed512"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 1123,
+      "sha256": "b7a9c1c362a15e641c82c32d5d91241b9c730a58735b501859d5dcfc5c1cae0e"
+    },
+    {
+      "path": "authority-spans.json",
+      "bytes": 22953,
+      "sha256": "a6d49ea0bda8ce43aa17773f52ceb64a78001baee4e13b0fad9fd0247dac376d"
+    },
+    {
+      "path": "check-correspondence.mjs",
+      "bytes": 8287,
+      "sha256": "7d4632faa6860cb442cbd44cea6f18c9cde2b39138fa6019d1d13f38928fa09f"
+    },
+    {
+      "path": "close.py",
+      "bytes": 26286,
+      "sha256": "13af382fa062a223e6989fdbb1c3f7a73153ac622575e5d52315ef31173945f3"
+    },
+    {
+      "path": "conservation.json",
+      "bytes": 14134,
+      "sha256": "120135ccaae34f1d1502b7407d9085a94bee206f3cf51a71e933d5dc1e97376b"
+    },
+    {
+      "path": "controls/joined-request.txt",
+      "bytes": 7189,
+      "sha256": "b91b75e382fadc3a7b6d6f7b49eacf104164fddabb87b63bed6be33912c00924"
+    },
+    {
+      "path": "controls/request-sections.json",
+      "bytes": 7460,
+      "sha256": "1e0895c01694b282c1c0479668d9dd0eb0e27c6c6024e6564e9f7cc6515e8047"
+    },
+    {
+      "path": "controls/request.txt",
+      "bytes": 7189,
+      "sha256": "b91b75e382fadc3a7b6d6f7b49eacf104164fddabb87b63bed6be33912c00924"
+    },
+    {
+      "path": "correspondence-checks.initial.json",
+      "bytes": 6280,
+      "sha256": "0d27279f9521e51cdd09b8546b1420133ea0e763e51ff0c0348db66fcd9c564e"
+    },
+    {
+      "path": "correspondence-checks.json",
+      "bytes": 6171,
+      "sha256": "5860246b6412926fca6c22cea96c9e8e29f3f083b7b1fc89cbb33e19210ef9e5"
+    },
+    {
+      "path": "costs.json",
+      "bytes": 768,
+      "sha256": "cd4935a6fc1271d6fdd42b6ebb83880099ec2358e39e138ff832cdc49f5f0c6b"
+    },
+    {
+      "path": "derived/publication-repair-closure-member-view.json",
+      "bytes": 3943,
+      "sha256": "f92f5605f2754a0ce8440ac05527064de6e1d360592269ddc6b9d3ea23ab5318"
+    },
+    {
+      "path": "derived/s03-closure-member-view.json",
+      "bytes": 3546,
+      "sha256": "74df31c3d1b050c4817e9e1d3d2079fecb2c20b4a2c8857d9ccfd8fc118b2434"
+    },
+    {
+      "path": "derived/selected-action07-header-relation.json",
+      "bytes": 5543,
+      "sha256": "0566c05831addaca860b42a6577009a40b39d5a12eebb033f8c6946af7ede332"
+    },
+    {
+      "path": "derived/selected-action07-header-view.patch",
+      "bytes": 34035,
+      "sha256": "bf8d522c75b6890ff85ec5eb30401dab96791db0f42b3ddd0a670f7a623cbaea"
+    },
+    {
+      "path": "derived-record-materials.json",
+      "bytes": 64941,
+      "sha256": "0f414e66e91175a0b5900c7a7be9165bcc5da3c443843d5cc29fa1f6eb07a792"
+    },
+    {
+      "path": "endpoint-reconstruction.json",
+      "bytes": 19208,
+      "sha256": "08805d013b830a0a86e17f57f6a14e60bcd47723be8f1d265776f08f675a7f2d"
+    },
+    {
+      "path": "identity-correspondence.json",
+      "bytes": 20385,
+      "sha256": "e94cee76b7dc70de971a1f11b9a5869d94722264b7a4bfdf1dc8834915e83307"
+    },
+    {
+      "path": "input-verification.json",
+      "bytes": 18712,
+      "sha256": "f8a4b36d81d81075cb18d66238fff3ae5ebbcee4bedc1568bd8d90ef07d2d0f7"
+    },
+    {
+      "path": "operation-inputs-with-supplements.json",
+      "bytes": 57280,
+      "sha256": "0e9038945ae81c00136bbf03ca41375664168caac56c5fe3563d0b93e402c935"
+    },
+    {
+      "path": "operation-inputs.json",
+      "bytes": 51870,
+      "sha256": "0c98b9a091bba1c872e9673ee154a6384ee59e6ed28942bd485b7fb273165826"
+    },
+    {
+      "path": "original-record-materials.json",
+      "bytes": 3227521,
+      "sha256": "0e17daf4114986616ad424d46ee3e735ef5216c8490e77c9390912c4babfc3bf"
+    },
+    {
+      "path": "original-source-locations.json",
+      "bytes": 19561,
+      "sha256": "35bc976262db233c8cdb4a9db4260648bcf69621182dbad1b39343e7cffb081a"
+    },
+    {
+      "path": "prepare.py",
+      "bytes": 14785,
+      "sha256": "4944de012dd5a1758de9995a0711d1610323eac84bb794c16625dfe0412c95b6"
+    },
+    {
+      "path": "reconstruct.py",
+      "bytes": 4178,
+      "sha256": "acabd77d8ef463dbd054fa35456f0d68fe6044dff03f615d035cb6484ea45e46"
+    },
+    {
+      "path": "reconstructed/T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "bytes": 18915,
+      "sha256": "f3d38c158fdbe8bf3ffcb85d4d78a4d0c9b7d116fd6d325a3f8950e2094f217d"
+    },
+    {
+      "path": "reconstructed/T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 39208,
+      "sha256": "4d4ed1b0fb8875badaa8d0ac2585bef6eb496092bb39761be2ce257c708256a4"
+    },
+    {
+      "path": "reconstructed/T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 77554,
+      "sha256": "d1aa2f7836e5b51ba5b3eb32bfb521cb301da8eb70396f7021e517599c53e128"
+    },
+    {
+      "path": "reconstructed/T287_S03_PUBLIC_HANDOFF_REPAIR_01/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "bytes": 32200,
+      "sha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc"
+    },
+    {
+      "path": "reconstructed/T287_S03_PUBLIC_HANDOFF_REPAIR_01/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "bytes": 15165,
+      "sha256": "a58eb75324df64917d3e5d6e616bcaa1b7b6c8413e945ca42e6aff01a7a14371"
+    },
+    {
+      "path": "reconstructed/T287_S03_PUBLIC_HANDOFF_REPAIR_01/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "bytes": 84829,
+      "sha256": "e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85"
+    },
+    {
+      "path": "reconstructed/T287_S03_PUBLIC_HANDOFF_REPAIR_01/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+      "bytes": 32193,
+      "sha256": "a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465"
+    },
+    {
+      "path": "reconstructed/T287_S7_SELECTED_ACTION_INSTALLED_07/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 55572,
+      "sha256": "f427ab2d956095fac16448f3efdbe263dd423a6bafafa85acac6fba6d1d0def0"
+    },
+    {
+      "path": "reconstructed/T287_S7_SELECTED_ACTION_INSTALLED_07/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 81875,
+      "sha256": "83c4af83e6511ba27e243ec47ea0e1805e9d9f47470fe845bf28911fe8f7c550"
+    },
+    {
+      "path": "reconstructed/T287_S7_SELECTED_ACTION_INSTALLED_07/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+      "bytes": 9773,
+      "sha256": "f63ae528d2226d0924f3c15f4e16ed981b358a5ae1c139b5baa12056585a9ec4"
+    },
+    {
+      "path": "reconstructed/T287_S7_SELECTED_ACTION_INSTALLED_07/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+      "bytes": 5203,
+      "sha256": "ee40ba037fd6a83b8fd668a2c106d2544e39b924656496cf67f5e4326bfdc6f5"
+    },
+    {
+      "path": "record-sets.initial.json",
+      "bytes": 626360,
+      "sha256": "3e889af1f86ae7830fafb9c28c7ddd19dc7a04b16aef06bcc522497265b71257"
+    },
+    {
+      "path": "record-sets.json",
+      "bytes": 627768,
+      "sha256": "5e12ec41c18f4bdf00dd10e51d7a2babea029b9cc060c59e1c8a0d6ad521e2fd"
+    },
+    {
+      "path": "residuals.json",
+      "bytes": 8190,
+      "sha256": "b4efd3c789f8dd2bdc2eba14059091a962c18de36eba8c2c2430da7d1af073a8"
+    },
+    {
+      "path": "return.md",
+      "bytes": 8953,
+      "sha256": "32003ec812e3dd1a827f9da8a981c114d4ad99d96f37c1c7990ecebb60f62cc4"
+    },
+    {
+      "path": "source-spans.json",
+      "bytes": 11730,
+      "sha256": "c33be8fdbf5e59b9bf6cc8d01c2c8ed349f4f9c017425261532a50870408fe54"
+    },
+    {
+      "path": "supplemental-record-materials.json",
+      "bytes": 15455,
+      "sha256": "6e796332b18d1b835c3fa93fd678b7653e11f7914f8197e4367c3adb558acc10"
+    },
+    {
+      "path": "supplemental-source-spans.json",
+      "bytes": 3089,
+      "sha256": "b8447c89c35ffdba702c72f27159c4ec51c44d55b4d812880a53a098b1cefe0f"
+    },
+    {
+      "path": "triangulation.json",
+      "bytes": 5601,
+      "sha256": "369bebb0a8d73894ceca5d467ac4d60d0e9851a9321d9e524130ec968093debb"
+    }
+  ],
+  "recordSets": [
+    {
+      "operation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "recordSet": {
+        "ref": "external-record-set://abiogenesis/e71d784b24672b22846ed75c5e179246427758ada562f5953d8b5d1c4d38fcc8",
+        "digest": "sha256:e71d784b24672b22846ed75c5e179246427758ada562f5953d8b5d1c4d38fcc8"
+      }
+    },
+    {
+      "operation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "recordSet": {
+        "ref": "external-record-set://abiogenesis/459e657ceb7c339e01fb4610c2e0ebab81b72a77b77fb047b98b1a6e26689e5a",
+        "digest": "sha256:459e657ceb7c339e01fb4610c2e0ebab81b72a77b77fb047b98b1a6e26689e5a"
+      }
+    },
+    {
+      "operation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+      "recordSet": {
+        "ref": "external-record-set://abiogenesis/377f9d34a92c779332dae156c3f795dd192e91bdb2a8d742d5f4187dbb8f4236",
+        "digest": "sha256:377f9d34a92c779332dae156c3f795dd192e91bdb2a8d742d5f4187dbb8f4236"
+      }
+    }
+  ],
+  "counts": {
+    "originalC01Q01Members": 8,
+    "independentDOperationMembers": 3,
+    "originalBodies": 40,
+    "derivedBodies": 4,
+    "supplementalBodies": 4,
+    "endpointReconstructions": 11,
+    "negativeChecks": 18
+  },
+  "fullProvenanceOrTaskReady": false,
+  "successorBinding": null,
+  "nativeJudgments": 0,
+  "nativeEffects": 0,
+  "stop": "One frozen authored input cut returned to Root; no independent assurance or successor activation."
+}

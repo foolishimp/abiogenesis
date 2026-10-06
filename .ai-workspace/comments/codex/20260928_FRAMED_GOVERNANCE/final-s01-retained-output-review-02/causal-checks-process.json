@@ -1,0 +1,14 @@
+{
+  "process": "causal-checks",
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/causal-checks.mjs"
+  ],
+  "elapsedMs": 444.7833332233131,
+  "exitCode": 0,
+  "timedOut": false,
+  "ownedGroupSignals": [],
+  "stdout": "causal-checks.stdout",
+  "stderr": "causal-checks.stderr",
+  "nativeCalls": 0
+}

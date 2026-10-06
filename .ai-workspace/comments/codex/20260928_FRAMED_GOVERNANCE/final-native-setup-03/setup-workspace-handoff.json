@@ -1,0 +1,16 @@
+{
+  "closeHandoff": null,
+  "calls": [
+    {
+      "label": "workspace",
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.create",
+        "memberKey": "clean"
+      },
+      "invocationRef": "invocation://abiogenesis/985c837502c73a9da06048be54f0764bd9bbe990b2f20cbc6b0ffac8004b17f2",
+      "outcomeKind": "result",
+      "elapsedMs": 9737.795958000002,
+      "processFailure": null
+    }
+  ]
+}

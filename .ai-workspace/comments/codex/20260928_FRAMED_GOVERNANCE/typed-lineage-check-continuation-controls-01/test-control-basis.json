@@ -1,0 +1,30 @@
+{
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/freeze.json",
+    "bytes": 1927723,
+    "sha256": "d681d3cafe786481aac83e1d5f42af26f99e0d654b4b79ea185896980ecf9d60",
+    "mode": 420
+  },
+  "successfulCompile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/compile-supervisor-close.json",
+    "bytes": 887,
+    "sha256": "1ad1ddae3eaec6c1379f8c582f9a719354c1739eecb46fc971541eda5362d5aa",
+    "mode": 420
+  },
+  "readonlyStage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/readiness-stage/build_tenants/abiogenesis/typescript",
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-check-continuation-01/tmp",
+    "ABI5_RESULT_LINEAGE_BASELINE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+    "ABI5_RESULT_LINEAGE_REPORT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-check-continuation-01/regression-outcome.json",
+    "ABG_RESULT_LINEAGE_TYPE_PROOF_DIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-check-continuation-01/type-proof"
+  },
+  "reportPolicy": "All new writes stay within this operation territory; wx rejects collisions. Old baseline path remains read-only.",
+  "newTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-check-continuation-01",
+  "checks": [
+    "unchanged callback regression",
+    "prepared real compiler type omission test"
+  ],
+  "typeEmitter": "noEmit",
+  "sourceRecompile": false
+}

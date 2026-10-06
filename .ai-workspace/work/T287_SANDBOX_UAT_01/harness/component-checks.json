@@ -1,0 +1,8 @@
+{
+  "command": "npm run test:uat:harness",
+  "chunk_id": "d4bc96",
+  "wall_time_seconds": 0.039568875,
+  "exit_code": 0,
+  "original_token_count": 139,
+  "output": "\n> @abiogenesis/typescript-tenant@5.0.0-rc.1 test:uat:harness\n> node --test test_env/uat/harness.test.mjs\n\n✔ Seven exact original workloads authenticate source, request and independent oracle before use (12.769042ms)\n✔ Resolved toolchain identity and configured environment flow into the canonical owner carrier (2.660917ms)\n✔ Archive paths are unique and failed subprocess streams survive before any assertion or teardown (27.019042ms)\nℹ tests 3\nℹ suites 0\nℹ pass 3\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 76.03275\n"
+}

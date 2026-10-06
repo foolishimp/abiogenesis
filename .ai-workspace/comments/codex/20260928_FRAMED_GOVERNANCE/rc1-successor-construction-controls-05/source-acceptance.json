@@ -1,0 +1,16 @@
+{
+  "status": "Root_ACCEPT_bounded_Source_only",
+  "sourceFreezeSha256": "6eb4695cd12d1284afd6bb96757cf98f0b35fd377e45b023b68c853fa662f3a4",
+  "sourcePostimageSha256": "2a59298ed1f74398d3b469030439a31bf9e5a5ef1cc999a6c8489f962d96bd01",
+  "reviewer": "/root/rc1_c03_install_review",
+  "triangulation": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-install-bin-policy-source-controls-01/triage.md",
+  "smallestReentry": "realization_refactor",
+  "owner": "ProductInstallPort/runNpmInstall adapter",
+  "unproved": [
+    "C05 construction",
+    "ABG wrapper install",
+    "F11 actual child/J/parent/cold traversal",
+    "qualification",
+    "release"
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "operation": "T287_G2_GTL_CORE_REALIZATION_01",
+  "rows": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+      "bytes": 16213,
+      "sha256": "a474670f70f5d9e7b8648dc3f0b8144204d836d4b596b707c7f9704038c901c2",
+      "mode": 420,
+      "relative": "code/src/gtl/contracts.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+      "bytes": 18426,
+      "sha256": "e0e2f272d922e7d8378272f6faeb3020db984d06cd300be14f7d18c7d7494db0",
+      "mode": 420,
+      "relative": "code/src/gtl/c_algebra.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/raw_admission.ts",
+      "bytes": 4695,
+      "sha256": "05d2b4fa2d89a16a74b7358f3b4b20d6be05a442eaca46f99968dad55a53c64d",
+      "mode": 420,
+      "relative": "code/src/validator/raw_admission.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+      "bytes": 80415,
+      "sha256": "f74055b27496707775f6a0e7f15e2331ae385364ba43ce703fc15cd2ff8a65e0",
+      "mode": 420,
+      "relative": "code/src/validator/validation.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation.ts",
+      "bytes": 11577,
+      "sha256": "25519b9ae993a95497c46f64f9028fec8e5c7a62c3851f10bf3ed50d401ef5a0",
+      "mode": 420,
+      "relative": "code/src/validator/conformance_operation.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/conformance_operation_contracts.ts",
+      "bytes": 2993,
+      "sha256": "66a9bb7f0dc72acd2916df5ce7366efc35d5bb2e99b0630488dd221c4c8e158b",
+      "mode": 420,
+      "relative": "code/src/validator/conformance_operation_contracts.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m01.ts",
+      "bytes": 519,
+      "sha256": "936477eab1caec07060aa101956aec18c46369c72dd236756f49b9d451976c2d",
+      "mode": 420,
+      "relative": "code/src/gtl/m01.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/m02.ts",
+      "bytes": 277,
+      "sha256": "4535916231be67481475c32c31aca6e7fff4ba11265a56162c6e631cbccdbecf",
+      "mode": 420,
+      "relative": "code/src/gtl/m02.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/m03.ts",
+      "bytes": 105,
+      "sha256": "db96e35ff64efea7bc6859eba8eb78924f709a9a5ffa343d04d3b78875b8daaf",
+      "mode": 420,
+      "relative": "code/src/abg/m03.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 44203,
+      "sha256": "3ddf0224ad78e9fa58872f7e5115adb676749e7b447ff99b3df6bf77e3f3e02f",
+      "mode": 420,
+      "relative": "scripts/generate-product-manifest.mjs"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization_contracts.ts",
+      "relative": "code/src/gtl/serialization_contracts.ts",
+      "preimage": "ABSENT"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization.ts",
+      "relative": "code/src/gtl/serialization.ts",
+      "preimage": "ABSENT"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/conformance/gtl-language-conformance-corpus.json",
+      "relative": "contracts/conformance/gtl-language-conformance-corpus.json",
+      "preimage": "ABSENT"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-serialization-publication.test.mjs",
+      "relative": "test_env/tests/t287-gtl-serialization-publication.test.mjs",
+      "preimage": "ABSENT"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-language-corpus.test.mjs",
+      "relative": "test_env/tests/t287-gtl-language-corpus.test.mjs",
+      "preimage": "ABSENT"
+    }
+  ]
+}

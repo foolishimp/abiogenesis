@@ -1,0 +1,206 @@
+{
+  "subject": {
+    "ref": "qualification-inventory://abiogenesis/ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+    "digest": "sha256:ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d"
+  },
+  "result": "incomplete_external_attribution_inputs",
+  "productAndDesign": {
+    "outcome": "A5-F11 exact-subject conformance, actual external authorship and later independent admitted assessment",
+    "authority": "D4/D5 Section 3 external_construction and SELF-CONFORMANCE-001/002/008; no Product exemption",
+    "constraint": "Byte correspondence, sufficient attribution and actual assessor independence are distinct relations. A package build does not author inherited source."
+  },
+  "failures": [
+    {
+      "id": "ATTR-01-original-carrier-correspondence",
+      "origin": "Two actual retained construction representations have not been joined to the existing F11 external-record consumer.",
+      "variables": {
+        "handoffRepair": "Four original closure paths are absolute /Users/jim/src/apps/abiogenesis/...; four inventory member paths are repository relative. Exact preimage bytes and original a/b patch reconstruct all four current postimages.",
+        "selectedAction07": "Four original patch headers are before/... and after/..., whereas patchedMember accepts a/b or bare repository paths. Its exact preimages, closure members and current bytes otherwise join; all four original transitions reconstruct."
+      },
+      "symptom": "The current consumer path/header relations cannot discharge these original carriers unchanged.",
+      "escapeAndRecurrence": "Previous bounded source/component/package checks verified their own relations. F11 input construction was explicitly deferred; those passes do not establish this downstream provenance join. There is no evidence here of an earlier full F11 acceptance or a failed native assessment.",
+      "alternativesAndUncertainty": "Existing source-grounded derived representation may be sufficient, but no normalization is selected or emitted. A Product design defect is not established by this data-to-consumer mismatch.",
+      "owner": "Executive selects bounded external input realization through existing Validator.Conformance provenance owner.",
+      "causalCone": "Original grant/preimage/patch/closure and original attribution spans -> derived representation if lawfully selected -> exact current member -> current provenance projector; retain unchanged originals.",
+      "smallestReentry": "realization_refactor for an admissible deterministic external representation, only if existing owner law permits it; otherwise return the actual unrepresentable relation before any source/design change.",
+      "reproof": "For every selected chain, current installed schema and actual original/derived preimage-delta-postimage equality, exact closure/inventory paths and source-span identity; no fabricated J or actor."
+    },
+    {
+      "id": "ATTR-02-concrete-identity-and-authority",
+      "origin": "Routed original records name Worker activations, but do not supply a complete source-grounded correspondence from those labels to concrete author actors and the declared Product authority slot.",
+      "variables": {
+        "retainedAuthorClaims": [
+          "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+          "T287_S7_SELECTED_ACTION_INSTALLED_07"
+        ],
+        "actorIdentityRef": null,
+        "authorityRef": null,
+        "schemaResult": "Both candidate chains are explicitly incomplete at these two fields."
+      },
+      "symptom": "No complete provenance or assessor request can lawfully be materialized from these fragments.",
+      "escapeAndRecurrence": "Role/request/closure labels are useful dispatch records. Repeating those labels would not add the missing actual identity/authority correspondence. No current actor is relabeled independent in this cut.",
+      "alternativesAndUncertainty": "The original dispatch/session identity and grant chain may already exist outside the routed records. The bounded read did not search all history or invent their absence globally.",
+      "owner": "Original construction/grant record owners supply their actual correspondence; native qualification owners later establish admitted assessor and peer identity.",
+      "causalCone": "Original actor/activation/grant record -> supported author identity -> admitted assessment occurrence -> actual author/peer independence comparison.",
+      "smallestReentry": "realization_refactor of external evidence inputs; no new role, method or Product law.",
+      "reproof": "Current schemas accept genuinely supplied identity/authority fields, source-grounded attribution assessment establishes them, and actual native owner independently compares admitted actor identities."
+    },
+    {
+      "id": "ATTR-03-complete-population-attribution",
+      "origin": "Complete inventory byte membership exists; complete corresponding authorship/construction input selection does not.",
+      "variables": {
+        "populationCounts": {
+          "changed_selected_source_without_complete_routed_chain": 18,
+          "inherited_selected_source": 1077,
+          "retained_actual_source_transition": 8,
+          "deterministic_generated_output": 828,
+          "new_or_modified_external_control": 11,
+          "inherited_unchanged_external_control_copy": 4,
+          "supplied_archive_dependency_or_toolchain_manifest": 4
+        },
+        "currentRoutedTransitions": 8,
+        "readyChains": 0,
+        "firstUnjoinedCurrentSourceMember": {
+          "ref": "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+          "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+          "digest": "sha256:de8b1cca640cbe220c5d53108cc21602f8579ca0361eb3cb39df8876bbea1b5f",
+          "byteCount": 461456
+        },
+        "allUnjoinedChangedSelectedSourceMembers": [
+          {
+            "ref": "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+            "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+            "digest": "sha256:de8b1cca640cbe220c5d53108cc21602f8579ca0361eb3cb39df8876bbea1b5f",
+            "byteCount": 461456
+          },
+          {
+            "ref": "repo://abiogenesis/AGENTS.md",
+            "path": "AGENTS.md",
+            "digest": "sha256:b7a3b21db5e6fe7369e144fcd8f00198caff4bcaae4b7acd43e6eff28813e709",
+            "byteCount": 10653
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+            "digest": "sha256:c188ccf49dd15c0417ee9b7aa3883f45b6390590efe0412daae89615c606d4d6",
+            "byteCount": 9813
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+            "digest": "sha256:a6b0b65fc68168de3a7c913f6921035803f453f2eeb4cb314327820811cfd5c8",
+            "byteCount": 76308
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+            "digest": "sha256:bc34094fd232bd8438b4bb34dd380e823fbcd0689b67d90d0e8d9854f3a63d91",
+            "byteCount": 175024
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+            "digest": "sha256:b59a6df19c1aa876c5377315152105630ed50d240b7916a9523de73b7cc1723e",
+            "byteCount": 47203
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+            "digest": "sha256:02a549dc4598d125ac69b42ebc10193a7854694b80fe5291ab800aff015102ec",
+            "byteCount": 90575
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+            "digest": "sha256:05667f40c7410f80fcbac902860f148971562208fec5757af4d5aba8c1a84cde",
+            "byteCount": 43665
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+            "digest": "sha256:5e781d63c47024abe1053592edb74c411b234f525978e967c6900e535e68a714",
+            "byteCount": 64205
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+            "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+            "digest": "sha256:683b2e179b56b19826774f0bfbf14086e716c4413cfded3fdf3bacaa07e26100",
+            "byteCount": 28096
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+            "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+            "digest": "sha256:cb7aeeb806f3e5ed9275d51a928a335698a06f2ce1ea1aaa93cd5af49ad1607b",
+            "byteCount": 30840
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/continuation-causation.json",
+            "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/continuation-causation.json",
+            "digest": "sha256:2073873155c8ae6667ddba17af1e36fa76c3d540c74910b7893795184c4e8bf2",
+            "byteCount": 477899
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-s03-automatic-product/index.mjs",
+            "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-s03-automatic-product/index.mjs",
+            "digest": "sha256:add09baec5d9a6ef7fbc5414bc5cffb8f9aa45a582aef6630d7b85ec9a80fddb",
+            "byteCount": 21635
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+            "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+            "digest": "sha256:199b244e17aae30e2d4713e6b837ad9730af28784df36adfba62c6dc687366e2",
+            "byteCount": 17472
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+            "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+            "digest": "sha256:a9ea368be43d6b6d93dff8b1084f653997408185956f0f8a26b422520186d16d",
+            "byteCount": 21971
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+            "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+            "digest": "sha256:bedcfe2165b3863efb355a2d20d0f998aba1960bcc2fef9bda019e6b15c6f59c",
+            "byteCount": 16381
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+            "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+            "digest": "sha256:74608ab6858ca2fcd73ff8390e711caf8f439748859c8a0f25b0c9be6072e18c",
+            "byteCount": 1030
+          },
+          {
+            "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+            "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+            "digest": "sha256:ace4f586186b0ee61f979c5e634232205e87ff3670175c9a738447cadf22b079",
+            "byteCount": 55488
+          }
+        ]
+      },
+      "symptom": "Whole-inventory F11 cannot be represented as one builder-author chain or discharged from the two repair fragments.",
+      "escapeAndRecurrence": "Snapshot, package inventory, deterministic generation and ordinary input-control construction have distinct production owners. Their successful construction cannot silently fill original source or supplier authorship. Q already recorded attribution as pending.",
+      "alternativesAndUncertainty": "Frozen-head Git trees/blobs ground 1,077 unchanged selected sources, but the one commit author is not evidence of all semantic authorship. Relevant actual commit deltas and original scoped grants may supply later bounded chains. Deterministic generation and copied controls retain their real operations, without no-op authored deltas.",
+      "owner": "Executive selects exact remaining construction records; F11 applies them only to each genuine selected member/domain.",
+      "causalCone": "1,103 source + 828 generated + 19 external inventory members, their actual construction/source relations, later scope mapping and actual assessment.",
+      "smallestReentry": "realization_refactor of exact external input selection; missing later native basis or scope mapping is not a Product defect.",
+      "reproof": "Each selected member has an adequate actual chain or a truthfully blocked relation; whole required member union is complete before whole-inventory attribution is claimed."
+    }
+  ],
+  "rulingLimits": {
+    "source": "T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md Section 3 and qualification_proof.ts:579-597",
+    "conditionalRoute": "qualification_ruling may obtain an actual authorized present source/Product-owner acknowledged/disputed/insufficient attribution response for exact candidate, recordSet, attributed identities and scope.",
+    "onlyAfter": "The original record/byte/scope chain is structurally valid and has reached insufficient attribution, rather than invalid correspondence.",
+    "cannotRepair": [
+      "missing chains or covered members",
+      "wrong original patch/closure correspondence",
+      "invented concrete actors or authority",
+      "native past-event absence",
+      "independence violations",
+      "semantic obligation failure"
+    ],
+    "notUniversal": true,
+    "noRulingRequested": true
+  },
+  "counterfactualNextInput": "A bounded derived carrier could preserve original record refs/spans and prove exact transition equivalence before feeding the existing consumer. This is a proposal only; no such carrier or source fix is selected here.",
+  "stop": "Root requested freeze at this natural boundary while a separate native cut closes. That moving output was not read. No successor candidate is implied."
+}

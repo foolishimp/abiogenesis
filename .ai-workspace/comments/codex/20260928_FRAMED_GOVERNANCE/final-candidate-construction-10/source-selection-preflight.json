@@ -1,0 +1,117 @@
+{
+  "status": "EXACT_SELECTED_SOURCE_BEFORE_BUILD",
+  "memberCount": 1113,
+  "actualPriorMembers": 1111,
+  "replacements": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+      "bytes": 29339,
+      "sha256": "5183bce7a986462eb2d924fdd288cef23439dc72811f4047f3d964a286e46537",
+      "mode": 420,
+      "sourceAuthor": "G1_FINDING_CONSERVATION",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+        "bytes": 29197,
+        "sha256": "9f8dff75486cde4d6cb704ee2d816a09c21d7a00aaed7ecc8fa589243b94b3f3",
+        "mode": 420
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 82284,
+      "sha256": "b928caefff4aa9bbd5e3e0d6fdb65f4a9617d54b3df817df287975825d36c9e5",
+      "mode": 420,
+      "sourceAuthor": "/root/q03_input_review under T287_RC1_PARENT_ALIAS_OWNER_REPAIR_01",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "bytes": 81674,
+        "sha256": "8f4967157222757a32c1470fcb21370a023f535d0968a5b9b048319734efbebd",
+        "mode": 420
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "bytes": 43068,
+      "sha256": "a1e00db17056aebcd22186acdc87d2bd7d68985889d4572d81d0eedfdc85b051",
+      "mode": 420,
+      "sourceAuthor": "G1_FINDING_CONSERVATION",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+        "bytes": 40019,
+        "sha256": "8d5cfcdf111641bb4ee651ea8ebb772a9e217de333a4c075f2fcde5e7d300a6d",
+        "mode": 420
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bytes": 41920,
+      "sha256": "8547907d297ee2736f47c13035372c2623abac0bac3f01e695af7817b930d06b",
+      "mode": 420,
+      "sourceAuthor": "Root documentary Writer accepted native qualification HOW",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+        "bytes": 39730,
+        "sha256": "6ebaae310885013645c238023d39d4c1f1b5c61c56cf2ff4e5d0a9cd6b75567c",
+        "mode": 420
+      }
+    }
+  ],
+  "additions": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-parent-alias.test.mjs",
+      "bytes": 15438,
+      "sha256": "4e6ce1f8049017be0d480d71052bf4066e5c8c0fda669f3cd2611df250c179f8",
+      "mode": 420,
+      "sourceAuthor": "T287_G3_PARENT_ALIAS_FIXTURE_CONTINUATION_01"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_F11_REUSABLE_QUALIFICATION_LIBRARY_TARGET_DESIGN.md",
+      "bytes": 26624,
+      "sha256": "7e8b887eaf0c73187cdfdb72ec157500ef5ca383087a69c5242cf4590efe3cd4",
+      "mode": 420,
+      "sourceAuthor": "Root documentary Writer accepted reusable-library target"
+    }
+  ],
+  "canonicalSelectedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+      "bytes": 29339,
+      "sha256": "5183bce7a986462eb2d924fdd288cef23439dc72811f4047f3d964a286e46537",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 82284,
+      "sha256": "b928caefff4aa9bbd5e3e0d6fdb65f4a9617d54b3df817df287975825d36c9e5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "bytes": 43068,
+      "sha256": "a1e00db17056aebcd22186acdc87d2bd7d68985889d4572d81d0eedfdc85b051",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-parent-alias.test.mjs",
+      "bytes": 15438,
+      "sha256": "4e6ce1f8049017be0d480d71052bf4066e5c8c0fda669f3cd2611df250c179f8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_REUSABLE_QUALIFICATION_LIBRARY_TARGET_DESIGN.md",
+      "bytes": 26624,
+      "sha256": "7e8b887eaf0c73187cdfdb72ec157500ef5ca383087a69c5242cf4590efe3cd4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bytes": 41920,
+      "sha256": "8547907d297ee2736f47c13035372c2623abac0bac3f01e695af7817b930d06b",
+      "mode": 420
+    }
+  ],
+  "noG2SourceOrDrafts": true,
+  "allOriginalAttributionsRetainedOrAccessibleThroughExactC09RowReference": true,
+  "copyBuildAuthor": "/root/rc1_c03_install_review under T287_G1_G3_C10_CONSTRUCTION_01",
+  "noRuntimeQualificationCredit": true
+}

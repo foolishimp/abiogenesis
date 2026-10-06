@@ -1,0 +1,49 @@
+{
+  "operation": "T287_C09_INSTALLED_CARRIER_ASSURANCE_03",
+  "role": "independent Reviewer",
+  "status": "CLOSED",
+  "recommendation": "GO_INSTALLED_MECHANICAL_CARRIER_ONLY",
+  "frozenAt": "2026-10-03T11:29:23.159155+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/final-runtime-freeze.json",
+    "bytes": 34795,
+    "sha256": "5cca2bde5aa7379dc29b7f4022170cfdf7c6aa7c63711a366f4012e9f289d846",
+    "mode": 420
+  },
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 860,
+      "sha256": "f5452b9732eb5c615eaef895f4fe25f7aeb3ca9b51f1d9e31f130fe1dc7f2828",
+      "mode": 292,
+      "kind": "file"
+    },
+    {
+      "path": "closure.json",
+      "bytes": 1495,
+      "sha256": "4f524db8b655e80d088e3db1f36178f097480d90af77cf8bafe97e290b5f37a5",
+      "mode": 292,
+      "kind": "file"
+    },
+    {
+      "path": "pins.json",
+      "bytes": 11320,
+      "sha256": "ad75c4ff629a1da0279aa20c7af847d63fdb66713a6d1e9e28c081fa4e736f34",
+      "mode": 292,
+      "kind": "file"
+    },
+    {
+      "path": "report.md",
+      "bytes": 3583,
+      "sha256": "aa98039f47515f5036d37b58959b99c40c2fdc63c183d7c367becdda32124bb8",
+      "mode": 292,
+      "kind": "file"
+    }
+  ],
+  "recordCount": 4,
+  "recordBytes": 17258,
+  "directories": [],
+  "symlinks": 0,
+  "excludedSelf": "freeze.json only",
+  "writesAfterFreeze": "STOPPED"
+}

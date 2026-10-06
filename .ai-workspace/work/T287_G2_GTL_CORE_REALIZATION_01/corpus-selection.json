@@ -1,0 +1,23 @@
+{
+  "originalPreparedBodySHA256": "f71dadf0c90cc0e66b2be960f75521f65bcfce4e44815ed01257266bc45053d2",
+  "selectedProgram": "program://abiogenesis/conformance/hello-world@5",
+  "fixedExpectedDiagnosticIds": [
+    [
+      "identity_mismatch"
+    ],
+    [
+      "duplicate_identity"
+    ],
+    [
+      "missing_membership"
+    ],
+    [
+      "missing_binding"
+    ],
+    [
+      "missing_contract"
+    ]
+  ],
+  "checkerCalls": 0,
+  "RuntimeCalls": 0
+}

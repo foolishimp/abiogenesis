@@ -1,0 +1,73 @@
+{
+  "status": "ACCEPTED_PREPARED_NATIVE_CHILD_CONTINUATION_AND_RELEASED_EXACT_RUNTIME11",
+  "operation": "T287_RUNTIME11_RELEASE_WRITER_01",
+  "actor": "/root",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "originalPositiveAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime09-positive-acceptance-01/acceptance.json",
+    "bytes": 15036,
+    "sha256": "9348c2a734d959d45c006a1cadab1346322d93976226e394971d794ad4cd4498",
+    "mode": 420
+  },
+  "unchangedInputAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q15-input-acceptance-runtime09-01/acceptance.json",
+    "bytes": 19506,
+    "sha256": "d3007ae8f613d412c71d92e7397c238878ab8d15eea20d0cffdfc877770d680b",
+    "mode": 420
+  },
+  "consumerPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/preparation-freeze.json",
+    "bytes": 11853,
+    "sha256": "d73805291ac9d5498e1e5bf41314ad950856a68dbd60ecccb0f5d5138c848003",
+    "mode": 420
+  },
+  "independentPreparationReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-cold-triage-runtime11-controls-01/preparation-review/freeze.json",
+    "bytes": 1496,
+    "sha256": "33ee7194cf8a984d24374a7a7beb67c46ef3bfb01edef5b403086f6f2d1a0c97",
+    "mode": 292
+  },
+  "RootVerifiedPreparationRecords": 54,
+  "RootVerifiedPreparationDirectories": 6,
+  "RootVerifiedPreparationBodyBytes": 5529288,
+  "RootVerifiedReviewRecords": 4,
+  "RootVerifiedReviewBodyBytes": 15826,
+  "sourceConsumerDecision": "Existing framework native child Result selected; one logical lineage contract; no interface redefinition or new Source mechanism. Original parent/J/foldback/closure/two reads remain companion.",
+  "releasedConditionalOperation": "T287_F11_C09_CARRIER_EXECUTION_11",
+  "runtimeGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime10-cold-triage-runtime11-controls-01/runtime-request.txt",
+    "bytes": 3586,
+    "sha256": "2d67bf4c468ca9f518a281277e3f77d792fa72f8714c774b9079210aef42e635",
+    "mode": 420
+  },
+  "actualStartingEvent": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+    "bytes": 2844807,
+    "sha256": "374f6dddb7191acb4da6e9e5d093d4e247fcddb2139ece8dcd4c90159b9596a5",
+    "mode": 420,
+    "device": 16777230,
+    "inode": 464941019
+  },
+  "authenticStartingClosedHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/retained/closed-event-resource-handoff.json",
+    "bytes": 2794,
+    "sha256": "ac46ae03c11006d44e405da323f9ec1d07c5f290ce819501d4e7c52c8a45f4fc",
+    "mode": 420
+  },
+  "startingHandoffDigest": "sha256:dcaa734c6266f8e04a3778efaa33d6ae8775bf0a1315f402e1eed066521c90ba",
+  "authorizedABGAppendRoots": {
+    "toolchainRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/installed",
+    "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/installed/core/node_modules/@abiogenesis/typescript-tenant",
+    "eventLogRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events",
+    "runtimeStateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/runtime",
+    "projectionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/projections",
+    "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/archives"
+  },
+  "scope": "One supervised remaining F11/sole non-green AF22 path; two new completed Runs/four fresh CLI reads plus reused original one Run/two reads. Authenticate original child J with meaningful negatives before F11 dispatch.",
+  "firstActualFailure": "Freeze and stop; Root material triangulation before any repair/retry.",
+  "parentAliasReleaseApplicability": "UNRESOLVED; tracked existing-HOW realization gap, no waiver",
+  "genuineQualification": false,
+  "RC1Qualified": false,
+  "RC1Published": false,
+  "acceptedAt": "2026-10-03T11:05:03.324394+00:00"
+}

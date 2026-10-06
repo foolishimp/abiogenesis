@@ -1,0 +1,44 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-05/source-acceptance.json",
+    "bytes": 700,
+    "sha256": "c172542c60b3181eda23b7ab5594da0eaab4c5b7b1a2819b2e46f20865d98ab8",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-05/received-independent-source-review.md",
+    "bytes": 1333,
+    "sha256": "f3a9c9b69a922fcbe5f23f66a4cb347d08698235dd6fa63c0adc5bf0c28ac049",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-05/source-cut.json",
+    "bytes": 2460667,
+    "sha256": "bbad7056fdc7a4ed844dcecf419cedc1be88831ebe162cb5e00a8dfbc4126bf5",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-05/sections.json",
+    "bytes": 7096,
+    "sha256": "a6b9f99e6c856e00bb436d5391bdf70e078a6f82d9727598f7d7750d8bb4d503",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-05/request.txt",
+    "bytes": 6825,
+    "sha256": "79ebcf584e8695357b9aff7ecfee138b18870f7ad4a185cf26b742b8ed1c05ef",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 470068,
+    "sha256": "52bfc584e4f0ae1ccab969ce5d38d6724e3f3b44d195e7bc7223920ca0f2938a",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "bytes": 7713,
+    "sha256": "5c91f918de9936da25073251ba1626daa9d540fe5d296a41e7f775323ea554c1",
+    "mode": 420
+  }
+]

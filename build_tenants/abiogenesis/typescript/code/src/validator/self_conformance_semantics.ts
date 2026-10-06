@@ -58,10 +58,12 @@ export function qualificationResultRelation(predicateRef: string, input: unknown
       projectQualificationConsumer(output.nativeBasis, input) !== null && same(evaluateMalformedGtlAssessment(input, output.nativeBasis), output);
     if (predicateRef === ids.judgmentPredicateRef) {
       if (!isSelfConformanceInput(input) || !isSelfConformanceResult(output)) return false;
+      if (nativeProof?.qualificationSelfConformance !== undefined) return same(nativeProof.qualificationSelfConformance(), output);
       const owner = resolveSelfConformanceOwner(output.owner.nativeBasis as QualificationOwnerBasis, input);
       return owner !== null && same(owner, output.owner) && same(evaluateSelfConformance(input, owner), output);
     }
     if (predicateRef === q.assessPredicate) {
+      if (nativeProof?.qualificationJudgment !== undefined) return nativeProof.qualificationJudgment();
       if (!isQualificationAssessmentInput(input) || !isQualificationJudgment(output) ||
           projectQualificationConsumer(output.nativeBasis, input) === null || !qualificationRawMatches(input, output.raw)) return false;
       return same(constructQualificationJudgment(input, output.raw, output.nativeBasis, output.source), output);
@@ -105,7 +107,8 @@ export const ABI5_SELF_CONFORMANCE_PRODUCT_SEMANTICS: ProductSemanticsProvider =
     if (!isQualificationJudgment(basis.value)) return false;
     const value = basis.value, rows = basis.admittedEvidence.filter(e => e.evidenceClass === "probabilistic_transport");
     const e = rows.length === 1 ? rows[0]! : null;
-    const request = qualificationWorkerRequest({ kind: "qualification_assessment_input", schemaVersion: "5.0.0", task: value.task, plan: value.plan });
+    const request = basis.nativeProof?.qualificationRequest?.() ?? ("representation" in value.task ? null : qualificationWorkerRequest({ kind: "qualification_assessment_input", schemaVersion: "5.0.0", task: value.task, plan: value.plan }));
+    if (request === null) return false;
     return e !== null && e.cCallRef === value.source.cCallRef && e.inputDigest === value.source.inputDigest &&
       e.actorInvocationRef === value.source.actorInvocationRef && e.actorRef === value.source.actorRef &&
       e.workerBindingRef === value.source.workerBindingRef && e.transportBindingRef === value.source.transportBindingRef &&

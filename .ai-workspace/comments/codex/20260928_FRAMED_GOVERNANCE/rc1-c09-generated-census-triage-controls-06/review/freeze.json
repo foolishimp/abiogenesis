@@ -1,0 +1,49 @@
+{
+  "operation": "T287_C09_GENERATED_RECONCILIATION_REVIEW_06",
+  "role": "independent Reviewer",
+  "status": "CLOSED",
+  "recommendation": "GO_CANONICAL_C09_GENERATED_CORRESPONDENCE_ONLY",
+  "frozenAt": "2026-10-03T11:41:19.083007+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/freeze.json",
+    "bytes": 8520,
+    "sha256": "28309c504ad8364737f6b5aaaf37d713c37abf3dd6c10ce3602ea269d127d9aa",
+    "mode": 292
+  },
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 1040,
+      "sha256": "a3eeb4a1fdecba773fb3d830ec510d56168e9ef3a3e14c9c78d5f26de7ddbd6d",
+      "mode": 292,
+      "kind": "file"
+    },
+    {
+      "path": "closure.json",
+      "bytes": 922,
+      "sha256": "21c0de75916fcdd8bea74c02d4696672b1c9919de411453d8192dc88d9b8e232",
+      "mode": 292,
+      "kind": "file"
+    },
+    {
+      "path": "pins.json",
+      "bytes": 15982,
+      "sha256": "978dbffe24b3d4a4b2a152527b763da5558879a95bf168f0f51d97bad59fbc0f",
+      "mode": 292,
+      "kind": "file"
+    },
+    {
+      "path": "report.md",
+      "bytes": 3234,
+      "sha256": "99395553e26035eba8247c6a74996ae7f6ba8a0372a98e0af8b20704fd2e9ca1",
+      "mode": 292,
+      "kind": "file"
+    }
+  ],
+  "recordCount": 4,
+  "recordBytes": 21178,
+  "directories": [],
+  "symlinks": 0,
+  "excludedSelf": "freeze.json only",
+  "writesAfterFreeze": "STOPPED"
+}

@@ -1,0 +1,201 @@
+{
+  "status": "CLOSED",
+  "work_result": "candidate_ready",
+  "activation": "T287_F11_MATERIAL_SELECTION_02",
+  "actor": "/root/f11_attribution_inputs",
+  "frozenAt": "2026-09-30T12:22:58.662142+00:00",
+  "records": [
+    {
+      "path": "01-construction.process.json",
+      "bytes": 321,
+      "sha256": "b999045bb6de1aac25bc23ceb8872def61d66293f311f55a6c339e13b3e864dc"
+    },
+    {
+      "path": "01-construction.stderr",
+      "bytes": 462,
+      "sha256": "6eaadccc956edb595c53643cb5534fa84835dfa52196bb7bafac2dbee5576117"
+    },
+    {
+      "path": "01-construction.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "02-construction.process.json",
+      "bytes": 321,
+      "sha256": "4fff5ceb7f43ce1cdbfbeb503b4d55b525749af685e827a53ed33bc6d7a1696c"
+    },
+    {
+      "path": "02-construction.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "02-construction.stdout",
+      "bytes": 501,
+      "sha256": "badc31877cb3dc3370d2b34129fca6e6cc0ef9bd10c9dc1854df7f7d3d187f11"
+    },
+    {
+      "path": "03-owner-checks.process.json",
+      "bytes": 316,
+      "sha256": "d8bc52cb008fead000231ae6f17817de8d90b11f5166b1fb07c00737e7eab48e"
+    },
+    {
+      "path": "03-owner-checks.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "03-owner-checks.stdout",
+      "bytes": 603,
+      "sha256": "c5c31e569d4d4b72dccc919b90b9547e364b8d72237cfc37e63ad77789f3c957"
+    },
+    {
+      "path": "acquired-inputs.json",
+      "bytes": 727757,
+      "sha256": "6ed3f8f3ee8c7735d54e6deabc1b1c9cb406cbe789bb9e478c5e84a7c1eb24b6"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 1328,
+      "sha256": "89d6707330f023c1f7ee13778d8a5c2a3629363b6616e97c3429354be93ff2a5"
+    },
+    {
+      "path": "bind-assessment-input.mjs",
+      "bytes": 9949,
+      "sha256": "97f54860537dddaa65e3fa3ae1e5c45cd74633618779c8875ee1802d63c9679c"
+    },
+    {
+      "path": "bind-assessment-input.mjs.patch",
+      "bytes": 21466,
+      "sha256": "136bf3fe67737e33e237a0ada4cf46d2854c226316ab81bee45ca7638fb77281"
+    },
+    {
+      "path": "check-selection.mjs",
+      "bytes": 6486,
+      "sha256": "bf42be118f8c86bf7e6ba8bd00e3327870e8e93b54e22d8c392af7b6b998c17e"
+    },
+    {
+      "path": "close.py",
+      "bytes": 5364,
+      "sha256": "5e31c31c8856790e457d22eb8a703a05d962bb45f3b0fb53c5bb1eb39e86cd9c"
+    },
+    {
+      "path": "construct-selection-failed-01.py",
+      "bytes": 20326,
+      "sha256": "35481e7a8f0d6dd5ba8b7e5155e53abf42d9ad757912539a64423cca21744b91"
+    },
+    {
+      "path": "construct-selection.py",
+      "bytes": 20337,
+      "sha256": "eaa7f8fac13a2b13b2cedc5c73e2b4f17862f176692853b0ab139eb9497fc011"
+    },
+    {
+      "path": "construct-selection.py.patch",
+      "bytes": 49681,
+      "sha256": "6c0ed2e1505fff37621e8dda40adfb035bd4245ec990db89f3e612e65d3de7ce"
+    },
+    {
+      "path": "construction-attribution.json",
+      "bytes": 4720,
+      "sha256": "1ced6c7eaf6d170166f5e7a6555d2ae3b8c0355ae3341c03d27f77a230733923"
+    },
+    {
+      "path": "construction-checks.json",
+      "bytes": 2459857,
+      "sha256": "a5190e6168c0dce8312f58acfe9b662c4cc320649764cf918b10353f42039d71"
+    },
+    {
+      "path": "construction-harness-correction.patch",
+      "bytes": 2795,
+      "sha256": "6bc1aa546ac3457f3ad43c6ff2993c1f288bcb072267b2842063584729b7e6fd"
+    },
+    {
+      "path": "costs-summary.json",
+      "bytes": 1487,
+      "sha256": "372fbb9ec47b625a899b0910ece9265f51301c7828fe25a8c157f83fc34a8e62"
+    },
+    {
+      "path": "current-material-bank.json",
+      "bytes": 4192114,
+      "sha256": "77b15330d0b7ff72dc7bae0e187e7cac3f459fe72eb6ead06cc608d5bd72a0a3"
+    },
+    {
+      "path": "disposition.json",
+      "bytes": 1612,
+      "sha256": "c37207767f4d41bfb1e9ee2c0e48abba1210bec516117b18ed9f425d755ca548"
+    },
+    {
+      "path": "domain-responsibilities.json",
+      "bytes": 466245,
+      "sha256": "ecc805dfa3522a4ddadffb3150b5426f77a5d785168e5e048f9d36e20480e2cc"
+    },
+    {
+      "path": "harness-errors.json",
+      "bytes": 690,
+      "sha256": "f07a2cdcbae157a3b6cce575bfff701f384d9d9ba3e221272388ddeb2ce7e568"
+    },
+    {
+      "path": "owner-checks.json",
+      "bytes": 5102,
+      "sha256": "0236893e1664e00679f43d0b3b59d64cd98bb8b8cbe224500c286cd554aa9afc"
+    },
+    {
+      "path": "preimages/bind-assessment-input.mjs",
+      "bytes": 11251,
+      "sha256": "ea69689db2e8ee0437907a7d173986ae272de28652f3c748613e41d05a7182b9"
+    },
+    {
+      "path": "preimages/construct-inputs.py",
+      "bytes": 28759,
+      "sha256": "d5af5514c6bd8447c89ae93760305e30cc909314ad52639f3c9791c6dc190f30"
+    },
+    {
+      "path": "process-ledger.jsonl",
+      "bytes": 874,
+      "sha256": "7947bdfec07da0ad742938b2ae784152429e39525cfeb6f22a1abf13a4d0f186"
+    },
+    {
+      "path": "request.txt",
+      "bytes": 6982,
+      "sha256": "224e58b4ceb130b2065673d2da9e18fbf4b8dcf2198dc72bf6f8b447a62b0da6"
+    },
+    {
+      "path": "return.md",
+      "bytes": 7669,
+      "sha256": "4171bf47616ce0ce55d4a62ab5a73a7088f231c747a1039ccee6cb9f1572b466"
+    },
+    {
+      "path": "run-pure.py",
+      "bytes": 1373,
+      "sha256": "2e98229745cebe4ad849332ebffc1c204f6e0dae28948ce4eedca68b4125af51"
+    },
+    {
+      "path": "scope-transform.json",
+      "bytes": 267280,
+      "sha256": "6199cb37a230b8b30e1dd1697fbd0dc1acd64727061cb12ccfad7ba7cfddff83"
+    },
+    {
+      "path": "selection-rationale.json",
+      "bytes": 45378,
+      "sha256": "d9a15ca4cc92fa342a6ec3796441ba25d1c9678cfd09ca43aec5cd83b236989e"
+    },
+    {
+      "path": "selection.json",
+      "bytes": 45953,
+      "sha256": "bfce1137968ce13daf96f04794a972f44fee193195a8fc96325b98525217c183"
+    }
+  ],
+  "recordCount": 36,
+  "return": {
+    "path": "return.md",
+    "bytes": 7669,
+    "sha256": "4171bf47616ce0ce55d4a62ab5a73a7088f231c747a1039ccee6cb9f1572b466"
+  },
+  "subject": "bounded external 015B material-selection/binding candidate only",
+  "genuinelyBoundAssessment": false,
+  "P2Open": true,
+  "pureCheckElapsedMs": 2481.174001470208,
+  "nativeCalls": 0,
+  "providerCalls": 0
+}

@@ -1,0 +1,54 @@
+{
+  "operation": "T287_REUSE_CONSUMER_REPAIR_04",
+  "phase": "syntax",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "--check",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "capSeconds": 30,
+  "defaultHeap": true,
+  "HOME": "/Users/jim",
+  "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REUSE_CONSUMER_REPAIR_04/tmp",
+  "reporterPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/test-reporter.mjs",
+    "bytes": 441,
+    "sha256": "0315807160de062b8dd9433f7db79bf05a0178d26eee587dbf7711c3800eb3d2",
+    "mode": 420
+  },
+  "SourcePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+      "bytes": 10687,
+      "sha256": "37a68c79145981db30d31277adfb00ae8bb416e2a9053c84d2f946d18ababca5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/prepare-retained-setup-binding.mjs",
+      "bytes": 8505,
+      "sha256": "0b4697546426552498a109d19f56f60d94850bc4b7d85027deec72bb23fbd777",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+      "bytes": 17022,
+      "sha256": "54eab951cd96e5dfd82ace948b79c39e3ba98ea7e2e8d83e6323158fecc1e6b1",
+      "mode": 420
+    }
+  ],
+  "streamsOpenedBeforeSpawn": true,
+  "pid": 89135,
+  "pgid": 89135,
+  "exitCode": 0,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "wait4Status": 0,
+  "groupAbsent": true,
+  "elapsedMs": 33.524957951158285,
+  "userCPUSeconds": 0.01503,
+  "systemCPUSeconds": 0.004632,
+  "maxRSSPlatformBytes": 44564480,
+  "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

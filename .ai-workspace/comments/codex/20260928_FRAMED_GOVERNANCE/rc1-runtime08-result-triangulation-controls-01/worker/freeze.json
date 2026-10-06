@@ -1,0 +1,52 @@
+{
+  "operationId": "T287_RUNTIME08_RESULT_CONTRACT_TRIANGULATION_01",
+  "status": "CLOSED",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-result-triangulation-controls-01/worker",
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 2284,
+      "sha256": "6cb46a62378763308e2b80cd97c7cd794f5a72d1d8a9565beffd366a34e2f26c",
+      "mode": "0644"
+    },
+    {
+      "path": "closure.json",
+      "bytes": 1718,
+      "sha256": "b80f85e96606a1544ee5f99ac82d6c01be0a4c83601735b9ab805ecfecab35ef",
+      "mode": "0644"
+    },
+    {
+      "path": "lineage-projection-observation.json",
+      "bytes": 3235,
+      "sha256": "7ecd1295c29eb5dcc96579663abf743890893b66f722587dd5cb653f0aa9905a",
+      "mode": "0644"
+    },
+    {
+      "path": "report-preflight.json",
+      "bytes": 484,
+      "sha256": "b7406fc5c10be1cb99a13de3fe25d6ec6204814ed87a2714f6e5ad04c22e968a",
+      "mode": "0644"
+    },
+    {
+      "path": "source-pins.json",
+      "bytes": 10529,
+      "sha256": "f9b48bc6088b82719e7168c779d732a3b7a34821b6b154a467f6265a65f26402",
+      "mode": "0644"
+    },
+    {
+      "path": "triangulation.md",
+      "bytes": 5770,
+      "sha256": "33992722ad8317a55d055ff619ea0aa4424f667190891bf4dcf581c71c96fac5",
+      "mode": "0644"
+    }
+  ],
+  "recordCount": 6,
+  "bodyBytes": 24020,
+  "directories": [],
+  "directoryCount": 0,
+  "symlinkCount": 0,
+  "excludes": [
+    "freeze.json"
+  ],
+  "closureSha256": "b80f85e96606a1544ee5f99ac82d6c01be0a4c83601735b9ab805ecfecab35ef"
+}

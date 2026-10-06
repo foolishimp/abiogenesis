@@ -1,0 +1,49 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_C09_PLAN_AND_INSTALLED_ASSURANCE_GRANT_WRITER_01",
+  "role": "Writer",
+  "actor": "/root",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-installed-carrier-assurance-controls-01/activation.json",
+      "bytes": 1694,
+      "sha256": "9bef325c8065dfc526631774bcb7b1e91b556ee786699ead3d80579ef7a0b0ae",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-installed-carrier-assurance-controls-01/closure.json",
+      "bytes": 901,
+      "sha256": "7ea51b55c43a8c4824bd7e08388597e6a07e7e2ae22c443e4364d792d1a02188",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-installed-carrier-assurance-controls-01/operation-basis.json",
+      "bytes": 1262,
+      "sha256": "cd959354e7d5d067e1e5d2de96bdadcf716d295191960e9bb7ed074c10aec306",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-installed-carrier-assurance-controls-01/plan-before.md",
+      "bytes": 6569,
+      "sha256": "e8824ea00687fc3fc2c981eb74ec6a18a102b4a99fc7b76b069f45a8fb2486b6",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-installed-carrier-assurance-controls-01/request.txt",
+      "bytes": 3754,
+      "sha256": "9277bca32c411e3f4abf0677305bfc37906a3e0410388c485c85f84bd634885e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-installed-carrier-assurance-controls-01/sections.json",
+      "bytes": 4025,
+      "sha256": "4ff36caae2e06401fa62130ed0c74b7288bbf621956dea4e33cbe4a23561a6fc",
+      "mode": 420
+    }
+  ],
+  "recordCount": 6,
+  "recordBytes": 18205,
+  "directoryCount": 0,
+  "symlinks": 0,
+  "excludedSelf": "freeze.json"
+}

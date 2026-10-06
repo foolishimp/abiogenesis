@@ -1,0 +1,107 @@
+{
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:7cb5efb8e5a16babfeb0c51dbb943913be21281e0e64f3bc8f6e94dcc6dd4757",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8",
+      "prefixLength": 2475382,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464012478
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:5293789bfdda8892f99812983c6d80bc1ce0e071d5084199f9838fb6c70d73fc",
+      "device": 16777230,
+      "durableByteLength": 2475382,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "inode": 464012478,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "calls": [
+    {
+      "label": "workspace",
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.create",
+        "memberKey": "clean"
+      },
+      "invocationRef": "invocation://abiogenesis/985c837502c73a9da06048be54f0764bd9bbe990b2f20cbc6b0ffac8004b17f2",
+      "outcomeKind": "result",
+      "elapsedMs": 9737.795958000002,
+      "processFailure": null
+    },
+    {
+      "label": "verify-core",
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "invocationRef": "invocation://abiogenesis/c2f485ca7a2fd52aa6f076d8872f2622e97055e8d24472751f3554f6c18d22aa",
+      "outcomeKind": "result",
+      "elapsedMs": 18786.162708999997,
+      "processFailure": null
+    },
+    {
+      "label": "resolve",
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "invocationRef": "invocation://abiogenesis/95852eda345812496d7e32949bc8e9a1884f87d84de8ea5bcc2a8fd406c030d6",
+      "outcomeKind": "result",
+      "elapsedMs": 12928.421374999998,
+      "processFailure": null
+    },
+    {
+      "label": "install-core",
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "invocationRef": "invocation://abiogenesis/c59e52084c65692115888de131998b3cdcc2624d9f476e170d3e0ccd93a3c98c",
+      "outcomeKind": "result",
+      "elapsedMs": 22306.086791999995,
+      "processFailure": null
+    },
+    {
+      "label": "bind",
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.bind",
+        "memberKey": "bind"
+      },
+      "invocationRef": "invocation://abiogenesis/bf810b18e4573220b13f886c0de39ae03038809b7b445c386ac0d967d6ccd3ed",
+      "outcomeKind": "result",
+      "elapsedMs": 10674.489583000002,
+      "processFailure": null
+    },
+    {
+      "label": "catalog",
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.admit",
+        "memberKey": "admit"
+      },
+      "invocationRef": "invocation://abiogenesis/3a0c256ffe7ab801365d5a8fbe1b8842990a5369f4857f26c0c046866469fc44",
+      "outcomeKind": "result",
+      "elapsedMs": 15641.716833000013,
+      "processFailure": null
+    },
+    {
+      "label": "catalog-view",
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.view",
+        "memberKey": "allowlist"
+      },
+      "invocationRef": "invocation://abiogenesis/052e2beafd073220439291486665d35fc30fad3420e8a6248bc19ac6557b249b",
+      "outcomeKind": "result",
+      "elapsedMs": 10819.576749999993,
+      "processFailure": null
+    }
+  ]
+}

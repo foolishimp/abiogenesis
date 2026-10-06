@@ -1,0 +1,24 @@
+{
+  "baseline": "c080e5f85de059714528538342f3e93cf4405b52",
+  "role": "Worker",
+  "model": "gpt-6-astra",
+  "effort": "xhigh",
+  "scope": "Owner-derived causation lookup only; dense immutable prefix representation unchanged",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "sha256": "ca7b451a4f0ff231434ef985e53c2a5d215e2fac23161591cbf4e3f2bb9884bf",
+      "bytes": 168233
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "sha256": "001a5179facef26b9b0cf6ffa77d4294c2f127267bed7474da3a29b7f7752dd6",
+      "bytes": 49868
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "sha256": "c893bd8dcb77be6f6f9c66a875569f99507d50bc4256d5d92bc50c661c9751a6",
+      "bytes": 348566
+    }
+  ]
+}

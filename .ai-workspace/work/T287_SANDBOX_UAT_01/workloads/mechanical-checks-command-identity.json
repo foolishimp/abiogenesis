@@ -1,0 +1,90 @@
+{
+  "activation": "T287_SANDBOX_UAT_WORKLOADS_01:command_identity_correction",
+  "claim": "Provider-free selector/identity falsifiers using a disclosed validation double only; no authentic admitted command or application UAT pass.",
+  "manifestDigest": "sha256:e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+  "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+  "cases": [
+    {
+      "label": "selector positive control only; disclosed validator double, incomplete application",
+      "exactExecutionCriteria": [
+        "satisfied",
+        "satisfied"
+      ],
+      "completeUatResult": "unmet"
+    },
+    {
+      "label": "different executable with identical basename",
+      "exactExecutionCriteria": [
+        "indeterminate",
+        "indeterminate"
+      ],
+      "completeUatResult": "unmet"
+    },
+    {
+      "label": "changed actual environment",
+      "exactExecutionCriteria": [
+        "indeterminate",
+        "indeterminate"
+      ],
+      "completeUatResult": "unmet"
+    },
+    {
+      "label": "foreign producer embeds observation-shaped metadata",
+      "exactExecutionCriteria": [
+        "indeterminate",
+        "indeterminate"
+      ],
+      "completeUatResult": "unmet"
+    },
+    {
+      "label": "foreign output contract",
+      "exactExecutionCriteria": [
+        "indeterminate",
+        "indeterminate"
+      ],
+      "completeUatResult": "unmet"
+    },
+    {
+      "label": "foreign Run",
+      "exactExecutionCriteria": [
+        "indeterminate",
+        "indeterminate"
+      ],
+      "completeUatResult": "unmet"
+    },
+    {
+      "label": "foreign result class",
+      "exactExecutionCriteria": [
+        "indeterminate",
+        "indeterminate"
+      ],
+      "completeUatResult": "unmet"
+    },
+    {
+      "label": "nested metadata under selected output",
+      "exactExecutionCriteria": [
+        "indeterminate",
+        "indeterminate"
+      ],
+      "completeUatResult": "unmet"
+    },
+    {
+      "label": "missing published owner validation",
+      "exactExecutionCriteria": [
+        "indeterminate",
+        "indeterminate"
+      ],
+      "completeUatResult": "unmet"
+    },
+    {
+      "label": "published owner validation rejects",
+      "exactExecutionCriteria": [
+        "indeterminate",
+        "indeterminate"
+      ],
+      "completeUatResult": "unmet"
+    }
+  ],
+  "allLocalPinsVerified": true,
+  "transientProbeTreeRemoved": true
+}

@@ -1,0 +1,323 @@
+{
+  "kind": "immutable_s03a_donor_selection",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+    "bytes": 9566,
+    "sha256": "c199ca3a2004d26ae26f1ef00b6f6b197a3bd01dc26a6d0d623333edfcc66088"
+  },
+  "archiveMembers": [
+    {
+      "path": "package/build/index.js",
+      "bytes": 21635,
+      "sha256": "add09baec5d9a6ef7fbc5414bc5cffb8f9aa45a582aef6630d7b85ec9a80fddb"
+    },
+    {
+      "path": "package/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 247,
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0"
+    },
+    {
+      "path": "package/package.json",
+      "bytes": 255,
+      "sha256": "36e014fbc78fa91823a07bf114c5327e53914af31d2e2eced9477a97578c5ae8"
+    },
+    {
+      "path": "package/product-toolchain-manifest.json",
+      "bytes": 4025,
+      "sha256": "1003fc0a87c7d422bb8c7113d635b0b220eafa845dc8bd8a1279fa10121417b3"
+    },
+    {
+      "path": "package/contracts/public-contract-catalog.schema.json",
+      "bytes": 75,
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb"
+    },
+    {
+      "path": "package/build/publication.json",
+      "bytes": 24899,
+      "sha256": "143ffe71d3980cddb81bfbf7ea543188fd2efd3e9eb198c41ec819e9e9177957"
+    }
+  ],
+  "manifestFile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection/product-toolchain-manifest.json",
+    "bytes": 4025,
+    "sha256": "1003fc0a87c7d422bb8c7113d635b0b220eafa845dc8bd8a1279fa10121417b3"
+  },
+  "publicationPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection/build/publication.json",
+    "bytes": 24899,
+    "sha256": "143ffe71d3980cddb81bfbf7ea543188fd2efd3e9eb198c41ec819e9e9177957"
+  },
+  "fixtureImplementation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection/build/index.js",
+    "bytes": 21635,
+    "sha256": "add09baec5d9a6ef7fbc5414bc5cffb8f9aa45a582aef6630d7b85ec9a80fddb"
+  },
+  "sourcePreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-s03-automatic-product/index.mjs",
+    "bytes": 21635,
+    "sha256": "add09baec5d9a6ef7fbc5414bc5cffb8f9aa45a582aef6630d7b85ec9a80fddb"
+  },
+  "originalOracle": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/oracle.json",
+    "bytes": 1509,
+    "sha256": "69f61a7bd38d2f5a350fe50b783b597b3587bfb1a49b8edc3c1f0057ac67dc7c"
+  },
+  "productIdentity": {
+    "productId": "product://s03-automatic/product@5",
+    "packageName": "@abiogenesis-fixtures/registered-selection",
+    "packageVersion": "5.0.0",
+    "productContentDigest": "sha256:6e3797c11565a485c294da58eca600ce7571c45bfbe2bbb1b7f222c907b914ec",
+    "descriptorRef": "descriptor://s03-automatic/product@5",
+    "contributionManifestRef": "contribution-manifest://s03-automatic/product@5",
+    "contributionManifestDigest": "sha256:3e8106c3ab6b4e7a51fb4dc63a10fb5d5183b4a6b2e37beba1af89d297ee370e",
+    "declaredDependencies": [
+      {
+        "compatibilityRef": "compatibility://abiogenesis/major/5",
+        "kind": "requires",
+        "packageVersion": "5.0.0-rc.1",
+        "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "requiredCapabilityRefs": [
+          "abg.capability.catalog.invoke-graph-function@5",
+          "abg.capability.gtl.declare@5"
+        ],
+        "requiredContractRefs": [
+          "abg.contract.gtl.root-declaration",
+          "abg.schema.public-operation-invocation"
+        ]
+      }
+    ],
+    "compatibilityRefs": [
+      "compatibility://abiogenesis/major/5"
+    ]
+  },
+  "canonicalManifestDigest": "sha256:dc8ea7ebec320fef5da56ade9fa97c3552563822d65fc77d227a8b7992cb37e0",
+  "publicCatalog": {
+    "catalogDigest": "sha256:adde34ef87c897cce802a02e293cc5466e97cbfe802c0565d11433c22b20a30a",
+    "catalogId": "catalog://registered-selection/public-contracts@5.0.0",
+    "catalogSchemaDigest": "sha256:61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+    "catalogSchemaPath": "contracts/public-contract-catalog.schema.json",
+    "catalogVersion": "5.0.0",
+    "rows": [],
+    "schemaVersion": "5.0.0"
+  },
+  "declarationRoutes": {
+    "moduleRef": "module://s03-automatic/product@5",
+    "programRef": "program://s03-automatic/root@5",
+    "start": {
+      "graphFunctionRef": "graph-function://s03-automatic/root@5",
+      "startRef": "start://s03-automatic/root@5"
+    },
+    "graphFunctionRefs": [
+      "graph-function://s03-automatic/root@5",
+      "graph-function://s03-automatic/child@5"
+    ],
+    "constructionComposition": {
+      "authorities": [
+        {
+          "authorityRef": "authority://s03-automatic/synthesizeModel@5",
+          "initialProgramLocusRef": "locus://s03-automatic/model@5",
+          "kind": "construction_authority_binding",
+          "refreshProgramLocusRef": "locus://s03-automatic/refreshModel@5",
+          "semanticAuthority": "synthesizeModel"
+        },
+        {
+          "authorityRef": "authority://s03-automatic/evalGap@5",
+          "initialProgramLocusRef": "locus://s03-automatic/gap@5",
+          "kind": "construction_authority_binding",
+          "refreshProgramLocusRef": "locus://s03-automatic/refreshGap@5",
+          "semanticAuthority": "evalGap"
+        },
+        {
+          "authorityRef": "authority://s03-automatic/evaluateNext@5",
+          "initialProgramLocusRef": "locus://s03-automatic/next@5",
+          "kind": "construction_authority_binding",
+          "refreshProgramLocusRef": "locus://s03-automatic/finish@5",
+          "semanticAuthority": "evaluateNext"
+        },
+        {
+          "authorityRef": "authority://s03-automatic/evaluateAction@5",
+          "initialProgramLocusRef": "locus://s03-automatic/evaluate@5",
+          "kind": "construction_authority_binding",
+          "refreshProgramLocusRef": null,
+          "semanticAuthority": "evaluateAction"
+        }
+      ],
+      "closurePolicy": {
+        "kind": "construction_policy",
+        "policyRef": "policy://s03-automatic/closure@5",
+        "requireCompleteEvidence": true,
+        "requirePostEvidenceRefresh": true
+      },
+      "compositionDigest": "sha256:df3e2f24be6d81ea4398e5fd781c844dccbfafadadba790e22f4b2f362f2bf32",
+      "compositionRef": "composition://s03-automatic/root@5",
+      "graphFunctionRef": "graph-function://s03-automatic/root@5",
+      "interactionProgramLocusRef": "graph-function://s03-automatic/child@5",
+      "kind": "construction_composition",
+      "schemaVersion": "5.0.0"
+    },
+    "rootPolicies": {
+      "abg.default_start_ref": "start://s03-automatic/root@5",
+      "abg.root_mode": "supervised"
+    },
+    "graphSpanApplication": {
+      "applicationRef": "graph-function-application://abiogenesis/873d1d29d83a9b68c023b6fe220a3016034be61c933020e1fc0effb862bee8e3",
+      "graphFunctionRef": "graph-function://s03-automatic/root@5",
+      "inputContractRef": "contract://s03-automatic/refresh-model@5",
+      "kind": "graph_function_application",
+      "maxApplications": 1,
+      "outputContractRef": "contract://s03-automatic/request@5",
+      "relationKind": "re_enter",
+      "sourceProgramLocusRef": "locus://s03-automatic/refreshModel@5",
+      "targetProgramLocusRef": "locus://s03-automatic/model@5"
+    },
+    "implementationBindings": [
+      {
+        "bindingRef": "binding://s03-automatic/model@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://s03-automatic/failure@5",
+        "implementationRef": "implementation://s03-automatic/model@5",
+        "inputContractRef": "contract://s03-automatic/request@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/index.js",
+        "namedSymbol": "model",
+        "outputContractRef": "contract://s03-automatic/model@5",
+        "packageName": "@abiogenesis-fixtures/registered-selection",
+        "packageVersion": "5.0.0",
+        "refusalContractRef": "contract://s03-automatic/refusal@5"
+      },
+      {
+        "bindingRef": "binding://s03-automatic/gap@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://s03-automatic/failure@5",
+        "implementationRef": "implementation://s03-automatic/gap@5",
+        "inputContractRef": "contract://s03-automatic/model@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/index.js",
+        "namedSymbol": "gap",
+        "outputContractRef": "contract://s03-automatic/basis@5",
+        "packageName": "@abiogenesis-fixtures/registered-selection",
+        "packageVersion": "5.0.0",
+        "refusalContractRef": "contract://s03-automatic/refusal@5"
+      },
+      {
+        "bindingRef": "binding://s03-automatic/next@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://s03-automatic/failure@5",
+        "implementationRef": "implementation://s03-automatic/next@5",
+        "inputContractRef": "contract://s03-automatic/basis@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/index.js",
+        "namedSymbol": "next",
+        "outputContractRef": "contract://s03-automatic/next@5",
+        "packageName": "@abiogenesis-fixtures/registered-selection",
+        "packageVersion": "5.0.0",
+        "refusalContractRef": "contract://s03-automatic/refusal@5"
+      },
+      {
+        "bindingRef": "binding://s03-automatic/evaluate@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://s03-automatic/failure@5",
+        "implementationRef": "implementation://s03-automatic/evaluate@5",
+        "inputContractRef": "contract://s03-automatic/evaluation-basis@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/index.js",
+        "namedSymbol": "evaluate",
+        "outputContractRef": "contract://s03-automatic/evaluation@5",
+        "packageName": "@abiogenesis-fixtures/registered-selection",
+        "packageVersion": "5.0.0",
+        "refusalContractRef": "contract://s03-automatic/refusal@5"
+      },
+      {
+        "bindingRef": "binding://s03-automatic/refreshModel@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://s03-automatic/failure@5",
+        "implementationRef": "implementation://s03-automatic/refreshModel@5",
+        "inputContractRef": "contract://s03-automatic/evaluation@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/index.js",
+        "namedSymbol": "refreshModel",
+        "outputContractRef": "contract://s03-automatic/refresh-model@5",
+        "packageName": "@abiogenesis-fixtures/registered-selection",
+        "packageVersion": "5.0.0",
+        "refusalContractRef": "contract://s03-automatic/refusal@5"
+      },
+      {
+        "bindingRef": "binding://s03-automatic/refreshGap@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://s03-automatic/failure@5",
+        "implementationRef": "implementation://s03-automatic/refreshGap@5",
+        "inputContractRef": "contract://s03-automatic/refresh-model@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/index.js",
+        "namedSymbol": "refreshGap",
+        "outputContractRef": "contract://s03-automatic/refresh-basis@5",
+        "packageName": "@abiogenesis-fixtures/registered-selection",
+        "packageVersion": "5.0.0",
+        "refusalContractRef": "contract://s03-automatic/refusal@5"
+      },
+      {
+        "bindingRef": "binding://s03-automatic/finish@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://s03-automatic/failure@5",
+        "implementationRef": "implementation://s03-automatic/finish@5",
+        "inputContractRef": "contract://s03-automatic/refresh-basis@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/index.js",
+        "namedSymbol": "finish",
+        "outputContractRef": "contract://s03-automatic/final@5",
+        "packageName": "@abiogenesis-fixtures/registered-selection",
+        "packageVersion": "5.0.0",
+        "refusalContractRef": "contract://s03-automatic/refusal@5"
+      },
+      {
+        "bindingRef": "binding://s03-automatic/producer@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://s03-automatic/failure@5",
+        "implementationRef": "implementation://s03-automatic/producer@5",
+        "inputContractRef": "contract://s03-automatic/task@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/index.js",
+        "namedSymbol": "producer",
+        "outputContractRef": "contract://s03-automatic/produced@5",
+        "packageName": "@abiogenesis-fixtures/registered-selection",
+        "packageVersion": "5.0.0",
+        "refusalContractRef": "contract://s03-automatic/refusal@5"
+      },
+      {
+        "bindingRef": "binding://s03-automatic/consumer@5",
+        "computeRegime": "F_D",
+        "failureContractRef": "contract://s03-automatic/failure@5",
+        "implementationRef": "implementation://s03-automatic/consumer@5",
+        "inputContractRef": "contract://s03-automatic/produced@5",
+        "kind": "implementation_binding",
+        "modulePath": "build/index.js",
+        "namedSymbol": "consumer",
+        "outputContractRef": "contract://s03-automatic/consumed@5",
+        "packageName": "@abiogenesis-fixtures/registered-selection",
+        "packageVersion": "5.0.0",
+        "refusalContractRef": "contract://s03-automatic/refusal@5"
+      }
+    ],
+    "runEnvironment": "Unselected: no abg.run_environment policy and no runEnvironments. Owner requires omitted runEnvironmentResources; prepared runEnvironment is null.",
+    "declarationApplications": "No node_type/overlay applications selected: applications=[]; graph-span application remains inside root GraphFunction declaration."
+  },
+  "acceptedIndependentEvidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-review-01.md",
+      "bytes": 12250,
+      "sha256": "acd80a8782adb5055f2170a248c5e6c64abd435993e06ecf010be0fdf185a155"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-review-01.md",
+      "bytes": 10460,
+      "sha256": "937eeb1dae7634f2e1f7cf3cefd5857b59733d3e9ced7990e7ea1ff5bfadbd07"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-coverage-selection-01.md",
+      "bytes": 23029,
+      "sha256": "ea5e0457937ce1ef43a667ebae4e2f68e8471480a04167524d968da9c7b5dbde"
+    }
+  ],
+  "acceptedDispositionRoute": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#installed-handoff-accepted-and-qualification-input-construction-selected",
+  "reuseLimit": "Unchanged donor archive/source/oracle. Historical install, WorkspaceBinding, lock, catalog, Runs, prefix and old core identities are not C03 authority. New dependency/admission joins pending accepted C03."
+}

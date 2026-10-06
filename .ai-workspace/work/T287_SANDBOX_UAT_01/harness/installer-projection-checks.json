@@ -1,0 +1,32 @@
+{
+  "archive": "test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T00-49-50-139Z-5971a701-5228-4d17-99c2-e7173098f44c",
+  "cases": [
+    {
+      "i": 0,
+      "installerManifest": {
+        "digest": "sha256:e8afa65b73f96d844709d8109c988923d2bc27410216143ffad2e7460af6de2e",
+        "ref": "artifact-truth-projection://abiogenesis/e8afa65b73f96d844709d8109c988923d2bc27410216143ffad2e7460af6de2e"
+      },
+      "actualProjection": {
+        "ref": "artifact-truth-projection://abiogenesis/e8afa65b73f96d844709d8109c988923d2bc27410216143ffad2e7460af6de2e",
+        "digest": "sha256:e8afa65b73f96d844709d8109c988923d2bc27410216143ffad2e7460af6de2e"
+      },
+      "installerManifestMatches": true,
+      "productManifestMatches": true
+    },
+    {
+      "i": 1,
+      "installerManifest": {
+        "digest": "sha256:5dfdac607feefd2b2bbe9cb8c216e0248e60a8a7ff59ac2a1b1cbfa855a7fb04",
+        "ref": "artifact-truth-projection://abiogenesis/5dfdac607feefd2b2bbe9cb8c216e0248e60a8a7ff59ac2a1b1cbfa855a7fb04"
+      },
+      "actualProjection": {
+        "ref": "artifact-truth-projection://abiogenesis/5dfdac607feefd2b2bbe9cb8c216e0248e60a8a7ff59ac2a1b1cbfa855a7fb04",
+        "digest": "sha256:5dfdac607feefd2b2bbe9cb8c216e0248e60a8a7ff59ac2a1b1cbfa855a7fb04"
+      },
+      "installerManifestMatches": true,
+      "productManifestMatches": true
+    }
+  ],
+  "classification": "Read-only current installed owner checks; no runtime or UAT pass"
+}

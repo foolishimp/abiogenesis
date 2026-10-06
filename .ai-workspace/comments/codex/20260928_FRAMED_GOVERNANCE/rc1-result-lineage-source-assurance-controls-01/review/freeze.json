@@ -1,0 +1,46 @@
+{
+  "status": "CLOSED",
+  "role": "Reviewer",
+  "activation": "T287_RESULT_LINEAGE_SOURCE_ASSURANCE_01",
+  "recommendation": "GO_SOURCE_COMPONENT_ONLY",
+  "subjectFreezeSHA256": "5fc09c57a34ab306cbbe9d8e1a7fa01efa1b1caf7a96d27bee4a12041828908a",
+  "fixtureFreezeSHA256": "cc036b4c49f75ecafdff98adff6900ad48445923f8f7118c53336ab6b9e82d33",
+  "records": [
+    {
+      "path": "a_c.literal.txt",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 420
+    },
+    {
+      "path": "activation.json",
+      "bytes": 1359,
+      "sha256": "4f200dd2f75f0e339662184c9cce4cd7ca7b0e6fa0e2bb188658397c7d36dec6",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 496,
+      "sha256": "7849496c79c9b152c8c6578c2a66329617c6ddb0b38aa0cc53a63cf5e8b9574b",
+      "mode": 420
+    },
+    {
+      "path": "pins.json",
+      "bytes": 12993,
+      "sha256": "744987237f977c6ad6233961f51062f23568bd62c2bbbdda2eea5ae71cfdb41d",
+      "mode": 420
+    },
+    {
+      "path": "report.md",
+      "bytes": 2863,
+      "sha256": "552860340634ab32ebe06d4b4eb94fc19efc74c51021743f4d0036a708a62300",
+      "mode": 420
+    }
+  ],
+  "recordCount": 5,
+  "bodyBytes": 55824,
+  "directories": [],
+  "links": [],
+  "noFurtherWrites": true,
+  "qualificationAccepted": false
+}

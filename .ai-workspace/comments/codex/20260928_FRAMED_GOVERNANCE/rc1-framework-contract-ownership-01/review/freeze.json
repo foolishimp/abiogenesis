@@ -1,0 +1,57 @@
+{
+  "operation": "T287_FRAMEWORK_CONTRACT_OWNERSHIP_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "status": "CLOSED",
+  "disposition": "GO_CONSTRAINT_NOTES_ONLY",
+  "closedAt": "2026-10-03T07:42:37.861818+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/subject-pins.json",
+    "bytes": 1267,
+    "sha256": "eb6beb4610a4381545ed8f390ed942052c0b1aae2dbe87f38654ae691e29da7d",
+    "mode": 420
+  },
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-framework-contract-ownership-01/review",
+  "rootMode": 493,
+  "records": [
+    {
+      "path": "a_c.literal",
+      "kind": "file",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 420
+    },
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "bytes": 988,
+      "sha256": "a5e1d2d1358c18024b564c109175091d644e16e0ff6786de68cc5823ef553ec3",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "kind": "file",
+      "bytes": 887,
+      "sha256": "4042b06a4e97d1602c3611db48cce3a92a4e04f35f1e49eacdb8a4ee5873d0d9",
+      "mode": 420
+    },
+    {
+      "path": "pins.json",
+      "kind": "file",
+      "bytes": 8441,
+      "sha256": "5d8b3cb9cc0ae54d969bc8ed1258d756f25c291b0bb1eaf59e1dc2ced29506aa",
+      "mode": 420
+    },
+    {
+      "path": "report.md",
+      "kind": "file",
+      "bytes": 2804,
+      "sha256": "0489b6c4790a7497653811dee5f49210f317f0c08bbf4baeadb79f7e791bc3fa",
+      "mode": 420
+    }
+  ],
+  "regularRecords": 5,
+  "regularBodyBytes": 51233,
+  "links": 0,
+  "codeCandidateRuntimeOrReleaseAcceptance": false,
+  "freezeExcludedFromRecords": true
+}

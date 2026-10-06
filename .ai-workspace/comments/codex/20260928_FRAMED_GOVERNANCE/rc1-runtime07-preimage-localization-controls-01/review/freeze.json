@@ -1,0 +1,62 @@
+{
+  "status": "CLOSED",
+  "workResult": "SOURCE_LOCALIZATION_SUPPORTED",
+  "activation": "T287_RUNTIME07_PREIMAGE_LOCALIZATION_01",
+  "role": "independent source Reviewer",
+  "frozenAt": "2026-10-02T08:31:13.388618+00:00",
+  "writeTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/review",
+  "records": [
+    {
+      "path": "a_c.literal.txt",
+      "kind": "file",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 420
+    },
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "bytes": 1899,
+      "sha256": "e166443895e00c6994e2732cd5e200705ecf8ed0ce5c2af44b7183031d009f19",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "kind": "file",
+      "bytes": 1560,
+      "sha256": "b408e2039fe85644c8ada1979fa753bcba378ba21acf2afb43d49ceb21506acc",
+      "mode": 420
+    },
+    {
+      "path": "predicate-report.md",
+      "kind": "file",
+      "bytes": 14329,
+      "sha256": "be95918f270f3203e503f37523e03373980201697290edbf3f87c576db4a564f",
+      "mode": 420
+    },
+    {
+      "path": "source-pins.json",
+      "kind": "file",
+      "bytes": 24098,
+      "sha256": "a7641df021eab1225531f2d1a443da2e736116b8d9ed34df89dfeac528c0eaf4",
+      "mode": 420
+    }
+  ],
+  "recordCount": 5,
+  "recordBytes": 79999,
+  "directories": [],
+  "directoryCount": 0,
+  "linkCount": 0,
+  "freezeExcludesItself": true,
+  "report": "predicate-report.md",
+  "sourcePins": "source-pins.json",
+  "closure": "closure.json",
+  "grantSHA256": "47e06ff29e400cf783fe9cd06b7663909dd80553e9bd564b57fcee15104b50ee",
+  "subjectSHA256": "4ee81d5df1109f98a6357b02d29def67c0eca9b2e7fd0b678ced429fde6f2ef2",
+  "C06SHA256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+  "copiedPrefixSHA256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+  "sourceOrCandidateAccepted": false,
+  "runtimeAccepted": false,
+  "RootAloneConjoins": true,
+  "stop": "CLOSED; no additional effects under this role"
+}

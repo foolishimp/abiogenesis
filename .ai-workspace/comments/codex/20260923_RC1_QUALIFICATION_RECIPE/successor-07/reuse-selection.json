@@ -1,0 +1,91 @@
+{
+  "status": "finite_prospective_preparation_no_runtime_credit",
+  "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06",
+  "byteIdenticalControlMembers": [
+    {
+      "path": "recipe.mjs",
+      "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/recipe.mjs",
+      "sha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68"
+    },
+    {
+      "path": "recipe-stage.mjs",
+      "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/recipe-stage.mjs",
+      "sha256": "de17486b1af297a006a7667bfc12f00add60134b3144e9be523d7fee8c50d075"
+    },
+    {
+      "path": "compare-generated.mjs",
+      "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/compare-generated.mjs",
+      "sha256": "5853d79e35d8be6347caa7f21576450bcc611e23f23cebbe85da4c767426a945"
+    },
+    {
+      "path": "test-environment.mjs",
+      "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/test-environment.mjs",
+      "sha256": "93913ad5f1574d7d38c7b2435e2e7d9b5c3e492518adb616ece83485c7d65208"
+    },
+    {
+      "path": "config.json",
+      "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/config.json",
+      "sha256": "68f66f1cc2e9fac75061d7200e9e262a52d34aa86a0f76d8bcb28dd002fcca13"
+    },
+    {
+      "path": "toolchain.json",
+      "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/toolchain.json",
+      "sha256": "280717ffa7a67ee694613b1c6fcb52b73e72c0b80309d7fe1ba0cd55f156f64e"
+    },
+    {
+      "path": "npm-toolchain-inventory.json",
+      "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/npm-toolchain-inventory.json",
+      "sha256": "57422b62fb01ddb84b3d55259bc2c929aa0038d28cdc5edf422a2216909168dc"
+    },
+    {
+      "path": "test-selection.json",
+      "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/test-selection.json",
+      "sha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f"
+    },
+    {
+      "path": "lint-population.json",
+      "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/lint-population.json",
+      "sha256": "c4712d1cb6a8793295763dc715f624017d9fa5f18498bf32633a7f30ad8dacb9"
+    },
+    {
+      "path": "release-claims.json",
+      "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/release-claims.json",
+      "sha256": "d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0"
+    },
+    {
+      "path": "configuration-binding.json",
+      "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-06/configuration-binding.json",
+      "sha256": "7714564b9ebcd13d81641be507bb1977ca531c7ce884bdbb7e9a7a9cd5698d0a"
+    }
+  ],
+  "inputReuse": {
+    "sourceUnchanged": 365,
+    "sourceUpdated": 1,
+    "dependencyArchivesReused": 16,
+    "dependencyArchivesCopied": 0
+  },
+  "sourceCut": {
+    "compiledBase": "compiled12 accepted construction",
+    "increment": "operator-stop-03 accepted source 923b510a",
+    "inventorySha256": "65485f9dd0b4eba1b0499c6647f3bc489a0ef5aecd0f5e591ed6530911eb5f36"
+  },
+  "changedProofMember": {
+    "path": "test_env/tests/t287-fh-hold-open.test.mjs",
+    "selectedCommand": false,
+    "meaning": "Updated exact full subject inventory; existing focused external source evidence only. Commands and test selection remain unchanged."
+  },
+  "ownershipControls": {
+    "predecessor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/control-selection.json",
+    "producerContextRepair": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-01/return.md",
+    "producerAcquisitionRepair": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/return.md",
+    "meaning": "Retain accepted owner machinery and scoped evidence; historical control blocker labels are not a fresh current rejection. Complete applicability/sufficiency and final F11 scope remain independent J responsibilities."
+  },
+  "qualificationCredit": "No retained native result is relabeled compiled13; source evidence preserves its stated premises. Independent J owns applicability/sufficiency.",
+  "pending": [
+    "Genuine installedProduct and workspaceBinding",
+    "Exact tenantManifest",
+    "Actual observed source task/input and root C2 execution Result selection",
+    "Actor/executor/independence and authenticated material",
+    "Independent applicability/sufficiency and final F11/AF22"
+  ]
+}

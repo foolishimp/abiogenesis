@@ -30,19 +30,7 @@ import {
   validateWorksitePreparationContractValue, resolveWorksitePreparationJudgmentRelation,
 } from "./worksite_preparation.js";
 import {
-  FAN_OUT_HELLO_IDS,
-  FP_HELLO_IDS,
-  HELLO_WORLD_IDS,
-  RECURSION_HELLO_IDS,
   WORKSITE_C0_IDS,
-  constructBoundedRecursionState,
-  constructFpHelloInstruction,
-  constructHelloWorldInput,
-  isBoundedRecursionState,
-  isFanOutHelloVectorInput,
-  isFpHelloInstruction,
-  isHelloWorldInput,
-  resolveConformanceJudgmentRelation,
   isWorksiteFileReplaceOutput,
   resolveWorksiteC0JudgmentRelation,
 } from "../gtl/index.js";
@@ -76,7 +64,6 @@ import {
   isWorksiteFileReplaceVector,
   resolveWorksiteConstructionJudgmentRelation,
 } from "./worksite_construction.js";
-import { isDeclaredConformanceValue } from "../gtl/hello_world.js";
 import {
   CONSENSUS_IDS,
   bindConsensusReplay,
@@ -127,54 +114,11 @@ function admitInput(
   if (contractRef === WORKSITE_REVISION_IDS.taskContractRef && isWorksiteRevisionCommandExecutionTask(value)) return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
   const preparation = admitWorksitePreparationInput(contractRef, value);
   if (preparation !== null) return preparation;
-  if (contractRef === HELLO_WORLD_IDS.inputContractRef && isHelloWorldInput(value)) {
-    return constructHelloWorldInput(value.subject) as unknown as Readonly<
-      Record<string, JsonValue>
-    >;
-  }
-  if (contractRef === FP_HELLO_IDS.inputContractRef && isFpHelloInstruction(value)) {
-    return constructFpHelloInstruction(
-      value.subject,
-      value.instruction,
-      value.transportLane,
-    ) as unknown as Readonly<Record<string, JsonValue>>;
-  }
   if (
     contractRef === WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef &&
     isC2WorksiteCommandExecutionTask(value)
   ) {
     return deepFreeze(value) as unknown as Readonly<Record<string, JsonValue>>;
-  }
-  if (
-    contractRef === RECURSION_HELLO_IDS.inputContractRef &&
-    isBoundedRecursionState(value) &&
-    value.trace.length === 0 &&
-    value.terminal === (value.remaining === 0)
-  ) {
-    return constructBoundedRecursionState(
-      value.remaining,
-      value.blockedChildRemaining,
-    ) as unknown as Readonly<Record<string, JsonValue>>;
-  }
-  if (
-    contractRef === FAN_OUT_HELLO_IDS.inputVectorRef &&
-    isFanOutHelloVectorInput(value) &&
-    value.members.filter((member) => member.value.block).length <= 1
-  ) {
-    return deepFreeze({
-      kind: "fan_out_hello_vector_input",
-      schemaVersion: "5.0.0",
-      members: value.members.map((member) => ({
-        ordinal: member.ordinal,
-        memberRef: member.memberRef,
-        value: {
-          kind: "fan_out_hello_member_input",
-          schemaVersion: "5.0.0",
-          block: member.value.block,
-          subject: member.value.subject,
-        },
-      })),
-    }) as Readonly<Record<string, JsonValue>>;
   }
   if (
     contractRef === WORKSITE_C0_IDS.inputContractRef &&
@@ -259,7 +203,6 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
       (valueKind === "worksite_command_forward_worker_result" && isWorksiteCommandForwardWorkerResult(value)) ||
       (valueKind === "worksite_preserved_result_artifact" && isWorksitePreservedResultArtifact(value)) ||
       validateWorksitePreparationContractValue(valueKind, value) ||
-      isDeclaredConformanceValue(value, valueKind) ||
       (valueKind === "worksite_file_parents_request" && isWorksiteFileParentsRequest(value)) ||
       (valueKind === "worksite_file_parents_result" && isWorksiteFileParentsSuccess(value)) ||
       (valueKind === "worksite_effect_refusal" && isWorksiteFileParentsFailure(value)) ||
@@ -316,7 +259,6 @@ export const ABI5_PRODUCT_SEMANTICS = Object.freeze({
         nativeProof?.nativeWorkReacquisition !== undefined ? nativeProof.nativeWorkReacquisition()
           : nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix, historicalSource) }) : null) ??
     resolveNativeWorkspaceWorkJudgmentRelation(predicateRef) ?? resolveWorksiteCommandForwardJudgmentRelation(predicateRef) ??
-      resolveConformanceJudgmentRelation(predicateRef) ??
       resolveWorksitePreservedResultJudgmentRelation(predicateRef) ?? resolveWorksiteC0JudgmentRelation(predicateRef) ??
       resolveWorksiteConstructionJudgmentRelation(predicateRef) ??
       resolveWorksiteBranchConstructionJudgmentRelation(predicateRef) ??

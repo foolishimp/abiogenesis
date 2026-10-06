@@ -1,0 +1,32 @@
+{
+  "row": {
+    "case": "mixed-human-boundary",
+    "programRef": "program://developer.example/greeting/mixed-fibres@5",
+    "graphFunctionRef": "graph-function://developer.example/greeting/mixed-fibres@5",
+    "allowlist": [
+      "graph-function://developer.example/greeting/mixed-fibres@5"
+    ],
+    "expected": "human_required",
+    "simulatedFp": "mixed",
+    "variant": {
+      "name": "Grace"
+    },
+    "nativeLimitMs": 300000,
+    "claim": "Actual F_D then controlled F_P then truthful F_H hold/block with fresh readback; no response/resume."
+  },
+  "configDigest": "sha256:514181ac8165f9af4feb5d0275fd0630eef146f88c730535e7619e9e2c7ca1d5",
+  "outerLimitMs": 3600000,
+  "before": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/resources/events/runtime.events.jsonl",
+    "prefixLength": 2305459,
+    "prefixDigest": "sha256:f1a6ff3f2bbd774196bd86ba1bf7e102917a78d196d233a65c021020150f2d48",
+    "storeIdentity": {
+      "device": 16777230,
+      "inode": 458878096,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+    },
+    "coordinateDigest": "sha256:67741e1f2ebad5de9abb2815559bd6b3a0a9be77bce21af387fac5ddb1149aeb"
+  }
+}

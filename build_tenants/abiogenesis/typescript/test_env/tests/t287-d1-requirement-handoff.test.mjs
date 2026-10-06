@@ -441,7 +441,7 @@ test("D1 installed fixed-source obligation handoff remains non-closing", async t
   if (attempt !== "01") await assert.rejects(() => lstat(harnessScratch), { code: "ENOENT" });
   const harness = await setupInstalledCliHarness({ after() {} }, packageRoot, {
     candidateBasisSource: "packed_artifact", scratchPath: harnessScratch,
-    rootPublicationKinds: ["hello_world"],
+    rootPublicationKinds: ["worksite_construction"],
   });
   installedHarness = { ...harness, scratch: join(scratch, `attempt-${attempt}`) };
   await mkdir(installedHarness.scratch, { recursive: true });
@@ -600,7 +600,7 @@ test("D1 installed fixed-source obligation handoff remains non-closing", async t
     const artifactBasis = { productId: abiArtifact.productId, artifactDigest: abiArtifact.artifactDigest,
       productContentDigest: abiArtifact.productContentDigest, productManifestDigest: abiArtifact.manifestDigest,
       packageName: abiArtifact.packageName, packageVersion: abiArtifact.packageVersion };
-    const publications = [gtl.constructHelloWorldModulePublication(artifactBasis), gtl.constructConsensusModulePublication(artifactBasis),
+    const publications = [gtl.constructConsensusModulePublication(artifactBasis),
       gtl.constructWorksiteConstructionModulePublication(artifactBasis), gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
       fixture.nativePublication, consumerPublication];
     const boundSlots = { workspace_binding: bound.ownerOutput.value.binding, product_set: environment.productInstalls.map(product.productInstallCoordinate),
@@ -867,7 +867,7 @@ test("D1 retained catalog continuation reaches admitted handoff and replay", asy
     artifactDigest: consumerIdentity.artifactDigest, productContentDigest: consumerIdentity.productContentDigest,
     productManifestDigest: consumerIdentity.manifestDigest, contributions: consumerData.contributions.map(row =>
       ({ ...row, provenanceRefs: [consumerIdentity.artifactDigest, consumerIdentity.manifestDigest] })) });
-  const publications = [gtl.constructHelloWorldModulePublication(artifactBasis), gtl.constructConsensusModulePublication(artifactBasis),
+  const publications = [gtl.constructConsensusModulePublication(artifactBasis),
     gtl.constructWorksiteConstructionModulePublication(artifactBasis), gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
     gtl.constructRequirementHandoffModulePublication(artifactBasis), consumerPublication];
   const fixed = bindIndependentSource(product, gtl, JSON.parse(await readFile(process.env.ABI5_D1_SOURCE_FIXTURE, "utf8")));

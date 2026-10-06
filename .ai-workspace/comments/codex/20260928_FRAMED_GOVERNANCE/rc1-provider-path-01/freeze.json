@@ -1,0 +1,74 @@
+{
+  "kind": "closed_worker_report_freeze",
+  "activation": "T287_RC1_PROVIDER_PATH_01",
+  "actor": "/root/rc1_provider_path",
+  "status": "CLOSED",
+  "frozenAt": "2026-10-01T14:29:36.095569+00:00",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-provider-path-01",
+  "records": [
+    {
+      "path": "activation.md",
+      "bytes": 2815,
+      "sha256": "499842bbdb3d6fc4958dae5129e3306fe3208e3b8e7db955989fed57a3482332"
+    },
+    {
+      "path": "closure.json",
+      "bytes": 922,
+      "sha256": "f7b5e24c5dd945485252699e09275baecf67dd55c1ef1324c05dd85415a9fb9e"
+    },
+    {
+      "path": "collect-context.py",
+      "bytes": 5893,
+      "sha256": "0b41630270107f76deaa6504bc0f0db22511e028a1ed36df2d037d203d601470"
+    },
+    {
+      "path": "conservation-check.json",
+      "bytes": 1684,
+      "sha256": "04acaca67e598707a4c4d92c99a3fb7e4e542f2659a007573808e64b9b33213d"
+    },
+    {
+      "path": "context-metadata.json",
+      "bytes": 5244,
+      "sha256": "17f225f97f2ca74911a7bedf8a07008e231f3ab3ad653a022065813fb0de4a68"
+    },
+    {
+      "path": "dns-probe.json",
+      "bytes": 1033,
+      "sha256": "d3057fe53266d30f5af4ec0430fa516bf62ecf5db74f084cd94c055c4db4a0eb"
+    },
+    {
+      "path": "https-head-probe.json",
+      "bytes": 772,
+      "sha256": "7f725e6471f7e4fff4ca2992aac4e40347148ecd2b0ade471a271dc659d4ae07"
+    },
+    {
+      "path": "probe-connectivity.py",
+      "bytes": 2367,
+      "sha256": "c9975217e24815402e1013b8f38570fe0f6ba0547b4594d2bad31e098ce2a029"
+    },
+    {
+      "path": "probe-summary.json",
+      "bytes": 229,
+      "sha256": "2a47bf614ef891844cf2e1dc66f44e6f29e0c85f033823b66f9d609fb92f814a"
+    },
+    {
+      "path": "return.md",
+      "bytes": 9700,
+      "sha256": "3a61f50769c93312e00b2820de6ecf16ded7f370c43c41e8d5e91cf2328c31e4"
+    },
+    {
+      "path": "source-refs.json",
+      "bytes": 2203,
+      "sha256": "6f37c0b230a3ef5f1a1fd2c6c9beedc30a303dc4f931758546eea73413fc5db2"
+    },
+    {
+      "path": "version-probe.json",
+      "bytes": 413,
+      "sha256": "d8b3a4decc2580a9378f7c661d99c390030438f7619fd140b9cab7b0735f9c6d"
+    }
+  ],
+  "excludes": [
+    "freeze.json"
+  ],
+  "liveProcesses": 0
+}

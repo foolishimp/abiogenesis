@@ -219,10 +219,10 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
     resultReplay,
     input,
     {
-      predicateRef: gtl.HELLO_WORLD_IDS.judgmentPredicateRef,
+      predicateRef: gtl.LANGUAGE_TEST_IDS.judgmentPredicateRef,
       advanceReasonRef: "reason://abiogenesis/conformance/hello-world-satisfied@5",
       rejectionReasonRef: "reason://abiogenesis/conformance/hello-world-rejected@5",
-      evaluate: gtl.evaluateHelloWorldResult,
+      evaluate: gtl.evaluateLanguageTestResult,
     },
     closureContract.judgmentContractRef,
   );

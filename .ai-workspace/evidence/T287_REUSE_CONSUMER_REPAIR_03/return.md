@@ -1,0 +1,7 @@
+CLOSED — stopped at first later negative oracle; no retry.
+
+Two actual C10 published native catalog/View calls returned result/exit0, retained the eventless selection and original expected View. The fresh View reached canonical component resource acquisition, successor Task establishment and renderer. The selected closure is182entries/20963216encodedB, including4Task materials85591decodedB, complete4653-member inventory and11050145decodedB required provenance records. Same immutable Task-view reuse, request digest and original historical subject/material/residual conservation assertions passed before failure; no current C10 qualification is claimed.
+
+Test131 mutates a declaration proofDigest outside the manifest's selected declarations, so canonical declarations157 correctly refuses qualification_declaration_selection_unbound. The test expected a later preimage_missing_or_crossed diagnostic. This is a negative fixture/oracle mismatch, not a framework guard failure. Root conjoins independent triage before another bounded effect.
+
+The genuine outer close is retained, original2,498,379B prefix/device16777230/inode465155422 unchanged and lock absent. All processes wait4-reaped/group absent. No original actor/Run/provider/producer replay or event append. The outgoing preparation report was scheduled after negatives and not saved; exact outgoing coordinates remain unavailable rather than reconstructed. Historical recovery and remaining later negatives did not execute. Source/test and all partial actual evidence/cost/effects are frozen; Worker stops.

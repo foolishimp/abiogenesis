@@ -1,0 +1,72 @@
+{
+  "reviewer": "/root/current_source_review",
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_06",
+  "disposition": "BLOCKED_CALLER_PRIVATE_API",
+  "proposedBoundedContinuation": "CLOSED_GO_AFTER_CALLER_ONLY_REPAIR_AND_PREFLIGHT",
+  "scope": "Frozen06 first failure and remaining selected main/cold caller cone only; unchanged Source/input/214c package and original05 J assurance reused.",
+  "productFrame": {
+    "product": "Fixed15 ABG5 GOAL-035/T287 F05/F10/F11/F15; owner RC1 candidate requires one genuine installed steel thread and no P0s; P1 owner triage.",
+    "basis": "stdo://releases/v2.5.1-rc.2/",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "revision": 2,
+    "outcome": "Reuse genuine authenticated J and exact original Run through native F11 and four fresh Public reads, preserving original producer/Source/falsification and unresolved coverage.",
+    "splitAndProhibitions": "Thin supplied caller composes published owners. GTL/HoG executes directly; ABG alone admits runtime facts. F11 native owner establishes construction authors and independence under HOW59. No caller-private import, invented consumer basis, added export/schema/controller/store, semantic repair or new model call."
+  },
+  "subject": {
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_06/return.json",
+      "bytes": 10194,
+      "sha256": "0c4af810ee322fb06a5d7fd7f7fbfcb8a1df2fe1df4d08b89e39f63e155c1469"
+    },
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_06/freeze.json",
+      "bytes": 8682,
+      "sha256": "df476b8250d0acb1aee04a014b2169d48f0476fa8ac734f3a7d006161ebf8102"
+    },
+    "caller": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_06/consumer/genuine-pilot.mjs",
+      "bytes": 37541,
+      "sha256": "97b0b45870112c4f216412cf680772798c13c95d454c0331139a49f650955c03"
+    },
+    "selectedCriticalPinsChecked": 7,
+    "pinErrors": 0,
+    "currentLogBytesDigestDeviceInodeUnchanged": true
+  },
+  "firstCause": {
+    "caller": "work/T287_GENUINE_CONTEXT_ASSESSMENT_06/consumer/genuine-pilot.mjs:332",
+    "observed": "TypeError: abg.projectQualificationConstructionAuthors is not a function",
+    "canonicalSourceBarrel": "build_tenants/abiogenesis/typescript/code/src/abg/index.ts:569-571",
+    "installedBarrel": "build/code/src/abg/index.js:46",
+    "relation": "projectQualificationConstructionAuthors exists as an internal native owner function but is absent from the published abg barrel. The thin caller treated owner existence as Public publication. Installed and Source barrels agree; this is not a changed package or transport failure.",
+    "passedBeforeFailure": "Canonical proof shape, original J projection, closed original Run and complete original terminal equality all passed; no F11 preparation/native dispatch occurred."
+  },
+  "supportedRoute": {
+    "law": "Native qualification HOW59 assigns external-construction correspondence and independence to the native assessment consumer.",
+    "actualOwner": "validator/self_conformance.ts:72-80 calls resolveQualificationAssessments with actual owner.nativeBasis; qualification_proof.ts:659-667 authenticates every finite-plan slot, projects actual authors and enforces assessor/author independence.",
+    "publishedResolver": "resolveQualificationAssessments is available in both Source/installed abg barrels. Its consumer argument must be actual native consumer basis; original J.predecessorPrefix predates the J result and must not be replaced by a fabricated later basis.",
+    "selectedSmallestRepair": "Remove caller-only private author call/assert and all authors-dependent log fields at332-337/343. Retain original J/proof/raw attribution checks; let native F11 own author/independence authentication. No replacement author assertion/log without actual native evidence.",
+    "observableExit": "Native F11 must return the source-linked failed 007A finding with provenanceJ and original Result728b8d citation, retain other required coverage blocked, and close its actual Run. Original assessment Run remains its already closed producer."
+  },
+  "remainingCallerChecks": [
+    "Published namespace probe confirms projectQualificationJudgment, projectRunTruthAtDurablePrefix, isAbgTypedTerminalResult, resolveQualificationAssessments, validator.isQualificationProofResource and isSelfConformanceResult are functions; only the private author helper is absent.",
+    "The current makeProof literal has no unsupported executionSelections field and already passed the strict owner guard. main loads accepted frozen input/resource/declaration/continuation, preserves original task/plan/slot/J and creates only new F11 input from actual raw criterion.",
+    "Original Run coordinate is owner-projected, original terminal matches, and descriptors retain original Result/producer/Source. readSlots from actual F11 authority use installId/productContentDigest and lock/binding, matching the actual Public read owner at project_read_definition_bindings.ts657-677; no candidate-coordinate substitution.",
+    "support.invoke at103-107 retains genuine label-handoff.json before later assertions: invoke(f11) therefore supplies the cold reader expected f11-handoff.json. main373 copies actual05 assessment handoff; terminal projectionBasis and that handoff both equal645a1e20179d9a4bb4f674e826f14cbfc236f40b836eee237180294b52b58706 at the original log URI.",
+    "cold uses successor flow read-selection/current closeHandoff, each label original handoff for normalization, and the exact original Run/result/producer descriptors. freshRead463-510 compares whole terminal after changing only projectionBasis and separately verifies current basis, Source, producer, Result, closed replay and unchanged prefix. No current-versus-original handoff conflict identified."
+  ],
+  "priorCheckGap": "05 diagnostic proved the internal owner can authenticate J/authors after the proof-shape correction, but the continuation recommendation did not verify that the author helper was callable through the installed Public barrel. Phase1 and05 reviews missed this later caller/namespace relation; native core proof did not exercise this genuine caller block.",
+  "preflightAndReproof": {
+    "beforeAnyNativeEffects": "New matching successor caller: verify actual used namespace callables, canonical reference proof shape, frozen input/resource/J/run pins and original descriptor/handoff agreement; remove every authors-dependent reference. Preserve prior frozen files and use new output territory.",
+    "actualRequiredProof": "One ordinary native F11 continuation at original physical log, original J reused without model/actor/setup/recovery. Then four separate fresh Public Result/replay reads for original assessment and new F11 Run, full-terminal/Source/producer preservation, independent current read basis checks and zero read events/actors.",
+    "noOtherSelectedBlocker": "No additional material main/cold caller blocker found within this bounded immediate cone; native F11 and fresh reads remain unexecuted."
+  },
+  "residuals": [
+    "Actual F11 attribution/independence acceptance and four fresh reads are pending; no semantic or release acceptance inferred from preflight.",
+    "Model declared-peer falsification remains independent owner semantic triage; existing finite-plan guard and B-outside-plan conservation proof remain unchanged.",
+    "No canonical Source/Public/HOW/interface change required for this supported continuation; no whole-candidate recensus/tests/model calls performed."
+  ],
+  "effects": "Reads/hashes and pure installed namespace imports only; no owner resource open/native runtime/model/Source/Git effects. Sole documentary output is this explicitly granted initially absent file.",
+  "stoppedEditing": true,
+  "RootAloneConjoinsAndGrantsSuccessor": true
+}

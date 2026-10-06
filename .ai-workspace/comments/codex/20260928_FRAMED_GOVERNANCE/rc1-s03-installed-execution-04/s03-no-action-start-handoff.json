@@ -1,0 +1,113 @@
+{
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:407881d7b23f560d53be253b38bedad0598dbd05c88b01f22dca7f196d3f174d",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:26339994e902ccafa5c1f6da9d8df471d77a1a3e144843f7472e5f1558f989df",
+      "prefixLength": 4709556,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464429281
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:6094d537e6fd899f9c151079a5a2e291207ed967a3152f93250937f90d348866",
+      "device": 16777230,
+      "durableByteLength": 4709556,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:26339994e902ccafa5c1f6da9d8df471d77a1a3e144843f7472e5f1558f989df",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+      "inode": 464429281,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "calls": [
+    {
+      "label": "conformance-s03",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/d26057b7c20ba47946972e6afe0ed044d1ebf726d90dc1403bd7e8512cebb6b1",
+      "outcomeKind": "result",
+      "elapsedMs": 13468.35875,
+      "processFailure": null
+    },
+    {
+      "label": "positive-start",
+      "definitionKey": {
+        "operationId": "abg.operation.run.invoke",
+        "memberKey": "start"
+      },
+      "invocationRef": "invocation://abiogenesis/4048dcd23e8758588420e331de820c2b73a964cbee772de8d2869e63bb463edf",
+      "outcomeKind": "result",
+      "elapsedMs": 2302.9288750000014,
+      "processFailure": null
+    },
+    {
+      "label": "positive-run_result",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_result"
+      },
+      "invocationRef": "invocation://abiogenesis/3e58fc4d5cb06f69854d9e42c2b0b3188ec4fb46382d2c0be30ac6f89a52a94e",
+      "outcomeKind": "result",
+      "elapsedMs": 780.3901249999981,
+      "processFailure": null
+    },
+    {
+      "label": "positive-run_replay",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_replay"
+      },
+      "invocationRef": "invocation://abiogenesis/a6f670914fc6ad80c69ad7eb50f6dd4a5c58645f4205186eda9608bcdcef8daf",
+      "outcomeKind": "result",
+      "elapsedMs": 811.6916249999958,
+      "processFailure": null
+    },
+    {
+      "label": "positive-run_status",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_status"
+      },
+      "invocationRef": "invocation://abiogenesis/59c25c41ccdb709005695e7f3c69feb9fd6b61d3215e3e3a5d0b76031e408231",
+      "outcomeKind": "result",
+      "elapsedMs": 780.5610840000008,
+      "processFailure": null
+    },
+    {
+      "label": "positive-run_gaps",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_gaps"
+      },
+      "invocationRef": "invocation://abiogenesis/aefbfb203eb2a9814e015e8504bd6fd2007af4fb83dc9c91cdcc10ee86be3ee1",
+      "outcomeKind": "result",
+      "elapsedMs": 779.158500000005,
+      "processFailure": null
+    },
+    {
+      "label": "no-action-start",
+      "definitionKey": {
+        "operationId": "abg.operation.run.invoke",
+        "memberKey": "start"
+      },
+      "invocationRef": "invocation://abiogenesis/383f78b6ea79089be4682e49e5eb1f6c5c535ec1eb51601d5d1a32111f633795",
+      "outcomeKind": "nonterminal",
+      "elapsedMs": 2073.0073330000014,
+      "processFailure": {
+        "pid": 1594,
+        "code": 3,
+        "signal": null,
+        "timedOut": false,
+        "spawnError": null
+      }
+    }
+  ]
+}

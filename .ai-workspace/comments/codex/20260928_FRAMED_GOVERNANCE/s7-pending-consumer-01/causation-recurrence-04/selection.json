@@ -1,0 +1,36 @@
+{
+  "productionBuild": "unchanged causation-recurrence-01",
+  "source": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/final-events.json",
+    "sha256": "4e96fd895487a6b9e581467e6cad6ad60415a15dd411e9fbc68e39eb18e8a6a8",
+    "ordinals": [
+      4,
+      5,
+      7,
+      8,
+      9,
+      10,
+      64,
+      66
+    ],
+    "routeSelection": "Exact construction_intent_selected causation reference to traversal_route_admitted; ordinal retained as observation only.",
+    "program": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/attempt-07/continue-call.json",
+      "sha256": "5c83dcf7daded0f8af1cc53ad7e070faa6b83d2d26f9604090b206c56b3ebf4c",
+      "jsonPointer": "/resources/catalog/readinessBasis/publications/0/programs/0",
+      "programRef": "program://exact-intent/root@5",
+      "programDigest": "sha256:4ffb7e108cbac3556b831916e3ad896bd821123139646e2c1458b024b2f8949d",
+      "authoredProgramArchive": {
+        "archiveSha256": "1228b7548c2a525b38d60e7eaf31b7382ad8fffe524d2d8294b9eae4bffd55d8",
+        "member": "package/build/publication.json",
+        "memberSha256": "5cd63fa1cf4542deb2ef5e17f69eff0863732215c3d50bf6116de0c6551c4c96",
+        "programRef": "program://exact-intent/root@5",
+        "programDigest": "sha256:4ffb7e108cbac3556b831916e3ad896bd821123139646e2c1458b024b2f8949d"
+      },
+      "difference": "Prepared publication callableMembership order; authored archive is not the admitted Program representation."
+    }
+  },
+  "fixtureSha256": "2073873155c8ae6667ddba17af1e36fa76c3d540c74910b7893795184c4e8bf2",
+  "testSha256": "f60b26158de3aba346872718b5b84ea912b40df1a58de6463f4143bc9d9d3fbd",
+  "proofLimit": "controlled event-owner boundary; not installed/HoG"
+}

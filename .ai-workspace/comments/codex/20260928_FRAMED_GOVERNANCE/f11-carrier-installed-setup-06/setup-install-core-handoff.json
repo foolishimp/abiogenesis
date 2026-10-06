@@ -1,0 +1,96 @@
+{
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:3a8169e8b72333f70ede081eb8ece3305bcb6ba051d6fafc1b17525e4287164f",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:04b60988c0d1fdeb3957a7ec4c60ace7555f9a29f55eae7d79f6f9f4b8f3845e",
+      "prefixLength": 2482226,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464698960
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:57e7f6c741644eddbd5306857581c7bd64d7840651209970950aeb3e95fb2274",
+      "device": 16777230,
+      "durableByteLength": 2482226,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:04b60988c0d1fdeb3957a7ec4c60ace7555f9a29f55eae7d79f6f9f4b8f3845e",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+      "inode": 464698960,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "calls": [
+    {
+      "label": "workspace",
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.create",
+        "memberKey": "clean"
+      },
+      "invocationRef": "invocation://abiogenesis/dbd9aa5d9d64bddba57803802989d57e69b040d3ec0c53eb3cb8bf3a94261f38",
+      "outcomeKind": "result",
+      "elapsedMs": 11388.507875,
+      "processFailure": null
+    },
+    {
+      "label": "verify-core",
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "invocationRef": "invocation://abiogenesis/1677247d4f85b4c03dc4e14d8dbc0d59fb303575b92a0679b616a403acf1fa0d",
+      "outcomeKind": "result",
+      "elapsedMs": 22232.627084000003,
+      "processFailure": null
+    },
+    {
+      "label": "verify-fixture",
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "invocationRef": "invocation://abiogenesis/87a1f5e03a650b0f75a37e6ce2fb65c2563061f07bc96efb6e69990f838dd4fd",
+      "outcomeKind": "result",
+      "elapsedMs": 11773.285292,
+      "processFailure": null
+    },
+    {
+      "label": "resolve-singleton",
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "invocationRef": "invocation://abiogenesis/b05eb64e86a8c1acce463fdb85c15968a165c22af87cde11e9879ccf5d293a53",
+      "outcomeKind": "result",
+      "elapsedMs": 14760.034332999996,
+      "processFailure": null
+    },
+    {
+      "label": "resolve-mixed",
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "invocationRef": "invocation://abiogenesis/fbfc192997670b63f7b3b2ef3deef28b62117c446a7d791d49c53cb0f2b4bda6",
+      "outcomeKind": "result",
+      "elapsedMs": 15058.345874999999,
+      "processFailure": null
+    },
+    {
+      "label": "install-core",
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "invocationRef": "invocation://abiogenesis/a2f1625a2f090beb1678bcb7692ed9c92c88fd6ddcccc55d4e4c7008fe0f6ac3",
+      "outcomeKind": "result",
+      "elapsedMs": 25626.472624999995,
+      "processFailure": null
+    }
+  ]
+}

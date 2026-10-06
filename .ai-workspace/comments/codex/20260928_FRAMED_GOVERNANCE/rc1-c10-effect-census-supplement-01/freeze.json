@@ -1,0 +1,134 @@
+{
+  "status": "CLOSED",
+  "workResult": "COMPLETE_C10_EFFECT_CENSUS_ONLY",
+  "operation": "T287_C10_EFFECT_CENSUS_SUPPLEMENT_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Worker",
+  "originalC10Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-freeze.json",
+    "mode": 420,
+    "kind": "file",
+    "bytes": 386759,
+    "sha256": "24cd23e713c0adac12f0fe62b2fda751ee6648936bd180439e63e65e609a8be3"
+  },
+  "records": [
+    {
+      "path": "activation.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 1488,
+      "sha256": "1f8c6a574b7cf0121a520bf3269a26ed698a84c6ba360c1f1ce47e38ed15f2b3"
+    },
+    {
+      "path": "actual-c10-directory-census.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 246930,
+      "sha256": "174777afa3f2d47a7a528212d7ba43fa9bd4790a1fd3c0eba1c547e99f9bec5a"
+    },
+    {
+      "path": "actual-c10-file-link-census.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 4238651,
+      "sha256": "e58b00899f9d92db9e9ce8b935f2af6fef78dea6d3e745a8626b4f6cc08d151f"
+    },
+    {
+      "path": "census.py",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 11767,
+      "sha256": "50746a212fb7b958f0613a4042856072d3fe5a35b7beb6fe2df1c7e5ff26320f"
+    },
+    {
+      "path": "closure.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 485,
+      "sha256": "27bd2dbd7123a914cc6e5247362fe94b8073db4e7d7f5011ca740b24ac7493c5"
+    },
+    {
+      "path": "costs.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 291,
+      "sha256": "871f0409ad6b1ba4db4b91e075cef5474632606fc79de3d5a7cfff5a03faeead"
+    },
+    {
+      "path": "coverage-reconciliation.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 3201755,
+      "sha256": "79e9ae920882f10f6251cb8799ca62aab50e3d2aac0fec249ed11fc93d6a77ff"
+    },
+    {
+      "path": "final-npm-prefix-population.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 107,
+      "sha256": "c413f34200fd16fbfe2c9518a647bb446e61d2813f84eb69d1a108c0b25ee8a8"
+    },
+    {
+      "path": "final-tmp-population.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 142688,
+      "sha256": "f04e6d5821c60282826ebf141f9fac43ed34ea7f3e6dddd86b47f253dd465ca6"
+    },
+    {
+      "path": "process-closure.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 1533,
+      "sha256": "0c4fa6d5492cb438ac6afb4d7d676763b5ae5aef832196b67a1d3ab11882421b"
+    },
+    {
+      "path": "return.md",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 787,
+      "sha256": "3c6ec216f17e82d516b56c248c40e755a4a4c1b96f17812979a4b6102d2fa7a2"
+    },
+    {
+      "path": "scratch-rows.compact.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 104356,
+      "sha256": "a21f122a8f07edf78617424a0594eb3868ef187543313d06f48888d46460eb8c"
+    },
+    {
+      "path": "subject-and-producer-pins.json",
+      "mode": 420,
+      "kind": "file",
+      "bytes": 4205,
+      "sha256": "571b100f2dab1ce843a97d41c1a26a962d320011cdf2af3ae81bb8db77826bdb"
+    }
+  ],
+  "recordCount": 13,
+  "regularBytes": 7955043,
+  "directories": [],
+  "directoryCount": 0,
+  "rootMode": 493,
+  "completeC10Census": "actual-c10-file-link-census.json",
+  "completeC10Directories": "actual-c10-directory-census.json",
+  "reconciliation": "coverage-reconciliation.json",
+  "subjectAndProducerPins": "subject-and-producer-pins.json",
+  "effects": {
+    "C10Writes": 0,
+    "payloadCommands": 0,
+    "externalSupplement": 1
+  },
+  "costs": {
+    "elapsedReadAndReportMs": 4416.802582796663,
+    "actualPhysicalRecordsReadPerCompleteCensus": 16362,
+    "completeCensuses": 2,
+    "regularBytesPerCompleteCensus": 538415091,
+    "payloadCommands": 0,
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "C10Writes": 0,
+    "unknownCacheTimingInfluence": true
+  },
+  "excludedSelf": "freeze.json only; externally hashable by Root",
+  "writesAfterFreeze": "STOPPED",
+  "semanticQualificationOrRelease": false
+}

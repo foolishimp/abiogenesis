@@ -1,0 +1,8 @@
+{
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/resources/events/runtime.events.jsonl",
+  "neverAppend": [
+    "old execution01/02",
+    "N03/N04/S02/Hello",
+    "sibling S03"
+  ]
+}

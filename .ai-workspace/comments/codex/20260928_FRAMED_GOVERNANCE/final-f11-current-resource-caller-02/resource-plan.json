@@ -1,0 +1,72 @@
+{
+  "status": "offline_successor_preparation_no_native_grant",
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+  "initialCloseHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:bf357bac4ba5677870972d63726db8e1ab50fd349b48d87ad8e4768201bb80ce",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c",
+      "prefixLength": 73530699,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464012478
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:9ddd349aa0ff342576ba5e35f4ef6bb607ff1be13ad3077e04631b7072779e4b",
+      "device": 16777230,
+      "durableByteLength": 73530699,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "inode": 464012478,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "storeIdentity": {
+    "device": 16777230,
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "inode": 464012478
+  },
+  "originalLockNamespace": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp",
+  "lockDirectory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5",
+  "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/archives",
+  "workspaceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/worksite",
+  "rootActorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+  "ownedReports": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02",
+  "writeOriginalWorksite": false,
+  "restartHello": false,
+  "C2Calls": 0,
+  "nativeCalls": [
+    "assessment-view",
+    "conformance-assess",
+    "assess-rule",
+    "assess-rule-run_result",
+    "assess-rule-run_replay"
+  ],
+  "activationGuard": "Later exact Root grant, this CLOSED caller freeze, unchanged bound freeze and actual136 handoff; provider-access prerequisite must be satisfied. No execution during preparation.",
+  "proof": "Only after actual admitted J; its slot/task/Program/invocation/Result select the native producer",
+  "frozenCallerRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02",
+  "frozenBindingRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01",
+  "executionArgv": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/observe-process.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02/driver-process.json",
+    "node",
+    "--max-old-space-size=4096",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/driver.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02"
+  ],
+  "contextWrites": "No assessment worksite/context writes declared; closed_prompt_proof has no tools. Native Claude executable runs with original inherited HOME/auth context; any transport-maintained user state is not falsely described as event-only.",
+  "actorCwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03",
+  "originalPrefixEvents": 136,
+  "initialHandoffRecord": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/final-handoff.json",
+    "bytes": 1330,
+    "sha256": "b0cbc1aa5fb746cb2892fd889d03077c01c7fd99dc108900cd35874a256f1a2a"
+  }
+}

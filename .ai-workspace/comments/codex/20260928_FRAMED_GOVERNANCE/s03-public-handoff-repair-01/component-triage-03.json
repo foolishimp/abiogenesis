@@ -1,0 +1,10 @@
+{
+  "failure": "Pure proof evidence serialization used undefined coordinate shorthand after the first source counterexample had already refused",
+  "frames": {
+    "ProductOwner": "Actual negative strict result and positive absence passed; no runtime owner failure",
+    "Integration": "Runner constructed candidate variable but recorded coordinate shorthand",
+    "ProofEffect": "Driver ReferenceError before compatibility proof; no native resource calls; preserve failure and driver preimage"
+  },
+  "repair": "Record coordinate:candidate in proof driver only",
+  "reproof": "Complete finite proof script"
+}

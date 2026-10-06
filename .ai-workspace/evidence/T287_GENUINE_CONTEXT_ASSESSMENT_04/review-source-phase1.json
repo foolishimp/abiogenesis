@@ -1,0 +1,71 @@
+{
+  "reviewer": "/root/current_source_review",
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_04",
+  "phase": "phase1_preparation_only",
+  "disposition": "CLOSED_GO",
+  "scope": "Independent Source/Proof input review for Root release of one native Phase2 attempt; no semantic judgment or release acceptance.",
+  "productFrame": {
+    "product": "Fixed fifteen-family ABG5; GOAL-035/T287; selected F05/F10/F11/F15 preparation, attribution and conservation slice.",
+    "outcome": "Independent assessment of published REQ-P-SELF-CONFORMANCE-007A over the exact current qualification_proof.ts and qualification.ts, preserving original construction and qualification authority.",
+    "basis": "stdo://releases/v2.5.1-rc.2/",
+    "basisManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "referenceFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "frameRevision": 2,
+    "authoritySplit": "Source construction records are immutable supplied evidence. Canonical Public m05 prepares; GTL/HoG directly executes; ABG alone authenticates and admits runtime facts. J judges sufficiency/attribution; F11 conserves its bounded judgment; AF22 and release remain separate.",
+    "prohibitions": "No new schema, role, controller, program compiler, store, private event writer, historical native authorship or assumed semantic sufficiency.",
+    "sourceRoutes": [
+      "specification/PRODUCT.md:59",
+      "specification/PRODUCT.md:701",
+      "specification/GOALS.md:18",
+      "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md:143",
+      "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md:49",
+      "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md:59"
+    ]
+  },
+  "frozenSubject": {
+    "grant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/grant.md",
+      "bytes": 9251,
+      "sha256": "2740da3e83f1318613e9aae1f6db915202112a52c16f8ed012aa97e018db5c24"
+    },
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase1-return.json",
+      "bytes": 25549,
+      "sha256": "877b0d60f5caf4a8f11e643229efbb344ef817ffe00d7e04eb8f6f8ff39bbba9"
+    },
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase1-freeze.json",
+      "bytes": 20955,
+      "sha256": "e12887ab7a813c1a905d9b21db69a5c6d8cff432616aadd83ede27cfa9983cfa"
+    },
+    "archiveSha256": "214c576620c5f552cbf22a82f8f318638903013ca23ff49e42496b2d190a47f6",
+    "selectedPinsChecked": 59,
+    "pinErrors": 0,
+    "acceptedPackageAndControlledConservation": "Unchanged accepted Source/component/package and T287_CONTEXT_CONSERVATION_02 proof reused; no retests or recensus."
+  },
+  "criticalChecks": [
+    "Task, one-slot plan, resource manifest, provenance selection, resolved record set, input, request and prompt digests independently agree. All 128 material entries retain canonical bytes/count/digest; 127 physical/package bodies agree with their owners.",
+    "Both actual deltas independently reconstruct their selected current postimages. Original unchanged two-file activation/closure/delta is projected only to current proof.ts; the actual qualifier-only successor uses its non-null 8f929 preimage and current 0ee4 postimage. Selected union equals the two current assessed Source members.",
+    "Actual author remains actor://codex/root/public_preparation_worker in both original chains. Historical file-grant authority and full historical scope are retained. Current policy-authority correspondence is explicit in grant04 and remains an independent attribution obligation under native HOW59; acknowledgmentSelectionRef is null.",
+    "Old qualifier 8f929 is supplied at the actual immutable physical preimage URI. Only current 0ee4 is supplied at the canonical current qualifier URI. Original manifests remain historical quoted records.",
+    "Published 007A full requirement source and exact4093-4568 source span agree. Canonical rule role, both authority source bindings, criterion and exact current Source/context are supplied. All35 selected bodies are present as JSON-quoted Source data; both complete current Source bodies occur once. Four small activation/closure bodies also appear in their explicitly selected exact attribution spans.",
+    "Canonical request retains assessor-primary, assessment binding/renderer/materialization/input/result contracts and closed_prompt_proof. Assessor differs from actual authors. No raw judgment, acknowledgment, desired satisfaction or replacement authorship is supplied.",
+    "Frozen caller prepare mode alone constructs instances and returns before dispatch. Flow loads frozen assessment-input/resource/declaration/request/continuation files, checks canonical owner-prepared request equality, and does not reconstruct instances. Native preparation subsequently checks prompt agreement; existing admission/currentness/authentication/author-independence guards remain unchanged.",
+    "Future flow saves actual raw/terminal before requiring independently grounded attribution and resolved applicability/context. Falsified judgment is permitted and maps to failed F11. Indeterminate or attribution uncertainty stops with sufficiency open; whole-candidate obligations remain blocked.",
+    "Retained Phase1 process exits0 within cap, reaped/group absent; mode and static route establish no native dispatch/CLI/provider effects. Runtime prefix and controlled package/conservation assurance remain unchanged within the selected frozen evidence."
+  ],
+  "materialBlockers": [],
+  "phase2Prerequisites": [
+    "Root must accept this frozen subject and issue the explicit Phase2 follow-up before dispatch.",
+    "Use a distinct Phase2 output root and ABI5_GENUINE_INPUT_ROOT selecting the accepted Phase1 root; preserve all frozen input/request/caller and Phase1 observations.",
+    "One native attempt only with existing declared transport configuration and actual owner effects; stop on first material refusal."
+  ],
+  "residuals": [
+    "Semantic applicability, context sufficiency and authority/identity attribution warrant require the actual independent J; preparation and hashes establish none of them.",
+    "CLI total context/effective model/native execution/J-to-F11/four fresh reads remain unproven for this genuine attempt. The740737-byte canonical prompt is not a transport-acceptance claim.",
+    "Whole-candidate qualification, parent-path evidence, seven defects, QUAL056, AF22 release verdict, RC publication/installed qualification and owner acceptance remain open."
+  ],
+  "reviewEffects": "Static reads/hashes/patch reconstruction only; no tests, builds, runtime/resource APIs, model/provider calls, Source or frozen-input changes. Sole documentary output explicitly granted by Root at this path.",
+  "stoppedEditing": true,
+  "RootAloneConjoinsAndAccepts": true
+}

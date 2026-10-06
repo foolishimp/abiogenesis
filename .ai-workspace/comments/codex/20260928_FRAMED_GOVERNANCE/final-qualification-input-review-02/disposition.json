@@ -1,0 +1,22 @@
+{
+  "verdict": "LIMITED",
+  "candidateCounterexamplesEstablished": 0,
+  "supportedClaims": [
+    "native canonical-manifest toolchain preview",
+    "null native slots and false readiness",
+    "all716 selected input bodies and protected targets",
+    "complete925 expected outputs",
+    "eight unchanged command/selection controls",
+    "declared existing-root and actual same-root observation relation"
+  ],
+  "unverifiedClaims": [
+    "complete qualification classification-evidence and19 external-member rebind",
+    "independent recipe/inventory schemas and acyclic identity join",
+    "independent full11 constructors and semantic digest correspondence"
+  ],
+  "failureOwner": "Reviewer harness assumptions; no demonstrated Q02 defect",
+  "processGroupsUsed": 3,
+  "candidateRepairAuthorized": false,
+  "nextDispositionOwner": "/root",
+  "nativeEffects": 0
+}

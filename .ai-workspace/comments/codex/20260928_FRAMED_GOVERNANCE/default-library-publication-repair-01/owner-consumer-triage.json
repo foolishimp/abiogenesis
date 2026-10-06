@@ -1,0 +1,35 @@
+{
+  "reentry": "realization_refactor",
+  "upstreamMeaning": "GRAPHFUNCTION-016/017/018 cumulative available typed bindings, -025 ordinary validator-accepted template; accepted default-library ordinary wrappers and state-preserving foldback. No meaning/authority/occurrence change.",
+  "originalViolatedRelation": "wrapper() emitted state once as inherited binding and once as fold output in one carries membership list; strict publication validator refuses all six wrappers.",
+  "downstreamSymptom": "CLOSED N2 native catalog malformed_contribution /contributionManifests, zero append; that immutable failure remains unchanged.",
+  "ownerAndCone": {
+    "producer": "gtl/default_library.ts wrapper() shared by induction/specification/design/construction/testing/uat",
+    "staticOwner": "validator rawAdmitValue/validatePublication unchanged",
+    "consumer": "CatalogOperationPort statically validates every publication before readiness; root-installed-environment now invokes same raw/static owners across complete array before its lower catalog readiness call.",
+    "proof": "default-library source validation helper now validates publication population before Program validation; exact tests preserve valid construction and exercise duplicate and non-selected-invalid branches."
+  },
+  "crossFrameFindings": {
+    "ProductRequirement": "carries represents binding availability; repeating identical contract ref does not mean separate state occurrence. Required/provided/newly available bindings retained.",
+    "Design": "ordinary wrapper topology, purpose, child, contracts/effects/programs/foldback unchanged; no design cycle or new shared runtime mechanism.",
+    "Integration": "producer output, strict static owner, Program proof and entire helper population are now joined; selected-Program checks and setup operations remain in place.",
+    "IdentityLifecycle": "constructed component values use historical constructor parameters only for comparison. Changed default-library semantic digest is not reclassified as current C Product. Root must explicitly select any successor identities.",
+    "OwnerEffect": "Worker owns exact three source changes and isolated component/test copies; native ABG resource identity and authorship are not minted. No public/native call or resource access.",
+    "Proof": "Original installed constructor matches N2 failed bytes and returns six diagnostics; corrected eleven members all statically valid; only repeated carries change; bad selected/non-selected publications still rejected. Three named pure tests and isolated typecheck pass."
+  },
+  "alternatives": {
+    "validatorRelaxation": "Rejected: existing valid source can satisfy cumulative binding meaning and unchanged strict owner; red counterexamples still rejected.",
+    "dropFull11MemberOrFilterCaller": "Rejected: would conceal invalid published content and violate complete population relation.",
+    "broadRuntimeOrCatalogRepair": "Not supported: current owner refusal was lawful and precise.",
+    "upstreamDesignChange": "No unresolved structural/authority decision exposed by bounded repair."
+  },
+  "escapeAndRecurrence": "Prior source test called validateProgram but omitted static publication validity; prior root-installed helper validated only selected publication then lower readiness across all. N1/N2 authenticated content and caller joins but did not exercise this full consumer until N2. Corrected helper/source proof binds complete population; source/package correspondence alone remains insufficient.",
+  "additionalCheckFailure": "Initial named test command omitted existing VM flag and failed module import before any test body. Preserved transcript; corrected only runner command, retained compile results and three exact pure names. No source/semantic widening.",
+  "residuals": [
+    "No ordinary installed Public catalog proof for changed source",
+    "No full11 Program closure claim beyond selected default Program test",
+    "No successor build/install/publication/qualification/release",
+    "No Hello, C2, provider, F11 or native suite invocation"
+  ],
+  "requiredNextProof": "After independent source/component review, Root selects any successor freeze/build/install and changed source/claim/toolchain/catalog/lock/WB attribution joins. Then separately granted full ordinary installed continuation/qualification at that exact subject. Preserve original C and all prior native prefixes."
+}

@@ -1,0 +1,23 @@
+{
+  "kind": "executive_bounded_disposition_report_freeze",
+  "writerActivation": "T287_RC1_CLOSED_RETURN_DISPOSITION_AND_S02_CONTROLS_02",
+  "status": "CLOSED",
+  "records": [
+    {
+      "path": "closed-return-verification.json",
+      "bytes": 1138,
+      "sha256": "82815617570d14268d16cf9368181d05af2af7a63c66ec964b211811d76ecc97"
+    },
+    {
+      "path": "permission-timeline.json",
+      "bytes": 1917,
+      "sha256": "c1d18bbadc32d7b0f95232cbb0b64495b04bf8f87e74786a275dd0625893941f"
+    },
+    {
+      "path": "return.md",
+      "bytes": 5522,
+      "sha256": "d573b3f98eabb1f8268477cb619b2505f408091ba622b25032d8427123d2cf81"
+    }
+  ],
+  "qualificationVerdict": null
+}

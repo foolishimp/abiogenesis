@@ -1,0 +1,42 @@
+{
+  "activation": "T287_SANDBOX_UAT_HARNESS_01",
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 10997,
+      "sha256": "9be6214f72cb8665c925763e1d4ae6393b85abcd6f2a52c698236e983feab46a"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/sandbox-uat.mjs",
+      "exists": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "exists": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "exists": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "exists": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "exists": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "exists": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/README.md",
+      "exists": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "exists": false
+    }
+  ]
+}

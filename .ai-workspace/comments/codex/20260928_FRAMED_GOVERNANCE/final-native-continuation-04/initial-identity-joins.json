@@ -1,0 +1,32 @@
+[
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-controls-04/request.txt",
+    "bytes": 8540,
+    "sha256": "2755f3746b50abe623dafe64c5273b854316a552a4a75e44c9dd6c5f557add7c"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+    "bytes": 4543994,
+    "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/freeze.json",
+    "bytes": 1734377,
+    "sha256": "1d80caa472ee5f53ea431bb8d53262d48974a516510ae132355c8eaa4303e135"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/return.md",
+    "bytes": 11043,
+    "sha256": "cf8aab97b1ce9226ca9e6f7970e210f6089be867ca670ec23fe88f959df6c282"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/final-handoff.json",
+    "bytes": 1328,
+    "sha256": "564fe85074d7146bd1f7a9ea834825b74beb005c0c51c3e9892c7c526e5d155c"
+  },
+  {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-session-correspondence-03/s03_phase_b-session-metadata.json",
+    "bytes": 976,
+    "sha256": "a3fe90748fdcb5c9629c68e55ef8367b268cc1ef7685d4413f785b0edc8c54de"
+  }
+]

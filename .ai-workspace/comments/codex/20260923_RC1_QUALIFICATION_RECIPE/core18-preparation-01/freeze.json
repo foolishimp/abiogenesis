@@ -1,0 +1,178 @@
+{
+  "kind": "finite_core18_qualification_preparation",
+  "status": "CLOSED_PREPARATION_NATIVE_UNBOUND",
+  "subjectDigest": "sha256:04bfdbd104a2fa1f53466daecd2af69c5b240496cfff0027ac821582d306e19b",
+  "subjectDigestFormula": "SHA256 of compact Python JSON of members, sort_keys=True, separators=(comma,colon)",
+  "members": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/activation.md",
+      "sha256": "cad8226ae9ad6727f19aa8b9ee6d8729d07ef183748a8e7c614992b1f7280179",
+      "bytes": 1186
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/artifact-identity-check.json",
+      "sha256": "bbc2963b323100263d267120ce8ed43dd4e45d2439b179781a7b20444791a1e8",
+      "bytes": 2755
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/basis-template.json",
+      "sha256": "5ca4053e661edbefbd99b42a774754e8455ae3216977cd4a7df3eaceecd644b3",
+      "bytes": 2942
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/candidate-selection.json",
+      "sha256": "09f46689ab5ee12946f5da4b23c2b0981b16243bbd4db6d67b15cd6128134e90",
+      "bytes": 5731
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/checks.json",
+      "sha256": "5f475a7c1960ada6ae5ded834f86a60aefafa2429bb713ef672dd954f3feb15b",
+      "bytes": 941
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/command-domains.json",
+      "sha256": "a8bfe43781b096adfdc85b6a2d3992c62b235b46067a9148c2dee3fb2d342c95",
+      "bytes": 19023
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/compare-generated.mjs",
+      "sha256": "5853d79e35d8be6347caa7f21576450bcc611e23f23cebbe85da4c767426a945",
+      "bytes": 1988
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/config.json",
+      "sha256": "68f66f1cc2e9fac75061d7200e9e262a52d34aa86a0f76d8bcb28dd002fcca13",
+      "bytes": 20048
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/configuration-binding.json",
+      "sha256": "7714564b9ebcd13d81641be507bb1977ca531c7ce884bdbb7e9a7a9cd5698d0a",
+      "bytes": 47747
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/coverage-domain.json",
+      "sha256": "3db07e51978c9d3ae02c34bc016f8f08a726357030c03bdf92e81de5edee8451",
+      "bytes": 10541
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/execution-request.md",
+      "sha256": "f981e2c9bbd1c62dafb370944121d0d934d6f2e70d7147fbb2fd8a959855823f",
+      "bytes": 4468
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/expected-output-inventory.json",
+      "sha256": "7fc4264e54fa646ae2c800bd549793355fceeb9b0297e187b3985bac388b31de",
+      "bytes": 165472
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/final-checks.json",
+      "sha256": "c70f80e0c30858a323d061f06e8b1e12316c00284a5290c9f729a87327861bff",
+      "bytes": 249
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/input-manifest.json",
+      "sha256": "1643159a4e60c9c49ec02d3663306dbeda06ba5c4f13887ba8a20e1505714d37",
+      "bytes": 226129
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/inventory-delta.json",
+      "sha256": "e668b763b31b77ccdb86c64e30f3fb87f1c6cba2342f74159ce83140fc22f486",
+      "bytes": 22428
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/lint-population.json",
+      "sha256": "c4712d1cb6a8793295763dc715f624017d9fa5f18498bf32633a7f30ad8dacb9",
+      "bytes": 2240
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/native-bindings.json",
+      "sha256": "37d077718d9fcf1f01c128f09f21b0fd90815abd4b16ddd4c0783ec2a6bcd386",
+      "bytes": 6683
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/npm-toolchain-inventory.json",
+      "sha256": "57422b62fb01ddb84b3d55259bc2c929aa0038d28cdc5edf422a2216909168dc",
+      "bytes": 414341
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/preparation.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/preparation.stdout",
+      "sha256": "2f007e4937db423ec4f263435de8a305d1184667c3949417b385b95d543806d3",
+      "bytes": 832
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/prepare.mjs",
+      "sha256": "2197ea976f2851ffbad0093f4f04d394381524dd26286668ae35daf8048b39fc",
+      "bytes": 15215
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/qualification-inventory.json",
+      "sha256": "cd9f158b153ace172190d89a2ecf0e6255cb10d91d659c78b9b8cf947c9cf40f",
+      "bytes": 927896
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/recipe-stage.mjs",
+      "sha256": "de17486b1af297a006a7667bfc12f00add60134b3144e9be523d7fee8c50d075",
+      "bytes": 1449
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/recipe.mjs",
+      "sha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68",
+      "bytes": 3442
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/release-claims.json",
+      "sha256": "d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0",
+      "bytes": 2228
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/return.md",
+      "sha256": "e3c0ea32d74c5c3bf3331489447ebb5f8a12df3bac4a768490f5cf1201dbb350",
+      "bytes": 5755
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/reuse-selection.json",
+      "sha256": "5129ff3f254d0efded8612e0667e2f79c849c3c4446831bf7c0c67b58a67900a",
+      "bytes": 4633
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/source-input-delta.json",
+      "sha256": "c7ba55274d324799df77f4ab579f87399b313527c1f710bf9724e8f3e0bcc5f3",
+      "bytes": 11338
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/source-inventory.json",
+      "sha256": "08870a07abebfa067cb91da41fdd8305a3ebaed7d4db737c7ba82d7b8d532697",
+      "bytes": 299283
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/test-environment.mjs",
+      "sha256": "93913ad5f1574d7d38c7b2435e2e7d9b5c3e492518adb616ece83485c7d65208",
+      "bytes": 533
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/test-selection.json",
+      "sha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f",
+      "bytes": 8553
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/toolchain.json",
+      "sha256": "280717ffa7a67ee694613b1c6fcb52b73e72c0b80309d7fe1ba0cd55f156f64e",
+      "bytes": 1571
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/verification-recipe.json",
+      "sha256": "13a09f9c1500cc443c885edcfe52026ad2640ac31e3098cdd5c9c9b2ba65df5f",
+      "bytes": 86324
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/core18-preparation-01/verification-selection-binding.json",
+      "sha256": "d31858c90b92054d542354d7f74b7766008e846ac6c5668245334b3525212fee",
+      "bytes": 115698
+    }
+  ]
+}

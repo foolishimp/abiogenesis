@@ -1,0 +1,192 @@
+{
+  "operation": "T287_PUBLIC_PREPARATION_PROOF_REPAIR_01",
+  "actor": "/root/public_preparation_worker",
+  "role": "Worker",
+  "status": "CLOSED",
+  "disposition": "SOURCE_PACKAGED_COMPONENT_READY_PENDING_INDEPENDENT_ASSURANCE",
+  "productFrame": "Fixed15-family ABI5, GOAL035/T287 F05/F11/F15; deterministic supplied-input preparation through existing immutable owners and derived Public publication. The bounded proof repair creates no Runtime or qualification authority.",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/grant.md",
+    "bytes": 5046,
+    "sha256": "d50446db0b197450d7b992b474fd0cf121bb7c4d54620310235c6788664c57fd"
+  },
+  "overallPlan": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/plan.md",
+    "bytes": 8167,
+    "sha256": "42c23821fae6135bf65142cc9e1eb02575d036bd5860592cf510cfb70e24baa7"
+  },
+  "sourceChanges": 1,
+  "sourcePostimage": {
+    "current": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-public-preparation.test.mjs",
+      "bytes": 17964,
+      "sha256": "f5c7d405c0a7b5e4bfdeef2a8d0898a7e2ba6bef8878f51be9406ed5d70c27e5"
+    },
+    "retained": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/Source/test_env/tests/t287-public-preparation.test.mjs",
+      "bytes": 17964,
+      "sha256": "f5c7d405c0a7b5e4bfdeef2a8d0898a7e2ba6bef8878f51be9406ed5d70c27e5"
+    },
+    "preimageSHA256": "558d4e4319885d8e6d431bb260f947e96fc8770b00571eb4efcb187399a25920"
+  },
+  "preservedM05": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/qualification/m05.ts",
+    "bytes": 697,
+    "sha256": "5609a3ca5ea8893ea66ea4330d358042bcf3c30940d26fc483b32a068ce6961e"
+  },
+  "preservedCanonicalOwners": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "bytes": 63360,
+      "sha256": "b8bb644121845e25567280642b6474d5a32d452119af5ad1812b02360c1249b6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification_resources.ts",
+      "bytes": 22081,
+      "sha256": "b112e11b12813818e5d0b89283bc4ce0eb420bc0eec9ce51cf2a0ecd8cf6e2ea"
+    }
+  ],
+  "stoppedCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_PUBLIC_PREPARATION_BRIDGE_01/freeze.json",
+    "bytes": 10137,
+    "sha256": "073882cde4c3d6acbb9dce7bd9cb2c983f7278e751d791fc0eae3277f86aa96b"
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10661096,
+    "sha256": "c54721805a8adb73c3fa74ee8c3c04126dc5bd7ad2da542967b9292c6a4943e5"
+  },
+  "reusedBuildReceipts": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/compile.json",
+      "bytes": 2007,
+      "sha256": "27a7b1fa111998e2d09cdbc0624a5affd9e247e24173dcbf08779bda6a27b366"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/manifest.json",
+      "bytes": 1843,
+      "sha256": "4cda9153e4b97fa43f698402efbc9625c2e9dcbde20587accd89717a7dd346ce"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/pack.json",
+      "bytes": 2144,
+      "sha256": "f358fce8215230d2eea877e495487c18922d18af1d4fb89404b00c65316d41ad"
+    }
+  ],
+  "focused": {
+    "success": true,
+    "counts": {
+      "tests": 7,
+      "failed": 0,
+      "passed": 7,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 7,
+      "suites": 0
+    },
+    "duration_ms": 24221.067333
+  },
+  "cases": [
+    {
+      "name": "all eight exact package addresses resolve canonical owner projections",
+      "passed": true,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/t287-public-groups.test.mjs"
+    },
+    {
+      "name": "catalog locates fresh complete declaration closures, retaining every extant identity",
+      "passed": true,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/t287-public-groups.test.mjs"
+    },
+    {
+      "name": "missing group and crossed locator are rejected by the same fixed oracle",
+      "passed": true,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/t287-public-groups.test.mjs"
+    },
+    {
+      "name": "two responsibility bindings use the same published preparation and immutable resource owners",
+      "passed": true,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/t287-public-preparation.test.mjs"
+    },
+    {
+      "name": "existing owners refuse missing resources, crossed selectors and changed task identity",
+      "passed": true,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/t287-public-preparation.test.mjs"
+    },
+    {
+      "name": "source-blind strict caller imports canonical input, resource and request types from m05",
+      "passed": true,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/t287-public-preparation.test.mjs"
+    },
+    {
+      "name": "generated m05 group locates both canonical owners and hashes its actual native inventory",
+      "passed": true,
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/t287-public-preparation.test.mjs"
+    }
+  ],
+  "diagnostics": [
+    "{\"responsibilityBindings\":2,\"embeddedPreparations\":2,\"referencePreparations\":4,\"resourceAcquisitions\":1,\"inventoryCoverage\":\"incomplete\",\"assertionBytes\":89498,\"promptBytes\":[49279,49286],\"runtimeCalls\":0,\"qualificationClaims\":0}",
+    "{\"nativeConsumer\":\"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/consumer/public-preparation-consumer.mts\",\"strict\":true,\"diagnostics\":0,\"closedTypeNegatives\":3}"
+  ],
+  "packageConservation": {
+    "operation": "T287_PUBLIC_PREPARATION_PROOF_REPAIR_01",
+    "archiveFiles": 5283,
+    "archiveMembershipPreserved": true,
+    "extractionExactToArchive": true,
+    "changedPackageFiles": [
+      "package/build/code/src/qualification/m05.d.ts",
+      "package/build/code/src/qualification/m05.js",
+      "package/contracts/capabilities/capability-definition-graph.json",
+      "package/product-toolchain-manifest.json"
+    ],
+    "preservedSerializedAssets": 53,
+    "preservedContractIds": 75,
+    "changedContractRows": [
+      "abg.contract.qualification.m05"
+    ],
+    "actualCapabilityOwnerProof": {
+      "actualOwnerGraphReproduced": true,
+      "predecessorReproducedBySameOwner": true,
+      "semanticMembershipPreserved": true,
+      "capabilities": 16,
+      "ownerCoordinates": 241,
+      "changedIdentityAndCatalogLeaves": 551,
+      "capabilityGraphDigest": "sha256:c1246f8ccfc0385b0dd4be30da2e549ea6c6fbced33abd55680d0c822bc8648a",
+      "graphAssetDigest": "sha256:425334a5a51653027e8f4d9ce0b971b982366ede04f5aa19eaa17f8058ff3288",
+      "catalogDigest": "sha256:9985ac7e225638afcc6cb4ed8c77ee9bdb770b2b74cca6a55d6d0229e232a757",
+      "productContentDigest": "sha256:71d31e7a1ac4d38a92337b8c3159e8318fde658ae4504749447b47ca215a89cf",
+      "runtimeCalls": 0,
+      "qualificationClaims": 0
+    },
+    "elapsedMs": 620.9852909996698,
+    "rebuilds": 0,
+    "fullStageCopies": 0
+  },
+  "cost": {
+    "commandElapsedMs": 24688.0032079971,
+    "commandPeakRSSBytes": 1615675392,
+    "acquisitionElapsedMs": 575.0937910015637,
+    "HOMEUnchanged": true,
+    "defaultHeap": true,
+    "allGroupsReapedAndAbsent": true,
+    "newWorkBeforeReturn": {
+      "files": 5789,
+      "logicalBytes": 76452555
+    },
+    "newEvidenceBeforeReturn": {
+      "files": 1,
+      "logicalBytes": 17964
+    }
+  },
+  "packageBuilds": 0,
+  "fullStageCopies": 0,
+  "archiveCopies": 0,
+  "RuntimeEffects": 0,
+  "providerCalls": 0,
+  "GitEffects": 0,
+  "qualificationClaims": 0,
+  "scopeLimit": "Public preparation Source/component/package proof only. Installed judgment/F11/AF22 conservation and genuine assessment remain separate.",
+  "closedAtUTC": "2026-10-05T09:30:53.923907+00:00",
+  "stopWritesAfterFreeze": true,
+  "returnTo": "Root Executive alone assigns independent review and accepts."
+}

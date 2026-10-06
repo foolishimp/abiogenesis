@@ -1,0 +1,37 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "relative": "code/src/abg/qualification_proof.ts",
+    "ref": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "digest": "sha256:b928caefff4aa9bbd5e3e0d6fdb65f4a9617d54b3df817df287975825d36c9e5",
+    "byteCount": 82284
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+    "relative": "code/src/validator/qualification.ts",
+    "ref": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+    "digest": "sha256:b8bb644121845e25567280642b6474d5a32d452119af5ad1812b02360c1249b6",
+    "byteCount": 63360
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "relative": "test_env/tests/t287-qualification-scopes.test.mjs",
+    "ref": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "digest": "sha256:a1e00db17056aebcd22186acdc87d2bd7d68985889d4572d81d0eedfdc85b051",
+    "byteCount": 43068
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/installed-qualification-conservation.mjs",
+    "relative": "test_env/support/installed-qualification-conservation.mjs",
+    "ref": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/installed-qualification-conservation.mjs",
+    "digest": "sha256:a1b558973e23b917b5daf617e589863db2ad0574aada13fc58ba516a282faff8",
+    "byteCount": 41332
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-qualification-conservation.test.mjs",
+    "relative": "test_env/tests/t287-installed-qualification-conservation.test.mjs",
+    "ref": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-qualification-conservation.test.mjs",
+    "digest": "sha256:eb96b2f3db45f261cfe9181d7b2c3356f5e507a0fc76fba4296e46e9b60ae0c6",
+    "byteCount": 31291
+  }
+]

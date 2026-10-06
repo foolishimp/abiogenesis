@@ -1,0 +1,29 @@
+{
+  "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "scripts/generate-product-manifest.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01",
+  "capSeconds": 180,
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/tmp"
+  },
+  "pid": 27522,
+  "pgid": 27522,
+  "exitCode": 0,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "wait4Status": 0,
+  "groupAbsent": true,
+  "elapsedMs": 20713.165959343314,
+  "userCPUSeconds": 23.704945,
+  "systemCPUSeconds": 1.814391,
+  "maxRSSPlatformBytes": 1613414400,
+  "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

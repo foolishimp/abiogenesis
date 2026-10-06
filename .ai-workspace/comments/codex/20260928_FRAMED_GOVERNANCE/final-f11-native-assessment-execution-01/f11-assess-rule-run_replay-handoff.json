@@ -1,0 +1,91 @@
+{
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:bf357bac4ba5677870972d63726db8e1ab50fd349b48d87ad8e4768201bb80ce",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c",
+      "prefixLength": 73530699,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464012478
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:9ddd349aa0ff342576ba5e35f4ef6bb607ff1be13ad3077e04631b7072779e4b",
+      "device": 16777230,
+      "durableByteLength": 73530699,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "inode": 464012478,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "calls": [
+    {
+      "label": "assessment-view",
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.view",
+        "memberKey": "allowlist"
+      },
+      "invocationRef": "invocation://abiogenesis/ebae55681ae6bb57cdd3f4a0579c04e20be595bd6b981a3a3c9a305cbeb704cc",
+      "outcomeKind": "result",
+      "elapsedMs": 10737.753791000001,
+      "processFailure": null
+    },
+    {
+      "label": "conformance-assess",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/7c3b3c83c79688593e9617754757f0c3604cb709069b254add379fd50ec59160",
+      "outcomeKind": "result",
+      "elapsedMs": 10750.025083,
+      "processFailure": null
+    },
+    {
+      "label": "assess-rule",
+      "definitionKey": {
+        "operationId": "abg.operation.run.invoke",
+        "memberKey": "start"
+      },
+      "invocationRef": "invocation://abiogenesis/01d079f5546a87cbbb22fc174e751de0a1f9d450818ff55d8c2ba0367ae658c3",
+      "outcomeKind": "result",
+      "elapsedMs": 230873.051958,
+      "processFailure": null
+    },
+    {
+      "label": "assess-rule-run_result",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_result"
+      },
+      "invocationRef": "invocation://abiogenesis/fdc588d5da79b8e588135d5517ea21b8376899e09e20e1461f3146850a9e47f0",
+      "outcomeKind": "refusal",
+      "elapsedMs": 4244.466084000014,
+      "processFailure": {
+        "pid": 30494,
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "spawnError": null
+      }
+    },
+    {
+      "label": "assess-rule-run_replay",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_replay"
+      },
+      "invocationRef": "invocation://abiogenesis/4b9118426e21dd7a9cdb1f60a1fbac9d9d9b0a2744a94db860185155372df36b",
+      "outcomeKind": "result",
+      "elapsedMs": 4204.764500000048,
+      "processFailure": null
+    }
+  ]
+}

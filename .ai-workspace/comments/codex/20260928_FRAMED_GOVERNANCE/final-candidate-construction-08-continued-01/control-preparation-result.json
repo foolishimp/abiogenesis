@@ -1,0 +1,12 @@
+{
+  "status": "READY",
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_08",
+  "phase": "continued-01-after-control-only-stop",
+  "actor": "/root/native_applicability_design",
+  "controlCount": 11,
+  "currentIdentityControls": 7,
+  "sourceOrPayloadEffects": 0,
+  "allPythonControlsSyntaxCompiledWithoutImport": true,
+  "operationBasisSHA256": "55ddf5217581fc7a8fcee8ff171e315df9e62885d25c9deeab7a364bdfdde558",
+  "failurePredecessorUnchanged": true
+}

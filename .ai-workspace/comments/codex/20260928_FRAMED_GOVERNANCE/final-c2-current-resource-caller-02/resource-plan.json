@@ -1,0 +1,28 @@
+{
+  "workspaceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/worksite",
+  "installRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/installed",
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+  "lockNamespace": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5",
+  "lockFileRule": "<actual-device>-<actual-inode>.lock; same original N03 namespace all calls",
+  "history": "Same N03 A/W/install/catalog; all setup/S01 and failed C2 preserved; latest C2 84-event prefix",
+  "HOME": "unchanged",
+  "nativeCalls": 3,
+  "actualActorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+  "device": 16777230,
+  "inode": 464012478,
+  "initialPrefixSHA256": "e2bb5df3f58b91a49f7324a487e9e79b93d05b03c368c339c82a6edc9d359ec0",
+  "initialBytes": 5577377,
+  "initialEvents": 84,
+  "currentGrantEffects": "Only construction/check/report writes under /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02",
+  "futureContextRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/archives/observed-c2-02-context",
+  "futureExecutionEffects": [
+    "Requires new Root native grant before any driver import/execution",
+    "Read existing716 files at original workspace; zero restaging or selected-input writes",
+    "Create-only exact futureContextRoot for current authority-bound renderer read_context; archiveRoot already exists",
+    "One ordinary Public start on current original resource; native append, archive/runtime/projection, transport/provider and original TMPDIR/lock effects through existing owners",
+    "Existing helper plans select new attempt archive and sandboxRoot; verification writes stay under that helper snapshot, not original workspace",
+    "Two fresh Public result/replay CLI reads with current handoffs; zero append",
+    "Caller reports/cache/config paths only under this caller directory; no donor writes"
+  ],
+  "providerCondition": "DNS unresolved. Root must select actual provider readiness/current preflight and effect grant; no network probe or retry in preparation."
+}

@@ -1,0 +1,106 @@
+{
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/index.ts",
+      "bytes": 13129,
+      "sha256": "a4104a9a6a7aeb3b0511b2eb509b86a93759e64b7b1f1239a4ce08022c373983",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+      "bytes": 8897,
+      "sha256": "3e02aa184302fd3a38ba54bf3a63a9bbc30c8a0662aae5bda6fa09a0f61fdf2d",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/index.ts",
+      "bytes": 7640,
+      "sha256": "bfdf9150a844cb4f14c433eb52d8ceb405a9ae7ba9b5c06f12bb882b3d901cd0",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "bytes": 18999,
+      "sha256": "051e9238332705c0131ae6161c1dfca8a41ca01336b6aeacaf21a8cbfef0fd31",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "bytes": 66415,
+      "sha256": "af524bc1eaf89323d13934927353185b610ef4048a3c009bac69998cbdd38b15",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 76606,
+      "sha256": "539186740c0fc386b9f76e23fd96fc6c7ff128f89851f1a3f57b77704f296340",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 49057,
+      "sha256": "5ab823b9e010d1b57624020b1ea3d1e515bea7c845d123a7e49b26e40e7298aa",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/hello_world.ts",
+      "bytes": 96708,
+      "sha256": "b0ccd37dec574f0e948c9a296f66b252aa7cbd36dd1e6c2dece64e75f5bdd423",
+      "operation": "delete"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/fan_out.ts",
+      "bytes": 22572,
+      "sha256": "7bc033fd5631bc3382ab500b5a97935a192bdde7725f46bbeb0e4a313acaf668",
+      "operation": "delete"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/recursion.ts",
+      "bytes": 19186,
+      "sha256": "6f8b23f9782acdace0b64525d057905139d2ae63cbb13b494b157dcc5c36acf9",
+      "operation": "delete"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/hello_world.ts",
+      "bytes": 2043,
+      "sha256": "9dfb40edb84420bac1cb983884e394c003d0f3240221818a9adbdeaf86e21817",
+      "operation": "delete"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/fp_hello.ts",
+      "bytes": 9851,
+      "sha256": "2f028ef05e59732d0bdd5761d7616db3d9216e0ada93c6e410fae03b8135b19f",
+      "operation": "delete"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/hello_gate.ts",
+      "bytes": 3434,
+      "sha256": "ab2e8dd18a05dd12141b196d8fb9547bce19dfc6f21b2239283005633f44fdcc",
+      "operation": "delete"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/hello_compose.ts",
+      "bytes": 4922,
+      "sha256": "8a3f4aa2199174fb0c36f92ea50f4a4551f69407a83b471ca084cf21c11b83c8",
+      "operation": "delete"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/fan_out.ts",
+      "bytes": 3605,
+      "sha256": "b1287c56c08119d19e4ad14d25d98e5ce6bb1027b9906cab3639eb44b00b560d",
+      "operation": "delete"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/recursion.ts",
+      "bytes": 3366,
+      "sha256": "2f08044a252f84165989d38d4c70de822a38c862240b7660d52b4666747816f6",
+      "operation": "delete"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/conformance/gtl-language-conformance-corpus.json",
+      "bytes": 138448,
+      "sha256": "4ef174f684023199da232f2bd3c3e5f46298c33ed81012a3a9096632f6c480bf",
+      "operation": "edit"
+    }
+  ]
+}

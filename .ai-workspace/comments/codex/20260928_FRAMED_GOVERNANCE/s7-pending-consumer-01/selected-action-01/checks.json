@@ -1,0 +1,27 @@
+{
+  "checks": [
+    {
+      "name": "typecheck-01",
+      "command": "./node_modules/.bin/tsc -p tsconfig.json --noEmit",
+      "result": "compiler diagnostics retained; local narrowing, workflow carrier field and invariant union typing corrected",
+      "log": "typecheck-01.log"
+    },
+    {
+      "name": "typecheck-02",
+      "command": "./node_modules/.bin/tsc -p tsconfig.json --noEmit",
+      "result": "completed with no compiler diagnostics",
+      "log": "typecheck-02.log"
+    }
+  ],
+  "notRun": [
+    "emitting build",
+    "schema/manifest generation",
+    "focused owner tests",
+    "fixture construction",
+    "package/install",
+    "actual traversal",
+    "Public cold reads",
+    "provider"
+  ],
+  "timing": "Individual compiler duration was not separately recorded; no setup/traversal/provider cost exists for this increment."
+}

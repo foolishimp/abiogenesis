@@ -1,0 +1,495 @@
+{
+  "status": "CLOSED_FIRST_FAILURE_STOPPED",
+  "operation": "T287_F11_CARRIER_INSTALLED_DISCRIMINATOR_03",
+  "role": "Runtime Worker",
+  "actor": "/root/f11_installed_caller_preparation",
+  "executionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03",
+  "closedAt": "2026-10-01T22:31:00.638880+00:00",
+  "firstFailure": {
+    "owner": "ProductEnvironmentPort.resolve",
+    "resultKind": "environment_refusal",
+    "code": "incompatible_dependency",
+    "message": "invalid package-owned declaration metadata evidence"
+  },
+  "firstMissingRelation": {
+    "ownerPackage": "@abiogenesis-fixtures/f11-carrier-child",
+    "declaredBundledPackage": "@abiogenesis/typescript-tenant",
+    "bundledPackageMetadataPath": "node_modules/@abiogenesis/typescript-tenant/package.json",
+    "bundledPackageMetadataDigest": "sha256:b01fad9ad6e172420abf9996f5d630122d914eb9a1fc6ea54b46bf64be60e396",
+    "requiredDependency": "@valibot/to-json-schema",
+    "metadataPathRequiredByLinker": "node_modules/@valibot/to-json-schema/package.json",
+    "requiredMetadataPresent": false,
+    "actualNestedMetadataPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/@valibot/to-json-schema/package.json",
+    "actualNestedMetadataPresent": true,
+    "actualNestedMetadataDigest": "sha256:5487440309ff6296d0d9359eb6b2712b26d68bb562d60ad5ac314a3fb1bcc1a2",
+    "exactRelation": "packageDeclarationBasis requires each bundled package dependency at containing Product root/node_modules; complete nested C03 pure-guard supplier retains its own node_modules subtree",
+    "missingFlatRequiredDependencies": [
+      {
+        "dependency": "@valibot/to-json-schema",
+        "requiredPath": "node_modules/@valibot/to-json-schema/package.json",
+        "nestedPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/@valibot/to-json-schema/package.json",
+        "requiredPresent": false,
+        "nestedPresent": true
+      },
+      {
+        "dependency": "effect",
+        "requiredPath": "node_modules/effect/package.json",
+        "nestedPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/effect/package.json",
+        "requiredPresent": false,
+        "nestedPresent": true
+      },
+      {
+        "dependency": "jsonc-parser",
+        "requiredPath": "node_modules/jsonc-parser/package.json",
+        "nestedPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/jsonc-parser/package.json",
+        "requiredPresent": false,
+        "nestedPresent": true
+      },
+      {
+        "dependency": "valibot",
+        "requiredPath": "node_modules/valibot/package.json",
+        "nestedPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/valibot/package.json",
+        "requiredPresent": false,
+        "nestedPresent": true
+      },
+      {
+        "dependency": "ajv",
+        "requiredPath": "node_modules/ajv/package.json",
+        "nestedPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/ajv/package.json",
+        "requiredPresent": false,
+        "nestedPresent": true
+      },
+      {
+        "dependency": "ajv-formats",
+        "requiredPath": "node_modules/ajv-formats/package.json",
+        "nestedPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/ajv-formats/package.json",
+        "requiredPresent": false,
+        "nestedPresent": true
+      }
+    ]
+  },
+  "PublicCLIInvocations": 3,
+  "nativeAssessorDispatches": 0,
+  "providerCalls": 0,
+  "physicalPrefix": null,
+  "knownProcessGroupsClosed": true,
+  "candidateQualified": false,
+  "records": [
+    {
+      "path": "accounting-plan.json",
+      "bytes": 2399,
+      "sha256": "81759c0fa22b0fd8dfc9f30338f4113a84dc0048bdad3895e0ba10c5b87dfa4f",
+      "mode": 420
+    },
+    {
+      "path": "accounting.json",
+      "bytes": 9482,
+      "sha256": "42c9fc265084af2cc1ac528beac3bb02aea1dd9f233f610d52937a4bcd6022e1",
+      "mode": 420
+    },
+    {
+      "path": "budgets.json",
+      "bytes": 237,
+      "sha256": "8d1554533d3e2334c0a656f8d34bcaf457fb3b682ee2189481be9bde7c8ae780",
+      "mode": 420
+    },
+    {
+      "path": "companion-negatives.json",
+      "bytes": 3051,
+      "sha256": "c9e5e416fe6e79c52682c6109889d5bcf75c38c3a0870945c4fc85bf5d52bab3",
+      "mode": 420
+    },
+    {
+      "path": "conformance-resources.mjs",
+      "bytes": 673,
+      "sha256": "62d160eba67201396730064290fefb1b9262ea20f7f93fa223b6e6c6867a7251",
+      "mode": 420
+    },
+    {
+      "path": "construct-fixture.mjs",
+      "bytes": 497,
+      "sha256": "36ad9ac5340c0b0d17bd244846576a16fdb50f3bc7b68524e522afb7b3b51901",
+      "mode": 420
+    },
+    {
+      "path": "consumed-source-pins.json",
+      "bytes": 3003,
+      "sha256": "c4be2f0bcf1dadae5b9e66dd24ec391200f7e18968233fc1017f535fc6933559",
+      "mode": 420
+    },
+    {
+      "path": "controlled-helper.mjs",
+      "bytes": 1448,
+      "sha256": "1bf192b24cafa977507cc47efd333246db29d62455ed7b68eea48f22c1a49e08",
+      "mode": 420
+    },
+    {
+      "path": "dependency-first-failure-localization.json",
+      "bytes": 4955,
+      "sha256": "5b93a4e3d85b0a06398cd6f317bac9ad5c85185c21429ffb12cc7804cecdedcd",
+      "mode": 420
+    },
+    {
+      "path": "first-failure.json",
+      "bytes": 2499,
+      "sha256": "d4c514d834d45d60e8cb98e001b3afe43f4f718889bd8603c8d795c48f9c7a86",
+      "mode": 420
+    },
+    {
+      "path": "fixture-artifacts/abiogenesis-fixtures-f11-carrier-child-5.0.0.tgz",
+      "bytes": 10840688,
+      "sha256": "943dd228f65623903a9c8e50514d5075c8e86b597088ad339059230a8ffd93b3",
+      "mode": 420
+    },
+    {
+      "path": "fixture-publication-data.json",
+      "bytes": 7004,
+      "sha256": "0b56841c814fe17f6f0a6bd244343e8e781721da4fc877fe1407c8591ebb5d94",
+      "mode": 420
+    },
+    {
+      "path": "fixture-regular-ustar-correspondence.json",
+      "bytes": 3770166,
+      "sha256": "3a700ad103517ac66ecf89404331d1aff55706c3a0e20f28f038fd19f4eca182",
+      "mode": 420
+    },
+    {
+      "path": "flow-driver.mjs",
+      "bytes": 4436,
+      "sha256": "d1207307ea693f7f6822dbc54cd5e1fce41a34d866436db29ffd780e910ba4d0",
+      "mode": 420
+    },
+    {
+      "path": "input-construction-plan.md",
+      "bytes": 5061,
+      "sha256": "ff71f486d8859d56440329721bdc6ce6abed3c7c9d1405baa3f94df8f4476f6d",
+      "mode": 420
+    },
+    {
+      "path": "nominal-core-verification.json",
+      "bytes": 13950071,
+      "sha256": "f638eb4da19b8bc09c219f5583906eebbb85b967dad5fb5a14f180c13a23f8ad",
+      "mode": 420
+    },
+    {
+      "path": "nominal-fixture-verification.json",
+      "bytes": 178870,
+      "sha256": "eb765c59a4d7eb9ad5548a4a8094520b207a036ecaa0458fb3f75ea78da13143",
+      "mode": 420
+    },
+    {
+      "path": "nominal-preflight-completion.json",
+      "bytes": 796,
+      "sha256": "c324ce09877defd7c835e3a8a671dc3e1864f19d9fba29b8976c3b1e08b20895",
+      "mode": 420
+    },
+    {
+      "path": "observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d",
+      "mode": 420
+    },
+    {
+      "path": "operation-plan.json",
+      "bytes": 689,
+      "sha256": "d8fae26e6a99e226d8f7eb1f470b5256ab973e76c1a0a1ef0ef4b8d353d078f4",
+      "mode": 420
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "bytes": 16320,
+      "sha256": "861843da2fd3e8528d9d6d069786f7867695bd620fa4ed0a85eada1a7b99d81c",
+      "mode": 420
+    },
+    {
+      "path": "prepare-resources.mjs",
+      "bytes": 7684,
+      "sha256": "748f3137fe53c19fb489ea3c18adc491abbc775fc835b2de4f613f61f751a6d2",
+      "mode": 420
+    },
+    {
+      "path": "proof-oracles.mjs",
+      "bytes": 6110,
+      "sha256": "f247d0255ab165ed3a671eda0892ce118ef3f5334fae70b50f3bce9b9e4a7465",
+      "mode": 420
+    },
+    {
+      "path": "prospective-cases.json",
+      "bytes": 3115,
+      "sha256": "0dc340f5717ff135b916fce47debba3b760806382938b8920ebe00153a149eac",
+      "mode": 420
+    },
+    {
+      "path": "public-support.mjs",
+      "bytes": 10255,
+      "sha256": "1dc643ece0a7f01f7983a392b7a454ef33d621c49e41a6e319b7a6bfe65f3f16",
+      "mode": 420
+    },
+    {
+      "path": "resource-plan.json",
+      "bytes": 278,
+      "sha256": "35cec9cbe8e7f53008e03e48e06e376bc05220c34a12bb642ab729f3088616c6",
+      "mode": 420
+    },
+    {
+      "path": "resources/worksite/.abiogenesis/workspace-manifest.json",
+      "bytes": 1478,
+      "sha256": "3ed4661a5e88f07eba49d64b98e2e63bcb75d7069c11fcc2e5513a04660fc5bc",
+      "mode": 420
+    },
+    {
+      "path": "return.md",
+      "bytes": 4983,
+      "sha256": "8a6f00ebf3c3c90253a7f45b9ff5f1aa9c3fe0ad970a7341247eeb38e830818c",
+      "mode": 420
+    },
+    {
+      "path": "run-setup.mjs",
+      "bytes": 1507,
+      "sha256": "69c275359c6f283420b37f8e4aa0401382ccbbb3329a45c2668792e5190d1563",
+      "mode": 420
+    },
+    {
+      "path": "runtime-activation.json",
+      "bytes": 1004,
+      "sha256": "99bdc05fb89fc18d67488130e77786a0f2c57ee90ebfb52032bac6f55781e7b6",
+      "mode": 420
+    },
+    {
+      "path": "runtime-environment.json",
+      "bytes": 3032,
+      "sha256": "88353cb0acdc0427df82e6fa3f9d296b32f0a8042b2c747ec92dd1e572feaed2",
+      "mode": 420
+    },
+    {
+      "path": "scope-return.json",
+      "bytes": 745,
+      "sha256": "7d4352c628b7086d7d32f0feda6c81983c911678578d1b984dcef3d4cf3a9c24",
+      "mode": 420
+    },
+    {
+      "path": "selected-core.json",
+      "bytes": 879,
+      "sha256": "4995d22a6a805d40894590f04b0e04cf81476eccdac7d580742e05a862d6e271",
+      "mode": 420
+    },
+    {
+      "path": "setup-authorization-0.json",
+      "bytes": 14094237,
+      "sha256": "757b7af46c1eee8eb2bcb4bbb488a467b21876973daa97d3a3df553041a5704d",
+      "mode": 420
+    },
+    {
+      "path": "setup-authorization-1.json",
+      "bytes": 14094930,
+      "sha256": "c8e4ddfa581b6a72a614f9e3e653a169de749d037ae7e36b0181a976a7dbeace",
+      "mode": 420
+    },
+    {
+      "path": "setup-authorization-2.json",
+      "bytes": 14095446,
+      "sha256": "ef72856c8bcf5d232899085bab2c34abd98bb9cf70cdba4a49def9a19022a8c9",
+      "mode": 420
+    },
+    {
+      "path": "setup-driver.mjs",
+      "bytes": 13054,
+      "sha256": "b67863920f4a258b9606afcf53b5242de9628630933eaeb07e8ea394faa060bd",
+      "mode": 420
+    },
+    {
+      "path": "setup-supervised-stderr.log",
+      "bytes": 367,
+      "sha256": "3248d946a0343aaec9598d14f8262360cb5ed8396372086be78f8efd46c16348",
+      "mode": 384
+    },
+    {
+      "path": "setup-supervised-stdout.log",
+      "bytes": 878,
+      "sha256": "9f5bacfebe9d4689ae34e1877b0f8aef271bb422f97a3f76376948e7f6fddcb6",
+      "mode": 384
+    },
+    {
+      "path": "setup-supervisor-close.json",
+      "bytes": 2623,
+      "sha256": "057014e00793e4954b9f37fcc1cb65a8092f0ed5ba0dce0f366bba0fe67069a4",
+      "mode": 420
+    },
+    {
+      "path": "setup-supervisor-start.json",
+      "bytes": 921,
+      "sha256": "638ebb21d282a8779f896f480ea053023ab884c8e7fcc9d8511ef8f65ef323b0",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-core-command.json",
+      "bytes": 4450,
+      "sha256": "d1aeed2454d5115493efdbe8f2dfa7b2d4daeba4cd70aa0310e84b35086a3c88",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-core-handoff.json",
+      "bytes": 797,
+      "sha256": "8531ace0e3bdbbe4b87a8d7deed10735a44bfdfe4da2ee0e85e3e0632157331d",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-core-native-process.json",
+      "bytes": 796,
+      "sha256": "3ef3b4c30679c14089fa55693bab1dca2c34867f73aa0df34d170892e60c9b30",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-core-process-start.json",
+      "bytes": 713,
+      "sha256": "b53b9bff0fb97e479efb6c6a7ecd11e54cb81a2c163d266531aa08f32ecf381b",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-core-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-core-stdout.json",
+      "bytes": 146572,
+      "sha256": "19625270606683531b2c37c5ee47fa5228f236b483da109d872895ef87084a31",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-core-timing.json",
+      "bytes": 288,
+      "sha256": "8d89c1f4706ea04edb7d932706eeb9c489a018f1f7215458489396bcd041d8f0",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-core.jsonl",
+      "bytes": 12379010,
+      "sha256": "aa17b91d7e98f2ab5aac34aa2640f2c523d546de1593d38d66d925f79f20c42e",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-fixture-command.json",
+      "bytes": 4447,
+      "sha256": "9fd13506f69060fb9283d2ffe64a6cdec0a5b73495a1e9717e2be1986167d215",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-fixture-handoff.json",
+      "bytes": 1177,
+      "sha256": "e23ab75683309277d0a7eeefd37c1e7c24b9345ee603b1563470a0c21aee6193",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-fixture-native-process.json",
+      "bytes": 798,
+      "sha256": "81690f303479167bba8f44bccd7f69a587fe2f0b96731049dc1b1f6ef51ecd1d",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-fixture-process-start.json",
+      "bytes": 719,
+      "sha256": "ad142ef98a098c026f18d97eb1f9da7b64905d87af968183647565bc2d5d0e51",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-fixture-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-fixture-stdout.json",
+      "bytes": 1723,
+      "sha256": "7acb38d60ea86a6c2b76e7787cff85bdcfc49b626799a691ac5c1938092b17da",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-fixture-timing.json",
+      "bytes": 288,
+      "sha256": "e99a27c982cef45d989cc594fa6b8434549825945df44d55df4bf89969d6c99e",
+      "mode": 420
+    },
+    {
+      "path": "setup-verify-fixture.jsonl",
+      "bytes": 12379597,
+      "sha256": "4b8f82f7b1c816622c4c26e554dc3640a96129f67d4f09ab20565ef96dbcfab0",
+      "mode": 420
+    },
+    {
+      "path": "setup-workspace-command.json",
+      "bytes": 4446,
+      "sha256": "1a38c0a1f18f501e0b7e6f6382b36df933e78e0f5aa63a0b17a3472767b9af3d",
+      "mode": 420
+    },
+    {
+      "path": "setup-workspace-handoff.json",
+      "bytes": 420,
+      "sha256": "aa2a9ad2f73d3a9aeae70124d39a271856fd39f3323cb699e8ec7ddd0c16e7f0",
+      "mode": 420
+    },
+    {
+      "path": "setup-workspace-native-process.json",
+      "bytes": 794,
+      "sha256": "1b3779c0afdf44881b164f675b1d28d3e7cc72d9b4b4b0d66f2278b3ae1d7dd4",
+      "mode": 420
+    },
+    {
+      "path": "setup-workspace-process-start.json",
+      "bytes": 709,
+      "sha256": "2a4fc29cb7a18f2fd330f5a995cd4ef9a0a049b82cd94ad741b6549195c8b3a2",
+      "mode": 420
+    },
+    {
+      "path": "setup-workspace-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "setup-workspace-stdout.json",
+      "bytes": 1743,
+      "sha256": "5f8636cfb233ab8aeab49b18a7c8667534e4f85727a3cd73f45c9e81d69b58f6",
+      "mode": 420
+    },
+    {
+      "path": "setup-workspace-timing.json",
+      "bytes": 288,
+      "sha256": "94ed88099b39a4834db6540394bc96e741ae1c4324ba4e442f8ad2fa8bf7dc4b",
+      "mode": 420
+    },
+    {
+      "path": "setup-workspace.jsonl",
+      "bytes": 12376527,
+      "sha256": "ad522be56be5c3f7a976d7fb6ac804b10342071032f4cb2ed4b67d83134b440f",
+      "mode": 420
+    },
+    {
+      "path": "successful-public-receipts.json",
+      "bytes": 5379,
+      "sha256": "295fbb7a2942518ee31c2b5482c4eeb473b6ac29d29521bc350e8a7ce1ac25f3",
+      "mode": 420
+    },
+    {
+      "path": "supervise.py",
+      "bytes": 4218,
+      "sha256": "2b5bccb3ba3de4311eab1eec68ebbb1a5dac3c5d42f8705826c282998fe44424",
+      "mode": 420
+    },
+    {
+      "path": "task-config/globalnpmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "task-config/npmrc",
+      "bytes": 56,
+      "sha256": "e30f218c969b117fb179b8638f34d01a721c899543d0be38cb1e443bdcd392d7",
+      "mode": 420
+    }
+  ],
+  "recordCount": 69,
+  "recordBytes": 108462557
+}

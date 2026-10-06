@@ -1,0 +1,53 @@
+{
+  "scenarioId": "SCN-GLC-HELLO-WORLD-RUST-SERVICE",
+  "purpose": "Independent evaluation of the complete unchanged original rust-service declaration.",
+  "sourceSelection": {
+    "key": "rust-service",
+    "digest": "sha256:a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d"
+  },
+  "cases": [
+    {
+      "observationKind": "http_response",
+      "method": "GET",
+      "host": "127.0.0.1",
+      "portSelection": "system_assigned",
+      "path": "/hello",
+      "status": 200,
+      "body": "Hello, world!\n",
+      "cleanExitAfterRequests": 1
+    }
+  ],
+  "minimumTestPasses": 2,
+  "requiredArtifacts": [
+    "specification/project-conformance.md",
+    "design/implementation-design.md",
+    "src/service.rs",
+    "design/test-design.md",
+    "test/component/rust-service.test.mjs",
+    "test/uat/rust-service.uat.test.mjs",
+    "test-execution-plan.json"
+  ],
+  "requiredTestFiles": [
+    "test/component/rust-service.test.mjs",
+    "test/uat/rust-service.uat.test.mjs"
+  ],
+  "requiredTestRoles": [
+    "component",
+    "user_acceptance"
+  ],
+  "requiredStageMeanings": [
+    "conformance_project",
+    "implementation_design",
+    "source",
+    "test_design",
+    "component_test_source",
+    "uat_test_source",
+    "test_execution_plan",
+    "test_execution_result"
+  ],
+  "requiredHostTools": [
+    "node",
+    "rustc"
+  ],
+  "assessment": "Use only Rust standard library modules. Both tests must compile the service with rustc, start it with a temporary port-file path, read its system-assigned loopback port, make a real HTTP request, assert 200 and the exact body, and finish after clean service exit. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+}

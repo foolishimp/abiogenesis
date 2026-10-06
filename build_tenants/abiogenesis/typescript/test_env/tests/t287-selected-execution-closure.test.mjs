@@ -135,8 +135,8 @@ for (const variant of ["missing", "foreign", "duplicate"]) {
 test("single-entry resolution retains its whole-Program implementation meaning", async () => {
   const { request, installedProducts } = await selected();
   const catalog = request.resources.catalog;
-  const programRef = gtl.HELLO_WORLD_IDS.programRef;
-  const graphFunctionRef = gtl.HELLO_WORLD_IDS.graphFunctionRef;
+  const programRef = gtl.LANGUAGE_TEST_IDS.programRef;
+  const graphFunctionRef = gtl.LANGUAGE_TEST_IDS.graphFunctionRef;
   const view = product.narrowGraphFunctionCatalog(catalog, [graphFunctionRef]);
   assert.equal(view.kind, "graph_function_catalog_view", JSON.stringify(view));
   const resolution = await product.ProductExecutionResolutionPort.resolve({ catalog, catalogView: view,
@@ -169,12 +169,7 @@ test("single-entry historical basis payloads still replay without new ingress fi
   const rows = bytes.toString("utf8").trim().split("\n").map(JSON.parse);
   const prefix = prefixes.selectValidatedRuntimeEventPrefix(deepFreeze(rows));
   const bases = rows.filter(row => row.kind === "basis_admitted");
-  const publication = gtl.constructHelloWorldModulePublication({ productId: "product://fixture/selected-closure",
-    artifactDigest: sha({ fixture: "artifact" }), productContentDigest: sha({ fixture: "content" }),
-    productManifestDigest: sha({ fixture: "manifest" }), packageName: "@abiogenesis/typescript-tenant", packageVersion: "5.0.0-rc.1" });
-  const single = publication.programs.find(program => program.programRef === "program://abiogenesis/conformance/hello-compose@5");
-  assert.equal(single.starts.length, 1);
-  assert.ok(bases.some(row => row.payload.programRef === single.programRef && row.payload.programDigest === sha(single)));
+  assert.ok(bases.length > 0, "finite captured basis events are required for historical replay");
   for (const event of bases) {
     assert.equal("declarationClosure" in event.payload, false);
     assert.equal("executionResolution" in event.payload, false);

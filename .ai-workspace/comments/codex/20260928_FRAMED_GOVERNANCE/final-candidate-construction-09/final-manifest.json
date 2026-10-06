@@ -1,0 +1,39 @@
+{
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_09",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "scripts/generate-product-manifest.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-stage/build_tenants/abiogenesis/typescript",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09",
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-tmp",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-npm-cache",
+    "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-npmrc",
+    "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-globalnpmrc",
+    "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-npm-prefix",
+    "npm_config_offline": "true",
+    "GIT_OPTIONAL_LOCKS": "0"
+  },
+  "HOMEUnchanged": true,
+  "capMs": 600000,
+  "priorExecutionMs": 10425.991624593735,
+  "maximumMs": 3060000,
+  "scriptsDisabled": false,
+  "defaultHeapUnchanged": true,
+  "pid": 48910,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "ownedExitObserved": true,
+  "elapsedMs": 14734.623208176345,
+  "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "wait4OwnedPID": 48910,
+  "wait4Status": 0,
+  "wait4Reaped": true,
+  "childUserCPUSeconds": 18.246522,
+  "childSystemCPUSeconds": 1.078047,
+  "childMaxResidentSetSizePlatformBytes": 1544568832
+}

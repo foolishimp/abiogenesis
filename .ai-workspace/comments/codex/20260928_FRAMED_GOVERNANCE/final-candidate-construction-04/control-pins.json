@@ -1,0 +1,86 @@
+[
+  {
+    "path": "controls/authority-postimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "bytes": 470234,
+    "sha256": "a7ff3427269bea2ed7e3c52eb691a11fcbcfdd252155554f3fc4a6cf396d7236",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/authority-postimages/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+  },
+  {
+    "path": "controls/caller-readiness-disposition.json",
+    "bytes": 737,
+    "sha256": "a86bdde8c8b42e4e95dfed3e1edab766980420834c6b827e346e2286628a7b3a",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/caller-readiness-disposition.json"
+  },
+  {
+    "path": "controls/execution-preimage.md",
+    "bytes": 481982,
+    "sha256": "4492c5b613ae9b7bf3ac4e223193c5279d31b04200daf6a5bf040c8c71e6ebc2",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/execution-preimage.md"
+  },
+  {
+    "path": "controls/plan-preimage.md",
+    "bytes": 6564,
+    "sha256": "e43da6609e5dd7dbd860f0dfa5a31cfac76095bfcb7dcbc5b8de27f838fcbcc0",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/plan-preimage.md"
+  },
+  {
+    "path": "controls/preimages.json",
+    "bytes": 1250,
+    "sha256": "1b22320f94b9ab62f911b7fe5a589273c49e1ddf52b4c7593d9bd4a8853a8277",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/preimages.json"
+  },
+  {
+    "path": "controls/received-source-review.md",
+    "bytes": 1290,
+    "sha256": "f4b46327bbfe33c276102c3926d360b1b6a6527507182b2e1396ecc2740451cd",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/received-source-review.md"
+  },
+  {
+    "path": "controls/request-pin.json",
+    "bytes": 252,
+    "sha256": "d1dd5ff3cedb0098d7e276a1b7b0678256764bb3f02fe712d24684f244d1dbac",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/request-pin.json"
+  },
+  {
+    "path": "controls/request.txt",
+    "bytes": 5896,
+    "sha256": "a4217014ca8a05ac5a66317a3a6abf1d3226ff4f6b14e2fecbabce3a8cac8342",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/request.txt"
+  },
+  {
+    "path": "controls/sections.json",
+    "bytes": 6167,
+    "sha256": "259e2f1376a23b7eb4b2d829f203dd079ceed92ffc65ec5068740567a1db3838",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/sections.json"
+  },
+  {
+    "path": "controls/source-acceptance.json",
+    "bytes": 578,
+    "sha256": "44f4029d7d736289edb45dd199b2a3e4753a98f66d49180db50d6ecef224f320",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/source-acceptance.json"
+  },
+  {
+    "path": "controls/source-cut.json",
+    "bytes": 649014,
+    "sha256": "ecb4cd8ee495e75e623566b20fa868982c2cfed1408a2a1369141acd3fa625db",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/source-cut.json"
+  },
+  {
+    "path": "controls/ticket-preimage.md",
+    "bytes": 470301,
+    "sha256": "bc25456d0cbd616c1be42ec0c2870b697ca8a71f4b827de3adff27af42ea4147",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/ticket-preimage.md"
+  },
+  {
+    "path": "controls/writer-activation.json",
+    "bytes": 880,
+    "sha256": "768ee62d1eb9c7b311d1bfe181dcbacb9429d95ef656aff5881c8a290cef0368",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/writer-activation.json"
+  },
+  {
+    "path": "controls/writer-closed.json",
+    "bytes": 1270,
+    "sha256": "5442844bce078e6aaf4b8adc610d5bbb8edc06e17e45369af6e24aff32b9ec68",
+    "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-04/writer-closed.json"
+  }
+]

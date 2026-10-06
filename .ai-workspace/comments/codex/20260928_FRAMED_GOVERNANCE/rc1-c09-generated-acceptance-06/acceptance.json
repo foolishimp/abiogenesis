@@ -1,0 +1,58 @@
+{
+  "status": "ACCEPTED_CANONICAL_C09_GENERATED_CORRESPONDENCE_ONLY",
+  "operation": "T287_C09_GENERATED_ACCEPTANCE_STATUS_WRITER_06",
+  "actor": "/root",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "actualWorkerFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/freeze.json",
+    "bytes": 8520,
+    "sha256": "28309c504ad8364737f6b5aaaf37d713c37abf3dd6c10ce3602ea269d127d9aa",
+    "mode": 292
+  },
+  "independentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-census-triage-controls-06/review/freeze.json",
+    "bytes": 1451,
+    "sha256": "632957a379b1522d4052f90a33e0e5fab25010ab6691f0c81e436c54c61da7eb",
+    "mode": 292
+  },
+  "RootVerifiedWorkerRows": 19,
+  "RootVerifiedWorkerBytes": 5242873,
+  "RootVerifiedWorkerDirectories": 10,
+  "RootVerifiedReviewRows": 4,
+  "RootVerifiedReviewBytes": 21178,
+  "RootDirectCurrentCanonicalGeneratedBodiesAndModes": 928,
+  "physicalUnion": 929,
+  "physicalDirectories": 97,
+  "exactSelectedCopies": 9,
+  "preservedOldPreimages": 7,
+  "genuineAbsentAdditions": 2,
+  "nonselectedGeneratedConserved": 919,
+  "protectedSourceMirror": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+    "bytes": 133684,
+    "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+    "mode": 420
+  },
+  "fullCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/full928-correspondence.json",
+    "bytes": 933924,
+    "sha256": "d572db329b1fc6d553f6e502459fcb179328c1beed6f8873fd679910b361c096",
+    "mode": 420
+  },
+  "frozenC09ArchiveUnchanged": true,
+  "installedMechanicalConjunction": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-mechanical-conjunction-acceptance-01/acceptance.json",
+    "bytes": 3439,
+    "sha256": "4ad623a7a0926134664e00c5be839cec24145c3355af36d05bedf1ab22148f17",
+    "mode": 420
+  },
+  "earlierGenerated05FailureConserved": true,
+  "frameworkContractDefinitionsRedrafted": false,
+  "sourceNotesTrackingOutsideC09": "remain explicit final-subject applicability; no retroactive qualification",
+  "parentAliasReleaseApplicability": "UNRESOLVED; no waiver",
+  "genuineQualification": false,
+  "RC1Qualified": false,
+  "RC1Published": false,
+  "liveWorkerOrRun": false,
+  "acceptedAt": "2026-10-03T11:49:08.659249+00:00"
+}

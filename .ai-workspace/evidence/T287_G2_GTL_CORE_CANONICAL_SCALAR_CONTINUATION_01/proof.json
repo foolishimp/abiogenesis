@@ -1,0 +1,106 @@
+{
+  "operation": "T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01",
+  "SourceCompile": "PASS",
+  "manifest": "FAILED",
+  "pack": "NOT_RUN",
+  "focusedTests": "NOT_RUN",
+  "supervisedReceipts": {
+    "compile": {
+      "operation": "T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01",
+      "capSeconds": 180,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/tmp"
+      },
+      "pid": 4507,
+      "pgid": 4507,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 7660.591082647443,
+      "userCPUSeconds": 10.998906999999999,
+      "systemCPUSeconds": 0.292776,
+      "maxRSSPlatformBytes": 1160871936,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "manifest": {
+      "operation": "T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01",
+      "capSeconds": 180,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/tmp"
+      },
+      "pid": 4700,
+      "pgid": 4700,
+      "exitCode": 1,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 256,
+      "groupAbsent": true,
+      "elapsedMs": 436.97870802134275,
+      "userCPUSeconds": 0.424807,
+      "systemCPUSeconds": 0.106735,
+      "maxRSSPlatformBytes": 215678976,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "0fa1145c6de0d9bd67ba644fd897bc8223bd38ed96e843e7afb2c1ccdcb621cc"
+    }
+  },
+  "processClosure": [
+    {
+      "label": "compile",
+      "pid": 4507,
+      "pgid": 4507,
+      "wait4Reaped": true,
+      "groupAbsentAtReceipt": true,
+      "groupAbsentAtClosure": true
+    },
+    {
+      "label": "manifest",
+      "pid": 4700,
+      "pgid": 4700,
+      "wait4Reaped": true,
+      "groupAbsentAtReceipt": true,
+      "groupAbsentAtClosure": true
+    }
+  ],
+  "cost": {
+    "childElapsedMs": 8097.569790668786,
+    "userCPUSeconds": 11.423713999999999,
+    "systemCPUSeconds": 0.39951099999999995,
+    "peakRSSPlatformBytes": 1160871936,
+    "commandsExecuted": 2,
+    "compileAttempts": 1,
+    "manifestAttempts": 1,
+    "packs": 0,
+    "focusedTestRuns": 0,
+    "RuntimeCalls": 0,
+    "Runs": 0,
+    "providerCalls": 0
+  },
+  "foundationImports": "actual canonical nonblankSchema/digestSchema",
+  "other14SourceUnchanged": true,
+  "priorFailedCutConserved": true,
+  "commentsWrites": 0,
+  "ambientGeneratedEffects": 0
+}

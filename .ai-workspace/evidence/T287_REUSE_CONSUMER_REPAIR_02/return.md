@@ -1,0 +1,7 @@
+CLOSED — failed readiness, no retry.
+
+Repair02 removes both artificial private lifecycle calls and selects the original Task dependency closure:182/4920entries,4material bodies85591decodedB, full4653-member inventory, complete required provenance records11050145decodedB,20963216B encoded entries. No body subset was retained. The original504760365B supplier read remains an explicit cold authentication dependency. Canonical resource acquisition/preparation is still unexecuted.
+
+Syntax and original current C10 verification/native ownership pass. Changed expected-artifact-digest refusal passes. The deliberately non-gzip21B archive is correctly refused artifact_unreadable; test45 incorrectly expected artifact_digest_mismatch. This external oracle causes the first actual payload stop. No resource reopen, catalog call, preparation, historical recovery, producer/Run/provider or event append happened. Source guard changes and autonomous retry are excluded.
+
+Original01freeze and Setup10 event2,498,379B/7c2c17a8…/device16777230/inode465155422 remain exact. All supervised process groups are wait4-reaped/absent, defaultheap/HOME unchanged. The interim reviewer also identifies the Task.resource mutation negative as input-identity proof only; missing-manifest lookup remains unproved. Advancing-resource traversal is expressly unproved. Root selects the next bounded fixture/oracle re-entry and independent assurance. Worker stops.

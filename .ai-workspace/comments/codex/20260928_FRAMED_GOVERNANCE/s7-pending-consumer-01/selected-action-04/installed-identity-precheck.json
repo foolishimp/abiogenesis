@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "phase": 0,
+      "initialCatalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+      "refreshKind": "graph_span_selection",
+      "refreshDisposition": "re_enter",
+      "selectedActionRef": "action://selected-action/initial@5",
+      "programDigest": "sha256:0f90deaea87ed5a56670566e0fdf881785f4b25deb190978307278bced1b6cb7",
+      "policyDigest": "sha256:3ab90921a9b704a8cb9f35d73c27307248143c02cf866b0dfc3c45befac17d74"
+    },
+    {
+      "phase": 1,
+      "initialCatalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+      "refreshKind": "graph_span_selection",
+      "refreshDisposition": "continue",
+      "selectedActionRef": "action://selected-action/consumer@5",
+      "programDigest": "sha256:0f90deaea87ed5a56670566e0fdf881785f4b25deb190978307278bced1b6cb7",
+      "policyDigest": "sha256:3ab90921a9b704a8cb9f35d73c27307248143c02cf866b0dfc3c45befac17d74"
+    }
+  ],
+  "application": {
+    "kind": "graph_function_application",
+    "relationKind": "re_enter",
+    "inputContractRef": "contract://selected-action/refresh-model@5",
+    "outputContractRef": "contract://selected-action/request@5",
+    "graphFunctionRef": "graph-function://selected-action/root@5",
+    "sourceProgramLocusRef": "locus://selected-action/refreshModel@5",
+    "targetProgramLocusRef": "locus://selected-action/model@5",
+    "maxApplications": 1,
+    "applicationRef": "graph-function-application://abiogenesis/8021582affee0c7d1216ae7a294369cc1e97f62e34fbee25dfb7d5231b70a1ff"
+  },
+  "termCount": 8,
+  "compositionRef": "composition://selected-action/root@5",
+  "source": "actual installed Program -> admitted input and two exact refresh-model branches; terminal refresh-next remains next_action_projection",
+  "archiveDigests": [
+    "sha256:b798e20edd4ae1d8649499ad0ccd822d893968fad3a5498948346df45211e043",
+    "sha256:8b9a2a5c2323cb15132d37850309e976bc4470f6e609a527aef3c46261260205"
+  ]
+}

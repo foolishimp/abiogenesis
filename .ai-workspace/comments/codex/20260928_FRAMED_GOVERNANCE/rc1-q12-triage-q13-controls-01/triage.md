@@ -1,0 +1,15 @@
+Status: CLOSED Root triangulation
+Product: GOAL035/T287, fixed ABG5 F11/F15, STDO2.5.1RC2.
+Subject: Q12 freeze17038B/9f04f0a6d097a0cc511e745153334691595bbf6a112a6942e1709d574c394f1c.
+Independent: freeze1810B/598d5681179d3e95cb5746fa3b6f5a3131f07ac2db0d9526c0dd0bc73c69210e; all5 records verified. Root verified Q12 all91 records.
+
+Origin: prepare-current-delta.py mixed conserved source fields and distinct copy/build roles, then invented cross-role equality. Historical selected-cut/projected source copy records C07; actual current supplier/view copy records C09. Shared source/body/author values agree across9changes. Two additions legitimately have no historical copy fields.
+Product/requirements: exact subject and authentic provenance remain mandatory. A historical copier and current builder do not become Source authors. No qualification pass follows from external preparation.
+Design/integration: terse prior HOW left copy correspondence implicit; the grant did not require equality. Current HOW4.1 UML explicitly preserves source meaning and checks each distinct copy/build role against its actual producer. Realization over-constrained that relation. This is the responsible owner; no new runtime mechanism or broad Design document.
+Identity/provenance: preserve source tuple equality and both producer-anchored copy roles, original absence, author/row/preimage/postimage links. Never erase a role, forge equality or rewrite immutable origins.
+Effects/lifecycle: first cheap Python exited1 in0.060s; no Product import, materialization, managed owner payload or Runtime. Preserve C09/Setup09, original cuts and Hello. No retry occurred.
+Proof/cost/reuse: early scaffold discriminator worked but did not complete the path. Exact delta9/preflight negatives, current inventory rebinding and resource/reference-owner evidence remain unproved. Q12 still copies the old uncompleted selector; resolve its complete affected cone before payload. Keep500MB/defaultheap/HOME and original174records/23chains/90spans.
+
+Disposition: separately granted realization_refactor under existing role-aware UML/HOW4.1. Verify shared fields; selected-origin copy fields against selected source-cut producer, current-supplier fields against current construction producer. Verify field presence and exact pinned rows, including absent history on additions. Then authoritative source-cut delta selection, cheap semantic counterexamples, complete rebind and one finite actual owner readiness. Any new failure stops for fresh triangulation.
+Affected cone: delta projection/correspondence and negative proof; current-resources selector and prepare-resources consumer; inventory/protected/recipe-self/Task/basis/scope/plan/resource/declarations/request/prompt and pending Runtime config. Source/Design/package/Setup bytes unchanged by this operation.
+Unresolved: complete owner preparation/material adequacy/independence; installed Result/J/foldback/F11/readbacks; genuine F11/QUAL056/scenarios/green AF22/release. Current active Design additions are outside frozen C09; final Source qualification must bind them coherently.

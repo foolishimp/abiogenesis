@@ -1,0 +1,162 @@
+{
+  "actor": "/root/rc1_c03_install_review",
+  "actualPayloadClosure": {
+    "exitCode": 1,
+    "noChildren": true,
+    "noRetry": true,
+    "pid": 30369,
+    "pidAbsent": true,
+    "session": 42039
+  },
+  "cost": {
+    "payloadHashCost": {
+      "hashBytes": 30158102204,
+      "hashReads": 653850
+    },
+    "payloadPeakRSSBytes": 1172439040,
+    "payloadSeconds": 175.1811493751593,
+    "reportOnlySeconds": 0.0672490419819951
+  },
+  "directories": [
+    {
+      "mode": 493,
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_03"
+    },
+    {
+      "mode": 493,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution"
+    }
+  ],
+  "directoryCount": 2,
+  "effectCounts": {
+    "allUnlistedCopies": 24830,
+    "contexts": 8,
+    "newReportUnlinks": 0,
+    "originalWitnesses": 104688,
+    "removedAllocatedBytesFromStBlocks": 10174103552,
+    "removedDirectories": 0,
+    "removedFiles": 197399,
+    "removedLogicalBytes": 9634686370,
+    "retainedDirectories": 29137
+  },
+  "excludedSelf": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/execution-freeze.json",
+  "frozenUTC": "2026-10-04T07:38:54.122120+00:00",
+  "immutableDependencies": [
+    {
+      "bytes": 5180,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/freeze.json",
+      "sha256": "2c4bd73004688d10d93aae17d3ef7646c5da2919555b3de9227af3fb248d2d7f"
+    },
+    {
+      "bytes": 9512,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/alias-final/freeze.json",
+      "sha256": "cee816b8f45826fc73d39f17522407db06008b6645cc307dc8702e448f642edc"
+    }
+  ],
+  "oldArtifactsUnchanged": true,
+  "operation": "T287_COMMENTARY_CLEANUP_DELETE_03_REPORT_ONLY_CLOSURE",
+  "recordBytes": 170856652,
+  "recordCount": 15,
+  "records": [
+    {
+      "bytes": 1474,
+      "mode": 420,
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_03/deletion-release.txt",
+      "sha256": "3d12e3eee63f004b4768dab8a1f23ff2fc68973b916aea69568024d57d11921b"
+    },
+    {
+      "bytes": 1255,
+      "mode": 420,
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_03/deletion-activation.json",
+      "sha256": "3eac0979c041b9f517962df3c231a04caabbb593ece86b5598d08ea52c08aad8"
+    },
+    {
+      "bytes": 17033,
+      "mode": 420,
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_03/delete_exact_alias_plan.py",
+      "sha256": "aa33fdd4a84b94e96721880c70490dce194d1d0a7166c9e86c1a558a85f7c72c"
+    },
+    {
+      "bytes": 922,
+      "mode": 420,
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_03/report-only-activation.json",
+      "sha256": "d4f00ba873c61c8b513202868d5fb3bf5939a4c94acc1c174025d7aa70a86302"
+    },
+    {
+      "bytes": 1414,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/closure.json",
+      "sha256": "19f270c044fab69c22192817c36d8511abca707887be388ccfa8eff41d69d6a2"
+    },
+    {
+      "bytes": 576,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/execution-activation.json",
+      "sha256": "fc7dba36d321a424abd241b577da5642ea7654558cdc039277d9d719b7b97d1d"
+    },
+    {
+      "bytes": 6365790,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/preflight-membership.jsonl.gz",
+      "sha256": "6f1cb933edda6ac60a875f67a63a60d8fcc522dc83cafc9ce52a80218f6f1329"
+    },
+    {
+      "bytes": 362,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/preflight.json",
+      "sha256": "93c01829d08cb7a0a6d3982f5f3913d7d93a8c44946432bfbd6e5519051afe4c"
+    },
+    {
+      "bytes": 4637,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/preparation-activation.json",
+      "sha256": "f0c822735cf510d0a99fe22aa467efa722d976b150a07f7c86706917daee5382"
+    },
+    {
+      "bytes": 1985,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/preparation-checks.json",
+      "sha256": "0189fc74cca4de0585ce7256b099fc181ea16d97c1d3d5503b7fc36afba4ad96"
+    },
+    {
+      "bytes": 2401,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/preparation-freeze.json",
+      "sha256": "de89b27805cf96b195c524a7847323cb40b70b82c3f0aa2806d354de7d88d527"
+    },
+    {
+      "bytes": 1927,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/report-finalization.json",
+      "sha256": "5a76333fb8b6bb99e9d6cf55414d8c6cffe93b51510c898739dd2245b85c23e8"
+    },
+    {
+      "bytes": 1201,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/result.json",
+      "sha256": "a3e4d8d9c4cfda9fee02cc52976269b5d13349dce4f963266320e365a9159a6c"
+    },
+    {
+      "bytes": 395,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/stop.json",
+      "sha256": "520718a8a25db23ce637d264fb3ed8cfc5028fd48d0d7f5690a779a2e14bbdbb"
+    },
+    {
+      "bytes": 164455280,
+      "mode": 420,
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/execution/unlink-ledger.jsonl",
+      "sha256": "d3ba12bee903172a9c4845b033e6386100ee4cdb9e007eff7e8ce9d1ae0b111c"
+    }
+  ],
+  "role": "Worker",
+  "status": "CLOSED",
+  "unknowns": [
+    "Independent disposal acceptance belongs to Root.",
+    "No verified free-disk gain/APFS extent-accounting claim."
+  ],
+  "workResult": "CLOSED_SAVED_EFFECT_CONSERVATION_WITH_TERMINAL_REPORTING_ERROR",
+  "writesAfterFreeze": "STOPPED"
+}

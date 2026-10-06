@@ -1,0 +1,21 @@
+{
+  "activation": "T287_UAT_ORACLE_SNAPSHOT_03",
+  "command": "npm run test:uat:harness",
+  "exitCode": 0,
+  "pass": 4,
+  "fail": 0,
+  "skip": 0,
+  "elapsedMs": 84.734167,
+  "focusedDiscriminator": [
+    "ambient checker/rubric/manifest changed after initial acquisition, before snapshot; actual archived judgment equals original",
+    "fresh acquisition of tampered ambient assets refuses",
+    "late archived pin check rejects altered archived rubric",
+    "configuration rejects absent and blank sourceCommit"
+  ],
+  "syntaxChecks": [
+    "test_env/uat/scenarios.mjs",
+    "test_env/uat/runner.mjs",
+    "test_env/uat/harness.test.mjs"
+  ],
+  "classification": "Provider-free test machinery checks; no Public installation repetition, Run, model dispatch or UAT pass"
+}

@@ -1,0 +1,132 @@
+{
+  "operation": "T287_PUBLIC_PREPARATION_BRIDGE_01",
+  "actor": "/root/public_preparation_worker",
+  "role": "Worker",
+  "status": "STOPPED_FOR_EXECUTIVE_TRIANGULATION",
+  "disposition": "FAILED_READINESS_NOT_ACCEPTED",
+  "productFrame": "Fixed fifteen-family ABI 5.0, GOAL-035/T-287 F05/F11/F15; deterministic construction/pure projection through existing immutable qualification owners. GTL/HoG traversal and sole ABG admission remain unchanged. The facade is a derived publication boundary; no Task, Run, assessment admission or verdict is authored.",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/plan.md",
+    "bytes": 8167,
+    "sha256": "42c23821fae6135bf65142cc9e1eb02575d036bd5860592cf510cfb70e24baa7"
+  },
+  "sourcePostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/qualification/m05.ts",
+      "bytes": 697,
+      "sha256": "5609a3ca5ea8893ea66ea4330d358042bcf3c30940d26fc483b32a068ce6961e",
+      "relativePath": "code/src/qualification/m05.ts",
+      "retainedPostimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_PUBLIC_PREPARATION_BRIDGE_01/Source/code/src/qualification/m05.ts",
+        "bytes": 697,
+        "sha256": "5609a3ca5ea8893ea66ea4330d358042bcf3c30940d26fc483b32a068ce6961e"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-public-preparation.test.mjs",
+      "bytes": 17748,
+      "sha256": "558d4e4319885d8e6d431bb260f947e96fc8770b00571eb4efcb187399a25920",
+      "relativePath": "test_env/tests/t287-public-preparation.test.mjs",
+      "retainedPostimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_PUBLIC_PREPARATION_BRIDGE_01/Source/test_env/tests/t287-public-preparation.test.mjs",
+        "bytes": 17748,
+        "sha256": "558d4e4319885d8e6d431bb260f947e96fc8770b00571eb4efcb187399a25920"
+      }
+    }
+  ],
+  "unchangedOwners": [
+    "validator/qualification.ts",
+    "validator/qualification_resources.ts"
+  ],
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10661096,
+    "sha256": "c54721805a8adb73c3fa74ee8c3c04126dc5bd7ad2da542967b9292c6a4943e5"
+  },
+  "productContentDigest": "sha256:71d31e7a1ac4d38a92337b8c3159e8318fde658ae4504749447b47ca215a89cf",
+  "catalogDigest": "sha256:9985ac7e225638afcc6cb4ed8c77ee9bdb770b2b74cca6a55d6d0229e232a757",
+  "passedPhases": [
+    "compile",
+    "manifest",
+    "pack",
+    "extract"
+  ],
+  "focused": {
+    "success": false,
+    "counts": {
+      "tests": 7,
+      "failed": 2,
+      "passed": 5,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 7,
+      "suites": 0
+    },
+    "duration_ms": 22918.074125
+  },
+  "passedTests": [
+    "all eight exact package addresses resolve canonical owner projections",
+    "catalog locates fresh complete declaration closures, retaining every extant identity",
+    "missing group and crossed locator are rejected by the same fixed oracle",
+    "two responsibility bindings use the same published preparation and immutable resource owners",
+    "generated m05 group locates both canonical owners and hashes its actual native inventory"
+  ],
+  "failedTests": [
+    {
+      "name": "existing owners refuse missing resources, crossed selectors and changed task identity",
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/consumer/t287-public-preparation.test.mjs",
+      "line": 159,
+      "message": "The input did not match the regular expression /qualification_resource_material_bytes/. Input:\n\n'TypeError: qualification_resource_identity_or_duplicate'\n"
+    },
+    {
+      "name": "source-blind strict caller imports canonical input, resource and request types from m05",
+      "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/consumer/t287-public-preparation.test.mjs",
+      "line": 181,
+      "message": "\u001b[96mnode_modules/@abiogenesis/typescript-tenant/build/code/src/abg/runtime_liveness.d.ts\u001b[0m:\u001b[93m1\u001b[0m:\u001b[93m34\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2307: \u001b[0mCannot find module 'node:fs' or its corresponding type declarations.\n\n\u001b[7m1\u001b[0m import { type BigIntStats } from \"node:fs\";\n\u001b[7m \u001b[0m \u001b[91m                                 ~~~~~~~~~\u001b[0m\n\u001b[96mnode_modules/@abiogenesis/typescript-tenant/build/code/src/abg/stdo_environment.d.ts\u001b[0m:\u001b[93m218\u001b[0m:\u001b[93m5\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2580: \u001b[0mCannot find name 'Buffer'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.\n\n\u001b[7m218\u001b[0m }): Buffer;\n\u001b[7m   \u001b[0m \u001b[91m    ~~~~~~\u001b[0m\n\u001b[96mnode_modules/@abiogenesis/typescript-tenant/build/code/src/abg/transport_contracts.d.ts\u001b[0m:\u001b[93m1\u001b[0m:\u001b[93m47\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2307: \u001b[0mCannot find module 'node:child_process' or its corresponding type declarations.\n\n\u001b[7m1\u001b[0m import type { SpawnOptionsWithoutStdio } from \"node:child_process\";\n\u001b[7m \u001b[0m \u001b[91m                                              ~~~~~~~~~~~~~~~~~~~~\u001b[0m\n\u001b[96mnode_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worker_transport.d.ts\u001b[0m:\u001b[93m42\u001b[0m:\u001b[93m43\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2503: \u001b[0mCannot find namespace 'NodeJS'.\n\n\u001b[7m42\u001b[0m     readonly onSignalRequested?: (signal: NodeJS.Signals) => void;\n\u001b[7m  \u001b[0m \u001b[91m                                          ~~~~~~\u001b[0m\n\u001b[96mnode_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worker_transport.d.ts\u001b[0m:\u001b[93m43\u001b[0m:\u001b[93m64\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2503: \u001b[0mCannot find namespace 'NodeJS'.\n\n\u001b[7m43\u001b[0m     readonly onProcessExited?: (status: number | null, signal: NodeJS.Signals | null) => void;\n\u001b[7m  \u001b[0m \u001b[91m                                                               ~~~~~~\u001b[0m\n\u001b[96mnode_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worker_transport.d.ts\u001b[0m:\u001b[93m57\u001b[0m:\u001b[93m22\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2503: \u001b[0mCannot find namespace 'NodeJS'.\n\n\u001b[7m57\u001b[0m     readonly signal: NodeJS.Signals | null;\n\u001b[7m  \u001b[0m \u001b[91m                     ~~~~~~\u001b[0m\n\n\n6 !== 0\n"
+    }
+  ],
+  "diagnostics": [
+    "{\"responsibilityBindings\":2,\"embeddedPreparations\":2,\"referencePreparations\":4,\"resourceAcquisitions\":1,\"inventoryCoverage\":\"incomplete\",\"assertionBytes\":89498,\"promptBytes\":[49279,49286],\"runtimeCalls\":0,\"qualificationClaims\":0}"
+  ],
+  "packageConservationObservation": {
+    "membershipFiles": 5283,
+    "membershipDelta": 0,
+    "contractIdDelta": 0,
+    "changedPackageFiles": [
+      "build/code/src/qualification/m05.js",
+      "build/code/src/qualification/m05.d.ts",
+      "contracts/capabilities/capability-definition-graph.json",
+      "product-toolchain-manifest.json"
+    ],
+    "failedOracle": "Expected only facade JavaScript/declaration and product manifest to change; capability graph was omitted."
+  },
+  "cost": {
+    "commandElapsedMs": 56271.70729199497,
+    "commandPeakRSSBytes": 1781727232,
+    "commandDefaultHeap": true,
+    "HOMEUnchanged": true,
+    "processesReaped": true,
+    "processGroupsAbsent": true,
+    "workCensusBeforeReturn": {
+      "regularFiles": 13315,
+      "logicalBytes": 266942046
+    },
+    "newEvidenceBeforeReturn": {
+      "regularFiles": 2,
+      "logicalBytes": 18445
+    }
+  },
+  "failureTriangulationPending": [
+    "Damaged material fixture reached earlier manifest identity guard before intended material byte guard.",
+    "Strict source-blind caller lacks explicit ambient Node type foundation; package-owned @types/node is already present.",
+    "Derived capability graph is part of affected publication cone; package conservation oracle omitted it."
+  ],
+  "RuntimeEffects": 0,
+  "providerCalls": 0,
+  "GitEffects": 0,
+  "qualificationClaims": 0,
+  "repairAttempts": 0,
+  "closedAtUTC": "2026-10-05T09:20:40.133024+00:00",
+  "nextAuthority": "Root Executive alone selects a bounded repair grant; Worker performs no repair and assigns no Reviewer."
+}

@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import * as gtl from "../../build/code/src/gtl/index.js";
+import * as gtl from "../support/language-structural-gtl.mjs";
 import * as product from "../../build/code/src/product/index.js";
 import { sha256Canonical } from "../../build/code/src/shared/digests.js";
 import * as validator from "../../build/code/src/validator/index.js";
@@ -16,7 +16,7 @@ const ARTIFACT_BASIS = Object.freeze({
 });
 
 function publication() {
-  return gtl.constructHelloWorldModulePublication(ARTIFACT_BASIS);
+  return gtl.constructStructuralModulePublication(ARTIFACT_BASIS);
 }
 
 function consensusPublication() {
@@ -71,12 +71,12 @@ function richAuthoredCarriers() {
   const rule = modulePublication.rules[0];
   const program = requireBy(
     modulePublication.programs,
-    (candidate) => candidate.programRef === gtl.FAN_OUT_HELLO_IDS.programRef,
+    (candidate) => candidate.programRef === gtl.FAN_OUT_IDS.programRef,
     "fan-out Program",
   );
   program.starts.push({
     startRef: "start://abiogenesis/a5-f02/fan-out-secondary@5",
-    graphFunctionRef: gtl.FAN_OUT_HELLO_IDS.elementGraphFunctionRef,
+    graphFunctionRef: gtl.FAN_OUT_IDS.elementGraphFunctionRef,
   });
   program.publicAssetTargets = [
     {
@@ -95,16 +95,17 @@ function richAuthoredCarriers() {
   const graphFunction = requireBy(
     modulePublication.graphFunctions,
     (candidate) =>
-      candidate.name === gtl.SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+      candidate.name === gtl.SUBSTITUTED_IDS.graphFunctionRef,
     "substituted GraphFunction",
   );
   graphFunction.environment.requires.push(
     "contract://abiogenesis/a5-f02/secondary-requirement@5",
   );
+  graphFunction.effects = ["effect://abi5-tests/canonical/source", "effect://abi5-tests/canonical/target"];
   const contribution = requireBy(
     modulePublication.contributions,
-    (candidate) => candidate.handle === gtl.HELLO_WORLD_IDS.graphFunctionRef,
-    "Hello World contribution",
+    (candidate) => candidate.handle === gtl.STRUCTURAL_IDS.graphFunctionRef,
+    "independent fixture contribution",
   );
   contribution.compatibilityRefs.push(
     "product://abiogenesis/a5-f02/secondary-compatibility@5",
@@ -197,20 +198,20 @@ function validRichPublication() {
   const modulePublication = structuredClone(publication());
   const program = requireBy(
     modulePublication.programs,
-    (candidate) => candidate.programRef === gtl.FAN_OUT_HELLO_IDS.programRef,
+    (candidate) => candidate.programRef === gtl.FAN_OUT_IDS.programRef,
     "fan-out Program",
   );
   program.starts.push({
     startRef: "start://abiogenesis/a5-f02/fan-out-validator-secondary@5",
-    graphFunctionRef: gtl.FAN_OUT_HELLO_IDS.elementGraphFunctionRef,
+    graphFunctionRef: gtl.FAN_OUT_IDS.elementGraphFunctionRef,
   });
   modulePublication.evaluators[0].consumedFieldRefs.push(
     "$.secondaryCanonicalField",
   );
   const contribution = requireBy(
     modulePublication.contributions,
-    (candidate) => candidate.handle === gtl.HELLO_WORLD_IDS.graphFunctionRef,
-    "Hello World contribution",
+    (candidate) => candidate.handle === gtl.STRUCTURAL_IDS.graphFunctionRef,
+    "independent fixture contribution",
   );
   contribution.compatibilityRefs.push(
     "product://abiogenesis/a5-f02/validator-compatibility@5",
@@ -264,7 +265,7 @@ function contributionAdmissions(publicationAdmission, permuted) {
 function programValidationInput(
   publicationAdmission,
   permuted,
-  programRef = gtl.FAN_OUT_HELLO_IDS.programRef,
+  programRef = gtl.FAN_OUT_IDS.programRef,
   authoredProgram = null,
 ) {
   const publishedProgram = requireBy(
@@ -293,7 +294,10 @@ function programValidationInput(
     (value) => requireRaw(value, "closure_contract"),
   );
   return {
-    publication: publicationAdmission,
+    declarationBasisDigest: publicationAdmission.subjectDigest,
+    programPublication: publicationAdmission,
+    evaluators: publicationAdmission.value.evaluators,
+    rules: publicationAdmission.value.rules,
     program: requireRaw(program, "gtl_program"),
     graphFunctions: permuted ? graphFunctions.reverse() : graphFunctions,
     contracts: permuted ? contracts.reverse() : contracts,
@@ -678,7 +682,7 @@ test("A5-F02 retains decision-exact duplicate refusal for every selected set", (
       const graphFunction = requireBy(
         value.graphFunctions,
         (candidate) =>
-          candidate.name === gtl.SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+          candidate.name === gtl.SUBSTITUTED_IDS.graphFunctionRef,
         "duplicate requires GraphFunction",
       );
       const identity = graphFunction.environment.requires[0];
@@ -692,7 +696,7 @@ test("A5-F02 retains decision-exact duplicate refusal for every selected set", (
       const graphFunction = requireBy(
         value.graphFunctions,
         (candidate) =>
-          candidate.name === gtl.SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+          candidate.name === gtl.SUBSTITUTED_IDS.graphFunctionRef,
         "duplicate provides GraphFunction",
       );
       const identity = graphFunction.environment.provides[0];
@@ -706,7 +710,7 @@ test("A5-F02 retains decision-exact duplicate refusal for every selected set", (
       const graphFunction = requireBy(
         value.graphFunctions,
         (candidate) =>
-          candidate.name === gtl.SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+          candidate.name === gtl.SUBSTITUTED_IDS.graphFunctionRef,
         "duplicate carries GraphFunction",
       );
       const identity = graphFunction.environment.carries[0];
@@ -720,7 +724,7 @@ test("A5-F02 retains decision-exact duplicate refusal for every selected set", (
       const graphFunction = requireBy(
         value.graphFunctions,
         (candidate) =>
-          candidate.name === gtl.SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+          candidate.name === gtl.SUBSTITUTED_IDS.graphFunctionRef,
         "duplicate effects GraphFunction",
       );
       const identity = graphFunction.effects[0];
@@ -734,7 +738,7 @@ test("A5-F02 retains decision-exact duplicate refusal for every selected set", (
       const graphFunction = requireBy(
         value.graphFunctions,
         (candidate) =>
-          candidate.name === gtl.SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+          candidate.name === gtl.SUBSTITUTED_IDS.graphFunctionRef,
         "duplicate tags GraphFunction",
       );
       const identity = graphFunction.tags[0];
@@ -752,7 +756,7 @@ test("A5-F02 retains decision-exact duplicate refusal for every selected set", (
     ].map(([field, label]) => (value) => {
       const contribution = requireBy(
         value.contributions,
-        (candidate) => candidate.handle === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+        (candidate) => candidate.handle === gtl.STRUCTURAL_IDS.graphFunctionRef,
         `duplicate ${field} contribution`,
       );
       const identity = contribution[field][0];
@@ -810,7 +814,7 @@ test("A5-F02 retains decision-exact duplicate refusal for every selected set", (
     const candidate = structuredClone(richAuthoredCarriers().modulePublication);
     const program = requireBy(
       candidate.programs,
-      (value) => value.programRef === gtl.FAN_OUT_HELLO_IDS.programRef,
+      (value) => value.programRef === gtl.FAN_OUT_IDS.programRef,
       "duplicate Program inventory witness",
     );
     const expected = mutate(program);
@@ -851,22 +855,14 @@ test("A5-F02 retains decision-exact duplicate refusal for every selected set", (
   );
 });
 
-test("A5-F02 retains typed refusal for invalid selected set entries", () => {
+test("A5-F02 retains typed raw refusal for invalid selected set entries", () => {
   const invalidPublication = structuredClone(publication());
   invalidPublication.evaluators[0].tags.push("");
-  const invalidAdmission = requireRaw(invalidPublication, "module_publication");
-  const invalidResult = validator.validatePublication(
-    invalidAdmission,
-    contributionAdmissions(invalidAdmission, true),
-  );
-  assert.equal(invalidResult.kind, "static_validation_refusal");
-  assert.equal(
-    invalidResult.diagnostics.some(
-      (row) => row.code === "invalid_reference" && row.path.startsWith("$.evaluators"),
-    ),
-    true,
-    JSON.stringify(invalidResult),
-  );
+  const refusal = validator.rawAdmitValue(invalidPublication, "module_publication", "contract://raw/module_publication");
+  assert.equal(refusal.kind, "raw_admission_refusal");
+  assert.equal(refusal.code, "invalid_kind");
+  assert.match(refusal.message, /evaluators\/0\/tags/u);
+  requireRaw(publication(), "module_publication");
 });
 
 test("A5-F02 preserves ordered topology, C composition, arguments, and closure sequences", () => {
@@ -874,7 +870,7 @@ test("A5-F02 preserves ordered topology, C composition, arguments, and closure s
   const substituted = requireBy(
     source.graphFunctions,
     (candidate) =>
-      candidate.name === gtl.SUBSTITUTED_HELLO_IDS.graphFunctionRef,
+      candidate.name === gtl.SUBSTITUTED_IDS.graphFunctionRef,
     "substituted GraphFunction",
   );
   for (const [label, permute] of [
@@ -902,7 +898,7 @@ test("A5-F02 preserves ordered topology, C composition, arguments, and closure s
 
   const composed = requireBy(
     source.graphFunctions,
-    (candidate) => candidate.name === gtl.COMPOSED_HELLO_IDS.graphFunctionRef,
+    (candidate) => candidate.name === gtl.COMPOSED_IDS.graphFunctionRef,
     "composed GraphFunction",
   );
   const reversedComposition = structuredClone(composed);
@@ -910,11 +906,10 @@ test("A5-F02 preserves ordered topology, C composition, arguments, and closure s
     reversedComposition.template.nodes[0].term,
     "terms",
   );
-  assert.notEqual(
-    requireRaw(reversedComposition, "graph_function").subjectDigest,
-    requireRaw(composed, "graph_function").subjectDigest,
-    "C composition term order",
-  );
+  const reversedRefusal = validator.rawAdmitValue(reversedComposition, "graph_function", "contract://raw/graph_function");
+  assert.equal(reversedRefusal.kind, "raw_admission_refusal", "reversing dependent terms breaks their actual carrier join");
+  assert.equal(reversedRefusal.code, "invalid_kind");
+  requireRaw(composed, "graph_function");
 
   const orderedArguments = structuredClone(substituted);
   orderedArguments.inputs = [
@@ -932,9 +927,9 @@ test("A5-F02 preserves ordered topology, C composition, arguments, and closure s
   const closure = source.closureContracts[0];
   const reversedClosure = structuredClone(closure);
   reversedClosure.eventKindRefs.reverse();
-  assert.notEqual(
-    requireRaw(reversedClosure, "closure_contract").subjectDigest,
-    requireRaw(closure, "closure_contract").subjectDigest,
-    "closure event order",
-  );
+  const closureRefusal = validator.rawAdmitValue(reversedClosure, "closure_contract", "contract://raw/closure_contract");
+  assert.equal(closureRefusal.kind, "raw_admission_refusal");
+  assert.equal(closureRefusal.code, "invalid_kind");
+  assert.match(closureRefusal.message, /eventKindRefs/u);
+  requireRaw(closure, "closure_contract");
 });

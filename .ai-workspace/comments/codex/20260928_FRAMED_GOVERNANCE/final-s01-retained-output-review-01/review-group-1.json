@@ -1,0 +1,10 @@
+{
+  "group": 1,
+  "status": "authority and frozen-shape discovery",
+  "elapsedSeconds": 0.1324754161760211,
+  "nativeCalls": 0,
+  "movingResourceReads": 0,
+  "processes": {
+    "a_cJoin": 0
+  }
+}

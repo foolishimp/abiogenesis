@@ -21,8 +21,15 @@ export function stageQualificationAuthorities(repo, release) {
   const definitionBytes = bytes(path.join(repo, 'stdo_abiogenesis.json'));
   const definition = JSON.parse(definitionBytes), manifestBytes = bytes(path.join(release, 'manifest.json'));
   const selected = definition.constitution.stdo.basis, manifest = JSON.parse(manifestBytes);
-  if (selected.uri !== 'stdo://releases/v2.5.1-rc.1/' || sha256Bytes(manifestBytes) !== 'sha256:' + selected.manifest_sha256 ||
-      selected.manifest_sha256 !== '5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64') throw Error('unselected method basis');
+  const version = /^v(\d+\.\d+\.\d+(?:-rc\.[1-9]\d*)?)$/.exec(manifest.release?.cut ?? '');
+  if (manifest.kind !== 'stdo.installed-release-manifest' || version === null ||
+      selected.uri !== 'stdo://releases/' + manifest.release.cut + '/' ||
+      sha256Bytes(manifestBytes) !== 'sha256:' + selected.manifest_sha256) throw Error('unselected method basis');
+  const standards = manifest.standards;
+  const memberSet = Buffer.from([...standards.members].sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0)
+    .map(member => `${member.sha256}  ${standards.source_root}/${member.path}\n`).join(''));
+  if (standards.member_count !== standards.members.length ||
+      sha256Bytes(memberSet) !== 'sha256:' + standards.member_set_sha256) throw Error('unjoined STDO member set');
   const standardPaths = [...new Set([...definition.constitution.entrypoints.map(e => e.uri), 'standards/AXIOMATIC_CALCULUS.md'])].sort();
   const sourcePaths = ['stdo_abiogenesis.json', 'specification/INTENT.md', 'specification/PRODUCT.md',
     ...files(path.join(repo, 'specification/requirements')).map(p => path.relative(repo, p))];
@@ -40,7 +47,7 @@ export function stageQualificationAuthorities(repo, release) {
     return { ref: s.ref, path: p, digest: sha256Bytes(s.raw), byteCount: s.raw.length };
   });
   const input = { kind: 'qualification_authority_inputs', definitionDigest: sha256Bytes(definitionBytes),
-    method: { releaseRef: selected.uri, methodVersion: '2.5.1-rc.1', installedManifestDigest: sha256Bytes(manifestBytes),
+    method: { releaseRef: selected.uri, methodVersion: version[1], installedManifestDigest: sha256Bytes(manifestBytes),
       memberSetDigest: 'sha256:' + manifest.standards.member_set_sha256 }, sources: rows };
   write(inputPath, json(input)); return input;
 }
@@ -68,7 +75,10 @@ export function qualificationSchema() {
     ['NativeRuntimeAssessmentInput', q.NATIVE_RUNTIME_ASSESSMENT_INPUT_SCHEMA], ['NativeRuntimeAssessment', q.NATIVE_RUNTIME_ASSESSMENT_SCHEMA],
     ['QualificationAssessmentTask', q.QUALIFICATION_ASSESSMENT_TASK_SCHEMA], ['QualificationAssessmentPlan', q.QUALIFICATION_ASSESSMENT_PLAN_SCHEMA],
     ['QualificationJudgment', q.QUALIFICATION_JUDGMENT_SCHEMA], ['QualificationOwnerRuling', q.QUALIFICATION_OWNER_RULING_SCHEMA],
-    ['QualificationProofResource', q.QUALIFICATION_PROOF_RESOURCE_SCHEMA], ['QualificationConstructionProvenance', q.QUALIFICATION_CONSTRUCTION_PROVENANCE_SCHEMA],
+    ['QualificationProofResource', q.QUALIFICATION_PROOF_RESOURCE_SCHEMA],
+    ['QualificationResourceAssertion', q.QUALIFICATION_RESOURCE_ASSERTION_SCHEMA], ['QualificationResourceManifest', q.QUALIFICATION_RESOURCE_MANIFEST_SCHEMA],
+    ['QualificationResourceSelection', q.QUALIFICATION_RESOURCE_SELECTION_SCHEMA], ['QualificationInternedScope', q.QUALIFICATION_INTERNED_SCOPE_SCHEMA],
+    ['QualificationReferenceSet', q.QUALIFICATION_REFERENCE_SET_SCHEMA], ['QualificationConstructionProvenance', q.QUALIFICATION_CONSTRUCTION_PROVENANCE_SCHEMA],
     ['QualificationLawBasis', q.QUALIFICATION_LAW_BASIS_SCHEMA], ['TenantConformanceManifest', q.TENANT_CONFORMANCE_MANIFEST_SCHEMA],
     ['QualificationRuleCatalog', q.QUALIFICATION_RULE_CATALOG_SCHEMA],
     ['MalformedGtlAssessmentInput', q.MALFORMED_GTL_ASSESSMENT_INPUT_SCHEMA],

@@ -1,0 +1,117 @@
+{
+  "scenarioId": "SCN-GLC-HELLO-WORLD-CLI-BASIC",
+  "kind": "node_cli",
+  "expectedReturnValue": "Hello, world!",
+  "stageMeanings": [
+    {
+      "stage": "conformance_project",
+      "filesToProduce": [
+        "specification/project-conformance.md"
+      ],
+      "instructions": [
+        "Write only specification/project-conformance.md.",
+        "Declare a minimal CLI Hello World software-build traversal.",
+        "The source surface must be generated/hello-world.mjs.",
+        "The execution proof must run the CLI and observe stdout exactly \"Hello, world!\\n\".",
+        "Do not write source, tests, package files, or execution plans in this vector."
+      ]
+    },
+    {
+      "stage": "implementation_design",
+      "filesToProduce": [
+        "design/implementation-design.md"
+      ],
+      "instructions": [
+        "Write only design/implementation-design.md.",
+        "Use the prior conformance_project artifact as authority.",
+        "Define a minimal Node CLI script at generated/hello-world.mjs.",
+        "The script must print exactly \"Hello, world!\" followed by one newline.",
+        "Name component and UAT test source surfaces that execute the CLI and assert stdout."
+      ]
+    },
+    {
+      "stage": "source",
+      "filesToProduce": [
+        "generated/hello-world.mjs"
+      ],
+      "instructions": [
+        "Write only generated/hello-world.mjs.",
+        "The script must execute under node without package installation.",
+        "It must write exactly \"Hello, world!\\n\" to stdout."
+      ]
+    },
+    {
+      "stage": "test_design",
+      "filesToProduce": [
+        "design/test-design.md"
+      ],
+      "instructions": [
+        "Write only design/test-design.md.",
+        "Specify component and UAT validation of the CLI stdout contract.",
+        "Both tests must spawn node generated/hello-world.mjs and assert status 0 and stdout exactly \"Hello, world!\\n\"."
+      ]
+    },
+    {
+      "stage": "component_test_source",
+      "filesToProduce": [
+        "test/component/hello-cli.test.mjs"
+      ],
+      "instructions": [
+        "Write only test/component/hello-cli.test.mjs.",
+        "Use node:test, node:assert/strict, and node:child_process spawnSync.",
+        "Run process.execPath with [\"generated/hello-world.mjs\"] from the project root.",
+        "Assert status 0 and stdout exactly \"Hello, world!\\n\"."
+      ]
+    },
+    {
+      "stage": "uat_test_source",
+      "filesToProduce": [
+        "test/uat/hello-cli.uat.test.mjs"
+      ],
+      "instructions": [
+        "Write only test/uat/hello-cli.uat.test.mjs.",
+        "Use node:test, node:assert/strict, and node:child_process spawnSync.",
+        "Run process.execPath with [\"generated/hello-world.mjs\"] from the project root.",
+        "Assert the user-visible CLI output is exactly \"Hello, world!\\n\"."
+      ]
+    },
+    {
+      "stage": "test_execution_plan",
+      "workerExecutes": true,
+      "filesToProduce": [
+        "test-execution-plan.json",
+        "test-execution-result.json"
+      ],
+      "instructions": [
+        "Write test-execution-plan.json and test-execution-result.json only.",
+        "The JSON command must be node.",
+        "The args must be [\"--test\", \"test/component/hello-cli.test.mjs\", \"test/uat/hello-cli.uat.test.mjs\"].",
+        "expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.",
+        "expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.",
+        "assertedReturnValue must be \"Hello, world!\".",
+        "EXECUTION-DEFAULT LAW: run node --test test/component/hello-cli.test.mjs test/uat/hello-cli.uat.test.mjs yourself inside this turn; the framework executes nothing.",
+        "Record the truthful observed command, args, integer status, stdout, stderr, expectedTestPassCount, expectedStdoutMatch, assertedReturnValue, cwd, and env in test-execution-result.json."
+      ]
+    },
+    {
+      "stage": "test_execution_result",
+      "instructions": [
+        "Produce no files.",
+        "Accept only if the execution plan command exited 0, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true."
+      ]
+    }
+  ],
+  "requirements": [],
+  "requirementSpanStageMeanings": [],
+  "requiredDepthClassRefs": [],
+  "sourcePin": {
+    "repository": "odd_glc",
+    "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+    "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+    "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+    "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+    "startByte": 7589,
+    "endByte": 11914,
+    "selectedDigest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+  }
+}

@@ -1,0 +1,11 @@
+import {readFile} from 'node:fs/promises';
+import * as prep from "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_PROJECTION_PACKAGE_02/consumer/node_modules/%40abiogenesis/typescript-tenant/build/code/src/qualification/m05.js";
+import * as diag from './review-source-diagnostic-owner.mjs';
+const read=async p=>JSON.parse(await readFile(p,'utf8'));
+const rec=await read("/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_05/failing-proof-input-reconstruction.json");
+const input=await read(rec.assessmentInput.path);
+const assertion=await read(rec.owningResourceAssertion.path);
+const declarationProof=await read(rec.declarationProof.path);
+const resources=prep.acquireQualificationResources({...assertion,declarationProofs:[declarationProof]});
+const got=diag.projectQualificationJudgment(rec.proof,input.plan,rec.proof.selections[0],resources);
+console.log(JSON.stringify({standing:'Read-only instrumented copy of frozen installed owner; existing prefix only; no runtime execution',resultNull:got===null,trace:diag.reviewReadOnlyTrace()}));

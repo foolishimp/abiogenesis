@@ -1,0 +1,84 @@
+{
+  "status": "ACCEPTED_BOUNDED_INSTALLED_SETUP",
+  "operation": "T287_C05_SETUP_ACCEPTANCE_RECORDING_01",
+  "acceptedAt": "2026-10-02T03:09:55.051695+00:00",
+  "actor": "/root Executive after independent closed-evidence reacquisition",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "candidate": {
+    "constructionFreezeSHA256": "ac42878a8191fecc5718eb8aa4dbcbf6b30b2a3f0e1e29161f94203f56d9c47e",
+    "artifactSHA256": "060f129747a51f29c07765fa802437f1b651d0109a79299d66de35f7a8cbe6f8",
+    "productContentDigest": "sha256:27fa7db21c6987976afdcaac1ac092ed5ff1b8af5e10fed51b72658390ca429a",
+    "manifestDigest": "sha256:d0da31f911c6ff7cdf5e22361d22c0ff75b878a040484f79328a8ceb1e96355e"
+  },
+  "setup": {
+    "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/freeze.json",
+    "freezeSHA256": "3aa1948357cbce79b8c029f0be610fda129e325d6b0a267501e9e690cdd92f82",
+    "verifiedRecords": 11313,
+    "verifiedRecordBytes": 915033775,
+    "verifiedDirectories": 1175,
+    "nonregularPayloadEntries": 0,
+    "actualPublicCalls": 14,
+    "admittedInstalls": 2,
+    "publications": 12,
+    "programConformancePasses": 4,
+    "fullBinding": {
+      "digest": "sha256:65dc434be1a1fe0d953ed24d31a79d03bd93272ecd4c877e78e9c11b45525996",
+      "ref": "workspace-binding://abiogenesis/65dc434be1a1fe0d953ed24d31a79d03bd93272ecd4c877e78e9c11b45525996"
+    },
+    "currentActor": "actor://abiogenesis/t287/f11-c05-installed-setup-05/operator",
+    "mixedLock": {
+      "ref": "product-lock://abiogenesis/45bfd9c8d278fffb93ca03338700a2a36c071d55666086fd45f556da46f96e63",
+      "digest": "sha256:45bfd9c8d278fffb93ca03338700a2a36c071d55666086fd45f556da46f96e63"
+    },
+    "coreInstalledRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/installed/core/node_modules/@abiogenesis/typescript-tenant",
+    "closeHandoff": {
+      "prefix": {
+        "coordinateDigest": "sha256:3e06846585b753d5a3583600dbf17ca2db7492f82ce3212e05f77554c09021dc",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:7f568a9f3136b274c77730e152097bb47bf655145041dbbc1d92b21a4b74389d",
+        "prefixLength": 2490814,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 464611665
+        }
+      },
+      "reopenAuthority": {
+        "authorityDigest": "sha256:cdb135d3157923501b8b80a9e62192a60c903292e58d89780d3b80a6328ea785",
+        "device": 16777230,
+        "durableByteLength": 2490814,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "eventLogDigest": "sha256:7f568a9f3136b274c77730e152097bb47bf655145041dbbc1d92b21a4b74389d",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+        "inode": 464611665,
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0"
+      }
+    },
+    "handoffDigest": "sha256:4e30bab591139929f6ff7c8c313f715bc23e870a61ea73e91d9128b9c6b0276d",
+    "authorityHandoff": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/installed-authority-handoff.json"
+  },
+  "rootVerification": [
+    "All 11313 frozen regular-file bytes, sizes and modes verified; complete 1175-directory population and modes verified; zero links.",
+    "Actual state, coordinate selection, source/artifact identity, two admitted installs, complete calls and canonical authentic handoff independently joined.",
+    "Original failed report and protected files remain recorded; producer-typed coordinate correction did not rerun Runtime."
+  ],
+  "cost": {
+    "runtimeSeconds": 234.821,
+    "reportContinuationSeconds": 1.073,
+    "heap": "default",
+    "peakMainRSSBytes": 3154477056,
+    "knownProcessGroupsClosed": 15,
+    "limits": "npm internal children and ambient processes not individually enumerated; cost is this setup, not a benchmark."
+  },
+  "acceptedScope": "Actual Public verification/resolution/install/bind/catalog/view and four declared Program conformance evaluations only.",
+  "remaining": [
+    "Q06 independent current-input acceptance",
+    "Actual F11 child/Result/J/foldback/parent/Run/cold-consumer path",
+    "Genuine independent F11, observed QUAL056, complete scenario conjunction, sole AF22 green",
+    "Publication, installed-RC qualification, actual human acceptance and terminal remote installation"
+  ],
+  "effectsAfterAcceptance": "No Runtime reopening selected by this record. Future separately granted continuation may append to the actual resource only after preserving and verifying its exact durable prefix/inode and authentic handoff; earlier named stores remain read-only."
+}

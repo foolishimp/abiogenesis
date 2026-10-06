@@ -1,0 +1,10 @@
+{
+  "failure": "Content revision refused retained negative because reconstructed C-call envelope does not copy evidenceContractRef",
+  "frames": {
+    "ProductDesign": "No new semantic choice; selected admitted input evidence remains sufficient.",
+    "IdentityOwner": "Evidence contract belongs to ExecutionBasis.evidenceContractRef (execution_basis.ts:421,2032); C-call reconstructed from open/fibre does not retain that field. execution basis already authenticated for exact Run/route/WB.",
+    "Integration": "Same carrier-versus-owner defect class as triage02 inputContractRef. Complete declared fields now come from admitted execution basis (evidence) or implementation row (input/output).",
+    "Proof": "Retained negative stopped at pure owner projection; debug establishes evidence digest and scope match. No native/runtime effect."
+  },
+  "repair": "Use exact authenticated execution.evidenceContractRef. Recompile and reprove complete component/content and red set."
+}

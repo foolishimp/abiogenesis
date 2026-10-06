@@ -1,0 +1,18 @@
+{
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/events/runtime.events.jsonl",
+  "authenticInitialHandoffFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/closed-event-resource-handoff.json",
+  "initialHandoffDigest": "sha256:18509b14a755258cf47240c3654adc134170b1698723607c2b8c285a910df4ca",
+  "initialPrefixBytes": 2490814,
+  "initialPrefixSha256": "aee5f944be49a7d6aee3c1dd53717d490c52cd1015ff863409ded58fec08f2f7",
+  "eventDevice": 16777230,
+  "eventInode": 464793566,
+  "onlyAppendOwner": "ABG under separately activated Runtime08 after exact Root release; no current resource open",
+  "allowedNewOwnerScopedResourceRoots": {
+    "runtimeStateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/runtime",
+    "projectionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/projections",
+    "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/archives"
+  },
+  "installedWorksiteExistingEntries": "preserved; future exact initial census under Runtime grant",
+  "RuntimeGate": "NOT RELEASED; Q09 unaccepted; exact Root input acceptance and message required",
+  "sourceOldStoresProviderEffects": 0
+}

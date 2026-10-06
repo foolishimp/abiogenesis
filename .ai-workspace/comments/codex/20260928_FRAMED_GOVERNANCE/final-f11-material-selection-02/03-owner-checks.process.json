@@ -1,0 +1,12 @@
+{
+  "label": "03-owner-checks",
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/check-selection.mjs"
+  ],
+  "pid": 35760,
+  "elapsedMs": 1273.1629172340035,
+  "exitCode": 0,
+  "signals": [],
+  "nativeCalls": 0
+}

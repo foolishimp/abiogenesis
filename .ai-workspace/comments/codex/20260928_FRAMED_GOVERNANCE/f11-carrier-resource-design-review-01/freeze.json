@@ -1,0 +1,38 @@
+{
+  "kind": "independent_design_review_frozen_return",
+  "status": "CLOSED",
+  "evaluationActivation": "T287_F11_DESIGN_INDEPENDENT_REVIEW_01",
+  "reportActivation": "T287_F11_DESIGN_REVIEW_REPORT_01",
+  "subjectSHA256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+  "verdict": "GO_for_bounded_implementation",
+  "records": [
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1005,
+      "sha256": "2da0103153a1dc9787a20327f1e7ad374800f12c1483673bac48a3104cbfc1ff"
+    },
+    {
+      "path": "closed-state.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1484,
+      "sha256": "494dffa8d142b70a53eee5ca5ad0f48db0878bf2a42302799e85cbb5d2f2940a"
+    },
+    {
+      "path": "review.md",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 6640,
+      "sha256": "6121059cb6c9d20d1ad6ef46dffaea1d1fc4df18f4d515c55b31d6c4ae6b3bef"
+    },
+    {
+      "path": "source-verification.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14075,
+      "sha256": "74f4a48c91fd6445b343188de4865c15069ace2a24abb163753d451e7179a16d"
+    }
+  ]
+}

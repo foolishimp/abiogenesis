@@ -1,0 +1,48 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "eventless",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.workspace.create",
+      "memberKey": "clean"
+    },
+    "invocationRef": "invocation://abiogenesis/2558631a731b6da6e02831758c20497a20e22bf2be8e372456276b771d3a0cd6",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "createPolicy": "clean",
+        "workspace": {
+          "ref": "workspace://abiogenesis/fae3dcc2727ed35fc55ba1cbe2b42a44802b2b7ab44af223a867a1887685f038",
+          "digest": "sha256:fae3dcc2727ed35fc55ba1cbe2b42a44802b2b7ab44af223a867a1887685f038"
+        },
+        "authorityMode": "clean",
+        "scaffoldState": "none",
+        "creationManifest": {
+          "ref": "workspace-creation://abiogenesis/a997b79e9d34d8db457e01c3cfa0120cba86be43a89fe6b00241ef281389f398",
+          "digest": "sha256:a997b79e9d34d8db457e01c3cfa0120cba86be43a89fe6b00241ef281389f398"
+        },
+        "provenance": [
+          {
+            "ref": "workspace-creation://abiogenesis/a997b79e9d34d8db457e01c3cfa0120cba86be43a89fe6b00241ef281389f398",
+            "digest": "sha256:a997b79e9d34d8db457e01c3cfa0120cba86be43a89fe6b00241ef281389f398"
+          }
+        ]
+      }
+    },
+    "resources": {
+      "kind": "workspace_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "targetRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/resources/worksite",
+      "targetRootDigest": "sha256:0733866358ce515c5220e9764dea763a39c6aa6ef4798f88b406a351485ec616",
+      "manifest": {
+        "locator": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/resources/worksite/.abiogenesis/workspace-manifest.json",
+        "valueDigest": "sha256:2148b6766971d0f99e6047138f412d252e78e782bce8131041f2badaea48524b"
+      }
+    },
+    "failure": null
+  }
+}

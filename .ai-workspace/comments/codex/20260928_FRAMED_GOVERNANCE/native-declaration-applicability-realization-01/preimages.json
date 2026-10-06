@@ -1,0 +1,20 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md",
+    "bytes": 8428,
+    "sha256": "8da4a88867663c6e678c9e33973eae5d9daa0b8bab1202678ecaa5dd5a546ae7",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+    "bytes": 112700,
+    "sha256": "f52f076cdb5594f900cec37ad68aeef87bbdccc710c0e2c9ec21fff66886dba9",
+    "mode": 420
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs",
+    "bytes": 52540,
+    "sha256": "66cad9c182fa5f89599641d50cadaaaa0f45e981f9f57369676d0346e8583f23",
+    "mode": 420
+  }
+]

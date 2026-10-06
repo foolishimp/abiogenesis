@@ -1,0 +1,51 @@
+{
+  "subject": "T287_CALCULUS_REPAIR_01 rank1 R-ST01 Writer continuation",
+  "head": "420336a50b8fbec42ab244521cfa4d8a0351c4af",
+  "checks": [
+    {
+      "command": "./node_modules/.bin/tsc --noEmit --project tsconfig.json",
+      "exitCode": 0,
+      "scope": "current production TypeScript; final noEmit after local typing corrections"
+    },
+    {
+      "command": "./node_modules/.bin/tsc --project tsconfig.json",
+      "exitCode": 0,
+      "scope": "ordinary shared emission; no clean"
+    },
+    {
+      "command": "node scripts/generate-product-manifest.mjs",
+      "exitCode": 0,
+      "scope": "generated metadata for current emitted cut"
+    },
+    {
+      "command": "node --test test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "exitCode": 0,
+      "tests": 8,
+      "finiteCases": 7,
+      "failures": 0,
+      "skipped": 0,
+      "durationMs": 270953.789958,
+      "log": "composition.log"
+    },
+    {
+      "command": "git diff --check -- <six scoped source/HOW/test paths>",
+      "exitCode": 0
+    }
+  ],
+  "acceptedContextHashes": {
+    "specification/PRODUCT.md": true,
+    "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md": true,
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts": true,
+    "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts": true,
+    "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs": true,
+    "build_tenants/abiogenesis/typescript/build/code/src/abg/instruction_assembly.js": true,
+    "build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.js": true
+  },
+  "sourceComplexityEvidence": "Exact cursor-origin/input-origin index lookups replace whole-prefix origin enumeration. Actual selected ancestry is projected, with one cursor construction per transition. No wall/CPU speedup claim or unrelated-history benchmark was run.",
+  "proofLimits": [
+    "No new provider, native actor or semantic/nativeIntake positive.",
+    "Existing Product pending-asset/value checks are reused from frozen state-transfer-01, not rerun.",
+    "Fan-out, retained-input, retry, F_H, reentry and child-foldback distinct branches are source-accounted, not newly executed here.",
+    "CPU attribution, actual installed-tree size and finer verification/copy IO attribution are unmeasured."
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "status": "frozen_before_native_launch",
+  "records": [
+    {
+      "path": "authored-input-chain.json",
+      "bytes": 3030,
+      "sha256": "e9d892479b3452d9521542518361dd228df049a33b4a2dc3797dea6ff14da1a7"
+    },
+    {
+      "path": "budgets.json",
+      "bytes": 727,
+      "sha256": "0ac2561a8bed38b1004180a224d597744a494406c8533fab5689a7956c4b4444"
+    },
+    {
+      "path": "caller-source-compatibility.json",
+      "bytes": 2726,
+      "sha256": "11f77e9ec3faa545d4459d9c6540263c832a943d2e619fdac2e83f3b5e486805"
+    },
+    {
+      "path": "config/global.gitconfig",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/system.gitconfig",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "driver.mjs",
+      "bytes": 13021,
+      "sha256": "d9dff36ca9d1ba7394def19225fb510b6706de9056fcc514919664c657d2fdb9"
+    },
+    {
+      "path": "input-joins.json",
+      "bytes": 2938,
+      "sha256": "000724bb83f02f02d515093c978f9342a74d7f264435cc2ecd3bc9f2f4643bf4"
+    },
+    {
+      "path": "launch-once.py",
+      "bytes": 2155,
+      "sha256": "3a374c28be9721094b44831663297db00e21a1400a7d9b46aae53672135d1377"
+    },
+    {
+      "path": "observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "observe-process.py.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "bytes": 14670,
+      "sha256": "e8b685a9584da270c7718d79b6fd255da98fa8dc1b03727c789ed6d7ccebc3a5"
+    },
+    {
+      "path": "ordinary-caller.mjs.patch",
+      "bytes": 11530,
+      "sha256": "8fbe7650ac27332d3d0185bbfc361df03f1a7d72c53262c7eaf8dc1aeb2bc585"
+    },
+    {
+      "path": "preimages/driver.mjs",
+      "bytes": 13936,
+      "sha256": "590ceb00294de7314e577c7828db8b0b34c87f8288f8a20d8a7f63f6258b594f"
+    },
+    {
+      "path": "preimages/observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "preimages/ordinary-caller.mjs",
+      "bytes": 14225,
+      "sha256": "0c05f27de926a1b13885653e9d344df1c16e772ce2cf6e23b05420e9244eceea"
+    },
+    {
+      "path": "preimages/public-support.mjs",
+      "bytes": 8856,
+      "sha256": "a5396d72d789317daa1a9ffbcfc8e79b7ffe6300b2491d62f317b01db0259b48"
+    },
+    {
+      "path": "prepare.py",
+      "bytes": 7036,
+      "sha256": "f135abd33a02b7c617c5de4e593e7db87e14094d726a9ac12e02ed74ff80e284"
+    },
+    {
+      "path": "prospective-cases.json",
+      "bytes": 1040,
+      "sha256": "556355e9f3ff648bfa5f921ed39c47c0690d95499e1667df0d4d2f12ab4db2ea"
+    },
+    {
+      "path": "public-support.mjs",
+      "bytes": 9066,
+      "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+    },
+    {
+      "path": "public-support.mjs.patch",
+      "bytes": 557,
+      "sha256": "11e8a57f86c461f163d0db6a2a3583504b2565699bdd58f1a0839361a009d0e4"
+    },
+    {
+      "path": "resource-plan.json",
+      "bytes": 1814,
+      "sha256": "87e4eaf7d8e0bf4df6e6f4f190d70e314d50a864d037cd5c5bb90289fe50dc5b"
+    },
+    {
+      "path": "runtime-environment.json",
+      "bytes": 1151,
+      "sha256": "cc92eaad7942d8c70d4bbfec06d7ce30da6d9574a1c77c6cb08d76abc8bfcdf1"
+    },
+    {
+      "path": "selected-core.json",
+      "bytes": 1261,
+      "sha256": "b63c5152490e5f7ac570d9f81655620c0e6f5fbaa89d1f0440691c4b0294c86f"
+    },
+    {
+      "path": "worker-activation.json",
+      "bytes": 1310,
+      "sha256": "106223871e7d6bc72e13da2aae5de0516013a28efc99285d54399cf4f500d67d"
+    }
+  ]
+}

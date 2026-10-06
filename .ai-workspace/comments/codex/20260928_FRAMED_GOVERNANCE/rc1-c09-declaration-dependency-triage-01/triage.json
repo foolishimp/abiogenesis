@@ -1,0 +1,57 @@
+{
+  "kind": "triangulated_pre_payload_proof_consumer_failure",
+  "evidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/prepayload-compatibility-frontier.json",
+    "bytes": 181613,
+    "sha256": "e5f3fcae7f3591cdea26e106d519e2b15f4b3bef04cb93848944c98aea268d68",
+    "mode": 420
+  },
+  "originatingViolatedRelation": "External proof consumer adds predecessor byte equality not present in actual wrapper dependency; selected typed Source necessarily changes declaration inventory.",
+  "frames": {
+    "ProductRequirements": "REQ-P-CATALOG-010/011/012/013 require declared dependencies and fresh exact resolved lock; REQ-P-PUBLIC-CONTRACTS-002A/003 require truthful fresh declaration hashes and permit stronger native types consistent with serialization. Wrapper binds product/version/major5/3contractRefs/2capabilityRefs, not previous artifact/row/body digests.",
+    "Design": "Accepted HOW5.1/shared typed Source retains Product/serialized semantics; its affected cone includes three changed declarations and new shared declaration, all native typed catalog digests and capability coordinates. Root construction grant omitted this expected cone by retaining historical308 equality wording.",
+    "Integration": "compare-wrapper.mjs34-48 copies complete prior row/37native row/body equality from a previous unchanged-declaration candidate. Actual same-process owner verification and later resolve/install/conformance must consume current generated producer rows.",
+    "Identity": "Historical C08 body/catalog coordinates remain immutable observations. New C09 artifact/manifest/catalog/contract digests require fresh selection and lock, never old identity substitution. No published RC exists; prospective cuts are distinct exact subjects.",
+    "Proof": "Original conservative comparator legitimately proved old unchanged-declaration relation; it does not establish or prohibit compatibility of the current typed successor. Accepted Source compiler/callback/type proofs establish only their bounded constraints. Fresh full current rows and actual installed joins remain unproved.",
+    "EffectsReuseCost": "Zero source/stage/tool/law/cache copy/build/owner/Run/provider effects yet. Repair only owned external proof preparation; preserve prior cuts and wrapper. One original construction payload remains selected, no Source tests or retry."
+  },
+  "rootCauseScope": "External proof consumer and Root affected-cone/grant omission; not established wrapper/runtime defect or new WHAT/design deficiency.",
+  "smallestLawfulReentry": "realization_refactor of owned external construction proof caller",
+  "disposition": "ALLOW_MEASURED_CURRENT_DECLARATION_RELATION; do not require equality to superseded native inventory bytes.",
+  "allowedExistingDeclarationDeltas": [
+    {
+      "path": "build/code/src/abg/c_call.d.ts",
+      "bytes": 39552,
+      "sha256": "806d3f2275502412ff1e057123c8a01bed8cc6a3bb915185e1b032df58b15c17",
+      "mode": 420,
+      "acceptedSourceEmit": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/c_call.d.ts"
+    },
+    {
+      "path": "build/code/src/implementation/contracts.d.ts",
+      "bytes": 19178,
+      "sha256": "0b45f97aaab632c2a8999d0c4ca13cfcf94329e85939aacf16f0b07b38a8317d",
+      "mode": 420,
+      "acceptedSourceEmit": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/build/code/src/implementation/contracts.d.ts"
+    },
+    {
+      "path": "build/code/src/product/semantics.d.ts",
+      "bytes": 9366,
+      "sha256": "bc016ee480e2702eaf2f9fc9a7350f847217f49e27419c907299aa6b2f9d1668",
+      "mode": 420,
+      "acceptedSourceEmit": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/build/code/src/product/semantics.d.ts"
+    }
+  ],
+  "allowedDeclarationAddition": {
+    "path": "build/code/src/abg/result_evidence_lineage_contracts.d.ts",
+    "bytes": 2015,
+    "sha256": "f96c001136d84a229338789cfe4698c832bc6409fd3f89c9ab7f7a431030ec27",
+    "mode": 420,
+    "acceptedSourceEmit": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/build/code/src/abg/result_evidence_lineage_contracts.d.ts"
+  },
+  "notEstablished": [
+    "actual C09 native rows/artifact compatibility",
+    "actual installed wrapper/core traversal",
+    "semantic/genuine qualification",
+    "release"
+  ]
+}

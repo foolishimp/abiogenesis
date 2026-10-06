@@ -1,0 +1,43 @@
+{
+  "status": "passed",
+  "cases": [
+    "actual latest prefix reprojects exact retained admitted environment and slot joins",
+    "stale N04 prefix rejected",
+    "crossed retained authority rejected",
+    "all716 original selected origins and canonical current files match",
+    "digest mismatch rejected without writing resource",
+    "root escape rejected",
+    "duplicate selected target rejected",
+    "actual changed bytes rejected in local fixture",
+    "selected symlink alias rejected in local fixture",
+    "missing existing input rejected; no staging fallback",
+    "static coherent future input-output-cold-read contracts, paths, authority construction and13/14/30/925 preserved"
+  ],
+  "checks": 11,
+  "actualPrefix": {
+    "coordinateDigest": "sha256:81cefea619af712a416d8680efa40fc2bed1f3248460022e4e625eef0ed46c0c",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:e2bb5df3f58b91a49f7324a487e9e79b93d05b03c368c339c82a6edc9d359ec0",
+    "prefixLength": 5577377,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 464012478
+    }
+  },
+  "resource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "device": 16777230,
+    "inode": 464012478,
+    "bytes": 5577377,
+    "sha256": "e2bb5df3f58b91a49f7324a487e9e79b93d05b03c368c339c82a6edc9d359ec0",
+    "eventCount": 84,
+    "unchanged": true,
+    "lockAbsent": true,
+    "futureContextAbsent": true
+  },
+  "inputCount": 716,
+  "limits": "Offline readonly projection/current-input checking and local adversarial fixtures. No driver import/execution, runtime preparation, native/provider/helper, Product verification, fresh grant construction or qualification; static consumer joins do not establish future success."
+}

@@ -1,0 +1,36 @@
+{
+  "kind": "closed_independent_caller_assurance",
+  "status": "CLOSED",
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/root-caller-review",
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 751,
+      "sha256": "2e40e2c25eaf5d77abef93026cee319b5229c34104dd2cabc77fc3c574bb382f",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 288,
+      "sha256": "4b18e8d6b4d40e9b5e0b9afca31315169d28b2a3ec58de83e9634ddad9bbab15",
+      "mode": 420
+    },
+    {
+      "path": "pins.json",
+      "bytes": 4270,
+      "sha256": "5db0fb7aa8b264f48429aea039437f98dd47008f2a679d98762866db932ce522",
+      "mode": 420
+    },
+    {
+      "path": "return.md",
+      "bytes": 3603,
+      "sha256": "ab83bc6e4b9261983ded7ab180692e8c4978d5a9da59831d944741b06b1ad38c",
+      "mode": 420
+    }
+  ],
+  "excludes": [
+    "freeze.json"
+  ],
+  "recordCount": 4,
+  "totalMemberBytes": 8912
+}

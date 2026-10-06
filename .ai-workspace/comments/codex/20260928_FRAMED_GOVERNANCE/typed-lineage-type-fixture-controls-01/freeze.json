@@ -1,0 +1,37 @@
+{
+  "status": "CLOSED",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-type-fixture-controls-01/activation.json",
+      "bytes": 501,
+      "sha256": "f82f5edbedce666a60c7a46d0e8527fbc156f80c9e6ae0bd1e82d4b052ae20e2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-type-fixture-controls-01/basis.json",
+      "bytes": 2490,
+      "sha256": "9b292dc307f70265a37c7efd0223e1e47e8b5587b201cac7b0d02124965240b1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-type-fixture-controls-01/closure.json",
+      "bytes": 119,
+      "sha256": "21fe56d0a0526f510cde396807a3756ef76f6bbbadef7f7a19d031a22d1a5862",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-type-fixture-controls-01/request.txt",
+      "bytes": 3321,
+      "sha256": "0acb571a6da74e3b05c862116c2bb9eff4cc6703ed48d8e097f5ccde620e646c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/typed-lineage-type-fixture-controls-01/sections.json",
+      "bytes": 3592,
+      "sha256": "1dab4eb5956efeb9225008c2fb7bfcb56da66feb875797c335149a7c96ad5845",
+      "mode": 420
+    }
+  ],
+  "directories": 0,
+  "links": 0
+}

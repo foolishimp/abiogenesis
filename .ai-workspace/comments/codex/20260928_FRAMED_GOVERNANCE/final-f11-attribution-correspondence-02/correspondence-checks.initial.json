@@ -1,0 +1,157 @@
+{
+  "status": "pure_partial_byte_branch_checks_passed",
+  "installedOwners": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification.js",
+      "byteCount": 58968,
+      "digest": "sha256:ebd5a1eab534adaf55a4e5c987156dec2ddc00dcc5a5aa608e6a566251d0b7ec"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification_contracts.js",
+      "byteCount": 31164,
+      "digest": "sha256:e65d0cb476fd22ba4c0bf66cad9f3de52717e28c324a88d323461aade1b31daa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/shared/digests.js",
+      "byteCount": 838,
+      "digest": "sha256:bcfca50154c00df17ac3eacbd49323180f7645b2b0d779554dc9aa7c7c34212a"
+    }
+  ],
+  "tests": [
+    {
+      "operation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "applicability": {
+        "kind": "eight_original_C01_Q01_members",
+        "subjectInventory": {
+          "ref": "qualification-inventory://abiogenesis/ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+          "digest": "sha256:ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d"
+        },
+        "successorInventory": null
+      },
+      "originalCarrierStatus": "invalid",
+      "derivedByteBranch": {
+        "status": "insufficient",
+        "authors": [
+          null
+        ]
+      },
+      "fullProvenanceSchemaValid": false,
+      "expectedMissingFields": [
+        {
+          "message": "Invalid type: Expected string but received null",
+          "path": "chains.0.actorIdentityRef"
+        },
+        {
+          "message": "Invalid type: Expected string but received null",
+          "path": "chains.0.authorityRef"
+        }
+      ],
+      "negatives": {
+        "crossedPostimage": "invalid",
+        "actualUncoveredMember": "invalid",
+        "wrongSelectedMaterial": "invalid",
+        "wrongAttributionSpan": "invalid",
+        "wrongRecordBytes": "invalid",
+        "unestablishedPublishedAuthoritySlot": "invalid"
+      },
+      "actorIdentityRef": null,
+      "authorityRef": null,
+      "rawAttributions": 0,
+      "materialSchemaMembers": 4
+    },
+    {
+      "operation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "applicability": {
+        "kind": "eight_original_C01_Q01_members",
+        "subjectInventory": {
+          "ref": "qualification-inventory://abiogenesis/ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d",
+          "digest": "sha256:ca5a28d01f72202e3fefe39ea35755b0cbc8a2e6fbecf57d4b8392a90742351d"
+        },
+        "successorInventory": null
+      },
+      "originalCarrierStatus": "invalid",
+      "derivedByteBranch": {
+        "status": "insufficient",
+        "authors": [
+          null
+        ]
+      },
+      "fullProvenanceSchemaValid": false,
+      "expectedMissingFields": [
+        {
+          "message": "Invalid type: Expected string but received null",
+          "path": "chains.0.actorIdentityRef"
+        },
+        {
+          "message": "Invalid type: Expected string but received null",
+          "path": "chains.0.authorityRef"
+        }
+      ],
+      "negatives": {
+        "crossedPostimage": "invalid",
+        "actualUncoveredMember": "invalid",
+        "wrongSelectedMaterial": "invalid",
+        "wrongAttributionSpan": "invalid",
+        "wrongRecordBytes": "invalid",
+        "unestablishedPublishedAuthoritySlot": "invalid"
+      },
+      "actorIdentityRef": null,
+      "authorityRef": null,
+      "rawAttributions": 0,
+      "materialSchemaMembers": 4
+    },
+    {
+      "operation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+      "applicability": {
+        "kind": "independent_closed_three_file_operation",
+        "sourceCut": {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/freeze.json",
+          "digest": "sha256:19f97fe0758b204829d4f4695c83f49cc641d1c4affdd7defd46022c36eaa01d"
+        },
+        "subjectInventory": null,
+        "successorInventory": null,
+        "notC01Q01Postimages": true
+      },
+      "originalCarrierStatus": "invalid",
+      "derivedByteBranch": {
+        "status": "insufficient",
+        "authors": [
+          "/root/s03_phase_b"
+        ]
+      },
+      "fullProvenanceSchemaValid": false,
+      "expectedMissingFields": [
+        {
+          "message": "Invalid type: Expected Object but received null",
+          "path": "subjectInventory"
+        },
+        {
+          "message": "Invalid type: Expected string but received null",
+          "path": "chains.0.authorityRef"
+        }
+      ],
+      "negatives": {
+        "crossedPostimage": "invalid",
+        "actualUncoveredMember": "invalid",
+        "wrongSelectedMaterial": "invalid",
+        "wrongAttributionSpan": "invalid",
+        "wrongRecordBytes": "invalid",
+        "unestablishedPublishedAuthoritySlot": "invalid"
+      },
+      "actorIdentityRef": "/root/s03_phase_b",
+      "authorityRef": null,
+      "rawAttributions": 0,
+      "materialSchemaMembers": 3
+    }
+  ],
+  "oldEightUnionStatus": "insufficient",
+  "checkedOriginalRecords": 40,
+  "checkedDerivedRecords": 4,
+  "checkedSupplementalRecords": 0,
+  "allMaterialAndSourceSchemasValid": true,
+  "fullProvenanceOrTaskValid": false,
+  "actualJudgments": 0,
+  "nativeEffects": 0,
+  "controlledVariables": "All unknown authorityRef fields and partial plan.ownerAuthorityRef stay null. Original unknown actors remain null unless an acquired explicit supplemental statement establishes a scoped claim. Every raw.attributions array is empty. This isolates structural record/byte correspondence; it is not a valid qualification task, semantic J, authority admission or independence proof.",
+  "limits": "Only eight source members are bound to C01/Q01; the separate D three-member operation remains successor-unbound. No eleven-member candidate union was constructed."
+}

@@ -9,22 +9,21 @@ import { setupInstalledRootExecutionBasis } from
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
-const PROGRAM_REF = "program://abiogenesis/conformance/fp-hello@5";
-const GRAPH_FUNCTION_REF =
-  "graph-function://abiogenesis/conformance/fp-hello@5";
-const INPUT_CONTRACT_REF =
-  "contract://abiogenesis/conformance/fp-hello-instruction@5";
-const OUTPUT_CONTRACT_REF =
-  "contract://abiogenesis/conformance/fp-hello-output@5";
-const ACTOR_REF = "actor://abiogenesis/conformance/claude-worker@5";
-const WORKER_BINDING_REF =
-  "worker-binding://abiogenesis/conformance/claude-worker@5";
-const PLAN_REF = "prompt-plan://abiogenesis/conformance/fp-hello@5";
-const RENDERER_REF = "renderer://abiogenesis/conformance/fp-hello@5";
+import { FP_IDS, constructStructuralPublication } from "../fixtures/language-structural/program.mjs";
+import { worker as prepareStructuralWorker } from "../fixtures/language-structural/leaf.mjs";
+import { prepareLanguageStructuralFixture } from "../support/language-structural-fixture.mjs";
+const PROGRAM_REF = FP_IDS.programRef;
+const GRAPH_FUNCTION_REF = FP_IDS.graphFunctionRef;
+const INPUT_CONTRACT_REF = FP_IDS.inputContractRef;
+const OUTPUT_CONTRACT_REF = FP_IDS.outputContractRef;
+const ACTOR_REF = FP_IDS.workerActorRef;
+const WORKER_BINDING_REF = FP_IDS.workerBindingRef;
+const PLAN_REF = FP_IDS.materializationPlanRef;
+const RENDERER_REF = FP_IDS.rendererRef;
 
 function fpInput() {
   return {
-    kind: "fp_hello_instruction",
+    kind: "worker_instruction",
     schemaVersion: "5.0.0",
     materializationPlanRef: PLAN_REF,
     rendererRef: RENDERER_REF,
@@ -34,17 +33,17 @@ function fpInput() {
     workerBindingRef: WORKER_BINDING_REF,
     transportLane: "closed_prompt_proof",
     subject: "World",
-    instruction: "Produce one concise greeting for the declared subject.",
+    instruction: "Return the fixed declared test payload.",
   };
 }
 
 function validResult(overrides = {}) {
   return {
-    kind: "fp_hello_output",
+    kind: "worker_output",
     schemaVersion: "5.0.0",
     resultContractRef: OUTPUT_CONTRACT_REF,
     actorRef: ACTOR_REF,
-    message: "Hello World",
+    message: "World",
     ...overrides,
   };
 }
@@ -59,7 +58,7 @@ function outputDigest(product, text) {
 
 function constructBasis(environment, rawResultText, input = fpInput()) {
   const { product, implementationRow } = environment;
-  const request = environment.implementation.realizeFpHello(input, {}).workerRequest;
+  const request = environment.implementation.prepareStructuralWorker(input, {}).workerRequest;
   const prompt = request.prompt;
   const inputDigest = product.sha256Canonical(input);
   const transportBindingDigest = product.sha256Canonical({
@@ -193,11 +192,14 @@ function actorObservation(basis, overrides) {
 test("F04-A exact request-bound raw result admission is pure and decision-exact", async (context) => {
   const environment = await setupInstalledRootExecutionBasis(context, root, {
     candidateBasisSource: "packed_artifact",
+    prepareAdditionalProducts: async basis => [await prepareLanguageStructuralFixture(basis)],
+    workspaceProductIndex: 1,
     programRef: PROGRAM_REF,
     graphFunctionRef: GRAPH_FUNCTION_REF,
     inputContractRef: INPUT_CONTRACT_REF,
     input: fpInput(),
   });
+  environment.implementation = { ...environment.implementation, prepareStructuralWorker };
   assert.equal(environment.implementationRow.computeRegime, "F_P");
 
   const installedPackage = JSON.parse(
@@ -533,7 +535,7 @@ test("F04-A exact request-bound raw result admission is pure and decision-exact"
 
   // The actual Hello owner dispatches an exact message const. A contradiction
   // is a response-contract defect, not a schema-valid semantic negative.
-  assert.equal(basis.request.responseJsonSchema.properties.message.const, "Hello World");
+  assert.equal(basis.request.responseJsonSchema.properties.message.const, "World");
   const semanticallyDifferent = assertPureRefusal(
     environment, admit,
     withRawResult(environment, basis, JSON.stringify(validResult({ message: "Goodbye World" }))),
@@ -666,11 +668,11 @@ test("F04-A exact request-bound raw result admission is pure and decision-exact"
   );
 
   const permutedText = JSON.stringify({
-    message: "Hello World",
+    message: "World",
     actorRef: ACTOR_REF,
     resultContractRef: OUTPUT_CONTRACT_REF,
     schemaVersion: "5.0.0",
-    kind: "fp_hello_output",
+    kind: "worker_output",
   });
   const permuted = admit(withRawResult(environment, basis, permutedText));
   assert.equal(permuted.kind, "contract_admitted_probabilistic_result_candidate");
@@ -682,9 +684,9 @@ test("F04-A exact request-bound raw result admission is pure and decision-exact"
   );
 
   const duplicate =
-    `{"kind":"fp_hello_output","kind":"fp_hello_output",` +
+    `{"kind":"worker_output","kind":"worker_output",` +
     `"schemaVersion":"5.0.0","resultContractRef":${JSON.stringify(OUTPUT_CONTRACT_REF)},` +
-    `"actorRef":${JSON.stringify(ACTOR_REF)},"message":"Hello World"}`;
+    `"actorRef":${JSON.stringify(ACTOR_REF)},"message":"World"}`;
   const validText = JSON.stringify(validResult());
   for (const [text, code] of [
     ["{", "malformed_json"],
@@ -693,8 +695,8 @@ test("F04-A exact request-bound raw result admission is pure and decision-exact"
     [duplicate, "duplicate_object_key"],
     [
       validText.replace(
-        '"message":"Hello World"',
-        '"unsafe":9007199254740993,"message":"Hello World"',
+        '"message":"World"',
+        '"unsafe":9007199254740993,"message":"World"',
       ),
       "unsafe_integral_number",
     ],
@@ -708,7 +710,7 @@ test("F04-A exact request-bound raw result admission is pure and decision-exact"
       environment,
       basis,
       JSON.stringify({
-        kind: "fp_hello_output",
+        kind: "worker_output",
         schemaVersion: "5.0.0",
         resultContractRef: OUTPUT_CONTRACT_REF,
         actorRef: ACTOR_REF,
@@ -940,9 +942,9 @@ test('F04 same native contract proof is reused while raw and changed bases still
   const {SourceTextModule,SyntheticModule}=await import('node:vm');
   const fs=await import('node:fs/promises');
   const digests=await import('../../build/code/src/shared/digests.js');
-  const hello=await import('../../build/code/src/gtl/hello_world.js');
-  const implementation=await import('../../build/code/src/implementation/fp_hello.js');
-  const {ABI5_PRODUCT_SEMANTICS:semantics}=await import('../../build/code/src/product/builtin_semantics.js');
+  const gtl=await import('../../build/code/src/gtl/index.js');
+  const implementation={prepareStructuralWorker};
+  const {semantics}=await import('../fixtures/language-structural/leaf.mjs');
   const {modulePublicationSemanticDigest}=await import('../../build/code/src/product/publication.js');
   const {ABI5_PACKAGE_NAME,ABI5_PACKAGE_VERSION}=await import('../../build/code/src/product/contracts.js');
   async function component(name,overrides){
@@ -952,10 +954,10 @@ test('F04 same native contract proof is reused while raw and changed bases still
     await module.evaluate();return module.namespace;
   }
   const hash=digests.sha256Canonical,artifact={artifactDigest:hash('archive'),productContentDigest:hash('content'),productManifestDigest:hash('manifest'),productId:'product://component/f04',packageName:ABI5_PACKAGE_NAME,packageVersion:ABI5_PACKAGE_VERSION};
-  const publication=hello.constructHelloWorldModulePublication(artifact),publicationDigest=modulePublicationSemanticDigest(publication);
+  const publication=constructStructuralPublication(gtl,artifact),publicationDigest=modulePublicationSemanticDigest(publication);
   const install={installId:'install://component/f04',productId:publication.owningProductId,productContentDigest:publication.productContentDigest,manifestDigest:publication.productManifestDigest,packageName:ABI5_PACKAGE_NAME,packageVersion:ABI5_PACKAGE_VERSION};
   const coordinate=(declarationKind,declarationRef)=>({...install,moduleRef:publication.moduleRef,publicationDigest,declarationKind,declarationRef});
-  const binding=publication.implementationBindings.find(x=>x.implementationRef===hello.FP_HELLO_IDS.implementationRef);
+  const binding=publication.implementationBindings.find(x=>x.implementationRef===FP_IDS.implementationRef);
   const row={...binding,computeRegime:'F_P',implementationBindingRef:binding.bindingRef,implementationOwnerProductId:install.productId,implementationPublicationDigest:publicationDigest,graphFunctionRef:GRAPH_FUNCTION_REF,programLocusRef:'locus://component/f04'};
   const set={rows:[row],implementationSetRef:'set://component/f04',implementationSetDigest:hash([row]),invocationAdmissionRef:'admission://component/f04',invocationRef:'invocation://component/f04'};
   const execution={...set,graphFunctionRef:GRAPH_FUNCTION_REF,workspaceBindingId:'workspace://component/f04'};
@@ -964,7 +966,7 @@ test('F04 same native contract proof is reused while raw and changed bases still
   const projection={...install,publicationDigest,bindingRef:publication.productSemanticsBinding.bindingRef};let current=true,rawChecks=0;
   const lower={'../abg/environment_admission.js':{hasAdmittedProductInstall:()=>current},'../abg/execution_basis.js':{hasAdmittedImplementationSetAtPrefix:()=>current},
     '../product/semantics.js':{inspectProductLeafSemanticsProjection:()=>({projection,runtime:{...semantics,verifyInstalledContent:async()=>true,
-      validateContractValue:(kind,value)=>{if(kind==='fp_hello_output')rawChecks++;return semantics.validateContractValue(kind,value);}}})}};
+      validateContractValue:(kind,value)=>{if(kind==='worker_output')rawChecks++;return semantics.validateContractValue(kind,value);}}})}};
   const ports=await component('implementation/leaf_invocation_port',lower);
   const leafPort=await ports.constructAdmittedLeafInvocationPort({prefix:{},artifactTruth:{},implementationSet:set,semanticsProjection:projection,
     executionResolution:{declarationClosure:closure,declarationPublications:[publication],ownerInstalls:[install]}});
@@ -991,7 +993,7 @@ test('F04 same native contract proof is reused while raw and changed bases still
     inputDigest:hash(badBasis.input),rawOutputDigest:digests.sha256Bytes(badBasis.observation.finalOutput),disposition:'admitted',
     verification:{kind:vk,schemaVersion:vs,verificationRef:`probabilistic-result-contract-preimage://abiogenesis/${forgedDigest.slice(7)}`,verificationDigest:forgedDigest,...forgedBody}};
   assertRefusal(owner.admitProbabilisticResultCandidate(badBasis),'declared_contract_refused','self-consistent supplied verification is not admission');
-  const duplicate=basis.observation.finalOutput.replace('{','{"kind":"fp_hello_output",');
+  const duplicate=basis.observation.finalOutput.replace('{','{"kind":"worker_output",');
   const before=projections;assertRefusal(owner.admitProbabilisticResultFromActorTransport(withRawResult(env,basis,duplicate),authenticated),'duplicate_object_key');assert.equal(projections,before,'strict framing precedes history authentication');
   assertRefusal(owner.admitProbabilisticResultFromActorTransport({...basis,occurrence:{...basis.occurrence,attempt:0}},authenticated),'request_basis_mismatch');
   assertRefusal(owner.admitProbabilisticResultFromActorTransport(withInput(env,basis,{...basis.input,subject:'Changed'}),authenticated),'transport_basis_mismatch');

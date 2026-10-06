@@ -1,0 +1,421 @@
+{
+  "operation": "T287_TYPED_LINEAGE_TYPE_FIXTURE_REPAIR_01",
+  "status": "CLOSED",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01",
+  "records": [
+    {
+      "path": "accounting.json",
+      "bytes": 552,
+      "sha256": "a50301a834e559655ab04dc5cbaff0bb2e31a0aad4b7af34f3e99a37996aaa24",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 3901,
+      "sha256": "3632f09de97a26eb9c8c9d1b6c9e8efaccce511151e8157d135e868a5efd6b62",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "budgets.json",
+      "bytes": 24,
+      "sha256": "d10981750048e4e9bdfd0d5b3441a849e6caa30536f0c3f0653ee6cb911ab4fc",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "closure.json",
+      "bytes": 1682,
+      "sha256": "945ec1f91068cd92ead6f6426490e9d451f35f262b915454373944619f0c3148",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "commands.json",
+      "bytes": 430,
+      "sha256": "e816a5d6b90532c5c0468f7a6fec50fbf5b1e427d9f50c520bc827a2f80e1001",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "corrected-type-contract.test.mjs",
+      "bytes": 7008,
+      "sha256": "c8e6782a660d4d2ea030a911279862739ff78296b4d19613ada9ecf636fef33b",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "node_modules",
+      "kind": "symlink",
+      "mode": 493,
+      "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/readiness-stage/build_tenants/abiogenesis/typescript/node_modules"
+    },
+    {
+      "path": "postimage.test.mjs",
+      "bytes": 7008,
+      "sha256": "c8e6782a660d4d2ea030a911279862739ff78296b4d19613ada9ecf636fef33b",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "preflight.json",
+      "bytes": 12326,
+      "sha256": "712d4e2a662d63a4b22e63da86d69211a88c50d46e6fb7fd2237be4dd9816318",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "preimage.test.mjs",
+      "bytes": 6838,
+      "sha256": "0bef5bcb5d493bf9b845752af7fac7947eaedd3480736ba6ef7f819d614095e7",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "prepared-before-routing-correction.test.mjs",
+      "bytes": 6981,
+      "sha256": "b2bebfe670f980d002837b382364d294f3dca32f8b98e819e76c9204948ddcf0",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "producer-routing-correction.json",
+      "bytes": 589,
+      "sha256": "d9b97e8776a0594120d7ddc177f83de997739d8a1962c46412cc7cfa4de47880",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "readiness.json",
+      "bytes": 7283,
+      "sha256": "4ebcddb2370e631336fda80e788eabafa41346130d7593ff6f352e6232ccf0f0",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "return.md",
+      "bytes": 2567,
+      "sha256": "a0390abaf53f1fe61eb21031045bf5c5c0a7cf23ae62dc135491ba1287a3f7cc",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "runtime-environment.json",
+      "bytes": 748,
+      "sha256": "29be0c30d27974a3c01c44b0e65974a1110621951d5500b217169a9c4a872ae1",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "source-authorship.json",
+      "bytes": 2000,
+      "sha256": "e5e36fc04f82071b643e5b1426afe77f784dbefd1af5bc04f672eb08f0f8c0bc",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "supervise.py",
+      "bytes": 4684,
+      "sha256": "4e4042843ea0bc21e6ece50aa875158feba4d77a49dacbc5007a344fe20148d7",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "test.delta",
+      "bytes": 2733,
+      "sha256": "5da7e8c8468fc47fe4963952633e4ae6a1f6fc50295290e2e2e48663d759bb22",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/admitted-source-omits-actorInvocationRef.mts",
+      "bytes": 2834,
+      "sha256": "bcc1666cd8e67288454e8dab39c8bbc56482935e7e7754cdb3d38d95fa3ce20e",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/admitted-source-omits-actorRef.mts",
+      "bytes": 2824,
+      "sha256": "8c2e919c86d3b7b24b68ca518d2384b3b3b1a129bc85f8e310dc3271e1a6a4e6",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/admitted-source-omits-inputDigest.mts",
+      "bytes": 2827,
+      "sha256": "2dba83ea5b113b15dc3e45d15ba7fa44955458d6d2c7178b7d6870a735f21df4",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/admitted-source-omits-promptDigest.mts",
+      "bytes": 2828,
+      "sha256": "fa419859df186ce0e193061132bc80c6776b02f77f1b45ec520863f49e97f97e",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/admitted-source-omits-requestDigest.mts",
+      "bytes": 2829,
+      "sha256": "eaa0e014c8dd3ea6e1d1a17e61f4d977736d887695ae383c12b869f62ee05a70",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/admitted-source-omits-transportBindingDigest.mts",
+      "bytes": 2838,
+      "sha256": "690b288a899f6742f89accb51fd1dd9a88dc29188441756c2b0eb8d28f303755",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/admitted-source-omits-transportBindingRef.mts",
+      "bytes": 2835,
+      "sha256": "7c1214e550f9afa97bd148053a1d568fabd8713e5b4089b5ffea325f4c4b2e03",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/admitted-source-omits-transportDisposition.mts",
+      "bytes": 2836,
+      "sha256": "d4c8926bfe99cc415776063827eb644fa16dff33554ab32712b22c0028b13684",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/admitted-source-omits-transportFailureClass.mts",
+      "bytes": 2837,
+      "sha256": "0065ade8a212784aeef28b22fdd9c8f279a537157ef8d169bbf1367d4650dbf6",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/admitted-source-omits-workerBindingRef.mts",
+      "bytes": 2832,
+      "sha256": "56efee7a75c0cbc233fdafafe97ebd2bd71967fa1690e1e53ce090f4b3e7fb36",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/compiler-receipt.json",
+      "bytes": 54899,
+      "sha256": "f66f58f69052436ac9c38c736b30e5d12a6fce57694cdcc65be26bb882f2282e",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-actorInvocationRef.mts",
+      "bytes": 2826,
+      "sha256": "17e773430170347d74dcb72c75877d8ebd9e775d5ff4ba679d5adb7793b3db82",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-actorRef.mts",
+      "bytes": 2816,
+      "sha256": "69b9882db15e72a1f09f7968f570e9f77fc6b0e240b2eabe8be17bb6fe0cf3cd",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-cCallAttempt.mts",
+      "bytes": 2820,
+      "sha256": "8c823ac6eff1f286fdf013b0cf8224e32a6e88071001af00a3a95c7ecb026a76",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-cCallRef.mts",
+      "bytes": 2816,
+      "sha256": "a46387475bd35806333ee8194e0da4b535304e72c6b5164655cfec62e5a40a36",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-evidenceClass.mts",
+      "bytes": 2821,
+      "sha256": "d3e0716926b7ce281e28eb1c0d03db0d849cf5f9f4ff35f3b2fd23b4574804bd",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-evidenceDigest.mts",
+      "bytes": 2822,
+      "sha256": "7a72db83bdaf5651690ef77294a6a7a8cbdbf0effdcfdc58953c1a77fe73b79a",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-evidenceRef.mts",
+      "bytes": 2819,
+      "sha256": "446f820ea929c3a1711e3ce5c68b892d7adcae5e4affa078ac6a866da51766a9",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-inputDigest.mts",
+      "bytes": 2819,
+      "sha256": "7b4402207fd61ede02c12af8f3ff36c963922c6922b24d36141ad1b25dca4edb",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-outputDigest.mts",
+      "bytes": 2820,
+      "sha256": "7842c67e3140e99f02c8dddb67927b961feb214f9cf45db4e05a1be7debfc351",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-promptDigest.mts",
+      "bytes": 2820,
+      "sha256": "a1077eea835f03b695b36a28dae19266ae414ee05b601d7b10572fc82d5ab124",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-requestDigest.mts",
+      "bytes": 2821,
+      "sha256": "72b3a1ec7210f22246e8836dbfd38d1a26759bfe5ba2d6fe9e334c38eb55e41f",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-transportBindingDigest.mts",
+      "bytes": 2830,
+      "sha256": "8dcb0859a47c7eb19818f046bcddd9b9e87416ea64ea113b0f507dd03c893ad6",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-transportBindingRef.mts",
+      "bytes": 2827,
+      "sha256": "75f8ab77c37966bde415cadf57465837a8e720e8e8ff9f46bb6e6a645a1465ce",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-transportDigest.mts",
+      "bytes": 2823,
+      "sha256": "c85270e8ba4ffa8f2ae33e646c47da1a8756ad1ef7a4b194e2808a93ec503bfe",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-transportDisposition.mts",
+      "bytes": 2828,
+      "sha256": "3f10e4a46dfb39a6593da9c47f4f705f1a9814d7265f44238bc78d384d37aa49",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-transportFailureClass.mts",
+      "bytes": 2829,
+      "sha256": "c3d39ed8e1783983b9d8babe7823d416e80bffddf253721c9f5360fa66669162",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/destination-omits-workerBindingRef.mts",
+      "bytes": 2824,
+      "sha256": "a77f2912fa4ef96ab2e7cdf730062d11d5080b6359a738cc8f93a94ee53b76d2",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/hook-InstalledRows-requires-inputDigest.mts",
+      "bytes": 2813,
+      "sha256": "87c4b5550df67a0be2ffb786d8cb0b1c134f499bcce79dcbf42b021d5fccf5ed",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/hook-LeafRows-requires-inputDigest.mts",
+      "bytes": 2808,
+      "sha256": "310a15def00dcc421f24c3f592db6608e82a2c10e2782ab6a95f085d00aa3dbc",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/hook-ProductRows-requires-inputDigest.mts",
+      "bytes": 2811,
+      "sha256": "ccfab37e024cdf15b837e19ee5f0e93c23eb267a74b88c8767440071623791e4",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/source-invalid-class.mts",
+      "bytes": 2803,
+      "sha256": "60ff9cadb9b1663163276b7d3cae860e54a3d5ae42998dd4dc5b52995d7bb5a5",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "type-proof/valid-probabilistic-and-nonprobabilistic.mts",
+      "bytes": 3693,
+      "sha256": "ac10bb9a1b32a5097348c5c12eaf67eb0f23a159c0206cb82a747d7668549d03",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "types-supervised-stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 384,
+      "kind": "file"
+    },
+    {
+      "path": "types-supervised-stdout.log",
+      "bytes": 210,
+      "sha256": "4c2233387c9aa9cb419f54329f76e513433b5197e3b5e73b20f4d90dc3f5913d",
+      "mode": 384,
+      "kind": "file"
+    },
+    {
+      "path": "types-supervisor-close.json",
+      "bytes": 866,
+      "sha256": "bbb2c0182f4f8ae1f7864ffcafeebb3f4965999960e78bfa5aa2124c3a2d4714",
+      "mode": 420,
+      "kind": "file"
+    },
+    {
+      "path": "types-supervisor-start.json",
+      "bytes": 1572,
+      "sha256": "15f8e5756475064fdd21df7db83357d7e3ec465278211745159575785095b889",
+      "mode": 420,
+      "kind": "file"
+    }
+  ],
+  "directories": [
+    {
+      "path": "tmp",
+      "mode": 493
+    },
+    {
+      "path": "type-proof",
+      "mode": 493
+    }
+  ],
+  "census": {
+    "regularFiles": 54,
+    "regularBytes": 216130,
+    "directories": 2,
+    "symlinks": 1
+  },
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/freeze.json",
+    "bytes": 1927723,
+    "sha256": "d681d3cafe786481aac83e1d5f42af26f99e0d654b4b79ea185896980ecf9d60",
+    "mode": 420
+  },
+  "onlyCanonicalWrite": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs",
+    "bytes": 7008,
+    "sha256": "c8e6782a660d4d2ea030a911279862739ff78296b4d19613ada9ecf636fef33b",
+    "mode": 420
+  },
+  "freezeExcludedFromOwnPopulation": true,
+  "stopWritesAfterFreeze": true
+}

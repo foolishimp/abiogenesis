@@ -1,0 +1,31 @@
+{
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+  "oldStoresStrictlyReadOnly": true,
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+    "bytes": 4709556,
+    "sha256": "26339994e902ccafa5c1f6da9d8df471d77a1a3e144843f7472e5f1558f989df",
+    "device": 16777230,
+    "inode": 464429281,
+    "mtimeMs": 1790892638098.5886,
+    "stableDuringRead": true,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/tmp/abiogenesis-event-store-locks-v5/16777230-464429281.lock",
+    "lockPresent": false,
+    "prefix": {
+      "coordinateDigest": "sha256:407881d7b23f560d53be253b38bedad0598dbd05c88b01f22dca7f196d3f174d",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-03/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:26339994e902ccafa5c1f6da9d8df471d77a1a3e144843f7472e5f1558f989df",
+      "prefixLength": 4709556,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464429281
+      }
+    }
+  },
+  "oldStaticCount": 5998,
+  "newTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-05",
+  "oldClosedPositiveProof": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/positive/oracle-result.json"
+}

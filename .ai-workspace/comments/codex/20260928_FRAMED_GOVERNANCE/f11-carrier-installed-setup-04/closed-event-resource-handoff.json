@@ -1,0 +1,84 @@
+{
+  "status": "CLOSED_REOPENABLE_PARTIAL_SETUP",
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:573c7c2b9779e1546c9d31824cb51108206d427a1e357c64991b12baa2722154",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:3ffdcb4a8d61804f9317e97d1709f3d9064a7cc05e0b2f23ce4ce41ffa401f44",
+      "prefixLength": 2482226,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464512524
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:0bd38664a959f81cceee703a154c42de8ad15136d8bc70d7e028f32e60a9373f",
+      "device": 16777230,
+      "durableByteLength": 2482226,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:3ffdcb4a8d61804f9317e97d1709f3d9064a7cc05e0b2f23ce4ce41ffa401f44",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/resources/events/runtime.events.jsonl",
+      "inode": 464512524,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "handoffDigest": "sha256:77c1e88975a5a41f30f733aef50cb5390f38533f5a3d5925f1c4e5a0966c51c2",
+  "physical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/resources/events/runtime.events.jsonl",
+    "bytes": 2482226,
+    "sha256": "3ffdcb4a8d61804f9317e97d1709f3d9064a7cc05e0b2f23ce4ce41ffa401f44",
+    "device": 16777230,
+    "inode": 464512524
+  },
+  "stableAfterSupervisorClose": true,
+  "eventLockPresent": false,
+  "corePublicAdmittedInstall": {
+    "outcomeKind": "result",
+    "value": {
+      "disposition": "materialized",
+      "installManifest": {
+        "digest": "sha256:5df661193420dd6c9609d62d96141e8b69b70649e8591efd704d68a493f95414",
+        "ref": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json"
+      },
+      "installedProduct": {
+        "digest": "sha256:ee92f183b223334c1bfc61e14719375c0503a6340452bdf44a2aed2d4fe1598e",
+        "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/e271a253c743ba88fe1219329fbff1241efd1c430b376ce129ed3a85f60cbad5/6a58ef269e652a29bcf61e262109d55f3e755ca3491e8c2eeed8b71b01829544"
+      },
+      "installerManifest": {
+        "digest": "sha256:0a0296f92d43eb7674c71c020fc19cae9973f6a69ef4203718939367c16efc64",
+        "ref": "artifact-truth-projection://abiogenesis/0a0296f92d43eb7674c71c020fc19cae9973f6a69ef4203718939367c16efc64"
+      },
+      "provenance": [
+        {
+          "digest": "sha256:0a0296f92d43eb7674c71c020fc19cae9973f6a69ef4203718939367c16efc64",
+          "ref": "artifact-truth-projection://abiogenesis/0a0296f92d43eb7674c71c020fc19cae9973f6a69ef4203718939367c16efc64"
+        }
+      ],
+      "resolvedLock": {
+        "digest": "sha256:6a58ef269e652a29bcf61e262109d55f3e755ca3491e8c2eeed8b71b01829544",
+        "ref": "product-lock://abiogenesis/6a58ef269e652a29bcf61e262109d55f3e755ca3491e8c2eeed8b71b01829544"
+      }
+    }
+  },
+  "fixturePublicInstall": {
+    "outcomeKind": "refusal",
+    "value": {
+      "code": "content_mismatch",
+      "evidenceRefs": [],
+      "issuePaths": [
+        "/verifiedArtifact"
+      ]
+    }
+  },
+  "prefixUnchangedByRefusedFixtureInstall": true,
+  "workspaceBinding": null,
+  "catalog": null,
+  "catalogView": null,
+  "conformanceCalls": 0,
+  "F11TaskRun": "STOPPED",
+  "admittedFixtureInstall": null
+}

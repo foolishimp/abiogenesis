@@ -1,0 +1,62 @@
+[
+  {
+    "before": {
+      "path": "build/code/src/abg/event_calculus.js",
+      "bytes": 76007,
+      "sha256": "ee15d7390f6a1cce641bfbe75187c1349e1f633c8fff6be8b24dcf17f7638fb8"
+    },
+    "after": {
+      "path": "build/code/src/abg/event_calculus.js",
+      "bytes": 76454,
+      "sha256": "9edc80e3277e89b26103da2a0d646dba050282698753e5ed4b2b18cf680f2c1a"
+    }
+  },
+  {
+    "before": {
+      "path": "code/src/abg/event_calculus.ts",
+      "bytes": 72472,
+      "sha256": "7fd91b52b9d1ab6c76e1d4d0dc0e41d5e78d5aaf5a224af83d8dd2915ee0596a"
+    },
+    "after": {
+      "path": "code/src/abg/event_calculus.ts",
+      "bytes": 72911,
+      "sha256": "100d037846789f56fbbc279ece7923a3f4d2b04effefdb5ae0f35e21357ae467"
+    }
+  },
+  {
+    "before": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "b49c327fdda8a3a6d7e60799d25337aa8635fb1b966c18d17993fb22cc609fcb"
+    },
+    "after": {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "344f41546f1b3fad59725a97c7610c1c37a438363c311d201a469a0e70f30d60"
+    }
+  },
+  {
+    "before": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2377071,
+      "sha256": "b6ddee6440ecdcd867cf7c5d0a5ac820af9d3bc395930daf06291d86e26ed2bf"
+    },
+    "after": {
+      "path": "product-toolchain-manifest.json",
+      "bytes": 2377071,
+      "sha256": "556ced94e6502be70d2fc05b57ddd22c5d156b46a4cd46c3e453fcde866b1fac"
+    }
+  },
+  {
+    "before": {
+      "path": "test_env/tests/t287-fh-hold-open.test.mjs",
+      "bytes": 15280,
+      "sha256": "547318dc4968d3a3e04448345dce96be9c24f482d225693716c3085fac9db313"
+    },
+    "after": {
+      "path": "test_env/tests/t287-fh-hold-open.test.mjs",
+      "bytes": 25263,
+      "sha256": "38e8cffe0cf084331a0f5b3a4b863fe1efd293e4f48c08cec9249dc67e0d6deb"
+    }
+  }
+]

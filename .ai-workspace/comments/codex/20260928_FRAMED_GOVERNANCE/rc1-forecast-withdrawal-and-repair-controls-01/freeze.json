@@ -1,0 +1,75 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RC1_FORECAST_WITHDRAWAL_REPAIR_GRANTS_WRITER_01",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/activation.json",
+      "bytes": 939,
+      "sha256": "418e475bbff2a9b230dfcfd2319657dc12af3261c8eab9224dc1ec758a985e7f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/triage.md",
+      "bytes": 3560,
+      "sha256": "cf3bdfd1fa55302d7c4e798896a3d982f7088efa99d768b9cb7ac9f97f18eb43",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/T-287-deliver-abiogenesis-5-feature-waves.md.before",
+      "bytes": 492626,
+      "sha256": "bf9ea0b0daf724ec0667efcf7f17320feb9d29486396bac8cfbf224c818cee57",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/plan.md.before",
+      "bytes": 12206,
+      "sha256": "1a77de7b8f04e23210c2242fa3adc83b2b2e183bd6e79aeeada38d3339fbe95b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/publication-request-input.json",
+      "bytes": 4178,
+      "sha256": "2b349cac0cd4dd14d285aa2a8885ca386aa398f938f20b076e10bd6868cd5c5a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/parent-request.txt",
+      "bytes": 4481,
+      "sha256": "dd0dd0c1326311dd709a4b04971d51982080dbf7a10ba71ccd4d5493655e38d3",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/subject-pins.json",
+      "bytes": 2724,
+      "sha256": "6b06bb605a66131cbf6fa8e67c6301295315a4db6ef9a4a350e3db17639ae44d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/publication-request.txt",
+      "bytes": 3907,
+      "sha256": "5d75549a92814cb18b892664d1e14454995fcc5d769db1ff4e392757e44e42bb",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/execution.md.before",
+      "bytes": 565027,
+      "sha256": "dcf199aeb52bba62f27d8304891a76bc73fa6ae11033ec3bd47ef21c9d210e63",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/closure.json",
+      "bytes": 1739,
+      "sha256": "662f40880f6697d78da014ec52f8e085cb360657f5013e7e4a789544c008966d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-forecast-withdrawal-and-repair-controls-01/parent-request-input.json",
+      "bytes": 4755,
+      "sha256": "45a8c84541c1c6488f5f7ca6193f888f76d665fe2f9e49c77c7bd0d3f68ca6bf",
+      "mode": 420
+    }
+  ],
+  "selfExcluded": true,
+  "writesStopped": true,
+  "restoredRole": "Executive"
+}

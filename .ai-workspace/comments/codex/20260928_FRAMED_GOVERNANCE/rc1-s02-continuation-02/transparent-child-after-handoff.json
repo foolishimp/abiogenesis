@@ -1,0 +1,26 @@
+{
+  "prefix": {
+    "coordinateDigest": "sha256:949efdd21d8cbcc54e7417545e4e422cbb79e02a00ca1e50463d4a0a7ab8b890",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:a41c394109526aa89adb38441b3e6664b1b926a1d497868ab302d58e5abce50d",
+    "prefixLength": 3342761,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 464244056
+    }
+  },
+  "reopenAuthority": {
+    "authorityDigest": "sha256:392b184dc28fdf54d969b061a53e17a323e3416e2805c871266c900e6c5893dd",
+    "device": 16777230,
+    "durableByteLength": 3342761,
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "eventLogDigest": "sha256:a41c394109526aa89adb38441b3e6664b1b926a1d497868ab302d58e5abce50d",
+    "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/events/runtime.events.jsonl",
+    "inode": 464244056,
+    "kind": "event_store_reopen_authority",
+    "schemaVersion": "5.0.0"
+  }
+}

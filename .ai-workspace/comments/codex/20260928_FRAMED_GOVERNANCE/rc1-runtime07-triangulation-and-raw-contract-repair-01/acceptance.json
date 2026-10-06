@@ -1,0 +1,35 @@
+{
+  "status": "ACCEPTED_FAILED_RUNTIME_OBSERVATION_AND_SOURCE_LOCALIZATION_ONLY",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "runtime": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/final-runtime-freeze.json",
+    "bytes": 49360,
+    "sha256": "227997c8c1d4307151af57109efce0dcaeab4b1a288c0d83a44c56e414b147f2",
+    "mode": 420
+  },
+  "rootRuntimeVerification": "all104regularrecords/1133319292B/modes/filecensus/nine recorded directory modes/0links; honest failed helper/child/foldback/stopped Run; no completed Run/cold/F11/AF22",
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/review/freeze.json",
+    "bytes": 2108,
+    "sha256": "1988274403d5ad91c67b4acf86656a00bc35c575793f4f60e3c694ef5834bc42",
+    "mode": 420
+  },
+  "sourceReport": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime07-preimage-localization-controls-01/review/predicate-report.md",
+    "bytes": 14329,
+    "sha256": "be95918f270f3203e503f37523e03373980201697290edbf3f87c576db4a564f",
+    "mode": 420
+  },
+  "sourceReportRecordsVerified": 5,
+  "sourceReportBytesVerified": 79999,
+  "additiveClosedReviewerScopeCorrection": "The frozen independent report overselects generic environment collection. The CLOSED final Reviewer return conjoins a later exact native-work antecedent and D4/D5 design224: existing abg.raw_result_contract is the lawful native raw owner declaration. Smallest supported repair is canonical qualification GTL producer, no declaration_closure.ts change. Root withdraws earlier commentary selection of collector repair. Missing raw owner/refusal localization stands.",
+  "functionalSuccessOrQualificationAccepted": false,
+  "selectedReentry": "realization_refactor",
+  "canonicalSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+    "bytes": 18649,
+    "sha256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+    "mode": 420
+  },
+  "newRegressionPreimage": "ABSENT"
+}

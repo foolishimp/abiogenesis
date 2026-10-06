@@ -1,0 +1,75 @@
+{
+  "activation": "T287_SANDBOX_UAT_WORKLOADS_01",
+  "claim": "Provider-free local parse/hash and refusal checks only; no application execution or live UAT pass.",
+  "manifestDigest": "sha256:747ca825888e512bcbab2d4c26351444a97de77932f2b45aa88ae5b7fb58d17e",
+  "oracleModuleDigest": "sha256:8dcfdd00230644f1458f1fe19304c8ba8e830426b8f7ea4f2343dc301883c342",
+  "checks": [
+    {
+      "key": "basic-cli",
+      "result": "unmet",
+      "unresolvedCriteria": 11,
+      "originalSlicesExact": true,
+      "requestSourcesLocal": true,
+      "oracleCannotPassEmptyWorksite": true
+    },
+    {
+      "key": "js-tenant-test",
+      "result": "unmet",
+      "unresolvedCriteria": 11,
+      "originalSlicesExact": true,
+      "requestSourcesLocal": true,
+      "oracleCannotPassEmptyWorksite": true
+    },
+    {
+      "key": "js-sdlc-bootstrap",
+      "result": "unmet",
+      "unresolvedCriteria": 11,
+      "originalSlicesExact": true,
+      "requestSourcesLocal": true,
+      "oracleCannotPassEmptyWorksite": true
+    },
+    {
+      "key": "rust-cli",
+      "result": "unmet",
+      "unresolvedCriteria": 12,
+      "originalSlicesExact": true,
+      "requestSourcesLocal": true,
+      "oracleCannotPassEmptyWorksite": true
+    },
+    {
+      "key": "rust-service",
+      "result": "unmet",
+      "unresolvedCriteria": 11,
+      "originalSlicesExact": true,
+      "requestSourcesLocal": true,
+      "oracleCannotPassEmptyWorksite": true
+    },
+    {
+      "key": "parallel-js",
+      "result": "unmet",
+      "unresolvedCriteria": 15,
+      "originalSlicesExact": true,
+      "requestSourcesLocal": true,
+      "oracleCannotPassEmptyWorksite": true
+    },
+    {
+      "key": "data-mapper-full",
+      "result": "unmet",
+      "unresolvedCriteria": 59,
+      "originalSlicesExact": true,
+      "requestSourcesLocal": true,
+      "oracleCannotPassEmptyWorksite": true
+    }
+  ],
+  "metadataOnlyDataMapper": {
+    "result": "indeterminate",
+    "fullOriginalArtifactsPresent": true,
+    "xmlPasses": 40,
+    "all40DepthPairsDeclared": true,
+    "compiledRestoredKillClaims": 16,
+    "admittedCommands": 0,
+    "genuineKillExperiments": 0,
+    "allClaimsRemainIndeterminate": true
+  },
+  "donorAcquiredPathsStillByteIdentical": true
+}

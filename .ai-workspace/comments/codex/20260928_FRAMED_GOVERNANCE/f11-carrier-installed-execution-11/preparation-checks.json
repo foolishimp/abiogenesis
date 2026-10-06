@@ -1,0 +1,23 @@
+{
+  "status": "GO_PREPARED_NATIVE_CHILD_CONTINUATION_ONLY",
+  "nativeChildSavedChecks": "native-child-selection-checks.json",
+  "modules": 10,
+  "syntax": "exact module bodies reuse accepted Preparation10 syntax; local relative closures checked",
+  "diagnosticProbe": "accepted unchanged Preparation10 success/wrong-kind trap reused, not rerun",
+  "dependentIdentities": "existing framework recomputes proof-bearing input identities at future owner preparation",
+  "Runtime11Activated": false,
+  "event": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-09/resources/events/runtime.events.jsonl",
+    "bytes": 2844807,
+    "sha256": "374f6dddb7191acb4da6e9e5d093d4e247fcddb2139ece8dcd4c90159b9596a5",
+    "mode": 420
+  },
+  "eventDevice": 16777230,
+  "eventInode": 464941019,
+  "preservedOriginalParentAndTwoReads": true,
+  "fullColdPassUnknown": true,
+  "parentAliasApplicabilityUnknown": true,
+  "ProductImports": 0,
+  "ownerCalls": 0,
+  "RuntimeEffects": 0
+}

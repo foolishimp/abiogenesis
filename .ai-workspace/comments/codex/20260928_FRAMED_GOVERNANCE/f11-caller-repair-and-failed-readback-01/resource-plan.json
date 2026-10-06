@@ -1,0 +1,11 @@
+{
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+  "initialPrefixBytes": 2668364,
+  "initialPrefixSha256": "2f4e445acdcfa2ac94dc341aea0c061446419d0eb8dc07e838c2b47c27124ba8",
+  "eventDevice": 16777230,
+  "eventInode": 464611665,
+  "authenticInitialHandoffFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/closed-event-resource-handoff.json",
+  "initialHandoffDigest": "sha256:1d13a5f46009c0345eb54277017f6243995c98af66b96d34a20afd3e17e934ca",
+  "readOnly": true,
+  "expectedAppendBytes": 0
+}

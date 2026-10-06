@@ -1,0 +1,136 @@
+{
+  "operation": "T287_TRANSFORMATION_LIBRARY_CONSERVATION_ACCEPTANCE",
+  "date": "2026-10-06",
+  "decision": "ACCEPT_BOUNDED_SOURCE_PACKAGE_NATIVE_AND_FRESH_CONSERVATION",
+  "classification": "Executive conjunction and work-status evidence; creates no ABG runtime authority",
+  "frame": {
+    "product": "fixed fifteen-family ABG5",
+    "wave": "GOAL035/T287",
+    "features": [
+      "F05",
+      "F10",
+      "F11",
+      "F15"
+    ],
+    "method": "STDO2.5.1RC2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "referenceFrame": "interface-integration rev2"
+  },
+  "subject": {
+    "archive": ".ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10644849,
+    "sha256": "89b3dfde55e46c4e269b85ecf1671807fd10cac0371313220f9a03a078537e8a",
+    "regularMembers": 5281,
+    "privateProspectiveLabel": "5.0.0-rc.1; not published or release-qualified",
+    "sourceProofSha256": "9b6b1ec6e0489455fb3aeadc3ebcbaf93459cf5a0cb65db13215c683a3e996e8",
+    "sourceAttributionSha256": "8f92906d0fd7e2ecc36fbfbe0795bd582f561448d0ffd4a0bc4ab4bfecec099c"
+  },
+  "inputs": [
+    {
+      "path": ".ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_REPAIR_01/return.json",
+      "sha256": "efd563b269e05256ee4c644a1a4ddfd38424ba393d20da3ea3c2b2e45c90f614"
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/return.json",
+      "sha256": "be7c70d746f516b774d127b95847918ea4095bbf8665c3cee3017d62c2152140"
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/return.json",
+      "sha256": "ff0877900311b48ca3c23a8e81d737480a9f84170c388a3a10b19e7e62fe465b"
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/freeze.json",
+      "sha256": "ed6b212591cac07103d6d8ea5342db97132faa81b986913f6557a187dae2a1d7"
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_FRESH_CONSERVATION_READ_REPAIR_01/return.json",
+      "sha256": "b36babb724d3ee58bc7ec6971d76a85babf38cc8d162a0cd90a07b1449410cb6"
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_FRESH_CONSERVATION_READ_REPAIR_01/freeze.json",
+      "sha256": "30f1ae8ef14265fef078cb361a78549b2d5b82eaaa311064d87c90a84c7e5fb6"
+    }
+  ],
+  "closedReviews": [
+    {
+      "reviewer": "/root/current_source_review",
+      "scope": "Source/component/package",
+      "verdict": "CLOSED_GO",
+      "evidence": "Exact frozen owner dependency preserves original J/task/raw/source and all attribution/independence/acknowledgment guards; compiled and all5281 package members agree"
+    },
+    {
+      "reviewer": "/root/current_source_review",
+      "scope": "Native conservation/Proof",
+      "verdict": "CLOSED_GO",
+      "evidence": "Actual109events, all native source fields and actual controlled actor/resource lineage; complete finite A slot, B required outside plan, known failure/citations preserved"
+    },
+    {
+      "reviewer": "/root/current_reuse_cost_review",
+      "scope": "Packaging/Identity/Reuse",
+      "verdict": "CLOSED_GO",
+      "evidence": "Manifest payload locators and archive members exact; two changelog omissions declared derived delta; no executable/license/Public/lock drift"
+    },
+    {
+      "reviewer": "/root/current_reuse_cost_review",
+      "scope": "Fresh projection/Proof/Cost",
+      "verdict": "CLOSED_GO",
+      "evidence": "Six actual reads preserve entire terminals with projectionBasis alone normalized; current basis checked separately; unchanged physical store and actor count"
+    }
+  ],
+  "acceptedClaims": {
+    "canonicalPreparation": "previously accepted installed m05 bridge; same owners across two responsibility bindings",
+    "nativeRepair": "Already-resolved canonical provenance is passed as explicit dependency to existing attribution helper; original reference-form J stays unchanged",
+    "readRepair": "Current projection basis is a view coordinate; every stable terminal field and value remains hash-identical",
+    "focused": "4/4 passed",
+    "packedPreparationPublication": "7/7 passed",
+    "controlledNative": {
+      "A": "failed, provenance J, original native Result citation",
+      "B": "blocked_incomplete, J_required, no fabricated citation, outside finite plan",
+      "F11": "failed; 4445 findings (1 failed,4348 blocked,96 passed)",
+      "AF22": "sole reducer red; actual F11 Result citation",
+      "closedRuns": 3,
+      "controlledActorExchanges": 1,
+      "realProviderCalls": 0
+    },
+    "fresh": {
+      "publicReads": 6,
+      "members": [
+        "run_result",
+        "run_replay"
+      ],
+      "originalProducerResultValueAndSource": "preserved",
+      "replay": "closed",
+      "eventsAppended": 0,
+      "extraActors": 0,
+      "latestHandoff": ".ai-workspace/work/T287_FRESH_CONSERVATION_READ_REPAIR_01/read-af22-run_replay-handoff.json",
+      "handoffSha256": "dfd99cf9eb4e1aa57582e67e0da00306f5caea03ecf3e0dfc85f51fe1af06416"
+    },
+    "eventResource": {
+      "path": ".ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/resources/events/runtime.events.jsonl",
+      "events": 109,
+      "bytes": 5302352,
+      "sha256": "f421f60d58bb6b9993180494fb230fff40a9733290b52d03bea6ab65c086011a",
+      "device": 16777231,
+      "inode": 465602484
+    }
+  },
+  "cost": {
+    "nativeCompleteProcessMs": 78170.96891700203,
+    "nativeCompleteProcessPeakRssBytes": 3746234368,
+    "nativeFlowMs": 32956,
+    "freshProcessMs": 24295.023708997178,
+    "freshProcessPeakRssBytes": 2582953984,
+    "freshSelectedBytes": 3381,
+    "measurementLimit": "Process peaks are cumulative; read timings include transport/handoff. Scaling and memory cost remain open."
+  },
+  "residuals": [
+    "one genuine independent assessment and demonstrated bounded context sufficiency",
+    "parent-path coverage",
+    "seven actual defect detections",
+    "whole-candidate qualification and QUAL056",
+    "RC publication, installed-RC qualification, actual owner acceptance, terminal remote installation verification",
+    "unproved reason old npm projection included two dependency changelogs; no selected-path Product blocker"
+  ],
+  "disposition": "Preserve old accepted cuts and reuse this complete bounded chain; activate one genuine actual-Source pilot on unchanged installed89 candidate."
+}
+

@@ -1,0 +1,1445 @@
+{
+  "activation": "T287_SANDBOX_UAT_RETIREMENT_01",
+  "phase": "frozen_pending_independent_review",
+  "head": "55a8a452141caf180ea6cee6365d2a1bfb9da34e",
+  "authority": [
+    "stdo_abiogenesis.json",
+    "specification/PRODUCT.md",
+    "specification/GOALS.md",
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    ".ai-workspace/work/T287_SANDBOX_UAT_01/plan.md"
+  ],
+  "effects": [
+    {
+      "rel": "test_env/tests/abi5-root-installed-function-chain.test.mjs",
+      "action": "delete",
+      "reason": "Nine-operation Root chain still serialized removed operationId/variant CLI protocol and fixed operation order. Root-chain controller contract is absent from current Product.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/abi5-root-installed-function-chain.test.mjs",
+      "preimageSha256": "40721ea1777037ec16b1d34163f7faa6b694138c13eca1837d56b0d240c3bcee",
+      "preimageBytes": 15768,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/steel-basic-cli-public.test.mjs",
+        "test_env/tests/t287-wave2-owner-chain.test.mjs",
+        "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/abi5-root-installed-function-chain.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-fibre-substitution.test.mjs",
+      "action": "delete",
+      "reason": "Installed old seven-operation CLI sequence over removed built-in deterministic/FPHello fixture; generic fibre compatibility remains.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-fibre-substitution.test.mjs",
+      "preimageSha256": "4f4e22d0e158354a5486fb9e4467fba5fac9824f4d662b1ba4296f2dfd2ec00c",
+      "preimageBytes": 8082,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/m5-worker-transport.test.mjs",
+        "test_env/uat/scenarios.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/m5-fibre-substitution.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-installed-compose.test.mjs",
+      "action": "delete",
+      "reason": "Exactly-seven CLI outcomes with indexes4/5/6 over removed composed Hello root. Current structural composition owner relation remains.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-compose.test.mjs",
+      "preimageSha256": "28cd215651d26a4786eb264a3229111d688d2d6523b3d96dba47cfea57bd4240",
+      "preimageBytes": 6662,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/m5-event-calculus-runtime.test.mjs",
+        "test_env/tests/t287-calculus-state-transfer.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/m5-installed-compose.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-installed-consensus.test.mjs",
+      "action": "delete",
+      "reason": "Installed Consensus tests selected and submitted through removed run.invoke CLI wire protocol; generic Consensus publication/algebra and current Public owners remain.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-consensus.test.mjs",
+      "preimageSha256": "37db8966ff98142d5cde723b769b050e7e374a7801f3ced33de6c34233d10372",
+      "preimageBytes": 101463,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-consensus-module.test.mjs",
+        "test_env/tests/steel-basic-cli-public.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/m5-installed-consensus.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-installed-external-product.test.mjs",
+      "action": "delete",
+      "reason": "Old external Hello/Product campaign serialized removed fixed Public operation protocol, including built-in mixed F_P row. Current external product admission/smoke and component contracts remain.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-external-product.test.mjs",
+      "preimageSha256": "188833a48de37703193d20f597b767bca5d31c2b8a6d479ddc52b641fe0007f8",
+      "preimageBytes": 178987,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/installed-language-smoke.test.mjs",
+        "test_env/tests/r5-invocation-admission.test.mjs",
+        "test_env/tests/m5-installed-portability.test.mjs",
+        "test_env/tests/steel-basic-cli-public.test.mjs",
+        "test_env/uat/scenarios.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/m5-installed-external-product.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-installed-fan-out.test.mjs",
+      "action": "delete",
+      "reason": "Removed built-in fan-out declaration executed through obsolete fixed seven-operation CLI protocol. Ordered/blocked-vector relations remain in current component and calculus tests.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fan-out.test.mjs",
+      "preimageSha256": "c86b72507a2586473ab11a230b4a4a1c967f214731605abea5f620d39eacc413",
+      "preimageBytes": 8519,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/t287-calculus-state-transfer.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/m5-installed-fan-out.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-installed-fp-fd-compose.test.mjs",
+      "action": "delete",
+      "reason": "Removed FPHello then Hello built-in topology and obsolete CLI protocol. Generic mixed fibre/worker mechanics remain.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fp-fd-compose.test.mjs",
+      "preimageSha256": "96b1af530f10fc7cdd953db110ecff75ba604f892a6769f8e44603385dd80b37",
+      "preimageBytes": 5942,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/m5-worker-transport.test.mjs",
+        "test_env/uat/scenarios.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/m5-installed-fp-fd-compose.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-installed-fp.test.mjs",
+      "action": "delete",
+      "reason": "Removed FPHello built-in lifecycle through obsolete CLI serializer; real subprocess/typed failure/salvage/current Product boundaries remain.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fp.test.mjs",
+      "preimageSha256": "ee7045aa731a1273c0853584a64be00704b831c4d5cc801b91a64b8aeeb3ecc8",
+      "preimageBytes": 26770,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-worker-transport.test.mjs",
+        "test_env/tests/m5-s06-prime.test.mjs",
+        "test_env/tests/hello-product-boundary.test.mjs",
+        "test_env/uat/scenarios.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/m5-installed-fp.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-installed-gate.test.mjs",
+      "action": "delete",
+      "reason": "Removed built-in gate Hello declaration and obsolete CLI serializer. Native gate/edge algebra remains.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-gate.test.mjs",
+      "preimageSha256": "fb4326658288213f0a27289e5cd47895b4bbe5c4854414d0632f10e0c35d794f",
+      "preimageBytes": 6239,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/hog-operator-support.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/m5-installed-gate.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-installed-recursion.test.mjs",
+      "action": "delete",
+      "reason": "Removed built-in bounded-recursion declaration and obsolete CLI serializer; exclusive old foldback subprocess helpers retired. Current finite graph/retry/owner contracts remain.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-recursion.test.mjs",
+      "preimageSha256": "96da04d1368f24609ca39dfc73299687087b3b9b7948d08e815158bc0debc413",
+      "preimageBytes": 21878,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "test_env/tests/t287-calculus-state-transfer.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/m5-installed-recursion.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-installed-retry.test.mjs",
+      "action": "delete",
+      "reason": "Removed built-in FPHello retry and obsolete CLI serializer. Current frontier ownership, exact causal bridge and worker mechanics remain.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-retry.test.mjs",
+      "preimageSha256": "ff15c2399b5d3d8af3ed2716246a5c48df1e9ce3aeaf4b2fe4026097adaa7d4d",
+      "preimageBytes": 38531,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+        "test_env/tests/m5-worker-transport.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/m5-installed-retry.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-installed-substitute.test.mjs",
+      "action": "delete",
+      "reason": "Removed built-in Hello substitution declaration and obsolete CLI serializer. Native exact substitution topology and contract compatibility remain.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-substitute.test.mjs",
+      "preimageSha256": "e452f737942e930a613ec42aae301968db13954fa5388799689c5f486b7c5692",
+      "preimageBytes": 3634,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-c-algebra-validation.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/m5-installed-substitute.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-installed-workflow.test.mjs",
+      "action": "delete",
+      "reason": "Removed built-in workflow Hello declaration and obsolete CLI serializer. Current graph-call owner/callable membership and structural workflow contracts remain.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-workflow.test.mjs",
+      "preimageSha256": "16bce02b750a35f4bd83b31ea7d1ccff5784fe548a9e8ebe7d6fbc4f2ae994d3",
+      "preimageBytes": 4592,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/hog-operator-support.test.mjs",
+        "test_env/tests/r5-invocation-admission.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/m5-installed-workflow.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-live-fp.test.mjs",
+      "action": "delete",
+      "reason": "Live-provider FPHello installed campaign through removed CLI protocol. Current Product has no built-in Hello; bounded acquired worker workload belongs UAT.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-live-fp.test.mjs",
+      "preimageSha256": "60d7515989ae7b1df3ec54deb409c0d70db4f84f6193e2b595e53b83382778a3",
+      "preimageBytes": 6757,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-worker-transport.test.mjs",
+        "test_env/tests/hello-product-boundary.test.mjs",
+        "test_env/uat/scenarios.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/m5-live-fp.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-traversal-conservation.test.mjs",
+      "action": "delete",
+      "reason": "RC5 historical source census and old built-in Hello evidence map writes a dated conservation report; old source/version census has no current executable purpose. Current changing-input/recovery/calculus assertions remain.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-traversal-conservation.test.mjs",
+      "preimageSha256": "5c42e8f7aa5c9ac3bbebf5acc276e10e3d8e89f6becbbdb1d40e8deab213546f",
+      "preimageBytes": 65958,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/t287-calculus-state-transfer.test.mjs",
+        "test_env/tests/m5-event-calculus-runtime.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/m5-traversal-conservation.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/r10-installed-cli-outcome.test.mjs",
+      "action": "delete",
+      "reason": "Old Hello fixed-operation CLI result/replay equivalence. Current typed DefinitionCall/public result projection and source-blind language smoke remain.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/r10-installed-cli-outcome.test.mjs",
+      "preimageSha256": "4e013a1928243fd39887d72d4656cbab056615949803cff314670dbdfa8b47fa",
+      "preimageBytes": 9623,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/steel-basic-cli-public.test.mjs",
+        "test_env/tests/t287-public-terminal-projection.test.mjs",
+        "test_env/tests/installed-language-smoke.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/r10-installed-cli-outcome.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/root-cli-environment-timeout.test.mjs",
+      "action": "delete",
+      "reason": "Timeout wrapper for removed CLI invocation serializer. Current worker process supervision/typed failure remains; old controller transport contract is absent.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/root-cli-environment-timeout.test.mjs",
+      "preimageSha256": "0326ac58e4e714beb785b2c4980a365083325a86a467b4bf5ce92cf270c56aa1",
+      "preimageBytes": 3065,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-worker-transport.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/root-cli-environment-timeout.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/root-governor.test.mjs",
+      "action": "delete",
+      "reason": "Separate Root governor reducer over fixed Public operation sequence and raw CLI transport continuity. Current Product removes this extra authority owner.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/root-governor.test.mjs",
+      "preimageSha256": "0245493d8f2958c46fd970ab765fa7c56b7b68a580f767440293936e73c02bba",
+      "preimageBytes": 4394,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/hello-product-boundary.test.mjs",
+        "test_env/tests/t287-wave2-owner-chain.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/root-governor.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/t287-setup-invocation-authority.test.mjs",
+      "action": "delete",
+      "reason": "Seven-operation old setup/run.invoke transport and exclusive subprocess proof use removed controller protocol; current native exact setup/custody/reconstruction owners remain.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-setup-invocation-authority.test.mjs",
+      "preimageSha256": "660ca591889a528bc8fd9aceb60ba90b95a9d9c4d3fda96d5eee2a028b3ca7e1",
+      "preimageBytes": 21436,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-installed-portability.test.mjs",
+        "test_env/tests/r3-workspace-binding.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs",
+        "test_env/tests/r5-invocation-admission.test.mjs",
+        "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/t287-setup-invocation-authority.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/t287-w2-05-run-invoke-installed.test.mjs",
+      "action": "delete",
+      "reason": "Packed COMPOSED_HELLO_IDS runtime/readiness binding and old run.invoke installed serializer; current exact Catalog/install/Product owner chain and typed invocation remain.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-run-invoke-installed.test.mjs",
+      "preimageSha256": "b3c27f8f8d46a0dfcee53ab793c796e0a4556190512b96b24cf220b8817964fe",
+      "preimageBytes": 62783,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+        "test_env/tests/r5-invocation-admission.test.mjs",
+        "test_env/tests/installed-language-smoke.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/tests/t287-w2-05-run-invoke-installed.test.mjs"
+    },
+    {
+      "rel": "test_env/support/root-governor.mjs",
+      "action": "delete",
+      "reason": "Reducer for deleted root-governor test; fixed ROOT_OPERATION_ORDER governor authority removed.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-governor.mjs",
+      "preimageSha256": "970c04dd9003dd61b7a63c5b23ad01a65acc199e6adc34c0056e9073f08e1554",
+      "preimageBytes": 13107,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/hello-product-boundary.test.mjs",
+        "test_env/tests/t287-wave2-owner-chain.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/support/root-governor.mjs"
+    },
+    {
+      "rel": "test_env/support/root-owner-evidence.mjs",
+      "action": "delete",
+      "reason": "Public controller transport/owner projection adapters consumed only by retired CLI-root suites.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-owner-evidence.mjs",
+      "preimageSha256": "0fd231555748f0b7c425c48b94fa1803be25418011425495f4f389b572346c20",
+      "preimageBytes": 6677,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/steel-basic-cli-public.test.mjs",
+        "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/support/root-owner-evidence.mjs"
+    },
+    {
+      "rel": "test_env/support/t287-setup-invocation-authority-worker.mjs",
+      "action": "delete",
+      "reason": "Exclusive old fixed-operation setup authority PID-2 proof worker; its only suite is retired.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-setup-invocation-authority-worker.mjs",
+      "preimageSha256": "96db748ad7d6543b282f357d4fb55e11aa843070c9b0781071afe6903720f4ee",
+      "preimageBytes": 2519,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/r3-workspace-binding.test.mjs",
+        "test_env/tests/m5-event-store-reopen.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/support/t287-setup-invocation-authority-worker.mjs"
+    },
+    {
+      "rel": "test_env/support/wave1-interface-receipt.mjs",
+      "action": "delete",
+      "reason": "Frozen Wave1 Public-controller receipt writer/parser used only by retired function chain and capture utility. Historical receipt files are preserved as evidence.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/wave1-interface-receipt.mjs",
+      "preimageSha256": "dee6656e0c180a869e40cd9eec53495a0af3beaf3355267439497f5c0c6e39c5",
+      "preimageBytes": 27008,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/t287-wave2-owner-chain.test.mjs",
+        "test_env/tests/steel-basic-cli-public.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/support/wave1-interface-receipt.mjs"
+    },
+    {
+      "rel": "test_env/support/wave1-proof-capture.mjs",
+      "action": "delete",
+      "reason": "Historical Wave1 receipt capture command uses deleted fixed-operation CLI helper; it has no current caller. Historical artifacts remain.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/wave1-proof-capture.mjs",
+      "preimageSha256": "1735c9cd2fe9a69890b815812b084cad970161c24f85cf551d1736d42314d6bd",
+      "preimageBytes": 8182,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/steel-basic-cli-public.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/support/wave1-proof-capture.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/run-s06-increment-0a.mjs",
+      "action": "delete",
+      "reason": "Historical Increment0a fixed confirmed_red/preserved_green characterization collector performs build/cleanup and invokes retired lanes; absent current campaign purpose.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/run-s06-increment-0a.mjs",
+      "preimageSha256": "e5de7f11f614d7c9985a252a7ac00f7426d35e54204d7f9ea93eb1d059e029b5",
+      "preimageBytes": 5502,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/hello-product-boundary.test.mjs",
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/m5-event-store-reopen.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/run-s06-increment-0a.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/authority-lanes.mjs",
+      "action": "delete",
+      "reason": "Dead-only AX-F01/F02/F12 characterization of pre-current setup maps and Root/Public carriers; only deleted S06 collector consumes it.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/authority-lanes.mjs",
+      "preimageSha256": "b225068ba47b765c457abf3c175079683e3f1948914aca066d2acc3fdf6063ad",
+      "preimageBytes": 30158,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/m5-installed-portability.test.mjs",
+        "test_env/tests/r3-workspace-binding.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs",
+        "test_env/tests/r5-invocation-admission.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/authority-lanes.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/installed-worker.mjs",
+      "action": "delete",
+      "reason": "Exclusive authority-lanes subprocess drives old fixed Root/Public operation protocol; deleted caller only.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/installed-worker.mjs",
+      "preimageSha256": "602106bf62d13ff631a3c7a0982367e4d7c4a84e3c0fc34b818654168fb36fa2",
+      "preimageBytes": 6656,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/r3-workspace-binding.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs",
+        "test_env/tests/m5-event-store-reopen.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/installed-worker.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/runtime-f08.mjs",
+      "action": "delete",
+      "reason": "Historic AX-F08 F_H/minimal Hello log campaign and private PID-2 helper; deleted S06 collector is sole caller.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f08.mjs",
+      "preimageSha256": "f86e52e105425e93eb2dfe58d371aa34a5bf9fca2b02e2a65e3d735f4caf3440",
+      "preimageBytes": 123692,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/runtime-scope-regressions.test.mjs",
+        "test_env/tests/t287-retry-run-prefix.test.mjs",
+        "test_env/tests/m5-event-store-reopen.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/runtime-f08.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/runtime-public-fh-worker.mjs",
+      "action": "delete",
+      "reason": "Exclusive subprocess for deleted AX-F08 historical Public F_H receipt campaign.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-public-fh-worker.mjs",
+      "preimageSha256": "60c3936ba2c0734a1229bcc207d9c00e9c06cbe3c16c616abde7e07b69f0a586",
+      "preimageBytes": 3987,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "counterparts": [
+        "test_env/tests/runtime-scope-regressions.test.mjs",
+        "test_env/tests/m5-event-store-reopen.test.mjs",
+        "test_env/tests/m5-consensus-module.test.mjs"
+      ],
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/runtime-public-fh-worker.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-installed-portability.test.mjs",
+      "action": "modify",
+      "removedTests": [
+        "S06 installs, applies, and invokes one independent flavored Product through SDK, CLI, and bounded delegate",
+        "S06 exact catalog carrier family refuses forged and legacy inputs before runtime truth",
+        "S06 run ingress refuses valid readiness without exact durable install and workspace admission before runtime effects",
+        "S06 SDK and CLI consume one serialized public operation contract",
+        "S06 workspace binding rejects caller-authored dependency edges",
+        "S06 unresolved dependency lock refuses before Product materialization",
+        "S06 verified native evidence retains reachable self-package subpath roots",
+        "S06 catalog admission proves one complete pure readiness basis and refuses substituted truth",
+        "S06 catalog readiness refuses a prerequisite absent from every direct dependency edge",
+        "S06 catalog application delegates target and value meaning to Product semantics",
+        "S06 Codex delegate rejects substituted and missing CLI paths"
+      ],
+      "removedDeclarations": [
+        "invocation",
+        "assertLiteralCarrierFlow",
+        "portableCarrierSemantics",
+        "portabilityScenario",
+        "assertPortableOutcome"
+      ],
+      "retainedTests": [
+        "S06 verified Product and resolved lock truth are deeply immutable",
+        "S06 catalog construction rejects unequal publications with one module identity",
+        "S06 external side-effect declaration imports refuse during Product resolution",
+        "S06 Product verification resolves contract authority and exact locators",
+        "S06 Product verification resolves JSON Schema array pointers",
+        "S06 catalog narrowing refuses unknown handles without an admission fallback",
+        "S06 catalog applications are pure reconstructible values",
+        "S06 Codex delegate and flavored Product keep their public boundaries"
+      ],
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-portability.test.mjs",
+      "preimageSha256": "2197900001126938537c7b1c8993cf134b517c7b5b9b5df4635166b5e9c724d2",
+      "preimageBytes": 68037,
+      "postimageSha256": "55f1c65d181f0a190bec7f8c3c69cfe9a75a2a2ea63e2acadf75a99ee370f442",
+      "postimageBytes": 16257,
+      "preimageArchiveMember": "preimages/test_env/tests/m5-installed-portability.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/rival-authority-mutations.test.mjs",
+      "action": "modify",
+      "removedTests": [
+        "B8 setup operations reject undeclared payload fields",
+        "B8 post-admission exceptions become replayable ABG refusal truth",
+        "B8 post-open judgment exceptions complete the admitted CCall spine",
+        "B8 post-install implementation substitution is refused before execution",
+        "B8 mutation evidence ledger is complete"
+      ],
+      "removedDeclarations": [
+        "eventsFromBytes"
+      ],
+      "retainedTests": [
+        "B8 installed package exposes no retired runtime authority",
+        "B8 an exact rehydrated ExecutionBasis enters the installed ABG path",
+        "B8 HoG hides low-level completion and rejects a forged leaf port"
+      ],
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/rival-authority-mutations.test.mjs",
+      "preimageSha256": "072e23164414d5d7a2145d7e61f3f2010a6b98e9f2124c7a9ea19466a95f621c",
+      "preimageBytes": 17323,
+      "postimageSha256": "a71e9e15902e31d11d5d75311434f7f4169875b9f20a6d3b05da491296aa71f7",
+      "postimageBytes": 5161,
+      "preimageArchiveMember": "preimages/test_env/tests/rival-authority-mutations.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/t287-worksite-command-execution.test.mjs",
+      "action": "modify",
+      "removedTests": [
+        "T-287 C2 publicly consumes C1, executes exact helper evidence, closes, and replays"
+      ],
+      "removedDeclarations": [
+        "DECOY_RELATIVE_PATH",
+        "invocation",
+        "projectReadInvocation",
+        "readPublicProjection",
+        "installCommandTransport",
+        "sourceReplay",
+        "taskManifestBytes",
+        "launchManifestForOccurrence",
+        "shellQuote",
+        "predecessorHelperPlan",
+        "replaceToolInputIdentity",
+        "executeHelperArguments",
+        "assertHelperPreflightRefusal",
+        "launchManifestBytes",
+        "resignLaunchManifest",
+        "publishTestLaunchManifest",
+        "publishTestTaskManifest"
+      ],
+      "retainedTests": [
+        "T-287 C2 compact acknowledgment preserves installed large-log observation and replay"
+      ],
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "preimageSha256": "c1a0059d74dea6eab3d07d070d043ff3949752d15ab680ab265f477b6ae3f695",
+      "preimageBytes": 151970,
+      "postimageSha256": "0f7daad35940dc388335a62a8d66df64907e4aa4194c15af707bf38079437e1c",
+      "postimageBytes": 30864,
+      "preimageArchiveMember": "preimages/test_env/tests/t287-worksite-command-execution.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "action": "modify",
+      "removedTests": [
+        "T-287 C3 Data Mapper topology closes 9 C1 branches and a 22-member flat result"
+      ],
+      "removedDeclarations": [
+        "DATA_MAPPER_BRANCHES",
+        "publicInvocation",
+        "publicProjectReadInvocation",
+        "closeHandoff",
+        "readPublicProjection",
+        "replayPublicRun",
+        "constructInvocationCapabilityGrant",
+        "installCommandTransport",
+        "runPublicC2Invocation",
+        "assertPublicSourceRefusal"
+      ],
+      "retainedTests": [
+        "T-287 C3 Parallel topology constructs canonically and closes installed C1 children",
+        "T-287 C3 preserves outer and nested partial prefixes and never opens fan-in"
+      ],
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "preimageSha256": "f394e26a3db022a5635dcf680f30af764ba42748f40ad1ea07412bb00bcf2950",
+      "preimageBytes": 64899,
+      "postimageSha256": "3905e3d3304f208cb663ad3a9b4725dca88527291302a05c1fea17ea14e6f5d0",
+      "postimageBytes": 28421,
+      "preimageArchiveMember": "preimages/test_env/tests/t287-worksite-branch-construction.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "action": "modify",
+      "removedTests": [
+        "D1 installed semantic stage composition and fresh replay"
+      ],
+      "removedDeclarations": [
+        "execFileAsync",
+        "ACTOR",
+        "installedHarness",
+        "admittedContractCatalog",
+        "admittedDefinitionContractCoordinates",
+        "cliOrdinal",
+        "observedCalls",
+        "keyOf",
+        "coordinate",
+        "actorAuthority",
+        "authoritySlots",
+        "definitionFor",
+        "definitionCall",
+        "rehashInvocation",
+        "cliCall",
+        "acquisitionFor",
+        "runBinding",
+        "reopenEventResource",
+        "inventory",
+        "glcRoot",
+        "glcEvidence",
+        "glc",
+        "nativePublications",
+        "prepareDeclarationProduct",
+        "installSemanticFixture"
+      ],
+      "retainedTests": [
+        "D1 native operating-basis projection conserves exact preparation identity",
+        "D1 assessor statement domain matches native assembly and preserves strict relation refusals"
+      ],
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "preimageSha256": "43c003652d53d289cd029163d3cf2b70708845add5c49e724ccb82de1cdb8b33",
+      "preimageBytes": 68802,
+      "postimageSha256": "6393f8ef1389e7208a14ba864454ef47bbd3826836e6b5b72f2149e0bc8e436a",
+      "postimageBytes": 19368,
+      "preimageArchiveMember": "preimages/test_env/tests/t287-d1-semantic-stage.test.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/contract-lanes.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/contract-lanes.mjs",
+      "action": "delete",
+      "reason": "Dead-only AX contract characterization calls removed GRAPH_EDGE_HELLO_IDS/WORKFLOW_HELLO_IDS, constructRootInvocationPolicy and old RootPublic schema/operation vectors.",
+      "counterparts": [
+        "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/m5-installed-portability.test.mjs"
+      ],
+      "preimageSha256": "0a4a10f33c371d8794c8aa317907683b97842c6122c7b0e9a1554d39e617a9b9",
+      "preimageBytes": 66378,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/contract-lanes.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/runtime-lanes.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-lanes.mjs",
+      "action": "delete",
+      "reason": "Dead-only AX-F04/F06 wrapper for deleted fixed S06 collector and old runtime-f06 subprocess. Current scoped artifact conflict and application/catalog owner tests remain.",
+      "counterparts": [
+        "test_env/tests/m5-event-store-reopen.test.mjs",
+        "test_env/tests/t289-install-event-bodies.test.mjs",
+        "test_env/tests/m5-installed-portability.test.mjs"
+      ],
+      "preimageSha256": "6221e5bb1abda7e2d524b9bac5abb899feab4b843bd80828af0b8e3cb79fbc92",
+      "preimageBytes": 54663,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/runtime-lanes.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/runtime-f06-worker.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f06-worker.mjs",
+      "action": "delete",
+      "reason": "Exclusive AX-F06 subprocess uses removed constructRootInvocationPolicy and old run.invoke carrier; only deleted runtime-lanes consumed it.",
+      "counterparts": [
+        "test_env/tests/m5-installed-portability.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs"
+      ],
+      "preimageSha256": "8752581d39cd7b95222f5e2816dec43c4bdaa0553e95c96d77c1ef885ffe4ea6",
+      "preimageBytes": 33769,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/runtime-f06-worker.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/pfc-f08-lane.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/pfc-f08-lane.mjs",
+      "action": "delete",
+      "reason": "Frozen confirmed-red absence characterization for old PFC-F08 contracts/callable; no selected current executable obligation or caller.",
+      "counterparts": [
+        "test_env/tests/hello-product-boundary.test.mjs",
+        "test_env/tests/m5-consensus-module.test.mjs"
+      ],
+      "preimageSha256": "21c7044c7028e8a2f01f75b69e7999cfd551f0178ae700b87620c7236f4fc67a",
+      "preimageBytes": 20798,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/pfc-f08-lane.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/runtime-recursion-route-worker.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-recursion-route-worker.mjs",
+      "action": "delete",
+      "reason": "Exclusive old built-in recursion installed route/refusal checker; deleted m5-installed-recursion is sole caller.",
+      "counterparts": [
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/t287-calculus-state-transfer.test.mjs"
+      ],
+      "preimageSha256": "72d228fed5f4eb3f368c327a7565e5e11073653653856b69c4ffb658e7d73bbf",
+      "preimageBytes": 2540,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/runtime-recursion-route-worker.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/runtime-recursion-lifecycle-worker.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-recursion-lifecycle-worker.mjs",
+      "action": "delete",
+      "reason": "Exclusive old built-in recursion lifecycle PID-2 checker; deleted m5-installed-recursion is sole caller.",
+      "counterparts": [
+        "test_env/tests/m5-event-store-reopen.test.mjs",
+        "test_env/tests/t287-calculus-state-transfer.test.mjs"
+      ],
+      "preimageSha256": "b22c675e9b525ab7cf58ce45c2218c2ce6ea377c6bb245a7dce1536f1180851d",
+      "preimageBytes": 3434,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/runtime-recursion-lifecycle-worker.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/t287-r3-reopen-route-worker.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/t287-r3-reopen-route-worker.mjs",
+      "action": "delete",
+      "reason": "Exclusive old installed retry route checker; deleted m5-installed-retry is sole caller. Shared current Entry212 reopen worker is retained.",
+      "counterparts": [
+        "test_env/tests/m5-event-store-reopen.test.mjs",
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs"
+      ],
+      "preimageSha256": "dd60c90900cf529327f4f2719508e4b6e30f595ced593d138c8fa2959be73ab9",
+      "preimageBytes": 11085,
+      "postimageSha256": null,
+      "postimageBytes": 0,
+      "orphanAudit": "Active tests/support/falsifiers/fixtures and production code/scripts imports inspected; deleted-only consumers retired together. Historical command/receipt references remain evidence.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/t287-r3-reopen-route-worker.mjs"
+    },
+    {
+      "rel": "test_env/support/root-cli-environment.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-cli-environment.mjs",
+      "action": "modify",
+      "reason": "Remove exclusively retired public_invocation serializer/controller/CLI/Codex runners; retain actual install setup and canonical export resolution.",
+      "counterparts": [
+        "test_env/tests/installed-language-smoke.test.mjs",
+        "test_env/support/registered-graph-selection.mjs"
+      ],
+      "preimageSha256": "073cd6ee92939dd90165c0565bf700b83a6eab77d6272d4861b243ff0e6334e9",
+      "preimageBytes": 34957,
+      "postimageSha256": "4cc34c5ed2e9a898f2ae7fbacc66f5d2933b1f89185cb07ffedf11e7d2ec96a5",
+      "postimageBytes": 9922,
+      "preimageArchiveMember": "preimages/test_env/support/root-cli-environment.mjs"
+    },
+    {
+      "rel": "test_env/tests/forward-command-contracts.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/forward-command-contracts.test.mjs",
+      "action": "modify",
+      "reason": "Retire donor-log/physical-identity/frozen-source equality proofs; retain current constructor, scope, refusal, owner-provenance and ambiguity checks using explicit local component input.",
+      "counterparts": [
+        "test_env/tests/forward-command-contracts.test.mjs",
+        "test_env/tests/forward-command-owners.test.mjs"
+      ],
+      "preimageSha256": "879075ecabe6be647b4883f37456039c53f6347393b9782f77e5d668715bf56d",
+      "preimageBytes": 9294,
+      "removedTests": [
+        "legacy task/raw schema/closed predicates and parent public/event contracts remain exact"
+      ],
+      "retainedTests": [
+        "native whole-Program validator accepts exactly prepare plus nested C2, with no historical call rights",
+        "native validator rejects crossed raw/output and child closure; exact declaration owner refuses extra calls",
+        "closed Product carriers preserve all22 real source observations; no fabricated cover qualifies native currentness",
+        "missing reordered duplicate changed or crossed retained members refuse at real Product constructor",
+        "real shared helper-plan artifact acknowledgment and observation constructors bind the forward arm",
+        "raw namespaces, attempt/task/artifact and actor/tool mismatches remain refused",
+        "step and terminal predicates preserve honest command failure but reject incomplete or crossed final carriers"
+      ],
+      "postimageSha256": "b8038f11fa500804125de09fd09ceefc71e8c26fa5758f0bd816d9b0fdca3b57",
+      "postimageBytes": 7866,
+      "preimageArchiveMember": "preimages/test_env/tests/forward-command-contracts.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/forward-command-owners.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/forward-command-owners.test.mjs",
+      "action": "modify",
+      "reason": "Retire donor-log/physical-identity/frozen-source equality proofs; retain current constructor, scope, refusal, owner-provenance and ambiguity checks using explicit local component input.",
+      "counterparts": [
+        "test_env/tests/forward-command-contracts.test.mjs",
+        "test_env/tests/forward-command-owners.test.mjs"
+      ],
+      "preimageSha256": "6ddf8e2644729b660321e44fcae8f0c902a8e857df338652711807f399ee8b57",
+      "preimageBytes": 7508,
+      "removedTests": [
+        "actual native actor intent/parent ownership excludes dispatched calls; failed C2 remains zero dispatch",
+        "actual22 protected physical identities match; same-byte identity, digest and membership mutations refuse"
+      ],
+      "retainedTests": [
+        "synthetic current native lookup maps all22 retained C0 owners only under exact witness",
+        "synthetic cover wrong direction, scope, missing member and unrelated origin refuse in unchanged native owners",
+        "synthetic workflow alias does not add a C0 owner; distinct same-value producer is ambiguity",
+        "synthetic later cross-W post-publication failure invalidates the old subject alias without fabricating O1",
+        "synthetic current-prefix consumption refuses another exact producer, unresolved admission and ignores unrelated scope",
+        "actual native entry and occurrence owners refuse same-Run transfer, standalone task, foreign GF and missing native basis"
+      ],
+      "postimageSha256": "7e7bf90bfb563654189e3bf284d24c13a4d63a08c1262e74f43460f74d0d3939",
+      "postimageBytes": 5962,
+      "preimageArchiveMember": "preimages/test_env/tests/forward-command-owners.test.mjs"
+    },
+    {
+      "rel": "test_env/support/forward-command-harness.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/forward-command-harness.mjs",
+      "action": "modify",
+      "reason": "Replace direct 144MB donor-log/disk identity acquisition with a local two-member component input; canonical owners remain unchanged.",
+      "counterparts": [
+        "test_env/tests/forward-command-contracts.test.mjs",
+        "test_env/tests/forward-command-owners.test.mjs"
+      ],
+      "preimageSha256": "ed0a95b5967adbe1bace80ee034f75760a4ee5670e56f90299483e14f6a80ac5",
+      "preimageBytes": 7000,
+      "postimageSha256": "85f0228f77adc6407390cdf50c51ca254b979e716b95123cb6daa35547685c7e",
+      "postimageBytes": 3319,
+      "preimageArchiveMember": "preimages/test_env/support/forward-command-harness.mjs"
+    },
+    {
+      "rel": "test_env/support/forward-owner-lookups.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/forward-owner-lookups.mjs",
+      "action": "modify",
+      "reason": "Use local component input and its complete member count while executing exact compiled provenance/consumption owner algorithms.",
+      "counterparts": [
+        "test_env/tests/forward-command-owners.test.mjs"
+      ],
+      "preimageSha256": "363e53d33d1cd7c39a7a1221e1cbb214cdf71d3ebe6e95fb7c073479b3c6770c",
+      "preimageBytes": 10625,
+      "postimageSha256": "fce35bff8766c02a29e89aa7fa0892c5a89395eab781721726bd81cc39734bef",
+      "postimageBytes": 10658,
+      "preimageArchiveMember": "preimages/test_env/support/forward-owner-lookups.mjs"
+    },
+    {
+      "rel": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "action": "modify",
+      "reason": "Use an ABG-owned test declaration fixture; remove actual donor checkout import.",
+      "counterparts": [
+        "test_env/fixtures/native-semantic-revision/declarations.mjs"
+      ],
+      "preimageSha256": "caf83aaac05e760cf8a5508736dd7161760b4805279b75fd15d499f53bd7624c",
+      "preimageBytes": 87332,
+      "postimageSha256": "79bc758e3b3e46071f471225607cf6d9b732484553100ccf85566f165a4e64bb",
+      "postimageBytes": 87244,
+      "readinessFixes": [
+        {
+          "preimageSha256": "9a296b47b6322cd29d6333e0464d2732c8c84567c8f787d2b98da9bf476f34d9",
+          "preimageBytes": 87175,
+          "reason": "Keep module-namespace descriptor discovery on current prepared-module loader seam; supplied physical custody remains explicit"
+        }
+      ],
+      "preimageArchiveMember": "preimages/test_env/tests/t287-native-semantic-revision.test.mjs"
+    },
+    {
+      "rel": "test_env/fixtures/native-semantic-revision/declarations.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/native-semantic-revision/declarations.mjs",
+      "action": "add",
+      "reason": "Localize only pure declaration-constructor dependencies; no donor runtime, planner or admission code.",
+      "counterparts": [],
+      "preimageSha256": null,
+      "preimageBytes": 0,
+      "postimageSha256": "f95df8511a4d56148a80bac009ea41bceeb17907f59488bd6b24a39281d6fd59",
+      "postimageBytes": 21165
+    },
+    {
+      "rel": "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-r6-retry-success-exit.test.mjs",
+      "action": "modify",
+      "reason": "Removed built-in workflow/recursion/fan-out/FPHello references and legacy capability-grant/replay ingress; preserved the unique declared retry boundary identity predicate against current structural declarations and canonical retry owner.",
+      "counterparts": [
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/m5-event-calculus-runtime.test.mjs",
+        "test_env/tests/m5-consensus-module.test.mjs",
+        "test_env/uat/scenarios.mjs"
+      ],
+      "preimageSha256": "7b8afc3ed5bcd80296c3f79150be4898314b66e25a72e78b0c5a24894732b1de",
+      "preimageBytes": 193579,
+      "removedTests": [
+        "T-287 TV5 published F_P retry crosses the real gap and reconstructs D17 resume plus fresh-process replay",
+        "T-287 R6 installed F_P post-staging exception rolls back completed progress, route, and closure",
+        "T-287 TV5 installed F_P stopped rollback projects one exact GraphTraversalFailure",
+        "T-287 R6 retry-wrapped workflow success exits retry depth atomically",
+        "T-287 R6 owner-admitted flat recursion attempt two reconstructs its leaf CCall",
+        "T-287 R6 retry-wrapped deferred application success exits retry depth atomically",
+        "T-287 R6 nested retry fan-out complete vector exits both depths with its exact final outcome",
+        "T-287 R6 successful nested fan-out reopens with byte-identical history and projections",
+        "T-287 R6 stale fan-out carrier is refused by the effectful retry owner with zero durable suffix",
+        "T-287 R6 fully rehashed non-final fan-out provenance forgery cannot project progress or route",
+        "T-287 R6 fully rehashed alien fan-out program locus is refused by graph-bound retry and route owners",
+        "T-287 R6 nested retry F_H resume exits both depths through one exact continuation provenance chain",
+        "T-287 R6 installed depth-3 F_H success exits and reconstructs every retry owner in exact causal order",
+        "T-287 TV5 successful nested F_H completion reconstructs both retry owners and route in PID-2",
+        "T-287 R6 F_H continuation failure rolls back the complete pending hold suffix in memory and durable reopen",
+        "T-287 F10 F_H successor enters retry through its exact route and durable input",
+        "T-287 F10 successor-carrier derivation refuses a same-coordinate non-F_H leaf without effects",
+        "T-287 R6 nested structural identity exits both retry depths without fabricating CCall truth"
+      ],
+      "retainedTests": [
+        "T-287 TV5 declared retry boundary identity is stable across structural descent and distinct across sibling loci"
+      ],
+      "postimageSha256": "99c5ad9af2d30f9d6e4f2990ca4dfe2faf80417f0bc2256ad15f141149dd9587",
+      "postimageBytes": 10906,
+      "readinessFixes": [
+        {
+          "preimageSha256": "2f7d17d0b49361ceac92cbf8ebeec467a9cd4bdd86dda723a41323cb5fcd7c64",
+          "preimageBytes": 165212,
+          "reason": "Bounded readiness found removed FAN_OUT_HELLO_IDS and old capability-grant ingress. Retain only current pure retry-boundary identity; remove unreachable legacy installed callbacks."
+        },
+        {
+          "preimageSha256": "18767acc740dfc9c82d5c4bfb11c673313ea97c23ad2269866a234abf150e383",
+          "preimageBytes": 10121,
+          "reason": "Reconstruct the test-owned workflow/batch/reducer with public C constructors before wrapping retries; module publication serialization intentionally carries unbranded data."
+        }
+      ],
+      "preimageArchiveMember": "preimages/test_env/tests/t287-r6-retry-success-exit.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/t287-selected-execution-closure.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-execution-closure.test.mjs",
+      "action": "modify",
+      "reason": "Keep exact finite historical basis replay comparisons; remove mistaken coupling to a withdrawn built-in Program declaration.",
+      "counterparts": [
+        "test_env/tests/m5-event-store-reopen.test.mjs"
+      ],
+      "preimageSha256": "56d85f9debad2dcbf2694494e3cda3dc30b422eb5e847879bc15e4caf901f2f2",
+      "preimageBytes": 13993,
+      "postimageSha256": "dd0292cb6c62452a00cc12bf33cc9db7ecf5aaeed8be2076c1560a91f2c82d21",
+      "postimageBytes": 13442,
+      "preimageArchiveMember": "preimages/test_env/tests/t287-selected-execution-closure.test.mjs"
+    },
+    {
+      "rel": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "action": "modify",
+      "reason": "Retain structural retry scope/lineage relation using an existing external authored declaration instead of absent built-in Hello identities.",
+      "counterparts": [
+        "test_env/fixtures/language-structural/program.mjs"
+      ],
+      "preimageSha256": "8e7cb6f47c087b120ea1994a2e1ece82a7b315fec22ecb31656b538e051f7f57",
+      "preimageBytes": 79943,
+      "postimageSha256": "6307010acf298563c235b51c61f086d64563e0f5f65225c3748a5ecd676a2163",
+      "postimageBytes": 79927,
+      "readinessFixes": [
+        {
+          "preimageSha256": "d3c811732cc5feab89b50addb0aa9955009037b2a991ba464d8e0849d01f02b5",
+          "preimageBytes": 79927,
+          "reason": "External C.compose normalizes to a three-term sequence; preserve exact retry term locator"
+        }
+      ],
+      "preimageArchiveMember": "preimages/test_env/tests/m5-event-calculus-runtime.test.mjs"
+    },
+    {
+      "rel": "test_env/fixtures/forward-command/input.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/forward-command/input.mjs",
+      "action": "add",
+      "preimageSha256": null,
+      "preimageBytes": 0,
+      "reason": "Pure two-member component input for canonical forward carriers and owner lookup premises; no actual runtime admission claimed.",
+      "postimageSha256": "cba6471264602fd95e465b2079809ac4a03c2b7b261ed79e687a3855b12b9793",
+      "postimageBytes": 7677,
+      "readinessFixes": [
+        {
+          "preimageSha256": "810c86526a3fe993e41b977c1415fde2d6ef26b66153a781fd86af84d7fcf620",
+          "preimageBytes": 7540,
+          "reason": "Supply local pure path join import"
+        },
+        {
+          "preimageSha256": "f4444eaa1de3d5c0d238e05657c12e279340c2ec4c837cf755cad4260812d07d",
+          "preimageBytes": 7572,
+          "reason": "Supply old-binding coordinates needed by canonical witnessed cover owner"
+        }
+      ]
+    },
+    {
+      "rel": "test_env/support/language-structural-fixture.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+      "action": "modify",
+      "preimageSha256": "925ddcc5933b61425e1f709b322334c2ea2181507ab61a0c3c49d62392a4f8bc",
+      "preimageBytes": 5875,
+      "reason": "Allow caller-owned finite source transformation before test fixture manifest/packing; all loaded declarations still come from the exact installed Product.",
+      "postimageSha256": "f840e413bf53b7cffec616e3147ba7d461c5858e2b6da4d248dc2d799e81decd",
+      "postimageBytes": 6369,
+      "preimageArchiveMember": "preimages/test_env/support/language-structural-fixture.mjs"
+    },
+    {
+      "rel": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "action": "modify",
+      "preimageSha256": "5524b08fcc4c08b2d6d8577acbed498934505d1eca2cad86992693f356334d4e",
+      "preimageBytes": 10049,
+      "reason": "Preserve unique real changing-input compose/shared-batch/identity/recovery producer relation by authoring a finite external Product; remove mutations of removed ABG Hello implementation files.",
+      "postimageSha256": "853fa1cd3de80f8bc8bccf0d248265411340234547c1bb58caa2e8c530ead2da",
+      "postimageBytes": 9352,
+      "readinessFixes": [
+        {
+          "preimageSha256": "eaa39be9bf4aee5224913d96c1470640b841eae6615720f3a7e64643d228d8f4",
+          "preimageBytes": 8597,
+          "reason": "Authored graph/Program closure metadata must agree with its actual final external leaf contracts"
+        }
+      ],
+      "preimageArchiveMember": "preimages/test_env/tests/t287-calculus-state-transfer.test.mjs"
+    },
+    {
+      "rel": "test_env/support/t287-tv5-success-reconstruction-worker.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-tv5-success-reconstruction-worker.mjs",
+      "action": "delete",
+      "reason": "Exclusive PID-2 checker for retired R6 old-admission ingress; no surviving caller. Current retry boundary/frontier, causation, transaction and replay predicates are retained; this old depth-2 F_H receipt earns no current proof.",
+      "counterparts": [
+        "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "test_env/tests/m5-event-store-reopen.test.mjs",
+        "test_env/tests/m5-consensus-module.test.mjs"
+      ],
+      "preimageSha256": "c81e1431e888e3bfd50b6d5c93a40a2da809a1c8012a5be0e0b8c57be11dd0e9",
+      "preimageBytes": 14100,
+      "preimageMode": "644",
+      "orphanAudit": "No active source/script/package import or filename reference outside retained historical evidence; checked full repo executable extensions excluding build/node_modules/evidence/proof/.ai-workspace.",
+      "preimageArchiveMember": "preimages/test_env/support/t287-tv5-success-reconstruction-worker.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/evidence.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/evidence.mjs",
+      "action": "delete",
+      "reason": "Exclusive fixed AX-F01..F14/PFC historic confirmed_red/preserved_green baseline normalizer for deleted S06 collector; current qualification uses current assertions and explicit receipts.",
+      "counterparts": [
+        "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+        "test_env/tests/m5-event-store-reopen.test.mjs"
+      ],
+      "preimageSha256": "85e89f9c8ead022071947f838e1f5d0615fc1ea67a7a8f8ac52db52152706f0e",
+      "preimageBytes": 3064,
+      "preimageMode": "644",
+      "orphanAudit": "No active source/script/package import or filename reference outside retained historical evidence; checked full repo executable extensions excluding build/node_modules/evidence/proof/.ai-workspace.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/evidence.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/runtime-worker.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-worker.mjs",
+      "action": "delete",
+      "reason": "Exclusive AX-F07 source-result subprocess for deleted runtime-lanes; no current caller. Current exact invocation/reopen owner predicates remain in focused owner tests.",
+      "counterparts": [
+        "test_env/tests/r5-invocation-admission.test.mjs",
+        "test_env/tests/m5-event-store-reopen.test.mjs"
+      ],
+      "preimageSha256": "12196cd02055a4aeaf0036623104e000e0b462a44c1a2621bfd5cf1a44863cef",
+      "preimageBytes": 1347,
+      "preimageMode": "644",
+      "orphanAudit": "No active source/script/package import or filename reference outside retained historical evidence; checked full repo executable extensions excluding build/node_modules/evidence/proof/.ai-workspace.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/runtime-worker.mjs"
+    },
+    {
+      "rel": "test_env/falsifiers/runtime-f10-worker.mjs",
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f10-worker.mjs",
+      "action": "delete",
+      "reason": "Exclusive old AX-F10 collector subprocess calls removed rehydrateAdmittedCCallState(store,cCall,result,judgment) signature; no current caller. Current causal/replay/owner tests use current contracts.",
+      "counterparts": [
+        "test_env/tests/m5-event-store-reopen.test.mjs",
+        "test_env/tests/m5-event-calculus-runtime.test.mjs"
+      ],
+      "preimageSha256": "7edf464db8ecec849ac5947184696557e5d169bd04a2c7f93bec55fc06dea600",
+      "preimageBytes": 1913,
+      "preimageMode": "644",
+      "orphanAudit": "No active source/script/package import or filename reference outside retained historical evidence; checked full repo executable extensions excluding build/node_modules/evidence/proof/.ai-workspace.",
+      "preimageArchiveMember": "preimages/test_env/falsifiers/runtime-f10-worker.mjs"
+    }
+  ],
+  "limits": [
+    "No production/provider/model/campaign/npm-build/npm-clean/Git mutation effects. Affordable component/selected installed fixture checks only.",
+    "Modern counterpart retention does not establish complete installed behavior or release qualification.",
+    "Counterparts identify surviving current relations, not byte-equivalent proof of each retired installed callback. Old depth-N F_H receipts and live provider claims are not current qualification.",
+    "No active ABG test-domain donor read/import remains in audited executable test tree; pure declaration/input fixtures are local and canonical ABI owners remain imported."
+  ],
+  "fixtureAcquisition": {
+    "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/src/native-lifecycle-declarations.mjs",
+    "sha256": "580f7680cb2fc4cc0dbadacd596fd361f8c1a0f5f13821821ad5530f68ac7a32",
+    "bytes": 37448,
+    "selectedDeclarations": [
+      "exactlyOne",
+      "stageRef",
+      "graphRef",
+      "commonRubric",
+      "constructNativeLifecycleDeclaration",
+      "constructFreshNativeLifecyclePublication",
+      "selectNativeSemanticRevisionStart",
+      "constructNativeRevisionDeclarations"
+    ],
+    "selectedRanges": [
+      {
+        "startByte": 318,
+        "endByte": 447
+      },
+      {
+        "startByte": 448,
+        "endByte": 519
+      },
+      {
+        "startByte": 520,
+        "endByte": 600
+      },
+      {
+        "startByte": 601,
+        "endByte": 1301
+      },
+      {
+        "startByte": 1303,
+        "endByte": 7982
+      },
+      {
+        "startByte": 20809,
+        "endByte": 27610
+      },
+      {
+        "startByte": 30776,
+        "endByte": 32268
+      },
+      {
+        "startByte": 32431,
+        "endByte": 37447
+      }
+    ],
+    "destination": "test_env/fixtures/native-semantic-revision/declarations.mjs"
+  },
+  "preimageValidation": "Every live mutated/deleted file matched its pinned exact current SHA256 before the first effect.",
+  "readiness": [
+    {
+      "command": "node --test --test-name-pattern=\"declared retry boundary identity\" test_env/tests/t287-r6-retry-success-exit.test.mjs",
+      "result": "failed before owner assertion",
+      "evidence": "FAN_OUT_HELLO_IDS undefined: retained harness referenced removed built-in publication."
+    },
+    {
+      "command": "node --test --test-name-pattern=\"nested retry F_H resume exits both depths through one exact continuation\" test_env/tests/t287-r6-retry-success-exit.test.mjs",
+      "result": "failed before owner execution",
+      "durationMs": 34240,
+      "evidence": "TypeError: capability grant requires exact workspace, policy, actor, and definition authority; constructInvocationCapabilityGrant(invocation.js:571), constructCapabilityGrant(:479), executeTestGraph(r6:846)."
+    },
+    {
+      "command": "node --test test_env/tests/t287-r6-retry-success-exit.test.mjs",
+      "subjectSha256": "18767acc740dfc9c82d5c4bfb11c673313ea97c23ad2269866a234abf150e383",
+      "exitCode": 1,
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "durationMs": 303.162042,
+      "outputExcerpt": "TypeError: C.retry term must be created by a C constructor; assertTerm(c_algebra.js:23), cRetry(:330), retryFanOutPublication(r6:84), callback(r6:124)."
+    },
+    {
+      "command": "node --test test_env/tests/t287-r6-retry-success-exit.test.mjs",
+      "subjectSha256": "99c5ad9af2d30f9d6e4f2990ca4dfe2faf80417f0bc2256ad15f141149dd9587",
+      "exitCode": 0,
+      "tests": 1,
+      "passed": 1,
+      "failed": 0,
+      "durationMs": 304.308709,
+      "output": "\u2714 T-287 TV5 declared retry boundary identity is stable across structural descent and distinct across sibling loci (5.826792ms)\n\u2139 tests 1\n\u2139 suites 0\n\u2139 pass 1\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 304.308709\n"
+    },
+    {
+      "command": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs",
+      "exitCode": 0,
+      "passed": 13,
+      "failed": 0,
+      "durationMs": 892,
+      "scope": "Current canonical owners; controlled local two-member input, explicit upstream premises. Historical physical donor-log identity assertions retired."
+    },
+    {
+      "command": "node --experimental-vm-modules --test test_env/tests/t287-native-semantic-revision.test.mjs",
+      "exitCode": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 1,
+      "durationMs": 2500,
+      "scope": "Pure local native declaration fixture; one existing Design/selector material proof gate skipped."
+    },
+    {
+      "command": "node --experimental-vm-modules --test test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs",
+      "exitCode": 0,
+      "passed": 15,
+      "failed": 0,
+      "skipped": 1,
+      "durationMs": 2825,
+      "scope": "Current native gate component checks; retained material proof gate skipped."
+    },
+    {
+      "command": "node --test test_env/tests/m5-c-algebra-validation.test.mjs",
+      "exitCode": 0,
+      "passed": 18,
+      "failed": 0,
+      "skipped": 3,
+      "scope": "Current algebra relations; three retained Thread2 installed-consumer proof gates skipped."
+    },
+    {
+      "command": "node --test --test-name-pattern=\"structural retry lineage\" test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "durationMs": 310,
+      "scope": "Migrated retry identity predicate uses external COMPOSED_IDS and actual data carriers."
+    },
+    {
+      "command": "node --test test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 2,
+      "scope": "Current component tests retained; native predecessor package/proof observation unavailable for this bounded check. No D1 installed proof claim."
+    },
+    {
+      "command": "ABI5_CALCULUS_CASES=compose node --test test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "durationMs": 36260,
+      "scope": "Selected current external structural changing-input compose positive; parent and subtest entries. Exact closure metadata joins current final leaf."
+    },
+    {
+      "command": "ABI5_CALCULUS_CASES=recovery node --test test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "exitCode": 0,
+      "passed": 2,
+      "failed": 0,
+      "durationMs": 35500,
+      "scope": "Selected current external structural recovery positive; parent and subtest entries. Remaining five shape assertions preserved but not rerun."
+    },
+    {
+      "command": "TypeScript AST parse and literal relative-import closure over current tests/support/falsifiers/fixtures, excluding concurrent sandbox-uat scope",
+      "exitCode": 0,
+      "files": 287,
+      "syntaxErrors": 0,
+      "missingRelativeImports": 0
+    },
+    {
+      "command": "rg direct donor filesystem/import signatures in active test-domain executable sources",
+      "exitCode": 1,
+      "matches": 0,
+      "scope": "No donor root env/path/runtime-log reads; historical URI/tag strings remain harmless declarations."
+    },
+    {
+      "command": "rg exclusive retired helper filename references across repo executable extensions excluding build/node_modules/evidence/proof/.ai-workspace",
+      "exitCode": 1,
+      "matches": 0,
+      "scope": "No active source, script or package import of final four orphan removals."
+    }
+  ],
+  "retainedPurposes": {
+    "packageBoundary": [
+      "test_env/tests/hello-product-boundary.test.mjs",
+      "test_env/tests/installed-language-smoke.test.mjs",
+      "test_env/tests/m5-installed-graph-edge.test.mjs"
+    ],
+    "currentOwners": [
+      "test_env/tests/m5-installed-portability.test.mjs",
+      "test_env/tests/m5-consensus-module.test.mjs",
+      "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "test_env/tests/m5-event-store-reopen.test.mjs",
+      "test_env/tests/m5-worker-transport.test.mjs",
+      "test_env/tests/r5-invocation-admission.test.mjs",
+      "test_env/tests/steel-basic-cli-public.test.mjs"
+    ],
+    "currentComponentRelations": [
+      "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+      "test_env/tests/forward-command-contracts.test.mjs",
+      "test_env/tests/forward-command-owners.test.mjs",
+      "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "test_env/tests/t287-d1-semantic-stage.test.mjs"
+    ],
+    "currentInstalledConservation": [
+      "test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "test_env/tests/t287-worksite-command-execution.test.mjs",
+      "test_env/tests/t287-worksite-branch-construction.test.mjs"
+    ],
+    "sharedReopenWorker": "test_env/support/t287-entry212-reopen-worker.mjs"
+  },
+  "scriptRecommendations": {
+    "remove": [
+      "test:m5:compose",
+      "test:m5:substitute",
+      "test:m5:fp",
+      "test:m5:live-fp",
+      "test:m5:workflow",
+      "test:m5:retry",
+      "test:m5:gate",
+      "test:m5:recursion",
+      "test:m5:fan-out",
+      "test:m5:fibre",
+      "test:m5:external",
+      "test:m5:consensus",
+      "test:m5:hog"
+    ],
+    "rewrite": [
+      "test:r10/test:m4: remove retired governor/r10 tests and use accurate current installed-language smoke label",
+      "test:m5:conservation: remove historical traversal census; retain C algebra and current calculus state transfer"
+    ],
+    "defaultUnitCandidates": [
+      "test_env/tests/hello-product-boundary.test.mjs",
+      "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "test_env/tests/m5-worker-transport.test.mjs",
+      "test_env/tests/t287-native-structural-gates.test.mjs",
+      "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "test_env/tests/forward-command-contracts.test.mjs",
+      "test_env/tests/forward-command-owners.test.mjs",
+      "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "test_env/tests/t287-r6-retry-success-exit.test.mjs"
+    ],
+    "requires": "node --experimental-vm-modules for native/forward fixture gates; no default build/clean/provider execution",
+    "explicitOnly": [
+      "m5-installed-graph-edge: preserve explicit route; known missing current owner join is outside retirement repair",
+      "t287-public-groups: ABI5_PUBLIC_GROUPS_PACKAGE_ROOT and ABI5_PUBLIC_GROUPS_BASELINE required",
+      "t287-d1-semantic-stage: native proof observation/predecessor package evidence gates",
+      "t287-calculus-state-transfer: installed acquisition costs about35s per selected case"
+    ]
+  },
+  "readinessLimit": "Focused readiness only. Earlier failed commands are retained as failure excerpts with their actual cause; current corrected check does not confer installed campaign or release qualification.",
+  "counts": {
+    "deleted": 41,
+    "modified": 16,
+    "added": 2,
+    "pinnedPreimages": 57
+  },
+  "retainedBoundaryDigests": {
+    "test_env/tests/hello-product-boundary.test.mjs": "7c1ff9f70cbac93a6d13187e0c1440189daeb585909f393c96fa578808fd88a1",
+    "test_env/tests/installed-language-smoke.test.mjs": "ecda0215f8dfb85b22332f199482edbfd1ccf164415caaeb776892581e923e77",
+    "test_env/tests/m5-installed-graph-edge.test.mjs": "d2ba205117086793291aa82f63d9b3305682a49bc0bcf8dabd576aaa7f30dc17"
+  },
+  "readinessFailures": [
+    {
+      "command": "node --test --test-name-pattern=\"declared retry boundary identity\" test_env/tests/t287-r6-retry-success-exit.test.mjs",
+      "result": "failed before owner assertion",
+      "evidence": "FAN_OUT_HELLO_IDS undefined: retained harness referenced removed built-in publication."
+    },
+    {
+      "command": "node --test --test-name-pattern=\"nested retry F_H resume exits both depths through one exact continuation\" test_env/tests/t287-r6-retry-success-exit.test.mjs",
+      "result": "failed before owner execution",
+      "durationMs": 34240,
+      "evidence": "TypeError: capability grant requires exact workspace, policy, actor, and definition authority; constructInvocationCapabilityGrant(invocation.js:571), constructCapabilityGrant(:479), executeTestGraph(r6:846)."
+    },
+    {
+      "command": "node --test test_env/tests/t287-r6-retry-success-exit.test.mjs",
+      "subjectSha256": "18767acc740dfc9c82d5c4bfb11c673313ea97c23ad2269866a234abf150e383",
+      "exitCode": 1,
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "durationMs": 303.162042,
+      "outputExcerpt": "TypeError: C.retry term must be created by a C constructor; assertTerm(c_algebra.js:23), cRetry(:330), retryFanOutPublication(r6:84), callback(r6:124)."
+    },
+    {
+      "check": "Initial forward-command contract/owner + native semantic revision focused run",
+      "status": "failed; corrected",
+      "outputExcerpt": "Forward local component basis omitted exact workspaceBindingId/workspaceBindingDigest required for current join witness; revision descriptor test overrode old loadVerifiedInstalledModule rather than current prepareInstalledProductModules custody seam. Corrections limited to test fixtures/test doubles; corrected focused run passed."
+    },
+    {
+      "check": "Native gates without --experimental-vm-modules",
+      "status": "environment option failure; corrected",
+      "outputExcerpt": "VM SourceTextModule unavailable without --experimental-vm-modules; corrected native gate run passed. No runtime defect claimed."
+    },
+    {
+      "check": "t287-public-groups default attempted run",
+      "status": "explicit installed proof inputs absent; retained and excluded from default",
+      "outputExcerpt": "Top-level package root undefined; requires ABI5_PUBLIC_GROUPS_PACKAGE_ROOT and ABI5_PUBLIC_GROUPS_BASELINE. This installed current regression remains explicit."
+    },
+    {
+      "check": "Initial migrated selected installed calculus compose",
+      "status": "test fixture closure metadata failure; corrected",
+      "outputExcerpt": "Authored changing-input graph closure evidence/judgment/predicate metadata did not match current external final project leaf; bounded fixture metadata correction. Recovery positive passed; final compose positive passed."
+    }
+  ],
+  "undoArchive": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_01/retirement/undo.tar.gz",
+    "sha256": "13422c341971c5128373fd22f3ed18510c71f489834fb4b85924f35ccf16b489",
+    "bytes": 350988,
+    "preimageMembers": 57,
+    "failureReceiptMember": "failed-readiness.json",
+    "verification": "Every archived original byte preimage matched its pinned SHA256 and length. The archive is non-executable; original modes are recorded only where observed.",
+    "restoreBase": "build_tenants/abiogenesis/typescript; strip preimages/ archive prefix after review and preserve current unrelated work."
+  },
+  "frozenAt": "2026-10-06T00:59:52.593392+00:00",
+  "freezeVerification": "All59effect subjects matched their recorded postimage SHA256 or deleted absence immediately before archive creation; all57original preimages verified inside undo.tar.gz. No unrelated files modified by cleanup."
+}

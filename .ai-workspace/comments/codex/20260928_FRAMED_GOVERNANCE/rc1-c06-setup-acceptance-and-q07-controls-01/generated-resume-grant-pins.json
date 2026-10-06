@@ -1,0 +1,20 @@
+{
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-setup-acceptance-and-q07-controls-01/generated-resume-request.txt",
+    "bytes": 2042,
+    "sha256": "6d149dfc5a54a487af80b39d7d6197fcfab7c3b092474ba423d9b12dd13d3b4a",
+    "mode": 420
+  },
+  "sections": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-setup-acceptance-and-q07-controls-01/generated-resume-sections.json",
+    "bytes": 2316,
+    "sha256": "9d8f3b1fd941431be51c140f7d019b1aadda1f01b50e25f6786cf3412209038c",
+    "mode": 420
+  },
+  "a_c": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "mode": 292
+  }
+}

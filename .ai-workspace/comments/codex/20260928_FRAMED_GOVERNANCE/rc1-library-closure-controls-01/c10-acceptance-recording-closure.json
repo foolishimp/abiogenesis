@@ -1,0 +1,53 @@
+{
+  "status": "CLOSED_DOCUMENTS_ONLY",
+  "operation": "T287_C10_CONSTRUCTION_ACCEPTANCE_SETUP_SELECTION_RECORD_01",
+  "role": "Writer",
+  "actor": "/root",
+  "effects": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-review-record.md",
+      "bytes": 1732,
+      "sha256": "c94cd47de45bfc53486711e16561938f1e8603f3775de59ada03459f8469558b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-setup-grant.txt",
+      "bytes": 5249,
+      "sha256": "2af1ad4cbeea06d17ac1d4c11fd5038e0b95d146c28a38230b359fceaa67ab14",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-acceptance.json",
+      "bytes": 7352,
+      "sha256": "0d0ec69f94ad780f11f1f4ac22120689b9066df4ea3c578a83b550a28a059c07",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-setup-operation-basis.json",
+      "bytes": 2056,
+      "sha256": "26280e4cadf0b9ca3094219035f81cff1f0e460ea9d9f2b639df68b55e2ce27b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md",
+      "bytes": 20717,
+      "sha256": "558bba7a096c7fa9e311cce6b778b8d99d63a4942129f615bae9cbc967419c17",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 492946,
+      "sha256": "01c149f53fa00b381bc86adaeea2c7ceee7982dea9d708bd8ba7abf295c3c0b4",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 67260,
+      "sha256": "a67157e4cf96dd977ecb541961c2f44b7f860feec14752d95fb7beda2d83a0b4",
+      "mode": 420
+    }
+  ],
+  "CodeCandidateRuntimeGitEffects": 0,
+  "nextRole": "Executive",
+  "closedAt": "2026-10-04T05:17:49.690153+00:00"
+}

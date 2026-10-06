@@ -1,0 +1,65 @@
+{
+  "kind": "bounded_report_freeze",
+  "activation": "T287_RC1_COVERAGE_SCHEDULE_01",
+  "status": "CLOSED",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-coverage-schedule-01",
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 2691,
+      "sha256": "309d6c833653368a4461d163b08d5245c6d465258c13e38496d0406967d66bf6"
+    },
+    {
+      "path": "closed-state.json",
+      "bytes": 2237,
+      "sha256": "aaf0d1f2a1d7f9ec1b6be6fefe44cfe54cfb6faa590f7a72067d7f20a6f705b5"
+    },
+    {
+      "path": "coverage-map.json",
+      "bytes": 36514,
+      "sha256": "06143021f2cdcb25ffb23fd510ec43cfed63a0a7bea9bf92b526876d9f1c9557"
+    },
+    {
+      "path": "evidence-index.json",
+      "bytes": 36010,
+      "sha256": "b30faa13b014eb5103c1a1ed39f32ee6c35ed51297639e69738af3e84b47de2f"
+    },
+    {
+      "path": "f11-responsibilities.json",
+      "bytes": 5203,
+      "sha256": "11a52a8c7bda0c977d1113f9c62f8ab045f78a60037973ebdb56143609282af4"
+    },
+    {
+      "path": "make-report.py",
+      "bytes": 15848,
+      "sha256": "44a359fae18f1e8f5e8c067f2b89b8950d6117a34339a272157b44675e50563d"
+    },
+    {
+      "path": "ready-increment.json",
+      "bytes": 4146,
+      "sha256": "685c21b6bb780d3d058dd098736a9f4a54d37566484168d31f8f40076776f05d"
+    },
+    {
+      "path": "rejoined-request.txt",
+      "bytes": 5282,
+      "sha256": "d25e4086703bdd74c65b860eab3e548bccf768d29b7fc28744f5b602818188fa"
+    },
+    {
+      "path": "return.md",
+      "bytes": 4598,
+      "sha256": "89959778bd0a6d2a3cba7acc6adcfe08919c5559e46e534766285030285fd982"
+    },
+    {
+      "path": "schedule.md",
+      "bytes": 27223,
+      "sha256": "b21469565fd4253803bcb40633f733122cba3047959b16323895c9231d3f522b"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 597,
+      "sha256": "0907c3429ca3caadd324b621f641aa5865c8274687524d96501d95670aff9489"
+    }
+  ],
+  "totalBytes": 140349,
+  "limits": "Only this Worker report territory frozen; source/evidence pins describe selected read population, not native qualification or full enclosing freeze."
+}

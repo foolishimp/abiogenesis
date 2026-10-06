@@ -1,0 +1,19 @@
+CLOSED T287_RC1_SUCCESSOR_CONSTRUCTION_09 phase exact_typed_source_successor. One prospective pre_rc_candidate; physical construction readiness only. Fixed15/T287/STDO2.5.1RC2/HOW5.1.
+
+Exactly 1111 selected source inputs: 1102 unchanged accepted C08 bodies, 7 typed Source/HOW/tracking replacements and 2 typed-module/test additions. Original C08/C07 source authors/preimages and all nested earlier provenance are conserved; builder is /root/native_applicability_design. Actual independent Source review b1940da887d6186a215604198e230af1c2bb76913a3d9fa67ba0915b89799efd is operative through Root acceptance; frozen prepared PENDING is historical data. Source-cut dfb1611fdb6e2be782fbc9b48cfbcea1b28ec84a287e13f9f4236f8873b47242; source-freeze 530fbfab19a7db238c1f24b5c80074f745f3c7a8fae31124955b3ac0c1528cbc.
+
+One accepted offline ten-command build/pack/bootstrap sequence uses frozen C08 Node24.7/npm11.5.1/TS5.9.2 and16 locked archives, default heap and ordinary HOME. Current Definition/RC2 authority generation and all 95 joins/2137 rule spans/16 claims/66 behaviors passed. Generated population is actually 928; 9 body changes from C08 measured in final-semantic-identity-delta.json. No previous generated count is assumed. All source/law/generated/archive/install bodies and modes have complete frozen inventories/correspondence. Only two declared CLI0644-to0755 adaptations occur in bootstrap install.
+
+Archive /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz
+Archive digest sha256:fb5517bd32afeca44a9236f73137e0ecdcc3eb21cf94a6ad0d5681af74d89122; 10431155bytes/5260members.
+Bootstrap package /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-install/node_modules/@abiogenesis/typescript-tenant
+Product sha256:b2db269866932b17aa7766425cfed84ba2ce74ee24e8d79f469b205b0afc0a1f
+Canonical manifest sha256:a67d9b57f1f63195d7e25da1598863f51a2d877a8050267e0fc9d9595ef726a3
+Catalog sha256:610831905d4accc37c68643c4d7dae84d33b27e7e45d29e65b00f8fb21e177eb
+Installed ProductVerificationPort and same-process owned nominal selection passed; all11 actual publication constructors/validators/manifest bindings passed. 11 of 11 publication digests changed, measured under the actual Product basis. Complete catalog equality with C08 is False, with 61 rows.
+
+Unchanged USTAR wrapper retains its historical author/dependency/archive identity. Actual immutable dependency3contractRefs/2capabilityRefs/version/major5 is unchanged. 3 current full required rows/309 current bodies authenticated; 308 historical bodies retained as history. 4 exact allowed required-body changes/additions and 37 of37native rows changed, with all stable fields and fresh complete inventories verified. All16 capability rows rederived through the unchanged actual constructor from actual new verified definition slots/catalog;196 selectors retained, 196 Product-coordinate changes measured. No wrapper repack, nominal wrapper selection, Public environment locks, ABG install or Runtime occurred.
+
+Ten commands 40.619s; preparation 2.539s. Correspondence/report assembly costs separate. All owned waits/defaultheap/HOME passed, no timeout, all known groups absent. One pack, one offline bootstrap install, no payload retry. Old cuts/source/library/stores read-only; old resource bodies were not recopied or re-proved. No Source tests, Hello, actor/helper/provider/network/Git or qualification effects.
+
+Worker CLOSED; writes stop. Root alone independently conjoins actual construction before separate Setup09/input/installed whole Result/J/parent foldback/F11/sole truthful non-green AF22 and six fresh reads. No semantic or release credit follows from this construction.

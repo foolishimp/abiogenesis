@@ -1,0 +1,55 @@
+{
+  "role": "Independent Reviewer",
+  "activation": "Root independent harness frozen-subject review",
+  "status": "STOPPED",
+  "verdict": "NO_GO_run_acceptance_preserve_bounded_Public_preparation",
+  "frameResult": "falsified",
+  "candidateFreezeSHA256": "a5ecafe61ef6a2c4f9ab247a29dbb8632e263f9d5531bd4f90f78c183f731d61",
+  "workerReturnSHA256": "c2f690adec8106df5cf68e12e876baec19b996931a6513c60564b841b18f9337",
+  "sourceAndEvidencePinsStillMatch": true,
+  "sourceMembers": 9,
+  "evidenceMembers": 14,
+  "fixtureManifestSHA256": "e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+  "oracleModuleSHA256": "2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+  "subjectDigest": "sha256:860a27ef383c65259d5f87cbecd166f94f68de3d63d15c4641473a3376c6ccfe",
+  "digestSerialization": "SHA256 of UTF8 JSON.stringify(path-sorted members), no trailing newline",
+  "members": [
+    {
+      "path": "drift-probe.json",
+      "byteCount": 2297,
+      "digest": "sha256:dc0b83153905b18bd6a6e6f20448bf7f7043f7d32f3e7b25b840561094f9e892"
+    },
+    {
+      "path": "drift-probe.mjs",
+      "byteCount": 5543,
+      "digest": "sha256:cd61b7f9aaa341ecb069ea3bb4942af41afb34f4229f2f44b1696bef7cd47eed"
+    },
+    {
+      "path": "read-only-checks.json",
+      "byteCount": 2142,
+      "digest": "sha256:452fd089dc7ad2484be0592e3129f5c28af3829336f86290657d75b2b1bebc46"
+    },
+    {
+      "path": "return.md",
+      "byteCount": 7094,
+      "digest": "sha256:3d9391d6a259f4343c3f268e225b8d0b2a76d99772b0f9a56e38820aefbadaef"
+    }
+  ],
+  "findings": [
+    {
+      "id": "HARNESS-01",
+      "severity": "S2",
+      "relation": "Exact acquired acceptance material is not preserved and authenticated at later use"
+    },
+    {
+      "id": "HARNESS-02",
+      "severity": "S3",
+      "relation": "Missing source revision accepted and projected as null"
+    }
+  ],
+  "providerDispatched": false,
+  "paidExecution": false,
+  "candidateMutated": false,
+  "scratchCopiesRemoved": true,
+  "consumingAuthority": "Root Executive"
+}

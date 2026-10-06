@@ -143,6 +143,7 @@ function extendQualificationPublication(base: Readonly<ModulePublication>, artif
         "abg.child_closure_contract": child.closureContractRef, "abg.judgment_predicate": predicate,
         "abg.evidence_contract": ids.evidenceContractRef, "abg.judgment_contract": ids.judgmentContractRef,
         "abg.transition_contract": ids.transitionContractRef, "abg.failure_contract": ids.failureContractRef,
+        ...(fibre === "F_P" ? { "abg.raw_result_contract": q.assessmentRaw } : {}),
         "abg.qualification_role_policy": qualificationHash(QUALIFICATION_ROLE_POLICY) },
       template: { kind: "inline_graph", graphRef: "graph://abiogenesis/qualification/" + scope + "@5", startNodeRef: locus,
         terminalNodeRefs: [locus], edges: [], applications: [], nodes: [{ nodeRef: locus, nodeKind: "c_locus", term: C.of({

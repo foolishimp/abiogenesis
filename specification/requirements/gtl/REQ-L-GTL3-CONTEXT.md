@@ -4,7 +4,7 @@
 **Category**: Capability
 **Date**: 2026-04-05
 **Updated**: 2026-09-28
-**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.1-rc.1/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001/INT-008, [ODD_METHOD.md](stdo://releases/v2.5.1-rc.1/standards/ODD_METHOD.md), [Product calculus](../../PRODUCT.md#graph-composition-and-reference-frames)
+**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.1-rc.2/standards/SPEC_METHOD.md), [INTENT.md](../../INTENT.md) INT-001/INT-008, [ODD_METHOD.md](stdo://releases/v2.5.1-rc.2/standards/ODD_METHOD.md), [Product calculus](../../PRODUCT.md#graph-composition-and-reference-frames)
 
 ---
 

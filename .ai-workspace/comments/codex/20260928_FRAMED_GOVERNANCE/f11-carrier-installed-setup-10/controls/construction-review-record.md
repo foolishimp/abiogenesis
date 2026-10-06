@@ -1,0 +1,11 @@
+CLOSED — GO_CONSTRUCTION_ONLY for T287_C10_CONSTRUCTION_ASSURANCE_CONTINUATION_02.
+
+Product Frame remains fixed ABG5 F10/F11/F15 under STDO 2.5.1 RC2. Accepted Source, immutable Product, physical bootstrap and ABG admission remain distinct.
+
+Exact binding: original C10 freeze24cd23e713c0adac12f0fe62b2fda751ee6648936bd180439e63e65e609a8be3; external effect supplement185f249369d39fdc139f07b72e90d4019c56bfc75ff8c8ef31af874dcea2288f; Product87140057006782589b2eddc325d42e781b7a4beaddc8df1f902ae45baeac4c5e; canonicalmanifest8e3d1d8c0a4a872d0c1f55388fc6748f986ad0addde22c5c7cb2924b8ec37d26.
+
+Remaining joins pass: full payload identity; unchanged61-row catalog; all11currentpublications with both semanticbindings/exactrawvalidationdigests; all37nativedeclarations/packageexports;307declarationbodies plus2schemas comprising wrapper309unchangedrequiredbodies; complete16capabilitygraph/196currentownercoordinates. Wrapper exact3contract/2capabilitydependency compatiblemajor5.
+
+Original incompleteeffectclaim remains rejected; separate supplement accounts existing scratch without modifyingC10. Retainedcompile/construction/processclosure/independentlyacceptedSource premises remainbounded. No new blockingconstructionfinding. EightG2groups/25mandatoryassets/admittedinstallation/freshinstalledproof/genuinequalification remainopen. Historical cacheconditions preclude strongerreproducibility. ReviewZEROwrites/Productexecution. Rootaloneaccepts/separateSetup/input/Runtime.
+
+Recorded by Root Writer from actual /root/q03_input_review CLOSED return. This record is documentary capture, not a Reviewer-authored filesystem artifact. Original first-failure NO_GO and supplemental census are retained in the existing Executive record.

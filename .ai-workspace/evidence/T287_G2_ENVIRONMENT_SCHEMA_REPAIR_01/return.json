@@ -1,0 +1,74 @@
+{
+  "operation": "T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "CLOSED_STOPPED_FIRST_MATERIAL_FAILURE",
+  "closedAtUTC": "2026-10-04T15:22:46.562210+00:00",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/source-subject-postimage.json",
+  "firstFailure": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/first-failure.json",
+  "proof": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/proof.json",
+  "cost": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01/cost.json",
+  "processesReapedAndGroupsAbsent": true,
+  "SourceEditsStopped": true,
+  "payloadsStopped": true,
+  "writeTerritories": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01"
+  ],
+  "sourceWritePaths": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-serialization-publication.test.mjs",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts"
+  ],
+  "noReviewerActivation": true,
+  "outcomes": {
+    "operation": "T287_G2_ENVIRONMENT_SCHEMA_REPAIR_01",
+    "SourceStrictCompile": "PASS",
+    "completeGtlSchemaProjection": "EMITTED; selected five definitions present; actual checker NOT_RUN",
+    "manifest": "FAILED at strict bundled-dependency physical containment",
+    "pack": "NOT_RUN",
+    "packedNativeSchemaApiRoundtripCorpusDeclarationCatalogProof": "NOT_RUN",
+    "emittedAssets": [
+      {
+        "relativePath": "contracts/schemas/gtl-serialization.schema.json",
+        "bytes": 183327,
+        "sha256": "2e65b54b4fe967a0b20d50596f57c76dcf6c492df85fac37ce8914fee21dba78",
+        "standing": "intermediate owner-produced asset; manifest/pack/consumer acceptance incomplete",
+        "id": "schema://abiogenesis/gtl/serialization@5",
+        "definitionCount": 7,
+        "selectedDefinitions": [
+          "GraphFunction",
+          "ModulePublication",
+          "CProgramSyntax",
+          "GtlProgramConformanceInput",
+          "GtlLanguageConformanceCorpus"
+        ]
+      },
+      {
+        "relativePath": "contracts/vocabularies/gtl-program-diagnostic-id.json",
+        "bytes": 500,
+        "sha256": "d27861fdfc318ceb7abb74249318b66207f2efe382626a9d2dd0e7f56e51c03b",
+        "standing": "intermediate owner-produced asset; manifest/pack/consumer acceptance incomplete"
+      },
+      {
+        "relativePath": "contracts/conformance/gtl-language-conformance-corpus.json",
+        "bytes": 138661,
+        "sha256": "11b6ae849c1b53b1fcdb4aec9bae905c66feb7372f59e57569183f67c7350c40",
+        "standing": "intermediate owner-produced asset; manifest/pack/consumer acceptance incomplete"
+      }
+    ],
+    "other14SourceRowsUnchanged": true,
+    "twoSourceChangesFrozen": true,
+    "sourceBodyConservationChecked": 16,
+    "priorFailures": {
+      "coreFreezeSHA256": "288b62709514be9d112bd1b73496aa874b3376e1406bb17f2e61478ab455515d",
+      "scalarContinuationFreezeSHA256": "0abbb8bf2678efc6d8d44a58cc85abe8a40765362e90a784b9e885b1b2f10db9"
+    },
+    "unknowns": [
+      "new predicate equivalence/nearest negatives in actual published checker",
+      "complete manifest and packaged native/API/declaration/roundtrip/corpus proof",
+      "four drift maps/adjunct/other Public content",
+      "installed/genuine qualification/F11/AF22/RC1"
+    ]
+  },
+  "nextExecutiveDecision": "physical frozen dependency staging continuation, with unchanged strict containment and accepted two-file Source meanings"
+}

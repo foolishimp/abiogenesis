@@ -1,0 +1,49 @@
+{
+  "closeHandoff": null,
+  "calls": [
+    {
+      "label": "workspace",
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.create",
+        "memberKey": "clean"
+      },
+      "invocationRef": "invocation://abiogenesis/dbd9aa5d9d64bddba57803802989d57e69b040d3ec0c53eb3cb8bf3a94261f38",
+      "outcomeKind": "result",
+      "elapsedMs": 11388.507875,
+      "processFailure": null
+    },
+    {
+      "label": "verify-core",
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "invocationRef": "invocation://abiogenesis/1677247d4f85b4c03dc4e14d8dbc0d59fb303575b92a0679b616a403acf1fa0d",
+      "outcomeKind": "result",
+      "elapsedMs": 22232.627084000003,
+      "processFailure": null
+    },
+    {
+      "label": "verify-fixture",
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "invocationRef": "invocation://abiogenesis/87a1f5e03a650b0f75a37e6ce2fb65c2563061f07bc96efb6e69990f838dd4fd",
+      "outcomeKind": "result",
+      "elapsedMs": 11773.285292,
+      "processFailure": null
+    },
+    {
+      "label": "resolve-singleton",
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "invocationRef": "invocation://abiogenesis/b05eb64e86a8c1acce463fdb85c15968a165c22af87cde11e9879ccf5d293a53",
+      "outcomeKind": "result",
+      "elapsedMs": 14760.034332999996,
+      "processFailure": null
+    }
+  ]
+}

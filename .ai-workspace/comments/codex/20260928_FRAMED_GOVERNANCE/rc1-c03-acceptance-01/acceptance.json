@@ -1,0 +1,28 @@
+{
+  "status": "ACCEPTED_BOUNDED_CONSTRUCTION",
+  "adjudicator": "Root Executive",
+  "reviewer": "/root/rc1_c03_install_review",
+  "reviewActivation": "T287_RC1_C03_IDENTITY_INSTALL_REVIEW_01",
+  "candidateFreeze": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+  "artifactDigest": "sha256:f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6",
+  "productContentDigest": "sha256:216194ac4393489ddb7553caccd243a24a5d75399cb9400e9e01faeb2321e379",
+  "manifestDigest": "sha256:cb7b8045e769fa6c019e599e5aef932827d915ce9de11a91cfcb5946a9eb153d",
+  "sourceFreeze": "7ecaaaef533131c3bccb42d81aba3cc133a34b53796c05a263e9edd44cac9a02",
+  "methodBasis": "stdo://releases/v2.5.1-rc.2/",
+  "sourceAccepted": true,
+  "constructionAccepted": true,
+  "runtimeAccepted": false,
+  "qualified": false,
+  "published": false,
+  "activatedWorkers": [
+    "T287_F11_CARRIER_INSTALLED_DISCRIMINATOR_01",
+    "T287_RC1_S03_INSTALLED_PAIR_03"
+  ],
+  "preserved": [
+    "C02/Q02",
+    "original136F11resource",
+    "original1067S02resource",
+    "acceptedS01/Hello/selectedaction/continuedwork"
+  ],
+  "metadataErratum": "Root attribution activation CONTROLS_03, not SELECTION_03; oldfreeze remains immutable"
+}

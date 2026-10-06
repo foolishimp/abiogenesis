@@ -1,0 +1,38 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_C07_GENERATED_RECONCILIATION_03",
+  "actor": "/root/q03_input_review",
+  "role": "Worker",
+  "workResult": "STOPPED_FIRST_UNEXPECTED_DIFFERENCE",
+  "closure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-generated-reconciliation-03/closure.json",
+    "bytes": 471,
+    "sha256": "070e660a50a51e67400e6bc5091b5e0711d5df3f2148e512a0b31fb72df6aeab",
+    "mode": 420
+  },
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-generated-reconciliation-03",
+  "rootMode": 493,
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 2802,
+      "sha256": "d8a7b47662ee75444f1ea97d20370af8269d7c6876c7f8d2f2e7f179de240387",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 471,
+      "sha256": "070e660a50a51e67400e6bc5091b5e0711d5df3f2148e512a0b31fb72df6aeab",
+      "mode": 420
+    }
+  ],
+  "directories": [],
+  "recordCount": 2,
+  "recordBytes": 3273,
+  "independentAssurance": false,
+  "subjectExcludes": [
+    "freeze.json itself"
+  ],
+  "canonicalPostimages": [],
+  "noFurtherWrites": true
+}

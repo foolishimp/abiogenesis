@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs",
+    "sha256": "08882fb03c783dd1c07ffc5b48b50c2c4abc69bea387b5ff48ba736352936fe7",
+    "bytes": 80535,
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/preimages/full-sandbox-support.mjs"
+  },
+  {
+    "path": "/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+    "sha256": "17b3e5b3ac822b34c81908ed3bb21d33f5ef7d7f4f50cacae3276c9b41516035",
+    "bytes": 40359,
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/preimages/full-sandbox.test.mjs"
+  }
+]

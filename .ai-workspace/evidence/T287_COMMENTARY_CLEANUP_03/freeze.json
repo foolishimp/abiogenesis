@@ -1,0 +1,144 @@
+{
+  "operation": "T287_COMMENTARY_CLEANUP_DOWNSTREAM_PLAN_03",
+  "role": "Worker",
+  "actor": "/root/rc1_c03_install_review",
+  "status": "CLOSED",
+  "workResult": "GO_EXACT_REDUNDANT_SUBSET_PLAN_ONLY_FULL_TREE_UNPROVED",
+  "frozenUTC": "2026-10-04T07:15:09.178018+00:00",
+  "candidateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-implementation/build-input/test_env/downstream",
+  "originalRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/downstream",
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_03/activation.json",
+      "bytes": 1818,
+      "sha256": "256e9bca065245865987b7aa641677f9ac3d4b445ab5a5a868eb755e8d35d6e3",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_03/build_plan.py",
+      "bytes": 11020,
+      "sha256": "d51e50726c35efba21f4a115ed5281de0791b376013c77ce5ce7969ad5d1a8b8",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/candidate-files.json",
+      "bytes": 402587,
+      "sha256": "347f1dfac60b3ba15c0a77fc97f80ce42f7e65466937a52af9b0c2920da51dc7",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/context-pins.json",
+      "bytes": 2092,
+      "sha256": "075f30354b02db4288e6d1302fa8693e26fc656e92d13145aded057421c05ef6",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/directories.json",
+      "bytes": 9435413,
+      "sha256": "40d2ae961e67c5ef2c7c2c60baed9c958d1720686b8830e1193b3ec16545d8fb",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/excluded-unproved-files.json",
+      "bytes": 110311987,
+      "sha256": "c8f0ae77a548977d4e9f5483165416d66caad6bce008e9fe8debd2f1c16e2435",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/joins.json",
+      "bytes": 547,
+      "sha256": "8ba75e5a5ff53ddbad3d8a197102c710e94936aa6d523bbd1b61dfbe4f91f560",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/nonregulars.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/original-witnesses.json",
+      "bytes": 402587,
+      "sha256": "29b4e4fe9b80eb227c6a239d18c041e3c59a1280f195e457196cd5401c45c4ed",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/plan.json",
+      "bytes": 1741,
+      "sha256": "4c9779a91e4f53e6d884e56bad419e6fd09599530c5b2ae43c058185347ec851",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/protected-files.json",
+      "bytes": 7015570,
+      "sha256": "97683eda5204ed6dbceb86ca12e41e600d6673e8a41466d593798c1642e16d18",
+      "mode": 420
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/summary.json",
+      "bytes": 888,
+      "sha256": "810244f682d3d24a439db6f08604e0a5e5ffadb5fd58d9cd5d84f4971e70a7b2",
+      "mode": 420
+    }
+  ],
+  "recordCount": 12,
+  "recordBytes": 127586253,
+  "directories": [
+    {
+      "path": ".ai-workspace/work/T287_COMMENTARY_CLEANUP_03",
+      "mode": 493
+    },
+    {
+      "path": ".ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03",
+      "mode": 493
+    }
+  ],
+  "directoryCount": 2,
+  "excludedSelf": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03/freeze.json",
+  "counts": {
+    "candidateBytes": 32281560,
+    "candidateFiles": 1577,
+    "contextPins": 8,
+    "copyCensus": {
+      "regularBytes": 10196841075,
+      "regularFiles": 222229
+    },
+    "cost": {
+      "hashReadBytes": 10234912137,
+      "hashReads": 223822
+    },
+    "directoryCount": 29137,
+    "effects": {
+      "GitCommands": 0,
+      "buildTestProductRuntimeNetwork": 0,
+      "candidateOriginalWrites": 0,
+      "commentsWrites": 0,
+      "deletion": 0,
+      "writesOnly": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMENTARY_CLEANUP_03",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_COMMENTARY_CLEANUP_03"
+      ]
+    },
+    "elapsedSeconds": 54.67069716658443,
+    "excludedUnprovedBytes": 9734944746,
+    "excludedUnprovedFiles": 204314,
+    "operation": "T287_COMMENTARY_CLEANUP_DOWNSTREAM_PLAN_03",
+    "originalWitnesses": 1577,
+    "protectedBytes": 429614769,
+    "protectedFiles": 16338,
+    "protectedReasons": {
+      "Git_tracked": 1,
+      "archive_including_extensionless": 76,
+      "log": 7422,
+      "text_visual": 8839
+    },
+    "status": "CLOSED_PLAN_ONLY_NO_DELETION"
+  },
+  "writesAfterFreeze": "STOPPED",
+  "limits": [
+    "no deletion authority or effects",
+    "literal canonical-route first pass excludes symlink components rather than following them",
+    "unproved original routes are not a claim that their copies are necessary; explicit physical-owner binding requires Root continuation",
+    "no Product/Runtime/qualification or cache-independent reproduction claim"
+  ]
+}

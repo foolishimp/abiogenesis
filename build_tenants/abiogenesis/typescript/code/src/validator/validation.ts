@@ -48,25 +48,39 @@ import { resolveCProgramLocus } from "../gtl/source_path.js";
 import { isRawAdmittedValue, type RawAdmittedValue } from "./raw_admission.js";
 import { inspectCProgramTerm } from "./c_algebra.js";
 
-export const STATIC_DIAGNOSTIC_CODE_VALUES = [
-  "duplicate_identity",
-  "carrier_mismatch",
-  "identity_mismatch",
-  "invalid_application",
-  "invalid_constructor",
-  "invalid_contribution",
-  "invalid_fibre",
-  "invalid_leaf_requirement",
-  "invalid_reference",
-  "invalid_result_cardinality",
-  "missing_binding",
-  "missing_contract",
-  "missing_membership",
-  "raw_subject_mismatch",
-  "topology_mismatch",
-] as const;
+export const GTL_PROGRAM_DIAGNOSTIC_REGISTER = deepFreeze([
+  { id: "duplicate_identity", origin: "static" },
+  { id: "carrier_mismatch", origin: "static" },
+  { id: "identity_mismatch", origin: "static" },
+  { id: "invalid_application", origin: "static" },
+  { id: "invalid_constructor", origin: "static" },
+  { id: "invalid_contribution", origin: "static" },
+  { id: "invalid_fibre", origin: "static" },
+  { id: "invalid_leaf_requirement", origin: "static" },
+  { id: "invalid_reference", origin: "static" },
+  { id: "invalid_result_cardinality", origin: "static" },
+  { id: "missing_binding", origin: "static" },
+  { id: "missing_contract", origin: "static" },
+  { id: "missing_membership", origin: "static" },
+  { id: "raw_subject_mismatch", origin: "static" },
+  { id: "topology_mismatch", origin: "static" },
+  { id: "invalid_packet", origin: "ingress" },
+  { id: "invalid_contract", origin: "ingress" },
+  { id: "invalid_kind", origin: "ingress" },
+  { id: "non_canonical_value", origin: "ingress" },
+] as const);
+export type GtlProgramDiagnosticId = (typeof GTL_PROGRAM_DIAGNOSTIC_REGISTER)[number]["id"];
+export type StaticDiagnosticCode = Extract<(typeof GTL_PROGRAM_DIAGNOSTIC_REGISTER)[number], { readonly origin: "static" }>["id"];
+export const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES = Object.freeze(GTL_PROGRAM_DIAGNOSTIC_REGISTER.map(({ id }) => id));
+export const STATIC_DIAGNOSTIC_CODE_VALUES = Object.freeze(GTL_PROGRAM_DIAGNOSTIC_REGISTER
+  .filter((row): row is Extract<typeof row, { readonly origin: "static" }> => row.origin === "static")
+  .map(({ id }) => id));
 
-export type StaticDiagnosticCode = (typeof STATIC_DIAGNOSTIC_CODE_VALUES)[number];
+export function constructGtlProgramDiagnosticId(value: unknown): GtlProgramDiagnosticId {
+  const found = GTL_PROGRAM_DIAGNOSTIC_REGISTER.find(({ id }) => id === value);
+  if (found === undefined) throw new TypeError("unknown GTL Program diagnostic identity");
+  return found.id;
+}
 
 export interface StaticDiagnostic {
   readonly code: StaticDiagnosticCode;

@@ -1,0 +1,207 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_C09_GENERATED_RECONCILIATION_06",
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06",
+  "workResult": "GO_CANONICAL_C09_GENERATED_CORRESPONDENCE_ONLY",
+  "records": 19,
+  "bytes": 5242873,
+  "rows": [
+    {
+      "relativePath": "accepted-C09-census.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/accepted-C09-census.json",
+      "exists": true,
+      "bytes": 443589,
+      "sha256": "8f7aab98f65e9e3969a7fe9153b0eb8d2b031f5c98015e52a5270c5bebf100a5",
+      "mode": 420
+    },
+    {
+      "relativePath": "activation.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/activation.json",
+      "exists": true,
+      "bytes": 3499,
+      "sha256": "11dcc63ffb82c2e13ba113750d69b4163c2d3148df398a3b2300cd6028af007b",
+      "mode": 420
+    },
+    {
+      "relativePath": "canonical-after.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/canonical-after.json",
+      "exists": true,
+      "bytes": 350589,
+      "sha256": "b26954958b4d8d919d82d6fe00587145729055a9bc55f4ec1946eb63be5bf082",
+      "mode": 420
+    },
+    {
+      "relativePath": "canonical-before.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/canonical-before.json",
+      "exists": true,
+      "bytes": 349825,
+      "sha256": "414c2c3d46fb619c2bae58418ea28c022c0051cf3218b79cc189d88e2c7114e2",
+      "mode": 420
+    },
+    {
+      "relativePath": "closure.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/closure.json",
+      "exists": true,
+      "bytes": 1237,
+      "sha256": "1c1a2c361314b41a42d7106ee93782e970b45bf05ff1c78af6d3bc8c4a467388",
+      "mode": 420
+    },
+    {
+      "relativePath": "effects.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/effects.json",
+      "exists": true,
+      "bytes": 1065,
+      "sha256": "2b98c1159be1625dbd32a59126749b7c9c9fd9fb9e40022846ca91a17c2587d1",
+      "mode": 420
+    },
+    {
+      "relativePath": "full928-correspondence.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/full928-correspondence.json",
+      "exists": true,
+      "bytes": 933924,
+      "sha256": "d572db329b1fc6d553f6e502459fcb179328c1beed6f8873fd679910b361c096",
+      "mode": 420
+    },
+    {
+      "relativePath": "helper-reuse.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/helper-reuse.json",
+      "exists": true,
+      "bytes": 2026,
+      "sha256": "73f7b6f81f67158fa07fa4cee5a292b970085d68b368d27bd3ba4646a16cc036",
+      "mode": 420
+    },
+    {
+      "relativePath": "input-pins.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/input-pins.json",
+      "exists": true,
+      "bytes": 2608,
+      "sha256": "cca053be2b611cc81bda0fb048736f2cdc320d94b64f29242c24c8d19ea295af",
+      "mode": 420
+    },
+    {
+      "relativePath": "preflight.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/preflight.json",
+      "exists": true,
+      "bytes": 7577,
+      "sha256": "4b57e6e6cf498dd2fdb79deeebc84865a542c13f073d04a94827d49502f219c1",
+      "mode": 420
+    },
+    {
+      "relativePath": "preimage-receipt.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/preimage-receipt.json",
+      "exists": true,
+      "bytes": 5534,
+      "sha256": "c49b8a4ab8d3f353a0b1bda28227f5ef55dc20047b78828c93fed557b236c328",
+      "mode": 420
+    },
+    {
+      "relativePath": "preimages/build/code/src/abg/c_call.d.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/preimages/build/code/src/abg/c_call.d.ts",
+      "exists": true,
+      "bytes": 39987,
+      "sha256": "0834d2a3ac1611239bfc631998644f4049885b89f61d652dbbe48bac6c916b06",
+      "mode": 420
+    },
+    {
+      "relativePath": "preimages/build/code/src/abg/c_call.js",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/preimages/build/code/src/abg/c_call.js",
+      "exists": true,
+      "bytes": 238896,
+      "sha256": "d81b1f502abe85fb70b73d826d4183fe24f84445d05b865368d83a45af3d4170",
+      "mode": 420
+    },
+    {
+      "relativePath": "preimages/build/code/src/abg/c_call_outcome.js",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/preimages/build/code/src/abg/c_call_outcome.js",
+      "exists": true,
+      "bytes": 55138,
+      "sha256": "89cad42042a4517cf4f5cf216b47972d444e41be5280d43dfb53ac55d9b33906",
+      "mode": 420
+    },
+    {
+      "relativePath": "preimages/build/code/src/implementation/contracts.d.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/preimages/build/code/src/implementation/contracts.d.ts",
+      "exists": true,
+      "bytes": 19102,
+      "sha256": "6be11e0df9568836359bc0efecfbf6de33cb0265a43f0ca7b703ffb598b6adda",
+      "mode": 420
+    },
+    {
+      "relativePath": "preimages/build/code/src/product/semantics.d.ts",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/preimages/build/code/src/product/semantics.d.ts",
+      "exists": true,
+      "bytes": 9304,
+      "sha256": "fff2c2e277edf4271af7a4dbbfbdf0c6521ef3600defe72db63aa9f5670ed05c",
+      "mode": 420
+    },
+    {
+      "relativePath": "preimages/contracts/capabilities/capability-definition-graph.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/preimages/contracts/capabilities/capability-definition-graph.json",
+      "exists": true,
+      "bytes": 197474,
+      "sha256": "012f7a5ab6633742ef51142559b4971992aa13c7b32b719d2a48503f1ee86dcf",
+      "mode": 420
+    },
+    {
+      "relativePath": "preimages/product-toolchain-manifest.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/preimages/product-toolchain-manifest.json",
+      "exists": true,
+      "bytes": 2567514,
+      "sha256": "0a864bb480457dd8befee163ccf5fc2cadce3544b66a450d90cc11705557240a",
+      "mode": 420
+    },
+    {
+      "relativePath": "reconcile.py",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-06/reconcile.py",
+      "exists": true,
+      "bytes": 13985,
+      "sha256": "6648c3983833be1c4fb646764536354d56fbbdd0f9d1fd28b2755fca818b1972",
+      "mode": 420
+    }
+  ],
+  "directories": 10,
+  "directoryRows": [
+    {
+      "relativePath": ".",
+      "mode": 493
+    },
+    {
+      "relativePath": "preimages",
+      "mode": 493
+    },
+    {
+      "relativePath": "preimages/build",
+      "mode": 493
+    },
+    {
+      "relativePath": "preimages/build/code",
+      "mode": 493
+    },
+    {
+      "relativePath": "preimages/build/code/src",
+      "mode": 493
+    },
+    {
+      "relativePath": "preimages/build/code/src/abg",
+      "mode": 493
+    },
+    {
+      "relativePath": "preimages/build/code/src/implementation",
+      "mode": 493
+    },
+    {
+      "relativePath": "preimages/build/code/src/product",
+      "mode": 493
+    },
+    {
+      "relativePath": "preimages/contracts",
+      "mode": 493
+    },
+    {
+      "relativePath": "preimages/contracts/capabilities",
+      "mode": 493
+    }
+  ],
+  "symlinks": 0,
+  "freezeExcludedFromOwnRows": true
+}

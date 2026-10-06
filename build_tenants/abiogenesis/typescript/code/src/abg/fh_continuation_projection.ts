@@ -292,7 +292,7 @@ function exactLifecycleEnvelope(
   opened: RuntimeEvent,
   basisId: string,
 ): boolean {
-  return event.aggregateType === "continuation" && (!isRecord(event.payload) || event.payload.continuationKind !== "construction_intent") &&
+  return event.aggregateType === "continuation" && (!isRecord(event.payload) || !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind)))) &&
     event.aggregateId === opened.aggregateId &&
     event.parentAggregateId === opened.frameId &&
     event.workflowVersion === "5.0.0" && event.scopeClass === "run" &&
@@ -540,7 +540,7 @@ export function projectFhContinuations(
 ): readonly ReplayContinuationState[] {
   const allEvents = runtimeEventsFromValidatedPrefix(prefix);
   const events = allEvents.filter((event) =>
-    event.aggregateType === "continuation" && (!isRecord(event.payload) || event.payload.continuationKind !== "construction_intent")
+    event.aggregateType === "continuation" && (!isRecord(event.payload) || !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind))))
   );
   const refs = [...new Set(events.map((event) => event.aggregateId))];
   return refs.map((continuationRef) => {
@@ -795,7 +795,7 @@ export function projectFhEffectfulPublicInvocationFacts(
   const events = runtimeEventsFromValidatedPrefix(prefix);
   const publicEvents = events.filter((event) =>
     event.kind === "public_operation_admitted" &&
-    isRecord(event.payload) && event.payload.continuationKind !== "construction_intent" &&
+    isRecord(event.payload) && !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind))) &&
     (
       event.payload.operationId === "abg.operation.interaction.respond" ||
       event.payload.operationId === "abg.operation.run.continue"
@@ -815,7 +815,7 @@ export function projectFhEffectfulPublicInvocationFacts(
   }>[];
   try {
     const continuationEvents = events.filter((event) =>
-      event.aggregateType === "continuation" && (!isRecord(event.payload) || event.payload.continuationKind !== "construction_intent")
+      event.aggregateType === "continuation" && (!isRecord(event.payload) || !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind))))
     );
     const continuationRefs = [
       ...new Set(continuationEvents.map((event) => event.aggregateId)),

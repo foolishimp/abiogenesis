@@ -40,7 +40,7 @@ function wrapper(purpose: GovernancePurpose): GraphFunction {
     call(name + "/work", testing ? c2.graphFunctionRef : purpose === "uat" ? native.assessmentGraphFunctionRef : native.graphFunctionRef,
       testing ? c2.taskContractRef : native.taskContractRef, output), leaf("fold", name + "/fold")];
   return { kind: "graph_function", name, version: "5.0.0", inputs: [state], outputs: [state],
-    environment: { requires: [state], provides: [state], carries: [state, ...nodes.map(n => n.term.outputCarrierRef)] },
+    environment: { requires: [state], provides: [state], carries: [...new Set([state, ...nodes.map(n => n.term.outputCarrierRef)])] },
     effects: testing ? [] : [native.effectUri], tags: ["default-library", purpose],
     declarations: { ...declarations, "abg.judgment_predicate": testing ? c2.judgmentPredicateRef : native.judgmentPredicateRef, "abg.default_library_purpose": purpose, "abg.functional_purpose": GOVERNANCE_POLICIES[purpose],
       "abg.conditions_for_use": testing ? "Selected existing files and an executable command/predicate plan are available; no author prerequisite. Missing plan remains a gap."

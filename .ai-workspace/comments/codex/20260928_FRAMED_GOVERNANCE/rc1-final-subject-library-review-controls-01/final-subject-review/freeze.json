@@ -1,0 +1,55 @@
+{
+  "operation": "T287_RC1_FINAL_SUBJECT_APPLICABILITY_REVIEW_01",
+  "role": "independent Reviewer",
+  "status": "CLOSED",
+  "recommendation": "ONE_BOUNDED_SUCCESSOR_REQUIRED",
+  "frozenAt": "2026-10-03T14:37:43.327153+00:00",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-final-subject-library-review-controls-01/subject-request.txt",
+    "bytes": 3343,
+    "sha256": "68eb8904cb365364c559577143b9c52a3598f1bbc85f78a3d1f30431fe4370bc",
+    "mode": 420
+  },
+  "subjectPins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-final-subject-library-review-controls-01/subject-pins.json",
+    "bytes": 1771,
+    "sha256": "356d2b3bd7c819506f939772e4cb87b06ad8c7a64e988eda97ad9da65c8aa533",
+    "mode": 420
+  },
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 1121,
+      "sha256": "49627ad02fd311467a19a8fa9b6cd95fb45e529cebef70b1524224ea6e7ea471",
+      "mode": 292,
+      "kind": "file"
+    },
+    {
+      "path": "closure.json",
+      "bytes": 1187,
+      "sha256": "ba7b05c9296c4618e9484de51b44dc3e000fac17980d3cef5439b7cdf620a3dd",
+      "mode": 292,
+      "kind": "file"
+    },
+    {
+      "path": "pins.json",
+      "bytes": 28006,
+      "sha256": "654e3d5da3084a29f8e2097d7133e8412a5cbea19ebe66dba6ea252b9f10bcbf",
+      "mode": 292,
+      "kind": "file"
+    },
+    {
+      "path": "report.md",
+      "bytes": 7205,
+      "sha256": "2fa4e524cca4380efc7aab0219f7cb8f64ff1b27c417c3627502cf05a1662199",
+      "mode": 292,
+      "kind": "file"
+    }
+  ],
+  "recordCount": 4,
+  "recordBytes": 37519,
+  "directories": [],
+  "symlinks": 0,
+  "excludedSelf": "freeze.json only",
+  "writesAfterFreeze": "STOPPED"
+}

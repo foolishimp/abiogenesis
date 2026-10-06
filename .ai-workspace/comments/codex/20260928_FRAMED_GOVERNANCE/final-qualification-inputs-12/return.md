@@ -1,0 +1,5 @@
+CLOSED Q12: NO_GO_EXTERNAL_COPY_ROLE_EQUALITY_PREFLIGHT.
+
+The first cheap tuple assertion at prepare-current-delta.py:28 required one copyBuildAuthor value across selected-cut and current supplier roles. Actual c_call.ts selected-cut/projected-origin value is '/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_07'; current manifest/derived-supplier value is '/root/native_applicability_design under T287_RC1_SUCCESSOR_CONSTRUCTION_09'. Both original flat views preserve their respective producer records. The preceding path/body/bytes/mode/sourceAuthor/originalSource/originalAuthorship/selectedRelation fields matched.
+
+The authoritative cut supplies seven replacements and two additions, but complete nine-tuple correspondence and negatives were not reached. The pure Python preparation exited1 in0.059746166s; no Product imports, body materialization, owner payload, Task, Run, J, provider, source/build/Git/network or qualification command occurred. All174original record values/23chains/90spans remain unchanged. No repair or retry; return Root for multi-frame triangulation.

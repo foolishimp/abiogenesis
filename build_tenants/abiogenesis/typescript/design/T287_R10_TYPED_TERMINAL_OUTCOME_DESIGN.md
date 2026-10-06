@@ -37,9 +37,11 @@ released a_c route attention only. This candidate does not amend their law.
 | Installed fixture assertions and this HOW's proof plan | Evidence/observers; no runtime authority or semantic UAT |
 
 The existing installed R1–R9 witness remains evidence for its original cut.
-Its native typed Hello result is not retroactive R10 CLI evidence. This design
-changes neither Hello, its Program, the one callable membership, its contracts,
-nor the CCall/event/HoG lifecycle. No new Public family or member is introduced:
+Its native typed result is not retroactive R10 CLI evidence. Owner correction,
+2026-10-06, removes the built-in test program and its contracts from ABIogenesis.
+Current R10 proof uses an external test-owned Program and oracle through the
+unchanged generic CCall/event/HoG and Public projection relation. Older package
+evidence keeps its original subject and cannot qualify the successor. No new Public family or member is introduced:
 eighteen families and fifty-six concrete members remain exact.
 
 ## 2. Observed boundary
@@ -296,15 +298,16 @@ add a CLI read path or broaden this cone.
 
 The proof obligations are:
 
-1. On one fresh source-blind installed candidate, the unchanged exact Hello
-   Program runs through the existing Public start. Its actual CLI result
-   exposes the admitted typed Hello value, its output-contract identity,
+1. On one fresh source-blind installed candidate, an independently authored
+   minimal test Program outside the ABG package runs through the ordinary
+   Public start. Its actual CLI result exposes the admitted test-owned value,
+   its output-contract identity,
    canonical value digest and actual terminal result/producer coordinates.
    Native admission and Program/CCall/basis/closure evidence join that same
    output. A fixture must not supply the asserted result.
 2. Two fresh processes each call supported result and replay on the same
    close handoff/prefix. Both public payloads equal the start's terminal
-   carrier and exact Hello value; replay status is closed. SDK/CLI serialize
+   carrier and exact test-owned value; replay status is closed. SDK/CLI serialize
    the same owner DefinitionCall result. No native helper is credited as the
    missing Public payload.
 3. Wrong contract/digest/value/valueKind, result/body digest, producer, Program,

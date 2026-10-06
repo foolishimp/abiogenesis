@@ -1,5 +1,5 @@
 {
-  "$schema": "stdo://releases/v2.5.1-rc.1/standards/schemas/product-definition.schema.json",
+  "$schema": "stdo://releases/v2.5.1-rc.2/standards/schemas/product-definition.schema.json",
   "kind": "stdo.product-definition",
   "product": {
     "definition_id": "urn:stdo:product-definition:abiogenesis",
@@ -14,8 +14,8 @@
       },
       "selector": "stdo://channels/2.5.1",
       "basis": {
-        "uri": "stdo://releases/v2.5.1-rc.1/",
-        "manifest_sha256": "5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64"
+        "uri": "stdo://releases/v2.5.1-rc.2/",
+        "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
       }
     },
     "additional_authorities": [],

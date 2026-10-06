@@ -1,0 +1,52 @@
+{
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:7cb5efb8e5a16babfeb0c51dbb943913be21281e0e64f3bc8f6e94dcc6dd4757",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8",
+      "prefixLength": 2475382,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464012478
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:5293789bfdda8892f99812983c6d80bc1ce0e071d5084199f9838fb6c70d73fc",
+      "device": 16777230,
+      "durableByteLength": 2475382,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "inode": 464012478,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "calls": [
+    {
+      "label": "conformance-hello-world",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/d7ee4502e998e8c2f28ac25f97450064d0b3227849cf0da367d634573dbde84a",
+      "outcomeKind": "result",
+      "elapsedMs": 10742.860749999998,
+      "processFailure": null
+    },
+    {
+      "label": "conformance-command-execution",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/3a004e162fceb7fcd8cb41f7031c3fda026f13e3df319ff632bc84104753eebd",
+      "outcomeKind": "result",
+      "elapsedMs": 10747.671374999998,
+      "processFailure": null
+    }
+  ]
+}

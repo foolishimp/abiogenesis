@@ -1,0 +1,60 @@
+{
+  "actualActor": "/root/s03_phase_b",
+  "role": "T287_FINAL_NATIVE_SETUP_03",
+  "profile": "Astra/xhigh as assigned",
+  "sessionIdentifier": null,
+  "sessionIdentifierAvailability": "unavailable",
+  "grant": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-controls-03/request.txt",
+    "bytes": 7998,
+    "sha256": "1106acffbe2a6da2149c12b007f06bb2185c75d8b7fa813695f9c246fe4a798a"
+  },
+  "donors": "donor-preimages.json",
+  "reconstructablePatch": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/control-deltas.patch",
+    "bytes": 21947,
+    "sha256": "8572693e2fca16cd1a21416fe0f746b372f4258809233be2f5f81e131c94224f"
+  },
+  "authoredControlPostimages": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/driver.mjs",
+      "bytes": 14926,
+      "sha256": "6b133ac3285564a7f2e9c1ff9d27338cae341412b004e24bf78b3bdcdc803473"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/preflight.mjs",
+      "bytes": 7689,
+      "sha256": "29896fbccb5c543e3c28d0dbf1bb2a12b7af3b381340194261884a930b421dce"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/ordinary-caller.mjs",
+      "bytes": 14670,
+      "sha256": "fa004e9f812e6214b53294dc38530b857d7527bc3a1a2d64e469d260ac1b4023"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/public-support.mjs",
+      "bytes": 9066,
+      "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/launch-once.py",
+      "bytes": 2237,
+      "sha256": "f6e69068f1518565089804f8b169b25a65cf572d6db1608007edf2587d756c8c"
+    }
+  ],
+  "claim": "Current operation control author and executor, not inherited semantic authorship or native ABG attribution. Product-owner qualification authority is unbound.",
+  "changedRelations": [
+    "N1 sequence and preflight retargeted to exact C02 archive/export/root",
+    "N2 complete corrected shared selection/scope/approval/grant branch retained",
+    "New N03 actor/resource/TMPDIR namespace, original oracle preserved",
+    "Full11 strict raw/static validation from actual existing installed owners before native calls",
+    "Real final environment refreshed and actual runtime owner coordinates returned",
+    "Exact pure120000/native6912000/total7032000 finite budgets"
+  ],
+  "unchanged": "No canonical source, donor, Product or old native resource write"
+}

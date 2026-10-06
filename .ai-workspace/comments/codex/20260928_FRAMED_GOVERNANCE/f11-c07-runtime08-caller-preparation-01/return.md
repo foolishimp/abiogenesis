@@ -1,0 +1,5 @@
+CLOSED — CONTROL_PREPARATION_ONLY.
+
+The parameterized Runtime08 external controller, exact strict caller/driver and complete source dependency closure are prepared for C07/Setup07. Assigned operation IDs come from actual grants; semantic member/request namespaces remain untouched. Actual Setup07 actor, binding and resource coordinates come only from accepted closed metadata. Q09 freeze/input/review/release pins remain explicitly unset. No old outcome, resource payload, cached request or release acceptance was copied as current evidence.
+
+No owner/Product imports, resource opening, nominal readiness, CLI, helper, Task, Run, model/provider or Runtime effects occurred. The intended Runtime08 territory was not created. Exact source copies and donors, self-contained saved-producer report plan, HOME/default-heap and finite pre-import supervision declarations are retained. A separate full Runtime Worker activation after exact Root accepted-Q09/input-acceptance release is required. Writer CLOSED; writes stop after this freeze.

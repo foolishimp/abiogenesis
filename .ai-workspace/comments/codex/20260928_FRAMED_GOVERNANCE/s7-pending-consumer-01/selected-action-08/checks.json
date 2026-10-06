@@ -1,0 +1,57 @@
+{
+  "activation": "T287_S7_SELECTED_ACTION_INSTALLED_08",
+  "candidatePaths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+      "bytes": 14858,
+      "sha256": "46bbc91ad084bdc701b8c310ff0b09b59ca4852adf07616d756ea9ccd7bc6f83",
+      "preimageSha256": "f6e0caff40ac037c43abc60c65b7ad388aa55f40cb3afd4dfc828e8f3c887770",
+      "changed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "bytes": 38779,
+      "sha256": "4dd2bf10a422311a18c9029746fcd2935c0601bc47b013066356ce1ac97c56b4",
+      "preimageSha256": "27760b07207376d5c682d76bff2a497a31d139c9e1152190afdf6984c0c5edb8",
+      "changed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+      "bytes": 5203,
+      "sha256": "ee40ba037fd6a83b8fd668a2c106d2544e39b924656496cf67f5e4326bfdc6f5",
+      "preimageSha256": "ee40ba037fd6a83b8fd668a2c106d2544e39b924656496cf67f5e4326bfdc6f5",
+      "changed": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "bytes": 21588,
+      "sha256": "39af28751dbd3d0b84506e1a4e67a415eef1f7b1d4c1e945be62b837f7a50be5",
+      "preimageSha256": "221d3d8dfab58da9b96ff926b8a5e3548a9f8c2b8dfc42b26cac7e1b3b467449",
+      "changed": true
+    }
+  ],
+  "protectedCoreGeneratedFixtureHOWUnchanged": true,
+  "priorNamedEvidenceAndNativeHashesUnchanged": true,
+  "head": "55a8a452141caf180ea6cee6365d2a1bfb9da34e",
+  "indexSha256": "ec46bac8e76e787d61fb13c2b4e7239643dcd42b699801c3ab79b705309801ae",
+  "indexUnchanged": true,
+  "executed": [
+    "node --check on three changed proof files: exit0",
+    "one read-only actual-owner preflight: exit1 at execution-resolution start selection",
+    "read-only exact upstream identity capture without retrying resolution or alternate selection"
+  ],
+  "notExecuted": [
+    "build",
+    "pack",
+    "install",
+    "inputFactory",
+    "ProductRunInvocationPort.prepare",
+    "hasExactInvocationObservationBasis",
+    "Public start",
+    "interruption/recovery",
+    "witness stop",
+    "fresh start",
+    "selected-action continuation",
+    "cold Public reads"
+  ]
+}

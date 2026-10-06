@@ -1,0 +1,8 @@
+{
+  "classification": "routine declaration-emission feedback permitted by grant",
+  "attempt": "compile02.json",
+  "cause": "inferred exported aggregate tried to name private recursive inference references",
+  "resolution": "project aggregate schema type through the canonical nativeStructuralSchema owner; actual runtime schema object unchanged",
+  "semanticChange": false,
+  "validationChange": false
+}

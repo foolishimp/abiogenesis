@@ -27,7 +27,11 @@ export declare function registeredSelectionTargets(template: GraphTemplate, sour
     termPath: readonly string[];
 }>, contractRef: string): {
     application: RegisteredSelectionApplication;
-    targets: (import("./contracts.js").GtlNode | undefined)[];
+    targets: ({
+        readonly nodeRef: string;
+        readonly nodeKind: "c_locus";
+        readonly term: import("./c_algebra.js").CProgramNode;
+    } | undefined)[];
 } | null;
 /** One structural target/input relation shared by HoG proposal and ABG admission.
  * Definitions are the exact admitted catalogue/Program digest projection. */

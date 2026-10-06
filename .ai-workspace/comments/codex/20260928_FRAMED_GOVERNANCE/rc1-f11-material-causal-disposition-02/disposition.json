@@ -1,0 +1,20 @@
+{
+  "status": "EXECUTIVE_CONJOINED",
+  "subject": "Q06 current 95 original-source / packaged-governing-law material role tuples; accepted C05 unchanged",
+  "originalRecord": "rc1-f11-material-identity-controls-06/triage.md and request.txt remain unchanged historical decisions",
+  "observedRelations": {
+    "governingMembersWithSameRefDigestBodyButDifferentPath": 95,
+    "retainedSourceAuthChains": 8,
+    "aliasedMemberRefsPresentAsAnyChainPostimage": 0,
+    "sourcePhysicalInventory": "Original member paths/body/count/order remain conserved.",
+    "canonicalAuthorityMaterial": "Published governing refs and packaged source paths remain exact.",
+    "resourceMaterialInterning": "One material coordinate selects one complete value, including path."
+  },
+  "correctedInference": "Root previously inferred that path-only rewriting of these particular 95 members would break retained source-auth chain joins. Inspection establishes a general source-auth patch/postimage/manifest path requirement, but none of the 95 is a postimage in the retained eight chains. That specific causal claim is withdrawn; no such break is established in this cut.",
+  "supportedCause": "External preparation conflated the physical subject-member role and the packaged governing-law material role under one material coordinate. Complete current packet integration had not yet been exercised.",
+  "selectedRepairRationale": "Explicit physical-member aliases preserve the actual original source inventory paths and complete ordered partitions while leaving actual producer law tuples unchanged. This is an ordinary new caller assertion with a recorded bijection, not a source/runtime change or a rule prohibiting every alternative inventory realization.",
+  "sourceAuthentication": "All original chain/patch/preimage/postimage/closure/span bytes and source authors remain. Attribution sufficiency and independence remain unknown. The alias derivation adds no authorship acceptance.",
+  "reproof": "One final complete current constructor/resource/material/renderer discriminator and exact alias conservation, followed by independent frozen-input assurance and the actual installed F11 whole path.",
+  "changeClass": "realization_refactor of external preparation assertions; no WHAT/owner change",
+  "effects": "This Writer changes only this correction record and execution commentary. No changes to existing exact Worker grants or subjects."
+}

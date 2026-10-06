@@ -1,0 +1,44 @@
+{
+  "rows": [
+    {
+      "path": "prepare.py",
+      "donorLogicalPath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/prepare.py",
+      "preimageSHA256": "e6196bcf41b9bc43368e46006db213e44b1f3b21bec70318723cad34598491b9",
+      "postimageSHA256": "62a881d4351b09e79d35276ab5dc571e3d6ca4524db9fe578c14ac46b5310e02",
+      "actualAuthor": "/root/s03_phase_b",
+      "scope": "construction-control rebind; no Product source authorship claim"
+    },
+    {
+      "path": "execute-once.py",
+      "donorLogicalPath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/execute-once.py",
+      "preimageSHA256": "5ebf991f140c44d5a5cc3668b2f3d4aec805f1f83da5fbe23b055ffa30248ba1",
+      "postimageSHA256": "270a5b2b4e10e210047ffcf931e7804e74c85aac4db6977aef671d16ceb58669",
+      "actualAuthor": "/root/s03_phase_b",
+      "scope": "construction-control rebind; no Product source authorship claim"
+    },
+    {
+      "path": "correspondence.py",
+      "donorLogicalPath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/correspondence.py",
+      "preimageSHA256": "19099eb8c3b470a40ea3177a9911eaba7214aa7da8326a40a3ca835da8e2b447",
+      "postimageSHA256": "19099eb8c3b470a40ea3177a9911eaba7214aa7da8326a40a3ca835da8e2b447",
+      "actualAuthor": "/root/s03_phase_b",
+      "scope": "construction-control rebind; no Product source authorship claim"
+    },
+    {
+      "path": "verify-installed.mjs",
+      "donorLogicalPath": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/verify-installed.mjs",
+      "preimageSHA256": "e2c3e8dfa3a4e4499f9ce3af2cb0bf8094a114d5ea9d61762571324d047af428",
+      "postimageSHA256": "c5980018fbc3f43652cfae2d23ce0665ea470833026134a6a2d2ea8904fecf1c",
+      "actualAuthor": "/root/s03_phase_b",
+      "scope": "construction-control rebind; no Product source authorship claim"
+    }
+  ],
+  "patchSHA256": "2107e85187e7beefc554b1b6d69cdb18b2e8e326395c9178fbe1092ab83b93d3",
+  "newInstalledCheck": {
+    "path": "validate-installed-publications.mjs",
+    "sha256": "4f9f51f222e5e9da24b55f748bcf5a8dfd1c6732450fd75357c4a961874cd15b",
+    "actualAuthor": "/root/s03_phase_b"
+  },
+  "operationAttribution": "operation-attribution.json",
+  "sourceAttribution": "source-delta.json and original C overlay/D source attribution; no copied-origin rewrite"
+}

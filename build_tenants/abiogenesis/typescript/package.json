@@ -40,6 +40,38 @@
     "./validator": {
       "types": "./build/code/src/validator/index.d.ts",
       "import": "./build/code/src/validator/index.js"
+    },
+    "./gtl/m01": {
+      "types": "./build/code/src/gtl/m01.d.ts",
+      "import": "./build/code/src/gtl/m01.js"
+    },
+    "./gtl/m02": {
+      "types": "./build/code/src/gtl/m02.d.ts",
+      "import": "./build/code/src/gtl/m02.js"
+    },
+    "./gtl/requirements": {
+      "types": "./build/code/src/gtl/requirements.d.ts",
+      "import": "./build/code/src/gtl/requirements.js"
+    },
+    "./abg/requirements": {
+      "types": "./build/code/src/abg/requirements.d.ts",
+      "import": "./build/code/src/abg/requirements.js"
+    },
+    "./abg/m03": {
+      "types": "./build/code/src/abg/m03.d.ts",
+      "import": "./build/code/src/abg/m03.js"
+    },
+    "./abg/m03/transport": {
+      "types": "./build/code/src/abg/m03/transport.d.ts",
+      "import": "./build/code/src/abg/m03/transport.js"
+    },
+    "./app/m04": {
+      "types": "./build/code/src/app/m04.d.ts",
+      "import": "./build/code/src/app/m04.js"
+    },
+    "./qualification/m05": {
+      "types": "./build/code/src/qualification/m05.d.ts",
+      "import": "./build/code/src/qualification/m05.js"
     }
   },
   "files": [
@@ -68,40 +100,36 @@
     "clean": "node scripts/clean.mjs",
     "build": "npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs",
     "prepack": "npm run build",
-    "test:r1": "npm run build && node --test test_env/tests/r1-packed-artifact.test.mjs",
-    "test:r2": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs",
-    "test:r3": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs",
-    "test:r4": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs",
-    "test:r5": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs",
-    "test:r6": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs",
-    "test:r7": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs",
-    "test:r8": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs",
-    "test:r9": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs",
-    "test:r10": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs test_env/tests/r10-installed-cli-outcome.test.mjs",
-    "test:m4": "npm run build && node --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs test_env/tests/r10-installed-cli-outcome.test.mjs test_env/tests/rival-authority-mutations.test.mjs test_env/tests/runtime-scope-regressions.test.mjs test_env/tests/root-governor.test.mjs",
-    "test:m5:gtl": "npm run build && node --test test_env/tests/m5-c-algebra-validation.test.mjs",
-    "test:m5:hog": "npm run build && node --test --test-concurrency=1 test_env/tests/t287-c2a-fp-source-contract.test.mjs test_env/tests/abi5-root-installed-function-chain.test.mjs",
-    "test:m5:compose": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-compose.test.mjs",
-    "test:m5:graph-edge": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-graph-edge.test.mjs",
-    "test:m5:substitute": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-substitute.test.mjs",
-    "test:m5:fp": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-fp.test.mjs",
-    "test:m5:live-fp": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-live-fp.test.mjs",
-    "test:m5:workflow": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-workflow.test.mjs",
-    "test:m5:retry": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-retry.test.mjs",
-    "test:m5:gate": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-gate.test.mjs",
-    "test:m5:recursion": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-recursion.test.mjs",
-    "test:m5:fan-out": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-fan-out.test.mjs",
-    "test:m5:reopen": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-event-store-reopen.test.mjs",
-    "test:m5:event-calculus": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-event-calculus-runtime.test.mjs",
-    "test:m5:fibre": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-fibre-substitution.test.mjs",
-    "test:m5:external": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-external-product.test.mjs",
-    "test:m5:s03-unit": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-s03-authority.test.mjs",
-    "test:m5:consensus-unit": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-consensus-module.test.mjs",
-    "test:m5:consensus": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-consensus.test.mjs",
-    "test:m5:s06-prime": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-s06-prime.test.mjs",
-    "test:m5:portability": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-installed-portability.test.mjs",
-    "test:m5:conservation": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/m5-traversal-conservation.test.mjs",
-    "test:m5": "npm run build && node --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-c2a-fp-source-contract.test.mjs test_env/tests/abi5-root-installed-function-chain.test.mjs test_env/tests/m5-installed-compose.test.mjs test_env/tests/m5-installed-graph-edge.test.mjs test_env/tests/m5-installed-substitute.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/m5-installed-fp.test.mjs test_env/tests/m5-installed-workflow.test.mjs test_env/tests/m5-installed-retry.test.mjs test_env/tests/m5-installed-gate.test.mjs test_env/tests/m5-installed-recursion.test.mjs test_env/tests/m5-installed-fan-out.test.mjs test_env/tests/m5-event-store-reopen.test.mjs test_env/tests/m5-event-calculus-runtime.test.mjs test_env/tests/m5-retry-lifecycle-authority.test.mjs test_env/tests/m5-fibre-substitution.test.mjs test_env/tests/m5-installed-fp-fd-compose.test.mjs test_env/tests/m5-s03-authority.test.mjs test_env/tests/m5-installed-external-product.test.mjs test_env/tests/m5-consensus-module.test.mjs test_env/tests/m5-installed-consensus.test.mjs test_env/tests/m5-s06-prime.test.mjs test_env/tests/m5-installed-portability.test.mjs test_env/tests/m5-terminal-quiescence-owner.test.mjs test_env/tests/m5-fresh-process-reconstruction.test.mjs"
+    "test:r1": "npm run build && node --experimental-vm-modules --test test_env/tests/r1-packed-artifact.test.mjs",
+    "test:r2": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs",
+    "test:r3": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs",
+    "test:r4": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs",
+    "test:r5": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs",
+    "test:r6": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs",
+    "test:r7": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs",
+    "test:r8": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs",
+    "test:r9": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs",
+    "test:m4": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/r1-packed-artifact.test.mjs test_env/tests/r2-clean-install.test.mjs test_env/tests/r3-workspace-binding.test.mjs test_env/tests/r4-catalog-admission.test.mjs test_env/tests/r5-invocation-admission.test.mjs test_env/tests/r6-implementation-resolution.test.mjs test_env/tests/r7-graph-validation-basis.test.mjs test_env/tests/r8-direct-hog-entry.test.mjs test_env/tests/r9-causal-result-closure.test.mjs test_env/tests/rival-authority-mutations.test.mjs test_env/tests/runtime-scope-regressions.test.mjs",
+    "test:m5:gtl": "npm run build && node --experimental-vm-modules --test test_env/tests/m5-c-algebra-validation.test.mjs",
+    "test:m5:graph-edge": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-installed-graph-edge.test.mjs",
+    "test:m5:reopen": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-event-store-reopen.test.mjs",
+    "test:m5:event-calculus": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-event-calculus-runtime.test.mjs",
+    "test:m5:s03-unit": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-s03-authority.test.mjs",
+    "test:m5:consensus-unit": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-consensus-module.test.mjs",
+    "test:m5:s06-prime": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-s06-prime.test.mjs",
+    "test:m5:portability": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-installed-portability.test.mjs",
+    "test:m5:conservation": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-calculus-state-transfer.test.mjs",
+    "test:m5": "npm run build && node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-c2a-fp-source-contract.test.mjs test_env/tests/m5-installed-graph-edge.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/m5-event-store-reopen.test.mjs test_env/tests/m5-event-calculus-runtime.test.mjs test_env/tests/m5-retry-lifecycle-authority.test.mjs test_env/tests/m5-s03-authority.test.mjs test_env/tests/m5-consensus-module.test.mjs test_env/tests/m5-s06-prime.test.mjs test_env/tests/m5-installed-portability.test.mjs test_env/tests/m5-terminal-quiescence-owner.test.mjs test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+    "test:unit": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/m5-c-algebra-validation.test.mjs test_env/tests/t287-native-structural-gates.test.mjs test_env/tests/t287-native-runtime-gate.test.mjs test_env/tests/m5-worker-transport.test.mjs test_env/tests/forward-command-contracts.test.mjs test_env/tests/forward-command-owners.test.mjs test_env/tests/t287-native-semantic-revision.test.mjs",
+    "test:installed:language": "node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/installed-language-smoke.test.mjs",
+    "test:boundary": "node --test test_env/tests/hello-product-boundary.test.mjs",
+    "test:public-groups": "node --test test_env/tests/t287-public-groups.test.mjs",
+    "test:uat:harness": "node --test test_env/uat/harness.test.mjs",
+    "test:uat:list": "node scripts/sandbox-uat.mjs list",
+    "test:uat:preflight": "node scripts/sandbox-uat.mjs preflight",
+    "test:uat:prepare": "node scripts/sandbox-uat.mjs prepare",
+    "test:uat:run": "node scripts/sandbox-uat.mjs run",
+    "test": "npm run test:unit && npm run test:uat:harness"
   },
   "devDependencies": {
     "@types/node": "24.3.0",

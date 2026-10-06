@@ -6,15 +6,15 @@ import {performance} from 'node:perf_hooks';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { nativeJoinFixture, inputFixture, coverage, ids, hash, identity, publication } from '../support/malformed-gtl-native-fixture.mjs';
-import { constructHelloWorldInput } from '../../build/code/src/gtl/hello_world.js';
-import { realizeHelloWorld } from '../../build/code/src/implementation/hello_world.js';
+import { constructLanguageTestInput } from '../support/language-test-gtl.mjs';
+import { render as renderLanguageTest } from '../fixtures/language-smoke/leaf.mjs';
 import { isNativeRuntimeAssessmentInput, evaluateMalformedGtlAssessment } from '../../build/code/src/validator/qualification.js';
 const plain = x => JSON.parse(JSON.stringify(x));
 const reidentify = basis => { const { basisRef, basisDigest, ...body } = basis; return identity(body, 'basisRef', 'basisDigest', 'qualification-basis://abiogenesis/'); };
 async function witnessFixture(options = {}) {
   const f = await nativeJoinFixture({ runtime: true, ...options });
-  const helloInput = constructHelloWorldInput('Qualification'), witness = f.open(f.helloIds.graphFunctionRef, helloInput, 'hello');
-  const value = realizeHelloWorld(helloInput).resultCandidate;
+  const helloInput = constructLanguageTestInput('Qualification'), witness = f.open(f.helloIds.graphFunctionRef, helloInput, 'hello');
+  const value = renderLanguageTest(helloInput).resultCandidate;
   const result = f.complete(witness, value, { deterministic: true });
   const bytes = Buffer.from('Mechanical fixture of preserved 4.6 witness material; no case adequacy claim.');
   const input = { kind: 'native_runtime_assessment_input', schemaVersion: '5.0.0', basis: structuredClone(f.input.basis), coverage, proof: f.proof(),

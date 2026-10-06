@@ -1,0 +1,74 @@
+{
+  "status": "PASSED_SYNTAX_ONLY",
+  "checks": [
+    {
+      "path": "child-wrapper-parts.mjs",
+      "kind": "node_syntax_only",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "controlled-helper.mjs",
+      "kind": "node_syntax_only",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "flow-driver.mjs",
+      "kind": "node_syntax_only",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "kind": "node_syntax_only",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "prepare-resources.mjs",
+      "kind": "node_syntax_only",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "proof-oracles.mjs",
+      "kind": "node_syntax_only",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "public-support.mjs",
+      "kind": "node_syntax_only",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "setup-driver.mjs",
+      "kind": "node_syntax_only",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "path": "observe-process.py",
+      "kind": "python_syntax_only_no_bytecode",
+      "exitCode": 0
+    },
+    {
+      "kind": "JSON_parse",
+      "files": 6,
+      "exitCode": 0
+    }
+  ],
+  "node": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/toolchain/bin/node",
+  "importsExecuted": 0,
+  "runtimeEffects": 0
+}

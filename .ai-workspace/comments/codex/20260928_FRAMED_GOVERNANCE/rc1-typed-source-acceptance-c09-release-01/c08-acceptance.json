@@ -1,0 +1,17 @@
+{
+  "status": "ACCEPTED_CONSTRUCTION_COMPONENT_ONLY",
+  "freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-freeze.json",
+    "bytes": 384148,
+    "sha256": "5e9fd780078b081d83ae598a9e05ac84c58648b90e84324209305cbf8058f14b",
+    "mode": 420
+  },
+  "independent": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-independent-review-controls-01/review/freeze.json",
+    "bytes": 1226,
+    "sha256": "8636a8198ff887c8b0338df0c333ff19e327c8098aeacbe853aff09e18a0b32d",
+    "mode": 420
+  },
+  "meaning": "Intermediate ten-field repair artifact; remains valid within exact prior Source/HOW. Typed Source successor is selected for next installed traversal.",
+  "installedQualification": false
+}

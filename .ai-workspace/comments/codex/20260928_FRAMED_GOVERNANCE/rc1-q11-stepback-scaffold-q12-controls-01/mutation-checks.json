@@ -1,0 +1,101 @@
+{
+  "exactChangedPaths": [
+    "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+    "/Users/jim/src/apps/abiogenesis/CLAUDE.md",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md"
+  ],
+  "preimages": {
+    "/Users/jim/src/apps/abiogenesis/AGENTS.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "bytes": 10653,
+      "sha256": "b7a3b21db5e6fe7369e144fcd8f00198caff4bcaae4b7acd43e6eff28813e709",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/CLAUDE.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/CLAUDE.md",
+      "bytes": 4590,
+      "sha256": "e0ee14f7fa7094459f7cef099078174735fd7088388a1d31e90c67819dc34573",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24123,
+      "sha256": "46d6cd94f9fd7c1610dcba7933082d3b810188c7b6898672992b1a8d743e059c",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bytes": 39730,
+      "sha256": "6ebaae310885013645c238023d39d4c1f1b5c61c56cf2ff4e5d0a9cd6b75567c",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 491566,
+      "sha256": "f4e116ee4be0ff9605e2d0758521e31958056d0a7196dc1342758fdefdcdf036",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 7431,
+      "sha256": "4124ca6d354842e9c972dab4fc0402e289955cdc22c59abcfb1e6486aea63b9c",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 542672,
+      "sha256": "3236df8d9ac33f5f99fbc4139150a324cf4be2f7c2d3ef86b2cab03089044be8",
+      "mode": 420
+    }
+  },
+  "postimages": {
+    "/Users/jim/src/apps/abiogenesis/AGENTS.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "bytes": 11263,
+      "sha256": "849da31e8a2cf4b7bffb714c8a704482827acf978c0d2fa4bb6937028cd238e9",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/CLAUDE.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/CLAUDE.md",
+      "bytes": 4890,
+      "sha256": "62882dad35a00e372fb80ae6b55d28f628bcfd92dac8d81d739ca57a0e9be203",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24861,
+      "sha256": "617bcd10d0ecc61fa7ee0bd48360ad8bc71420a84e2ca5c00f5572d2ba04f276",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bytes": 40632,
+      "sha256": "73d10e9833adc99f0bae7a589586e1778ea1f199f981e5c6d5c07fb4de738004",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 492420,
+      "sha256": "cebc8df28336ac80c269152c62ace734758d9997f21ef446d67e2ec2f5d131c2",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 7982,
+      "sha256": "fa9caa3a6b96c8774fa0612ed0075aaac08a506094c7653ab106cffdb0670f64",
+      "mode": 420
+    },
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 543502,
+      "sha256": "0273bff32b2c6f4e3634151bce53c956411495ed4f0473a84af58a9dcc7c31ee",
+      "mode": 420
+    }
+  },
+  "executionAppendOnly": true,
+  "candidateSourcePackageSetupRuntimeMutations": 0,
+  "formalCategoryCalculusAdopted": false
+}

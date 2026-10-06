@@ -1,0 +1,98 @@
+{
+  "status": "resolved within exact selected component fixture; all three affected checks pass",
+  "firstRejection": {
+    "sourceOwner": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "sourceOwnerSHA256": "bc34094fd232bd8438b4bb34dd380e823fbcd0689b67d90d0e8d9854f3a63d91",
+    "equalC02FrozenSource": true,
+    "condition": "profile is current native but decoded eventContractDigest differs from current ROOT_EVENT_CONTRACT_DIGEST",
+    "error": "event stamp differs from the exact native profile schedule",
+    "sourceLine": 3220,
+    "artifactRefusalCode": "event_envelope_invalid",
+    "recordOrdinal": 1,
+    "currentProfile": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "retainedPhysicalProfile": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+  },
+  "sourceFixture": {
+    "historyPath": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/runtime-stop/event-prefix.jsonl",
+    "historySHA256": "e8147dd35d207590170bea4f4f2018935c6a5c7fc9893cc3f56585e332692667",
+    "contextPath": ".ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/successor-05/implementation-02/retained-source-context.json",
+    "contextSHA256": "831889537928213cf34909ae2e7d500d4fcbb521b790fa7b0d018e2b7f874058",
+    "prefixLength": 2757757,
+    "prefixSHA256": "aeb3773afef3a87fc8e2a7859ec0ed8423082542bf7ffc953cbecb72bb82d6fa",
+    "physicalRows": 129
+  },
+  "actualHistoricalOwner": {
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/episode-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant",
+    "eventStorePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-03/episode-01/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+    "eventStoreSHA256": "a24ed9add100155c4bdda60bb60dbb95bcaa99c6f6ea0396c7cfba629babc6b4",
+    "profileReadByImport": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+  },
+  "causalCone": [
+    "actual F11 dispatch expression",
+    "projectQualificationConsumer(requireCurrent=true)",
+    "executionSourceProofs",
+    "acquireExecutionSource",
+    "real projectExactPrefixArtifactTruth",
+    "real readRuntimeEventsAtDurablePrefix",
+    "cold decoded first event/profile guard"
+  ],
+  "priorDistinctFailure": {
+    "kind": "stale fixture dispatch extraction",
+    "retainedLog": "acquisition-reuse-final.txt",
+    "adapterEffects": "exact new resource-parameter dispatch expression and authority argument only"
+  },
+  "effects": "debug instrumentation only copied emitted files, original fixtures unchanged; final tsc restores copied instrumentation",
+  "noArchiveOrEnvironmentBodyReached": true,
+  "logs": [
+    "acquisition-reuse-attempt-02.txt",
+    "acquisition-reuse-debug-01.txt",
+    "acquisition-reuse-debug-02.txt",
+    "acquisition-reuse-debug-03.txt",
+    "acquisition-reuse-debug-04.txt"
+  ],
+  "selectedControls": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-history-fixture-owner-join-01/request.txt",
+      "sha256": "d0d9e856b48f3fc27bd5271d05de0944804fcbcafbdf7bef3def3117687ac285"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-history-fixture-source-hook-01/request.txt",
+      "sha256": "a251943e8e6342e5eeaf87428140801e6f2513ff89d82ad7f663dfd54f30a323"
+    }
+  ],
+  "subsequentRelation": {
+    "firstRejectingOwner": "historical abg/c_call.js projectOpenedLeafCCallCarrier",
+    "condition": "!isMaterializedGtlGraph(graph)",
+    "ownerSourceLine": 1095,
+    "currentGraphOwner": true,
+    "historicalGraphOwner": false,
+    "callNull": true,
+    "graphDigest": "sha256:d22c880e239b00f0f7407e60e4622bf6f5128a414ee10863f6908e1f4f3d4487",
+    "executionGraphDigestMatches": true,
+    "cCallRef": "c-call:sha256:9502c1832504eac2107b726c0cd4458b883ffad1fa3a082cb71dc9c20994ab1e",
+    "materializerSHA256": "82e4abcb65d7cb92d28683173916348331da995f5cda11d8a4af22f7528550ea",
+    "meaning": "current and historical module nominal materialization owners are distinct; no historical CCall schema relaxation selected",
+    "tests": "acquisition-reuse-historical-01.txt: 1 pass, 2 fail; source auth/owner precheck and cold negatives reached; material acquisition remains blocked",
+    "logs": [
+      "acquisition-reuse-historical-01.txt",
+      "acquisition-reuse-historical-debug-01.txt",
+      "acquisition-reuse-historical-debug-02.txt",
+      "acquisition-reuse-historical-debug-03.txt"
+    ],
+    "selectedResolution": "nativeSourceOwners c_call wrapper invokes actual historical strict rehydrateMaterializedGtlGraph, asserts exact body/digest, then delegates actual historical CCall owner; no production nominal-owner change"
+  },
+  "finalLog": "acquisition-reuse-historical-02.txt",
+  "finalCounts": {
+    "pass": 3,
+    "fail": 0,
+    "skip": 0,
+    "physicalReads": 1,
+    "physicalReadBytes": 2757757,
+    "decodedRepresentations": 1,
+    "artifactAcquisitions": 1,
+    "workspaceProjections": 1,
+    "currentnessChecks": 2,
+    "nativeMaterialBytes": 6741
+  },
+  "debugRestoration": "copied emitted owner restored from exact settled compile snapshot, copied test restored by sync from authoritative source"
+}

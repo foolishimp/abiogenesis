@@ -1,0 +1,51 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_Q09_ACCEPTANCE_AND_RUNTIME08_RELEASE_01",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q09-and-runtime08-conditional-controls-01/root-input-acceptance-activation.json",
+      "bytes": 2659,
+      "sha256": "c0175ba759ceadc63552298d489170b16c28bc5c8a44c899d44c3a90b08fec77",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q09-and-runtime08-conditional-controls-01/input-acceptance.json",
+      "bytes": 12693,
+      "sha256": "5ed6404c7bb1292573b627501ce952e690f63008108b10cb1b861e41f09f7fe8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q09-and-runtime08-conditional-controls-01/root-input-acceptance-closure.json",
+      "bytes": 1380,
+      "sha256": "c4ef4d193512215c989d99c770febbb225d0181bfdf6c165b43a66f096c64434",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q09-and-runtime08-conditional-controls-01/plan-preimage.md",
+      "bytes": 5627,
+      "sha256": "b899dd4e5299c6f90d1e018d7bcb7086be3b074fbd7d61ab960ff0f7a6e91056",
+      "mode": 420
+    }
+  ],
+  "trackingPostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 531080,
+      "sha256": "7d3fc2edc011361ad000f697140e5c6ee6995cc064c973ce403235aebca3115e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 486611,
+      "sha256": "af154b90bb7689f59d4ff00363c10c65b4a61651a54ce963166824a0439538b7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 5691,
+      "sha256": "0242e583970a6d6ecf2e1957deb031461d891323376616805b595faf2ca929c1",
+      "mode": 420
+    }
+  ],
+  "RootRole": "Executive"
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "sha256": "c16442437749c8f9d0154eee1562f814e61bfef32fa1a4eee901d744bae7b384",
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/descriptor-exposure-repair-01/tracking-preimages/0"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "sha256": "478bea1eeac296c0207b25ded87cf920951419e7d50667a6f4ea8320b6779e13",
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/descriptor-exposure-repair-01/tracking-preimages/1"
+  },
+  {
+    "path": "/Users/jim/src/apps/odd_glc/specification/GOALS.md",
+    "sha256": "2060088e78b81ee2e04d8fe7427e3e8374c9143548e0a811a23124891cb0982f",
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/descriptor-exposure-repair-01/tracking-preimages/2"
+  },
+  {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+    "sha256": "e23d9c34af63a051549fea5e6fdbb487ef5774cf173c7aca4fcd9efe33e63a46",
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/descriptor-exposure-repair-01/tracking-preimages/3"
+  }
+]

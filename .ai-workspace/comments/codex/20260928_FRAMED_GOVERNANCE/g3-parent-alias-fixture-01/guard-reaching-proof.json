@@ -1,0 +1,83 @@
+{
+  "status": "GO_FIXTURE_BOUNDARY_COVERAGE_ONLY",
+  "actualReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/test-result.json",
+    "bytes": 3547,
+    "sha256": "fe2a4cd9f58463d5adb9d859b65a9b9a59266f2342e6b33db0be73a26b6919dd",
+    "mode": 420
+  },
+  "actualProcessClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/regression-supervisor-close.json",
+    "bytes": 998,
+    "sha256": "9e73ed51a9bb48e00ecca5d1319f08aea571f007a51ee45265c5943fe715907b",
+    "mode": 420
+  },
+  "actualPrefixAndRouteWitnesses": [
+    {
+      "name": "missing foldback",
+      "preliminaryPrefixAccepted": true,
+      "eventCount": 75,
+      "parentNativeStateAccepted": true,
+      "expectedBoundary": "producerForResult: required unique sub_traversal evidence has no childResultRef/childResultDigest",
+      "witness": {
+        "subTraversalEvidenceCount": 0
+      },
+      "actualOutcome": "null (no exception)",
+      "lowerPremise": "counterfactual durable event read supplied; ordinal/cause normalization only for the removed evidence; no native admission"
+    },
+    {
+      "name": "crossed child graph call",
+      "preliminaryPrefixAccepted": true,
+      "eventCount": 76,
+      "parentNativeStateAccepted": true,
+      "expectedBoundary": "producerForResult: unique child Result graphCallId differs from sub_traversal.childGraphCallId",
+      "witness": {
+        "childResultCount": 1,
+        "actualGraphCallId": "graph-call://abiogenesis/59eec0f5583145ae1d79bcf302f40ac7e3231df97c778257b8e83f64d3cbfac6",
+        "evidenceGraphCallId": "graph-call://crossed"
+      },
+      "actualOutcome": "null (no exception)",
+      "lowerPremise": "counterfactual durable event read supplied; ordinal/cause normalization only for the removed evidence; no native admission"
+    },
+    {
+      "name": "crossed child result",
+      "preliminaryPrefixAccepted": true,
+      "eventCount": 76,
+      "parentNativeStateAccepted": true,
+      "expectedBoundary": "producerForResult: no child Result has the exact sub_traversal childResultRef/childResultDigest",
+      "witness": {
+        "childResultCount": 0,
+        "childResultRef": "result://abiogenesis/81110a32c09869280399a00745f5c4a9664f6d69397bc4842f145cb1210fcec4",
+        "childResultDigest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "actualOutcome": "null (no exception)",
+      "lowerPremise": "counterfactual durable event read supplied; ordinal/cause normalization only for the removed evidence; no native admission"
+    }
+  ],
+  "canonicalOwners": [
+    "shared/immutable.js.deepFreeze",
+    "abg/runtime_derivation.js.RuntimeDerivationSource.snapshot",
+    "abg/event_prefix.js.selectValidatedRuntimeEventPrefix",
+    "abg/qualification_proof.js.nativeState",
+    "abg/qualification_proof.js.producerForResult"
+  ],
+  "sourceOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+    "bytes": 82284,
+    "sha256": "b928caefff4aa9bbd5e3e0d6fdb65f4a9617d54b3df817df287975825d36c9e5",
+    "mode": 420
+  },
+  "sourcePredicates": "qualification_proof.ts:498-518; selected emitted source is the unchanged prior repaired owner, authenticated by stage-reuse-correspondence.json",
+  "positive": {
+    "retainedParentBodyReferenceDecoded": true,
+    "directChildAndOriginalJudgmentPreserved": true,
+    "originalProducerCount": 1,
+    "historicalPreimageRefusalAndCursorGraphFunctionNegatives": "Sequential focused test assertions passed before all three corrected mutants."
+  },
+  "competition": "Sequential unchanged actual eligibility/duplicate-selection owner assertions passed with explicitly supplied synthetic lower native-admission/CCall premises. Distinct equal-valued producers still refuse.",
+  "durablePremise": "Only the altered negative arrays substitute the durable read. Removing one evidence row compacts admission ordinals and expands its causal references to its actual predecessors. Crossed evidence payloads remain counterfactual malformed data. These arrays are not native history, do not establish an admitted cryptographic evidence identity, and are never appended. No owner or guard is overridden to gain acceptance.",
+  "resourcePremise": "Only immutable declaration-proof lookup is supplied for the retained reference task; full 504760365-byte resource assembly and semantic adequacy are outside this focused proof.",
+  "compile": "Not run; exact 726-record prior successfully compiled stage is reused and reverified unchanged after the check.",
+  "qualificationCredit": false,
+  "independentAssurance": false
+}

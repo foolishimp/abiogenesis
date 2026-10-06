@@ -10,12 +10,12 @@ import {selectValidatedRuntimeEventPrefix} from '../../build/code/src/abg/event_
 import {loadWorksiteOwner,worksiteFixture} from '../support/t287-generic-job-worksite.mjs';
 import {tmpdir} from 'node:os';
 import {pathToFileURL} from 'node:url';
-import * as gtl from '../../build/code/src/gtl/index.js';
+import * as gtl from '../support/language-test-gtl.mjs';
 import * as product from '../../build/code/src/product/index.js';
 import * as validator from '../../build/code/src/validator/index.js';
 import {observedGovernanceTaskMatches} from '../../build/code/src/abg/default_library.js';
 import {projectObservedWorksiteCommandChildAtPrefix} from '../../build/code/src/abg/worksite_input_provenance.js';
-import {setupInstalledRootCatalog} from '../support/root-installed-environment.mjs';
+import {setupInstalledRootCatalog,requirePublicationValidations} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
 import {libraryConsumerDeclaration,libraryEnvironment,witnessInput,witnessRef,assessmentSchema,schemaPath} from '../support/default-library.mjs';
 const packageRoot=new URL('../..',import.meta.url).pathname;
@@ -24,6 +24,7 @@ const witnessRoot=join(governanceRoot,'default-library-witness');
 const basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:'5.0.0-rc.1',artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
 const constructors=['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'];
 function validation(publication,program,publications){
+  requirePublicationValidations(validator,publications);
   const raw=(v,k)=>{const r=validator.rawAdmitValue(v,k,'contract:fixture');assert.equal(r.kind,'raw_admitted_value',JSON.stringify(r));return r;};
   const p=raw(publication,'module_publication'),unique=(key,values)=>[...new Map(values.map(v=>[v[key],v])).values()];
   return validator.validateProgram({declarationBasisDigest:p.subjectDigest,programPublication:p,program:raw(program,'gtl_program'),
@@ -33,6 +34,27 @@ function validation(publication,program,publications){
     implementationBindings:unique('bindingRef',publications.flatMap(p=>p.implementationBindings)).map(v=>raw(v,'implementation_binding')),
     closureContracts:unique('closureContractRef',publications.flatMap(p=>p.closureContracts)).map(v=>raw(v,'closure_contract'))});
 }
+test('default library preserves cumulative wrapper bindings and rejects duplicate carried refs',()=>{
+  const state=product.governanceContract('state'),graphs=gtl.defaultGovernanceGraphFunctions();
+  for(const purpose of product.GOVERNANCE_PURPOSES){
+    const graph=graphs.find(g=>g.name===product.governanceRef('graph-function',purpose));
+    const child=purpose==='testing'?product.WORKSITE_COMMAND_EXECUTION_IDS:product.NATIVE_WORKSPACE_WORK_IDS;
+    assert.deepEqual(graph.environment,{requires:[state],provides:[state],carries:[state,child.taskContractRef,child.observationContractRef]});
+  }
+  const publication=gtl.constructDefaultGovernanceLibraryModulePublication(basis);
+  assert.equal(requirePublicationValidations(validator,[publication]).length,1);
+  const duplicate=structuredClone(publication),wrapper=duplicate.graphFunctions.find(g=>g.name===product.governanceRef('graph-function','testing'));
+  wrapper.environment.carries.push(state);
+  assert.throws(()=>requirePublicationValidations(validator,[duplicate]),/duplicate_identity.*environment\.carries/s);
+});
+test('installed root publication precondition rejects a bad non-selected publication',()=>{
+  const selected=gtl.constructLanguageTestModulePublication(basis),library=gtl.constructDefaultGovernanceLibraryModulePublication(basis);
+  assert.equal(requirePublicationValidations(validator,[selected,library]).length,2);
+  const invalid=structuredClone(library),wrapper=invalid.graphFunctions.find(g=>g.name===product.governanceRef('graph-function','construction'));
+  wrapper.environment.carries.push(wrapper.environment.carries[0]);
+  assert.equal(requirePublicationValidations(validator,[selected])[0].publicationValidation.kind,'publication_validation');
+  assert.throws(()=>requirePublicationValidations(validator,[selected,invalid]),/default-library\/default@5: .*duplicate_identity/s);
+});
 test('default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation',()=>{
   const pubs=constructors.map(n=>gtl[n](basis)),library=pubs[0];
   assert.deepEqual(library.runEnvironments[0].roles.find(r=>r.role==='selector').contextPolicy.selectors,['full_source','active_binding_semantics']);

@@ -15,6 +15,7 @@ import { semanticInstructionResultMatches, registeredSelectionInstructionResultM
 import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
 import { requirementHandoffResultMatches } from "./requirement_handoff.js";
 import type { ModulePublication } from "../gtl/contracts.js";
+import type { ResultEvidenceLineage } from "./result_evidence_lineage_contracts.js";
 import type {
   ClosureContract,
   GraphFunction,
@@ -1060,19 +1061,46 @@ function stageCCallResult(
               input.leafPort.validateResultEvidenceLineage(
                 input.cCall.outputContractRef,
                 value as Readonly<Record<string, JsonValue>>,
-                evidence.map((row) => deepFreeze({
-                  cCallRef: input.cCall.cCallRef,
-                  cCallAttempt: input.cCall.attempt,
-                  evidenceRef: row.evidenceRef,
-                  evidenceDigest: row.evidenceDigest,
+                evidence.map((row): ResultEvidenceLineage => {
+                  const common = {
+                    cCallRef: input.cCall.cCallRef,
+                    cCallAttempt: input.cCall.attempt,
+                    evidenceRef: row.evidenceRef,
+                    evidenceDigest: row.evidenceDigest,
+                    inputDigest: row.inputDigest,
+                    outputDigest: row.outputDigest,
+                  };
+                  if (row.evidenceClass === "probabilistic_transport") {
+                    return deepFreeze({
+                      ...common,
+                      evidenceClass: row.evidenceClass,
+                      actorInvocationRef: row.actorInvocationRef,
+                      actorRef: row.actorRef,
+                      workerBindingRef: row.workerBindingRef,
+                      transportBindingRef: row.transportBindingRef,
+                      transportBindingDigest: row.transportBindingDigest,
+                      requestDigest: row.requestDigest,
+                      promptDigest: row.promptDigest,
+                      transportDisposition: row.transportDisposition,
+                      transportFailureClass: row.transportFailureClass,
+                      transportDigest: "transportDigest" in row ? row.transportDigest : null,
+                    }) satisfies ResultEvidenceLineage;
+                  }
+                  return deepFreeze({
+                  ...common,
                   evidenceClass: row.evidenceClass,
-                  outputDigest: row.outputDigest,
-                  transportDigest:
-                    row.evidenceClass === "probabilistic_transport" &&
-                      "transportDigest" in row
-                      ? row.transportDigest
-                      : null,
-                })),
+                  ...(row.actorInvocationRef === undefined ? {} : { actorInvocationRef: row.actorInvocationRef }),
+                  ...(row.actorRef === undefined ? {} : { actorRef: row.actorRef }),
+                  ...(row.workerBindingRef === undefined ? {} : { workerBindingRef: row.workerBindingRef }),
+                  ...(row.transportBindingRef === undefined ? {} : { transportBindingRef: row.transportBindingRef }),
+                  ...(row.transportBindingDigest === undefined ? {} : { transportBindingDigest: row.transportBindingDigest }),
+                  ...(row.requestDigest === undefined ? {} : { requestDigest: row.requestDigest }),
+                  ...(row.promptDigest === undefined ? {} : { promptDigest: row.promptDigest }),
+                  ...(row.transportDisposition === undefined ? {} : { transportDisposition: row.transportDisposition }),
+                  ...(row.transportFailureClass === undefined ? {} : { transportFailureClass: row.transportFailureClass }),
+                  transportDigest: null,
+                  }) satisfies ResultEvidenceLineage;
+                }),
               )
       : (value: unknown) =>
           typeof value === "object" && value !== null &&

@@ -1,0 +1,55 @@
+{
+  "classification": "Controlled physical-byte verification over a re-rooted copy, not a live admitted Run or UAT pass",
+  "candidateFreezeSHA256": "7a98cfef9c16122b5705adb1cc151f7a3674452a4fc7bd32034106a73df83930",
+  "ownerAPI": "trustedBootstrap.product.installedProductContentMatches(install)",
+  "originalInstalledChecks": [
+    {
+      "package": "@abiogenesis/typescript-tenant",
+      "unchanged": true
+    },
+    {
+      "package": "@abi5-tests/sandbox-uat",
+      "unchanged": true
+    }
+  ],
+  "controlledCopyChecks": [
+    {
+      "phase": "baseline",
+      "contentMatches": true
+    },
+    {
+      "phase": "payload-changed",
+      "contentMatches": false,
+      "manifestBytesUnchanged": true,
+      "packageIdentityBytesUnchanged": true,
+      "immutableCoordinates": {
+        "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/94cd9f4ee619ba694b36267b964554d67ea2cefc7b82074605d8af8dbf4381ed/2f5f9011d2a3f107bc1d22f1f71187edc28e05de9a77973f0cae0c743abc1e9f",
+        "productContentDigest": "sha256:94cd9f4ee619ba694b36267b964554d67ea2cefc7b82074605d8af8dbf4381ed",
+        "manifestDigest": "sha256:9a61aac7f94eb48d8c3c1c41835f94908f26c620bfedcc68e50d4de98dcdf660",
+        "admissionEventRef": "event://abiogenesis/23fd0d7e12f6927f3ff02f675674dcc5faa2c59f68b603be654c5c71cc4866f0"
+      },
+      "changedPath": "build/semantics.mjs",
+      "beforeDigest": "sha256:9fbec588ac90d1ec2d230522225c2a9cc53795538df18d3784e49d82701d04b3",
+      "afterDigest": "sha256:2648c15f67e827b349be70a14dcc56930d2eec9238cac56c74ba3c73c00c7635"
+    },
+    {
+      "phase": "extra-payload-member",
+      "contentMatches": false,
+      "manifestBytesUnchanged": true,
+      "immutableCoordinates": {
+        "installId": "product-install://@abi5-tests/sandbox-uat/5.0.0/94cd9f4ee619ba694b36267b964554d67ea2cefc7b82074605d8af8dbf4381ed/2f5f9011d2a3f107bc1d22f1f71187edc28e05de9a77973f0cae0c743abc1e9f",
+        "productContentDigest": "sha256:94cd9f4ee619ba694b36267b964554d67ea2cefc7b82074605d8af8dbf4381ed",
+        "manifestDigest": "sha256:9a61aac7f94eb48d8c3c1c41835f94908f26c620bfedcc68e50d4de98dcdf660",
+        "admissionEventRef": "event://abiogenesis/23fd0d7e12f6927f3ff02f675674dcc5faa2c59f68b603be654c5c71cc4866f0"
+      },
+      "extraPath": "build/reviewer-extra-file.txt"
+    }
+  ],
+  "trustedBootstrapUnchanged": true,
+  "admittedInstallProjectionUnchanged": true,
+  "eventPrefixBytesUnchanged": true,
+  "copyIsNotAnAdmittedInstall": true,
+  "genuineArchiveRunOrCCallEvents": 0,
+  "disposition": "satisfied_controlled_physical_checker_discriminator",
+  "scratchCopyRemoved": true
+}

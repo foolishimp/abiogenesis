@@ -1,0 +1,7 @@
+{
+  "failure": "Existing constructCommand rejects terminationGraceMs>=timeoutMs; synthetic fixture supplied1000/1000",
+  "source": "C02 frozen product/worksite_command_execution.ts:962-971",
+  "scope": "Only local pure fixture; successor consumer was not entered; no native/provider/input or helper command executed",
+  "correction": "Fixture timeout1000/grace100; new fixture02 directory leaves prior probe intact",
+  "basis": "Existing owner contract, unchanged Product/HOW; no candidate/source or qualification repair"
+}

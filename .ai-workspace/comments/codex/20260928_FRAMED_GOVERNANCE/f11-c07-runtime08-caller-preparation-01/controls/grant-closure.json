@@ -1,0 +1,12 @@
+{
+  "operation": "T287_RUNTIME08_CALLER_PREPARATION_GRANT_01",
+  "status": "CLOSED",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-caller-preparation-controls-01/request.txt",
+    "bytes": 2746,
+    "sha256": "ca10f8e6df97798ef53f86cbf985b8bd85e25481db139f02798ca5a37b8284f9"
+  },
+  "RootRole": "Executive",
+  "runtimeActivation": false,
+  "payloadEffects": 0
+}

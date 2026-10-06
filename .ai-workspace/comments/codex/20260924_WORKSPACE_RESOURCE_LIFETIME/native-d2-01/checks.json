@@ -1,0 +1,75 @@
+[
+  {
+    "command": "./node_modules/.bin/tsc -p tsconfig.json",
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 1,
+    "log": "build-01.log",
+    "sha256": "f23b03aaff856d50610412420bb53c5486bb648247a4cbccbae3801e294ea6e9",
+    "note": "Initial typecheck: local narrowing/signature errors; no emit."
+  },
+  {
+    "command": "./node_modules/.bin/tsc -p tsconfig.json",
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "log": "build-02.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "note": "Narrowing/signature fixes."
+  },
+  {
+    "command": "./node_modules/.bin/tsc -p tsconfig.json",
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "log": "build-03.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "note": "Integrated intake/root recovery and current capacity."
+  },
+  {
+    "command": "./node_modules/.bin/tsc -p tsconfig.json",
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "log": "build-04.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "note": "Selection and request are separate declared graph nodes after result-cardinality refusal."
+  },
+  {
+    "command": "./node_modules/.bin/tsc -p tsconfig.json",
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "log": "build-05.log",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "note": "Evidence uses the actual retained graph entry, not a hypothetical retained raw root input."
+  },
+  {
+    "command": "ABI5_GENERIC_JOB_BUILD_ROOT=/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript ODD_GLC_ABI5_SOURCE_BUILD_ROOT=/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript node --experimental-vm-modules --test --test-name-pattern='native D2' test_env/tests/t287-native-semantic-revision.test.mjs /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 1,
+    "passed": 0,
+    "failed": 2,
+    "skipped": 0,
+    "log": "focused-01.log",
+    "sha256": "8df9e07d4a22f1faeee011e1257e40f3e5d32f40cfab304b240bd82a3ee36fa3",
+    "note": "GTL result cardinality and fixture event-contract digest failed."
+  },
+  {
+    "command": "ABI5_GENERIC_JOB_BUILD_ROOT=/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript ODD_GLC_ABI5_SOURCE_BUILD_ROOT=/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript node --experimental-vm-modules --test --test-name-pattern='native D2' test_env/tests/t287-native-semantic-revision.test.mjs /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 1,
+    "passed": 1,
+    "failed": 1,
+    "skipped": 0,
+    "log": "focused-02.log",
+    "sha256": "007463b6952353d8315bd9aea37fc0da850666fd5feed57f1eb19376e62d1196",
+    "note": "GTL/role/retention passed; actual Evidence retained-entry comparison failed."
+  },
+  {
+    "command": "ABI5_GENERIC_JOB_BUILD_ROOT=/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript ODD_GLC_ABI5_SOURCE_BUILD_ROOT=/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript node --experimental-vm-modules --test --test-name-pattern='native D2' test_env/tests/t287-native-semantic-revision.test.mjs /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "log": "focused-03.log",
+    "sha256": "81cd1205514cf939fb4fa041eff419139cae18dd6769fd2ccc5a1a21fd0ffcf7",
+    "note": "Focused composition and declaration checks passed."
+  }
+]

@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "scope": "Focused synthetic physical-root/owner-contract relation only; no native helper/commands or successful qualification material",
+  "checks": [
+    {
+      "name": "existing owners validate synthetic task/plan/helper/observation",
+      "status": "passed",
+      "nativePremises": "none; supplied component metadata only"
+    },
+    {
+      "name": "unequal roots: all3 physical read categories select snapshot with original outputs absent",
+      "status": "passed"
+    },
+    {
+      "name": "foreign original-root copies never become output or fallback",
+      "status": "passed"
+    },
+    {
+      "name": "crossed task refused",
+      "status": "passed"
+    },
+    {
+      "name": "individually valid second plan plus first-attempt artifact root refused",
+      "status": "passed"
+    },
+    {
+      "name": "valid helper carrier with crossed snapshot root refused by complete relation",
+      "status": "passed"
+    },
+    {
+      "name": "changed artifact task/digest refused by existing owner",
+      "status": "passed"
+    },
+    {
+      "name": "parent absolute normalized-alias and physical symlink escapes refused",
+      "status": "passed"
+    },
+    {
+      "name": "actual retained failed C2 refuses before helper/output consumption",
+      "status": "passed"
+    },
+    {
+      "name": "all3 sites routed and original716/13/14/30/925/cold oracles preserved",
+      "status": "passed"
+    }
+  ],
+  "originalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/fixture02/original",
+  "snapshotRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/fixture02/archive/worksite-command-execution/b3be2c87e85bb9733b4aa6d4e14dd6190145049ea519888d4cbbbe1846b055a1/2d140d392c2577f27475d5283c5a64a552c0324dc0b3ecd90bdf209fbfa88477/sandbox",
+  "existingOwnerExports": [
+    "constructWorkspaceAuthorityBasis",
+    "constructWorksiteSubject",
+    "observeWorksiteSubject",
+    "constructObservedWorksiteCommandExecutionTask",
+    "worksiteCommandExecutionHelperPlan",
+    "isWorksiteCommandExecutionHelperPlan",
+    "isWorksiteExecutionHelperArtifact",
+    "isObservedWorksiteCommandExecutionObservation"
+  ],
+  "suppliedPremises": "Cold A/W/grant and synthetic actor/command/result metadata are local fixture data, not native admission",
+  "actualFailedOutcome": "runtime_failed"
+}

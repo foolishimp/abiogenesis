@@ -1,0 +1,1661 @@
+{
+  "files": [
+    {
+      "path": "contracts/qualification/authority-inputs.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "contracts/qualification/sources/stdo_abiogenesis.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "contracts/schemas/product-toolchain-manifest.schema.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "contracts/schemas/public-contract-catalog.schema.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "package-lock.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "package.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "scripts/clean.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "scripts/generate-product-manifest.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "scripts/generate-qualification-rule-catalog.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "scripts/lint-verification.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "scripts/node-test-evidence-reporter.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "scripts/refresh-candidate-basis.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/authority-lanes.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/contract-lanes.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/evidence.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/installed-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/pfc-f08-lane.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/run-s06-increment-0a.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-f06-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-f08.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-f09-product.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-f09-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-f09.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-f10-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-lanes.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-preparation-refusal-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-public-fh-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-recursion-lifecycle-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-recursion-route-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/runtime-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/falsifiers/t287-r3-reopen-route-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/abi5-root-candidate-basis.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/continuation-causation.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/default-library-product/index.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/developer-mini-product/contracts/greeting.schema.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/developer-mini-product/contracts/public-contract-catalog.schema.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/developer-mini-product/package.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/developer-mini-product/tsconfig.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/exact-intent-product/index.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/flavored-catalog-product/contracts/flavored-text.schema.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/flavored-catalog-product/contracts/public-contract-catalog.schema.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/flavored-catalog-product/package.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/flavored-catalog-product/tsconfig.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/registered-selection-product/index.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/registered-selection-product/native.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/registered-selection-product/recursive.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/t287-management-supervision/archive-supervisor.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/t287-management-supervision/fresh-public-read.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/t287-management-supervision/process-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/t287-management-supervision/semantic-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/t287-s03-automatic-product/index.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/fixtures/t287-selected-action-product/index.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/proof/abi5-m5-live-fp.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/proof/abi5-root-governor.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/proof/abi5-root-r10.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/proof/abi5-root-r10.outcomes.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/proof/abi5-root-r10.transcript.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/proof/abi5-root-rival-authority-mutations.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/admitted-graph-execution.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/candidate-basis.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/d1-preserved-result-harness.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/d2-binding-harness.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/d2-bounded-harness.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/d2-evidence-owner-conservation.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/d2-evidence-owner-harness.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/d2-frame-fixture.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/d2-historical-design-harness.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/d2-historical-owner-harness.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/d2-static-smoke.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/d2-workflow-step-harness.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/declared-testing-capability.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/default-library-fulfillment.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/default-library.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/developer-mini-product.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/flavored-catalog-product.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/forward-command-harness.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/forward-observation-carrier.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/forward-owner-lookups.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/fresh-process-runtime-proof.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/installed-public-definition-call.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/isolated-compiled-copy.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/malformed-gtl-native-fixture.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/multi-candidate-admission-owner.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/native-registered-selection.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/native-runtime-structural-cases.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/neutral-schema-product.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/new-empty-append-sink.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/r10-private-owner-harness.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/registered-graph-selection.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/root-cli-environment.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/root-governor.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/root-installed-environment.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/root-owner-evidence.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/serial-branch-worksite-program.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/single-start-worksite-program.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/stdo-environment-pilot.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/steel-consumer-resolution.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-declaration-closure-symbol-reuse.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-entry212-reopen-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-exact-prefix-projection-reuse.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-generic-job-intake.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-generic-job-lifecycle.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-generic-job-parent-audit.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-generic-job-readback.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-generic-job-revision.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-generic-job-worksite.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-native-event-time.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-native-frame-observation.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-native-frame-route-conservation.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-predecessor-context.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-s03-automatic.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-selected-action-host.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-setup-invocation-authority-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-st3-fresh-process-read-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-tv5-success-reconstruction-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t287-wave2-owner-chain-worker.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/t288-admission-helper-preimages.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/wave1-interface-receipt.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/wave1-proof-capture.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/support/witness-reprice-mechanics.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/abi5-root-installed-function-chain.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/d1-preserved-result-mechanics.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/d1-preserved-result.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/d2-acknowledgment.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/d2-binding-query-reuse.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/d2-binding-retained-diagnostic.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/d2-binding-transition.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/d2-bounded-repair.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/d2-evidence-owner.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/d2-frame-installed.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/d2-historical-design.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/d2-historical-owner.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/d2-workflow-step.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/d4-s01-program-owner.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/forward-command-contracts.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/forward-command-owners.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/generic-input-retention.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/hog-operator-support.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/integration-d1-readonly-discriminator.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/integration-shared-seams.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-consensus-module.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-event-calculus-runtime.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-event-store-reopen.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-fibre-substitution.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-fresh-process-reconstruction.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-installed-compose.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-installed-consensus.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-installed-external-product.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-installed-fan-out.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-installed-fp-fd-compose.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-installed-fp.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-installed-gate.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-installed-graph-edge.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-installed-portability.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-installed-recursion.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-installed-retry.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-installed-substitute.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-installed-workflow.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-live-fp.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-s03-authority.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-s06-prime.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-traversal-conservation.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/m5-worker-transport.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r1-packed-artifact.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r10-child-proof.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r10-fresh-imports.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r10-installed-cli-outcome.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r10-projection-contracts.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r10-retained-child-projection.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r10-retained-hello-projection.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r2-clean-install.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r3-workspace-binding.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r4-catalog-admission.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r5-invocation-admission.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r6-implementation-resolution.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r7-graph-validation-basis.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r8-direct-hog-entry.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/r9-causal-result-closure.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/retained-route-cursor-transition.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/rival-authority-mutations.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/root-cli-environment-timeout.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/root-governor.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/runtime-scope-regressions.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/steel-basic-cli-c2.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/steel-basic-cli-projection.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/steel-basic-cli-public.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/steel-basic-cli-source-replay.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/steel-consumer-authority.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/steel-consumer-declaration.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-authenticated-owner-family.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-authenticated-owner-values.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-c0-correction-regressions.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-c2-child-program.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-c2-core-environment.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-c2-owner-coordinate-reuse.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-cold-record-decoder.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-conformance-owner-reuse.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-continuation-causation.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-cross-cut-public-read.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-d1-requirement-handoff.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-declaration-closure-symbol-reuse.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-declared-testing-capability.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-default-library.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-deferred-application-restoration.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-environment-projection-conservation.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-event-body-encoding.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-event-calculus-owner-continuation.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-exact-construction-intent.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-fh-hold-open.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-generic-job-intake.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-generic-job-meaning.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-generic-job-parent-audit.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-generic-job-parent-foldback.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-generic-job-read-dependency.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-generic-job-revision.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-generic-job-worksite.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-held-prefix.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-historical-source-resource.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-interrupted-event-resource-recovery.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-json-value-definition.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-live-worksite-construction.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-management-context.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-management-stream-drain.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-management-supervision.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-assessment-evidence.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-event-time.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-frame-observation.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-frame-route-conservation.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-owner-reuse.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-registered-selection.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-semantic-evidence.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-semantic-job.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-worksite-execution.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-observed-worksite-command.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-owned-native-proof.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-post-binding-worksite-write.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-predecessor-context.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-public-terminal-projection.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-qual056-material.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-qualification-contraction.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-qualification-law.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-qualification-producer-context.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-qualification-scopes.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-r4-aba-retry.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-reacquisition-root-contract.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-reconstruction-conservation.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-registered-graph-selection.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-release-acceptance.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-release-publication.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-retry-run-prefix.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-route-reconstruction.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-runtime-activity-quiescence.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-s03-automatic.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-selected-action-authority.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-selected-action.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-selected-execution-closure.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-setup-invocation-authority.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-stdo-environment-citation.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-stdo-proof-entry.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-stdo-run-environment-installed.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-stdo-run-environment.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-tv5-rooted-topology-partition.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-undispatched-diagnostic.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-w2-05-generator-package-reproducibility.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-w2-05-release-snapshot-definition-bindings.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-w2-05-run-invoke-installed.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-wave2-definition-coordinate.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-wave2-installed-product-verification.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-wave2-owner-chain.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-worksite-command-execution.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-worksite-construction.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t287-worksite-file-replace-owner.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t288-admission-predicates.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t288-blocked-retry-entry.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t288-composition-conservation.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t288-environment-context-reuse.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t288-environment-guard-contraction.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t288-initial-cursor-entry.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t288-logical-prefix-digest.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t288-native-producer-membership.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t288-physical-return-conservation.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t288-prefix-structure.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t288-scoped-retry-guard.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t288-workflow-scope-conservation.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/t289-install-event-bodies.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/w2-steel-serial-branch-installed.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/w2-steel-single-start-closure.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/w2-steel-single-start-installed.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/w2-steel-single-start.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/witness-reprice-definition-binding.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+      "kind": "mjs",
+      "status": "syntax_valid_no_execution"
+    },
+    {
+      "path": "tsconfig.json",
+      "kind": "json",
+      "status": "syntax_valid_no_execution"
+    }
+  ],
+  "count": 331,
+  "method": "JSON.parse and TypeScript JS parser; selected test bodies never imported or executed"
+}

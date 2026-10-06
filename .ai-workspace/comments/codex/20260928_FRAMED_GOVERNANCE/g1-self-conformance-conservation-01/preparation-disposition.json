@@ -1,0 +1,17 @@
+{
+  "refusedLookup": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-source/code/src/validator/self_conformance.ts",
+  "diagnostic": "FileNotFoundError",
+  "priorEffects": {
+    "mutation": 0,
+    "compile": 0,
+    "test": 0
+  },
+  "RootDisposition": "resume existing G1 grant after correcting only caller directory join; consume actual saved compile cwd",
+  "actualDonorCwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-stage/build_tenants/abiogenesis/typescript",
+  "savedCompilerReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-compile.json",
+    "bytes": 2393,
+    "sha256": "7bbce121ad93ff6a9002e585d221a204bd8f4afdfdd5b6b35c6130be3e409255",
+    "mode": 420
+  }
+}

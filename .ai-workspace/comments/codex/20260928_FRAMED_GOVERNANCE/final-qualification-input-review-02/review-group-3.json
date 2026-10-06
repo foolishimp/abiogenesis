@@ -1,0 +1,8 @@
+{
+  "group": 3,
+  "timeoutSeconds": 120,
+  "elapsedSeconds": 0.4381665838882327,
+  "ownerCheckExitCode": 0,
+  "scope": "One independent delta/owner/staging read-check group; no recipe/native/testsuite execution.",
+  "priorGroup2HarnessFailureConserved": true
+}

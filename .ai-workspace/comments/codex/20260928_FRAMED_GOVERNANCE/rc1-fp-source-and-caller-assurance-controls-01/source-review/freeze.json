@@ -1,0 +1,42 @@
+{
+  "operation": "T287_F11_FP_REPAIRED_SOURCE_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "status": "CLOSED",
+  "workResult": "GO_BOUNDED_SOURCE_ASSURANCE",
+  "records": [
+    {
+      "path": "a_c.literal.txt",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 420
+    },
+    {
+      "path": "activation.json",
+      "bytes": 730,
+      "sha256": "50690d41b571d5426e8b4adbf941ef12a2e2669d03eebc26114662d1e55661db",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 1340,
+      "sha256": "4cc9d800ce69b16fe157f6adb5613d63fb93ca289a8851fbd222e5a7829c72e5",
+      "mode": 420
+    },
+    {
+      "path": "pins.json",
+      "bytes": 10720,
+      "sha256": "4a760e75eccd3e60e9a38245867e169c9da4f01e5fdc40f50379cdd6c90f08d5",
+      "mode": 420
+    },
+    {
+      "path": "review.md",
+      "bytes": 7814,
+      "sha256": "68471c4521322e1e601799a8ab886b1d09d13784d6ea457f9bf7ee74cc0b8b3c",
+      "mode": 420
+    }
+  ],
+  "recordCount": 5,
+  "bodyBytes": 58717,
+  "excludedSelf": "freeze.json only",
+  "allWritesAfterFreeze": "STOPPED"
+}

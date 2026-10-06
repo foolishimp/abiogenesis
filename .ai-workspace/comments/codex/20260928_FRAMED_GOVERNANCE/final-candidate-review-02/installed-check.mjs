@@ -1,0 +1,47 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {join} from 'node:path';
+import {pathToFileURL} from 'node:url';
+const D=import.meta.dirname,C=join(D,'../final-candidate-construction-02');
+const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
+const save=(p,v)=>fs.writeFileSync(join(D,p),JSON.stringify(v,null,2)+'\n',{flag:'wx'});
+const identity=read(join(C,'package-identity.json')),root=join(C,'install/node_modules/@abiogenesis/typescript-tenant');
+assert.equal(identity.packageRoot,root);
+const pkg=read(join(root,'package.json'));
+const load=name=>import(pathToFileURL(join(root,pkg.exports['./'+name].import)).href);
+const expected={artifactDigest:'sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747',productContentDigest:'sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124',manifestDigest:'sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4',productId:'product://abiogenesis/typescript-tenant@5.0.0-rc.1',packageName:'@abiogenesis/typescript-tenant',packageVersion:'5.0.0-rc.1'};
+if(process.argv[2]==='nominal'){
+ const product=await load('product');
+ const request={artifactPath:identity.artifactPath,artifactRef:pathToFileURL(identity.artifactPath).href,expectedArtifactDigest:expected.artifactDigest,expectedProductContentDigest:expected.productContentDigest,expectedManifestDigest:expected.manifestDigest,expectedProductId:expected.productId,expectedPackageName:expected.packageName,expectedPackageVersion:expected.packageVersion};
+ const packet={kind:'product_verification_packet',schemaVersion:'5.0.0',memberKey:'verify',targetKind:'packed_artifact',request};
+ save('independent-verification-request.json',packet);
+ const begin=performance.now(),result=await product.ProductVerificationPort.verify(packet);
+ save('independent-verification-result.json',result);
+ assert.equal(result.kind,'product_verification_success');
+ const v=result.verifiedArtifact;assert.strictEqual(product.selectOwnedProductVerification(request,v),v);
+ const actual=Object.fromEntries(Object.keys(expected).map(k=>[k,v[k]]));assert.deepEqual(actual,expected);
+ assert.equal(v.catalogDigest,'sha256:82d5e747b6ac658a4c2e73e2df474d1cb53be68932275b9201d3b67fb47fb0c1');
+ assert.equal(v.contributionManifest.publicationBindings.length,11);
+ save('independent-verification-summary.json',{status:'passed',owner:'actual new installed ProductVerificationPort.verify and same-process selectOwnedProductVerification',basis:actual,verificationRef:v.verificationRef,verificationDigest:v.verificationDigest,catalogDigest:v.catalogDigest,contributionManifestDigest:v.contributionManifestDigest,publicationBindings:v.contributionManifest.publicationBindings,elapsedMs:performance.now()-begin,limit:'Archive physically verified through the new installed owner; persisted data is not nominal permission or ABG install admission.'});
+ console.log(JSON.stringify({status:'passed',kind:result.kind,basis:actual,nominalSelection:'same in-process object'}));
+}else if(process.argv[2]==='full11'){
+ const verification=read(join(D,'independent-verification-summary.json'));assert.deepEqual(verification.basis,expected);
+ const [gtl,validator,product]=await Promise.all(['gtl','validator','product'].map(load));
+ const names=['constructDefaultGovernanceLibraryModulePublication','constructHelloWorldModulePublication','constructConsensusModulePublication','constructWorksiteConstructionModulePublication','constructWorksiteCommandExecutionModulePublication','constructWorksiteCommandForwardModulePublication','constructRequirementHandoffModulePublication','constructSemanticStageModulePublication','constructSemanticRevisionModulePublication','constructSelfConformanceModulePublication','constructNativeWorkspaceWorkModulePublication'];
+ const donor=read(join(C,'publication-bindings.json'));assert.deepEqual(donor.constructorPopulation.map(r=>r.constructor),names);
+ const basis={...expected,productManifestDigest:expected.manifestDigest},begin=performance.now();
+ const publications=names.map(name=>{assert.equal(typeof gtl[name],'function');return gtl[name](basis);});
+ const outcomes=publications.map((p,i)=>{
+  const raw=validator.rawAdmitValue(p,'module_publication','contract://abiogenesis/gtl/module-publication@5');
+  const contributions=p.contributions.map(c=>validator.rawAdmitValue(c,'catalog_contribution','contract://abiogenesis/gtl/catalog-contribution@5'));
+  const result=raw.kind!=='raw_admitted_value'?raw:contributions.find(c=>c.kind!=='raw_admitted_value')??validator.validatePublication(raw,contributions);
+  return {constructor:names[i],moduleRef:p.moduleRef,owningProductId:p.owningProductId,publicationDigest:product.modulePublicationSemanticDigest(p),result};
+ });
+ save('independent-full11-results.json',{status:outcomes.every(r=>r.result.kind==='publication_validation')?'passed':'failed',basis,outcomes,elapsedMs:performance.now()-begin,limit:'Actual installed constructors and strict validator; no all-Program closure, Public catalog admission, native execution, usability or qualification.'});
+ assert(outcomes.every(r=>r.result.kind==='publication_validation'));
+ const keys=rows=>rows.map(r=>r.moduleRef+'\0'+r.publicationDigest).sort();
+ assert.deepEqual(keys(outcomes),keys(verification.publicationBindings));assert.deepEqual(keys(outcomes),keys(donor.constructorPopulation));
+ assert.deepEqual(publications,donor.modulePublications);
+ save('independent-publication-bindings.json',{basis,constructorPopulation:outcomes.map(({constructor,moduleRef,publicationDigest})=>({constructor,moduleRef,publicationDigest})),modulePublications:publications,manifestJoin:'Exact equality to the independently reacquired verification result and C02 constructor evidence',nominalAuthorityClaim:false,nativeCalls:0});
+ console.log(JSON.stringify({status:'passed',count:outcomes.length,fullValueEquality:true,manifestBindingsExact:true}));
+}else throw Error('unknown review stage');

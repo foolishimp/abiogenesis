@@ -231,6 +231,10 @@ export async function constructInstalledStartCall({
   input,
   identity = "st-1",
   runEnvironmentResourceFactory,
+  programRef,
+  rootMode = "direct",
+  declaredStartRef,
+  inputFactory,
 }) {
   const {
     product,
@@ -239,7 +243,7 @@ export async function constructInstalledStartCall({
     catalogView,
     admittedInstalls,
     workspaceBinding,
-    additionalProducts: [fixture],
+    additionalProducts: [fixture] = [],
   } = environment;
   const resolution = await product.ProductExecutionResolutionPort.resolve({
     catalog,
@@ -247,13 +251,14 @@ export async function constructInstalledStartCall({
     admittedInstalls,
     verifyInstallAdmission: (install) =>
       abg.hasAdmittedProductInstall(environment.artifactTruth, install),
-    programRef: fixture.ids.programRef,
+    programRef: programRef ?? fixture.ids.programRef,
     selection: Object.freeze({
       kind: "start",
       scope: "program",
-      target: "next",
+      target: declaredStartRef ?? "next",
+      ...(declaredStartRef === undefined ? {} : { startRef: declaredStartRef }),
       until: "converged",
-      rootMode: "direct",
+      rootMode,
     }),
   });
   assert.equal(
@@ -261,6 +266,7 @@ export async function constructInstalledStartCall({
     "loaded_product_execution_resolution",
     JSON.stringify(resolution),
   );
+  if (inputFactory !== undefined) input = await inputFactory({ resolution, program: resolution.program, workspaceBinding });
   const admittedInput = product.admitInstalledProductInput(
     resolution.productSemantics,
     resolution.resolution.inputContract.contractRef,
@@ -332,13 +338,18 @@ export async function constructInstalledStartCall({
   const request = Object.freeze({
     program,
     scope: "program",
-    target: Object.freeze({ kind: "next" }),
+    target: declaredStartRef === undefined ? Object.freeze({ kind: "next" }) : Object.freeze({
+      kind: "declared_start", start: Object.freeze({
+        ref: resolution.resolvedProgramStart.start.startRef,
+        digest: product.sha256Canonical(resolution.resolvedProgramStart.start),
+      }),
+    }),
     until: "converged",
     catalogView: view,
     allowlist: Object.freeze([...catalogView.allowlist]),
     input: contractBoundInput,
     fhMode: "direct",
-    rootMode: "direct",
+    rootMode,
     sourceBasis: Object.freeze({ kind: "none" }),
   });
   const steeringDigest = product.sha256Canonical(eventResource);
@@ -415,6 +426,7 @@ export async function constructInstalledStartCall({
     ...(runEnvironmentResourceFactory === undefined ? {} : {runEnvironmentResources:await runEnvironmentResourceFactory({authority,program:resolution.program,workspaceBinding,product})}),
   });
   return {
+    workAuthority: authority,
     call: publicApi.constructInstalledPublicDefinitionCall({
       product,
       installedPublic: publicApi,

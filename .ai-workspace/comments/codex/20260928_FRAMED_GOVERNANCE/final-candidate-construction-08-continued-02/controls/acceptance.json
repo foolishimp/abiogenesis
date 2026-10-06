@@ -1,0 +1,64 @@
+{
+  "status": "ACCEPTED_SOURCE_COMPONENT_ONLY",
+  "decider": "/root Executive",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "closedDependencies": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/freeze.json",
+      "bytes": 1920828,
+      "sha256": "5fc09c57a34ab306cbbe9d8e1a7fa01efa1b1caf7a96d27bee4a12041828908a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/freeze.json",
+      "bytes": 1918499,
+      "sha256": "cc036b4c49f75ecafdff98adff6900ad48445923f8f7118c53336ab6b9e82d33",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-source-assurance-controls-01/review/freeze.json",
+      "bytes": 1329,
+      "sha256": "3d90e4db617f1c3f0892c8377145aa76f1b3864433e97efbdc2419348548c9c0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-freeze.json",
+      "bytes": 381272,
+      "sha256": "883e0472e4abd5b760cb4abfc5fbf2cdbe43a3892ec9ff43c51965a78369f56f",
+      "mode": 420
+    }
+  ],
+  "source": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "bytes": 68281,
+    "sha256": "dc84456dfc0cfd4cd3048cf863d8b4e709e99d6fa43025ff828dd62360babc75",
+    "mode": 420
+  },
+  "finalTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-projection.test.mjs",
+    "bytes": 22568,
+    "sha256": "d98aa4de8b0f77bf63d12f1cde0d9fc4cd227f4928ce1258453ee027a6dd59e4",
+    "mode": 420
+  },
+  "sourceAuthorship": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-realization-01/source-authorship.json",
+    "bytes": 1374,
+    "sha256": "68e2fb7240b051aa172f5cdc2785951a7b1f968fad019e9ef044845873ad6719",
+    "mode": 420
+  },
+  "testSuccessorAuthorship": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-evidence-test-fixture-repair-01/source-authorship.json",
+    "bytes": 2604,
+    "sha256": "d7f981087f6e67ca89d8b34a1e7c5909fb8a9e4d6b101f28632c89abaa649651",
+    "mode": 420
+  },
+  "cause": "Actual ABG admitted transport metadata was discarded before strict Product lineage; projection now conserves required ten fields.",
+  "lawfulReentry": "realization_refactor",
+  "evidence": "One compile6256.711ms and one corrected callback/real-producer/guard regression pass1/1, exact C07 preimage refused, thirteen corruptions per taskform refused, F_Dabsence/null conserved; original failed fixture preserved.",
+  "premiseLimits": "Lower ABG/native raw/prepared-request/construction attribution component premises supplied; actual installed admission/closure and semantic adequacy unproved.",
+  "conserved": "Product/Design/API/guards/raw declaration, other source consumers and original author/pre-post chains retained.",
+  "selectedNext": "Prospective C08 exact1109source inputs then independent construction assurance/actualSetup08/Q10/whole installed thread.",
+  "runtime08": "Preserved stopped/failed; no completion/cold/F11/AF22 credit.",
+  "genuineRelease": "Provider DNS still unavailable; genuine F11/QUAL056/full scenario applicability/greenAF22/publication/sameRCqualification/humanacceptance/remote install remain open."
+}

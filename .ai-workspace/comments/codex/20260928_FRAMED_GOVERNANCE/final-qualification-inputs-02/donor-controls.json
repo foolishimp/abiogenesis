@@ -1,0 +1,178 @@
+{
+  "rows": [
+    {
+      "path": "recipe.mjs",
+      "original": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/recipe.mjs",
+        "bytes": 3442,
+        "sha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68"
+      },
+      "successor": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/recipe.mjs",
+        "bytes": 3442,
+        "sha256": "f8ac502ed8b6868972993cb90a4a1581b7116fad88d3ee2b5646208e44a11f68"
+      },
+      "bytesUnchanged": true,
+      "authorScope": "copy or external input rebind only; inherited semantic authorship not reassigned"
+    },
+    {
+      "path": "recipe-stage.mjs",
+      "original": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/recipe-stage.mjs",
+        "bytes": 1497,
+        "sha256": "1f0fb1cefe4b7b5da2ea0e0a060fb82733efbe03cc9f61d708728108af325f56"
+      },
+      "successor": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/recipe-stage.mjs",
+        "bytes": 1497,
+        "sha256": "1f0fb1cefe4b7b5da2ea0e0a060fb82733efbe03cc9f61d708728108af325f56"
+      },
+      "bytesUnchanged": true,
+      "authorScope": "copy or external input rebind only; inherited semantic authorship not reassigned"
+    },
+    {
+      "path": "compare-generated.mjs",
+      "original": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/compare-generated.mjs",
+        "bytes": 1988,
+        "sha256": "5853d79e35d8be6347caa7f21576450bcc611e23f23cebbe85da4c767426a945"
+      },
+      "successor": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/compare-generated.mjs",
+        "bytes": 1988,
+        "sha256": "5853d79e35d8be6347caa7f21576450bcc611e23f23cebbe85da4c767426a945"
+      },
+      "bytesUnchanged": true,
+      "authorScope": "copy or external input rebind only; inherited semantic authorship not reassigned"
+    },
+    {
+      "path": "test-environment.mjs",
+      "original": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/test-environment.mjs",
+        "bytes": 779,
+        "sha256": "2e578975a7bfe7b89e8c54e55cef3f7da318aa2e40d10572ae69ea54b13e2c15"
+      },
+      "successor": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/test-environment.mjs",
+        "bytes": 779,
+        "sha256": "2e578975a7bfe7b89e8c54e55cef3f7da318aa2e40d10572ae69ea54b13e2c15"
+      },
+      "bytesUnchanged": true,
+      "authorScope": "copy or external input rebind only; inherited semantic authorship not reassigned"
+    },
+    {
+      "path": "test-selection.json",
+      "original": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/test-selection.json",
+        "bytes": 8553,
+        "sha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f"
+      },
+      "successor": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/test-selection.json",
+        "bytes": 8553,
+        "sha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f"
+      },
+      "bytesUnchanged": true,
+      "authorScope": "copy or external input rebind only; inherited semantic authorship not reassigned"
+    },
+    {
+      "path": "config.json",
+      "original": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/config.json",
+        "bytes": 34145,
+        "sha256": "1bc12a49cdf8a8714e56ab590b94b834f690833651c6c67addbbfd9700b3b0b4"
+      },
+      "successor": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/config.json",
+        "bytes": 34145,
+        "sha256": "1bc12a49cdf8a8714e56ab590b94b834f690833651c6c67addbbfd9700b3b0b4"
+      },
+      "bytesUnchanged": true,
+      "authorScope": "copy or external input rebind only; inherited semantic authorship not reassigned"
+    },
+    {
+      "path": "release-claims.json",
+      "original": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/release-claims.json",
+        "bytes": 2228,
+        "sha256": "d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0"
+      },
+      "successor": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/release-claims.json",
+        "bytes": 2228,
+        "sha256": "d17c558671446a2746de076796612380ea9e3dc7b4efef127a4b18b7ce3b4aa0"
+      },
+      "bytesUnchanged": true,
+      "authorScope": "copy or external input rebind only; inherited semantic authorship not reassigned"
+    },
+    {
+      "path": "budgets.json",
+      "original": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/budgets.json",
+        "bytes": 7717,
+        "sha256": "36492bd8ab8b6ce7bf6d9338254cd95ba88c2d949266933c71ae8f8899e238a9"
+      },
+      "successor": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/budgets.json",
+        "bytes": 7717,
+        "sha256": "36492bd8ab8b6ce7bf6d9338254cd95ba88c2d949266933c71ae8f8899e238a9"
+      },
+      "bytesUnchanged": true,
+      "authorScope": "copy or external input rebind only; inherited semantic authorship not reassigned"
+    },
+    {
+      "path": "prepare-subject-binding.mjs",
+      "original": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/prepare-subject-binding.mjs",
+        "bytes": 14332,
+        "sha256": "fd637585b97289a83a1fa970d3f616899a23ef83b9957081f2987cfd08f39062"
+      },
+      "successor": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/prepare-subject-binding.mjs",
+        "bytes": 14458,
+        "sha256": "a18bd86d3056aa4566a618c2aff772d0c56dca827382f27b5ebdba0963a8801e"
+      },
+      "bytesUnchanged": false,
+      "authorScope": "copy or external input rebind only; inherited semantic authorship not reassigned"
+    },
+    {
+      "path": "validate-inputs.mjs",
+      "original": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/validate-inputs.mjs",
+        "bytes": 8092,
+        "sha256": "ef4081fff7bc9082ae220fefc813ac3029a5c51fcf53072731ae83e61ed7ce55"
+      },
+      "successor": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/validate-inputs.mjs",
+        "bytes": 9742,
+        "sha256": "796d760cd7d095c7b7eb202525107df0e194af76e46a66236e54571ce3f81acd"
+      },
+      "bytesUnchanged": false,
+      "authorScope": "copy or external input rebind only; inherited semantic authorship not reassigned"
+    }
+  ],
+  "constructionDonors": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/prepare-inputs.py",
+      "bytes": 11075,
+      "sha256": "626c557755398b89b0c0f4a973a87bc4f96819a8c73ebe6b1d30788f3494ee1d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/complete-inputs.py",
+      "bytes": 4527,
+      "sha256": "374c911a7350a2bfa93f7613a334ec129b1a1775a6f35add6aa1ea50b430ba02"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/bind-far-side.py",
+      "bytes": 17210,
+      "sha256": "9feedefa29dcf9332c8b0ee0960cfd7792484681b7ada0281c9707fcc9ca7bc4"
+    }
+  ],
+  "grant": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-input-controls-02/request.txt",
+    "bytes": 8021,
+    "sha256": "2f44595315f6ffa264b0414b6230cff96ebb03fe50c64b23cca648927bc62d6d"
+  },
+  "newActor": "/root/s03_independent_review",
+  "operation": "successor external inputs only"
+}

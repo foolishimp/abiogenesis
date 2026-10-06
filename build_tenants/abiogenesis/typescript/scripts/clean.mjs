@@ -13,5 +13,4 @@ await Promise.all([
   rm(resolve(root, "contracts/public-operations"), { force: true, recursive: true }),
   rm(resolve(root, "contracts/vocabularies"), { force: true, recursive: true }),
   rm(resolve(root, "product-toolchain-manifest.json"), { force: true }),
-  rm(resolve(root, "test_env/evidence"), { force: true, recursive: true }),
 ]);

@@ -1,0 +1,22 @@
+{
+  "activation": "T287_FINAL_S01_RETAINED_OUTPUT_REVIEW_01",
+  "actor": "/root/f11_attribution_inputs",
+  "status": "CLOSED",
+  "verdict": "LIMITED",
+  "candidateCounterexamplesEstablished": 0,
+  "n04FrozenRecordsIndependentlyVerified": 110,
+  "fullS01CausalAndColdReadConjunctionEstablished": false,
+  "ownerSchemaOrReplayFunctionsExecuted": false,
+  "driverFailurePreserved": true,
+  "rootProbeStatementScope": "Root observation only; no separate frozen raw artifact routed or acquired",
+  "reviewerHarnessFailures": [
+    "Oversized discovery output truncated material context",
+    "Final staged-check process received stdin EOF before check execution"
+  ],
+  "reviewGroupsUsed": 3,
+  "reportWriterFinalization": "Separate own-territory write and hash only; no additional subject proof checks",
+  "nativeCalls": 0,
+  "movingResourceReads": 0,
+  "sourceOrCallerRepairs": 0,
+  "nextAuthority": "Root adjudication; no next activation by this Reviewer"
+}

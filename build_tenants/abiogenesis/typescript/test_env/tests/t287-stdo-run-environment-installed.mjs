@@ -267,7 +267,7 @@ function nativePublications(gtl, abiArtifact) {
   const basis = { productId: abiArtifact.productId, artifactDigest: abiArtifact.artifactDigest,
     productContentDigest: abiArtifact.productContentDigest, productManifestDigest: abiArtifact.manifestDigest,
     packageName: abiArtifact.packageName, packageVersion: abiArtifact.packageVersion };
-  return [gtl.constructHelloWorldModulePublication, gtl.constructConsensusModulePublication,
+  return [gtl.constructConsensusModulePublication,
     gtl.constructWorksiteConstructionModulePublication, gtl.constructWorksiteCommandExecutionModulePublication,
     gtl.constructWorksiteCommandForwardModulePublication,gtl.constructRequirementHandoffModulePublication,gtl.constructSemanticStageModulePublication,
     gtl.constructSemanticRevisionModulePublication,gtl.constructSelfConformanceModulePublication].map(fn => fn(basis));
@@ -288,7 +288,7 @@ test("STDO environment installed public invocation and fresh replay", async t =>
   await assert.rejects(() => lstat(harnessScratch), { code: "ENOENT" });
   const harness = await setupInstalledCliHarness({ after() {} }, packageRoot, {
     candidateBasisSource: "packed_artifact", scratchPath: harnessScratch,
-    rootPublicationKinds: ["hello_world"],
+    rootPublicationKinds: ["worksite_construction"],
   });
   installedHarness = { ...harness, scratch: join(outputRoot, `attempt-${attempt}`) };
   await assert.rejects(() => lstat(installedHarness.scratch), {code:"ENOENT"});

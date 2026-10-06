@@ -1,0 +1,82 @@
+{
+  "status": "ACCEPTED_BOUNDED_CONSTRUCTION_ONLY",
+  "decider": "Root Executive",
+  "recordingRole": "T287_C07_ACCEPTANCE_AND_NEXT_EFFECT_SELECTION_01",
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-freeze.json",
+    "bytes": 381272,
+    "sha256": "883e0472e4abd5b760cb4abfc5fbf2cdbe43a3892ec9ff43c51965a78369f56f",
+    "mode": 420
+  },
+  "independentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-independent-review-controls-01/review/freeze.json",
+    "bytes": 1852,
+    "sha256": "6cc20b383db37ce1d082defca182167fc8567abcfb66d6fcd8db139081f48645",
+    "mode": 420
+  },
+  "RootVerified": {
+    "namedUniqueRecords": 15728,
+    "namedPopulationPins": "all match",
+    "directoryModes": 1930,
+    "archiveBodies": 5258,
+    "reviewReportRecords": 5,
+    "reviewBytes": 90548,
+    "broaderTerritoryPartition": {
+      "excludedScratchNodeCacheFiles": 593,
+      "separatelyPinnedDependencyArchives": 16
+    },
+    "payloadDiscrepancies": []
+  },
+  "currentCandidate": {
+    "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-install/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:4f868f2839da72718cb6809ed15ac1c224fc0d29f31ec113eef37d32190df3b6",
+      "productContentDigest": "sha256:5ba7ecd89da845d556cf830c4bae6ceaf5f34a27f921f0998a3cf4d56626cc3a",
+      "manifestDigest": "sha256:c3070a8f153cb0550d6962d4a5aa15fa4a617242b04678f5318a2fc07a30cfe6",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "catalogDigest": "sha256:b7478dd735a8f74088c2423e59b66182a165376abcf220811a54b19a2254d1ae",
+  "sourceInputs": 1108,
+  "generatedOutputs": 926,
+  "generatedChanged": 3,
+  "sourceAssurance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-raw-contract-source-assurance-controls-01/review/freeze.json",
+    "bytes": 1919,
+    "sha256": "5067d27eb138681222bd8a0a63d1cc369aabe4ff6abb901c018a4d536b1b5e93",
+    "mode": 420
+  },
+  "wrapperArchive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/fixture-artifacts/abiogenesis-fixtures-f11-carrier-child-5.0.0.tgz",
+  "unmodifiedWrapperRequiredContracts": 3,
+  "unmodifiedWrapperRequiredBodies": 308,
+  "currentCapabilityRows": 16,
+  "currentOwnerCoordinates": 196,
+  "prospectiveRC": true,
+  "qualificationOrPublicationAccepted": false,
+  "nextSelected": {
+    "Setup07Grant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-install-and-input-controls-01/setup-request.txt",
+      "bytes": 3421,
+      "sha256": "2a8ee74f40f2be30476c39a49cd954b7eb5e9d91f41680c84ff27b3258d57e6c",
+      "mode": 420
+    },
+    "GeneratedCorrespondenceGrant": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-generated-reconciliation-controls-03/request.txt",
+      "bytes": 2508,
+      "sha256": "1554eb91154af9c550fd607aedc74d8062610938f786ba4477e08befa690a141",
+      "mode": 420
+    }
+  },
+  "residuals": [
+    "actual new Public environment/admission/binding",
+    "current Q09 bound inputs",
+    "whole installed native raw/J/foldback/threecompletedRuns/sixcoldreads",
+    "genuineF11/QUAL056",
+    "complete exact candidate scenarios",
+    "greenAF22/release/actualowneracceptance/remoteinstall"
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:9a1faba999522ed2e7813e7d4c7cbff960c665a8b9c1700d890d4d0fffd6f2dd",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:7c2c17a8e0bda71644ee57576217644b4648c4823b522c8bf56ddd91bb4e6c5a",
+      "prefixLength": 2498379,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 465155422
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:d4b0700233e44b29d3c714b0f713ac75f4d846e5cbf3246c5c6dda7a894906f3",
+      "device": 16777230,
+      "durableByteLength": 2498379,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:7c2c17a8e0bda71644ee57576217644b4648c4823b522c8bf56ddd91bb4e6c5a",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-10/resources/events/runtime.events.jsonl",
+      "inode": 465155422,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "calls": [
+    {
+      "label": "workspace",
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.create",
+        "memberKey": "clean"
+      },
+      "invocationRef": "invocation://abiogenesis/80c4e6b11e5726b054661989f9e7b76bf872bdf0272fe67e8924ba9815beab9a",
+      "outcomeKind": "result",
+      "elapsedMs": 12194.344165999999,
+      "processFailure": null
+    },
+    {
+      "label": "verify-core",
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "invocationRef": "invocation://abiogenesis/fcf47b4d3338184d5e5d5b7a5a740a210c3bc527b71d6e94f687bdce21196f57",
+      "outcomeKind": "result",
+      "elapsedMs": 24424.616083999997,
+      "processFailure": null
+    },
+    {
+      "label": "verify-fixture",
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "invocationRef": "invocation://abiogenesis/7499892a7d8cde910d9dfbe9a9a295b9e854cc3e877849d3de74c16b6a49ccf9",
+      "outcomeKind": "result",
+      "elapsedMs": 12958.534082999991,
+      "processFailure": null
+    },
+    {
+      "label": "resolve-singleton",
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "invocationRef": "invocation://abiogenesis/d250e04e3ede81efbd4d54786366610a17be3cc452520072faac09c4a7ad38a6",
+      "outcomeKind": "result",
+      "elapsedMs": 16574.484500000006,
+      "processFailure": null
+    },
+    {
+      "label": "resolve-mixed",
+      "definitionKey": {
+        "operationId": "abg.operation.product.resolve",
+        "memberKey": "resolve"
+      },
+      "invocationRef": "invocation://abiogenesis/2d4b428088cc5055ef85fc68a75668f00ad460bbd76a2b8501442fd370b8e9bb",
+      "outcomeKind": "result",
+      "elapsedMs": 16687.844041999997,
+      "processFailure": null
+    },
+    {
+      "label": "install-core",
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "invocationRef": "invocation://abiogenesis/33291102f5d69b8fa738e252d39125f91074b1fb932f1bafcc846b733c82db5c",
+      "outcomeKind": "result",
+      "elapsedMs": 28177.85945799999,
+      "processFailure": null
+    },
+    {
+      "label": "install-fixture",
+      "definitionKey": {
+        "operationId": "abg.operation.product.install",
+        "memberKey": "install"
+      },
+      "invocationRef": "invocation://abiogenesis/1d03b1029d6bba207b9e6bc5a86b55abaeb8687930e09b3e2259a72beafad305",
+      "outcomeKind": "result",
+      "elapsedMs": 16221.062082999997,
+      "processFailure": null
+    },
+    {
+      "label": "bind",
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.bind",
+        "memberKey": "bind"
+      },
+      "invocationRef": "invocation://abiogenesis/38d5ecad62fb4d615f92cd0e11a868eaf7f0fc98657f029ea6019a1e9683c61d",
+      "outcomeKind": "result",
+      "elapsedMs": 13175.771458000003,
+      "processFailure": null
+    },
+    {
+      "label": "catalog",
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.admit",
+        "memberKey": "admit"
+      },
+      "invocationRef": "invocation://abiogenesis/fc199f86c19311ccd49951f7e71e4f64f9b0a501977bebc020ff281accdd8b97",
+      "outcomeKind": "result",
+      "elapsedMs": 19239.519249999983,
+      "processFailure": null
+    },
+    {
+      "label": "catalog-view",
+      "definitionKey": {
+        "operationId": "abg.operation.catalog.view",
+        "memberKey": "allowlist"
+      },
+      "invocationRef": "invocation://abiogenesis/5a12cda53169fedc8ffafca5bc1b6a6ecb17c6e6683908e8abaa0072fb46d297",
+      "outcomeKind": "result",
+      "elapsedMs": 13382.870332999999,
+      "processFailure": null
+    },
+    {
+      "label": "conformance-assess",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/cc42756f90ba029f4dc7052be6794efc9a328afa21f2f9a9954504ab04a69b57",
+      "outcomeKind": "result",
+      "elapsedMs": 13617.73895900001,
+      "processFailure": null
+    },
+    {
+      "label": "conformance-exact-candidate",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/caa8cf260e809b5e762f0468864e4ed9bd11b458b192806055bbd99190d39e3a",
+      "outcomeKind": "result",
+      "elapsedMs": 13649.857749999996,
+      "processFailure": null
+    }
+  ]
+}

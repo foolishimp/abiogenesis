@@ -1,0 +1,12 @@
+{
+  "failure": "Retained negative pure projection returned invalid_history: no-action input did not join gap basis",
+  "actual": "All basis identity, digest, chronology, gap and obligation checks agree; admitted deterministic inputDigest equals basis result valueDigest. next.outcome.cCall.inputContractRef is absent from the event-envelope reconstruction.",
+  "frames": {
+    "ProductDesign": "No change to required admitted handoff or owner split",
+    "IdentityLifecycle": "Exact basis result ordinal539/judgment543 precede next opening549; input digest binds actual body",
+    "OwnerIntegration": "C-call open/fibre events omit contract fields; existing admitted implementation-set owner owns the selected input/output contract relation",
+    "Proof": "First actual immutable-prefix component execution exposed a consumer-field assumption before native effects; typechecking cannot establish event-envelope completeness"
+  },
+  "repair": "Rehydrate the existing implementation set and bind unique requirement/binding/implementation/graphFunction row. Use its actual input contract, not an absent copied C-call field. Remains within project_read_ports.ts.",
+  "reproof": "Complete component output plus missing/crossed source cases; no change to fixture, oracle, existing history or public transport"
+}

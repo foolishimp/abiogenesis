@@ -1,0 +1,21 @@
+CLOSED C08 construction Worker T287_RC1_SUCCESSOR_CONSTRUCTION_08 returns one prospective pre_rc_candidate. Fixed15/GOAL035/T287/STDO2.5.1RC2. This is physical construction readiness, not qualification, publication or ABG installation.
+
+Exactly1109 selected inputs:1106 inherited C07 bodies, accepted admitted-result lineage projection and Root tracking replacements, plus one new named regression test. Complete original source authors/preimages/C03-C07 chains are retained; builder is not the source author. Source-cut f131c687fbae3be7cf0cbb4ee340def5d4a328de0716e883d4be08d471b5c18c; source-freeze ccb2822c1c0608507db74648089df1777ba5898244e6e73b8d1441dee43bfb41. No moving Source or source repair.
+
+One accepted offline build/pack/physical bootstrap install uses frozen C07 Node24.7/npm11.5.1/TS5.9.2 and16 locked archives. Exact Definitioneafbb85e/RC2manifest3d860ff4/52members aggregate2f54671d verify. Twelve historical aliases remain original inputs; current RC2 authority outputs are separately generated. Current C07 schema seeds are derived dependencies.
+
+All ten supervised commands passed; no source/Hello/extra suites were repeated. Actual926 generated outputs/3 changes from C07: abg/c_call_outcome.js, contracts/capabilities/capability-definition-graph.json, manifest. Actual95 authority joins/2137rule spans/16claims/66behaviors passed. Complete source/law/generated/archive/install correspondence and actual mode census are retained. Only two declared CLI files change0644 to0755 in bootstrap install; ./ locators normalize to actual paths.
+
+Archive /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz
+Archive digest sha256:9e43cf3cb8dda866f5000bdfdc81edee62f37967b35e6e0dd215122a83e068f9; 10428209bytes/5258members.
+Bootstrap package /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-install/node_modules/@abiogenesis/typescript-tenant
+Product sha256:d0908dd3fa241700e16b9696a1809d9147f52b6a39c2b09dfa78bffa7f1d1754
+Canonical manifest sha256:973a02915bafe19e22c95b047bbeb6a87356496b46a55d72b19a77fe768b6f7c
+Catalog sha256:b7478dd735a8f74088c2423e59b66182a165376abcf220811a54b19a2254d1ae
+Installed ProductVerificationPort and same-process owned nominal selection passed; all11 actual publication constructors/validation/manifest bindings passed. Measured 11 of 11 semantic publication digests changed under the actual Product basis; qualification's accepted raw-result publication is retained. Actual complete catalog equality is True; 61 current rows/37 native rows. All emitted declaration/schema/interface bodies remain exact. final-semantic-identity-delta.json measures these facts without assuming predecessor equality.
+
+Unchanged USTAR wrapper943dd228/fixture3362ff72 retains historical C03 guards. Against actual PACKAGED C07, all3 required full contract rows/308bodies and37native rows are conserved. The unchanged existing constructor rederives all16 capability rows from the actual new catalog and verified definition slots, preserving196 owner selector identities and measuring196 changed Product coordinates. No wrapper repack or actual Public locks/binding/catalog/Run/setup occurred.
+
+Ten actual command intervals 41.371s; preparation 2.494s, correspondence and report costs are separate. Default heap/HOME unchanged, no timeout, all known PID/PGID groups absent after owned waits. Individual npm descendants are not enumerated. One distinct comparison outcome/receipt; no build/pack/install retry. Prior immutable metadata and exact old store stat identities remain unchanged; accepted old population assurance is reused.
+
+Worker CLOSED; all writes STOP after final-freeze. Root alone accepts. Independent C08 assurance and separately granted actual Setup08/current Q10/whole installed wrapper-child raw admission/J/foldback/RunClosed/six fresh reads/F11/sole truthful non-green AF22 remain next. C07/Q09/failedRuntime08 stay exact. Genuine F11/QUAL056/18commands/scenarios/greenAF22/release remain open; no new provider/network claim follows.

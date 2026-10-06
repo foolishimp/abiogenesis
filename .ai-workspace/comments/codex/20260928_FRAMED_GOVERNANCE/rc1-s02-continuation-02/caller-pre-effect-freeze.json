@@ -1,0 +1,194 @@
+{
+  "status": "frozen_pure_ready_no_native_effect",
+  "activation": "T287_RC1_S02_CONTINUATION_02",
+  "frozenAt": "2026-10-01T15:57:10.353641+00:00",
+  "records": [
+    {
+      "path": "budgets.json",
+      "bytes": 1455,
+      "sha256": "116774cc430905a55c58ab14f7f543a9076a663c43601fc8251ff11a0c49d398"
+    },
+    {
+      "path": "config/global.gitconfig",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/system.gitconfig",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "dependency-preimages.json",
+      "bytes": 7130,
+      "sha256": "7230afe590edf7c08d26f318209932dd4aceac527b40286971e4bd3fe989b6a5"
+    },
+    {
+      "path": "driver.mjs",
+      "bytes": 7272,
+      "sha256": "ba795c63c62efad9df8e9a0a527a32ba5951552369e33aed4c6a4ade670ee723"
+    },
+    {
+      "path": "initial-handoff.json",
+      "bytes": 1332,
+      "sha256": "b779ce76a052a0e10f4be5a7a9851d739f6e2831f8ad5aa79076671bb56e7e50"
+    },
+    {
+      "path": "initial-native-prefix.jsonl",
+      "bytes": 2701191,
+      "sha256": "c4c1c28232cd3a89d7233a03485c113e2f2df0c76d7a9432ca9d610c56c2aa90"
+    },
+    {
+      "path": "live-product-verification-timing.json",
+      "bytes": 31,
+      "sha256": "18c4acdd41e746f641e34fffa42d349acc6ed189cf277efbcc1ebb9579ac5c1e"
+    },
+    {
+      "path": "live-product-verification.json",
+      "bytes": 13240749,
+      "sha256": "73abadb8e051a7eab074d8f6da5256d41d1e5923525a881f286fe8b4c035baca"
+    },
+    {
+      "path": "native-launch-ready.json",
+      "bytes": 9518,
+      "sha256": "0f664f734c4423a398277da5a1414b28d046883f2684a03a30d4c146ddd0513d"
+    },
+    {
+      "path": "observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "bytes": 15952,
+      "sha256": "c4fd6eb8cff883ca4eae0abf0b2cb02a74bd46133ec0aa9953c3e4042e996a38"
+    },
+    {
+      "path": "original-cut-conservation-preflight.json",
+      "bytes": 21313,
+      "sha256": "2a74512db5948af8ebeb1d1392d0acce1009974e6b0a4939fda5b9c00cc87edf"
+    },
+    {
+      "path": "owner-checks.mjs",
+      "bytes": 9522,
+      "sha256": "6c2782a257f84eb1dc6f899d233953cbc4d4e4cb4a36220c7f1d8a5ff0d934bb"
+    },
+    {
+      "path": "pre-effect-construction-record.json",
+      "bytes": 1831,
+      "sha256": "e6ebea810efd5245a6d49bbd2e257955e50dc33e1294cb0c9e376881a6fa7ae5"
+    },
+    {
+      "path": "preflight-budget-result.json",
+      "bytes": 82,
+      "sha256": "9b85c3d18eff4adaf695ea2068b77e245e75cd3e7e725c477e9fffeaf86f5f6f"
+    },
+    {
+      "path": "preflight.mjs",
+      "bytes": 5564,
+      "sha256": "d7c96e5673f2c75e76c3b36805dc12972249ffba2db5179add6ff01c0c64d7eb"
+    },
+    {
+      "path": "prospective-cases.json",
+      "bytes": 7042,
+      "sha256": "0fcaeb83394dc15e20e9846a5b1b079055a4257d46415fd310901f57cdd825e2"
+    },
+    {
+      "path": "public-support.mjs",
+      "bytes": 8948,
+      "sha256": "2027f3ca8b7246f94a16e780911d76275b9f08db61fede54f32ee3f6b0591254"
+    },
+    {
+      "path": "pure-preflight.json",
+      "bytes": 467524573,
+      "sha256": "69a5cc6ec76f522f5ada9ede1942e146b9162f07ee19055deb1752729340fce0"
+    },
+    {
+      "path": "resource-plan.json",
+      "bytes": 589,
+      "sha256": "fd26b80762e9ead15efbe22283ab86c17a454808e1a99d7eeae9b6b41dca79c8"
+    },
+    {
+      "path": "runtime-environment.json",
+      "bytes": 1190,
+      "sha256": "3ff13f93d2f0e70539c99c4536ab48add6608d2bc085373a73276f7c1e7b0aaf"
+    },
+    {
+      "path": "s02-authorization-0.json",
+      "bytes": 13387529,
+      "sha256": "9526c2c3be050fa2bcb886f81aa8f1cb7814f042bef6c4a7faabcafdde5ed881"
+    },
+    {
+      "path": "s02-authorization-1.json",
+      "bytes": 13387530,
+      "sha256": "c1543a54fc4dfa96a4d60f031eb72c1f4c3f19a371ce90681beff619c01d5d3a"
+    },
+    {
+      "path": "s02-authorization-2.json",
+      "bytes": 13387526,
+      "sha256": "b8395d11a42c151c73819a66bfb69836bde0dce9a9533999ad7d7d0601d94474"
+    },
+    {
+      "path": "s02-authorization-3.json",
+      "bytes": 13387533,
+      "sha256": "146857758b756a1707a00591f6752cfabf84a043972d2951c42dececf60d564b"
+    },
+    {
+      "path": "s02-authorization-4.json",
+      "bytes": 13387529,
+      "sha256": "9bd0eaba9550caa9b443df0e6aec207f3e2207eff41b28f4fa9917a8ea415f10"
+    },
+    {
+      "path": "s02-initial-physical.json",
+      "bytes": 1240,
+      "sha256": "446599aacd9f5d2340565a4c79d2cb36151667e678336a2fb1e8b8d6064c0c42"
+    },
+    {
+      "path": "scenario-oracles.mjs",
+      "bytes": 5777,
+      "sha256": "928d8751dbacaf626a0939751ac45a174a81628fc15ff036d16acc9eb2a377c2"
+    },
+    {
+      "path": "selected-core.json",
+      "bytes": 1279,
+      "sha256": "eb152956e8f3500c2da49dc550c5fddc3e979a385e2d446065f1cad37f5351a2"
+    },
+    {
+      "path": "supervise-driver.py",
+      "bytes": 1890,
+      "sha256": "c11af8294b1f485e5c5a5df492eeff85ecd25c8c13f6ddc7586253f6e336c188"
+    },
+    {
+      "path": "syntax-checks.json",
+      "bytes": 1077,
+      "sha256": "c192827cb6ded387d2de43b40d9f8925ac73d574d07c51d3141c831e3f097763"
+    },
+    {
+      "path": "union-oracle.mjs",
+      "bytes": 8688,
+      "sha256": "d80e5bbf11ae925d3b63fe764a680fe2fa023166e618c7a2a47ffdb429a79c4c"
+    },
+    {
+      "path": "worker-activation.json",
+      "bytes": 1601,
+      "sha256": "23d1c74f422e22534e81529943f959a770dc0c45e44af93e2d2fb1406e259d23"
+    }
+  ],
+  "recordCount": 36,
+  "sourceIndependentOraclesFixed": true,
+  "allNineSelectedClosuresFD": true,
+  "nativeOperationCount": 37,
+  "nativeEffects": 0,
+  "providerCalls": 0,
+  "modelCalls": 0
+}

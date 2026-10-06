@@ -1,0 +1,164 @@
+{
+  "status": "FROZEN_CONTROLS_BEFORE_SINGLE_LAUNCH",
+  "records": [
+    {
+      "path": "budgets.json",
+      "bytes": 1011,
+      "sha256": "95ddd68705abe1eecfbe344b61683ab5e6449b0dbac4bff8abe330449914c4e1"
+    },
+    {
+      "path": "config/global.gitconfig",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/system.gitconfig",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "construction-observation.json",
+      "bytes": 977,
+      "sha256": "35f27dde7c65e53546a8f8d73610816701e357d6a1e8bba4c571a088f61f3a31"
+    },
+    {
+      "path": "control-authorship.json",
+      "bytes": 2894,
+      "sha256": "e9ba45f7164ad0f6397d117a669dfb6ae01dd592877eb6c0c7f6700a61d125d5"
+    },
+    {
+      "path": "control-deltas.patch",
+      "bytes": 21947,
+      "sha256": "8572693e2fca16cd1a21416fe0f746b372f4258809233be2f5f81e131c94224f"
+    },
+    {
+      "path": "donor-preimages.json",
+      "bytes": 4417,
+      "sha256": "36cd953be0a70416db31a6819b05324af9568e85c235a62d23ec4572e81f9774"
+    },
+    {
+      "path": "driver.mjs",
+      "bytes": 14926,
+      "sha256": "6b133ac3285564a7f2e9c1ff9d27338cae341412b004e24bf78b3bdcdc803473"
+    },
+    {
+      "path": "initial-identity-verification.json",
+      "bytes": 2593,
+      "sha256": "d39e497c6548b3d957124abdd341d621228581c27214e919fb722d547f987f5b"
+    },
+    {
+      "path": "input-joins.json",
+      "bytes": 2260,
+      "sha256": "6664fece8c6c619f0975a30ec3eb99afcfc421105c78de04c6811b9736175e3e"
+    },
+    {
+      "path": "launch-once.py",
+      "bytes": 2237,
+      "sha256": "f6e69068f1518565089804f8b169b25a65cf572d6db1608007edf2587d756c8c"
+    },
+    {
+      "path": "observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "bytes": 14670,
+      "sha256": "fa004e9f812e6214b53294dc38530b857d7527bc3a1a2d64e469d260ac1b4023"
+    },
+    {
+      "path": "pre-effect-conservation.json",
+      "bytes": 918,
+      "sha256": "3257d34ac34a1c2f5eace9611b7f7c46dc34d932477f8eb231bb7b7454aae5e4"
+    },
+    {
+      "path": "preflight.mjs",
+      "bytes": 7689,
+      "sha256": "29896fbccb5c543e3c28d0dbf1bb2a12b7af3b381340194261884a930b421dce"
+    },
+    {
+      "path": "preimages/driver.mjs",
+      "bytes": 13936,
+      "sha256": "590ceb00294de7314e577c7828db8b0b34c87f8288f8a20d8a7f63f6258b594f"
+    },
+    {
+      "path": "preimages/launch-once.py",
+      "bytes": 2155,
+      "sha256": "3a374c28be9721094b44831663297db00e21a1400a7d9b46aae53672135d1377"
+    },
+    {
+      "path": "preimages/observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "preimages/ordinary-caller.mjs",
+      "bytes": 14670,
+      "sha256": "e8b685a9584da270c7718d79b6fd255da98fa8dc1b03727c789ed6d7ccebc3a5"
+    },
+    {
+      "path": "preimages/preflight.mjs",
+      "bytes": 5191,
+      "sha256": "dd70629d0388a927f2df63a83624e928c37637f5df0c615c541ed6d87a9d7ba3"
+    },
+    {
+      "path": "preimages/public-support.mjs",
+      "bytes": 9066,
+      "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+    },
+    {
+      "path": "preimages/strict-publication-donor.mjs",
+      "bytes": 3801,
+      "sha256": "4f9f51f222e5e9da24b55f748bcf5a8dfd1c6732450fd75357c4a961874cd15b"
+    },
+    {
+      "path": "prepare.py",
+      "bytes": 10639,
+      "sha256": "32449829df3bcb1ccf1c1d02148114523335212ae6ae6fbfaad293f9fbbec9ee"
+    },
+    {
+      "path": "prospective-cases.json",
+      "bytes": 1044,
+      "sha256": "2d80decbac0065250e8d75413d2e9999a55712641ebcd927ce55daada1cd0408"
+    },
+    {
+      "path": "public-support.mjs",
+      "bytes": 9066,
+      "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+    },
+    {
+      "path": "resource-plan.json",
+      "bytes": 1075,
+      "sha256": "649b56f5b0dba55c34683d8edcff078edb41e6eb13f6ef55273255dc3e9ce0d7"
+    },
+    {
+      "path": "runtime-environment.json",
+      "bytes": 1151,
+      "sha256": "27d570ab833d7abaab4853c3468786c30834ab582f8c6c45af7928166a309914"
+    },
+    {
+      "path": "selected-core.json",
+      "bytes": 1261,
+      "sha256": "fc659ef56d13a53b7e127e4fdac184f72dca97af4700f76b0567b7d5b765a1f1"
+    },
+    {
+      "path": "worker-activation.json",
+      "bytes": 1700,
+      "sha256": "21c59a7b29a3c7081bbf78d97c74d173e240248bf073338b4e59c4d2a44dac3c"
+    }
+  ],
+  "nativeCalls": 0,
+  "resourceCreated": false,
+  "newResourcePlan": "resource-plan.json",
+  "nominalAndFull11": "Performed within single driver before ordinary calls; no JSON verification authority"
+}

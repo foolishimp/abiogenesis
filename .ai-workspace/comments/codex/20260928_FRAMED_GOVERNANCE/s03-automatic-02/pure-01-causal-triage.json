@@ -1,0 +1,14 @@
+{
+  "failure": "Pure retained-positive assertion: evaluationBasis.constructionIntent differs from stored nested event intent by admissionEventRef",
+  "support_sha256": "4148d04ffc7298e259acf6569288bc5f81c85918e7949f5d93ffcc2b7ca5e6ad",
+  "product": "Fixed observation/correction oracle unchanged; no different domain outcome",
+  "design_owner": "constructionIntentFromEvent in traversal_route.ts:2222-2257 verifies the stored intent identity and returns an admission enriched with admissionEventRef=event.eventId; evaluateAction basis consumes that admitted object at line2150",
+  "integration_identity": "Stored serialized constructionIntent and projected ConstructionIntentAdmission are distinct related carriers; the new equality check incorrectly required byte equality across enrichment",
+  "lifecycle_effect": "Read-only check of retained353-event prefix; no runtime resource acquisition, append or caller dispatch",
+  "proof_escape": "New strengthening did not yet express the owner enrichment; prior pure fixture candidates omit actual owner admission",
+  "supported_frontier": "Observer equality construction in the same authorized evidence-consumer cone, not runtime or fixture defect",
+  "repair": "Require exact evaluation-basis intent equal to {...storedIntent,admissionEventRef:selectionEvent.eventId}; verify nested intent digest separately",
+  "owner_reentry": "Current Worker; realization_refactor within support/test grant",
+  "uncertainty": "Later oracle assertions remain unexecuted until corrected complete pure check",
+  "retry": "Pure retained-prefix assertion only; native still held"
+}

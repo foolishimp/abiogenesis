@@ -1,0 +1,67 @@
+{
+  "operation": "T287_GENUINE_REFERENCE_ASSESSMENT_01",
+  "status": "FROZEN_FIRST_PREREQUISITE_FAILURE",
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_REFERENCE_ASSESSMENT_01/return.json",
+    "bytes": 3795,
+    "sha256": "ef806c5d6444f77eb8e37bf57ba23a5059577ff7085371ebc431f694a535197f"
+  },
+  "workPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_REFERENCE_ASSESSMENT_01/grant.md",
+      "bytes": 10599,
+      "sha256": "943fffe6a68428b06bda7c556b37089359849311d6baeb20055cbaded770f80f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_REFERENCE_ASSESSMENT_01/activation.json",
+      "bytes": 785,
+      "sha256": "d7964152db99695312b527f20b7150e440489aeda405ba160dfdfd2f253bf355"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_REFERENCE_ASSESSMENT_01/prerequisite-observation.json",
+      "bytes": 748,
+      "sha256": "49621bba0c19fc326b7aea0238876461abad2d2e38dfef5fa2b00597d48a80be"
+    }
+  ],
+  "unchangedSourcePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 82296,
+      "sha256": "9b6b1ec6e0489455fb3aeadc3ebcbaf93459cf5a0cb65db13215c683a3e996e8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "bytes": 63484,
+      "sha256": "8f92906d0fd7e2ecc36fbfbe0795bd582f561448d0ffd4a0bc4ab4bfecec099c"
+    }
+  ],
+  "unchangedArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10644849,
+    "sha256": "89b3dfde55e46c4e269b85ecf1671807fd10cac0371313220f9a03a078537e8a"
+  },
+  "unchanged109Prefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/resources/events/runtime.events.jsonl",
+    "bytes": 5302352,
+    "sha256": "f421f60d58bb6b9993180494fb230fff40a9733290b52d03bea6ab65c086011a",
+    "device": 16777231,
+    "inode": 465602484,
+    "events": 109
+  },
+  "latestGenuineHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_FRESH_CONSERVATION_READ_REPAIR_01/read-af22-run_replay-handoff.json",
+    "bytes": 1259,
+    "sha256": "dfd99cf9eb4e1aa57582e67e0da00306f5caea03ecf3e0dfc85f51fe1af06416"
+  },
+  "effects": {
+    "canonicalSourceWrites": 0,
+    "packageCopies": 0,
+    "compileRepackInstallCalls": 0,
+    "newRuntimeEvents": 0,
+    "newProviderModelCalls": 0,
+    "newActors": 0,
+    "runtimePrefixAppendedBytes": 0,
+    "ownedLongRunningProcesses": 0
+  },
+  "freezeRule": "Stop; preserve stopped01 grant and reports; actual CLI must only be selected by exact Root successor"
+}

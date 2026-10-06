@@ -1,0 +1,59 @@
+{
+  "operation": "T287_Q11_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "status": "CLOSED",
+  "disposition": "NO_GO_INPUT_PREPARATION_ONLY",
+  "closedAt": "2026-10-03T01:59:59.198359+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11/freeze.json",
+    "bytes": 867975,
+    "sha256": "827d5cbb98b5d68acb9af7da791f2173cb4f086f2fbd9a50bb3d047c051c76e5",
+    "mode": 292
+  },
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/review",
+  "rootMode": 493,
+  "records": [
+    {
+      "path": "a_c.literal",
+      "kind": "file",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 420
+    },
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "bytes": 744,
+      "sha256": "fb9ce59d9212551d5fbadd2867921a82bc223c361e97af6fc3d8e0d8d19fa7d2",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "kind": "file",
+      "bytes": 970,
+      "sha256": "6414738e7a52068d58e5d0ab4f9228bd1536f8a883e489ab7a85239a0537dd14",
+      "mode": 420
+    },
+    {
+      "path": "pins.json",
+      "kind": "file",
+      "bytes": 24910,
+      "sha256": "ac1733a7bfac8805074355eca12d4bd717b38f8a258a016cc845ec452883dd03",
+      "mode": 420
+    },
+    {
+      "path": "report.md",
+      "kind": "file",
+      "bytes": 4920,
+      "sha256": "b24477eb921928d03dbacca02073302e675f58578146dfce043804496700fb15",
+      "mode": 420
+    }
+  ],
+  "regularRecords": 5,
+  "regularBodyBytes": 69657,
+  "links": 0,
+  "sourceOrRuntimeEffects": false,
+  "independentSemanticAssessment": false,
+  "qualificationOrReleaseAcceptance": false,
+  "frozenReportsExcludeFreezeItself": true
+}

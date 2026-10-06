@@ -1,0 +1,200 @@
+// Acquired pure test declarations only. Native admission and execution stay with ABIogenesis.
+// Donor provenance is recorded in retirement.json; this module performs no donor I/O.
+const exactlyOne = (rows, label) => {
+  if (rows.length !== 1) throw new TypeError(`requires one ${label}`);
+  return rows[0];
+};
+
+const stageRef = name => `stage://odd-glc/generic-lifecycle/${name}@5`;
+
+const graphRef = name => `graph-function://odd-glc/generic-lifecycle/${name}@5`;
+
+const commonRubric = [
+  ["source-faithfulness", "Compare every material statement with the complete source and admitted predecessors. Cite exact source quotations; expose lost or weakened meaning."],
+  ["modality-and-conflicts", "Preserve normative, supporting, speculative and conflicting meanings, unresolved pressure and owner rulings."],
+  ["obligation-conservation", "Conserve source-grounded requirements and paired realization/proof obligations. A name, count or model assertion is not evidence."],
+  ["bounded-claim", "Assess this stage only. Distinguish construction readiness, observed behavior and remaining application obligations; do not infer release or full application closure."],
+];
+
+export function constructNativeLifecycleDeclaration({ gtl, product, ids }) {
+  const native = gtl.SEMANTIC_STAGE_IDS;
+  const rows = [
+    { name: "intent", kind: "IntentAsset", predecessors: [], capabilities: [], content: [
+      "Derive the requested outcome, users, constraints, ambiguities and source roles from the entire ordinary job. Do not invent solved requirements or implementation facts." ] },
+    { name: "product", kind: "ProductDefinitionAsset", predecessors: ["intent"], capabilities: [], content: [
+      "Define the application-subject behavior and boundary from the source and assessed Intent. This is not a new builder Product, Program or runtime." ] },
+    { name: "requirements", kind: "RequirementSetAsset", predecessors: ["intent", "product"], capabilities: ["requirement_refinement"], content: [
+      "Derive all material requirements with exact source quotations and meaningful requirement candidates. Instantiate the allowed proof templates as paired realization/proof binding candidates; do not assume receipt of input makes requirements ready.",
+      "Preserve unresolved and unimplemented obligations. Every selected behavior needs meaningful realization, verifier-artifact, verifier-execution and independent semantic-assessment pressure." ] },
+    { name: "design", kind: "DestinationTopologyAsset", predecessors: ["intent", "product", "requirements"], capabilities: ["worksite_design"], content: [
+      "Design from the admitted actual context, active assessed bindings and complete prior assets. Choose necessary relative artifact paths, roles, dependencies, commands and outcome predicates within the explicit owner bounds.",
+      "Use the supplied execution-capacity projection for the complete command and probe plan. Choose warranted bounds and grouping that preserve every source obligation; do not lower a timeout merely to pass a guard. If required capacity is insufficient or unknown, retain that pressure and set dependencyDisposition to unknown instead of claiming executable readiness.",
+      "Preserve existing valid work; create no assumed layout or fabricated observations. Distinguish missing dependencies from future execution proof. Bind every target to active obligation and binding-version coordinates.",
+      "Include governing, design, verifier and execution-plan artifacts when the source requires them. Tests must exercise the actual constructed application. Native execution supplies results; no prewritten success report is evidence." ] },
+    { name: "evidence", kind: "EvidenceBindingAsset", predecessors: ["intent", "product", "requirements", "design"], capabilities: ["application_assessment"], content: [
+      "Compare exact admitted construction artifacts and native command/predicate observations with the independent evaluation criteria and complete governing source. Do not run tools or invent missing evidence.",
+      "Keep realization, verifier artifact, verifier execution and semantic assessment distinct. Report supported behavior and residual obligations; application coverage remains non-closing." ] },
+  ];
+  return gtl.constructSemanticJobLifecycleDeclaration({
+    kind: "semantic_job_lifecycle_declaration", schemaVersion: "5.0.0", declarationRef: ids.lifecycleDeclarationRef,
+    intakeGraphFunctionRef: graphRef("intake"), sourceRoleRef: native.jobSourceContextRoleRef,
+    bounds: { maxSourceMembers: 32, maxSourceBytes: 1048576, maxContextFiles: 1024, maxContextBytes: 4194304, maxTargets: 64, maxCommands: 32 },
+    proofTemplates: [{ templateRef: "proof-template://odd-glc/generic-lifecycle/behavior@5",
+      realizationContractRef: product.WORKSITE_CONSTRUCTION_IDS.resultContractRef,
+      proofContractRef: product.WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef,
+      requiredEvidenceRoles: ["realization", "verifier_artifact", "verifier_execution", "semantic_assessment"],
+      sharedBasis: ["complete_source", "requirement_and_obligation", "current_worksite", "admitted_result"],
+      requiredContent: ["Actual source-grounded artifacts and observed behavior for the same current obligation; unsupported, stale or missing evidence remains an explicit gap."] }],
+    stages: rows.map(row => ({ declarationRef: stageRef(row.name), graphFunctionRef: graphRef(row.name),
+      authorLocusRef: `locus://odd-glc/generic-lifecycle/${row.name}/author@5`, assessorLocusRef: `locus://odd-glc/generic-lifecycle/${row.name}/assessor@5`,
+      predecessorStageRefs: row.predecessors.map(stageRef),
+      assetSurface: { kind: row.kind, requiredContexts: [native.jobSourceContextRoleRef],
+        standardsRefs: ["specification/requirements/REQ-GLC-LIFECYCLE-VOCABULARY-ASSETS.md", "specification/requirements/REQ-GLC-ABG-REQUIREMENTS-ALGEBRA-CONSUMPTION.md"],
+        outputContractRefs: [native.workerContractRef], constructorRef: native.constructorRef, rendererRef: native.rendererRef,
+        proofObligationRefs: [], authoritySlots: [{ authorityKindRef: "authority://odd-glc/owner-scope-ruling", disposition: "normal", fallbackPreconditionRefs: [] }] },
+      purpose: `Derive and independently assess ${row.kind} from full source and admitted predecessor meaning.`, requiredContent: row.content,
+      rubric: [...commonRubric, ...(row.name === "design" ? [["executable-proof", "Check necessary artifact and actual-command coverage against source and active bindings, with complete known context and explicit authority. Check the supplied execution-capacity compatibility and whether every command bound is warranted by the work. Insufficient or unknown capacity is unresolved readiness, never permission to weaken obligations or raise controls. No caller-authored target plan is supplied."]] : []),
+        ...(row.name === "evidence" ? [["independent-oracle", "Compare all evaluation cases against actual same-job admitted observations and artifact bodies; disclose absent probes and wrong identities rather than accepting counts."]] : [])]
+        .map(([name, instruction]) => ({ criterionRef: `criterion://odd-glc/generic-lifecycle/${row.name}/${name}@5`, instruction })),
+      bodyCapabilities: row.capabilities,
+      assembly: { ruleRef: `assembly://odd-glc/generic-lifecycle/${row.name}@5`, graphFunctionRef: graphRef(row.name),
+        sectionOrder: ["role", "source", "obligations", "predecessors", "worksite", "evidence", "task", "response"],
+        contentPolicy: "role_scoped_worksite", worksiteContentByRole: { author: row.name === "design" ? "current_inventory" : "not_required", assessor: row.name === "design" ? "current_inventory" : "not_required" },
+        proportionalityPolicy: "declared_semantic_assessment", maxPromptBytes: 1048576 },
+    })),
+  });
+}
+
+export function constructFreshNativeLifecyclePublication({ gtl, product, ids, semanticPublication, runEnvironment }) {
+  const n = gtl.SEMANTIC_STAGE_IDS, work = gtl.NATIVE_WORKSPACE_WORK_IDS;
+  const original = constructNativeLifecycleDeclaration({ gtl, product, ids });
+  const lifecycle = gtl.constructSemanticJobLifecycleDeclaration({ ...original,
+    proofTemplates: original.proofTemplates.map(row => ({ ...row, realizationContractRef: work.observationContractRef })),
+    stages: original.stages.map(stage => !stage.bodyCapabilities.includes("application_assessment") ? stage : { ...stage,
+      requiredContent: ["Bind exact admitted artifacts and same-Run command/predicate observations to the complete governing source and current obligations. Report supported behavior and residual gaps; do not run tools or invent missing evidence. The independent assessor alone receives evaluator-only oracle data.",
+        "Keep realization, verifier artifact, verifier execution and semantic assessment distinct. Application coverage remains non-closing."] }) });
+  const closures = [], close = (name, predicateRef, resultContractRef = n.envelopeContractRef, closureScope = "graph_call") => {
+    const closureContractRef = name === "root" ? ids.closureContractRef : `contract://odd-glc/fresh-native-lifecycle/${name}/closure@5`;
+    closures.push(gtl.constructSemanticClosureContract({ closureContractRef, predicateRef, resultContractRef, closureScope }));
+    return closureContractRef;
+  };
+  const stages = lifecycle.stages.map((stage, i) => gtl.constructNativeSemanticStageGraphFunctions(stage,
+    close(`stage-${i}`, n.nativeStagePredicateRef), close(`assessment-${i}`, n.nativeStagePredicateRef)));
+  const intake = gtl.constructSemanticJobGraphFunction({ graphFunctionRef: lifecycle.intakeGraphFunctionRef,
+    nodeRef: graphRef("intake") + "/node", lifecycleRef: lifecycle.declarationRef, operation: "intake",
+    closureContractRef: close("intake", n.jobIntakePredicateRef) });
+  const construction = gtl.constructNativeSemanticConstructionGraphFunction({ graphFunctionRef: graphRef("native-construction"),
+    closureContractRef: close("construction", n.nativeEvidencePredicateRef) });
+  const terminal = gtl.constructSemanticBridgeGraphFunction({ graphFunctionRef: graphRef("envelope-output"),
+    nodeRef: graphRef("envelope-output") + "/node", operation: "envelope_output",
+    closureContractRef: close("envelope-output", n.terminalPredicateRef, n.outputContractRef) });
+  const chain = [intake, ...stages.slice(0, 4).map(pair => pair[0]), construction, stages[4][0], terminal];
+  const nodes = chain.map((graph, i) => ({ nodeRef: `${ids.graphRef}/step-${i}`, nodeKind: "c_locus",
+    term: gtl.workflow.C(gtl.cGraphFunctionRef({ graphFunctionRef: graph.name, input: gtl.cCarrier(graph.inputs[0]), output: gtl.cCarrier(graph.outputs[0]) })) }));
+  const closureContractRef = close("root", n.lifecyclePredicateRef, n.outputContractRef, "run");
+  const root = { kind: "graph_function", name: ids.graphFunctionRef, version: "5.0.0",
+    environment: { requires: [n.jobInputContractRef], provides: [n.outputContractRef], carries: [n.envelopeContractRef] },
+    inputs: [n.jobInputContractRef], outputs: [n.outputContractRef], effects: [work.effectUri], tags: ["odd-glc", "fresh-native-lifecycle"],
+    declarations: { "abg.compute_regime": "mixed", "abg.closure_contract": closureContractRef,
+      "abg.evidence_contract": n.evidenceContractRef, "abg.judgment_contract": n.judgmentContractRef,
+      "abg.judgment_predicate": n.lifecycleStepPredicateRef, "abg.transition_contract": n.transitionContractRef,
+      "abg.raw_result_contract": "contract://abiogenesis/semantic-stage/native-assessment@5" },
+    template: { kind: "inline_graph", graphRef: ids.graphRef, startNodeRef: nodes[0].nodeRef,
+      terminalNodeRefs: [nodes.at(-1).nodeRef], nodes, applications: [],
+      edges: nodes.slice(1).map((node, i) => gtl.graphEdge({ fromNodeRef: nodes[i].nodeRef, toNodeRef: node.nodeRef })) } };
+  const graphs = [intake, ...stages.flat(), construction, terminal, root], zero = `sha256:${"0".repeat(64)}`;
+  const program = { kind: "gtl_program", programRef: ids.programRef, version: "5.0.0", moduleRef: ids.moduleRef,
+    starts: [{ startRef: ids.startRef, graphFunctionRef: ids.graphFunctionRef }],
+    callableMembership: [...graphs.map(g => g.name), work.graphFunctionRef, work.assessmentGraphFunctionRef,
+      product.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef], closureContractRef,
+    policies: { "abg.root_mode": "direct", "abg.compute_regime": "mixed", "abg.default_start_ref": ids.startRef,
+      "abg.semantic_lifecycle": lifecycle.declarationRef,
+      ...(runEnvironment === undefined ? {} : { [gtl.RUN_ENVIRONMENT_POLICY]: runEnvironment.declarationRef }) } };
+  const revision = constructNativeRevisionDeclarations({gtl,product,lifecycle,close,program});
+  graphs.push(...revision.graphs);
+  const programs = [program,...revision.programs];
+  const environments = runEnvironment === undefined ? [] : programs.map((p,i) => {
+    const declarationRef = i === 0 ? runEnvironment.declarationRef : runEnvironment.declarationRef + "/native-revision-" + i;
+    p.policies = {...p.policies,[gtl.RUN_ENVIRONMENT_POLICY]:declarationRef};
+    return gtl.constructRunEnvironmentDeclaration({...structuredClone(runEnvironment),declarationRef,
+      roles:runEnvironment.roles.filter(role=>p.callableMembership.includes(role.graphFunctionRef))});
+  });
+  const template = exactlyOne(semanticPublication.contracts.filter(c => c.contractRef === n.closureContractRef), "semantic closure contract");
+  return gtl.modulePublication({ kind: "module_publication", moduleVersion: "5.0.0", moduleRef: ids.moduleRef, owningProductId: ids.productId,
+    descriptorRef: ids.descriptorRef, contributionManifestRef: ids.contributionManifestRef,
+    artifactDigest: zero, productContentDigest: zero, productManifestDigest: zero,
+    productSemanticsBinding: structuredClone(semanticPublication.productSemanticsBinding), semanticJobLifecycle: lifecycle,
+    ...(environments.length === 0 ? {} : { runEnvironments: environments }),
+    contracts: closures.map(c => ({ ...template, contractRef: c.closureContractRef })), closureContracts: closures,
+    implementationBindings: [], evaluators: [], rules: [], graphFunctions: graphs, programs,
+    contributions: graphs.map(g => ({ handle: g.name, kind: "graph_function", declarationOrContractRef: g.name, owningProductId: ids.productId,
+      programMembershipRefs: programs.filter(p=>p.callableMembership.includes(g.name)).map(p=>p.programRef), readinessPrerequisiteRefs: programs.filter(p=>p.callableMembership.includes(g.name)).map(p=>p.programRef), compatibilityRefs: ["compatibility://abiogenesis/major/5"], provenanceRefs: [zero, zero] })) });
+}
+
+export function selectNativeSemanticRevisionStart({ product, publication, request }) {
+  if (!product.isSemanticRevisionRequest(request) || request.selectionChoice === undefined) return null;
+  const choice = request.selectionChoice;
+  const entry = choice.mode === "construction_repair" ? "construction_repair" : choice.selectedStageRef;
+  const entryRole = choice.mode === "stage_revision" ? choice.entryRole ?? "author" : "author";
+  const matches = publication.programs.flatMap(program => program.starts.flatMap(start => {
+    const roots = publication.graphFunctions.filter(graph => graph.name === start.graphFunctionRef);
+    if (roots.length !== 1 || !program.callableMembership.includes(start.graphFunctionRef)) return [];
+    const graph = roots[0], nodes = graph.template.nodes.filter(node => node.nodeRef === graph.template.startNodeRef);
+    if (nodes.length !== 1 || nodes[0].term.kind !== "c_workflow") return [];
+    const projections = publication.graphFunctions.filter(graph => graph.name === nodes[0].term.graphFunctionRef &&
+      program.callableMembership.includes(graph.name) && graph.declarations["abg.semantic_native_revision_entry"] === entry &&
+      (graph.declarations["abg.semantic_native_revision_entry_role"] ?? "author") === entryRole);
+    return projections.length === 1 ? [{ programRef: program.programRef, startRef: start.startRef, graphFunctionRef: start.graphFunctionRef }] : [];
+  }));
+  return matches.length === 1 ? Object.freeze(matches[0]) : null;
+}
+
+export function constructNativeRevisionDeclarations({gtl,product,lifecycle,close,program}) {
+  const r=gtl.SEMANTIC_REVISION_IDS,n=gtl.SEMANTIC_STAGE_IDS,w=gtl.NATIVE_WORKSPACE_WORK_IDS;
+  const ref=name=>`graph-function://odd-glc/native-semantic-revision/${name}@5`;
+  const graphs=[],programs=[];
+  const leaf=(name,role,predicate,result,extra={})=>{
+    const closureContractRef=close("revision-"+name,predicate,result);
+    const graph=gtl.constructSemanticRevisionGraphFunction({graphFunctionRef:ref(name),role,closureContractRef,childClosureContractRef:closureContractRef,...extra});
+    graphs.push(graph);return graph;
+  };
+  const root=(name,chain,predicate,result)=>{
+    const graphFunctionRef=ref(name),closureContractRef=close("revision-"+name+"-root",predicate,result,"run");
+    const nodes=chain.map((g,i)=>({nodeRef:graphFunctionRef+"/step-"+i,nodeKind:"c_locus",term:gtl.workflow.C(gtl.cGraphFunctionRef({graphFunctionRef:g.name,input:gtl.cCarrier(g.inputs[0]),output:gtl.cCarrier(g.outputs[0])}))}));
+    const carriers=[...new Set(chain.flatMap(g=>[...g.inputs,...g.outputs]))];
+    const graph={kind:"graph_function",name:graphFunctionRef,version:"5.0.0",inputs:[chain[0].inputs[0]],outputs:[result],
+      environment:{requires:[chain[0].inputs[0]],provides:carriers,carries:carriers},effects:[...new Set(chain.flatMap(g=>g.effects))],tags:["odd-glc","native-semantic-revision"],
+      declarations:{"abg.compute_regime":"mixed","abg.closure_contract":closureContractRef,"abg.evidence_contract":n.evidenceContractRef,
+        "abg.judgment_contract":n.judgmentContractRef,"abg.judgment_predicate":r.stepPredicateRef,"abg.transition_contract":n.transitionContractRef},
+      template:{kind:"inline_graph",graphRef:graphFunctionRef+"/graph",startNodeRef:nodes[0].nodeRef,terminalNodeRefs:[nodes.at(-1).nodeRef],nodes,applications:[],
+        edges:nodes.slice(1).map((node,i)=>gtl.graphEdge({fromNodeRef:nodes[i].nodeRef,toNodeRef:node.nodeRef}))}};
+    graphs.push(graph);
+    const programRef=`program://odd-glc/native-semantic-revision/${name}@5`;
+    programs.push({...program,programRef,starts:[{startRef:programRef+"/start",graphFunctionRef}],closureContractRef,
+      callableMembership:[graphFunctionRef,...chain.map(g=>g.name),...(chain.some(g=>g.effects.includes(w.effectUri))?[w.graphFunctionRef,product.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef]:[])],
+      policies:{...program.policies,"abg.default_start_ref":programRef+"/start"}});
+  };
+  const intake=leaf("acquire","nativeIntake",r.nativeIntakePredicateRef,r.selectionInputContractRef);
+  const selection=gtl.constructSemanticRevisionSelectionGraphFunction({graphFunctionRef:ref("select"),lifecycleRef:lifecycle.declarationRef,sealRequest:true,
+    closureContractRef:close("revision-select",r.nativeRequestPredicateRef,r.requestContractRef),childClosureContractRef:close("revision-seal",r.nativeRequestPredicateRef,r.requestContractRef)});
+  graphs.push(selection);root("intake",[intake,selection],r.nativeRequestPredicateRef,r.requestContractRef);
+  const stages=lifecycle.stages.map((stage,i)=>leaf("stage-"+i,"projection",r.assessorPredicateRef,r.envelopeContractRef,{stage}));
+  const construction=leaf("construction","nativeConstruction",r.nativeEvidencePredicateRef,r.envelopeContractRef);
+  const terminal=leaf("terminal","terminal",r.terminalPredicateRef,r.outputContractRef);
+  const evidence=lifecycle.stages.findIndex(stage=>stage.bodyCapabilities.includes("application_assessment"));
+  if(evidence<0)throw new TypeError("native revision requires the declared Evidence stage");
+  for(const [name,index,entry]of [["construction-repair",evidence,"construction_repair"],...lifecycle.stages.map((stage,i)=>["from-"+stage.declarationRef.split("/").at(-1).replace("@5",""),i,stage.declarationRef])]) {
+    const projection=leaf(name+"-projection","projection",r.projectionPredicateRef,r.envelopeContractRef,{nativeEntry:entry});
+    const before=index<evidence?stages.slice(index,evidence):[];
+    root(name,[projection,...before,...(entry===lifecycle.stages[evidence].declarationRef?[]:[construction]),...stages.slice(evidence),terminal],r.projectionPredicateRef,r.outputContractRef);
+  }
+  // A declared assessment-first entry conserves the exact pending authored
+  // asset; it invokes the existing assessor, never a replacement author.
+  lifecycle.stages.slice(0,evidence).forEach((stage,index)=>{
+    const name="from-"+stage.declarationRef.split("/").at(-1).replace("@5","")+"-assessment";
+    const assessment=leaf("stage-"+index+"-assessment","projection",r.assessorPredicateRef,r.envelopeContractRef,{stage,stageEntryRole:"assessor"});
+    const projection=leaf(name+"-projection","projection",r.projectionPredicateRef,r.envelopeContractRef,{nativeEntry:stage.declarationRef,nativeEntryRole:"assessor"});
+    root(name,[projection,assessment,...stages.slice(index+1,evidence),construction,...stages.slice(evidence),terminal],r.projectionPredicateRef,r.outputContractRef);
+  });
+  return {graphs,programs};
+}

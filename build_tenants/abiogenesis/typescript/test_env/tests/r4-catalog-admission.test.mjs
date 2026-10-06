@@ -13,11 +13,11 @@ import {
 } from "../../build/code/src/product/catalog.js";
 import {
   CONSENSUS_IDS,
-  HELLO_WORLD_DIRECT_IDS,
-  HELLO_WORLD_IDS,
+  LANGUAGE_TEST_DIRECT_IDS,
+  LANGUAGE_TEST_IDS,
   constructConsensusModulePublication,
-  constructHelloWorldModulePublication,
-} from "../../build/code/src/gtl/index.js";
+  constructLanguageTestModulePublication,
+} from "../support/language-test-gtl.mjs";
 import { sha256Canonical } from "../../build/code/src/shared/digests.js";
 import { acquireNewEmptyAppendSinkFixture } from "../support/new-empty-append-sink.mjs";
 
@@ -32,7 +32,7 @@ const artifact = Object.freeze({
 
 function publications() {
   return [
-    constructHelloWorldModulePublication(artifact),
+    constructLanguageTestModulePublication(artifact),
     constructConsensusModulePublication(artifact),
   ];
 }
@@ -89,7 +89,7 @@ test("R4 refresh adds and replaces exact publication sets", () => {
 
   const changed = structuredClone(hello);
   const changedHelloGraphFunction = changed.graphFunctions.find(
-    (candidate) => candidate.name === HELLO_WORLD_IDS.graphFunctionRef,
+    (candidate) => candidate.name === LANGUAGE_TEST_IDS.graphFunctionRef,
   );
   assert.ok(changedHelloGraphFunction);
   changedHelloGraphFunction.tags = [
@@ -99,9 +99,9 @@ test("R4 refresh adds and replaces exact publication sets", () => {
   const replaced = requireCatalog(refreshGraphFunctionCatalog([changed]));
   assert.notEqual(replaced.basisDigest, initial.basisDigest);
   assert.notEqual(
-    lookupGraphFunction(replaced, HELLO_WORLD_IDS.graphFunctionRef)
+    lookupGraphFunction(replaced, LANGUAGE_TEST_IDS.graphFunctionRef)
       ?.definitionDigest,
-    lookupGraphFunction(initial, HELLO_WORLD_IDS.graphFunctionRef)
+    lookupGraphFunction(initial, LANGUAGE_TEST_IDS.graphFunctionRef)
       ?.definitionDigest,
   );
 });
@@ -111,63 +111,63 @@ test("R4 keeps canonical handles distinct from GraphFunction definitions", () =>
   const catalog = requireCatalog(buildGraphFunctionCatalog([hello]));
   const directSelected = lookupGraphFunction(
     catalog,
-    HELLO_WORLD_DIRECT_IDS.handle,
+    LANGUAGE_TEST_DIRECT_IDS.handle,
   );
   assert.ok(directSelected);
-  assert.equal(directSelected.handle, HELLO_WORLD_DIRECT_IDS.handle);
+  assert.equal(directSelected.handle, LANGUAGE_TEST_DIRECT_IDS.handle);
   assert.equal(
     directSelected.definitionRef,
-    HELLO_WORLD_IDS.graphFunctionRef,
+    LANGUAGE_TEST_IDS.graphFunctionRef,
   );
   assert.notEqual(directSelected.handle, directSelected.definitionRef);
   const narrowed = requireView(narrowGraphFunctionCatalog(
     catalog,
     [
-      HELLO_WORLD_IDS.graphFunctionRef,
-      HELLO_WORLD_DIRECT_IDS.handle,
+      LANGUAGE_TEST_IDS.graphFunctionRef,
+      LANGUAGE_TEST_DIRECT_IDS.handle,
     ],
   ));
   const exactCanonical = lookupGraphFunctionDefinition(
     narrowed,
-    HELLO_WORLD_IDS.graphFunctionRef,
-    HELLO_WORLD_IDS.programRef,
+    LANGUAGE_TEST_IDS.graphFunctionRef,
+    LANGUAGE_TEST_IDS.programRef,
   );
   assert.equal(exactCanonical.kind, "graph_function_definition_lookup_exact");
-  assert.equal(exactCanonical.entry.handle, HELLO_WORLD_IDS.graphFunctionRef);
+  assert.equal(exactCanonical.entry.handle, LANGUAGE_TEST_IDS.graphFunctionRef);
   const exactDirect = lookupGraphFunctionDefinition(
     narrowed,
-    HELLO_WORLD_IDS.graphFunctionRef,
-    HELLO_WORLD_DIRECT_IDS.programRef,
+    LANGUAGE_TEST_IDS.graphFunctionRef,
+    LANGUAGE_TEST_DIRECT_IDS.programRef,
   );
   assert.equal(exactDirect.kind, "graph_function_definition_lookup_exact");
   assert.deepEqual(exactDirect.entry, directSelected);
   const absent = lookupGraphFunctionDefinition(
     narrowed,
-    HELLO_WORLD_IDS.graphFunctionRef,
+    LANGUAGE_TEST_IDS.graphFunctionRef,
     "program://abiogenesis/conformance/absent@5",
   );
   assert.deepEqual(absent, {
     kind: "graph_function_definition_lookup_absent",
-    definitionRef: HELLO_WORLD_IDS.graphFunctionRef,
+    definitionRef: LANGUAGE_TEST_IDS.graphFunctionRef,
     programRef: "program://abiogenesis/conformance/absent@5",
   });
 
   const ambiguousHello = structuredClone(hello);
   const ambiguousAlias = ambiguousHello.contributions.find(
-    (row) => row.handle === HELLO_WORLD_DIRECT_IDS.handle,
+    (row) => row.handle === LANGUAGE_TEST_DIRECT_IDS.handle,
   );
   assert.ok(ambiguousAlias);
   ambiguousAlias.programMembershipRefs = [
     ...ambiguousAlias.programMembershipRefs,
-    HELLO_WORLD_IDS.programRef,
+    LANGUAGE_TEST_IDS.programRef,
   ];
   const ambiguousCatalog = requireCatalog(
     buildGraphFunctionCatalog([ambiguousHello]),
   );
   const ambiguous = lookupGraphFunctionDefinition(
     ambiguousCatalog,
-    HELLO_WORLD_IDS.graphFunctionRef,
-    HELLO_WORLD_IDS.programRef,
+    LANGUAGE_TEST_IDS.graphFunctionRef,
+    LANGUAGE_TEST_IDS.programRef,
   );
   assert.equal(
     ambiguous.kind,
@@ -175,7 +175,7 @@ test("R4 keeps canonical handles distinct from GraphFunction definitions", () =>
   );
   assert.deepEqual(
     ambiguous.entries.map((entry) => entry.handle),
-    [HELLO_WORLD_DIRECT_IDS.handle, HELLO_WORLD_IDS.graphFunctionRef].sort(),
+    [LANGUAGE_TEST_DIRECT_IDS.handle, LANGUAGE_TEST_IDS.graphFunctionRef].sort(),
   );
   assert.equal(Object.isFrozen(ambiguous), true);
   assert.equal(Object.isFrozen(ambiguous.entries), true);
@@ -194,14 +194,14 @@ test("R4 equal duplicates are idempotent and unequal collisions refuse", () => {
   );
 
   const collision = structuredClone(consensus);
-  collision.contributions[0].handle = HELLO_WORLD_IDS.graphFunctionRef;
+  collision.contributions[0].handle = LANGUAGE_TEST_IDS.graphFunctionRef;
   const refused = buildGraphFunctionCatalog([hello, collision]);
   assert.equal(refused.kind, "catalog_construction_refusal");
   assert.equal(refused.code, "canonical_handle_collision");
 
   const unequalPublication = structuredClone(hello);
   const unequalHelloGraphFunction = unequalPublication.graphFunctions.find(
-    (candidate) => candidate.name === HELLO_WORLD_IDS.graphFunctionRef,
+    (candidate) => candidate.name === LANGUAGE_TEST_IDS.graphFunctionRef,
   );
   assert.ok(unequalHelloGraphFunction);
   unequalHelloGraphFunction.tags = ["unequal-module-proof"];
@@ -214,7 +214,7 @@ test("R4 equal duplicates are idempotent and unequal collisions refuse", () => {
 
   const wrongDefinition = structuredClone(hello);
   const wrongDefinitionAlias = wrongDefinition.contributions.find(
-    (row) => row.handle === HELLO_WORLD_DIRECT_IDS.handle,
+    (row) => row.handle === LANGUAGE_TEST_DIRECT_IDS.handle,
   );
   assert.ok(wrongDefinitionAlias);
   wrongDefinitionAlias.declarationOrContractRef =
@@ -225,7 +225,7 @@ test("R4 equal duplicates are idempotent and unequal collisions refuse", () => {
 
   const wrongMembership = structuredClone(hello);
   const wrongMembershipAlias = wrongMembership.contributions.find(
-    (row) => row.handle === HELLO_WORLD_DIRECT_IDS.handle,
+    (row) => row.handle === LANGUAGE_TEST_DIRECT_IDS.handle,
   );
   assert.ok(wrongMembershipAlias);
   wrongMembershipAlias.programMembershipRefs = [
@@ -243,7 +243,7 @@ test("R4 equal duplicates are idempotent and unequal collisions refuse", () => {
   ]) {
     const duplicatedInventory = structuredClone(hello);
     const contribution = duplicatedInventory.contributions.find(
-      (row) => row.handle === HELLO_WORLD_IDS.graphFunctionRef,
+      (row) => row.handle === LANGUAGE_TEST_IDS.graphFunctionRef,
     );
     assert.ok(contribution);
     assert.ok(contribution[field].length > 0, `${field} duplicate witness`);
@@ -279,14 +279,14 @@ test("R4 view and declaration application are pure and non-callable separated", 
   );
 
   const view = requireView(narrowGraphFunctionCatalog(catalog, [
-    HELLO_WORLD_IDS.graphFunctionRef,
+    LANGUAGE_TEST_IDS.graphFunctionRef,
     declaration.handle,
   ]));
   assert.equal(view.entries.length, 1);
   assert.equal(view.declarationEntries.length, 1);
   assert.equal(
-    lookupGraphFunction(view, HELLO_WORLD_IDS.graphFunctionRef)?.definitionRef,
-    HELLO_WORLD_IDS.graphFunctionRef,
+    lookupGraphFunction(view, LANGUAGE_TEST_IDS.graphFunctionRef)?.definitionRef,
+    LANGUAGE_TEST_IDS.graphFunctionRef,
   );
 
   const targetDigest = sha256Canonical({
@@ -336,9 +336,9 @@ test("R4 pure catalog operations admit zero registry or catalog events", async (
   );
   const catalog = requireCatalog(buildGraphFunctionCatalog(publications()));
   const view = requireView(narrowGraphFunctionCatalog(catalog, [
-    HELLO_WORLD_IDS.graphFunctionRef,
+    LANGUAGE_TEST_IDS.graphFunctionRef,
   ]));
-  assert.ok(lookupGraphFunction(view, HELLO_WORLD_IDS.graphFunctionRef));
+  assert.ok(lookupGraphFunction(view, LANGUAGE_TEST_IDS.graphFunctionRef));
   assert.deepEqual(store.readAll(), []);
   assert.equal(
     store.readAll().some((event) =>

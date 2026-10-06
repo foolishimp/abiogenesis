@@ -1,0 +1,30 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_C09_CONSTRUCTION_ACCEPTANCE_WRITER_01",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-construction-acceptance-01/acceptance.json",
+      "bytes": 7019,
+      "sha256": "9b57fdea8854bb3f6fbc49aac2fdc047d2bc88e264de5747f4f56ecbc3630489",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-construction-acceptance-01/activation.json",
+      "bytes": 637,
+      "sha256": "33a1b20537d0b2852f402c7be35687aec1794506a6f5d53b1734931931c9fa80",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-construction-acceptance-01/closure.json",
+      "bytes": 195,
+      "sha256": "45c96639a4c4d94171b2de3afc3bd5d5a96c50ad162bf39b8142f62dcfd8bf94",
+      "mode": 420
+    }
+  ],
+  "executionPostimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 539172,
+    "sha256": "f7b72b8959598c4b7b6d83e1f6f91b37b3fc9269b9825dd9547c391692ed0e48",
+    "mode": 420
+  }
+}

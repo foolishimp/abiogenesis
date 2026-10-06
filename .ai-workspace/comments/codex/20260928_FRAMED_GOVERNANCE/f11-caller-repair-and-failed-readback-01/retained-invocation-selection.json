@@ -1,0 +1,17 @@
+{
+  "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-06/flow-parent.jsonl",
+  "frozenWireRecord": {
+    "path": "flow-parent.jsonl",
+    "mode": "0o644",
+    "kind": "file",
+    "bytes": 508651946,
+    "sha256": "8979b39768021665061d63e9981535130fe5a8c279f18b2c0e5a89563beb6cf0"
+  },
+  "headBytesRead": 131072,
+  "selectedByteOffset": 1340,
+  "selectedBytes": 33449,
+  "selectedSHA256": "aaed5a95d441f69f78182685734e4927894ad05a8e56233b7c0201e107c7969c",
+  "completeActualInvocation": true,
+  "fullResourceAssertionLoaded": false,
+  "sourceKind": "actual immutable Runtime06 CLI wire; selection is not a new invocation/admission"
+}

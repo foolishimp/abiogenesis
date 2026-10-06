@@ -1,0 +1,12 @@
+{
+  "workspaceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/worksite",
+  "installRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/installed",
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+  "lockNamespace": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5",
+  "lockFileRule": "<actual-device>-<actual-inode>.lock; same original N03 namespace all calls",
+  "history": "Genuinely new subject/resource, no old native resource accessed",
+  "HOME": "unchanged",
+  "permittedWrites": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03",
+  "nativeCalls": 12,
+  "actualActorRef": "actor://abiogenesis/t287/final-native-setup-03/operator"
+}

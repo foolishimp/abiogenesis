@@ -1,0 +1,246 @@
+{
+  "scenarioId": "SCN-GLC-HELLO-WORLD-RUST-SERVICE",
+  "taskRef": "task://abiogenesis-sandbox-uat/rust-service/original",
+  "task": "Implement the COMPLETE unchanged selected original test workload below. It is ABG-owned test data outside the Product package. Preserve all original outcomes and unresolved source obligations. Use only the installed generic lifecycle. The adaptation notes govern interpretation of legacy mechanisms, not weakening of original application outcomes.\n\n  sdlcComplianceScenario({\n    key: \"rust-service\",\n    scenarioId: \"SCN-GLC-HELLO-WORLD-RUST-SERVICE\",\n    kind: \"rust_service\",\n    expectedStdout: null,\n    expectedReturnValue: \"Hello, world!\",\n    stagePlan: [\n      {\n        stage: \"conformance_project\",\n        filesToProduce: [\"specification/project-conformance.md\"],\n        instructions: [\n          \"Write only specification/project-conformance.md.\",\n          \"Declare a Rust service Hello World software-build traversal.\",\n          \"The source surface must include src/service.rs.\",\n          \"The test source must compile the service with rustc, start it on 127.0.0.1 using a system-assigned port, send one HTTP request, and observe response body exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"implementation_design\",\n        filesToProduce: [\"design/implementation-design.md\"],\n        instructions: [\n          \"Write only design/implementation-design.md.\",\n          \"Define a single-file Rust TCP HTTP service in src/service.rs.\",\n          \"The service must accept one command-line argument: a port-file path.\",\n          \"It must bind 127.0.0.1:0, write the selected port to the port file, handle one HTTP request, return 200 OK with body \\\"Hello, world!\\\\n\\\", then exit cleanly.\"\n        ]\n      },\n      {\n        stage: \"source\",\n        filesToProduce: [\"src/service.rs\"],\n        instructions: [\n          \"Write only src/service.rs.\",\n          \"Use only Rust standard library modules.\",\n          \"Implement the service described by the implementation_design artifact.\",\n          \"The response body must be exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"test_design\",\n        filesToProduce: [\"design/test-design.md\"],\n        instructions: [\n          \"Write only design/test-design.md.\",\n          \"Specify a component test and UAT test for compiling the Rust service, starting it, making a real HTTP request, and asserting status 200 and body exactly \\\"Hello, world!\\\\n\\\".\",\n          \"The tests must use a temporary port file and terminate only after the service exits.\"\n        ]\n      },\n      {\n        stage: \"component_test_source\",\n        filesToProduce: [\"test/component/rust-service.test.mjs\"],\n        instructions: [\n          \"Write only test/component/rust-service.test.mjs.\",\n          \"Use node:test, node:assert/strict, node:child_process spawn/spawnSync, node:fs/promises, node:os, and node:path.\",\n          \"Compile src/service.rs with rustc to a temporary binary.\",\n          \"Start the binary with a temporary port-file path, wait for the port file, fetch http://127.0.0.1:${port}/hello, and assert response status 200 and body exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"uat_test_source\",\n        filesToProduce: [\"test/uat/rust-service.uat.test.mjs\"],\n        instructions: [\n          \"Write only test/uat/rust-service.uat.test.mjs.\",\n          \"Use node:test and the same service-start/request pattern as the component test.\",\n          \"Assert the user-visible service contract: an HTTP GET to /hello returns 200 and body exactly \\\"Hello, world!\\\\n\\\".\"\n        ]\n      },\n      {\n        stage: \"test_execution_plan\",\n        filesToProduce: [\"test-execution-plan.json\"],\n        instructions: [\n          \"Write only test-execution-plan.json.\",\n          \"The JSON command must be node.\",\n          \"The args must be [\\\"--test\\\", \\\"test/component/rust-service.test.mjs\\\", \\\"test/uat/rust-service.uat.test.mjs\\\"].\",\n          \"expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.\",\n          \"expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.\",\n          \"assertedReturnValue must be \\\"Hello, world!\\\".\"\n        ]\n      },\n      {\n        stage: \"test_execution_result\",\n        instructions: [\n          \"Produce no files.\",\n          \"Accept only if both service tests passed, observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount, and planSatisfied is true.\"\n        ]\n      }\n    ]\n  }),\n\nINTERPRETATION\n{\n  \"runtimeAuthority\": \"Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.\",\n  \"executionEvidence\": \"Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.\",\n  \"sourcePreservation\": \"Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.\",\n  \"legacyTraversal\": \"The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime.\",\n  \"originalService\": \"The selected original is src/service.rs compiled with rustc, uses standard library only and real ephemeral loopback HTTP. The later donor Cargo-crate/4-test compression is a different contract and is excluded.\"\n}",
+  "sourceMembers": [
+    {
+      "path": "source/rust-service/source.original.txt",
+      "fixtureFile": "rust-service/source.original.txt",
+      "digest": "sha256:a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d"
+    },
+    {
+      "path": "source/rust-service/obligations.json",
+      "fixtureFile": "rust-service/obligations.json",
+      "digest": "sha256:13787d69d923baffd3c94d24139301f985bafb8037b02957b7a96a710ea51b91"
+    },
+    {
+      "path": "source/rust-service/oracle.json",
+      "fixtureFile": "rust-service/oracle.json",
+      "digest": "sha256:eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c"
+    }
+  ],
+  "requiredSupportRefs": [
+    "support://abiogenesis-sandbox-uat/rust-service/complete-original-outcome"
+  ],
+  "authorityRefs": [
+    "authority://abiogenesis-sandbox-uat/rust-service/test-workload"
+  ],
+  "readRoots": [
+    "source/rust-service/source.original.txt",
+    "source/rust-service/obligations.json",
+    "source/rust-service/oracle.json",
+    "specification/project-conformance.md",
+    "design/implementation-design.md",
+    "src/service.rs",
+    "design/test-design.md",
+    "test/component/rust-service.test.mjs",
+    "test/uat/rust-service.uat.test.mjs",
+    "test-execution-plan.json"
+  ],
+  "maxContextFiles": 256,
+  "maxContextBytes": 1048576,
+  "maxPromptBytes": 1048576,
+  "workOrders": {
+    "induction": {
+      "outcome": "Establish and preserve the complete original outcome, source obligations and unresolved meaning.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Use only Rust standard library modules. Both tests must compile the service with rustc, start it with a temporary port-file path, read its system-assigned loopback port, make a real HTTP request, assert 200 and the exact body, and finish after clean service exit. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/rust-service/source.original.txt",
+        "source/rust-service/obligations.json",
+        "source/rust-service/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "src/service.rs",
+        "design/test-design.md",
+        "test/component/rust-service.test.mjs",
+        "test/uat/rust-service.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "specification": {
+      "outcome": "Author every source-grounded governing, requirement, UAT and qualification surface required by the original source.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Use only Rust standard library modules. Both tests must compile the service with rustc, start it with a temporary port-file path, read its system-assigned loopback port, make a real HTTP request, assert 200 and the exact body, and finish after clean service exit. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/rust-service/source.original.txt",
+        "source/rust-service/obligations.json",
+        "source/rust-service/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "src/service.rs",
+        "design/test-design.md",
+        "test/component/rust-service.test.mjs",
+        "test/uat/rust-service.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "design": {
+      "outcome": "Author the complete source-grounded design and genuine executable proof plan, retaining all original dependencies.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Use only Rust standard library modules. Both tests must compile the service with rustc, start it with a temporary port-file path, read its system-assigned loopback port, make a real HTTP request, assert 200 and the exact body, and finish after clean service exit. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/rust-service/source.original.txt",
+        "source/rust-service/obligations.json",
+        "source/rust-service/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "src/service.rs",
+        "design/test-design.md",
+        "test/component/rust-service.test.mjs",
+        "test/uat/rust-service.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "construction": {
+      "outcome": "Construct the missing original application/test/lifecycle assets and repair observed failures without weakening any obligation.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Use only Rust standard library modules. Both tests must compile the service with rustc, start it with a temporary port-file path, read its system-assigned loopback port, make a real HTTP request, assert 200 and the exact body, and finish after clean service exit. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/rust-service/source.original.txt",
+        "source/rust-service/obligations.json",
+        "source/rust-service/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "src/service.rs",
+        "design/test-design.md",
+        "test/component/rust-service.test.mjs",
+        "test/uat/rust-service.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "testing": {
+      "outcome": "Execute the exact original proof commands against the real application. Preserve native observations, failing evidence, authentic depth and mutation evidence where required.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Use only Rust standard library modules. Both tests must compile the service with rustc, start it with a temporary port-file path, read its system-assigned loopback port, make a real HTTP request, assert 200 and the exact body, and finish after clean service exit. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/rust-service/source.original.txt",
+        "source/rust-service/obligations.json",
+        "source/rust-service/oracle.json"
+      ],
+      "writeRoots": [],
+      "checks": [
+        "node --test test/component/rust-service.test.mjs test/uat/rust-service.uat.test.mjs"
+      ]
+    },
+    "uat": {
+      "outcome": "Independently assess the full original source against every oracle obligation and actual admitted execution evidence. Preserve unmet and indeterminate outcomes.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Use only Rust standard library modules. Both tests must compile the service with rustc, start it with a temporary port-file path, read its system-assigned loopback port, make a real HTTP request, assert 200 and the exact body, and finish after clean service exit. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/rust-service/source.original.txt",
+        "source/rust-service/obligations.json",
+        "source/rust-service/oracle.json"
+      ],
+      "writeRoots": [],
+      "checks": [
+        "Use only Rust standard library modules. Both tests must compile the service with rustc, start it with a temporary port-file path, read its system-assigned loopback port, make a real HTTP request, assert 200 and the exact body, and finish after clean service exit. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ]
+    }
+  },
+  "testing": {
+    "selectedPaths": [
+      "specification/project-conformance.md",
+      "design/implementation-design.md",
+      "src/service.rs",
+      "design/test-design.md",
+      "test/component/rust-service.test.mjs",
+      "test/uat/rust-service.uat.test.mjs",
+      "test-execution-plan.json",
+      "source/rust-service/source.original.txt",
+      "source/rust-service/obligations.json",
+      "source/rust-service/oracle.json"
+    ],
+    "commands": [
+      {
+        "commandId": "command://abiogenesis-sandbox-uat/rust-service/tests",
+        "executable": "node",
+        "args": [
+          "--test",
+          "test/component/rust-service.test.mjs",
+          "test/uat/rust-service.uat.test.mjs"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 300000,
+        "terminationGraceMs": 10000,
+        "expectedReports": []
+      }
+    ],
+    "outcomePredicates": [
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/rust-service/tests-exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/rust-service/tests",
+          "equals": 0
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/rust-service/test-count",
+        "predicateKind": "test_pass_count",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/rust-service/tests",
+          "greaterThanOrEqual": 2
+        }
+      }
+    ],
+    "allowedWriteTerritories": [
+      {
+        "pathKind": "subtree",
+        "relativePath": "execution-evidence"
+      }
+    ]
+  },
+  "assessment": {
+    "sources": [
+      "source/rust-service/source.original.txt",
+      "source/rust-service/obligations.json"
+    ],
+    "candidatePath": "src/service.rs",
+    "rubricPath": "source/rust-service/oracle.json"
+  },
+  "legacyInterpretation": {
+    "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+    "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+    "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+    "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime.",
+    "originalService": "The selected original is src/service.rs compiled with rustc, uses standard library only and real ephemeral loopback HTTP. The later donor Cargo-crate/4-test compression is a different contract and is excluded."
+  }
+}

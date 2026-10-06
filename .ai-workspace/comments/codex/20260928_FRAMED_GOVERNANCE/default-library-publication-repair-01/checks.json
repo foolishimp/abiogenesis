@@ -1,0 +1,58 @@
+{
+  "status": "component_passed_for_independent_review",
+  "checks": [
+    {
+      "name": "compile",
+      "exitCode": 0,
+      "elapsedMs": 5231.652584392577
+    },
+    {
+      "name": "helper-syntax",
+      "exitCode": 0,
+      "elapsedMs": 23.550041019916534
+    },
+    {
+      "name": "test-syntax",
+      "exitCode": 0,
+      "elapsedMs": 43.52500010281801
+    },
+    {
+      "name": "pure-named-tests",
+      "exitCode": 1,
+      "elapsedMs": 254.52325027436018
+    },
+    {
+      "name": "pure-named-tests-corrected",
+      "exitCode": 0,
+      "elapsedMs": 384.7725000232458,
+      "selectedNames": [
+        "default library preserves cumulative wrapper bindings and rejects duplicate carried refs",
+        "installed root publication precondition rejects a bad non-selected publication",
+        "default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation"
+      ],
+      "fullMixedFileRun": false
+    }
+  ],
+  "originalRed": {
+    "path": "original-red.json",
+    "bytes": 2301,
+    "sha256": "9fc8a0101c5ed50d654bdc1cee829371a897bf605299f5bc34ab0ac8d7419dda"
+  },
+  "full11": {
+    "path": "full11-static-validation.json",
+    "bytes": 30440,
+    "sha256": "bfc7bddae9f5db4c40cc40b636e337543ec661b6f2b105ccc17759095f037e93"
+  },
+  "counterexamples": {
+    "path": "component-discriminators.json",
+    "bytes": 2107,
+    "sha256": "662b5ecb866a7d3e2dc5cedd41f5ff64eed157a5a06611a174d9641840ec8784"
+  },
+  "harnessCorrection": {
+    "path": "check-harness-correction.json",
+    "bytes": 818,
+    "sha256": "fa3261bdb49a3bf3bea95a00a900caca7acee741d89ba9057237eee92fbe3f55"
+  },
+  "wholeMixedTestFileRun": false,
+  "nativePackageInstallRuntimeEffects": 0
+}

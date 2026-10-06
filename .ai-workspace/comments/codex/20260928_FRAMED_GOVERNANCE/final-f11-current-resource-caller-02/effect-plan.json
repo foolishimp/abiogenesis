@@ -1,0 +1,283 @@
+{
+  "status": "prepared_only_requires_exact_Root_native_activation",
+  "activation": "T287_F11_NATIVE_ASSESSMENT_02",
+  "entry": [
+    "python3",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/observe-process.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02/driver-process.json",
+    "node",
+    "--max-old-space-size=4096",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/driver.mjs",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02"
+  ],
+  "workingDirectory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02",
+  "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02",
+  "readOnly": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01",
+    "all C02/Q02/Material02 cuts and source/installed Product bytes",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-01",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01"
+  ],
+  "ordinaryPublicEntry": "constructInstalledPublicDefinitionCall -> package-declared abg.cli --jsonl -> installed Public admission",
+  "calls": [
+    {
+      "label": "assessment-view",
+      "operation": "abg.operation.catalog.view",
+      "member": "allowlist",
+      "effect": "ordinary selected CatalogView operation; no assessment"
+    },
+    {
+      "label": "conformance-assess",
+      "operation": "abg.operation.conformance.evaluate",
+      "member": "gtl_program",
+      "effect": "ordinary exact existing assessment Program conformance"
+    },
+    {
+      "label": "assess-rule",
+      "operation": "abg.operation.run.invoke",
+      "member": "start",
+      "effect": "one actual assessment occurrence and Claude closed_prompt_proof transport"
+    },
+    {
+      "label": "assess-rule-run_result",
+      "operation": "abg.operation.project.read",
+      "member": "run_result",
+      "effect": "fresh result read on actual returned handoff"
+    },
+    {
+      "label": "assess-rule-run_replay",
+      "operation": "abg.operation.project.read",
+      "member": "run_replay",
+      "effect": "fresh replay read on same returned handoff"
+    }
+  ],
+  "rootActorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+  "programRef": "program://abiogenesis/qualification/assess@5",
+  "graphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+  "programLocusRef": "node://abiogenesis/qualification/assess@5",
+  "inputContractRef": "contract://abiogenesis/qualification/assessment-input@5",
+  "rawContractRef": "contract://abiogenesis/qualification/assessment-raw@5",
+  "terminalContractRef": "contract://abiogenesis/qualification/judgment@5",
+  "initialPrefix": {
+    "coordinateDigest": "sha256:bf357bac4ba5677870972d63726db8e1ab50fd349b48d87ad8e4768201bb80ce",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c",
+    "prefixLength": 73530699,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 464012478
+    }
+  },
+  "originalStoreIdentity": {
+    "device": 16777230,
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "inode": 464012478
+  },
+  "writes": [
+    {
+      "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02",
+      "owner": "Root-selected external caller/observer",
+      "operations": "exclusive reports/requests/stdout/stderr/timings/process receipts/readbacks/handoffs/proof and byte-prefix snapshots; optional npm cache/config beneath this territory"
+    },
+    {
+      "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "owner": "existing Runtime event owner only",
+      "operations": "Runtime-only append from exact genuine136-event/73,530,699-byte prefix, same device/inode; no overwrite/truncate/rebase"
+    },
+    {
+      "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5",
+      "owner": "existing Runtime lock owner",
+      "operations": "original device-inode lock acquisition/release; preserve namespace"
+    },
+    {
+      "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/archives",
+      "owner": "existing actor/transport owner",
+      "operations": "exclusive fp-<attemptDigest16>-prompt.txt, -output.txt, -stdout.log, -stderr.log, -transport.json for this occurrence; filenames use actual prepared attempt identity"
+    },
+    {
+      "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp",
+      "owner": "existing ProductVerification/transport/runtime owners",
+      "operations": "native verification temporary unpack/read/remove and existing runtime temporaries; no redirected lock namespace"
+    }
+  ],
+  "worksiteWrites": false,
+  "sourceWrites": false,
+  "GitEffects": false,
+  "restartHello": false,
+  "C2Calls": 0,
+  "transport": {
+    "provider": "claude",
+    "command": "/Users/jim/.local/share/claude/versions/2.1.280",
+    "appendArgs": [
+      "--model",
+      "claude-opus-5-5",
+      "--effort",
+      "xhigh"
+    ],
+    "lane": "closed_prompt_proof",
+    "tools": "none",
+    "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03",
+    "prompt": "complete unchanged qualificationWorkerRequest.prompt via stdin",
+    "response": "actual installed raw JSON schema, Claude stream-json parser",
+    "environment": {
+      "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp",
+      "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02/cache/npm",
+      "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02/cache/npm-prefix",
+      "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02/config/user.npmrc",
+      "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02/config/global.npmrc",
+      "GIT_CONFIG_GLOBAL": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02/config/global.gitconfig",
+      "GIT_CONFIG_SYSTEM": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02/config/system.gitconfig",
+      "GIT_CONFIG_NOSYSTEM": "1",
+      "GIT_OPTIONAL_LOCKS": "0",
+      "NODE_OPTIONS": "--max-old-space-size=4096",
+      "ABG_TS_CLAUDE_COMMAND": "/Users/jim/.local/share/claude/versions/2.1.280",
+      "ABG_TS_CLAUDE_APPEND_ARGS": "[\"--model\",\"claude-opus-5-5\",\"--effort\",\"xhigh\"]",
+      "ABG_TS_FP_TIMEOUT_MS": "900000",
+      "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "1200000",
+      "ABG_TS_FP_TERMINATION_GRACE_MS": "1000"
+    },
+    "inheritedEnvironment": "Root process environment including original HOME/auth configuration; no secret values retained in effect plan. Native CLI user-state effects depend on installed transport; no invented redirected auth/cache guarantee."
+  },
+  "payload": {
+    "inputFileBytes": 82175295,
+    "inputCanonicalBytes": 67784040,
+    "scopeCanonicalBytes": 43152263,
+    "declarationsCanonicalBytes": 18157167,
+    "provenanceCanonicalBytes": 5330633,
+    "materialCanonicalBytes": 1121677,
+    "promptUtf8Bytes": 1021244,
+    "workerRequestFileBytes": 1062803,
+    "bodies": 39,
+    "hosts": 10,
+    "retainedScope": "complete 1950 inventory/2137 rules/95 source correspondence; no silent trimming",
+    "costObservation": "retain actual admission/serialization process timings and wait4 peakRSS; retain final event bytes and growth"
+  },
+  "budgets": {
+    "selection": "prospective finite workload envelope; Root grant required",
+    "actualPromptUtf8Bytes": 1021244,
+    "actualInputFileBytes": 82175295,
+    "actualInputCanonicalBytes": 67784040,
+    "sourceBodies": 39,
+    "hosts": 10,
+    "nodeOldSpaceMiB": 4096,
+    "purePreflightAllowanceMs": 180000,
+    "actorInactivityMs": 900000,
+    "actorAbsoluteMs": 1200000,
+    "terminationGraceMs": 1000,
+    "stages": {
+      "setup": 180000,
+      "assessment": 1440000,
+      "read": 180000
+    },
+    "totalCeilingMs": 2400000,
+    "outerTerminationGraceMs": 1000,
+    "operationPlan": [
+      "assessment-view",
+      "conformance-assess",
+      "assess-rule",
+      "assess-rule-run_result",
+      "assess-rule-run_replay"
+    ],
+    "rationale": "Accommodates complete 67,784,040-byte admission input, two catalog-bearing setup calls, one unchanged 1,021,244-byte prompt, native result/event JSON and two cold reads. A finite envelope is not a prediction or capacity acceptance.",
+    "memory": "Existing Node old-space setting bounds driver and CLI managed heaps to 4096 MiB each. No installed OS RSS or Claude resident-memory cap; wait4 actual peakRSS retained.",
+    "capacity": "Actual provider token/context capacity and account access remain unknown. No clipping, partitioning, model substitution, automatic retry or second assessment."
+  },
+  "providerCapacity": "unknown until actual native transport; shell DNS observation is not a native cause or dispatch prohibition",
+  "closedFailure": "If a genuine start returns a legal closed handoff/Run, perform both fresh reads before semantic assertions even if no J; typed result notfound is truthful. Stop on absent legal handoff/process closure; never synthesize closure or dispatch again.",
+  "proof": "Construct subordinate qualification_proof_resource only from actual typed native J and producer slot/task/Program/invocation/Result; public projectQualificationJudgment must reproduce it. No new consumer CCall or fabricated final F11 authority.",
+  "acceptance": "Source-grounded falsified is useful mechanism evidence and a Product issue. Indeterminate/unknown/insufficient attribution remain open; no forced green/full F11/AF22 verdict.",
+  "activationFields": {
+    "kind": "root_native_execution_activation",
+    "operation": "T287_F11_NATIVE_ASSESSMENT_02",
+    "ordinaryCalls": 5,
+    "assessmentDispatches": 1,
+    "executionOutputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02",
+    "nodeOldSpaceMiB": 4096,
+    "grant": "exact later Root request file record {path,bytes,sha256}",
+    "callerFreeze": "exact CLOSED prep freeze record {path,bytes,sha256}",
+    "boundFreeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json",
+      "bytes": 13795,
+      "sha256": "f32d6de072d65f922c15e388b5827f605469ed0ace0e5cbc4b3edfc3b5c6477e"
+    },
+    "budgets": {
+      "selection": "prospective finite workload envelope; Root grant required",
+      "actualPromptUtf8Bytes": 1021244,
+      "actualInputFileBytes": 82175295,
+      "actualInputCanonicalBytes": 67784040,
+      "sourceBodies": 39,
+      "hosts": 10,
+      "nodeOldSpaceMiB": 4096,
+      "purePreflightAllowanceMs": 180000,
+      "actorInactivityMs": 900000,
+      "actorAbsoluteMs": 1200000,
+      "terminationGraceMs": 1000,
+      "stages": {
+        "setup": 180000,
+        "assessment": 1440000,
+        "read": 180000
+      },
+      "totalCeilingMs": 2400000,
+      "outerTerminationGraceMs": 1000,
+      "operationPlan": [
+        "assessment-view",
+        "conformance-assess",
+        "assess-rule",
+        "assess-rule-run_result",
+        "assess-rule-run_replay"
+      ],
+      "rationale": "Accommodates complete 67,784,040-byte admission input, two catalog-bearing setup calls, one unchanged 1,021,244-byte prompt, native result/event JSON and two cold reads. A finite envelope is not a prediction or capacity acceptance.",
+      "memory": "Existing Node old-space setting bounds driver and CLI managed heaps to 4096 MiB each. No installed OS RSS or Claude resident-memory cap; wait4 actual peakRSS retained.",
+      "capacity": "Actual provider token/context capacity and account access remain unknown. No clipping, partitioning, model substitution, automatic retry or second assessment."
+    },
+    "initialHandoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/final-handoff.json",
+      "bytes": 1330,
+      "sha256": "b0cbc1aa5fb746cb2892fd889d03077c01c7fd99dc108900cd35874a256f1a2a"
+    },
+    "providerPrerequisite": "usable_actual_native_provider_access",
+    "providerAccessEvidence": "Later Root-supplied exact evidence record; not fabricated by this readiness cut"
+  },
+  "actualOfflinePreparationCost": {
+    "pid": 22538,
+    "command": [
+      "node",
+      "--max-old-space-size=4096",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/offline-readiness.mjs"
+    ],
+    "elapsedMs": 12345.584,
+    "exitCode": 0,
+    "signal": null,
+    "peakRSSBytes": 4072046592,
+    "userSeconds": 11.747952,
+    "systemSeconds": 1.332988,
+    "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+  },
+  "initialHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/final-handoff.json",
+    "bytes": 1330,
+    "sha256": "b0cbc1aa5fb746cb2892fd889d03077c01c7fd99dc108900cd35874a256f1a2a"
+  },
+  "prerequisites": [
+    "Root declares a separate native Worker and exact grants for all five listed effect territories",
+    "Usable provider resolution/access in the actual permitted native Worker context; no blind dispatch while unavailable",
+    "Unchanged current136 close, immutable dependencies and output territory without alias/symlink escape",
+    "Live same-process Product verification; this pure preparation uses retained genuine verification coordinates only"
+  ],
+  "futureSetup": {
+    "owner": "separately activated native Worker",
+    "create": [
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02/cache",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02/config"
+    ],
+    "activationPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-02/native-activation.json",
+    "grantsAreProspective": true
+  },
+  "singleAssessmentOnly": true,
+  "changedPrefixC2": "No C2 preparation/dispatch; later C2 must consume F11 actual successor close, not this predecessor."
+}

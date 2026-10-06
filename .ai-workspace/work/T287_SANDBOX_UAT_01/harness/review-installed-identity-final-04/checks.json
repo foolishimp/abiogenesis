@@ -1,0 +1,630 @@
+{
+  "activation": "T287_UAT_INSTALLED_IDENTITY_FINAL_REVIEW_04",
+  "classification": "Bounded independent controls of frozen test caller; controlled checker/invoke doubles. Prior actual public API physical mutation evidence reused without another mutation or Run.",
+  "candidateFreezeSHA256": "22c8e8e3e144eee5bcf5eedfac47703829ca459f3c9c98a8a82643a219cf6382",
+  "workerReturnSHA256": "34ae388e0fb2654e68dfac15fa98b4990feb3eb9f6b8973d7b9d96ac0f135fb4",
+  "verifiedFrozenMembers": 35,
+  "changedSourceCount": 3,
+  "controls": [
+    {
+      "id": "positive-two-root-order",
+      "disposition": "satisfied",
+      "steps": [
+        "check:before-run:0",
+        "check:before-run:1",
+        "record:before-run",
+        "invoke",
+        "check:after-run:0",
+        "check:after-run:1",
+        "record:after-run",
+        "installed-reader-marker"
+      ],
+      "installedReadReached": true,
+      "failureStage": null,
+      "invocationRejected": false,
+      "recordIdentityFieldsExact": true,
+      "ownerCalls": [
+        {
+          "phase": "before-run",
+          "index": 0
+        },
+        {
+          "phase": "before-run",
+          "index": 1
+        },
+        {
+          "phase": "after-run",
+          "index": 0
+        },
+        {
+          "phase": "after-run",
+          "index": 1
+        }
+      ],
+      "records": [
+        {
+          "path": "installed-content-before-run.json",
+          "phase": "before-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": true
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": true
+            }
+          ]
+        },
+        {
+          "path": "installed-content-after-run.json",
+          "phase": "after-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": true
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "before-run-root-0-false",
+      "disposition": "satisfied",
+      "steps": [
+        "check:before-run:0",
+        "check:before-run:1",
+        "record:before-run"
+      ],
+      "installedReadReached": false,
+      "failureStage": "installed-content-before-run",
+      "invocationRejected": false,
+      "recordIdentityFieldsExact": true,
+      "ownerCalls": [
+        {
+          "phase": "before-run",
+          "index": 0
+        },
+        {
+          "phase": "before-run",
+          "index": 1
+        }
+      ],
+      "records": [
+        {
+          "path": "installed-content-before-run.json",
+          "phase": "before-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": false
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "before-run-root-1-false",
+      "disposition": "satisfied",
+      "steps": [
+        "check:before-run:0",
+        "check:before-run:1",
+        "record:before-run"
+      ],
+      "installedReadReached": false,
+      "failureStage": "installed-content-before-run",
+      "invocationRejected": false,
+      "recordIdentityFieldsExact": true,
+      "ownerCalls": [
+        {
+          "phase": "before-run",
+          "index": 0
+        },
+        {
+          "phase": "before-run",
+          "index": 1
+        }
+      ],
+      "records": [
+        {
+          "path": "installed-content-before-run.json",
+          "phase": "before-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": true
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "after-run-root-0-false",
+      "disposition": "satisfied",
+      "steps": [
+        "check:before-run:0",
+        "check:before-run:1",
+        "record:before-run",
+        "invoke",
+        "check:after-run:0",
+        "check:after-run:1",
+        "record:after-run"
+      ],
+      "installedReadReached": false,
+      "failureStage": "installed-content-after-run",
+      "invocationRejected": false,
+      "recordIdentityFieldsExact": true,
+      "ownerCalls": [
+        {
+          "phase": "before-run",
+          "index": 0
+        },
+        {
+          "phase": "before-run",
+          "index": 1
+        },
+        {
+          "phase": "after-run",
+          "index": 0
+        },
+        {
+          "phase": "after-run",
+          "index": 1
+        }
+      ],
+      "records": [
+        {
+          "path": "installed-content-before-run.json",
+          "phase": "before-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": true
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": true
+            }
+          ]
+        },
+        {
+          "path": "installed-content-after-run.json",
+          "phase": "after-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": false
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "after-run-root-1-false",
+      "disposition": "satisfied",
+      "steps": [
+        "check:before-run:0",
+        "check:before-run:1",
+        "record:before-run",
+        "invoke",
+        "check:after-run:0",
+        "check:after-run:1",
+        "record:after-run"
+      ],
+      "installedReadReached": false,
+      "failureStage": "installed-content-after-run",
+      "invocationRejected": false,
+      "recordIdentityFieldsExact": true,
+      "ownerCalls": [
+        {
+          "phase": "before-run",
+          "index": 0
+        },
+        {
+          "phase": "before-run",
+          "index": 1
+        },
+        {
+          "phase": "after-run",
+          "index": 0
+        },
+        {
+          "phase": "after-run",
+          "index": 1
+        }
+      ],
+      "records": [
+        {
+          "path": "installed-content-before-run.json",
+          "phase": "before-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": true
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": true
+            }
+          ]
+        },
+        {
+          "path": "installed-content-after-run.json",
+          "phase": "after-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": true
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "after-run-missing-owner-result",
+      "disposition": "satisfied",
+      "steps": [
+        "check:before-run:0",
+        "check:before-run:1",
+        "record:before-run",
+        "invoke",
+        "check:after-run:0",
+        "check:after-run:1",
+        "record:after-run"
+      ],
+      "installedReadReached": false,
+      "failureStage": "installed-content-after-run",
+      "invocationRejected": false,
+      "recordIdentityFieldsExact": true,
+      "ownerCalls": [
+        {
+          "phase": "before-run",
+          "index": 0
+        },
+        {
+          "phase": "before-run",
+          "index": 1
+        },
+        {
+          "phase": "after-run",
+          "index": 0
+        },
+        {
+          "phase": "after-run",
+          "index": 1
+        }
+      ],
+      "records": [
+        {
+          "path": "installed-content-before-run.json",
+          "phase": "before-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": true
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": true
+            }
+          ]
+        },
+        {
+          "path": "installed-content-after-run.json",
+          "phase": "after-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": true
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "before-run-unavailable-owner-api",
+      "disposition": "satisfied",
+      "steps": [
+        "record:before-run"
+      ],
+      "installedReadReached": false,
+      "failureStage": "installed-content-before-run",
+      "invocationRejected": false,
+      "recordIdentityFieldsExact": true,
+      "ownerCalls": [],
+      "records": [
+        {
+          "path": "installed-content-before-run.json",
+          "phase": "before-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": false,
+              "error": "TypeError: caller.runtime.product.installedProductContentMatches is not a function"
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": false,
+              "error": "TypeError: caller.runtime.product.installedProductContentMatches is not a function"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "after-run-unavailable-owner-api",
+      "disposition": "satisfied",
+      "steps": [
+        "check:before-run:0",
+        "check:before-run:1",
+        "record:before-run",
+        "invoke",
+        "record:after-run"
+      ],
+      "installedReadReached": false,
+      "failureStage": "installed-content-after-run",
+      "invocationRejected": false,
+      "recordIdentityFieldsExact": true,
+      "ownerCalls": [
+        {
+          "phase": "before-run",
+          "index": 0
+        },
+        {
+          "phase": "before-run",
+          "index": 1
+        }
+      ],
+      "records": [
+        {
+          "path": "installed-content-before-run.json",
+          "phase": "before-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": true
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": true
+            }
+          ]
+        },
+        {
+          "path": "installed-content-after-run.json",
+          "phase": "after-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": false,
+              "error": "TypeError: caller.runtime.product.installedProductContentMatches is not a function"
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": false,
+              "error": "TypeError: caller.runtime.product.installedProductContentMatches is not a function"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "after-run-owner-check-throws",
+      "disposition": "satisfied",
+      "steps": [
+        "check:before-run:0",
+        "check:before-run:1",
+        "record:before-run",
+        "invoke",
+        "check:after-run:0",
+        "check:after-run:1",
+        "record:after-run"
+      ],
+      "installedReadReached": false,
+      "failureStage": "installed-content-after-run",
+      "invocationRejected": false,
+      "recordIdentityFieldsExact": true,
+      "ownerCalls": [
+        {
+          "phase": "before-run",
+          "index": 0
+        },
+        {
+          "phase": "before-run",
+          "index": 1
+        },
+        {
+          "phase": "after-run",
+          "index": 0
+        },
+        {
+          "phase": "after-run",
+          "index": 1
+        }
+      ],
+      "records": [
+        {
+          "path": "installed-content-before-run.json",
+          "phase": "before-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": true
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": true
+            }
+          ]
+        },
+        {
+          "path": "installed-content-after-run.json",
+          "phase": "after-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": true
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": false,
+              "error": "Error: Reviewer-controlled public owner check error"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "invocation-rejection-still-checks-both-roots",
+      "disposition": "satisfied",
+      "steps": [
+        "check:before-run:0",
+        "check:before-run:1",
+        "record:before-run",
+        "invoke",
+        "check:after-run:0",
+        "check:after-run:1",
+        "record:after-run"
+      ],
+      "installedReadReached": false,
+      "failureStage": null,
+      "invocationRejected": true,
+      "recordIdentityFieldsExact": true,
+      "ownerCalls": [
+        {
+          "phase": "before-run",
+          "index": 0
+        },
+        {
+          "phase": "before-run",
+          "index": 1
+        },
+        {
+          "phase": "after-run",
+          "index": 0
+        },
+        {
+          "phase": "after-run",
+          "index": 1
+        }
+      ],
+      "records": [
+        {
+          "path": "installed-content-before-run.json",
+          "phase": "before-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": true
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": true
+            }
+          ]
+        },
+        {
+          "path": "installed-content-after-run.json",
+          "phase": "after-run",
+          "observations": [
+            {
+              "installIndex": 0,
+              "contentMatches": true
+            },
+            {
+              "installIndex": 1,
+              "contentMatches": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "independentControlCount": 10,
+  "trustedBootstrapToInstalledReadOrderConfirmed": true,
+  "exactTwoRetainedAdmittedInstalls": true,
+  "previousSnapshotControlsAuthenticated": 14,
+  "fixtureInventories": [
+    {
+      "key": "basic-cli",
+      "assets": 5,
+      "sources": 3
+    },
+    {
+      "key": "js-tenant-test",
+      "assets": 5,
+      "sources": 3
+    },
+    {
+      "key": "js-sdlc-bootstrap",
+      "assets": 5,
+      "sources": 3
+    },
+    {
+      "key": "rust-cli",
+      "assets": 5,
+      "sources": 3
+    },
+    {
+      "key": "rust-service",
+      "assets": 5,
+      "sources": 3
+    },
+    {
+      "key": "parallel-js",
+      "assets": 5,
+      "sources": 3
+    },
+    {
+      "key": "data-mapper-full",
+      "assets": 7,
+      "sources": 4
+    }
+  ],
+  "retainedPhysicalProbeSHA256": "4851309b5e09a7e964e6757ad90ede3359e962f4fcf45f4663e07e7198f0a109",
+  "priorSnapshotSubjectDigest": "sha256:b2954fc4ef3c4139fb17838ee5cc603264d1e15bc9e9812a23e7d36a4de038e9",
+  "cleanPublicPrepare": {
+    "status": "prepared",
+    "uatPass": false,
+    "sourceCommit": "55a8a452141caf180ea6cee6365d2a1bfb9da34e (dirty source; immutable package SHA-256 selects the candidate)",
+    "packageArchiveSHA256": "89e2038de69b384dbef84fe6620d5269e57382971cc8e845f554fc6101084b52",
+    "eventPrefixDigest": "sha256:7845e122d2927bb62a42b0169a0fe46d4eac5c3c84175ebffdc68840d374d511",
+    "genuineRunOrCCallEvents": 0,
+    "admittedPublicArtifacts": 3
+  },
+  "disposition": "satisfied",
+  "providerDispatched": false,
+  "nativeRunExecuted": false,
+  "reinstallation": false,
+  "candidateMutated": false,
+  "applicationUATPass": false,
+  "limits": [
+    "Live native route and provider reachability unexecuted",
+    "Full Data Mapper requires genuine admitted baseline/mutant/restoration and original outcome proof",
+    "No identical legacy 28-stage traversal, qualification or release credit"
+  ]
+}

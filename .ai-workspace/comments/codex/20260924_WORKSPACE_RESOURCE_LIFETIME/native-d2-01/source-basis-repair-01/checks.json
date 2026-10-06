@@ -1,0 +1,44 @@
+{
+  "commands": [
+    {
+      "command": "./node_modules/.bin/tsc -p tsconfig.json",
+      "exitCode": 0,
+      "log": "compile-01.log",
+      "scope": "ordinary compile and three emitted members; no package",
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "logIdentity": {
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "byteLength": 0
+      }
+    },
+    {
+      "command": "ABI5_GENERIC_JOB_BUILD_ROOT=/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript node --experimental-vm-modules --test --test-name-pattern='native D2' test_env/tests/t287-native-semantic-revision.test.mjs",
+      "exitCode": 1,
+      "log": "focused-01.log",
+      "passed": 1,
+      "failed": 1,
+      "firstCause": "new test mutated its already-frozen input after all cover/ancestry assertions; production assertions passed; fixture corrected by constructing distinct input",
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "logIdentity": {
+        "sha256": "ee77fc824e3e8e4e17e030b406b436d9c27398847e662ca5cb0dbc1468f3c5d1",
+        "byteLength": 1410
+      }
+    },
+    {
+      "command": "ABI5_GENERIC_JOB_BUILD_ROOT=/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript node --experimental-vm-modules --test --test-name-pattern='native D2|mechanical exact cover' test_env/tests/t287-native-semantic-revision.test.mjs test_env/tests/d2-binding-transition.test.mjs",
+      "exitCode": 0,
+      "log": "focused-02.log",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 3523.640083,
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "logIdentity": {
+        "sha256": "c5afabb0feb804602f17b21194613c040b112b108c495742a02976b021d1245c",
+        "byteLength": 1219
+      }
+    }
+  ],
+  "diffCheck": "passed both repositories",
+  "noNativeOrActorOrInstalledWitness": true
+}

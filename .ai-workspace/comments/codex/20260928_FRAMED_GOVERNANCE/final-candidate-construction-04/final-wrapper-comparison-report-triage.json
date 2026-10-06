@@ -1,0 +1,13 @@
+{
+  "kind": "mechanical_report_filename_collision",
+  "candidateDiscrepancy": false,
+  "sourceOrArchiveOrInstallRepair": false,
+  "originalComparisonAssertions": "all passed; exact outcome/stdout retained",
+  "supervisorExitCode": 1,
+  "receiptWriteFailure": "final-wrapper-compatibility.json was also the child outcome filename",
+  "earliestRelation": "report producer and command receipt producer shared one destination; distinct semantic records need distinct filenames",
+  "newOutcome": "final-required-wrapper-rows.json",
+  "newReceipt": "final-wrapper-compatibility.json",
+  "reproof": "repeat only mechanical full-row comparison; no source38/11 tests, pack or installation repeated",
+  "firstAttemptCostLimit": "120000ms owned child deadline; supervisor completed and reaped before receipt collision; exact elapsed receipt unavailable and not invented"
+}

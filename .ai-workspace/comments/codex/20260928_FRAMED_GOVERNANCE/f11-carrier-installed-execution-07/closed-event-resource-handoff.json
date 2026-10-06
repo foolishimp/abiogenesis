@@ -1,0 +1,57 @@
+{
+  "status": "CLOSED_AUTHENTIC_FAILED_RUN",
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:41c143e37effce5af95270d3e9f56dd42dd7d8845ae9a98a3a895b3fe450a6f0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+      "prefixLength": 2750762,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464698960
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:a035fec857eced20ca99156c24c70419177d40a2d6c89d19a80da5a8e9f22669",
+      "device": 16777230,
+      "durableByteLength": 2750762,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+      "inode": 464698960,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "handoffDigest": "sha256:dd19e8beaebd802804788cdd179cbffe6ba2b39bc7e76117878d5e8e5fb3693a",
+  "physical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+    "bytes": 2750762,
+    "sha256": "c65057ebfd88cba186502eced4b29c99ec2cc14a0ddf4717908367c7a607298d",
+    "device": 16777230,
+    "inode": 464698960,
+    "mode": "0o644"
+  },
+  "stableAfterSupervisorClose": true,
+  "eventLockPresent": false,
+  "originalPrefix": {
+    "bytes": 2490814,
+    "sha256": "5ba960061e7ad373b389c48c232f13f2dd80a08b2ad296f28f7783c2a5cf470f",
+    "saved": "setup06-initial-durable-prefix.bin",
+    "byteExactPrefix": true,
+    "sameDeviceInode": true
+  },
+  "authorizedEffect": {
+    "appendedBytes": 259948,
+    "appendedRecords": 64,
+    "failedRuns": 1,
+    "PublicCalls": 1,
+    "controlledHelperLaunches": 1,
+    "realProviderCalls": 0
+  },
+  "latestLawfulSource": "actual returned parent invocation resource closeHandoff; strict gate made no later invocation",
+  "reopen": "requires separate Root activation; this Worker stops writes"
+}

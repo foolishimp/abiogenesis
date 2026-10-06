@@ -1,0 +1,94 @@
+{
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/native-runtime-structural-cases.mjs",
+      "bytes": 2668,
+      "sha256": "fcc61f06871cdeb1ebd6edb8feb48da770b7ffc34ade3f9f6c74d15a885e413d",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+      "bytes": 54577,
+      "sha256": "664950098eaa72b737b54b5879ca7eacce984ffe6b01ed450dac5190c6f95968",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+      "bytes": 31851,
+      "sha256": "6727bab19246e8f9994edeabcfca0d1dedb46f518128da7b7c89069ebd920561",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-compose.test.mjs",
+      "bytes": 6196,
+      "sha256": "c1609914d7db49791458ecf57e29569eff678a5f9b3573151c4f3e82f976b3b2",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs",
+      "bytes": 2824,
+      "sha256": "9a7e75b3ce7a83b4f1a266b0d0e44c39ef272e32e4188d3eca762db0aa6c1632",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-substitute.test.mjs",
+      "bytes": 3153,
+      "sha256": "3b1e2f150f48654d649f22c9ca098c3f4dcffd0c1970515e40e74fa1f8961f5d",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-workflow.test.mjs",
+      "bytes": 3981,
+      "sha256": "69382820988d99e9954ee230def004062cff5e7e3c54b02db9eba5a7ca4116ea",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-gate.test.mjs",
+      "bytes": 5747,
+      "sha256": "2faaf6c443510ac0137238576c637bc3bbcb8e81c37ff22cdf0592f799773234",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-recursion.test.mjs",
+      "bytes": 21515,
+      "sha256": "c36cfc0e0eaa08c9678cf4c3728bf4f803d1e471e91abfdd8a3135e568a82cbf",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fan-out.test.mjs",
+      "bytes": 8214,
+      "sha256": "2e4a00603c3bd1dc148938c4f1f4c355f82438a1a149e89ccb63876eda3f6474",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-fibre-substitution.test.mjs",
+      "bytes": 7651,
+      "sha256": "165eb9359caf672c657183168fe968a402fbcfa1529482bf3d1cbbff0cb3e3f8",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fp.test.mjs",
+      "bytes": 25970,
+      "sha256": "208711a54da7b4c75242446085e221a4fcfd242f868b135e6f68006af307985b",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-fp-fd-compose.test.mjs",
+      "bytes": 5576,
+      "sha256": "df5952795f2e404892f45dcef17a84821fe018ea1ba62c30f144313423eb93e9",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-retry.test.mjs",
+      "bytes": 38073,
+      "sha256": "aaa6ec5b6e947db7f03c113997f15e868c0392cf31299a9c9de584f484bf9357",
+      "operation": "edit"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-structural-gates.test.mjs",
+      "bytes": 12370,
+      "sha256": "78dd93a50310c3fa0f7bd8922399f310b343e496e88ef63123401315b70b8464",
+      "operation": "edit"
+    }
+  ]
+}

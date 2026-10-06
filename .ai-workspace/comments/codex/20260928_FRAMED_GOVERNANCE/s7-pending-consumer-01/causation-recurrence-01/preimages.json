@@ -1,0 +1,30 @@
+{
+  "checkpoint": "059d858a",
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 55002,
+      "sha256": "1f17e85d8ef7f9daceae48b93a40dfd9a78332773bad464c94b85c54271ca6b7"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "bytes": 9695,
+      "sha256": "343df4e16c118b9b8585d3c93156d4311237473b13452d6cd3fe0f990ea6983b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "bytes": 20482,
+      "sha256": "77091f5e1099f6523254000252386f28791cfa4874424cbaf0f53b78fcfd9a9d"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/c_call_outcome.js",
+      "bytes": 55138,
+      "sha256": "89cad42042a4517cf4f5cf216b47972d444e41be5280d43dfb53ac55d9b33906"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+      "bytes": 160216,
+      "sha256": "3d0f3405765fbf5e6a3a728f120b9fcb2110e71bbee68b8f44bc77c888af7ae8"
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "status": "frozen_source_and_package_pending_tests_review",
+  "basis": "STDO2.5.1RC2",
+  "sourceMembers": [
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 501000,
+      "sha256": "2f52ef0e10402da28edaed8105173f4c369ab468282c62468ff50c896a4aa19b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+      "bytes": 6246,
+      "sha256": "a8c5cd81ccff25c10a9b99c6971efe3b974e1febb7eeb296c4847ba30b698290"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/fan_out.ts",
+      "absent": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/hello_world.ts",
+      "absent": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/index.ts",
+      "bytes": 11491,
+      "sha256": "2189903cf0ff57a15c3c4c4b23f90f8f267c67a54f4a7f86eee788d8df19b916"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/recursion.ts",
+      "absent": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "bytes": 18533,
+      "sha256": "3141dff02fd0a0b1bddc926c2e8b932d0bd00231496e33eec2cdf7b2a7e9bd43"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/fan_out.ts",
+      "absent": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/fp_hello.ts",
+      "absent": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/hello_compose.ts",
+      "absent": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/hello_gate.ts",
+      "absent": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/hello_world.ts",
+      "absent": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/index.ts",
+      "bytes": 6801,
+      "sha256": "8d13d8ab83c7e6cb806415b06e4991d0b7dc607b6781308fdcdcc88ee195bd26"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 76334,
+      "sha256": "be5c9007617ed1707e92e254188caa7dd99c2b631ff5d9e76e155c207d573b08"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/recursion.ts",
+      "absent": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/builtin_semantics.ts",
+      "bytes": 64470,
+      "sha256": "83962d336474fc2597319262a92db4933a788127fee6b0bfc1079626b7cb4fa7"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/conformance/gtl-language-conformance-corpus.json",
+      "bytes": 23189,
+      "sha256": "76fdce484d14ec9d9fc743cded9e330db89f5b1fcdf96ed3607fb801071b96e1"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+      "bytes": 28062,
+      "sha256": "2bfe7bbf7c2da0ec32cf16eae70263dd0d09e4a926f6262206517e96d8181d43"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+      "bytes": 28470,
+      "sha256": "f1b6a4f9018582df1f4228baa1ff923a3978ffc4cee51837f32f64648161c9cc"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md",
+      "bytes": 93690,
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-P-QUAL.md",
+      "bytes": 35987,
+      "sha256": "0366cdd8f4392f94e7a1f3fbfc91e265133dcd23cb0ebe13db4167e57fbe8c5b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/sources/REQ-P-SCENARIOS.md",
+      "bytes": 17479,
+      "sha256": "5126f116cd64f64b48ccdd9126d3709a73c4090f73251c84320c6ae11c7a36dd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 150149,
+      "sha256": "9858e5dbffe6065a450dd9665365939707f0b4276655d77dd8bc67a624020a37"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md",
+      "bytes": 161433,
+      "sha256": "e43a551a6f038edbdb59763a5b697a7043ed65322b603bc10be381c044a6ca1e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md",
+      "bytes": 37146,
+      "sha256": "30dcaa9647c17d582e12579c27393f69ecb912e68959604d1f8c8aa63d9c1a55"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_DERIVATION.md",
+      "bytes": 34682,
+      "sha256": "090da5c8403e72864c17ce621df52f3dd28f02bf84e8800f789d3ae7aee360c7"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M02_M04_INSTALLED_CATALOG_SDK_CLI_IACS.md",
+      "bytes": 24584,
+      "sha256": "546519a2adddffba0162efe0fc24298ab7154078e299457c8803462ad7b8df84"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M02_M05_PACKED_INSTALLED_VERTICAL_BEHAVIOR_DESIGN.md",
+      "bytes": 3580,
+      "sha256": "d8be5f8faf215ed2804ff136ce83415ec10e5abeaa77f615116541e68a387a41"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md",
+      "bytes": 94493,
+      "sha256": "2e78eda04a01b97208839d656cacfb64063bd2606af947b17de118c338ac5091"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md",
+      "bytes": 152643,
+      "sha256": "afda91cea9df96a08f28e216af67a602961947a1d525218143db2e5f41931e94"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "bytes": 43221,
+      "sha256": "4bcaa90771f855f08b8fe36fa6a171ddfaa89dfeead7ff7a9f52bb766d8dcb2c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md",
+      "bytes": 36008,
+      "sha256": "bc5475bed4b20d84dc8fb391b3d5467a464f94ab50062a24d0d4fc1ba04363c7"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_S1_ROOT_ARTIFACT_CARRIER_DESIGN.md",
+      "bytes": 3484,
+      "sha256": "12bf29039b2abd6c9494f21cfc9605a78950c26506854d8d13184f39988e9ed9"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md",
+      "bytes": 31041,
+      "sha256": "e84ff542dd9c0cc10c0b0b60d5f372cd661331119c378ebac4d052b88c6afedd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3171685,
+      "sha256": "c5f6c32690fc178c97ee974b587caa5f32535d70cd580b61970c3e41cff86285"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 48959,
+      "sha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "bytes": 71135,
+      "sha256": "73e2a0af4a6c98f6468e26cd70f3a4fd8f1e5198669c26a4c6ee2995c9bbce6d"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "bytes": 93690,
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-QUAL.md",
+      "bytes": 35987,
+      "sha256": "0366cdd8f4392f94e7a1f3fbfc91e265133dcd23cb0ebe13db4167e57fbe8c5b"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-SCENARIOS.md",
+      "bytes": 17479,
+      "sha256": "5126f116cd64f64b48ccdd9126d3709a73c4090f73251c84320c6ae11c7a36dd"
+    }
+  ],
+  "package": {
+    "path": ".ai-workspace/work/T287_HELLO_EXPUNCTION_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10620479,
+    "sha256": "89e2038de69b384dbef84fe6620d5269e57382971cc8e845f554fc6101084b52",
+    "productContentDigest": "sha256:1c6e4baf3b2d67ebdef6041d851c10fb5dc2d9c405d89fca0e21cdb595b909ec"
+  },
+  "absenceChecks": {
+    "productionHello": [],
+    "compiledHello": [],
+    "packHelloPaths": [],
+    "packedCodeHello": [],
+    "packedFixturePaths": []
+  },
+  "qualification": "none claimed",
+  "designFollowup": {
+    "role": "Root Writer",
+    "preimageSha256": "af682bcb839229081b6e4a450c6cc1950181e2a84003b093e8ba1796a73f0f25",
+    "effect": "remove residual false ABI-owned test leaf grant",
+    "successor": {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md",
+      "bytes": 31041,
+      "sha256": "e84ff542dd9c0cc10c0b0b60d5f372cd661331119c378ebac4d052b88c6afedd"
+    },
+    "packageUnchanged": true
+  }
+}

@@ -258,7 +258,7 @@ async function runScenario(t, variantId) {
   await assert.rejects(() => lstat(scratch), { code: "ENOENT" });
   const harness = await setupInstalledCliHarness({ after() {} }, packageRoot, {
     candidateBasisSource: "packed_artifact", scratchPath: scratch,
-    rootPublicationKinds: ["hello_world", "worksite_construction", "worksite_command_execution"],
+    rootPublicationKinds: ["worksite_construction", "worksite_command_execution"],
   });
   installedHarness = harness;
   const product = harness.product;

@@ -1,0 +1,74 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_SETUP09_ACCEPTANCE_AND_Q10_RELEASE_WRITER_01_CONTINUED_01",
+  "role": "Writer",
+  "actor": "/root",
+  "recordCount": 10,
+  "recordBytes": 27235,
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/acceptance.json",
+      "bytes": 9596,
+      "sha256": "4696d73552536c99a47e3a9db6cf277d7d318bf725ced3b2e95225aa0c8bba74",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/activation.json",
+      "bytes": 1152,
+      "sha256": "83d12e1792a8bf25a5633920272aa5664c9ed09b5bd019081e2375dec44e1c22",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/closure.json",
+      "bytes": 1158,
+      "sha256": "2c89b22200c952eeba738505cabe91a0c5c672bea98a1e6d89d010170096c75a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/recording-stop.json",
+      "bytes": 842,
+      "sha256": "3f5b288d80475d178db979718d3f78c12740ad37f2800c5a77a35fcb2c896014",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/request.txt",
+      "bytes": 2453,
+      "sha256": "b641f2ab107216e19536b4f8cdc8bdbd07484332f95af65d7695d1dbc5745a03",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/return.md",
+      "bytes": 484,
+      "sha256": "2f330a77cb176e7e1e4adacbf477e41789349c9089fd3e7a4d8cd5de9828280c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/root-triage.json",
+      "bytes": 1397,
+      "sha256": "45d619f0791a885c4ab40e4555a8842fb63911d56d9aa86729ba7f73f1777f6c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/root-verification.json",
+      "bytes": 6091,
+      "sha256": "c749cace9b4b6abbfc80f8292a7af58438adb6f819d353bc58a99c10be7a4848",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/sections.json",
+      "bytes": 2724,
+      "sha256": "24ac43274570bc854cdaac747fa5abf87ac57e04596c4f184fdf0e0a67e582b9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-setup09-acceptance-01/writer-continuation-activation.json",
+      "bytes": 1338,
+      "sha256": "d4727ff6ea7d93a1c7fa23c387b9fc765661f366655d966b9645c04cbe356f32",
+      "mode": 420
+    }
+  ],
+  "directoryCount": 0,
+  "symlinks": 0,
+  "excludedSelf": "freeze.json",
+  "writesStopped": true
+}

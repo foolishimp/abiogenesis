@@ -1,0 +1,15 @@
+{
+  "pid": 67140,
+  "pgid": 67140,
+  "exitCode": 1,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "wait4Status": 256,
+  "childUserCPUSeconds": 0.41284899999999997,
+  "childSystemCPUSeconds": 0.5450539999999999,
+  "childMaxResidentSetSizePlatformBytes": 136724480,
+  "elapsedMs": 1017.4815831705928,
+  "processGroupAbsent": true,
+  "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderrSHA256": "c14c07c86fafb91668c941b8c5f9250aba8e77f6842d1d393bcc7572e9f166d3"
+}

@@ -1,0 +1,47 @@
+{
+  "status": "CLOSED",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_Q10_FIRST_REFUSAL_RECORDING_WRITER_01",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-byte-frontier-triage-01/activation.json",
+      "bytes": 1062,
+      "sha256": "fe5c1e3ebfd4fba19acf60b4593b7360695c1957ff2cfb8642019a6b94ffa94c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-byte-frontier-triage-01/closure.json",
+      "bytes": 819,
+      "sha256": "39d19aa487dc6d6f7dfe889db263c6306e01a0e385d04130931d9a8efd855ac8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-byte-frontier-triage-01/current-provider-reachability.json",
+      "bytes": 425,
+      "sha256": "80258876753047eb73847dbadadcd724f73ac3b4b9add7c92cd3a92011bda19b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-byte-frontier-triage-01/frozen-node-representation-limit-probe.json",
+      "bytes": 1217,
+      "sha256": "ff384c4fae2bbf2800acf228b96e8803a965d1aa84d9b7768749f35682e9c8d9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-byte-frontier-triage-01/initial-triangulation.json",
+      "bytes": 3736,
+      "sha256": "28505724032e68e21ba2d69667a6f6e2659b8790e78fb237a04508f4fdcdbc4d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-byte-frontier-triage-01/root-cut-verification.json",
+      "bytes": 211,
+      "sha256": "f89a3c7b60b4986935448fa9bb84e55e037c7aff3ca5c365ccfbbbd21ad97928",
+      "mode": 420
+    }
+  ],
+  "recordCount": 6,
+  "excludedSelf": "freeze.json",
+  "writesStopped": true
+}

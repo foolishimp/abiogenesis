@@ -1,0 +1,80 @@
+{
+  "status": "CLOSED_BOUNDED_INDEPENDENT_ACCEPT",
+  "activation": "T287_C2_OUTPUT_CONSUMER_REVIEW_01",
+  "actor": "/root/current_authority_review",
+  "role": "report-only Writer CLOSED",
+  "closedAt": "2026-09-30T10:16:56.964716+00:00",
+  "requestSha256": "b76ac609dad0865d23a73bdd89ccf49606b4be9c0db471df5567a1dd779d51ce",
+  "repairFreezeSha256": "5b705555a5ebd9a58e0402667a0f31f9256e3e3ce643930f065d33bee34650f6",
+  "successorSha256": "d59cebeeed35234f4d69f978030a5a1094919291513c523a0d34b07fcb6f8b2a",
+  "priorReviewFreezeSha256": "4397713136caac64f7d7d434429efe20d95f7fd22d388d1613e2ef2de9bf488e",
+  "checks": {
+    "pureProcessElapsedSeconds": 0.31512116687372327,
+    "perProcessMs": 60000,
+    "aggregateMs": 180000,
+    "graceMs": 1000,
+    "nativeCalls": 0,
+    "newFixtures": 0,
+    "movingResourceReads": 0
+  },
+  "records": [
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1173,
+      "sha256": "a396fd1a697b1ec0fce40166e2b7d39bc64e027775513bf29e66a01cea0ec4da"
+    },
+    {
+      "path": "check-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 525,
+      "sha256": "1375b6022fc54a1f8978ec3ea4d50228844fd4313f3746683edc4100af334e8e"
+    },
+    {
+      "path": "check.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 7671,
+      "sha256": "3f76ae04c01b74ef663d1fe0c8d25a9f543467b9bee8624d68dd0a378e303db8"
+    },
+    {
+      "path": "check.stderr",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "check.stdout",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 228,
+      "sha256": "8dee6d64e3012fb2a510f395bcbdc4b9b2899f723b1628d5edf8541e7912b784"
+    },
+    {
+      "path": "observations.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 4145,
+      "sha256": "e7faaad48f88ddc41ff6c05908a86322bfd7a2fc91ee72b13c2f76773d6ed725"
+    },
+    {
+      "path": "return.md",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5463,
+      "sha256": "66005595a6194fca2a749404fc6a4e9629c02e6e92c297b25e02a53ddfb1f024"
+    },
+    {
+      "path": "run-check.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1134,
+      "sha256": "a46623a65b155839c2f48bd65a83912f71b9fcd09b949b70ae5ef0e22dcd74aa"
+    }
+  ],
+  "nativeClaim": false,
+  "stop": "CLOSED; Root owns disposition and further activation"
+}

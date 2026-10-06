@@ -1,0 +1,26 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+    "sha256": "8f5137dbd7785d392c208007b3c51ca12e1cc2c5a3adc6a96d5b0fc2311ccc9b"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/project_read_ports.js",
+    "sha256": "06f50d33423e77725324e8422ed2e39a76b00516dae44235ea3f80b84f3cf76a"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "sha256": "5aa0d80acb0623aaeaf2aa63f55739e1f4469af5807be98beb3c3a32eb65e7be"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+    "sha256": "d854a25ba97a3914d9e28ea8cc7cc5e1115f0d587e358c9d7bd40828e9d565f1"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+    "sha256": "e930116a94cffdb4ca50e6081c9712264106f98b1b30b0dcad7045389c377ca1"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/replay.js",
+    "sha256": "4310c1a07cdc3bb1d7423076d37f10591f27a17e4bae4fe0db00c098f3770660"
+  }
+]

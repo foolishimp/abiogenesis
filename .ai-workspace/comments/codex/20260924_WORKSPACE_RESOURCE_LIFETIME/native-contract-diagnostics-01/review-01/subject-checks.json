@@ -1,0 +1,115 @@
+{
+  "kind": "independent_review_subject_and_check_refs",
+  "result": "satisfied",
+  "scope": "Native author contract diagnostics; frozen source and retained component verification only",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "expectedSha256": "a9c3f626aad25a23e009c13e28ab8eff52f844600bc1c801a550cff4d82b6421",
+      "observedSha256": "a9c3f626aad25a23e009c13e28ab8eff52f844600bc1c801a550cff4d82b6421",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "expectedSha256": "897f1e69a98fd35a19224e1ce8c31b3f47fd5210e612d478c96a6faf24a35323",
+      "observedSha256": "897f1e69a98fd35a19224e1ce8c31b3f47fd5210e612d478c96a6faf24a35323",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+      "expectedSha256": "32fc80f9af9029fbcc8ab5ffcb84065373a8d76a3e41d4cd89b401bf168bf8e9",
+      "observedSha256": "32fc80f9af9029fbcc8ab5ffcb84065373a8d76a3e41d4cd89b401bf168bf8e9",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "expectedSha256": "fed90e4d8cf076c6b6db082d39de0a77bb9cc581fca81831287b1eafb49a957b",
+      "observedSha256": "fed90e4d8cf076c6b6db082d39de0a77bb9cc581fca81831287b1eafb49a957b",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.d.ts",
+      "expectedSha256": "ae148ae75ea245a41e3d9be5550a5b8962a26d65760f50747ec88c63e6266d44",
+      "observedSha256": "ae148ae75ea245a41e3d9be5550a5b8962a26d65760f50747ec88c63e6266d44",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/semantic_job.js",
+      "expectedSha256": "86e4c340b07f9cb2e493105e4fe6c533b9563668de21f9ced14b20d32d254884",
+      "observedSha256": "86e4c340b07f9cb2e493105e4fe6c533b9563668de21f9ced14b20d32d254884",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_stage.js",
+      "expectedSha256": "0b3fe3d859197e6c8fee1086e2a3f300d94233fe815c305458b0355eb2e0414f",
+      "observedSha256": "0b3fe3d859197e6c8fee1086e2a3f300d94233fe815c305458b0355eb2e0414f",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.d.ts",
+      "expectedSha256": "88e1c03535fa36c501551eaaaa840a543bd4203dac3fd0b70eda5c68178a266d",
+      "observedSha256": "88e1c03535fa36c501551eaaaa840a543bd4203dac3fd0b70eda5c68178a266d",
+      "matches": true
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_job.js",
+      "expectedSha256": "e704c865e50d77126b556de065951c03af771a4fd70ba29710b3568879b1d7ea",
+      "observedSha256": "e704c865e50d77126b556de065951c03af771a4fd70ba29710b3568879b1d7ea",
+      "matches": true
+    }
+  ],
+  "evidence": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-contract-diagnostics-01/return.md",
+      "sha256": "dac312a3ccfa06594063ffbade9366da2342be6da61cec5a8740e69e6c370f17"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-contract-diagnostics-01/subject.diff",
+      "sha256": "a4c3cf370359cef18cd041887bdd5c8bcb8bc84a14c87571b95b8a5a2e4e3145"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-contract-diagnostics-01/preimages.json",
+      "sha256": "7f9ec36c66a2dd9650ac67f65ecdd208f24335b6f83c0feccefb5aead4d17d5f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-contract-diagnostics-01/postimages.json",
+      "sha256": "bd18d972834f1777e45fab06d0b945718e885056ecd51b8a1d8e21674a373aa7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-contract-diagnostics-01/compile.json",
+      "sha256": "7f05c5bff87b9ad2e907606da854ef9efda2d7d680ae6ef3e73b8947c08cc6fb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-contract-diagnostics-01/compile.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-contract-diagnostics-01/focused-tests.json",
+      "sha256": "60cfe2c9d9f62c96433fe32695330c5c4815bb0adbd84fbc956aee29b0bedaa4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-contract-diagnostics-01/focused-tests.log",
+      "sha256": "12d0c263be01f1100f0eff52cab854b0777d894b24ab68f4242f0c3dbe3f44b3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-contract-diagnostics-01/diff-check.json",
+      "sha256": "5617a679dbd64fad93bd317822f7bb7101fc1e38ec5a5d95a06ee8f17ee5b1cf"
+    }
+  ],
+  "consumedVerification": {
+    "compileExitCode": 0,
+    "focusedTests": {
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    "diffCheckExitCode": 0,
+    "reviewerReranChecks": false
+  },
+  "reviewerEffects": [
+    "review-01/review.md",
+    "review-01/subject-checks.json"
+  ],
+  "installedOrNativeClaim": false
+}

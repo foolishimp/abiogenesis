@@ -1,0 +1,50 @@
+[
+  {
+    "original": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/ordinary-caller.mjs",
+      "bytes": 14670,
+      "sha256": "fa004e9f812e6214b53294dc38530b857d7527bc3a1a2d64e469d260ac1b4023"
+    },
+    "preserved": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/preimages/ordinary-caller.mjs",
+      "bytes": 14670,
+      "sha256": "fa004e9f812e6214b53294dc38530b857d7527bc3a1a2d64e469d260ac1b4023"
+    }
+  },
+  {
+    "original": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/public-support.mjs",
+      "bytes": 9066,
+      "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+    },
+    "preserved": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/preimages/public-support.mjs",
+      "bytes": 9066,
+      "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+    }
+  },
+  {
+    "original": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    "preserved": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/preimages/observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    }
+  },
+  {
+    "original": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/launch-once.py",
+      "bytes": 2237,
+      "sha256": "f6e69068f1518565089804f8b169b25a65cf572d6db1608007edf2587d756c8c"
+    },
+    "preserved": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/preimages/launch-once.py",
+      "bytes": 2237,
+      "sha256": "f6e69068f1518565089804f8b169b25a65cf572d6db1608007edf2587d756c8c"
+    }
+  }
+]

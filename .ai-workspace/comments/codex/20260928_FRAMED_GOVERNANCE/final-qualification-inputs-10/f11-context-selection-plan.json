@@ -1,0 +1,70 @@
+{
+  "kind": "concrete_current_C09_runtime_bound_authorer",
+  "authorer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/f11/current-resources.mjs",
+    "bytes": 22080,
+    "sha256": "4d64228fd9b2daca937af2178bff61b6df392617342162d23cc7d9ac3dfd3cb4",
+    "mode": 420
+  },
+  "firstCriterion": {
+    "sourceRef": "repo://abiogenesis/stdo_abiogenesis.json",
+    "role": "qualification-role://abiogenesis/catalog@5",
+    "evidenceRole": "catalog_fidelity"
+  },
+  "providedModelSourceRefs": [
+    "repo://abiogenesis/stdo_abiogenesis.json",
+    "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+    "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md"
+  ],
+  "completeInventorySeparate": true,
+  "fullSourceCorrespondenceResources": "one exact body selector for every inventory member; no binary/tool body copied to model context",
+  "sourceAuthRecords": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/f11/source-authorship-records.json",
+    "bytes": 40847895,
+    "sha256": "3322875a0bc10bcb54642c9018dd9ea35c260e621abe75310127c3b8ea2ea77d",
+    "mode": 420
+  },
+  "historicalPartitionPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-10/f11/historical-partition-preimage.json.gz",
+    "bytes": 3232033,
+    "sha256": "bffb678d369ecb61714fa5e0652c3c645278f33c4e761b36d8a89cd5fcdc66cb",
+    "mode": 420
+  },
+  "scopeAuthoring": "Preserve current matching historical ordered rule/member partitions; append current source/new-member groups explicitly. All applicability/grouping sufficiency remains unknown.",
+  "RuntimeRequiredParameters": [
+    "actual admitted A",
+    "actual admitted W",
+    "current C09 admitted install",
+    "Root actor",
+    "current catalog",
+    "current View",
+    "exact declaration proofs"
+  ],
+  "constructedData": [
+    "current basis",
+    "whole scope/per-rule partitions",
+    "tenant manifest",
+    "plan",
+    "task",
+    "exact context",
+    "full source/member/material/provenance",
+    "resource manifest/assertion"
+  ],
+  "unitCoordinates": "explicit unit-only opaque coordinates for published guard/renderer readiness; never ABG truth",
+  "runtimeOrder": [
+    "complete mixed setup with both Products/publications/installs/catalog and four conformance Programs",
+    "wrapper parent -> imported core assessment child -> compact J -> ordinary foldback/parent closure",
+    "two fresh result/replay reads",
+    "fresh F11 then sole AF22 truthful non-green then cold reads"
+  ],
+  "rootOnlyFallback": false,
+  "semanticAssessment": false,
+  "unknowns": [
+    "all unassessed criteria",
+    "independent attribution",
+    "grouping sufficiency",
+    "actual runtime provenance/J",
+    "observed qualification",
+    "release/human ruling"
+  ]
+}

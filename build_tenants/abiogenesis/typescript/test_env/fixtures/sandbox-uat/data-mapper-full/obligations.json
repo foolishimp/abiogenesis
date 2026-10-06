@@ -1,0 +1,683 @@
+{
+  "scenarioId": "SCN-GLC-DATA-MAPPER-FULL-SCALA-SBT",
+  "kind": "data_mapper_full_scala_sbt_test",
+  "expectedReturnValue": "data_mapper_full_sbt ok",
+  "stageMeanings": [
+    {
+      "stage": "derive_intent_surface",
+      "filesToProduce": [
+        "specification/intent.md"
+      ],
+      "instructions": [
+        "Write only specification/intent.md.",
+        "Declare the intent for the Scala/Spark CDME data-mapper lifecycle build.",
+        "The mapper must model typed logical and physical data mapping, topology compilation, DataFrame execution, adjoint lineage, accounting, assurance, fidelity, and engine orchestration.",
+        "The active tenant is scala_spark. The build output root is build_tenants/scala_spark.",
+        "State that GTL/ABG owns startup, registry selection, graph-call opening, vector traversal, F_P dispatch, evidence admission, event emission, fold, residual, and replay truth.",
+        "Do not write product, requirements, design, source, tests, package files, or execution plans in this vector."
+      ]
+    },
+    {
+      "stage": "derive_product_surface",
+      "requiredPriorStages": [
+        "derive_intent_surface"
+      ],
+      "filesToProduce": [
+        "specification/product.md"
+      ],
+      "instructions": [
+        "Write only specification/product.md.",
+        "Use the prior intent artifact as authority.",
+        "Define the product as a Scala/SBT multi-module CDME data-mapper tenant, not as JavaScript.",
+        "The module set is exactly cdme-core, cdme-compiler, cdme-executor, cdme-adjoint, cdme-accounting, cdme-assurance, cdme-fidelity, cdme-engine.",
+        "The build command is sbt clean assembly and the test execution contract is sbt test under build_tenants/scala_spark.",
+        "The product must include Scala source and ScalaTest test source for topology compilation, DataFrame execution, adjoint lineage, accounting verification, assurance, fidelity, and engine integration.",
+        "Do not write requirements, design, source, tests, package files, or execution plans in this vector."
+      ]
+    },
+    {
+      "stage": "derive_goal_surface",
+      "requiredPriorStages": [
+        "derive_intent_surface",
+        "derive_product_surface"
+      ],
+      "filesToProduce": [
+        "specification/goals.md"
+      ],
+      "instructions": [
+        "Write only specification/goals.md.",
+        "Use the prior intent and product artifacts as authority.",
+        "List the build goals: create the scala_spark SBT tenant, implement shared cdme-core plus the seven CDME concern modules, prove topology compilation, prove DataFrame execution, prove adjoint lineage, prove accounting invariants, prove assurance/fidelity services, and prove engine integration.",
+        "Do not write requirements, design, source, tests, package files, or execution plans in this vector."
+      ]
+    },
+    {
+      "stage": "derive_requirement_surface",
+      "requiredPriorStages": [
+        "derive_goal_surface"
+      ],
+      "filesToProduce": [
+        "specification/requirements.md"
+      ],
+      "instructions": [
+        "Write only specification/requirements.md.",
+        "Use the prior goal artifact as authority.",
+        "Define requirements for the scala_spark tenant: SBT build, shared cdme-core plus seven CDME concern modules, typed topology compiler, DataFrame executor, adjoint lineage registry, accounting invariant verifier, assurance service, fidelity service, and engine integration.",
+        "Require the shared cross-module contract DTOs CompiledTopology, ExecutionResult, StageResult, AccountingLedger, LedgerEntry, DataFrameRef to live in cdme-core when concern modules depend on cdme-core only; concern modules own behavior, traits, implementations, and module-local evidence types.",
+        "Require at least one ScalaTest spec for every CDME module, including cdme-core, and a test execution result from sbt test.",
+        "Require the generated implementation to avoid JavaScript/Node source and avoid package.json as the subject build surface.",
+        "Do not write design, source, tests, package files, or execution plans in this vector."
+      ]
+    },
+    {
+      "stage": "derive_uat_testcases_surface",
+      "requiredPriorStages": [
+        "derive_requirement_surface"
+      ],
+      "filesToProduce": [
+        "specification/uat-testcases.md"
+      ],
+      "instructions": [
+        "Write only specification/uat-testcases.md.",
+        "Use the prior requirements artifact as authority.",
+        "Define user acceptance testcases for compiling a mapping topology, executing a DataFrame transformation, preserving adjoint lineage, balancing accounting partitions, applying assurance checks, calculating fidelity, and running the CDME engine integration path.",
+        "Do not write executable test source in this vector."
+      ]
+    },
+    {
+      "stage": "derive_testcase_authority_surface",
+      "requiredPriorStages": [
+        "derive_uat_testcases_surface"
+      ],
+      "filesToProduce": [
+        "specification/testcase-authority.md"
+      ],
+      "instructions": [
+        "Write only specification/testcase-authority.md.",
+        "Use the prior UAT testcase artifact as authority.",
+        "Declare that generated ScalaTest sources must bind to the module responsibilities named in product and requirements.",
+        "Require SBT test reports for every CDME module.",
+        "Forbid replacing the scala_spark tenant with JavaScript, Node test wrappers, or a single LogicalDataModel class."
+      ]
+    },
+    {
+      "stage": "derive_feature_decomp_surface",
+      "requiredPriorStages": [
+        "derive_requirement_surface",
+        "derive_testcase_authority_surface"
+      ],
+      "filesToProduce": [
+        "design/feature-decomposition.md"
+      ],
+      "instructions": [
+        "Write only design/feature-decomposition.md.",
+        "Use the prior requirements and testcase-authority artifacts as authority.",
+        "Decompose the implementation into exactly these SBT modules: cdme-core, cdme-compiler, cdme-executor, cdme-adjoint, cdme-accounting, cdme-assurance, cdme-fidelity, cdme-engine.",
+        "Map cdme-core to shared typed vocabulary, cdme-compiler to topology/type compilation, cdme-executor to DataFrame execution and error sink, cdme-adjoint to lineage/adjoint metadata, cdme-accounting to invariant verification and ledger proof, cdme-assurance to data-quality checks, cdme-fidelity to reconciliation metrics, and cdme-engine to orchestration.",
+        "Because every concern module depends on cdme-core only, cdme-core owns the shared cross-module contract DTOs CompiledTopology, ExecutionResult, StageResult, AccountingLedger, LedgerEntry, DataFrameRef; concern modules may re-export or consume them but must not become their sole defining module if another concern module must use the type.",
+        "Do not write source, tests, package files, or execution plans in this vector."
+      ]
+    },
+    {
+      "stage": "derive_design_surface",
+      "requiredPriorStages": [
+        "derive_requirement_surface",
+        "derive_feature_decomp_surface"
+      ],
+      "filesToProduce": [
+        "design/module-design.md"
+      ],
+      "instructions": [
+        "Write only design/module-design.md.",
+        "Use the prior feature-decomposition artifact as authority.",
+        "Design a Scala/SBT multi-module tenant rooted at build_tenants/scala_spark.",
+        "Use Scala 2.13, ScalaTest, and module dependencies matching the CDME decomposition.",
+        "Specify typed topology rows, mapping edges, execution results, adjoint metadata, ledgers, assurance outcomes, fidelity reports, and engine run results as Scala domain types.",
+        "When the design assigns any shared contract DTO used across concern modules, assign CompiledTopology, ExecutionResult, StageResult, AccountingLedger, LedgerEntry, DataFrameRef to cdme-core so the core-only dependency graph remains compilable. Do not assign one of these shared DTOs only to cdme-compiler, cdme-executor, cdme-accounting, or any other concern module when another concern module's public signature consumes it.",
+        "Do not design a JavaScript class, Node package, or single-file LogicalDataModel replacement.",
+        "Do not write source or tests in this vector."
+      ]
+    },
+    {
+      "stage": "derive_scenario_surface",
+      "requiredPriorStages": [
+        "derive_uat_testcases_surface",
+        "derive_design_surface"
+      ],
+      "filesToProduce": [
+        "specification/scenario.md"
+      ],
+      "instructions": [
+        "Write only specification/scenario.md.",
+        "Use prior UAT and design artifacts as authority.",
+        "Describe the scenario as a Scala/Spark data-mapper build: compile a source-to-target topology, execute a small in-memory dataset, capture lineage, verify accounting, run assurance/fidelity checks, and prove engine integration through sbt test.",
+        "Name the module-level tests as the acceptance proof surface.",
+        "Do not describe the scenario as a JavaScript object-graph or Node test.",
+        "Do not write source or tests in this vector."
+      ]
+    },
+    {
+      "stage": "derive_implementation_design_surface",
+      "requiredPriorStages": [
+        "derive_requirement_surface",
+        "derive_testcase_authority_surface",
+        "derive_feature_decomp_surface",
+        "derive_design_surface",
+        "derive_scenario_surface"
+      ],
+      "filesToProduce": [
+        "design/implementation-design.md"
+      ],
+      "instructions": [
+        "Write only design/implementation-design.md.",
+        "Use all prior specification and design artifacts as authority.",
+        "Specify exact SBT files: build_tenants/scala_spark/build.sbt, build_tenants/scala_spark/project/plugins.sbt, and build_tenants/scala_spark/project/build.properties.",
+        "Specify exact Scala source files: build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala, build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala, build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala, build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala, build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala, build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala, build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala, build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala, build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala, build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala, build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala.",
+        "Specify exact ScalaTest files: build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala, build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala, build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala, build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala, build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala, build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala, build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala, build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala.",
+        "The implementation design must keep the module dependency graph and public type placement jointly satisfiable: if concern modules depend on cdme-core only, shared inter-module contract DTOs (CompiledTopology, ExecutionResult, StageResult, AccountingLedger, LedgerEntry, DataFrameRef) are defined in cdme-core and concern modules own behavior over those DTOs.",
+        "The implementation must be sufficient for sbt test to produce one passing test report per CDME module.",
+        "Do not specify package.json, src/logical-data-model.mjs, Node test files, or any JavaScript subject build.",
+        "Do not write source or tests in this vector."
+      ]
+    },
+    {
+      "stage": "derive_component_code_surface",
+      "requiredPriorStages": [
+        "derive_implementation_design_surface"
+      ],
+      "filesToProduce": [
+        "design/component-code-surface.md"
+      ],
+      "instructions": [
+        "Write only design/component-code-surface.md.",
+        "Use implementation_design as authority.",
+        "Describe the component code surface as the Scala/SBT CDME module set.",
+        "List each module source file and its responsibility.",
+        "Keep the code surface internally compilable: CompiledTopology, ExecutionResult, StageResult, AccountingLedger, LedgerEntry, DataFrameRef are shared cdme-core contract DTOs under the core-only concern-module dependency rule; module-local files may define traits/services and local proof/result wrappers around those DTOs.",
+        "The code surface must explicitly require build_tenants/scala_spark build output, not a root JavaScript package.",
+        "Do not write package.json, source files, tests, or execution plans in this vector."
+      ]
+    },
+    {
+      "stage": "qualify_component_realization_surface",
+      "requiredPriorStages": [
+        "derive_implementation_design_surface",
+        "derive_component_code_surface"
+      ],
+      "filesToProduce": [
+        "proof/component-realization-qualification.md"
+      ],
+      "instructions": [
+        "Write only proof/component-realization-qualification.md.",
+        "Use the component-code-surface and implementation-design artifacts as authority.",
+        "State the criteria the later source artifact must satisfy: Scala/SBT tenant shape, Apache Spark/Spark SQL dependency where DataFrames are executed, shared cdme-core plus seven CDME concern modules, all required Scala source files, and no JavaScript substitute.",
+        "State that the admitted dependency graph and type-placement contract must compile together: under core-only concern-module dependencies, shared cross-module DTOs (CompiledTopology, ExecutionResult, StageResult, AccountingLedger, LedgerEntry, DataFrameRef) belong in cdme-core, not exclusively inside a sibling concern module whose types other concern modules cannot import.",
+        "State that modeling Spark/DataFrame execution with a hand-rolled in-memory substitute is not a valid realization of the admitted Spark/SBT tenant requirement.",
+        "State that component realization cannot close without the required Scala source paths.",
+        "Do not write source or tests in this vector."
+      ]
+    },
+    {
+      "stage": "derive_code_surface",
+      "requiredPriorStages": [
+        "derive_implementation_design_surface",
+        "derive_component_code_surface",
+        "qualify_component_realization_surface"
+      ],
+      "filesToProduce": [
+        "build_tenants/scala_spark/build.sbt",
+        "build_tenants/scala_spark/project/plugins.sbt",
+        "build_tenants/scala_spark/project/build.properties",
+        "build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+        "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+        "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+        "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+        "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+        "build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+        "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+        "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+        "build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+        "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+        "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala"
+      ],
+      "instructions": [
+        "Write only the Scala/SBT build files and Scala main source files listed for this stage.",
+        "Use the prior implementation_design and component_realization_qualification artifacts as authority.",
+        "ENVIRONMENTAL BINDING (campaign #12 class): project/build.properties must declare sbt.version=1.11.7 — the locally provisioned sbt launcher. Do NOT declare a version that requires network retrieval; the build runs offline against the local toolchain cache.",
+        "build.sbt must define shared cdme-core plus the seven concern modules cdme-compiler, cdme-executor, cdme-adjoint, cdme-accounting, cdme-assurance, cdme-fidelity, and cdme-engine.",
+        "Do not create an impossible type/dependency contract: if build.sbt keeps concern modules depending on cdme-core only, define shared cross-module DTOs (CompiledTopology, ExecutionResult, StageResult, AccountingLedger, LedgerEntry, DataFrameRef) in cdme-core and implement concern-module behavior against those cdme-core DTOs.",
+        "Use Scala 2.13, ScalaTest, and Apache Spark SQL where the admitted prior artifacts require DataFrame execution. Do not replace Spark/DataFrame execution with a hand-rolled in-memory substitute.",
+        "Implement enough typed Scala domain logic for every required ScalaTest spec to exercise real code paths.",
+        "Do not write package.json, src/logical-data-model.mjs, Node tests, or JavaScript source."
+      ]
+    },
+    {
+      "stage": "derive_test_design_surface",
+      "requiredPriorStages": [
+        "derive_code_surface",
+        "derive_testcase_authority_surface",
+        "derive_scenario_surface"
+      ],
+      "filesToProduce": [
+        "design/test-design.md"
+      ],
+      "instructions": [
+        "Write only design/test-design.md.",
+        "Use the code surface and testcase authority artifacts as evidence.",
+        "The per-module primary ScalaTest spec file paths are a FIXED product contract and MUST be adopted verbatim as each module's primary spec in the test design: build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala, build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala, build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala, build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala, build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala, build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala, build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala, build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala.",
+        "Do not rename, move, or substitute these primary spec paths; additional helper specs are not allowed at this stage.",
+        "Specify one ScalaTest spec for every CDME module, including cdme-core.",
+        "The tests must exercise core contract DTO construction, topology compilation, executor transformation, adjoint lineage registration, accounting balance, assurance threshold behavior, fidelity scoring, and engine integration.",
+        "The test design must use sbt test and SBT XML test reports as execution evidence.",
+        "Do not write executable test source in this vector."
+      ]
+    },
+    {
+      "stage": "derive_component_test_surface",
+      "workerExecutes": true,
+      "requiredPriorStages": [
+        "derive_code_surface",
+        "derive_test_design_surface",
+        "derive_testcase_authority_surface"
+      ],
+      "filesToProduce": [
+        "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+        "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+        "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+        "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+        "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+        "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+        "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+        "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala"
+      ],
+      "instructions": [
+        "Write only the eight ScalaTest source files listed for this stage.",
+        "Use the prior source artifact as the API authority. Tests must call only symbols, owners, return shapes, and method signatures that are visibly declared in the admitted Scala source excerpts.",
+        "Do not invent convenience facades. For example, do not call CdmeEngine.run unless the source artifact declares object CdmeEngine with run; bind to the generated engine API that actually exists.",
+        "If a source API returns Either[CompileError, X], tests must pattern-match or project that Either; do not treat a single CompileError as a collection.",
+        "Run sbt Test/compile YOURSELF after writing the files and fix any test-surface mismatch before returning (execution-default law: the framework runs nothing). Report the compile outcome truthfully in your assessment. A source/test API mismatch is a vector failure.",
+        "Each file must be a ScalaTest AnyFunSuite or AnyFlatSpec-style test compatible with ScalaTest 3.2.x.",
+        "Each CDME module, including cdme-core, must have at least one nontrivial assertion against the module implementation or declared contract DTOs.",
+        "COMPLETENESS OVER COVERAGE: every emitted file must be syntactically complete (all braces closed, compilable on its own). If the full response would be large, write SHORTER test bodies (two or three focused assertions per module) rather than long ones — a truncated file fails the compile gate; a short complete file passes.",
+        "If a main-source API defect prevents a clean test compile, still emit complete, correct tests against the DECLARED API; the compile gate attributes main-source errors upstream and the repair stages own them.",
+        "Do not write Node tests or JavaScript files."
+      ]
+    },
+    {
+      "stage": "prepare_test_execution_surface",
+      "workerExecutes": true,
+      "requiredPriorStages": [
+        "derive_code_surface",
+        "derive_component_test_surface"
+      ],
+      "filesToProduce": [
+        "test-execution-result.json",
+        "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+        "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+        "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+        "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+        "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+        "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+        "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+        "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala"
+      ],
+      "optionalFilesToProduce": [
+        "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+        "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+        "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+        "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+        "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+        "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+        "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+        "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala"
+      ],
+      "instructions": [
+        "EXECUTION-DEFAULT LAW: YOU run the test suite inside this turn; the framework executes nothing.",
+        "Run sbt test yourself from cwd \"build_tenants/scala_spark\". If /opt/homebrew/opt/openjdk@11 exists, export JAVA_HOME=/opt/homebrew/opt/openjdk@11 and prefix PATH with /opt/homebrew/opt/openjdk@11/bin:/opt/homebrew/bin so Spark/Hadoop test execution uses a compatible JDK and the build toolchain resolves.",
+        "Then write only test-execution-result.json recording the TRUTHFUL observed result: command \"sbt\", args [\"test\"], cwd \"build_tenants/scala_spark\", status (the integer exit status you observed, in a field named exactly status), the env you set, and a stdout tail.",
+        "expectedTestPassCount must be 20, matching the admitted ScalaTest test-case count across the eight expected suites; record observedTestPassCount from the XML reports your run produced.",
+        "expectedTestReportPaths must equal [\"cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml\",\"cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml\",\"cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml\",\"cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml\",\"cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml\",\"cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml\",\"cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml\",\"cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml\"].",
+        "assertedReturnValue must be \"data_mapper_full_sbt ok\".",
+        "A FAILING run is lawful evidence — record it truthfully; never fabricate status, counts, or reports (the reports on disk are verified mechanically against your claims).",
+        "If the suite is green but observedTestPassCount is below the 20-case floor, the suite is TOO SHALLOW: add REAL test cases to the declared spec files — each new case must exercise a real code path and belong to a depth class (positive/negative/boundary/invariant/integration); trivial or duplicated assertions to inflate the count are unlawful. Re-run and record truthfully.",
+        "Do not use node, node:test, package.json, or JavaScript test files."
+      ]
+    },
+    {
+      "stage": "derive_test_execution_result_surface",
+      "requiredPriorStages": [
+        "derive_code_surface",
+        "derive_component_test_surface",
+        "prepare_test_execution_surface"
+      ],
+      "instructions": [
+        "Produce no files.",
+        "Accept the execution-result surface if the WORKER-EXECUTED sbt test run recorded command status, planSatisfied, observedTestPassCount, expectedTestPassCount, expected report paths, and assertedReturnValue — the worker ran the suite in its own turn (execution-default law) and the reports on disk corroborate the claims.",
+        "Do not require planSatisfied=true to close this vector; a failed test run is valid execution-result evidence and must carry forward to qualification and repair instead of triggering same-vector retry.",
+        "A passing result still requires sbt test exited 0, all eight expected SBT XML test reports exist with zero failures/errors, observedTestPassCount is at least 20, planSatisfied is true, and assertedReturnValue is \"data_mapper_full_sbt ok\"."
+      ]
+    },
+    {
+      "stage": "qualify_component_test_execution_surface",
+      "requiredPriorStages": [
+        "derive_test_execution_result_surface"
+      ],
+      "filesToProduce": [
+        "proof/component-test-execution-qualification.md"
+      ],
+      "instructions": [
+        "Write only proof/component-test-execution-qualification.md.",
+        "Use the prior test_execution_result artifact as authority.",
+        "Summarize the observed command, pass count, planSatisfied flag, stdout digest, and asserted return value.",
+        "Do not rerun tests in this vector."
+      ]
+    },
+    {
+      "stage": "derive_component_repair_schedule_surface",
+      "requiredPriorStages": [
+        "qualify_component_test_execution_surface"
+      ],
+      "filesToProduce": [
+        "repair/component-repair-schedule.md"
+      ],
+      "instructions": [
+        "Write only repair/component-repair-schedule.md.",
+        "Use the test execution qualification as authority.",
+        "If the test execution result passed, state that no repair is scheduled and preserve residual pressure as none for this scenario.",
+        "If it did not pass, identify the failing surface without inventing local closure truth."
+      ]
+    },
+    {
+      "stage": "apply_component_repair_surface",
+      "requiredPriorStages": [
+        "derive_component_repair_schedule_surface",
+        "derive_code_surface",
+        "derive_component_test_surface",
+        "prepare_test_execution_surface"
+      ],
+      "filesToProduce": [
+        "repair/component-repair-application.md"
+      ],
+      "instructions": [
+        "Write only repair/component-repair-application.md.",
+        "Use the repair schedule, code artifact, test artifact, and execution plan as authority.",
+        "If the schedule reports no repair needed, state that the prior implementation and test plan are preserved and ready for rerun.",
+        "If the schedule reports the Spark/Hadoop Java runtime failure involving Subject.getSubject or Java 25, declare the repair as a test-execution-plan toolchain binding to /opt/homebrew/opt/openjdk@11; do not weaken tests and do not replace Spark/DataFrame behavior with an in-memory substitute.",
+        "If source or tests are repaired, name the exact admitted source or test files that must be rewritten by a future code/test repair vector; do not claim those files changed unless this stage is permitted to write them."
+      ]
+    },
+    {
+      "stage": "prepare_repaired_test_execution_surface",
+      "workerExecutes": true,
+      "requiredPriorStages": [
+        "apply_component_repair_surface",
+        "derive_component_repair_schedule_surface",
+        "derive_code_surface",
+        "derive_component_test_surface"
+      ],
+      "filesToProduce": [
+        "test-execution-result.json",
+        "build_tenants/scala_spark/project/build.properties",
+        "build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+        "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+        "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+        "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+        "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+        "build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+        "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+        "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+        "build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+        "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+        "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+        "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+        "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+        "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+        "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+        "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+        "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+        "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+        "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala"
+      ],
+      "optionalFilesToProduce": [
+        "build_tenants/scala_spark/project/build.properties",
+        "build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+        "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+        "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+        "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+        "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+        "build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+        "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+        "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+        "build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+        "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+        "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+        "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala",
+        "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala",
+        "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala",
+        "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala",
+        "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala",
+        "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala",
+        "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala",
+        "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala"
+      ],
+      "instructions": [
+        "EXECUTION-DEFAULT LAW (run-fix-run): YOU own this repair turn end to end; the framework executes nothing.",
+        "ENVIRONMENTAL BINDING (campaign #12 class): if sbt itself cannot start or a launcher version cannot be retrieved, rewrite build_tenants/scala_spark/project/build.properties to sbt.version=1.11.7 (the locally provisioned launcher) BEFORE running — this is toolchain binding, not test weakening. If the launcher already works, do not touch build.properties.",
+        "Run the suite, READ the compile/test failures yourself, apply minimal fixes to the Scala main sources (and test sources only for genuine test defects — NEVER weaken an assertion to pass, never delete a test, never change the declared module structure), and re-run until green or until you are certain the remaining red is truthful and you cannot lawfully fix it this turn.",
+        "Run sbt test yourself from cwd \"build_tenants/scala_spark\" (JAVA_HOME=/opt/homebrew/opt/openjdk@11 and PATH prefixed with /opt/homebrew/opt/openjdk@11/bin when that path exists; toolchain binding, not test weakening).",
+        "Then rewrite test-execution-result.json with the TRUTHFUL repaired result: command \"sbt\", args [\"test\"], status (the integer exit status, field named exactly status), expectedTestPassCount 20, observedTestPassCount from the reports, expectedTestReportPaths, and assertedReturnValue \"data_mapper_full_sbt ok\".",
+        "expectedTestReportPaths must equal [\"cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml\",\"cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml\",\"cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml\",\"cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml\",\"cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml\",\"cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml\",\"cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml\",\"cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml\"].",
+        "A failing repaired run is lawful evidence and routes another repair pass; never fabricate.",
+        "Do not use node, node:test, package.json, JavaScript test files, or a command wrapper script."
+      ]
+    },
+    {
+      "stage": "derive_repaired_test_execution_result_surface",
+      "requiredPriorStages": [
+        "prepare_repaired_test_execution_surface",
+        "apply_component_repair_surface",
+        "derive_code_surface",
+        "derive_component_test_surface"
+      ],
+      "instructions": [
+        "Produce no files.",
+        "Accept when the repaired WORKER-EXECUTED sbt test run recorded full evidence: command status, planSatisfied, observedTestPassCount, expectedTestPassCount, expected report paths, assertedReturnValue, and env evidence. TRUTHFUL FAILING evidence is an acceptable result-surface derivation: the consequence stage routes a failing repaired execution back to the code vector for another repair pass (re-entry law); do not reject solely because tests fail.",
+        "Reject only when the evidence itself is malformed or incomplete: the command did not actually run, statuses/counts are missing or non-numeric, report paths are undeclared, or env evidence is absent.",
+        "A PASSING repaired result (exit 0, all eight SBT XML reports, zero failures/errors, observedTestPassCount >= 20, planSatisfied true, assertedReturnValue \"data_mapper_full_sbt ok\") advances toward qualification; state pass/fail plainly in the review."
+      ]
+    },
+    {
+      "stage": "qualify_repaired_component_test_execution_surface",
+      "requiredPriorStages": [
+        "derive_repaired_test_execution_result_surface",
+        "apply_component_repair_surface"
+      ],
+      "filesToProduce": [
+        "proof/repaired-component-test-execution-qualification.md"
+      ],
+      "instructions": [
+        "Write only proof/repaired-component-test-execution-qualification.md.",
+        "Use the repaired test execution result and repair application as authority.",
+        "Summarize the repaired command, env binding, pass count, planSatisfied flag, stdout digest, and asserted return value.",
+        "Accept only if the repaired result passed; do not claim release readiness from the earlier failed execution result."
+      ]
+    },
+    {
+      "stage": "derive_depth_proof_map_surface",
+      "requiredPriorStages": [
+        "derive_component_test_surface",
+        "derive_repaired_test_execution_result_surface",
+        "qualify_repaired_component_test_execution_surface"
+      ],
+      "filesToProduce": [
+        "depth-proof-map.json"
+      ],
+      "instructions": [
+        "EARNED DEPTH (T-032): write only depth-proof-map.json — your declared mapping of executed ScalaTest test identities to depth classes per CDME requirement. Depth truth is DERIVED from this map plus the executed reports; declaration equality closes nothing.",
+        "Shape: {\"rows\":[{\"requirementId\":\"REQ-CDME-<CONCERN>\",\"depthClassRef\":\"depth-class://<class>\",\"testIdentityRefs\":[\"<exact ScalaTest test name as it appears in the XML report>\"]}]}.",
+        "The requirement ids are exactly: [\"REQ-CDME-CORE\",\"REQ-CDME-TOPOLOGY\",\"REQ-CDME-EXECUTOR\",\"REQ-CDME-ADJOINT\",\"REQ-CDME-ACCOUNTING\",\"REQ-CDME-ASSURANCE\",\"REQ-CDME-FIDELITY\",\"REQ-CDME-ENGINE\"].",
+        "Every requirement needs at least one row for EVERY required depth class: depth-class://positive, depth-class://negative, depth-class://boundary, depth-class://invariant, depth-class://integration. A missing class is a typed gap that blocks closure.",
+        "Each testIdentityRefs entry must be the EXACT test name string from your executed suite (it is verified mechanically against the XML reports on disk; an identity absent from the reports earns nothing).",
+        "Use the test names your component/UAT suites actually executed in the repaired run. If a depth class lacks a real executed test, write the missing test FIRST at the earlier stages' contract — never invent an identity."
+      ]
+    },
+    {
+      "stage": "derive_mutation_kill_surface",
+      "workerExecutes": true,
+      "requiredPriorStages": [
+        "derive_depth_proof_map_surface"
+      ],
+      "filesToProduce": [
+        "mutation-outcomes.json"
+      ],
+      "instructions": [
+        "ADVERSARIAL DEPTH (T-032): for EVERY depth-proof-map row whose depthClassRef is depth-class://negative or depth-class://invariant, author one mutant that the row's tests SHOULD kill, and prove it.",
+        "EXECUTION-DEFAULT LAW: YOU run the whole loop inside this turn; the framework executes nothing.",
+        "Per mutant: (1) confirm the FULL suite is green first (a red baseline invalidates every kill claim); (2) record the sha256 of THE FILE YOU WILL MUTATE as baselineDigest (format sha256:<64 lowercase hex>, e.g. via shasum -a 256) and name that file path inside mutantIdentity; (3) apply a minimal SEMANTIC mutation to PRODUCTION code (invert the guard, drop the rejection branch, weaken the invariant) — never mutate a test file and never a comment; (4) run the FULL sbt test suite from build_tenants/scala_spark with the same env binding as the execution stage; (5) set mutantCompiled true ONLY IF the mutant COMPILED and the suite actually ran (reports produced) — a compile error is mutantCompiled false and is NOT a kill (no test refuted it); (6) read the mutant run's XML reports and set failedTestIdentityRefs to the EXACT <testcase name> values that WENT RED under the mutant (the tests that actually failed — never the tests you targeted; if none failed the mutant SURVIVED, leave it empty); (7) RESTORE the original file exactly and record its sha256 as restoreDigest — must equal baselineDigest or the row is rejected; (8) record truthfully.",
+        "Then write only mutation-outcomes.json: {\"rows\":[{\"requirementId\":\"REQ-CDME-<CONCERN>\",\"mutantIdentity\":\"<file path + short mutation description>\",\"mutantCompiled\":<true if it compiled and ran, false if compile error>,\"failedTestIdentityRefs\":[\"<exact testcase names that went RED under the mutant; empty = survived>\"],\"suiteExit\":<the exit status you observed>,\"baselineDigest\":\"sha256:<hex>\",\"restoreDigest\":\"sha256:<hex>\"}]}.",
+        "CONSISTENCY (the kernel rejects contradictions): compile error => mutantCompiled false, failedTestIdentityRefs empty. Compiled with named failures => non-zero suiteExit. Compiled with no failures => suiteExit 0 (SURVIVED). A red suite with no named failing tests is not evidence and is rejected.",
+        "A SURVIVED mutant (compiled, suite stayed green, no failed tests) is a counterexample: record it truthfully — it blocks closure and routes repair pressure to strengthen the tests. NEVER fabricate a kill; the kernel mints kill evidence only for the tests you list as actually failed.",
+        "Leave the workspace exactly as you found it (all mutations restored)."
+      ]
+    },
+    {
+      "stage": "derive_test_run_archive_surface",
+      "requiredPriorStages": [
+        "derive_test_execution_result_surface",
+        "qualify_component_test_execution_surface",
+        "derive_component_repair_schedule_surface",
+        "derive_repaired_test_execution_result_surface",
+        "qualify_repaired_component_test_execution_surface",
+        "derive_depth_proof_map_surface",
+        "derive_mutation_kill_surface"
+      ],
+      "filesToProduce": [
+        "archive/test-run-archive.md"
+      ],
+      "instructions": [
+        "Write only archive/test-run-archive.md.",
+        "Use the original test execution qualification, repair schedule, repaired execution qualification, and repaired execution result as authority.",
+        "Archive both the original failed command evidence when present and the repaired passing command evidence.",
+        "Archive the repaired command, env binding, observed pass count, asserted return value, and generated artifact list.",
+        "Do not claim release approval."
+      ]
+    },
+    {
+      "stage": "derive_release_depth_parity_surface",
+      "requiredPriorStages": [
+        "derive_test_run_archive_surface",
+        "derive_component_repair_schedule_surface",
+        "qualify_repaired_component_test_execution_surface"
+      ],
+      "filesToProduce": [
+        "release/release-depth-parity.md"
+      ],
+      "instructions": [
+        "Write only release/release-depth-parity.md.",
+        "Use the test run archive, repair schedule, and repaired execution qualification artifacts as authority.",
+        "Compare the generated lifecycle coverage against the 26 full data-mapper stages and state whether release-depth parity evidence is present.",
+        "Treat a non-passing original execution as acceptable only when the repaired execution result passed and is archived.",
+        "Do not claim production release authority."
+      ]
+    },
+    {
+      "stage": "prepare_release_surface",
+      "requiredPriorStages": [
+        "derive_release_depth_parity_surface",
+        "derive_test_run_archive_surface"
+      ],
+      "filesToProduce": [
+        "release/release-preparation.md"
+      ],
+      "instructions": [
+        "Write only release/release-preparation.md.",
+        "Use release-depth-parity and the test run archive as authority.",
+        "Prepare a release-readiness summary that preserves ABG as owner of proof truth and states odd_glc only interprets the replayed lifecycle.",
+        "State that production release authority is not claimed by odd_glc."
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "requirementId": "REQ-CDME-CORE",
+      "module": "cdme-core",
+      "concern": "typed logical/physical mapping contract DTOs construct and validate",
+      "positiveShapeRef": "evidence-shape://cdme/core/contract-construction-positive",
+      "negativeShapeRef": "evidence-shape://cdme/core/invalid-contract-rejected-negative"
+    },
+    {
+      "requirementId": "REQ-CDME-TOPOLOGY",
+      "module": "cdme-compiler",
+      "concern": "source-to-target mapping topology compiles with type checking",
+      "positiveShapeRef": "evidence-shape://cdme/topology/compiles-positive",
+      "negativeShapeRef": "evidence-shape://cdme/topology/type-mismatch-rejected-negative"
+    },
+    {
+      "requirementId": "REQ-CDME-EXECUTOR",
+      "module": "cdme-executor",
+      "concern": "DataFrame transformation executes with error-sink capture",
+      "positiveShapeRef": "evidence-shape://cdme/executor/transform-positive",
+      "negativeShapeRef": "evidence-shape://cdme/executor/bad-row-to-error-sink-negative"
+    },
+    {
+      "requirementId": "REQ-CDME-ADJOINT",
+      "module": "cdme-adjoint",
+      "concern": "adjoint lineage registers and inverts mapping metadata",
+      "positiveShapeRef": "evidence-shape://cdme/adjoint/lineage-roundtrip-positive",
+      "negativeShapeRef": "evidence-shape://cdme/adjoint/unregistered-lookup-rejected-negative"
+    },
+    {
+      "requirementId": "REQ-CDME-ACCOUNTING",
+      "module": "cdme-accounting",
+      "concern": "accounting partitions balance and imbalances are detected",
+      "positiveShapeRef": "evidence-shape://cdme/accounting/balanced-partitions-positive",
+      "negativeShapeRef": "evidence-shape://cdme/accounting/unbalanced-detected-negative"
+    },
+    {
+      "requirementId": "REQ-CDME-ASSURANCE",
+      "module": "cdme-assurance",
+      "concern": "data-quality assurance checks apply thresholds",
+      "positiveShapeRef": "evidence-shape://cdme/assurance/threshold-pass-positive",
+      "negativeShapeRef": "evidence-shape://cdme/assurance/threshold-breach-flagged-negative"
+    },
+    {
+      "requirementId": "REQ-CDME-FIDELITY",
+      "module": "cdme-fidelity",
+      "concern": "fidelity reconciliation scores computed against source truth",
+      "positiveShapeRef": "evidence-shape://cdme/fidelity/score-computed-positive",
+      "negativeShapeRef": "evidence-shape://cdme/fidelity/divergence-scored-below-negative"
+    },
+    {
+      "requirementId": "REQ-CDME-ENGINE",
+      "module": "cdme-engine",
+      "concern": "engine orchestrates compile-execute-account-assure end to end",
+      "positiveShapeRef": "evidence-shape://cdme/engine/integration-run-positive",
+      "negativeShapeRef": "evidence-shape://cdme/engine/failing-stage-halts-negative"
+    }
+  ],
+  "requirementSpanStageMeanings": [
+    "derive_uat_testcases_surface",
+    "derive_component_test_surface",
+    "derive_test_execution_result_surface",
+    "derive_repaired_test_execution_result_surface",
+    "derive_depth_proof_map_surface",
+    "derive_mutation_kill_surface"
+  ],
+  "requiredDepthClassRefs": [
+    "depth-class://positive",
+    "depth-class://negative",
+    "depth-class://boundary",
+    "depth-class://invariant",
+    "depth-class://integration"
+  ],
+  "sourcePin": {
+    "repository": "odd_glc",
+    "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+    "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+    "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+    "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+    "startByte": 40028,
+    "endByte": 81186,
+    "selectedDigest": "sha256:d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324"
+  }
+}

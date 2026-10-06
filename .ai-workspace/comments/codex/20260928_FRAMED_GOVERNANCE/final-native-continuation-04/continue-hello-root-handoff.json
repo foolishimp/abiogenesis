@@ -1,0 +1,63 @@
+{
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+      "prefixLength": 2582298,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464012478
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:f8dcd1e8be5deb306da9c6ec26edbaa7b8411a1d3cf3355936b9d621653125b1",
+      "device": 16777230,
+      "durableByteLength": 2582298,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+      "inode": 464012478,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "calls": [
+    {
+      "label": "conformance-hello-world",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/d7ee4502e998e8c2f28ac25f97450064d0b3227849cf0da367d634573dbde84a",
+      "outcomeKind": "result",
+      "elapsedMs": 10742.860749999998,
+      "processFailure": null
+    },
+    {
+      "label": "conformance-command-execution",
+      "definitionKey": {
+        "operationId": "abg.operation.conformance.evaluate",
+        "memberKey": "gtl_program"
+      },
+      "invocationRef": "invocation://abiogenesis/3a004e162fceb7fcd8cb41f7031c3fda026f13e3df319ff632bc84104753eebd",
+      "outcomeKind": "result",
+      "elapsedMs": 10747.671374999998,
+      "processFailure": null
+    },
+    {
+      "label": "hello-root",
+      "definitionKey": {
+        "operationId": "abg.operation.run.invoke",
+        "memberKey": "start"
+      },
+      "invocationRef": "invocation://abiogenesis/5d83f7c45665c7c5fb4958f7767fb9016776c4350660109828d4d4a9b5e08bfb",
+      "outcomeKind": "result",
+      "elapsedMs": 3065.1989170000015,
+      "processFailure": null
+    }
+  ]
+}

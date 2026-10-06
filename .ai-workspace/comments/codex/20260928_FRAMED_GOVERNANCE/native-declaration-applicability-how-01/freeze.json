@@ -1,0 +1,334 @@
+{
+  "status": "CLOSED",
+  "activation": "T287_NATIVE_DECLARATION_APPLICABILITY_HOW_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "workResult": "candidate_ready",
+  "scope": "proposal only",
+  "frozenAt": "2026-10-01T23:19:01.281696+00:00",
+  "proposedHow": {
+    "path": "proposed-how.md",
+    "bytes": 26882,
+    "sha256": "819bb622475071d5ae7a48e2c62ceb198b563968263f9a1ec28e9553fb3e6db6"
+  },
+  "return": "return.md",
+  "closure": "closure.json",
+  "recordCount": 52,
+  "recordBytes": 2198971,
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 2570,
+      "sha256": "bede1142f6fdbd10811e9a8fdb0ccaa47f18c43cdf63c2e4c0d5f8b8dc403b9f",
+      "mode": 420
+    },
+    {
+      "path": "bounded-reproof.json",
+      "bytes": 2059,
+      "sha256": "b3d9a610e5ff74aedd7a0b289d8b8921d1a082f6b2e0f1438ebe44bbb55790dc",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 614,
+      "sha256": "5d9c087fc200bdbbae0fbcb22a8075371e41812813402217be1844be2f302399",
+      "mode": 420
+    },
+    {
+      "path": "inspection.json",
+      "bytes": 15228,
+      "sha256": "0d7486ad299e4e2a6fa676fd1df6819e24594cac6b1b83d7e49671f8bb8f2e1d",
+      "mode": 420
+    },
+    {
+      "path": "pins.json",
+      "bytes": 21298,
+      "sha256": "097ccd50133b933319149b903acc9bcc486070670e28f5883bdb6c13ef4670f5",
+      "mode": 420
+    },
+    {
+      "path": "preimages/installed-a_c.py",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/dependency-first-failure-localization.json",
+      "bytes": 4955,
+      "sha256": "5b93a4e3d85b0a06398cd6f317bac9ad5c85185c21429ffb12cc7804cecdedcd",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/first-failure.json",
+      "bytes": 2499,
+      "sha256": "d4c514d834d45d60e8cb98e001b3afe43f4f718889bd8603c8d795c48f9c7a86",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/freeze.json",
+      "bytes": 16113,
+      "sha256": "4be65227944eebcf0d07d2434a943e8dd61489349f2952d31fd0e4d7c2d5f0ef",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-03/selected-core.json",
+      "bytes": 879,
+      "sha256": "4995d22a6a805d40894590f04b0e04cf81476eccdac7d580742e05a862d6e271",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-freeze.json",
+      "bytes": 44443,
+      "sha256": "a4095d2a472f234d32bf063c5433b59003c536d66455ebed011ef7f7472f8d8a",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-product-verification-summary.json",
+      "bytes": 4174,
+      "sha256": "0c2aab0c0682a6b55ed593f19b170613a7f603900875ce64be2ac556667e6de2",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+      "bytes": 112700,
+      "sha256": "f52f076cdb5594f900cec37ad68aeef87bbdccc710c0e2c9ec21fff66886dba9",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-native-applicability-controls-01/native-how-request.txt",
+      "bytes": 4105,
+      "sha256": "a9faa614aa21da5ad8a7e3a3f3277f7dda38ec7c20c8a4bf2cdeafe82d4a4d2c",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-native-applicability-controls-01/native-how-sections.json",
+      "bytes": 4376,
+      "sha256": "53b955ac1f107b4abcda7fec13612f30c82450b148a148d2c33c5733335c6c59",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-native-applicability-controls-01/received-native-scope-review.md",
+      "bytes": 2930,
+      "sha256": "3896ddef319002509549e8b73da2583561aadfba9890f4cc7bb932d88f584c15",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-native-applicability-controls-01/received-s03-review.md",
+      "bytes": 2734,
+      "sha256": "092f6d5a5fbdb9a82b7db7e7c131e5a47bffd345f45e04b1db12cce54924d586",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-native-applicability-controls-01/s03-acceptance.json",
+      "bytes": 608,
+      "sha256": "98c8fa1fe12d8935dc9c0cc517250925d4d2132a448323b0fe100cbc4b2fcbc9",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-native-applicability-controls-01/triage.md",
+      "bytes": 2669,
+      "sha256": "bb020d66a68526c069368898ce1b50d6addcd821ec25b1138a47ee0ec179c8a0",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q04-and-native-scope-controls-01/q04-worker-request.txt",
+      "bytes": 4493,
+      "sha256": "bc5f065d7e82e04296ba258dad8c7a51f45d8951843ce196661980da06549dcd",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 6088,
+      "sha256": "86b105c7d49bd29977e9c2526faf1629f78d931f8e2371a3fdd0163d672cbbc7",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 469967,
+      "sha256": "808cd937c03938baac3a280dba6bb391cf3c5dbb53d2bb3bdb21988aaf5dbf30",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/AGENTS.md",
+      "bytes": 10653,
+      "sha256": "b7a3b21db5e6fe7369e144fcd8f00198caff4bcaae4b7acd43e6eff28813e709",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/CLAUDE.md",
+      "bytes": 4590,
+      "sha256": "e0ee14f7fa7094459f7cef099078174735fd7088388a1d31e90c67819dc34573",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/README.md",
+      "bytes": 3083,
+      "sha256": "41a1a5fc7b5886bd41c5f517f3eb240ed2933d07d1f9762b2a36d7a66953f236",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts",
+      "bytes": 112700,
+      "sha256": "f52f076cdb5594f900cec37ad68aeef87bbdccc710c0e2c9ec21fff66886dba9",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+      "bytes": 42399,
+      "sha256": "96f6547138e43578fba31ace0b02a4e5060b1ffbfef3682802565ec8de4ed9d7",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts",
+      "bytes": 95404,
+      "sha256": "2fcf1a47f5c0760f3fdd38c4caa34b4252b1ad989f1943c098152a60a0387cfc",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24123,
+      "sha256": "46d6cd94f9fd7c1610dcba7933082d3b810188c7b6898672992b1a8d743e059c",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/build_tenants/abiogenesis/typescript/design/M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md",
+      "bytes": 44884,
+      "sha256": "550717aa8dd342b5a456357692eb770d148dbcfb24e4b71d770fcd9d5d9829ee",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "bytes": 171834,
+      "sha256": "b263bcefbf80bc2bdb1c8bca118cbe597cc8135e05995ef40e234abe96890a0c",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/build_tenants/abiogenesis/typescript/design/T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md",
+      "bytes": 8428,
+      "sha256": "8da4a88867663c6e678c9e33973eae5d9daa0b8bab1202678ecaa5dd5a546ae7",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/build_tenants/abiogenesis/typescript/test_env/support/t287-declaration-closure-symbol-reuse.mjs",
+      "bytes": 8413,
+      "sha256": "7f544027ed0ffd9963f5eea6ac862164633d5047e115d87ec754016b36fe64f1",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-portability.test.mjs",
+      "bytes": 68037,
+      "sha256": "2197900001126938537c7b1c8993cf134b517c7b5b9b5df4635166b5e9c724d2",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-s06-prime.test.mjs",
+      "bytes": 52540,
+      "sha256": "66cad9c182fa5f89599641d50cadaaaa0f45e981f9f57369676d0346e8583f23",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-declaration-closure-symbol-reuse.test.mjs",
+      "bytes": 2126,
+      "sha256": "54971b1bb6393339bf886f93bd08bde2592f5cda9726b24d4401bf22591b60b8",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/specification/GOALS.md",
+      "bytes": 66413,
+      "sha256": "108207726681c787bae7a63271f1eff2834bbba83e65ca94396063c9ccab1363",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/specification/INTENT.md",
+      "bytes": 16326,
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/specification/PRODUCT.md",
+      "bytes": 93561,
+      "sha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/specification/requirements/product/REQ-P-CATALOG.md",
+      "bytes": 13757,
+      "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/specification/requirements/product/REQ-P-INSTALL.md",
+      "bytes": 21741,
+      "sha256": "1882675ef5f4dd33a8dd4ee5d80ff33203d243fb30ec65b125057b7db081b98f",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/specification/requirements/product/REQ-P-POLICY.md",
+      "bytes": 34046,
+      "sha256": "e13953bc84a5a41d9d54f7fac4ab3b53142e12a9a35ee8b3fbefb210a6104d98",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+      "bytes": 19406,
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4",
+      "mode": 420
+    },
+    {
+      "path": "preimages/repo/stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "mode": 420
+    },
+    {
+      "path": "preimages/stdo/manifest.json",
+      "bytes": 12434,
+      "sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+      "mode": 420
+    },
+    {
+      "path": "preimages/stdo/standards/DESIGN_MODULE_METHOD.md",
+      "bytes": 121432,
+      "sha256": "5cb69556bba1171ec347cac96811c50071f0648a367103aa215070239b93785e",
+      "mode": 420
+    },
+    {
+      "path": "preimages/stdo/standards/REFERENCE_FRAME_METHOD.md",
+      "bytes": 55118,
+      "sha256": "6e9148d7c8eff847abf172315b0e282e4477f3d40866b28f7fef21c41cb067e7",
+      "mode": 420
+    },
+    {
+      "path": "preimages/stdo/standards/SPEC_METHOD.md",
+      "bytes": 157952,
+      "sha256": "7f12d32ef4e5720d5d59ee5ace50de6c1a12cc56afa53dd67a8ee4c54f8fb8a4",
+      "mode": 420
+    },
+    {
+      "path": "preimages/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md",
+      "bytes": 133684,
+      "sha256": "29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d",
+      "mode": 420
+    },
+    {
+      "path": "preimages/stdo/standards/authority_compressions/stdo_bootstrap.md",
+      "bytes": 5772,
+      "sha256": "f7bec3f86d9f24d1fb22acc553ade2eb0861105ec4cd2f1afa7290cc85c5b61a",
+      "mode": 420
+    },
+    {
+      "path": "proposed-how.md",
+      "bytes": 26882,
+      "sha256": "819bb622475071d5ae7a48e2c62ceb198b563968263f9a1ec28e9553fb3e6db6",
+      "mode": 420
+    },
+    {
+      "path": "return.md",
+      "bytes": 3341,
+      "sha256": "dac47c232d88bb9cf437341c816319d606f4cf494f8228637790b554ee1e5351",
+      "mode": 420
+    }
+  ],
+  "outsideTerritoryEffects": 0,
+  "implementationAccepted": false
+}

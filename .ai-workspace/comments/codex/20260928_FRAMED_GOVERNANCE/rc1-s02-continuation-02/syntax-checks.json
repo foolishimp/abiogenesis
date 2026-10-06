@@ -1,0 +1,58 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "file": "driver.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "ordinary-caller.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "owner-checks.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "preflight.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "public-support.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "scenario-oracles.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "union-oracle.mjs",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "file": "observe-process.py",
+      "exitCode": 0,
+      "check": "Python compile to memory; no pycache effect"
+    },
+    {
+      "file": "supervise-driver.py",
+      "exitCode": 0,
+      "check": "Python compile to memory; no pycache effect"
+    }
+  ],
+  "nativeEffects": 0
+}

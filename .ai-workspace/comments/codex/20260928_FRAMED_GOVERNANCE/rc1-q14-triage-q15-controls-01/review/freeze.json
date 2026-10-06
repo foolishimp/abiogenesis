@@ -1,0 +1,49 @@
+{
+  "operation": "T287_Q15_INPUT_ASSURANCE_01",
+  "role": "independent Reviewer",
+  "status": "CLOSED",
+  "disposition": "GO_INPUT_PREPARATION_ONLY",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/freeze.json",
+    "bytes": 870701,
+    "sha256": "dd6f2a9ab5fd93cb8a8f1364ba8aed04d7687cba47b86866f1c04c5b6f8fa25a",
+    "mode": 292
+  },
+  "records": [
+    {
+      "path": "a_c.literal",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 292
+    },
+    {
+      "path": "activation.json",
+      "bytes": 804,
+      "sha256": "782476afbce1f092861b04e099ced50a20c3d4f4fee99d3c4c04b54caee9d3ee",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 1004,
+      "sha256": "775aab5172dbb4dcef68068cc7b874589b8aefc8577c8fb5e99154619c1ea12c",
+      "mode": 292
+    },
+    {
+      "path": "pins.json",
+      "bytes": 24898,
+      "sha256": "51afd6fdb6530c2e673540432d22e747d9151238e3cd2d1a5e78f59d76f16337",
+      "mode": 292
+    },
+    {
+      "path": "report.md",
+      "bytes": 5834,
+      "sha256": "65153ea0977b58b12b0bb14822cca920e4b0a0404fc1672f8d8d8fdac8a36cee",
+      "mode": 292
+    }
+  ],
+  "recordCount": 5,
+  "bodyBytes": 70653,
+  "directoryCount": 0,
+  "links": 0,
+  "noFurtherWrites": true
+}

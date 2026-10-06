@@ -1,0 +1,89 @@
+{
+  "status": "ACCEPTED_BOUNDED_GENUINE_INSTALLED_STEEL_THREAD",
+  "acceptedAt": "2026-10-06",
+  "executive": "/root",
+  "basis": "Fixed15 ABG5 / GOAL035 / T287 F05 F10 F11 F15 / STDO2.5.1RC2 / interface-integration rev2",
+  "ownerMilestone": "One genuine installed steel thread; RC1 candidate no unresolved P0; P1 owner triage; broader qualification separate.",
+  "exactCandidate": {
+    "archiveSHA256": "214c576620c5f552cbf22a82f8f318638903013ca23ff49e42496b2d190a47f6",
+    "standing": "Private installed candidate; unchanged package; no RC publication or release claim."
+  },
+  "return": {
+    "path": ".ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_07/return.json",
+    "bytes": 13056,
+    "sha256": "e557080783bef356d0eeeaea8e3de4044518abf238ad7f8417c959f62df77683"
+  },
+  "freeze": {
+    "path": ".ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_07/freeze.json",
+    "bytes": 12296,
+    "sha256": "e25f4ca51a3090a5067ccba44fdbfaafbb35e068eaea887de82fbb4bf21bfad2"
+  },
+  "exit": {
+    "originalNativeJudgment": "Original05 applicable/falsified J, Result728b8d3f6de6f92168e5a66654f04900cdf186897f8380d2803f2c1cfe81f60c, source/raw/fullproducer unchanged.",
+    "nativeF11": "Real native consumer authenticates original J and construction/independence; failed007A finding retains exact original J Result citation.",
+    "f11Result": "2afb15168849ba674eef89f5a6a5c9552f21daa73648fdfbdbae77823e90bb6b",
+    "unassessed": "4347 blocked findings retained; whole-candidate qualification incomplete.",
+    "closedRuns": "Original native assessment Run remains closed; one new F11 Run closed.",
+    "freshPublicReads": 4,
+    "readComparison": "Separate process run_result/run_replay for both Runs; full terminals/Source/Result/producer retained; only projectionBasis normalized; current basis independently checked.",
+    "readEventsActors": 0,
+    "newModelCliActorCalls": 0
+  },
+  "boundary": {
+    "bytes": 15335794,
+    "sha256": "a9175f8e9ba6d8295ecd747f44c29e6a3cd3fa77c3dca64ddbf051173fc1e79f",
+    "device": 16777231,
+    "inode": 465654884,
+    "coordinateSHA256": "3f42f9abe040962e0a6d948bfca98daa7ca66c0ce18ff4f722ac638c92059b2f",
+    "original13473583PrefixPreserved": true,
+    "appendBytes": 1862211,
+    "appendRuntimeEvents": 31
+  },
+  "assurance": "Source/Proof and Identity/Effect independent CLOSED_GO actual outcome reports; prior exact Source/input/package/core assurance reused. Root independently verified39 frozen file pins, original prefix/inode, one closed Run/noactor suffix and actual flow/read observations.",
+  "reviewers": [
+    {
+      "actor": "/root/current_source_review",
+      "status": "CLOSED_GO",
+      "scope": "Actual Source/Proof/producer/readback",
+      "path": ".ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_07/review-source-outcome.json",
+      "bytes": 3050,
+      "sha256": "04294ffd2ed8ce5b0726fb0d60e30d918402f928d58098efecc35d11ab377b5a"
+    },
+    {
+      "actor": "/root/current_reuse_cost_review",
+      "status": "CLOSED_GO_BOUNDED_GENUINE_CONSERVATION",
+      "scope": "Actual Identity/Effect/preservation/cost",
+      "path": ".ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_07/review-identity-outcome.json",
+      "bytes": 2600,
+      "sha256": "9255d8fec17e9d39f3fcd3b78241da79ccb23c0f7aa1149f1c75cc9e19985d03"
+    }
+  ],
+  "callerRepair": "Removed unsupported executionSelections and caller-only dependence on unpublished construction-author helper. No Source/API/schema/export/native-proof/engine change; native F11 owns authorship/independence.",
+  "costs": {
+    "flowMs": 45127.69949999347,
+    "flowProcessPeakRSSBytes": 3107176448,
+    "coldMs": 26586.59612500196,
+    "coldProcessPeakRSSBytes": 2286960640,
+    "standing": "Lifetime peaks, including nominal owner verification/restoration/projections; no per-handoff allocation or scaling claim."
+  },
+  "ownerTriage": {
+    "T287-P1-INSTALLED-COST-01": {
+      "status": "owner_triage",
+      "evidence": "07 flow/cold process receipts; 1.862MB append dominated by 1.699MB result event, basis event62710B.",
+      "limit": "Bounded usable thread completes defaultheap; broader payload erasure/scaling and cost bound not qualified; no cost repair selected."
+    },
+    "T287-P1-DECLARED-PEER-01": {
+      "status": "disputed_owner_triage",
+      "evidence": "Original05 genuine J/raw retains declared-missing-peer conservation allegation.",
+      "limit": "All-declared-slots authentication remains canonical; controlled A+uncovered B outside complete plan passed. No false-green claim or Source bug acceptance; allegation is not an aggregation repair grant."
+    }
+  },
+  "remaining": "Owner P1 triage and RC1 candidate disposition/publication separate; full candidate qualification/seven actual defect detections/QUAL056/greenAF22/installedRC qualification/owner release acceptance remain unproved by this pilot.",
+  "effects": "Documentary acceptance and selected ticket routing only; no Source/package/Product/HOW/method/Git/release or further runtime/model effects.",
+  "writerPreimage": {
+    "ticketBytes": 496537,
+    "ticketSHA256": "b75ff00afd44e71d6749414d6e499120ca80e4dc56311eefef05403b2aa6d706",
+    "acceptance": "absent"
+  },
+  "returnToRole": "Executive"
+}

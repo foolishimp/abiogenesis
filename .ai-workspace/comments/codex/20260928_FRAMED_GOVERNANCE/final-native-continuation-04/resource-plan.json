@@ -1,0 +1,15 @@
+{
+  "workspaceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/worksite",
+  "installRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/installed",
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+  "lockNamespace": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/tmp/abiogenesis-event-store-locks-v5",
+  "lockFileRule": "<actual-device>-<actual-inode>.lock; same original N03 namespace all calls",
+  "history": "Original genuine N03 resource; seven successes retained; original TMPDIR/lock preserved",
+  "HOME": "unchanged",
+  "permittedWrites": "New N04 territory; only five declared owner effects may append original N03 event resource and acquire/release original lock",
+  "nativeCalls": 5,
+  "actualActorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+  "device": 16777230,
+  "inode": 464012478,
+  "initialPrefixSHA256": "cb30f7630f276feab31ea3b34a432ef85c19a6ec16d5985d1beb574687cf51d8"
+}

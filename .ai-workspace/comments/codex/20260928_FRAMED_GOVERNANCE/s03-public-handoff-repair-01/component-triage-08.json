@@ -1,0 +1,9 @@
+{
+  "failure": "New same-workspace companion proof used nonexistent identity.workspaceBinding field.",
+  "frames": {
+    "Identity": "projectRunIdentityAtPrefix supplies only Run/basis; historical saved environment owns exact WorkspaceBinding coordinate.",
+    "IntegrationProof": "Driver selected wrong carrier field before owner call; no source/native failure.",
+    "Effect": "Only copied proof outputs were written."
+  },
+  "repair": "Take bindingId/bindingDigest from exact retained environment used for future-reader grant proof."
+}

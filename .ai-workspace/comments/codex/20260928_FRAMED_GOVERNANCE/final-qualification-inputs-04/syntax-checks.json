@@ -1,0 +1,91 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "file": "recipe-stage.mjs",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/recipe-stage.mjs"
+      ],
+      "elapsedSeconds": 0.0223581250756979,
+      "result": {
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "component-stage.mjs",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/component-stage.mjs"
+      ],
+      "elapsedSeconds": 0.020769165828824043,
+      "result": {
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "compare-generated.mjs",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/compare-generated.mjs"
+      ],
+      "elapsedSeconds": 0.02056641597300768,
+      "result": {
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "output-checks.mjs",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/output-checks.mjs"
+      ],
+      "elapsedSeconds": 0.020644207950681448,
+      "result": {
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "recipe.mjs",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/recipe.mjs"
+      ],
+      "elapsedSeconds": 0.02109220763668418,
+      "result": {
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "file": "test-environment.mjs",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/source-freeze/toolchain/bin/node",
+        "--check",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/test-environment.mjs"
+      ],
+      "elapsedSeconds": 0.020674792118370533,
+      "result": {
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    }
+  ],
+  "qualificationCommands": 0,
+  "importsOrOwnerCalls": 0
+}

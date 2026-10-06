@@ -10,6 +10,13 @@ import {
   expectedVerificationIdentity,
   readCandidateBasis,
 } from "./candidate-basis.mjs";
+import {
+  LANGUAGE_TEST_IDS,
+  LANGUAGE_TEST_DIRECT_IDS,
+  constructLanguageTestInput,
+  prepareLanguageSmokeFixture,
+  languageTestGtlView,
+} from "./language-smoke-fixture.mjs";
 
 const execFileAsync = promisify(execFile);
 
@@ -48,13 +55,11 @@ function selectedFrozenArtifact(options) {
 }
 
 function constructRootPublication(gtl, basis, kind) {
-  const construct = kind === "worksite_construction" || kind === "worksite_c0"
-    ? gtl.constructWorksiteConstructionModulePublication
-    : gtl.constructHelloWorldModulePublication;
+  const construct = gtl.constructWorksiteConstructionModulePublication;
   assert.equal(
     typeof construct,
     "function",
-    `root publication constructor is unavailable for ${kind ?? "hello_world"}`,
+    `root publication constructor is unavailable for ${kind ?? "worksite_construction"}`,
   );
   return construct({
     productId: basis.productId,
@@ -116,6 +121,22 @@ export function requireRawAdmission(validator, value, subjectKind, contractRef) 
   return admitted;
 }
 
+export function requirePublicationValidations(validator, publications) {
+  return publications.map((publication) => {
+    const publicationAdmission = requireRawAdmission(
+      validator, publication, "module_publication",
+      "contract://abiogenesis/gtl/module-publication@5",
+    );
+    const contributions = publication.contributions.map((value) =>
+      requireRawAdmission(validator, value, "catalog_contribution",
+        "contract://abiogenesis/gtl/catalog-contribution@5"));
+    const publicationValidation = validator.validatePublication(publicationAdmission, contributions);
+    assert.equal(publicationValidation.kind, "publication_validation",
+      `${publication.moduleRef}: ${JSON.stringify(publicationValidation)}`);
+    return { publicationAdmission, publicationValidation };
+  });
+}
+
 export function rawProgramInput(validator, publicationAdmission, program) {
   assert.ok(program, "raw Program input requires one exact selected Program");
   const publication = publicationAdmission.value;
@@ -129,7 +150,8 @@ export function rawProgramInput(validator, publicationAdmission, program) {
       "contract://abiogenesis/gtl/program@5",
     ),
     graphFunctions: publication.graphFunctions
-      .filter((value) => program.callableMembership.includes(value.name))
+      // Static compose/substitute source declarations are required validation
+      // input even when the Program does not grant them callable membership.
       .map((value) =>
         requireRawAdmission(validator, value, "graph_function", "contract://abiogenesis/gtl/graph-function@5")),
     contracts: publication.contracts.map((value) =>
@@ -212,7 +234,7 @@ export async function setupInstalledRootCatalog(
       "utf8",
     ),
   );
-  const candidateBasis = options.candidateBasisSource === "packed_artifact"
+  const candidateBasis = options.candidateBasisSource === undefined || options.candidateBasisSource === "packed_artifact"
     ? {
         ...persistedCandidateBasis,
         artifactDigest: await bootstrapProduct.sha256File(artifactPath),
@@ -231,12 +253,14 @@ export async function setupInstalledRootCatalog(
     candidateBasis,
     options.rootPublicationKind,
   );
+  const usesLanguageFixture = options.rootPublicationKind === undefined;
   const additionalProducts = options.prepareAdditionalProducts === undefined
-    ? []
+    ? usesLanguageFixture ? [await prepareLanguageSmokeFixture({ scratch, product: bootstrapProduct,
+      gtl: bootstrapGtl, abiPublication: bootstrapRootPublication })] : []
     : await options.prepareAdditionalProducts({
         scratch,
         product: bootstrapProduct,
-        gtl: bootstrapGtl,
+        gtl: languageTestGtlView(bootstrapGtl),
         abiPublication: bootstrapRootPublication,
       });
   assert.equal(
@@ -386,7 +410,7 @@ export async function setupInstalledRootCatalog(
     {
       toolchainRoot: consumerRoot,
       productRoot: installCandidates[
-        options.workspaceProductIndex ?? 0
+        options.workspaceProductIndex ?? (usesLanguageFixture ? 1 : 0)
       ].installedRoot,
       eventLogRoot: join(workspaceRoot, ".ai-workspace/events"),
       runtimeStateRoot: join(workspaceRoot, ".ai-workspace/runtime"),
@@ -447,27 +471,21 @@ export async function setupInstalledRootCatalog(
       packageName: candidateBasis.packageName, packageVersion: candidateBasis.packageVersion });
   });
   const publications = [rootPublication, ...corePublications, ...additionalPublications];
-  const selectedPublications = options.programRef === undefined ? [rootPublication]
+  const publicationChecks = requirePublicationValidations(validator, publications);
+  const selectedPublications = options.programRef === undefined ? [usesLanguageFixture ? additionalPublications[0] : rootPublication]
     : publications.filter(p => p.programs.some(program => program.programRef === options.programRef));
   assert.equal(selectedPublications.length, 1, "one exact selected Program publication");
   const publication = selectedPublications[0];
-  const publicationAdmission = requireRawAdmission(
-    validator,
-    publication,
-    "module_publication",
-    "contract://abiogenesis/gtl/module-publication@5",
-  );
-  const contributionAdmissions = publication.contributions.map((value) =>
-    requireRawAdmission(validator, value, "catalog_contribution", "contract://abiogenesis/gtl/catalog-contribution@5"));
-  const publicationValidation = validator.validatePublication(publicationAdmission, contributionAdmissions);
+  const { publicationAdmission, publicationValidation } = publicationChecks[publications.indexOf(publication)];
   const rootProgramRef = publication.programs.some(
       (program) => program.programRef === options.programRef,
     )
     ? options.programRef
-    : gtl.HELLO_WORLD_IDS.programRef;
+    : usesLanguageFixture ? (additionalProducts[0]?.ids?.programRef ?? LANGUAGE_TEST_IDS.programRef)
+      : publication.programs[0].programRef;
   const selectedProgramRefs = new Set([
     rootProgramRef,
-    gtl.HELLO_WORLD_DIRECT_IDS.programRef,
+    LANGUAGE_TEST_DIRECT_IDS.programRef,
   ]);
   const programValidations = publication.programs
     .filter((program) => selectedProgramRefs.has(program.programRef))
@@ -523,14 +541,14 @@ export async function setupInstalledRootCatalog(
   });
   assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
   const workspaceAdditionalProduct = additionalProducts[
-    (options.workspaceProductIndex ?? 0) - 1
+    (options.workspaceProductIndex ?? (usesLanguageFixture ? 1 : 0)) - 1
   ];
   const catalogView = product.narrowGraphFunctionCatalog(
     catalog,
     [
       options.graphFunctionRef ??
         workspaceAdditionalProduct?.ids?.graphFunctionRef ??
-        gtl.HELLO_WORLD_IDS.graphFunctionRef,
+        LANGUAGE_TEST_IDS.graphFunctionRef,
     ],
   );
   assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
@@ -547,7 +565,7 @@ export async function setupInstalledRootCatalog(
     installedRoots: installCandidates.map((candidate) => candidate.installedRoot),
     product,
     abg,
-    gtl,
+    gtl: languageTestGtlView(gtl),
     hog,
     implementationLeafPort,
     interactionOwner,
@@ -578,6 +596,7 @@ export async function setupInstalledRootCatalog(
     additionalProducts,
     publicationAdmission,
     publicationValidation,
+    selectedProgramRef: rootProgramRef,
     programValidation,
     programValidations,
     catalog,
@@ -610,9 +629,9 @@ export async function setupInstalledRootInvocation(
     catalogView,
     admittedInstalls,
   } = environment;
-  const programRef = options.programRef ?? gtl.HELLO_WORLD_IDS.programRef;
+  const programRef = options.programRef ?? environment.selectedProgramRef;
   const graphFunctionRef = options.graphFunctionRef ??
-    gtl.HELLO_WORLD_IDS.graphFunctionRef;
+    environment.additionalProducts[0]?.ids?.graphFunctionRef ?? LANGUAGE_TEST_IDS.graphFunctionRef;
   const catalogProgram = publication.programs.find(
     (candidate) => candidate.programRef === programRef,
   );
@@ -687,7 +706,7 @@ export async function setupInstalledRootInvocation(
   );
   const capabilityGrants = [capabilityGrant];
   const input = options.inputFactory === undefined
-    ? options.input ?? gtl.constructHelloWorldInput("World")
+    ? options.input ?? constructLanguageTestInput("World")
     : await options.inputFactory({
         product,
         workspaceAuthority: environment.workspaceAuthority,
@@ -699,7 +718,7 @@ export async function setupInstalledRootInvocation(
         capabilityGrant,
       });
   const inputContractRef = options.inputContractRef ??
-    gtl.HELLO_WORLD_IDS.inputContractRef;
+    graphFunction.inputs[0];
   const rawInput = requireRawAdmission(
     validator,
     input,

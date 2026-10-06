@@ -1,0 +1,635 @@
+{
+  "status": "CLOSED",
+  "role": "Runtime Worker",
+  "operation": "T287_F11_C05_CARRIER_EXECUTION_06",
+  "actor": "/root/native_applicability_design",
+  "frozenAt": "2026-10-02T04:16:58.813032+00:00",
+  "returnRole": "Executive after CLOSED; no mutation authority",
+  "workResult": "NO_GO_FIRST_CORE_CHILD_PREPARATION_FAILURE_WITH_SECOND_COLD_RESOURCE_FAULT",
+  "return": "return.md",
+  "closure": "closure.json",
+  "resourceHandoff": "closed-event-resource-handoff.json",
+  "resourceHandoffDigest": "sha256:1d13a5f46009c0345eb54277017f6243995c98af66b96d34a20afd3e17e934ca",
+  "recordCount": 77,
+  "bodyBytes": 1004894047,
+  "directoryCount": 5,
+  "symlinks": 0,
+  "records": [
+    {
+      "path": "accounting.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 38105,
+      "sha256": "6e462ae257d2f924dc3a1c57337cd7412e71014e3d456b0cd34bfc78fe76cfc0"
+    },
+    {
+      "path": "appended-durable-records.bin",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 177550,
+      "sha256": "99c02a87f1324c8373774a7a01bfa158eaee04001c73be81dc24db8ce0a05199"
+    },
+    {
+      "path": "appended-runtime-records.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 209323,
+      "sha256": "c324684582a25cc0301e202d743137d1c6113ab18b6b747d715653c025a178c4"
+    },
+    {
+      "path": "assessment-owner-request-pin.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 294,
+      "sha256": "e61b9982556d453b42d318c3a00cbdae4cc8e889ae9d21626b0471b16ee91ef2"
+    },
+    {
+      "path": "budgets.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 461,
+      "sha256": "209bc77846cb1665a0bb8c252bf64e7d9523726b02059379466cd3d1be8014eb"
+    },
+    {
+      "path": "caller-budget-proposal.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 461,
+      "sha256": "209bc77846cb1665a0bb8c252bf64e7d9523726b02059379466cd3d1be8014eb"
+    },
+    {
+      "path": "close-failed-cut.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 18123,
+      "sha256": "c1272249ce74a3b272fa8ed96e46b30a09387914c51bb6bfb415bbd91bb6fe1d"
+    },
+    {
+      "path": "closed-event-resource-handoff.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2586,
+      "sha256": "cdb9831d20cdf0de22e0b9a12bcdd93eeb03283ed6113aa2d4bd6113ab24fd37"
+    },
+    {
+      "path": "closed-runtime-events.jsonl",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2668364,
+      "sha256": "2f4e445acdcfa2ac94dc341aea0c061446419d0eb8dc07e838c2b47c27124ba8"
+    },
+    {
+      "path": "closure.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2155,
+      "sha256": "e5e468e44e703e4b4e7b85afa4dc3b6b0df6ff709d0e547cc8461688c282a928"
+    },
+    {
+      "path": "conditional-worker-activation.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2310,
+      "sha256": "cb12b454f733fa49c251746bab21249f987c32bf2a773f85c98d6b744c26d01a"
+    },
+    {
+      "path": "conservation.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 4943,
+      "sha256": "22b6532cf5c889dbdaa886aab14b26e22b187fafc32a53d40e5700946cbb7b61"
+    },
+    {
+      "path": "consumed-input-acceptance.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 5067,
+      "sha256": "0f8309f433084a0152c352d4b39630da7d9f8604c3cf568e00f832c08b8785e4"
+    },
+    {
+      "path": "controlled-helper.mjs",
+      "mode": "0o755",
+      "kind": "file",
+      "bytes": 1448,
+      "sha256": "1bf192b24cafa977507cc47efd333246db29d62455ed7b68eea48f22c1a49e08"
+    },
+    {
+      "path": "controlled-raw-response.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 13542,
+      "sha256": "34522b9f1cd2cbf6326ff40b46d3846d33fc160fb367da8342f9c7453bed3ee4"
+    },
+    {
+      "path": "controlled-response-binding.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 236,
+      "sha256": "939d853483335ee90e9036863df45438e82a75a686dd3aea83dd987b59a0c447"
+    },
+    {
+      "path": "driver-config.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 7493,
+      "sha256": "53e38d6ded3469c00ec08c075bf552dd16a8b36dfbc172256043c3760bc2d63a"
+    },
+    {
+      "path": "f11/conformance-resources.mjs",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 673,
+      "sha256": "62d160eba67201396730064290fefb1b9262ea20f7f93fa223b6e6c6867a7251"
+    },
+    {
+      "path": "f11/flow-driver.mjs",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 6002,
+      "sha256": "7b1e47b4703583cce853e3f50e136b6b7ec7c5490f77030871048c3ae0ecd8dc"
+    },
+    {
+      "path": "f11/ordinary-caller.mjs",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 17926,
+      "sha256": "dac635825ab7941766c2086433170bc5935d94bc3566bdad01755961ed82f9b6"
+    },
+    {
+      "path": "f11/prepare-resources.mjs",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 7684,
+      "sha256": "748f3137fe53c19fb489ea3c18adc491abbc775fc835b2de4f613f61f751a6d2"
+    },
+    {
+      "path": "f11/proof-oracles.mjs",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 9029,
+      "sha256": "0c7c2c87774a62a0a6baef6b6efcfacd30ec989dc10827c8b6394e6c36bc4f6f"
+    },
+    {
+      "path": "f11/public-outcomes.mjs",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2366,
+      "sha256": "1936e1b8f6ef199f99df8ac6284fd7e06a7b166a1280fc09939ebc661155bf59"
+    },
+    {
+      "path": "f11/public-support.mjs",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 10660,
+      "sha256": "23eb2e8573059a840fd1a554cc53db5dc01fe96a933a329efba302e0a8eed9cd"
+    },
+    {
+      "path": "first-failure.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 4727,
+      "sha256": "7c6ef048449e41ca1f9897a24d363ec4ec02894759323abb0a75e00020860b55"
+    },
+    {
+      "path": "first-violated-relations.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 26913,
+      "sha256": "ccdf72b5622296e18dc142ea5f60579c4d79d108bfe7b7550f130498dc642319"
+    },
+    {
+      "path": "flow-assess-run_result-after-physical.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1286,
+      "sha256": "fff320b68d858ae8caa890f91b4b5f016639c4e7089abdb8a3c14d94530a7e5b"
+    },
+    {
+      "path": "flow-assess-run_result-command.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2834,
+      "sha256": "812e285a0077c0c62dbd208a9e908a8297091643dff3690bf8ac8d10c411738f"
+    },
+    {
+      "path": "flow-assess-run_result-handoff.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2154,
+      "sha256": "247078db4dd4a029c283b55a2ea6da8dd1b5992ddb189b6409c76958e0333f7d"
+    },
+    {
+      "path": "flow-assess-run_result-host-receipt.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1189,
+      "sha256": "8817dd098fe331a65a15e21ead61e083148ad947bc33a68d2cdab86c3ef99777"
+    },
+    {
+      "path": "flow-assess-run_result-native-process.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 809,
+      "sha256": "c57630229e98ca39646e03503bb34fda67556b1db67729c46137b69079f4eca4"
+    },
+    {
+      "path": "flow-assess-run_result-owner-outcome.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 5,
+      "sha256": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed"
+    },
+    {
+      "path": "flow-assess-run_result-process-start.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 732,
+      "sha256": "ad166f3067ce27ead4461abf4f4f5aff9f919b7012c3cd967a5e697a73c7eed3"
+    },
+    {
+      "path": "flow-assess-run_result-public-disposition.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 72,
+      "sha256": "64b5a7f0d26cce08c1d36c4d6e19061a620674226b514ba6b9c2679c954c1c76"
+    },
+    {
+      "path": "flow-assess-run_result-stderr.log",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "flow-assess-run_result-stdout.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1147,
+      "sha256": "3a07a3f37a9bc4b3532d2e0f9535b6cec5db4529080cb5f96e7d111b6ac82f68"
+    },
+    {
+      "path": "flow-assess-run_result-timing.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 286,
+      "sha256": "1e6590470bdbfd278a6acaf5120f209a7613ccf7a8e0149330291639f1e680fa"
+    },
+    {
+      "path": "flow-assess-run_result.jsonl",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 489536380,
+      "sha256": "acc3a3dc84b45eb5005cc665a947c9cb1b1b54932239782af95e4a39999f6d98"
+    },
+    {
+      "path": "flow-parent-after-physical.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1275,
+      "sha256": "5861f43d740784154dd21254ec23a1e6d3bbdc74015bcac90be05d0a8a6e8e34"
+    },
+    {
+      "path": "flow-parent-command.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2807,
+      "sha256": "58f0908460d2aeb17d2b3d305ba96a8679bff496a453a075fe313e8fa5c28b9f"
+    },
+    {
+      "path": "flow-parent-handoff.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1801,
+      "sha256": "77429140a5fe907040119dd0f4fc850dced890074fd484af04f017ac49070133"
+    },
+    {
+      "path": "flow-parent-host-receipt.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 14673,
+      "sha256": "a54e26c7d2fd2004f89793d9bc1e19ff250f70af18a17f8cd7ddb06f8ae1af35"
+    },
+    {
+      "path": "flow-parent-native-process.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 796,
+      "sha256": "ad092812534bc20f14f02db232cd6db3e1a92df0b616b9bef575d66230bc7a84"
+    },
+    {
+      "path": "flow-parent-owner-outcome.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 10415,
+      "sha256": "898381474e87e08cd66b4e152ff928003f7b37e0cd37d35bb1513e22670ae88d"
+    },
+    {
+      "path": "flow-parent-process-start.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 711,
+      "sha256": "5f9fc08f07f6112d60cfa24e0281df8062f0730de405c5ba720ead86e49c3264"
+    },
+    {
+      "path": "flow-parent-public-disposition.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 59,
+      "sha256": "544563218f004e82f8b7e7f22abd445f02fd9640c5c9338aa1e4c0766ee75722"
+    },
+    {
+      "path": "flow-parent-stderr.log",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "flow-parent-stdout.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 12075,
+      "sha256": "d2c9e0a1d7b72689d389d85553b37679982dd1caf33c5a803bb6ace4a5a21fce"
+    },
+    {
+      "path": "flow-parent-timing.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 292,
+      "sha256": "ddbe529ea406984c287b6c15de3a53c95f6681141acc70b7a500117e357d83e8"
+    },
+    {
+      "path": "flow-parent.jsonl",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 508651946,
+      "sha256": "8979b39768021665061d63e9981535130fe5a8c279f18b2c0e5a89563beb6cf0"
+    },
+    {
+      "path": "flow-progress.jsonl",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 921,
+      "sha256": "fb186cb4e695fa0b33b9ebd44f3907edd997f55ab185632f23a8650d5cc704d7"
+    },
+    {
+      "path": "flow-supervised-stderr.log",
+      "mode": "0o600",
+      "kind": "file",
+      "bytes": 814,
+      "sha256": "4d469f0bec042e6835db268e3ecd1b649af9456be6ca74325ae7c679999984a5"
+    },
+    {
+      "path": "flow-supervised-stdout.log",
+      "mode": "0o600",
+      "kind": "file",
+      "bytes": 557,
+      "sha256": "86e342b379bce18922eb7475fcbe42b2ae920e2726793a44dbc6229991a11136"
+    },
+    {
+      "path": "flow-supervisor-close.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1385,
+      "sha256": "cf6c16f377fea924f68c620601002cc51656d6e5e4c29f89f57f0c01f88e6813"
+    },
+    {
+      "path": "flow-supervisor-start.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2201,
+      "sha256": "d43bf6aec8106d5db76239cba165a91b75cf52036d7b9cbc0185b72ec3c0d343"
+    },
+    {
+      "path": "freeze.json",
+      "mode": "0o444",
+      "kind": "file",
+      "bytes": 866138,
+      "sha256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c"
+    },
+    {
+      "path": "initial-resource-handoff.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1937,
+      "sha256": "cd0dc00b7812eb5e51ad74781bbfb5a21536933571c15ea93de838567f6a71e3"
+    },
+    {
+      "path": "nominal-preflight-completion.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 457,
+      "sha256": "496c2df96d3d841df90be151885b460460d889ac6324f4cb3da1622f0f376c10"
+    },
+    {
+      "path": "observe-process.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "owner-resource-census.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1107,
+      "sha256": "f18f6304b5c50b83fb6ef5126540bd154d5d811fa042c3480d204d6a1b4964c7"
+    },
+    {
+      "path": "parent-selection.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 493,
+      "sha256": "9c7f75b1e5d1aaa08ad0982f1b5cba9fe997d034cbf4bfacacd505b2ccff0e30"
+    },
+    {
+      "path": "preparation.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1397,
+      "sha256": "6d39664370af13bc4bfdd8f8a26d11528e4ded2608fcb85e53998ef7d1eba343"
+    },
+    {
+      "path": "prospective-cases.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3266,
+      "sha256": "fc585a1b1348f7e4527f6716fe3e8ef9d87ed9c060e2aec64f4aba346d3624cb"
+    },
+    {
+      "path": "request.txt",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 8142,
+      "sha256": "2ada3d46c4d74e3083f24f967493518835242db2d3963f14c7376549c592a763"
+    },
+    {
+      "path": "resource-plan.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1908,
+      "sha256": "77bf1badb5bed33747295c5c9e215cb022a22ebc12a5a24638ca300f4f31e95b"
+    },
+    {
+      "path": "return.md",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2859,
+      "sha256": "e33b1439ce0ec91e24f16fb853f42b65e4c9f3af4fd83e2b7ce9b6a92c40ba43"
+    },
+    {
+      "path": "run-flow.mjs",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 10721,
+      "sha256": "ac5343052de03f5c86f8524ea11f0de47394e3318357bc64fa41ce1d9127980d"
+    },
+    {
+      "path": "runtime-activation.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 3471,
+      "sha256": "3f8c1d71bc8116fe19b41640cd5d30e77a5f5822d64626c3a3597fafca778b52"
+    },
+    {
+      "path": "runtime-environment.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1397,
+      "sha256": "8ea7e3be3dad7947d76c0e8abcf79d10c7a2848cb2e360031adc4a12c2384e38"
+    },
+    {
+      "path": "runtime-input-join.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2441,
+      "sha256": "e01228f9bf4574d8409408845ec83fae7b79ac7d46bdff24c11bd4431964bfac"
+    },
+    {
+      "path": "runtime-release.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1302,
+      "sha256": "5304709b951da46058cea1703f07a70cc08440d1f379f0ea3f5c4afec4f99a8a"
+    },
+    {
+      "path": "selected-core.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 889,
+      "sha256": "874e8415190c8a0a91fc4ee3338fd492720a77cc7a87299f2301b218f1cecfda"
+    },
+    {
+      "path": "setup05-initial-durable-prefix.bin",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 2490814,
+      "sha256": "7f568a9f3136b274c77730e152097bb47bf655145041dbbc1d92b21a4b74389d"
+    },
+    {
+      "path": "source-preimage-pins.json",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 1764,
+      "sha256": "e146825dcfd5a791f3b33f8d8524bc967527fe1ed927d0077be7d0227678f742"
+    },
+    {
+      "path": "supervise.py",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 4750,
+      "sha256": "f6dc0dfa5a6bcfd509fc88474390eb143c43d5c51aec448df5a9c8e5960653be"
+    },
+    {
+      "path": "task-config/globalnpmrc",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "task-config/npmrc",
+      "mode": "0o644",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "directories": [
+    {
+      "path": "f11",
+      "mode": "0o755",
+      "kind": "directory"
+    },
+    {
+      "path": "task-cache",
+      "mode": "0o755",
+      "kind": "directory"
+    },
+    {
+      "path": "task-config",
+      "mode": "0o755",
+      "kind": "directory"
+    },
+    {
+      "path": "task-tmp",
+      "mode": "0o755",
+      "kind": "directory"
+    },
+    {
+      "path": "task-tmp/abiogenesis-event-store-locks-v5",
+      "mode": "0o755",
+      "kind": "directory"
+    }
+  ],
+  "externalImmutableInputPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11-bound-packet.json",
+      "bytes": 29331587,
+      "sha256": "b4803006d68b12a6dc139dc85d07af0a574f954afbc041f338ae1ddab9da466d",
+      "authority": "exact accepted Q06 frozen population; reused without new owner preparation or mutation"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11-bound-resource-manifest.json",
+      "bytes": 489526432,
+      "sha256": "5dbd80bc15d1a47a0d8ee8bef678454b8bf46a3816d254638438a4409bb37290",
+      "authority": "exact accepted Q06 frozen population; reused without new owner preparation or mutation"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11-bound-prompt.txt",
+      "bytes": 318333,
+      "sha256": "f34793b3a55688271dfaf13a396f18a242b742b7a42100ef2214de5ac6d62011",
+      "authority": "exact accepted Q06 frozen population; reused without new owner preparation or mutation"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11-bound-worker-request.json",
+      "bytes": 340074,
+      "sha256": "46d41c56e3a194567f8dcda41dad4edae8e5b6d2ebb9bc6f272adb91b8bb59f0",
+      "authority": "exact accepted Q06 frozen population; reused without new owner preparation or mutation"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11/source-authorship-records.json",
+      "bytes": 12352189,
+      "sha256": "587cf24e2c281627a9f68fbded8e08737967839acd1f7938c035cb894a5eb0ed",
+      "authority": "exact accepted Q06 frozen population; reused without new owner preparation or mutation"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/f11/member-alias-trace.json",
+      "bytes": 205268,
+      "sha256": "f7a4f8a2f3dd2ba744aee68ea5fb1238ed2f3b8a90562cc4de130afc2473e5d7",
+      "authority": "exact accepted Q06 frozen population; reused without new owner preparation or mutation"
+    }
+  ],
+  "authenticExternalEventResource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+    "bytes": 2668364,
+    "sha256": "2f4e445acdcfa2ac94dc341aea0c061446419d0eb8dc07e838c2b47c27124ba8",
+    "device": 16777230,
+    "inode": 464611665,
+    "mode": "0o644"
+  },
+  "excludedSelf": "final-runtime-freeze.json only",
+  "copiedPreparationFreeze": "freeze.json is byte-exact Q06 control replica, never this Runtime cut",
+  "reportClosureElapsedMsToInventory": 359.79787493124604,
+  "noFurtherWrites": true
+}

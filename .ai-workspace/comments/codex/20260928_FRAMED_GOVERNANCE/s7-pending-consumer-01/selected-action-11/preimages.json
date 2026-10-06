@@ -1,0 +1,72 @@
+{
+  "activation": "T287_S7_SELECTED_ACTION_INSTALLED_11",
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "bytes": 47059,
+      "sha256": "1251352b6b54dc2d4165c221c2df2ca837a0cc28998fb0433ddd43568396e6cb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+      "bytes": 15022,
+      "sha256": "2ca292650b1ecd37266c6932c0c638fffdd5fe964e36c7ebf43a195c134201da"
+    }
+  ],
+  "protected": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.d.ts",
+      "bytes": 15259,
+      "sha256": "852608263015800f45625d9b9ebd439c5108044e173f8eefb710c34c8b7b8b05"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.js",
+      "bytes": 51696,
+      "sha256": "d2066e51ddbf12b1d0e83d70f4f8eeb57119f3d5b419590025383e8a2cd59d0f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/owner_bindings/run_invocation.d.ts",
+      "bytes": 35454,
+      "sha256": "c380a90e8d58c40db9207ffa8f37acbe6ecbb05295071be1b238577520e7d321"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/owner_bindings/run_invocation.js",
+      "bytes": 77093,
+      "sha256": "ae5b54f63ea2ca165e7f91e5ccba84eebf6996f886801387342da3c7a5c58429"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 55572,
+      "sha256": "f427ab2d956095fac16448f3efdbe263dd423a6bafafa85acac6fba6d1d0def0"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 81875,
+      "sha256": "83c4af83e6511ba27e243ec47ea0e1805e9d9f47470fe845bf28911fe8f7c550"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 28096,
+      "sha256": "683b2e179b56b19826774f0bfbf14086e716c4413cfded3fdf3bacaa07e26100"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "7d667c25e039dbdf7f3793f0ac3e9f053faadc35c342e922b0cab794cd2cf211"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2559987,
+      "sha256": "6b3bb3055fbdfbc1c7430987a5d13ca101fb6955fe915596760844babfd03e9e"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+      "bytes": 17472,
+      "sha256": "199b244e17aae30e2d4713e6b837ad9730af28784df36adfba62c6dc687366e2"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "bytes": 30840,
+      "sha256": "cb7aeeb806f3e5ed9275d51a928a335698a06f2ce1ea1aaa93cd5af49ad1607b"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+Runtime Worker CLOSED setup04 freeze856c39d5,11231records440658117B. Pure/Public singleton/mixed locks and core install passed. Wrapper install refused because npm added two nested bin symlinks; all regularfile bodies conserved. No retry. Genuine closed handoff retained; bind/catalog/conformance/F11 Task/Run stopped. Root alone triages/selects.

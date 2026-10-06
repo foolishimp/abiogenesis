@@ -1,0 +1,142 @@
+{
+  "reviewer": "/root/current_source_review",
+  "activation": "T287_GENUINE_CONTEXT_ASSESSMENT_05",
+  "disposition": "BLOCKED_CALLER_PROOF_SHAPE",
+  "scope": "First native authentication refusal only; exact frozen genuine J and current2717-event prefix. Canonical Source/input/214c package and controlled conservation assurance reused.",
+  "productFrame": {
+    "product": "Fixed15 ABG5 GOAL-035/T287; F05/F10/F11/F15 native assessment-to-consumption slice. Owner repriced RC1 to candidate with no P0s; owner triages P1s. This report does not assign whole-candidate release credit.",
+    "basis": "stdo://releases/v2.5.1-rc.2/",
+    "basisManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "revision": 2,
+    "outcome": "Authentic independent J over frozen current Source followed by native F11 and fresh reads; original producer/task/raw/Source and unresolved coverage conserved.",
+    "classification": "The caller constructs a supplied typed proof resource; it is evidence, not a runtime entity. Installed canonical owners authenticate it; ABG alone admits events; J semantic findings remain judgments for independent owner disposition.",
+    "prohibitions": "No weakening strict proof/raw admission, second controller/store/writer, fabricated producer/acknowledgment, model outcome coercion or invented historical authorship."
+  },
+  "frozenSubjectPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_05/return.json",
+      "bytes": 15065,
+      "sha256": "c9269b4ff00c877ac2ce040b97e80f9448ce784221a92db772ac1ecd511767c4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_05/freeze.json",
+      "bytes": 11560,
+      "sha256": "0f60a6b398b4fcb53f8c77ca612ff1d92992216afb69a79678cdba98d3f26d22"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_05/failing-proof-input-reconstruction.json",
+      "bytes": 4490,
+      "sha256": "4b818126431ecb2534b877933eb985965e4a0f8a923220cad726f1f347d6b629"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/flow/assessment-terminal.json",
+      "bytes": 58258,
+      "sha256": "e991816b92f5b137a56e3520385570ca628ccecfdbd7beaa81649f9d24592d8c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/flow/actual-raw.json",
+      "bytes": 14052,
+      "sha256": "e647b0a6f53b6c5ee361f7a593f1d8bc9d6307b9e30aac4bcda2930ce4249c15"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/flow/assessment-handoff.json",
+      "bytes": 1237,
+      "sha256": "2641a60ac7e15c938b5960da86cdf9e2e7d8f2e25207548ed3df07a6eb15d4e3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/assessment-input.json",
+      "bytes": 40026,
+      "sha256": "fea8a1a879e9c2d22015ece337f6b5637c32b07341eb86d80633f1998bc39869"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_04/prepared-request.json",
+      "bytes": 766415,
+      "sha256": "88f338dd707e8a49a5c891b7903e4ff9b756837e1d9ddef8dc9b1ebc8df0de35"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_05/consumer/genuine-pilot.mjs",
+      "bytes": 39326,
+      "sha256": "a50e6ef9f7359551dfefeecbc42e3c8098f936e3b305e39b94edae84b89d9646"
+    }
+  ],
+  "currentPhysicalPrefix": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_CONTEXT_CONSERVATION_02/resources/events/runtime.events.jsonl",
+    "bytes": 13473583,
+    "sha256": "880afc79e4e1d5dcfee88f2168cce0e0341bfa866940a8bf2e10ea170ceb7591",
+    "device": 16777231,
+    "inode": 465654884,
+    "events": 2717
+  },
+  "firstFailure": {
+    "owner": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts:524",
+    "compiledOwner": "build/code/src/abg/qualification_proof.js:587",
+    "guard": "!isQualificationProofResource(ownedProof) || !qualificationPlanMatches(plan)",
+    "actualPlanGuard": true,
+    "actualOwnedProofGuard": false,
+    "canonicalSchema": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts:278-293",
+    "singleSchemaIssue": {
+      "type": "strict_object",
+      "path": [
+        "executionSelections"
+      ],
+      "message": "Invalid key: Expected never but received \"executionSelections\""
+    },
+    "origin": "Frozen05 genuine-pilot.mjs makeProof literal at292 and331 supplies executionSelections:[], absent from both canonical proof schemas. Phase2 used flow site331.",
+    "propagation": "resolveQualificationProof at qualification_resources.ts194-196 removes only representation/resource/executionSources and preserves the unsupported key in its spread. projectQualificationJudgment correctly refuses before producerForResult, native Source/transport authentication, construction authors or F11. Caller assertion is only the downstream symptom."
+  },
+  "readOnlyDiagnostic": {
+    "instrumentedExactInstalledOwner": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_05/review-source-diagnostic-owner.mjs",
+        "bytes": 89063,
+        "sha256": "c18430a07d3924b1f9d156fcdd8e4d5eb305b3c427bb9da77dc8a15b74318e36",
+        "standing": "Read-only diagnostic scratch; never canonical Source or runtime proof authority."
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_05/review-source-diagnostic-runner.mjs",
+        "bytes": 1103,
+        "sha256": "ce4327cc9fa1178d1f55a6d7f1a7ceeace189dccb83917c7bea955a712ff9d86",
+        "standing": "Read-only diagnostic scratch; never canonical Source or runtime proof authority."
+      }
+    ],
+    "firstTrace": [
+      "return-null@compiled:587"
+    ],
+    "standing": "Pure canonical-owner calls on frozen files/current exact prefix; temporary diagnostic copy only adds refusal tracing/import routing. No tests/native execution/resource opens/dispatch/model/Source changes.",
+    "canonicalProofAlternative": "Remove only unsupported executionSelections in memory; original prefix/declarations/selection and frozen plan/task/resource are unchanged. This is counterexample localization, not an accepted repaired caller.",
+    "alternativeProofGuard": true,
+    "originalNativeJAuthentication": true,
+    "returnedJudgmentExactlyEqualsOriginalTerminalValue": true,
+    "originalResult": {
+      "ref": "result://abiogenesis/728b8d3f6de6f92168e5a66654f04900cdf186897f8380d2803f2c1cfe81f60c",
+      "digest": "sha256:728b8d3f6de6f92168e5a66654f04900cdf186897f8380d2803f2c1cfe81f60c"
+    },
+    "constructionAuthors": [
+      "actor://codex/root/public_preparation_worker"
+    ],
+    "noRuntimeByteIdentityChange": true
+  },
+  "priorCheckGap": "Phase1 preparation validated the frozen input/request and real construction chains but never invoked the post-J makeProof builder against the canonical strict proof schema. Its JavaScript literal was unchecked; the independent Phase1 Source/Proof review also missed this latent key. Genuine actor admission validates J, not this later separately supplied proof. Controlled02 used its supported proof builder and did not exercise the defective genuine caller.",
+  "supportedReentry": {
+    "class": "realization_refactor",
+    "owner": "Thin supplied genuine caller/proof fixture, not canonical Source/contract/Design/plan/J.",
+    "boundedRepair": "In an explicitly granted successor caller, remove executionSelections from both makeProof sites and check the actual constructed reference proof with the existing canonical isQualificationProofResource guard before its owner call. No new primitive/schema or permissive unknown-key handling.",
+    "completeAffectedCone": "Prepare/flow proof literals; direct authentic J projection; construction-author projection; F11 consumer proof; original-producer Result/replay reads. Input/task/plan/request/Source/package/current install and existing finite-plan authentication law stay fixed.",
+    "reuse": "Reuse the actual admitted Result728b8d3f6de6f92168e5a66654f04900cdf186897f8380d2803f2c1cfe81f60c and genuine retained assessment handoff at the original physical log. Restore normally, authenticate original J with conforming supplied proof, then native F11 and four fresh reads under Root grant; no assessment replay or new model call.",
+    "requiredReproof": "Exact successor proof passes canonical guard; original J and author authentication agree; affected F11 preserves actual applicable/falsified criterion and citations/uncovered obligations; native closures and four current Public reads preserve original producer/Source/full terminals."
+  },
+  "severityAndDisposition": "This supplied caller blocks the selected genuine J-to-F11 steel thread until bounded repair. No canonical Source P0 is demonstrated by this refusal; Root/owner owns priority and release disposition. Existing strict guard is functioning correctly.",
+  "semanticResidual": {
+    "actualModelJudgment": "Applicable/falsified, two established construction attributions; genuine result and assessment Run closure retained.",
+    "separation": "Model alleges loss when a DECLARED plan peer is missing/refused. That allegation concerns complete-plan semantics and is not this proof-shape refusal. Accepted B-uncovered-outside-plan discriminator remains separate and intact.",
+    "disposition": "Owner/independent semantic triage residual; no aggregation/algebra/design hardening or allegation acceptance undertaken."
+  },
+  "limits": [
+    "Authentication of original J now independently succeeds with only a conforming in-memory proof; F11/native continuation and four fresh reads remain unexecuted and unaccepted.",
+    "Pure diagnostics establish exact native correspondence, not truth of the model semantic allegation or whole-candidate sufficiency.",
+    "No Source/package/build/Git/model/release effects; only explicitly granted review-source scratch and this report."
+  ],
+  "stoppedEditing": true,
+  "RootAloneConjoinsAndSelectsSuccessor": true
+}

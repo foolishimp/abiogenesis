@@ -1,0 +1,102 @@
+{
+  "status": "CLOSED",
+  "activation": "T287_F11_MATERIAL_SCOPE_REVIEW_01",
+  "actor": "/root/current_authority_review",
+  "independence": "did not author Scope01",
+  "frozenAt": "2026-09-30T08:53:23.592060+00:00",
+  "verdict": "accept exact unbound reusable preparation with semantic/presentation limits; caller material realization required before dependent native assessment",
+  "return": {
+    "path": "return.md",
+    "bytes": 17722,
+    "sha256": "e60b6a846a1d4776ded01f3ab247bc5d8eab2f5db6e6c9a48f0183a81808112e"
+  },
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 1358,
+      "sha256": "5ece24d802fda530861637a7d79242bf72ebabfb309dab5e8502aa2e3b008956"
+    },
+    {
+      "path": "check-01.mjs",
+      "bytes": 7900,
+      "sha256": "8e10465664b9755125d3fd3ee208f3e537fa795efaaf845058947b818e6ec864"
+    },
+    {
+      "path": "check-01.mjs.process.json",
+      "bytes": 530,
+      "sha256": "e004657d703d888dcd0fedab6a90f941270ffdb0920aa8a04432e96b384a7de1"
+    },
+    {
+      "path": "check-01.mjs.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "check-01.mjs.stdout",
+      "bytes": 6385,
+      "sha256": "a0f3d6104cff839a4bc1638fe79c4af2a7d83f5c1bb629302d2490263ecb40b6"
+    },
+    {
+      "path": "check-02.mjs",
+      "bytes": 4244,
+      "sha256": "4e33e3e652a039338654f3fd9017824f005fee81de094a34f8f968e7f2cb1d2a"
+    },
+    {
+      "path": "check-02.mjs.process.json",
+      "bytes": 531,
+      "sha256": "ff16461ba6c009ef3f6cf0357c3af0cd98582083aadcb9b02f3c8e9ccd689f92"
+    },
+    {
+      "path": "check-02.mjs.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "check-02.mjs.stdout",
+      "bytes": 8815,
+      "sha256": "ffffe9e551165dad5eac2d12f8df04cf0e8c76121783e21cbe1d7b57d42db2dc"
+    },
+    {
+      "path": "observations-01.json",
+      "bytes": 89689,
+      "sha256": "b95a650e2712884e548f80fffc317e8f6c02c1298672c2046361e47ed829006b"
+    },
+    {
+      "path": "observations-02.json",
+      "bytes": 8815,
+      "sha256": "ffffe9e551165dad5eac2d12f8df04cf0e8c76121783e21cbe1d7b57d42db2dc"
+    },
+    {
+      "path": "return.md",
+      "bytes": 17722,
+      "sha256": "e60b6a846a1d4776ded01f3ab247bc5d8eab2f5db6e6c9a48f0183a81808112e"
+    },
+    {
+      "path": "run-check.py",
+      "bytes": 1255,
+      "sha256": "3d299c37f7d57c9b75db3e7a1fa3fce9908907781c31e31ab99d7fd8acfc7e0d"
+    }
+  ],
+  "recordCount": 13,
+  "checkGroups": 2,
+  "ownedCheckSeconds": 3.5928754583001137,
+  "closeRecordElapsedSeconds": 0.003287042025476694,
+  "effects": {
+    "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-scope-review-01",
+    "native": false,
+    "provider": false,
+    "candidate": false,
+    "package": false,
+    "build": false,
+    "install": false,
+    "git": false,
+    "sibling": false
+  },
+  "limits": [
+    "No complete actual qualification task or full worker request constructed",
+    "No all-rule semantic judgment, admission, F11 or AF22 verdict",
+    "No native03/04, moving Q02 review, moving attribution or source-session transcript consumed",
+    "Root owns priority, disposition and further activation"
+  ],
+  "stop": "One immutable review; no repair or next activation."
+}

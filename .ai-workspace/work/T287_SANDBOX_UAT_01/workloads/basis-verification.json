@@ -1,0 +1,9 @@
+{
+  "cut": "v2.5.1-rc.2",
+  "uri": "stdo://releases/v2.5.1-rc.2/",
+  "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2",
+  "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "valid": true,
+  "failures": [],
+  "command": "stdo verify v2.5.1-rc.2 --manifest-sha256 3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+}

@@ -1,0 +1,42 @@
+"""Freeze the first actual Q10 refusal without another owner call or repair."""
+from pathlib import Path
+from collections import defaultdict
+import datetime,hashlib,json,os,stat
+Q=Path(__file__).resolve().parent;D=Q.parent/'final-qualification-inputs-09'
+assert not(Q/'freeze.json').exists()
+def read(p):return json.loads(Path(p).read_bytes())
+def pin(p):
+ p=Path(p)
+ with p.open('rb')as f:h=hashlib.file_digest(f,'sha256').hexdigest()
+ return {'path':str(p),'bytes':p.stat().st_size,'sha256':h,'mode':stat.S_IMODE(p.stat().st_mode)}
+def put(n,v):
+ p=Q/n;assert not p.exists();p.write_text(json.dumps(v,indent=2,ensure_ascii=False)+'\n')
+inventory=read(Q/'qualification-inventory.json');previous=read(D/'qualification-inventory.json');origins=read(Q/'inventory-origin-correspondence.json');by_ref={m['ref']:m for m in inventory['members']};prior={m['ref']:m for m in previous['members']}
+roles=defaultdict(lambda:{'members':0,'rawBytes':0,'encodedBytes':0})
+for o in origins:
+ m=by_ref[o['ref']];r=roles[o.get('sourceRole','unknown')];r['members']+=1;r['rawBytes']+=m['byteCount'];r['encodedBytes']+=4*((m['byteCount']+2)//3)
+changed=[]
+for ref,m in by_ref.items():
+ old=prior.get(ref)
+ if old is not None and(old['digest'],old['byteCount'])!=(m['digest'],m['byteCount']):changed.append({'ref':ref,'path':m['path'],'beforeBytes':old['byteCount'],'afterBytes':m['byteCount'],'deltaBytes':m['byteCount']-old['byteCount']})
+changed.sort(key=lambda m:abs(m['deltaBytes']),reverse=True)
+auth=read(Q/'f11/source-authorship-records.json');oldAuth=read(D/'f11/source-authorship-records.json');assert auth['records'][:121]==oldAuth['records']and auth['chains'][:12]==oldAuth['chains']
+new=auth['records'][121:];newChains=auth['chains'][12:];increments={'originalQ09':{'records':121,'chains':12,'spans':46,'recordBytes':sum(m['byteCount']for m in oldAuth['records'])},'acceptedSuccessors':{'records':len(new),'chains':len(newChains),'spans':sum(len(c['attributionSources'])for c in newChains),'recordBytes':sum(m['byteCount']for m in new)},'newChainScopes':[{k:c[k]for k in ['activationRef','authorRef','authorityRef','scopeRefs','postimageMembers']}for c in newChains],'newRecordPopulation':[{'ref':m['ref'],'path':m['path'],'bodyBytes':m['byteCount']}for m in new],'allPriorRecordBytesChainsSpansPreserved':True,'newSourceAuthorshipByCopyOrPreparation':False,'sourceAuthSufficiency':'unknown','independence':'unknown'}
+put('actual-author-material-increments.json',increments)
+put('actual-population-and-byte-decomposition.json',{'inventoryMembers':len(by_ref),'priorInventoryMembers':len(prior),'effectiveSourceGeneratedMembers':len(read(Q/'source-inventory.json')),'selectedSourceMembers':read(Q/'population-binding.json')['sourcePreimages'],'generatedRows':read(Q/'population-binding.json')['generated'],'derivedAuthorityPreimages':len(read(Q/'donor-authority-preimages.json')),'expectedPhysicalOutputs':len(read(Q/'expected-output-inventory.json')['paths']),'historicalComponentMembers':len(read(Q/'component-stage-plan.json')['members']),'protectedInputs':read(Q/'protected-inputs.json')['total'],'protectedBytes':read(Q/'protected-inputs.json')['bytes'],'rawBodyBytes':sum(m['byteCount']for m in by_ref.values()),'encodedBodyBytes':sum(4*((m['byteCount']+2)//3)for m in by_ref.values()),'bySourceRole':dict(sorted(roles.items())),'largestChangedSameIdentityBodies':changed[:12],'newIdentityCount':len(set(by_ref)-set(prior)),'removedIdentityCount':len(set(prior)-set(by_ref)),'fullResourceSerializationBytes':None,'reason':'Stopped before resource body materialization/serialization; actual measured 543805156B is base64 payload byte count from actual inventory, not a nonexistent full resource file.'})
+task=read(Q/'readiness-result.json');failure=read(Q/'f11-packet-readiness.json');first=read(Q/'first-readiness-refusal.json');commandClose=read(Q/'command-supervisor-close.json');packetClose=read(Q/'packet-supervisor-close.json')
+assert task['workResult']=='GO_MECHANICAL_ONLY'and commandClose['exitCode']==0
+assert failure['workResult']=='NO_GO'and packetClose['exitCode']==2
+assert all(s['wait4Reaped']and s['groupAfterWait']=='absent'and not s['timedOut']for s in [commandClose,packetClose])
+result={'status':'CLOSED','role':'Worker','actor':'/root/q03_input_review','operation':'T287_FINAL_QUALIFICATION_INPUTS_10','workResult':'NO_GO_PACKET_PREPARATION_EXTERNAL_BYTE_BUDGET','candidate':read(Q/'candidate-binding.json'),'actualSetupCoordinates':pin(Q/'f11/actual-setup-coordinates.json'),'completeTaskPass':{'taskRef':task['taskRef'],'taskDigest':task['taskDigest'],'commands':task['commands'],'predicates':task['predicates'],'producerDigests':task['actualTaskDigests'],'receipt':pin(Q/'readiness-result.json')},'firstActualRefusal':first,'populations':read(Q/'actual-population-and-byte-decomposition.json'),'sourceAuth':read(Q/'source-auth-current-correspondence.json'),'authorshipIncrementEvidence':pin(Q/'actual-author-material-increments.json'),'retainedStrictCaller':pin(Q/'f11/ordinary-caller.mjs'),'retainedParentChildDriver':pin(Q/'f11/flow-driver.mjs'),'processClosures':{'completeTask':commandClose,'packet':packetClose},'notReached':['complete F11 body materialization','complete packet/task/plan material guards','published reference owner preparation','actual worker request/prompt renderer'],'publishedScopeCorrespondence':'Passed before external byte predicate; observed from actual executed caller order','effects':{'SourceChanges':0,'builds':0,'qualificationCommands':0,'nativeTaskRunJHelperProviderCalls':0,'eventOrResourceReopening':0,'candidateChanges':0,'GitEffects':0,'networkEffects':0},'unknowns':['semantic applicability/material sufficiency/context/grouping/source attribution/independence','current installed complete reference owner and renderer readiness','actual parent/child/J/foldback/F11/AF22/cold read path','observed eighteen-command qualification/QUAL056','release/human ruling'],'retries':0,'budgetChanges':0,'independentAssuranceClaim':False,'consumer':'Root Executive','furtherWritesAfterFreeze':False}
+put('worker-result.json',result)
+put('accounting.json',{'actualPayloads':2,'completeTask':commandClose,'packet':packetClose,'completeInventoryEncodedByteBudget':first['inheritedExternalBudget'],'measuredBase64PayloadBytes':first['actualEncodedBodyBytes'],'actualFullResourceBytes':None,'promptBytes':None,'defaultHeap':True,'ordinaryHOME':True,'payloadsAllReapedGroupsAbsent':True,'qualificationCommands':0,'providerCalls':0,'RuntimeEffects':0})
+put('closure.json',{'status':'CLOSED','role':'Worker','operation':result['operation'],'workResult':result['workResult'],'closedAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'writesStoppedAfterFreeze':True,'returnsTo':'Root Executive','noRetryOrRepair':True})
+(Q/'return.md').write_text('CLOSED Q10: NO_GO at the inherited external full-resource byte budget.\n\nComplete actual published command Task and protected input/recipe correspondence passed. Scope correspondence passed, then 543,805,156 encoded body bytes exceeded the required <500,000,000 bytes. No body materialization, reference owner preparation, resource serialization or prompt rendering followed.\n\nAll 121 Q09 records/12 chains/46 spans are retained; actual accepted successors yield174 records/23 chains/90 spans. Attribution sufficiency and independence remain unknown. Both payloads were wait4-reaped and their groups are absent. No Runtime, source, candidate, provider, network, Git or eighteen-command effect. No retry or budget change.\n')
+rows=[];dirs=[]
+for p in sorted(Q.rglob('*')):
+ if p.is_symlink():rows.append({'path':str(p.relative_to(Q)),'kind':'symlink','target':os.readlink(p),'mode':stat.S_IMODE(p.lstat().st_mode)})
+ elif p.is_file():a=pin(p);a['path']=str(p.relative_to(Q));rows.append(a)
+ elif p.is_dir():dirs.append({'path':str(p.relative_to(Q)),'mode':stat.S_IMODE(p.stat().st_mode)})
+freeze={'status':'CLOSED','role':'Worker','operation':result['operation'],'workResult':result['workResult'],'records':rows,'recordCount':len(rows),'bodyBytes':sum(r.get('bytes',0)for r in rows),'directories':dirs,'directoryCount':len(dirs),'candidateFreeze':result['candidate']['constructionFreeze'],'actualSetupAcceptance':read(Q/'current-dependency-pin.json')['actualSetupAcceptance'],'allWritesStopped':True}
+put('freeze.json',freeze);os.chmod(Q/'freeze.json',0o444);print(json.dumps({'status':'CLOSED','workResult':result['workResult'],'freeze':pin(Q/'freeze.json'),'records':len(rows),'directories':len(dirs),'bodyBytes':freeze['bodyBytes']}))

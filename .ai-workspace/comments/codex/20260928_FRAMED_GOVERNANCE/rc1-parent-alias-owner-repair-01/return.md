@@ -1,0 +1,11 @@
+CLOSED NO_GO_REGRESSION_COMPLETENESS. This is a test-fixture integration refusal, not a demonstrated source/compiler or parent-owner failure.
+
+Product Frame: GOAL035/T287/fixed15, STDO2.5.1RC2. Existing D4/D5 HOW73/120–126/249 requires authentic native parent aliases to conserve one original producer. No universal per-scenario alias gate, Product/requirement/schema change, second runtime or new library is selected.
+
+The sole production change imports projectOpenedCCallTraversalInputAtPrefix and uses its authenticated cursor plus the already reconstructed exact published GraphFunction for workflow reconstruction. Leaf reconstruction and canonical CCall failure-contract, Program/basis/materialization, Result/J/evidence, route, uniqueness, currentness and resource checks remain. No cursor or route is manufactured.
+
+One isolated strict compile passed. One supervised focused regression exited0. Its real canonical durable reader decoded the retained parent body-reference Result; the actual cursor/CCall/outcome owners and new qualification owner resolved parent and direct-child to the same original child/J. The pinned source preimage refused the parent. Missing/crossed cursor and crossed GraphFunction cases refused at the canonical CCall boundary. The existing explicit lower-admission fixture preserved duplicate-selection and equal-valued competing-producer refusal.
+
+Three foldback counterfactuals did not reach the intended guard: each refused with TypeError, runtime event-prefix selection requires one explicit immutable snapshot. The test's exit0 and broad test title do not establish those negative predicates. Preserve the actual scripts/receipts; no automatic fixture patch or retry follows. Root must triage and separately select a test-only continuation if required.
+
+Reference-task declaration-resource lookup is explicitly supplied; the full resource manifest and semantic adequacy are untested. Competition cases use supplied synthetic lower native admission. No new Runtime/provider/helper/Run/qualification/publication/release effect occurred. Current source readiness is bounded to these compile and positive/partial-negative observations; independent source assurance and affected exact successor installed J/F11/AF22 proof remain open.

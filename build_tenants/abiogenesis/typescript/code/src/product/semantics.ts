@@ -1,6 +1,7 @@
 import type { NativeJudgmentProofOperations } from "../implementation/contracts.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import { isRecord } from "../shared/admission_predicates.js";
+import type { ResultEvidenceLineage } from "../abg/result_evidence_lineage_contracts.js";
 import type {
   ModulePublication,
   ProductSemanticsBinding,
@@ -105,9 +106,8 @@ export interface ProductSemanticsProvider {
     basis: Readonly<{
       readonly outputContractRef: string;
       readonly value: Readonly<Record<string, JsonValue>>;
-      readonly admittedEvidence: readonly Readonly<
-        Record<string, JsonValue>
-      >[];
+      readonly nativeProof?: import("../implementation/contracts.js").NativeJudgmentProofOperations;
+      readonly admittedEvidence: readonly ResultEvidenceLineage[];
     }>,
   ) => boolean;
   readonly resolveProbabilisticWorkerContracts?: (
@@ -193,9 +193,8 @@ interface InstalledLeafSemanticsRuntime {
     basis: Readonly<{
       readonly outputContractRef: string;
       readonly value: Readonly<Record<string, JsonValue>>;
-      readonly admittedEvidence: readonly Readonly<
-        Record<string, JsonValue>
-      >[];
+      readonly nativeProof?: NativeJudgmentProofOperations;
+      readonly admittedEvidence: readonly ResultEvidenceLineage[];
     }>,
   ) => boolean;
   readonly resolveProbabilisticWorkerContracts: (

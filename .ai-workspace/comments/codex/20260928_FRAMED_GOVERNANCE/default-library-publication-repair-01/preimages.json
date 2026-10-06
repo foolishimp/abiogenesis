@@ -1,0 +1,20 @@
+{
+  "status": "exact_granted_preimages_verified",
+  "records": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "bytes": 18901,
+      "sha256": "3170884eacec34f80ed2e940e95ae20801eeba6f36cfc7966782db5121941d35"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 75599,
+      "sha256": "21a18c57bcf6cabb76a5b198f9449383a734895fb1de63e73034596779e43c17"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "bytes": 38681,
+      "sha256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4"
+    }
+  ]
+}

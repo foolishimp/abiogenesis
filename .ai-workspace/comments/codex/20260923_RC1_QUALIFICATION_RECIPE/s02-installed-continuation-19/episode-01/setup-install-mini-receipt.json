@@ -1,0 +1,109 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "acquired",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.product.install",
+      "memberKey": "install"
+    },
+    "invocationRef": "invocation://abiogenesis/f790aa367e256fe61b121c6302a47a3a9009153d0d01be1d790afa9600d89f4f",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "disposition": "materialized",
+        "installedProduct": {
+          "ref": "product-install://@abiogenesis-fixtures/developer-mini-product/5.0.0/1d01299ef75f6b532a43d6591b50c1308ff4fc61652a5d52d2bc63c9fac6cfa4/24fd43147a719cb2260d8342326ed96eda875ce84e04d26d915b51889649fc55",
+          "digest": "sha256:35ec858a2968697714237febc93ce42861824a8c89110545341b79c4c95cad9b"
+        },
+        "installManifest": {
+          "ref": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/resources/installed/mini/node_modules/@abiogenesis-fixtures/developer-mini-product/product-toolchain-manifest.json",
+          "digest": "sha256:00ed43f95d2e2d261b02469ee16045ea91b7a5e5095949a3e771f2556598126d"
+        },
+        "installerManifest": {
+          "ref": "artifact-truth-projection://abiogenesis/90febf1afc5e8bdf7d278d0ff327104bce8cec1a7c3274e01cd8a66d24595258",
+          "digest": "sha256:90febf1afc5e8bdf7d278d0ff327104bce8cec1a7c3274e01cd8a66d24595258"
+        },
+        "resolvedLock": {
+          "ref": "product-lock://abiogenesis/24fd43147a719cb2260d8342326ed96eda875ce84e04d26d915b51889649fc55",
+          "digest": "sha256:24fd43147a719cb2260d8342326ed96eda875ce84e04d26d915b51889649fc55"
+        },
+        "provenance": [
+          {
+            "ref": "artifact-truth-projection://abiogenesis/90febf1afc5e8bdf7d278d0ff327104bce8cec1a7c3274e01cd8a66d24595258",
+            "digest": "sha256:90febf1afc5e8bdf7d278d0ff327104bce8cec1a7c3274e01cd8a66d24595258"
+          }
+        ]
+      }
+    },
+    "resources": {
+      "kind": "product_install_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "eventResource": {
+        "kind": "abg_event_resource_completion",
+        "schemaVersion": "5.0.0",
+        "acquisitionKind": "new",
+        "entryPrefix": {
+          "kind": "durable_prefix_coordinate",
+          "schemaVersion": "5.0.0",
+          "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/resources/events/runtime.events.jsonl",
+          "prefixLength": 2296423,
+          "prefixDigest": "sha256:6696a1cc2dea9ed0e3a047e3f112aa5696dcb0d7ebabf80721bd8403986467c2",
+          "storeIdentity": {
+            "device": 16777230,
+            "inode": 458878096,
+            "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+          },
+          "coordinateDigest": "sha256:de85206dfc79f78255bf0e79e00895beef77a93a76c9f45d07c15dd418a532c0"
+        },
+        "successor": {
+          "kind": "acquired_abg_event_resource_selection",
+          "schemaVersion": "5.0.0",
+          "prefix": {
+            "kind": "durable_prefix_coordinate",
+            "schemaVersion": "5.0.0",
+            "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/resources/events/runtime.events.jsonl",
+            "prefixLength": 2299988,
+            "prefixDigest": "sha256:6969ff929be4015ec2996f1c8e910e62e1e67fce67ebbfad9be4c64b650fdc93",
+            "storeIdentity": {
+              "device": 16777230,
+              "inode": 458878096,
+              "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0"
+            },
+            "coordinateDigest": "sha256:2994280530e5cda4a1b4aec3cb19791faa7ee3c5f78bbe694758f310b91e6c98"
+          }
+        },
+        "receiptDigest": "sha256:38a59a9e7b905e8161b2d7b11ab4afc078123bd287a5a917b3d46ddbd92e271d"
+      },
+      "packedArtifact": {
+        "ref": "abiogenesis-fixtures-developer-mini-product-5.0.0.tgz",
+        "digest": "sha256:7bb4815da4a187450ca612549c18f32f8f54c9559e7d69203a96659ae6db43cd"
+      },
+      "resolvedLock": {
+        "ref": "product-lock://abiogenesis/24fd43147a719cb2260d8342326ed96eda875ce84e04d26d915b51889649fc55",
+        "digest": "sha256:24fd43147a719cb2260d8342326ed96eda875ce84e04d26d915b51889649fc55"
+      },
+      "targetRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/resources/installed/mini",
+      "installCandidate": {
+        "ref": "product-install://@abiogenesis-fixtures/developer-mini-product/5.0.0/1d01299ef75f6b532a43d6591b50c1308ff4fc61652a5d52d2bc63c9fac6cfa4/24fd43147a719cb2260d8342326ed96eda875ce84e04d26d915b51889649fc55",
+        "digest": "sha256:35ec858a2968697714237febc93ce42861824a8c89110545341b79c4c95cad9b"
+      },
+      "installedProduct": {
+        "ref": "product-install://@abiogenesis-fixtures/developer-mini-product/5.0.0/1d01299ef75f6b532a43d6591b50c1308ff4fc61652a5d52d2bc63c9fac6cfa4/24fd43147a719cb2260d8342326ed96eda875ce84e04d26d915b51889649fc55",
+        "digest": "sha256:35ec858a2968697714237febc93ce42861824a8c89110545341b79c4c95cad9b"
+      },
+      "installManifest": {
+        "ref": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-19/episode-01/resources/installed/mini/node_modules/@abiogenesis-fixtures/developer-mini-product/product-toolchain-manifest.json",
+        "digest": "sha256:00ed43f95d2e2d261b02469ee16045ea91b7a5e5095949a3e771f2556598126d"
+      },
+      "installerManifest": {
+        "ref": "artifact-truth-projection://abiogenesis/90febf1afc5e8bdf7d278d0ff327104bce8cec1a7c3274e01cd8a66d24595258",
+        "digest": "sha256:90febf1afc5e8bdf7d278d0ff327104bce8cec1a7c3274e01cd8a66d24595258"
+      }
+    },
+    "failure": null
+  }
+}

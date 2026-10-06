@@ -1,0 +1,50 @@
+{
+  "status": "CLOSED",
+  "work_result": "candidate_ready",
+  "scope": "One bounded external C02/Q02 015B material-selection and fail-closed existing-owner binding path",
+  "inventoryMembers": 1950,
+  "rules": 2137,
+  "sources": 95,
+  "preparedResponsibilities": 1,
+  "selectedBodies": 39,
+  "selectedRawBytes": 832398,
+  "ownerSourceSegmentBytes": 860584,
+  "mechanicalStatus": "passed",
+  "independentSemanticAssessment": "not performed",
+  "genuinelyBoundRequest": false,
+  "nativeReadiness": "incomplete",
+  "P2": "remains open through first genuine bound assessment",
+  "priorCuts": "unchanged",
+  "effectsExcluded": [
+    "native",
+    "provider",
+    "model",
+    "moving resource",
+    "source",
+    "package/build/install",
+    "test suite",
+    "Git"
+  ],
+  "remainingGenuineBinding": {
+    "ready": false,
+    "missing": [
+      "basis.installedProduct",
+      "basis.workspaceBinding",
+      "basis.tenantManifest",
+      "provenance",
+      "role",
+      "assetSurface",
+      "slotRef",
+      "taskOrdinal",
+      "declarations: actual owner/actor grants and historical declarations"
+    ],
+    "role": "qualification-role://abiogenesis/rule@5",
+    "notAUniversalRuleTaskPrerequisite": [
+      "executionSelectionRef",
+      "QUAL-056 verification material"
+    ],
+    "limits": "Presence/schema checks do not authenticate grants, actors or native authority. Claim-specific execution evidence remains required wherever the selected rule judgment needs it. Full QUAL-056/F11/AF22 dependencies remain unchanged."
+  },
+  "finitePlan": "absent",
+  "nextAuthority": "Root only; no Worker activation"
+}

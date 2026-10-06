@@ -1,0 +1,23 @@
+{
+  "command": [
+    "node",
+    "--max-old-space-size=4096",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/prefix-checks.mjs"
+  ],
+  "exitCode": 0,
+  "elapsedMs": 5304.565,
+  "peakRSSBytes": 1920778240,
+  "nativeCalls": 0,
+  "environment": {
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/tmp",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/cache/npm",
+    "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/cache/npm-prefix",
+    "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/config/user.npmrc",
+    "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/config/global.npmrc",
+    "GIT_CONFIG_GLOBAL": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/config/global.gitconfig",
+    "GIT_CONFIG_SYSTEM": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/config/system.gitconfig",
+    "GIT_CONFIG_NOSYSTEM": "1",
+    "GIT_OPTIONAL_LOCKS": "0",
+    "NODE_OPTIONS": "--max-old-space-size=4096"
+  }
+}

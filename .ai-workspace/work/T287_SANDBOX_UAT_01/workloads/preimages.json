@@ -1,0 +1,50 @@
+{
+  "activation": "T287_SANDBOX_UAT_WORKLOADS_01",
+  "sourceCommit": "55a8a452141caf180ea6cee6365d2a1bfb9da34e",
+  "writeTerritory": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/**",
+  "preimage": {
+    "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat",
+    "state": "absent"
+  },
+  "authority": [
+    {
+      "path": "AGENTS.md",
+      "digest": "sha256:ae02c7961a12b15ef50d4619ed151f5a306ac8a5579708288b31de648f322828"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "digest": "sha256:eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "digest": "sha256:4bf0ffddd32e0c1b267e6d1b9b17a51ac6cf187a2561d5148404dbfdb7b572ea"
+    },
+    {
+      "path": "specification/INTENT.md",
+      "digest": "sha256:5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "digest": "sha256:6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-QUAL.md",
+      "digest": "sha256:0366cdd8f4392f94e7a1f3fbfc91e265133dcd23cb0ebe13db4167e57fbe8c5b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "digest": "sha256:80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_01/plan.md",
+      "digest": "sha256:c5a5a40968629ae6aaf0ba72a8d7d35596de374f42d3d659fd6a0eb486863695"
+    }
+  ],
+  "donor": {
+    "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+    "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+    "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+    "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb"
+  },
+  "permittedEffects": "New test inputs, independent oracles, local manifest and worker return only; donor read-only; no Git or paid execution effects."
+}

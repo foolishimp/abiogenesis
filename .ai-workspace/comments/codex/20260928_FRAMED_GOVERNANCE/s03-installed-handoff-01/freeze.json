@@ -1,0 +1,418 @@
+{
+  "status": "CLOSED",
+  "work_result": "installed_handoff_candidate_ready",
+  "activation": "T287_S03_INSTALLED_HANDOFF_01",
+  "frozenAt": "2026-09-30T05:08:49.864125+00:00",
+  "return": {
+    "path": "return.md",
+    "sha256": "62c7932c2721320f51fa92445bc494a002117b9a65f269e87640bce3a995320e"
+  },
+  "records": [
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "bytes": 546,
+      "sha256": "71f24c0c79381549c431eba176ca6c4dd29f0e8a539ae5e5bb9550437df31e01"
+    },
+    {
+      "path": "candidate-conservation.json",
+      "kind": "file",
+      "bytes": 393,
+      "sha256": "1521fbc4cf9e398710dbdffa887a5125c78924ee20ca19917b6b2b792e30cfee"
+    },
+    {
+      "path": "current-verification.json",
+      "kind": "file",
+      "bytes": 1084,
+      "sha256": "96dbbfc5f42f32972876cbb98a26ea870a9a4f41ecded8b8474d1a3a66f73517"
+    },
+    {
+      "path": "driver-exit.json",
+      "kind": "file",
+      "bytes": 272,
+      "sha256": "2ff8a59abfe6675687ec5f136e6fd96e8404081e274fda4dddad2e0d5340b969"
+    },
+    {
+      "path": "driver-launch.json",
+      "kind": "file",
+      "bytes": 942,
+      "sha256": "0f8a090b54f158e6a87447b822e2b4f983fdc1329ecd69a402b5166fbc387fdc"
+    },
+    {
+      "path": "driver.mjs",
+      "kind": "file",
+      "bytes": 12454,
+      "sha256": "652099869bf2514507a0a40423769a94e8fd1c116d2dde31b3852b70614c1d4d"
+    },
+    {
+      "path": "driver.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "driver.stdout",
+      "kind": "file",
+      "bytes": 61,
+      "sha256": "91527a157871961b948770b874a9f141207dc574d42102ec806f94972909df24"
+    },
+    {
+      "path": "final-handoff.json",
+      "kind": "file",
+      "bytes": 1348,
+      "sha256": "23542ae5af5054dda2d0f68ebd478524919fd3c69f9af596cabfdde15dbbc857"
+    },
+    {
+      "path": "final-physical.json",
+      "kind": "file",
+      "bytes": 2067,
+      "sha256": "67aaf67bb8b63664df7f52491eb178c3eb14107120d02dbdad71ff1302bb10b4"
+    },
+    {
+      "path": "final-snapshot.jsonl",
+      "kind": "file",
+      "bytes": 4689421,
+      "sha256": "e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59"
+    },
+    {
+      "path": "fresh-renderer.mjs",
+      "kind": "file",
+      "bytes": 927,
+      "sha256": "47b132d02aa7292e553f2840507acfdee2c140345968b625e48b3d4f3e9896a0"
+    },
+    {
+      "path": "initial-physical.json",
+      "kind": "file",
+      "bytes": 2067,
+      "sha256": "67b4579a17043b877c016aeb85018938e7563a942548172a35965e477215df32"
+    },
+    {
+      "path": "initial-snapshot.jsonl",
+      "kind": "file",
+      "bytes": 4689421,
+      "sha256": "e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59"
+    },
+    {
+      "path": "input-joins.json",
+      "kind": "file",
+      "bytes": 4299,
+      "sha256": "f39bf9ff0befec2d2056ef63e35a9b209f18991264a38ab844abceb200ec316b"
+    },
+    {
+      "path": "installed-result.json",
+      "kind": "file",
+      "bytes": 9473,
+      "sha256": "e07c7a49cfa4f18a34003f603ae6e430dbbd7068ec7ec16d8efd577c86153a98"
+    },
+    {
+      "path": "latest-handoff.json",
+      "kind": "file",
+      "bytes": 1348,
+      "sha256": "23542ae5af5054dda2d0f68ebd478524919fd3c69f9af596cabfdde15dbbc857"
+    },
+    {
+      "path": "native-budget.json",
+      "kind": "file",
+      "bytes": 501,
+      "sha256": "1965c0c51dc424ba4543f9a75a7ef08588326841320ebea11080ab56299d086c"
+    },
+    {
+      "path": "negative/after-physical.json",
+      "kind": "file",
+      "bytes": 2067,
+      "sha256": "c507d5ef968230b485a948543ed477535687b7958dfce07cfd88d24476923b28"
+    },
+    {
+      "path": "negative/after-snapshot.jsonl",
+      "kind": "file",
+      "bytes": 4689421,
+      "sha256": "e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59"
+    },
+    {
+      "path": "negative/before-physical.json",
+      "kind": "file",
+      "bytes": 2067,
+      "sha256": "8667078ff3b01621c9583617fd284518cb649373268dd8bbaea18048b4265c5f"
+    },
+    {
+      "path": "negative/before-snapshot.jsonl",
+      "kind": "file",
+      "bytes": 4689421,
+      "sha256": "e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59"
+    },
+    {
+      "path": "negative/call.json",
+      "kind": "file",
+      "bytes": 13769,
+      "sha256": "5d9a79b5e5ce56317eacd2cbe1a2a8eacc8691a09e50f9ec12281b79969c7c25"
+    },
+    {
+      "path": "negative/cli-process-start.json",
+      "kind": "file",
+      "bytes": 634,
+      "sha256": "a07fe837e8d6d9974fcf9e6a514bb9e2ba7c3385e35a5e3879c6c190ecc9ea67"
+    },
+    {
+      "path": "negative/cli-process.json",
+      "kind": "file",
+      "bytes": 723,
+      "sha256": "bc407d2a8dc69f02e00a4f99920af6c6e6933df561cb3dd0e8e01c8921a6e7bf"
+    },
+    {
+      "path": "negative/cli.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "negative/cli.stdout",
+      "kind": "file",
+      "bytes": 81650,
+      "sha256": "44b853139079c65bdeee2af41888f393ac34c14a54db63ba64a3484253740b28"
+    },
+    {
+      "path": "negative/comparison.json",
+      "kind": "file",
+      "bytes": 2019,
+      "sha256": "6cc0985a9a8e8d91106aea769c67a1ec1ee49a99848e73d1b92431593c32ae45"
+    },
+    {
+      "path": "negative/handoff.json",
+      "kind": "file",
+      "bytes": 1348,
+      "sha256": "23542ae5af5054dda2d0f68ebd478524919fd3c69f9af596cabfdde15dbbc857"
+    },
+    {
+      "path": "negative/handoff.txt",
+      "kind": "file",
+      "bytes": 357,
+      "sha256": "45faf8aaeba05d5bda3b80f376b4aaeb72742813edcd384b823d0b5162210fe3"
+    },
+    {
+      "path": "negative/owner-output.json",
+      "kind": "file",
+      "bytes": 112737,
+      "sha256": "18c06bd67e63ab1409b02d2842edc08abbaf8a9b746e1094d36491ff68a5320e"
+    },
+    {
+      "path": "negative/prospective-call.json",
+      "kind": "file",
+      "bytes": 13769,
+      "sha256": "5d9a79b5e5ce56317eacd2cbe1a2a8eacc8691a09e50f9ec12281b79969c7c25"
+    },
+    {
+      "path": "negative/receipt.json",
+      "kind": "file",
+      "bytes": 119780,
+      "sha256": "081c24f77e63f7d0f3b22c3fb45fc2aa5946bf42e0510e7ab349383555bc65ce"
+    },
+    {
+      "path": "negative/renderer-process-start.json",
+      "kind": "file",
+      "bytes": 559,
+      "sha256": "577c9ed8e6c601da815668d6672fcec786f1bb8cec69532f2ecd1e807ab6f804"
+    },
+    {
+      "path": "negative/renderer-process.json",
+      "kind": "file",
+      "bytes": 648,
+      "sha256": "b226f2392c5e9540434591b8fec252fd6fc7b76033d6088bf976522fb325f627"
+    },
+    {
+      "path": "negative/renderer.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "negative/renderer.stdout",
+      "kind": "file",
+      "bytes": 357,
+      "sha256": "45faf8aaeba05d5bda3b80f376b4aaeb72742813edcd384b823d0b5162210fe3"
+    },
+    {
+      "path": "negative/request.jsonl",
+      "kind": "file",
+      "bytes": 9549,
+      "sha256": "53b1f28b257e5034bfffe563a079d79f3d30abc85657b4d739c25d7f4046d903"
+    },
+    {
+      "path": "negative/transport.json",
+      "kind": "file",
+      "bytes": 124138,
+      "sha256": "71a57ad658b42cc3f2585d86aa95dcaaa03b6611b9537f6fc28ca998b2bf9603"
+    },
+    {
+      "path": "positive/after-physical.json",
+      "kind": "file",
+      "bytes": 2067,
+      "sha256": "d88e0ba7cd11d525d084d3c93629c8419bf6b22a3a40031df706a938c01704e5"
+    },
+    {
+      "path": "positive/after-snapshot.jsonl",
+      "kind": "file",
+      "bytes": 4689421,
+      "sha256": "e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59"
+    },
+    {
+      "path": "positive/before-physical.json",
+      "kind": "file",
+      "bytes": 2067,
+      "sha256": "10075a761fa56cb4f74ed471ea632df695895ff260417e7f8c9d65a481fa519a"
+    },
+    {
+      "path": "positive/before-snapshot.jsonl",
+      "kind": "file",
+      "bytes": 4689421,
+      "sha256": "e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59"
+    },
+    {
+      "path": "positive/call.json",
+      "kind": "file",
+      "bytes": 13769,
+      "sha256": "25229f88c9a6182f59488927eada19c4b095d52d41da9d4b6b878d8aeac23f75"
+    },
+    {
+      "path": "positive/cli-process-start.json",
+      "kind": "file",
+      "bytes": 634,
+      "sha256": "412b2c61224623274420f6dd106a6a3a4aa31bbfb5b690147f9002f9f7f0b871"
+    },
+    {
+      "path": "positive/cli-process.json",
+      "kind": "file",
+      "bytes": 723,
+      "sha256": "86b8082b79b3d9f8b60f7e8f1f7f26b1dea70bd8c1903c71f2fb3813d59ad875"
+    },
+    {
+      "path": "positive/cli.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "positive/cli.stdout",
+      "kind": "file",
+      "bytes": 105861,
+      "sha256": "18589068af88ba7903cf8bc7040b598e0ad798cc621f0ac19d5fcee7a0ddb493"
+    },
+    {
+      "path": "positive/comparison.json",
+      "kind": "file",
+      "bytes": 1660,
+      "sha256": "7879d3c70295877bcaffbf22241ffb80f20f956c22b7651a82943180d6142e17"
+    },
+    {
+      "path": "positive/handoff.json",
+      "kind": "file",
+      "bytes": 1348,
+      "sha256": "23542ae5af5054dda2d0f68ebd478524919fd3c69f9af596cabfdde15dbbc857"
+    },
+    {
+      "path": "positive/handoff.txt",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "positive/owner-output.json",
+      "kind": "file",
+      "bytes": 143665,
+      "sha256": "3cb84b4c33c18650e0bd0e382fd4f300e2cc2bed6b5c53a2579d16015aec1b9f"
+    },
+    {
+      "path": "positive/prospective-call.json",
+      "kind": "file",
+      "bytes": 13769,
+      "sha256": "25229f88c9a6182f59488927eada19c4b095d52d41da9d4b6b878d8aeac23f75"
+    },
+    {
+      "path": "positive/receipt.json",
+      "kind": "file",
+      "bytes": 151822,
+      "sha256": "cc6b62ad10bd4a7e7925d92c0aa2a69a9c504dbb1971f3bc9a40f69962061e80"
+    },
+    {
+      "path": "positive/renderer-process-start.json",
+      "kind": "file",
+      "bytes": 559,
+      "sha256": "317eddd3b56df567aaf4b32b6570f0deabb1eae2d5e7342ace24ec2b5f2c4980"
+    },
+    {
+      "path": "positive/renderer-process.json",
+      "kind": "file",
+      "bytes": 649,
+      "sha256": "fc79bcc79b8fced7a973deae8fb2f5ec6502cff86320e63cd608a50e910495da"
+    },
+    {
+      "path": "positive/renderer.stderr",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "positive/renderer.stdout",
+      "kind": "file",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "positive/request.jsonl",
+      "kind": "file",
+      "bytes": 9549,
+      "sha256": "b07891c07b60687351f0b354a7ca2673bfd3d1546adc59ace941cd3ae3707066"
+    },
+    {
+      "path": "positive/transport.json",
+      "kind": "file",
+      "bytes": 157294,
+      "sha256": "767a994bef5eb04d9ce566721c9b3ada2964aa6732c3be50a78deaaef9a05e08"
+    },
+    {
+      "path": "preflight.json",
+      "kind": "file",
+      "bytes": 604,
+      "sha256": "0c8ec770aca6c79417f9c9dce45f49753de2a97a59fdbd443cc91d4f69233abc"
+    },
+    {
+      "path": "reader-workload-binding.json",
+      "kind": "file",
+      "bytes": 242543,
+      "sha256": "a6a657a970d87c8327af96460ab69c3ff7692c01d974e7d4619ceaf18f6ca249"
+    },
+    {
+      "path": "renderer-source.json",
+      "kind": "file",
+      "bytes": 677,
+      "sha256": "42eadff9a85d6edfc017db5ac0b46e8fcb42b7f25077a9ee07b9951b8911ff38"
+    },
+    {
+      "path": "return.md",
+      "kind": "file",
+      "bytes": 9992,
+      "sha256": "62c7932c2721320f51fa92445bc494a002117b9a65f269e87640bce3a995320e"
+    }
+  ],
+  "finalHandoff": {
+    "path": "final-handoff.json",
+    "sha256": "23542ae5af5054dda2d0f68ebd478524919fd3c69f9af596cabfdde15dbbc857"
+  },
+  "resource": {
+    "bytes": 4689421,
+    "events": 566,
+    "device": 16777230,
+    "inode": 463811526,
+    "sha256": "e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59",
+    "zeroAppend": true,
+    "ownerLock": "absent"
+  },
+  "nativeCalls": 2,
+  "budgetMs": 120000,
+  "elapsedMs": 11310.884750000001,
+  "review": "pending independent installed-proof review and Root disposition",
+  "limits": [
+    "Historical workload retains original identity",
+    "No whole-S03 or final-candidate qualification claim",
+    "No host-wide process claim"
+  ]
+}

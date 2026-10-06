@@ -1,0 +1,23 @@
+{
+  "initialOrigin": {
+    "newResourceRequest": {
+      "kind": "new_empty_append_sink_request",
+      "schemaVersion": "5.0.0",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abi5-root-env-zcvz73/runtime/events.jsonl"
+    },
+    "device": 16777230,
+    "inode": 463692735
+  },
+  "ownerPid": 59401,
+  "expectedCurrent": {
+    "byteLength": 3319378,
+    "digest": "sha256:450e1cb9e597dd5ccc0a9d9fa00fe423006e81ee26cc7225f7277e2f155063bb"
+  },
+  "abandonedLock": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abiogenesis-event-store-locks-v5/16777230-463692735.lock",
+    "device": 16777230,
+    "inode": 463692737,
+    "bytesBase64": "eyJkZXZpY2UiOjE2Nzc3MjMwLCJpbm9kZSI6NDYzNjkyNzM1LCJraW5kIjoiYWJpb2dlbmVzaXNfZXZlbnRfc3RvcmVfYXBwZW5kX2xvY2siLCJvd25lclBpZCI6NTk0MDEsInNjaGVtYVZlcnNpb24iOiI1LjAuMCJ9Cg==",
+    "digest": "sha256:07dba047ac394c7f2d4662c645d750b1f56e45ddae6ee56f1eb3e4cd68d8e761"
+  }
+}

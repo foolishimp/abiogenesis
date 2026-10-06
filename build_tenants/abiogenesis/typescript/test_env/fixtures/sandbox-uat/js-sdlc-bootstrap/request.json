@@ -1,0 +1,260 @@
+{
+  "scenarioId": "SCN-GLC-HELLO-WORLD-JS-SDLC-BOOTSTRAP",
+  "taskRef": "task://abiogenesis-sandbox-uat/js-sdlc-bootstrap/original",
+  "task": "Implement the COMPLETE unchanged selected original test workload below. It is ABG-owned test data outside the Product package. Preserve all original outcomes and unresolved source obligations. Use only the installed generic lifecycle. The adaptation notes govern interpretation of legacy mechanisms, not weakening of original application outcomes.\n\n  sdlcComplianceScenario({\n    key: \"js-sdlc-bootstrap\",\n    scenarioId: \"SCN-GLC-HELLO-WORLD-JS-SDLC-BOOTSTRAP\",\n    kind: \"sdlc_js_full_node_test\",\n    expectedStdout: null,\n    expectedReturnValue: \"Hello, world!\",\n    executeFromPlan: false,\n    witness: {\n      sourceProject: \"odd_sdlc\",\n      runPath: \"/Users/jim/src/apps/odd_sdlc/build_tenants/typescript/test_env/test_runs/scenario_t132_hello_world_js_live/20260624T185624005Z_pid20893\",\n      durationMinutes: 41.64,\n      traversalShape: [\n        \"Fg_conform_project\",\n        \"derive_lite_design_adr_surface\",\n        \"derive_lite_component_code_surface\",\n        \"derive_lite_test_design_surface\",\n        \"derive_lite_component_test_surface\",\n        \"derive_lite_uat_test_source_surface\",\n        \"prepare_test_execution_surface\",\n        \"derive_test_execution_result_surface\"\n      ],\n      parityRule: \"reproduce traversal shape as typed GTL vectors consumed by ABG startup; do not copy odd_sdlc runtime code, ledgers, phase-flow controller, or local truth surfaces\"\n    },\n    stagePlan: [\n      {\n        stage: \"conformance_project\",\n        filesToProduce: [\"specification/project-conformance.md\"],\n        instructions: [\n          \"Write only specification/project-conformance.md.\",\n          \"Declare the project pressure for a JavaScript Hello World software build traversal.\",\n          \"Name the required downstream lifecycle surfaces: implementation design, source, test design, component test source, UAT test source, test execution plan, and test execution result.\",\n          \"State that ABG owns startup admission, registry selection, graph-call opening, vector traversal, F_P dispatch, evidence admission, event emission, closure, and convergence.\",\n          \"Do not write source, tests, package files, or execution plans in this vector.\"\n        ]\n      },\n      {\n        stage: \"implementation_design\",\n        filesToProduce: [\"design/implementation-design.md\"],\n        instructions: [\n          \"Write only design/implementation-design.md.\",\n          \"Use the prior conformance_project artifact as the authority.\",\n          \"Define a minimal JavaScript module that exports helloWorld() returning exactly \\\"Hello, world!\\\".\",\n          \"Name package.json, src/hello.mjs, design/test-design.md, test/component/hello.test.mjs, test/uat/hello.uat.test.mjs, test-execution-plan.json, and execution result as separate lifecycle surfaces.\",\n          \"Do not materialize source, tests, package files, or execution plans in this vector.\"\n        ]\n      },\n      {\n        stage: \"source\",\n        filesToProduce: [\"package.json\", \"src/hello.mjs\"],\n        instructions: [\n          \"Write only package.json and src/hello.mjs.\",\n          \"Use the prior implementation_design artifact as the authority.\",\n          \"package.json must be private:true and type:module.\",\n          \"src/hello.mjs must export helloWorld() returning exactly \\\"Hello, world!\\\".\",\n          \"Do not write test source or execution plans in this vector.\"\n        ]\n      },\n      {\n        stage: \"test_design\",\n        filesToProduce: [\"design/test-design.md\"],\n        instructions: [\n          \"Write only design/test-design.md.\",\n          \"Use the prior source artifact summaries as the evidence source.\",\n          \"Specify both component and UAT validation obligations.\",\n          \"The component test must import helloWorld and assert the exact return value \\\"Hello, world!\\\".\",\n          \"The UAT test must validate the user-visible greeting contract through the same exported function.\",\n          \"Do not write test source in this vector.\"\n        ]\n      },\n      {\n        stage: \"component_test_source\",\n        filesToProduce: [\"test/component/hello.test.mjs\"],\n        instructions: [\n          \"Write only test/component/hello.test.mjs.\",\n          \"Use the prior test_design and source artifact summaries as the evidence source.\",\n          \"Use node:test and node:assert/strict.\",\n          \"Import the named export exactly as: import { helloWorld } from \\\"../../src/hello.mjs\\\".\",\n          \"Assert helloWorld() returns exactly \\\"Hello, world!\\\".\"\n        ]\n      },\n      {\n        stage: \"uat_test_source\",\n        filesToProduce: [\"test/uat/hello.uat.test.mjs\"],\n        instructions: [\n          \"Write only test/uat/hello.uat.test.mjs.\",\n          \"Use the prior component_test_source, test_design, and source artifact summaries as the evidence source.\",\n          \"Use node:test and node:assert/strict.\",\n          \"Import the named export exactly as: import { helloWorld } from \\\"../../src/hello.mjs\\\".\",\n          \"Assert the user-visible greeting contract is exactly \\\"Hello, world!\\\".\"\n        ]\n      },\n      {\n        stage: \"test_execution_plan\",\n        filesToProduce: [\"test-execution-plan.json\"],\n        instructions: [\n          \"Write only test-execution-plan.json.\",\n          \"Use the prior component_test_source and uat_test_source artifact summaries as the evidence source.\",\n          \"The command must be node with args [\\\"--test\\\", \\\"test/component/hello.test.mjs\\\", \\\"test/uat/hello.uat.test.mjs\\\"].\",\n          \"expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.\",\n          \"expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.\",\n          \"assertedReturnValue must be \\\"Hello, world!\\\".\",\n          \"Do not execute the test in this vector.\"\n        ]\n      },\n      {\n        stage: \"test_execution_result\",\n        instructions: [\n          \"Produce no files.\",\n          \"Judge the observed executionStatus, planSatisfied flag, observedTestPassCount, and stdout digest against the prior test_execution_plan.\",\n          \"Accept only if both component and UAT tests passed, planSatisfied is true, and observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount.\",\n          \"Do not reject solely because node:test uses a different TAP prefix glyph when the F_D pass-count check is satisfied.\"\n        ]\n      }\n    ]\n  }),\n\nINTERPRETATION\n{\n  \"runtimeAuthority\": \"Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.\",\n  \"executionEvidence\": \"Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.\",\n  \"sourcePreservation\": \"Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.\",\n  \"legacyTraversal\": \"The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime.\"\n}",
+  "sourceMembers": [
+    {
+      "path": "source/js-sdlc-bootstrap/source.original.txt",
+      "fixtureFile": "js-sdlc-bootstrap/source.original.txt",
+      "digest": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4"
+    },
+    {
+      "path": "source/js-sdlc-bootstrap/obligations.json",
+      "fixtureFile": "js-sdlc-bootstrap/obligations.json",
+      "digest": "sha256:2b923205ce74efe77187ce1525e1b2a6ed08e773f4d57dc1b5a7e078b2e43947"
+    },
+    {
+      "path": "source/js-sdlc-bootstrap/oracle.json",
+      "fixtureFile": "js-sdlc-bootstrap/oracle.json",
+      "digest": "sha256:a448f2400c1052892ebd78183cfb564e5db08da84402308a183d3c86e6100f6f"
+    }
+  ],
+  "requiredSupportRefs": [
+    "support://abiogenesis-sandbox-uat/js-sdlc-bootstrap/complete-original-outcome"
+  ],
+  "authorityRefs": [
+    "authority://abiogenesis-sandbox-uat/js-sdlc-bootstrap/test-workload"
+  ],
+  "readRoots": [
+    "source/js-sdlc-bootstrap/source.original.txt",
+    "source/js-sdlc-bootstrap/obligations.json",
+    "source/js-sdlc-bootstrap/oracle.json",
+    "specification/project-conformance.md",
+    "design/implementation-design.md",
+    "package.json",
+    "src/hello.mjs",
+    "design/test-design.md",
+    "test/component/hello.test.mjs",
+    "test/uat/hello.uat.test.mjs",
+    "test-execution-plan.json"
+  ],
+  "maxContextFiles": 256,
+  "maxContextBytes": 1048576,
+  "maxPromptBytes": 1048576,
+  "workOrders": {
+    "induction": {
+      "outcome": "Establish and preserve the complete original outcome, source obligations and unresolved meaning.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve the explicit conformance-to-design-to-source-to-test-design dependencies and both component/UAT import assertions. Keep the historical eight-vector witness and parity rule as source; the current native lifecycle is not evidence of identical legacy traversal. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/js-sdlc-bootstrap/source.original.txt",
+        "source/js-sdlc-bootstrap/obligations.json",
+        "source/js-sdlc-bootstrap/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "package.json",
+        "src/hello.mjs",
+        "design/test-design.md",
+        "test/component/hello.test.mjs",
+        "test/uat/hello.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "specification": {
+      "outcome": "Author every source-grounded governing, requirement, UAT and qualification surface required by the original source.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve the explicit conformance-to-design-to-source-to-test-design dependencies and both component/UAT import assertions. Keep the historical eight-vector witness and parity rule as source; the current native lifecycle is not evidence of identical legacy traversal. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/js-sdlc-bootstrap/source.original.txt",
+        "source/js-sdlc-bootstrap/obligations.json",
+        "source/js-sdlc-bootstrap/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "package.json",
+        "src/hello.mjs",
+        "design/test-design.md",
+        "test/component/hello.test.mjs",
+        "test/uat/hello.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "design": {
+      "outcome": "Author the complete source-grounded design and genuine executable proof plan, retaining all original dependencies.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve the explicit conformance-to-design-to-source-to-test-design dependencies and both component/UAT import assertions. Keep the historical eight-vector witness and parity rule as source; the current native lifecycle is not evidence of identical legacy traversal. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/js-sdlc-bootstrap/source.original.txt",
+        "source/js-sdlc-bootstrap/obligations.json",
+        "source/js-sdlc-bootstrap/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "package.json",
+        "src/hello.mjs",
+        "design/test-design.md",
+        "test/component/hello.test.mjs",
+        "test/uat/hello.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "construction": {
+      "outcome": "Construct the missing original application/test/lifecycle assets and repair observed failures without weakening any obligation.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve the explicit conformance-to-design-to-source-to-test-design dependencies and both component/UAT import assertions. Keep the historical eight-vector witness and parity rule as source; the current native lifecycle is not evidence of identical legacy traversal. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/js-sdlc-bootstrap/source.original.txt",
+        "source/js-sdlc-bootstrap/obligations.json",
+        "source/js-sdlc-bootstrap/oracle.json"
+      ],
+      "writeRoots": [
+        "specification/project-conformance.md",
+        "design/implementation-design.md",
+        "package.json",
+        "src/hello.mjs",
+        "design/test-design.md",
+        "test/component/hello.test.mjs",
+        "test/uat/hello.uat.test.mjs",
+        "test-execution-plan.json"
+      ],
+      "checks": []
+    },
+    "testing": {
+      "outcome": "Execute the exact original proof commands against the real application. Preserve native observations, failing evidence, authentic depth and mutation evidence where required.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve the explicit conformance-to-design-to-source-to-test-design dependencies and both component/UAT import assertions. Keep the historical eight-vector witness and parity rule as source; the current native lifecycle is not evidence of identical legacy traversal. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/js-sdlc-bootstrap/source.original.txt",
+        "source/js-sdlc-bootstrap/obligations.json",
+        "source/js-sdlc-bootstrap/oracle.json"
+      ],
+      "writeRoots": [],
+      "checks": [
+        "node --test test/component/hello.test.mjs test/uat/hello.uat.test.mjs"
+      ]
+    },
+    "uat": {
+      "outcome": "Independently assess the full original source against every oracle obligation and actual admitted execution evidence. Preserve unmet and indeterminate outcomes.",
+      "instructions": [
+        "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "Preserve the explicit conformance-to-design-to-source-to-test-design dependencies and both component/UAT import assertions. Keep the historical eight-vector witness and parity rule as source; the current native lifecycle is not evidence of identical legacy traversal. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ],
+      "readFirst": [
+        "source/js-sdlc-bootstrap/source.original.txt",
+        "source/js-sdlc-bootstrap/obligations.json",
+        "source/js-sdlc-bootstrap/oracle.json"
+      ],
+      "writeRoots": [],
+      "checks": [
+        "Preserve the explicit conformance-to-design-to-source-to-test-design dependencies and both component/UAT import assertions. Keep the historical eight-vector witness and parity rule as source; the current native lifecycle is not evidence of identical legacy traversal. Require genuine governing/design/test-design/plan content and admitted worker execution of the original node:test plan, its pass floor, zero failures and plan satisfaction. Counts and file presence alone are not semantic acceptance; admitted native C2 and assessed Evidence carry execution-result meaning, with no prewritten success."
+      ]
+    }
+  },
+  "testing": {
+    "selectedPaths": [
+      "specification/project-conformance.md",
+      "design/implementation-design.md",
+      "package.json",
+      "src/hello.mjs",
+      "design/test-design.md",
+      "test/component/hello.test.mjs",
+      "test/uat/hello.uat.test.mjs",
+      "test-execution-plan.json",
+      "source/js-sdlc-bootstrap/source.original.txt",
+      "source/js-sdlc-bootstrap/obligations.json",
+      "source/js-sdlc-bootstrap/oracle.json"
+    ],
+    "commands": [
+      {
+        "commandId": "command://abiogenesis-sandbox-uat/js-sdlc-bootstrap/tests",
+        "executable": "node",
+        "args": [
+          "--test",
+          "test/component/hello.test.mjs",
+          "test/uat/hello.uat.test.mjs"
+        ],
+        "relativeCwd": ".",
+        "environment": {},
+        "timeoutMs": 120000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      }
+    ],
+    "outcomePredicates": [
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/js-sdlc-bootstrap/tests-exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/js-sdlc-bootstrap/tests",
+          "equals": 0
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/js-sdlc-bootstrap/test-count",
+        "predicateKind": "test_pass_count",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis-sandbox-uat/js-sdlc-bootstrap/tests",
+          "greaterThanOrEqual": 2
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis-sandbox-uat/js-sdlc-bootstrap/module-0",
+        "predicateKind": "module_export_return_exact",
+        "declaration": {
+          "path": "src/hello.mjs",
+          "export": "helloWorld",
+          "equals": "Hello, world!"
+        }
+      }
+    ],
+    "allowedWriteTerritories": [
+      {
+        "pathKind": "subtree",
+        "relativePath": "execution-evidence"
+      }
+    ]
+  },
+  "assessment": {
+    "sources": [
+      "source/js-sdlc-bootstrap/source.original.txt",
+      "source/js-sdlc-bootstrap/obligations.json"
+    ],
+    "candidatePath": "src/hello.mjs",
+    "rubricPath": "source/js-sdlc-bootstrap/oracle.json"
+  },
+  "legacyInterpretation": {
+    "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+    "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+    "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+    "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+  }
+}

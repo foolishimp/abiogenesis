@@ -1,0 +1,75 @@
+{
+  "operation": "T287_G2_GTL_CURRENT_HOW_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Writer",
+  "status": "CLOSED",
+  "disposition": "PROPOSED_CURRENT_GTL_CORE_HOW_PENDING_ROOT_ADOPTION",
+  "design": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+    "bytes": 17997,
+    "sha256": "76a19668fc93f9efb769e13cc00d50d2ff22548239d23c5db2018ed79adcf5c4",
+    "mode": 420,
+    "lines": 141,
+    "preimage": "ABSENT"
+  },
+  "readPins": {
+    "path": "read-pins.json",
+    "bytes": 8207,
+    "sha256": "2c27483bf8f694980aa1802396079757e4ebea2bf54f10216c3695feec8d71c2",
+    "unchanged": true
+  },
+  "return": {
+    "path": "return.json",
+    "bytes": 5959,
+    "sha256": "1a36735998f8fbd2f4c1803e7379bda5d4e6038001abaf0b24da6417f7476e5b"
+  },
+  "physicalPopulation": {
+    "files": [
+      {
+        "path": "activation.json",
+        "bytes": 1136,
+        "sha256": "b561470d84a07405a604c3603ff378dafdef617cdf50d51dce4297d4bcf2224c",
+        "mode": 420
+      },
+      {
+        "path": "return.json",
+        "bytes": 5959,
+        "sha256": "1a36735998f8fbd2f4c1803e7379bda5d4e6038001abaf0b24da6417f7476e5b",
+        "mode": 420
+      },
+      {
+        "path": "read-pins.json",
+        "bytes": 8207,
+        "sha256": "2c27483bf8f694980aa1802396079757e4ebea2bf54f10216c3695feec8d71c2",
+        "mode": 420
+      },
+      {
+        "path": "return.md",
+        "bytes": 896,
+        "sha256": "25cecfd77c2313921c200fdc8a8f933dc0a8c0ecbd8ef53120c4d4f17c019421",
+        "mode": 420
+      }
+    ],
+    "directories": [
+      {
+        "path": ".",
+        "mode": 493
+      }
+    ],
+    "excludesOnlySelf": "freeze.json",
+    "symlinkCount": 0
+  },
+  "effects": {
+    "DesignFilesCreated": 1,
+    "evidenceTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-gtl-current-how-01",
+    "SourceMutations": 0,
+    "imports": 0,
+    "builds": 0,
+    "tests": 0,
+    "packInstall": 0,
+    "RuntimeResourceEffects": 0,
+    "providerNetworkGit": 0,
+    "reviewerActivations": 0
+  },
+  "noMoreWrites": true
+}

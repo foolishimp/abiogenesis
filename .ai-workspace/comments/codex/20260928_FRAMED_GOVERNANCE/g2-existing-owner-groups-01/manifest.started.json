@@ -1,0 +1,16 @@
+{
+  "operation": "T287_G2_EXISTING_OWNER_GROUP_REALIZATION_01",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin/node",
+    "scripts/generate-product-manifest.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/stage/build_tenants/abiogenesis/typescript",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01",
+  "capSeconds": 180,
+  "HOMEUnchanged": true,
+  "defaultHeap": true,
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-existing-owner-groups-01/tmp"
+  }
+}

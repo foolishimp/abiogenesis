@@ -1,0 +1,134 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_C07_GENERATED_RECONCILIATION_04",
+  "actor": "/root/q03_input_review",
+  "role": "Worker",
+  "workResult": "COMPLETED_EXACT_THREE_GENERATED_RECONCILIATION",
+  "closure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-generated-reconciliation-04/closure.json",
+    "bytes": 1370,
+    "sha256": "8326d02446380e8622dd0ae76428372ecc30d84267720e4f2e53c95b2eb96568",
+    "mode": 420
+  },
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-generated-reconciliation-04",
+  "rootMode": 493,
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 3398,
+      "sha256": "8d067621610861a17eeca263fc286d83dbb0ca07c47f887764860cc1e304e2b4",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 1370,
+      "sha256": "8326d02446380e8622dd0ae76428372ecc30d84267720e4f2e53c95b2eb96568",
+      "mode": 420
+    },
+    {
+      "path": "correspondence.json",
+      "bytes": 8405,
+      "sha256": "72be9d6468fecd00c37de9bac944258149777af8894fec95a48d48e5c14d106f",
+      "mode": 420
+    },
+    {
+      "path": "full926-after.json",
+      "bytes": 633472,
+      "sha256": "8f88e1d5aa8368a01887d06528f25004c7cb8fafb054a34507614b533a1acce8",
+      "mode": 420
+    },
+    {
+      "path": "full926-before.json",
+      "bytes": 610752,
+      "sha256": "abcaa0dd16897faf57f9b9f2ad0e69c929608dd22d475cc124cdea0dfa7b2f4c",
+      "mode": 420
+    },
+    {
+      "path": "preimages/build/code/src/gtl/self_conformance.js",
+      "bytes": 18937,
+      "sha256": "4de8b39dbdbe7f1d1691ea326f6047fe95b19040655d284ca6b78f46036b6037",
+      "mode": 420
+    },
+    {
+      "path": "preimages/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "ba539af4ef3deb4d73fbe96f611469a575b966075df461fb827253b4d046a8c7",
+      "mode": 420
+    },
+    {
+      "path": "preimages/product-toolchain-manifest.json",
+      "bytes": 2567514,
+      "sha256": "e960ae9b27c03fcd370bb0408fe7dc51c92ec5bd27287a9c29116a5c9eed1729",
+      "mode": 420
+    },
+    {
+      "path": "report.md",
+      "bytes": 952,
+      "sha256": "3a03ccd6c686fd9137f8cc0290d508b4e9362e18fd365de6436fb7520149f51a",
+      "mode": 420
+    },
+    {
+      "path": "selected-preflight.json",
+      "bytes": 5027,
+      "sha256": "99b322a382c7c4e688131222b3496824682cca7b9b019a0506c7ef2fb89a7b62",
+      "mode": 420
+    }
+  ],
+  "directories": [
+    {
+      "path": "preimages",
+      "mode": 493
+    },
+    {
+      "path": "preimages/build",
+      "mode": 493
+    },
+    {
+      "path": "preimages/build/code",
+      "mode": 493
+    },
+    {
+      "path": "preimages/build/code/src",
+      "mode": 493
+    },
+    {
+      "path": "preimages/build/code/src/gtl",
+      "mode": 493
+    },
+    {
+      "path": "preimages/contracts",
+      "mode": 493
+    },
+    {
+      "path": "preimages/contracts/capabilities",
+      "mode": 493
+    }
+  ],
+  "recordCount": 10,
+  "recordBytes": 4047301,
+  "independentAssurance": false,
+  "subjectExcludes": [
+    "freeze.json itself"
+  ],
+  "canonicalPostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/self_conformance.js",
+      "bytes": 19029,
+      "sha256": "1cda3500928d4d5aa754db23ca17c7197750ce9814458548deef606f77e48002",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "012f7a5ab6633742ef51142559b4971992aa13c7b32b719d2a48503f1ee86dcf",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2567514,
+      "sha256": "0a864bb480457dd8befee163ccf5fc2cadce3544b66a450d90cc11705557240a",
+      "mode": 420
+    }
+  ],
+  "noFurtherWrites": true
+}

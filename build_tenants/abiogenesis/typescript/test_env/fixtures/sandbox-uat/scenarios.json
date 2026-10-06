@@ -1,0 +1,725 @@
+{
+  "fixtureVersion": "1.0.0",
+  "owner": "abiogenesis",
+  "activation": "T287_SANDBOX_UAT_WORKLOADS_01",
+  "pathBase": "fixture-root",
+  "runtimeDonorDependency": false,
+  "sourceCommit": "55a8a452141caf180ea6cee6365d2a1bfb9da34e",
+  "scenarios": [
+    {
+      "key": "basic-cli",
+      "title": "JavaScript Hello World CLI",
+      "scenarioId": "SCN-GLC-HELLO-WORLD-CLI-BASIC",
+      "sourceFile": "basic-cli/source.original.txt",
+      "sourceFiles": [
+        "basic-cli/source.original.txt",
+        "basic-cli/obligations.json"
+      ],
+      "requestFile": "basic-cli/request.json",
+      "oracleFile": "basic-cli/oracle.json",
+      "oracleFiles": [
+        "basic-cli/oracle.json"
+      ],
+      "oracleModule": "independent-oracle.mjs",
+      "toolchainObligations": {
+        "requiredExecutables": [
+          "node"
+        ],
+        "commands": [
+          {
+            "commandId": "command://abiogenesis-sandbox-uat/basic-cli/cli",
+            "executable": "node",
+            "args": [
+              "generated/hello-world.mjs"
+            ],
+            "relativeCwd": ".",
+            "environment": {},
+            "timeoutMs": 60000,
+            "terminationGraceMs": 5000,
+            "expectedReports": []
+          },
+          {
+            "commandId": "command://abiogenesis-sandbox-uat/basic-cli/tests",
+            "executable": "node",
+            "args": [
+              "--test",
+              "test/component/hello-cli.test.mjs",
+              "test/uat/hello-cli.uat.test.mjs"
+            ],
+            "relativeCwd": ".",
+            "environment": {},
+            "timeoutMs": 120000,
+            "terminationGraceMs": 5000,
+            "expectedReports": []
+          }
+        ],
+        "loopbackSocketsRequired": false,
+        "noSolvedWorkSeed": true
+      },
+      "acquisitionDigests": [
+        {
+          "path": "basic-cli/source.original.txt",
+          "digest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+          "byteCount": 4325
+        },
+        {
+          "path": "basic-cli/obligations.json",
+          "digest": "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+          "byteCount": 4916
+        },
+        {
+          "path": "basic-cli/oracle.json",
+          "digest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+          "byteCount": 1112
+        },
+        {
+          "path": "basic-cli/request.json",
+          "digest": "sha256:481aad19106047377f1b25fb0b8847e5a2cee00a36964db3bacd3688bb6c980f",
+          "byteCount": 21323
+        },
+        {
+          "path": "independent-oracle.mjs",
+          "digest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+          "byteCount": 24414
+        }
+      ],
+      "provenance": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 7589,
+        "endByte": 11914,
+        "selectedDigest": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+        "oracleAcquisition": {
+          "repository": "odd_glc",
+          "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+          "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/basic-cli.oracle.json",
+          "wholeFileDigest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+        }
+      },
+      "legacyInterpretation": {
+        "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+      },
+      "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047"
+    },
+    {
+      "key": "js-tenant-test",
+      "title": "JavaScript Hello World module and tests",
+      "scenarioId": "SCN-GLC-HELLO-WORLD-JS-TENANT-TEST",
+      "sourceFile": "js-tenant-test/source.original.txt",
+      "sourceFiles": [
+        "js-tenant-test/source.original.txt",
+        "js-tenant-test/obligations.json"
+      ],
+      "requestFile": "js-tenant-test/request.json",
+      "oracleFile": "js-tenant-test/oracle.json",
+      "oracleFiles": [
+        "js-tenant-test/oracle.json"
+      ],
+      "oracleModule": "independent-oracle.mjs",
+      "toolchainObligations": {
+        "requiredExecutables": [
+          "node"
+        ],
+        "commands": [
+          {
+            "commandId": "command://abiogenesis-sandbox-uat/js-tenant-test/tests",
+            "executable": "node",
+            "args": [
+              "--test",
+              "test/component/hello.test.mjs",
+              "test/uat/hello.uat.test.mjs"
+            ],
+            "relativeCwd": ".",
+            "environment": {},
+            "timeoutMs": 120000,
+            "terminationGraceMs": 5000,
+            "expectedReports": []
+          }
+        ],
+        "loopbackSocketsRequired": false,
+        "noSolvedWorkSeed": true
+      },
+      "acquisitionDigests": [
+        {
+          "path": "js-tenant-test/source.original.txt",
+          "digest": "sha256:3dcf38f9d4e0ddbbdc2124d3b0deeb2aa87a1b7a2284ef0246a7e2ebfdade7b9",
+          "byteCount": 3655
+        },
+        {
+          "path": "js-tenant-test/obligations.json",
+          "digest": "sha256:28c0f522f6050076c3b94b2f2d98464f5cd0d70ba77309053ec640f3d1274544",
+          "byteCount": 4252
+        },
+        {
+          "path": "js-tenant-test/oracle.json",
+          "digest": "sha256:55658e3343d7b27a553dbf38118052e60f9b27d977c3992ea13131ce5eebd58e",
+          "byteCount": 1782
+        },
+        {
+          "path": "js-tenant-test/request.json",
+          "digest": "sha256:8a80cd9eb94f44b6e85d61e8ba694b34d8c8ea00b242c447b08e2e28abfb91be",
+          "byteCount": 21640
+        },
+        {
+          "path": "independent-oracle.mjs",
+          "digest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+          "byteCount": 24414
+        }
+      ],
+      "provenance": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 11915,
+        "endByte": 15570,
+        "selectedDigest": "sha256:3dcf38f9d4e0ddbbdc2124d3b0deeb2aa87a1b7a2284ef0246a7e2ebfdade7b9",
+        "oracleAcquisition": {
+          "repository": "odd_glc",
+          "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+          "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/js-tenant-test.oracle.json",
+          "wholeFileDigest": "sha256:55658e3343d7b27a553dbf38118052e60f9b27d977c3992ea13131ce5eebd58e"
+        }
+      },
+      "legacyInterpretation": {
+        "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+      },
+      "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047"
+    },
+    {
+      "key": "js-sdlc-bootstrap",
+      "title": "JavaScript Hello World lifecycle bootstrap",
+      "scenarioId": "SCN-GLC-HELLO-WORLD-JS-SDLC-BOOTSTRAP",
+      "sourceFile": "js-sdlc-bootstrap/source.original.txt",
+      "sourceFiles": [
+        "js-sdlc-bootstrap/source.original.txt",
+        "js-sdlc-bootstrap/obligations.json"
+      ],
+      "requestFile": "js-sdlc-bootstrap/request.json",
+      "oracleFile": "js-sdlc-bootstrap/oracle.json",
+      "oracleFiles": [
+        "js-sdlc-bootstrap/oracle.json"
+      ],
+      "oracleModule": "independent-oracle.mjs",
+      "toolchainObligations": {
+        "requiredExecutables": [
+          "node"
+        ],
+        "commands": [
+          {
+            "commandId": "command://abiogenesis-sandbox-uat/js-sdlc-bootstrap/tests",
+            "executable": "node",
+            "args": [
+              "--test",
+              "test/component/hello.test.mjs",
+              "test/uat/hello.uat.test.mjs"
+            ],
+            "relativeCwd": ".",
+            "environment": {},
+            "timeoutMs": 120000,
+            "terminationGraceMs": 5000,
+            "expectedReports": []
+          }
+        ],
+        "loopbackSocketsRequired": false,
+        "noSolvedWorkSeed": true
+      },
+      "acquisitionDigests": [
+        {
+          "path": "js-sdlc-bootstrap/source.original.txt",
+          "digest": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+          "byteCount": 6120
+        },
+        {
+          "path": "js-sdlc-bootstrap/obligations.json",
+          "digest": "sha256:2b923205ce74efe77187ce1525e1b2a6ed08e773f4d57dc1b5a7e078b2e43947",
+          "byteCount": 5794
+        },
+        {
+          "path": "js-sdlc-bootstrap/oracle.json",
+          "digest": "sha256:a448f2400c1052892ebd78183cfb564e5db08da84402308a183d3c86e6100f6f",
+          "byteCount": 1890
+        },
+        {
+          "path": "js-sdlc-bootstrap/request.json",
+          "digest": "sha256:3e16c50293a2dece9126dc784d011e493f979dc8e1a9d1293803ceaa3397e983",
+          "byteCount": 25009
+        },
+        {
+          "path": "independent-oracle.mjs",
+          "digest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+          "byteCount": 24414
+        }
+      ],
+      "provenance": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 15571,
+        "endByte": 21691,
+        "selectedDigest": "sha256:c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+        "oracleAcquisition": {
+          "repository": "odd_glc",
+          "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+          "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/js-sdlc-bootstrap.oracle.json",
+          "wholeFileDigest": "sha256:a448f2400c1052892ebd78183cfb564e5db08da84402308a183d3c86e6100f6f"
+        }
+      },
+      "legacyInterpretation": {
+        "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+      },
+      "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047"
+    },
+    {
+      "key": "rust-cli",
+      "title": "Rust Hello World CLI",
+      "scenarioId": "SCN-GLC-HELLO-WORLD-RUST-CLI",
+      "sourceFile": "rust-cli/source.original.txt",
+      "sourceFiles": [
+        "rust-cli/source.original.txt",
+        "rust-cli/obligations.json"
+      ],
+      "requestFile": "rust-cli/request.json",
+      "oracleFile": "rust-cli/oracle.json",
+      "oracleFiles": [
+        "rust-cli/oracle.json"
+      ],
+      "oracleModule": "independent-oracle.mjs",
+      "toolchainObligations": {
+        "requiredExecutables": [
+          "node",
+          "cargo",
+          "rustc"
+        ],
+        "commands": [
+          {
+            "commandId": "command://abiogenesis-sandbox-uat/rust-cli/cli",
+            "executable": "cargo",
+            "args": [
+              "run",
+              "--quiet"
+            ],
+            "relativeCwd": ".",
+            "environment": {},
+            "timeoutMs": 180000,
+            "terminationGraceMs": 10000,
+            "expectedReports": []
+          },
+          {
+            "commandId": "command://abiogenesis-sandbox-uat/rust-cli/tests",
+            "executable": "node",
+            "args": [
+              "--test",
+              "test/component/rust-cli.test.mjs",
+              "test/uat/rust-cli.uat.test.mjs"
+            ],
+            "relativeCwd": ".",
+            "environment": {},
+            "timeoutMs": 300000,
+            "terminationGraceMs": 10000,
+            "expectedReports": []
+          }
+        ],
+        "loopbackSocketsRequired": false,
+        "rustEdition": "2021",
+        "dependencyFree": true,
+        "noSolvedWorkSeed": true
+      },
+      "acquisitionDigests": [
+        {
+          "path": "rust-cli/source.original.txt",
+          "digest": "sha256:d6f2ffff4e3ae4889be374367208a575664eb9b094c442d7ca303ebaa9ad6a81",
+          "byteCount": 3816
+        },
+        {
+          "path": "rust-cli/obligations.json",
+          "digest": "sha256:a741af9e5fe435b761be1cb081e559e82b35ceb3ea3d38039749ccdcdd98421a",
+          "byteCount": 4378
+        },
+        {
+          "path": "rust-cli/oracle.json",
+          "digest": "sha256:fca13e707df3c3ff3653e5c715a048e86518fc9c4a091ebe8b828f8b8649b25e",
+          "byteCount": 1877
+        },
+        {
+          "path": "rust-cli/request.json",
+          "digest": "sha256:f132ab8bdf2f7c5cda0fd9845fdac56ab3e3d8403da824d9e1852b466a69b8c1",
+          "byteCount": 22840
+        },
+        {
+          "path": "independent-oracle.mjs",
+          "digest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+          "byteCount": 24414
+        }
+      ],
+      "provenance": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 21692,
+        "endByte": 25508,
+        "selectedDigest": "sha256:d6f2ffff4e3ae4889be374367208a575664eb9b094c442d7ca303ebaa9ad6a81",
+        "oracleAcquisition": {
+          "repository": "odd_glc",
+          "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+          "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/rust-cli.oracle.json",
+          "wholeFileDigest": "sha256:fca13e707df3c3ff3653e5c715a048e86518fc9c4a091ebe8b828f8b8649b25e"
+        }
+      },
+      "legacyInterpretation": {
+        "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+      },
+      "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047"
+    },
+    {
+      "key": "rust-service",
+      "title": "Rust standard-library Hello World HTTP service",
+      "scenarioId": "SCN-GLC-HELLO-WORLD-RUST-SERVICE",
+      "sourceFile": "rust-service/source.original.txt",
+      "sourceFiles": [
+        "rust-service/source.original.txt",
+        "rust-service/obligations.json"
+      ],
+      "requestFile": "rust-service/request.json",
+      "oracleFile": "rust-service/oracle.json",
+      "oracleFiles": [
+        "rust-service/oracle.json"
+      ],
+      "oracleModule": "independent-oracle.mjs",
+      "toolchainObligations": {
+        "requiredExecutables": [
+          "node",
+          "rustc"
+        ],
+        "commands": [
+          {
+            "commandId": "command://abiogenesis-sandbox-uat/rust-service/tests",
+            "executable": "node",
+            "args": [
+              "--test",
+              "test/component/rust-service.test.mjs",
+              "test/uat/rust-service.uat.test.mjs"
+            ],
+            "relativeCwd": ".",
+            "environment": {},
+            "timeoutMs": 300000,
+            "terminationGraceMs": 10000,
+            "expectedReports": []
+          }
+        ],
+        "loopbackSocketsRequired": true,
+        "rustStandardLibraryOnly": true,
+        "systemAssignedLoopbackPort": true,
+        "noSolvedWorkSeed": true
+      },
+      "acquisitionDigests": [
+        {
+          "path": "rust-service/source.original.txt",
+          "digest": "sha256:a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d",
+          "byteCount": 4175
+        },
+        {
+          "path": "rust-service/obligations.json",
+          "digest": "sha256:13787d69d923baffd3c94d24139301f985bafb8037b02957b7a96a710ea51b91",
+          "byteCount": 4696
+        },
+        {
+          "path": "rust-service/oracle.json",
+          "digest": "sha256:eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c",
+          "byteCount": 1966
+        },
+        {
+          "path": "rust-service/request.json",
+          "digest": "sha256:068fccd2f67085276b09411d48c203783fe945837aed7282e4a767e3060440da",
+          "byteCount": 22913
+        },
+        {
+          "path": "independent-oracle.mjs",
+          "digest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+          "byteCount": 24414
+        }
+      ],
+      "provenance": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 25509,
+        "endByte": 29684,
+        "selectedDigest": "sha256:a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d",
+        "oracleAcquisition": {
+          "repository": "odd_glc",
+          "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+          "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/rust-service.oracle.json",
+          "wholeFileDigest": "sha256:eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c"
+        }
+      },
+      "legacyInterpretation": {
+        "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime.",
+        "originalService": "The selected original is src/service.rs compiled with rustc, uses standard library only and real ephemeral loopback HTTP. The later donor Cargo-crate/4-test compression is a different contract and is excluded."
+      },
+      "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047"
+    },
+    {
+      "key": "parallel-js",
+      "title": "JavaScript Hello and World branches with fan-in",
+      "scenarioId": "SCN-GLC-HELLO-WORLD-PARALLEL-JS",
+      "sourceFile": "parallel-js/source.original.txt",
+      "sourceFiles": [
+        "parallel-js/source.original.txt",
+        "parallel-js/obligations.json"
+      ],
+      "requestFile": "parallel-js/request.json",
+      "oracleFile": "parallel-js/oracle.json",
+      "oracleFiles": [
+        "parallel-js/oracle.json"
+      ],
+      "oracleModule": "independent-oracle.mjs",
+      "toolchainObligations": {
+        "requiredExecutables": [
+          "node"
+        ],
+        "commands": [
+          {
+            "commandId": "command://abiogenesis-sandbox-uat/parallel-js/tests",
+            "executable": "node",
+            "args": [
+              "--test",
+              "test/component/parallel-branches.test.mjs",
+              "test/uat/parallel-fanin.uat.test.mjs"
+            ],
+            "relativeCwd": ".",
+            "environment": {},
+            "timeoutMs": 120000,
+            "terminationGraceMs": 5000,
+            "expectedReports": []
+          }
+        ],
+        "loopbackSocketsRequired": false,
+        "noSolvedWorkSeed": true
+      },
+      "acquisitionDigests": [
+        {
+          "path": "parallel-js/source.original.txt",
+          "digest": "sha256:d8cc8105e4d16eea10fa8f908656a2c82e5690fc145cfb91e70ed00f84aa6053",
+          "byteCount": 4285
+        },
+        {
+          "path": "parallel-js/obligations.json",
+          "digest": "sha256:34921c07256d35ea54b6a006bde5d5041b6f4fc760c75ef090f31365a8e5fb06",
+          "byteCount": 4827
+        },
+        {
+          "path": "parallel-js/oracle.json",
+          "digest": "sha256:82a35700c78d9a9c85d18b2727b6de6f9fcb1fbb6a44910f2e46825fbcc2527c",
+          "byteCount": 2335
+        },
+        {
+          "path": "parallel-js/request.json",
+          "digest": "sha256:ad8880aada1db005f6777ceaff720fcdadbfab0e721c10c9d8d0e224d6ad73f1",
+          "byteCount": 24062
+        },
+        {
+          "path": "independent-oracle.mjs",
+          "digest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+          "byteCount": 24414
+        }
+      ],
+      "provenance": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 29685,
+        "endByte": 33970,
+        "selectedDigest": "sha256:d8cc8105e4d16eea10fa8f908656a2c82e5690fc145cfb91e70ed00f84aa6053",
+        "oracleAcquisition": {
+          "repository": "odd_glc",
+          "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+          "path": "build_tenants/odd_glc/typescript/test/fixtures/generic-job/parallel-js.oracle.json",
+          "wholeFileDigest": "sha256:82a35700c78d9a9c85d18b2727b6de6f9fcb1fbb6a44910f2e46825fbcc2527c"
+        }
+      },
+      "legacyInterpretation": {
+        "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+      },
+      "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047"
+    },
+    {
+      "key": "data-mapper-full",
+      "title": "Full Scala/SBT Spark CDME Data Mapper",
+      "scenarioId": "SCN-GLC-DATA-MAPPER-FULL-SCALA-SBT",
+      "sourceFile": "data-mapper-full/source.original.txt",
+      "sourceFiles": [
+        "data-mapper-full/source.original.txt",
+        "data-mapper-full/supporting-constants.original.txt",
+        "data-mapper-full/obligations.json"
+      ],
+      "requestFile": "data-mapper-full/request.json",
+      "oracleFile": "data-mapper-full/oracle.json",
+      "oracleFiles": [
+        "data-mapper-full/oracle.json",
+        "data-mapper-full/observable-contract.original.json"
+      ],
+      "oracleModule": "independent-oracle.mjs",
+      "toolchainObligations": {
+        "requiredExecutables": [
+          "sbt",
+          "java"
+        ],
+        "commands": [
+          {
+            "commandId": "command://abiogenesis-sandbox-uat/data-mapper-full/tests",
+            "executable": "sbt",
+            "args": [
+              "test"
+            ],
+            "relativeCwd": "build_tenants/scala_spark",
+            "environment": {
+              "JAVA_HOME": "/opt/homebrew/opt/openjdk@11",
+              "PATH_PREFIX": "/opt/homebrew/opt/openjdk@11/bin:/opt/homebrew/bin"
+            },
+            "timeoutMs": 780000,
+            "terminationGraceMs": 10000,
+            "expectedReports": [
+              {
+                "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-core",
+                "relativePath": "build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml"
+              },
+              {
+                "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-compiler",
+                "relativePath": "build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml"
+              },
+              {
+                "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-executor",
+                "relativePath": "build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml"
+              },
+              {
+                "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-adjoint",
+                "relativePath": "build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml"
+              },
+              {
+                "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-accounting",
+                "relativePath": "build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml"
+              },
+              {
+                "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-assurance",
+                "relativePath": "build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml"
+              },
+              {
+                "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-fidelity",
+                "relativePath": "build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml"
+              },
+              {
+                "reportIdentity": "report://abiogenesis-sandbox-uat/data-mapper-full/cdme-engine",
+                "relativePath": "build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml"
+              }
+            ]
+          }
+        ],
+        "loopbackSocketsRequired": true,
+        "scalaVersion": "2.13",
+        "sbtVersion": "1.11.7",
+        "scalaTestMajorMinor": "3.2",
+        "javaHome": "/opt/homebrew/opt/openjdk@11",
+        "pathPrefix": "/opt/homebrew/opt/openjdk@11/bin:/opt/homebrew/bin",
+        "apacheSparkSqlRequired": true,
+        "offlineCacheRequired": true,
+        "noSolvedWorkSeed": true,
+        "declaredBuildCommand": {
+          "executable": "sbt",
+          "args": [
+            "clean",
+            "assembly"
+          ],
+          "relativeCwd": "build_tenants/scala_spark",
+          "interpretation": "The complete original Product/build contract is preserved. Exact current request.testing.commands retain original actual sbt test proof; full native UAT must evaluate build-contract sufficiency without inventing an assembly success claim."
+        }
+      },
+      "acquisitionDigests": [
+        {
+          "path": "data-mapper-full/source.original.txt",
+          "digest": "sha256:d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+          "byteCount": 41158
+        },
+        {
+          "path": "data-mapper-full/supporting-constants.original.txt",
+          "digest": "sha256:5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+          "byteCount": 3713
+        },
+        {
+          "path": "data-mapper-full/observable-contract.original.json",
+          "digest": "sha256:2c268e449c296e74ef4abf0ea309b65a0b7303f017b4c05692dc5d86e6a7a0e1",
+          "byteCount": 21201
+        },
+        {
+          "path": "data-mapper-full/obligations.json",
+          "digest": "sha256:7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+          "byteCount": 50978
+        },
+        {
+          "path": "data-mapper-full/oracle.json",
+          "digest": "sha256:99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+          "byteCount": 16774
+        },
+        {
+          "path": "data-mapper-full/request.json",
+          "digest": "sha256:b305469b4b69f43ffb3ec1456ad61648816674c2c7c5238bb1e8085d2f4195ae",
+          "byteCount": 87322
+        },
+        {
+          "path": "independent-oracle.mjs",
+          "digest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+          "byteCount": 24414
+        }
+      ],
+      "provenance": {
+        "repository": "odd_glc",
+        "commit": "36d40d552b68e8be91cc490f93bffea9e781f6c7",
+        "path": "build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs",
+        "wholeFileDigest": "sha256:99fc72437adf7b359e97d13bd1493c31681f63a620181baafa682bed51c468f2",
+        "gitBlob": "c0a565d798470f81e8542a2845cdd7d451e9fbdb",
+        "startByte": 40028,
+        "endByte": 81186,
+        "selectedDigest": "sha256:d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+        "oracleAcquisition": "Independent full oracle from unchanged original28 requirements/depth/mutation plus local observable contract"
+      },
+      "legacyInterpretation": {
+        "runtimeAuthority": "Use the installed generic default library, GTL, HoG and ABG. Original donor wrapper, stage runner, graph refs and controller are historical source context, never executable authority.",
+        "executionEvidence": "Preserve actual command/args/cwd/environment/status, streams, reports and observed assertions. Admitted native command/Evidence observations replace predecessor hand-authored claimed execution truth. Do not prewrite a successful result file. A truthful report may only project actual observations.",
+        "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+        "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime.",
+        "sourceCountConflict": "Original release-depth instruction says26, but exact original stagePlan contains28 after earned-depth and mutation additions. Preserve all28 meanings; the obsolete26 count cannot discard either."
+      },
+      "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047"
+    }
+  ]
+}

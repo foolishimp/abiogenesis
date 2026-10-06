@@ -1,0 +1,214 @@
+{
+  "operation": "T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01",
+  "recordedBy": {
+    "actor": "/root",
+    "role": "Writer",
+    "territory": {
+      "work": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01",
+      "evidence": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01",
+      "existingPaths": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md"
+      ]
+    }
+  },
+  "dispositionOwner": {
+    "actor": "/root",
+    "role": "Executive",
+    "decision": "ACCEPT_SOURCE_COMPONENT_CORE_PACKAGE_ONLY",
+    "decisionBeforeWriterActivation": true
+  },
+  "productFrame": {
+    "product": "ABG5 fixed fifteen feature families",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "selectedFeatures": [
+      "F02",
+      "F03",
+      "F05",
+      "F13"
+    ],
+    "basis": {
+      "uri": "stdo://releases/v2.5.1-rc.2/",
+      "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+    },
+    "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "WHAT": "current Product and requirements",
+    "HOW": "accepted GTL publication and reusable qualification library designs",
+    "standing": "pure Source/component/core package; no Runtime truth or qualification"
+  },
+  "subject": {
+    "operation": "T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01",
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/freeze.json",
+      "bytes": 7759222,
+      "sha256": "2b30493d4874518d96613e04211cfbd4c4c76dda5989b74c688717fa22af70c4"
+    },
+    "sourcePostimages": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/source-postimages.json",
+      "bytes": 21822,
+      "sha256": "6d9482a52b982a3379a5c1f30d76f177a797b3320eb88e951c95a83d4b69943a",
+      "rows": 17
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10660984,
+      "sha256": "c00589d0073f6f118f7ab0209ae90d21ef53d5ec976845e1dc0e95918e2d925b"
+    },
+    "productContentDigest": "sha256:433af1826cd65b03785a61f63b1111bd78978701d17f58445286b9e73f52e398",
+    "catalogDigest": "sha256:4c33dbab3f9fb3d67b1324939ebb60f4dcc7913109c883b10811d5769dd0add0"
+  },
+  "author": {
+    "actor": "/root/native_applicability_design",
+    "status": "CLOSED",
+    "return": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/return.json",
+    "readinessOnly": true
+  },
+  "independentAssurance": {
+    "actor": "/root/q03_input_review",
+    "operation": "T287_G2_GTL_CORE_PACKAGE_ASSURANCE_01",
+    "status": "CLOSED",
+    "verdict": "GO_SOURCE_COMPONENT_CORE_PACKAGE_ONLY",
+    "RootCapture": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/independent-review-root-record.md",
+      "bytes": 2637,
+      "sha256": "97570928a72a6e1d2b57af2b247093702aa774e4bea9c126fbd04d02e71ff131"
+    },
+    "claimLimit": "Source/component/core package only; reviewer effects zero"
+  },
+  "RootVerification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/root-read-verification.json",
+    "freeze": {
+      "bytes": 7759222,
+      "sha256": "2b30493d4874518d96613e04211cfbd4c4c76dda5989b74c688717fa22af70c4"
+    },
+    "physical": {
+      "files": 13528,
+      "directories": 1288,
+      "symlinks": 0,
+      "logicalBytes": 288129669,
+      "bodyModeMismatches": 0,
+      "missingMembers": 0,
+      "extraMembers": 0
+    },
+    "source": {
+      "rows": 17,
+      "changed": 2,
+      "conserved": 15,
+      "mismatches": 0
+    },
+    "receipts": {
+      "phases": 7,
+      "allExit0": true,
+      "allReapedAndAbsent": true,
+      "digestMismatches": 0,
+      "retries": 0
+    },
+    "nodeSummary": {
+      "tests": 12,
+      "passed": 12,
+      "failed": 0
+    },
+    "schema": {
+      "definitions": [
+        "GraphFunction",
+        "ModulePublication",
+        "CProgramSyntax",
+        "GtlProgramConformanceInput",
+        "GtlLanguageConformanceCorpus"
+      ],
+      "closedTuples": 23
+    },
+    "actor": "/root",
+    "role": "Executive",
+    "effects": "read-only inspection; no payload rerun",
+    "archive": {
+      "bytes": 10660984,
+      "sha256": "c00589d0073f6f118f7ab0209ae90d21ef53d5ec976845e1dc0e95918e2d925b"
+    },
+    "productContentDigest": "sha256:433af1826cd65b03785a61f63b1111bd78978701d17f58445286b9e73f52e398",
+    "catalogDigest": "sha256:4c33dbab3f9fb3d67b1324939ebb60f4dcc7913109c883b10811d5769dd0add0",
+    "archiveExtraction": {
+      "files": 5283,
+      "logicalBytes": 70753401,
+      "membershipMissing": 0,
+      "membershipExtra": 0,
+      "errors": 0
+    }
+  },
+  "designRefs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+      "bytes": 18222,
+      "sha256": "e88c318b398107e1d007ad2f109bf93ad01b064de5a5b5f0c9ac97801b90a901"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_REUSABLE_QUALIFICATION_LIBRARY_TARGET_DESIGN.md",
+      "bytes": 26624,
+      "sha256": "7e8b887eaf0c73187cdfdb72ec157500ef5ca383087a69c5242cf4590efe3cd4"
+    }
+  ],
+  "triangulatedOrigins": [
+    {
+      "relation": "canonical native predicate -> serializable schema",
+      "cause": "environment predicate spelling was not projectable while its original scalar language remained required",
+      "repair": "consume canonical digest definition and projectable predicates with original split-language conservation"
+    },
+    {
+      "relation": "canonical fixed native tuple -> native admission and published schema",
+      "cause": "open-tail tuple schemas contradicted declared fixed arity; first repair scope missed the imported assembly owner",
+      "repair": "close each selected tuple at its actual owner; census and compile the complete composed five-definition cone before carrier cases"
+    },
+    {
+      "relation": "producer declaration population -> proof consumer -> closed native resolver",
+      "cause": "proof selector omitted .d.cts and .d.mts",
+      "repair": "consume the complete producer family and verify population/name/body/digest joins; resolver guard preserved"
+    },
+    {
+      "relation": "private compilation accessibility -> exact package ownership",
+      "cause": "borrowed dependency link crossed the package root",
+      "repair": "owned thirteen-package physical closure; exact subject and compile reuse/reproof bound to their original cuts"
+    }
+  ],
+  "acceptedEvidence": {
+    "phases": 7,
+    "tests": 12,
+    "failed": 0,
+    "closedSelectedTuples": 23,
+    "assemblyPositiveCases": 4,
+    "assemblyNegativeCases": 16,
+    "assemblyRestorations": 16,
+    "completeNativeDeclarations": 1466,
+    "ctsMtsDeclarations": 5,
+    "catalogRows": 75,
+    "exports": 15,
+    "scalarCases": 219,
+    "localRelationalNegatives": 11,
+    "payloadElapsedMs": 62909.518584,
+    "peakRSSBytes": 2485829632,
+    "defaultHeap": true,
+    "HOMEUnchanged": true,
+    "allGroupsReapedAndAbsent": true,
+    "retries": 0
+  },
+  "open": [
+    "four drift mappings and constitutional adjunct",
+    "remaining mandatory Public content",
+    "complete F02/F03 Runtime conjunction",
+    "current installed G1/G3 authentic judgment -> F11 -> sole AF22 -> cold-read conservation",
+    "genuine complete independent F11 and seven required defect cases",
+    "final-candidate coverage and exact qualification",
+    "sole AF22 green verdict, immutable RC publication, installed-RC qualification, actual same-RC owner acceptance and terminal remote installation"
+  ],
+  "preserved": [
+    "original stopped cuts and accepted bounded outcomes",
+    "existing installed Hello/Rust/lifecycle evidence",
+    "C10 source/install/archive identity remains separate",
+    "unrelated dirty worktree"
+  ],
+  "nextSelectedPath": "existing installed G1/G3 judgment -> F11 -> sole AF22 -> fresh result/replay, under a separate exact subject/effects grant; no successor Worker activated by this documentary record",
+  "qualificationStatus": "RC1 unqualified and unpublished",
+  "effectsGrantedHere": "three named documentary surfaces and new owned recording roots only; zero Source, Runtime, install, provider/network, Git or release effects",
+  "recordedAtUTC": "2026-10-04T17:09:04.713705+00:00"
+}

@@ -1,3 +1,4 @@
+import type * as structure from "./serialization_contracts.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { requireRef } from "../shared/references.js";
 
@@ -17,91 +18,27 @@ export const C_TERM_KIND_VALUES = [
 export type CTermKind = (typeof C_TERM_KIND_VALUES)[number];
 export type CResultCardinality = "zero" | "one" | "many";
 
-export interface ExecutableLeafRequirement {
-  readonly kind: "executable_leaf_requirement";
-  readonly implementationBindingRef: string;
-  readonly inputContractRef: string;
-  readonly outputContractRef: string;
-  readonly evidenceContractRef: string;
-  readonly failureContractRef: string;
-  readonly refusalContractRef: string;
-  readonly judgmentContractRef: string;
-}
+export interface ExecutableLeafRequirement extends structure.ContractValue<typeof structure.EXECUTABLE_LEAF_REQUIREMENT_SCHEMA> {}
 
-export interface InteractionLeafRequirement {
-  readonly kind: "interaction_leaf_requirement";
-  readonly interactionKind: string;
-  readonly actorCapabilityRef: string;
-  readonly requestContractRef: string;
-  readonly responseContractRef: string;
-  readonly continuationContractRef: string;
-}
+export interface InteractionLeafRequirement extends structure.ContractValue<typeof structure.INTERACTION_LEAF_REQUIREMENT_SCHEMA> {}
 
 export type CLeafRequirement =
   | ExecutableLeafRequirement
   | InteractionLeafRequirement;
 
-export interface COfNode {
-  readonly kind: "c_of";
-  readonly inputCarrierRef: string;
-  readonly outputCarrierRef: string;
-  readonly programLocusRef: string;
-  readonly stageRole: string;
-  readonly fibre: ComputeRegime;
-  readonly armId: string;
-  readonly compositionRef: string | null;
-  readonly vectorIndex: number;
-  readonly judgmentPredicateRef: string;
-  readonly resultBearing: boolean;
-  readonly requirement: CLeafRequirement;
-}
+export interface COfNode extends structure.ContractValue<typeof structure.C_OF_SCHEMA> {}
 
-export interface CIdentityNode {
-  readonly kind: "c_identity";
-  readonly inputCarrierRef: string;
-  readonly outputCarrierRef: string;
-}
+export interface CIdentityNode extends structure.ContractValue<typeof structure.C_IDENTITY_SCHEMA> {}
 
-export interface CComposeNode {
-  readonly kind: "c_compose";
-  readonly inputCarrierRef: string;
-  readonly outputCarrierRef: string;
-  readonly terms: readonly CProgramNode[];
-}
+export interface CComposeNode extends structure.ContractValue<typeof structure.C_COMPOSE_SCHEMA> {}
 
-export interface CEdgeNode {
-  readonly kind: "c_edge";
-  readonly inputCarrierRef: string;
-  readonly outputCarrierRef: string;
-  readonly transform: COfNode;
-  readonly evaluate: COfNode;
-  readonly consequence: COfNode;
-}
+export interface CEdgeNode extends structure.ContractValue<typeof structure.C_EDGE_SCHEMA> {}
 
-export interface CWorkflowNode {
-  readonly kind: "c_workflow";
-  readonly inputCarrierRef: string;
-  readonly outputCarrierRef: string;
-  readonly graphFunctionRef: string;
-}
+export interface CWorkflowNode extends structure.ContractValue<typeof structure.C_WORKFLOW_SCHEMA> {}
 
-export interface CBatchNode {
-  readonly kind: "c_batch";
-  readonly inputCarrierRef: string;
-  readonly outputCarrierRef: string;
-  readonly taskInputCarrierRef: string;
-  readonly taskOutputCarrierRef: string;
-  readonly batchRef: string;
-  readonly tasks: readonly CProgramNode[];
-}
+export interface CBatchNode extends structure.ContractValue<typeof structure.C_BATCH_SCHEMA> {}
 
-export interface CRetryNode {
-  readonly kind: "c_retry";
-  readonly inputCarrierRef: string;
-  readonly outputCarrierRef: string;
-  readonly budget: number;
-  readonly term: CProgramNode;
-}
+export interface CRetryNode extends structure.ContractValue<typeof structure.C_RETRY_SCHEMA> {}
 
 export type CProgramNode =
   | COfNode
@@ -229,6 +166,7 @@ function freezeTerm<Term extends CProgramNode, Input, Output, Role extends strin
   term: Term,
   termWitness: CTermWitness<Input, Output, Role, Cardinality>,
 ): Readonly<Term> & CProgramTerm<Input, Output, Role, Cardinality> {
+  assertCProgramLocalRelations(term);
   Object.defineProperty(term, C_TERM_TYPE, {
     configurable: false,
     enumerable: false,
@@ -319,6 +257,86 @@ export function isInteractionCLeaf(term: CProgramNode): term is COfNode & {
 
 export function isNativeCProgramTerm(term: object): boolean {
   return nativeTerms.has(term);
+}
+
+/** Constructor-local laws shared by native construction and erased syntax.
+ * Declaration membership and Program result obligations belong to validateProgram. */
+export function assertCProgramLocalRelations(term: CProgramNode, path = "$"): void {
+  const require = (condition: boolean, suffix: string, message: string): void => {
+    if (!condition) throw new TypeError(`${path}${suffix}: ${message}`);
+  };
+  switch (term.kind) {
+    case "c_of":
+      require((term.fibre === "F_H") === (term.requirement.kind === "interaction_leaf_requirement"),
+        "/requirement/kind", "C.of requirement kind must match its compute regime");
+      break;
+    case "c_identity":
+      require(term.inputCarrierRef === term.outputCarrierRef, "/outputCarrierRef", "C.id must retain its carrier");
+      break;
+    case "c_compose":
+      term.terms.forEach((child, index) => {
+        require(child.kind !== "c_compose" && child.kind !== "c_identity", `/terms/${index}`,
+          "canonical C.compose contains flat non-identity terms");
+        assertCProgramLocalRelations(child, `${path}/terms/${index}`);
+        if (index > 0) require(term.terms[index - 1]!.outputCarrierRef === child.inputCarrierRef,
+          `/terms/${index}/inputCarrierRef`, "C.compose carrier chain is discontinuous");
+      });
+      require(term.terms.length >= 2, "/terms", "C.compose requires at least two terms");
+      require(term.inputCarrierRef === term.terms[0]!.inputCarrierRef, "/inputCarrierRef", "C.compose input differs from its first term");
+      require(term.outputCarrierRef === term.terms.at(-1)!.outputCarrierRef, "/outputCarrierRef", "C.compose output differs from its final term");
+      break;
+    case "c_edge":
+      for (const role of ["transform", "evaluate", "consequence"] as const) {
+        require(term[role].stageRole === role, `/${role}/stageRole`, "C.edge leaf must retain its declared role");
+        assertCProgramLocalRelations(term[role], `${path}/${role}`);
+      }
+      require(term.inputCarrierRef === term.transform.inputCarrierRef, "/inputCarrierRef", "C.edge input differs from transform input");
+      require(term.transform.outputCarrierRef === term.evaluate.inputCarrierRef, "/evaluate/inputCarrierRef", "C.edge transform/evaluate carriers differ");
+      require(term.evaluate.outputCarrierRef === term.consequence.inputCarrierRef, "/consequence/inputCarrierRef", "C.edge evaluate/consequence carriers differ");
+      require(term.outputCarrierRef === term.consequence.outputCarrierRef, "/outputCarrierRef", "C.edge output differs from consequence output");
+      break;
+    case "c_workflow":
+      break;
+    case "c_batch":
+      require(term.tasks.length > 0, "/tasks", "C.batch requires a non-empty ordered task family");
+      term.tasks.forEach((child, index) => {
+        assertCProgramLocalRelations(child, `${path}/tasks/${index}`);
+        require(child.inputCarrierRef === term.taskInputCarrierRef && child.outputCarrierRef === term.taskOutputCarrierRef,
+          `/tasks/${index}`, "C.batch task carrier pair differs from its declared pair");
+        require(cTermResultCardinality(child) === cTermResultCardinality(term.tasks[0]!),
+          `/tasks/${index}`, "C.batch tasks have different result cardinality");
+      });
+      break;
+    case "c_retry":
+      assertCProgramLocalRelations(term.term, `${path}/term`);
+      require(term.inputCarrierRef === term.term.inputCarrierRef && term.outputCarrierRef === term.term.outputCarrierRef,
+        "/term", "C.retry must preserve the wrapped carrier pair");
+      break;
+  }
+}
+
+/** Erase only this owner's verified non-data term witness. Preserve every other
+ * descriptor so I-JSON admission can refuse unknown symbols/accessors/metadata. */
+export function eraseNativeCProofMetadata(value: unknown): unknown {
+  const ancestors = new WeakSet<object>();
+  const visit = (input: unknown): unknown => {
+    if (input === null || typeof input !== "object") return input;
+    if (ancestors.has(input)) throw new TypeError("cyclic authored data is not I-JSON");
+    const prototype: unknown = Object.getPrototypeOf(input);
+    if (prototype !== Object.prototype && prototype !== null && prototype !== Array.prototype) return input;
+    ancestors.add(input);
+    const output = Array.isArray(input) ? [] : Object.create(prototype) as object;
+    for (const key of Reflect.ownKeys(input)) {
+      if (key === C_TERM_TYPE && nativeTerms.has(input)) continue;
+      const descriptor = Object.getOwnPropertyDescriptor(input, key)!;
+      Object.defineProperty(output, key, Object.hasOwn(descriptor, "value")
+        ? { ...descriptor, value: visit(descriptor.value) }
+        : descriptor);
+    }
+    ancestors.delete(input);
+    return output;
+  };
+  return visit(value);
 }
 
 export function cCarrier<Value>(ref: string): Readonly<CCarrier<Value>> {

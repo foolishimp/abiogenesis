@@ -1,0 +1,23 @@
+# S03 continuation: accepted nonterminal misread by external caller
+
+`T287_RC1_S03_INSTALLED_PAIR_04` is CLOSED at its first new relation failure. Corrected conformance passed. The positive start and its four separate fresh reads passed the unchanged original causal/cold oracles. The negative start returned a valid `nonterminal` / `gap_stop` with CLI exit 3 and no native failure. The caller expected `result` / exit 0 and stopped before four negative reads.
+
+The first violation is output consumption: actual Public semantic discriminator → declared adapter exit map → caller expectation. [Product outcome owner](/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts:737) explicitly maps `gap_stopped` to nonterminal. [Shared exit map](/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/shared/public_function_contracts.ts:55) assigns `acceptedNonTerminal: 3`, and [start declaration](/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts:118) selects that map. [The external caller](/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/ordinary-caller.mjs:49) chooses only refusal/result; [the negative call site](/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/driver.mjs:128) retained the result-only default. I authored that incomplete expectation in this Worker activation. The native receipt has `failure: null`; its outcome is correct.
+
+| Frame | Supported finding |
+|---|---|
+| Product / Owner | Truthful gap stop is nonterminal, with an actual Run and handoff. |
+| Design / Public transport | Existing three-way exit map distinguishes result 0, refusal 1 and accepted nonterminal 3. |
+| Integration | The external generic helper and negative start expectation cover only two outcome kinds. |
+| Identity / Install | Exact C03/fixture/Program/binding/catalog/View were conserved; same-process nominal and actual pure catalog joins passed. |
+| Lifecycle / Effects | Both Runs exist. Positive closed; negative stopped with no Run completion. The same physical store advanced only through declared owner admission. |
+| Proof | Input conformance is now proved. Complete output discrimination was missing from caller checks. Positive proof survives; negative fresh readback and full pair conjunction remain open. |
+| Reuse / Cost | Nine setup calls were reused. Only four negative reads remain; another setup or start would duplicate completed work. |
+
+This supports an external caller/proof realization miss. It does not establish a core/runtime defect or organizational siloing. It repeats the broader contract-reconstruction pattern at a different join: the complete Public output sum and adapter map.
+
+Smallest re-entry is `realization_refactor`. A separate Worker can map all three declared expected outcomes through the actual definition map, then perform only the four missing fresh reads on the retained negative Run `run://abiogenesis/9e885b342e6014e08a7f7ed33f4420ecf780bc337290b680b9640306fd91cf39`. Preserve native failure checks, the original oracles and all earlier successful evidence. No setup, conformance, packaging or third start is needed.
+
+The final physical store contains 566 events/two Runs, 4,709,556 bytes, dev/inode `16777230/464429281`, raw SHA `26339994e902ccafa5c1f6da9d8df471d77a1a3e144843f7472e5f1558f989df`. Its first 2,490,961 bytes exactly match the immutable old failure snapshot. All 5998 other old records and the old freeze remain exact; no additional old files appeared. Both old/new task locks are absent and every owned process exited.
+
+See [root-cause.json](/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/root-cause.json), [bounded-progress.json](/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/bounded-progress.json) and [prefix-append-and-static-preservation.json](/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s03-installed-execution-04/prefix-append-and-static-preservation.json) for exact pins and the latest genuine continuation basis. No retry or repair followed the stop.

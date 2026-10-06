@@ -1,0 +1,150 @@
+{
+  "checks": [
+    {
+      "activation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+        "digest": "sha256:a58eb75324df64917d3e5d6e616bcaa1b7b6c8413e945ca42e6aff01a7a14371",
+        "byteCount": 15165
+      },
+      "originalPatch": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+      "originalPreimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_operation_contracts.ts",
+      "originalPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "hunks": 2,
+      "actualOriginalPatchReconstructsCurrentBytes": true,
+      "currentOwnerAcceptsOriginalPatchHeader": true,
+      "currentOwnerClosurePathMemberMatch": false,
+      "currentOwnerPreimageMemberMatch": true,
+      "headerOrClosureRewritten": false
+    },
+    {
+      "activation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+        "digest": "sha256:c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+        "byteCount": 32200
+      },
+      "originalPatch": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+      "originalPreimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_definition_bindings.ts",
+      "originalPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "hunks": 7,
+      "actualOriginalPatchReconstructsCurrentBytes": true,
+      "currentOwnerAcceptsOriginalPatchHeader": true,
+      "currentOwnerClosurePathMemberMatch": false,
+      "currentOwnerPreimageMemberMatch": true,
+      "headerOrClosureRewritten": false
+    },
+    {
+      "activation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+        "digest": "sha256:e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85",
+        "byteCount": 84829
+      },
+      "originalPatch": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+      "originalPreimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/code/src/abg/project_read_ports.ts",
+      "originalPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "hunks": 7,
+      "actualOriginalPatchReconstructsCurrentBytes": true,
+      "currentOwnerAcceptsOriginalPatchHeader": true,
+      "currentOwnerClosurePathMemberMatch": false,
+      "currentOwnerPreimageMemberMatch": true,
+      "headerOrClosureRewritten": false
+    },
+    {
+      "activation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+        "digest": "sha256:a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465",
+        "byteCount": 32193
+      },
+      "originalPatch": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/source.patch",
+      "originalPreimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/preimages/test_env/support/t287-s03-automatic.mjs",
+      "originalPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+      "hunks": 2,
+      "actualOriginalPatchReconstructsCurrentBytes": true,
+      "currentOwnerAcceptsOriginalPatchHeader": true,
+      "currentOwnerClosurePathMemberMatch": false,
+      "currentOwnerPreimageMemberMatch": true,
+      "headerOrClosureRewritten": false
+    },
+    {
+      "activation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+        "digest": "sha256:f427ab2d956095fac16448f3efdbe263dd423a6bafafa85acac6fba6d1d0def0",
+        "byteCount": 55572
+      },
+      "originalPatch": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+      "originalPreimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "originalPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "hunks": 4,
+      "actualOriginalPatchReconstructsCurrentBytes": true,
+      "currentOwnerAcceptsOriginalPatchHeader": false,
+      "currentOwnerClosurePathMemberMatch": true,
+      "currentOwnerPreimageMemberMatch": true,
+      "headerOrClosureRewritten": false
+    },
+    {
+      "activation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+        "digest": "sha256:83c4af83e6511ba27e243ec47ea0e1805e9d9f47470fe845bf28911fe8f7c550",
+        "byteCount": 81875
+      },
+      "originalPatch": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+      "originalPreimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "originalPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "hunks": 1,
+      "actualOriginalPatchReconstructsCurrentBytes": true,
+      "currentOwnerAcceptsOriginalPatchHeader": false,
+      "currentOwnerClosurePathMemberMatch": true,
+      "currentOwnerPreimageMemberMatch": true,
+      "headerOrClosureRewritten": false
+    },
+    {
+      "activation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+        "digest": "sha256:f63ae528d2226d0924f3c15f4e16ed981b358a5ae1c139b5baa12056585a9ec4",
+        "byteCount": 9773
+      },
+      "originalPatch": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+      "originalPreimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+      "originalPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+      "hunks": 2,
+      "actualOriginalPatchReconstructsCurrentBytes": true,
+      "currentOwnerAcceptsOriginalPatchHeader": false,
+      "currentOwnerClosurePathMemberMatch": true,
+      "currentOwnerPreimageMemberMatch": true,
+      "headerOrClosureRewritten": false
+    },
+    {
+      "activation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+        "digest": "sha256:ee40ba037fd6a83b8fd668a2c106d2544e39b924656496cf67f5e4326bfdc6f5",
+        "byteCount": 5203
+      },
+      "originalPatch": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/source.patch",
+      "originalPreimage": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+      "originalPostimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+      "hunks": 1,
+      "actualOriginalPatchReconstructsCurrentBytes": true,
+      "currentOwnerAcceptsOriginalPatchHeader": false,
+      "currentOwnerClosurePathMemberMatch": true,
+      "currentOwnerPreimageMemberMatch": true,
+      "headerOrClosureRewritten": false
+    }
+  ],
+  "transitionMemberCount": 8,
+  "limits": "Reconstructs original patch transitions only. Does not assert original carrier acceptance, true attribution, native admission or qualification."
+}

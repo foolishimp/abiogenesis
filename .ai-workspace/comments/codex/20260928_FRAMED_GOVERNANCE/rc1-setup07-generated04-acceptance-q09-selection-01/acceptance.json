@@ -1,0 +1,135 @@
+{
+  "status": "ACCEPTED_BOUNDED_ACTUAL_SETUP_AND_GENERATED_CORRESPONDENCE",
+  "decider": "Root Executive",
+  "recordingRole": "T287_SETUP07_GENERATED04_ACCEPTANCE_AND_Q09_SELECTION_01",
+  "candidateAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-acceptance-and-runtime-selection-01/acceptance.json",
+    "bytes": 4167,
+    "sha256": "85017f5b8ca8b321ddade38c561639881f37922ea24cb34d018528493615780c",
+    "mode": 420
+  },
+  "setupFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/freeze.json",
+    "bytes": 3901259,
+    "sha256": "3df72c96b7d1424a7bd7811dc077adc2646bdf93ab767eef13ebde77add3f7e4",
+    "mode": 420
+  },
+  "RootSetupVerification": {
+    "all11312filePins": "match",
+    "bytes": 914539385,
+    "directoryModes": 1175,
+    "completeCensus": "match",
+    "eventsInodeAndBody": "match",
+    "errors": []
+  },
+  "installedAuthorityHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/installed-authority-handoff.json",
+    "bytes": 7336106,
+    "sha256": "80b73295e33dc8ff6a1ec6e3c2498caf7fdbf176c8665e52841b7a8457820e95",
+    "mode": 420
+  },
+  "closedEventResourceHandoff": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/closed-event-resource-handoff.json",
+    "bytes": 3581045,
+    "sha256": "1ebc192747874ba1605b6f091c263b88d7935262f891f5227259b06464f65320",
+    "mode": 420
+  },
+  "closedHandoffDigest": "sha256:18509b14a755258cf47240c3654adc134170b1698723607c2b8c285a910df4ca",
+  "authenticCloseHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:12c58f9ef07997329c764c58cdfd38308876af9630cc79cf3e94f35cd2a0c5a9",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:aee5f944be49a7d6aee3c1dd53717d490c52cd1015ff863409ded58fec08f2f7",
+      "prefixLength": 2490814,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464793566
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:438544ec482f0ad0b3f26f10b53566b8d5c38a687fbe25308c4451ea22442b4a",
+      "device": 16777230,
+      "durableByteLength": 2490814,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:aee5f944be49a7d6aee3c1dd53717d490c52cd1015ff863409ded58fec08f2f7",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/events/runtime.events.jsonl",
+      "inode": 464793566,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "eventPhysical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/events/runtime.events.jsonl",
+    "bytes": 2490814,
+    "sha256": "aee5f944be49a7d6aee3c1dd53717d490c52cd1015ff863409ded58fec08f2f7",
+    "device": 16777230,
+    "inode": 464793566,
+    "mode": "0o644"
+  },
+  "currentActor": "actor://abiogenesis/t287/f11-c07-installed-setup-07/operator",
+  "workspaceBinding": {
+    "digest": "sha256:656c670fc14b9f347593365b849a2dd5969979e2106290c04ea8d99719cadfce",
+    "ref": "workspace-binding://abiogenesis/656c670fc14b9f347593365b849a2dd5969979e2106290c04ea8d99719cadfce"
+  },
+  "resourceRoots": {
+    "toolchainRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed",
+    "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/installed/core/node_modules/@abiogenesis/typescript-tenant",
+    "eventLogRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/events",
+    "runtimeStateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/runtime",
+    "projectionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/projections",
+    "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/resources/archives"
+  },
+  "catalogCounts": {
+    "graphFunctionEntries": 61,
+    "declarationEntries": 7,
+    "publications": 12
+  },
+  "calls": 14,
+  "ProgramConformances": 4,
+  "admittedInstalls": 2,
+  "admittedPublications": 12,
+  "generatedFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-generated-reconciliation-04/freeze.json",
+    "bytes": 3988,
+    "sha256": "3143a250a47b1ddb8f08fc5e1881db1c0bc40e94d324eed41d1ef0d4d0a7faf9",
+    "mode": 420
+  },
+  "RootGeneratedVerification": {
+    "all10returnRecords": "match",
+    "all926currentBodyModes": "equalC07",
+    "physicalUnion": 927,
+    "pinnedMirrorUnchanged": true,
+    "exactThreeCopies": true,
+    "errors": []
+  },
+  "observedTrackingLabelCorrection": {
+    "authorizedAndBeforeEffectsRecordedOperation": "T287_F11_C07_INSTALLED_SETUP_07",
+    "authoritativeActivation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-07/runtime-activation.json",
+      "bytes": 2645,
+      "sha256": "768c8659f15be57256e5a0be123b486557b02b2b61fde074f753a41525f531c6",
+      "mode": 420
+    },
+    "frozenSummaryAndClosureOperationLabel": "T287_F11_C07_INSTALLED_SETUP_06",
+    "classification": "P3 external saved-report donor counter label, not actual task/installation identity",
+    "triangulation": {
+      "Identity": "Actual pre-import activation, Root grant, actor URI, roots, binding and eventinode belong07. Only derived summary suffix retained06.",
+      "Effects": "All actual effects were authorized07; no rerun or payload change indicated.",
+      "Proof": "Consume actual activation/grant/body/inode tuple; preserve erroneous derived labels with explicit mapping.",
+      "Integration": "Future adapters take operation ID from exact grant rather than blind C06-to-C07 replacement.",
+      "ProductDesign": "No change to runtime WHAT/HOW/installation relations."
+    },
+    "originalFreezePreserved": true
+  },
+  "Q09Grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c07-install-and-input-controls-01/inputs-request.txt",
+    "bytes": 4707,
+    "sha256": "93a1957038c968d263f7d12affd090506c922ca261df21fa94c7f843765e4cb8",
+    "mode": 420
+  },
+  "qualifiedOrPublished": false,
+  "currentTaskRunHelperProviderEffects": 0
+}

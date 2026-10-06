@@ -1,0 +1,404 @@
+{
+  "compilerVersion": "5.9.2",
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/readiness-stage/build_tenants/abiogenesis/typescript",
+  "requiredDestinationFields": [
+    "cCallRef",
+    "cCallAttempt",
+    "evidenceRef",
+    "evidenceDigest",
+    "evidenceClass",
+    "inputDigest",
+    "outputDigest",
+    "transportDigest",
+    "actorInvocationRef",
+    "actorRef",
+    "workerBindingRef",
+    "transportBindingRef",
+    "transportBindingDigest",
+    "requestDigest",
+    "promptDigest",
+    "transportDisposition",
+    "transportFailureClass"
+  ],
+  "cases": [
+    {
+      "name": "valid-probabilistic-and-nonprobabilistic",
+      "expectedErrors": 0,
+      "diagnostics": []
+    },
+    {
+      "name": "destination-omits-cCallRef",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"cCallRef\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"cCallRef\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'cCallRef' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"cCallRef\">' but required in type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-cCallRef.mts",
+          "start": 2773
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-cCallAttempt",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"cCallAttempt\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"cCallAttempt\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'cCallAttempt' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"cCallAttempt\">' but required in type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-cCallAttempt.mts",
+          "start": 2777
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-evidenceRef",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"evidenceRef\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"evidenceRef\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'evidenceRef' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"evidenceRef\">' but required in type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-evidenceRef.mts",
+          "start": 2776
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-evidenceDigest",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"evidenceDigest\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"evidenceDigest\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'evidenceDigest' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"evidenceDigest\">' but required in type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-evidenceDigest.mts",
+          "start": 2779
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-evidenceClass",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"evidenceClass\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"evidenceClass\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'evidenceClass' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"evidenceClass\">' but required in type 'Readonly<{ evidenceClass: \"deterministic\" | \"interaction_request\" | \"undispatched_owner_refusal\" | \"worksite_file_replace\" | \"sub_traversal\"; } & Partial<ProbabilisticResultLineageMetadata>>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-evidenceClass.mts",
+          "start": 2778
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-inputDigest",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"inputDigest\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"inputDigest\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'inputDigest' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"inputDigest\">' but required in type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-inputDigest.mts",
+          "start": 2776
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-outputDigest",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"outputDigest\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"outputDigest\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'outputDigest' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"outputDigest\">' but required in type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-outputDigest.mts",
+          "start": 2777
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-transportDigest",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportDigest\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportDigest\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'transportDigest' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportDigest\">' but required in type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-transportDigest.mts",
+          "start": 2780
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-actorInvocationRef",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"actorInvocationRef\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"actorInvocationRef\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'actorInvocationRef' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"actorInvocationRef\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-actorInvocationRef.mts",
+          "start": 2783
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-actorRef",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"actorRef\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"actorRef\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'actorRef' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"actorRef\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-actorRef.mts",
+          "start": 2773
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-workerBindingRef",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"workerBindingRef\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"workerBindingRef\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'workerBindingRef' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"workerBindingRef\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-workerBindingRef.mts",
+          "start": 2781
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-transportBindingRef",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportBindingRef\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportBindingRef\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'transportBindingRef' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportBindingRef\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-transportBindingRef.mts",
+          "start": 2784
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-transportBindingDigest",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportBindingDigest\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportBindingDigest\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'transportBindingDigest' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportBindingDigest\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-transportBindingDigest.mts",
+          "start": 2787
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-requestDigest",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"requestDigest\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"requestDigest\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'requestDigest' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"requestDigest\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-requestDigest.mts",
+          "start": 2778
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-promptDigest",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"promptDigest\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"promptDigest\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'promptDigest' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"promptDigest\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-promptDigest.mts",
+          "start": 2777
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-transportDisposition",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportDisposition\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportDisposition\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'transportDisposition' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportDisposition\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-transportDisposition.mts",
+          "start": 2785
+        }
+      ]
+    },
+    {
+      "name": "destination-omits-transportFailureClass",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportFailureClass\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportFailureClass\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'transportFailureClass' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"transportFailureClass\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/destination-omits-transportFailureClass.mts",
+          "start": 2786
+        }
+      ]
+    },
+    {
+      "name": "admitted-source-omits-inputDigest",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2375,
+          "message": "Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"inputDigest\">' is not assignable to type 'AdmittedCCallEvidence' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n  Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"inputDigest\">' is not assignable to type 'AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n    Property 'inputDigest' is missing in type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"inputDigest\">' but required in type 'AdmittedCCallEvidenceDetails'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/admitted-source-omits-inputDigest.mts",
+          "start": 2784
+        }
+      ]
+    },
+    {
+      "name": "admitted-source-omits-actorInvocationRef",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2375,
+          "message": "Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"actorInvocationRef\">' is not assignable to type 'AdmittedCCallEvidence' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n  Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"actorInvocationRef\">' is not assignable to type 'AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n    Property 'actorInvocationRef' is missing in type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"actorInvocationRef\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/admitted-source-omits-actorInvocationRef.mts",
+          "start": 2791
+        }
+      ]
+    },
+    {
+      "name": "admitted-source-omits-actorRef",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2375,
+          "message": "Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"actorRef\">' is not assignable to type 'AdmittedCCallEvidence' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n  Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"actorRef\">' is not assignable to type 'AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n    Property 'actorRef' is missing in type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"actorRef\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/admitted-source-omits-actorRef.mts",
+          "start": 2781
+        }
+      ]
+    },
+    {
+      "name": "admitted-source-omits-workerBindingRef",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2375,
+          "message": "Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"workerBindingRef\">' is not assignable to type 'AdmittedCCallEvidence' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n  Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"workerBindingRef\">' is not assignable to type 'AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n    Property 'workerBindingRef' is missing in type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"workerBindingRef\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/admitted-source-omits-workerBindingRef.mts",
+          "start": 2789
+        }
+      ]
+    },
+    {
+      "name": "admitted-source-omits-transportBindingRef",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2375,
+          "message": "Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"transportBindingRef\">' is not assignable to type 'AdmittedCCallEvidence' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n  Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"transportBindingRef\">' is not assignable to type 'AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n    Property 'transportBindingRef' is missing in type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"transportBindingRef\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/admitted-source-omits-transportBindingRef.mts",
+          "start": 2792
+        }
+      ]
+    },
+    {
+      "name": "admitted-source-omits-transportBindingDigest",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2375,
+          "message": "Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"transportBindingDigest\">' is not assignable to type 'AdmittedCCallEvidence' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n  Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"transportBindingDigest\">' is not assignable to type 'AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n    Property 'transportBindingDigest' is missing in type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"transportBindingDigest\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/admitted-source-omits-transportBindingDigest.mts",
+          "start": 2795
+        }
+      ]
+    },
+    {
+      "name": "admitted-source-omits-requestDigest",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2375,
+          "message": "Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"requestDigest\">' is not assignable to type 'AdmittedCCallEvidence' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n  Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"requestDigest\">' is not assignable to type 'AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n    Property 'requestDigest' is missing in type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"requestDigest\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/admitted-source-omits-requestDigest.mts",
+          "start": 2786
+        }
+      ]
+    },
+    {
+      "name": "admitted-source-omits-promptDigest",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2375,
+          "message": "Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"promptDigest\">' is not assignable to type 'AdmittedCCallEvidence' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n  Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"promptDigest\">' is not assignable to type 'AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n    Property 'promptDigest' is missing in type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"promptDigest\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/admitted-source-omits-promptDigest.mts",
+          "start": 2785
+        }
+      ]
+    },
+    {
+      "name": "admitted-source-omits-transportDisposition",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2375,
+          "message": "Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"transportDisposition\">' is not assignable to type 'AdmittedCCallEvidence' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n  Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"transportDisposition\">' is not assignable to type 'AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n    Property 'transportDisposition' is missing in type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"transportDisposition\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/admitted-source-omits-transportDisposition.mts",
+          "start": 2793
+        }
+      ]
+    },
+    {
+      "name": "admitted-source-omits-transportFailureClass",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2375,
+          "message": "Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"transportFailureClass\">' is not assignable to type 'AdmittedCCallEvidence' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n  Type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"transportFailureClass\">' is not assignable to type 'AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n    Property 'transportFailureClass' is missing in type 'Omit<AdmittedCCallEvidenceDetails & Readonly<{ cCallRef: string; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest?: `sha256:${string}`; }> & Readonly<...> & Readonly<...>, \"transportFailureClass\">' but required in type 'Readonly<{ evidenceClass: \"probabilistic_transport\"; } & ProbabilisticResultLineageMetadata>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/admitted-source-omits-transportFailureClass.mts",
+          "start": 2794
+        }
+      ]
+    },
+    {
+      "name": "source-invalid-class",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type '\"unadmitted_class\"' is not assignable to type '\"deterministic\" | \"interaction_request\" | \"probabilistic_transport\" | \"undispatched_owner_refusal\" | \"worksite_file_replace\" | \"sub_traversal\"'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/source-invalid-class.mts",
+          "start": 2767
+        }
+      ]
+    },
+    {
+      "name": "hook-LeafRows-requires-inputDigest",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"inputDigest\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"inputDigest\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'inputDigest' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"inputDigest\">' but required in type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/hook-LeafRows-requires-inputDigest.mts",
+          "start": 2798
+        }
+      ]
+    },
+    {
+      "name": "hook-ProductRows-requires-inputDigest",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"inputDigest\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"inputDigest\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'inputDigest' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"inputDigest\">' but required in type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/hook-ProductRows-requires-inputDigest.mts",
+          "start": 2801
+        }
+      ]
+    },
+    {
+      "name": "hook-InstalledRows-requires-inputDigest",
+      "expectedErrors": 1,
+      "diagnostics": [
+        {
+          "code": 2322,
+          "message": "Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"inputDigest\">' is not assignable to type 'ResultEvidenceLineage'.\n  Type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"inputDigest\">' is not assignable to type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>'.\n    Property 'inputDigest' is missing in type 'Omit<Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }> & Readonly<...>, \"inputDigest\">' but required in type 'Readonly<{ cCallRef: string; cCallAttempt: number; evidenceRef: string; evidenceDigest: `sha256:${string}`; inputDigest: `sha256:${string}`; outputDigest: `sha256:${string}`; transportDigest: `sha256:${string}` | null; }>'.",
+          "file": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/type-proof/hook-InstalledRows-requires-inputDigest.mts",
+          "start": 2803
+        }
+      ]
+    }
+  ],
+  "unrelatedDiagnostics": [],
+  "scope": "TypeScript presence/shape only; no Runtime, ownership or semantic qualification"
+}

@@ -1,0 +1,36 @@
+{
+  "operation": "T287_C06_ACCEPTANCE_AND_INSTALLED_EFFECTS_GRANTS_01",
+  "status": "ACCEPTED_BOUNDED_C06_CONSTRUCTION",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+    "bytes": 140347,
+    "sha256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+    "mode": 420
+  },
+  "independentReviewFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-independent-review-controls-01/review/freeze.json",
+    "bytes": 1240,
+    "sha256": "5b8d179bba26d56a8e20a60fa9fc1833b0fbd41ec369f13347305826f9e7deb2",
+    "mode": 420
+  },
+  "independentResult": "GO_BOUNDED_CONSTRUCTION_ASSURANCE",
+  "selected": {
+    "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-install/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:9ac4ca5a40940cc98de8080d9c119788f75596890dde3aae4050a058fe383ced",
+      "productContentDigest": "sha256:7b7d18dd1292343672da68804784719c1d47937d8524167f8a15d12ecddc5ace",
+      "manifestDigest": "sha256:42e82d4942736d5b97087cfdba143dda5cca0690ae05402b05066d2c518326f6",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "rootVerification": "All455 metadata bodies and complete seven physical populations/archive5258 inspected; independent five-body cut freshly verified; all926 ambient generated still match C05; exactly three C06 differences",
+  "acceptedScope": "Exact construction/readiness/source correspondence and complete native/wrapper/capability publication relations; not an admitted install or successful Runtime or qualification",
+  "retained": "Original source authors and predecessor chains, dirty worktree, accepted Hello/scenarios, old C05/Q06/Setup05/Runtime06 and failure diagnostics",
+  "next": "Genuine Setup06 plus exact three-file generated reconciliation, then actual bound Q07 and earliest complete installed carrier",
+  "remaining": "Successful actual child/J/foldback/parent and coldreads; genuine sufficient F11/QUAL056; scenario conjunction and sole AF22; immutable RC/installed_rc/human acceptance/remote installation; provider/remote route currently restricted"
+}

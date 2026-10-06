@@ -8,7 +8,7 @@ source_refs:
   - ../RELEASE_METHOD.md
   - ../schemas/product-definition.schema.json
 source_digests:
-  SPEC_METHOD.md: ff93375a862cd3c31b27a2cc79f8f6a4111586ca7e31e5514b8af88d3fbb99e3
+  SPEC_METHOD.md: 7f12d32ef4e5720d5d59ee5ace50de6c1a12cc56afa53dd67a8ee4c54f8fb8a4
   REFERENCE_FRAME_METHOD.md: 6e9148d7c8eff847abf172315b0e282e4477f3d40866b28f7fef21c41cb067e7
   STDO_REFERENCE_FRAME_BASELINE.md: 29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d
   RELEASE_METHOD.md: 582bc15451855670495e559db3ae6a89ba37edaa3656f33499d02220cbdb141c
@@ -17,7 +17,7 @@ compression_profile: discovery_bootstrap_v1
 target_prompt_families:
   - bootstrap
 generated_by: codex
-generated_at: 2026-09-20
+generated_at: 2026-09-30
 stale_if_source_digest_changes: true
 ---
 

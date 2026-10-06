@@ -1,0 +1,332 @@
+{
+  "kind": "source_grounded_external_input_correspondence_not_assurance",
+  "operations": [
+    {
+      "operation": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "exactScope": [
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+          "digest": "sha256:a58eb75324df64917d3e5d6e616bcaa1b7b6c8413e945ca42e6aff01a7a14371",
+          "byteCount": 15165
+        },
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+          "digest": "sha256:c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc",
+          "byteCount": 32200
+        },
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+          "digest": "sha256:e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85",
+          "byteCount": 84829
+        },
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+          "digest": "sha256:a633230d69a61084e1417d96cbff1547d28a8e2b74c48681a2deecaa89452465",
+          "byteCount": 32193
+        }
+      ],
+      "authorRefMeaning": "Original operation activation identifier, not a substitute concrete actor",
+      "authorRef": "T287_S03_PUBLIC_HANDOFF_REPAIR_01",
+      "actorIdentityRef": "/root/s03_phase_b",
+      "sourceClaims": {
+        "authorRefMeaning": "Exact original Worker activation label, not an established concrete actor identity.",
+        "grantRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-controls-01/request.txt",
+        "closedReturnRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/return.md",
+        "supplementalEvidence": {
+          "kind": "present_retrospective_source_statement",
+          "recordRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/record.json",
+          "accountRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/s03-account.md",
+          "freezeRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/freeze.json",
+          "recordedDate": "2026-09-30",
+          "recordingActor": "/root",
+          "actualAddressedAgent": "/root/s03_phase_b",
+          "supportsOperationPerformance": true,
+          "supportsAssignmentCorrespondence": true,
+          "separateSessionIdentifier": null,
+          "nativeABGAttribution": false,
+          "productOwnerAuthority": null,
+          "limit": "New source-grounded statement retained with exact originals. No recovered contemporaneous dispatch transcript, historical rewrite, native event, authority grant or independent assessment."
+        }
+      },
+      "sourceSpans": [
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/activation.json",
+          "startByte": 0,
+          "endByte": 884,
+          "spanDigest": "sha256:55f1291ee3c2996c08f1082c35350f0271ba4b238268bf149b539157aa613638"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/freeze.json",
+          "startByte": 0,
+          "endByte": 477,
+          "spanDigest": "sha256:a0da27ad70876dce6e42e05e72a445a7b7ef5aa9122d9cb2606a531410c96d83"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-01/return.md",
+          "startByte": 0,
+          "endByte": 876,
+          "spanDigest": "sha256:e85fadca0f0a1c4fc512c581ed9e28e8065fd551d889d836ac07fa55cd5ff1b1"
+        },
+        {
+          "sourceRef": "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/derived/s03-closure-member-view.json",
+          "startByte": 0,
+          "endByte": 3546,
+          "spanDigest": "sha256:74df31c3d1b050c4817e9e1d3d2079fecb2c20b4a2c8857d9ccfd8fc118b2434"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-controls-01/request.txt",
+          "startByte": 0,
+          "endByte": 7917,
+          "spanDigest": "sha256:78be48d6b100dc93df337440e52e26a2c53bab4f4644eec8d7932bfc5a92886f"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/record.json",
+          "startByte": 0,
+          "endByte": 3347,
+          "spanDigest": "sha256:f1b66efa76bda2099be60785ec0ba2baebebdf76d30f4aa32a4c998112e438ba"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/s03-account.md",
+          "startByte": 0,
+          "endByte": 1536,
+          "spanDigest": "sha256:e5dcca3d6df1c59d2c540ac4b4a310d722e63d0736d7158ac6f9497e174c006d"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/freeze.json",
+          "startByte": 0,
+          "endByte": 2403,
+          "spanDigest": "sha256:03373c18ea01825317ab3f02a07698b5eb5c17eb030ba53a7c1fff26a46c76fd"
+        }
+      ],
+      "scopeStatus": "Present actual-agent performance statement supplies a source-grounded external identity claim. Attribution sufficiency and authority/assessor joins remain unassessed.",
+      "grantRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-controls-01/request.txt",
+      "grantSpan": {
+        "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-public-handoff-repair-controls-01/request.txt",
+        "startByte": 0,
+        "endByte": 7917,
+        "spanDigest": "sha256:78be48d6b100dc93df337440e52e26a2c53bab4f4644eec8d7932bfc5a92886f"
+      },
+      "authorityRef": null,
+      "authorityCorrespondence": "An authentic source operation grant is known. Correspondence to the published qualification Product-owner capability is not established by these records.",
+      "separateSessionIdentifier": null,
+      "nativeABGAuthorship": false,
+      "attributionSemanticJudgment": null,
+      "actualAssessorIdentity": null,
+      "independenceEstablished": false
+    },
+    {
+      "operation": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "exactScope": [
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+          "digest": "sha256:f427ab2d956095fac16448f3efdbe263dd423a6bafafa85acac6fba6d1d0def0",
+          "byteCount": 55572
+        },
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+          "digest": "sha256:83c4af83e6511ba27e243ec47ea0e1805e9d9f47470fe845bf28911fe8f7c550",
+          "byteCount": 81875
+        },
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+          "digest": "sha256:f63ae528d2226d0924f3c15f4e16ed981b358a5ae1c139b5baa12056585a9ec4",
+          "byteCount": 9773
+        },
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action-authority.test.mjs",
+          "digest": "sha256:ee40ba037fd6a83b8fd668a2c106d2544e39b924656496cf67f5e4326bfdc6f5",
+          "byteCount": 5203
+        }
+      ],
+      "authorRefMeaning": "Original operation activation identifier, not a substitute concrete actor",
+      "authorRef": "T287_S7_SELECTED_ACTION_INSTALLED_07",
+      "actorIdentityRef": null,
+      "sourceClaims": {
+        "authorRefMeaning": "Exact original Worker activation label, not an established concrete actor identity.",
+        "grantRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+        "closedReturnRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/return.md",
+        "supplementalEvidence": {
+          "kind": "present_retrospective_source_statement",
+          "recordRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/record.json",
+          "accountRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/selected-action-account.md",
+          "freezeRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/freeze.json",
+          "recordedDate": "2026-09-30",
+          "recordingActor": "/root",
+          "actualAddressedAgent": "/root/selected_action",
+          "supportsOperationPerformance": false,
+          "supportsAssignmentCorrespondence": true,
+          "separateSessionIdentifier": null,
+          "nativeABGAttribution": false,
+          "productOwnerAuthority": null,
+          "limit": "New source-grounded statement retained with exact originals. No recovered contemporaneous dispatch transcript, historical rewrite, native event, authority grant or independent assessment."
+        }
+      },
+      "sourceSpans": [
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+          "startByte": 0,
+          "endByte": 456,
+          "spanDigest": "sha256:b905d64148109bbe285a0d309a5fcd5a2e28a5296d1baa075c7585061b5037b0"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/freeze.json",
+          "startByte": 0,
+          "endByte": 433,
+          "spanDigest": "sha256:d55876c5c8b539acb9b68c6f456eb3b1d1ce52abce57f54718d83a90daa99c99"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/return.md",
+          "startByte": 0,
+          "endByte": 1368,
+          "spanDigest": "sha256:6922a30d72842443da26d82d1bf1d5734b24ecfcff5c5e9f47fab51be8190efa"
+        },
+        {
+          "sourceRef": "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/derived/selected-action07-header-relation.json",
+          "startByte": 0,
+          "endByte": 5543,
+          "spanDigest": "sha256:0566c05831addaca860b42a6577009a40b39d5a12eebb033f8c6946af7ede332"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+          "startByte": 0,
+          "endByte": 8724,
+          "spanDigest": "sha256:b4de58f9016ed4006cfac55947a6f0310b0df8e6e7e1abe4d763f42ff428af6f"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/record.json",
+          "startByte": 0,
+          "endByte": 3347,
+          "spanDigest": "sha256:f1b66efa76bda2099be60785ec0ba2baebebdf76d30f4aa32a4c998112e438ba"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/selected-action-account.md",
+          "startByte": 0,
+          "endByte": 1601,
+          "spanDigest": "sha256:ac3cb7c5da7d23d67f563ec795cca0bd6ade478a30844ed090fd898487d16bcf"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/source-author-observation-01/freeze.json",
+          "startByte": 0,
+          "endByte": 2403,
+          "spanDigest": "sha256:03373c18ea01825317ab3f02a07698b5eb5c17eb030ba53a7c1fff26a46c76fd"
+        }
+      ],
+      "scopeStatus": "Present assignment correspondence to /root/selected_action is known, but that actor cannot establish performance. Actual source-operation author remains unknown.",
+      "grantRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+      "grantSpan": {
+        "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-07/request.txt",
+        "startByte": 0,
+        "endByte": 8724,
+        "spanDigest": "sha256:b4de58f9016ed4006cfac55947a6f0310b0df8e6e7e1abe4d763f42ff428af6f"
+      },
+      "authorityRef": null,
+      "authorityCorrespondence": "An authentic source operation grant is known. Correspondence to the published qualification Product-owner capability is not established by these records.",
+      "separateSessionIdentifier": null,
+      "nativeABGAuthorship": false,
+      "attributionSemanticJudgment": null,
+      "actualAssessorIdentity": null,
+      "independenceEstablished": false
+    },
+    {
+      "operation": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+      "exactScope": [
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+          "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+          "digest": "sha256:f3d38c158fdbe8bf3ffcb85d4d78a4d0c9b7d116fd6d325a3f8950e2094f217d",
+          "byteCount": 18915
+        },
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+          "digest": "sha256:d1aa2f7836e5b51ba5b3eb32bfb521cb301da8eb70396f7021e517599c53e128",
+          "byteCount": 77554
+        },
+        {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+          "digest": "sha256:4d4ed1b0fb8875badaa8d0ac2585bef6eb496092bb39761be2ce257c708256a4",
+          "byteCount": 39208
+        }
+      ],
+      "authorRefMeaning": "Original operation activation identifier, not a substitute concrete actor",
+      "authorRef": "T287_DEFAULT_LIBRARY_PUBLICATION_REPAIR_01",
+      "actorIdentityRef": "/root/s03_phase_b",
+      "sourceClaims": {
+        "grantRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-controls-01/request.txt",
+        "closedReturnRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/return.md",
+        "actualExternalAgent": "/root/s03_phase_b",
+        "sessionId": null,
+        "sessionRecordText": "not separately available",
+        "nativeABGAuthorship": false
+      },
+      "sourceSpans": [
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/activation.json",
+          "startByte": 0,
+          "endByte": 1310,
+          "spanDigest": "sha256:d348278214648378c6b9bbe70a85ca602985b0ddb9ebec321277e21a847a66d6"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/closed-state.json",
+          "startByte": 0,
+          "endByte": 5335,
+          "spanDigest": "sha256:00a9829bbb08dde776ab92d5e005dc089efc0a6100abecb8c4ae25d2c555c66b"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/source-attribution.json",
+          "startByte": 0,
+          "endByte": 3514,
+          "spanDigest": "sha256:7002ae5e6a739a7aed7cbf879ffe978d64aac43743695ae106f67cf0cf0ba6e3"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-01/return.md",
+          "startByte": 0,
+          "endByte": 5089,
+          "spanDigest": "sha256:c1a21723b9bb0d887e78c6dd251a7e1837c793c8ad3e1b18fc886bce49c5b739"
+        },
+        {
+          "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-controls-01/request.txt",
+          "startByte": 0,
+          "endByte": 7347,
+          "spanDigest": "sha256:4c48aa2fd7d4112bcc2a6fd9025ae9b82c64395134b517d28033dd2c7faf2cdd"
+        },
+        {
+          "sourceRef": "derived-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/derived/publication-repair-closure-member-view.json",
+          "startByte": 0,
+          "endByte": 3943,
+          "spanDigest": "sha256:f92f5605f2754a0ce8440ac05527064de6e1d360592269ddc6b9d3ea23ab5318"
+        }
+      ],
+      "scopeStatus": "Source records identify the external task agent; grant-to-Product authority correspondence and actual native assessor comparison unresolved.",
+      "grantRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-controls-01/request.txt",
+      "grantSpan": {
+        "sourceRef": "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-publication-repair-controls-01/request.txt",
+        "startByte": 0,
+        "endByte": 7347,
+        "spanDigest": "sha256:4c48aa2fd7d4112bcc2a6fd9025ae9b82c64395134b517d28033dd2c7faf2cdd"
+      },
+      "authorityRef": null,
+      "authorityCorrespondence": "An authentic source operation grant is known. Correspondence to the published qualification Product-owner capability is not established by these records.",
+      "separateSessionIdentifier": null,
+      "nativeABGAuthorship": false,
+      "attributionSemanticJudgment": null,
+      "actualAssessorIdentity": null,
+      "independenceEstablished": false
+    }
+  ],
+  "sameActualAgentObservation": "S03 and D cite the same external agent /root/s03_phase_b. Do not rename either operation into a distinct person or assessor.",
+  "selectedActionAssignmentOnly": "/root/selected_action retains assignment and safe-stop, but cannot establish its performance of the source operation. candidateChain.actorIdentityRef remains null.",
+  "semanticAuthorshipLimit": "The statements concern exactly these source operations. They do not attribute inherited code or every copied/generated file to the operation author or later preservation/build operator.",
+  "publishedAuthoritySlot": "actor-capability://abiogenesis/qualification/product-owner@5",
+  "slotIsNotGrant": true,
+  "nativeEventsOrAssessmentProduced": false
+}

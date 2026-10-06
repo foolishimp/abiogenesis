@@ -1,0 +1,35 @@
+{
+  "role": "constitutional Writer",
+  "members": [
+    {
+      "path": "specification/PRODUCT.md",
+      "preimageSha256": "e678cb8e0984c6897ee5dd0a15a67ef0dd92821edc48ded16b103d63025b4094",
+      "bytes": 93690,
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-SCENARIOS.md",
+      "preimageSha256": "33939c54db28a76cee08841731258cfdebcd870975a749d84a5d957466b7469d",
+      "bytes": 17479,
+      "sha256": "5126f116cd64f64b48ccdd9126d3709a73c4090f73251c84320c6ae11c7a36dd"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-QUAL.md",
+      "preimageSha256": "9ec53d8053fcae9780ad0d161c0b3fe605523319965b59d5653865254bac1831",
+      "bytes": 35987,
+      "sha256": "0366cdd8f4392f94e7a1f3fbfc91e265133dcd23cb0ebe13db4167e57fbe8c5b"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "preimageSha256": "d5badf6ede64c26f358102a438f603078af89684dab359bf8bf8f8194be3218a",
+      "bytes": 71135,
+      "sha256": "73e2a0af4a6c98f6468e26cd70f3a4fd8f1e5198669c26a4c6ee2995c9bbce6d"
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "preimageSha256": "c16811162542d4d2dd75352cb0c768aa9bdc164f54afaa6f08b71a3a155cd5f8",
+      "bytes": 501000,
+      "sha256": "2f52ef0e10402da28edaed8105173f4c369ab468282c62468ff50c896a4aa19b"
+    }
+  ]
+}

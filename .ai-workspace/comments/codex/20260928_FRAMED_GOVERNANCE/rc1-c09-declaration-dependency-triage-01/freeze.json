@@ -1,0 +1,48 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_C09_PREPAYLOAD_DEPENDENCY_DISPOSITION_WRITER_01",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-declaration-dependency-triage-01/activation.json",
+      "bytes": 682,
+      "sha256": "e30dd8f419763955a83a403c9e03e1721cd7da2374e6b1605800914d9fd44572",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-declaration-dependency-triage-01/closure.json",
+      "bytes": 219,
+      "sha256": "e6bdcc07f5350c8c858a812c890b5488947cd12784303be753dfe8b0e06bb273",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-declaration-dependency-triage-01/literal-verification.json",
+      "bytes": 892,
+      "sha256": "99e01e416b85f9e171173377d88e14b9e0ae37ee556cbb0d3081fab1bfed285f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-declaration-dependency-triage-01/request.txt",
+      "bytes": 3945,
+      "sha256": "f61ea926b00ae13a87248cd1943a7ddeccb844f18869b6eb72546c110bf59c61",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-declaration-dependency-triage-01/sections.json",
+      "bytes": 4216,
+      "sha256": "d7b2f73042bb61928b5dd086ad9aa5bb7023ed81924a4e9e5dc941c2fb360572",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-declaration-dependency-triage-01/triage.json",
+      "bytes": 4885,
+      "sha256": "ec98cd863ec170ec1190340f2a16439ab3c8125a6da0dd2a80824f9d67a39169",
+      "mode": 420
+    }
+  ],
+  "executionPostimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "bytes": 538231,
+    "sha256": "238443d81482d9c7e6fa4d62100f35c5470abcd899b4192ffaddb99645cd6694",
+    "mode": 420
+  }
+}

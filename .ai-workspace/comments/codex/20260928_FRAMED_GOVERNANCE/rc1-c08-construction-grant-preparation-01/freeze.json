@@ -1,0 +1,37 @@
+{
+  "status": "CLOSED",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-construction-grant-preparation-01/activation.json",
+      "bytes": 1299,
+      "sha256": "51beec9b4ee2c39ab2c338af845e574e11007b9ebdee4fe37d93c64365ee275f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-construction-grant-preparation-01/sections.json",
+      "bytes": 4981,
+      "sha256": "ab00474cf3b47f57187c209b10b30586b4536dcc89bf5402b8f793bd4ad13e5c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-construction-grant-preparation-01/request.txt",
+      "bytes": 4710,
+      "sha256": "032cf6072adb9e2350f8e5207e3c5a9e59d43603b7af3b36c31c94ecac174661",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-construction-grant-preparation-01/literal-verification.json",
+      "bytes": 594,
+      "sha256": "7ea20b88833f001d485fffbeb25b0701a6111abba93efb1667f642cba553337b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-construction-grant-preparation-01/closure.json",
+      "bytes": 235,
+      "sha256": "20824cce06261088d5e1db291932c0381019168f58c13546c5685518c27bea65",
+      "mode": 420
+    }
+  ],
+  "directories": 0,
+  "links": 0
+}

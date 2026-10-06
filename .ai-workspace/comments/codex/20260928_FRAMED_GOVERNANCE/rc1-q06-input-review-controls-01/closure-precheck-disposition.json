@@ -1,0 +1,13 @@
+{
+  "failure": "Root readback comparator initially assumed a trailing newline.",
+  "observed": "Installed a_c join_sections returns the exact double-newline join without an added trailing newline.",
+  "frames": [
+    "Tool producer contract",
+    "Exact byte identity",
+    "Proof readback"
+  ],
+  "owner": "Root assignment readback comparator",
+  "changeClass": "realization_refactor within active Writer reporting",
+  "effectsBeforeFailedCheck": "No effects from that closure attempt; generated request remained unchanged.",
+  "repair": "Compare the actual released join contract; request bytes preserved."
+}

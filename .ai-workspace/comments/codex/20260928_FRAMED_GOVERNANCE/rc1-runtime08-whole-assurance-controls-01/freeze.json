@@ -1,0 +1,51 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RUNTIME08_WHOLE_ASSURANCE_GRANT_01",
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 621,
+      "sha256": "0d52583affc8792f0e1c7f39cd2fad3a8e85878eef59e230df66951490c6054e",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "closure.json",
+      "bytes": 287,
+      "sha256": "3b572f1078a5ebae9cf38d9e770af8eb97b01680b574e8e70d0cae8aa710f97e",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "failed-sections.json",
+      "bytes": 3775,
+      "sha256": "3e25f19eb12be3f7a95a1de009b6abaf1d29b67f5d6072d9900337a2e324ef17",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "failure-triangulation.json",
+      "bytes": 737,
+      "sha256": "7632b5b63a32e19c40442e050ae380b601c16f9a88185b23f20ca930746595df",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "request.txt",
+      "bytes": 3431,
+      "sha256": "c41d0e9481ec6e09eb52e78c0d406be295f536727d1bc4ab3e98e829329c0404",
+      "mode": "0o644",
+      "kind": "file"
+    },
+    {
+      "path": "sections.json",
+      "bytes": 3702,
+      "sha256": "3f7c32dbc61375781021b4e53d742ac78d4cde988d83da7f5c3df6b0cc315e01",
+      "mode": "0o644",
+      "kind": "file"
+    }
+  ],
+  "recordCount": 6,
+  "recordBytes": 12553,
+  "excludedSelf": "freeze.json"
+}

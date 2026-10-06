@@ -1,0 +1,34 @@
+{
+  "status": "CLOSED_COMPONENT_ONLY",
+  "suppliedPremises": [
+    "Only immutable declaration-proof lookup is supplied for the retained reference task; full 504760365-byte resource assembly and semantic adequacy are outside this focused proof.",
+    "Counterfactual negative durable reader correspondence; no admission of altered values.",
+    "Unchanged finite competition fixture supplies lower native admission/CCall projections.",
+    "Prior isolated successful compiler output is reused without a new compiler run."
+  ],
+  "unknown": [
+    "Full resource manifest materialization/semantic adequacy",
+    "Whole successor source compilation/construction",
+    "Independent Source/test assurance",
+    "Affected installed J/F11/AF22 proof and genuine qualification"
+  ],
+  "noEffects": {
+    "sourceMutation": false,
+    "RuntimeAdmissions": 0,
+    "providerCalls": 0,
+    "compileRuns": 0,
+    "installOrBuild": false,
+    "GitOrNetwork": false,
+    "predecessorWrites": false
+  },
+  "cost": {
+    "supervisedElapsedMs": 8063.296083826572,
+    "actualTestElapsedMs": 7934.916833,
+    "maxRSSBytes": 1064861696,
+    "deadlineMs": 180000,
+    "defaultHeap": true,
+    "wait4ReapedMain": true,
+    "processGroupAfterWait": "absent",
+    "unknownChildren": "none established by enumeration; no ps dependence; group probe reports available boundary only"
+  }
+}

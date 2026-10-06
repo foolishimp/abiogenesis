@@ -1,0 +1,806 @@
+{
+  "kind": "external_material_selection_derivation",
+  "schemaVersion": "1",
+  "author": "/root/f11_attribution_inputs",
+  "activation": "T287_F11_MATERIAL_SELECTION_02",
+  "authority": "External construction grant only; no Product-owner authority or independent J",
+  "criterion": {
+    "criterionRef": "criterion://abiogenesis/f9a5a695d15a63600b8898a359133440712fcba166cc44fe44467490e85297bb",
+    "ruleRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad",
+    "surfaceRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/abi-composition-frame-hosts",
+    "evidenceRole": "semantic_assessment"
+  },
+  "originalRule": {
+    "ruleRef": "rule://abiogenesis/self-conformance/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad@2",
+    "version": "2",
+    "sourceRef": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+    "sourceDigest": "sha256:d71d8b530f6efc1b611dcf0079ee03d8838de0cd083fdea5488c1274b8261c4a",
+    "startByte": 14079,
+    "endByte": 14647,
+    "spanDigest": "sha256:0c2a39aa7e6eb3fd25ef889b909f7eea0c22426b3025dedad5bb4d979a6f3260",
+    "governedClaim": "REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL-015B",
+    "applicability": "requires_admitted_judgment",
+    "requiredEvidenceRoles": [
+      "source_fidelity",
+      "applicability",
+      "evaluation_sufficiency"
+    ],
+    "computableRelation": "source_span_integrity",
+    "diagnostic": "semantic_assessment_required"
+  },
+  "parts": [
+    {
+      "part": "overlays bind graph composition",
+      "sources": [
+        "repo://abiogenesis/specification/PRODUCT.md",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts"
+      ]
+    },
+    {
+      "part": "nested graph calls and declared computations share HoG law",
+      "sources": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts"
+      ]
+    },
+    {
+      "part": "frame contracts reuse composition Context contracts and policy, including Context009..012",
+      "sources": [
+        "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/requirement_handoff.ts",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts"
+      ]
+    },
+    {
+      "part": "no separate topology callable kind registry or interpreter",
+      "sources": [
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/declarations.ts",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts"
+      ]
+    },
+    {
+      "part": "frame contract overlay composition and runtime Frame retain distinct meanings",
+      "sources": [
+        "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-FRAME.md",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/evaluation_frame.ts",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+      ]
+    }
+  ],
+  "materialReasons": [
+    {
+      "member": {
+        "ref": "repo://abiogenesis/specification/PRODUCT.md",
+        "path": "contracts/qualification/sources/PRODUCT.md",
+        "digest": "sha256:179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1",
+        "byteCount": 93561
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/PRODUCT.md",
+      "reason": "Product meaning and prohibition of rival topology/runtime.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/specification/PRODUCT.md",
+        "startByte": 31034,
+        "endByte": 31072,
+        "spanDigest": "sha256:e5bb66aaca0a57d0b96aab1082265630082863e408399b0da4135ea7fe202fde",
+        "line": 639
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+        "path": "contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+        "digest": "sha256:4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+        "byteCount": 6687
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+      "reason": "Published qualification role authority and independent semantic assessment obligation.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+        "startByte": 2,
+        "endByte": 24,
+        "spanDigest": "sha256:627564741da4a557543b42014c8861281c6c3f8f30782d8437694ef35f92fcd5",
+        "line": 1
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+        "path": "contracts/qualification/sources/REQ-P-QUAL.md",
+        "digest": "sha256:2a75744b7da3e5aa2ba8722202aa0b437cc834ee6e5670c4a94da5b8db6ee3d2",
+        "byteCount": 35509
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-P-QUAL.md",
+      "reason": "Published qualification role authority, exact basis and full coverage limits.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+        "startByte": 13904,
+        "endByte": 13918,
+        "spanDigest": "sha256:23235158a614ac62aedfd49a0146ecfa12f1370cd251a705e8029ce63f71e7e8",
+        "line": 219
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+        "path": "contracts/qualification/sources/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+        "digest": "sha256:d71d8b530f6efc1b611dcf0079ee03d8838de0cd083fdea5488c1274b8261c4a",
+        "byteCount": 19343
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+      "reason": "Entire governing source; all 015B clause parts and adjacent composition/frame meanings.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+        "startByte": 14081,
+        "endByte": 14122,
+        "spanDigest": "sha256:4b31ddca6546f039e03c0c06a5aa64fe32b1ccf52d1508a2d0e312b8c2a58a62",
+        "line": 277
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+        "path": "contracts/qualification/sources/REQ-L-GTL3-CONTEXT.md",
+        "digest": "sha256:bb5b2bc9a0e0be1153457ca6a85950c57fa5877a5cd9128239d92e266f9322f9",
+        "byteCount": 4137
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-CONTEXT.md",
+      "reason": "Explicit 015B dependency 009..012; complete Context source retains all four clauses.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+        "startByte": 2530,
+        "endByte": 2552,
+        "spanDigest": "sha256:afc1987842478a7090b8444cf8b61e7bf14bae267adacc73a2d51497f9bd27c1",
+        "line": 48
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+        "path": "contracts/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION.md",
+        "digest": "sha256:f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373",
+        "byteCount": 6880
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "reason": "Existing callable and graph template semantics.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+        "startByte": 2,
+        "endByte": 26,
+        "spanDigest": "sha256:94cedb9c26d28b01d46859942bc817d6162cc1bab8bc8db7c373c70415edeb6a",
+        "line": 1
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md",
+        "path": "contracts/qualification/sources/REQ-L-GTL3-C-ALGEBRA.md",
+        "digest": "sha256:4d76d0697ff5932d71a89b915f1cf079480d05429862b8d6a25c5dcb2cf46cf8",
+        "byteCount": 14789
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-L-GTL3-C-ALGEBRA.md",
+      "reason": "Existing nested graph/declaration composition law.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md",
+        "startByte": 2,
+        "endByte": 22,
+        "spanDigest": "sha256:8befaea98b05724797eaa78ac33edf82a566358f48f06bf04ef2f77b95df7f95",
+        "line": 1
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-FRAME.md",
+        "path": "contracts/qualification/sources/REQ-R-ABG3-FRAME.md",
+        "digest": "sha256:36b200e1fc89e4b0a9c3f922e674c854505090fa911558d1b956b2350e287d51",
+        "byteCount": 1422
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/sources/REQ-R-ABG3-FRAME.md",
+      "reason": "ABG runtime Frame meaning and authoritative event/history boundary.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-FRAME.md",
+        "startByte": 522,
+        "endByte": 542,
+        "spanDigest": "sha256:a4802fec99032c21b88e09c115c8ed6a5c8c448e729414b64eb478e557b901fd",
+        "line": 17
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+        "digest": "sha256:f3d38c158fdbe8bf3ffcb85d4d78a4d0c9b7d116fd6d325a3f8950e2094f217d",
+        "byteCount": 18915
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "reason": "Ordinary graph templates, nested workflow calls and recursive Executive publication.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+        "startByte": 6436,
+        "endByte": 6467,
+        "spanDigest": "sha256:fb1ea25692f1e05accc422746df6385dee3b7c95a10c2c514307e45a33f0c0e6",
+        "line": 53
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts",
+        "digest": "sha256:32f44f7aba5d77ab5255f29b2300cafcae202fed3eb27f5ad46ff6dbc2e6fdbd",
+        "byteCount": 5701
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts",
+      "reason": "Declared fixed graph membership and exact selected child input.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/registered_selection.ts",
+        "startByte": 4151,
+        "endByte": 4177,
+        "spanDigest": "sha256:c57264076d043a83a813c86205bbc44c97ece26e54248f8c66b867658984ad2a",
+        "line": 63
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+        "digest": "sha256:c4d683191cdf1fd8e035488c44fe1ad6fa4f38cd878e6d77dfbe5b89f6e16932",
+        "byteCount": 24891
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+      "reason": "Reusable frame/source/context/role bindings on existing Program and GraphFunction declarations.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/stdo_run_environment.ts",
+        "startByte": 17062,
+        "endByte": 17096,
+        "spanDigest": "sha256:67a0d5e28b6a9e2d4d0d0163aba08810b8ab5115fa5d03d34e1c1d78842e11fa",
+        "line": 209
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+        "digest": "sha256:483538b5a79c9c3111adec58f42f111e0232136ba682244431873779829f45b8",
+        "byteCount": 26545
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "reason": "Frame evaluation data, contracts, policies and existing source-grounded prompt relation.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+        "startByte": 10996,
+        "endByte": 11015,
+        "spanDigest": "sha256:19d587c0900db8c8cfaf5560cd8dea96b1b406367de0b8ed4a26337b37934114",
+        "line": 108
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts",
+        "digest": "sha256:38a704fd91f0515586a78e265d81b60e9c8e37723ba4e098d45a53a66bc0f432",
+        "byteCount": 22707
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts",
+      "reason": "Existing governed task/fulfillment contract consumed by default graph work.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts",
+        "startByte": 818,
+        "endByte": 824,
+        "spanDigest": "sha256:d46aee08cc49f6d1eb41800c1d6bab4506c960c700cff0efffe490d7cb1de5e3",
+        "line": 14
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library_identity.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library_identity.ts",
+        "digest": "sha256:3140281c1df90c337cffb65553195698672e23dcc045e1bfceb747db3faff0a2",
+        "byteCount": 281
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/default_library_identity.ts",
+      "reason": "Existing declared governance identity family; no new callable kind is inferred.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library_identity.ts",
+        "startByte": 97,
+        "endByte": 110,
+        "spanDigest": "sha256:ebb8f10550b10ca1e119787acc7b8eebc2b74bda0c088eb3250a8f0dfb06f36d",
+        "line": 2
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/registered_selection_native.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/registered_selection_native.ts",
+        "digest": "sha256:2e4413c1431f1abdd6d19e267364196b0a0986628976829e00aab04da987f280",
+        "byteCount": 5591
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/registered_selection_native.ts",
+      "reason": "Existing probabilistic registered-selection contract realization.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/registered_selection_native.ts",
+        "startByte": 746,
+        "endByte": 752,
+        "spanDigest": "sha256:d46aee08cc49f6d1eb41800c1d6bab4506c960c700cff0efffe490d7cb1de5e3",
+        "line": 12
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+        "digest": "sha256:b0666d79bb20ea0a1d73ac735de81174142d9b8998af4292a82f6bed3f7f6271",
+        "byteCount": 29561
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "reason": "Native admission/provenance correspondence of ordinary default-library computations.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+        "startByte": 18061,
+        "endByte": 18090,
+        "spanDigest": "sha256:d1ab8c71225706394f27e4c00245276dce645a53a014daef9adec5cc7427a2d1",
+        "line": 181
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts",
+        "digest": "sha256:8da7f15f0eba72d5e20fc423610d688bc97058ebd60bd1acea773da6239f8fc3",
+        "byteCount": 4751
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts",
+      "reason": "Admitted source-to-selected-work relation retains existing runtime authority.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/registered_selection_provenance.ts",
+        "startByte": 983,
+        "endByte": 989,
+        "spanDigest": "sha256:d46aee08cc49f6d1eb41800c1d6bab4506c960c700cff0efffe490d7cb1de5e3",
+        "line": 16
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+        "digest": "sha256:6e51be1a4bc71d3fe11d05821b09309a99397a4281da84f34f073473ad21adc7",
+        "byteCount": 6205
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+      "reason": "Published leaf implementations delegate to existing declared owners.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+        "startByte": 1644,
+        "endByte": 1650,
+        "spanDigest": "sha256:d46aee08cc49f6d1eb41800c1d6bab4506c960c700cff0efffe490d7cb1de5e3",
+        "line": 17
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+        "digest": "sha256:a474670f70f5d9e7b8648dc3f0b8144204d836d4b596b707c7f9704038c901c2",
+        "byteCount": 16213
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+      "reason": "Existing Program, graph, callable, Context and contract carrier shapes.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/contracts.ts",
+        "startByte": 417,
+        "endByte": 423,
+        "spanDigest": "sha256:d46aee08cc49f6d1eb41800c1d6bab4506c960c700cff0efffe490d7cb1de5e3",
+        "line": 8
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+        "digest": "sha256:e0e2f272d922e7d8378272f6faeb3020db984d06cd300be14f7d18c7d7494db0",
+        "byteCount": 18426
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+      "reason": "Existing nested graph and computation composition algebra.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/c_algebra.ts",
+        "startByte": 340,
+        "endByte": 348,
+        "spanDigest": "sha256:da7f739f627198465eeab537a6f7a435dc4a0c332f9e4a8462293eb3f4ab7ee0",
+        "line": 12
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/graph_applications.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/graph_applications.ts",
+        "digest": "sha256:bb578aa145aee5f0a43823d0b6271392c5750bd3d53adde4aeb8bb6eb0dc874b",
+        "byteCount": 10055
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/graph_applications.ts",
+      "reason": "Existing selection/recursion application declarations.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/graph_applications.ts",
+        "startByte": 448,
+        "endByte": 478,
+        "spanDigest": "sha256:9bfac5b1178ad1727d9f256fe185f4a404c5e31015bcc850fb6e0b577ea772d6",
+        "line": 12
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/declarations.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/declarations.ts",
+        "digest": "sha256:28f5ffea7ebf7f82ebc51b3bef6406f61d0cbce43a7c0294e1c24a826713f168",
+        "byteCount": 7176
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/declarations.ts",
+      "reason": "Existing module publication constructor and declared topology.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/declarations.ts",
+        "startByte": 474,
+        "endByte": 491,
+        "spanDigest": "sha256:287b0fdc109458b2e1b8485739e0a650a0ede4644ca32e4b7c609e622d946999",
+        "line": 16
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/materialize.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/materialize.ts",
+        "digest": "sha256:d1fa94c4cde7968552e41a6a99ae7b57b7470b4e0c9c4ab65d9bb1e5873e5e59",
+        "byteCount": 9126
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/materialize.ts",
+      "reason": "Existing graph-template materialization, without another executable language.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/materialize.ts",
+        "startByte": 497,
+        "endByte": 503,
+        "spanDigest": "sha256:d46aee08cc49f6d1eb41800c1d6bab4506c960c700cff0efffe490d7cb1de5e3",
+        "line": 16
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/requirement_handoff.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/gtl/requirement_handoff.ts",
+        "digest": "sha256:f383c054260c968bd77a20230ea0f5649934b4d8237b65f6f4b63c02a4196bd1",
+        "byteCount": 15433
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/gtl/requirement_handoff.ts",
+      "reason": "Exact existing Context declaration shape reused by frame bindings.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/requirement_handoff.ts",
+        "startByte": 600,
+        "endByte": 626,
+        "spanDigest": "sha256:1ee5fe573fd32107a516da6611eaf20e646e7462cb9a0da0118f520a75b7cb8a",
+        "line": 12
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+        "digest": "sha256:de5bdeb9a4f7533a54ca200fe28865cb153364e9c2a2e9b41af665f2787cc7c6",
+        "byteCount": 47589
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "reason": "Direct execution consumes original graph and C terms.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+        "startByte": 19035,
+        "endByte": 19051,
+        "spanDigest": "sha256:b541c4110765c37b5432b7dc3ca946bb484bee8078751aac81bf31ba9cd1a618",
+        "line": 572
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/evaluation_frame.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/hog/evaluation_frame.ts",
+        "digest": "sha256:f56611605a9b31a5d24319454a2bca797564f87c7acf12ca3d9e188d9c4a1bbf",
+        "byteCount": 6451
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/hog/evaluation_frame.ts",
+      "reason": "HoG local evaluation/return frames remain distinct from reference-frame evaluation contracts.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/evaluation_frame.ts",
+        "startByte": 1284,
+        "endByte": 1299,
+        "spanDigest": "sha256:1dc18faee49f11d79ab96d0dd52cfa437d7537ca9de0d04099bbba9777d45386",
+        "line": 44
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+        "digest": "sha256:b4f427f00750451ba646375a7dc8dca9cf01f1de118979f81ed3e20e46d17906",
+        "byteCount": 38714
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+      "reason": "Ordinary nested workflow invocation/return path.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/workflow_lifecycle.ts",
+        "startByte": 1768,
+        "endByte": 1774,
+        "spanDigest": "sha256:d46aee08cc49f6d1eb41800c1d6bab4506c960c700cff0efffe490d7cb1de5e3",
+        "line": 56
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+        "digest": "sha256:7fb2656e927ade4159c4dc18eed6d6e4139e48d4791f85177912b7879fb697c2",
+        "byteCount": 31714
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+      "reason": "Ordinary recursive frame/foldback path.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+        "startByte": 1663,
+        "endByte": 1669,
+        "spanDigest": "sha256:d46aee08cc49f6d1eb41800c1d6bab4506c960c700cff0efffe490d7cb1de5e3",
+        "line": 55
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+        "digest": "sha256:ff9613bbe132debaf1121ea3374494f6c91fb3243d81f19784b0195eb0b6d241",
+        "byteCount": 31046
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+      "reason": "Existing ABG graph-call/frame opening owner and admitted runtime Frame identity.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+        "startByte": 9948,
+        "endByte": 9960,
+        "spanDigest": "sha256:bc46759f7d039f213d300d783d52a9dfe8708b78fa1d0fdbd7f5ed3cf8599a9b",
+        "line": 298
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/traversal_transition.ts",
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_transition.ts",
+        "digest": "sha256:91da813b3a661a96784403e01b2e3252963001b98fdf38a14b659188d5304354",
+        "byteCount": 12266
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/abg/traversal_transition.ts",
+      "reason": "Existing native transition/admission owner for graph consequences.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/traversal_transition.ts",
+        "startByte": 642,
+        "endByte": 648,
+        "spanDigest": "sha256:d46aee08cc49f6d1eb41800c1d6bab4506c960c700cff0efffe490d7cb1de5e3",
+        "line": 18
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "digest": "sha256:8f87b9d6c476ed27650c1904bbfdaa3059d7e0c1b8912a74bf9e92b922a88c2b",
+        "byteCount": 42946
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "reason": "Accepted ownership and complete default-library graph composition relation.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "startByte": 1255,
+        "endByte": 1282,
+        "spanDigest": "sha256:82a95655e0195b1cfe6d8100ca873625f91dd962af1f9af0e54c3c0dcae61717",
+        "line": 15
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+        "path": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+        "digest": "sha256:c3bbe783ecb50d08328eec1d861e1586b54332399ac9ddbb93e0b3c7a3cceef8",
+        "byteCount": 13748
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+      "reason": "Accepted fixed-domain selection architecture and excluded hidden planner.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+        "startByte": 1616,
+        "endByte": 1634,
+        "spanDigest": "sha256:7e6e1a54c369e2a7a2f9ee923afb88519c3f24ce3ee847bb5a2613bfacbab6de",
+        "line": 30
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+        "path": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+        "digest": "sha256:10fd6b04c94d57561704ddc69c778c0ef7cdd5e3555638fbe5cc1fae0d15b3b9",
+        "byteCount": 15150
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "reason": "Existing F_P/native binding to declared graph choices.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+        "startByte": 1148,
+        "endByte": 1168,
+        "spanDigest": "sha256:8c6d8e979560fac5e8c9410bae1905f2d441711f0a05a3e3d9a2059886e8d0ad",
+        "line": 20
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "digest": "sha256:26828f12e74aa06e9621344d1c594157668242f8c76a549c8ac0ce50e731d53a",
+        "byteCount": 24123
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "reason": "Development reference-frame meaning and explicit runtime distinctions.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+        "startByte": 7767,
+        "endByte": 7801,
+        "spanDigest": "sha256:17b97f0e6ed4216acde37c257733757bf07e3b46f325787db99b9b83e34898e4",
+        "line": 143
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "digest": "sha256:d1aa2f7836e5b51ba5b3eb32bfb521cb301da8eb70396f7021e517599c53e128",
+        "byteCount": 77554
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "reason": "Concrete positive/negative composition and publication tests as source; no test execution claimed.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "startByte": 5217,
+        "endByte": 5244,
+        "spanDigest": "sha256:16674f4988d1787c04230f2d0a9035e4ca4582791b2001bff2c24dbd5b5d35ef",
+        "line": 58
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs",
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs",
+        "digest": "sha256:201eba94a0abebc65ce94917fb212a461974c6a889a7455e230576787c22516d",
+        "byteCount": 17327
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs",
+      "reason": "Native choice/source-input test obligations as retained source only.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-registered-selection.test.mjs",
+        "startByte": 787,
+        "endByte": 792,
+        "spanDigest": "sha256:882404d181adac7e2b127e556368a1ad4962196fac4dadf977e395ce035ff258",
+        "line": 13
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+        "digest": "sha256:3fe0005bd4a8403bb91bde4e09122cd8f1372d7f85be29d1b48bb863d1aeef7d",
+        "byteCount": 15890
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "reason": "Recursive same-HoG contract and frame/parent tests as retained source only.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+        "startByte": 2344,
+        "endByte": 2349,
+        "spanDigest": "sha256:882404d181adac7e2b127e556368a1ad4962196fac4dadf977e395ce035ff258",
+        "line": 23
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    },
+    {
+      "member": {
+        "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+        "digest": "sha256:b435665a743c7c7a04f0dae6a59070e521fb798c491e506c28cba8201d2c0fc3",
+        "byteCount": 8597
+      },
+      "physicalOrigin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+      "reason": "Actual independent-consumer fixture declaration used by selected proof source.",
+      "reasonSource": {
+        "sourceRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/default-library.mjs",
+        "startByte": 919,
+        "endByte": 945,
+        "spanDigest": "sha256:bc34902882ea6873e5ca005cdb6706bbac2b0cc7fe72aac3e0302a6417be46a8",
+        "line": 12
+      },
+      "wholeBody": true,
+      "originalBytesRetained": true
+    }
+  ],
+  "unprovidedAndUnknown": {
+    "otherMemberResponsibilities": "Complete union and member refs in scope-transform/domain-responsibilities; every unselected group remains unassessed. No representative-example qualification.",
+    "execution": "No actual current execution result is supplied in this source-only preparation; runtime adequacy remains unknown wherever required.",
+    "grouping": "This common declaration/realization responsibility is a proposal requiring independent J. Metadata and source selection do not establish sufficiency.",
+    "nativeBindings": "Current actual basis, declarations, provenance authority, actor independence and finite plan are still required for a genuine assessment."
+  }
+}

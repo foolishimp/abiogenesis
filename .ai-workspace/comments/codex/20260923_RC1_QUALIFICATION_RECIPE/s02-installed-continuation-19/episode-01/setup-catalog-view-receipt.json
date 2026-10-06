@@ -1,0 +1,107 @@
+{
+  "kind": "installed_definition_call_transport_result",
+  "schemaVersion": "5.0.0",
+  "acquisitionKind": "acquired",
+  "receipt": {
+    "kind": "definition_host_receipt",
+    "schemaVersion": "5.0.0",
+    "definitionKey": {
+      "operationId": "abg.operation.catalog.view",
+      "memberKey": "allowlist"
+    },
+    "invocationRef": "invocation://abiogenesis/a9f6dd0fc58e6e2111b2003d459c37a4d00b32cbfa27c72df9c5b2b4ea93f2c1",
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "view": {
+          "ref": "graph-function-catalog-view://abiogenesis/2b16d8071817fabdecdc7056f9448f5e6d163821a24e92b85bf34f1e4ddf5ac3",
+          "digest": "sha256:2b16d8071817fabdecdc7056f9448f5e6d163821a24e92b85bf34f1e4ddf5ac3"
+        },
+        "effectiveHandles": [
+          "catalog://abg/consensus/instruction/reviewer",
+          "catalog://abg/consensus/instruction/submitter",
+          "catalog://abg/consensus/overlay/ruling",
+          "catalog://abg/consensus/policy/round",
+          "catalog://abg/consensus/profile/reviewer",
+          "catalog://abg/consensus/profile/submitter",
+          "catalog://abg/consensus/subject",
+          "graph-function://abg/consensus/fh-escalation-finalizer@5",
+          "graph-function://abg/consensus/fh-escalation@5",
+          "graph-function://abg/consensus/one-surface@5",
+          "graph-function://abg/consensus/reviewer@5",
+          "graph-function://abg/consensus/round@5",
+          "graph-function://abg/consensus/submitter-reviewer-fold@5",
+          "graph-function://abg/consensus/submitter@5",
+          "graph-function://abiogenesis/conformance/bounded-recursion-step@5",
+          "graph-function://abiogenesis/conformance/bounded-recursion@5",
+          "graph-function://abiogenesis/conformance/fan-out-hello-element@5",
+          "graph-function://abiogenesis/conformance/fan-out-hello-reducer@5",
+          "graph-function://abiogenesis/conformance/fan-out-hello@5",
+          "graph-function://abiogenesis/conformance/fd-fp-hello@5",
+          "graph-function://abiogenesis/conformance/fp-fd-compose@5",
+          "graph-function://abiogenesis/conformance/fp-hello@5",
+          "graph-function://abiogenesis/conformance/fp-retry-hello@5",
+          "graph-function://abiogenesis/conformance/hello-compose@5",
+          "graph-function://abiogenesis/conformance/hello-gate-target@5",
+          "graph-function://abiogenesis/conformance/hello-gate@5",
+          "graph-function://abiogenesis/conformance/hello-graph-edge@5",
+          "graph-function://abiogenesis/conformance/hello-graph-normalize@5",
+          "graph-function://abiogenesis/conformance/hello-graph-render@5",
+          "graph-function://abiogenesis/conformance/hello-substitute-inner@5",
+          "graph-function://abiogenesis/conformance/hello-substitute@5",
+          "graph-function://abiogenesis/conformance/hello-workflow@5",
+          "graph-function://abiogenesis/conformance/hello-world@5",
+          "graph-function://abiogenesis/qualification/assess@5",
+          "graph-function://abiogenesis/qualification/exact-candidate@5",
+          "graph-function://abiogenesis/qualification/malformed-gtl-assess@5",
+          "graph-function://abiogenesis/qualification/native-runtime-assess@5",
+          "graph-function://abiogenesis/qualification/ruling-finalize@5",
+          "graph-function://abiogenesis/qualification/ruling@5",
+          "graph-function://abiogenesis/qualification/self-conformance@5",
+          "graph-function://abiogenesis/requirement-handoff@5",
+          "graph-function://abiogenesis/semantic-revision@5",
+          "graph-function://abiogenesis/semantic-stage@5",
+          "graph-function://abiogenesis/worksite/branch-construction/branch-application@5",
+          "graph-function://abiogenesis/worksite/branch-construction/reduce@5",
+          "graph-function://abiogenesis/worksite/branch-construction@5",
+          "graph-function://abiogenesis/worksite/command-execution@5",
+          "graph-function://abiogenesis/worksite/command-forward/execute@5",
+          "graph-function://abiogenesis/worksite/command-forward@5",
+          "graph-function://abiogenesis/worksite/construction/reduce@5",
+          "graph-function://abiogenesis/worksite/construction/vector-application@5",
+          "graph-function://abiogenesis/worksite/construction@5",
+          "graph-function://abiogenesis/worksite/file-parents@5",
+          "graph-function://abiogenesis/worksite/file-replace@5",
+          "graph-function://abiogenesis/worksite/native-command-reacquisition@5",
+          "graph-function://abiogenesis/worksite/native-work/assessment@5",
+          "graph-function://abiogenesis/worksite/native-work@5",
+          "graph-function://abiogenesis/worksite/revision-command-execution@5",
+          "graph-function://developer.example/greeting/identity-then-render@5",
+          "graph-function://developer.example/greeting/mixed-fibres@5",
+          "graph-function://developer.example/greeting/one-surface@5",
+          "graph-function://developer.example/greeting/render@5",
+          "graph-function://developer.example/greeting/span-reentry@5",
+          "graph-function://developer.example/ticket/work@5",
+          "gtl://abg/consensus/submitter-reviewer-rounds",
+          "gtl://abiogenesis/conformance/hello-world/direct-call@5"
+        ],
+        "residuals": []
+      }
+    },
+    "resources": {
+      "kind": "catalog_view_resource_receipt",
+      "schemaVersion": "5.0.0",
+      "disposition": "read_only_unchanged",
+      "catalog": {
+        "ref": "graph-function-catalog://abiogenesis/d0b1d4cc59de95cf16e434b8e59be6b98b9a41e6ee2ab9b958e36a67fed337b6",
+        "digest": "sha256:d0b1d4cc59de95cf16e434b8e59be6b98b9a41e6ee2ab9b958e36a67fed337b6"
+      },
+      "view": {
+        "ref": "graph-function-catalog-view://abiogenesis/2b16d8071817fabdecdc7056f9448f5e6d163821a24e92b85bf34f1e4ddf5ac3",
+        "digest": "sha256:2b16d8071817fabdecdc7056f9448f5e6d163821a24e92b85bf34f1e4ddf5ac3"
+      }
+    },
+    "failure": null
+  }
+}

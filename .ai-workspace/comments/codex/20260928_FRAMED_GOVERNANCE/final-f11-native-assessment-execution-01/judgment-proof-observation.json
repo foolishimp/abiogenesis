@@ -1,0 +1,8 @@
+{
+  "judgmentProduced": false,
+  "actualDisposition": "runtime_failed",
+  "actualStop": {
+    "digest": "sha256:d76f7e0743dcb8b2f88a760fde66d1df6f9bd3598ef49056ba3945b170232b80",
+    "ref": "event://abiogenesis/a3a84a7a6f6d2657fe7f63394254c42d412bc19bde8ce1881019a261bef8719f"
+  }
+}

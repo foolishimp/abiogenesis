@@ -1,0 +1,154 @@
+{
+  "source": [
+    {
+      "path": "code/src/owner_bindings/run_invocation.ts",
+      "sha256": "18ba4565d164c92eb5f2801849cb15f8cd2674b0fe46767981c7f15df62ec804",
+      "bytes": 62652
+    },
+    {
+      "path": "code/src/product/run_operation_contracts.ts",
+      "sha256": "50d61dc0dbccd2959ea0f4e333ae188b52a18aad3399e2bda2f94e6f411c126a",
+      "bytes": 9097
+    },
+    {
+      "path": "code/src/product/invocation.ts",
+      "sha256": "931c3998c103e932215eee4a952e4575db91a20a5e128187054ac62048479c28",
+      "bytes": 53790
+    },
+    {
+      "path": "code/src/product/run_invocation_operation.ts",
+      "sha256": "b1ab9412f844e294e82b7d3e0e683ad36611b23abe2dd5b0293d061519792c8f",
+      "bytes": 27175
+    },
+    {
+      "path": "code/src/product/index.ts",
+      "sha256": "273ddc342f19df1b7013e3e19fb37dbd1cba5e346342f0d9456ae323647b2a23",
+      "bytes": 25105
+    },
+    {
+      "path": "code/src/abg/continuation.ts",
+      "sha256": "d3632e0fc06119e938c9e514d517cb72a40ad66b3771ce10dc1f249b32207acb",
+      "bytes": 84143
+    },
+    {
+      "path": "code/src/abg/fh_continuation_projection.ts",
+      "sha256": "baa540f0d22c6eddfb3a6542f9fbbdf3f3bb754c06fb857563ca36b183ca1a42",
+      "bytes": 46721
+    },
+    {
+      "path": "code/src/abg/invocation_admission.ts",
+      "sha256": "4f47f3084d8079d0dd04989e4aa35c7beeb56ed59cd92d05046b555b8d440cba",
+      "bytes": 65590
+    },
+    {
+      "path": "code/src/abg/invocation_execution_truth.ts",
+      "sha256": "255d91ef891da698148fa7cd0eeebe09c24a4541b7d2b296e74985aec0231343",
+      "bytes": 16269
+    },
+    {
+      "path": "code/src/abg/execution_basis.ts",
+      "sha256": "c690981e21731982b4dabe7c6551d5a73e3c0edac1c3c7f57999d40daa86ac41",
+      "bytes": 122253
+    },
+    {
+      "path": "code/src/abg/open_call.ts",
+      "sha256": "feaac74dad32b3f83e28d420321dce164c2474ed6b9e23bdf649eb7da0ca319d",
+      "bytes": 28777
+    },
+    {
+      "path": "code/src/abg/traversal_cursor.ts",
+      "sha256": "84952e40e6689afac9a1471c92eb3385e60eefa5ce5cf8d305269d2d395d9b90",
+      "bytes": 38350
+    },
+    {
+      "path": "code/src/abg/event_calculus.ts",
+      "sha256": "354dde450eda3c986c25ec4919f2884ef54a13d4bebde8647693a6af97f2ed0e",
+      "bytes": 75468
+    },
+    {
+      "path": "code/src/abg/replay.ts",
+      "sha256": "b65667b8cd6309bce2ebca0492635c088c095e0b9bc66dd1ee2930d91039b879",
+      "bytes": 88348
+    },
+    {
+      "path": "code/src/abg/event_store.ts",
+      "sha256": "8073f5340046a5709cef86c27f2bb51f8e006fb473db4969c5fe7707c4772e99",
+      "bytes": 171106
+    },
+    {
+      "path": "code/src/abg/runtime_failure.ts",
+      "sha256": "0d40af8644685795280b19ea26e7a4baed210abad7c24319957e2db6eb25f994",
+      "bytes": 13253
+    },
+    {
+      "path": "code/src/abg/default_library.ts",
+      "sha256": "1b57d6a434f10027c024d558f01d34c038bb61e62e4dd205f62646ae9a94bc24",
+      "bytes": 28577
+    },
+    {
+      "path": "code/src/abg/c_call.ts",
+      "sha256": "bda88474783e415f8a5e0d08518f14af08a9bd660e582aa2813120a5c543981d",
+      "bytes": 273186
+    },
+    {
+      "path": "code/src/abg/c_call_outcome.ts",
+      "sha256": "49666e39d3d52171b3f385ce9879e0ac2e2f4531de5d04cfb89bb4e664a631e4",
+      "bytes": 67258
+    },
+    {
+      "path": "code/src/abg/project_read_ports.ts",
+      "sha256": "0a115c23c3b82adc423cc3acf7e423c10be35cfe1e56fc4c4ebcab2def2579c5",
+      "bytes": 72431
+    },
+    {
+      "path": "code/src/abg/native_worksite_execution.ts",
+      "sha256": "a5e70f315b6f95599d71e59117735edac425dbc11939ec8eee77ece5b776c466",
+      "bytes": 12998
+    },
+    {
+      "path": "code/src/abg/worksite_input_provenance.ts",
+      "sha256": "8c43a3433a486b7c71c8c3118d2c72f8a339bc50ec188af3b891fa40d8c72e3f",
+      "bytes": 43094
+    },
+    {
+      "path": "code/src/hog/entry.ts",
+      "sha256": "b8678ce530049637dc71eb010483e4910c83d9ce9584c480443c95eb993293f9",
+      "bytes": 15403
+    },
+    {
+      "path": "code/src/hog/parent_rehydration.ts",
+      "sha256": "6c324439dd134b2dac0ca4202b0b622f200bfe5a066838e11533236292c4338a",
+      "bytes": 16115
+    },
+    {
+      "path": "code/src/hog/traversal_contract.ts",
+      "sha256": "5e90e2d628a2e79a7dc19061f9d20500944d75b6346fa1100ccf7acb528b8bc8",
+      "bytes": 5694
+    },
+    {
+      "path": "code/src/hog/graph_execute.ts",
+      "sha256": "b15acbbc0280833b7e7e5f0e367fbc7ebffee4e3ecf503d11253d8bd0f01bb55",
+      "bytes": 46534
+    },
+    {
+      "path": "code/src/hog/workflow_lifecycle.ts",
+      "sha256": "dc5d35bfb88d3d8c1b5fe224d63324477c5478dd0413ec706bc790002657d256",
+      "bytes": 38486
+    },
+    {
+      "path": "code/src/hog/recursion_lifecycle.ts",
+      "sha256": "7fb2656e927ade4159c4dc18eed6d6e4139e48d4791f85177912b7879fb697c2",
+      "bytes": 31714
+    },
+    {
+      "path": "code/src/public/continuation_authority.ts",
+      "sha256": "85368e8cbac3f546d6473c962edaf20873d692a6322b5b243efb714677529966",
+      "bytes": 6387
+    }
+  ],
+  "acceptedHow": {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+    "sha256": "55ecbd1fc8df93bde7b6343394dd023e2da3a58e185fbf0005b5ac6d9d0919f1",
+    "bytes": 16174
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "syntax": "node --check both changed modules and selected preparation caller passed",
+  "focused": {
+    "command": "ODD_GLC_ABI5_SOURCE_BUILD_ROOT=/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript node --test --test-name-pattern=setup native lifetime build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+    "pass": 1,
+    "fail": 0,
+    "durationMs": 285.568625,
+    "cases": [
+      "result successor",
+      "refusal retained",
+      "exception retained"
+    ],
+    "scope": "Actual resource acquisition/borrowing/completion/close/reopen; controlled operation outputs; no Public authority/admission proof",
+    "initialFailures": [
+      "nonexported locator convenience in test/caller selection; corrected with the existing request constructor expression",
+      "nonexported completion convenience in component fixture; fixture uses the actual internal owner, runtime helper uses exported successor/currentness owners only"
+    ]
+  },
+  "sourceNet": {
+    "added": 135,
+    "deleted": 31
+  },
+  "installedPreparation": "not launched; package prerequisite refused"
+}

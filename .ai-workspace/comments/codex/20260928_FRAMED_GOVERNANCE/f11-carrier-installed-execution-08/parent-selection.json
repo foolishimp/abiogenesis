@@ -1,0 +1,8 @@
+{
+  "programRef": "program://abiogenesis-fixture/f11-carrier/parent@5",
+  "graphFunctionRef": "graph-function://abiogenesis-fixture/f11-carrier/parent@5",
+  "childGraphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+  "inputContractRef": "contract://abiogenesis/qualification/assessment-input@5",
+  "historicalFixtureArchiveUnchanged": true,
+  "scope": "prospective ordinary caller selection only; actual catalog/View/closure binding remains a Runtime owner obligation"
+}

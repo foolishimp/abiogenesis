@@ -1,0 +1,5 @@
+# C09 canonical generated reconciliation
+
+Root selects existing-HOW `realization_refactor`: the canonical checkout still consumes C07 generated bodies while frozen C09 contains the accepted shared framework lineage. Product/typed-contract frame requires source/generated/library agreement; Design/build owns derived bodies; identity preserves the frozen C09 candidate; integration/cost selects only the measured nine-file copy. Seven exact preimages and two absences are pinned, including actual current C07 bytes rather than C08 baseline guesses. No new interface/library/schema or rebuild is selected.
+
+The declared generated roster928 is distinct from the physical union929: one exact protected STDO source mirror remains outside the generated role and inside complete physical accounting. This is not a broad extra-file exclusion. Preserve every non-granted body/mode, all dirty Source, candidates, law, accepted evidence and runtime stores. Current notes/tracking outside C09 are not retrospectively qualified.

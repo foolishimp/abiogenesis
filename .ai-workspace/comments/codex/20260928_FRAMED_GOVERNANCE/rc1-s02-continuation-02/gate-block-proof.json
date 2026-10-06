@@ -1,0 +1,124 @@
+{
+  "status": "passed",
+  "case": "gate-block",
+  "sourceFixedExpectedDisposition": "stopped",
+  "input": {
+    "kind": "hello_world_input",
+    "schemaVersion": "5.0.0",
+    "subject": "Blocked"
+  },
+  "expectedOutput": null,
+  "observedDisposition": "blocked",
+  "run": {
+    "digest": "sha256:241bb5ab4414afe3183b7a1c9719ccea6e0c4f926ca6b98bf37e98c2902aba9e",
+    "ref": "run://abiogenesis/5e8b01274d46a540f312ad21dd2c1c0a705a333afe47f1ed83384e0c65706f53"
+  },
+  "graphCall": {
+    "digest": "sha256:2797258db94c489b57323d16096ca279e4796757d26cbc4d699c005b7b457b45",
+    "ref": "graph-call://abiogenesis/c9803885b0dc9e328945d3e45ed0a98192ad26c73e36a526d1e6b1468ecc931b"
+  },
+  "terminalResult": null,
+  "stop": {
+    "digest": "sha256:694d6d481a4d47c64b3efecc73c4f130060f6b88384d58ab6ce8586aee182431",
+    "ref": "event://abiogenesis/b12feee4f4c27629911189c3c82cd2ce14c6dff297731b7e531f88bb58e928b6"
+  },
+  "spines": [
+    {
+      "cCallRef": "c-call:sha256:fe96ebac9c4de50ff6a57a6cfd5b8dc611fff72d0cb2d6b7b6d7384b38d2cca2",
+      "graphFunctionRef": "graph-function://abiogenesis/conformance/hello-gate@5",
+      "locus": "locus://abiogenesis/conformance/hello-gate/evaluator@5",
+      "callClass": "leaf",
+      "attempt": 1,
+      "taskOrdinal": null,
+      "stageRole": "evaluate",
+      "evidenceClass": "deterministic",
+      "resultClass": "success",
+      "judgment": "blocked",
+      "eventRefs": [
+        "event://abiogenesis/40c2513343f9286fe64360940fb9c03a5bdf378fa3b30c506309179ad35adc36",
+        "event://abiogenesis/f18a00842263ef079fc966b6d45d49d879746b76329418715d8642810e0ff975",
+        "event://abiogenesis/cab43ad5a2ee9a6372f24c37ee66e42ad5ca5037d960174fcaa495351e34f421",
+        "event://abiogenesis/082d98a6a9315a547b8654891ef8838dd00850348b15419fd8f387c550403c0f",
+        "event://abiogenesis/a5d24a7381107edd7b14dfe358e70fc5ffcb7e0122871e4cebcb2cdd5bd8f29f"
+      ],
+      "routes": [
+        {
+          "eventId": "event://abiogenesis/71bd19f4a0887d5702de9e891e64db5a5c5b80e6e00e338c47f01c23bd1259cf",
+          "routeRef": "traversal-route://abiogenesis/f55ad4c10fa85beb10b807c419380bba8a7ca355a1065b2f15c83396e9fd5440",
+          "routeKind": "blocked"
+        }
+      ]
+    }
+  ],
+  "eventCount": 29,
+  "eventKinds": [
+    "public_operation_admitted",
+    "invocation_admitted",
+    "implementation_admitted",
+    "basis_admitted",
+    "run_segment_opened",
+    "graph_call_opened",
+    "frame_opened",
+    "runtime_activity_probe_observed",
+    "traversal_cursor_entered",
+    "traversal_route_admitted",
+    "runtime_activity_probe_observed",
+    "c_call_opened",
+    "c_call_fibre_selected",
+    "runtime_activity_probe_observed",
+    "runtime_activity_probe_observed",
+    "runtime_activity_probe_observed",
+    "c_call_evidenced",
+    "runtime_activity_probe_observed",
+    "c_call_result_admitted",
+    "runtime_activity_probe_observed",
+    "runtime_activity_probe_observed",
+    "runtime_activity_probe_observed",
+    "c_call_judged",
+    "runtime_activity_probe_observed",
+    "runtime_activity_probe_observed",
+    "runtime_activity_probe_observed",
+    "traversal_route_admitted",
+    "runtime_activity_probe_observed",
+    "run_stopped"
+  ],
+  "before": {
+    "coordinateDigest": "sha256:c73742b2d3b85a8ed41a6eab6efb701ee212540aa8ed720a9f718e81c6c7356f",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:b0391722927b6fe9fec04893377f4b894229b69f613ea3a6772501b1deade27c",
+    "prefixLength": 3605486,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 464244056
+    }
+  },
+  "after": {
+    "coordinateDigest": "sha256:d3a861856a183035cdb2ec5b8b5268e285ae2b25933f5a22d72ddb56ce7be2d3",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:b5c6e5e037b5a2b55354cfbb17b02076f1c47dd6bc6f574cad2119263a94330d",
+    "prefixLength": 3713698,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 464244056
+    }
+  },
+  "coldResultOutcome": "refusal",
+  "coldResultRefusal": {
+    "code": "not_found",
+    "evidenceRefs": [],
+    "issuePaths": []
+  },
+  "coldReplayStatus": "blocked",
+  "coldReadAgreement": true,
+  "coldReadAppends": 0,
+  "activeLifecycleFluents": [],
+  "providerCalls": 0,
+  "modelCalls": 0,
+  "claim": "Bounded selected C02 native S02 relation; caller proof only, no complete S02/F11/AF22/RC1 claim."
+}

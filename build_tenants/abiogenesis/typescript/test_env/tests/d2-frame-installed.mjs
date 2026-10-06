@@ -263,7 +263,7 @@ test("D2 mechanical installed repair writes two files and snapshots twenty-two",
   const attempt = "01", harnessScratch = join(scratch, "harness");
   const harness = await setupInstalledCliHarness({ after() {} }, packageRoot, {
     candidateBasisSource: "packed_artifact", scratchPath: harnessScratch,
-    rootPublicationKinds: ["hello_world"],
+    rootPublicationKinds: ["worksite_construction"],
   });
   installedHarness = { ...harness, scratch: join(scratch, `attempt-${attempt}`) };
   await mkdir(installedHarness.scratch, { recursive: true });

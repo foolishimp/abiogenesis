@@ -1,0 +1,31 @@
+{
+  "status": "CLOSED",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-source-acceptance-c09-release-01/acceptance.json",
+      "bytes": 3845,
+      "sha256": "b2da513f06c07e2c8606c61488bf27e6a63689ab47a17419382c76cbdd96b275",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-source-acceptance-c09-release-01/activation.json",
+      "bytes": 590,
+      "sha256": "ebf5544ce9b6f3152868ee14c59650a0ffa1229b728bd28843d4fbaf67e6619f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-source-acceptance-c09-release-01/c08-acceptance.json",
+      "bytes": 862,
+      "sha256": "87b2ff6ff6860a1cdd4a4ebc71e8e0304b82d9db9e4ccb89a2d5d1a2ae0a3325",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-source-acceptance-c09-release-01/closure.json",
+      "bytes": 119,
+      "sha256": "21fe56d0a0526f510cde396807a3756ef76f6bbbadef7f7a19d031a22d1a5862",
+      "mode": 420
+    }
+  ],
+  "directories": 0,
+  "links": 0
+}

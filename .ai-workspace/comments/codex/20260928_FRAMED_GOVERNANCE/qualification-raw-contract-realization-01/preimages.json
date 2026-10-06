@@ -1,0 +1,15 @@
+{
+  "source": {
+    "canonical": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+    "retained": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/preimages/self_conformance.ts",
+      "bytes": 18649,
+      "sha256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92",
+      "mode": 420
+    }
+  },
+  "newTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-raw-contract-preimage.test.mjs",
+    "state": "ABSENT"
+  }
+}

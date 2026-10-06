@@ -1,0 +1,196 @@
+{
+  "status": "controls_frozen_before_single_launch",
+  "records": [
+    {
+      "path": "budgets.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 701,
+      "sha256": "200dbe1cf07f45573286762d9bd74e931ecfb1441a4ede6a212eb00966f5784f"
+    },
+    {
+      "path": "config/global.gitconfig",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/global.npmrc",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/system.gitconfig",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/user.npmrc",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "construction-attribution.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2660,
+      "sha256": "842f95d4ec727714de81685982fbe5e568f76bf0eb61f4e7dfd3940d475b13c4"
+    },
+    {
+      "path": "donor-control-deltas.patch",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 17081,
+      "sha256": "ec6b2e540807d2588cc34a10fb60b18bec4e4faf3e557a38a022f64d0e86b9f1"
+    },
+    {
+      "path": "donor-preimages.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2045,
+      "sha256": "30ba4af10eb48efde472fe519309aac9a74bcbc5724e7ff5032e10fae70a1f96"
+    },
+    {
+      "path": "driver.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 10955,
+      "sha256": "c1b2aab1b26778086c9a8cfd20cf016f2dc247d716c57ae1b3c94c9299978409"
+    },
+    {
+      "path": "initial-identity-joins.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1360,
+      "sha256": "477e7e6fb3503ae66e44cd9dde3812fc08a976705b94b98491f6efd9b3828464"
+    },
+    {
+      "path": "launch-once.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2240,
+      "sha256": "fa0bca55a83653cfa6e5016647984dabb0fcb7b8f191aceecf3d07e83fc9d1c5"
+    },
+    {
+      "path": "observe-process.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14861,
+      "sha256": "84fbb92ff9ea64660e9a1502d8834bb73d7054de828e85ada8ccc8591ee0f351"
+    },
+    {
+      "path": "owner-checks.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9469,
+      "sha256": "a0f54b19fc3fdb562b5f4e22f8dd93b94cd79efa1c9939ab271365a6e086a868"
+    },
+    {
+      "path": "owner-source-relations.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 49546,
+      "sha256": "854afbac18e195127aa540b226611a01ef682bb774c4ca25ddbc329d2ede65ac"
+    },
+    {
+      "path": "pre-effect-conservation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1176,
+      "sha256": "3b586b2065b48819bf8453a6d0c389fbf670b4ad9678879261dba30ccbb8d380"
+    },
+    {
+      "path": "preimages/launch-once.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2237,
+      "sha256": "f6e69068f1518565089804f8b169b25a65cf572d6db1608007edf2587d756c8c"
+    },
+    {
+      "path": "preimages/observe-process.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "preimages/ordinary-caller.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14670,
+      "sha256": "fa004e9f812e6214b53294dc38530b857d7527bc3a1a2d64e469d260ac1b4023"
+    },
+    {
+      "path": "preimages/public-support.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9066,
+      "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+    },
+    {
+      "path": "prepare.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 8074,
+      "sha256": "2f79ea9003074225126becb850d6256cdf880a158d4e1df9bda6c289fd236a88"
+    },
+    {
+      "path": "prospective-cases.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1044,
+      "sha256": "2d80decbac0065250e8d75413d2e9999a55712641ebcd927ce55daada1cd0408"
+    },
+    {
+      "path": "public-support.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9066,
+      "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+    },
+    {
+      "path": "resource-plan.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1250,
+      "sha256": "d21017169c869fc1127b6c5c96f619e6844bfcb7886adc68310384b93542a84f"
+    },
+    {
+      "path": "runtime-environment.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1193,
+      "sha256": "b3255cb48914dfd5d8a6dcea6102c81f6d0fcbd98474156c3fc615921d919702"
+    },
+    {
+      "path": "selected-core.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1261,
+      "sha256": "fc659ef56d13a53b7e127e4fdac184f72dca97af4700f76b0567b7d5b765a1f1"
+    },
+    {
+      "path": "worker-activation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2129,
+      "sha256": "21fc844a0e7db621978427e6cc3cdce027ae4e498002d05e00fc874ea7ccf7f2"
+    }
+  ],
+  "nativeCalls": 0,
+  "proof": "Actual nominal/current-value owner preconditions run once in same driver before native calls. No assurance activation."
+}

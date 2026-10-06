@@ -1,0 +1,15 @@
+{
+  "role": "Worker",
+  "activation": "T287_FINAL_QUALIFICATION_INPUTS_06",
+  "continuation": "material_identity_correction",
+  "status": "OPEN",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-material-identity-controls-06/request.txt",
+    "bytes": 3566,
+    "sha256": "85c0fe305e155ae8dbd7e059671f26b418ee772688ef0c793e11677af1fbae81"
+  },
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06",
+  "selectedRepair": "95 physical member ref aliases only, original paths/bytes and governing tuples unchanged",
+  "sourceAuthSufficiency": "unknown",
+  "RuntimeEffects": false
+}

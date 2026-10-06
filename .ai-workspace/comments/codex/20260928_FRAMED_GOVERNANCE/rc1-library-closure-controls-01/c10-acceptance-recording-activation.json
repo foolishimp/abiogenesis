@@ -1,0 +1,28 @@
+{
+  "operation": "T287_C10_CONSTRUCTION_ACCEPTANCE_SETUP_SELECTION_RECORD_01",
+  "actor": "/root",
+  "role": "Writer",
+  "activatedAt": "2026-10-04T05:17:49.662007+00:00",
+  "grant": "Only new C/c10-acceptance-recording-activation.json,c10-construction-review-record.md,c10-construction-acceptance.json,c10-setup-grant.txt,c10-setup-operation-basis.json,c10-acceptance-recording-closure.json; append existing C/return.md; named T287 current fields and one Goals library paragraph. No Source/Code/candidate/store/runtime/Product/Git/sibling effects. Executive decision already CLOSEDGO conjoined.",
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md",
+      "bytes": 19117,
+      "sha256": "414a8347f631dacc46c45521b7eb2553f0ed3fb8cbbf9a188d557d143965aaf9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 492968,
+      "sha256": "6d3fa2c211cb395098ec69424fde69e4e82a2f2e38fba207d1c30f8292f0b164",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "bytes": 67240,
+      "sha256": "d2381b88952b8c83a5e153e8edda5aa3dddd44204087f3d6e790e0b6406221de",
+      "mode": 420
+    }
+  ],
+  "law": "stdo://releases/v2.5.1-rc.2/"
+}

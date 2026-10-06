@@ -123,7 +123,7 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
   ]) {
     const duplicatePublication = structuredClone(publication);
     const contribution = duplicatePublication.contributions.find(
-      (row) => row.handle === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+      (row) => row.handle === gtl.LANGUAGE_TEST_IDS.graphFunctionRef,
     );
     assert.ok(contribution);
     assert.ok(contribution[field].length > 0, `${field} duplicate witness`);
@@ -148,13 +148,13 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
     );
   }
   const program = publication.programs.find(
-    (row) => row.programRef === gtl.HELLO_WORLD_DIRECT_IDS.programRef,
+    (row) => row.programRef === gtl.LANGUAGE_TEST_DIRECT_IDS.programRef,
   );
   const graphFunction = publication.graphFunctions.find(
-    (row) => row.name === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+    (row) => row.name === gtl.LANGUAGE_TEST_IDS.graphFunctionRef,
   );
   const priorProgramValidation = programValidations.find(
-    (row) => row.programRef === gtl.HELLO_WORLD_DIRECT_IDS.programRef,
+    (row) => row.programRef === gtl.LANGUAGE_TEST_DIRECT_IDS.programRef,
   );
   assert.ok(program);
   assert.ok(graphFunction);
@@ -164,7 +164,7 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
   assert.equal(program.publicAssetTargets, undefined);
   const { catalog, view: catalogView } = readinessCatalogView(
     environment,
-    [gtl.HELLO_WORLD_DIRECT_IDS.handle],
+    [gtl.LANGUAGE_TEST_DIRECT_IDS.handle],
   );
   const executionResolution = await product.ProductExecutionResolutionPort.resolve({
     catalog,
@@ -175,7 +175,7 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
     programRef: program.programRef,
     selection: {
       kind: "direct",
-      catalogHandle: gtl.HELLO_WORLD_DIRECT_IDS.handle,
+      catalogHandle: gtl.LANGUAGE_TEST_DIRECT_IDS.handle,
     },
   });
   assert.equal(
@@ -185,23 +185,23 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
   );
   assert.equal(
     executionResolution.selectedCatalogEntry.handle,
-    gtl.HELLO_WORLD_DIRECT_IDS.handle,
+    gtl.LANGUAGE_TEST_DIRECT_IDS.handle,
   );
   assert.equal(executionResolution.resolvedProgramStart, null);
   assert.deepEqual(executionResolution.programInstall, admittedInstall);
   const programValidation = executionResolution.programValidation;
   const selectedRow = product.lookupGraphFunction(
     catalogView,
-    gtl.HELLO_WORLD_DIRECT_IDS.handle,
+    gtl.LANGUAGE_TEST_DIRECT_IDS.handle,
   );
   assert.ok(selectedRow);
   assert.notEqual(selectedRow.handle, selectedRow.definitionRef);
-  const input = gtl.constructHelloWorldInput("World");
+  const input = gtl.constructLanguageTestInput("World");
   const rawInput = requireRawAdmission(
     validator,
     input,
     "invocation_input",
-    gtl.HELLO_WORLD_IDS.inputContractRef,
+    gtl.LANGUAGE_TEST_IDS.inputContractRef,
   );
   const rawRequest = requireRawAdmission(
     validator,
@@ -215,7 +215,7 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
       correlationId: "correlation://t286/r5/run-invoke",
       payload: {
         programRef: program.programRef,
-        catalogHandle: gtl.HELLO_WORLD_DIRECT_IDS.handle,
+        catalogHandle: gtl.LANGUAGE_TEST_DIRECT_IDS.handle,
       },
     },
     "public_operation_request",
@@ -250,7 +250,7 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
     authority,
   );
   assert.equal(invocation.kind, "public_invocation_candidate", JSON.stringify(invocation));
-  assert.equal(invocation.catalogHandle, gtl.HELLO_WORLD_DIRECT_IDS.handle);
+  assert.equal(invocation.catalogHandle, gtl.LANGUAGE_TEST_DIRECT_IDS.handle);
   assert.equal(invocation.selectedDefinitionRef, graphFunction.name);
   assert.equal(invocation.graphFunctionRef, graphFunction.name);
   assert.notEqual(invocation.catalogHandle, invocation.graphFunctionRef);
@@ -363,7 +363,7 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
     validator,
     { kind: "wrong_input", schemaVersion: "5.0.0", subject: "World" },
     "invocation_input",
-    gtl.HELLO_WORLD_IDS.inputContractRef,
+    gtl.LANGUAGE_TEST_IDS.inputContractRef,
   );
   const malformedContractRefusal = abg.admitInvocation(
     store,
@@ -473,13 +473,13 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
   assert.equal(invocationAdmission.disposition, "admitted");
   assert.equal(
     invocationAdmission.programRef,
-    gtl.HELLO_WORLD_DIRECT_IDS.programRef,
+    gtl.LANGUAGE_TEST_DIRECT_IDS.programRef,
   );
   assert.equal(
     invocationAdmission.catalogHandle,
-    gtl.HELLO_WORLD_DIRECT_IDS.handle,
+    gtl.LANGUAGE_TEST_DIRECT_IDS.handle,
   );
-  assert.equal(invocationAdmission.graphFunctionRef, gtl.HELLO_WORLD_IDS.graphFunctionRef);
+  assert.equal(invocationAdmission.graphFunctionRef, gtl.LANGUAGE_TEST_IDS.graphFunctionRef);
   assert.equal(invocationAdmission.selectedDefinitionRef, graphFunction.name);
   assert.equal(
     invocationAdmission.programValidationRef,
@@ -500,8 +500,8 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
   assert.equal("selectedFibreDigest" in invocationAdmission, false);
   assert.equal("selectedPlanRef" in invocationAdmission, false);
   assert.equal("selectedPlanDigest" in invocationAdmission, false);
-  assert.equal(invocationAdmission.inputContractRef, gtl.HELLO_WORLD_IDS.inputContractRef);
-  assert.equal(invocationAdmission.outputContractRef, gtl.HELLO_WORLD_IDS.outputContractRef);
+  assert.equal(invocationAdmission.inputContractRef, gtl.LANGUAGE_TEST_IDS.inputContractRef);
+  assert.equal(invocationAdmission.outputContractRef, gtl.LANGUAGE_TEST_IDS.outputContractRef);
   assert.equal(Object.isFrozen(invocationAdmission), true);
   assert.equal("graph" in invocationAdmission, false);
   assert.equal("executionBasis" in invocationAdmission, false);
@@ -610,13 +610,13 @@ test("R5 start admission resolves one exact Product start before its catalog def
     programValidations,
   } = environment;
   const program = publication.programs.find(
-    (row) => row.programRef === gtl.HELLO_WORLD_IDS.programRef,
+    (row) => row.programRef === gtl.LANGUAGE_TEST_IDS.programRef,
   );
   const graphFunction = publication.graphFunctions.find(
-    (row) => row.name === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+    (row) => row.name === gtl.LANGUAGE_TEST_IDS.graphFunctionRef,
   );
   const priorProgramValidation = programValidations.find(
-    (row) => row.programRef === gtl.HELLO_WORLD_IDS.programRef,
+    (row) => row.programRef === gtl.LANGUAGE_TEST_IDS.programRef,
   );
   assert.ok(program);
   assert.ok(graphFunction);
@@ -625,13 +625,13 @@ test("R5 start admission resolves one exact Product start before its catalog def
   assert.equal(program.starts.length, 1);
   assert.equal(
     program.policies["abg.default_start_ref"],
-    gtl.HELLO_WORLD_IDS.startRef,
+    gtl.LANGUAGE_TEST_IDS.startRef,
   );
   const { catalog, view: catalogView } = readinessCatalogView(
     environment,
     [
-      gtl.HELLO_WORLD_IDS.graphFunctionRef,
-      gtl.HELLO_WORLD_DIRECT_IDS.handle,
+      gtl.LANGUAGE_TEST_IDS.graphFunctionRef,
+      gtl.LANGUAGE_TEST_DIRECT_IDS.handle,
     ],
   );
   assert.equal(catalogView.entries.length, 2);
@@ -641,14 +641,14 @@ test("R5 start admission resolves one exact Product start before its catalog def
     program.programRef,
   );
   assert.equal(canonicalLookup.kind, "graph_function_definition_lookup_exact");
-  assert.equal(canonicalLookup.entry.handle, gtl.HELLO_WORLD_IDS.graphFunctionRef);
+  assert.equal(canonicalLookup.entry.handle, gtl.LANGUAGE_TEST_IDS.graphFunctionRef);
   const directLookup = product.lookupGraphFunctionDefinition(
     catalogView,
     graphFunction.name,
-    gtl.HELLO_WORLD_DIRECT_IDS.programRef,
+    gtl.LANGUAGE_TEST_DIRECT_IDS.programRef,
   );
   assert.equal(directLookup.kind, "graph_function_definition_lookup_exact");
-  assert.equal(directLookup.entry.handle, gtl.HELLO_WORLD_DIRECT_IDS.handle);
+  assert.equal(directLookup.entry.handle, gtl.LANGUAGE_TEST_DIRECT_IDS.handle);
   assert.ok(catalog.readinessBasis);
   const executionResolution = await product.ProductExecutionResolutionPort.resolve({
     catalog,
@@ -680,17 +680,17 @@ test("R5 start admission resolves one exact Product start before its catalog def
   );
   assert.equal(
     executionResolution.selectedCatalogEntry.handle,
-    gtl.HELLO_WORLD_IDS.graphFunctionRef,
+    gtl.LANGUAGE_TEST_IDS.graphFunctionRef,
   );
   assert.deepEqual(executionResolution.programInstall, admittedInstall);
   const start = resolvedStart.start;
-  assert.equal(start.startRef, gtl.HELLO_WORLD_IDS.startRef);
-  const input = gtl.constructHelloWorldInput("World");
+  assert.equal(start.startRef, gtl.LANGUAGE_TEST_IDS.startRef);
+  const input = gtl.constructLanguageTestInput("World");
   const rawInput = requireRawAdmission(
     validator,
     input,
     "invocation_input",
-    gtl.HELLO_WORLD_IDS.inputContractRef,
+    gtl.LANGUAGE_TEST_IDS.inputContractRef,
   );
   const policy = product.constructRootInvocationPolicy(
     workspaceBinding,
@@ -816,5 +816,5 @@ test("R5 start admission resolves one exact Product start before its catalog def
   assert.equal(admission.publicStart.startRef, start.startRef);
   assert.equal(admission.publicStart.graphFunctionRef, start.graphFunctionRef);
   assert.equal(admission.selectedDefinitionRef, start.graphFunctionRef);
-  assert.equal(admission.catalogHandle, gtl.HELLO_WORLD_IDS.graphFunctionRef);
+  assert.equal(admission.catalogHandle, gtl.LANGUAGE_TEST_IDS.graphFunctionRef);
 });

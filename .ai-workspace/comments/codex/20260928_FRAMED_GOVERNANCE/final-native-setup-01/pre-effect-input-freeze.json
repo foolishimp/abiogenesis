@@ -1,0 +1,153 @@
+{
+  "status": "FROZEN_BEFORE_EFFECTS",
+  "records": [
+    {
+      "path": "authored-input-chain.json",
+      "bytes": 2126,
+      "sha256": "35635805c4309defdb7d34776720a4b09886604621331709811272a9f6c33ed1"
+    },
+    {
+      "path": "budgets.json",
+      "bytes": 1019,
+      "sha256": "b1431274571a780b9ad1ae0bcb4337ce99d6f8414fdc61959d0d28ab6665b2d0"
+    },
+    {
+      "path": "config/global.gitconfig",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/global.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/system.gitconfig",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/user.npmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "donor-preimages.json",
+      "bytes": 2501,
+      "sha256": "83aabfd8550566239002e42fe3b7a1fa79fe09f5bb692dec93351ca04fedf8e5"
+    },
+    {
+      "path": "driver.mjs",
+      "bytes": 13936,
+      "sha256": "590ceb00294de7314e577c7828db8b0b34c87f8288f8a20d8a7f63f6258b594f"
+    },
+    {
+      "path": "driver.mjs.patch",
+      "bytes": 10392,
+      "sha256": "22d7fc97ca6951674a12c2d3636f8d6eb40e53454cc9f0fdc43d6a70055b1986"
+    },
+    {
+      "path": "input-joins.json",
+      "bytes": 2066,
+      "sha256": "78735bf1a01b449b52c191417643305107f316d63c3436d42f9d7b3943a752f2"
+    },
+    {
+      "path": "launch-once.py",
+      "bytes": 2047,
+      "sha256": "e8d5210689cd093b6cd1eb1ee0ef3371b953a65a1dfc73f8e248a51ca822c93e"
+    },
+    {
+      "path": "observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "observe-process.py.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "bytes": 14225,
+      "sha256": "0c05f27de926a1b13885653e9d344df1c16e772ce2cf6e23b05420e9244eceea"
+    },
+    {
+      "path": "ordinary-caller.mjs.patch",
+      "bytes": 8511,
+      "sha256": "9523f6ab67c5c5fed07e03c47d93d7d8b225b145cf9eec9234702879356d397b"
+    },
+    {
+      "path": "preflight.mjs",
+      "bytes": 5191,
+      "sha256": "dd70629d0388a927f2df63a83624e928c37637f5df0c615c541ed6d87a9d7ba3"
+    },
+    {
+      "path": "preimages/hello.mjs",
+      "bytes": 1303,
+      "sha256": "926a92414498f31103355a97e8ae4ae8219c24b24205a2a848c3701fba508acb"
+    },
+    {
+      "path": "preimages/observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "preimages/ordinary-caller.mjs",
+      "bytes": 12585,
+      "sha256": "cac62d090b6cdb6f67f315072ca1d14dbeae775e4def233d2b1415a47fad3944"
+    },
+    {
+      "path": "preimages/public-support.mjs",
+      "bytes": 8856,
+      "sha256": "a5396d72d789317daa1a9ffbcfc8e79b7ffe6300b2491d62f317b01db0259b48"
+    },
+    {
+      "path": "preimages/setup.mjs",
+      "bytes": 10407,
+      "sha256": "f0c661542082bd077dc2e2bbea8e197409891b4c837470e6e756fab4e51204a2"
+    },
+    {
+      "path": "prepare.py",
+      "bytes": 7634,
+      "sha256": "6fb5ea7da4c5b7e02cf2687f093ae9ba3d8c891a63f9af412f43e913f0ca9a67"
+    },
+    {
+      "path": "prospective-cases.json",
+      "bytes": 1040,
+      "sha256": "556355e9f3ff648bfa5f921ed39c47c0690d95499e1667df0d4d2f12ab4db2ea"
+    },
+    {
+      "path": "public-support.mjs",
+      "bytes": 8856,
+      "sha256": "a5396d72d789317daa1a9ffbcfc8e79b7ffe6300b2491d62f317b01db0259b48"
+    },
+    {
+      "path": "public-support.mjs.patch",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "resource-plan.json",
+      "bytes": 982,
+      "sha256": "bfc5649e3f358e815d103143095c011c45b2a4071f7595eb62444bdceb75ef2e"
+    },
+    {
+      "path": "runtime-environment.json",
+      "bytes": 1151,
+      "sha256": "466073c70454d5b1d8bdc42ac4316cd34ca6ede2322ea7ecb73f3dbf45a8f098"
+    },
+    {
+      "path": "selected-core.json",
+      "bytes": 1261,
+      "sha256": "b63c5152490e5f7ac570d9f81655620c0e6f5fbaa89d1f0440691c4b0294c86f"
+    },
+    {
+      "path": "worker-activation.json",
+      "bytes": 848,
+      "sha256": "31e29b393552280ff8f014c3a80104241550a6a52d50bc6057c5b9c5dceb9a2a"
+    }
+  ],
+  "nativeOperationCount": 12,
+  "nativeBudgetMs": 6912000,
+  "purePreflightRequired": "nominal verification + full11 semantic publication/context inventory equality; first failure exits before native launch"
+}

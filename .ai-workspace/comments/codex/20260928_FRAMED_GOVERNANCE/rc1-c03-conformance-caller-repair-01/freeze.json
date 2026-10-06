@@ -1,0 +1,30 @@
+{
+  "activation": "T287_C03_CONFORMANCE_CALLER_REPAIR_01",
+  "role": "Worker",
+  "status": "CLOSED",
+  "scope": "pure external shared conformance assertion constructor and multi-frame triage; no runtime invocation",
+  "records": [
+    {
+      "path": "conformance-resources.mjs",
+      "bytes": 673,
+      "sha256": "62d160eba67201396730064290fefb1b9262ea20f7f93fa223b6e6c6867a7251"
+    },
+    {
+      "path": "readiness.json",
+      "bytes": 1364,
+      "sha256": "a327838d08ceaad8d102c837c035a6263ad8464174ae346637ac7603224164dc"
+    },
+    {
+      "path": "source-pins.json",
+      "bytes": 1151,
+      "sha256": "7fddaf8596d3be2d6038ebc4019ae7d5b5a2d62789a495e32cfd4250644752c6"
+    },
+    {
+      "path": "triage.md",
+      "bytes": 3200,
+      "sha256": "160f1bf68691c6864439a9ba8fb7b9fd6a96f21b58c5904d693e7860c14779f2"
+    }
+  ],
+  "helperSha256": "62d160eba67201396730064290fefb1b9262ea20f7f93fa223b6e6c6867a7251",
+  "zeroImplementationOrRuntimeEffectsOutsideNewTerritory": true
+}

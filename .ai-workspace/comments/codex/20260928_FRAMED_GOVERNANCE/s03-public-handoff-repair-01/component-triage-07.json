@@ -1,0 +1,9 @@
+{
+  "failure": "Equal-content copied candidate failed Event Calculus liveness validation before gap selection.",
+  "frames": {
+    "IdentityLifecycle": "Earlier result/evidence/judgment payload identities changed; admitted native activity observations still named their old payload digests.",
+    "OwnerEffect": "runtime_liveness.ts:345-428 conserves observation.sourceDigest == underlying.payloadDigest. The candidate was malformed; no runtime defect established.",
+    "ProductProof": "Repeated equal content needs a conserved component input, not weakening liveness or gap rules. Preserve selected no-action call/route; update only copied synthetic predecessor envelopes and dependent native activity source digests."
+  },
+  "repair": "Update affected copied activity observations to the new source payload digests; hash their payloads. All modifications are independent in-memory proof candidates; no admitted history mutation or runtime claim."
+}

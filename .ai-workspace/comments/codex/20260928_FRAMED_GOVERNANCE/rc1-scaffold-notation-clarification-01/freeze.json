@@ -1,0 +1,37 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_SCAFFOLD_NOTATION_CLARIFICATION_WRITER_01",
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 2249,
+      "sha256": "88fdae3882e0ae895423b9f58cddff81ad7c52e606ae0616e64555064672286f",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 1550,
+      "sha256": "150432868baade5206817a7795c5e8183d97e371e116974a454611628ae171e8",
+      "mode": 420
+    },
+    {
+      "path": "preimages/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24861,
+      "sha256": "617bcd10d0ecc61fa7ee0bd48360ad8bc71420a84e2ca5c00f5572d2ba04f276",
+      "mode": 420
+    },
+    {
+      "path": "preimages/AGENTS.md",
+      "bytes": 11263,
+      "sha256": "849da31e8a2cf4b7bffb714c8a704482827acf978c0d2fa4bb6937028cd238e9",
+      "mode": 420
+    },
+    {
+      "path": "preimages/CLAUDE.md",
+      "bytes": 4890,
+      "sha256": "62882dad35a00e372fb80ae6b55d28f628bcfd92dac8d81d739ca57a0e9be203",
+      "mode": 420
+    }
+  ],
+  "candidateOrRuntimeEffects": 0
+}

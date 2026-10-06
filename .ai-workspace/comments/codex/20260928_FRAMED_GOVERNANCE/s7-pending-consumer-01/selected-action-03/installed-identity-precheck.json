@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "phase": 0,
+      "initialCatalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+      "refreshCatalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+      "selectedActionRef": "action://selected-action/initial@5",
+      "programDigest": "sha256:0f90deaea87ed5a56670566e0fdf881785f4b25deb190978307278bced1b6cb7",
+      "policyDigest": "sha256:c0a8580fe7b264e452e10714d119e84f97332dad04a96871b2c5fb639a5ace5f"
+    },
+    {
+      "phase": 1,
+      "initialCatalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+      "refreshCatalogDigest": "sha256:e1f5e15b5ffe6f87de81d4995230658423bb17cf958b5294a8769cc1ff1d04b7",
+      "selectedActionRef": "action://selected-action/consumer@5",
+      "programDigest": "sha256:0f90deaea87ed5a56670566e0fdf881785f4b25deb190978307278bced1b6cb7",
+      "policyDigest": "sha256:c0a8580fe7b264e452e10714d119e84f97332dad04a96871b2c5fb639a5ace5f"
+    }
+  ],
+  "source": "actual installed executionResolution.program -> fixtureInput -> observation -> initial/refresh basis -> named selection; unchanged policy/work-grant owner",
+  "archiveDigests": [
+    "sha256:b798e20edd4ae1d8649499ad0ccd822d893968fad3a5498948346df45211e043",
+    "sha256:cc5afd1b30f41f32125035c8e075c4e7fe2b6bea65f6e2ad1467385f528e3d00"
+  ]
+}

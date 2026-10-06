@@ -1,0 +1,20 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+    "sha256": "69bc0ba9c39364fe4200420e7e8ca93ec4e707203ef7160ad8c438c73137fdc9",
+    "bytes": 4110,
+    "preimage": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/preimage-event_body_encoding.ts"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+    "sha256": "ee930b198e178c24fc99c96d8a11fedd6f58766beabcb564432fd828a1423fa6",
+    "bytes": 169755,
+    "preimage": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/preimage-event_store.ts"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+    "sha256": "349225c0e1c0f06fb1c2a7970f7f3b366fdce54a5f0297441804a6b865cdb2e7",
+    "bytes": 15391,
+    "preimage": ".ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/body-01/preimage-t287-event-body-encoding.test.mjs"
+  }
+]

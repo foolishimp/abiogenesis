@@ -1,0 +1,35 @@
+{
+  "status": "STOPPED_AT_FIRST_PREPARATION_DISCREPANCY",
+  "operation": "T287_RC1_SUCCESSOR_CONSTRUCTION_08",
+  "recordedAt": "2026-10-02T13:15:51.858229+00:00",
+  "command": [
+    "/Users/jim/.pyenv/versions/3.11.5/bin/python3.11",
+    "final-controls/prepare.py"
+  ],
+  "exitCode": 1,
+  "actualError": "AssertionError",
+  "originatingPredicate": "assert read(D/'activation.json')['activation']=='T287_RC1_SUCCESSOR_CONSTRUCTION_07'",
+  "expectedFromGrant": "T287_RC1_SUCCESSOR_CONSTRUCTION_08",
+  "observedDonorControlLiteral": "T287_RC1_SUCCESSOR_CONSTRUCTION_07",
+  "failedScript": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08/stopped-preparation-01/prepare.py",
+    "bytes": 11660,
+    "sha256": "aee7d87ade60859aefd34587dadb1238ea3ba795bb9f44cca42d2d11c8209630"
+  },
+  "ProductSource": "No mismatch; exact accepted source-cut untouched. Wrong operation literal belongs to Worker-owned adapted control.",
+  "effects": {
+    "newActivationControlsReports": true,
+    "sourceCopy": 0,
+    "lawCopy": 0,
+    "toolCopy": 0,
+    "dependencies": 0,
+    "compile": 0,
+    "pack": 0,
+    "install": 0,
+    "nominalImports": 0,
+    "RuntimeProviderGit": 0
+  },
+  "sourceAndStageAbsent": true,
+  "repairOrRetry": false,
+  "next": "Root triangulation/selection required; exact operation-literal correction only proposed"
+}

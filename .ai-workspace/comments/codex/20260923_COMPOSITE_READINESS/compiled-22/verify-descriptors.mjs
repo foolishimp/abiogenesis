@@ -1,0 +1,16 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {join} from 'node:path';
+import {pathToFileURL} from 'node:url';
+const D=import.meta.dirname,read=async p=>JSON.parse(await readFile(p,'utf8')),core=await read(join(D,'selected-core.json'));
+const pkg=await read(join(core.packageRoot,'package.json'));
+const [p,g]=await Promise.all(['product','gtl'].map(k=>import(pathToFileURL(join(core.packageRoot,pkg.exports['./'+k].import)).href)));
+const pub=g.constructSemanticRevisionModulePublication({...core.basis,productManifestDigest:core.basis.manifestDigest});
+const modulePath=pub.implementationBindings[0].modulePath;assert(pub.implementationBindings.every(b=>b.modulePath===modulePath));
+const ns=await import(pathToFileURL(join(core.packageRoot,modulePath)).href);
+const exported=Object.entries(ns).filter(([,value])=>p.isPackagedLeafImplementationDescriptor(value));
+const fields=['implementationRef','packageName','packageVersion','modulePath','namedSymbol','computeRegime','inputContractRef','outputContractRef','failureContractRef','refusalContractRef'];
+const rows=pub.implementationBindings.map(binding=>{const matches=exported.filter(([,d])=>fields.every(k=>d[k]===binding[k]));assert.equal(matches.length,1,binding.bindingRef);assert.equal(typeof ns[binding.namedSymbol],'function');return {binding,exportName:matches[0][0],descriptorDigest:matches[0][1].descriptorDigest};});
+assert.equal(exported.length,12);
+const r={status:'CLOSED exact installed namespace discovery',core:core.basis,installedModule:{path:join(core.packageRoot,modulePath),digest:await p.sha256File(join(core.packageRoot,modulePath))},rows,scope:'Verified immutable package/member correspondence plus exact existing-loader top-level export predicate. No fabricated ProductInstall, runtime admission, resolver or event acquisition.'};
+await writeFile(join(D,'installed-descriptor-discovery.json'),JSON.stringify(r,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({status:r.status,required:rows.length,offered:exported.length}));

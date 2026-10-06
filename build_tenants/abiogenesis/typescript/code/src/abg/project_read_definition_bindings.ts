@@ -76,12 +76,13 @@ type AnyReadCallable = ExactDefinitionCallable<
   AbgProjectReadResourceReceipt
 >;
 
-type RunReadMemberKey = "run_status" | "run_result" | "run_replay" | "graph_call_result" | "graph_call_replay";
+type RunReadMemberKey = "run_status" | "run_result" | "run_replay" | "run_gaps" | "graph_call_result" | "graph_call_replay";
 
 const RUN_READ_MEMBER_KEYS = Object.freeze([
   "run_status",
   "run_result",
   "run_replay",
+  "run_gaps",
   "graph_call_result",
   "graph_call_replay",
 ] as const);
@@ -431,11 +432,16 @@ function gapProjection(
     basisCoordinate(request).ref,
     basisCoordinate(request).digest,
   );
-  const gaps = coordinateSet(
-    value.gaps,
-    ["gapRef", "routeRef"],
-    ["gapDigest", "routeDigest"],
-  );
+  if (!Array.isArray(value.frontiers)) throw new TypeError("gap projection lacks admitted frontiers");
+  const frontiers = value.frontiers;
+  const gaps = frontiers.map(frontier => {
+    const row = asRecord(frontier);
+    const route = row === null ? null : coordinateFrom(row.route, ["ref"], ["digest"]);
+    if (route === null || (memberKey === "run_gaps" && !sameJson(row!.run, sourceCoordinate(request)))) {
+      throw new TypeError("gap frontier crosses the selected source");
+    }
+    return route;
+  });
   return {
     ...nativeLivenessFields(value),
     kind: memberKey === "workspace_gaps"
@@ -443,6 +449,7 @@ function gapProjection(
       : "run_gap_projection",
     subject: sourceCoordinate(request),
     gaps,
+    frontiers,
     replay,
   };
 }
@@ -521,7 +528,7 @@ function nativeRefusalCode(
     : "projection_basis_mismatch";
 }
 
-function outputFor(
+export function projectAbgReadOutput(
   packet: AnyReadPacket,
   request: Readonly<Record<string, JsonValue>>,
   memberKey: AbgProjectReadMemberKey,
@@ -724,7 +731,7 @@ function runReadKernel(
         const native = truth.project(graphRead ? call.resources.declarationProof : undefined);
         return finishRead(
           resource,
-          outputFor(packet, request, packet.definitionKey.memberKey, native),
+          projectAbgReadOutput(packet, request, packet.definitionKey.memberKey, native),
         );
       } catch (cause) {
         abandonAbgEventResource(resource);
@@ -818,7 +825,7 @@ function binding(
           prefix: resource.entryPrefix,
           targetRef: sourceCoordinate(request).ref,
         });
-        const ownerOutput = outputFor(packet, request, memberKey, native);
+        const ownerOutput = projectAbgReadOutput(packet, request, memberKey, native);
         return deepFreeze({
           ownerOutput,
           resources: {
@@ -874,6 +881,12 @@ const RUN_READ_DEFINITION_BINDINGS = Object.freeze({
   run_replay: bindExactPrefixRead(
     ABG_PROJECT_READ_CONTRACTS.run_replay,
     runReadKernel(ABG_PROJECT_READ_CONTRACTS.run_replay),
+    PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
+    PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
+  ),
+  run_gaps: bindExactPrefixRead(
+    ABG_PROJECT_READ_CONTRACTS.run_gaps,
+    runReadKernel(ABG_PROJECT_READ_CONTRACTS.run_gaps),
     PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,
     PROJECT_READ_RESOURCE_RECEIPT_SCHEMA,
   ),

@@ -1,0 +1,25 @@
+{
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_08",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/source-freeze/toolchain/bin/node",
+    "scripts/generate-product-manifest.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-stage/build_tenants/abiogenesis/typescript",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02",
+  "environment": {
+    "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/source-freeze/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-tmp",
+    "npm_config_cache": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-npm-cache",
+    "npm_config_userconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-npmrc",
+    "npm_config_globalconfig": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-globalnpmrc",
+    "npm_config_prefix": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-08-continued-02/final-npm-prefix",
+    "npm_config_offline": "true",
+    "GIT_OPTIONAL_LOCKS": "0"
+  },
+  "HOMEUnchanged": true,
+  "capMs": 600000,
+  "priorExecutionMs": 10746.945709455758,
+  "maximumMs": 3060000,
+  "scriptsDisabled": false,
+  "defaultHeapUnchanged": true
+}

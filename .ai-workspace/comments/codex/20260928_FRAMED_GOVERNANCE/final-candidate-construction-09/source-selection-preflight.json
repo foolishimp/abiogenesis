@@ -1,0 +1,30 @@
+{
+  "status": "PASSED",
+  "selectedSourceCount": 1111,
+  "priorExisting": 1109,
+  "changed": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+    "build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md"
+  ],
+  "absent": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/result_evidence_lineage_contracts.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-result-evidence-lineage-type-contract.test.mjs"
+  ],
+  "additionsEqualActualAbsencesBeforeAnySourceCopies": true,
+  "allOriginBodyModesVerified": true,
+  "allOriginalAuthorshipKeysPresent": true,
+  "replacementPreimagesExact": true,
+  "operativeSourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/review/freeze.json",
+    "bytes": 1436,
+    "sha256": "b1940da887d6186a215604198e230af1c2bb76913a3d9fa67ba0915b89799efd",
+    "mode": 420
+  },
+  "historicalPreparedReviewPlaceholder": "PENDING_EXACT_CLOSED_INDEPENDENT_REVIEW",
+  "noSourceStageCopiesYet": true
+}

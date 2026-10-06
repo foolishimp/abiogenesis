@@ -1,0 +1,8 @@
+{
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/resources/events/runtime.events.jsonl",
+  "initialHandoff": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/initial-handoff.json",
+  "allNew": false,
+  "runtimeAppendOnly": true,
+  "reuseExistingSetup": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/setup-state.json",
+  "originalN03": "read only; no resource acquisition"
+}

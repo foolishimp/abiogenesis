@@ -1,0 +1,32 @@
+{
+  "operation": "T287_G2_GTL_CORE_REALIZATION_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "CLOSED_STOPPED_FIRST_NONCOMPILER_PAYLOAD_FAILURE",
+  "RootAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_GTL_CORE_REALIZATION_01/controls/design-acceptance.json",
+    "sha256": "9ee4831108e8a355c4bfc96c4ef52c5335a78235f8bfd48076ba3b848b9026fa"
+  },
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/controls/code-grant.txt",
+    "bytes": 7781,
+    "sha256": "4d4845561516e9e4ee2d485baee00328a533e0575a1e1832e940fa7368c41d3b"
+  },
+  "SourcePaths": 15,
+  "SourceCompile": "PASS",
+  "manifest": "FAILED",
+  "packAndFocusedProof": "UNEXECUTED",
+  "firstFailure": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_GTL_CORE_REALIZATION_01/failure.json",
+  "proof": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_GTL_CORE_REALIZATION_01/proof.json",
+  "requiredRemaining": [
+    "Root selection of exact schema-pattern realization correction",
+    "successful current manifest and one offline pack",
+    "actual extracted native/schema/roundtrip/corpus/consumer proof",
+    "independent Source/component assurance",
+    "all still-open drift/other assets/installed F11/AF22/genuine qualification/RC1"
+  ],
+  "knownProcessesClosed": true,
+  "commentsWrites": 0,
+  "SourceEffectsStopped": true,
+  "closedAtUTC": "2026-10-04T06:25:43.840646+00:00"
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06/preimages/execution.md",
+      "bytes": 514307,
+      "sha256": "480eb496293b4663807cdf8adee1d0e37512f6bc1f2949c3de1c3f3aed2c23c6",
+      "mode": 420
+    }
+  },
+  {
+    "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06/preimages/T-287.md",
+      "bytes": 473785,
+      "sha256": "fa1877d8de1bdc7389fb94a3a210536472353fa23ee517fccf8264c253aa4687",
+      "mode": 420
+    }
+  },
+  {
+    "target": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06/preimages/plan.md",
+      "bytes": 8075,
+      "sha256": "4dea382abdb655807e0b09700284a256d113f942f725da75e2a3d5d00d72a9d7",
+      "mode": 420
+    }
+  }
+]

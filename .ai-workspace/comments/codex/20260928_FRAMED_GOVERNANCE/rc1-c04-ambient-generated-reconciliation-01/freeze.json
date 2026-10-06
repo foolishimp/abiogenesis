@@ -1,0 +1,77 @@
+{
+  "status": "CLOSED",
+  "records": [
+    {
+      "path": "changed-cone.json",
+      "bytes": 2006,
+      "sha256": "2cc621e2adba8cb8b8795268941ab9d18618532d7e3b65d49b6bcfbb2551d075",
+      "mode": 420
+    },
+    {
+      "path": "controls/request.txt",
+      "bytes": 4091,
+      "sha256": "88a861ca5642b5e6228948ba8e27dc83b22f1f6dfec31ca4d603e5cf8660dca5",
+      "mode": 420
+    },
+    {
+      "path": "controls/sections.json",
+      "bytes": 4440,
+      "sha256": "e31c11a9673d144aa915a3b6e07c5bf78fd54c04cde1a118f77e6b12f168ba5d",
+      "mode": 420
+    },
+    {
+      "path": "controls/writer-closed.json",
+      "bytes": 343,
+      "sha256": "650f023195fc35dd7a6b731b64941b0def3110d5ca83531461de531cd7f4e23e",
+      "mode": 420
+    },
+    {
+      "path": "postimages/build/code/src/product/declaration_exports.js",
+      "bytes": 108445,
+      "sha256": "38c1bee63429bd808f62a8564c13b83ce32a84a3c1f2e2b8502bee5c80b670b2",
+      "mode": 420
+    },
+    {
+      "path": "postimages/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "79ab564f42589c119cc7bc501c0776c0b325cd4a83b22e118957878d9039a2c6",
+      "mode": 420
+    },
+    {
+      "path": "postimages/product-toolchain-manifest.json",
+      "bytes": 2567514,
+      "sha256": "6862a7882cf7a457c1e79207aa78001e8d1742efbed38a34ddfaee297663e88d",
+      "mode": 420
+    },
+    {
+      "path": "preimages/build/code/src/product/declaration_exports.js",
+      "bytes": 102102,
+      "sha256": "e904eacfb1a433a8989127623baebe8e7ab13c1b661d86212d3ed421d7253074",
+      "mode": 420
+    },
+    {
+      "path": "preimages/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "415e432bf18929b9e7ff34ed2edb89ba5bcfe578bc0a3b2ed953f3cd0326ab88",
+      "mode": 420
+    },
+    {
+      "path": "preimages/product-toolchain-manifest.json",
+      "bytes": 2567514,
+      "sha256": "b4a859c9790c6b790c8126b8fc5965713530fc9210afa4ba1033a807c19a789c",
+      "mode": 420
+    },
+    {
+      "path": "readback.json",
+      "bytes": 169990,
+      "sha256": "5a19e09ac7c2cad3867506d582e97b2a0f8db7db56d9de0e5326715f3fbf4be1",
+      "mode": 420
+    },
+    {
+      "path": "return.md",
+      "bytes": 401,
+      "sha256": "0b97c0867bd1dcb4776f082ef190c290f7494fe8311306c21dc807c0f3a8f63b",
+      "mode": 420
+    }
+  ]
+}

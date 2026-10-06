@@ -1,0 +1,50 @@
+{
+  "classification": "Provider-free independent counterexamples over isolated copies; no UAT or runtime admission claim",
+  "sourceHarnessFreezeSHA256": "a5ecafe61ef6a2c4f9ab247a29dbb8632e263f9d5531bd4f90f78c183f731d61",
+  "tests": [
+    {
+      "id": "post-acquisition-module-drift",
+      "initialAcquisitionAuthenticated": true,
+      "expectedDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+      "consumedDigest": "sha256:5bafbced5cd45c0026c405131b5e720ffe3b3ec9cdeacc254c009a38494e4b77",
+      "alteredModuleExecuted": true,
+      "observed": {
+        "disposition": "indeterminate",
+        "criteria": [],
+        "unresolvedCriteria": [
+          "reviewer-drift"
+        ],
+        "reason": "Reviewer-only altered module was executed"
+      },
+      "freshAcquisitionWouldRefuse": true,
+      "disposition": "falsified",
+      "sourceRoute": "runner.mjs:157 authenticates; runner.mjs:184 imports after native work without reauthentication"
+    },
+    {
+      "id": "post-acquisition-oracle-asset-drift",
+      "initialAcquisitionAuthenticated": true,
+      "expectedDigest": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+      "consumedDigest": "sha256:eb8d12f2bbb40360fb1699da7b4ae25d8d80707c4c555a4ccdb14c6aa97c69c7",
+      "unpinnedCriterionConsumed": {
+        "id": "artifact:reviewer-only-unbound-obligation.md",
+        "disposition": "unmet",
+        "evidenceRefs": [
+          "reviewer-only-unbound-obligation.md"
+        ],
+        "reason": "Original required application/lifecycle artifact must exist; content adequacy is assessed independently by native UAT."
+      },
+      "overallDisposition": "unmet",
+      "freshAcquisitionWouldRefuse": true,
+      "disposition": "falsified",
+      "sourceRoute": "independent-oracle.mjs:135-139 rereads live manifest/oracle rather than authenticated acquisition bytes"
+    },
+    {
+      "id": "accepted-missing-source-revision",
+      "acceptedConfiguration": true,
+      "projectedArchiveSourceCommit": null,
+      "candidateArchiveIdentityStillPresent": "sha256:89e2038de69b384dbef84fe6620d5269e57382971cc8e845f554fc6101084b52",
+      "disposition": "falsified",
+      "sourceRoute": "configuration() accepts omission; runner.mjs:153 records null"
+    }
+  ]
+}

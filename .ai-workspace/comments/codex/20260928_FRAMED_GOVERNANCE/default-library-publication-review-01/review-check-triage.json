@@ -1,0 +1,12 @@
+{
+  "kind": "review_probe_assumption_failure",
+  "originalProbeSha256": "569e10d7fc1304b436aa05e91c6dafc3396ce2c6eca9ae17a652e4e9ade1be7b",
+  "failure": "The review probe expected raw constructor binding order from a modulePublication-canonicalized value. Observed original publication carries were [state,state,observation,task], not [state,task,observation,state].",
+  "sourceOwner": "gtl/canonicalization.ts:137 canonicalizeStringInventory(environmentCarrier, carries)",
+  "origin": "Reviewer assertion conflated raw graph declaration order with canonical publication order. Candidate raw-order named test already passed.",
+  "scope": "Reviewer scratch check only; no Product/source mismatch identified.",
+  "correction": "Check raw constructor stable first-occurrence order separately, then canonical published inventory order and exact original-to-corrected full11 value relation.",
+  "reentry": "local pure review-check correction within granted territory",
+  "subjectEdits": 0,
+  "nativeEffects": 0
+}

@@ -1,0 +1,27 @@
+{
+  "closeHandoff": null,
+  "calls": [
+    {
+      "label": "workspace",
+      "definitionKey": {
+        "operationId": "abg.operation.workspace.create",
+        "memberKey": "clean"
+      },
+      "invocationRef": "invocation://abiogenesis/363456309d71d08bce9006a2f3d9999cc71288cc9a2d1176dc911e38bc287245",
+      "outcomeKind": "result",
+      "elapsedMs": 9482.978125000001,
+      "processFailure": null
+    },
+    {
+      "label": "verify-core",
+      "definitionKey": {
+        "operationId": "abg.operation.product.verify",
+        "memberKey": "verify"
+      },
+      "invocationRef": "invocation://abiogenesis/0e58e13be8b323bfcaa00cce690b074e96823d62b33f196d8f5d8f22c34fd4aa",
+      "outcomeKind": "result",
+      "elapsedMs": 18705.361041000004,
+      "processFailure": null
+    }
+  ]
+}

@@ -1,0 +1,499 @@
+{
+  "status": "CLOSED",
+  "work_result": "partial_native_continuation_first_catalog_semantic_refusal",
+  "activation": "T287_FINAL_NATIVE_SETUP_02",
+  "frozenAt": "2026-09-30T06:33:57.811949+00:00",
+  "return": {
+    "path": "return.md",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 7436,
+    "sha256": "5eaa0dfade59df62cfedbb3665cb5b814a90bcd3389712fbb1fe93dd156f3575"
+  },
+  "records": [
+    {
+      "path": "authored-input-chain.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 3030,
+      "sha256": "e9d892479b3452d9521542518361dd228df049a33b4a2dc3797dea6ff14da1a7"
+    },
+    {
+      "path": "authority-and-escape.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 7240,
+      "sha256": "f03d665a372468614d23319437c2c0a9e04fd8aa6cc5bc6bf013aec21bfa49ab"
+    },
+    {
+      "path": "bootstrap-core.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13240749,
+      "sha256": "3731d3d39214cff2ca3e65a948cded5765400d62dc5f403f7a1917de7b759f72"
+    },
+    {
+      "path": "budgets.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 727,
+      "sha256": "0ac2561a8bed38b1004180a224d597744a494406c8533fab5689a7956c4b4444"
+    },
+    {
+      "path": "caller-source-compatibility.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2726,
+      "sha256": "11f77e9ec3faa545d4459d9c6540263c832a943d2e619fdac2e83f3b5e486805"
+    },
+    {
+      "path": "causal-bindings.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 10128,
+      "sha256": "4711d5e35f0ba8a3e0ec9c7c6b51fc24009ad5c5bb435d03e41b1b86fb9c4ec8"
+    },
+    {
+      "path": "causal-triage.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 16307,
+      "sha256": "c6bdcb27453fe96005e04d23df63a316985fe2d89933afd4469ea7a0522c726d"
+    },
+    {
+      "path": "closed-state.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9603,
+      "sha256": "d1e556428a7aaae5f1480045211706320dd534deca79cc80a452d709fa3a796b"
+    },
+    {
+      "path": "closure-verification.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 452,
+      "sha256": "32472672bf4fad0c02ac53190fc8d85da6f61b2e9af41cdb2f1387891b1c1ff6"
+    },
+    {
+      "path": "config/global.gitconfig",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/global.npmrc",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/system.gitconfig",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "config/user.npmrc",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "conservation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1672,
+      "sha256": "94dafec323bf4a6e282121d99b46d31d092b2688ceab729cdf2f4a837297752f"
+    },
+    {
+      "path": "continue-authorization-0.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13385963,
+      "sha256": "b8349119611a53802ebb5961d94ec50f27c4d54a444900f1ee8894ec61c099fe"
+    },
+    {
+      "path": "continue-catalog-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1870,
+      "sha256": "89eba2a936530c8c3a37b2246c8fcc66eb36b9b784454992b6500a8d75bdbf0c"
+    },
+    {
+      "path": "continue-catalog-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1913,
+      "sha256": "a0cb36a7cc89333b47e1cd64afb87c6cf844f3395b374a88f9f71ce3d3398924"
+    },
+    {
+      "path": "continue-catalog-native-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 665,
+      "sha256": "041b8ae7072006d45e066a2a06645732eadbc96e8962b3a2e50fc639877cc44d"
+    },
+    {
+      "path": "continue-catalog-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1234,
+      "sha256": "c5b41e70bc8da0bca4782570b449c30f2fee2d416af57a05171200de23b0dd1a"
+    },
+    {
+      "path": "continue-catalog-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 581,
+      "sha256": "133c028ccc72653389cfb0867e54834edd58f3beff0faaa738778784100cfc69"
+    },
+    {
+      "path": "continue-catalog-stderr.log",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "continue-catalog-stdout.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5349,
+      "sha256": "187ab184be6f73db51255a4bd073ad6edabee91c0014e31fe2e4ffb30a38cb97"
+    },
+    {
+      "path": "continue-catalog-timing.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 388,
+      "sha256": "2706185d9332db017679dd26f4ee3ea9d71d4235195b9552f0e7d18242b5aa11"
+    },
+    {
+      "path": "continue-catalog.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 28758908,
+      "sha256": "e1b5acadf61a77c09345b74835062388f1091265250a4ee85406dbf337ddaa9c"
+    },
+    {
+      "path": "continue-failure-final-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1240,
+      "sha256": "19dd08c0ba714138932ce81824f7631df6a6a808536f4fcf42de8990dad62ac2"
+    },
+    {
+      "path": "continue-initial-physical.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1234,
+      "sha256": "63bfbb106032d44056d339d85cbd3a58292caa2c9dd73522d2c3d10745a6e1dc"
+    },
+    {
+      "path": "diagnose-frozen-publications.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1423,
+      "sha256": "b17f08cfd9fa2a76c155120e211a21f3ac4a1995b167888ba0c21ee41db38911"
+    },
+    {
+      "path": "driver-process-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 266,
+      "sha256": "db75f700bc68c8f90417f07506e8de769cbffef5fad7baec4ddeda613b28322c"
+    },
+    {
+      "path": "driver-process.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 221,
+      "sha256": "8128abb93c2c804e2fb6c0ebb175b2060bc1f5568f69d216d97d9a3dc1ca0d7a"
+    },
+    {
+      "path": "driver-start.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 137,
+      "sha256": "26f725ca24d79aedf887f81bc817821d2ec03dcf0f5c2fe5e0cc04463687a476"
+    },
+    {
+      "path": "driver.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13021,
+      "sha256": "d9dff36ca9d1ba7394def19225fb510b6706de9056fcc514919664c657d2fdb9"
+    },
+    {
+      "path": "driver.stderr",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 536,
+      "sha256": "cfba44ce12ef89e0aceea8a96db154f2424b7fc1ddec3f1c4b245a3268211313"
+    },
+    {
+      "path": "driver.stdout",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 457,
+      "sha256": "ad92330cc44afa64914de5240d45acbb140946f5ca3e5df858f640bcfe00f2d3"
+    },
+    {
+      "path": "failure-native-prefix.jsonl",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2475382,
+      "sha256": "5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348"
+    },
+    {
+      "path": "failure.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 4138,
+      "sha256": "59bff897ed99e70d7791a05a6cc084079647beea27dc31dfec80c9ad3e85dc39"
+    },
+    {
+      "path": "final-handoff.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1328,
+      "sha256": "f5f94c87a2d7cb174f8423c63ca370317966fabd9fafc4af25b1dc3bdf104fbf"
+    },
+    {
+      "path": "input-joins.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2938,
+      "sha256": "000724bb83f02f02d515093c978f9342a74d7f264435cc2ecd3bc9f2f4643bf4"
+    },
+    {
+      "path": "launch-command.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1662,
+      "sha256": "1185af8a9e32280be08224a1c940c7260e768d087d5068454f8eae97cce249fe"
+    },
+    {
+      "path": "launch-once.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2155,
+      "sha256": "3a374c28be9721094b44831663297db00e21a1400a7d9b46aae53672135d1377"
+    },
+    {
+      "path": "observe-process.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "observe-process.py.patch",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14670,
+      "sha256": "e8b685a9584da270c7718d79b6fd255da98fa8dc1b03727c789ed6d7ccebc3a5"
+    },
+    {
+      "path": "ordinary-caller.mjs.patch",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 11530,
+      "sha256": "8fbe7650ac27332d3d0185bbfc361df03f1a7d72c53262c7eaf8dc1aeb2bc585"
+    },
+    {
+      "path": "pre-effect-catalog-call.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 35341989,
+      "sha256": "29c073248d4cc13d0c90eb584ae06c9ec33b63b0931aa7460cd4c4233a35c492"
+    },
+    {
+      "path": "pre-effect-input-freeze.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 4099,
+      "sha256": "e1b92f2d5c5c501bcd81bfb28b5111fe1918e27639aed06f0d85ef77f48270b9"
+    },
+    {
+      "path": "preimages/driver.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 13936,
+      "sha256": "590ceb00294de7314e577c7828db8b0b34c87f8288f8a20d8a7f63f6258b594f"
+    },
+    {
+      "path": "preimages/observe-process.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "preimages/ordinary-caller.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14225,
+      "sha256": "0c05f27de926a1b13885653e9d344df1c16e772ce2cf6e23b05420e9244eceea"
+    },
+    {
+      "path": "preimages/public-support.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 8856,
+      "sha256": "a5396d72d789317daa1a9ffbcfc8e79b7ffe6300b2491d62f317b01db0259b48"
+    },
+    {
+      "path": "prepare.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 7036,
+      "sha256": "f135abd33a02b7c617c5de4e593e7db87e14094d726a9ac12e02ed74ff80e284"
+    },
+    {
+      "path": "prospective-cases.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1040,
+      "sha256": "556355e9f3ff648bfa5f921ed39c47c0690d95499e1667df0d4d2f12ab4db2ea"
+    },
+    {
+      "path": "public-support.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9066,
+      "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+    },
+    {
+      "path": "public-support.mjs.patch",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 557,
+      "sha256": "11e8a57f86c461f163d0db6a2a3583504b2565699bdd58f1a0839361a009d0e4"
+    },
+    {
+      "path": "pure-preflight.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 20683,
+      "sha256": "dc16c9088a204db1e9b8c40b74b017e9d437a31d5be8b8995e261674b6ac9dcb"
+    },
+    {
+      "path": "pure-refusal-diagnosis.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2483,
+      "sha256": "ceecbe5352b5549de3c851ab8ff5f1dcef2fef7c1188156bbb128a4a367e6be0"
+    },
+    {
+      "path": "quiescence.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1969,
+      "sha256": "469888a64310b8048b7afa97f7433abfd1437480e3b0f2e8fb817acec8af709a"
+    },
+    {
+      "path": "resource-plan.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1814,
+      "sha256": "87e4eaf7d8e0bf4df6e6f4f190d70e314d50a864d037cd5c5bb90289fe50dc5b"
+    },
+    {
+      "path": "return.md",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 7436,
+      "sha256": "5eaa0dfade59df62cfedbb3665cb5b814a90bcd3389712fbb1fe93dd156f3575"
+    },
+    {
+      "path": "runtime-environment.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1151,
+      "sha256": "cc92eaad7942d8c70d4bbfec06d7ce30da6d9574a1c77c6cb08d76abc8bfcdf1"
+    },
+    {
+      "path": "runtime-slots.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 5014,
+      "sha256": "105a38e7971df966b2b8d23d5bb88cd1822a042edcfc1c8e012a697da57d6a51"
+    },
+    {
+      "path": "selected-core.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1261,
+      "sha256": "b63c5152490e5f7ac570d9f81655620c0e6f5fbaa89d1f0440691c4b0294c86f"
+    },
+    {
+      "path": "worker-activation.json",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 1310,
+      "sha256": "106223871e7d6bc72e13da2aae5de0516013a28efc99285d54399cf4f500d67d"
+    }
+  ],
+  "resourceState": {
+    "label": "failure-final",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/events/runtime.events.jsonl",
+    "bytes": 2475382,
+    "sha256": "5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348",
+    "device": 16777230,
+    "inode": 463939156,
+    "stable": true,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/tmp/abiogenesis-event-store-locks-v5/16777230-463939156.lock",
+    "lockPresent": false,
+    "prefix": {
+      "coordinateDigest": "sha256:8b5e835908d985bd675e8e841b912bce468dc7a5547a5fbf475dbac9857a95fe",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348",
+      "prefixLength": 2475382,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 463939156
+      }
+    }
+  },
+  "immutableResourceSnapshot": {
+    "path": "failure-native-prefix.jsonl",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 2475382,
+    "sha256": "5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348"
+  },
+  "genuineHandoff": {
+    "path": "final-handoff.json",
+    "kind": "file",
+    "mode": 420,
+    "bytes": 1328,
+    "sha256": "f5f94c87a2d7cb174f8423c63ca370317966fabd9fafc4af25b1dc3bdf104fbf"
+  },
+  "resourceContinuation": "Original N1 resource retained unchanged; any further reopen or new candidate/install identity requires Root grant. No operation after this cut.",
+  "effects": {
+    "newNativeCalls": 1,
+    "outcome": "refusal",
+    "bytesAppended": 0,
+    "priorSuccessReruns": 0,
+    "HelloRuns": 0,
+    "C2Calls": 0,
+    "providerCalls": 0,
+    "sourceBuildInstallPackageGitEffects": 0
+  },
+  "stop": "Worker CLOSED. Root owns independent review, causal disposition and next grant."
+}

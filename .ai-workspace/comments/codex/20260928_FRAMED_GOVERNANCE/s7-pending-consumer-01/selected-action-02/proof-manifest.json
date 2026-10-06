@@ -1,0 +1,248 @@
+{
+  "activation": "T287_S7_SELECTED_ACTION_INSTALLED_02",
+  "workResult": "incomplete",
+  "createdAt": "2026-09-29T15:35:41.280637+00:00",
+  "members": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/activation.json",
+      "bytes": 435,
+      "sha256": "ed2e719aefe3daf79a22568d984c6c46dd3b621515f5484686bb251f0f3d2915"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/after-status.txt",
+      "bytes": 75863,
+      "sha256": "78bb94a397f77039a3746bb091c87142bea5a1f1364e6b9b1a4d4ac89efe7908"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/archive-installed.json",
+      "bytes": 1092925,
+      "sha256": "2d07a246559d2c83a0089c5870007ba967ec696ce240621e5cc7f29effa480f5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/before-status.txt",
+      "bytes": 75603,
+      "sha256": "f1b4f73bb82390ef98b0baf04531e74dc2121fb6849f7dcc8845bdf7c8e6db37"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/changed-paths.json",
+      "bytes": 694,
+      "sha256": "7ce1bb968813f95453c4ec0369fe7cc420e2652dad671630ab640d370c736427"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/costs.json",
+      "bytes": 2430,
+      "sha256": "71102cd42f5117f120f04ab87b57022dd8d1f3bc4b8c91d4c1939b0ae1973bdb"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/diagnosis.json",
+      "bytes": 5110,
+      "sha256": "197e1580e06407d1bd309f724af439f3ee1f542606219b5bb3e5b26494b8ec6d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/disposable/abi5-root-env-jMFds2/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10369858,
+      "sha256": "b798e20edd4ae1d8649499ad0ccd822d893968fad3a5498948346df45211e043"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/disposable/abi5-root-env-jMFds2/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz",
+      "bytes": 8299,
+      "sha256": "48795adfdb38d8c1b76adac700dd03efa81c24a7750525c68da7225e77f07ad4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/disposable/abi5-root-env-jMFds2/runtime/events.jsonl",
+      "bytes": 2732093,
+      "sha256": "2be0fa60cfdfd1c586d8320a8dce419bc197ba53274afde8e89d60720a87ae24"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/environment.json",
+      "bytes": 38680341,
+      "sha256": "afdf61f2c6357b1e8b989d1155916d0590f92601601358092ea5f4442455341b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/failure.json",
+      "bytes": 1028,
+      "sha256": "f8980382ab1016128a5251169b8897de96d65dbccb74fc9caf7beb4512f50ba2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/fixture-intake.json",
+      "bytes": 886,
+      "sha256": "6914dd9b26ebd7b0af9f89d4d6fba9c4360beddd9b4f9ee74597908bfca876c1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/frame.json",
+      "bytes": 52065,
+      "sha256": "60aa4da243080f722304076f6e87e52a5d73c9b65de5ddf9b4723c3cf4e09436"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/host-failure.json",
+      "bytes": 452,
+      "sha256": "349d975f024ee68c62b5aa06b8c3a44b44baa1281e0d855f8e3c7bbf93927fef"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/host-termination.json",
+      "bytes": 403,
+      "sha256": "bebb2e3cc3dbc0a098829d4a3821cdbe48e44af5ca0096084b4d436640181a48"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/identities.json",
+      "bytes": 32471,
+      "sha256": "9e7f41ed49079c12ddeac4998cf72a43e29b27eef2ee0d11e35e10cdfd816238"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/initial-origin.json",
+      "bytes": 418,
+      "sha256": "8560df74374d383d72d80e8c90cc91d447d35f743da710e691ba6311e5897e79"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/installed-test.log",
+      "bytes": 1290,
+      "sha256": "d6f9f50c8b17641468cd7db1f08cc345abefc3b68d2cf651ec41edcc912fc808"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/opened.json",
+      "bytes": 6369,
+      "sha256": "a4554d78b1bf782fa906ea2a865b31571432016255f315491d91b8323287ccb9"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/oracle.json",
+      "bytes": 1122,
+      "sha256": "e15ce8482ca20418a32baca856d6b0baeaba349bb28f9487f99de384e44cd8cc"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 54810,
+      "sha256": "cd5b939c22d664b1028190cfec954a8d5927b2356fc012cf5d6fe8ba41ecc686"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "bytes": 9813,
+      "sha256": "c188ccf49dd15c0417ee9b7aa3883f45b6390590efe0412daae89615c606d4d6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "bytes": 76308,
+      "sha256": "a6b0b65fc68168de3a7c913f6921035803f453f2eeb4cb314327820811cfd5c8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "bytes": 175024,
+      "sha256": "bc34094fd232bd8438b4bb34dd380e823fbcd0689b67d90d0e8d9854f3a63d91"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "bytes": 47203,
+      "sha256": "b59a6df19c1aa876c5377315152105630ed50d240b7916a9523de73b7cc1723e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "bytes": 90575,
+      "sha256": "02a549dc4598d125ac69b42ebc10193a7854694b80fe5291ab800aff015102ec"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "bytes": 43665,
+      "sha256": "05667f40c7410f80fcbac902860f148971562208fec5757af4d5aba8c1a84cde"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "bytes": 64205,
+      "sha256": "5e781d63c47024abe1053592edb74c411b234f525978e967c6900e535e68a714"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 81816,
+      "sha256": "ee13568ec2193ea7cd7c89bd275eab63f2ee16e8dbca89b1291e462a30758546"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 28096,
+      "sha256": "683b2e179b56b19826774f0bfbf14086e716c4413cfded3fdf3bacaa07e26100"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "0c0550535dfd2143518178d6505162b8e6574351674bbd8e11fcdb61f63ea792"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages/build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 150149,
+      "sha256": "9858e5dbffe6065a450dd9665365939707f0b4276655d77dd8bc67a624020a37"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages/build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "bytes": 21411,
+      "sha256": "b7bae0ca0810fab82cbc2dcd1741f765a452f8914fe539306ddeeba2afbc1b90"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2559987,
+      "sha256": "79fd5431dedf123ef49b8905be2638cf85da373d71e6a9c4483cf7e83545ba12"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preimages.json",
+      "bytes": 3342,
+      "sha256": "9e03bf13dab2514fb95f15c24f86971509634099fba29bbcc8d60cc888286895"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/preservation-checks.json",
+      "bytes": 7788,
+      "sha256": "26b946c8dcb08a0ef20caa0052a76b2ae3d59c2447f2317e4429a978d0046e98"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/request-sections.json",
+      "bytes": 9776,
+      "sha256": "ab88fccc9686c1bec05bf187c0390dc8c35e5528f76e7e5371cf2734d47a6fd4"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/request.txt",
+      "bytes": 9495,
+      "sha256": "2bf788a01d9838d669a7a6ff143dd919bc1b1709cb4fbbe129da574954359604"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/return.md",
+      "bytes": 6794,
+      "sha256": "b877b9c0577aecf6e303807a06886e23b4447f85e78bd72bb0114a397d220ebe"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/setup.json",
+      "bytes": 2071,
+      "sha256": "63d51f1b7933987dfd37d12c65c5a05f6fb83d859d4f8865e2cd8c8c3492e47a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/source-generated.json",
+      "bytes": 10348,
+      "sha256": "4a74efb579bf8e4d2900e3692b30b73199ca247b64e87b7bea4691e8f4cda3cd"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/subject/build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs",
+      "bytes": 16167,
+      "sha256": "0f7d0ce0f4bd068648c680f5d8065096e8a6100af67ad3034b40fca8af4f65a1"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/subject/build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs",
+      "bytes": 4666,
+      "sha256": "bcb330810b9095a0d1b01e133126f3919342b7b2e1834a43f41242a62b99acf6"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/subject/build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "bytes": 12214,
+      "sha256": "ffd7832f8440f85c23bd88847ef65b0ee8886e2078e3fb880e3d53fdf6b20617"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/unexpected-completion.json",
+      "bytes": 53242,
+      "sha256": "636a11c8ea7def285f3bf592cd96ade4a39a9c36c2e697020cf4f0075161beae"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/unexpected-events.json",
+      "bytes": 4260894,
+      "sha256": "b2eb1f7e56876b857a48d655e2028460e3829238f829397a3f13237bb5412b86"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-02/unexpected-handoff.json",
+      "bytes": 1398,
+      "sha256": "b90693653b3a78ccbfb3c1a4a4308e3e98a60f5af0820630db28c252490a2d73"
+    }
+  ],
+  "excludedDerivedTrees": "Bootstrap/install copies are reconstructible from frozen archives; every regular archive member was matched against installed bytes in archive-installed.json. Retain actual installed roots until Executive disposition."
+}

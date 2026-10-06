@@ -1,0 +1,11 @@
+{
+  "activation": "T287_G1_G3_C10_CONSTRUCTION_01",
+  "actor": "/root/rc1_c03_install_review",
+  "role": "Worker",
+  "request": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/controls/request.txt",
+  "requestSHA256": "7f254642a603b1f90e7ce2a992f11c60bf84119a845a42f10687171a07d07a86",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10",
+  "sourceRepair": false,
+  "runtimeModelProviderNetworkGitEffects": false,
+  "physicalCandidateQualificationPublication": false
+}

@@ -1,0 +1,55 @@
+{
+  "activation": "T287_UAT_INSTALLED_IDENTITY_FINAL_REVIEW_04",
+  "role": "Independent Reviewer",
+  "status": "STOPPED",
+  "verdict": "GO_executable_test_setup_only",
+  "frameResult": "satisfied",
+  "sourceHEAD": "55a8a452141caf180ea6cee6365d2a1bfb9da34e",
+  "candidateFreezeSHA256": "22c8e8e3e144eee5bcf5eedfac47703829ca459f3c9c98a8a82643a219cf6382",
+  "workerReturnSHA256": "34ae388e0fb2654e68dfac15fa98b4990feb3eb9f6b8973d7b9d96ac0f135fb4",
+  "allFrozenPinsMatch": true,
+  "verifiedCandidateMemberCount": 35,
+  "changedSourceCount": 3,
+  "independentControls": 10,
+  "reusedSnapshotControls": 14,
+  "fixtureCaseCount": 7,
+  "closedFindings": [
+    "HARNESS-01",
+    "HARNESS-02",
+    "HARNESS-03"
+  ],
+  "retainedClaims": {
+    "cleanPublicPreparation": "same immutable candidate and Public join; prepared only; no Run/C_Call",
+    "physicalInstalledOwner": "actual controlled tiny-copy mutation discriminator reused, not an admitted Run",
+    "liveNativeRoute": "unexecuted; no UAT credit",
+    "fullDataMapperApplication": "non-green until genuine admitted original baseline/mutant/restoration episodes and full outcome proof",
+    "identicalLegacy28StageTraversal": "unproved",
+    "qualificationAndRelease": "no credit"
+  },
+  "subjectDigest": "sha256:5731c347deb3aa696b737bf23a5322894e7b0d390abe60010cb85a6bc82e4b9f",
+  "digestSerialization": "SHA256 of UTF8 JSON.stringify(path-sorted members), no trailing newline",
+  "members": [
+    {
+      "path": "checks.json",
+      "byteCount": 15914,
+      "digest": "sha256:86788531275c2d068aa0bddc3604f45e905fe23169724a3f77d08c51c7cf294e"
+    },
+    {
+      "path": "checks.mjs",
+      "byteCount": 12881,
+      "digest": "sha256:7e0dead46dbe889a6960625b7eb921d66d365a5ad81630a0da0113b3e8ca15bd"
+    },
+    {
+      "path": "return.md",
+      "byteCount": 6807,
+      "digest": "sha256:633cbdc4672ced8ba2560d2549aa3ee1377bd0454f6c777245a843acfdd842ee"
+    }
+  ],
+  "providerDispatched": false,
+  "paidExecution": false,
+  "nativeRunExecuted": false,
+  "applicationUATPass": false,
+  "candidateMutated": false,
+  "reinstallation": false,
+  "consumingAuthority": "Root Executive"
+}

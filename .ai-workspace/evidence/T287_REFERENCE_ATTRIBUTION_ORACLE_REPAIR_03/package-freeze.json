@@ -1,0 +1,92 @@
+{
+  "status": "FROZEN_PRIVATE_SUCCESSOR",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10644849,
+    "sha256": "89b3dfde55e46c4e269b85ecf1671807fd10cac0371313220f9a03a078537e8a"
+  },
+  "packageName": "@abiogenesis/typescript-tenant",
+  "version": "5.0.0-rc.1",
+  "privateProspectiveOnly": true,
+  "previousArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10661096,
+    "sha256": "c54721805a8adb73c3fa74ee8c3c04126dc5bd7ad2da542967b9292c6a4943e5"
+  },
+  "previousUnchanged": true,
+  "sourceCorrespondence": [
+    {
+      "canonicalSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+        "bytes": 82296,
+        "sha256": "9b6b1ec6e0489455fb3aeadc3ebcbaf93459cf5a0cb65db13215c683a3e996e8"
+      },
+      "frozenCompiledSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/qualification_proof.js",
+        "bytes": 78210,
+        "sha256": "8d36fdd2f8ba8dfc0a6f8b7b9f1dd92cd5eae323f21e1566ece97e85a8e49346"
+      }
+    },
+    {
+      "canonicalSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+        "bytes": 63484,
+        "sha256": "8f92906d0fd7e2ecc36fbfbe0795bd582f561448d0ffd4a0bc4ab4bfecec099c"
+      },
+      "frozenCompiledSource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification.js",
+        "bytes": 61501,
+        "sha256": "2bb6022aa53fe83f1f6481ff7ae20391669351955120428af5ce5f70534bfc9e"
+      }
+    }
+  ],
+  "compileReuse": {
+    "status": "verified_reuse",
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_REPAIR_01/compile.json",
+      "sha256": "8cf0dfd777cc9ec75fc436e485fe79f7960e6047d1ede4455c12909ca258c9fc"
+    },
+    "frozenStageInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_FIXTURE_REPAIR_02/stage-inventory.json",
+      "sha256": "919165eaa56e402a75b278596060c1ac91102ca0b649f0d4e43d97582787ca97"
+    },
+    "verifiedFiles": 5812,
+    "verifiedLogicalBytes": 104147687,
+    "filesystemCopyOnWrite": true,
+    "noHardLinks": true,
+    "recompiled": false,
+    "onlyChangedClonedFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "elapsedMs": 796.3900830000057
+  },
+  "members": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/package-members.json",
+    "bytes": 1026527,
+    "sha256": "bd577788219f7cc8ea5deac1d7e164c8f5bda8170fc7fae804bbee8e2f3b4b29"
+  },
+  "delta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/package-delta.json",
+    "bytes": 2962,
+    "sha256": "b5d63d115ccb7cb48eea8fce6c910041433233ce9d2b39585763237cac41bbfa"
+  },
+  "changedPaths": [
+    "build/code/src/abg/qualification_proof.js",
+    "build/code/src/validator/qualification.d.ts",
+    "build/code/src/validator/qualification.js",
+    "contracts/capabilities/capability-definition-graph.json",
+    "node_modules/fast-check/CHANGELOG.md",
+    "node_modules/pure-rand/CHANGELOG.md",
+    "product-toolchain-manifest.json"
+  ],
+  "memberCount": 5281,
+  "logicalBytes": 70679388,
+  "noSymlinksOrHardlinks": true,
+  "manifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+    "bytes": 3211548,
+    "sha256": "60713c9550780b6bb513d21da458f8bbd9b7c7e7ec6b71154f255df41a161abd"
+  },
+  "productContentDigest": "sha256:f708348c97cd4deb281b020c3b699be0f3d32335e55622890a0d26ce7968c2e8",
+  "contractCatalogDigest": "sha256:fa438b4a67109a89595b5cbc75705dcb4f1803c579bbd3bb532ed7ed164c4162",
+  "capabilityGraphDigest": "sha256:7366b8cea3fd998fe38bed5436b47ef45e5ebee4f40e27ae28d224411d4140a5",
+  "noRuntimeOrReleaseClaims": true
+}

@@ -2,6 +2,9 @@ import { constructDefaultGovernanceLibraryModulePublication, DEFAULT_LIBRARY_CON
 import { DEFAULT_LIBRARY_POLICY } from "../build/code/src/product/default_library.js";
 import { NATIVE_SEMANTIC_ASSESSMENT_CONTRACT, NATIVE_SEMANTIC_ASSESSMENT_SCHEMA_TEXT } from "../build/code/src/product/semantic_job.js";
 import { constructSelfConformanceAssetRows } from "../build/code/src/product/public_contract_publication.js";
+import * as v from "valibot";
+import { GTL_SERIALIZATION_SCHEMA_DEFINITIONS, GTL_LANGUAGE_CONFORMANCE_CORPUS_SCHEMA } from "../build/code/src/gtl/serialization_contracts.js";
+import { GTL_PROGRAM_DIAGNOSTIC_ID_VALUES, constructGtlProgramDiagnosticId } from "../build/code/src/validator/validation.js";
 import { generateQualificationAssets, qualificationSchema } from "./generate-qualification-rule-catalog.mjs";
 import { SELF_CONFORMANCE_INPUT_SCHEMA, SELF_CONFORMANCE_RESULT_SCHEMA, EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, QUALIFICATION_LAW_BASIS_SCHEMA, TENANT_CONFORMANCE_MANIFEST_SCHEMA, QUALIFICATION_RULE_CATALOG_SCHEMA } from "../build/code/src/validator/self_conformance_contracts.js";
 import {
@@ -54,7 +57,6 @@ import {
 } from "../build/code/src/gtl/consensus_schema.js";
 import {
   constructConsensusModulePublication,
-  constructHelloWorldModulePublication,
   constructWorksiteConstructionModulePublication,
   constructWorksiteCommandExecutionModulePublication,
   WORKSITE_COMMAND_EXECUTION_CONTEXT_INVENTORY,
@@ -181,6 +183,39 @@ function nestedProjectedSchema(schema) {
   const { $schema: _schema, ...projection } = projectStrictJsonSchema(schema);
   return projection;
 }
+const gtlSchemaPath = "contracts/schemas/gtl-serialization.schema.json";
+const gtlFamilyProjection = projectStrictJsonSchema(v.strictObject({
+  ...GTL_SERIALIZATION_SCHEMA_DEFINITIONS, GtlLanguageConformanceCorpus: GTL_LANGUAGE_CONFORMANCE_CORPUS_SCHEMA,
+}));
+const gtlSchemaDocument = {
+  $schema: gtlFamilyProjection.$schema,
+  $id: "schema://abiogenesis/gtl/serialization@5",
+  $defs: { ...gtlFamilyProjection.$defs, ...gtlFamilyProjection.properties },
+};
+const gtlSchemaBytes = Buffer.from(canonicalJson(gtlSchemaDocument) + "\n");
+const gtlSchemaDigest = sha256Bytes(gtlSchemaBytes);
+await writeFile(join(root, gtlSchemaPath), gtlSchemaBytes);
+const gtlDiagnosticVocabularyPath = "contracts/vocabularies/gtl-program-diagnostic-id.json";
+const gtlDiagnosticVocabularyBytes = Buffer.from(canonicalJson(closedVocabulary(
+  "gtl-program-diagnostic-id", GTL_PROGRAM_DIAGNOSTIC_ID_VALUES,
+)) + "\n");
+const gtlDiagnosticVocabularyDigest = sha256Bytes(gtlDiagnosticVocabularyBytes);
+await writeFile(join(root, gtlDiagnosticVocabularyPath), gtlDiagnosticVocabularyBytes);
+const gtlCorpusPath = "contracts/conformance/gtl-language-conformance-corpus.json";
+const gtlCorpus = { ...JSON.parse(await readFile(join(root, gtlCorpusPath), "utf8")),
+  schema: { path: gtlSchemaPath, contentDigest: gtlSchemaDigest, definitionRef: "#/$defs/GtlLanguageConformanceCorpus" },
+};
+v.parse(GTL_LANGUAGE_CONFORMANCE_CORPUS_SCHEMA, gtlCorpus);
+if (gtlCorpus.kind !== "gtl_language_conformance_corpus" || gtlCorpus.schemaVersion !== "5.0.0" ||
+    gtlCorpus.diagnosticVocabularyContractRef !== "abg.vocabulary.gtl-program-diagnostic-id")
+  throw new Error("GTL corpus differs from its canonical current asset identity");
+for (const program of gtlCorpus.programs) {
+  for (const id of [...program.expectedDiagnosticIds, ...program.mutations.flatMap(row => row.expectedDiagnosticIds)])
+    constructGtlProgramDiagnosticId(id);
+}
+const gtlCorpusBytes = Buffer.from(canonicalJson(gtlCorpus) + "\n");
+const gtlCorpusDigest = sha256Bytes(gtlCorpusBytes);
+await writeFile(join(root, gtlCorpusPath), gtlCorpusBytes);
 catalogSchema.$defs.PublicCatalogBindingAttempt = nestedProjectedSchema(
   PUBLIC_CATALOG_BINDING_CONTRACTS.attempt,
 );
@@ -595,6 +630,59 @@ const consensusVocabularyRows = [
 }));
 
 const extantRows = [
+  ...[
+    ["abg.schema.gtl-graph-function", "GraphFunction", "./gtl/m01", "GTL_GRAPH_FUNCTION_SERIALIZATION_API"],
+    ["abg.schema.gtl-module", "ModulePublication", "./gtl/m02", "GTL_MODULE_SERIALIZATION_API"],
+    ["abg.schema.gtl-c-program", "CProgramSyntax", "./gtl/m01", "GTL_C_PROGRAM_SERIALIZATION_API"],
+    ["abg.schema.gtl-program-conformance-input", "GtlProgramConformanceInput", "./abg/m03", "GTL_PROGRAM_CONFORMANCE_INPUT_API"],
+  ].map(([contractId, definition, packageExportPath, namedSymbol]) => ({
+    contractId, contractVersion: "5.0.0", contractDigest: gtlSchemaDigest, contractKind: "serialized_native_contract", owningProduct: productId,
+    requirementAuthorityRefs: ["specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-007A"],
+    capabilityIdentities: capabilityRefsForContract(contractId),
+    assetLocator: { path: gtlSchemaPath, mediaType: "application/schema+json", schemaVersion: "5.0.0",
+      contentDigest: gtlSchemaDigest, definitionRef: `#/$defs/${definition}` },
+    nativeTypedLocator: nativeTypedLocator(nativeInventoryFor(packageExportPath), namedSymbol),
+  })),
+  {
+    contractId: "abg.vocabulary.gtl-program-diagnostic-id", contractVersion: "5.0.0", contractDigest: gtlDiagnosticVocabularyDigest,
+    contractKind: "serialized_native_contract", owningProduct: productId,
+    requirementAuthorityRefs: ["specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-007"],
+    capabilityIdentities: capabilityRefsForContract("abg.vocabulary.gtl-program-diagnostic-id"),
+    assetLocator: { path: gtlDiagnosticVocabularyPath, mediaType: "application/json", schemaVersion: "5.0.0", contentDigest: gtlDiagnosticVocabularyDigest },
+    nativeTypedLocator: nativeTypedLocator(nativeInventoryFor("./abg/m03"), "GTL_PROGRAM_DIAGNOSTIC_ID_VALUES"),
+  },
+  {
+    contractId: "abg.asset.gtl.language-conformance-corpus", contractVersion: "5.0.0", contractDigest: gtlCorpusDigest,
+    contractKind: "schema_asset", owningProduct: productId,
+    requirementAuthorityRefs: ["specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-007A",
+      "specification/requirements/gtl/REQ-L-GTL3-LAWS.md#REQ-L-GTL3-LAWS-027"],
+    capabilityIdentities: capabilityRefsForContract("abg.asset.gtl.language-conformance-corpus"),
+    assetLocator: { path: gtlCorpusPath, mediaType: "application/json", schemaVersion: "5.0.0", contentDigest: gtlCorpusDigest },
+  },
+  ...[
+    ["abg.contract.gtl.m01", "./gtl/m01", "C"],
+    ["abg.contract.gtl.m02", "./gtl/m02", "modulePublication"],
+    ["abg.contract.gtl.requirements", "./gtl/requirements", "REQUIREMENT_HANDOFF_DECLARATION_SCHEMA"],
+    ["abg.contract.abg.requirements", "./abg/requirements", "authenticateRequirementHandoffBasis"],
+    ["abg.contract.abg.m03", "./abg/m03", "RuntimeEvent"],
+    ["abg.contract.abg.transport", "./abg/m03/transport", "WorkerTransportContract"],
+    ["abg.contract.app.m04", "./app/m04", "PUBLIC_FUNCTION_DEFINITION_FAMILY"],
+    ["abg.contract.qualification.m05", "./qualification/m05", "QualificationLawBasis"],
+  ].map(([contractId, packageExportPath, namedSymbol]) => {
+    const inventory = nativeInventoryFor(packageExportPath);
+    return {
+      contractId,
+      contractVersion: "5.0.0",
+      contractDigest: nativeContractDigest(inventory),
+      contractKind: "native_typed_group",
+      owningProduct: productId,
+      requirementAuthorityRefs: [
+        "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-005",
+      ],
+      capabilityIdentities: capabilityRefsForContract(contractId),
+      nativeTypedLocator: nativeTypedLocator(inventory, namedSymbol),
+    };
+  }),
   ...constructSelfConformanceAssetRows({ productId, schemaBytes: selfConformanceSchemaBytes, catalogBytes: selfConformanceCatalogBytes, nativeLocator: nativeTypedLocator(validatorNativeInventory, "QualificationRuleCatalog") }),
   ...consensusContractRows,
   ...consensusVocabularyRows,
@@ -1055,7 +1143,6 @@ const publicationBasis = {
 };
 const modulePublications = [
   constructDefaultGovernanceLibraryModulePublication(publicationBasis),
-  constructHelloWorldModulePublication(publicationBasis),
   constructConsensusModulePublication(publicationBasis),
   constructWorksiteConstructionModulePublication(publicationBasis),
   constructWorksiteCommandExecutionModulePublication(publicationBasis),

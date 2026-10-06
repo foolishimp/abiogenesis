@@ -1,0 +1,44 @@
+{
+  "kind": "available_actual_native_raw_result_refusal_preimages",
+  "ownerRequest": {
+    "originalFrozenProducerBody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/f11-bound-worker-request.json",
+      "bytes": 372940,
+      "sha256": "8f3df10e93efb9764f18f72e0cdebed8d1e7bc88a002364275f6a17b18224c2f"
+    },
+    "retainedReportCopy": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/available-owner-preparation-worker-request.json",
+      "bytes": 372940,
+      "sha256": "8f3df10e93efb9764f18f72e0cdebed8d1e7bc88a002364275f6a17b18224c2f"
+    },
+    "role": "available producer preimage only; no Runtime substitution or predicate reconstruction"
+  },
+  "ownerPrompt": {
+    "originalFrozenProducerBody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-08/f11-bound-prompt.txt",
+      "bytes": 349314,
+      "sha256": "f2f603d781a18a9fd018c53cfda4170f9ab350747a2f42e75736c9d90dad2099"
+    },
+    "retainedReportCopy": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/available-owner-preparation-prompt.txt",
+      "bytes": 349314,
+      "sha256": "f2f603d781a18a9fd018c53cfda4170f9ab350747a2f42e75736c9d90dad2099"
+    },
+    "role": "available producer preimage only; no Runtime substitution or predicate reconstruction"
+  },
+  "actualRuntimeOwnerRequestPin": {
+    "requestDigest": "sha256:c5d12e83e7c1fd10e0bb18b3035cd3e48bf39ed4aa7fb586cdcccf38c1bf0062",
+    "promptDigest": "sha256:2dd4f8550375c6978595f438c5aae76fac3c0fdfe624ac9d39a6f3a83c1a3cfb",
+    "promptUtf8Bytes": 349314,
+    "inputDigest": "sha256:910738abe7190207d20bc5c0abec05de4d35f65bb82a90638264f73741f63ce0"
+  },
+  "Q08ProducerRequestPin": "sha256:c5d12e83e7c1fd10e0bb18b3035cd3e48bf39ed4aa7fb586cdcccf38c1bf0062",
+  "actualCurrentRequestCoordinateAgrees": true,
+  "completeInvocationAndAssertion": "flow-parent.jsonl retains actual supplied invocation and complete immutable qualification resources",
+  "referenceAssessmentInput": "f11-bound-packet.json / assessmentInput, actual inputDigest in native evidence",
+  "completeResourceManifest": "f11-bound-resource-manifest.json, frozen 506298791 bytes",
+  "actualProcessPlanObservation": "appended-runtime-records.json retains actor_transport_binding_admitted payload including actual command,args/schema,worker/implementation binding,transport plan digest,input/request/prompt coordinates,environment/liveness and artifact paths",
+  "workerObservation": "actual-actor-transport-evidence.json preserves full transport candidate/finalOutput/nativeResultAssessment and actual actor artifact observation; original artifact bodies are completely pinned in owner-resource-census.json",
+  "transientNativeProcessPlanOrVerificationPreimage": "no separately published complete transient preimage was found among already captured evidence; no imports, owner calls, reconstruction or predicate retry performed",
+  "RootIndependentLocalizationRequired": true
+}

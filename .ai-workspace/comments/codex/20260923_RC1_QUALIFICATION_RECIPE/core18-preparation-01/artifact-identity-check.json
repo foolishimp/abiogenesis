@@ -1,0 +1,48 @@
+{
+  "status": "passed_byte_identity_only",
+  "checks": [
+    {
+      "name": "core18",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260923_COMPOSITE_READINESS/compiled-18/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "digest": "sha256:64093fb74a474c7e246333975c556c4cb34797326dbc81d1c5929455a69498bb",
+      "bytes": 10146983,
+      "method": "SHA256 of existing archive bytes; no expansion, install or owner call"
+    },
+    {
+      "name": "dev8",
+      "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/fresh-native-01/resources/artifacts/odd-glc-route-one-typescript-0.2.0-dev.8.tgz",
+      "digest": "sha256:aef3df7a43da5d8af620c624a4c88f5eb30b6de26437458a8fd81156b6d877c9",
+      "bytes": 17462,
+      "method": "SHA256 of existing archive bytes; no expansion, install or owner call"
+    },
+    {
+      "name": "build/code/src/validator/qualification_contracts.js",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/qualification_contracts.js",
+      "digest": "sha256:e65d0cb476fd22ba4c0bf66cad9f3de52717e28c324a88d323461aade1b31daa",
+      "bytes": 31164,
+      "method": "Existing installed member matches accepted core18 archive inventory"
+    },
+    {
+      "name": "build/code/src/product/index.js",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/index.js",
+      "digest": "sha256:9fae2c7adbe2b321ed71c97d00c2cf9b3f04125d7edbb04383b3e4f4ebae2014",
+      "bytes": 13031,
+      "method": "Existing installed member matches accepted core18 archive inventory"
+    },
+    {
+      "name": "contracts/qualification/law-basis.json",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/law-basis.json",
+      "digest": "sha256:b7d303088a8c7c99a84e83d2b3c79a433bae32d98cafbb48e867b33629cacb6e",
+      "bytes": 28469,
+      "method": "Existing installed member matches accepted core18 archive inventory"
+    },
+    {
+      "name": "contracts/qualification/coverage.json",
+      "path": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-composite18-install-x1l1_ro9/node_modules/@abiogenesis/typescript-tenant/contracts/qualification/coverage.json",
+      "digest": "sha256:a009baadcc1bb87c4f4fb75d8bccf28778437f6d35e2800d01ae24d21d832c2f",
+      "bytes": 11476,
+      "method": "Existing installed member matches accepted core18 archive inventory"
+    }
+  ],
+  "runtimeOrQualificationCredit": false
+}

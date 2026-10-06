@@ -1,0 +1,61 @@
+{
+  "activation": "T287_SANDBOX_UAT_JOIN_CHECK_01",
+  "command": [
+    "npm",
+    "test"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "exitCode": 0,
+  "durationMs": 8901,
+  "counts": [
+    [
+      "tests",
+      "75"
+    ],
+    [
+      "pass",
+      "70"
+    ],
+    [
+      "fail",
+      "0"
+    ],
+    [
+      "cancelled",
+      "0"
+    ],
+    [
+      "skipped",
+      "5"
+    ],
+    [
+      "todo",
+      "0"
+    ],
+    [
+      "tests",
+      "3"
+    ],
+    [
+      "pass",
+      "3"
+    ],
+    [
+      "fail",
+      "0"
+    ],
+    [
+      "cancelled",
+      "0"
+    ],
+    [
+      "skipped",
+      "0"
+    ],
+    [
+      "todo",
+      "0"
+    ]
+  ],
+  "scope": "Current default script joins local owner checks and harness checks; no build/provider/UAT/qualification claim."
+}

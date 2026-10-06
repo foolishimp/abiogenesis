@@ -1,0 +1,664 @@
+{
+  "status": "CLOSED",
+  "work_result": "source_readiness_ready",
+  "activation": "T287_F11_CARRIER_REALIZATION_01",
+  "actor": "/root/f11_carrier_design_worker",
+  "role": "source Worker",
+  "frozenAt": "2026-10-01T20:34:06Z",
+  "return": "return.md",
+  "source": {
+    "kind": "source_postimage_cut",
+    "activation": "T287_F11_CARRIER_REALIZATION_01",
+    "sourceIndexSHA256": "99a89da21aa6e6f9f0296ca55c388ab12cac319692a4dec9a944242a723afe90",
+    "sourceCutDigest": "sha256:8c8c1e2cd8cf4a79a0a59b92edd1299362c10ab315e95cd998ef80e27314194d",
+    "serialization": "UTF8 JSON sorted object keys, compact separators, source grant row order; fields path/bytes/sha256/changed/preimage",
+    "changed": 17,
+    "unchanged": 8,
+    "sourceDeltaSHA256": "871cb9eb02e4c52ccfdc3c5e9a8111ba348de2b68b587adb80debb6de9d3c872"
+  },
+  "sourcePostimages": "source-postimages.json",
+  "sourceDelta": "source.delta.patch",
+  "acceptedDesignSHA256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+  "originalControlSHA256": "4426248f90e1741ba69e7e3f88a23819dc3d887aee4ea9bb4822fe4a55c1d18d",
+  "basis": {
+    "currentGoverningLaw": "stdo://releases/v2.5.1-rc.2/",
+    "definitionSHA256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+    "historicalMechanicalFixture": "C02/Q02 exact RC1 embedded task is conserved as old evidence; source generation RC2 selection is proved separately, current qualification remains C03 work"
+  },
+  "readiness": {
+    "sourceCompile": true,
+    "ordinaryCopiedGeneration": true,
+    "testSummary": {
+      "tests": 38,
+      "pass": 38,
+      "fail": 0,
+      "skip": 0
+    },
+    "readinessRecord": "readiness.json",
+    "completeResourceFixture": "mechanical-fixture-pins.json",
+    "historicalComponent": "historical-fixture-pins.json"
+  },
+  "sourceCopiedIdentityVerified": true,
+  "recordCount": 117,
+  "records": [
+    {
+      "path": "acquisition-reuse-attempt-02.txt",
+      "bytes": 3947,
+      "sha256": "f002a8a6a92c3d555e46a8570b6d0abd0c9cc0d5d3aed86cccbea5d359ade7a2"
+    },
+    {
+      "path": "acquisition-reuse-debug-01.txt",
+      "bytes": 3947,
+      "sha256": "ffacf265773bd50c2e1c669c36af47a682f188ee80f55d13a2894205ade50976"
+    },
+    {
+      "path": "acquisition-reuse-debug-02.txt",
+      "bytes": 7538,
+      "sha256": "60dbae2782820d382c7e7f750b1e0d611f2fd5a59ec9a83886b4bbaebac282a0"
+    },
+    {
+      "path": "acquisition-reuse-debug-03.txt",
+      "bytes": 10486,
+      "sha256": "398b01a47da72b349784ae57c67a06d6569f8c57943115cae33749c536e710cf"
+    },
+    {
+      "path": "acquisition-reuse-debug-04.txt",
+      "bytes": 8826,
+      "sha256": "067ee1b395367fdf4d30f513d5827f31ecdbbd0f3750e89a619bea92908dbf57"
+    },
+    {
+      "path": "acquisition-reuse-final.txt",
+      "bytes": 3703,
+      "sha256": "65a9a031f17e5c5ba82df1b6e9d37ff185e3e92d96b9992d46538433c1607694"
+    },
+    {
+      "path": "acquisition-reuse-historical-01.txt",
+      "bytes": 3157,
+      "sha256": "06df7c2678dd6cfcd7619e0bd93b98bb45b19fa54a94a8963e7660e74ad2040b"
+    },
+    {
+      "path": "acquisition-reuse-historical-02.txt",
+      "bytes": 1098,
+      "sha256": "ac933a7a935b94f3f2ea95131f82127da79d5aa3dd5a4f520ab78effc1bb3a52"
+    },
+    {
+      "path": "acquisition-reuse-historical-debug-01.txt",
+      "bytes": 3779,
+      "sha256": "f42d31082f31527b60573b3ee677827b9f8e9bcf9a3fe52a21a2622007ae6619"
+    },
+    {
+      "path": "acquisition-reuse-historical-debug-02.txt",
+      "bytes": 5337,
+      "sha256": "f96f4516527e7d72edf8984ffa829770f1dd5a6f5fb0b9aed2d70a429e5c2a54"
+    },
+    {
+      "path": "acquisition-reuse-historical-debug-03.txt",
+      "bytes": 6133,
+      "sha256": "286f95d911dc41e110186c8310d52bc5ea963755830ff3cdbdee38e2d1e92f1b"
+    },
+    {
+      "path": "acquisition-reuse-triage.json",
+      "bytes": 5439,
+      "sha256": "b9354027325e8afa30238ceae497e6f75c871bf0c6fde39d8d77ad411739b920"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 429,
+      "sha256": "2459e3db90893e19e169a07fa01ca9159e0bece7ed26c643a9a66513572f31a6"
+    },
+    {
+      "path": "affected-tests-attempt-01.txt",
+      "bytes": 7684,
+      "sha256": "90c4d5c134ccb4783b007755e7408188e1dc53a56e882d69efcbc8b771ff9957"
+    },
+    {
+      "path": "affected-tests-attempt-02.txt",
+      "bytes": 9528,
+      "sha256": "4c00e44e624d76ef0c482f345f68a6f27070a472ed31c9c846db04136524f647"
+    },
+    {
+      "path": "affected-tests-attempt-03.txt",
+      "bytes": 5614,
+      "sha256": "3e5ef61da8f6f5c12a2bdbb633f4cb1f283444a6b62aef4749d31d28424e7337"
+    },
+    {
+      "path": "affected-tests-settled.txt",
+      "bytes": 5620,
+      "sha256": "c9b83046fd15b9d59793df3a10a0f045408296c05f7f20961412274f7e8c9d21"
+    },
+    {
+      "path": "carrier-tests-attempt-01.txt",
+      "bytes": 3948,
+      "sha256": "067b19e6adecb12c44396bedcf5547f5a132d9d98721efbeab57d10bf89b1f60"
+    },
+    {
+      "path": "carrier-tests-attempt-02.txt",
+      "bytes": 3206,
+      "sha256": "bc9b7bcd2547704fece5bbf480bec11f7154952dc664baae3a4017229bf4b8cf"
+    },
+    {
+      "path": "carrier-tests-attempt-03.txt",
+      "bytes": 1721,
+      "sha256": "e6addfcecf1a750adcdac3243f738a12c10ca671270f1a2e15f5bd40f356728f"
+    },
+    {
+      "path": "carrier-tests-settled.txt",
+      "bytes": 1732,
+      "sha256": "ee1a6be4bc24333d854c5c6b896ae4607f5c0b62ce06df7bb5dadf88a3c9b76f"
+    },
+    {
+      "path": "compile-attempt-01.txt",
+      "bytes": 858,
+      "sha256": "6f4c71aa3ffe64e8892669d9b9ed322dd05af10ca8daa2ab08bf4413e2885f9f"
+    },
+    {
+      "path": "compile-attempt-02.txt",
+      "bytes": 16463,
+      "sha256": "95de04670f40bac069faccd8ccd24cb5c9996b9c5c8c385bcf88dbb6a1008188"
+    },
+    {
+      "path": "compile-attempt-03.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "compile-attempt-04.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "compile-attempt-05.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "compile-attempt-06.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "compile-attempt-07.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "compile-attempt-08.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "compile-attempt-09.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "compile-attempt-10.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "compile-final.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "compile-settled.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "compile-tools.json",
+      "bytes": 65853,
+      "sha256": "5ae8386a6d1e54036d53b7b3e57ca3bfce2f9e2c953a8bb6866cea6dd3bb3b8b"
+    },
+    {
+      "path": "conservation.json",
+      "bytes": 391,
+      "sha256": "9adbb167ed484736e48b9b2289764712f64c9382d2a2e0dd5164d0e513552417"
+    },
+    {
+      "path": "copied-generated-pins.json",
+      "bytes": 141259,
+      "sha256": "cc84de9a2050dd958fd83ff364100da7b2d4844b7a81a7cf9bec026dc916f862"
+    },
+    {
+      "path": "debug/artifact_truth.before.js",
+      "bytes": 29087,
+      "sha256": "f77e95373de5828958fc7d5794b033197a6ccc5429385ec358070426e1775872"
+    },
+    {
+      "path": "debug/qualification_proof.before.js",
+      "bytes": 77572,
+      "sha256": "29721c3f766dd3b20ea705d07298c13317c3489b4774ce51758d03940c0b368e"
+    },
+    {
+      "path": "debug/qualification_proof.historical.before.js",
+      "bytes": 77572,
+      "sha256": "29721c3f766dd3b20ea705d07298c13317c3489b4774ce51758d03940c0b368e"
+    },
+    {
+      "path": "dependency-closure.json",
+      "bytes": 1015,
+      "sha256": "021b09278719af7361f5203be7f1dcc979778b2dd73d08d39e0fb375b4432d45"
+    },
+    {
+      "path": "edit-contracts.py",
+      "bytes": 10012,
+      "sha256": "614a872cfed2608d666a06e03afc360f229b2c031d178a205c56ff04b474ce10"
+    },
+    {
+      "path": "edit-f11.py",
+      "bytes": 5053,
+      "sha256": "07858e72cf6f3e6ba1ff524a33a39f909d3b98d8da5af7d3c59ef09aa470099c"
+    },
+    {
+      "path": "edit-native.py",
+      "bytes": 5997,
+      "sha256": "0be5fd4d8090ea8bdbf61fe89a2e7118335dbb6f6575803b5be640d9945b725f"
+    },
+    {
+      "path": "edit-owners.py",
+      "bytes": 6717,
+      "sha256": "0e7c6917b6ac43142b3fbf5b65c3d5469f5c47544347281e2364ca5db6687b5d"
+    },
+    {
+      "path": "edit-plumbing.py",
+      "bytes": 11643,
+      "sha256": "c5d3ea785409c37a0f2300d7323f0d144be979de5ff2d34a71c1a08d43615315"
+    },
+    {
+      "path": "edit-proof.py",
+      "bytes": 10377,
+      "sha256": "0b09acebc51073050ea683ea4049f084cb4f6b0ae2c103055f75445cb9b60f5d"
+    },
+    {
+      "path": "fixture-proof/accounting.json",
+      "bytes": 409,
+      "sha256": "e23efd21c52c8c66c04db80d45163b9fb9668c0d6ecb8715eb6337eaad1b7a93"
+    },
+    {
+      "path": "fixture-proof/compact-f11-input.json",
+      "bytes": 302501,
+      "sha256": "b9bcd79165678492ea69533e0fe78b3f6c4c807521506b6cd5320899333c79a8"
+    },
+    {
+      "path": "fixture-proof/compact-f11-result.json",
+      "bytes": 1312355,
+      "sha256": "0fa2142fc6c54ea31a570bd24100522bcfca6363ad9bf8458ce7efd9c80fb6fc"
+    },
+    {
+      "path": "fixture-proof/compact-input.json",
+      "bytes": 42780,
+      "sha256": "80ad066ea79c0780efc039ebf144c2ae73a9c4bc7d391a7f3e3c5227e24878ba"
+    },
+    {
+      "path": "fixture-proof/compact-judgment.json",
+      "bytes": 45280,
+      "sha256": "5efbbba6f1db5bbf657513704d6de3fc5a3c8ca485b2dfc050b54b58686208d6"
+    },
+    {
+      "path": "fixture-proof/fresh-process.json",
+      "bytes": 98,
+      "sha256": "b8e460edf069c5479001c66893837c2c9b858880922e464b974e957dd6b498a7"
+    },
+    {
+      "path": "fixture-proof/resource-assertion.json",
+      "bytes": 27312607,
+      "sha256": "6ea13fd6d182fa63877fa08516323d1ba716c7b6c8546263b9b9d9c0aa96e67e"
+    },
+    {
+      "path": "generate-attempt-01.txt",
+      "bytes": 512,
+      "sha256": "f82725f9f43587d7f1f07d58dfc29526a2de54481cbe7fc89eb9e7e8e70d69b3"
+    },
+    {
+      "path": "generate-attempt-02.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "generate-settled-02.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "generate-settled.txt",
+      "bytes": 102,
+      "sha256": "7e7d03b22a32e92c3bd3fcde79b429e0e79c3342caad6dbfc8602f89a28d8f50"
+    },
+    {
+      "path": "historical-fixture-pins.json",
+      "bytes": 6618,
+      "sha256": "523eaf7deab9818f4c9f03b04fca3eb2fc496eaffb4857e50186c9d15cb0b748"
+    },
+    {
+      "path": "law-tests-settled.txt",
+      "bytes": 782,
+      "sha256": "3e6f181011c0f2b8c11ae414be27073d21faaa5beabdd40084836b138b830904"
+    },
+    {
+      "path": "mechanical-fixture-pins.json",
+      "bytes": 1124,
+      "sha256": "e63471caf7cbba8a5f9a550394828b6b82555f7ea0036ab1ac4465468679ee77"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "bytes": 32200,
+      "sha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "bytes": 84829,
+      "sha256": "e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 81674,
+      "sha256": "8f4967157222757a32c1470fcb21370a023f535d0968a5b9b048319734efbebd"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "bytes": 18649,
+      "sha256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "bytes": 18923,
+      "sha256": "74c055f0126a6dc3f2e403d8fb58f03073244e20a798c9b7be85f281f4da0ef1"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 76350,
+      "sha256": "4a51cfe4adc7d5a200affb5b2ac8a704c01ead72a83e4fd1b632a4133f3ef997"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "bytes": 8607,
+      "sha256": "6534d19d6ea0c5a60fc1b12a548c69847aec85f62c2494b98780396711eb2891"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 83250,
+      "sha256": "4a78213ed2d4f22e3b864ebe58025746b389476d6517d1440dedbde33d6034e1"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 32247,
+      "sha256": "3d3d038cb6da9dd5bf75b591678e695c2361659a2dd6035830dd5b453938317e"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "bytes": 19573,
+      "sha256": "5da1cf726fe749056d81ac69ef60188e38977bd1df3b9b59df68fab9228f3140"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "bytes": 63360,
+      "sha256": "b8bb644121845e25567280642b6474d5a32d452119af5ad1812b02360c1249b6"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "bytes": 40955,
+      "sha256": "e2b77f22ec4516f36a28940ef0544223b59d8c6dcf681c383482595a6ebd3e29"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/validator/qualification_resources.ts",
+      "bytes": 22081,
+      "sha256": "b112e11b12813818e5d0b89283bc4ce0eb420bc0eec9ce51cf2a0ecd8cf6e2ea"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+      "bytes": 29197,
+      "sha256": "9f8dff75486cde4d6cb704ee2d816a09c21d7a00aaed7ecc8fa589243b94b3f3"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_basis.ts",
+      "bytes": 7214,
+      "sha256": "3fac820669a80c08c21ea2057a9c10365f844e393ba2705ce84d4e2f6d4484fe"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_contracts.ts",
+      "bytes": 7494,
+      "sha256": "9c2e868b1ae6f9a2f0e4d7ff7cb288ea3beabf62ba5ca9ca9e6c0917c395aab7"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_semantics.ts",
+      "bytes": 12182,
+      "sha256": "935aff49fca7f37738d512489a873bb04d9bc6ccad58e12d5198718e8fedde9a"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 42963,
+      "sha256": "79ce13a2998a3b3a805391650eaaf6d0f7d12592e7d0df0937bd0f7e06def4c8"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "bytes": 13671,
+      "sha256": "3c326f02bf54214aebf64c827f2431cbc40dbebabc37bfe59a706da44b89fd68"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-carrier-resource.test.mjs",
+      "bytes": 23400,
+      "sha256": "f63b2af71a4a5eb900f961a590b891a2eee95161a76e61e971b93fd3c9eb7af0"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "bytes": 13107,
+      "sha256": "9b6852f964053130ea5ad1bd477f6b5c9977a7a02d7e78adabc2991d7556e626"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+      "bytes": 10651,
+      "sha256": "ae8ee02debaed07e899d43a8c07382287b73e90c766f71aefd2c60414e438fa6"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+      "bytes": 17921,
+      "sha256": "f187b0a5dc44f63a0370859274307142b522c47c9d70a128a0903290ec72160e"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs",
+      "bytes": 7386,
+      "sha256": "2125bd4fc66a3218827f3cc859a566836ded0dcf6096d81a90e4eff721b7cc56"
+    },
+    {
+      "path": "postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "bytes": 40019,
+      "sha256": "8d5cfcdf111641bb4ee651ea8ebb772a9e217de333a4c075f2fcde5e7d300a6d"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "bytes": 32200,
+      "sha256": "c53bb319c9e653577db392bbef2d914e5d1b7a31c7f76c671547aef506150ccc"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "bytes": 84829,
+      "sha256": "e4503a2a43ac9b36750c44db16e0ddb99a4c8ed12e76cfc6f5912b4505211a85"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 74715,
+      "sha256": "a5802f5cd7dcc267356f4d0769de320ac58e17b5a7b94d0d8ee88e70e56e5fcb"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "bytes": 18649,
+      "sha256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "bytes": 18471,
+      "sha256": "4d78de7b3bb8f4b214fb947634c265a05d641d7717a9e1431df0a0346af8ba60"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 73115,
+      "sha256": "9256376a949855528be4b53c4835230ab3b6ddda87c844b0377fa10600130e9d"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "bytes": 8344,
+      "sha256": "33e8a5f9832c5d0989bc1c174545fcebfafbd65ac0ccf3235dadf41e2f5dbe95"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "bytes": 81875,
+      "sha256": "83c4af83e6511ba27e243ec47ea0e1805e9d9f47470fe845bf28911fe8f7c550"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "bytes": 28096,
+      "sha256": "683b2e179b56b19826774f0bfbf14086e716c4413cfded3fdf3bacaa07e26100"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "bytes": 19412,
+      "sha256": "84b10ac9eb4f2ff2c3fde79f1a202764eab68cc2aeae694e707abb34b105e6f2"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "bytes": 59810,
+      "sha256": "f8e92aa311cc56ce7ead7b6b51905791ace6502d4a7b5972a7671503ebe505d8"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "bytes": 34377,
+      "sha256": "cf50d1120b7a73aa8f09554a06793c419576bdf6d030c27d8af03c7168dd7e9b"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+      "bytes": 28309,
+      "sha256": "3e14d15f29656e9bb3e37b5d2bc110104523c349f09911b1f1353890d570eb81"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_basis.ts",
+      "bytes": 7091,
+      "sha256": "b235a1466bdeebee11335b1c4a0652e3b7b52971a1e83bde5471304e5800af4a"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_contracts.ts",
+      "bytes": 5594,
+      "sha256": "65ef87b21f38b8f1c9686e30fb211960f0e73b898286de1ab7356347db523208"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_semantics.ts",
+      "bytes": 11817,
+      "sha256": "2db930f9596eff9677061fde98c2f79e2d65f6a81202a277f60307bfb34a4914"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 42963,
+      "sha256": "79ce13a2998a3b3a805391650eaaf6d0f7d12592e7d0df0937bd0f7e06def4c8"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "bytes": 13284,
+      "sha256": "0c896ab3132b2d934e9a1593cf6a54d4cc5bb58542b86d1a49ab697ce5c4a435"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "bytes": 13107,
+      "sha256": "9b6852f964053130ea5ad1bd477f6b5c9977a7a02d7e78adabc2991d7556e626"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+      "bytes": 10651,
+      "sha256": "ae8ee02debaed07e899d43a8c07382287b73e90c766f71aefd2c60414e438fa6"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+      "bytes": 15057,
+      "sha256": "42119247958b1a1fdeedf72058670b2a2ede24972e0924c71a0fa501260b3bb3"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs",
+      "bytes": 7386,
+      "sha256": "2125bd4fc66a3218827f3cc859a566836ded0dcf6096d81a90e4eff721b7cc56"
+    },
+    {
+      "path": "preimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "bytes": 40019,
+      "sha256": "8d5cfcdf111641bb4ee651ea8ebb772a9e217de333a4c075f2fcde5e7d300a6d"
+    },
+    {
+      "path": "preserved-subject-pins.json",
+      "bytes": 1375,
+      "sha256": "d263ee615ac173e4525dd22b711da1f2fb1530b77558d3b8fc8ecfbc12809581"
+    },
+    {
+      "path": "readiness.json",
+      "bytes": 14374,
+      "sha256": "929e3dd2d03d6b686dbb0e2d0a93c0b2d5a609cab6a367eaf4a9ff3549d4559e"
+    },
+    {
+      "path": "return.md",
+      "bytes": 6375,
+      "sha256": "e141cfff045311f07b1e5f8eae8c316128269d785a407686cc4e1049fba9ad90"
+    },
+    {
+      "path": "source-cut.json",
+      "bytes": 539,
+      "sha256": "0b2976a4fbd6bf668ad80703f51eb51ddee2f5392d6edf825c9dfb704c14378e"
+    },
+    {
+      "path": "source-postimages.json",
+      "bytes": 12347,
+      "sha256": "99a89da21aa6e6f9f0296ca55c388ab12cac319692a4dec9a944242a723afe90"
+    },
+    {
+      "path": "source-preimages.json",
+      "bytes": 5584,
+      "sha256": "7122574eb48c4f82007c8df87732ba1fecc7de4610f1e5cdbd51a2255a482b33"
+    },
+    {
+      "path": "source.delta.patch",
+      "bytes": 165589,
+      "sha256": "871cb9eb02e4c52ccfdc3c5e9a8111ba348de2b68b587adb80debb6de9d3c872"
+    },
+    {
+      "path": "staging-fixtures.json",
+      "bytes": 1355,
+      "sha256": "7b392de17bdd4bbd551fe0c585b417af7781a8ca437740cea88b3d7ca8c3be8d"
+    },
+    {
+      "path": "sync-readiness.py",
+      "bytes": 402,
+      "sha256": "6cea48be371aafba7a30cc9f75e2af2deb41a604d44b3016eb7acfe38f10a80b"
+    }
+  ],
+  "copyClosure": "C02 freeze7256ca2e\u2026; full runtime dependency-closure.json and243-file compile-tools.json;714 emitted/contract files copied-generated-pins.json; disposable copied tenant is readiness only",
+  "attribution": {
+    "lawSelectionWorker": "a4bceff9b2b37913667998784fb3be36ddf9986950c4bb5117c891add697c872",
+    "carrierGeneratorDelta": "resource schema definitions only relative to accepted law generator preimage",
+    "historicalSourceHook": "actual immutable postimage ca7b451a\u2026; old package URL; no original bytes changed",
+    "historicalMaterializationOwner": "actual strict owner82e4abcb\u2026; exact graph body/digest checked before historical CCall delegation"
+  },
+  "effects": {
+    "authorizedPaths": 25,
+    "changed": 17,
+    "unchanged": 8,
+    "newSourceFiles": 2,
+    "copiedReadinessOnly": true,
+    "realProviderCalls": 0,
+    "networkCalls": 0,
+    "GitEffects": 0,
+    "originalStoreEffects": 0,
+    "ambientGeneratedEffects": 0,
+    "newCandidatePackOrInstall": false
+  },
+  "residuals": [
+    "sole successor C03 build/pack/install and independent installed whole-path discriminator",
+    "actual admitted compact native assessment/J, complete independent F11 and sole AF22; no qualification/release success claimed",
+    "fresh-process positive admitted compact Result/replay and semantic-consumer agreement with exact archive, plus before-Result/before-J/forged/crossed resource nearest negatives",
+    "valid admitted warm native-result/verdict fast paths missing/crossed resource discrimination; source dependency guards and prepared-helper/before-Result consumer refusal are exercised, but no warmed admitted compact verdict exists in this readiness fixture",
+    "native whole-path memory/time/basis/result/cold-read composition accounting; pure byte/timing receipts alone are not memory/speed or semantic proof"
+  ],
+  "limits": [
+    "source/readiness return; no self-assurance verdict",
+    "C02/Q02 and old bound F11 cuts preserve old RC1 historical authority",
+    "pure constructed J is not admitted independent judgment; complete F11 fixture remains non-green",
+    "no whole-path memory/speed/qualification/release credit from component bytes/timing"
+  ],
+  "stop": "all source/readiness effects stopped after this CLOSED freeze; independent assurance and C03 execution belong to Executive selection"
+}

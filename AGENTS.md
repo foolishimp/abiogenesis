@@ -64,6 +64,37 @@
 
 ## Evidence Ordering, Steel Threads, And Deferred Assurance
 
+- Every bug receives root-cause triage through multiple applicable reference
+  frames before the Executive selects repair or retry. Bind the exact failure
+  and material workspace variables; frame names alone do not constitute triage.
+- Conjoin Product/requirement and Design findings with the applicable
+  integration, identity, lifecycle, authority, effect and Proof findings.
+  Record the originating violated relation, downstream symptoms, supported
+  joint or alternative causes, uncertainty, and why prior checks missed it.
+  For recurrence, inspect the missing retained relation or failed work decision.
+- Every activated path has a compact design record: path/outcome and owning
+  design/triage refs; typed transformation handoffs; declared computations;
+  preserved invariants; exact effect grant; preflight and end-to-end exit proof.
+  Reuse/combine existing records; do not expand this into exhaustive prose.
+  Framework handoffs consume one canonical definition per contract from the
+  exact framework library; do not redeclare its shape or meaning. Type/check
+  each transformation against its owner-defined source and destination.
+  Product extensions add domain meaning through declared extension points.
+  UML is the primary scaffold; keep its sequence, structure or state diagrams
+  small, with brief constraint notes. The concerns guide agents, not a new JSON
+  schema, generator or execution mechanism. Reuse existing diagrams.
+- Every integration failure stops and returns that record to Executive
+  multi-frame triangulation. Missing Design is repaired at its owning HOW, then
+  carried consistently through the grant, realization and affected proof.
+  A tighter worker constraint or local pass does not replace that re-entry.
+- Triangulation determines the responsible owner, complete affected causal
+  cone, smallest lawful re-entry and required reproof. The repair scope may
+  cross components. A local pass closes only its evidenced claim; the affected
+  end-to-end relation remains open until its proof is sufficient. Reuse valid
+  evidence and record material exclusions in the existing work carrier.
+- This applies selected STDO intake, material-sufficiency, conjunction and
+  counterexample-localization law under the owner's explicit instruction. It
+  creates no new Product authority, runtime mechanism or universal frame gate.
 - Reviewers report counterexamples, the impacted boundary, effect on the
   selected lawful sunny-day path, bounded repair scope and cost, and a
   recommendation. They do not decide backlog disposition.

@@ -1,0 +1,44 @@
+{
+  "kind": "executive_conjunction_closed_repaired_cones",
+  "status": "ACCEPTED_BOUNDED_REPAIRS_C06_CONSTRUCTION_SELECTED",
+  "operation": "T287_F11_REPAIR_ACCEPTANCE_AND_C06_CONSTRUCTION_GRANT_01",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/freeze.json",
+    "bytes": 1900475,
+    "sha256": "f10af06a6d6bfdb6a3b1b18f659f6807cebfae3368bfac7ebe84dc3725c4e8a1",
+    "mode": 420
+  },
+  "sourceAssurance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/source-review/freeze.json",
+    "bytes": 1141,
+    "sha256": "91250f733643b19296692e286c659f5f7dd42d4267de7d600ed7fb81fa8f89f5",
+    "mode": 420
+  },
+  "sourceResult": "GO_BOUNDED_SOURCE_ASSURANCE",
+  "callerFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/final-caller-freeze.json",
+    "bytes": 18604,
+    "sha256": "828da6917afe8c00a8c8578b2809fdcde65cdb9c9950d8c71c3e55c8b305ea0e",
+    "mode": 420
+  },
+  "callerAssurance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-fp-source-and-caller-assurance-controls-01/root-caller-review/freeze.json",
+    "bytes": 1006,
+    "sha256": "a6311f9a5808861127f361af86530eec09f87202f61999b45bedd96801755854",
+    "mode": 420
+  },
+  "callerResult": "GO_BOUNDED_CALLER_REPAIR_AND_FAILED_READBACK",
+  "rootVerification": "Complete cut bodies/modes/fullcensus/canonical postimages; actual protectedprefix dev/inode/mtime/mode; all9 assurance bodies exact",
+  "responsibleCone": "Existing F_P proof-operation arg5 omission plus external root-read resource/Run-terminal gate; no WHAT/HOW change",
+  "requestBinding": "Actual current owner-produced request/prompt is authoritative. Q06 cached renderer request differs and is not substituted; exact original assessment input/resource preserved. New successor current bindings measured, never guessed.",
+  "preserved": "C05/Q06/Setup05/Runtime06 failed evidence and original Hello/scenarios; all unrelated dirty work",
+  "remaining": "Whole successful installed carrier; sufficient genuine F11 and QUAL056; complete scenario/applicability and sole AF22; immutable publication/installed_rc/human acceptance/remote install",
+  "sourceAuthorship": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-fp-proof-delivery-realization-01/source-authorship.json",
+    "bytes": 3572,
+    "sha256": "ae26809e1e453316a9084b0fc24abafd092d26ef6b790d7e58cdeb5cadf77a16",
+    "mode": 420
+  },
+  "selectedNextOperation": "T287_RC1_SUCCESSOR_CONSTRUCTION_06"
+}

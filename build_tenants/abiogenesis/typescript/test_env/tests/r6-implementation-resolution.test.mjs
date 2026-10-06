@@ -43,8 +43,8 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
     node.term.requirement.implementationBindingRef,
   );
   assert.equal(resolution.implementationRef, binding.implementationRef);
-  assert.equal(resolution.packageName, verified.packageName);
-  assert.equal(resolution.packageVersion, verified.packageVersion);
+  assert.equal(resolution.packageName, environment.additionalVerified[0].packageName);
+  assert.equal(resolution.packageVersion, environment.additionalVerified[0].packageVersion);
   assert.equal(resolution.inputContractRef, graphFunction.inputs[0]);
   assert.equal(resolution.outputContractRef, graphFunction.outputs[0]);
   assert.equal(Object.isFrozen(resolution), true);

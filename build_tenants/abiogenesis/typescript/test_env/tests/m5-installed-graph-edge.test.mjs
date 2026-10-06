@@ -1,80 +1,46 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
-import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
+import { runInstalledLanguageTest } from "../support/installed-language-test.mjs";
+import { prepareLanguageStructuralFixture } from "../support/language-structural-fixture.mjs";
+import { GRAPH_EDGE_IDS, STRUCTURAL_IDS, constructStructuralInput } from "../fixtures/language-structural/program.mjs";
+const packageRoot = fileURLToPath(new URL("../..", import.meta.url));
 
-import {
-  buildRootCliScenario,
-  runInstalledCli,
-  setupInstalledCliHarness,
-} from "../support/root-cli-environment.mjs";
-
-const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const PROGRAM_REF = "program://abiogenesis/conformance/hello-graph-edge@5";
-const GRAPH_FUNCTION_REF =
-  "graph-function://abiogenesis/conformance/hello-graph-edge@5";
-
-async function readEvents(path) {
-  return (await readFile(path, "utf8"))
-    .trim()
-    .split(/\r?\n/u)
-    .map((line) => JSON.parse(line));
-}
-
-test("M5 installed HoG traverses one natively composed GraphFunction", async (context) => {
-  const harness = await setupInstalledCliHarness(context, root);
-  const scenario = await buildRootCliScenario(
-    harness,
-    "m5-graph-edge",
-    (payload) => payload,
-    {
-      catalogApplications: [],
-      programRef: PROGRAM_REF,
-      catalogHandle: GRAPH_FUNCTION_REF,
-      allowlist: [GRAPH_FUNCTION_REF],
-    },
-  );
-  const run = await runInstalledCli(harness, scenario);
-
-  assert.equal(run.exitCode, 0, run.stdout);
-  assert.equal(run.outcomes.length, 7);
-  assert.equal(run.outcomes.every((outcome) => outcome.disposition === "succeeded"), true);
-  assert.deepEqual(run.outcomes[6].result, {
-    kind: "hello_world_output",
-    schemaVersion: "5.0.0",
-    message: "Hello World",
+test("M5 installed HoG traverses an independently declared composed GraphFunction", async context => {
+  const proof = await runInstalledLanguageTest(context, packageRoot, {
+    prepareFixture: prepareLanguageStructuralFixture,
+    programRef: GRAPH_EDGE_IDS.programRef,
+    catalogHandle: GRAPH_EDGE_IDS.graphFunctionRef,
+    allowlist: [GRAPH_EDGE_IDS.graphFunctionRef],
+    declaredStartRef: GRAPH_EDGE_IDS.startRef,
+    input: constructStructuralInput("  Qualification  "),
+    identity: "structural-graph-edge",
   });
-  assert.equal(run.outcomes[6].replayAgreement, true);
-
-  const events = await readEvents(scenario.eventLogPath);
-  const cCalls = events.filter((event) => event.kind === "c_call_opened");
-  const fibres = events.filter((event) => event.kind === "c_call_fibre_selected");
-  const routes = events.filter((event) => event.kind === "traversal_route_admitted");
-  assert.equal(cCalls.length, 2);
+  assert.equal(proof.receipt.exitCode, 0);
+  assert.equal(proof.receipt.ownerOutput.outcomeKind, "result");
+  const { events, reads, environment, resolution } = proof;
+  const owner = environment.additionalProducts[0].basis.productId;
+  assert.equal(resolution.resolution.programOwner.productId, owner);
+  assert.equal(resolution.declarationClosure.semanticsOwner.productId, owner);
+  assert.equal(resolution.implementationSetCandidate.rows.every(row => row.implementationOwnerProductId === owner), true);
+  assert.notEqual(owner, environment.verified.productId);
+  const calls = events.filter(event => event.kind === "c_call_opened");
+  const results = events.filter(event => event.kind === "c_call_result_admitted");
+  const fibres = events.filter(event => event.kind === "c_call_fibre_selected");
+  const routes = events.filter(event => event.kind === "traversal_route_admitted");
+  assert.equal(calls.length, 2);
   assert.equal(fibres.length, 2);
-  assert.deepEqual(
-    cCalls.map((event) => event.payload.programLocusRef),
-    [
-      "locus://abiogenesis/conformance/hello-graph-edge/normalize@5",
-      "locus://abiogenesis/conformance/hello-graph-edge/render@5",
-    ],
-  );
-  assert.equal(
-    new Set(fibres.map((event) => event.payload.compositionRef)).size,
-    1,
-  );
-  assert.match(
-    fibres[0].payload.compositionRef,
-    /^graph-function-application:\/\/abiogenesis\//u,
-  );
-  assert.deepEqual(
-    routes.map((event) => event.payload.routeKind),
-    ["advance", "terminal"],
-  );
+  assert.equal(results.length, 2);
+  assert.deepEqual(results[0].payload.value, { kind: "normalized_data", schemaVersion: "5.0.0", subject: "Qualification" });
+  assert.equal(results[1].payload.contractRef, STRUCTURAL_IDS.outputContractRef);
+  assert.deepEqual(results[1].payload.value, { kind: "data_output", schemaVersion: "5.0.0", message: "Qualification" });
+  assert.equal(new Set(fibres.map(event => event.payload.compositionRef)).size, 1);
+  assert.deepEqual(routes.map(event => event.payload.routeKind), ["advance", "terminal"]);
   assert.notEqual(routes[0].payload.targetCursorRef, null);
   assert.equal(routes[1].payload.targetCursorRef, null);
-  assert.equal(events.at(-1).kind, "run_closed");
+  assert.equal(events.filter(event => event.kind === "run_closed").length, 1);
+  assert.deepEqual(reads.map(read => read.memberKey), ["run_result", "run_replay"]);
+  assert.equal(reads.every(read => read.receipt.exitCode === 0), true);
   assert.equal(JSON.stringify(events).includes("CompiledCProgramPlan"), false);
   assert.equal(JSON.stringify(events).includes("compiled_execution"), false);
 });

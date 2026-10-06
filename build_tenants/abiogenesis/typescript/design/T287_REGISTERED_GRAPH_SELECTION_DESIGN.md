@@ -6,7 +6,7 @@ independent RS-D01 correction review. Implementation and execution remain open.
 ## Basis and correction
 
 Source/Product base: `e27f72bc2037130d3261694da40af0148269f142`.
-Exact method: `stdo://releases/v2.5.1-rc.1/`, selected by
+Exact method: `stdo://releases/v2.5.1-rc.2/`, selected by
 `stdo_abiogenesis.json` and verified by Executive. Grant:
 `.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s1-worker-grant-t287_registered_selection_design_01`,
 with Executive's RS-D01 correction grant. Frames: Product/Design/Owner and

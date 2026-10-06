@@ -1,0 +1,21 @@
+{
+  "tool": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8"
+  },
+  "entry": "a_c join",
+  "exitCode": 0,
+  "stdout": "",
+  "stderr": "",
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/return-sections.json",
+    "bytes": 4224,
+    "sha256": "5b8b37febbb27fc142bcf9926be1a5e3217331efa04488dd24c3bd763a26c5eb"
+  },
+  "output": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/return.md",
+    "bytes": 3950,
+    "sha256": "cc9ad3fa8488a9aacdd6b411cbfcb2b93c422d8d1779df8c1d82562c381b9a40"
+  }
+}

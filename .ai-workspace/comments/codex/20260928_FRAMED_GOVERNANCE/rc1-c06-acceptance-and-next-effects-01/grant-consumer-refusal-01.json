@@ -1,0 +1,7 @@
+{
+  "operation": "T287_C06_ACCEPTANCE_AND_INSTALLED_EFFECTS_GRANTS_01",
+  "failure": "FileNotFoundError before grant dispatch or any ambient/candidate/Runtime effect",
+  "origin": "Root grant builder interpreted source-stage generated JS path without its build prefix",
+  "actualProducer": "C06 actual file census; JS relative build/code/src/implementation/leaf_invocation_port.js; contract and manifest relative tenant root",
+  "triangulation": "Tool path reconstruction violated actual Integration path correspondence; Proof pin failed before effect. Source/Product intact, no repair or repeated build. Smallest reentry same Writer consumer locator using exact physical donor."
+}

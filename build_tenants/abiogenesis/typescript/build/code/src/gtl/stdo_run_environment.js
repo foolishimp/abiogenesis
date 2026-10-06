@@ -1,6 +1,7 @@
 import { governanceRef, governanceContract } from "../product/default_library_identity.js";
 import { SEMANTIC_REVISION_IDS as revision } from "./semantic_revision_identity.js";
 import * as v from "valibot";
+import { digestSchema } from "../shared/public_function_contracts.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds } from "../product/native_workspace_work_identity.js";
 import { CONTEXT_DECLARATION_SCHEMA, REQUIREMENT_TERM_SCHEMA } from "./requirement_handoff.js";
 import { cLeafTerms } from "./c_algebra.js";
@@ -12,13 +13,17 @@ import { SEMANTIC_STAGE_IDS } from "./semantic_stage_identity.js";
 import { registeredSelectionAtSource } from "./registered_selection.js";
 import { rootCSourcePath } from "./source_path.js";
 const ref = v.pipe(v.string(), v.minLength(1));
-const digest = v.pipe(v.string(), v.regex(/^sha256:[a-f0-9]{64}$/u));
+// Reuse the canonical predicate while preserving this owner's string carrier.
+const digest = digestSchema;
 const bound = v.pipe(v.number(), v.integer(), v.minValue(1), v.maxValue(16_777_216));
-const relativePath = v.pipe(ref, v.check(s => !s.startsWith("/") && !s.split("/").some(x => x === ".." || x === "." || x === "")));
+// Nonempty slash-separated segments other than exactly '.' or '..'. Negated
+// slash classes retain line breaks; the absolute end check avoids '$' accepting
+// an earlier boundary before a final line break.
+const relativePath = v.pipe(ref, v.regex(/^(?!\.{1,2}(?:\/|(?![\s\S])))[^/]+(?:\/(?!\.{1,2}(?:\/|(?![\s\S])))[^/]+)*(?![\s\S])/));
 const member = v.strictObject({ path: relativePath, type: v.picklist(["file", "symlink"]),
     digest, target: v.nullable(ref) });
 const companion = {
-    productRef: ref, releaseRef: ref, tagObject: v.pipe(v.string(), v.regex(/^[a-f0-9]{40}$/u)),
+    productRef: ref, releaseRef: ref, tagObject: v.pipe(v.string(), v.regex(/^[a-f0-9]{40}$/)),
     recordUri: ref, recordDigest: digest, inventoryDigest: digest,
     members: v.pipe(v.array(member), v.minLength(1)),
 };

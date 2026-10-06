@@ -1,0 +1,44 @@
+[
+  {
+    "path": "driver.mjs",
+    "sha256": "6856c2a4ef6df335f3893e5e8a6d9a480e6e8daad199f8ba15648976216e9402",
+    "exitCode": 0,
+    "stderr": "",
+    "elapsedMs": 22.36687485128641
+  },
+  {
+    "path": "ordinary-caller.mjs",
+    "sha256": "8e7993a040222a817293af0e1f26a3cdb4eda3d07bc25caeb752e9f1b5e3d423",
+    "exitCode": 0,
+    "stderr": "",
+    "elapsedMs": 22.136041894555092
+  },
+  {
+    "path": "public-support.mjs",
+    "sha256": "fd94462ab478d3e4eeb6a42d80b2ee7fd1fea01c5ee126c8594623c1de0a4273",
+    "exitCode": 0,
+    "stderr": "",
+    "elapsedMs": 22.216207813471556
+  },
+  {
+    "path": "caller-draft.mjs",
+    "sha256": "efe102a1bde1e84879ff539cf92c2216d6f0f79c534a6f775141d2a17d953139",
+    "exitCode": 0,
+    "stderr": "",
+    "elapsedMs": 21.730707958340645
+  },
+  {
+    "path": "original-consumers.mjs",
+    "sha256": "69038fa5837745e3e57e3ec8cbf82808997d8cc68660138f01e4d666ff4992c6",
+    "exitCode": 0,
+    "stderr": "",
+    "elapsedMs": 21.977582946419716
+  },
+  {
+    "path": "sole-output-renderer.mjs",
+    "sha256": "a53044eca98cff334a9fbd87a1b21a8d6a6fe15220e83ab78db6bcc45a85901b",
+    "exitCode": 0,
+    "stderr": "",
+    "elapsedMs": 22.31774991378188
+  }
+]

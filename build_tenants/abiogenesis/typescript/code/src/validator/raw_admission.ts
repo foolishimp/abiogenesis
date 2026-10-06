@@ -1,9 +1,18 @@
 import { isRecord } from "../shared/admission_predicates.js";
+import * as v from "valibot";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { C_TERM_KIND_VALUES } from "../gtl/c_algebra.js";
+import { C_TERM_KIND_VALUES, assertCProgramLocalRelations } from "../gtl/c_algebra.js";
 import { canonicalizeAuthoredGtlCarrier } from "../gtl/canonicalization.js";
+import { admitIJsonValue } from "../shared/i_json.js";
+import * as structure from "../gtl/serialization_contracts.js";
+import { isSemanticLifecycleDeclaration } from "../gtl/semantic_stage.js";
+import { isSemanticJobLifecycleDeclaration } from "../gtl/semantic_job.js";
+import { isRunEnvironmentDeclaration, isStdoRunEnvironmentDeclaration } from "../gtl/stdo_run_environment.js";
+import { isRequirementHandoffDeclaration } from "../gtl/requirement_handoff.js";
+import type { CProgramNode } from "../gtl/c_algebra.js";
+import type { GraphFunction, ModulePublication } from "../gtl/contracts.js";
 
 export const RAW_SUBJECT_KIND_VALUES = [
   "module_publication",
@@ -17,6 +26,7 @@ export const RAW_SUBJECT_KIND_VALUES = [
   "closure_contract",
   "invocation_input",
   "public_operation_request",
+  "conformance_evaluate_packet",
 ] as const;
 
 export type RawSubjectKind = (typeof RAW_SUBJECT_KIND_VALUES)[number];
@@ -77,6 +87,68 @@ function hasExpectedKind(
 
 const admittedValues = new WeakSet<object>();
 
+const structuralSchemas = Object.freeze({
+  module_publication: structure.MODULE_PUBLICATION_SCHEMA,
+  catalog_contribution: structure.CATALOG_CONTRIBUTION_SCHEMA,
+  gtl_program: structure.GTL_PROGRAM_SCHEMA,
+  graph_function: structure.GRAPH_FUNCTION_SCHEMA,
+  c_program_term: structure.C_PROGRAM_SYNTAX_SCHEMA,
+  contract_declaration: structure.CONTRACT_DECLARATION_SCHEMA,
+  implementation_binding: structure.IMPLEMENTATION_BINDING_SCHEMA,
+  closure_contract: structure.CLOSURE_CONTRACT_SCHEMA,
+  conformance_evaluate_packet: structure.GTL_PROGRAM_CONFORMANCE_INPUT_SCHEMA,
+});
+
+function issuePath(issue: v.BaseIssue<unknown>): string {
+  const nested = issue.issues?.find((candidate) => candidate.path !== undefined);
+  if (nested !== undefined) return issuePath(nested);
+  return "$" + (issue.path ?? []).map(({ key }) =>
+    "/" + String(key).replaceAll("~", "~0").replaceAll("/", "~1")
+  ).join("");
+}
+
+function assertGraphLocalRelations(graph: GraphFunction, path: string): void {
+  graph.template.nodes.forEach((node, index) => assertCProgramLocalRelations(node.term, `${path}/template/nodes/${index}/term`));
+}
+
+function assertModuleLocalRelations(publication: ModulePublication, path: string): void {
+  publication.graphFunctions.forEach((graph, index) => assertGraphLocalRelations(graph, `${path}/graphFunctions/${index}`));
+  const check = (condition: boolean, suffix: string): void => {
+    if (!condition) throw new TypeError(`${path}${suffix}: declaration differs from its existing local constructor contract`);
+  };
+  if (publication.semanticLifecycle !== undefined) check(isSemanticLifecycleDeclaration(publication.semanticLifecycle), "/semanticLifecycle");
+  if (publication.semanticJobLifecycle !== undefined) check(isSemanticJobLifecycleDeclaration(publication.semanticJobLifecycle), "/semanticJobLifecycle");
+  publication.runEnvironments?.forEach((environment, index) => check(isRunEnvironmentDeclaration(environment), `/runEnvironments/${index}`));
+  publication.stdoRunEnvironments?.forEach((environment, index) => check(isStdoRunEnvironmentDeclaration(environment), `/stdoRunEnvironments/${index}`));
+  publication.requirementHandoffs?.forEach((handoff, index) => check(isRequirementHandoffDeclaration(handoff), `/requirementHandoffs/${index}`));
+}
+
+function assertStructuralValue(value: JsonValue, expectedKind: RawSubjectKind): void {
+  if (!Object.hasOwn(structuralSchemas, expectedKind)) return;
+  const schema = structuralSchemas[expectedKind as keyof typeof structuralSchemas];
+  const parsed = v.safeParse(schema, value);
+  if (!parsed.success) {
+    const issue = parsed.issues[0]!;
+    throw new TypeError(`${issuePath(issue)}: ${issue.message}`);
+  }
+  // Casts below select the already checked schema variant; they confer no
+  // admission. Every field and recursive child has passed its canonical owner.
+  switch (expectedKind) {
+    case "c_program_term":
+      assertCProgramLocalRelations(value as unknown as CProgramNode);
+      break;
+    case "graph_function":
+      assertGraphLocalRelations(value as unknown as GraphFunction, "$");
+      break;
+    case "module_publication":
+      assertModuleLocalRelations(value as unknown as ModulePublication, "$");
+      break;
+    case "conformance_evaluate_packet":
+      assertModuleLocalRelations((value as unknown as structure.ContractValue<typeof structure.GTL_PROGRAM_CONFORMANCE_INPUT_SCHEMA>).publication, "$/publication");
+      break;
+  }
+}
+
 export function isRawAdmittedValue(value: object): boolean {
   return admittedValues.has(value);
 }
@@ -105,6 +177,17 @@ export function rawAdmitValue<S>(
     };
   }
   try {
+    const json = Object.hasOwn(structuralSchemas, expectedKind)
+      ? admitIJsonValue(value, "$")
+      : value as JsonValue;
+    try {
+      assertStructuralValue(json, expectedKind);
+    } catch (error) {
+      return {
+        kind: "raw_admission_refusal", schemaVersion: "5.0.0", disposition: "refused", code: "invalid_kind",
+        message: error instanceof Error ? error.message : "$: structural admission failed",
+      };
+    }
     const admittedJson: JsonValue = (() => {
       switch (expectedKind) {
         case "module_publication":
@@ -112,13 +195,14 @@ export function rawAdmitValue<S>(
         case "gtl_program":
         case "graph_function":
           return canonicalizeAuthoredGtlCarrier(
-            value as JsonValue,
+            json,
             expectedKind,
           );
         default:
-          return JSON.parse(canonicalJson(value as JsonValue)) as JsonValue;
+          return JSON.parse(canonicalJson(json)) as JsonValue;
       }
     })();
+    assertStructuralValue(admittedJson, expectedKind);
     const admittedValue = deepFreeze(admittedJson as S);
     const subjectDigest = sha256Canonical(admittedValue as unknown as JsonValue);
     const admissionDigest = sha256Canonical({
@@ -137,13 +221,13 @@ export function rawAdmitValue<S>(
     }) as RawAdmittedValue<S>;
     admittedValues.add(admitted);
     return admitted;
-  } catch {
+  } catch (error) {
     return {
       kind: "raw_admission_refusal",
       schemaVersion: "5.0.0",
       disposition: "refused",
       code: "non_canonical_value",
-      message: "raw value is not representable as canonical JSON",
+      message: error instanceof Error ? error.message : "$: raw value is not representable as canonical JSON",
     };
   }
 }

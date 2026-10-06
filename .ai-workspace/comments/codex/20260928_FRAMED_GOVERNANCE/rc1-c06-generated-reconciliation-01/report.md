@@ -1,0 +1,11 @@
+Product Frame: fixed15/F01/F05 source-generated agreement, STDO2.5.1RC2, existing WHAT/HOW unchanged. Generated is build output, not Runtime truth. Source, accepted C06 Product and a future admitted installed Runtime remain distinct. This separately activated Worker T287_C06_GENERATED_RECONCILIATION_01 wrote only its new report territory and the three exact ambient generated paths.
+
+CLOSED — STOPPED_FIRST_DISCREPANCY. Exact six preimage/donor body/mode pins were verified before ambient copying, all three original preimages/modes were saved, and only the selected JS leaf dispatcher, capability graph and Product manifest received byte-exact immutable C06 donors. No semantic source authorship is claimed by this generated-copy Worker.
+
+The complete accepted producer census uses tenant-relative build/code/... for compiled JS and tenant-root contracts/... and product-toolchain-manifest.json. The pre-copy 926-member census had exactly the three selected C06 differences; its other923 members matched. The post-copy full926 body/mode joins are exact. The current C06 archive5258 regular bodies were joined once to actual stage and physical candidate install, with no missing/extra payload members or links. Staging mode differences were accepted only for actual package.json declared CLI bins. The archive and C06 source/attribution evidence remain unchanged.
+
+No rebuild, Product-owner import, test, Source/candidate repair, Runtime/provider/network/Git effect or Q07 effect occurred. Original source authors and predecessor chains stay intact. Historical component copies and old chains remain historical; any new Q07 current identities/authorship bindings require a separate later grant.
+
+Pure read/copy/hash cost: 219.587ms, 130100174 body bytes hashed, Python peakRSS 59228160B, default tools/heap and HOME preserved. The exact external postimages, preimages, full926/full5258 proof records, effects and this report are bound by freeze.json. Independent acceptance belongs to Root; this author Worker supplies no independent assurance.
+
+All writes are CLOSED. No Q07, successful installed carrier, genuine sufficient F11/QUAL056, sole AF22 or release claim follows. Stop: {"frontier": "complete 5258 archive body/mode correspondence before ambient copying", "type": "AssertionError", "message": "", "completedAmbientWrites": [], "retryOrAutorepair": false}.

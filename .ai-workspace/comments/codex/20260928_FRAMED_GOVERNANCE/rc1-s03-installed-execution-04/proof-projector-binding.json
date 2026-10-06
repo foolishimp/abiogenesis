@@ -1,0 +1,10 @@
+{
+  "packageExport": "@abiogenesis/typescript-tenant/abg",
+  "export": "projectRunTruthAtDurablePrefix",
+  "role": "Existing declared public ABG read-only exact-prefix Run truth supplies run/executionBasis to unchanged original causal oracle; no runtime admission/effect or private import",
+  "fixtureOriginalPureConstructors": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/disposable/abi5-root-env-s7xSED/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection/build/index.js",
+    "bytes": 21635,
+    "sha256": "add09baec5d9a6ef7fbc5414bc5cffb8f9aa45a582aef6630d7b85ec9a80fddb"
+  }
+}

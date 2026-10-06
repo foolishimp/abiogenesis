@@ -1,0 +1,42 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RUNTIME08_RESULT_TRIANGULATION_GRANTS_01",
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 501,
+      "sha256": "188ef456afac19883570581e9c0a6293cf5e277889e906a9f407d7b53e946c62",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 213,
+      "sha256": "c9d75ef2d97e25735c01a0846638037897eaa9738f375195a1948dbf54767c46",
+      "mode": 420
+    },
+    {
+      "path": "review-request.txt",
+      "bytes": 2782,
+      "sha256": "7245a5478d81a5d1fe67b8d16793a3090b432f4b72fd5fb7ebaaaf4054cc956e",
+      "mode": 420
+    },
+    {
+      "path": "review-sections.json",
+      "bytes": 3053,
+      "sha256": "6d2c347b4e8721f87ef0d757f83933dd15deec2f89735134e831ebda325b3e1e",
+      "mode": 420
+    },
+    {
+      "path": "worker-request.txt",
+      "bytes": 3532,
+      "sha256": "b74aa0807e5f94ba7769291d1b57c4bc0330d04f3d1472767a92cc6d1528f3a9",
+      "mode": 420
+    },
+    {
+      "path": "worker-sections.json",
+      "bytes": 3803,
+      "sha256": "7032ad625c730a43b659eb463ac9b27678ecec51a4500ba9eb5a642fc289e288",
+      "mode": 420
+    }
+  ]
+}

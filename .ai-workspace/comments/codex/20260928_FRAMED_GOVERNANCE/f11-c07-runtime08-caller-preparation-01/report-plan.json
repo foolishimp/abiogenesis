@@ -1,0 +1,38 @@
+{
+  "kind": "self_contained_saved_producer_report_plan",
+  "operation": "T287_F11_C07_CARRIER_EXECUTION_08",
+  "requiredProducerReports": [
+    "flow-supervisor-start.json",
+    "flow-supervisor-close.json",
+    "nominal-preflight-completion.json",
+    "runtime-input-join.json",
+    "initial-resource-handoff.json"
+  ],
+  "flowProducers": {
+    "success": [
+      "actual-positive-flow-state.json",
+      "driver-outcome.json",
+      "positive-closed-resource-handoff.json",
+      "existing-program-flow-result.json",
+      "actual-assessment-proof.json",
+      "assessment-consumption-checks.json"
+    ],
+    "failure": [
+      "first-failure.json",
+      "selected-flow-stop.json",
+      "actual-positive-flow-state.json"
+    ]
+  },
+  "typedPublicProducerSchema": "*-stdout.json receipt.ownerOutput / receipt.exitCode; host receipt, typed outcome, native process, timing kept separate",
+  "HOMEProducer": "flow-supervisor-start.json owns HOME, not close receipt",
+  "optionalObservationPolicy": "read only actual saved producer fields; missing optional observation recorded unknown; no missing Python transient locals or partial original-tail eval",
+  "requiredWholePath": "three actually completed Runs and six fresh CLI reads; terminal Run completion and typed terminal Result required by unchanged strict flow-driver",
+  "genuineQualification": "unknown/non-green controlled raw transport only",
+  "resourceReport": "exact original prefix/inode, new ABG entries and latest authentic closed handoff from actual saved records; no reporting Runtime rerun",
+  "finalFreeze": "final-runtime-freeze.json distinct from copied Q09 freeze.json",
+  "donors": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-c07-runtime08-caller-preparation-01/report-donors/close-failed-cut.py",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-c07-runtime08-caller-preparation-01/report-donors/finalize-saved-reports.py"
+  ],
+  "currentReportExecution": 0
+}

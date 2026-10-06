@@ -1,0 +1,56 @@
+{
+  "operation": "T287_REUSE_CONSUMER_REPAIR_03",
+  "phase": "current",
+  "command": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+    "--test",
+    "--test-concurrency=1",
+    "--test-reporter=/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/test-reporter.mjs",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "capSeconds": 180,
+  "defaultHeap": true,
+  "HOME": "/Users/jim",
+  "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REUSE_CONSUMER_REPAIR_03/tmp",
+  "reporterPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/test-reporter.mjs",
+    "bytes": 441,
+    "sha256": "0315807160de062b8dd9433f7db79bf05a0178d26eee587dbf7711c3800eb3d2",
+    "mode": 420
+  },
+  "SourcePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+      "bytes": 10687,
+      "sha256": "37a68c79145981db30d31277adfb00ae8bb416e2a9053c84d2f946d18ababca5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/prepare-retained-setup-binding.mjs",
+      "bytes": 8505,
+      "sha256": "0b4697546426552498a109d19f56f60d94850bc4b7d85027deec72bb23fbd777",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-retained-installed-consumer.test.mjs",
+      "bytes": 17006,
+      "sha256": "f383324b64602f0419bc0cd17ad5fdde2dbb82ff3c80ee857c27a5323b646c22",
+      "mode": 420
+    }
+  ],
+  "streamsOpenedBeforeSpawn": true,
+  "pid": 83817,
+  "pgid": 83817,
+  "exitCode": 1,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "wait4Status": 256,
+  "groupAbsent": true,
+  "elapsedMs": 17080.862915609032,
+  "userCPUSeconds": 20.444471,
+  "systemCPUSeconds": 1.167299,
+  "maxRSSPlatformBytes": 3937402880,
+  "stdoutSHA256": "717e1984ea8f471c757f25cf28cf35e8efed2483841797e6cacd0a94163890ef",
+  "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

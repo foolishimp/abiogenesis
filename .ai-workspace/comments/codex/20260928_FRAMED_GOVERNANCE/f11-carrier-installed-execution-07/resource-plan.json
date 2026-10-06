@@ -1,0 +1,21 @@
+{
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+  "authenticInitialHandoffFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/closed-event-resource-handoff.json",
+  "initialHandoffDigest": "sha256:1d893e1038ae4fd4be68f721afb50081a60239fad1c21f42dfd5f300998ab30b",
+  "initialPrefixBytes": 2490814,
+  "initialPrefixSha256": "5ba960061e7ad373b389c48c232f13f2dd80a08b2ad296f28f7783c2a5cf470f",
+  "eventDevice": 16777230,
+  "eventInode": 464698960,
+  "onlyAppendOwner": "ABG after exact Root input acceptance/message",
+  "allowedNewOwnerScopedResourceRoots": {
+    "toolchainRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/installed",
+    "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/installed/core/node_modules/@abiogenesis/typescript-tenant",
+    "eventLogRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events",
+    "runtimeStateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/runtime",
+    "projectionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/projections",
+    "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/archives"
+  },
+  "installedWorksiteExistingEntries": "READONLY",
+  "RuntimeGate": "HELD; no owner imports/preparation/reopening/helper/Runtime yet",
+  "sourceOldStoresProviderEffects": 0
+}

@@ -1,0 +1,80 @@
+{
+  "reentry": "realization_refactor; external current-prefix caller adaptation",
+  "cause": "Donor full projection equality conflates lifecycle-dependent prefix projection identity with conserved admitted environment values. Lawful failed-C2 history advanced33 to84 events, without changing environment admissions.",
+  "changedTopFields": [
+    "prefix",
+    "artifactTruth"
+  ],
+  "unchangedTopFields": [
+    "kind",
+    "schemaVersion",
+    "workspaceAuthorityBasis",
+    "workspaceBindingCandidate",
+    "workspaceBinding",
+    "productInstalls",
+    "resolvedProductLock",
+    "productSet"
+  ],
+  "artifactTruthUnchangedFields": [
+    "kind",
+    "schemaVersion",
+    "rows"
+  ],
+  "artifactTruthChangedFields": {
+    "prefix": {
+      "retainedN04": {
+        "coordinateDigest": "sha256:3d0b235018f49513c83fec8df1b50d1bc071750992f921ab3b748e6a70e85e3e",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:90a608b3aa811c922e305a3c930d044e23d619cb1261f6cb7a0ecde748eb6cbc",
+        "prefixLength": 2582298,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 464012478
+        }
+      },
+      "actualCurrentOwner": {
+        "coordinateDigest": "sha256:81cefea619af712a416d8680efa40fc2bed1f3248460022e4e625eef0ed46c0c",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:e2bb5df3f58b91a49f7324a487e9e79b93d05b03c368c339c82a6edc9d359ec0",
+        "prefixLength": 5577377,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 464012478
+        }
+      }
+    },
+    "prefixEventCount": {
+      "retainedN04": 33,
+      "actualCurrentOwner": 84
+    },
+    "lastAdmissionOrdinal": {
+      "retainedN04": 33,
+      "actualCurrentOwner": 84
+    },
+    "projectionRef": {
+      "retainedN04": "artifact-truth-projection://abiogenesis/09599bcbce8676a7aa1486cb6a6dbf73be34548110489d28e587341af5c94c8b",
+      "actualCurrentOwner": "artifact-truth-projection://abiogenesis/147d074e07c0f3fedd20e2fa1f28acbb21ab14c1f45e51106c0d637d0259c77a"
+    },
+    "projectionDigest": {
+      "retainedN04": "sha256:09599bcbce8676a7aa1486cb6a6dbf73be34548110489d28e587341af5c94c8b",
+      "actualCurrentOwner": "sha256:147d074e07c0f3fedd20e2fa1f28acbb21ab14c1f45e51106c0d637d0259c77a"
+    }
+  },
+  "comparisonMeaning": "Current prefix must exactly match latest genuine C2 handoff; every admitted environment value and artifact row must equal retained owner values. Prefix/count/ordinal/ref/digest are the freshly authenticated owner output, fully retained in offline-current-projection.json, not discarded or forged. Owner source hashes above fix their derivation.",
+  "frames": {
+    "Product": "Same immutable C02; no new environment, Product, result or qualification claim.",
+    "Design": "Existing exact-prefix projections derive identities from current admitted history. No HOW change.",
+    "Integration": "Replace stale full-value comparison; keep actual owner current-prefix projection and check conserved values. Future constructStart/Product preparation still owns actual catalog/program/readiness.",
+    "Identity": "Physical resource and A/W/install/lock/catalog coordinates conserved; prefix and projection identities advance. Selected task/grant semantic identity may repeat; new operation refs distinguish occurrence.",
+    "Lifecycle": "Historical N04 projection remains immutable evidence. Failed C2 is genuine history, not recovery to erase or replay.",
+    "Effect": "Read-only prefix and716-file checks; future context/native/helper effects need separate grant.",
+    "Proof": "Actual installed projection plus byte correspondence, stale/crossed counterexamples and exact retained owner values. Syntax/static successor joins do not establish native C2 success."
+  },
+  "catalogScope": "Current environment projection owns A/W/install/lock; it does not itself freshly construct a catalog. Retained immutable catalog/view are bound to same A/W/lock and retained coordinates. Full actual catalog/program resolution and readiness remain required in future unchanged installed constructStart/Product preparation."
+}

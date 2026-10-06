@@ -1,0 +1,20 @@
+{
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-acceptance-and-next-effects-01/generated-request.txt",
+    "bytes": 1968,
+    "sha256": "04f1a3dbf52ad110e6207ba4acb02c0f72f75a5962a664a978f32a1e95d15ea6",
+    "mode": 420
+  },
+  "sections": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c06-acceptance-and-next-effects-01/generated-sections.json",
+    "bytes": 2239,
+    "sha256": "30be3eb71b3080cf09751f9d93feca54fa1d657ef16957e901316571e3dafc52",
+    "mode": 420
+  },
+  "a_c": {
+    "path": "/Users/jim/src/apps/abiogenesis/.genesis/development-products/axiom-indexer/build_tenants/core/code/ac.py",
+    "bytes": 38113,
+    "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+    "mode": 292
+  }
+}

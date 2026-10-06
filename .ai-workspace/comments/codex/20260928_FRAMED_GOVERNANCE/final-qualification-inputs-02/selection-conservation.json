@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "testSelection": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/test-selection.json",
+    "bytes": 8553,
+    "sha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f"
+  },
+  "originalTestSelection": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/test-selection.json",
+    "bytes": 8553,
+    "sha256": "fc5f553b57f77fb4e9f9fb0b7a6535454c09b41698636d47e54ab2d465e03b5f"
+  },
+  "config": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-02/config.json",
+    "bytes": 34145,
+    "sha256": "1bc12a49cdf8a8714e56ab590b94b834f690833651c6c67addbbfd9700b3b0b4"
+  },
+  "originalConfig": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-01/config.json",
+    "bytes": 34145,
+    "sha256": "1bc12a49cdf8a8714e56ab590b94b834f690833651c6c67addbbfd9700b3b0b4"
+  },
+  "fiveTestCommands": 5,
+  "selectedTitles": 30,
+  "syntaxFiles": 331,
+  "comparisonMembers": 925,
+  "commands": 13,
+  "predicates": 14,
+  "capsAndGraceMs": 958000,
+  "commandConfigurationDigest": "sha256:80e03de33233be80d36dd5e277f9f276736e68bc9eb28b7795d634361d08308d",
+  "predicateConfigurationDigest": "sha256:a18f01341e24b78a2849e509f8e08f79ea33e871bb7a5e1a144ea2d2be4e227b",
+  "writeTerritoriesDigest": "sha256:9ca09ca91b9a35cc66d95127b9ae88aedf4e8fc14f3b6ff54aff7268a06c2ca0",
+  "commandsArgumentsEnvironmentBudgetsAndRecipeMeaning": "exactly preserved",
+  "scope": "Input conservation only; no test/recipe execution"
+}

@@ -1,0 +1,6 @@
+{
+  "failure": "request reconstruction appended an unauthorized final newline",
+  "actualRequest4433Bytes": "no trailing newline; all seven sections are otherwise byte-exact",
+  "effectsAtRefusal": 0,
+  "disposition": "literal formatting check corrected before activation record or source effect; no owning regression or Runtime executed"
+}

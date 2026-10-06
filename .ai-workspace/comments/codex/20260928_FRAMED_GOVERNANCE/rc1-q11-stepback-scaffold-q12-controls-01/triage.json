@@ -1,0 +1,57 @@
+{
+  "status": "CLOSED_ROOT_TRIANGULATION",
+  "actor": "/root",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-11/freeze.json",
+    "bytes": 867975,
+    "sha256": "827d5cbb98b5d68acb9af7da791f2173cb4f086f2fbd9a50bb3d047c051c76e5",
+    "mode": 292
+  },
+  "independentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/review/freeze.json",
+    "bytes": 1859,
+    "sha256": "898f7670965bdca3f91c51e11947bdf51d22d3972b2e99b11cd6c98dfe150a8b",
+    "mode": 420
+  },
+  "independentRecordsVerified": 5,
+  "ownerDirection": "Compact agent design scaffold; every integration failure still receives step-back triangulation. Missing design returns to its owning HOW and flows through grant, realization and affected proof.",
+  "failure": {
+    "producer": "Q11/f11/current-resources.mjs:170 historical-label filter",
+    "consumer": "Q11/f11/prepare-resources.mjs:22 nonempty sourceChanges guard",
+    "actual": "0 selected of 1111 current rows",
+    "expected": "Authoritative selected C09 source cut:7 replacements+2additions, complete unique current tuples; inherited callback regression excluded"
+  },
+  "originatingRelation": "No specified external contract for selected predecessor/current source cut -> current delta projection -> packet consumer. Attribution/history labels were guessed to be current-change authority.",
+  "owner": "Owning F11 input preparation Design; realization belongs to external producer/helper, Root owns selection and missing preflight.",
+  "scope": "Bounded external source-delta construction and its downstream resource/request bindings; unchanged installed runtime and accepted Source/C09/Setup09.",
+  "reentry": [
+    "design_reframe",
+    "separately granted realization_refactor under the repaired Design"
+  ],
+  "frames": {
+    "ProductRequirement": "F11/F15 and QUAL require exact subject, complete correspondence and authentic evidence. No whole-candidate or semantic qualification from pure preparation.",
+    "DesignIntegration": "HOW specified successor identities but omitted exact external delta producer-consumer meaning. Specify source-cut replacements/additions, tuple/author/row identity and complete correspondence before materialization.",
+    "IdentityProvenance": "All original labels and 174records/23chains/90spans conserved. Labels express origin/history, not delta. Nine accepted current tuples differ from ten non-inherited labels; inherited callback is not a new C09 delta.",
+    "EffectsLifecycle": "Both Q11 processes reaped/groups absent; no Run/helper/provider/store reopen. Preserve C09/Setup09, old cuts, dirty Source and Hello.",
+    "Proof": "Projection equality and byte bounds passed but did not establish delta selection. Embedded renderer returned, its sizes not retained; resource/hash/reference-owner paths unreached. Missing cheap producer-consumer preflight preceded expensive body preparation.",
+    "ReuseCost": "Use exact C09 producer and Q11 projections. Actual base64478360272 under500MB. Keep defaultheap/HOME,500MB and536870888string bound; no build/install/Hello reruns or budget increase."
+  },
+  "whyPriorChecksMissed": "The selected projection increment checked conservation and size but omitted the different meaning consumed by the delta selector. Root accepted that incomplete preflight scope.",
+  "recurrence": "Proof consumers reconstruct producer contracts from assumptions. Agent scaffold must carry the owning relation and prior triage; constraints alone do not close missing Design.",
+  "affectedCone": [
+    "owning HOW constraint",
+    "path/grant record",
+    "delta projection and exact consumer validation",
+    "cheap preflight before materialization/rendering",
+    "changed recipe/inventory/protected/self Task digests",
+    "basis/scope/task/plan/resource/declarations/current request/prompt",
+    "prospective snapshot and Runtime bindings"
+  ],
+  "unknowns": [
+    "actual resource/assertion/hash/reference owner preparation volumes",
+    "whole installed Result/J/foldback/F11/readback path",
+    "context adequacy/authorship independence/genuine semantic assessment",
+    "QUAL056/scenario conjunction/green AF22/release"
+  ]
+}

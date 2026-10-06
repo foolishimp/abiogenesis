@@ -11,7 +11,7 @@ import { genericRevisionPublicationData, genericRevisionIds } from '../support/t
 const hash=p.sha256Canonical,ids=p.WORKSITE_COMMAND_EXECUTION_IDS,revision=p.WORKSITE_REVISION_IDS;
 const basis={productId:p.ABI5_PRODUCT_ID,packageName:p.ABI5_PACKAGE_NAME,packageVersion:p.ABI5_PACKAGE_VERSION,
   artifactDigest:hash('supplied-artifact'),productContentDigest:hash('supplied-content'),productManifestDigest:hash('supplied-manifest')};
-const publications=[gtl.constructHelloWorldModulePublication,gtl.constructConsensusModulePublication,
+const publications=[gtl.constructConsensusModulePublication,
   gtl.constructWorksiteConstructionModulePublication,gtl.constructWorksiteCommandExecutionModulePublication,
   gtl.constructWorksiteCommandForwardModulePublication,gtl.constructRequirementHandoffModulePublication,
   gtl.constructSemanticStageModulePublication,gtl.constructSemanticRevisionModulePublication,

@@ -1,0 +1,70 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RESULT_LINEAGE_REPAIR_GRANT_WRITER_01",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/activation.json",
+      "bytes": 2844,
+      "sha256": "cffcdd7eee244d88ca23ec9efdf5f0bae2079c42478d0ed1ac40a4494b04f132",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/acceptance.json",
+      "bytes": 2681,
+      "sha256": "c0b0fa6836c41e3ba2917bce7815167a6290a9470b39e4f2f51354965e265b70",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/worker-sections.json",
+      "bytes": 5351,
+      "sha256": "5b10a291c33a5af2f71fd06401aa76932a6e25e55fa9aac14a250c950330b145",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/worker-request.txt",
+      "bytes": 5080,
+      "sha256": "50ac2c08ec4f50f974706c207f6a19e87f5b002a71901dfd8389a6b03f1ac8b7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/a_c-literal-verification.json",
+      "bytes": 654,
+      "sha256": "90294a1d595c1f701e3bc33624f68a12f4647d0493498b0d6152df2ce4d3f669",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/plan-preimage.md",
+      "bytes": 6115,
+      "sha256": "b0d7311da53294e6554384c743c146f7ae78023cb25e3d0cac4b7f0dd0dba596",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01/closure.json",
+      "bytes": 1349,
+      "sha256": "d90e4bb12e7df7a984b4c3e4ef938f7746a791cadd86740e2d0499161e090a12",
+      "mode": 420
+    }
+  ],
+  "externalPostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 533330,
+      "sha256": "0833e49151f4e3c55e14f26f6a5634f1c4a3fff7f73cc667c2c0d8b351a0a142",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 488861,
+      "sha256": "cb7d13746c9a9847a55b6bc7c477c8026403d179fc1b8f0e6176d7e3cc4da37c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 6411,
+      "sha256": "67a6f32a1f41c0cc7d0b74df40e011f3b767bb9d43019204cabf9b393db3ee48",
+      "mode": 420
+    }
+  ],
+  "directories": 0,
+  "links": 0
+}

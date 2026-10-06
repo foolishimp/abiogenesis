@@ -302,10 +302,12 @@ names package export and symbol. No test-only file is a published locator.
   runtime-profile, policy, capability, replay, and existing engine-request
   completeness while `runEngineStartAsync` remains the sole
   GraphFunction/Job/ExecutionBasis constructor.
-- SDK/CLI equivalent deterministic Hello World, result, and replay.
+- SDK/CLI equivalent execution, result and replay for an external minimal
+  deterministic language test. Its declarations, ordinary leaf binding and
+  oracle stay outside the ABG package; it is not a Product capability.
 - Packed installed source-isolation proof with no `cli-runtime.mjs` or private import.
 - Typed missing-capability preflight and malformed input refusal.
-- One preflighted live F_P Hello World through the same public path.
+- One preflighted external live F_P test through the same public path.
 
 ## Promotion Rule
 

@@ -1,0 +1,130 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_Q11_STEPBACK_SCAFFOLD_Q12_WRITER_01",
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 3821,
+      "sha256": "6c59be5e398986ec581b6dee7dc5720979c05c911fb4db1d4a7cd8bb6714bc88",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 529,
+      "sha256": "2973c15edcc3266ef8029dece570a732e91001ec1a6d66e63bf932d804eb6e43",
+      "mode": 420
+    },
+    {
+      "path": "constraint-changes.patch",
+      "bytes": 6364,
+      "sha256": "a41a1e0ad21e8619298a5634174fd5c8d5eb003868bacac720404b677d2fed20",
+      "mode": 420
+    },
+    {
+      "path": "mutation-checks.json",
+      "bytes": 5554,
+      "sha256": "a6662e2c19bc564a96e6d4c509015fd42d4ae5a5d68aa520d397b617baa0d142",
+      "mode": 420
+    },
+    {
+      "path": "operation-basis.json",
+      "bytes": 2835,
+      "sha256": "aba4614c5aa455349077335c045fcf75c309258ff806577d42a5e210a0caf695",
+      "mode": 420
+    },
+    {
+      "path": "preimages/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 24123,
+      "sha256": "46d6cd94f9fd7c1610dcba7933082d3b810188c7b6898672992b1a8d743e059c",
+      "mode": 420
+    },
+    {
+      "path": "preimages/AGENTS.md",
+      "bytes": 10653,
+      "sha256": "b7a3b21db5e6fe7369e144fcd8f00198caff4bcaae4b7acd43e6eff28813e709",
+      "mode": 420
+    },
+    {
+      "path": "preimages/CLAUDE.md",
+      "bytes": 4590,
+      "sha256": "e0ee14f7fa7094459f7cef099078174735fd7088388a1d31e90c67819dc34573",
+      "mode": 420
+    },
+    {
+      "path": "preimages/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 491566,
+      "sha256": "f4e116ee4be0ff9605e2d0758521e31958056d0a7196dc1342758fdefdcdf036",
+      "mode": 420
+    },
+    {
+      "path": "preimages/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bytes": 39730,
+      "sha256": "6ebaae310885013645c238023d39d4c1f1b5c61c56cf2ff4e5d0a9cd6b75567c",
+      "mode": 420
+    },
+    {
+      "path": "preimages/plan.md",
+      "bytes": 7431,
+      "sha256": "4124ca6d354842e9c972dab4fc0402e289955cdc22c59abcfb1e6486aea63b9c",
+      "mode": 420
+    },
+    {
+      "path": "q12-path-record.json",
+      "bytes": 3403,
+      "sha256": "b7143c87009de5fdb94e45310caace0e1532c86a65956c6798aa6798e3d789dd",
+      "mode": 420
+    },
+    {
+      "path": "review-request.txt",
+      "bytes": 2453,
+      "sha256": "2d306211d6bd026488b07ac4d10a8fb801c8cdf8b7900d8d5173f89fe6748a7a",
+      "mode": 420
+    },
+    {
+      "path": "review-sections.json",
+      "bytes": 2724,
+      "sha256": "8b2b4043324e845e205f07e8cdb2acc4228529cbd962eade652f71c0d347d783",
+      "mode": 420
+    },
+    {
+      "path": "runtime-grant-before.txt",
+      "bytes": 4740,
+      "sha256": "0843d938f9c5afdf5e9a715fcc8c6ff3a83f42d4929a457cb45b1178aeb7450f",
+      "mode": 420
+    },
+    {
+      "path": "runtime-request.txt",
+      "bytes": 5045,
+      "sha256": "4e1f160dbffbb87368b14d28e128a55862612aeda0d077ee509a460a1341d813",
+      "mode": 420
+    },
+    {
+      "path": "scaffold.json",
+      "bytes": 883,
+      "sha256": "9dd05d33994aeed446a81ca76dafbfd0e0cfd7af0b3118699f3e7f941745214c",
+      "mode": 420
+    },
+    {
+      "path": "triage.json",
+      "bytes": 4373,
+      "sha256": "cbbd1f7f1235709b204a758908e0a22a5857907bbdc430893dfd49e8db36f6da",
+      "mode": 420
+    },
+    {
+      "path": "worker-request.txt",
+      "bytes": 4710,
+      "sha256": "a943c48f8e4658646ae1f5af809c2cf6f1cf8b6c45d6e2f6d1dd52eaa6e6a4ad",
+      "mode": 420
+    },
+    {
+      "path": "worker-sections.json",
+      "bytes": 4981,
+      "sha256": "74c0e09371042d3253b043fc3ee44d6a1cd82650cba5b55e7076659aa3b8885c",
+      "mode": 420
+    }
+  ],
+  "recordCount": 20,
+  "bodyBytes": 630508,
+  "candidateOrRuntimeEffects": 0,
+  "allWriterWritesStopped": true
+}

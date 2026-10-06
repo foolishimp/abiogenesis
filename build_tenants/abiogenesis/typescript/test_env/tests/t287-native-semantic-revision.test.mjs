@@ -14,8 +14,7 @@ const [p,g,m,n,ops,effects,owners,prefixes,immutable] = await Promise.all(['prod
 const hash=p.sha256Canonical, zero='sha256:'+'0'.repeat(64);
 const publication=g.constructSemanticStageModulePublication({productId:p.ABI5_PRODUCT_ID,packageName:p.ABI5_PACKAGE_NAME,packageVersion:p.ABI5_PACKAGE_VERSION,
  artifactDigest:zero,productContentDigest:zero,productManifestDigest:zero});
-const glcRoot=process.env.ODD_GLC_NATIVE_DECLARATION_ROOT ?? resolve(root,'../../../../odd_glc/build_tenants/odd_glc/typescript');
-const {constructFreshNativeLifecyclePublication,selectNativeSemanticRevisionStart}=await import(pathToFileURL(join(glcRoot,'src/native-lifecycle-declarations.mjs')).href);
+import {constructFreshNativeLifecyclePublication,selectNativeSemanticRevisionStart} from '../fixtures/native-semantic-revision/declarations.mjs';
 const ids=Object.fromEntries(Object.entries({productId:'product',moduleRef:'module',descriptorRef:'descriptor',contributionManifestRef:'contribution-manifest',
  lifecycleDeclarationRef:'lifecycle',graphFunctionRef:'graph-function',graphRef:'graph',closureContractRef:'contract',programRef:'program',startRef:'start'})
  .map(([key,kind])=>[key,kind+'://component/native-d2@5']));
@@ -246,7 +245,8 @@ test('native revision installed descriptor loader discovers every declared leaf 
  // Isolate only installed-byte custody; exercise the actual loader and real emitted module namespace.
  // Package verification separately owns the installed-byte correspondence claim.
  const loader=await component('product/implementation_resolution',{'./installed_module.js':{
-   loadVerifiedInstalledModule:async (_install,modulePath)=>{requested.push(modulePath);return {kind:'loaded',module:namespace};}
+   prepareInstalledProductModules:async install=>({kind:'installed_product_module_loading',install,
+    load:async modulePath=>{requested.push(modulePath);return {kind:'loaded',module:namespace};}})
  }});
  const offered=await loader.loadInstalledImplementationDescriptors({packageName:p.ABI5_PACKAGE_NAME,packageVersion:p.ABI5_PACKAGE_VERSION},publication);
  assert(Array.isArray(offered));

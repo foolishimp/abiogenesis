@@ -1,0 +1,115 @@
+{
+  "actor": "/root/s03_phase_b",
+  "sessionId": "01a0f036-c7b5-7f40-b1d8-e53a1fcf24f4",
+  "scope": "Current caller construction and result consumption under exact current Root request; not original Product authorship or native qualification admission",
+  "donorPatches": [
+    {
+      "preimage": {
+        "path": "preimages/ordinary-caller.mjs",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 14861,
+        "sha256": "84fbb92ff9ea64660e9a1502d8834bb73d7054de828e85ada8ccc8591ee0f351"
+      },
+      "postimage": {
+        "path": "ordinary-caller.mjs",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 14911,
+        "sha256": "f53cae925ecfd15f49e3979a958f782aa46d8be43e209282ca96936fb79ab3bc"
+      },
+      "patch": {
+        "path": "ordinary-caller.mjs.patch",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 4936,
+        "sha256": "89a33c58d97f875fdbc65a1d9f545d6bd83db93866c68d7487f1efa59f1602f7"
+      }
+    },
+    {
+      "preimage": {
+        "path": "preimages/public-support.mjs",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 9066,
+        "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+      },
+      "postimage": {
+        "path": "public-support.mjs",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 9863,
+        "sha256": "1dc017507c400413118630fd8e6d4898e0071fe3c326c97d5a9194c0aa16530c"
+      },
+      "patch": {
+        "path": "public-support.mjs.patch",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 3541,
+        "sha256": "036ab322c48eab75aeb39ee1516a8411d48dcf19d699d917a0333b95c8dec895"
+      }
+    },
+    {
+      "preimage": {
+        "path": "preimages/owner-checks.mjs",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 9469,
+        "sha256": "a0f54b19fc3fdb562b5f4e22f8dd93b94cd79efa1c9939ab271365a6e086a868"
+      },
+      "postimage": {
+        "path": "owner-checks.mjs",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 5802,
+        "sha256": "cdb9d5a0dcc1edd4638421618ee04acf12faaf97a2dc9b09ec2eddad73d1730e"
+      },
+      "patch": {
+        "path": "owner-checks.mjs.patch",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 10663,
+        "sha256": "312991b7936b14d4dd8f18768efae25ca6a3f82e2ca010a22e9339e6a061b49a"
+      }
+    },
+    {
+      "preimage": {
+        "path": "preimages/launch-once.py",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 2240,
+        "sha256": "fa0bca55a83653cfa6e5016647984dabb0fcb7b8f191aceecf3d07e83fc9d1c5"
+      },
+      "postimage": {
+        "path": "launch-once.py",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 2234,
+        "sha256": "45194dda5d6f589e48a0722a013bd59bb82155d1ab6cc18ed20de3a65013856f"
+      },
+      "patch": {
+        "path": "launch-once.py.patch",
+        "kind": "file",
+        "mode": 420,
+        "bytes": 2144,
+        "sha256": "bbc0b5db72801c6d64203ddaa99dae15a1f6a772bcb65dbf6217886701cfb900"
+      }
+    }
+  ],
+  "newAuthoredControls": [
+    {
+      "path": "driver.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 15079,
+      "sha256": "cd719b09003d8a1268bc6e9b9783dfb729644ce37280a1a55fa3a25204ea7f7e"
+    },
+    {
+      "path": "output-checks.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9424,
+      "sha256": "2da7268570fb9a11ac023b653e82adccb889c696ea8fe2bbda14701a1546f923"
+    }
+  ]
+}

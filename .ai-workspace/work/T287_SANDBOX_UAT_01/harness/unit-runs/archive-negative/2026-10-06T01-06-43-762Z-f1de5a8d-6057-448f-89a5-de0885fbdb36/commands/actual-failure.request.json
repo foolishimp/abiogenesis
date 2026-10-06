@@ -1,0 +1,13 @@
+{
+  "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+  "args": [
+    "-e",
+    "process.stdout.write(\"retained-out\");process.stderr.write(\"retained-error\");process.exit(7);"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_01/harness/unit-runs/archive-negative/2026-10-06T01-06-43-762Z-f1de5a8d-6057-448f-89a5-de0885fbdb36",
+  "started": "2026-10-06T01:06:43.764Z",
+  "environmentKeys": [
+    "PATH"
+  ],
+  "timeoutMs": 10000
+}

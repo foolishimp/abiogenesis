@@ -108,7 +108,7 @@ function nativeBinding(prefix: ValidatedRuntimeEventPrefix, binding: WorkspaceBi
   return same({kind:"workspace_binding",...body,admissionEventRef:row.admissionEventRef},binding)
     ? { row, binding, authority: row.workspaceAuthorityBasis as unknown as WorkspaceAuthorityBasis } : null;
 }
-function bindingAtCoordinate(prefix:ValidatedRuntimeEventPrefix,ref:string,digest:string):WorkspaceBinding|null {
+export function projectAdmittedWorkspaceBindingAtCoordinate(prefix:ValidatedRuntimeEventPrefix,ref:string,digest:string):WorkspaceBinding|null {
   const row=one(projectArtifactTruth(prefix).artifacts,r=>r.operationId==="abg.operation.workspace.bind"&&
     r.authorityScopeRef===ref&&r.authorityScopeDigest===digest);
   if(row===null||!record(row.artifact))return null;
@@ -119,11 +119,21 @@ function bindingAtCoordinate(prefix:ValidatedRuntimeEventPrefix,ref:string,diges
 /** All exact covering witness occurrences, not a latest/first chosen token. */
 export function projectWorksiteRevisionBindingCover(prefix: ValidatedRuntimeEventPrefix,
   before: WorkspaceBinding, after: WorkspaceBinding, historicalBases: readonly ExecutionBasis[]): readonly string[] | null {
+  if (same(before, after)) return [];
+  const old = nativeBinding(prefix, before), current = nativeBinding(prefix, after);
+  if (old === null || current === null || !same(old.authority, current.authority) ||
+    before.workspaceId !== after.workspaceId || before.authorizedActorRef !== after.authorizedActorRef) return null;
+  return projectWitnessedWorkspaceBindingCover(prefix, before, after, historicalBases);
+}
+
+/** Exact witnessed cover only. Each caller still owns applicability and current
+ * work permission; D2's stricter authority continuity remains above. */
+export function projectWitnessedWorkspaceBindingCover(prefix: ValidatedRuntimeEventPrefix,
+  before: WorkspaceBinding, after: WorkspaceBinding, historicalBases: readonly ExecutionBasis[]): readonly string[] | null {
   try {
     if (same(before,after)) return [];
     const old = nativeBinding(prefix,before), current = nativeBinding(prefix,after);
-    if (old === null || current === null || !same(old.authority,current.authority) || before.workspaceId !== after.workspaceId ||
-      before.authorizedActorRef !== after.authorizedActorRef) return null;
+    if (old === null || current === null) return null;
     const events = runtimeEventsFromValidatedPrefix(prefix);
     const bases = historicalBases.flatMap((b,index) => {
       const actual = projectExactExecutionBasisAtPrefix(prefix,b.basisRef);
@@ -376,7 +386,7 @@ function deriveCurrentOrigins(prefix:ValidatedRuntimeEventPrefix,seedBasis:Execu
           !samePhysicalSubject(prefix,b.rawInputValue.subject as unknown as WorksiteSubject,row.target.subject)||
           invalidatedAcrossBindings(prefix,row.target.subject,event.admissionOrdinal))continue;
         const request=b.rawInputValue;
-        const sourceBinding=bindingAtCoordinate(prefix,b.workspaceBindingId,b.workspaceBindingDigest);
+        const sourceBinding=projectAdmittedWorkspaceBindingAtCoordinate(prefix,b.workspaceBindingId,b.workspaceBindingDigest);
         if(sourceBinding===null||!same(request.workspaceAuthorityBasis,current.workspaceAuthorityBasis))continue;
         const source={...historical,workspaceAuthorityBasis:request.workspaceAuthorityBasis,workspaceBinding:sourceBinding,
           capabilityGrant:request.capabilityGrant} as unknown as SemanticWorksiteBasis;
@@ -474,7 +484,7 @@ export function worksiteRevisionEntryBindingDisposition(prefix:ValidatedRuntimeE
       const p=projectionFacts(prefix,e,work);
       return p!==null&&p.history.seed.basisRef===history.seed.basisRef?[p]:[];
     });
-    const bindings=[...history.heads.map(b=>({basis:b,binding:bindingAtCoordinate(prefix,b.workspaceBindingId,b.workspaceBindingDigest),projection:null as BindingProjectionFacts|null})),
+    const bindings=[...history.heads.map(b=>({basis:b,binding:projectAdmittedWorkspaceBindingAtCoordinate(prefix,b.workspaceBindingId,b.workspaceBindingDigest),projection:null as BindingProjectionFacts|null})),
       ...projections.map(p=>({basis:p.basis,binding:p.envelope.current.worksite!.workspaceBinding,projection:p}))];
     // A projection's actual history, not time or byte equality, covers its
     // earlier binding aliases. Every surviving branch must be covered.

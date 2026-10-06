@@ -1218,6 +1218,22 @@ The purpose of triage is not to create a separate tracking bureaucracy. It is
 to classify impact correctly so the change enters the method at the right
 constitutional boundary.
 
+Triage triangulates a failure across applicable reference frames over the same
+subject and basis. Each frame tests candidate diagnoses against its material
+workspace variables, governing relations and evidence. Their combined results
+constrain the supported cause, preserve unresolved alternatives and uncertainty,
+and identify the smallest sufficient lawful scope of repair. The frame that
+exposes a failure need not contain its cause. Repeating the same analysis under
+different frame names supplies no additional causal evidence.
+
+Use the smallest sufficient applicable frame configuration under
+[frame applicability and conjunction](REFERENCE_FRAME_METHOD.md#method-functions), with
+[causal localization](STDO_REFERENCE_FRAME_BASELINE.md#counterexample-localization)
+where required. This does not prescribe a reviewer count or a new review round;
+required independence remains intact. A diagnosis does not grant repair effects
+or establish that governing meaning must change: a candidate may instead need
+correction under sufficient existing law.
+
 The minimum lawful change classes are:
 
 - `goal_reprice`: current bounded work-wave focus changes; re-enters at Goals and may flow through Intent, Product, Requirements, Design, Code, and Evidence where that focus changes deeper constitutional truth

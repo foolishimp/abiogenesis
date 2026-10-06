@@ -3,8 +3,8 @@
 **Status**: Active - T-283 base; exact Definition-selected STDO qualification basis
 **Category**: Verification
 **Date**: 2026-07-25
-**Updated**: 2026-09-28
-**Derives from**: INT-001 (installed product and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](stdo://releases/v2.5.1-rc.1/standards/SPEC_METHOD.md) (Verification Layers)
+**Updated**: 2026-10-06
+**Derives from**: INT-001 (installed product and release qualification), INT-005 (run governance, failure classification), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](stdo://releases/v2.5.1-rc.2/standards/SPEC_METHOD.md) (Verification Layers)
 **Wave**: ABG 5.0
 
 ---
@@ -264,9 +264,15 @@ qualification-basis input or supply green truth for the cut that created it.
 `ABI5-ROOT-001` through installed `abg.cli`: all ordered obligations `R1`
 through `R10` shall bind the same exact product, workspace, catalog, program,
 GraphFunction, contracts, execution basis, causal ABG episode, and replay
-basis. Replay shall derive the same typed terminal Hello World result and
-closed state twice. A component, package, catalog, event-co-presence, or
-fixture-authored substitute shall not satisfy the root.
+basis. The independently authored minimal test program owns its declarations,
+contracts, ordinary leaf binding and expected output outside the ABG package.
+The candidate shall contain no test-program-specific contract, publication,
+implementation, admission, validation, dispatch or proof branch. Two fresh reads
+shall derive the same admitted typed terminal result and closed state. A
+component, package, catalog, event-co-presence or fixture-authored substitute
+shall not satisfy the root. Evidence from a package containing the removed
+built-in test code does not qualify the successor that removes it; affected
+installed-path obligations require proof on that exact successor.
 
 **REQ-P-QUAL-059**: The exact installed ABIogenesis 5.0 candidate shall complete
 the primary public operator loop through one admitted GTL One Surface program

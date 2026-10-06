@@ -1,0 +1,20 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+    "beforeSha256": "3a2bfb6e5aa06ac7de261f59179c2dd4e05d9b97d78a943a3347af3b8e49a913",
+    "beforeBytes": 13282,
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/descriptor-exposure-repair-01/preimage/0"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+    "beforeSha256": "c5eecdf8f7a8790f0e2d765dca0836f27a1b0da6cce8431ce8095b6247ee234e",
+    "beforeBytes": 30467,
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/descriptor-exposure-repair-01/preimage/1"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/semantic_revision.js",
+    "beforeSha256": "8cd39f61158ecf3280afb71e93768f89f953c6385561790d382c52d147397775",
+    "beforeBytes": 11675,
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/descriptor-exposure-repair-01/preimage/2"
+  }
+]

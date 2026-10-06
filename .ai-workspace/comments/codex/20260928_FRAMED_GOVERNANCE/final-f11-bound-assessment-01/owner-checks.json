@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "basisShapeIdentityAndExactInstalledCorrespondence": true,
+  "tenantExactOwnedCoordinates": true,
+  "roleMaterialScopeAssetCorrespondence": true,
+  "actualTaskPlanInput": true,
+  "fullTypedRetainedHandoff": true,
+  "actualAssetOutputPublicationRelation": true,
+  "actualConstructorSourceRelation": true,
+  "actualPublishedProofSourceRelations": true,
+  "exactCoordinateDigest": "sha256:81cefea619af712a416d8680efa40fc2bed1f3248460022e4e625eef0ed46c0c",
+  "exactPrefixDigest": "sha256:e2bb5df3f58b91a49f7324a487e9e79b93d05b03c368c339c82a6edc9d359ec0",
+  "crossedBasis": {
+    "refused": true,
+    "boundary": "basis differs from C02/Q02: productContentDigest"
+  },
+  "structuralAttribution": "insufficient",
+  "independentAttributionAssessment": false,
+  "nativeCalls": 0,
+  "providerCalls": 0
+}

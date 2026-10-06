@@ -1,0 +1,115 @@
+  sdlcComplianceScenario({
+    key: "js-sdlc-bootstrap",
+    scenarioId: "SCN-GLC-HELLO-WORLD-JS-SDLC-BOOTSTRAP",
+    kind: "sdlc_js_full_node_test",
+    expectedStdout: null,
+    expectedReturnValue: "Hello, world!",
+    executeFromPlan: false,
+    witness: {
+      sourceProject: "odd_sdlc",
+      runPath: "/Users/jim/src/apps/odd_sdlc/build_tenants/typescript/test_env/test_runs/scenario_t132_hello_world_js_live/20260624T185624005Z_pid20893",
+      durationMinutes: 41.64,
+      traversalShape: [
+        "Fg_conform_project",
+        "derive_lite_design_adr_surface",
+        "derive_lite_component_code_surface",
+        "derive_lite_test_design_surface",
+        "derive_lite_component_test_surface",
+        "derive_lite_uat_test_source_surface",
+        "prepare_test_execution_surface",
+        "derive_test_execution_result_surface"
+      ],
+      parityRule: "reproduce traversal shape as typed GTL vectors consumed by ABG startup; do not copy odd_sdlc runtime code, ledgers, phase-flow controller, or local truth surfaces"
+    },
+    stagePlan: [
+      {
+        stage: "conformance_project",
+        filesToProduce: ["specification/project-conformance.md"],
+        instructions: [
+          "Write only specification/project-conformance.md.",
+          "Declare the project pressure for a JavaScript Hello World software build traversal.",
+          "Name the required downstream lifecycle surfaces: implementation design, source, test design, component test source, UAT test source, test execution plan, and test execution result.",
+          "State that ABG owns startup admission, registry selection, graph-call opening, vector traversal, F_P dispatch, evidence admission, event emission, closure, and convergence.",
+          "Do not write source, tests, package files, or execution plans in this vector."
+        ]
+      },
+      {
+        stage: "implementation_design",
+        filesToProduce: ["design/implementation-design.md"],
+        instructions: [
+          "Write only design/implementation-design.md.",
+          "Use the prior conformance_project artifact as the authority.",
+          "Define a minimal JavaScript module that exports helloWorld() returning exactly \"Hello, world!\".",
+          "Name package.json, src/hello.mjs, design/test-design.md, test/component/hello.test.mjs, test/uat/hello.uat.test.mjs, test-execution-plan.json, and execution result as separate lifecycle surfaces.",
+          "Do not materialize source, tests, package files, or execution plans in this vector."
+        ]
+      },
+      {
+        stage: "source",
+        filesToProduce: ["package.json", "src/hello.mjs"],
+        instructions: [
+          "Write only package.json and src/hello.mjs.",
+          "Use the prior implementation_design artifact as the authority.",
+          "package.json must be private:true and type:module.",
+          "src/hello.mjs must export helloWorld() returning exactly \"Hello, world!\".",
+          "Do not write test source or execution plans in this vector."
+        ]
+      },
+      {
+        stage: "test_design",
+        filesToProduce: ["design/test-design.md"],
+        instructions: [
+          "Write only design/test-design.md.",
+          "Use the prior source artifact summaries as the evidence source.",
+          "Specify both component and UAT validation obligations.",
+          "The component test must import helloWorld and assert the exact return value \"Hello, world!\".",
+          "The UAT test must validate the user-visible greeting contract through the same exported function.",
+          "Do not write test source in this vector."
+        ]
+      },
+      {
+        stage: "component_test_source",
+        filesToProduce: ["test/component/hello.test.mjs"],
+        instructions: [
+          "Write only test/component/hello.test.mjs.",
+          "Use the prior test_design and source artifact summaries as the evidence source.",
+          "Use node:test and node:assert/strict.",
+          "Import the named export exactly as: import { helloWorld } from \"../../src/hello.mjs\".",
+          "Assert helloWorld() returns exactly \"Hello, world!\"."
+        ]
+      },
+      {
+        stage: "uat_test_source",
+        filesToProduce: ["test/uat/hello.uat.test.mjs"],
+        instructions: [
+          "Write only test/uat/hello.uat.test.mjs.",
+          "Use the prior component_test_source, test_design, and source artifact summaries as the evidence source.",
+          "Use node:test and node:assert/strict.",
+          "Import the named export exactly as: import { helloWorld } from \"../../src/hello.mjs\".",
+          "Assert the user-visible greeting contract is exactly \"Hello, world!\"."
+        ]
+      },
+      {
+        stage: "test_execution_plan",
+        filesToProduce: ["test-execution-plan.json"],
+        instructions: [
+          "Write only test-execution-plan.json.",
+          "Use the prior component_test_source and uat_test_source artifact summaries as the evidence source.",
+          "The command must be node with args [\"--test\", \"test/component/hello.test.mjs\", \"test/uat/hello.uat.test.mjs\"].",
+          "expectedTestPassCount must be at least 2, matching the admitted component and UAT coverage floor.",
+          "expectedStdoutMatch must include stable zero-failure evidence such as fail 0; do not pin an exact pass-count fragment when the generated tests add depth coverage.",
+          "assertedReturnValue must be \"Hello, world!\".",
+          "Do not execute the test in this vector."
+        ]
+      },
+      {
+        stage: "test_execution_result",
+        instructions: [
+          "Produce no files.",
+          "Judge the observed executionStatus, planSatisfied flag, observedTestPassCount, and stdout digest against the prior test_execution_plan.",
+          "Accept only if both component and UAT tests passed, planSatisfied is true, and observedTestPassCount is at least the prior test_execution_plan expectedTestPassCount.",
+          "Do not reject solely because node:test uses a different TAP prefix glyph when the F_D pass-count check is satisfied."
+        ]
+      }
+    ]
+  }),

@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {pathToFileURL} from 'node:url';
+import {join} from 'node:path';
+const p=import.meta.dirname,e=JSON.parse(fs.readFileSync(join(p,'environment.json'),'utf8'));
+const fixture=await import(pathToFileURL(join(e.installedRoots[1],'build/index.js')).href);
+const source=fs.readFileSync(join(process.cwd(),'build_tenants/abiogenesis/typescript/test_env/fixtures/t287-selected-action-product/index.mjs'));
+assert.deepEqual(source,fs.readFileSync(join(e.installedRoots[1],'build/index.js')));
+const product=await import(pathToFileURL(join(e.installedRoot,'build/code/src/product/index.js')).href);
+const witness=await import(pathToFileURL(join(e.installedRoot,'build/code/src/abg/witness_operation_contracts.js')).href);
+const publicApi=await import(pathToFileURL(join(e.installedRoot,'build/code/src/public/index.js')).href);
+const definition=publicApi.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(d=>d.definitionKey.operationId==='abg.operation.witness.admit'&&d.definitionKey.memberKey==='reprice');assert.ok(definition);assert.equal(witness.WITNESS_OPERATION_CONTRACTS.admit.reprice.definitionKey.memberKey,'reprice');
+const request={...e.input,phase:1,coveredSelectionRefs:['continuation://preflight/old','witnessed-act://preflight/cover'],task:{...e.input.task,payload:'selected second action',currentAuthorityMarker:'workspace-binding://preflight/current'}};
+const model=fixture.model(request).resultCandidate,basis=fixture.gap(model).resultCandidate,next=fixture.next(basis).resultCandidate;
+assert.equal(next.selectedActionRef,fixture.ref('action','consumer'));assert.deepEqual(next.lawfulBasisRefs.slice(-2),request.coveredSelectionRefs);assert.deepEqual(basis.targetInput,request.task);
+assert.deepEqual(next.targetObligationRefs,e.input.actionCatalog.rows.find(r=>r.actionRef===fixture.ref('action','consumer')).targetObligationRefs);
+const preflight={status:'passed',scope:'pure construction only; synthetic current marker and coverage refs are not runtime facts',fixtureUnchanged:true,archiveDigests:await Promise.all(e.artifactPaths.map(p=>product.sha256File(p))),coverDefinition:definition.definitionKey,currentSelection:next.selectedActionRef,lawfulBasisTransport:next.lawfulBasisRefs.slice(-2),targetInput:request.task};
+fs.writeFileSync(join(p,'covered-preflight.json'),JSON.stringify(preflight,null,2)+'\n');console.log(JSON.stringify(preflight));

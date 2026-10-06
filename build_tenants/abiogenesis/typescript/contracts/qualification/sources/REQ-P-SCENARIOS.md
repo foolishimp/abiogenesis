@@ -3,8 +3,8 @@
 **Status**: Active - T-283 base; exact Definition-selected STDO qualification basis
 **Category**: Verification
 **Date**: 2026-07-25
-**Updated**: 2026-09-28
-**Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](stdo://releases/v2.5.1-rc.1/standards/SPEC_METHOD.md)
+**Updated**: 2026-10-06
+**Derives from**: [INTENT.md](../../INTENT.md), [PRODUCT.md](../../PRODUCT.md), [SPEC_METHOD.md](stdo://releases/v2.5.1-rc.2/standards/SPEC_METHOD.md)
 **Wave**: ABIogenesis 5.0
 
 ---
@@ -43,11 +43,14 @@ GraphFunction identities, input and output contracts, execution basis,
 expected terminal or continuation result, replay basis, and named negative
 conditions.
 
-**REQ-P-SCENARIOS-005**: Scenario fixtures and adapters may provide declared
-inputs and attributed external ignition. They shall not invoke workers
-directly, emit or mutate ABG events, author results, construct execution bases
-or continuations, retry traversal, widen catalog views, choose topology, or
-decide closure.
+**REQ-P-SCENARIOS-005**: Scenario fixtures may author test-owned GTL declarations,
+contracts, ordinary leaf implementations and independent expected outcomes in
+test/consumer territory outside the ABG package. Fixtures and adapters may
+provide declared inputs and attributed external ignition. Only the admitted
+ordinary leaf may propose its result through the declared implementation seam;
+no fixture may author an admitted result, invoke workers directly, emit or mutate
+ABG events, construct execution bases or continuations, retry traversal, widen
+catalog views, override declared topology, or decide closure.
 
 **REQ-P-SCENARIOS-006**: The same GTL validator, HoG traversal, ABG runtime,
 catalog, SDK, CLI, and release contracts used by the installed Product shall
@@ -70,31 +73,37 @@ scenario implement behavior constitutionally assigned to a later scenario.
 
 ### `ABG5-S01` - Clean Install And Minimal Invocation
 
-**REQ-P-SCENARIOS-008**: `ABG5-S01` shall use the exact root binding
-`ABI5-ROOT-001` and governor `abg5.root.s01.hello_world@5`. It shall:
+**REQ-P-SCENARIOS-008**: `ABG5-S01` shall prove `ABI5-ROOT-001` using a
+prospectively fixed, independently authored minimal test program. It shall:
 
-1. pack one exact `pre_rc_candidate` containing the destination-owned all-`F_D`
-   conformance module;
+1. pack one exact ABIogenesis `pre_rc_candidate` without test-program code,
+   contracts or catalog publication;
 2. install it source-blind on the trusted developer desktop;
-3. verify and bind the exact product set and workspace;
-4. admit and narrow the installed catalog;
-5. select and admit
-   `program://abiogenesis/conformance/hello-world@5`;
-6. resolve
-   `graph-function://abiogenesis/conformance/hello-world@5` and its exact
-   `hello-input@5` and `hello-output@5` contracts;
+3. verify and bind the exact Product set and workspace;
+4. supply the external test program's GTL publication, construct the catalog
+   through ordinary admission and narrow its view;
+5. select and admit the exact test-owned Program;
+6. resolve its test-owned GraphFunction, contracts and ordinary leaf binding;
 7. materialize and validate the GTL graph without lowering;
 8. enter HoG through installed `abg.cli` and the public invocation contract;
-9. admit the causal invocation, C-call, evidence, result, judgment, and closure
+9. admit causal invocation, C-call, evidence, result, judgment and closure
    events through ABG; and
-10. derive the same typed terminal result and closed state twice from replay
-    and return it through the CLI.
+10. derive the same typed terminal result and closed state in two fresh reads
+    and return that result through the CLI.
 
 Those ten ordered obligations are `R1` through `R10` of `ABI5-ROOT-001`.
+The test fixes its exact input/output and declaration identities independently of
+result inspection. No fixed test-program identity, expected output or
+scenario-specific acceptance rule belongs to production source. Hello World is
+a minimal language test, never a Product or delivered feature. Its declarations
+and leaf binding remain outside the ABG package. Generic validation, binding,
+traversal, admission and replay must handle it through the same extension
+contracts as any other lawful program.
+
 Package or symbol presence, a catalog row, component success, event
-co-presence, fixture-authored output, a continuation, hold, gap, block,
-non-admission, source import, private path, wrong contract, missing event, or
-replay disagreement leaves the root red.
+co-presence, fixture-authored admitted output, continuation, hold, gap, block,
+non-admission, ABG source/private import, wrong contract, missing event or replay
+disagreement leaves the root open.
 
 ### `ABG5-S02` - Complete GTL And Live F_P
 
@@ -204,7 +213,8 @@ assessment and admitted executable evidence. Original and excluded obligations
 remain identified with their downstream owners; excluded work cannot provide
 missing prerequisites or conceal a generic 5.0 defect. Construction/test counts
 or explicit residuals alone do not close the selected witness. Its scope does
-not shrink after result inspection. Full original Data Mapper and downstream
+not shrink after result inspection. Application-specific source, contracts,
+solutions and oracles stay outside ABIogenesis production source and package. Full original Data Mapper and downstream
 Product delivery remain open independently; selected witness acceptance does
 not close that broader claim.
 

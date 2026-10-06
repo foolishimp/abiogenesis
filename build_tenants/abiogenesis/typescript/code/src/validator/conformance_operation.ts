@@ -14,13 +14,18 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { GTL_PROGRAM_CONFORMANCE_INPUT_SCHEMA, nativeStructuralSchema, type ContractValue } from "../gtl/serialization_contracts.js";
 import {
   rawAdmitValue,
+  isRawAdmittedValue,
+  type RawAdmissionResult,
   type RawAdmissionRefusal,
   type RawAdmittedValue,
 } from "./raw_admission.js";
 import {
   validateProgram,
+  constructGtlProgramDiagnosticId,
+  type GtlProgramDiagnosticId,
   type ProgramValidation,
   type ProgramValidationInput,
   type StaticValidationRefusal,
@@ -32,12 +37,12 @@ export interface ConformanceDeclarationBasis {
   readonly declarationClosure: ResolvedProgramDeclarationClosure;
 }
 
-export interface ConformanceEvaluatePacket {
-  readonly kind: "conformance_evaluate_packet";
-  readonly schemaVersion: "5.0.0";
-  readonly memberKey: "gtl_program";
-  readonly publication: ModulePublication;
-  readonly program: GtlProgram;
+export interface GtlProgramConformanceInput extends ContractValue<typeof GTL_PROGRAM_CONFORMANCE_INPUT_SCHEMA> {}
+export type ConformanceEvaluatePacket = GtlProgramConformanceInput;
+
+export function admitGtlProgramConformanceInput(value: unknown): RawAdmissionResult<GtlProgramConformanceInput> {
+  return rawAdmitValue<GtlProgramConformanceInput>(value, "conformance_evaluate_packet",
+    "contract://abiogenesis/gtl/program-conformance-input@5");
 }
 
 export interface GtlProgramConformanceResult {
@@ -63,7 +68,7 @@ export interface GtlProgramConformanceRefusal {
   readonly code: "invalid_packet" | "raw_admission_refused" | "validation_failed";
   readonly diagnosticRef: string;
   readonly diagnostics: readonly Readonly<{
-    readonly code: string;
+    readonly code: GtlProgramDiagnosticId;
     readonly path: string;
     readonly message: string;
   }>[];
@@ -111,7 +116,7 @@ function refusal(
     programDigest,
     code,
     diagnosticRef: `diagnostic://abiogenesis/conformance/${code}@5`,
-    diagnostics,
+    diagnostics: diagnostics.map((diagnostic) => ({ ...diagnostic, code: constructGtlProgramDiagnosticId(diagnostic.code) })),
     violatedContractRefs: Object.freeze([...violatedContractRefs]),
     evidenceRefs: Object.freeze([...evidenceRefs]),
     repairAffordances: Object.freeze([]),
@@ -203,6 +208,25 @@ export function evaluateGtlProgramConformance(
         declarationBasis.declarationClosure, packet.program));
 }
 
+export function typecheckGtlProgram(
+  admittedInput: RawAdmittedValue<GtlProgramConformanceInput>,
+  declarationBasis?: ConformanceDeclarationBasis,
+): GtlProgramConformanceOperationResult {
+  if (typeof admittedInput !== "object" || admittedInput === null || !isRawAdmittedValue(admittedInput) ||
+      admittedInput.subjectKind !== "conformance_evaluate_packet" ||
+      admittedInput.contractRef !== "contract://abiogenesis/gtl/program-conformance-input@5") {
+    return refusal("invalid_packet", null, null, [{
+      code: "invalid_packet", path: "$", message: "typecheck requires this owner's admitted current conformance input",
+    }]);
+  }
+  return evaluateGtlProgramConformance(admittedInput.value, declarationBasis);
+}
+
+export const GTL_PROGRAM_CONFORMANCE_INPUT_API = Object.freeze({
+  schemaDefinition: "GtlProgramConformanceInput", schema: nativeStructuralSchema(GTL_PROGRAM_CONFORMANCE_INPUT_SCHEMA),
+  admitGtlProgramConformanceInput, typecheckGtlProgram,
+});
+
 /** Internal continuation after this conformance owner resolves the exact
  * declaration closure. This is not exposed on the raw ConformancePort. */
 export function evaluateGtlProgramConformanceFromResolvedClosure(
@@ -249,7 +273,11 @@ function evaluateWithValidationInput(
       message: "GTL Program conformance packet differs from its exact owner contract",
     }]);
   }
-  const packet = admitted as unknown as ConformanceEvaluatePacket;
+  const structuralAdmission = admitGtlProgramConformanceInput(admitted);
+  if (structuralAdmission.kind !== "raw_admitted_value") return refusal("raw_admission_refused", null, null, [{
+    code: structuralAdmission.code, path: "$", message: structuralAdmission.message,
+  }]);
+  const packet = structuralAdmission.value;
   const programRef = typeof packet.program.programRef === "string"
     ? packet.program.programRef
     : null;

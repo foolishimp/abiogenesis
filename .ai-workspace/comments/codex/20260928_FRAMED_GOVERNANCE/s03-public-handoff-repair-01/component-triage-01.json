@@ -1,0 +1,11 @@
+{
+  "failure": "First isolated TypeScript check: TS2352 on interface-shaped Run coordinate cast to JsonValue; subsequent source inspection found new rendering result local was not captured",
+  "frames": {
+    "ProductDesign": "Output meaning and owner split unchanged; no new authority decision",
+    "IdentityOwner": "Existing typed coordinate interface lacks an index signature although the closed projected fields are JSON",
+    "Integration": "Use established unknown-to-JsonValue boundary; capture assertColdDomain return before rendering handoff",
+    "Proof": "Compile stopped before emit; source inspection caught dependent native test branch before any execution"
+  },
+  "scope": "Two local implementation corrections inside granted files; no native attempt",
+  "reproof": "Repeat isolated typecheck then full component producer-to-caller and syntax proof"
+}

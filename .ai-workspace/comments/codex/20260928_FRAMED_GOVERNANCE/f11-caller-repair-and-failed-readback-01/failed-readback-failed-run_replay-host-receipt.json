@@ -1,0 +1,89 @@
+{
+  "definitionKey": {
+    "memberKey": "run_replay",
+    "operationId": "abg.operation.project.read"
+  },
+  "exitCode": 0,
+  "failure": null,
+  "invocationRef": "invocation://abiogenesis/6a0eca6b35eb24d5c6bdbfb6e727862276b8a7cf7b19cdbd05e8659742120535",
+  "kind": "definition_host_receipt",
+  "ownerOutput": {
+    "outcomeKind": "result",
+    "value": {
+      "caseKey": "run_replay",
+      "projection": {
+        "fromOrdinal": 0,
+        "kind": "run_replay_projection",
+        "limit": 1000,
+        "replay": {
+          "digest": "sha256:dbb5b41b55de8e2efc7ba59b754f0ba020c6c3d9b8f1f6883c5302dab466f292",
+          "ref": "replay://abiogenesis/dbb5b41b55de8e2efc7ba59b754f0ba020c6c3d9b8f1f6883c5302dab466f292"
+        },
+        "status": "failed",
+        "subject": {
+          "digest": "sha256:b9855e8ce73c18fc5f2d94bea62b101dcc076f850e1f9d7e7fbbf98e664a5924",
+          "ref": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271"
+        },
+        "terminalResult": null
+      },
+      "projectionBasis": {
+        "digest": "sha256:87985127944511c56508a1b63efd1103b8d8868b84f1693b50a6dbbc9e949ae4",
+        "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl"
+      },
+      "source": {
+        "digest": "sha256:b9855e8ce73c18fc5f2d94bea62b101dcc076f850e1f9d7e7fbbf98e664a5924",
+        "ref": "run://abiogenesis/2b533387ed38e58ad9d4971ee0e9c13f1348ed5c05b57535b262f19cf8035271"
+      }
+    }
+  },
+  "resources": {
+    "eventResource": {
+      "acquisitionKind": "reopen",
+      "closeHandoff": {
+        "prefix": {
+          "coordinateDigest": "sha256:87985127944511c56508a1b63efd1103b8d8868b84f1693b50a6dbbc9e949ae4",
+          "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+          "kind": "durable_prefix_coordinate",
+          "prefixDigest": "sha256:2f4e445acdcfa2ac94dc341aea0c061446419d0eb8dc07e838c2b47c27124ba8",
+          "prefixLength": 2668364,
+          "schemaVersion": "5.0.0",
+          "storeIdentity": {
+            "device": 16777230,
+            "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+            "inode": 464611665
+          }
+        },
+        "reopenAuthority": {
+          "authorityDigest": "sha256:971137be1f3c7dc811b1b74a2e6720bf1a5e3199c48518efda1f31c459d1b4b1",
+          "device": 16777230,
+          "durableByteLength": 2668364,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "eventLogDigest": "sha256:2f4e445acdcfa2ac94dc341aea0c061446419d0eb8dc07e838c2b47c27124ba8",
+          "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+          "inode": 464611665,
+          "kind": "event_store_reopen_authority",
+          "schemaVersion": "5.0.0"
+        }
+      },
+      "entryPrefix": {
+        "coordinateDigest": "sha256:87985127944511c56508a1b63efd1103b8d8868b84f1693b50a6dbbc9e949ae4",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:2f4e445acdcfa2ac94dc341aea0c061446419d0eb8dc07e838c2b47c27124ba8",
+        "prefixLength": 2668364,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 464611665
+        }
+      },
+      "kind": "abg_event_resource_receipt",
+      "receiptDigest": "sha256:0070bc993e53fc0265033b17dbd6def72eeb1864e69fafd0797e86ddd4775e73",
+      "schemaVersion": "5.0.0"
+    },
+    "kind": "abg_project_read_resource_receipt",
+    "schemaVersion": "5.0.0"
+  },
+  "schemaVersion": "5.0.0"
+}

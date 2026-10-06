@@ -1,0 +1,15 @@
+{
+  "activation": "T287_C03_GENERATED_RECONCILIATION_CONTROLS_01",
+  "executionPreimage": "b4edf4eea118df0788c95f42b26ec1190c4eba27781b4791a0e0b76f8bc7cb42",
+  "request": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-generated-reconciliation-01/request.txt",
+    "bytes": 3842,
+    "sha256": "128122bfe6047494ca827948bee3def9047067cb1ea662181622ea4859275943"
+  },
+  "writeTerritorySHA256": "34f4374ddc5f6002d02927fa055e0c35ce42baad605deb927465d004d9f8ae3f",
+  "currentSourceExceptions": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+  ],
+  "generatedCount": 926,
+  "copyCount": 74
+}

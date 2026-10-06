@@ -1,0 +1,11 @@
+{
+  "workspaceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/worksite",
+  "installRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/installed",
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/events/runtime.events.jsonl",
+  "lockNamespace": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/tmp/abiogenesis-event-store-locks-v5",
+  "lockFileRule": "<actual-device>-<actual-inode>.lock; original namespace maintained for every call",
+  "history": "brand new; no historical resource accessed",
+  "HOME": "unchanged",
+  "permittedWrites": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01",
+  "nativeCalls": 12
+}

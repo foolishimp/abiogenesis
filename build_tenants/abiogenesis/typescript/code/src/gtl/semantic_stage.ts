@@ -92,7 +92,7 @@ const SURFACE_SCHEMA = v.strictObject({ kind: ref, requiredContexts: refs, stand
   authoritySlots: v.array(v.strictObject({ authorityKindRef: ref,
     disposition: v.picklist(["normal", "bounded_fallback", "forbidden_routine"]), fallbackPreconditionRefs: refs })) });
 const assemblyFields = { ruleRef: ref, graphFunctionRef: ref,
-  sectionOrder: v.tuple([v.literal("role"), v.literal("source"), v.literal("obligations"), v.literal("predecessors"),
+  sectionOrder: v.strictTuple([v.literal("role"), v.literal("source"), v.literal("obligations"), v.literal("predecessors"),
     v.literal("worksite"), v.literal("evidence"), v.literal("task"), v.literal("response")]),
   proportionalityPolicy: v.literal("declared_semantic_assessment"),
   maxPromptBytes: v.pipe(v.number(), v.integer(), v.minValue(1)) };

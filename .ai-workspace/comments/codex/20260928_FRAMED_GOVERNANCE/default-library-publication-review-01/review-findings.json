@@ -1,0 +1,42 @@
+{
+  "originalDefect": {
+    "ProductRequirement": "GRAPHFUNCTION-016/017/018 require immutable cumulative typed binding availability; GRAPHFUNCTION-025 requires ordinary GTL templates.",
+    "design": "Accepted default wrappers project state to native/C2 task, execute the fixed child and fold its observation into conserved state; publication/closure proof precedes the live witness.",
+    "origin": "wrapper() concatenated required state with all node outputs, including fold output state. Every one of the six purposes therefore published the same carried binding twice.",
+    "symptom": "Actual installed N2 catalog.admit refused malformed_contribution; the unchanged installed publication validator reports six environment.carries duplicate_identity diagnostics.",
+    "integrationEscape": "The earlier local Program helper raw-admitted a publication without validatePublication; installed-root fixture validated only the selected Program publication, leaving added non-selected publications outside that precondition.",
+    "identityAndLifecycle": "Carried contract availability is a declaration set, not a sequence of runtime production occurrences. Deduplication changes immutable declaration identity and dependent Product/catalog identity; it does not merge or rewrite ABG occurrences.",
+    "ownerAndEffects": "GTL default-library producer owns valid declarations. Existing validator owns refusal. Test helper owns proof preconditions only; no native/C2 leaf, foldback, Program, runtime owner or Public API changed.",
+    "proofConjunction": "Six raw wrappers + all eleven actual request publications + unchanged rejection + actual independent consumer, with exact constructor/patch/source correspondence.",
+    "causeScope": "Realization defect and omitted proof-consumer join under existing design. No missing Product law or new architecture is established.",
+    "recurrencePrevention": "The shared proof helper now validates every actual publication before lower catalog readiness; Program tests invoke the same full-array precondition. Current independent review exercises the existing secondary consumer affected by that helper.",
+    "smallestReentry": "realization_refactor",
+    "affectedCone": "Three source/proof files; one isolated generated gtl/default_library.js; subsequent generated declaration/Product/catalog/manifest/package identities and affected installed admission proof.",
+    "repairComplexity": "One stable set union in the existing producer plus bounded shared proof precondition. No new runtime carrier or controller."
+  },
+  "currentFindings": [],
+  "recommendation": "Accept the exact bounded source/component repair. Root owns disposition and any successor construction/native grant.",
+  "remainingReproof": [
+    "New exact source/build/package/install subject and generated identities",
+    "Actual corrected ordinary Public full11 catalog admission, view/conformance and applicable installed execution/cold proof",
+    "Remaining complete exact-candidate qualification through existing owners"
+  ],
+  "evidenceLimits": [
+    "Original actual installed refusal is observed at C; corrected acceptance is static compiled source only",
+    "Four selected pure tests cover default Program and one real independent consumer; full11 Program closure is not claimed",
+    "No corrected immutable Product was built, installed, admitted or qualified by this review",
+    "Original runtime resources and moving attribution outputs were not accessed"
+  ],
+  "reviewCheckCorrection": {
+    "kind": "review_probe_assumption_failure",
+    "originalProbeSha256": "569e10d7fc1304b436aa05e91c6dafc3396ce2c6eca9ae17a652e4e9ade1be7b",
+    "failure": "The review probe expected raw constructor binding order from a modulePublication-canonicalized value. Observed original publication carries were [state,state,observation,task], not [state,task,observation,state].",
+    "sourceOwner": "gtl/canonicalization.ts:137 canonicalizeStringInventory(environmentCarrier, carries)",
+    "origin": "Reviewer assertion conflated raw graph declaration order with canonical publication order. Candidate raw-order named test already passed.",
+    "scope": "Reviewer scratch check only; no Product/source mismatch identified.",
+    "correction": "Check raw constructor stable first-occurrence order separately, then canonical published inventory order and exact original-to-corrected full11 value relation.",
+    "reentry": "local pure review-check correction within granted territory",
+    "subjectEdits": 0,
+    "nativeEffects": 0
+  }
+}

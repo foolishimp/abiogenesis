@@ -515,8 +515,10 @@ register.
    catalog projection, `RegistrySessionView`, `PublicSdkExecutionContext`,
    operator-capability composition, and `WorkspaceRuntimeEventReader`.
 9. Add `AbiogenesisPublicSdk`, then map `abg.cli` to it.
-10. Pack the declarations-only Hello World fixture and prove SDK before CLI,
-   deterministic capability before live capability, and result before replay.
+10. Supply an externally authored minimal test program, with its declarations,
+   ordinary leaf binding and oracle outside the ABG package. Prove SDK before
+   CLI, deterministic capability before live capability and result before replay.
+   Hello World is a language test, not a Product or packaged runtime capability.
 11. Remove the new path's dependency on `.abiogenesis/cli-runtime.mjs` and
     source-root installer inputs before T-223 closure.
 
@@ -548,8 +550,8 @@ T-223 closes, every public DS-1 operation uses the new exact path.
 The bound ABG product supplies one runtime-system profile and one SYSTEM
 GraphFunction contribution used to
 prove system/product conflict law. The fixture product contains detached
-descriptor/contribution data, one serialized Module with the Hello World
-GraphFunction and one GraphFunction-shaped node type, one opaque overlay asset,
+descriptor/contribution data, one serialized test-owned Module/GraphFunction
+and one GraphFunction-shaped node type, one opaque overlay asset,
 and contribution rows for `graph_function`, `node_type`, and `overlay`, plus
 declared input/result schemas and static assets. It contains no executable
 publisher source. Deterministic
@@ -566,7 +568,7 @@ T-223 must prove:
 5. incompatible identity/range/digest/interface, unresolved dependency or
    handle, duplicate/shadow, allowlist widening, malformed input, missing
    capability, and source/private import fail at their owning boundary; and
-6. one packed-and-installed live Hello World preserves response, result, event,
+6. one externally authored live F_P test program preserves response, result, event,
    and replay evidence.
 
 ## Non-Goals

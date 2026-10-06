@@ -1,0 +1,21 @@
+{
+  "kind": "actual_final_read_only_population_correspondence",
+  "passed": true,
+  "checks": [
+    "every final qualification member joins its actual original body/bytes/mode and explicit origin role",
+    "all selected roots are represented; exact18 inherited controls retained as historical only",
+    "all3281 actual protected originals and mechanical copies are conserved after readiness",
+    "all16 inherited archive SHA512 SRI values match actual bodies",
+    "all15 inherited recorded tool links remain exact and separate from regular observations",
+    "all1936 current effective source/generated bodies and96 construction preimages remain distinct and conserved",
+    "all927 expected outputs derive from exact C04 stage including unchanged default library standard",
+    "all835 historical component bodies exactly retain Q04 preimages; no C04 six-case run claimed",
+    "all three original six-case historical readiness receipts retained without relabel or rerun",
+    "exact C04 and Q04 immutable cuts remain unchanged"
+  ],
+  "inventoryMembers": 4604,
+  "protectedInputs": 3281,
+  "historicalComponentReadinessRepeated": false,
+  "actualQualificationCommandsExecuted": 0,
+  "outsideTerritoryMutations": 0
+}

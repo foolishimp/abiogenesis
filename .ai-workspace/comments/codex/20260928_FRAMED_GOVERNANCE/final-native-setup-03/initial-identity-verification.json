@@ -1,0 +1,50 @@
+{
+  "status": "passed",
+  "records": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-controls-03/request.txt",
+      "bytes": 7998,
+      "sha256": "1106acffbe2a6da2149c12b007f06bb2185c75d8b7fa813695f9c246fe4a798a"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/freeze.json",
+      "bytes": 4543994,
+      "sha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-review-02/return.md",
+      "bytes": 13814,
+      "sha256": "ca8088c55e696391f16d109aa5c8b9bf918d6f2154363432f783b3441e877b57"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-review-02/freeze.json",
+      "bytes": 8972,
+      "sha256": "27143ee34bfab83267ad804ae5eaae76fa3e0f89981a796215c6ae6ea4893328"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "bytes": 4277,
+      "sha256": "2c13b1fd28f3aaa624d941537a858f67ca8784f0710f490522147f57964c4051"
+    }
+  ],
+  "independentReviewRecordsVerified": 34,
+  "archive": {
+    "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10375084,
+    "sha256": "766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747"
+  },
+  "selected": {
+    "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+      "productContentDigest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124",
+      "manifestDigest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "oldNativeResourcesTouched": false
+}

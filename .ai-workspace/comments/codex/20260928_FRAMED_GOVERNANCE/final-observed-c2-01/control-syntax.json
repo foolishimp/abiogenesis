@@ -1,0 +1,30 @@
+[
+  {
+    "file": "driver.mjs",
+    "nodeSyntax": "passed"
+  },
+  {
+    "file": "ordinary-caller.mjs",
+    "nodeSyntax": "passed"
+  },
+  {
+    "file": "public-support.mjs",
+    "nodeSyntax": "passed"
+  },
+  {
+    "file": "owner-checks.mjs",
+    "nodeSyntax": "passed"
+  },
+  {
+    "file": "output-checks.mjs",
+    "nodeSyntax": "passed"
+  },
+  {
+    "file": "launch-once.py",
+    "pythonSyntax": "passed-no-pyc"
+  },
+  {
+    "file": "observe-process.py",
+    "pythonSyntax": "passed-no-pyc"
+  }
+]

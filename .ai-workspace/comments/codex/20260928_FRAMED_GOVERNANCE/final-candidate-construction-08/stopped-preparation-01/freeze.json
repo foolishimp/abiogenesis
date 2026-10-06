@@ -1,0 +1,185 @@
+{
+  "status": "CLOSED",
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_08",
+  "workResult": "STOPPED_PREPARATION_ONLY_NO_CANDIDATE",
+  "frozenAt": "2026-10-02T13:20:01.088733+00:00",
+  "records": [
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "bytes": 3480,
+      "sha256": "cb9fe5a690db4106c692eb1d9126c525b278e4a733ea5182f27c625d767677e6",
+      "mode": 420
+    },
+    {
+      "path": "algorithm-donors.json",
+      "kind": "file",
+      "bytes": 5588,
+      "sha256": "7a1182c3b450da92e6772b986dcac4028ac691eadb98bb58b34673f6dc5680b7",
+      "mode": 420
+    },
+    {
+      "path": "controls/acceptance.json",
+      "kind": "file",
+      "bytes": 3828,
+      "sha256": "cbf7b233abb96b0957f6df749f372c6b78fa47d57730b5158a2f7b50a5649b32",
+      "mode": 420
+    },
+    {
+      "path": "controls/request.txt",
+      "kind": "file",
+      "bytes": 4710,
+      "sha256": "032cf6072adb9e2350f8e5207e3c5a9e59d43603b7af3b36c31c94ecac174661",
+      "mode": 420
+    },
+    {
+      "path": "controls/root-source-selection-closure.json",
+      "kind": "file",
+      "bytes": 1683,
+      "sha256": "4fe4c39efeffbbe602c0febf89734657a4affd85d222c90bae09867e7bf41a8d",
+      "mode": 420
+    },
+    {
+      "path": "controls/sections.json",
+      "kind": "file",
+      "bytes": 4981,
+      "sha256": "ab00474cf3b47f57187c209b10b30586b4536dcc89bf5402b8f793bd4ad13e5c",
+      "mode": 420
+    },
+    {
+      "path": "controls/source-cut.json",
+      "kind": "file",
+      "bytes": 13018234,
+      "sha256": "f131c687fbae3be7cf0cbb4ee340def5d4a328de0716e883d4be08d471b5c18c",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/compare-wrapper.mjs",
+      "kind": "file",
+      "bytes": 8860,
+      "sha256": "f7b7aa366c3df1204dcdad8b5b995e4bc867988f7c3ffe4f6cdb14e68ceb7519",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/correspondence.py",
+      "kind": "file",
+      "bytes": 8067,
+      "sha256": "3a2db9aacec05c214c2bf76fbf46b407be1c64eea938f1f33dd4b08d6e94b0ee",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/execute.py",
+      "kind": "file",
+      "bytes": 6182,
+      "sha256": "3ba9b195da050ad57a7dc31c6ee942b4180df98a812f11e6e1b58486060b7959",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/finalize.py",
+      "kind": "file",
+      "bytes": 19914,
+      "sha256": "9928a34c2bf60a7d4d6f5a18a90fffa31c1ab9531a619cbca372aa04e238a506",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/prepare-wrapper-comparison.py",
+      "kind": "file",
+      "bytes": 4463,
+      "sha256": "ab2c67f28501889503ff1648d5843d5c8cd4d6fe04f881270a6b660d4bb55b78",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/prepare.py",
+      "kind": "file",
+      "bytes": 11660,
+      "sha256": "aee7d87ade60859aefd34587dadb1238ea3ba795bb9f44cca42d2d11c8209630",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/run-build.py",
+      "kind": "file",
+      "bytes": 1236,
+      "sha256": "bdec6da11043bcafbc2511861977c39d260b157a07be9661f48edde199d3ccb8",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/run-installed-readiness.py",
+      "kind": "file",
+      "bytes": 1002,
+      "sha256": "7d403f4d52d400eebecb74571405b3b2d3d3cd95b55a05cde42583cdc0ae80ae",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/run-package.py",
+      "kind": "file",
+      "bytes": 1203,
+      "sha256": "6db24cceccb593640e4be4ad7312fc8ba54d8c7594568a556c330095c1313f0d",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/validate-installed-publications.mjs",
+      "kind": "file",
+      "bytes": 4520,
+      "sha256": "1b19e3fd6bfe9b0b60fc58e3c6ee09d014e32a28b656520bbe357f7e89b8a0a7",
+      "mode": 420
+    },
+    {
+      "path": "final-controls/verify-installed.mjs",
+      "kind": "file",
+      "bytes": 5911,
+      "sha256": "5f96c8e763357289157911c185c57123145912e4d062dacd142552e15e3a9749",
+      "mode": 420
+    },
+    {
+      "path": "stopped-preparation-01/actual-preparation-stderr.txt",
+      "kind": "file",
+      "bytes": 405,
+      "sha256": "64d16b0ed24d5a2ba71e8d996063ba3f13551d8ad683d94c8e5c1767cb514370",
+      "mode": 420
+    },
+    {
+      "path": "stopped-preparation-01/closure.json",
+      "kind": "file",
+      "bytes": 830,
+      "sha256": "72dd448cf8f875d26783ed4c038cacbf4bacdb775b40085f653e9e547612b6d0",
+      "mode": 420
+    },
+    {
+      "path": "stopped-preparation-01/prepare.py",
+      "kind": "file",
+      "bytes": 11660,
+      "sha256": "aee7d87ade60859aefd34587dadb1238ea3ba795bb9f44cca42d2d11c8209630",
+      "mode": 292
+    },
+    {
+      "path": "stopped-preparation-01/receipt.json",
+      "kind": "file",
+      "bytes": 1408,
+      "sha256": "7d2756cb976b1149b2a74b6291ec592a663caad8097420edc67fb160de7d6686",
+      "mode": 420
+    }
+  ],
+  "directories": [
+    {
+      "path": "controls",
+      "mode": 493
+    },
+    {
+      "path": "final-controls",
+      "mode": 493
+    },
+    {
+      "path": "stopped-preparation-01",
+      "mode": 493
+    }
+  ],
+  "recordCount": 22,
+  "regularBytes": 13129825,
+  "sourceCutUnchanged": "f131c687fbae3be7cf0cbb4ee340def5d4a328de0716e883d4be08d471b5c18c",
+  "firstRefusal": "prepare.py:21 donor operation _07 versus exact current _08; before any source/law/tool/dependency/build effect",
+  "candidateReady": false,
+  "payloadCommands": 0,
+  "originalDonorControlsAndAcceptedSourceReadonly": true,
+  "freezeExcludedFromOwnPopulation": true,
+  "stopWrites": true
+}

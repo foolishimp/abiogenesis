@@ -1,0 +1,77 @@
+{
+  "status": "CLOSED",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_Q10_PROJECTION_TRIAGE_AND_Q11_GRANTS_WRITER_01",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/activation.json",
+      "bytes": 1518,
+      "sha256": "8976aa23abfe0f6dd2a9e8a34f14f24796f483dd7b9f2e02d11e4a7b80a89f07",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/closure.json",
+      "bytes": 1356,
+      "sha256": "cff91f2c5bf55994fdf4bbbee325ea5a33f4c9f5b600925458ac74ca134bcf49",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/operation-basis.json",
+      "bytes": 1644,
+      "sha256": "d943652693294d3ea823c3aa69c9eb27d68e2d0113cf53113bc120ec5a3ac616",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/plan-before.md",
+      "bytes": 6827,
+      "sha256": "a8f80f9cbf5e1cba20b3bdbc5d097bb2ca1c9609ebc79336d59a3951a5eb704c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/review-request.txt",
+      "bytes": 2903,
+      "sha256": "838d60708f8167b2cf366d641f4f57f60c1a389753b149aac65808e03eef6e26",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/review-sections.json",
+      "bytes": 3174,
+      "sha256": "12fb4b61c05273ba1fa6f97a510aab55204a98eb48cd68329da0cba73bf25fdd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/runtime-request.txt",
+      "bytes": 4740,
+      "sha256": "0843d938f9c5afdf5e9a715fcc8c6ff3a83f42d4929a457cb45b1178aeb7450f",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/runtime-sections.json",
+      "bytes": 5011,
+      "sha256": "dc5771f88819ddef26a9db4c69c1b6bb177131962384524da0773720c0e7615b",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/triage.json",
+      "bytes": 3847,
+      "sha256": "a8422a98c62b6a79cb4bdd7318bc0f57414db5f6ad7a162160f93c4437023b88",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/worker-request.txt",
+      "bytes": 4159,
+      "sha256": "34e4517bcc5d24819f17b40bbe154308bb73550c29c5e8af5c4c9c718a5166b1",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-material-projection-and-q11-controls-01/worker-sections.json",
+      "bytes": 4430,
+      "sha256": "ff536a82b6365f553913f2b60a080aadac0d4da07bf41e165e70d5cbc31784dd",
+      "mode": 420
+    }
+  ],
+  "recordCount": 11,
+  "excludedSelf": "freeze.json",
+  "writesStopped": true
+}

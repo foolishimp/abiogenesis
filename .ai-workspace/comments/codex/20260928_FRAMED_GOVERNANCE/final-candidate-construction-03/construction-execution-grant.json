@@ -1,0 +1,10 @@
+{
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_03",
+  "actor": "/root/rc1_successor_builder",
+  "role": "Worker",
+  "request": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-03/request.txt",
+  "requestSHA256": "a953a72b8491c0fe9c9fd332e1d5f1f0cf093d04206b58cb70dc46c74d4e20dc",
+  "effectTerritory": "new final-prefixed paths only plus this actual grant; closed preparation unchanged",
+  "runtimeModelProviderNetworkGitEffects": false,
+  "physicalCandidateQualificationPublication": false
+}

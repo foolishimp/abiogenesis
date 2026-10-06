@@ -1,0 +1,15 @@
+{
+  "pid": 76411,
+  "pgid": 76411,
+  "exitCode": 0,
+  "timedOut": false,
+  "wait4Reaped": true,
+  "wait4Status": 0,
+  "childUserCPUSeconds": 0.996085,
+  "childSystemCPUSeconds": 1.355187,
+  "childMaxResidentSetSizePlatformBytes": 226459648,
+  "elapsedMs": 2539.492040872574,
+  "processGroupAbsent": true,
+  "stdoutSHA256": "425d5cd38014605ef24597a51507bace121f24a095bda9c81b0d736f6b13badc",
+  "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

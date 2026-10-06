@@ -1,0 +1,55 @@
+{
+  "operation": "T287_F11_C09_PROOF_CONSUMER_PREPARATION_REVIEW_10",
+  "role": "independent Reviewer",
+  "status": "CLOSED",
+  "disposition": "GO_PREPARED_CONTINUATION_ONLY",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-10/preparation-freeze.json",
+    "bytes": 14546,
+    "sha256": "04c42137e3ac1f054f9c383a39e8c13c70654e610a8e591779d9d9e5572184fd",
+    "mode": 420
+  },
+  "records": [
+    {
+      "path": "a_c.literal",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 292
+    },
+    {
+      "path": "activation.json",
+      "bytes": 885,
+      "sha256": "d1f4fc94241084afdaf4589501f41a0e226736560ad878f9e74777d3b9837334",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 1243,
+      "sha256": "c6ebf4715943320f4e20c3d7ebf71e235e55eca5a27aa6cc090d67b96eb2c0d4",
+      "mode": 292
+    },
+    {
+      "path": "pins.json",
+      "bytes": 8975,
+      "sha256": "529f25a8619ce6b3a39c7d7e26ed60ed30cbe354f8309d5bbbc4156945213bf4",
+      "mode": 292
+    },
+    {
+      "path": "report.md",
+      "bytes": 3316,
+      "sha256": "0be048ef232e388905ed82aaaa54e493e6258d625f9ae00fcd6ab54104bbbb27",
+      "mode": 292
+    }
+  ],
+  "recordCount": 5,
+  "bodyBytes": 52532,
+  "links": 0,
+  "writesAfterFreeze": "STOPPED",
+  "RuntimeActivationAuthorizedByReviewer": false,
+  "unknownsConserved": [
+    "actual continuation owner preparation and F11/AF22 consumption",
+    "two new Runs and four fresh reads",
+    "whole installed mechanical carrier completion",
+    "genuine semantic qualification and material/context adequacy"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "activation": "T287_RC1_SUCCESSOR_CONSTRUCTION_07",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "request": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/controls/request.txt",
+  "requestSHA256": "355001e22bac15832e04e70f8f23dd3966bfe4eb9f21e8200a5b1ebfe127d864",
+  "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07",
+  "sourceRepair": false,
+  "runtimeModelProviderNetworkGitEffects": false,
+  "physicalCandidateQualificationPublication": false
+}

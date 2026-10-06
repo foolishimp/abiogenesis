@@ -1,0 +1,103 @@
+{
+  "status": "passed",
+  "scopeCorrespondenceErrors": [],
+  "ruleRosterConserved": 2137,
+  "catalogSourcePopulation": 95,
+  "inventoryUnion": 1950,
+  "selectedResponsibilityCount": 1,
+  "selectedCriterion": {
+    "criterionRef": "criterion://abiogenesis/f9a5a695d15a63600b8898a359133440712fcba166cc44fe44467490e85297bb",
+    "ruleRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad",
+    "surfaceRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/abi-composition-frame-hosts",
+    "evidenceRole": "semantic_assessment"
+  },
+  "scopePreview": {
+    "ref": "qualification-scope://abiogenesis/58495bb1588807819c7143d819fa5b03a234463aa154df0a7e47a1854ef9f366",
+    "digest": "sha256:58495bb1588807819c7143d819fa5b03a234463aa154df0a7e47a1854ef9f366",
+    "meaning": "Pure set-correspondence preview over actual Q02 null preparation basis; no complete native basis/task/plan/request is fabricated."
+  },
+  "allRequiredRoleRuleAndDomainSourcesSupplied": true,
+  "all015BPartsAndContext009Through012Retained": true,
+  "before": {
+    "assessedMembers": 669,
+    "bodies": 686,
+    "rawBytes": 65964603,
+    "ownerSourceSegmentBytes": 69110115
+  },
+  "after": {
+    "assessedMembers": 10,
+    "bodies": 39,
+    "rawBytes": 832398,
+    "ownerSourceSegmentBytes": 860584
+  },
+  "exactMetric": "Existing qualification.ts SOURCE DATA expression including internal segment separators. Source contribution only: excludes role/scope/attribution/plan/other sections, never a rendered assessment or model capacity claim.",
+  "missingBinding": {
+    "ready": false,
+    "missing": [
+      "basis.installedProduct",
+      "basis.workspaceBinding",
+      "basis.tenantManifest",
+      "provenance",
+      "role",
+      "assetSurface",
+      "slotRef",
+      "taskOrdinal",
+      "declarations: actual owner/actor grants and historical declarations"
+    ],
+    "role": "qualification-role://abiogenesis/rule@5",
+    "notAUniversalRuleTaskPrerequisite": [
+      "executionSelectionRef",
+      "QUAL-056 verification material"
+    ],
+    "limits": "Presence/schema checks do not authenticate grants, actors or native authority. Claim-specific execution evidence remains required wherever the selected rule judgment needs it. Full QUAL-056/F11/AF22 dependencies remain unchanged."
+  },
+  "missingPlan": "Actual selected finite owner plan and genuine role/declaration correspondence remain unavailable.",
+  "originalUnconditionalGuard": "Not present in rule task/input owner schemas or material/input match conditions; removed only from this external rule binder.",
+  "downstreamVerificationSelectionPreserved": true,
+  "genuinelyBoundRequest": false,
+  "fullRequestRendered": false,
+  "nativeCalls": 0,
+  "providerCalls": 0,
+  "unassessedResponsibilities": [
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/construction-controls-and-claims",
+      "memberCount": 34,
+      "status": "unknown; no J performed"
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/other-runtime-hosts-unresolved",
+      "memberCount": 253,
+      "status": "unknown; no J performed"
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/published-law-contract-projections",
+      "memberCount": 188,
+      "status": "unknown; no J performed"
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/law-and-design",
+      "memberCount": 409,
+      "status": "unknown; no J performed"
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/proof-source",
+      "memberCount": 316,
+      "status": "unknown; no J performed"
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/historical-proof-records",
+      "memberCount": 7,
+      "status": "unknown; no J performed"
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/emitted-abi-projections",
+      "memberCount": 520,
+      "status": "unknown; no J performed"
+    },
+    {
+      "groupRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/supplier-toolchain",
+      "memberCount": 213,
+      "status": "unknown; no J performed"
+    }
+  ]
+}

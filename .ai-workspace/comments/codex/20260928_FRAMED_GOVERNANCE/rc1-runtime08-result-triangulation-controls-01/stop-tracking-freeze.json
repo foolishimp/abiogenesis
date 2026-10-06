@@ -1,0 +1,44 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_RUNTIME08_STOP_TRACKING_WRITER_01",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-result-triangulation-controls-01/stop-tracking-activation.json",
+      "bytes": 2269,
+      "sha256": "8abfe1d1b445190972789e29f7273a9975643d574840957b35190424e3ef61c8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-result-triangulation-controls-01/stop-tracking-closure.json",
+      "bytes": 1034,
+      "sha256": "bc4fbb4a127340228ffe29cd1faeea8806c4771f8f39e138c547772a9cca8ad5",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-result-triangulation-controls-01/stopped-plan-preimage.md",
+      "bytes": 5691,
+      "sha256": "0242e583970a6d6ecf2e1957deb031461d891323376616805b595faf2ca929c1",
+      "mode": 420
+    }
+  ],
+  "trackingPostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md",
+      "bytes": 532292,
+      "sha256": "ca7e7762a987a20a5c56b8cc2978d53934cd2867e148ce44edd55ae4bad2eb4c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 487823,
+      "sha256": "ad622eef4116c1bc7373dbc930fedb9e076b0420635ca882e2626a640e8b9368",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md",
+      "bytes": 6115,
+      "sha256": "b0d7311da53294e6554384c743c146f7ae78023cb25e3d0cac4b7f0dd0dba596",
+      "mode": 420
+    }
+  ]
+}

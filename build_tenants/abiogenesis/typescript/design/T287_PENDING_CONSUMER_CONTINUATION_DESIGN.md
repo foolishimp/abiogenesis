@@ -238,3 +238,203 @@ proof. No new provider campaign, generic reliability claim or broad test roster
 is selected. The current grant covers local retained-work implementation and
 mechanical readiness only; installed/native execution remains separately selected.
 Exact execution resumption is selected for the bounded realization above; it remains unqualified until its actual-owner and installed evidence close.
+
+
+## Selected Action At An Unconsumed Durable Boundary
+
+The selected_action member consumes an actual admitted AF-14 selection, not a
+catalogue label or lawful-actions read. Its run-local continuation identity binds
+the selected route, original intent, exact target cursor and selected basis. A
+pending occurrence has an active Run, that current cursor and no workflow CCall
+consuming it. Cold acquisition proves this event relation; process interruption
+only explains availability of the resource and does not establish pending truth.
+Same-basis continuation keeps the current Run and its existing parents. A separately
+admitted continue-operation grant consumes the occurrence once before ordinary
+HoG enters the selected workflow. The already-admitted intent is conserved; its
+actual child, evaluation and delta resolve the obligation. Ordinary in-process
+traversal remains unchanged and can consume the same selection without Public
+continuation. Completed, stopped, crossed or already consumed occurrences refuse.
+
+Request-field correspondence is exact:
+
+- run and continuation identify the originating unconsumed occurrence and native
+  Run identity; selectedAction identifies the admitted NextActionProjection.
+- For same_basis the selected occurrence is the originating occurrence. Current
+  authority slots bind its ExecutionBasis, installed Program/catalog, original
+  InvocationAdmission work authority and exact cursor input; a new selected_action
+  operation capability authorizes this use.
+- For authority_changed, selectedAction identifies a separately admitted *current*
+  occurrence under its own current InvocationAdmission/work authority. The
+  execution_basis/input/actor and other authority slots bind that current occurrence.
+  coveringReprice is the actual witnessedAct ref/digest returned by the existing
+  witness owner, covering the old ExecutionBasis and old/current WorkspaceBinding
+  pair. The current selection follows the covering witness and explicitly names
+  both the predecessor continuation and covering witness in its existing
+  lawfulBasisRefs. It retains the same target outcome and all predecessor target
+  obligations. Current GTL model/gap/evaluateNext have already established this
+  selection under current authority; no semantic old-selection transfer occurs.
+  A cover without that current applicable selection is a truthful refusal.
+- Admission atomically records the current operation and consumes both the source
+  occurrence and (if different) current occurrence. The source is superseded only
+  by that admitted use; current HoG execution and evaluation resolve the current
+  occurrence. No events, input values, old parent scopes or work grant are copied.
+
+Reprice matching extracts the existing exact witnessed binding-cover predicate;
+D2 keeps its additional same-WorkspaceAuthorityBasis restriction. Selected-action
+use independently requires already admitted current work/operation authority and
+fresh semantic selection, so a witnessed cover alone is never permission. No
+request-domain, authority variant, event family, pause port or controller is added.
+Post-disposition selection may use the existing declared bounded graph-span reentry
+back through model/gap/evaluateNext; the eight-term construction stays unchanged.
+The installed discriminator interrupts only its fixture host after the actual
+selection/cursor transaction is durable, retains the complete prefix, then uses
+existing physical resource recovery and cold Public continuation. Fixture injection
+must not truncate history, invent failure truth or alter the model's answer.
+
+
+Both continuation variants use the construction-continuation owner's shared
+workspace operation envelope. Its causes are the admitted workspace invocation
+and any separately admitted workspace operation basis (including an exact cover).
+Run-scoped intent/selection/opening events are authenticated through the typed
+continuation/source coordinates and their actual predecessor projection. They
+are not causes of a workspace event. A Run-scoped supersession may cite its own
+Run source and the workspace operation; it cannot cite another Run's event.
+Admission and cold continuation truth share this envelope correspondence while
+retaining each variant's distinct pending/use checks. The event-store cross-Run
+causation guard remains unchanged. This corrects the selected-action recurrence
+of exact-intent-02's earlier envelope defect; it does not qualify the still-unproved
+selected-action traversal or covered-authority path.
+
+The selected-action owner resolves current occurrences from the supplied existing
+`execution_basis` authority coordinate before deciding pending cardinality. Equal
+projection values in other admitted bases, including abandoned history, do not
+identify the current occurrence. More than one open occurrence at that exact basis
+still refuses. Cover temporal/conservation checks use the resolved occurrence's
+actual selection event. Cold operation projection repeats this relation at the
+operation's predecessor with its recorded execution-basis coordinate. Catalog/view
+correspondence remains bound through declaration closure and retained Program
+validation; this occurrence correction adds no catalog authority rule.
+
+
+## Selected Installed Proof Composition
+
+The installed selected-action witness uses one exact repaired core package and
+source-independent installation, with the unchanged fixture Product reused only
+at its verified identity. Earlier installed subjects and native histories remain
+separate preserved cuts. The witness creates its source pending occurrence and
+exact covering reprice in its own native resource, then retains both throughout
+the current-occurrence experiment.
+
+Public program start is the enclosing current-work producer selected for this
+witness. It does not become a universal prerequisite for lawful current selection;
+GTL model/gap/evaluateNext, intent admission and workflow invocation retain their
+existing ownership. Controlled internal setup has only the claims supported by
+its complete established premises.
+
+Current acquisition is one composed relation:
+
+1. Existing owners project the admitted current binding/Install capability
+   environment at the exact prefix. Catalog construction consumes the exact
+   candidate preimages, resolved lock, verified installed Products and supplied
+   GTL publications; view construction and execution resolution use that catalog.
+2. The caller derives phase-one semantic input from the resolved installed
+   Program and current binding, with current task/authority meaning and the
+   actual source-continuation/cover references. Both current starts consume this
+   same semantic input, catalog and binding. The Public target is
+   `declared_start`, naming the exact unique `start://selected-action/root@5`
+   declaration of the resolved installed Program, with supervised control and
+   until converged. Its GTL selector supplies that reference as both target and
+   startRef. The literal `next` target belongs to direct control; the fixture's
+   default-start policy does not authorize next with supervised control.
+   Resolution and Public request must name the same exact declared start.
+3. Existing Product owners derive the current policy, actor/work attribution,
+   required operation grants and complete authority slots. Actual Product
+   preparation and the separate invocation-observation predicate establish the
+   prospective Public call's conjunction. An old environment's attribution or
+   catalog cannot supply missing current members.
+4. The installed Public owner admits the invocation, materializes and validates
+   its graph, admits the current basis and enters HoG. The fixture host observes
+   these effects; it does not substitute its own current invocation/basis
+   admissions for this witness.
+
+The launcher and host share one protocol carrying the current acquisition, exact
+Public call, genuine native close handoff and intended selection boundary.
+Each call's transport steering derives from its actual latest handoff. The
+test-only native-fsync observer identifies the selected event through the
+submitted invocation and its admitted basis/Run, preserves the complete durable
+selection/cursor transaction, and interrupts before selected child dispatch.
+It records the actual invocation/basis/scope/occurrence and the corresponding
+current policy/work attribution. Process interruption alone supplies no pending
+truth. Recovery uses the genuine native predecessor and abandoned-lock identity;
+a reopened resource is not re-described as a newly created empty resource.
+
+The repeated-value discriminator uses existing Public witness admission to stop
+the first lawful current Run at its pending occurrence. The witness binds that
+Run/basis and its operation-specific capability environment. Fresh projection
+establishes the stop and abandoned occurrence. A subsequent current Public start
+has a distinct invocation identity but identical semantic input, catalog and
+binding; its selection value equals the prior value while its admitted
+invocation/basis/occurrence is distinct. The original source and cover stay fixed.
+Witness admission uses its full ProductInstall coordinates, while run authority
+uses its own Product-content coordinates.
+
+The selected-action call joins the original source Run/continuation, fresh
+selection value and actual current basis, preparing against that basis's exact
+resolution and work attribution. A separate continue-operation grant authorizes
+the use. The oracle observes one atomic use and source supersession, only the
+intended current cursor/input/child, actual evaluation/delta/refresh, and current
+parent/Run closure. Fresh Public result and replay agree on semantic values and
+owner-projected identities at the same committed boundary; a result envelope or
+event count alone does not close the claim.
+
+The finite population includes affected same-basis continuation, the covered
+repeated-value path, true ambiguity refusal, crossed current basis, applicable
+cover-coordinate refusals, duplicate use, and the existing valid-alternate-view
+refusal through retained Program validation. A negative has credit only for its
+actual reached predicate. This witness establishes no live-model usability,
+automatic four-authority S03 completion or release acceptance.
+
+Reuse of a start helper preserves its declared Program, root mode, input
+production and complete authority relation. Scenario-specific defaults are not
+silently inherited. This proof contract creates no production context holder,
+Public member, event family, scheduler, controller or second runtime.
+
+
+The proof binds each representation crossing to its existing producer and exact
+consumer; a common `{ref, digest}` shape does not establish interchangeability:
+
+| Carrier | Existing producer and required consumer relation |
+|---|---|
+| Program and construction input | Actual loaded execution resolution supplies the admitted Program, action catalog and closure policy used by input, policy and continuation preparation. |
+| Supervised start | Exact installed declared start supplies both GTL target/startRef and Public declared_start; direct/next defaults are a different supported choice. |
+| Installed Product | Run slots consume Product-content coordinates; witness slots consume full ProductInstall coordinates from their capability environment. |
+| Source/current Run | `projectRunIdentityAtPrefix` joins the exact opening and causal root basis and returns both `nativeRun` and Public `run`. Selected-action source and duplicate-source requests consume nativeRun. Returned current Run, cold-read source/subject and Public witness stop subject/context consume run. The witness owner resolves nativeRun internally. Approvals and grants bind that unchanged Public request. |
+| Selected action | The semantic projection may repeat. Exact current ExecutionBasis and open occurrence select the actual event; historical equality does not identify the current occurrence. |
+| Work attribution and results | Actual current Public admission/basis supply the saved policy, work authority and occurrence; terminal producer, child evidence, evaluation, refresh and closure must join that same admitted current Run. |
+
+The Run join never parses a digest from a URI, changes a historical coordinate,
+or globally replaces native coordinates with Public coordinates. Proof equality
+compares each consumer with the corresponding owner-produced member. Existing
+source/current distinctions and same-basis/covered semantics remain unchanged.
+
+
+Physical storage rows and logical runtime events are another representation
+crossing. The test-only fsync observer consumes the existing event owner's
+historical decoder/authenticator before logical prefix, invocation, basis, scope
+or selection projection. Body-reference records are storage representation;
+raw JSON parsing does not establish logical events. The same relation applies
+to every initial/source/prior/fresh host and to its preflight witness.
+
+The callback runs after native fsync but before the live append owner publishes
+its successor. Its observation is a physical snapshot, not a caller-authored
+durable handoff. Real process interruption and subsequent native recovery
+establish the usable boundary. An observer error is retained as a test failure
+and stops that host; it must not be thrown through the native fsync call site as
+an apparent append failure. Native fsync errors retain their original owner path.
+No invalid logical prefix is ignored or admitted by the observer.
+
+If a failed host releases its lock without returning a current handoff, the
+existing lock-absent recovery owner uses the genuine predecessor, exact current
+bytes/resource identity and exclusive acquisition. Earlier committed invocation
+facts remain. Absence of a later basis/Run/selection supplies no pending work to
+resume; a fresh ordinary invocation can construct the still-missing source.

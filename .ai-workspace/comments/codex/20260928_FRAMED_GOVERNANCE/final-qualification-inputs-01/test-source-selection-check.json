@@ -1,0 +1,532 @@
+{
+  "status": "passed_source_inspection_only",
+  "tests": [
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qual056-material",
+      "selectedTitles": [
+        "real Node report conserves complete multi-file, nested-suite and ordinary test outcomes",
+        "real skip, todo, failure, import error, process crash and cancellation never yield green material",
+        "missing, truncated, duplicated, malformed, mismatched and signalled reports retain non-green outcomes",
+        "finite lint checks actual selected MJS and JSON and reports failures without executing tests",
+        "observed C2 material binds exact inventory, recipe, policy and command bodies; snapshot copies unchanged",
+        "selected zero-exit stdout contradiction fails while exact match and indeterminate predicates retain their meaning",
+        "F11 conserves selected passed, failed and incomplete predicates through native summary and AF22"
+      ],
+      "declaredTopLevelTitles": 7,
+      "selectionKind": "whole_file"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-qualification-contraction",
+      "selectedTitles": [
+        "actual execution evidence is authenticated once, with foreign, substituted, aliased and ambiguous producers refused",
+        "green execution cannot replace independent coverage judgment; shared evidence must actually be in each selected task",
+        "whole native F11 assessment feeds sole AF22 directly; development/foreign/missing/duplicate evidence remains non-green",
+        "AF22 shares its exact owner through separate installed realization, success validation and cloned judgment; cold and changed bases stay checked"
+      ],
+      "declaredTopLevelTitles": 4,
+      "selectionKind": "whole_file"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-observed-worksite-command",
+      "selectedTitles": [
+        "observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol",
+        "observed C2 refuses foreign, absent, duplicate, mixed and writable source claims",
+        "observed root source gate binds actual input and refuses stale, crossed and child authority",
+        "later admitted failed native residue invalidates observed inputs without requiring physical mismatch",
+        "changed physical observed source refuses before archive creation or command dispatch",
+        "observed C2 result, native acknowledgment and closure bind the same task without turning red execution green"
+      ],
+      "declaredTopLevelTitles": 6,
+      "selectionKind": "whole_file"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/t287-release-acceptance",
+      "selectedTitles": [
+        "original O/source correspondence rejects generated-only, missing, altered, foreign and conditional decisions",
+        "release join requires installed green non-bypassed qualification and exact admitted publication/current ruling",
+        "physical accept and withhold addenda preserve immutable RC refs/package/snapshot and retain partial effects",
+        "shared artifact commit preserves write/admission/close facts without manufacturing success",
+        "tapped owner returns the declared result or withholding refusal through one artifact/close consequence",
+        "fresh-process release projection conserves original O and distinguishes accepted, withheld and incomplete"
+      ],
+      "declaredTopLevelTitles": 6,
+      "selectionKind": "whole_file"
+    },
+    {
+      "commandId": "command://abiogenesis/rc1-qual056/m5-c-algebra-validation",
+      "selectedTitles": [
+        "M5 GTL exposes exactly seven direct C constructors",
+        "M5 C.compose is canonical, flat, and identity-eliding",
+        "M5 native constructors refuse invalid batch, retry, and F_H realization",
+        "M5 whole-program validation refuses forged or widened graph-edge declarations",
+        "M5 raw admission and validator reject invented or contradictory C data",
+        "M4 Hello World remains one valid direct C.of Program",
+        "M5 whole-root validation keeps F_H interaction keys out of executable resolution"
+      ],
+      "declaredTopLevelTitles": 21,
+      "selectionKind": "exact_names"
+    }
+  ],
+  "totalSelectedTitles": 30,
+  "closure": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+      "bytes": 54526,
+      "sha256": "75e84e342a6dbc82a5a97fa9b7c392a29297d5c3c922413583e6b5fc7e597978"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/steel-consumer-resolution.mjs",
+      "bytes": 2413,
+      "sha256": "8c8888dfc0f3075944ec13b17593114c9f0d5e02fcffbf4bed622a105ce4d7f2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "bytes": 23532,
+      "sha256": "ecc2ec7d525491ba4183b879aca3c081353dcf66392f2f296bc8664f1cdeb720"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "bytes": 22485,
+      "sha256": "06885af43d383a3c3c51f33a0cfe944eca99eeb1b12985deb2d4057c2d64fff2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "bytes": 1349,
+      "sha256": "603feef050dc15e99b59eef38196bcfedd396285033f939cdb21ca24b26d8ec0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "bytes": 17929,
+      "sha256": "52f55296af35c1c1656b6898288a2c1ae25efffe8ae3e2ad382ac64c55659daa"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "bytes": 9623,
+      "sha256": "70b54d629c52dafeb22b99498ee12c0273c0bc93d62636b1173224d6efd6bfa0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "bytes": 13107,
+      "sha256": "9b6852f964053130ea5ad1bd477f6b5c9977a7a02d7e78adabc2991d7556e626"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "bytes": 21904,
+      "sha256": "24a0852d2460beb73317b3118de6327020ebe9e23edc4504a850e70181157110"
+    }
+  ],
+  "staticImportEdges": [
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+      "specifier": "node:assert/strict",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+      "specifier": "node:test",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+      "specifier": "../../build/code/src/gtl/index.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+      "specifier": "../../build/code/src/product/index.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+      "specifier": "../../build/code/src/validator/index.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+      "specifier": "../../build/code/src/abg/index.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-c-algebra-validation.test.mjs",
+      "specifier": "../support/steel-consumer-resolution.mjs",
+      "kind": "selected_support"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/steel-consumer-resolution.mjs",
+      "specifier": "node:assert/strict",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/steel-consumer-resolution.mjs",
+      "specifier": "node:fs/promises",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "node:test",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "node:assert/strict",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "node:fs/promises",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "node:path",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "node:url",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "node:child_process",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "node:util",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "effect/Effect",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "../../build/code/src/product/index.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "../../build/code/src/shared/canonical_json.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "../../build/code/src/validator/qualification_contracts.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "../../build/code/src/product/release_snapshot_operations.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "../../build/code/src/product/release_acceptance.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "../../build/code/src/implementation/release_publication.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "../support/r10-private-owner-harness.mjs",
+      "kind": "selected_support"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "../../build/code/src/shared/public_function_contracts.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "specifier": "../support/malformed-gtl-native-fixture.mjs",
+      "kind": "selected_support"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "specifier": "node:fs",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "specifier": "node:vm",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "specifier": "node:assert/strict",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "specifier": "../../build/code/src/gtl/self_conformance.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "specifier": "../../build/code/src/gtl/materialize.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "specifier": "../../build/code/src/product/publication.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "specifier": "../../build/code/src/validator/qualification_contracts.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "specifier": "node:fs",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "specifier": "node:path",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "specifier": "node:url",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/r10-private-owner-harness.mjs",
+      "specifier": "node:vm",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "specifier": "node:assert/strict",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "specifier": "node:test",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "specifier": "node:fs",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "specifier": "node:path",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "specifier": "node:url",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "specifier": "node:vm",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "specifier": "../../build/code/src/product/index.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "specifier": "../../build/code/src/abg/event_store.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "specifier": "../../build/code/src/product/native_workspace_work.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "specifier": "../../build/code/src/product/builtin_semantics.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "specifier": "../../build/code/src/product/worksite_command_execution.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "specifier": "../../build/code/src/implementation/worksite_command_execution.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "specifier": "../support/t287-generic-job-worksite.mjs",
+      "kind": "selected_support"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "specifier": "node:assert/strict",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "specifier": "node:fs/promises",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "specifier": "node:os",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "specifier": "node:path",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-worksite.mjs",
+      "specifier": "node:url",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "specifier": "node:test",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "specifier": "node:assert/strict",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "specifier": "node:fs",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "specifier": "../support/malformed-gtl-native-fixture.mjs",
+      "kind": "selected_support"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "specifier": "../../build/code/src/gtl/self_conformance.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "specifier": "../../build/code/src/validator/self_conformance.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "specifier": "../../build/code/src/validator/qualification.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "specifier": "../../build/code/src/validator/self_conformance_contracts.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "specifier": "../../build/code/src/validator/self_conformance_semantics.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "specifier": "../support/r10-private-owner-harness.mjs",
+      "kind": "selected_support"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "node:test",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "node:assert/strict",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "node:fs",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "node:os",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "node:path",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "node:url",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "node:child_process",
+      "kind": "builtin_or_package"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "../../build/code/src/product/index.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "../../build/code/src/validator/qualification_contracts.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "../../build/code/src/validator/qualification.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "../../build/code/src/validator/self_conformance.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "../support/malformed-gtl-native-fixture.mjs",
+      "kind": "selected_support"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "../../build/code/src/gtl/self_conformance.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "../support/r10-private-owner-harness.mjs",
+      "kind": "selected_support"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "../../build/code/src/implementation/release_publication.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "../../build/code/src/product/worksite_command_execution.js",
+      "kind": "generated_owner_bound_by_inventory"
+    },
+    {
+      "from": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-qual056-material.test.mjs",
+      "specifier": "../support/t287-generic-job-worksite.mjs",
+      "kind": "selected_support"
+    }
+  ],
+  "dynamicClosure": "All 323 selected proof/support/fixture source members and all 260 TypeScript owners are protected; dynamic owner loading uses generated build covered by exact comparison. Private/native test entries are not selected commands.",
+  "runtime": "none"
+}

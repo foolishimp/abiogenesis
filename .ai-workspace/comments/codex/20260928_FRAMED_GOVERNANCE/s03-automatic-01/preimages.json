@@ -1,0 +1,19 @@
+{
+  "activation": "T287_S03_AUTOMATIC_COMPOSITION_01",
+  "phase": "A",
+  "requestSha256": "424bd6604e1f4cd76035bb65adf902e3e6326d3bcc7f79fdef902fce4f8349d2",
+  "paths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-s03-automatic-product/index.mjs",
+      "state": "absent"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+      "state": "absent"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+      "state": "absent"
+    }
+  ]
+}

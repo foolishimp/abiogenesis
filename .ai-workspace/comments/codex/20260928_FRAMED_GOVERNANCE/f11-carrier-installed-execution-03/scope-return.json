@@ -1,0 +1,11 @@
+{
+  "status": "FIRST_FAILURE_STOPPED",
+  "Q03": "CLOSED4550 inventory read as pure pending preparation only; no current binding",
+  "fullInventory4550": "not relabelled as an old Task",
+  "tenantManifest": "pending actual owned construction after setup",
+  "PublicPositiveAdapter": "three planned terminal cases consumed actual selected mapping",
+  "negativeAdapterCases": "unexecuted; each case still requires prospective class/code binding from selected definition; no broad-exit acceptance",
+  "firstMissingMetadataPath": "node_modules/@valibot/to-json-schema/package.json",
+  "actualNestedMetadataPath": "node_modules/@abiogenesis/typescript-tenant/node_modules/@valibot/to-json-schema/package.json",
+  "rootOnlyAssessorSubstitute": false
+}

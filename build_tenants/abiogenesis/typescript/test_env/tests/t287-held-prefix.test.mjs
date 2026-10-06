@@ -19,7 +19,7 @@ import {privateOwner} from '../support/r10-private-owner-harness.mjs';
 import * as prefixes from '../../build/code/src/abg/event_prefix.js';
 import * as replay from '../../build/code/src/abg/replay.js';
 import * as ccall from '../../build/code/src/abg/c_call.js';
-import * as gtl from '../../build/code/src/gtl/index.js';
+import * as gtl from '../support/language-test-gtl.mjs';
 import {constructTraversalCursorCandidate,hasAdmittedTraversalCursorAtPrefix} from '../../build/code/src/abg/traversal_cursor.js';
 import {proposeJudgmentCandidate} from '../../build/code/src/hog/judgment.js';
 import {deepFreeze} from '../../build/code/src/shared/immutable.js';
@@ -178,7 +178,7 @@ function judgmentOwnerFixture(t,name){
  const events=store.readRuntimeEventsAtDurablePrefix(acquired.prefix),basis=events.find(e=>e.kind==='basis_admitted').payload;
  const products=events[0].payload.resolvedLock.rows.filter(row=>row.packageName==='@abiogenesis/typescript-tenant');
  assert.equal(products.length,1);const product=products[0];
- const publication=gtl.constructHelloWorldModulePublication({...product,productManifestDigest:product.manifestDigest});
+ const publication=gtl.constructLanguageTestModulePublication({...product,productManifestDigest:product.manifestDigest});
  const graphFunction=publication.graphFunctions.find(value=>value.name===basis.graphFunctionRef);assert(graphFunction);
  const graph=gtl.materializeGraph(graphFunction,{invocationAdmissionRef:basis.invocationAdmissionRef,
   admittedInputRef:basis.rawInputAdmissionRef,admittedInputDigest:basis.rawInputDigest,admittedInput:basis.rawInputValue});
@@ -199,7 +199,7 @@ function judgmentOwnerFixture(t,name){
  const started=performance.now(),candidate=proposeJudgmentCandidate({cCall,result,replayState:truth.replayState,
   contractRef:cCall.judgmentContractRef,currentOwnerPrefix:acquired.prefix,decision:{decisionClass:'evaluate',input:basis.rawInputValue,
    relation:{predicateRef:cCall.judgmentPredicateRef,advanceReasonRef:'reason://abiogenesis/conformance/hello-world-satisfied@5',
-    rejectionReasonRef:'reason://abiogenesis/conformance/hello-world-rejected@5',evaluate:gtl.evaluateHelloWorldResult}}});
+    rejectionReasonRef:'reason://abiogenesis/conformance/hello-world-rejected@5',evaluate:gtl.evaluateLanguageTestResult}}});
  assert.equal(candidate.judgment,'advance');
  const judgmentProposalMs=performance.now()-started;
  return {...acquired,events,seed,graph,graphFunction,cursor,outcome,candidate,judgmentProposalMs,

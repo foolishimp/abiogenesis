@@ -1,0 +1,230 @@
+{
+  "status": "mechanical_correspondence_passed",
+  "checks": [
+    {
+      "check": "all preparation JSON parses",
+      "passed": true,
+      "mechanicalDetail": {
+        "files": 21
+      }
+    },
+    {
+      "check": "data scripts Python syntax",
+      "passed": true,
+      "mechanicalDetail": {
+        "files": 2,
+        "noBytecodeOrOwnerImport": true
+      }
+    },
+    {
+      "check": "inventory canonical identity",
+      "passed": true,
+      "mechanicalDetail": {
+        "members": 4550
+      }
+    },
+    {
+      "check": "complete unique inventory origin population",
+      "passed": true,
+      "mechanicalDetail": {
+        "members": 4550
+      }
+    },
+    {
+      "check": "every inventory member exact physical bytes/path/origin",
+      "passed": true,
+      "mechanicalDetail": {
+        "members": 4550,
+        "allBodiesReadable": true
+      }
+    },
+    {
+      "check": "current source and emitted output population",
+      "passed": true,
+      "mechanicalDetail": {
+        "selectedSourceInputs": 1106,
+        "emittedOutputs": 830
+      }
+    },
+    {
+      "check": "donor inputs and current authority outputs remain separate",
+      "passed": true,
+      "mechanicalDetail": {
+        "immutableInputs": 96,
+        "changedDerived": 12
+      }
+    },
+    {
+      "check": "all donor and derived coordinate joins",
+      "passed": true,
+      "mechanicalDetail": {
+        "pairs": 96
+      }
+    },
+    {
+      "check": "complete protected byte population",
+      "passed": true,
+      "mechanicalDetail": {
+        "bytes": 251017493
+      }
+    },
+    {
+      "check": "every protected origin regular/readable/unchanged and target safe",
+      "passed": true,
+      "mechanicalDetail": {
+        "files": 3275
+      }
+    },
+    {
+      "check": "formal recipe protected population including self once",
+      "passed": true,
+      "mechanicalDetail": {
+        "sourceInputs": 780,
+        "auxiliaryInputs": 2494,
+        "selfInputs": 1
+      }
+    },
+    {
+      "check": "proposed normalized configuration hashes",
+      "passed": true,
+      "mechanicalDetail": {
+        "ownerCalled": false,
+        "futureActualOwnerComparisonRequired": true
+      }
+    },
+    {
+      "check": "exact command and predicate recipe correspondence",
+      "passed": true,
+      "mechanicalDetail": {
+        "commands": 17,
+        "predicates": 18
+      }
+    },
+    {
+      "check": "commands use protected finite Node/npm paths and explicit environment",
+      "passed": true,
+      "mechanicalDetail": {
+        "noParentOrAmbientHomebrewRoutes": true
+      }
+    },
+    {
+      "check": "explicit RC2 authority stage precedes ordinary generation",
+      "passed": true,
+      "mechanicalDetail": {
+        "command": "command://abiogenesis/rc1-qual056/stage-current-authorities"
+      }
+    },
+    {
+      "check": "finite command and outer budget",
+      "passed": true,
+      "mechanicalDetail": {
+        "commandCapsAndGracesMs": 1262000,
+        "helperDispatchAndAckAllowanceMs": 5000,
+        "requiredHelperBudgetMs": 1267000,
+        "ABG_TS_FP_TIMEOUT_MS": "1387000",
+        "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS": "1567000",
+        "outerC2PublicBudgetMs": 2167000,
+        "outerDriverBudgetMs": 3067000,
+        "status": "finite proposal; actual runtime selection remains pending",
+        "basis": "sum of all exact declared command bounds and graces; new authority stage, six carrier/cold cases, six law cases and four current context cases; no command executed"
+      }
+    },
+    {
+      "check": "Q02 original title/oracle meanings retained",
+      "passed": true,
+      "mechanicalDetail": {
+        "groups": 5,
+        "titles": 30
+      }
+    },
+    {
+      "check": "exact prospective changed carrier/law/context selection",
+      "passed": true,
+      "mechanicalDetail": {
+        "groups": 8,
+        "selectedTitles": 46,
+        "testsExecuted": 0,
+        "unselectedCasesExplicit": true
+      }
+    },
+    {
+      "check": "lint complete selected MJS/JSON population",
+      "passed": true,
+      "mechanicalDetail": {
+        "files": 332,
+        "lintExecuted": false
+      }
+    },
+    {
+      "check": "complete immutable selected RC2 manifest and 52 member bodies",
+      "passed": true,
+      "mechanicalDetail": {
+        "release": "stdo://releases/v2.5.1-rc.2/",
+        "standards": 52
+      }
+    },
+    {
+      "check": "current law 95 sources and 2137 exact byte spans",
+      "passed": true,
+      "mechanicalDetail": {
+        "semanticApplicabilityOrSufficiencyAssessed": false
+      }
+    },
+    {
+      "check": "all sixteen existing archive bytes match locked version and SRI",
+      "passed": true,
+      "mechanicalDetail": {
+        "dependencyResolutionOrInstallRun": false
+      }
+    },
+    {
+      "check": "frozen Node/npm files and all recorded link targets",
+      "passed": true,
+      "mechanicalDetail": {
+        "allToolBytesPreviouslyVerifiedAbove": true,
+        "newToolAcquisition": false
+      }
+    },
+    {
+      "check": "complete 927 actual stage expected outputs",
+      "passed": true,
+      "mechanicalDetail": {
+        "expectedCurrentStageOutputs": 927,
+        "comparisonCommandExecuted": false
+      }
+    },
+    {
+      "check": "Q02 comparison and environment command bodies conserved",
+      "passed": true,
+      "mechanicalDetail": {
+        "unchangedCommandBodies": 2
+      }
+    },
+    {
+      "check": "snapshot output consumer retains all owner and three output joins",
+      "passed": true,
+      "mechanicalDetail": {
+        "outputCategories": [
+          "command reports",
+          "comparison JSON",
+          "every generated output"
+        ],
+        "actualOriginalProtectedInputsSeparatelyRequired": true,
+        "consumerCalled": false
+      }
+    },
+    {
+      "check": "original immutable construction and donor freeze pins",
+      "passed": true,
+      "mechanicalDetail": {
+        "mutationsOutsideQ03": 0
+      }
+    }
+  ],
+  "mechanicalChecks": 27,
+  "qualificationCommandsExecuted": 0,
+  "ownerOrHelperCalls": 0,
+  "nativeOrProviderCalls": 0,
+  "semanticAssessment": "not performed",
+  "network": "restricted; not waived"
+}

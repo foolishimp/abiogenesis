@@ -1,0 +1,52 @@
+{
+  "status": "Root_ACCEPT_exact_C05_construction_only",
+  "kind": "bounded_construction_acceptance",
+  "acceptedAt": "2026-10-02T02:35:48.591109+00:00",
+  "freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-freeze.json",
+    "bytes": 134613,
+    "sha256": "ac42878a8191fecc5718eb8aa4dbcbf6b30b2a3f0e1e29161f94203f56d9c47e",
+    "mode": 420
+  },
+  "sourceCutSHA256": "bbad7056fdc7a4ed844dcecf419cedc1be88831ebe162cb5e00a8dfbc4126bf5",
+  "selected": {
+    "packageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-install/node_modules/@abiogenesis/typescript-tenant",
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "basis": {
+      "artifactDigest": "sha256:060f129747a51f29c07765fa802437f1b651d0109a79299d66de35f7a8cbe6f8",
+      "productContentDigest": "sha256:27fa7db21c6987976afdcaac1ac092ed5ff1b8af5e10fed51b72658390ca429a",
+      "manifestDigest": "sha256:d0da31f911c6ff7cdf5e22361d22c0ff75b878a040484f79328a8ceb1e96355e",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    }
+  },
+  "independentReviewer": "/root/rc1_c03_install_review",
+  "RootReadback": {
+    "evidence": 434,
+    "source": 1106,
+    "law": 53,
+    "stage": 6512,
+    "stageDependencies": 4576,
+    "physicalInstall": 5262,
+    "toolchain": 2328,
+    "cache": 25,
+    "archivePayload": 5258,
+    "generated": 926,
+    "allOriginalSourceAuthors": 1106
+  },
+  "limits": [
+    "construction/bootstrap only",
+    "no ABG installation yet",
+    "no qualification/publication/human ruling"
+  ],
+  "unproved": [
+    "C05 admitted mixed install/bind/catalog",
+    "current F11 transport/child/J/parent/cold consumers",
+    "genuine F11",
+    "observed QUAL056",
+    "sole AF22 green",
+    "release"
+  ]
+}

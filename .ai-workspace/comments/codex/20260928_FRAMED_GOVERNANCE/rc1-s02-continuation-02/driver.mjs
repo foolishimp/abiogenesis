@@ -1,0 +1,36 @@
+import assert from 'node:assert/strict';
+import {readFile,writeFile} from 'node:fs/promises';
+import {join} from 'node:path';
+import {here,read,write,schemaVersion} from './ordinary-caller.mjs';
+import {preflight,inputFor} from './preflight.mjs';
+import {checkConformance,checkStart} from './owner-checks.mjs';
+import {verifyCase} from './union-oracle.mjs';
+const budgets=await read(join(here,'budgets.json')),began=performance.now(),deadline={deadline:began+budgets.driverBudgetMs};
+await write('driver-start.json',{pid:process.pid,startedAt:new Date().toISOString(),budgetMs:budgets.driverBudgetMs,nodeOldSpaceMiB:4096,operationCount:37});
+let c,prepared,currentRow,started,reads,before,after;const proofs=[];const timer=setTimeout(()=>{console.error('Finite outer driver budget exhausted');process.exit(124);},budgets.driverBudgetMs);
+try{
+ const prepStarted=performance.now(),prepTimer=setTimeout(()=>{console.error('Pure preparation budget exhausted');process.exit(124);},budgets.purePreparationBudgetMs);
+ try{prepared=await preflight(deadline);c=prepared.c;await write('preflight-budget-result.json',{status:'passed',elapsedMs:performance.now()-prepStarted,budgetMs:budgets.purePreparationBudgetMs});assert.ok(performance.now()-prepStarted<budgets.purePreparationBudgetMs);}finally{clearTimeout(prepTimer);}
+ await write('native-launch-ready.json',{status:'READY_no_native_effect',cases:prepared.rows.map(x=>({case:x.case,programRef:x.programRef,input:x.input,allSelectedLeavesFD:x.allSelectedLeavesFD,expected:x.expected,oracle:x.oracle,viewDigest:x.viewDigest})),operationPlan:budgets.operationPlan,allSelectedOwnerPreparationPassed:true,nativeCalls:c.state.calls.length,sourceIndependentOraclesFixed:true,initialHandoff:c.state.closeHandoff,startedAt:new Date().toISOString()});console.log(JSON.stringify({phase:'NATIVE_READY_AWAITING_WORKER_IGNITION',nativeCalls:0}));
+ const ignitionDeadline=performance.now()+180000;let ignition=null;while(ignition===null){try{ignition=await read(join(here,'native-launch-control.json'));}catch(e){if(e.code!=='ENOENT')throw e;assert.ok(performance.now()<ignitionDeadline,'finite Worker ignition wait');await new Promise(resolve=>setTimeout(resolve,200));}}
+ assert.equal(ignition.activationId,'T287_RC1_S02_CONTINUATION_02');assert.equal(ignition.allowNativeEffects,true);assert.equal(ignition.operationCount,37);assert.equal(ignition.sourceIndependentOraclesFixed,true);
+ for(const programRef of prepared.prospect.groups){
+  const rows=prepared.prospect.cases.filter(x=>x.programRef===programRef),group=programRef.split('/').at(-1).split('@')[0];
+  const catalog={ref:'graph-function-catalog://abiogenesis/'+c.state.catalog.basisDigest.slice(7),digest:c.state.catalog.basisDigest};
+  const call=await c.authorized(c.product.CATALOG_OPERATION_SOURCE_DECLARATIONS.view.allowlist,{catalog,allowlist:rows[0].allowlist},{kind:'catalog_view_resource_assertion',schemaVersion,catalog:c.state.catalog},c.boundSlots());
+  const viewed=await c.invoke('view-'+group,call,'view');c.state.catalogView=c.product.narrowGraphFunctionCatalog(c.state.catalog,rows[0].allowlist);assert.equal(viewed.receipt.ownerOutput.value.view.digest,c.state.catalogView.viewDigest);await write(group+'-catalog-view.json',c.state.catalogView);
+  const conf=await c.prepareConformance(programRef,'conformance-'+group,prepared.publicationInputs);await write(group+'-conformance-owner-precondition.json',checkConformance(c,conf));const result=await c.invoke(conf.label,conf.call,'conformance');assert.equal(result.receipt.ownerOutput.value.disposition,'passed');assert.deepEqual(result.receipt.ownerOutput.value.program,conf.call.invocation.request.program);
+  for(const row of rows){
+   currentRow=row;started=null;reads=null;before=c.state.closeHandoff;after=null;const input=inputFor(c.gtl,row),selected=await c.prepareStart(row.programRef,row.graphFunctionRef,input,row.case);const leaves=[...selected.resolution.programValidation.executableLeafRows,...selected.resolution.programValidation.interactionLeafRows];assert.ok(leaves.length>0&&leaves.every(x=>x.fibre==='F_D'),'all actual selected leaves F_D immediately before start');await write(row.case+'-start-resolution.json',{resolution:selected.resolution,capabilityBasis:selected.capabilityBasis,selectedLeafRows:leaves,allSelectedLeavesFD:true});await write(row.case+'-start-owner-precondition.json',await checkStart(c,selected));await write(row.case+'-before-handoff.json',before);
+   console.log(JSON.stringify({phase:'NATIVE_CASE_START_READY',case:row.case,input,selectedLeaves:leaves.length}));
+   started=await c.invoke(row.case,selected.call,programRef.includes('bounded-recursion')||programRef.includes('fan-out-hello')?'largeStart':'start',false,true);after=c.state.closeHandoff;await write(row.case+'-after-handoff.json',after);
+   if(started.receipt.ownerOutput?.value?.run&&started.terminal.signal===null&&!started.terminal.timedOut){reads=await c.freshReads(row.case,started);await write(row.case+'-native-reads.json',reads);}else throw Error('No legally observed genuine Run close available for fresh reads');
+   const proof=await verifyCase(c,row,input,started,reads,before,after);await write(row.case+'-proof.json',proof);proofs.push(proof);console.log(JSON.stringify({phase:'NATIVE_CASE_PROVED',case:row.case,disposition:proof.observedDisposition,events:proof.eventCount,run:proof.run}));
+  }
+ }
+ assert.equal(proofs.length,9);assert.equal(c.state.calls.length,37);const finalPhysical=await c.physical('final');await writeFile(join(here,'final-native-prefix.jsonl'),await readFile(new URL(c.state.closeHandoff.prefix.eventLogRef)),{flag:'wx'});await write('final-handoff.json',c.state.closeHandoff);
+ await write('native-result.json',{status:'CLOSED_native_success',subject:prepared.identity.basis,installedRoot:prepared.identity.installedRoot,workspaceBinding:c.state.binding,operatorRef:c.op.actorRef,catalogBasisDigest:c.state.catalog.basisDigest,viewCalls:5,conformanceCalls:5,startCalls:9,freshReadCalls:18,nativeCalls:c.state.calls,providerCalls:0,modelCalls:0,finalPhysical,proofs:proofs.map(p=>({case:p.case,run:p.run,graphCall:p.graphCall,disposition:p.observedDisposition,events:p.eventCount})),elapsedMs:performance.now()-began,budgetMs:budgets.driverBudgetMs,claim:'Nine distinct selected C02 native deterministic S02 cases with actual causal truth and two original cold receipts each; no wholeS02/F11/AF22/RC1 claim.'});console.log(JSON.stringify({phase:'CLOSED_native_success',calls:c.state.calls.length,cases:proofs.length,elapsedMs:performance.now()-began}));
+}catch(error){
+ if(c){try{await c.physical('failure-final');await writeFile(join(here,'failure-native-prefix.jsonl'),await readFile(new URL(c.state.closeHandoff.prefix.eventLogRef)),{flag:'wx'});}catch(e){await write('failure-observation.json',{message:String(e)});}}
+ await write('first-failure.json',{status:'CLOSED_first_failure',message:String(error),stack:error.stack,currentRow:currentRow??null,closeHandoff:c?.state.closeHandoff??null,calls:c?.state.calls??[],started:started??null,reads:reads??null,before:before??null,after:after??null,provedCases:proofs.map(x=>x.case),nativeCalls:c?.state.calls.length??0,retries:0});console.error(String(error));process.exitCode=1;
+}finally{clearTimeout(timer);}

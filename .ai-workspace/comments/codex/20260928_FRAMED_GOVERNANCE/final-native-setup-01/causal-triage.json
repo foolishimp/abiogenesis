@@ -1,0 +1,104 @@
+{
+  "status": "first_material_failure_after_five_successful_ordinary_operations",
+  "ProductDesign": {
+    "requiredRelation": "current ordinary Public setup binds exact final verified Product/install/WB/catalog and current authority before Hello; no private admission shortcut",
+    "selectedOutcome": "full11 stale enumeration repaired and preflight proven; remaining caller-only setup relation failed. Fixed WHAT/HOW and candidate stay accepted.",
+    "classification": "realization_refactor of external post-binding caller input; no design/product/source/package repair indicated"
+  },
+  "ProducerConsumer": {
+    "firstViolation": "ordinary-caller.mjs authorized passes state.environment (exact_prefix_workspace_environment) as AdmissionCapabilityData.boundEnvironment. Current strict schema requires admission_environment_selection.",
+    "symptom": "ValiError: Invalid type: Expected \"admission_environment_selection\" but received \"exact_prefix_workspace_environment\"",
+    "location": {
+      "caller": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/ordinary-caller.mjs",
+        "bytes": 14225,
+        "sha256": "0c05f27de926a1b13885653e9d344df1c16e772ce2cf6e23b05420e9244eceea",
+        "line": 30
+      },
+      "driver": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/driver.mjs",
+        "bytes": 13936,
+        "sha256": "590ceb00294de7314e577c7828db8b0b34c87f8288f8a20d8a7f63f6258b594f",
+        "line": 38
+      },
+      "currentSchema": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+        "bytes": 18613,
+        "sha256": "bf7f633738757c2ce97bab18cc8816010480767de35ffc4c3f2a00012544b99c",
+        "line": 71
+      },
+      "existingProducer": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+        "bytes": 18613,
+        "sha256": "bf7f633738757c2ce97bab18cc8816010480767de35ffc4c3f2a00012544b99c",
+        "line": 81
+      },
+      "scopeConsumer": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+        "bytes": 18613,
+        "sha256": "bf7f633738757c2ce97bab18cc8816010480767de35ffc4c3f2a00012544b99c",
+        "line": 148
+      },
+      "ownerReconstruction": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+        "bytes": 18613,
+        "sha256": "bf7f633738757c2ce97bab18cc8816010480767de35ffc4c3f2a00012544b99c",
+        "line": 186
+      },
+      "nativeAdmission": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+        "bytes": 18613,
+        "sha256": "bf7f633738757c2ce97bab18cc8816010480767de35ffc4c3f2a00012544b99c",
+        "line": 297
+      },
+      "installedOwner": {
+        "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/admission_authority.js",
+        "bytes": 16696,
+        "sha256": "ad6f6c768369fdeaf6f2aa4e16f0c27e6eaf0f0ea170c9889a06a948eedd0580",
+        "line": 118
+      }
+    },
+    "existingProducer": "product.admissionEnvironmentSelection(lastGenuineHandoff.prefix, actualWorkspaceBindingRefDigest)",
+    "completeCone": "Shared authorized helper for catalog admission, catalog view and selected conformance uses the same current selection \u2192 scope/approval \u2192 grant basis relation; repair the helper, preserve exact resource/slots and native owner reconstruction, not a one-call key filter.",
+    "currentDonor": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs",
+      "bytes": 60032,
+      "sha256": "4a96998044b26793a8d410b7808062eff8cead4b0246f8a84d5153ed8916ca04",
+      "line": 352
+    }
+  },
+  "IdentityLifecycleAuthorityEffect": {
+    "identity": "Final2c7bab8f Product verification, full11 manifest/publications and actual install/bind belong to this new candidate/environment. The rejected runtime projection is not the serialized selection carrier.",
+    "lifecycle": "Five calls succeeded; only install and bind append runtime artifacts, two actual admitted events. Catalog grant construction failed before a sixth CLI, so no catalog/view/conformance or Run exists.",
+    "authority": "Selection supplies durable prefix and WB ref/digest only. admitCapabilityEnvironment authenticates owned prefix truth, rebuilds exact environment and requires current extent; withAdmissionAuthority acquires reopened resource and reconstructs grants at native ingress. Caller must not serialize derived runtime state as authority.",
+    "effect": "Stable genuine bind prefix/close handoff retained; no manual events, mutation of earlier resources or retry. Current owned groups exited; no hostwide process claim."
+  },
+  "ProofEscapeRecurrence": {
+    "whyFivePassed": "Pre-binding definitions consume null boundEnvironment. Catalog is the first required-WB consumer and exercises this stale branch.",
+    "whyPreflightMissed": "Full11 semantic/context equality proves publication input, not admission-capability carrier compatibility. Reused old authorized helper was not joined against the current post-binding schema before effects; this is an external proof/input application miss.",
+    "recurrenceMechanism": "Rebinding only package or publication coordinates while retaining obsolete helper carrier shape skips the producer-consumer join. Current schema refusal is correct and prevents stale authority propagation.",
+    "retained": "Full11 preflight, nominal verification, five ordinary successes, candidate identity and real install/bind remain valid; no whole setup/S01 success is claimed."
+  },
+  "AlternativesUncertainty": {
+    "supported": "Continue this same genuine environment under separately granted corrected current caller, after pure current selection/scope/grant binding and fresh current-prefix check; then remaining catalog/view/conformance and original still-unexecuted Hello/cold proof.",
+    "unsupported": [
+      "recreate environment or rerun five successful operations",
+      "send filtered runtime projection instead of existing selection constructor",
+      "relax installed strict schema",
+      "private/direct ABG admission",
+      "build/repackage candidate"
+    ],
+    "uncertainty": "No remaining native operation was attempted. Available current constructor/source relation is established; correction/native continuation is not proven by this return."
+  },
+  "OwnerReentryReproof": {
+    "owner": "ordinary external caller authorized helper",
+    "smallestReentry": "caller-only realization_refactor under existing HOW",
+    "reproof": [
+      "current selection with actual2-event prefix and WB coordinate",
+      "exact current scope/approval/grant and resource/slot joins for remaining bound operations",
+      "ordinary native catalog/view and Hello/C2 conformance; still-unexecuted named Hello and supported fresh result/replay"
+    ],
+    "preserve": "all five successes and original dev/inode/lock/handoff; C and Q untouched"
+  },
+  "remainingQ": "Actual install/WB exist; catalog/conformance, tenantManifest and executionSelectionRef remain unbound. Later selectedFiles exclusive-target staging under same existing worksite is Root-selected separately; no staging/C2 here."
+}

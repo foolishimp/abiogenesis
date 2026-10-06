@@ -1,0 +1,9 @@
+{
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+  "rootsConfinedTo": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05",
+  "neverAppend": [
+    "all old Runtime01-04 and prior event resources"
+  ],
+  "F11TaskRun": "STOPPED",
+  "Q06": "pending separate independent GO / Root grant"
+}

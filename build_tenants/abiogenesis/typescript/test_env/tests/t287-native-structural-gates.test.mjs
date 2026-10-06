@@ -3,23 +3,23 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
-import * as gtl from '../../build/code/src/gtl/index.js';
+import * as gtl from '../support/language-structural-gtl.mjs';
 import { nativeJoinFixture, inputFixture, coverage, ids, hash, publication } from '../support/malformed-gtl-native-fixture.mjs';
-import { STRUCTURAL_EXPECTATIONS as expected, selectFlatHelloPublication, selectEdgeHelloPublication } from '../support/native-runtime-structural-cases.mjs';
-import { realizeHelloWorld } from '../../build/code/src/implementation/hello_world.js';
-import { normalizeHelloInput, renderNormalizedHello, passNormalizedHello } from '../../build/code/src/implementation/hello_compose.js';
+import { STRUCTURAL_EXPECTATIONS as expected, selectFlatStructuralPublication, selectEdgeStructuralPublication } from '../support/native-runtime-structural-cases.mjs';
+import { atomic, normalize, project, pass } from '../fixtures/language-structural/leaf.mjs';
 import { isNativeRuntimeAssessmentInput, evaluateMalformedGtlAssessment } from '../../build/code/src/validator/qualification.js';
 const plain = x => JSON.parse(JSON.stringify(x));
 async function fixture(kind, alterPublication = x => x) {
   const edge = kind === 'edge_program', composed = kind !== 'atomic_call';
-  const f = await nativeJoinFixture({ runtime: true, configureHello: pub => alterPublication(
-    (edge ? selectEdgeHelloPublication : selectFlatHelloPublication)(gtl, pub)) });
-  const graphRef = composed ? gtl.COMPOSED_HELLO_IDS.graphFunctionRef : f.helloIds.graphFunctionRef;
-  const gf = f.hello.graphFunctions.find(g => g.name === graphRef), node = gf.template.nodes[0];
+  const f = await nativeJoinFixture({ runtime: true, consumerIds: gtl.STRUCTURAL_IDS,
+    consumerPublication: artifact => alterPublication(
+    (edge ? selectEdgeStructuralPublication : selectFlatStructuralPublication)(gtl, gtl.constructStructuralModulePublication(artifact))) });
+  const graphRef = composed ? gtl.COMPOSED_IDS.graphFunctionRef : f.consumerIds.graphFunctionRef;
+  const gf = f.consumerPublication.graphFunctions.find(g => g.name === graphRef), node = gf.template.nodes[0];
   const raw = composed ? expected.flatInput : expected.atomicInput;
   // Every expected intermediate and final value is fixed before execution.
-  const implementations = edge ? [normalizeHelloInput, passNormalizedHello, renderNormalizedHello]
-    : composed ? [normalizeHelloInput, renderNormalizedHello] : [realizeHelloWorld];
+  const implementations = edge ? [normalize, pass, project]
+    : composed ? [normalize, project] : [atomic];
   const expectedValues = edge ? [expected.normalized, expected.normalized, expected.output]
     : composed ? [expected.normalized, expected.output] : [expected.output];
   const occurrences = [], results = [], values = [], inputs = [];
@@ -59,8 +59,8 @@ for (const kind of ['atomic_call', 'flat_composition', 'edge_program']) test(`${
 
 });
 for (const kind of ['flat_composition', 'edge_program']) test(`${kind}: finite declaration passes actual raw/Program validation`, async () => {
-  const f = await fixture(kind), base = inputFixture(), program = f.hello.programs.find(p => p.starts[0].graphFunctionRef === f.gf.name);
-  const input = { ...base.input, cases: [base.input.cases[0], { caseRef: 'case://flat/program', operation: 'program', publication: f.hello, program,
+  const f = await fixture(kind), base = inputFixture(), program = f.consumerPublication.programs.find(p => p.starts.some(start => start.graphFunctionRef === f.gf.name));
+  const input = { ...base.input, cases: [base.input.cases[0], { caseRef: 'case://flat/program', operation: 'program', publication: f.consumerPublication, program,
     expected: { boundary: 'program_validation', disposition: 'accepted', diagnostics: [] } }] };
   const outcome = evaluateMalformedGtlAssessment(input, f.occurrences[0].basis);
   assert.deepEqual(plain(outcome.cases.map(c => c.actual)), input.cases.map(c => c.expected));
@@ -71,7 +71,7 @@ test('same final value does not hide a missing first step, wrong composition or 
   const wrong = await fixture('flat_composition'); wrong.input.cases[0].structure.termDigest = hash(wrong.gf.template.nodes[0].term.terms[1]);
   assert.equal(assess(wrong).candidate.disposition, 'failure');
   const foreign = await fixture('flat_composition');
-  const other = foreign.open(foreign.helloIds.graphFunctionRef, expected.atomicInput, 'foreign', { invocationRef: 'invocation://foreign' });
+  const other = foreign.open(foreign.consumerIds.graphFunctionRef, expected.atomicInput, 'foreign', { invocationRef: 'invocation://foreign' });
   const r = foreign.complete(other, expected.output, { deterministic: true });
   foreign.input.cases[0].steps[1].result = { ref: r.resultRef, digest: r.resultDigest }; foreign.input.proof = foreign.proof();
   assert.equal(hash(foreign.values[1]), hash(expected.output)); assert.equal(assess(foreign).candidate.disposition, 'failure');
@@ -91,7 +91,7 @@ test('order, value chain, declared coverage and intermediate expectations remain
 
 test('edge: the same final value cannot replace declared kind, role order or intermediate provenance', async () => {
   const replaceTerm = modify => pub => gtl.modulePublication({ ...pub, graphFunctions: pub.graphFunctions.map(g =>
-    g.name !== gtl.COMPOSED_HELLO_IDS.graphFunctionRef ? g : { ...g, template: { ...g.template,
+    g.name !== gtl.COMPOSED_IDS.graphFunctionRef ? g : { ...g, template: { ...g.template,
       nodes: [{ ...g.template.nodes[0], term: modify(g.template.nodes[0].term) }] } }) });
   const of = t => gtl.C.of({ ...t, input: gtl.cCarrier(t.inputCarrierRef), output: gtl.cCarrier(t.outputCarrierRef) });
   const wrongKind = await fixture('edge_program', replaceTerm(t => gtl.C.compose(gtl.C.compose(of(t.transform), of(t.evaluate)), of(t.consequence))));
@@ -116,7 +116,7 @@ test('edge: the same final value cannot replace declared kind, role order or int
 });
 test('edge: foreign source, stale frontier and a later equal-valued competitor refuse; wrong intermediate expectation is red', async () => {
   const foreign = await fixture('edge_program');
-  const other = foreign.open(foreign.helloIds.graphFunctionRef, expected.atomicInput, 'foreign-edge-source', { invocationRef: 'invocation://foreign' });
+  const other = foreign.open(foreign.consumerIds.graphFunctionRef, expected.atomicInput, 'foreign-edge-source', { invocationRef: 'invocation://foreign' });
   const r = foreign.complete(other, expected.output, { deterministic: true });
   foreign.input.cases[0].steps[2].result = { ref: r.resultRef, digest: r.resultDigest }; foreign.input.proof = foreign.proof();
   assert.equal(assess(foreign).candidate.disposition, 'failure');

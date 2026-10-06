@@ -1,0 +1,58 @@
+{
+  "operation": "T287_Q14_INPUT_ASSURANCE_01",
+  "actor": "/root/rc1_c03_install_review",
+  "status": "CLOSED",
+  "disposition": "NO_GO_INPUT_PREPARATION_ONLY",
+  "closedAt": "2026-10-03T07:58:56.792320+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-14/freeze.json",
+    "bytes": 19395,
+    "sha256": "34d77be96e1b0af62f350db093a2dbc7cb73474d167b7452bf2ec5f319af9dcd",
+    "mode": 292
+  },
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q13-triage-q14-controls-01/review",
+  "rootMode": 493,
+  "records": [
+    {
+      "path": "a_c.literal",
+      "kind": "file",
+      "bytes": 38113,
+      "sha256": "5a2e0cb503cf598bbaea215270373b87a0928222be272f33d951550b0d16e6c8",
+      "mode": 420
+    },
+    {
+      "path": "activation.json",
+      "kind": "file",
+      "bytes": 803,
+      "sha256": "93fdde3deac4e8403fdef8f48df1c16a2122305f5b49bb4cdc7a381186038db3",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "kind": "file",
+      "bytes": 1045,
+      "sha256": "04f0a533ac24f31dfc72d2b36aca9c3ffa7e2df27fc58668e38b1074e528424a",
+      "mode": 420
+    },
+    {
+      "path": "pins.json",
+      "kind": "file",
+      "bytes": 19798,
+      "sha256": "707ec10a4458b69ad49e15e292db03ffa8a4b70bed20dbcd48baa063ee693501",
+      "mode": 420
+    },
+    {
+      "path": "report.md",
+      "kind": "file",
+      "bytes": 4437,
+      "sha256": "1c3c5819953415856468d33cb7fd864f94a8d93abde4acfe6728d90d022a9c35",
+      "mode": 420
+    }
+  ],
+  "regularRecords": 5,
+  "regularBodyBytes": 64196,
+  "links": 0,
+  "RuntimeOrSemanticQualificationAcceptance": false,
+  "sourceMutations": 0,
+  "freezeExcludedFromRecords": true
+}

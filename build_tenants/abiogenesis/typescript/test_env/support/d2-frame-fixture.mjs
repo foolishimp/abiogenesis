@@ -36,7 +36,7 @@ export function nativePublications(gtl, abiArtifact) {
   const basis = { productId: abiArtifact.productId, artifactDigest: abiArtifact.artifactDigest,
     productContentDigest: abiArtifact.productContentDigest, productManifestDigest: abiArtifact.manifestDigest,
     packageName: abiArtifact.packageName, packageVersion: abiArtifact.packageVersion };
-  return [gtl.constructHelloWorldModulePublication, gtl.constructConsensusModulePublication,
+  return [gtl.constructConsensusModulePublication,
     gtl.constructWorksiteConstructionModulePublication, gtl.constructWorksiteCommandExecutionModulePublication,
     gtl.constructRequirementHandoffModulePublication, gtl.constructSemanticStageModulePublication,
     gtl.constructSemanticRevisionModulePublication, gtl.constructWorksiteCommandForwardModulePublication,

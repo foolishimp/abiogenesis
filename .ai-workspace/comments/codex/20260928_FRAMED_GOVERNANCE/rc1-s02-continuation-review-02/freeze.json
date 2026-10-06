@@ -1,0 +1,48 @@
+{
+  "kind": "independent_review_freeze",
+  "schemaVersion": "5.0.0",
+  "status": "CLOSED",
+  "work_result": "satisfied_bounded_native_deterministic_nine_case_s02_union",
+  "activation": "T287_RC1_S02_CONTINUATION_REVIEW_02",
+  "actualActor": "/root/rc1_s02_continuation_review",
+  "frozenAt": "2026-10-01T16:32:48.752711+00:00",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/freeze.json",
+    "sha256": "4ea6a784630b1ebefe7cb099b0289e21e2633109c123c7ff93b5bff378989654"
+  },
+  "records": [
+    {
+      "path": "closure.json",
+      "kind": "file",
+      "bytes": 815,
+      "sha256": "1f8b5492d6f3503c52cd44efe0c8fdd456fcc5fc32b9b495265aecffdfea17b9"
+    },
+    {
+      "path": "evidence.json",
+      "kind": "file",
+      "bytes": 58941,
+      "sha256": "fa4f31a8eda96e5fd27307f0b430191a03c4f0ade3b05dc3914db44ae02302d7"
+    },
+    {
+      "path": "frame-result.json",
+      "kind": "file",
+      "bytes": 6166,
+      "sha256": "cc1ee358d9c7e6a2b0693cda0426091e8e5fdd8a2b5584bc314a6dcf53914957"
+    },
+    {
+      "path": "return.md",
+      "kind": "file",
+      "bytes": 12106,
+      "sha256": "74f988622f1da073495416df4ef825edafff9f3aaea6629711b193ebaa4eb605"
+    },
+    {
+      "path": "writer-activation.json",
+      "kind": "file",
+      "bytes": 1549,
+      "sha256": "2103545f546805fac2bb8abb81b3d00f9db78f4b5c8c85fe4d438d815f084c65"
+    }
+  ],
+  "recordCount": 5,
+  "qualificationClaim": false,
+  "consumingDecision": "Root Executive disposition and source-compatible bounded coverage conjunction"
+}

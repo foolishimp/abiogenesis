@@ -1,0 +1,22 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "sha256": "8f08697d7af4e9d91220d8672f43101b5aaea0292ed90c96ca9a56d9d1902775",
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/tracking-preimages/abiogenesis-T-287-deliver-abiogenesis-5-feature-waves.md"
+  },
+  {
+    "path": "/Users/jim/src/apps/odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md",
+    "sha256": "31bd05fc70924ebf331b43635400e07bf61ca8b12023c85d88a5e1fe40ea3c3d",
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/tracking-preimages/odd_glc-T-043-deliver-generic-live-llm-scenario-mvp.md"
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "sha256": "a26904137dbf759af4364aeec8b1b3c259e3e382ac0752d5673225ed9ded8617",
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/tracking-preimages/abiogenesis-GOALS.md"
+  },
+  {
+    "path": "/Users/jim/src/apps/odd_glc/specification/GOALS.md",
+    "sha256": "b4ac7c7d43cb4c793017f543270eb796eb5d5ee7745cae3f710e3355496aa762",
+    "preimage": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/setup-overhead-repair-01/tracking-preimages/odd_glc-GOALS.md"
+  }
+]

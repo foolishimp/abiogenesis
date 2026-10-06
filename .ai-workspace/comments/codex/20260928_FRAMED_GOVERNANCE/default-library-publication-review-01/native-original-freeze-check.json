@@ -1,0 +1,110 @@
+{
+  "freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02/freeze.json",
+    "sha256": "098f847543752e5d69efa4bd86ce36490a79fd34c707bffa2237a5275d5d2fbf"
+  },
+  "recordsVerified": 62,
+  "mismatches": [],
+  "physicalSnapshotRecords": {
+    "continue-initial-physical.json": {
+      "label": "initial",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/events/runtime.events.jsonl",
+      "bytes": 2475382,
+      "sha256": "5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348",
+      "device": 16777230,
+      "inode": 463939156,
+      "stable": true,
+      "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/tmp/abiogenesis-event-store-locks-v5/16777230-463939156.lock",
+      "lockPresent": false,
+      "prefix": {
+        "coordinateDigest": "sha256:8b5e835908d985bd675e8e841b912bce468dc7a5547a5fbf475dbac9857a95fe",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348",
+        "prefixLength": 2475382,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 463939156
+        }
+      }
+    },
+    "continue-failure-final-physical.json": {
+      "label": "failure-final",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/events/runtime.events.jsonl",
+      "bytes": 2475382,
+      "sha256": "5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348",
+      "device": 16777230,
+      "inode": 463939156,
+      "stable": true,
+      "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/tmp/abiogenesis-event-store-locks-v5/16777230-463939156.lock",
+      "lockPresent": false,
+      "prefix": {
+        "coordinateDigest": "sha256:8b5e835908d985bd675e8e841b912bce468dc7a5547a5fbf475dbac9857a95fe",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348",
+        "prefixLength": 2475382,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 463939156
+        }
+      }
+    },
+    "quiescence.json": {
+      "status": "owned_processes_exited_resource_stable_lock_absent",
+      "driver": {
+        "pid": 12708,
+        "exitCode": 1,
+        "signal": null,
+        "exitObserved": true,
+        "timedOut": false,
+        "elapsedMs": 21442.23845889792,
+        "ownedGroupsSignalled": [],
+        "stdout": "driver.stdout",
+        "stderr": "driver.stderr"
+      },
+      "actualNativeCLI": {
+        "pid": 12847,
+        "command": [
+          "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/install/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+          "--jsonl",
+          "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-02/continue-catalog.jsonl"
+        ],
+        "elapsedMs": 10480.459,
+        "exitCode": 1,
+        "signal": null,
+        "peakRSSBytes": 1863221248,
+        "userSeconds": 13.941135,
+        "systemSeconds": 0.439955,
+        "observation": "wait4 actual native CLI; macOS ru_maxrss bytes"
+      },
+      "wrapper": {
+        "pid": 12846,
+        "code": 1,
+        "signal": null,
+        "timedOut": false,
+        "spawnError": null
+      },
+      "resource": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/resources/events/runtime.events.jsonl",
+        "device": 16777230,
+        "inode": 463939156,
+        "bytes": 2475382,
+        "sha256": "5d915fcc50e8639e7376bd33571404c060d89af798efb9f56cdd3694232d2348",
+        "initialPrefixConserved": true,
+        "initialSnapshotUnchanged": true,
+        "appendedBytes": 0,
+        "eventCount": 2,
+        "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-01/tmp/abiogenesis-event-store-locks-v5/16777230-463939156.lock",
+        "lockPresent": false
+      },
+      "observabilityLimit": "Owned wait/wait4 and stable physical resource/lock observations only; no hostwide ps/process completeness claim."
+    }
+  },
+  "originalLiveResourceRead": false
+}

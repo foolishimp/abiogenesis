@@ -1,0 +1,75 @@
+{
+  "status": "ACCEPTED_SOURCE_TYPED_COMPONENT_ONLY",
+  "actor": "/root",
+  "role": "Writer",
+  "operation": "T287_TYPED_SOURCE_ACCEPTANCE_C09_RELEASE_WRITER_01",
+  "acceptedHOW": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+    "bytes": 39730,
+    "sha256": "6ebaae310885013645c238023d39d4c1f1b5c61c56cf2ff4e5d0a9cd6b75567c",
+    "mode": 420
+  },
+  "closedDependencies": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/freeze.json",
+      "bytes": 1927723,
+      "sha256": "d681d3cafe786481aac83e1d5f42af26f99e0d654b4b79ea185896980ecf9d60",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-check-continuation-01/freeze.json",
+      "bytes": 12252,
+      "sha256": "5715b514ff7502e91c2f72410f03a62f284ca39ea19f32d72b8d3aebc38016b7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-type-fixture-repair-01/freeze.json",
+      "bytes": 13007,
+      "sha256": "c2668c0fb0295173652ebeeceecee6157e3ed40237a870541449fec092a3a6bb",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/review/freeze.json",
+      "bytes": 1436,
+      "sha256": "b1940da887d6186a215604198e230af1c2bb76913a3d9fa67ba0915b89799efd",
+      "mode": 420
+    }
+  ],
+  "sourceCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/source-cut.json",
+    "bytes": 26506590,
+    "sha256": "dfb1611fdb6e2be782fbc9b48cfbcea1b28ec84a287e13f9f4236f8873b47242",
+    "mode": 420
+  },
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/review/freeze.json",
+    "bytes": 1436,
+    "sha256": "b1940da887d6186a215604198e230af1c2bb76913a3d9fa67ba0915b89799efd",
+    "mode": 420
+  },
+  "compiler": "actual source tsc exit0 6.472s",
+  "callback": "actual embedded/reference/corruptions exit0 0.799s with lower premises retained",
+  "typeProof": "actual32cases/noEmit exit0 5.399s; validcase+31expectedrejects",
+  "priorFailures": "EEXIST and wrong-hook/diagnostic fixtures retained; no pass from failed aggregates",
+  "scope": "Shared typed functional evidence interfaces/mint/projection/leaf bridge/two hooks; unchanged Product/requirements/guards/runtime values.",
+  "notEstablished": [
+    "actual installed whole carrier",
+    "semantic material sufficiency or genuine assessment",
+    "QUAL056/scenario conjunction",
+    "greenAF22 or publication"
+  ],
+  "preparedCutReviewPlaceholder": "PENDING in already-frozen prepared cut is historical preparation status; this actual independent Source acceptance is the operative review relation. Do not treat that string as a review pin.",
+  "releasedGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/request.txt",
+    "bytes": 3288,
+    "sha256": "b9829067cf0a9ad2dc8a030abee74dfb99cf215c599ad36a565f3eaf17e12b59",
+    "mode": 420
+  },
+  "releasedOperationBasis": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-typed-c09-source-controls-01/operation-basis.json",
+    "bytes": 2008,
+    "sha256": "adc8cb93426b08877e44ea6484acf5e532ba73f182b54365d1ab308b20a2206b",
+    "mode": 420
+  },
+  "nextEffect": "one C09 construction under exact Root sourcecut/current tuple"
+}

@@ -302,7 +302,7 @@ test("S03 HoG accepts one Product-sealed projection and rejects its forged twin"
   assert.equal(leafPort.kind, "admitted_leaf_invocation_port");
   assert.equal(
     leafPort.validateContractValue(
-      gtl.HELLO_WORLD_IDS.outputContractRef,
+      gtl.LANGUAGE_TEST_IDS.outputContractRef,
       "output",
       {
         kind: "forged_output",
@@ -317,7 +317,7 @@ test("S03 HoG accepts one Product-sealed projection and rejects its forged twin"
     ...semanticsProjection,
     validateContractValue: () => true,
     resolveJudgmentRelation: () => ({
-      predicateRef: gtl.HELLO_WORLD_IDS.judgmentPredicateRef,
+      predicateRef: gtl.LANGUAGE_TEST_IDS.judgmentPredicateRef,
       advanceReasonRef: "reason://review/forged-advance",
       rejectionReasonRef: "reason://review/forged-reject",
       evaluate: () => true,

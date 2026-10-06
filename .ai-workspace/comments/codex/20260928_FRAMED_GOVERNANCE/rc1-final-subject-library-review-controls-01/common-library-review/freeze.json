@@ -1,0 +1,53 @@
+{
+  "operation": "T287_RC1_COMMON_LIBRARY_OWNERSHIP_REVIEW_01",
+  "actor": "/root/native_applicability_design",
+  "status": "CLOSED",
+  "disposition": "CANONICAL_CONTRACT_OWNERSHIP_SUPPORTED_WITH_PUBLICATION_GAP_AND_TRACKED_APPLICABILITY_UNKNOWN",
+  "closedAt": "2026-10-03T14:40:17.382570+00:00",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-final-subject-library-review-controls-01/common-library-review",
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 3513,
+      "sha256": "f0962abfdff9e8a55c5763a9a085f610395c576920c209338517b474eb5fadd7",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 1986,
+      "sha256": "06228096efc5d48a3b73ba359147e40b82a98724fa17a2c90cd98cfdd404ef1e",
+      "mode": 420
+    },
+    {
+      "path": "pins.json",
+      "bytes": 40272,
+      "sha256": "2a1b730e7a67807b084b6431b1738edd012f59d7b5a2d43f37aaad736e81ca90",
+      "mode": 420
+    },
+    {
+      "path": "report.md",
+      "bytes": 9402,
+      "sha256": "6fbfbac82a2a073cdc9dcad121590b9c05480a7059e8e012050d1c37a95b9a59",
+      "mode": 420
+    }
+  ],
+  "recordCount": 4,
+  "directoryCount": 0,
+  "symlinkCount": 0,
+  "expectedPopulation": [
+    "activation.json",
+    "closure.json",
+    "pins.json",
+    "report.md",
+    "freeze.json"
+  ],
+  "freezeExcludedFromOwnRecords": true,
+  "subjectPinsSHA256": "2a1b730e7a67807b084b6431b1738edd012f59d7b5a2d43f37aaad736e81ca90",
+  "findings": [
+    "R1 publication mismatch confirmed",
+    "R2 parent alias reconstruction gap tracked; applicability open"
+  ],
+  "upstreamEffects": 0,
+  "RootAloneAccepts": true,
+  "stopWrites": true
+}

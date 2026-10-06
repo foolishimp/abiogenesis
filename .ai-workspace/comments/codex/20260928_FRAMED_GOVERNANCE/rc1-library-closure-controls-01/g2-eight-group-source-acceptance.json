@@ -1,0 +1,30 @@
+{
+  "kind": "root_source_component_acceptance",
+  "status": "ACCEPTED_SOURCE_COMPONENT_ONLY",
+  "actor": "/root",
+  "recordingRole": "Writer",
+  "recordingOperation": "T287_G2_ACCEPTANCE_C10_CENSUS_CONTINUATION_RECORD_WRITER_01",
+  "decisionRole": "Executive",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "acceptedAt": "2026-10-04T05:06:38.095919+00:00",
+  "operation": "T287_G2_EIGHT_GROUP_SOURCE_ASSURANCE_01",
+  "reviewer": "/root/q03_input_review",
+  "sourceFreeze": {
+    "bytes": 3671662,
+    "sha256": "fc1c6a4bf6b9ff8de6b30f8b7c7b29bb687608e1f4849c1984ae0fa2aa7d6e93"
+  },
+  "sourceSubjects": 11,
+  "requiredGroups": 8,
+  "catalogRows": 69,
+  "extantRows": 61,
+  "extantExports": 7,
+  "files": 13404,
+  "regularBytes": 266868401,
+  "directoriesIncludingRoot": 1251,
+  "pinnedRecordsVerifiedByRoot": true,
+  "reportRefusal": "Actual Node spec-reporter producer/receipts accepted; guessed TAP literal retired, preserved historical refusal; no payload retry.",
+  "completeRequiredPublication": false,
+  "missingAssets": 25,
+  "installedProof": false,
+  "semanticQualification": false
+}

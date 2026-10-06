@@ -1,0 +1,210 @@
+{
+  "kind": "tenant_conformance_manifest",
+  "schemaVersion": "5.0.0",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+  "capabilityDefinitionGraph": {
+    "ref": "capability-definition-graph://abiogenesis/abg-5",
+    "digest": "sha256:de101d5a7a5dfd12d8948e4764beb0a7a1152ff1a081de6c049e0b23b726eeeb"
+  },
+  "publicContractCatalog": {
+    "ref": "catalog://abiogenesis/typescript-tenant/public-contracts@5.0.0-rc.1",
+    "digest": "sha256:82d5e747b6ac658a4c2e73e2df474d1cb53be68932275b9201d3b67fb47fb0c1"
+  },
+  "claims": [
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.catalog.apply-node-type@5",
+      "capabilityRef": "abg.capability.catalog.apply-node-type@5",
+      "publicContractRefs": [
+        "abg.operation.catalog.apply"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    },
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.catalog.apply-overlay@5",
+      "capabilityRef": "abg.capability.catalog.apply-overlay@5",
+      "publicContractRefs": [
+        "abg.operation.catalog.apply"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    },
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.catalog.contribute@5",
+      "capabilityRef": "abg.capability.catalog.contribute@5",
+      "publicContractRefs": [
+        "abg.operation.catalog.admit"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    },
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.catalog.invoke-graph-function@5",
+      "capabilityRef": "abg.capability.catalog.invoke-graph-function@5",
+      "publicContractRefs": [
+        "abg.operation.run.invoke"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    },
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.gtl.admit@5",
+      "capabilityRef": "abg.capability.gtl.admit@5",
+      "publicContractRefs": [
+        "abg.operation.conformance.evaluate"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    },
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.gtl.declare@5",
+      "capabilityRef": "abg.capability.gtl.declare@5",
+      "publicContractRefs": [
+        "abg.operation.conformance.evaluate"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    },
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.gtl.serialize@5",
+      "capabilityRef": "abg.capability.gtl.serialize@5",
+      "publicContractRefs": [
+        "abg.operation.conformance.evaluate"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    },
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.gtl.typecheck@5",
+      "capabilityRef": "abg.capability.gtl.typecheck@5",
+      "publicContractRefs": [
+        "abg.operation.conformance.evaluate"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    },
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.install.bind-products@5",
+      "capabilityRef": "abg.capability.install.bind-products@5",
+      "publicContractRefs": [
+        "abg.operation.product.install",
+        "abg.operation.product.materialize",
+        "abg.operation.product.resolve",
+        "abg.operation.product.verify",
+        "abg.operation.workspace.bind"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    },
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.module.publish@5",
+      "capabilityRef": "abg.capability.module.publish@5",
+      "publicContractRefs": [
+        "abg.operation.catalog.admit"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    },
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.operator.public-contract@5",
+      "capabilityRef": "abg.capability.operator.public-contract@5",
+      "publicContractRefs": [
+        "abg.operation.catalog.view",
+        "abg.operation.interaction.respond",
+        "abg.operation.project.read",
+        "abg.operation.release.snapshot",
+        "abg.operation.witness.admit",
+        "abg.operation.workspace.create",
+        "abg.operation.workspace.open"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    },
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.qualification.self-conformance@5",
+      "capabilityRef": "abg.capability.qualification.self-conformance@5",
+      "publicContractRefs": [
+        "abg.operation.conformance.evaluate",
+        "abg.operation.release.snapshot"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    },
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.runtime.admit-fp-result@5",
+      "capabilityRef": "abg.capability.runtime.admit-fp-result@5",
+      "publicContractRefs": [
+        "abg.operation.result.assess"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    },
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.runtime.execute-seven-term-c@5",
+      "capabilityRef": "abg.capability.runtime.execute-seven-term-c@5",
+      "publicContractRefs": [
+        "abg.operation.run.invoke"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    },
+    {
+      "claimRef": "tenant-claim://abiogenesis/final-f11-bound-assessment-01/abg.capability.runtime.replay-continuation@5",
+      "capabilityRef": "abg.capability.runtime.replay-continuation@5",
+      "publicContractRefs": [
+        "abg.operation.interaction.respond",
+        "abg.operation.project.read",
+        "abg.operation.run.continue"
+      ],
+      "evidenceRefs": [
+        "proof://t287/st2a-g/capability-definition-graph",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/installed-publication-results.json",
+        "external-record://abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/product-verification-summary.json"
+      ]
+    }
+  ],
+  "manifestRef": "tenant-conformance://abiogenesis/54f1594928a91d74ad8caca1e9ac441367bd0da36407ca254e1e92b26d87f647",
+  "manifestDigest": "sha256:54f1594928a91d74ad8caca1e9ac441367bd0da36407ca254e1e92b26d87f647"
+}

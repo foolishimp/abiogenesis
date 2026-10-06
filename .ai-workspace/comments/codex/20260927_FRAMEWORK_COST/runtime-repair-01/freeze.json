@@ -1,0 +1,132 @@
+{
+  "kind": "t287_framework_cost_runtime_repair_freeze",
+  "head": "a045517364171df7f85b4606337a25a1d115ad75",
+  "sourceSubjectSha256": "bf9101632c3a91999f516c5b7b6e863688bba4bc1fe9ffdee08a4e371fac9e37",
+  "artifacts": [
+    {
+      "path": "affected-checks-final.log",
+      "bytes": 3847,
+      "sha256": "26dbe17e265c7b1b507cf1fddc0b3323e1ad41cb80fc4de42a0fe999192476cb"
+    },
+    {
+      "path": "affected-checks.log",
+      "bytes": 2800,
+      "sha256": "9d319c9790f2537b63aa2f2a5c22b29b5d9756dcbcf03a781b37d2f32c9c719b"
+    },
+    {
+      "path": "comparison.json",
+      "bytes": 1458,
+      "sha256": "b6b074109c3e0acc606caea4d122f9207002a346a6963a948871b55cef283bed"
+    },
+    {
+      "path": "compile-final.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "compile.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "cpu-summary.json",
+      "bytes": 121578,
+      "sha256": "df379aa21554cffd76123ae165cc3ab084ecb02ed9752bb131a2280609a90ab8"
+    },
+    {
+      "path": "measurement-subject.json",
+      "bytes": 2190,
+      "sha256": "bf9101632c3a91999f516c5b7b6e863688bba4bc1fe9ffdee08a4e371fac9e37"
+    },
+    {
+      "path": "owner-read-result.json",
+      "bytes": 45147,
+      "sha256": "91d2118bd42dc6695daabeacc72d277a0c125a379251b753cb8b675f120e761f"
+    },
+    {
+      "path": "owner-read.cpuprofile",
+      "bytes": 2208092,
+      "sha256": "5b19b9ad9981a97f4722bb5189e4db2fe988367bf0c022e656c16bc465ed065b"
+    },
+    {
+      "path": "preimages/event_store.js",
+      "bytes": 156600,
+      "sha256": "d854a25ba97a3914d9e28ea8cc7cc5e1115f0d587e358c9d7bd40828e9d565f1"
+    },
+    {
+      "path": "preimages/event_store.ts",
+      "bytes": 170179,
+      "sha256": "5aa0d80acb0623aaeaf2aa63f55739e1f4469af5807be98beb3c3a32eb65e7be"
+    },
+    {
+      "path": "preimages/project_read_ports.js",
+      "bytes": 64176,
+      "sha256": "06f50d33423e77725324e8422ed2e39a76b00516dae44235ea3f80b84f3cf76a"
+    },
+    {
+      "path": "preimages/project_read_ports.ts",
+      "bytes": 72206,
+      "sha256": "8f5137dbd7785d392c208007b3c51ca12e1cc2c5a3adc6a96d5b0fc2311ccc9b"
+    },
+    {
+      "path": "preimages/replay.js",
+      "bytes": 74333,
+      "sha256": "4310c1a07cdc3bb1d7423076d37f10591f27a17e4bae4fe0db00c098f3770660"
+    },
+    {
+      "path": "preimages/replay.ts",
+      "bytes": 86502,
+      "sha256": "e930116a94cffdb4ca50e6081c9712264106f98b1b30b0dcad7045389c377ca1"
+    },
+    {
+      "path": "preimages.json",
+      "bytes": 1237,
+      "sha256": "70a5b37f1bc2d422298b562a63b1b2ed277063055e076a5a28c4fae230c27c42"
+    },
+    {
+      "path": "profile-read.log",
+      "bytes": 876,
+      "sha256": "1fc03ef330afb293e88de7de3d4875c5ca2765a86f5439eacb7ff45ba8f01961"
+    },
+    {
+      "path": "profile-read.mjs",
+      "bytes": 5860,
+      "sha256": "89521a9bacac4513af36fc993b4dcbd92104e69a80ae575f2ee47ee0a5049f99"
+    },
+    {
+      "path": "profile-summary.log",
+      "bytes": 20769,
+      "sha256": "61cecc718bb04095c6344d4f509e33197649de530ca86353c1eb96e1097f74e5"
+    },
+    {
+      "path": "retained-candidate-check.log",
+      "bytes": 1104,
+      "sha256": "85100da719cc90bca90699503343c13d3abfe8a7de21ed65fe38f7cca1a2ce03"
+    },
+    {
+      "path": "retained-predecessor-check.log",
+      "bytes": 1348,
+      "sha256": "f505aaeb1ffe86b47062b1db938b92cad52dbabb19c7af0e0ca7e7d5d75ccaa0"
+    },
+    {
+      "path": "retained-predecessor-corrected-fixture.log",
+      "bytes": 1102,
+      "sha256": "dfefdb99f8dd47595fa7e15a57681f88d6abaac7e611dab5b63ac3400d3dd084"
+    },
+    {
+      "path": "return.md",
+      "bytes": 8524,
+      "sha256": "42a13d894fbef1b72b64e1e453d8bcef676f6da28d725dc2bde8f2cdd5bf5111"
+    },
+    {
+      "path": "source-and-tests.patch",
+      "bytes": 18171,
+      "sha256": "d92008927987a1b0d33c8f06bfa97d82866941c36a6fab1e304cdf3cfcf2d42b"
+    },
+    {
+      "path": "summarize-profile.py",
+      "bytes": 5980,
+      "sha256": "76f6805de7cb3d0bb6d38bcea5087e4446792bac3d2491e906b941ef773a049c"
+    }
+  ]
+}

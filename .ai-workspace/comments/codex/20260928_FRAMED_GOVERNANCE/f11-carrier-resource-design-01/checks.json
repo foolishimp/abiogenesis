@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "claim": "Writer mechanical design readiness only",
+  "verifiedAt": "2026-10-01T18:59:13.286617+00:00",
+  "checks": {
+    "exactGrantSha256": true,
+    "designSha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+    "sourcePinCount": 60,
+    "F11OwnerSourcesUnchanged": true,
+    "declaredGeneratorDriftIsFrozenSeparateDependency": true,
+    "exactC02Q02AndFixturePinsUnchanged": true,
+    "allNormalizedSetsAndScopeCanonicalIdentities": true,
+    "exactInventoryCoordinate": true,
+    "exactRuleGroupsAndCatalogSubjectLaw": true,
+    "exactGlobalAndEveryPerRuleGroupRoundtrip": true,
+    "markdownFencesBalanced": true
+  },
+  "nativeCalls": 0,
+  "providerCalls": 0,
+  "implementationEffects": false,
+  "limits": [
+    "No compiled contract, installed whole-path, cold runtime, semantic J or qualification proof.",
+    "The scope sketch is not proposed qualification authority."
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "kind": "external_worker_frozen_design_return",
+  "activation": "T287_F11_CARRIER_RESOURCE_DESIGN_01",
+  "actor": "/root/f11_carrier_design_worker",
+  "role": "Writer/Worker",
+  "status": "CLOSED",
+  "work_result": "candidate_ready",
+  "claim": "proposed HOW and mechanical representation readiness only",
+  "frozenAt": "2026-10-01T18:59:59.235066+00:00",
+  "subject": {
+    "path": "build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+    "bytes": 36658,
+    "sha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b"
+  },
+  "sourcepins": {
+    "path": "sourcepins.json",
+    "sha256": "ae572dbbb1f06ec4be256849ac75e734e3ce1555d250da87ac12213960c4e733"
+  },
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 1034,
+      "sha256": "22947fc08c088cf31effc61a20bd1e2c6835dcb313ea701e0102d23beffe9e2e"
+    },
+    {
+      "path": "checks.json",
+      "bytes": 935,
+      "sha256": "fd30066b1555cd210e383e42f9e55b24f823e50f3815f581a44c32e2c6ebbdc9"
+    },
+    {
+      "path": "dependency-drift.json",
+      "bytes": 1200,
+      "sha256": "62560d98e5b0a3d3e0437d2e870438cd33565a4d14baab192a0c4d97017756ef"
+    },
+    {
+      "path": "installed-basis-verification.json",
+      "bytes": 768,
+      "sha256": "4fb4cf2c7359f4ace0b7d00ea2dab348e16224bc1d030bc16f2a81daa88d0eff"
+    },
+    {
+      "path": "normalized-scope-sketch.json",
+      "bytes": 2856238,
+      "sha256": "921206b845b5f1c5133bcc5706bb651c8c86f582fa507ea40fe7c4bb58d4d533"
+    },
+    {
+      "path": "representation-check.json",
+      "bytes": 2379,
+      "sha256": "a8f9f4ab3b6de8232bf7bde1690af25c136873b85cef2e401436d88484d1980c"
+    },
+    {
+      "path": "return.md",
+      "bytes": 4263,
+      "sha256": "8f14ece2b21dbd535fb684e177857b0648c3e6246416450a2426cf85acc142e5"
+    },
+    {
+      "path": "sourcepins.json",
+      "bytes": 18410,
+      "sha256": "ae572dbbb1f06ec4be256849ac75e734e3ce1555d250da87ac12213960c4e733"
+    }
+  ],
+  "controlRequestSha256": "9fb3306c37bfe4e2750adbda0143abc8c52a53eba1bc8b28494c5900e1e0d9d1",
+  "controlBasis": "stdo://releases/v2.5.1-rc.2/",
+  "historicalCandidateLaw": "C02/Q02 RC1 unchanged",
+  "separateLawDependencyFreezeSha256": "a4bceff9b2b37913667998784fb3be36ddf9986950c4bb5117c891add697c872",
+  "effects": "Only this new design file and this new report/sketch/pins/freeze directory",
+  "nextDecisionConsumer": "Executive /root; select independent Product-first design assurance before accepting HOW or activating implementation",
+  "residuals": [
+    "Source/compiled/installed owner relation unimplemented and unproved.",
+    "Whole-path operational and fresh-process cold proof pending.",
+    "The retained one-criterion fixture supplies no complete F11; genuine independent native semantic judgment and qualification remain open.",
+    "Current restricted DNS blocks native semantic qualification; no bypass."
+  ],
+  "stop": "Worker CLOSED; no further editing, Reviewer activation, implementation, build, package, native/provider, event, Git or sibling effect."
+}

@@ -1,0 +1,65 @@
+{
+  "status": "CLOSED_FIRST_NATIVE_FAILURE_NO_RETRY",
+  "firstFault": {
+    "code": "invalid_resource_assertion",
+    "definitionKey": {
+      "memberKey": "gtl_program",
+      "operationId": "abg.operation.conformance.evaluate"
+    },
+    "evidence": {},
+    "kind": "definition_execution_fault",
+    "message": "GTL Program conformance requires one exact typed publication and Program packet",
+    "schemaVersion": "5.0.0",
+    "stage": "resource_admission"
+  },
+  "localization": "ordinary external shared conformance caller resource mismatch: artifactTruth surplus after admissionAuthority wrapper",
+  "decisiveEvidence": [
+    "setup-conformance-hello-world.jsonl",
+    "setup-conformance-hello-world-stdout.json",
+    "causal-bindings.json",
+    "source-relations.json"
+  ],
+  "frames": {
+    "ProductRequirements": "Fixed5.0 Product S01 and SCENARIOS008 require exact current install/catalog/Hello/typed result/replay via ordinary Public path; POLICY038 requires typed Program conformance. Seven setup successes cannot close S01 because no Hello/closure/read exists. Full11 publication validity remains proved at its scope.",
+    "Design": "Accepted T287 Public construction explicitly preserves resource input and does not admit its meaning. Current owner reconstructs exact declaration closure; read-only resource receipt has no new runtime authority. Caller must submit the owner resource shape. No design or Product change is indicated.",
+    "Integration": "N1/N2/N03 conformance helper sends artifactTruth. withAdmissionAuthority removes admissionAuthority only, verifies resource digest/current grants, and passes boundEnvironment separately. The next owner exact-key check rejects artifactTruth before packet/Program evaluation. Shared helper affects BOTH Hello and command-execution conformance; no need to alter the Program, publication, law or inventory.",
+    "Identity": "Actual C02 archive/Product/manifest and installed owner source correspondence verify. Exact expected conformance law ref/digest matches supplied resources and request. Eleven declared inventory coordinates match the successful catalog; selected Program/publication match. WB, install coordinates, lock, actor and current prefix selection agree. Equal projection bytes do not authorize an extra wire field.",
+    "Lifecycle": "Eight attempts, seven successful Public operations. Original new N03 store has exactly two artifact-admission events (install and WB),2475382bytes; no Run. Catalog/view and failed conformance preserve the bind prefix. Genuine latest catalog close handoff and original TMPDIR/device-inode namespace retained.",
+    "EffectAuthority": "Native failure occurred at resource_admission, code invalid_resource_assertion; no owner Program evaluation or execution. Native CLI exit70 is a consequence, not the localization. This actor authors controls under exact Root grant; workspace trusted-developer actor appears in actual receipts. Product-owner qualification slot and separate session ID remain unavailable/unbound.",
+    "Proof": "Pure nominal/full11 static/manifest/context preflight proved the earlier publication seam. current-caller-contracts.json checked selected definition/slot existence, not complete conformance owner-consumed resource shape after wrappers. Corrected shared authorization did not validate every downstream carrier. No oracle comparison ran, so oracle failure is unsupported."
+  },
+  "alternatives": {
+    "callerMismatch": "established by exact key difference and emitted owner fault; only unexpected post-wrapper field is artifactTruth",
+    "ProductRealizationDefect": "not established; explicit interface and strict owner predicate agree, authenticated environment supplied separately",
+    "executionEnvironmentError": "unsupported: genuine CLI completed; no timeout/signal; correct candidate/grants reached exact owner; stored bytes and lock stable",
+    "ProgramLawOrInventoryFailure": "not observed; exact coordinates agree but downstream declaration closure/Program evaluation not reached",
+    "oracleFailure": "excluded at this stage because Hello and comparisons never ran",
+    "remainingUncertainty": "No claim that removing field alone closes all later owner relationships; downstream conformance/start/read outcomes remain unexecuted"
+  },
+  "recurrenceAndEscape": {
+    "N1": "First failure was stale full boundEnvironment carrier before catalog. Conformance not reached.",
+    "N2": "Grant named both conformance calls in affected cone, but repair and proof stopped at shared selection/scope/approval/grant relation. Full owner-consumed resource assertion was not checked; native call stopped at default-library publication seam.",
+    "D_and_C02": "Source/component/construction review proved full11 publication validity and package correspondence, not ordinary conformance resource compatibility. This proof scope remains valid.",
+    "N03": "Reused N2 conformance resources unchanged; preflight assumed shared authorization correction plus definition existence was sufficient. Executive selected and Worker applied incomplete downstream proof coverage. Concrete work/proof application escape, not absent high-level law or inherent agent siloing."
+  },
+  "completeAffectedCone": "Both external conformance constructions and their authenticated resource digest/scope/approval/grants; all remaining start/read owner resources must be checked after declared transport/authority wrappers rather than merely definition/slot existence. Preserve existing law, inventory/declaration closure and ordinary owners.",
+  "smallestReentry": "Propose bounded caller-only realization_refactor under existing HOW; Root decides. No Product/source/schema/build/regeneration indicated by current evidence.",
+  "requiredReproof": [
+    "Use same genuine C02/N03 install/WB/resource and original lock namespace with fresh current nominal verification; retain seven successes",
+    "Construct and check complete owner-consumed conformance resources for BOTH planned Programs after wrapper; derive new resource digest/scope/approval/grants without copying stale auth",
+    "Bind remaining start/read complete owner contracts/resources and genuine producer dependencies; no fake Run or private runtime replacement",
+    "Under a separate grant execute five remaining calls only: Hello conformance, C2 conformance, original named Hello start, fresh result, fresh replay; first mismatch returns",
+    "Compare original Hello typed oracle, admitted causal closure and zero-append cold reads; preserve original prefix and new handoffs"
+  ],
+  "notPerformed": "No correction, retry, new Program evaluation, Hello, C2/provider/qualification, source/package/Git mutation after failure",
+  "prospectiveRemainingBudgetOnly": {
+    "setupConformanceReadCalls": 4,
+    "HelloCalls": 1,
+    "nativeCapsMs": 2700000,
+    "graceMs": 5000,
+    "driverMs": 2705000,
+    "purePreflightMs": 120000,
+    "totalMs": 2825000,
+    "authority": "Estimate for Root selection only; not a grant"
+  }
+}

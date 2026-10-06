@@ -1,0 +1,49 @@
+{
+  "status": "CLOSED",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-install-and-input-controls-01/activation.json",
+      "bytes": 1601,
+      "sha256": "4a9b28e378f923ca9671cdade3edabb74d82aaf692ed537346b82a710af6a193",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-install-and-input-controls-01/setup-sections.json",
+      "bytes": 3735,
+      "sha256": "bd491a21fad7a522ac1cd5792c33e6996d6e34543824749d9d6da7586ab2e09d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-install-and-input-controls-01/setup-request.txt",
+      "bytes": 3464,
+      "sha256": "ca91f4e147bda36ca32a396f54b44f4cb43f151c5259df2da1d97ab8ce74fafd",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-install-and-input-controls-01/inputs-sections.json",
+      "bytes": 4592,
+      "sha256": "62a64d54543389e13694b55b78d4798cae9a4d5590c6abc3cd6200a3dc574ddf",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-install-and-input-controls-01/inputs-request.txt",
+      "bytes": 4321,
+      "sha256": "acc93f88f8fce23ff96c7eb375c9576db470e3b07b0dd3d81697134ddecea11a",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-install-and-input-controls-01/literal-verification.json",
+      "bytes": 921,
+      "sha256": "5a6a67f4122dd8e048f999b24e7df850bd265340fe6a6e347f5cf28bde4f9d52",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-install-and-input-controls-01/closure.json",
+      "bytes": 222,
+      "sha256": "cbda41afab00546b1478519049d4e1de78df79a38d0528641cab76433370fc06",
+      "mode": 420
+    }
+  ],
+  "directories": 0,
+  "links": 0
+}

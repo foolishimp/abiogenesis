@@ -1,0 +1,85 @@
+{
+  "status": "CLOSED",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/activation.json",
+      "bytes": 1080,
+      "sha256": "b1456abfaae9283daf077e52af20952f169b283a7ba6dfa412f70293446400e2",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/basis.json",
+      "bytes": 3719,
+      "sha256": "4922e0eb18b52ca7a0bd7e8103ea2d602fc07f64ee4ed169cec83d18e0810987",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/closure.json",
+      "bytes": 260,
+      "sha256": "a69de2b003f6adfaa0ca947b881742f3c5f175172a64db6df7939e4dedb9ef09",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/design-acceptance.json",
+      "bytes": 3001,
+      "sha256": "c384fb1b887d99b9237f0fef3e7fc239dbce506d8bb0faa229b946bd73e82c7e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/postimages.json",
+      "bytes": 773,
+      "sha256": "c72e5a10af45ab23857db2a8bb12fe9ba533c33a23ee1dc4c4a22609a398ee78",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/preimage-0-T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "bytes": 36658,
+      "sha256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/preimage-1-T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 490257,
+      "sha256": "47b182a0404708219c0b01a726b542108ac2bd307b12c783d94fb88032533288",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/preimage-2-plan.md",
+      "bytes": 5260,
+      "sha256": "d1d049b06e0796eada52bef1363d418e1cf96934e2732b15addb24c752972082",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/request.txt",
+      "bytes": 5514,
+      "sha256": "d251e87d48e7becca466274623e3abb72e826106ec93fbebf728491a1540173d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/review-request.txt",
+      "bytes": 2466,
+      "sha256": "70f7990d0b8092a04d92e837b834931531a3b543b113b1208ff976e8fa357cfe",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/review-sections.json",
+      "bytes": 2737,
+      "sha256": "9bc9426472416f37d25ec05310744c201404a8afd8bc18bfc7016afd352ff03c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/sections.json",
+      "bytes": 5785,
+      "sha256": "4733fe5dca1f793d76a8edd66af07d18f4839a8cc1cce54d936192ce1513f2c0",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-integration-design-01/triangulation.json",
+      "bytes": 2246,
+      "sha256": "150597aa73e5d802c4fc0e0f9a6dbdb3787b492a7d76f71056a53147851d8a77",
+      "mode": 420
+    }
+  ],
+  "directories": 0,
+  "links": 0
+}

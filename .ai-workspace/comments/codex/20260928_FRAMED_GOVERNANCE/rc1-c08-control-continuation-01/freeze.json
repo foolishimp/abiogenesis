@@ -1,0 +1,61 @@
+{
+  "status": "CLOSED",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-control-continuation-01/activation.json",
+      "bytes": 1925,
+      "sha256": "e076ea1cc26ef212d1b91923d18efe2442f2b17a33ba166cc294831f30379f15",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-control-continuation-01/triangulation.json",
+      "bytes": 1851,
+      "sha256": "79f80c00f2b9b06ce1f678bb1f8a0093167991433f650aa43e534867ec5aac3e",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-control-continuation-01/operation-basis.json",
+      "bytes": 1706,
+      "sha256": "55ddf5217581fc7a8fcee8ff171e315df9e62885d25c9deeab7a364bdfdde558",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-control-continuation-01/sections.json",
+      "bytes": 4201,
+      "sha256": "0eb7ed576eefa8a998ebee23993bce262b5991432713f7bb6fec4c958bc6b486",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-control-continuation-01/request.txt",
+      "bytes": 3930,
+      "sha256": "8d97656765be0ef2e6effdda2d168bd0078f2f54b46bc9fe3de932baa50c5311",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-control-continuation-01/review-sections.json",
+      "bytes": 4484,
+      "sha256": "687042911f4ad6ecc29f8a6a46d3d60ba8b0457b89817e6fa08f0ba0fb25b50c",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-control-continuation-01/review-request.txt",
+      "bytes": 4213,
+      "sha256": "52e019df71edff4d926060ac8a9aca438f48405c43800eddc289a0d68b645baa",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-control-continuation-01/literal-verification.json",
+      "bytes": 903,
+      "sha256": "cc4fbda91865d36cdfd25667a78f7b18cc854de1228f2814d25252ef02292888",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-control-continuation-01/closure.json",
+      "bytes": 201,
+      "sha256": "a255752c3731faecf4b427804ed7462d978b9970d514a8826cbccb8d96238557",
+      "mode": 420
+    }
+  ],
+  "directories": 0,
+  "links": 0
+}

@@ -1,0 +1,67 @@
+{
+  "kind": "qualification_assessment_plan",
+  "subjectBasis": {
+    "ref": "qualification-basis://abiogenesis/3e08dd04e20653b3d3dbcfe9c2ace15578944d00bb0fa512009a62af363a8d56",
+    "digest": "sha256:3e08dd04e20653b3d3dbcfe9c2ace15578944d00bb0fa512009a62af363a8d56"
+  },
+  "lawBasis": {
+    "ref": "qualification-law://abiogenesis/a9e6b29d55f8e5e8b90bca1297e232e01ea47b56d23909b3587e8c55c46d229a",
+    "digest": "sha256:a9e6b29d55f8e5e8b90bca1297e232e01ea47b56d23909b3587e8c55c46d229a"
+  },
+  "slots": [
+    {
+      "slotRef": "qualification-slot://abiogenesis/final-f11-bound-assessment-01/015B-composition-frame-hosts",
+      "task": {
+        "ref": "qualification-task://abiogenesis/acf5b524e60a6b391109215c4a403bfa13b4b175f9547204fbd86aad0248dd85",
+        "digest": "sha256:acf5b524e60a6b391109215c4a403bfa13b4b175f9547204fbd86aad0248dd85"
+      },
+      "taskOrdinal": 0,
+      "graphFunctionRef": "graph-function://abiogenesis/qualification/assess@5",
+      "programLocusRef": "node://abiogenesis/qualification/assess@5",
+      "role": {
+        "roleRef": "qualification-role://abiogenesis/rule@5",
+        "authorityRef": "actor-capability://abiogenesis/qualification/product-owner@5",
+        "sourceBindings": [
+          {
+            "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+            "path": "contracts/qualification/sources/REQ-P-SELF-CONFORMANCE.md",
+            "digest": "sha256:4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+            "byteCount": 6687
+          },
+          {
+            "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+            "path": "contracts/qualification/sources/REQ-P-QUAL.md",
+            "digest": "sha256:2a75744b7da3e5aa2ba8722202aa0b437cc834ee6e5670c4a94da5b8db6ee3d2",
+            "byteCount": 35509
+          }
+        ],
+        "actorRef": "actor://abiogenesis/qualification/assessor-primary@5",
+        "workerBindingRef": "worker-binding://abiogenesis/qualification/assessor@5",
+        "rendererRef": "renderer://abiogenesis/qualification/assessment@5",
+        "materializationPlanRef": "materialization-plan://abiogenesis/qualification/assessment@5",
+        "independence": "author_distinct"
+      },
+      "coverage": [
+        {
+          "criterionRef": "criterion://abiogenesis/f9a5a695d15a63600b8898a359133440712fcba166cc44fe44467490e85297bb",
+          "ruleRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad",
+          "surfaceRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/abi-composition-frame-hosts",
+          "evidenceRole": "semantic_assessment"
+        }
+      ]
+    }
+  ],
+  "coverage": [
+    {
+      "criterionRef": "criterion://abiogenesis/f9a5a695d15a63600b8898a359133440712fcba166cc44fe44467490e85297bb",
+      "ruleRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad",
+      "surfaceRef": "scope-group://abiogenesis/final-f11-material-selection-02/current-clause/7d6475b34f56ab0dc2af4665b3a8bf28561594d6076e0db05bfcbdc23f4a4bad/domain/abi-composition-frame-hosts",
+      "evidenceRole": "semantic_assessment"
+    }
+  ],
+  "sharedCoverage": "disjoint",
+  "ownerAuthorityRef": "actor-capability://abiogenesis/qualification/product-owner@5",
+  "ownerActorRef": "actor://abiogenesis/t287/final-native-setup-03/operator",
+  "planRef": "qualification-plan://abiogenesis/c97523f6a25977187211cf35060642c2a57b4949a2e3705345c0ef0eb4444e98",
+  "planDigest": "sha256:c97523f6a25977187211cf35060642c2a57b4949a2e3705345c0ef0eb4444e98"
+}

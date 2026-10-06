@@ -1,0 +1,37 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_Q10_INPUT_ASSURANCE_GRANT_WRITER_01",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-input-review-controls-01/activation.json",
+      "bytes": 536,
+      "sha256": "633f3db38b887e0e78b29d231d2d2e80850ed058c682e6376c7ea978e1a87e70",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-input-review-controls-01/closure.json",
+      "bytes": 219,
+      "sha256": "6e5b40bfbab573da5e059c10382e4a70f2a44717a063a8f547dbb6890a526f21",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-input-review-controls-01/literal-verification.json",
+      "bytes": 592,
+      "sha256": "50403bbad7325584d184bc0c80526fd5ac63bd5d13a00bbf3be5f85198397df9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-input-review-controls-01/request.txt",
+      "bytes": 3697,
+      "sha256": "64ef840f7faba2e0c8d176520d4a9cd62c395a62ebb5c296a63b1a7c3eb553aa",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q10-input-review-controls-01/sections.json",
+      "bytes": 3968,
+      "sha256": "cc4de02351eca6ff62080aa78f3d194cf964c5d77e92fc1b06ae5ec8c9ad88fc",
+      "mode": 420
+    }
+  ],
+  "conditionalOnly": true
+}

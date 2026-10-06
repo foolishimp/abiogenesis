@@ -1,0 +1,11 @@
+{
+  "protectedCoreGeneratedFixtureHOWMatch": true,
+  "fixtureArchiveSha256": "8b9a2a5c2323cb15132d37850309e976bc4470f6e609a527aef3c46261260205",
+  "productContentDigest": "sha256:6bb4ff556cd1368da8abca5a436b69a44370a39ae734043d8f699d202c5fbb9c",
+  "reusedBuild": "selected-action-07",
+  "newBuilds": 0,
+  "purePreflightLog": "preflight-02.log",
+  "prospectivePreparationFirst": "preflight-first/prospective-start.json",
+  "prospectivePreparationSecond": "preflight-second/prospective-start.json",
+  "installedAttemptStarted": false
+}

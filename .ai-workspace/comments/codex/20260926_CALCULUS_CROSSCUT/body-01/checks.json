@@ -1,0 +1,38 @@
+{
+  "subject": "T287_CALCULUS_REPAIR_01 rank7 CALCULUS-BODY-01",
+  "predecessor": "current canonical accepted core40; exact bounded preimages in preimages.json",
+  "sharedBuild": {
+    "executedBy": "Root",
+    "tscEmissionExitCode": 0,
+    "manifestGenerationExitCode": 0,
+    "evidence": "Root coordination messages; emitted files are bound in freeze.json",
+    "manifestInBoundedFreeze": false
+  },
+  "workerChecks": [
+    {
+      "command": "node --check test_env/tests/t287-event-body-encoding.test.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --check -- build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test test_env/tests/t287-event-body-encoding.test.mjs",
+      "exitCode": 0,
+      "tests": 7,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 833.604458,
+      "output": "body-tests.log"
+    }
+  ],
+  "sourceDelta": {
+    "productionFile": "code/src/abg/event_store.ts",
+    "netLines": 5,
+    "deletedOperation": "redundant complete-candidate canonical serialization/parse detachment on the store-owned cold decode path",
+    "codecChanged": false
+  },
+  "scope": "event-store body encoding/decoding, logical replay, cold/fresh-process reopen and refusal fixtures; no installed/native/provider or full-Program qualification"
+}

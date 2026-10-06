@@ -1,0 +1,43 @@
+{
+  "status": "CLOSED",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/activation.json",
+      "bytes": 1521,
+      "sha256": "a0f1e09e253923ae374fa17807cb0cd1c0955815633a33861c03a540a7193f06",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/triangulation.json",
+      "bytes": 2271,
+      "sha256": "8025485df2216e0d9f126b08ddf33819ed00dda1a05fb0cec0699310ec47d471",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/sections.json",
+      "bytes": 4230,
+      "sha256": "51c10ff33059e31155a36aa155fa2a5705e1b627e5a96538f70252a7c9f34736",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/request.txt",
+      "bytes": 3959,
+      "sha256": "8e155738768b73855ee5bab09ab56b2ad113f818f38d97f80d676219096d9ea7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/literal-verification.json",
+      "bytes": 605,
+      "sha256": "820698bfd65edde91975e97175646a2cac13a758272b37dda35299828624fd5d",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-fixture-triangulation-controls-01/closure.json",
+      "bytes": 228,
+      "sha256": "748a4bc6b24e2666f8d6d12a22437fe7c72841bea6c03f78490029ab8a164690",
+      "mode": 420
+    }
+  ],
+  "directories": 0,
+  "links": 0
+}

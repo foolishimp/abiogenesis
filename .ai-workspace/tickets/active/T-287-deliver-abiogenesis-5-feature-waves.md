@@ -1,4 +1,4 @@
-# T-287 - Deliver ABIogenesis 5.0 Through the odd_glc Lifecycle
+# T-287 - Deliver ABIogenesis 5.0 Native Runtime and Default Library
 
 - id: T-287
 - type: feature
@@ -13,28 +13,136 @@
 - change_class: goal_reprice
 - derived_change_classes: intent_reprice, product_reprice, requirement_reprice, design_reframe, realization_refactor_subject_to_milestone_intake
 - re_entry_point: specification/GOALS.md#current-selection
+- current_method_basis: stdo://releases/v2.5.1-rc.2/
+- current_method_manifest_sha256: 3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782
+- method_repin_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#stdo-251-rc2-repin
 - retriaged_at: 2026-09-28
-- updated_at: 2026-09-29
+- updated_at: 2026-10-06
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_S7_SELECTED_ACTION_IMPLEMENT_01
-- current_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/freeze.json
-- current_candidate_archive_sha256: fba5643f0fa5272ca6abed7bf5a92810eb2b535e51a774d368a10cc4b8f30e5e
-- current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#exact-intent-bounded-acceptance-and-selected-action-how-disposition
-- current_accepted_archive_sha256: fba5643f0fa5272ca6abed7bf5a92810eb2b535e51a774d368a10cc4b8f30e5e
-- current_worker_return: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/return.md
-- current_candidate_scope: independently_accepted_installed_scalar_exact_intent_pure_producer_undispatched_consumer_parent_refresh_closure_cold_reads_not_general_recovery_or_release
+- current_activation: T287_SANDBOX_UAT_01
+- prior_genuine_activation: T287_GENUINE_CONTEXT_ASSESSMENT_07
+- current_activation_status: CLOSED_ACCEPT_sandbox_UAT_setup_obsolete_tests_and_bounded_disk_cleanup_live_UAT_unexecuted
+- prior_boundary_repair_status: CLOSED_ACCEPT_Hello_expunction_generic_Source_package_and_bounded_installed_language_proof
+- prior_boundary_repair_acceptance: .ai-workspace/work/T287_HELLO_EXPUNCTION_01/acceptance.json
+- current_sandbox_uat_plan: .ai-workspace/work/T287_SANDBOX_UAT_01/plan.md
+- current_sandbox_uat_acceptance: .ai-workspace/work/T287_SANDBOX_UAT_01/acceptance.md
+- current_sandbox_uat_live_results: 0_of_7_unexecuted
+- current_disk_cleanup_receipt: .ai-workspace/work/T287_SANDBOX_UAT_01/disk-recovery/receipt.json
+- current_next_work: genuine_installed_basic_cli_sandbox_UAT_then_selected_cases_and_RC1_owner_triage
+- prior_genuine_activation_status: CLOSED_ACCEPT_genuine07_original_J_native_F11_one_closed_Run_four_fresh_reads
+- current_boundary_repair_plan: .ai-workspace/work/T287_HELLO_EXPUNCTION_01/plan.md
+- current_boundary_repair_reentry: product_reprice_requirement_reprice_design_reframe_then_bounded_realization_refactor
+- current_boundary_repair_outcome: no_builtin_Hello_code_contract_publication_admission_or_proof_in_ABG_package_external_minimal_language_test_only
+- current_boundary_repair_evidence: successor_generic_and_installed_test_proof_required_no_historical_package_promotion
+- current_rc1_owner_gate: one_genuine_installed_steel_thread_no_unresolved_P0_P1_owner_triage_broader_qualification_separate
+- current_scope_selection: OWNER_2026_10_06_ABG_owned_seven_sandbox_UAT_workloads_selected_odd_glc_T043_delivery_deselected
+- current_lifecycle_delivery_owner: ABIogenesis_native_default_library_SDK_CLI_external_application_witness_F17_S06
+- prior_downstream_evidence_disposition: preserve_original_sources_producers_and_scope_no_new_odd_glc_work
+- current_consumer_reuse_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md#existing-evidence-consumer-repair-accepted-2026-10-05
+- current_consumer_reuse_freeze: .ai-workspace/evidence/T287_REUSE_CONSUMER_REPAIR_04/final-freeze.json
+- current_consumer_reuse_freeze_sha256: 256669866cef46f82ec6df1935d01e42ccb3da3356fcf2d00637901e2db62d2c
+- current_transformation_plan: .ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/plan.md
+- current_public_preparation_acceptance: .ai-workspace/evidence/T287_PUBLIC_PREPARATION_PROOF_REPAIR_01/acceptance.json
+- current_public_preparation_archive_sha256: c54721805a8adb73c3fa74ee8c3c04126dc5bd7ad2da542967b9292c6a4943e5
+- current_conservation_grant: .ai-workspace/work/T287_CONTEXT_CONSERVATION_02/grant.md
+- current_conservation_stopped_return: .ai-workspace/evidence/T287_INSTALLED_CONSERVATION_SUCCESSOR_01/return.json
+- current_conservation_acceptance: .ai-workspace/evidence/T287_CONTEXT_CONSERVATION_02/acceptance.json
+- current_conservation_acceptance_sha256: 5bfbdf4847f2879dd8e1384510d0600fb7c66875c06098f1e25e82bf97682665
+- prior_conservation_acceptance_sha256: d312d66345053ec692ca93ccdd4052f46ea9e5d3bd73ed2d7a5431d71458544f
+- current_installed_conservation_archive_sha256: 214c576620c5f552cbf22a82f8f318638903013ca23ff49e42496b2d190a47f6
+- current_genuine_assessment_grant: .ai-workspace/work/T287_GENUINE_CONTEXT_ASSESSMENT_07/grant.md
+- current_genuine_stopped_return: .ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_06/return.json
+- current_genuine_triage: CLOSED_caller_proof_and_private_API_repair_native_F11_owns_authors_independence_actual_full_thread_ACCEPTED
+- current_genuine_acceptance: .ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_07/acceptance.json
+- current_owner_triage_note: actual_J_falsifies_declared_peer_missing_guard_conservation_allegation_separate_from_legal_uncovered_B_case_no_false_green_claim
+- owner_triage_capsule_T287-P1-DECLARED-PEER-01: F11/Proof; exact original05 J/raw and07 acceptance ownerTriage retain the declared-missing-peer allegation; status disputed_owner_triage, owner Jim. No-block basis: complete finite plan and required uncovered coverage are distinct; legal A+uncovered-B and genuine conservation pass, no false-green claim or proven Source violation. Re-entry design_reframe only if owner accepts changed aggregation obligation; trigger owner adjudication or actual supported-input loss counterexample; dependent boundary RC1 candidate disposition. Closure falsifier supported known failure/citation loss; closure evidence owner disposition or exact actual native counterexample and repaired installed conservation.
+- owner_triage_capsule_T287-P1-INSTALLED-COST-01: Runtime cost/Identity/Effect; exact07 process receipts and acceptance ownerTriage show flow45.128s/RSS3.107GB, cold26.587s/RSS2.287GB lifetime peaks,31 events/1.862MB append dominated by1.699MB result event. Status owner_triage, owner Jim. No-block basis: bounded lawful installed thread completes defaultheap with original lineage intact; no scaling claim. Re-entry realization_refactor after owner selection; trigger owner cost-bound selection or supported capacity failure; dependent boundary RC1 candidate usability. Closure falsifier bound violation; closure evidence owner disposition or measured exact installed workload against an accepted bound. No cost-repair work selected.
+- current_genuine_phase1_acceptance: .ai-workspace/evidence/T287_GENUINE_CONTEXT_ASSESSMENT_04/phase1-acceptance.json
+- current_genuine_assessment_stopped_return: .ai-workspace/evidence/T287_GENUINE_REFERENCE_ASSESSMENT_03/return.json
+- current_genuine_assessment_triage: CLOSED_ungrouped_full_provenance_body_repetition_existing_projection_repair_selected_CLI_extra_context_source_unknown
+- current_context_projection_repair_grant: .ai-workspace/work/T287_CONTEXT_PROJECTION_REPAIR_01/grant.md
+- current_context_projection_package_grant: .ai-workspace/work/T287_CONTEXT_PROJECTION_PACKAGE_02/grant.md
+- current_context_projection_acceptance: .ai-workspace/evidence/T287_CONTEXT_PROJECTION_PACKAGE_02/acceptance.json
+- current_context_projection_archive_sha256: 214c576620c5f552cbf22a82f8f318638903013ca23ff49e42496b2d190a47f6
+- current_context_projection_stopped_return: .ai-workspace/evidence/T287_CONTEXT_PROJECTION_REPAIR_01/return.json
+- current_context_projection_triage: CLOSED_dependent_pack_raced_manifest_final_stage_exact_package_only_reentry_selected
+- current_conservation_triage: CLOSED_all_native_invoke_hashes_reproduced_only_projectionBasis_changes_current_read_view
+- next_bounded_work: retire_purposeless_legacy_tests_acquire_seven_original_workloads_setup_clean_deployment_sandbox_UAT_then_RC1_no_unresolved_P0_P1_owner_triage
+- current_secondary_activation: T287_C10_INSTALLED_SETUP_ASSURANCE_01
+- current_g2_core_acceptance_record: .ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/acceptance.json
+- current_g2_core_archive_sha256: c00589d0073f6f118f7ab0209ae90d21ef53d5ec976845e1dc0e95918e2d925b
+- current_g2_core_review_status: CLOSED_GO_SOURCE_COMPONENT_CORE_PACKAGE_ONLY_Root_ACCEPT
+- current_library_closure_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md
+- current_library_source_status: G1_G3_G2_eight_groups_and_G2_GTL_core_CLOSED_independent_GO_Root_ACCEPT_Source_component_package_only_installed_and_semantic_proof_OPEN
+- current_handoff: .ai-workspace/work/T287_SANDBOX_UAT_01/acceptance.md
+- prior_delivery_handoff: .ai-workspace/comments/codex/20261002_HANDOFF_ABG_5_RC1_STEEL_THREAD.md
+- current_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-freeze.json
+- current_candidate_archive_sha256: f9a14aa627049b79a0a22b7a0a117f823758d97ecc4b7a88c23c73ce66bc2edb
+- current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-acceptance.json
+- current_accepted_archive_sha256: f9a14aa627049b79a0a22b7a0a117f823758d97ecc4b7a88c23c73ce66bc2edb
+- current_candidate_review_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-review-record.md
+- current_candidate_review_status: CLOSED_GO_Root_ACCEPT_C10_construction_plus_external_effect_census_only
+- current_worker_return: Generated06_CLOSED_independent_GO_Root_ACCEPT_928_generated_929_physical_nine_copies_installed_mechanical_three_Runs_six_reads
+- current_c2_consumer_review_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-review-01/return.md
+- current_c2_consumer_review_status: CLOSED_ACCEPT_Root_adjudicated_bounded_snapshot_output_relation_native_C2_and_qualification_open
+- current_c2_caller_status: CLOSED_ACCEPT_Root_bounded_offline_preparation_83_records_11_checks_actual_C2_and_fresh_reads_open
+- current_c2_caller_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-current-resource-caller-02/return.md
+- current_source_review_activation: T287_F11_CARRIER_SOURCE_REVIEW_01
+- current_source_review_status: CLOSED_independently_accepted_25_path_carrier_source_38_readiness_checks_installed_native_cold_qualification_open
+- current_attribution_review_activation: T287_F11_EXTERNAL_ATTRIBUTION_REVIEW_01
+- current_attribution_review_status: closed_external_input_path_supported_authentic_actor_authority_and_native_independence_pending_no_owner_change_demonstrated
+- current_input_review_activation: T287_FINAL_QUALIFICATION_INPUTS_REVIEW_15
+- current_input_review_subject: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-15/freeze.json
+- current_input_review_disposition: CLOSED_GO_INPUT_PREPARATION_ONLY_Root_ACCEPT_Q15
+- current_input_review_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q14-triage-q15-controls-01/review/freeze.json
+- current_scope_input_activation: T287_F11_MATERIAL_SELECTION_02
+- current_scope_input_status: CLOSED_bounded_material_selection_binding_fullrender_and_native_admission_accepted_P2_semantic_context_adequacy_open_provider_unreachable
+- current_scope_review_activation: T287_F11_MATERIAL_SCOPE_REVIEW_01
+- current_scope_review_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-scope-review-01/return.md
+- current_scope_repair_controls: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-controls-02/request.txt
+- current_scope_repair_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-material-selection-02/freeze.json
+- current_attribution_input_activation: T287_F11_EXTERNAL_ATTRIBUTION_CORRESPONDENCE_02
+- current_attribution_input_status: closed_structural_correspondence_plus_original_session_performer_evidence_Product_authority_native_independence_and_successor_binding_open
+- current_attribution_session_activation: T287_F11_SESSION_CORRESPONDENCE_03
+- current_attribution_session_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-session-correspondence-03/freeze.json
+- current_attribution_input_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/freeze.json
+- current_qualification_input_activation: T287_FINAL_QUALIFICATION_INPUTS_15
+- current_qualification_input_status: CLOSED_Q15_independent_GO_Root_ACCEPT_complete_current_owner_preparation_only
+- current_candidate_scope: C10_bounded_construction_ACCEPTED_actual_Setup10_CLOSED_passed_independent_assurance_active_G2_core_Code_separate
 - current_live_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/fresh/execution.json
 - current_live_execution_status: S7_fresh_source_use_independently_accepted_original_producer_preserved_new_assessment_parent_and_Run_closed_two_cold_reads_agree
 - current_cost_evidence: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/fresh/timing.json
 - current_cost_disposition: fresh119_741s_native110_709s_framework9_032s_cold_reads3_785s_preparation1_029s_prior_setup23_409s_separate
 - prior_live_execution_record: ../odd_glc/.ai-workspace/comments/codex/20260928_DECLARATION_RESOURCE/pc05-11/activation.json
 - prior_live_execution_status: PC05_11_process_heap_aborted_before_admission_zero_appended_events_unresolved
-- current_activation_status: selected_action_actual_durable_interruption_HOW_selected_covered_current_authority_relation_to_be_established_exact_intent_accepted
-- current_native_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/fresh-run-return.md
+- current_native_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/return.md
+- current_native_resource_handoff: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-assessment-execution-01/final-handoff.json
+- current_native_resource_prefix: 136events_73530699bytes_raw146ff8220cfb3e4a9edae4148a955ae936a3dc9aa4c8b1e0da4345ead771d20c_coordinatebf357bac4ba5677870972d63726db8e1ab50fd349b48d87ad8e4768201bb80ce_same_dev16777230_inode464012478
+- current_f11_bound_input_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-bound-assessment-01/freeze.json
+- current_f11_native_review_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-native-disposition-01/independent-review.md
+- current_f11_native_execution_freeze: 31162ce8dadbcbb1572d1043c009fba71be4303875165ff562461b84b70c3feb
+- current_s01_review_activation: T287_S01_RETAINED_CAUSAL_SUPPLEMENT_02
+- current_s01_reviewer: /root/f11_attribution_inputs
+- current_s01_review_controls: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-controls-03/request.txt
+- current_s01_review_status: CLOSED_ACCEPT_Root_adjudicated_C02_N04_ordinary_S01_causal_chain_and_two_original_fresh_reads_no_native_rerun
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
-- current_activation_disposition: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#selected-action-continuation-implementation
-- current_management_plan: '#current-management-prerequisite-plan'
+- current_activation_disposition: private214c_GENUINE_INSTALLED_STEEL_THREAD_ACCEPTED_original_J_preserved_F11_truthfully_failed_four_fresh_reads_whole_qualification_incomplete
+- current_management_plan: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md
+- current_provider_rca_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-provider-permission-rca-02/return.md
+- current_provider_status: actual05_Claude_success_opus5_5_320779_cachecreation_31189_output_cost3_19002_original_J_retained_NO_MODEL_in07
+- current_s02_substitution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/freeze.json
+- current_s02_substitution_review: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-review-01/return.md
+- current_s02_substitution_status: CLOSED_ACCEPT_Root_bounded_C02_positive_three_FD_spines_two_composition_identities_real_closure_two_original_cold_reads_no_wholeS02_claim
+- current_s02_continuation_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/freeze.json
+- current_s02_continuation_review: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-review-02/return.md
+- current_s02_continuation_status: CLOSED_ACCEPT_Root_nine_exact_C02_claims_37_native_calls_18_cold_reads_42_spines_five_completed_four_stopped_no_wholeS02_claim
+- current_s02_resource_handoff: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-continuation-02/final-handoff.json
+- current_s02_resource_prefix: 1067events_6137505bytes_rawaa313be7193a9443b8e7d2523da2b27f762004e7a8a2e6b601fb42618d498672_coordinate14d27a03a037651dd2252dfd656c6b98673adb3bfe8a8c182981dfbe610c4c50_same_dev16777230_inode464244056_original67_static_proof_conserved
+- current_s02_cost_observation: S02-RV-OBS-01_external_report2385034761B_eventgrowth3436314B_driver338105609us_RSS5381554176B_no_native_provider_calls_no_capacity_or_runtime_defect_claim
+- current_f11_successor_caller_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-current-resource-caller-02/freeze.json
+- current_f11_successor_caller_status: CLOSED_ACCEPT_Root_bounded_58_record_current136_offline_preparation_genuine_assessment_unexecuted_provider_prerequisite_false
+- current_rc1_coverage_schedule: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-coverage-schedule-01/schedule.md
 - prior_generic_job_activation: ABI5_GENERIC_JOB_IMPLEMENT_01
 - prior_generic_job_activation_status: closed_native_two_job_intake_D1_and_selected_D2_mechanics_accepted_live_and_broader_Product_qualification_open
 - prior_generic_job_disposition: .ai-workspace/comments/codex/20260918_GENERIC_JOB_BINDING_REPAIR/implementation/d2-current-state-native-result.md
@@ -52,9 +160,12 @@
 - parallel_observation_design_activation: ABG5_RC7_1B_OBS_FRAME_HOW_01
 - parallel_observation_design_status: accepted_HOW_and_route_corrected_source_component051406Z_installed_native_proof_open
 - bounded_task_register: '#admission-boundary-execution-checklist'
-- next_bounded_task: complete_selected_action_pending_occurrence_and_single_consumption_through_existing_AF14_child_parent_and_Public_owners
-- next_bounded_task_status: source_checkpoint_1aec3999_pushed_exact_intent_review_parallel_selected_action_implementation_selected
-- failure_disposition_rule: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#owner-ruling-classify-the-cause-before-the-next-iteration
+- next_bounded_task: bind_missing_mandatory_public_contracts_to_existing_canonical_owners_and_select_earliest_lawful_G1_G3_installed_discriminator
+- next_bounded_task_status: G1_G3_Source_component_ACCEPTED_G2_owning_design_reframe_SELECTED_installed_genuine_and_RC1_OPEN
+- rc1_timeline_target: WITHDRAWN_NO_CREDIBLE_RELEASE_DATE_REQUIRED_INTEGRATION_AND_GENUINE_ASSESSMENT_UNMEASURED
+- rc1_timeline_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md#timeline-and-failure-closure
+- failure_disposition_rule: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#owner-ruling-triangulate-cause-before-selecting-repair-scope
+- executive_escalation_case: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/executive-escalation-case.md
 - preserved_continuation_selection: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-03/launch-selection.json
 - continuation04_preparation_status: complete_conformance_passed_234698ms_under_selected_600000ms_budget_nine_setup_effects_reused
 - continuation04_preparation_result: ../odd_glc/.ai-workspace/comments/codex/20260921_NATIVE_WORK_BOUNDARY/application-continuation-04/prepared-disposition.json
@@ -70,8 +181,9 @@
 - current_continuation_debt: LIFE01_observed_recovery_native_freshread_RSS_request_cost_redflags_not_isolated_benchmark_attribution_or_OOM_cure
 - current_evidence_volume_debt: LIFE01_exact_intent02_894MB_retained_proof_653MB_Public_acquisition_inputs_22_5MB_per_call_not_runtime_log_volume_lossless_archive_selected
 - current_recovery_reentry: build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md
-- current_recovery_status: retained_work_use_and_bounded_exact_current_intent_independently_accepted_selected_action_active
-- continuation_follow_on: S7-SELECTED-ACTION-01_confirmed_missing_selected_action_binding_and_single_consumption_join_after_current_intent_readiness_before_final_qualification
+- current_recovery_status: retained_work_use_bounded_exact_current_intent_and_installed_selected_action_independently_accepted_general_recovery_and_release_not_claimed
+- continuation_follow_on: S7-SELECTED-ACTION-01_closed_bounded_09_10_11_same_basis_and_covered_current_proof_accepted
+- current_goal_tracking_status: P3_closed_live_Goals_preserve_accepted_selected_action_remaining_exact_candidate_qualification_open
 - continuation_follow_on_evidence: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/continue-family-intake.md
 - prior_recovery_reentry: ../odd_glc/.ai-workspace/comments/codex/20260923_GENERIC_DATA_MAPPER_CONTINUATION/held-continuation-recovery-02/recovery-return.md
 - current_correction_record: .ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/executive-selection.md
@@ -82,7 +194,7 @@
 - prior_recovery_candidate_disposition: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/recovery-how-01/implementation/executive-disposition.md
 - prior_recovery_resource_disposition: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/native-reacquisition-01/recovery-how-01/installed/installed-disposition.json
 - current_review_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/review.md
-- current_review_disposition: 4d13e058_accepted_bounded_source_mechanical_readiness_installed_fresh_use_and_exact_resumption_unproved
+- current_review_disposition: 404c8383_accepted_scalar_same_authority_pure_producer_undispatched_consumer_exact_continuation_parent_refresh_closure_cold_reads_not_general_recovery_or_release
 - prior_bounded_native_review_disposition: Root_accepted_tenant_service_c0c2697b_diagnostics_f35f4f1d_budget_d173512d_native_nonclosing_residuals_preserved
 - technical_debt_checklist: '#current-management-debt'
 - completed_technical_debt_checklist: ../completed/T-288-remove-duplicated-runtime-construction.md
@@ -107,7 +219,7 @@
 - prior_fixture_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-prep-03/manifest.json
 - prior_live08_execution_record: .ai-workspace/comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/live08.json
 - prior_native03_execution_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-native-03/execution-manifest.json
-- current_activation_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#retained-work-first-native-selection
+- current_activation_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c03-installed-discriminators-controls-01/f11-request.txt
 - prior_generic_job_activation_record: .ai-workspace/comments/codex/20260918_GENERIC_JOB_BINDING_REPAIR/implementation/activation.md
 - prior_mvp_continuation_activation_record: .ai-workspace/comments/codex/20260916_ABG5_MVP_CONTINUATION/activation.md
 - prior_native03_input_record: .ai-workspace/comments/codex/20260913_ABG5_PLAN_EXECUTION/fresh-context-native-03/records/call-14.jsonl
@@ -280,6 +392,20 @@
 - accepted_wave_2_roadmap_verdict: A0_B0_C0_D0
 
 
+## Current integration design constraint
+
+Owner selects a compact six-field path scaffold, not exhaustive documentation:
+path, typed handoffs, computations, invariants, effects and end-to-end proof.
+Every integration failure still receives step-back multi-frame triangulation.
+Missing Design returns to its owning HOW and flows through grant, realization
+and affected proof. Q11 is CLOSED NO_GO; Root conjoins the independent review
+and repairs HOW4.1 external delta selection before bounded Q12 realization.
+C09/Setup09 and Hello retain their original acceptance; Runtime09 remains
+unactivated. Current grants and the trial record are in
+`comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q11-stepback-scaffold-q12-controls-01/`.
+These current constraint amendments are not retroactively included in frozen
+C09; final qualification must bind its actual applicable Source/Design.
+
 ## Recursive Executive and default graph library
 
 Current outcome: composable governance through ordinary GTL/HoG/ABG, with
@@ -295,8 +421,9 @@ and [release allocation](../../../specification/PRODUCT.md#50-and-51-release-bou
 [Requirement routes](../../../specification/requirements/README.md#framed-governance)
 decompose those relations. The original
 [strategy](../../comments/codex/20260920T025416Z_STRATEGY_abg5_first_problem_fitted_gtl_preprocessor.md)
-remains rationale, not competing authority. T-043 owns reusable consumer assets
-and retirement tracking; it supplies no replacement planner.
+remains rationale, not competing authority. Earlier T-043 consumer assets and
+retirement records retain historical evidence; no new odd_glc work is selected.
+T-287 owns the native default-library increment, with no replacement planner.
 
 ## Framed-governance definition re-entry
 
@@ -1205,16 +1332,44 @@ hardening campaign or fixed-workflow optimizer is selected. New contract or
 authority insufficiency returns to the Executive; there is no automatic repair
 or native retry. LIFE-01, native correction and qualification remain open.
 
+## Hello Test-Boundary Repair
+
+Owner instruction, 2026-10-06: delete and expunge the built-in Hello code.
+Hello World is the minimal test program for learning a language's mechanics;
+it has never been an ABG Product or feature. The live built-in grant is withdrawn
+from Product, requirements and affected design. This repair removes the code,
+contracts, exports, publication wiring, shared admission/proof branches and
+fixed production scenario identities. Generic GTL/HoG/ABG behavior and ordinary
+extension contracts retain their existing owners. An external minimal test
+program supplies its own declarations, leaf binding and independent oracle.
+
+The bounded [plan](../../work/T287_HELLO_EXPUNCTION_01/plan.md) separates
+production deletion, test repair and constitutional writing. Root joins the
+frozen returns, verifies source/package absence, builds a fresh successor and
+proves affected generic and installed Public execution/readback paths. Existing
+S6 and other acceptances remain evidence for their original cuts. A removed-code
+successor receives no qualification from an older package. No new feature,
+renamed built-in test, Hello Product, release publication or broader qualification
+campaign is selected.
+
 ## Current Management Prerequisite Plan
 
-The [current framework-cost correction](#current-framework-cost-correction)
-owns immediate work: finish T-043 PC05 over the preserved paid constructor,
-then reconcile the original task in PC06 and resume the remaining T-287 release
-obligations. The fixed fifteen-family scope, S06/QUAL056/F11/sole AF22 and
-human acceptance retain their distinct conditions. Data Mapper is held. The
-earlier selections below are historical; they do not reapply superseded launch
-holds to the current explicitly selected suffix. Q07 remains release-boundary
-work; accepted retained S02-19 stop readback does not claim wider qualification.
+Owner selection, 2026-10-06: "i dont need odd glc anymore". This is a goal_reprice
+of execution selection under the existing Product boundary. No new odd_glc,
+T-043 PC05/PC06, Data Mapper, downstream publication or retirement work gates
+ABG delivery. The native default library and independently authored external
+application tests carry applicable F17/S06 proof within each exact candidate;
+original paired-campaign claims remain unchanged. The current Hello test-boundary
+repair takes precedence over all older built-in or fixed-scenario selections.
+
+The independently accepted genuine installed thread preserves the original
+assessment through native F11 and four fresh Public reads. The selected next
+milestone is the RC1 candidate with no unresolved P0s and owner triage of P1s;
+broader qualification remains separately tracked. The fifteen-family Product,
+S06/QUAL056/F11/sole AF22 and actual release acceptance retain their applicable
+conditions. Earlier selections below are historical and create no new odd_glc
+work authority. Frozen candidates and evidence retain their original identities;
+this selection neither retargets them nor claims wider qualification.
 
 ### Current graph-context re-entry
 
@@ -4458,3 +4613,134 @@ evidence coordinates, remaining counterexamples, and first refusing owner.
 - trigger: before D5 failure/refusal qualification, or earlier if the selected native path cannot be safely diagnosed
 - closure_evidence: actual undispatched negative plus fresh result/replay retaining its first cause with zero actors/effects; successful admission and genuinely evidenced failures remain conserved
 - closure_falsifiers: lost actual cause, manufactured actor evidence, or weakened success admission
+
+
+## Current native applicability repair and bounded S03 acceptance
+
+C03 archive f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6 remains immutable and construction-accepted. The installed S03a correction/no-action pair is independently accepted for two actual Runs and eight original fresh CLI reads. Full S03 remains open. Ambient926 generated/5258 payload correspondence to C03 is separately accepted.
+
+F11 Runtime03 is CLOSED before installation/Run at native declaration applicability: verified guard-only fixture has zero native proposals but resolution applies the flat declaration dependency profile. Root selects a bounded existing NCC-F02 design_reframe and successor candidate rather than treating the guard copy as malformed. HOW and source are independently accepted at fe58a7af; C04 construction is CLOSED mechanically ready; independent correspondence and Q05 preparation are active. Q03 is NO_GO; Q04 retains its successful six-case historical isolation but is independent NO_GO at relative PATH -> actual observed-task construction. The separate e642d4c mechanical caller cut passes the complete3277-input owner boundary and8negative checks; final Q05 rebind/independent assurance precedes actual dispatch. Native assessment/observed qualification still requires an externally restored permitted execution-host network capability. No green F11/AF22, published RC or owner acceptance is claimed. Exact triage, reviews and new operation grant are in rc1-native-applicability-controls-01.
+
+
+### C05 actual installed setup acceptance — 2026-10-02
+
+Root independently verifies and accepts the bounded CLOSED Setup05 subject at freeze3aa1948357cbce79b8c029f0be610fda129e325d6b0a267501e9e690cdd92f82: all11313records/915033775B, complete1175directories/modes, zero links. Actual14Publiccalls result/exit0; two admitted installs;12publications; four Program conformance passes; authentic handoff4e30bab5…/prefix3e068465… at2490814B/dev16777230/inode464611665. Full projected WorkspaceBinding is joined by its own bindingId/bindingDigest to Publicref/digest65dc434b…. Failed report and all original evidence remain; no Runtime rerun. Runtime234.821s/defaultheap/noTimeout/15known groups closed; reporting1.073s separately. Acceptance record: rc1-c05-installed-setup-acceptance-01/acceptance.json.
+
+Q06 final current input preparation remains active under its95physical-member alias disposition. Actual F11 child/J/foldback/parent/cold path is next after one independently accepted frozen Q06 input. No Task/Run/helper/provider or qualification/release credit follows from setup. Genuine model and observed QUAL056 still require permitted provider networking. Preserve the accepted Hello lifecycle and all other named cuts.
+
+
+### Q06 independent acceptance and actual F11 release — 2026-10-02
+
+Reviewer T287_Q06_FINAL_INPUT_REVIEW_01 is CLOSED GO_PREPARATION_ONLY/no constructability blocker/effects0. Root independently reacquired and conjoins Q06freeze4b7254fb…/3425records847680494B/675dirs; complete4627bodyinventory/95alias/canonical-law tuples,98records/eightchains/114823Bspans,167domains/50groups/492sets and actualSetup05coordinates. Complete commandTask/guard passes3282inputs; all18qualificationcommands19predicates remainunexecuted. Resource489526432B/prompt318333B/packet9.313s/defaultheap peak3455254528B. Exact receivedreview/Rootacceptance: rc1-q06-input-acceptance-01.
+
+Root fulfills conditional T287_F11_C05_CARRIER_EXECUTION_06 via rc1-f11-carrier-runtime-controls-06/input-acceptance.json. The separately activated Worker may now execute the exact mandatory wrapper child/J/foldback/parent/freshF11/sole non-greenAF22/6coldreads path using actual existingSetup05 closedhandoff. Preserve initial2490814B prefix/inode and allotheroldstores/candidate/worktree evidence; no setup/Hello rerun/sourcepatch/providers/18commands. Actual referenceconsumption and wholepath are required proof, not inferred from preparation; controlledrawallindeterminate remainsno genuinequalification.
+
+
+### Execution06 triangulation and bounded F_P/caller repair selection — 2026-10-02
+
+Root accepts actual failed Runtime06 evidence at freeze fe57e75e52d32d12d81c70e0e2d48bee428b1ef30651fef36e45a55ed9f30026, not whole-carrier functionality. Independent CLOSED source review localizes the omitted existing fifth proof-operation argument at actual F_P preparation; the nonauthor caller review separately confirms undeclared root-read resources and incorrect Run stop routing. Existing HOW/WHAT remain sufficient. Smallest re-entry is realization_refactor. Root grants T287_F11_FP_PROOF_DELIVERY_REALIZATION_01 (one canonical dispatcher seam/new meaningful test/isolated compile) and T287_F11_CALLER_REPAIR_AND_FAILED_READBACK_01 (new external caller/two cold reads of authentic failed C05 Run, no append). Complete conjunction/grants are rc1-f11-fp-delivery-repair-controls-01/. All prior subjects and evidence remain; C05/Q06 are frozen. Successor construction/installed whole child-J-foldback-F11-AF22 proof remains a separate mandatory selection after repair acceptance. Zero provider/Hello/18qualification-command/Git/publication effects. RC1 remains unqualified/unpublished.
+
+### F11 dispatch and external caller repairs accepted; successor C06 selected
+
+Executive conjoins CLOSED nonauthor source and caller assurance. Source freeze f10af06a6d6bfdb6a3b1b18f659f6807cebfae3368bfac7ebe84dc3725c4e8a1 and review91250f733643b19296692e286c659f5f7dd42d4267de7d600ed7fb81fa8f89f5 accept the existing proof-operation argument5 delivery, preserving arguments3/4 and original Source authorship. Caller freeze828da6917afe8c00a8c8578b2809fdcde65cdb9c9950d8c71c3e55c8b305ea0e and nonauthor reviewa6311f9a5808861127f361af86530eec09f87202f61999b45bedd96801755854 accept strict root-read resources and all three completed-Run/terminal-Result gates. Authentic failed Run stays failed; two fresh installed reads return not_found/exit1 and failed/null-terminal replay/exit0, with no event changes. Existing WHAT/HOW remain stable.
+
+C06 construction is selected from immutable C05 plus accepted leaf postimage, new dispatcher regression and this exact tracking snapshot. Actual owner-produced request/prompt identities are authoritative; Q06 cached renderer identities are not substituted. C05/Q06/Setup05/failedRuntime06 remain exact historical cuts. Whole successful installed wrapper-child/Result/J/foldback/parent closure/sixcoldreads/F11/sole nongreenAF22 is next; local passes confer no semantic qualification. Genuine F11, observed QUAL056, complete scenario applicability and release remain open. All18 qualification commands remain unexecuted. Owner instruction fixes and closes5; network-restricted/approval-never context has no auth/network bypass grant. No Hello rerun, Git or publication effects selected.
+
+Controls: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-06/acceptance.json and exact construction request.
+
+
+### 2026-10-02 — C06 accepted; installed continuation selected
+
+Executive conjoins CLOSED C06 construction7dff3d28 and independent nonauthor GO5b8d179b. Exact construction/source/generated/authority/native/wrapper/capability joins are accepted; no installed Runtime or semantic qualification is inferred. Writer T287_C06_ACCEPTANCE_AND_INSTALLED_EFFECTS_GRANTS_01 records separate Setup06 and exact3generated grants in rc1-c06-acceptance-and-next-effects-01. Next: actual C06 install, genuine current Q07, complete installed wrapper→F_Pchild→J→parent/Run closure and cold Run/F11/AF22 reads. Genuine F11/QUAL056, final-candidate scenario/applicability, sole greenAF22 and release remain open; provider/remote access restricted. Runtime06 failure, original authors/Hello/scenarios and dirty work preserved.
+
+
+### 2026-10-02 — Authentic Setup06 accepted; Q07 selected
+
+C06 actual two-Product Setup06 CLOSED14Publicresults/fourProgramconformances/12publications/twoadmittedinstalls/fullBinding7fd43fe8 and genuineprefixc972a579. Root verified every11309record/full1173dir plus complete5258core/5264wrapper actualarchive joins/zero links and declared2CLI executablemode adaptations; bounded setup accepted at rc1-c06-setup-acceptance-and-q07-controls-01/acceptance.json. Generated01 stopped beforecopy on consumer rawmode/./locator assumptions; noProductdefect or ambientwrite. Frozen historical overclaim preserved, consumer-onlycontinuation granted. Genuine Q07 follows separately, preserving historicalleaf/sourceauthors and actualcurrentbinding. Current unauthenticatedproviderprobe6:25UTCfailedcurl6 api.anthropic.com resolution, network-disabledenvironment1; no login/rootDNScause established. NoTask/Run/helper/model/QUAL056/semanticF11/AF22green/release credit fromsetup. Whole installedcarrier remains nextproof, priorHello/dirtytree intact.
+
+
+### 2026-10-02 — Q07 exact selector refusal; bounded continuation
+
+Root verified all3392Q07cut bodies/modes and exact16badtuples. Published complete Task passed on3284observations; external recipe selector retainedq06 memberRefs while actual descriptors/inventory useq07. No Product/source/runtime defect follows. Preserve stoppedQ07freeze49228e20, reuse currentC06/Setup06/authorship/body joins; narrow08 selector/dependentprojection continuation under rc1-q07-routing-triangulation-and-continuation-01. No owner preparation/semanticF11/QUAL056/Run/provider/helper/release credit. Generated02freeze945c4b51 is Rootaccepted exact3postimages/full926ambientC06 joins. C06/Setup06/oldHello/dirtytree remainpreserved; current provider barrier persists.
+
+
+### 2026-10-02 — Input08 pure owner-bound delivery; independent review selected
+
+CLOSEDinput08freeze f14c7a4b: complete3284actualobserved Task/body/descriptor/inventory/recipe joins pass; actual current publishedowner prepare/render/referenceguard pass on genuineacceptedSetup06. Currentinventory4633/sourcegenerated1937/generated926/expected927/historical835,110originalauthrecords10chains, strictcalleraf8b5625/driverdda35334. Resource506298791B, prompt349314B; controlledallunknown/noTaskRunJ/provider/18commands/semanticpass. Two managedprocesses32.761s/peak6284115968B/defaultheap/reaped. Rootverifiedall3414bodies/modes/census; independentfocusedinputreview selected at rc1-q08-input-assurance-controls-01. AfterboundedGO the nextproof is actualwholeinstalledcarrier, no localhardening. Nativequalification/release remainsopen/providerbarrier unchanged.
+
+
+### 2026-10-02 — Q08 independently accepted; actual C06 carrier released
+
+Root conjoins CLOSED nonauthor input review e0f783af/GO_BOUNDED_CURRENT_INPUT_ASSURANCE with exact Q08 f14c7a4b and accepted C06/actualSetup06. All current input/recipe/source-auth/alias/material/owner/caller joins are accepted for preparation only. Root verifies all five independent review records and unchanged actual Setup06 initial event2490814B/SHA5ba96006/inode464698960. Exact bounded acceptance: rc1-q08-input-acceptance-01/acceptance.json.
+
+The pre-existing separate Runtime07 grant is now fulfilled by exact rc1-f11-carrier-runtime-controls-07/input-acceptance.json, subject to Root final byte/hash message. Next actual whole installed wrapper→F_P child→Result/J→foldback→parent/Run closure→two cold reads→fresh F11→two reads→sole truthful non-green AF22→two reads. No extra local hardening, setup, Hello or source reruns. Controlled unknown transport grants no semantic qualification; genuine F11/QUAL056/scenario conjunction/green AF22/release remain open, with current provider networking unavailable. Preserve dirty tree and all historical accepted evidence.
+
+
+### 2026-10-02 — Runtime07 failure localized; canonical raw-contract producer repair selected
+
+CLOSEDRuntime07freeze227997c8/all104records1133319292B verifies one actual helperexit0, native contract_failure, failed child/foldback/stopped Run; zero completedRun/coldreads/F11/AF22. Independent CLOSEDsource19882744 plus final additive native-work/D4 scope correction localizes missing assessment-raw owner: canonical qualification GTL producer omitted existing abg.raw_result_contract. Generic collector recommendation is withdrawn; no resolver change selected. Root triage/acceptance: rc1-runtime07-triangulation-and-raw-contract-repair-01.
+
+Separately selected Worker source increment is conditional F_P native raw-contract declaration in gtl/self_conformance.ts and one meaningful preimage regression, exact grant 3aedaf46a09bdc3ffade21a6c2baa5b35889d7638576120a1c86aa604cb8654d. Existing WHAT/HOW, wrapper/raw/guards/argument5/old laws/evidence remain. Next accepted-source successorC07 and actual installed whole path; genuine F11/QUAL056/fullscenario/greenAF22/release still open, current provider network unavailable. Dirtyworktree/Hello evidence conserved.
+
+
+### 2026-10-02 — accepted qualification raw producer; C07 selected
+
+Root accepts CLOSED Source c97230b250baf64201468a6d4fce42e190a248c671cd0e82b75467f339f4d762 and independent bounded Source assurance 5067d27eb138681222bd8a0a63d1cc369aabe4ff6abb901c018a4d536b1b5e93. Only F_P gained the existing abg.raw_result_contract = q.assessmentRaw declaration (84 bytes); new targeted regression uses real closure/owner lookup/preimage verification, 18 route observations, zero skipped, with explicit supplied lower premises. Canonical generic resolver, schemas, F_D/F_H, wrapper and WHAT/HOW are unchanged. Compile and supervised targeted attempts total7.332s/defaultheap; first corrected test-expectation failure preserved. Prior Runtime07 remains a real stopped Run, not repaired evidence.
+
+Next: T287_RC1_SUCCESSOR_CONSTRUCTION_07 from exact immutable C06 inputs plus accepted GTL producer/test and this tracking snapshot. Construction alone gives no installation, Run or qualification credit. Then independent construction review, actual new Public setup/current bound inputs and whole wrapper-to-core native raw/J/foldback path, fresh F11, sole truthful nongreen AF22 and six cold reads. Retain accepted Hello/scenario evidence at its named subjects. At09:26:37UTC the unauthenticated provider probe still returns curl6/HTTP000, no IP, DNS unresolved; no Claude-login failure established. Genuine F11/QUAL056/scenario conjunction/green AF22/publication/installed-RC acceptance/remote installation remain open.
+
+
+### 2026-10-02 — C07 construction accepted; actual Setup07 selected
+
+CLOSED C07 construction883e0472e4abd5b760cb4abfc5fbf2cdbe43a3892ec9ff43c51965a78369f56f and independent bounded GO6cc20b383db37ce1d082defca182167fc8567abcfb66d6fcd8db139081f48645 are Root ACCEPTED. Source1108/outputs926/archive5258 bind Product5ba7ecd89da845d556cf830c4bae6ceaf5f34a27f921f0998a3cf4d56626cc3a, manifestc3070a8f153cb0550d6962d4a5aa15fa4a617242b04678f5318a2fc07a30cfe6, archive4f868f2839da72718cb6809ed15ac1c224fc0d29f31ec113eef37d32190df3b6. Catalog61/native37 and full unchanged wrapper compatibility pass; all11 publication semantics rebound. Three emitted bodies change: qualification GTL JS, capability graph and manifest. Ten commands40.237s/defaultheap/all known groups closed. Broader Root census593 scratch files are excluded temporary Node cache;16 archives separately pinned. No Product discrepancy follows.
+
+Root activates actual Public Setup07 and exact3-file canonical generated reconciliation. Actual C07 native admission/wholecarrier closure remains unproved; Q09 follows genuine setup closure. Provider-reachable genuine F11/QUAL056/complete scenarios/greenAF22/release remain open. Accepted Hello and failed Runtime07 retain exact subjects.
+
+
+### 2026-10-02 — actual Setup07 and generated correspondence accepted; Q09 selected
+
+Root accepts CLOSED genuine Setup07 freeze3df72c96b7d1424a7bd7811dc077adc2646bdf93ab767eef13ebde77add3f7e4:14actual Public calls/4Programconformances/2admittedinstalls/12publications; full11312files914539385B/1175directories verified. Actor actor://abiogenesis/t287/f11-c07-installed-setup-07/operator and WorkspaceBinding656c670fc14b9f347593365b849a2dd5969979e2106290c04ea8d99719cadfce are current. Authentic handoff18509b14a755258cf47240c3654adc134170b1698723607c2b8c285a910df4ca/eventprefix12c58f9ef07997329c764c58cdfd38308876af9630cc79cf3e94f35cd2a0c5a9/event2490814B/inode464793566 bind the next proof. Actual runtime-activation records authorized07; preserved derived closure/freeze label ended06, an external report counter typo explicitly mapped in acceptance, with no payload or runtime repair.
+
+Canonical generated reconciliation04 is Root accepted at3143a250a47b1ddb8f08fc5e1881db1c0bc40e94d324eed41d1ef0d4d0a7faf9: all926C07body/modes exact, physical927 includes separately pinned unchanged standard mirror, original3preimages retained/3copies260ms. Prior zero-write03 scope refusal preserved. Q09 now selected on actual C07/Setup07/authors/law. Whole native child/J/foldback/F11/AF22 remains unproved; no Task/Run/helper/provider yet.
+
+
+## 2026-10-02 — Q09 accepted; whole installed Runtime08 released
+
+Root Executive accepts exact Q09 3ca693f2 and independent GO292ff721:4632 inventory/1938effective/835historical/3286protected;110 original records/10chains conserved,121/12current; actual Setup07 actor/W/install/catalog/View/request385553B/resource507725477B binds C07. Both finite managed readiness stages passed6.386+26.376s/defaultheap, groupsabsent. Root acceptance: `rc1-q09-and-runtime08-conditional-controls-01/input-acceptance.json`. Selected operation T287_F11_C07_CARRIER_EXECUTION_08: whole installed wrapper/core/native raw/J/child-parent foldback, freshF11, sole truthfulnongreenAF22, three completed Runs/six cold reads; firstfailurefreeze. Controlled unknown transport only. No C07 Run has yet completed, no commands/provider/qualification/release executed. Genuine assessment/QUAL056/scenario conjunction/greenAF22/release remain open. Provider probe11:01:47UTC stillcurl6/DNS with sandboxNetworkDisabled=1; login failure not established. Root Writer T287_Q09_ACCEPTANCE_AND_RUNTIME08_RELEASE_01 records this bounded decision only and returns Executive.
+
+
+## 2026-10-02 — Actual Runtime08 stopped; result-admission triangulation selected
+
+CLOSED Worker T287_F11_C07_CARRIER_EXECUTION_08 final freeze20126B/e265336e1ce0458561bb6571643ea927b8ca162fe0cb13a25c8d3335ea3b6708; Root all88body/mode pins match. One real installed Public invoke and controlled helper; native raw is actually admitted under currentC07 preimage3e51edd5/assessment-raw@5. Constructed judgment candidatefdb86621 was then refused atchild cCall9a621504/result-contract-mismatch/outputjudgment@5, blockedfoldback and parentstop36bb8d67. Zero completed Runs/coldreads/F11/AF22/negatives/providers; no retry. Actual latest handoff03654392/event2752372B/originalinode464793566; original2490814B prefix conserved. Flow30.344s/defaultheap/HOME/peakRSS7410335744B, known groups reaped/absent. Selected report-only source-frame Worker and independent stopped-run/result-join Reviewer under `rc1-runtime08-result-triangulation-controls-01`; outputguard/reference-task hypothesis remains unconfirmed. Whole carrier and RC1 remain NO_GO/unqualified/unpublished. Separate provider DNS barrier persists. Root Writer T287_RUNTIME08_STOP_TRACKING_WRITER_01 updates tracking only, closes and returns Executive.
+
+
+## 2026-10-02 — Runtime08 lineage triage CLOSED; realization repair selected
+
+Root accepts author freeze3d79272e and independent stop/cause freeze26bb83c0. Native raw admission passed; c_call_outcome discards ten admitted native transport fields before strict Product lineage. Existing Product/Design require this relation. Embedded-only schema hypothesis is refuted. Prior component checks missed actual delivery. Smallest re-entry: realization_refactor; exact projection plus one new regression delegated to /root/native_applicability_design under T287_RESULT_LINEAGE_EVIDENCE_REALIZATION_01. Acceptance/grant: /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-result-lineage-repair-controls-01. Independent source assurance then successor whole execution follow CLOSED repair. Runtime08 remains stopped/failed, zero completed/cold/F11/AF22; no retry/Git/provider/release selected. 5.0 RC1 unqualified/unpublished; DNS and genuine F11/QUAL056/full conjunction/soleAF22/release remain open.
+
+
+## 2026-10-02 — Result lineage Source/component ACCEPTED; C08 selected
+
+Root accepts Source freeze5fc09c57, corrected-fixture freezecc036b4c and independent GO_SOURCE_COMPONENT_ONLY3d90e4db. Actual admitted input and actor/request/prompt/transport metadata now reaches strict Product lineage. Source68281B/dc84456d; final test22568B/d98aa4de. One compile and corrected actual-callback regression pass1/1 with both taskforms, exact C07 preimage refusal,13 corruptions/form and deterministic absence/null conservation; supplied lower ABG/native/request premises remain explicit. TestA missing-effects failure is preserved; one test-only correction, no recompile or Runtime. Existing WHAT/HOW/API/guards and accepted prior subjects conserved. Root selects C08 from1108 frozenC07 members with only Source/currenttracking replacements plus newtest (1109inputs/1106unchanged); original authors and chains retained. Controls: /Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-successor-construction-controls-08; conditional construction grant rc1-c08-construction-grant-preparation-01/request.txt032cf607. Actual C08 construction/independent acceptance/Setup08/Q10/whole installed result-foldback/F11/non-greenAF22/six coldreads remain next. Runtime08 stays stopped/failed; genuine F11/QUAL056/scenarios/greenAF22/release/provider reachability remain open.
+
+
+## 2026-10-02 — End-to-end lineage Design frame correction
+
+Runtime08 exposed an end-to-end Design frame failure: actual admitted evidence
+was not conserved through the shared hook/projection contract. Raw contracts
+required the fields, the admitted interface made nine optional, and the hook
+accepted generic JSON. Product lineage law exists and its refusal was correct.
+Root owns the missing integration binding and the incomplete conjunction.
+
+The restored ten-field Source component remains accepted with its exact
+regression/independent scope. A separate design_reframe adds owning HOW5.1:
+shared discriminated carrier, honest checked minting/projection, exact field
+conservation, and compiler plus actual callback/installed proof. The five-file
+source cone and original authorship are retained. Source Worker activation uses
+rc1-result-lineage-integration-design-01/request.txt; prior prepared local-only
+grant is unactivated. No new Product requirement or weakened guard is selected.
+
+C08 continued-02 constructs the frozen immediate Source repair. Control-only
+failures are preserved. The qualifying successor must include the shared
+contract and Design/tracking postimages before whole installed credit. Retain
+accepted Hello and failed Runtime08; F11/QUAL056/scenarios/AF22/release remain open.

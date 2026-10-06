@@ -1,0 +1,16 @@
+{
+  "activation": "T287_UAT_INSTALLED_IDENTITY_04",
+  "command": "npm run test:uat:harness",
+  "exitCode": 0,
+  "pass": 5,
+  "fail": 0,
+  "skip": 0,
+  "elapsedMs": 84.690083,
+  "focusedRefusal": "Both exact retained roots checked before dispatch and after invocation before fresh reader effect; each root false before/after plus missing after result refuses; positive permits ordered read",
+  "mechanicalControl": "Controlled existing Product API outputs test caller barrier; actual byte mutation/extra inventory baseline/restoration probe independently retained under review-installed-identity-04",
+  "syntaxChecks": [
+    "test_env/uat/runner.mjs",
+    "test_env/uat/harness.test.mjs"
+  ],
+  "classification": "Test machinery checks only; no build/reinstall/model/native UAT"
+}

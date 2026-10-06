@@ -8,8 +8,8 @@ import { promisify } from "node:util";
 
 import * as Effect from "effect/Effect";
 
-import { prepareOddGlcDataProduct } from
-  "../support/developer-mini-product.mjs";
+import { prepareLanguageSmokeFixture } from
+  "../support/language-smoke-fixture.mjs";
 import { constructInstalledPublicDefinitionCall } from
   "../support/installed-public-definition-call.mjs";
 import {
@@ -404,7 +404,7 @@ async function constructInstalledStartCall({
     catalogView,
     admittedInstalls,
     workspaceBinding,
-    additionalProducts: [oddGlc],
+    additionalProducts: [languageFixture],
   } = environment;
   const resolution = await product.ProductExecutionResolutionPort.resolve({
     catalog,
@@ -412,7 +412,7 @@ async function constructInstalledStartCall({
     admittedInstalls,
     verifyInstallAdmission: (install) =>
       abg.hasAdmittedProductInstall(environment.artifactTruth, install),
-    programRef: oddGlc.ids.programRef,
+    programRef: languageFixture.ids.programRef,
     selection: Object.freeze({
       kind: "start",
       scope: "program",
@@ -438,7 +438,7 @@ async function constructInstalledStartCall({
   });
   const contractBoundInput = Object.freeze({
     contract: inputContract,
-    valueRef: `value://odd-glc/${identity}/hello-input`,
+    valueRef: `value://abi5-tests/${identity}/hello-input`,
     valueDigest: product.sha256Canonical(input),
     value: input,
   });
@@ -590,12 +590,12 @@ async function constructInstalledStartCall({
       request,
       slots,
       resources,
-      requestRef: `public-request://odd-glc/${identity}/run-start`,
-      correlationRef: `correlation://odd-glc/${identity}/run-start`,
+      requestRef: `public-request://abi5-tests/${identity}/run-start`,
+      correlationRef: `correlation://abi5-tests/${identity}/run-start`,
       eventTime: identity === "st-1"
         ? "2026-08-21T00:00:00.000Z"
         : "2026-08-22T01:00:00.000Z",
-      provenanceRefs: [`provenance://odd-glc/${identity}-worker`],
+      provenanceRefs: [`provenance://abi5-tests/${identity}-worker`],
     }),
     resolution,
     capabilityBasis: Object.freeze({
@@ -732,20 +732,20 @@ function constructInstalledRunReadCall({
         schemaVersion,
         eventResource,
       }),
-      requestRef: `public-request://odd-glc/st-2b/${identity}`,
-      correlationRef: `correlation://odd-glc/st-2b/${identity}`,
+      requestRef: `public-request://abi5-tests/st-2b/${identity}`,
+      correlationRef: `correlation://abi5-tests/st-2b/${identity}`,
       eventTime: "2026-08-22T00:00:00.000Z",
-      provenanceRefs: ["provenance://odd-glc/st-2b-worker"],
+      provenanceRefs: ["provenance://abi5-tests/st-2b-worker"],
     }),
   });
 }
 
-test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (context) => {
+test("ST-1 executes an independently authored minimal GTL test through installed Public owners", async (context) => {
   const environment = await setupInstalledRootCatalog(context, packageRoot, {
     candidateBasisSource: "packed_artifact",
     workspaceProductIndex: 1,
     prepareAdditionalProducts: async (basis) => [
-      await prepareOddGlcDataProduct(basis),
+      await prepareLanguageSmokeFixture(basis),
     ],
   });
   const {
@@ -764,8 +764,8 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     catalog,
     catalogView,
     scratch,
-    additionalProducts: [oddGlc],
-    additionalPublications: [oddPublication],
+    additionalProducts: [languageFixture],
+    additionalPublications: [fixturePublication],
   } = environment;
   const projectReadContracts = await import(
     `${pathToFileURL(join(
@@ -879,12 +879,13 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
 
   const { stdout: archiveStdout } = await execFileAsync(
     "tar",
-    ["-tzf", oddGlc.artifactPath],
+    ["-tzf", languageFixture.artifactPath],
   );
   const archiveFiles = archiveStdout.trim().split("\n")
     .filter((path) => !path.endsWith("/")).sort();
   assert.deepEqual(archiveFiles, [
-    "package/build/publication.json",
+    "package/build/leaf.mjs",
+    "package/build/program.mjs",
     "package/contracts/capabilities/capability-definition-graph.json",
     "package/contracts/public-contract-catalog.schema.json",
     "package/package.json",
@@ -892,23 +893,23 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
   ]);
   assert.equal(
     archiveFiles.some((path) => /\.(?:c|m)?js$|\.d\.(?:c|m)?ts$/u.test(path)),
-    false,
+    true,
   );
   assert.deepEqual(
     {
-      contracts: oddPublication.contracts.length,
-      evaluators: oddPublication.evaluators.length,
-      implementationBindings: oddPublication.implementationBindings.length,
-      closureContracts: oddPublication.closureContracts.length,
-      programs: oddPublication.programs.length,
-      graphFunctions: oddPublication.graphFunctions.length,
+      contracts: fixturePublication.contracts.length,
+      evaluators: fixturePublication.evaluators.length,
+      implementationBindings: fixturePublication.implementationBindings.length,
+      closureContracts: fixturePublication.closureContracts.length,
+      programs: fixturePublication.programs.length,
+      graphFunctions: fixturePublication.graphFunctions.length,
     },
     {
-      contracts: 0,
+      contracts: 9,
       evaluators: 0,
-      implementationBindings: 0,
-      closureContracts: 0,
-      programs: 1,
+      implementationBindings: 1,
+      closureContracts: 2,
+      programs: 2,
       graphFunctions: 1,
     },
   );
@@ -918,11 +919,11 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
   assert.equal(catalog.readinessBasis.installedProducts.length, 2);
   assert.equal(
     catalog.rowDispositions.find(
-      (row) => row.handle === oddGlc.ids.graphFunctionRef,
+      (row) => row.handle === languageFixture.ids.graphFunctionRef,
     )?.disposition,
     "admitted",
   );
-  assert.deepEqual(catalogView.allowlist, [oddGlc.ids.graphFunctionRef]);
+  assert.deepEqual(catalogView.allowlist, [languageFixture.ids.graphFunctionRef]);
   assert.equal(catalogView.entries.length, 1);
 
   const publicApi = await import(
@@ -940,7 +941,7 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     closeHandoff: setupHandoff,
     handoffDigest: product.sha256Canonical(setupHandoff),
   });
-  const input = gtl.constructHelloWorldInput("World");
+  const input = gtl.constructLanguageTestInput("World");
   const { call, resolution, capabilityBasis } = await constructInstalledStartCall({
     environment,
     publicApi,
@@ -958,22 +959,22 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     /exact workspace, policy, actor, and definition authority/u,
     "project.read must not accept an invocation policy basis",
   );
-  assert.equal(resolution.resolution.programOwner.productId, oddGlc.basis.productId);
+  assert.equal(resolution.resolution.programOwner.productId, languageFixture.basis.productId);
   assert.equal(
     resolution.resolution.graphFunctionOwner.productId,
-    oddGlc.basis.productId,
+    languageFixture.basis.productId,
   );
   assert.equal(
     resolution.declarationClosure.semanticsOwner.productId,
-    environment.verified.productId,
+    languageFixture.basis.productId,
   );
   assert.equal(
     resolution.implementationSetCandidate.rows[0].implementationOwnerProductId,
-    environment.verified.productId,
+    languageFixture.basis.productId,
   );
   assert.equal(
     resolution.implementationSetCandidate.rows[0].graphFunctionOwnerProductId,
-    oddGlc.basis.productId,
+    languageFixture.basis.productId,
   );
   assert.equal(
     resolution.implementationSetCandidate.rows[0].computeRegime,
@@ -1083,16 +1084,16 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
   const admittedResult = events.find(
     (event) => event.kind === "c_call_result_admitted",
   );
-  assert.equal(invocationAdmission.payload.programRef, oddGlc.ids.programRef);
+  assert.equal(invocationAdmission.payload.programRef, languageFixture.ids.programRef);
   assert.equal(
     invocationAdmission.payload.graphFunctionRef,
-    oddGlc.ids.graphFunctionRef,
+    languageFixture.ids.graphFunctionRef,
   );
   assert.equal(implementationAdmission.payload.implementationSet.rows.length, 1);
   assert.equal(
     implementationAdmission.payload.implementationSet.rows[0]
       .implementationOwnerProductId,
-    environment.verified.productId,
+    languageFixture.basis.productId,
   );
   assert.deepEqual(admittedResult.payload.value, {
     kind: "hello_world_output",
@@ -1101,13 +1102,13 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
   });
   assert.equal(
     admittedResult.payload.contractRef,
-    gtl.HELLO_WORLD_IDS.outputContractRef,
+    gtl.LANGUAGE_TEST_IDS.outputContractRef,
   );
   assert.equal(events.some((event) => event.kind === "frame_opened"), true);
   assert.equal(events.some((event) => event.kind === "run_closed"), true);
   assert.equal(
     await readFile(
-      join(installCandidates[1].installedRoot, "build/publication.json"),
+      join(installCandidates[1].installedRoot, "build/program.mjs"),
       "utf8",
     ).then((bytes) => bytes.length > 0),
     true,
@@ -1302,7 +1303,7 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     ref: admittedResult.payload.resultRef,
     digest: admittedResult.payload.resultDigest,
   });
-  assert.equal(admittedResult.payload.contractRef, gtl.HELLO_WORLD_IDS.outputContractRef);
+  assert.equal(admittedResult.payload.contractRef, gtl.LANGUAGE_TEST_IDS.outputContractRef);
   assert.deepEqual(admittedResult.payload.value, {
     kind: "hello_world_output",
     schemaVersion,
@@ -1569,7 +1570,7 @@ test("ST-1 executes installed odd_glc data through ABI-owned F_D Hello", async (
     "ST-3: 3 exact fresh-process owner equalities, 1 pre-owner stale-handoff refusal, 0 appended bytes",
   );
 
-  const st4Input = gtl.constructHelloWorldInput("World");
+  const st4Input = gtl.constructLanguageTestInput("World");
   const {
     call: st4StartCall,
     resolution: st4Resolution,

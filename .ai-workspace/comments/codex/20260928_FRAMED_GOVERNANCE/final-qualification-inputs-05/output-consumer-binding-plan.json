@@ -1,0 +1,59 @@
+{
+  "kind": "future_actual_three_population_snapshot_plan",
+  "reader": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/output-checks.mjs",
+    "bytes": 13844,
+    "sha256": "3bd6f270781a636ec3c4651ea5d7ba33bcc4ef1b09ec986437bedba426e97b0b",
+    "mode": 420
+  },
+  "currentOutputs": {
+    "descriptor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/expected-output-inventory.json",
+      "bytes": 170329,
+      "sha256": "d81888a93d8b7c0cbcf29ac3bf9dcd86e813e4314a2714a541f7260e824da48b",
+      "mode": 420
+    },
+    "count": 927,
+    "origin": "exact C04 stage"
+  },
+  "historicalComponentOutputs": {
+    "descriptor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/component-stage-plan.json",
+      "bytes": 362453,
+      "sha256": "45a082fc9aa0549e4808ded2bdbca940816c26e7a9adece6b1e10e544cf6b93f",
+      "mode": 420
+    },
+    "count": 835,
+    "origin": "exact historical Q04 bodies; one C03 compiled fixture preimage"
+  },
+  "protectedInputs": {
+    "descriptor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/protected-inputs.json",
+      "bytes": 2321327,
+      "sha256": "843b52ffcd0ca88bb15c8c820f36774fdafd999b2faeef61565cb311483f6a00",
+      "mode": 420
+    },
+    "count": 3281,
+    "root": "actual original admitted A/W; separate from actual helper snapshot root"
+  },
+  "requiredRelations": [
+    "actual installed task/observation/attempt/helper-plan/helper-artifact/archive/snapshotRoot guards before output read",
+    "all command/report bodies and current927 plus historical835 output bodies read only from actual authenticated helper snapshot",
+    "every original protected body/mode conserved separately before/after; actual helper protectedBefore/After and task population exact",
+    "actual fresh Public Result/replay and typed producer agree; no original-root fallback"
+  ],
+  "actualTask": null,
+  "actualAttempt": null,
+  "actualHelperArtifact": null,
+  "actualSnapshotRoot": null,
+  "actualObservation": null,
+  "freshResult": null,
+  "freshReplay": null,
+  "mechanicalUnitTask": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-05/complete-observed-task.json",
+    "bytes": 6739332,
+    "sha256": "28ca1ae489788f605d7b77d0645472225464a103b2484abc640045ad6b90aa7a",
+    "mode": 420
+  },
+  "mechanicalUnitIsRuntime": false
+}

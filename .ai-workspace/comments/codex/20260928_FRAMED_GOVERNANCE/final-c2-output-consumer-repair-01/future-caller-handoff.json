@@ -1,0 +1,23 @@
+{
+  "status": "READY_FOR_ROOT_INDEPENDENT_REVIEW",
+  "successor": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/output-checks.mjs",
+  "importChange": "Future separately granted driver imports makeOutputChecks from this CLOSED successor instead of final-observed-c2-01/output-checks.mjs.",
+  "argumentChange": "Remove workspaceRoot from consume({value,task,recipe,selection,expected,write,mark}). The output reader derives its only outputRoot from actual successful observation+validated helper artifact/plan. No output-root argument or fallback is accepted.",
+  "originalRootConservation": "Keep the original driver final716 loop fs.readFile(join(root,f.target)), A/W canonicalRoot, Product conservation and cold read caller unchanged. No new driver constructed here.",
+  "assertionsPreserved": [
+    "13 commands",
+    "14 predicates",
+    "5 reports/30 selected test titles",
+    "strict test/lint parsing",
+    "925 expected output comparisons",
+    "typed producer/Result/replay/cold comparisons",
+    "716 original protected observations and unchanged driver input rereads"
+  ],
+  "open": [
+    "genuine successful C2 output under corrected consumer",
+    "both fresh installed reads",
+    "actual native execution selection",
+    "tenant/qualification basis and independent F11/AF22"
+  ],
+  "noSuccessorExecutionAuthorizedByThisReturn": true
+}

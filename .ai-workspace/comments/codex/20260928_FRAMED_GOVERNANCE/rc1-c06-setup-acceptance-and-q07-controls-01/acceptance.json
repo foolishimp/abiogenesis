@@ -1,0 +1,78 @@
+{
+  "status": "ACCEPTED_BOUNDED_ACTUAL_COMPLETE_SETUP06",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "candidate": {
+    "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-06/final-freeze.json",
+    "freezeSHA256": "7dff3d28b15193e15d46f1523d67410de57017ec83a09f67ba237b5d97bdd242",
+    "artifactSHA256": "9ac4ca5a40940cc98de8080d9c119788f75596890dde3aae4050a058fe383ced",
+    "productContentDigest": "sha256:7b7d18dd1292343672da68804784719c1d47937d8524167f8a15d12ecddc5ace",
+    "manifestDigest": "sha256:42e82d4942736d5b97087cfdba143dda5cca0690ae05402b05066d2c518326f6"
+  },
+  "setup": {
+    "freeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/freeze.json",
+    "freezeSHA256": "b44c8a054b19f7eeb84473ada9ba677d51001317d2dac5d213cb92e7469a0cd7",
+    "fullBinding": {
+      "ref": "workspace-binding://abiogenesis/7fd43fe81e798648cb57216f120bf74d7a0f5af7b92aed236a5c21c60be130b4",
+      "digest": "sha256:7fd43fe81e798648cb57216f120bf74d7a0f5af7b92aed236a5c21c60be130b4"
+    },
+    "currentActor": "actor://abiogenesis/t287/f11-c06-installed-setup-06/operator",
+    "coreInstalledRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/installed/core/node_modules/@abiogenesis/typescript-tenant",
+    "coreInstallCoordinate": {
+      "selectedActualInstallOriginal": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/setup-state.json"
+    },
+    "closeHandoff": {
+      "prefix": {
+        "coordinateDigest": "sha256:c972a5790053d1a99928363dd9952fd3236f1937add68adf4a3815e4fd674742",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:5ba960061e7ad373b389c48c232f13f2dd80a08b2ad296f28f7783c2a5cf470f",
+        "prefixLength": 2490814,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777230,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 464698960
+        }
+      },
+      "reopenAuthority": {
+        "authorityDigest": "sha256:11af6231fed937796aff303c96cf44e6dc3ef535e704f3d9ff4388e9390c106c",
+        "device": 16777230,
+        "durableByteLength": 2490814,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "eventLogDigest": "sha256:5ba960061e7ad373b389c48c232f13f2dd80a08b2ad296f28f7783c2a5cf470f",
+        "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+        "inode": 464698960,
+        "kind": "event_store_reopen_authority",
+        "schemaVersion": "5.0.0"
+      }
+    },
+    "authorityHandoff": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/installed-authority-handoff.json",
+      "bytes": 7336012,
+      "sha256": "c3e165749e054f4c604d2996c08fa743a5916d1f3ff10d39875151e2c0fd27ee",
+      "mode": 420
+    },
+    "state": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/setup-state.json",
+      "bytes": 81212409,
+      "sha256": "2d046d1f9960cc2799feee7b96ba78911b687c520a71a2dd6af5823024d6e182",
+      "mode": 420
+    },
+    "eventPhysical": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-06/resources/events/runtime.events.jsonl",
+      "bytes": 2490814,
+      "sha256": "5ba960061e7ad373b389c48c232f13f2dd80a08b2ad296f28f7783c2a5cf470f",
+      "device": 16777230,
+      "inode": 464698960,
+      "mode": "0o644"
+    }
+  },
+  "rootVerification": "Every11309cut body/mode/full1173dir and regular-file census; actual entire core5258/wrapper5264 archive-body joins/zero links; actual fourteen Public results and full current authority/binding/handoff; known2declaredCLI mode adaptations from source bin locators",
+  "cost": {
+    "actualSetupElapsedMs": 233357.060583774,
+    "peakRSSBytes": 3108470784,
+    "defaultHeap": true,
+    "known15ProcessGroups": "reaped/absent"
+  },
+  "unknown": "No Task/Run/helper/provider/genuine F11/QUAL056/sole greenAF22/release; no Source reprice"
+}

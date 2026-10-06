@@ -29,7 +29,86 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
         graph: Readonly<import("../index.js").GtlGraph>;
         call: import("./c_call.js").CCall;
         resolution: import("./execution_basis.js").AdmittedImplementationResolutionRow;
-        program: import("../index.js").GtlProgram;
+        program: {
+            readonly kind: "gtl_program";
+            readonly programRef: string;
+            readonly version: "5.0.0";
+            readonly moduleRef: string;
+            readonly starts: readonly {
+                readonly startRef: string;
+                readonly graphFunctionRef: string;
+            }[];
+            readonly callableMembership: readonly string[];
+            readonly closureContractRef: string;
+            readonly policies: {
+                readonly [x: string]: string;
+            };
+            readonly publicAssetTargets?: readonly {
+                readonly kind: "program_public_asset_target";
+                readonly handle: string;
+                readonly assetRef: string;
+                readonly startRef: string;
+            }[];
+            readonly actionCatalog?: {
+                readonly kind: "action_catalog";
+                readonly schemaVersion: "5.0.0";
+                readonly catalogRef: string;
+                readonly catalogDigest: `sha256:${string}`;
+                readonly rows: readonly {
+                    readonly kind: "action_catalog_row";
+                    readonly actionRef: string;
+                    readonly actionKind: string;
+                    readonly programRef: string;
+                    readonly graphFunctionRef: string;
+                    readonly targetProgramLocusRef: string;
+                    readonly targetObligationRefs: readonly string[];
+                    readonly inputAssetRefs: readonly string[];
+                    readonly outputAssetRefs: readonly string[];
+                    readonly expectedDeltaRef: string;
+                    readonly progressConditionRef: string;
+                    readonly stopConditionRef: string;
+                }[];
+            };
+            readonly constructionComposition?: {
+                readonly kind: "construction_composition";
+                readonly schemaVersion: "5.0.0";
+                readonly compositionRef: string;
+                readonly compositionDigest: `sha256:${string}`;
+                readonly graphFunctionRef: string;
+                readonly authorities: readonly [{
+                    readonly kind: "construction_authority_binding";
+                    readonly semanticAuthority: "synthesizeModel" | "evalGap" | "evaluateNext" | "evaluateAction";
+                    readonly authorityRef: string;
+                    readonly initialProgramLocusRef: string;
+                    readonly refreshProgramLocusRef: string | null;
+                }, {
+                    readonly kind: "construction_authority_binding";
+                    readonly semanticAuthority: "synthesizeModel" | "evalGap" | "evaluateNext" | "evaluateAction";
+                    readonly authorityRef: string;
+                    readonly initialProgramLocusRef: string;
+                    readonly refreshProgramLocusRef: string | null;
+                }, {
+                    readonly kind: "construction_authority_binding";
+                    readonly semanticAuthority: "synthesizeModel" | "evalGap" | "evaluateNext" | "evaluateAction";
+                    readonly authorityRef: string;
+                    readonly initialProgramLocusRef: string;
+                    readonly refreshProgramLocusRef: string | null;
+                }, {
+                    readonly kind: "construction_authority_binding";
+                    readonly semanticAuthority: "synthesizeModel" | "evalGap" | "evaluateNext" | "evaluateAction";
+                    readonly authorityRef: string;
+                    readonly initialProgramLocusRef: string;
+                    readonly refreshProgramLocusRef: string | null;
+                }];
+                readonly interactionProgramLocusRef: string;
+                readonly closurePolicy: {
+                    readonly kind: "construction_policy";
+                    readonly policyRef: string;
+                    readonly requireCompleteEvidence: boolean;
+                    readonly requirePostEvidenceRefresh: boolean;
+                };
+            };
+        };
         inputRef: string;
         inputDigest: `sha256:${string}`;
         inputValue: JsonValue;
@@ -72,7 +151,86 @@ export declare function projectJobRevisionSubject(basis: SemanticStageNativeBasi
         graph: Readonly<import("../index.js").GtlGraph>;
         call: import("./c_call.js").CCall;
         resolution: import("./execution_basis.js").AdmittedImplementationResolutionRow;
-        program: import("../index.js").GtlProgram;
+        program: {
+            readonly kind: "gtl_program";
+            readonly programRef: string;
+            readonly version: "5.0.0";
+            readonly moduleRef: string;
+            readonly starts: readonly {
+                readonly startRef: string;
+                readonly graphFunctionRef: string;
+            }[];
+            readonly callableMembership: readonly string[];
+            readonly closureContractRef: string;
+            readonly policies: {
+                readonly [x: string]: string;
+            };
+            readonly publicAssetTargets?: readonly {
+                readonly kind: "program_public_asset_target";
+                readonly handle: string;
+                readonly assetRef: string;
+                readonly startRef: string;
+            }[];
+            readonly actionCatalog?: {
+                readonly kind: "action_catalog";
+                readonly schemaVersion: "5.0.0";
+                readonly catalogRef: string;
+                readonly catalogDigest: `sha256:${string}`;
+                readonly rows: readonly {
+                    readonly kind: "action_catalog_row";
+                    readonly actionRef: string;
+                    readonly actionKind: string;
+                    readonly programRef: string;
+                    readonly graphFunctionRef: string;
+                    readonly targetProgramLocusRef: string;
+                    readonly targetObligationRefs: readonly string[];
+                    readonly inputAssetRefs: readonly string[];
+                    readonly outputAssetRefs: readonly string[];
+                    readonly expectedDeltaRef: string;
+                    readonly progressConditionRef: string;
+                    readonly stopConditionRef: string;
+                }[];
+            };
+            readonly constructionComposition?: {
+                readonly kind: "construction_composition";
+                readonly schemaVersion: "5.0.0";
+                readonly compositionRef: string;
+                readonly compositionDigest: `sha256:${string}`;
+                readonly graphFunctionRef: string;
+                readonly authorities: readonly [{
+                    readonly kind: "construction_authority_binding";
+                    readonly semanticAuthority: "synthesizeModel" | "evalGap" | "evaluateNext" | "evaluateAction";
+                    readonly authorityRef: string;
+                    readonly initialProgramLocusRef: string;
+                    readonly refreshProgramLocusRef: string | null;
+                }, {
+                    readonly kind: "construction_authority_binding";
+                    readonly semanticAuthority: "synthesizeModel" | "evalGap" | "evaluateNext" | "evaluateAction";
+                    readonly authorityRef: string;
+                    readonly initialProgramLocusRef: string;
+                    readonly refreshProgramLocusRef: string | null;
+                }, {
+                    readonly kind: "construction_authority_binding";
+                    readonly semanticAuthority: "synthesizeModel" | "evalGap" | "evaluateNext" | "evaluateAction";
+                    readonly authorityRef: string;
+                    readonly initialProgramLocusRef: string;
+                    readonly refreshProgramLocusRef: string | null;
+                }, {
+                    readonly kind: "construction_authority_binding";
+                    readonly semanticAuthority: "synthesizeModel" | "evalGap" | "evaluateNext" | "evaluateAction";
+                    readonly authorityRef: string;
+                    readonly initialProgramLocusRef: string;
+                    readonly refreshProgramLocusRef: string | null;
+                }];
+                readonly interactionProgramLocusRef: string;
+                readonly closurePolicy: {
+                    readonly kind: "construction_policy";
+                    readonly policyRef: string;
+                    readonly requireCompleteEvidence: boolean;
+                    readonly requirePostEvidenceRefresh: boolean;
+                };
+            };
+        };
         inputRef: string;
         inputDigest: `sha256:${string}`;
         inputValue: JsonValue;

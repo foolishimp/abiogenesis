@@ -4,7 +4,7 @@
 **Category**: Constraint / Guarantee
 **Product behavior**: [Execution And Context Calculus](../../PRODUCT.md#execution-and-context-calculus); T-287 owner-directed Product/requirement re-entry.
 **Date**: 2026-04-05
-**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.1-rc.1/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.1-rc.1/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
+**Derives from**: [SPEC_METHOD.md](stdo://releases/v2.5.1-rc.2/standards/SPEC_METHOD.md), [ODD_METHOD.md](stdo://releases/v2.5.1-rc.2/standards/ODD_METHOD.md), [INTENT.md](../../INTENT.md) INT-001, [PRODUCT.md](../../PRODUCT.md)
 
 ---
 

@@ -6,7 +6,7 @@ import type { PackagedLeafImplementationDescriptor } from "../product/implementa
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { qualificationHash as hash, sameQualificationValue as same, type QualificationJudgment } from "../validator/qualification_contracts.js";
-import { isQualificationAssessmentInput, qualificationWorkerRequest, constructQualificationJudgment,
+import { isQualificationAssessmentInput, qualificationWorkerRequest, constructQualificationJudgment, prepareQualificationAssessment,
   isMalformedGtlAssessmentInput, evaluateMalformedGtlAssessment, isMalformedGtlAssessment } from "../validator/qualification.js";
 import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabilisticLeafInvocation, NativeLeafProofOperations } from "./contracts.js";
 function descriptor(implementationRef: string, namedSymbol: string, inputContractRef: string, outputContractRef: string, computeRegime: "F_D" | "F_P") {
@@ -31,13 +31,14 @@ function success(input: unknown, value: unknown, implementationRef: string): Rea
     resultCandidate: value as Record<string, JsonValue>, evidenceCandidates: [{ kind: "deterministic_evidence_candidate",
       schemaVersion: "5.0.0", implementationRef, inputDigest: hash(input), outputDigest: hash(value) }] });
 }
-export function realizeQualificationAssessment(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence):
+export function realizeQualificationAssessment(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
+  _resolution?: unknown, _inputDigest?: unknown, nativeProof?: NativeLeafProofOperations):
   Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>> {
   if (!isQualificationAssessmentInput(input) || occurrence.qualificationOwnerBasis === undefined ||
-      projectQualificationConsumer(occurrence.qualificationOwnerBasis, input, true) === null) {
+      (nativeProof?.qualificationPreparation === undefined && projectQualificationConsumer(occurrence.qualificationOwnerBasis, input, true) === null)) {
     throw new TypeError("qualification assessment lacks an exact current owner and admitted task");
   }
-  const nativeBasis = occurrence.qualificationOwnerBasis, workerRequest = qualificationWorkerRequest(input);
+  const nativeBasis = occurrence.qualificationOwnerBasis, preparation = nativeProof?.qualificationPreparation?.(input, occurrence) ?? prepareQualificationAssessment(input), workerRequest = preparation.request;
   return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest,
     complete(exchange: Readonly<ActorProcessCarrierValidation>) {
       if (!same(exchange.request, workerRequest) || exchange.observation.disposition !== "success" ||
@@ -51,7 +52,7 @@ export function realizeQualificationAssessment(input: Readonly<Record<string, Js
           actorInvocationRef: exchange.observation.actorInvocationRef, transportBindingRef: exchange.observation.transportBindingRef,
           transportBindingDigest: exchange.observation.transportBindingDigest, requestDigest: hash(workerRequest),
           observationDigest: hash(exchange.observation), promptDigest: hash(workerRequest.prompt), rawValueDigest: hash(raw) };
-        const value = constructQualificationJudgment(input, raw, nativeBasis, source);
+        const value = preparation.complete(raw, nativeBasis, source);
         return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success",
           evidenceCandidates: [], resultCandidate: value as unknown as Record<string, JsonValue> });
       } catch { return failure("assessment_contract_mismatch"); }

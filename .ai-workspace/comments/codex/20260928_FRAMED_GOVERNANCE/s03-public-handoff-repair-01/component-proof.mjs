@@ -1,0 +1,107 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {readFile,writeFile} from 'node:fs/promises';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+import {syncBuiltinESMExports} from 'node:module';
+import {createHash} from 'node:crypto';
+const proof=fileURLToPath(new URL('.',import.meta.url)),repo=fileURLToPath(new URL('../../../../../',import.meta.url));
+const read=async name=>JSON.parse(await readFile(new URL(name,import.meta.url),'utf8'));
+const save=async(name,value)=>writeFile(proof+name,JSON.stringify(value,null,2)+'\n');
+const h=await read('historical-handoff.json'),live=fileURLToPath(h.prefix.eventLogRef),guarded=[];
+for(const key of ['readFileSync','openSync','statSync','lstatSync','realpathSync']){
+ const original=fs[key];fs[key]=function(path,...args){const p=path instanceof URL?fileURLToPath(path):String(path);if(p===live){guarded.push(key);throw new Error('Forbidden live resource access');}return original.call(this,path,...args);};
+}
+syncBuiltinESMExports();
+const load=name=>import(new URL('compiled/'+name+'.js',import.meta.url));
+const [ev,ep,pr,replay,bind,contracts,common,digests,immutable,product,pub]=await Promise.all(['abg/event_store','abg/event_prefix','abg/project_read_ports','abg/replay','abg/project_read_definition_bindings','abg/project_read_operation_contracts','shared/public_function_contracts','shared/digests','shared/immutable','product/index','public/index'].map(load));
+const {assertPublicGapDomain,renderPublicGapHandoff}=await import(pathToFileURL(repo+'build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs'));
+const started=performance.now(),bytes=await readFile(proof+'snapshot.jsonl'),rows=ev.validateHistoricalEvents(bytes,h.prefix.storeIdentity.eventContractDigest),prefix=ep.selectValidatedRuntimeEventPrefix(rows);
+const inputSha=createHash('sha256').update(bytes).digest('hex');assert.equal(inputSha,'e7f7de0e3fd801436b3e3d559e7fdb1bc41a54d52ce57c2505afd3f9ae863f59');
+const runs={positive:'run://abiogenesis/6f642652d6a55bda784eacdebf63038fd2e767c939a28dc59d86a72c24d51e11',negative:'run://abiogenesis/fc9ca55bd6e4a3164c546b9bcb2df1c10b1e9d55884c34fc98f4524a7b7396e8'};
+const packet=(run,coordinate=h.prefix)=>({kind:'abg_project_read_packet',schemaVersion:'5.0.0',memberKey:'run_gaps',prefix:coordinate,targetRef:run});
+const request=(identity,coordinate=h.prefix)=>({caseKey:'run_gaps',source:{sourceKind:'run',sourceRef:identity.run.ref,sourceDigest:identity.run.digest},projectionBasis:{projectionBasisRef:coordinate.eventLogRef,projectionBasisDigest:coordinate.coordinateDigest},selector:{kind:'none'}});
+const oracle=JSON.parse(await readFile(new URL('../s03-automatic-01/oracle.json',import.meta.url),'utf8'));
+const results={},red=[];
+try{
+ for(const [name,run]of Object.entries(runs)){
+  const identity=replay.projectRunIdentityAtPrefix(prefix,run),native=pr.projectGapReadAtValidatedPrefix(packet(run),prefix);assert.equal(native.kind,'abg_project_read_projection',JSON.stringify(native));
+  const req=request(identity),output=bind.projectAbgReadOutput(contracts.ABG_PROJECT_READ_CONTRACTS.run_gaps,req,'run_gaps',native);
+  assert.equal(common.admitRuntimeContract(contracts.ABG_PROJECT_READ_CONTRACTS.run_gaps.resultSchema,output.value).disposition,'admitted');
+  const local=rows.filter(e=>e.runId===run),stop=local.find(e=>e.kind==='c_call_result_admitted'&&e.payload.value?.disposition==='no_action');
+  const semantic=name==='positive'?{}:{stop,gap:local.find(e=>e.kind==='c_call_result_admitted'&&e.payload.value?.basisRef===stop.payload.value.nextActionBasisRef),gapRoute:local.find(e=>e.kind==='traversal_route_admitted'&&e.payload.routeKind==='gap_stop'),stopped:local.find(e=>e.kind==='run_stopped')};
+  const rendering=assertPublicGapDomain({output,identity,boundary:h,semantic,oracle,correctionAvailable:name==='positive',product});
+  const isolatedOutput=JSON.parse(JSON.stringify(output));assert.equal(renderPublicGapHandoff(isolatedOutput),rendering.handoff);
+  results[name]={identity,native,request:req,output,...rendering};await save(name+'-component.json',results[name]);
+ }
+ await writeFile(proof+'caller-handoff.txt',results.negative.handoff);
+ const basisIndex=rows.findIndex(e=>e.runId===runs.negative&&e.kind==='c_call_result_admitted'&&e.payload.valueDigest===results.negative.output.value.projection.frontiers[0].basis.valueDigest);
+ const positiveBasis=rows.find(e=>e.runId===runs.positive&&e.kind==='c_call_result_admitted'&&e.payload.value?.kind==='next_action_basis');
+ const peerIndex=rows.findIndex(e=>e.runId===runs.negative&&e.kind==='c_call_result_admitted'&&e.payload.value?.kind==='next_action_basis'&&e.eventId!==rows[basisIndex].eventId);
+ const basisRef=rows[basisIndex].payload.value.basisRef;
+ const evidenceIndex=rows.findIndex(e=>e.eventId===results.negative.output.value.projection.frontiers[0].basis.inputEvidence[0].admissionEventRef);
+ const reidentify=(payload,stem)=>{
+  const {[stem+'Ref']:_ref,[stem+'Digest']:_digest,...body}=payload,digest=digests.sha256Canonical(body);
+  return {...body,[stem+'Digest']:digest,[stem+'Ref']:`${stem}://abiogenesis/${digest.slice(7)}`};
+ };
+ const candidateRead=copy=>{
+  immutable.deepFreeze(copy);const altered=ep.selectValidatedRuntimeEventPrefix(copy),physical=ev.runtimeEventPhysicalPrefix(copy);
+  const {coordinateDigest,...body}=h.prefix,coordinateBody={...body,prefixLength:physical.byteLength,prefixDigest:physical.digest};
+  const coordinate={...coordinateBody,coordinateDigest:digests.sha256Canonical(coordinateBody)};
+  return {coordinate,outcome:pr.projectGapReadAtValidatedPrefix(packet(runs.negative,coordinate),altered)};
+ };
+ for(const [name,mutate]of [
+  ['missing_basis',copy=>{delete copy[basisIndex].payload.value.basisRef;}],
+  ['crossed_positive_basis',copy=>{copy[basisIndex].payload.value=JSON.parse(JSON.stringify(positiveBasis.payload.value));}],
+  ['crossed_selected_input_evidence',copy=>{copy[evidenceIndex].payload=reidentify({...copy[evidenceIndex].payload,inputDigest:positiveBasis.payload.valueDigest},'evidence');}],
+  ['content_digest_mismatch',copy=>{copy[basisIndex].payload.value.gapProjection.handoff='fabricated handoff';}],
+  ['missing_selected_input_evidence',copy=>{copy[evidenceIndex].payload.evidenceRef='evidence://absent';}],
+ ]){
+  const copy=JSON.parse(JSON.stringify(rows));mutate(copy);immutable.deepFreeze(copy);
+  assert.notEqual(copy[basisIndex],rows[basisIndex]);assert.equal(rows[basisIndex].payload.value.basisRef,basisRef);
+  const {coordinate:candidate,outcome}=candidateRead(copy);
+  assert.equal(outcome.kind,'abg_project_read_refusal',name);assert.equal(outcome.code,'invalid_history',name);
+  const output=bind.projectAbgReadOutput(contracts.ABG_PROJECT_READ_CONTRACTS.run_gaps,request(results.negative.identity,candidate),'run_gaps',outcome);
+  assert.equal(output.outcomeKind,'refusal');assert.equal(common.admitRuntimeContract(contracts.ABG_PROJECT_READ_CONTRACTS.run_gaps.refusalSchema,output.value).disposition,'admitted');
+  red.push({name,syntheticCandidateOnly:true,candidateRowsDigest:digests.sha256Canonical(copy),coordinate:candidate,outcome,output});
+ }
+ // Equal immutable content at another real C-call identity is not competing
+ // input authority. This independent synthetic candidate conserves the owner
+ // envelopes used by this projection; it is not a new native admitted prefix.
+ const equal=JSON.parse(JSON.stringify(rows));assert.ok(peerIndex>=0);
+ const peer=equal[peerIndex],peerEvidence=equal.find(e=>e.kind==='c_call_evidenced'&&e.aggregateId===peer.aggregateId),peerJudgment=equal.find(e=>e.kind==='c_call_judged'&&e.aggregateId===peer.aggregateId);
+ assert.ok(peerEvidence&&peerJudgment);peer.payload.value=JSON.parse(JSON.stringify(rows[basisIndex].payload.value));peer.payload.valueDigest=digests.sha256Canonical(peer.payload.value);
+ peerEvidence.payload=reidentify({...peerEvidence.payload,outputDigest:peer.payload.valueDigest},'evidence');peerEvidence.payloadDigest=digests.sha256Canonical(peerEvidence.payload);
+ peer.payload=reidentify({...peer.payload,evidenceRefs:[peerEvidence.payload.evidenceRef]},'result');peer.payloadDigest=digests.sha256Canonical(peer.payload);
+ peerJudgment.payload=reidentify({...peerJudgment.payload,resultRef:peer.payload.resultRef,resultDigest:peer.payload.resultDigest},'judgment');peerJudgment.payloadDigest=digests.sha256Canonical(peerJudgment.payload);
+ for(const event of equal){const observation=event.payload.observation;if(event.kind==='runtime_activity_probe_observed'&&[peer.eventId,peerEvidence.eventId,peerJudgment.eventId].includes(observation?.underlyingEventRef)){observation.sourceDigest=equal.find(source=>source.eventId===observation.underlyingEventRef).payloadDigest;event.payloadDigest=digests.sha256Canonical(event.payload);}}
+ const equalRead=candidateRead(equal);assert.equal(equalRead.outcome.kind,'abg_project_read_projection');
+ assert.deepEqual(equalRead.outcome.value.frontiers,results.negative.native.value.frontiers);
+ assert.equal(equal.filter(e=>e.kind==='c_call_result_admitted'&&e.runId===runs.negative&&e.payload.valueDigest===peer.payload.valueDigest).length,2);
+ await save('equal-content-conservation.json',{status:'passed',syntheticCandidateOnly:true,claim:'Two distinct admitted C-call/result envelopes containing equal immutable input content yield the same frontier; no unique producer claimed. This is a copied component candidate, not a re-admitted native history.',candidateRowsDigest:digests.sha256Canonical(equal),additionalCCallRef:peer.aggregateId,selectedInputEvidenceEventRef:rows[evidenceIndex].eventId,coordinate:equalRead.coordinate,outcome:equalRead.outcome});
+ const wrongPrefix=pr.projectGapReadAtValidatedPrefix({...packet(runs.negative),prefix:{...h.prefix,prefixDigest:'sha256:'+'0'.repeat(64)}},prefix);assert.equal(wrongPrefix.kind,'abg_project_read_refusal');red.push({name:'crossed_physical_prefix',outcome:wrongPrefix});
+ const wrongRun=pr.projectGapReadAtValidatedPrefix(packet('run://absent'),prefix);assert.equal(wrongRun.kind,'abg_project_read_refusal');red.push({name:'missing_run',outcome:wrongRun});
+ assert.throws(()=>bind.projectAbgReadOutput(contracts.ABG_PROJECT_READ_CONTRACTS.run_gaps,request(results.positive.identity),'run_gaps',results.negative.native),/crosses the selected source/);red.push({name:'crossed_supported_run_source',outcome:'projection rejects source mismatch'});
+ const extra=JSON.parse(JSON.stringify(results.negative.output.value));extra.projection.frontiers[0].privateRoute={};assert.equal(common.admitRuntimeContract(contracts.ABG_PROJECT_READ_CONTRACTS.run_gaps.resultSchema,extra).disposition,'refused');red.push({name:'strict_frontier_rejects_extra_internal_route',outcome:'schema refused'});
+ // Shared owner projects only this retained workspace; no workspace-wide native qualification.
+ const environment=JSON.parse(await readFile(new URL('../s03-automatic-01/environment.json',import.meta.url),'utf8'));
+ const workspace={ref:environment.workspaceBinding.bindingId,digest:environment.workspaceBinding.bindingDigest};
+ const workspaceNative=pr.projectGapReadAtValidatedPrefix({...packet(workspace.ref),memberKey:'workspace_gaps'},prefix);
+ assert.equal(workspaceNative.kind,'abg_project_read_projection');assert.deepEqual(workspaceNative.value.frontiers,results.negative.native.value.frontiers);
+ const workspaceRequest={...request(results.negative.identity),caseKey:'workspace_gaps',source:{sourceKind:'workspace_binding',sourceRef:workspace.ref,sourceDigest:workspace.digest},selector:{kind:'workspace_gap_basis',gapBasis:{ref:h.prefix.eventLogRef,digest:h.prefix.coordinateDigest}}};
+ const workspaceOutput=bind.projectAbgReadOutput(contracts.ABG_PROJECT_READ_CONTRACTS.workspace_gaps,workspaceRequest,'workspace_gaps',workspaceNative);
+ assert.equal(common.admitRuntimeContract(contracts.ABG_PROJECT_READ_CONTRACTS.workspace_gaps.resultSchema,workspaceOutput.value).disposition,'admitted');
+ await save('workspace-companion.json',{claim:'Pure owner/strict contract on this retained workspace only; no native or workspace-wide acceptance',native:workspaceNative,output:workspaceOutput});
+
+ const packetContract=contracts.ABG_PROJECT_READ_CONTRACTS.run_gaps;
+ const grants=packetContract.metadata.capabilityRefs.map(capability=>product.constructCapabilityGrant(environment.workspaceAuthority,environment.workspaceBinding.authorizedActorRef,packetContract.definitionKey.operationId,capability,{admittedInstalls:environment.admittedInstalls,workspaceBinding:environment.workspaceBinding,fixedPacket:packetContract}));
+ for(const grant of grants){assert.equal(product.validateCapabilityGrantForProductBasis(grant,environment.workspaceAuthority,environment.workspaceBinding.authorizedActorRef,grant.capabilityRef,{admittedInstalls:environment.admittedInstalls,workspaceBinding:environment.workspaceBinding,fixedPacket:packetContract}),true);}
+ const currentDefinition=pub.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(d=>d.definitionKey.operationId==='abg.operation.project.read'&&d.definitionKey.memberKey==='run_gaps');
+ const historicalPub=await import(pathToFileURL(environment.installedRoot+'/build/code/src/public/index.js'));
+ const historicalDefinition=historicalPub.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(d=>d.definitionKey.operationId===currentDefinition.definitionKey.operationId&&d.definitionKey.memberKey==='run_gaps');
+ assert.notEqual(currentDefinition.definitionDigest,historicalDefinition.definitionDigest);assert.ok(grants.every(g=>g.definitionDigest===currentDefinition.definitionDigest));
+ const compatibility={status:'pure_constructed_and_validated',executingDefinition:{ref:currentDefinition.definitionRef,digest:currentDefinition.definitionDigest},historicalDefinition:{ref:historicalDefinition.definitionRef,digest:historicalDefinition.definitionDigest},historicalWorkspace:environment.workspaceBinding,grants,preconditions:['Verify and load actual final reader Product; its manifest/catalog and nested slot coordinates must feed the caller constructor.','Keep historical admitted installs/ProductSet/lock/WorkspaceBinding and exact Run identity as read subject.','Use Product grants constructed by final reader under historical workspace authority; grant operationContract remains historical source capability permission.','Reacquire actual unchanged live resource using then-current genuine handoff under a separately authorized no-append grant.','Final reader event-contract support must admit retained physical snapshot; component decoder already does.'],nativeRead:'not executed'};
+ await save('future-reader-compatibility.json',compatibility);await save('counterexamples.json',red);
+ assert.deepEqual(guarded,[]);
+ await save('component-result.json',{status:'passed',inputSha,events:rows.length,positiveGapCount:results.positive.projection.frontiers.length,equalContentConservation:true,negativeGapCount:results.negative.projection.frontiers.length,redCases:red.map(r=>r.name),workspaceCompanion:'same retained workspace pure owner and strict carrier; no workspace-wide acceptance',futureReader:'pure grant construction and validation only',liveResourceAccesses:guarded,elapsedMs:performance.now()-started});
+ console.log(JSON.stringify({status:'passed',redCases:red.length,elapsedMs:performance.now()-started}));
+}catch(error){await save('component-failure.json',{message:error.message,stack:error.stack,redCompleted:red,liveResourceAccesses:guarded,elapsedMs:performance.now()-started});throw error;}

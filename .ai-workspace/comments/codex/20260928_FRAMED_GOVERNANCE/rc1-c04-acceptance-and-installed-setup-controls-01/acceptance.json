@@ -1,0 +1,14 @@
+{
+  "status": "ACCEPT",
+  "scope": "bounded_exact_C04_construction_source_law_generated_archive_physical_correspondence_all11_publications_and_conditional_unchanged_wrapper_reuse",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "candidateFreeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-04/final-freeze.json",
+  "candidateFreezeSha256": "2e3d89145eb35f7280625175144cd79c34440a14b398a68b953b6fe1453a8df5",
+  "archiveSha256": "0478b3f9e001e2f3da17b26744201bfb89ba5368208a7c914ad3f93c4785e4bb",
+  "productContentDigest": "sha256:e271a253c743ba88fe1219329fbff1241efd1c430b376ce129ed3a85f60cbad5",
+  "manifestDigest": "sha256:5df661193420dd6c9609d62d96141e8b69b70649e8591efd704d68a493f95414",
+  "review": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c04-acceptance-and-installed-setup-controls-01/received-independent-review.md",
+  "preservedAcceptedCandidate": "C03",
+  "actualPublicResolution": "unknown",
+  "F11QualificationRelease": "unknown"
+}

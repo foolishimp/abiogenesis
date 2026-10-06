@@ -1,0 +1,61 @@
+{
+  "status": "CLOSED",
+  "activation": "T287_SOURCE_AUTHOR_OBSERVATION_RECORD_01",
+  "writer": "/root",
+  "records": [
+    {
+      "path": "record.json",
+      "bytes": 3347,
+      "sha256": "f1b66efa76bda2099be60785ec0ba2baebebdf76d30f4aa32a4c998112e438ba"
+    },
+    {
+      "path": "s03-account.md",
+      "bytes": 1536,
+      "sha256": "e5dcca3d6df1c59d2c540ac4b4a310d722e63d0736d7158ac6f9497e174c006d"
+    },
+    {
+      "path": "selected-action-account.md",
+      "bytes": 1601,
+      "sha256": "ac3cb7c5da7d23d67f563ec795cca0bd6ade478a30844ed090fd898487d16bcf"
+    }
+  ],
+  "limits": [
+    "These records are new dated evidence; original request, activation, source delta and closure bytes remain untouched.",
+    "S03 retrospective statement is not a recovered contemporaneous dispatch/tool transcript.",
+    "Selected-action assignment must not be promoted to a performance assertion.",
+    "Neither Root record nor either account grants the published qualification Product-owner slot, supplies unavailable session IDs, establishes ABG-native past authorship or completes native author/assessor independence.",
+    "External-attribution Worker may bind the new accounts with original immutable record sets, preserving sufficiency as unresolved where required."
+  ],
+  "originalInputs": [
+    {
+      "path": "s03-public-handoff-repair-controls-01/request.txt",
+      "bytes": 7917,
+      "sha256": "78be48d6b100dc93df337440e52e26a2c53bab4f4644eec8d7932bfc5a92886f"
+    },
+    {
+      "path": "s03-public-handoff-repair-01/activation.json",
+      "bytes": 2115,
+      "sha256": "159c710713c7b9fd97b39994264a0fafb08458814dc6eaef57774c6ab1a97636"
+    },
+    {
+      "path": "s03-public-handoff-repair-01/return.md",
+      "bytes": 12680,
+      "sha256": "d3f4b8e86eb9f5a1aae5235cb63c3420c15a9802e1a384a990e2264888c4d604"
+    },
+    {
+      "path": "s7-pending-consumer-01/selected-action-07/request.txt",
+      "bytes": 8724,
+      "sha256": "b4de58f9016ed4006cfac55947a6f0310b0df8e6e7e1abe4d763f42ff428af6f"
+    },
+    {
+      "path": "s7-pending-consumer-01/selected-action-07/return.md",
+      "bytes": 8369,
+      "sha256": "89d1a4683f31ccdbe3e077f3557edc742490847fba75c954073115a9439b1dda"
+    },
+    {
+      "path": "s7-pending-consumer-01/selected-action-07/freeze.json",
+      "bytes": 19588,
+      "sha256": "0273a0192c51f369eed0f124f41fd796d99c8154d8dbd412a3a16651342788cb"
+    }
+  ]
+}

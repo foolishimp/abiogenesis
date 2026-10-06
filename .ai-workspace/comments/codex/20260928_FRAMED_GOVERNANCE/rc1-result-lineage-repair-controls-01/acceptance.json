@@ -1,0 +1,44 @@
+{
+  "status": "ACCEPTED_BOUNDED_CAUSE_AND_STOP_ASSURANCE",
+  "decider": "/root Executive",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "acceptedClosedReturns": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-result-triangulation-controls-01/worker/freeze.json",
+      "bytes": 1562,
+      "sha256": "3d79272e6ca3f9a666d8121d80f6bcd226de6b22bc189eb02adf60a972baa843",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-runtime08-result-triangulation-controls-01/review/freeze.json",
+      "bytes": 1240,
+      "sha256": "26bb83c04a3318de72c94e30cf41cbe5535f15dd3bd09d41d7c12c4544d7a526",
+      "mode": 420
+    }
+  ],
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+    "bytes": 67237,
+    "sha256": "e5c6fda5b10689d0df9f4c8c4c20a6ca6c557a9d861563fd5528adf88050047d",
+    "mode": 420
+  },
+  "cause": "Admitted transport inputDigest and nine actor/request/prompt/disposition fields are discarded before Product result lineage guard; existing required conjunction cannot pass.",
+  "sufficientCause": true,
+  "lawfulReentry": "realization_refactor",
+  "repair": "Preserve admitted metadata at existing projection; retain all guards/API/schema/raw declaration/admission-law.",
+  "refutedAlternative": "Judgment schema already accepts embedded/reference task union; no widening.",
+  "uncertainty": [
+    "First evaluated false conjunct not instrumented",
+    "Rejected candidate body unreconstructed",
+    "Other guards not declared passed",
+    "No completed whole carrier or semantic F11"
+  ],
+  "priorChecksMiss": "Actual admitted evidence delivery into Product strict lineage was not covered by prior component checks.",
+  "selectedWorker": "/root/native_applicability_design",
+  "selectedOperation": "T287_RESULT_LINEAGE_EVIDENCE_REALIZATION_01",
+  "next": "Focused regression and independent source assurance, then successor-bound whole installed thread.",
+  "provider": "DNS unreachable; not established login failure; no auth/network bypass.",
+  "release": "5.0 RC1 unqualified/unpublished; genuine F11, QUAL056, full conjunction, greenAF22 and release gates remain open.",
+  "rootPreflight": "Initial read-only verifier assumed relative freeze paths were absolute; failed before activation/directory/tracking/effects. Corrected to producer-declared relative path/mode semantics."
+}

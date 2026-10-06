@@ -2,10 +2,11 @@
 
 **Product ID**: PROD-001
 **Version target**: 5.0.0
-**Updated**: 2026-09-28
+**Updated**: 2026-10-06
 **Status**: Active - T-283 base; owner-directed T-287 governance re-entry
 **Derives from**: INT-001 through INT-008
 **Change authority**: T-283 `intent_reprice`; T-287 D1-AUTH-ABG lifecycle, owner-directed 5.0/5.1 boundary, STDO run-environment and [execution-calculus Product re-entry](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#execution-calculus-product-re-entry)
+**Test-boundary correction authority**: direct Product-owner instruction, 2026-10-06, recorded in [T-287 Hello test-boundary repair](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#hello-test-boundary-repair). The built-in Hello grant is withdrawn.
 **Governance change authority**: [T-287 framed-governance re-entry](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#framed-governance-definition-re-entry).
 **Base acceptance receipt**:
 `.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md`
@@ -655,7 +656,7 @@ the owning evaluation family, subject/basis, material relations, criteria,
 authority, admissible evidence, exclusions, result relation, invalidation and
 actor capability envelope. Role, question, scope, required inputs and response
 contract are its usable projection, not a replacement definition. Under STDO,
-[Reference Frame Method](stdo://releases/v2.5.1-rc.1/standards/REFERENCE_FRAME_METHOD.md#reference-frame)
+[Reference Frame Method](stdo://releases/v2.5.1-rc.2/standards/REFERENCE_FRAME_METHOD.md#reference-frame)
 owns that meaning. General GTL Programs need not adopt STDO to declare their
 own evaluation contracts.
 
@@ -1235,7 +1236,7 @@ counts.
 | `A5-F10` | **Event-sourced runtime truth.** Invocation, result, evidence, consequence, correction, retry, recursive child traversal, yield, human hold, escalation, continuation, typed failure, block, non-admission, closure, workspace transformation, and their runtime projections form one causal ABG episode. One transition authority resolves competing execution pressure; replay, not caller memory, derives the result, next execution state, and explanation of workspace change. |
 | `A5-F11` | **Self-conformance.** The exact 5.0 candidate evaluates its own applicable specification, design, contract, realization, proof, qualification, and release obligations without exemption or self-minted assurance. |
 | `A5-F13` | **Native independence.** The product works through native SDK/CLI without a marketplace host. Any retained host projection delegates to the same public contract without copied semantics; additional host work and mandatory parity qualification are 5.1 scope. |
-| `A5-F14` | **Packed Hello World and live probabilistic proof.** A clean source-blind install executes a minimal deterministic path and one live `F_P` path with typed result, evidence, events, and replay. |
+| `A5-F14` | **Installed language and runtime mechanics proof.** A clean source-blind install executes an independently authored minimal deterministic test program and one live `F_P` path with typed result, evidence, events, and replay. The test program is outside the ABG package and supplies its own declarations, contracts, leaf binding and expected output. |
 | `A5-F15` | **Exact-candidate qualification.** One content-addressed qualification family preserves distinct `pre_rc_candidate` and `installed_rc` subjects; binds the exact `QualificationLawBasis`, authenticated self-conformance assessment and complete behavioral coverage, prospective RC authorization, exact installed-RC qualification and non-bypassed verdicts. A changed qualifying subject requires a higher RC and its applicable gates; acceptance creates no additional qualification subject. |
 | `A5-F16` | **Immutable RC and accepted 5.0 release.** The qualified pre-RC subject authorizes one immutable RC; that exact installed RC is qualified; actual human Product authority accepts or withholds that same unchanged RC. The immutable RC tag, package, manifest, checksums and post-publication install identify the accepted Product. The version-line selector advances to the highest published RC independently of acceptance or consumer adoption; acceptance creates no second cut, final-version rename or replacement package. |
 | `A5-F17` | **Specification-driven downstream lifecycle.** A prospectively selected real specification progresses through Intent/Product, Requirements, Design, working application behavior, admitted evidence and targeted revision through only installed public ABIogenesis contracts. The witness preserves original source, selected and excluded obligations, newly discovered obligations and residuals; satisfies every mandatory outcome of the selected contract; and owns no local runtime or controller. S06 owns qualification of this contract class. Full original Data Mapper upper-bound evaluation and any complete downstream application-delivery claim retain their distinct independently owned outcomes. |
@@ -1266,12 +1267,14 @@ or alternate authority.
 
 ### `ABG5-S01`: Clean Install And Minimal Invocation
 
-Pack the exact candidate, install it in a clean temporary location, verify and
-bind the product, admit its catalog, resolve
-`program://abiogenesis/conformance/hello-world@5` and
-`graph-function://abiogenesis/conformance/hello-world@5`, invoke the function
-through the public CLI, and read its typed result and replay without source
-imports or private paths.
+Pack the exact candidate and install it in a clean temporary location. Supply
+one independently authored minimal test program outside the ABG package through
+ordinary GTL publication, with its own contracts and declared leaf binding.
+Verify and bind the exact Product, admit the supplied publication into the
+catalog, resolve that program and GraphFunction, invoke through the installed
+public CLI, and read its typed result and replay without ABG source imports or
+private paths. The prospective test case binds its exact declarations and oracle;
+ABIogenesis owns no test-program identity or expected output.
 
 ### `ABG5-S02`: Complete GTL And Live F_P
 
@@ -1372,11 +1375,12 @@ downstream Product publication/maturation remain independent of ABIogenesis
 qualification and release. Selected-witness acceptance does not close those
 claims or erase newly discovered obligations.
 
-The default-library proof uses an independently authored minimal Hello World
+The default-library proof uses an independently authored minimal application
 scenario through a clean installed sandbox and supported Public entry. Real
 LLM work produces files, executed checks, selected UAT and a fresh admitted
-readback. Neither the executor nor library contains a Hello-specific result or
-dispatch branch. Within that bounded case, distinguish fresh work, reusable
+readback. The consumer owns the task, application source and oracle. Neither
+ABIogenesis production source nor its package contains the scenario's solution,
+contracts, publication, result or dispatch branch. Within that bounded case, distinguish fresh work, reusable
 valid work and counterevidence requiring revision. At least one prospectively
 bound counterevidence case requires a different preregistered GraphFunction
 choice within the admitted Program. Retain the catalogue/purpose basis,
@@ -1418,41 +1422,31 @@ acceptance and consumer adoption neither create nor move it.
 
 ## Root Product Outcome
 
-The continuous delivery governor is one stable root binding, not a choice among
-nearby paths.
-
-| Binding field | Exact value |
-|---|---|
-| binding identity | `ABI5-ROOT-001` |
-| governor identity | `abg5.root.s01.hello_world@5` |
-| product boundary | one exact packed ABIogenesis `pre_rc_candidate`, including its destination-owned all-`F_D` conformance module |
-| scenario | `ABG5-S01` |
-| runnable form | clean source-blind installation on the trusted developer desktop through the installed native `abg.cli` |
-| module | `module://abiogenesis/conformance/hello-world@5` |
-| program binding | `program://abiogenesis/conformance/hello-world@5`, containing one all-`F_D` traversal and exactly one callable membership |
-| entry | `graph-function://abiogenesis/conformance/hello-world@5` |
-| input contract | `contract://abiogenesis/conformance/hello-input@5` |
-| output contract | `contract://abiogenesis/conformance/hello-output@5` |
-| expected outcome | one admitted terminal Hello World result plus one causally complete replay projection |
-| nearest weaker excluded property | package, schema, symbol, catalog row, component test, event co-presence, or fixture-authored result without the complete installed causal path |
-
-The supported public path is:
+`ABI5-ROOT-001` names the installed language/runtime proof in `ABG5-S01`.
+It is a proof obligation, not a built-in application or runtime governor.
+The exact candidate and prospectively fixed external test case bind this path:
 
 ```text
-pack exact pre_rc_candidate with conformance module
+pack exact pre_rc_candidate
   -> clean source-blind install
-  -> verify and bind product
+  -> verify and bind the Product
+  -> publish the external test program through ordinary GTL
   -> admit catalog and narrow the view
-  -> resolve program://abiogenesis/conformance/hello-world@5
-  -> resolve graph-function://abiogenesis/conformance/hello-world@5
+  -> resolve the test-owned Program, GraphFunction, contracts and leaf binding
   -> materialize and validate its GTL graph
-  -> invoke it through installed abg.cli
-  -> HoG traverses the admitted GTL directly
-  -> the declared deterministic Hello World implementation executes
-  -> ABG admits the invocation, C-call, evidence, result, judgment, and close
-  -> replay derives the same terminal result and closed state
-  -> abg.cli returns the typed contract://abiogenesis/conformance/hello-output@5 result
+  -> invoke through installed abg.cli
+  -> HoG traverses admitted GTL directly and calls the declared ordinary leaf
+  -> ABG admits invocation, C-call, evidence, result, judgment and closure
+  -> replay and CLI agree on the admitted typed outcome
 ```
+
+The test case owns its declaration and implementation identities, input and
+expected output. A Hello World program is a minimal test of the language's
+mechanics. It is never an ABIogenesis Product, feature, default callable,
+contract family or shipped implementation. Its source and any leaf binding stay
+in consumer/test territory outside production source and outside the ABG
+package. No production admission, validation, dispatch or proof branch may know
+that test's identity or meaning.
 
 The root obligation graph is finite and acyclic:
 
@@ -1461,33 +1455,32 @@ The root obligation graph is finite and acyclic:
 | `R1 exact artifacts verified` | none | 9 |
 | `R2 clean install complete` | `R1` | 8 |
 | `R3 workspace bound to exact product set` | `R2` | 7 |
-| `R4 catalog admitted and narrowed` | `R3` | 6 |
-| `R5 exact target program selected and admitted` | `R4` | 5 |
-| `R6 exact GraphFunction and contracts resolved` | `R5` | 4 |
+| `R4 supplied publication catalog constructed and narrowed` | `R3` | 6 |
+| `R5 test-owned Program selected and admitted` | `R4` | 5 |
+| `R6 test-owned GraphFunction, contracts and leaf binding resolved` | `R5` | 4 |
 | `R7 materialized GTL graph validated` | `R6` | 3 |
 | `R8 HoG execution entered through public invocation` | `R7` | 2 |
 | `R9 ABG admitted causal result and closure events` | `R8` | 1 |
 | `R10 replay and CLI agree on typed terminal outcome` | `R9` | 0 |
 
-The terminal predicate is true only when all ten obligations are satisfied on
-the same binding and replay derives the admitted result and closed state twice
-identically. A transport error, typed continuation, hold, gap, block,
-non-admission, missing event, source import, private path, wrong contract, or
-fixture-authored result leaves the root red. Continuation is product behavior
-proved by `ABG5-S03`; it is not accepted as the sunny root outcome.
+All ten obligations must bind the same exact candidate, test case and causal
+episode. Two fresh reads must derive the same admitted result and closed state.
+Package or symbol presence, a catalog row, component success, co-present events,
+or a fixture-authored result without this causal path cannot satisfy the root.
+Transport errors, continuation, hold, gap, block, non-admission, missing events,
+ABG source/private imports, wrong contracts and replay disagreement leave it open.
+Continuation remains behavior proved by `ABG5-S03`.
 
-Changing the product boundary, scenario, entry, contracts, runnable form,
-outcome, terminal predicate, obligation graph, or governor identity requires
-lawful product/goal re-entry and an F_H disposition. A ticket or subwave cannot
-choose a weaker root.
-
-Root green is required throughout delivery but is not complete product or
-release closure. The remaining scenarios, negative boundaries, conformance,
-qualification, and release gates remain independently required.
+A changed qualifying candidate or test contract requires affected reproof;
+unchanged historical evidence keeps its original scope. Root success does not
+close the other scenarios, conformance, qualification or release gates.
 
 ## Explicit Non-Features
 
 ABIogenesis 5.0 does not include:
+
+- a built-in Hello World application, test-program-specific API, contract,
+  publication, implementation, admission or proof branch;
 
 - native human response admission or response-driven same-run resumption;
 - the dedicated F12/S04 observer/tuner Product or autonomous upstream/out-of-traversal

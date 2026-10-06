@@ -1,0 +1,28 @@
+{
+  "actor": "/root",
+  "role": "Executive decision recorded by separately activated Writer",
+  "disposition": "ACCEPT_CORE_DESIGN_ONLY",
+  "reviewedSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+    "bytes": 17997,
+    "sha256": "76a19668fc93f9efb769e13cc00d50d2ff22548239d23c5db2018ed79adcf5c4",
+    "mode": 420
+  },
+  "reviewedBodyPreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_GTL_CORE_REALIZATION_01/controls/reviewed-design-preimage.md",
+    "bytes": 17997,
+    "sha256": "76a19668fc93f9efb769e13cc00d50d2ff22548239d23c5db2018ed79adcf5c4",
+    "mode": 420
+  },
+  "adoptedSubject": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+    "bytes": 18222,
+    "sha256": "e88c318b398107e1d007ad2f109bf93ad01b064de5a5b5f0c9ac97801b90a901",
+    "mode": 420
+  },
+  "delta": "Exactly status and closing adoption sentence; semantic reviewed HOW unchanged",
+  "independentReview": "T287_G2_GTL_CURRENT_HOW_ASSURANCE_01 CLOSED GO_CORE_DESIGN_ONLY",
+  "CodeOperation": "T287_G2_GTL_CORE_REALIZATION_01",
+  "SourceEffectGrant": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/controls/code-grant.txt",
+  "open": "four drift repair mappings/adjunct/full repair roster/other mandatory assets/installed proof/genuine qualification/RC1"
+}

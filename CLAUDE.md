@@ -37,6 +37,17 @@ writer, compatibility Product, or required process-local runtime authority.
 
 ## Delivery Discipline
 
+Use a compact UML path model under `AGENTS.md`, with brief notes for typed
+handoffs, computations, invariants, effects and end-to-end proof. Every
+integration failure returns to Executive triangulation. Missing Design flows
+through its owning HOW, grant, realization and affected proof before retry.
+UML is the primary design scaffold. Keep it small; no JSON scaffold schema,
+generator, interpreter or code mechanism is selected.
+Consume one canonical definition per framework contract from the exact library;
+do not redeclare its shape or meaning. Type/check transformations against the
+owner-defined source and destination; Product extensions add domain meaning
+through declared extension points.
+
 ### Map-First Reference Frames
 
 - Resolve the exact STDO basis and companion Product composition from

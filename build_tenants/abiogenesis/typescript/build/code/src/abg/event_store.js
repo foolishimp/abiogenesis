@@ -74,6 +74,7 @@ export const LEGACY_ROOT_EVENT_KIND_VALUES = [
 ];
 export const ROOT_EVENT_KIND_VALUES = Object.freeze([
     ...LEGACY_ROOT_EVENT_KIND_VALUES,
+    "construction_continuation_opened",
     "runtime_activity_probe_observed",
     "runtime_external_interruption_observed",
 ]);
@@ -512,13 +513,36 @@ const CURRENT_PROBE_CONTRACT = Object.freeze({
 const currentBindingVariants = LEGACY_ROOT_EVENT_CONTRACTS.actor_transport_binding_admitted.payloadVariants.map(variant => payloadVariant(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys("livenessBinding")), combinePayloadKeys(variant.requiredPayloadKeys, payloadKeys("livenessBinding"))));
 export const ROOT_EVENT_CONTRACTS = Object.freeze({
     ...LEGACY_ROOT_EVENT_CONTRACTS,
+    construction_continuation_opened: {
+        variants: [CONTINUATION_EVENT],
+        payloadVariants: [payloadVariant(combinePayloadKeys(payloadKeys("predecessorContinuationRef"), payloadKeys("continuationKind continuationRef continuationDigest runId graphCallId frameId cCallRef heldCursorRef heldCursorDigest executionBasisRef executionBasisDigest parentExecutionBasisRef parentCCallRef constructionIntentRef constructionIntentDigest intentAdmissionEventRef preparationEvidenceEventRef preparationResultRef preparationJudgmentRef causedByEventRef")), payloadKeys("continuationKind continuationRef continuationDigest runId graphCallId frameId cCallRef heldCursorRef heldCursorDigest executionBasisRef executionBasisDigest parentExecutionBasisRef parentCCallRef constructionIntentRef constructionIntentDigest intentAdmissionEventRef preparationEvidenceEventRef preparationResultRef preparationJudgmentRef causedByEventRef"))],
+    },
     traversal_route_admitted: {
         ...LEGACY_ROOT_EVENT_CONTRACTS.traversal_route_admitted,
         payloadVariants: LEGACY_ROOT_EVENT_CONTRACTS.traversal_route_admitted.payloadVariants.map(variant => payloadVariant(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys("registeredSelectionApplicationRef")), variant.requiredPayloadKeys, variant.expectedPayload, variant.nullablePayloadKeys)),
     },
+    construction_delta_observed: {
+        ...LEGACY_ROOT_EVENT_CONTRACTS.construction_delta_observed,
+        payloadVariants: LEGACY_ROOT_EVENT_CONTRACTS.construction_delta_observed.payloadVariants.map(variant => payloadVariant(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys("continuationRef")), variant.requiredPayloadKeys, variant.expectedPayload, variant.nullablePayloadKeys)),
+    },
+    public_operation_admitted: {
+        ...LEGACY_ROOT_EVENT_CONTRACTS.public_operation_admitted,
+        payloadVariants: [...LEGACY_ROOT_EVENT_CONTRACTS.public_operation_admitted.payloadVariants,
+            payloadVariant(payloadKeys("actorRef authorityDigest authorityRef capabilityGrant capabilityGrantRefs capabilityRef catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId continuationKind continuationRef continuationDigest currentIntentRef currentIntentDigest definitionDigest graphFunctionDigest graphFunctionRef invocationDigest invocationPayloadDigest invocationRef memberKey operationId policyDigest policyRef programDigest programRef variant workspaceBindingDigest workspaceBindingId"), undefined, { operationId: "abg.operation.run.continue", memberKey: "current_intent", continuationKind: "construction_intent" }),
+            payloadVariant(payloadKeys("actorRef authorityDigest authorityRef capabilityGrant capabilityGrantRefs capabilityRef catalogBasisDigest catalogBasisRef catalogViewDigest catalogViewId continuationKind continuationRef continuationDigest currentContinuationRef currentContinuationDigest sourceRunId sourceRunDigest currentRunId selectedActionRef selectedActionDigest currentIntentRef currentIntentDigest executionBasisRef executionBasisDigest basisRelation definitionDigest graphFunctionDigest graphFunctionRef invocationDigest invocationPayloadDigest invocationRef memberKey operationId policyDigest policyRef programDigest programRef variant workspaceBindingDigest workspaceBindingId"), undefined, { operationId: "abg.operation.run.continue", memberKey: "selected_action", continuationKind: "selected_action" })],
+    },
+    continuation_superseded: {
+        ...LEGACY_ROOT_EVENT_CONTRACTS.continuation_superseded,
+        payloadVariants: [...LEGACY_ROOT_EVENT_CONTRACTS.continuation_superseded.payloadVariants,
+            payloadVariant(payloadKeys("candidateDigest candidateRef causedByEventRef constructionIntentRef continuationDigest continuationKind continuationRef terminalDisposition"), undefined, { continuationKind: "selected_action", terminalDisposition: "superseded" })],
+    },
+    traversal_cursor_entered: {
+        ...LEGACY_ROOT_EVENT_CONTRACTS.traversal_cursor_entered,
+        payloadVariants: LEGACY_ROOT_EVENT_CONTRACTS.traversal_cursor_entered.payloadVariants.map(variant => payloadVariant(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys("continuedFrom")), variant.requiredPayloadKeys, variant.expectedPayload, variant.nullablePayloadKeys)),
+    },
     basis_admitted: {
         ...LEGACY_ROOT_EVENT_CONTRACTS.basis_admitted,
-        payloadVariants: LEGACY_ROOT_EVENT_CONTRACTS.basis_admitted.payloadVariants.map(variant => payloadVariant(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys("registeredSelectionDefinitionDigests")), variant.requiredPayloadKeys, variant.expectedPayload, variant.nullablePayloadKeys)),
+        payloadVariants: LEGACY_ROOT_EVENT_CONTRACTS.basis_admitted.payloadVariants.map(variant => payloadVariant(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys("registeredSelectionDefinitionDigests constructionContinuationUse")), variant.requiredPayloadKeys, variant.expectedPayload, variant.nullablePayloadKeys)),
     },
     invocation_admitted: {
         ...LEGACY_ROOT_EVENT_CONTRACTS.invocation_admitted,

@@ -38,6 +38,43 @@ uses the same package-owned classification in its linked checker host. It
 retains existing external occurrence/binding and lock construction. A lexical
 change to `externalRelations` alone does not implement this function.
 
+### Native applicability and exact metadata integrity
+
+NCC-F02 determines native applicability for each original verified Product
+before constructing its declaration package basis. The actual advertised
+public native rows and the identity-matched private evidence form one input
+relation. Sources, closures and contract evidence are arrays; each advertised
+native row joins exactly one matching contract, declaration root, source body
+and canonical inventory. Malformed, erased, mismatched, duplicate or surplus
+evidence returns the existing typed refusal. An empty evidence array alone
+does not establish an empty native domain.
+
+A Product has empty native applicability only when it advertises no native
+rows and its source, closure and contract arrays are all empty. Its current
+package metadata remains mandatory exact payload evidence: each unique,
+contained, normalized Product-relative `package.json` path binds a matching
+digest and a valid UTF-8 JSON object. The root names the current package, has
+a nonblank version and agrees with its module format. Bundle aliases agree;
+bundle names are valid, unique and declared by the root dependencies. Missing
+or damaged current root metadata and contradictory evidence refuse.
+
+This metadata integrity relation precedes declaration target selection. An
+empty native Product contributes no declaration roots, checker-visible
+symbols, external native bindings or declaration package host entries. Its
+inventoried nested package metadata is not selected or flattened into the
+finite native declaration profile. It remains present at its original index
+in the complete Product/dependency/lock relation. The original multi-Product
+global-declaration boundary therefore still applies when an empty Product is
+composed with a native Product.
+
+For every native participant, the existing package-owned declaration profile,
+source host, compiler basis, direct external occurrence targets, named-symbol
+checks and refusals apply without relaxation. An empty native target cannot
+satisfy a required native contract. The existing metadata-absent local native
+helper domain remains unchanged; it does not authorize omitting the current
+metadata of a verified empty Product. These factors remain private within the
+existing owner and preserve its exported signatures and evidence carriers.
+
 ### Same-Product ownership
 
 1. A bundled declaration is local only when the Product's inventoried root

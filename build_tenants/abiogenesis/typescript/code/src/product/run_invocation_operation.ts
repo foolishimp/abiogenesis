@@ -1,3 +1,10 @@
+import { acquireQualificationResources, type QualificationResources } from "../validator/qualification_resources.js";
+import { isQualificationAssessmentInput, establishQualificationAssessment } from "../validator/qualification.js";
+import { isSelfConformanceInput } from "../validator/self_conformance_contracts.js";
+import { resolveSelfConformanceInput, isQualificationReferenceForm, resolveQualificationProof } from "../validator/qualification_resources.js";
+import { readSelfConformanceCatalog } from "../validator/self_conformance.js";
+import { qualificationScopeCorrespondence } from "../validator/qualification.js";
+import type { QualificationResourceAssertion } from "../validator/qualification_contracts.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import type { ComputeRegime } from "../gtl/contracts.js";
 import { observeRunEnvironment, type RunEnvironmentResources } from "./stdo_environment.js";
@@ -8,7 +15,7 @@ import type {
   AbgRunTruthRefusal,
 } from "../abg/project_read_ports.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   admitRuntimeContract,
@@ -67,6 +74,7 @@ export type ProductRunInvocationSourceAssertion =
 
 export interface ProductRunInvocationResourceAssertion {
   readonly historicalSource?: AbgHistoricalGraphCallSourceResource;
+  readonly qualificationResources?: QualificationResourceAssertion;
   readonly runEnvironmentResources?: RunEnvironmentResources;
   readonly catalog: ReadyGraphFunctionCatalog;
   readonly catalogView: GraphFunctionCatalogView;
@@ -76,6 +84,7 @@ export interface ProductRunInvocationResourceAssertion {
 
 export interface PreparedProductRunInvocation<M extends RunInvocationMemberKey> {
   readonly runEnvironment: RunEnvironmentEvidence | null;
+  readonly qualificationResources?: QualificationResources;
   readonly kind: "prepared_product_run_invocation";
   readonly schemaVersion: "5.0.0";
   readonly memberKey: M;
@@ -306,7 +315,7 @@ function sourceBasis(
 }
 
 export function runOperationAuthorityMatches(
-  invocation: ExactDirectRunInvocation | ExactStartRunInvocation | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.current_intent, unknown>["invocation"],
+  invocation: ExactDirectRunInvocation | ExactStartRunInvocation | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.current_intent, unknown>["invocation"] | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.selected_action, unknown>["invocation"],
   resources: ProductRunInvocationResourceAssertion,
   resolution: LoadedProductExecutionResolution,
   workspaceBinding: WorkspaceBinding,
@@ -328,7 +337,7 @@ export function runOperationAuthorityMatches(
   const capabilities = slots.capability_grants;
   const steering = slots.transport_steering;
   const isContinue = invocation.definitionKey.operationId === "abg.operation.run.continue";
-  const requiredCapabilities = (isContinue ? RUN_OPERATION_CONTRACTS.continue.current_intent
+  const requiredCapabilities = (isContinue ? RUN_OPERATION_CONTRACTS.continue[invocation.definitionKey.memberKey as "current_intent" | "selected_action"]
     : packet(invocation.definitionKey.memberKey as RunInvocationMemberKey)).metadata.capabilityRefs;
   const steeringDigest = sha256Canonical(transportResourceAssertion);
   const authorityRequest = invocation.request as Readonly<
@@ -338,7 +347,9 @@ export function runOperationAuthorityMatches(
   // The public binder authenticates slot syntax/digests; this owner joins the
   // exact asserted input to the selected request, just as the other coordinates.
   const exactInputAuthority = inputSlot !== null && (isContinue
-    ? isRecord(authorityRequest.continuationInput) && inputSlot.valueDigest === authorityRequest.continuationInput.digest
+    ? invocation.definitionKey.memberKey === "selected_action"
+      ? inputSlot.valueDigest === sha256Canonical(inputSlot.value) // exact selected cursor/input joins in its owner
+      : isRecord(authorityRequest.continuationInput) && inputSlot.valueDigest === authorityRequest.continuationInput.digest
     : invocation.definitionKey.memberKey === "start"
     ? exactJson(inputSlot, authorityRequest.input)
     : exactJson(inputSlot.contract, authorityRequest.inputContract) && exactJson(inputSlot.value, authorityRequest.input) &&
@@ -395,6 +406,39 @@ export function runOperationAuthorityMatches(
       `transport-steering://abiogenesis/${steeringDigest.slice("sha256:".length)}`;
 }
 
+/** @internal Finite raw/cold acquisition before dependent invocation effects. */
+export function prepareRunQualificationResources(resources: ProductRunInvocationResourceAssertion, value: unknown): QualificationResources | undefined {
+  let qualificationResources: QualificationResources | undefined;
+    if (resources.qualificationResources !== undefined) {
+      const existing = [{ kind: "abg_historical_declaration_proof" as const, schemaVersion: "5.0.0" as const, catalog: resources.catalog, catalogView: resources.catalogView },
+        ...(resources.historicalSource === undefined ? [] : [resources.historicalSource.declarationProof, ...(resources.historicalSource.declarationDependencies ?? [])])];
+      // Current/historical proofs are explicit alternate sources. Duplicate exact dependencies refuse.
+      const selected = resources.qualificationResources.manifests.flatMap(m => m.declarationSelections);
+      const extras = existing.filter(p => selected.some(d => d.catalogBasisDigest === p.catalog.basisDigest && d.readinessBasisDigest === p.catalog.readinessBasisDigest && d.viewDigest === p.catalogView.viewDigest && d.proofDigest === sha256Canonical(p as unknown as JsonValue)));
+      qualificationResources = acquireQualificationResources(resources.qualificationResources, extras);
+    }
+    const establish = (value: unknown): void => {
+      if (isQualificationAssessmentInput(value)) {
+        const established = establishQualificationAssessment(value, qualificationResources);
+        if ("representation" in value.task && !established.task.declarations.some(p => p.catalog.basisDigest === resources.catalog.basisDigest && p.catalogView.viewDigest === resources.catalogView.viewDigest))
+          throw new TypeError("qualification invoking declaration dependency missing");
+        return;
+      }
+      if (isSelfConformanceInput(value)) {
+        const view = resolveSelfConformanceInput(value, qualificationResources), scope = view.input.scope;
+        if (scope !== undefined) { const { catalog, bytes } = readSelfConformanceCatalog(); if (qualificationScopeCorrespondence(scope, catalog, sha256Bytes(bytes), view.normalizedScope).length > 0) throw new TypeError("qualification scope differs"); }
+        if (view.input.qualification !== undefined) resolveQualificationProof(view.input.qualification.proof, qualificationResources);
+        return;
+      }
+      if (isRecord(value)) {
+        if (isQualificationReferenceForm(value.proof)) resolveQualificationProof(value.proof as never, qualificationResources);
+        // Declared wrapper/child inputs are finite data; acquisition grants no new call rights.
+        for (const [key, child] of Object.entries(value)) if (key !== "task" && key !== "plan" && child !== null && typeof child === "object") establish(child);
+      } else if (Array.isArray(value)) for (const child of value) establish(child);
+    };
+    establish(value);
+    return qualificationResources;
+}
 export async function prepareProductRunInvocation<
   M extends RunInvocationMemberKey,
 >(input: Readonly<{
@@ -475,6 +519,9 @@ export async function prepareProductRunInvocation<
   ) {
     return preparationRefusal(memberKey, "invalid_input", ["/input"]);
   }
+  let qualificationResources: QualificationResources | undefined;
+  try { qualificationResources = prepareRunQualificationResources(resources, inputCarrier.value); }
+  catch { return preparationRefusal(memberKey, "invalid_input", ["/qualificationResources"]); }
   const admittedSource = sourceBasis(request, resources.source);
   if (admittedSource === false) {
     return preparationRefusal(memberKey, "invalid_input", ["/sourceBasis"]);
@@ -622,6 +669,7 @@ export async function prepareProductRunInvocation<
   return deepFreeze({
     kind: "prepared_product_run_invocation" as const,
     runEnvironment: environmentObservation.evidence,
+    ...(qualificationResources === undefined ? {} : { qualificationResources }),
     schemaVersion: "5.0.0" as const,
     memberKey,
     invocation,

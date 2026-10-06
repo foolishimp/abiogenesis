@@ -1,0 +1,10 @@
+{
+  "failure": "Ambiguous-source proof setup searched for observation_snapshot, which is not this fixture result kind",
+  "frames": {
+    "ProductIdentity": "This fixture retains observation in fixture_request and repeated next_action_basis; no native source defect",
+    "Proof": "First missing and crossed cases refused; ambiguous test candidate was never constructed",
+    "Integration": "Choose the actual earlier same-Run next_action_basis for the independently copied ambiguity candidate"
+  },
+  "repair": "Only correct the proof candidate selector; preserve prior failures and the immutable input",
+  "reproof": "Complete finite script"
+}

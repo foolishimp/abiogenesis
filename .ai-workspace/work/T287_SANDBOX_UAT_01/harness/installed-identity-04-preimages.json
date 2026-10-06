@@ -1,0 +1,21 @@
+{
+  "activation": "T287_UAT_INSTALLED_IDENTITY_04",
+  "previousFreezeSHA256": "7a98cfef9c16122b5705adb1cc151f7a3674452a4fc7bd32034106a73df83930",
+  "preimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 21318,
+      "sha256": "3f3c13c65e325c50e677d3d0a667649573e986bbd488cf26c4db33ab44cc0b12"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "bytes": 6513,
+      "sha256": "86ef7359fbf02bab233bf9ab84711200245941ad9a2291e0587ef8a76aacfbfe"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/README.md",
+      "bytes": 4457,
+      "sha256": "bc035c67322a873e4f3886d49b83510df01b78ab477c24f700ff79c0d7bb6bd9"
+    }
+  ]
+}

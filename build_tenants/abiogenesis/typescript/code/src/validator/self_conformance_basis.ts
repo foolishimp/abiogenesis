@@ -1,3 +1,4 @@
+import type { QualificationResources } from "./qualification_resources.js";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { readRuntimeEventsAtDurablePrefix } from "../abg/event_store.js";
@@ -20,9 +21,9 @@ export type { QualificationNativeBasis as QualificationOwnerBasis } from "./qual
 import type { QualificationNativeBasis as QualificationOwnerBasis } from "./qualification_contracts.js";
 const hash = (value: unknown) => sha256Canonical(value as JsonValue);
 /** Rehydrates actual native owner truth. A consistent caller data tuple is insufficient. */
-export function resolveSelfConformanceOwner(basis: QualificationOwnerBasis, input: unknown, requireCurrent = false): SelfConformanceOwner | null {
+export function resolveSelfConformanceOwner(basis: QualificationOwnerBasis, input: unknown, requireCurrent = false, resources?: QualificationResources): SelfConformanceOwner | null {
   if (typeof input === "object" && input !== null && "qualification" in input) {
-    return resolveQualificationSelfConformanceOwner(basis, input, requireCurrent);
+    return resolveQualificationSelfConformanceOwner(basis, input, requireCurrent, resources);
   }
   try {
     const events = readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate, { requireCurrent });

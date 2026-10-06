@@ -1,0 +1,171 @@
+{
+  "status": "passed",
+  "inputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-workspace-stdout.json",
+      "bytes": 1717,
+      "sha256": "d015b12a63dc3b1275f3069eee4e8de51c764f18fbcb8bf8b93a5b39481c4253"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-verify-core-stdout.json",
+      "bytes": 146566,
+      "sha256": "994b6f0b26f68bc6ea7c9d2c2a3c01d8c59b04d79fd5a59f789884e03e968640"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-resolve-stdout.json",
+      "bytes": 2356,
+      "sha256": "90b8ffa128b312f2b48af6ef3866d616f56e77dbed8553fc723d81e6ce058820"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-install-core-stdout.json",
+      "bytes": 5582,
+      "sha256": "3ba7d98d3a3467494656628167096352879485735cae2c63de1d656769d1a842"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-bind-stdout.json",
+      "bytes": 5408,
+      "sha256": "ad33b416b17def189cd5a64e31fdaa27a865c3341e17f13be091859290c786ea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-catalog-stdout.json",
+      "bytes": 185613,
+      "sha256": "f1382ee00085f8b97d2dd0a08ac3cb9accc5183ad236f5aeed255577724a1fc7"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/setup-catalog-view-stdout.json",
+      "bytes": 1332,
+      "sha256": "ea449eadbed713cc363ef1db626971781c6969ef7843c3b4f5a5384b3b547e9c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root.jsonl",
+      "bytes": 18177645,
+      "sha256": "48b793ee9d6db307a6b8cca591c80680e4dd9f8fe530ba967db52571ac606443"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/continue-hello-root-stdout.json",
+      "bytes": 12121,
+      "sha256": "c51ec0731788c55d78728e383c31425550adf289b319a4a85371256d13dbbbe3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "bytes": 2559987,
+      "sha256": "ccae3c530199a813bc943f8d07a0cf90ee89e3201839082c2df6744ae57e9518"
+    }
+  ],
+  "checks": [
+    {
+      "name": "exact archive verification and actual native install",
+      "status": "passed",
+      "value": {
+        "packedArtifact": {
+          "digest": "sha256:766f748ae9806be95ae8ea124209130c2906ba8c93e172e4c919307ca437d747",
+          "ref": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+        },
+        "verification": {
+          "digest": "sha256:b0d5eb493595d7c1c0738d9b2cfc12634064aff64f76e92cfa121051d4d1cef5",
+          "ref": "product-verification://abiogenesis/b0d5eb493595d7c1c0738d9b2cfc12634064aff64f76e92cfa121051d4d1cef5"
+        },
+        "installedProduct": {
+          "digest": "sha256:af3bce94667637bb901110cc3d93288960c2dd0d9eb8a198bdbe29efbb541ee7",
+          "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695"
+        },
+        "installManifest": {
+          "digest": "sha256:d93ec21cf34a043822a211ba8bea46fdc1050311925d38030b430172f5464ee4",
+          "ref": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-setup-03/resources/installed/core/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json"
+        },
+        "toolPackageRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-02/install/node_modules/@abiogenesis/typescript-tenant"
+      }
+    },
+    {
+      "name": "resolved lock and distinct install/content digest roles",
+      "status": "passed",
+      "value": {
+        "lock": {
+          "digest": "sha256:669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695",
+          "ref": "product-lock://abiogenesis/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695"
+        },
+        "installedSetWithInstallIdentityDigest": [
+          {
+            "digest": "sha256:af3bce94667637bb901110cc3d93288960c2dd0d9eb8a198bdbe29efbb541ee7",
+            "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695"
+          }
+        ],
+        "productSetWithProductContentDigest": [
+          {
+            "ref": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695",
+            "digest": "sha256:5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124"
+          }
+        ],
+        "ownerRule": "product/run_invocation_operation.ts:368-370 binds each product_set ref to install.installId and digest to install.productContentDigest; it does not use the install receipt digest"
+      }
+    },
+    {
+      "name": "clean workspace binding reaches native invocation and execution basis",
+      "status": "passed",
+      "value": {
+        "workspace": {
+          "digest": "sha256:e3705f52673af8bfbb7a4f26e7964f8737c448c78ec26c0a9db3481d4a557df3",
+          "ref": "workspace://abiogenesis/e3705f52673af8bfbb7a4f26e7964f8737c448c78ec26c0a9db3481d4a557df3"
+        },
+        "binding": {
+          "digest": "sha256:dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8",
+          "ref": "workspace-binding://abiogenesis/dac046f6f3d5da441f0500ff5a78026ff1b19d89aabebbd03cc05ccfeb217da8"
+        },
+        "creationManifest": {
+          "digest": "sha256:273436e9162d372ff4a05752648d6195429e51c6cc0d5db6e06db110df5931bb",
+          "ref": "workspace-creation://abiogenesis/273436e9162d372ff4a05752648d6195429e51c6cc0d5db6e06db110df5931bb"
+        }
+      }
+    },
+    {
+      "name": "admitted catalog and narrowed view reach the exact selected Program",
+      "status": "passed",
+      "value": {
+        "catalog": {
+          "digest": "sha256:1917f1c91b3233f8c7775adad928c222b25ee16e624cc76d627f58e5c729f907",
+          "ref": "graph-function-catalog://abiogenesis/1917f1c91b3233f8c7775adad928c222b25ee16e624cc76d627f58e5c729f907"
+        },
+        "view": {
+          "digest": "sha256:2c7143f30d1ef68cdc6a4b56aa31717874bc47d3af01c1a3b4b157cbd16c2723",
+          "ref": "graph-function-catalog-view://abiogenesis/2c7143f30d1ef68cdc6a4b56aa31717874bc47d3af01c1a3b4b157cbd16c2723"
+        },
+        "handles": [
+          "graph-function://abiogenesis/conformance/hello-world@5",
+          "graph-function://abiogenesis/worksite/command-execution@5"
+        ],
+        "program": {
+          "ref": "program://abiogenesis/conformance/hello-world@5",
+          "digest": "sha256:e1ac4c0cedc4eb6350369893db2c7768e05ce014697145d402cb86d47ce0afa9"
+        },
+        "selectedGraphFunction": "graph-function://abiogenesis/conformance/hello-world@5"
+      }
+    },
+    {
+      "name": "input and output declaration owners are the selected installed Product publication",
+      "status": "passed",
+      "value": {
+        "inputContractOwner": {
+          "declarationKind": "contract",
+          "declarationRef": "contract://abiogenesis/conformance/hello-input@5",
+          "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695",
+          "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+          "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+          "publicationDigest": "sha256:9e5b2ca4173df5b98eb654cab2d4a93ef2c591b3dc77a8641d507606da9fc899"
+        },
+        "outputContractOwner": {
+          "declarationKind": "contract",
+          "declarationRef": "contract://abiogenesis/conformance/hello-output@5",
+          "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/5fdaa1938626a7ed2c4afbcdd0d6bdf34a1276c76c34d3ba2559caa4689cd124/669bcb73d9432a175762b76523581d28c2569f7b947a7c73496242f8421e6695",
+          "moduleRef": "module://abiogenesis/conformance/hello-world@5",
+          "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+          "publicationDigest": "sha256:9e5b2ca4173df5b98eb654cab2d4a93ef2c591b3dc77a8641d507606da9fc899"
+        },
+        "executionResolution": {
+          "digest": "sha256:ba37a9e5ddcae3aea300106e0468ab6375fd7ee897fd1307c48e574fa90fe98d",
+          "ref": "product-execution-resolution://abiogenesis/ba37a9e5ddcae3aea300106e0468ab6375fd7ee897fd1307c48e574fa90fe98d"
+        }
+      }
+    }
+  ],
+  "scope": "Original frozen setup outputs joined to the actual native S01 call and admitted execution; no moving install/worksite inspection"
+}

@@ -1,0 +1,123 @@
+{
+  "kind": "future_actual_snapshot_output_consumer_plan",
+  "status": "prepared_not_executed",
+  "acceptedReader": {
+    "repair": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/freeze.json",
+      "bytes": 10140,
+      "sha256": "5b705555a5ebd9a58e0402667a0f31f9256e3e3ce643930f065d33bee34650f6"
+    },
+    "review": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-review-01/freeze.json",
+      "bytes": 2441,
+      "sha256": "dcc50dcc635d9ac4184945afe74bffabfd9db59d4b4fa01b651a5b4487e803b5"
+    },
+    "body": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-repair-01/output-checks.mjs",
+      "bytes": 11908,
+      "sha256": "d59cebeeed35234f4d69f978030a5a1094919291513c523a0d34b07fcb6f8b2a"
+    }
+  },
+  "currentReader": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/output-checks.mjs",
+    "bytes": 13844,
+    "sha256": "3bd6f270781a636ec3c4651ea5d7ba33bcc4ef1b09ec986437bedba426e97b0b"
+  },
+  "currentSourceOwners": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "bytes": 132250,
+      "sha256": "bb1b24e30d8c4668444481085530aca5f5ab3ce935677cbc882faa83208004bf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "bytes": 59485,
+      "sha256": "44d7c23c5bd492d659adf29596e75611c19b4d69375881cd6911a2dfc0a2880d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_execution.ts",
+      "bytes": 39509,
+      "sha256": "55b416ba7d62ddc708038873a1cef82a1049fb374d955f3a0d44e22145331d6f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "bytes": 24180,
+      "sha256": "bc3b4983edb755ae5bd3ab059e8a0198a1ce0c81411ef81d8449a79306f8047b"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "bytes": 63360,
+      "sha256": "b8bb644121845e25567280642b6474d5a32d452119af5ad1812b02360c1249b6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "bytes": 40955,
+      "sha256": "e2b77f22ec4516f36a28940ef0544223b59d8c6dcf681c383482595a6ebd3e29"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/gtl/self_conformance.ts",
+      "bytes": 18649,
+      "sha256": "814cff61ae51563554b01b987466143ffd2bbebe8a51d965388ce03c9d746b92"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/validator/qualification_resources.ts",
+      "bytes": 22081,
+      "sha256": "b112e11b12813818e5d0b89283bc4ce0eb420bc0eec9ce51cf2a0ecd8cf6e2ea"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-03/final-source/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 81674,
+      "sha256": "8f4967157222757a32c1470fcb21370a023f535d0968a5b9b048319734efbebd"
+    }
+  ],
+  "mechanicalAdaptation": "preserves actual owner task/attempt/artifact/snapshot checks; replaces old fixed716/13/14/30/925 assertions with complete exact declared protected/task/recipe/selection/expected populations",
+  "requiredBeforeRead": [
+    "actual typed terminal producer binds actual Run and value digest",
+    "installed isObservedWorksiteCommandExecutionObservation accepts the actual observation and observation.task equals actual task",
+    "installed helper-plan predicate binds exact current task and attempt; actual helperArtifactPath equals retained plan.artifactPath",
+    "archive root is actual task.workspaceBinding.roots.archiveRoot; canonical nonalias regular helper file is read from that root",
+    "installed helper-artifact predicate accepts actual task-bound bytes; ref,digest,length,disposition and every observation population agree",
+    "helper.snapshotRoot equals plan.sandboxRoot and is canonical directory distinct from original task.workspaceAuthorityBasis.canonicalRoot"
+  ],
+  "oneOutputReaderFor": [
+    "all observed command-report bodies",
+    "verification/reports/generated-comparison.json",
+    "every one of927 verification build/contracts/manifest output bodies"
+  ],
+  "protectedInputConservation": {
+    "descriptor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/protected-inputs.json",
+      "bytes": 2279874,
+      "sha256": "7b0c67ac6c64786d0fbc67ae0d31b648c251b7cb3a1c6b8f9a5e122d9fc1e966"
+    },
+    "files": 3277,
+    "root": "actual original workspaceAuthorityBasis.canonicalRoot, separately from helper snapshotRoot",
+    "required": "fresh original-body reads match every declared digest/byteCount before and after execution; task protected observations and helper protectedBefore/After reproduce the exact same complete set; original A/W metadata retained"
+  },
+  "freshResultReplay": "actual fresh installed Public run_result and run_replay must agree on producer, typed terminal result, result, replay and closed status; fresh reads are not invented here",
+  "noFallback": "No report, comparison or generated-output read is redirected to the original worksite when the actual snapshot cannot be authenticated.",
+  "pending": {
+    "actualTask": null,
+    "attempt": null,
+    "helperPlan": null,
+    "helperArtifact": null,
+    "archiveRoot": null,
+    "snapshotRoot": null,
+    "actualObservation": null,
+    "freshPublicResult": null,
+    "freshPublicReplay": null
+  },
+  "isolatedComponentOutputConservation": {
+    "stagePlan": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-04/component-stage-plan.json",
+      "bytes": 362397,
+      "sha256": "b49e171ed6b362a6f7c02e0432a47149a353c2dc47f741521513488066801ad6"
+    },
+    "protectedPlanPath": "recipe/component-stage-plan.json",
+    "stagingReportPath": "verification/reports/component-staging.json",
+    "componentRoot": "verification/.components/retained-carrier",
+    "outputs": 835,
+    "required": "the authenticated helper snapshot reader checks the protected plan body, staging report and every exact component output body; no original-root fallback",
+    "currentProductOutputsRemain": 927
+  }
+}

@@ -1,0 +1,392 @@
+{
+  "operation": "T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03",
+  "status": "FROZEN_CANDIDATE_MEMBER_DRIFT",
+  "worker": "/root/public_preparation_worker",
+  "frame": "fixed15 ABG5 GOAL035/T287 F05/F10/F11/F15; interface-integration rev2; oracle realization_refactor",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/grant.md",
+    "bytes": 3348,
+    "sha256": "097d3f2afcae10ed08653319f22dd485af3509654975c80501a41ea580878486"
+  },
+  "sourcePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 82296,
+      "sha256": "9b6b1ec6e0489455fb3aeadc3ebcbaf93459cf5a0cb65db13215c683a3e996e8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "bytes": 63484,
+      "sha256": "8f92906d0fd7e2ecc36fbfbe0795bd582f561448d0ffd4a0bc4ab4bfecec099c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "bytes": 48732,
+      "sha256": "42a0ce9b82bc088f83ab8490be8260c6b016e16f7cadf38b617e286da41be8f9",
+      "frozenCopy": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/t287-qualification-scopes.test.mjs",
+        "bytes": 48732,
+        "sha256": "42a0ce9b82bc088f83ab8490be8260c6b016e16f7cadf38b617e286da41be8f9"
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/installed-qualification-conservation.mjs",
+      "bytes": 41381,
+      "sha256": "f5e55962a64a7088e3766245c74a5dda3533da44544a9d1895481fdbef27eed3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-qualification-conservation.test.mjs",
+      "bytes": 31569,
+      "sha256": "67136ddf9da8875a26315f6a01c7d43f704773f40b90bcef84d75643b769c95f"
+    }
+  ],
+  "soleCanonicalChange": "line200 negative uses canonical establishQualificationAssessment material/scope refusal",
+  "predecessorFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_FIXTURE_REPAIR_02/freeze.json",
+    "bytes": 9715,
+    "sha256": "8177f77277ccaf17a827ab7679fbc7c53cefc787767df129843f5ff91acef077"
+  },
+  "compileReuse": {
+    "status": "verified_reuse",
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_REPAIR_01/compile.json",
+      "sha256": "8cf0dfd777cc9ec75fc436e485fe79f7960e6047d1ede4455c12909ca258c9fc"
+    },
+    "frozenStageInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_FIXTURE_REPAIR_02/stage-inventory.json",
+      "sha256": "919165eaa56e402a75b278596060c1ac91102ca0b649f0d4e43d97582787ca97"
+    },
+    "verifiedFiles": 5812,
+    "verifiedLogicalBytes": 104147687,
+    "filesystemCopyOnWrite": true,
+    "noHardLinks": true,
+    "recompiled": false,
+    "onlyChangedClonedFile": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "elapsedMs": 796.3900830000057
+  },
+  "phaseReceipts": {
+    "focused": {
+      "operation": "T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-name-pattern=reference.*attribution|actual renderer|scoped constructor",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/stage/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/stage/build_tenants/abiogenesis/typescript",
+      "capSeconds": 180,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/tmp",
+        "NODE_COMPILE_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/tmp/node-compile-cache",
+        "ABI5_PUBLIC_PREPARATION_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer/node_modules/@abiogenesis/typescript-tenant",
+        "ABI5_PUBLIC_GROUPS_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer/node_modules/@abiogenesis/typescript-tenant",
+        "ABI5_PUBLIC_GROUPS_BASELINE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/baseline.json"
+      },
+      "pid": 93682,
+      "pgid": 93682,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "groupAbsent": true,
+      "elapsedMs": 469.091083999956,
+      "maxRSSPlatformBytes": 201850880,
+      "userCPUSeconds": 0.40504799999999996,
+      "systemCPUSeconds": 0.102895,
+      "stdoutBytes": 1079,
+      "stdoutSHA256": "5c5241801faef976bf8dc461239a0f7a8cd658724ac75e5c1e22586e44ac9396",
+      "stderrBytes": 0,
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "manifest": {
+      "operation": "T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/stage/build_tenants/abiogenesis/typescript",
+      "capSeconds": 180,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/tmp",
+        "NODE_COMPILE_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/tmp/node-compile-cache",
+        "ABI5_PUBLIC_PREPARATION_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer/node_modules/@abiogenesis/typescript-tenant",
+        "ABI5_PUBLIC_GROUPS_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer/node_modules/@abiogenesis/typescript-tenant",
+        "ABI5_PUBLIC_GROUPS_BASELINE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/baseline.json"
+      },
+      "pid": 93842,
+      "pgid": 93842,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "groupAbsent": true,
+      "elapsedMs": 23753.301374999864,
+      "maxRSSPlatformBytes": 1850572800,
+      "userCPUSeconds": 27.081919,
+      "systemCPUSeconds": 1.30528,
+      "stdoutBytes": 0,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrBytes": 0,
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "pack": {
+      "operation": "T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/npm/bin/npm-cli.js",
+        "pack",
+        "--ignore-scripts",
+        "--offline",
+        "--json",
+        "--pack-destination",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/packs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/stage/build_tenants/abiogenesis/typescript",
+      "capSeconds": 180,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/tmp",
+        "NODE_COMPILE_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/tmp/node-compile-cache",
+        "ABI5_PUBLIC_PREPARATION_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer/node_modules/@abiogenesis/typescript-tenant",
+        "ABI5_PUBLIC_GROUPS_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer/node_modules/@abiogenesis/typescript-tenant",
+        "ABI5_PUBLIC_GROUPS_BASELINE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/baseline.json"
+      },
+      "pid": 94323,
+      "pgid": 94323,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "groupAbsent": true,
+      "elapsedMs": 3206.550832997891,
+      "maxRSSPlatformBytes": 322125824,
+      "userCPUSeconds": 3.406332,
+      "systemCPUSeconds": 0.316671,
+      "stdoutBytes": 694614,
+      "stdoutSHA256": "193ae80e2b9b345559639643a50b0fd8a6fb55cd59a16147673f0661da3f3a9e",
+      "stderrBytes": 0,
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "packed": {
+      "operation": "T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin/node",
+        "--test",
+        "--test-concurrency=1",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer/t287-public-preparation.test.mjs",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer/t287-public-groups.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer",
+      "capSeconds": 240,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/tmp",
+        "NODE_COMPILE_CACHE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/tmp/node-compile-cache",
+        "ABI5_PUBLIC_PREPARATION_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer/node_modules/@abiogenesis/typescript-tenant",
+        "ABI5_PUBLIC_GROUPS_PACKAGE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/consumer/node_modules/@abiogenesis/typescript-tenant",
+        "ABI5_PUBLIC_GROUPS_BASELINE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/baseline.json"
+      },
+      "pid": 95527,
+      "pgid": 95527,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "groupAbsent": true,
+      "elapsedMs": 22640.048415996716,
+      "maxRSSPlatformBytes": 1548419072,
+      "userCPUSeconds": 29.464057,
+      "systemCPUSeconds": 0.773486,
+      "stdoutBytes": 1275,
+      "stdoutSHA256": "520eba7c7cc9e31a9759c29a1e7049590b77083f77d5c3ee7b9532dd3558f8a1",
+      "stderrBytes": 0,
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "proof": {
+    "focused": "4/4 pass",
+    "packed": "7/7 pass",
+    "referenceAttribution": "actual canonical resource acquisition/resolution supplies external provenance; original J/task/raw/source preserved; embedded grounded/insufficient matches and negative resource/bytes/span/scope/authority/independence/restoration pass",
+    "packedPreparation": "two distinct responsibility bindings, embedded/reference preparation, missing/crossed resources, sourceblind strict typed caller, all8 canonical Public addresses and actual generated m05 closures pass"
+  },
+  "privatePackageFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/package-freeze.json",
+    "bytes": 4613,
+    "sha256": "91dbfaa5ce0d470af6cf46137995e2945f59faff85213488b0d1ae912cdd5c68"
+  },
+  "packageCorrespondence": {
+    "memberPins": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/package-members.json",
+      "bytes": 1026527,
+      "sha256": "bd577788219f7cc8ea5deac1d7e164c8f5bda8170fc7fae804bbee8e2f3b4b29"
+    },
+    "delta": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_REFERENCE_ATTRIBUTION_ORACLE_REPAIR_03/package-delta.json",
+      "bytes": 2962,
+      "sha256": "b5d63d115ccb7cb48eea8fce6c910041433233ce9d2b39585763237cac41bbfa"
+    },
+    "changedPaths": [
+      "build/code/src/abg/qualification_proof.js",
+      "build/code/src/validator/qualification.d.ts",
+      "build/code/src/validator/qualification.js",
+      "contracts/capabilities/capability-definition-graph.json",
+      "node_modules/fast-check/CHANGELOG.md",
+      "node_modules/pure-rand/CHANGELOG.md",
+      "product-toolchain-manifest.json"
+    ],
+    "unexpectedDeltaCount": 2
+  },
+  "firstFailure": {
+    "status": "stopped",
+    "boundary": "exact private candidate package-member correspondence",
+    "reason": "two bundled transitive dependency CHANGELOG members absent from successor despite byte-identical presence in inherited and successor stage",
+    "unexplainedDeltas": [
+      {
+        "path": "node_modules/fast-check/CHANGELOG.md",
+        "before": {
+          "path": "node_modules/fast-check/CHANGELOG.md",
+          "bytes": 68677,
+          "sha256": "1928e49c090a706a61c20fc620e97f22e83e0d154e758f869ccd6cdbcd634f34",
+          "mode": 420
+        },
+        "after": null
+      },
+      {
+        "path": "node_modules/pure-rand/CHANGELOG.md",
+        "before": {
+          "path": "node_modules/pure-rand/CHANGELOG.md",
+          "bytes": 6039,
+          "sha256": "f6e1f6802a0205dcc17d5d117a9af83a63947ac722dd7de32e1d98b070c02c87",
+          "mode": 420
+        },
+        "after": null
+      }
+    ],
+    "sourceAndStageNotEditedForTheseMembers": true,
+    "packedPreparationAndPublicationPassedBeforeInspection": true,
+    "nativeSetupAndDispatchNotExecuted": true,
+    "evidenceLimit": "package omission causal mechanism not independently triaged; no semantic effect or production defect inferred",
+    "noRepairRepackRetry": true
+  },
+  "unchangedAcceptedArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_PUBLIC_PREPARATION_BRIDGE_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10661096,
+    "sha256": "c54721805a8adb73c3fa74ee8c3c04126dc5bd7ad2da542967b9292c6a4943e5"
+  },
+  "unchangedOldLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/resources/events/runtime.events.jsonl",
+    "bytes": 5177702,
+    "sha256": "f3ad94b0bb09b75e8c08286074269c1fcd6f47217849e42b5ae63309cc77c635"
+  },
+  "fixturePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/fixture/A/member.mjs",
+      "bytes": 20,
+      "sha256": "037ecd1db38c230c248787e60fd7bfc0cb0101b187b59535b6e7483be762d350"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/fixture/B/member.mjs",
+      "bytes": 20,
+      "sha256": "b5d546753d33709dff508a6f2c2e547f432267fbb05b68d3da74fa5f7bda9f7a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/fixture/activation.json",
+      "bytes": 641,
+      "sha256": "128568b85e39a6eaffbbfffc43d5ecde919f8a5e416958eda9ea67fd7bba604a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/fixture/closure.json",
+      "bytes": 705,
+      "sha256": "a8aa1707b91fc28d03b388c31a134527dab05149b71eaf0a207abc1e9946cabd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/fixture/delta.patch",
+      "bytes": 152,
+      "sha256": "76d112b0aa3e7697ac9c679cc3a0d6e57d706dfc36f80201f0a84beb5698d232"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_INSTALLED_CONSERVATION_01/fixture/preimage.json",
+      "bytes": 64,
+      "sha256": "3bafe5493046b51305f0e28683973a4b8ceffa8767d14a5e72b3a7d153c6ae21"
+    }
+  ],
+  "nativeSourceConstructionReferences": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_REPAIR_01/source-construction/activation.json",
+      "bytes": 1076,
+      "sha256": "9c14041ad9523d1cf76a00ee863799532bfe1b61720b9eae0b9322e317534717"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_REPAIR_01/source-construction/closure.json",
+      "bytes": 1016,
+      "sha256": "d3566661e6f27ce2864c31eaba18c36a625deba6a0f192cba55abc7c91efd556"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_REPAIR_01/source-construction/delta.patch",
+      "bytes": 2711,
+      "sha256": "d8f1c80f5d4e836ff12d8d8d900d83422eefe24e41a69dbb3b6375b50928d27a"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_REPAIR_01/source-construction/postimages/qualification.ts",
+      "bytes": 63484,
+      "sha256": "8f92906d0fd7e2ecc36fbfbe0795bd582f561448d0ffd4a0bc4ab4bfecec099c"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_REPAIR_01/source-construction/postimages/qualification_proof.ts",
+      "bytes": 82296,
+      "sha256": "9b6b1ec6e0489455fb3aeadc3ebcbaf93459cf5a0cb65db13215c683a3e996e8"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_REPAIR_01/source-construction/preimage.json",
+      "bytes": 688,
+      "sha256": "85a963c6cb82e2d001582b8060b423fc8e64f962818e4fe31ecb041361086649"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_REPAIR_01/source-construction/preimages/qualification.ts",
+      "bytes": 63360,
+      "sha256": "b8bb644121845e25567280642b6474d5a32d452119af5ad1812b02360c1249b6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_REFERENCE_ATTRIBUTION_REPAIR_01/source-construction/preimages/qualification_proof.ts",
+      "bytes": 82284,
+      "sha256": "b928caefff4aa9bbd5e3e0d6fdb65f4a9617d54b3df817df287975825d36c9e5"
+    }
+  ],
+  "metrics": {
+    "stageAPFSCloned": true,
+    "recompiled": false,
+    "stageLogicalBytes": 104147646,
+    "workLogicalBytes": 222502952,
+    "successorArchiveBytes": 10644849,
+    "newRuntimeEvents": 0,
+    "newActorExchanges": 0,
+    "oldRuntimeAppendedBytes": 0,
+    "realProviderCalls": 0
+  },
+  "ownedPidsAbsent": {
+    "93682": true,
+    "93842": true,
+    "94323": true,
+    "95527": true
+  },
+  "unexecuted": [
+    "actual capability owner conservation proof",
+    "new actual singleton install/binding/log",
+    "native assessment/F11/AF22",
+    "fresh Public Result/replay"
+  ],
+  "remaining": [
+    "Root triage of exact package omissions",
+    "candidate-bound native conservation and current cold reads",
+    "genuine assessment and broader qualification remain open"
+  ],
+  "returnRelation": "Worker stopped at unexplained exact candidate-member delta; Root alone triangulates/disposes/activates next exact grant; no retries"
+}

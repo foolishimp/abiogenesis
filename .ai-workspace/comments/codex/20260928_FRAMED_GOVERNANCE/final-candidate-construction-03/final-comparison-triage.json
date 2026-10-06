@@ -1,0 +1,19 @@
+{
+  "frameVariables": {
+    "originalC02GeneratedOnly": 828,
+    "C03GeneratedAndDerivedAuthorityOutputs": 926,
+    "derivedAuthorityInputs": 96
+  },
+  "firstViolatedRelation": "The new derived output population was compared only to the donor generated-only inventory, so unchanged authority source copies appeared newly generated.",
+  "ProductDesign": "Source and derived authority output roles are distinct; physical stage bytes are the correct predecessor comparison.",
+  "IdentityIntegration": "Exact actual staged preimages exist for all inherited96 authority copies; compare those, not absent donor inventory keys.",
+  "Proof": "Initial129 count was mechanical accounting only; retained source/law/span/manifest evidence and all physical outputs unchanged.",
+  "jointCause": "Reused generated-only comparator missed the intentionally broader C03 output population; no runtime or source defect.",
+  "ownerReentry": "Construction Worker, local final report/control correction within declared grant; no implementation effect.",
+  "reproof": {
+    "actualOldToNewStageComparison": true,
+    "changedOutputs": 45,
+    "newOutputs": 2
+  },
+  "preserved": "Initial accounting retained; corrected comparison supersedes only the count and delta relation."
+}

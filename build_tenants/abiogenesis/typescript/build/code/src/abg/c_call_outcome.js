@@ -467,7 +467,7 @@ function stageCCallResult(input, probabilistic, payloadRejection, actorTransport
         ? input.outputValueKind
         : input.failureValueKind, resultDisposition === "success"
         ? (value) => input.outcomeClass === "workflow"
-            ? input.leafPort.validateContractValue(input.cCall.outputContractRef, "output", value)
+            ? input.leafPort.validateContractValueByRef(input.cCall.outputContractRef, value)
             : (input.regime !== "F_P" ||
                 probabilistic?.kind ===
                     "contract_admitted_probabilistic_result_candidate") &&
@@ -548,18 +548,46 @@ function stageCCallResult(input, probabilistic, payloadRejection, actorTransport
                     return semanticResultMatchesBasis(basis, input.input, value) && semanticInstructionResultMatches(basis, input.input, value);
                 })()) &&
                 input.leafPort.validateContractValue(input.cCall.outputContractRef, "output", value) &&
-                input.leafPort.validateResultEvidenceLineage(input.cCall.outputContractRef, value, evidence.map((row) => deepFreeze({
-                    cCallRef: input.cCall.cCallRef,
-                    cCallAttempt: input.cCall.attempt,
-                    evidenceRef: row.evidenceRef,
-                    evidenceDigest: row.evidenceDigest,
-                    evidenceClass: row.evidenceClass,
-                    outputDigest: row.outputDigest,
-                    transportDigest: row.evidenceClass === "probabilistic_transport" &&
-                        "transportDigest" in row
-                        ? row.transportDigest
-                        : null,
-                })))
+                input.leafPort.validateResultEvidenceLineage(input.cCall.outputContractRef, value, evidence.map((row) => {
+                    const common = {
+                        cCallRef: input.cCall.cCallRef,
+                        cCallAttempt: input.cCall.attempt,
+                        evidenceRef: row.evidenceRef,
+                        evidenceDigest: row.evidenceDigest,
+                        inputDigest: row.inputDigest,
+                        outputDigest: row.outputDigest,
+                    };
+                    if (row.evidenceClass === "probabilistic_transport") {
+                        return deepFreeze({
+                            ...common,
+                            evidenceClass: row.evidenceClass,
+                            actorInvocationRef: row.actorInvocationRef,
+                            actorRef: row.actorRef,
+                            workerBindingRef: row.workerBindingRef,
+                            transportBindingRef: row.transportBindingRef,
+                            transportBindingDigest: row.transportBindingDigest,
+                            requestDigest: row.requestDigest,
+                            promptDigest: row.promptDigest,
+                            transportDisposition: row.transportDisposition,
+                            transportFailureClass: row.transportFailureClass,
+                            transportDigest: "transportDigest" in row ? row.transportDigest : null,
+                        });
+                    }
+                    return deepFreeze({
+                        ...common,
+                        evidenceClass: row.evidenceClass,
+                        ...(row.actorInvocationRef === undefined ? {} : { actorInvocationRef: row.actorInvocationRef }),
+                        ...(row.actorRef === undefined ? {} : { actorRef: row.actorRef }),
+                        ...(row.workerBindingRef === undefined ? {} : { workerBindingRef: row.workerBindingRef }),
+                        ...(row.transportBindingRef === undefined ? {} : { transportBindingRef: row.transportBindingRef }),
+                        ...(row.transportBindingDigest === undefined ? {} : { transportBindingDigest: row.transportBindingDigest }),
+                        ...(row.requestDigest === undefined ? {} : { requestDigest: row.requestDigest }),
+                        ...(row.promptDigest === undefined ? {} : { promptDigest: row.promptDigest }),
+                        ...(row.transportDisposition === undefined ? {} : { transportDisposition: row.transportDisposition }),
+                        ...(row.transportFailureClass === undefined ? {} : { transportFailureClass: row.transportFailureClass }),
+                        transportDigest: null,
+                    });
+                }))
         : (value) => typeof value === "object" && value !== null &&
             !Array.isArray(value) &&
             value.kind ===

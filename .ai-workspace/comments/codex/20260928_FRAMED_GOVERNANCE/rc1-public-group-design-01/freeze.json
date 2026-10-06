@@ -1,0 +1,63 @@
+{
+  "operation": "T287_RC1_PUBLIC_GROUP_DESIGN_01",
+  "actor": "/root/native_applicability_design",
+  "status": "CLOSED",
+  "disposition": "BOUNDED_PUBLICATION_PROPOSAL_WITH_MATERIAL_CONTENT_CLOSURE_UNRESOLVED",
+  "closedAt": "2026-10-03T16:44:44.316996+00:00",
+  "territory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-public-group-design-01",
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 2213,
+      "sha256": "e91e9c3336f3ef162245e3d4073a5032c810f96469643ff25fbc1f941622d574",
+      "mode": 420
+    },
+    {
+      "path": "closure.json",
+      "bytes": 1600,
+      "sha256": "d5ac9caba0876676951122494f947bcb686e4254f8605ccd622373d87399bf04",
+      "mode": 420
+    },
+    {
+      "path": "owning-how.diff",
+      "bytes": 2865,
+      "sha256": "be382fe875e496bf9c70ce90e6acc74688e195ea20272f2600fa733122bad59d",
+      "mode": 420
+    },
+    {
+      "path": "pins.json",
+      "bytes": 20814,
+      "sha256": "b367d28b8d14e91b854a7e36c9c0f1e9db65c3345969129178978df5a481c3f4",
+      "mode": 420
+    },
+    {
+      "path": "scaffold.md",
+      "bytes": 13697,
+      "sha256": "f03e889b7244b1f6e81dd1f6e3ec192b7af876855daf3d314e10a2afd22b919f",
+      "mode": 420
+    },
+    {
+      "path": "source-effect-roster.json",
+      "bytes": 7322,
+      "sha256": "0315336cf77348edf23a7ca02182a41d96299133865b34c263ee745dff768d8b",
+      "mode": 420
+    }
+  ],
+  "recordCount": 6,
+  "directoryCount": 0,
+  "symlinkCount": 0,
+  "expectedPopulation": [
+    "activation.json",
+    "closure.json",
+    "owning-how.diff",
+    "pins.json",
+    "scaffold.md",
+    "source-effect-roster.json",
+    "freeze.json"
+  ],
+  "freezeExcludedFromOwnRecords": true,
+  "decisionCompleteForFullContentClosure": false,
+  "RootAloneAccepts": true,
+  "upstreamEffects": 0,
+  "stopWrites": true
+}

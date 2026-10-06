@@ -35,7 +35,8 @@ export function inputFixture() {
       expected: { boundary: 'program_validation', disposition: 'refused', diagnostics: [{ code: 'duplicate_identity', path: '$.program.starts' }] } },
   ] } };
 }
-export async function nativeJoinFixture({ changeInput, runtime = false, configureHello, declarationProof, sameRealm = false, rootGraphFunctionRef, origin, sourceFixtures = [], nativeSourceOwners = [] } = {}) {
+export async function nativeJoinFixture({ changeInput, runtime = false, configureHello, consumerPublication, consumerIds,
+  declarationProof, sameRealm = false, rootGraphFunctionRef, origin, sourceFixtures = [], nativeSourceOwners = [] } = {}) {
   const f = inputFixture();
   if (origin) {
     f.install.installId = 'install://' + origin;
@@ -50,8 +51,9 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
   const selectedProgram = rootGraphFunctionRef ? publication.programs.find(p => p.starts[0].graphFunctionRef === rootGraphFunctionRef) : runtime ? publication.programs.find(p => p.starts[0].graphFunctionRef === ids.runtimeAssessGraph) : program;
   const rootGraph = selectedProgram.starts[0].graphFunctionRef;
   const rootOutput = publication.graphFunctions.find(g => g.name === rootGraph).outputs[0];
-  const { constructHelloWorldModulePublication, HELLO_WORLD_IDS } = await import('../../build/code/src/gtl/hello_world.js');
-  let hello = runtime ? constructHelloWorldModulePublication({ productId: f.install.productId, artifactDigest: f.install.artifactDigest,
+  const { constructLanguageTestModulePublication, LANGUAGE_TEST_IDS } = await import('./language-test-gtl.mjs');
+  const testIds = consumerIds ?? LANGUAGE_TEST_IDS;
+  let hello = runtime ? (consumerPublication ?? constructLanguageTestModulePublication)({ productId: f.install.productId, artifactDigest: f.install.artifactDigest,
     productContentDigest: f.install.productContentDigest, productManifestDigest: f.install.manifestDigest,
     packageName: f.install.packageName, packageVersion: f.install.packageVersion }) : null;
   if (hello && configureHello) hello = configureHello(hello);
@@ -99,7 +101,7 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
       const p = hello.programs.find(p => p.starts.some(s => s.graphFunctionRef === graphRef));
       const ref = invocationRef, admitted = invocations.get(ref) ?? (() => {
         const e = event('invocation_admitted', ref); const i = { invocationAdmissionRef: ref, admissionEventRef: e.eventId,
-          outputContractRef: HELLO_WORLD_IDS.outputContractRef, outputContractDigest: hash(hello.contracts.find(c => c.contractRef === HELLO_WORLD_IDS.outputContractRef)),
+          outputContractRef: gf.outputs[0], outputContractDigest: hash(hello.contracts.find(c => c.contractRef === gf.outputs[0])),
           outputContractOwner: ownerOf(hello) }; invocations.set(ref, i); return i;
       })();
       Object.assign(execution, { basisClass: 'root', parentExecutionBasisRef: null, invocationAdmissionRef: admitted.invocationAdmissionRef,
@@ -220,5 +222,6 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
   const implementation = (await load('implementation/qualification.js', true)).namespace;
   const semantics = (await load('validator/self_conformance_semantics.js', true)).namespace;
   const proof = () => ({ kind: 'qualification_proof_resource', schemaVersion: '5.0.0', prefix: coordinate(events.length), declarations: [declaration], selections: [] });
-  return { input, owner, implementation, semantics, open, complete, proof, coordinate, events, states, environment, invocation, root, hello, helloIds: HELLO_WORLD_IDS, counts, event, nativeStubs: stubs, executions, acquisitions, cold: () => computations.clear() };
+  return { input, owner, implementation, semantics, open, complete, proof, coordinate, events, states, environment, invocation, root,
+    hello, helloIds: testIds, consumerPublication: hello, consumerIds: testIds, counts, event, nativeStubs: stubs, executions, acquisitions, cold: () => computations.clear() };
 }

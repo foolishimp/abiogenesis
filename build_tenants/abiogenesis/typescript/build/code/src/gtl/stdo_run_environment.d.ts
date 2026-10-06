@@ -7,31 +7,31 @@ export declare const STDO_RUN_ENVIRONMENT_SCHEMA: v.StrictObjectSchema<{
     readonly declarationRef: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
     readonly source: v.StrictObjectSchema<{
         readonly releaseUri: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
-        readonly manifestDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+        readonly manifestDigest: v.GenericSchema<string, string>;
     }, undefined>;
     readonly representation: v.StrictObjectSchema<{
         readonly program: v.StrictObjectSchema<{
-            readonly path: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.CheckAction<string, undefined>]>;
+            readonly path: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.RegexAction<string, undefined>]>;
             readonly uri: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
-            readonly byteDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
-            readonly canonicalDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+            readonly byteDigest: v.GenericSchema<string, string>;
+            readonly canonicalDigest: v.GenericSchema<string, string>;
         }, undefined>;
         readonly map: v.StrictObjectSchema<{
-            readonly path: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.CheckAction<string, undefined>]>;
+            readonly path: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.RegexAction<string, undefined>]>;
             readonly uri: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
-            readonly byteDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
-            readonly canonicalDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+            readonly byteDigest: v.GenericSchema<string, string>;
+            readonly canonicalDigest: v.GenericSchema<string, string>;
         }, undefined>;
         readonly productRef: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
         readonly releaseRef: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
         readonly tagObject: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
         readonly recordUri: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
-        readonly recordDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
-        readonly inventoryDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+        readonly recordDigest: v.GenericSchema<string, string>;
+        readonly inventoryDigest: v.GenericSchema<string, string>;
         readonly members: v.SchemaWithPipe<readonly [v.ArraySchema<v.StrictObjectSchema<{
-            readonly path: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.CheckAction<string, undefined>]>;
+            readonly path: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.RegexAction<string, undefined>]>;
             readonly type: v.PicklistSchema<["file", "symlink"], undefined>;
-            readonly digest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+            readonly digest: v.GenericSchema<string, string>;
             readonly target: v.NullableSchema<v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, undefined>;
         }, undefined>, undefined>, v.MinLengthAction<{
             path: string;
@@ -41,20 +41,20 @@ export declare const STDO_RUN_ENVIRONMENT_SCHEMA: v.StrictObjectSchema<{
         }[], 1, undefined>]>;
     }, undefined>;
     readonly axiom: v.StrictObjectSchema<{
-        readonly executablePath: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.CheckAction<string, undefined>]>;
-        readonly outputContractPath: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.CheckAction<string, undefined>]>;
+        readonly executablePath: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.RegexAction<string, undefined>]>;
+        readonly outputContractPath: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.RegexAction<string, undefined>]>;
         readonly outputContractVersion: v.LiteralSchema<"axiom-indexer.frame-projection@1", undefined>;
-        readonly pythonExecutableDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+        readonly pythonExecutableDigest: v.GenericSchema<string, string>;
         readonly productRef: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
         readonly releaseRef: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
         readonly tagObject: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
         readonly recordUri: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
-        readonly recordDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
-        readonly inventoryDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+        readonly recordDigest: v.GenericSchema<string, string>;
+        readonly inventoryDigest: v.GenericSchema<string, string>;
         readonly members: v.SchemaWithPipe<readonly [v.ArraySchema<v.StrictObjectSchema<{
-            readonly path: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.CheckAction<string, undefined>]>;
+            readonly path: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.RegexAction<string, undefined>]>;
             readonly type: v.PicklistSchema<["file", "symlink"], undefined>;
-            readonly digest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+            readonly digest: v.GenericSchema<string, string>;
             readonly target: v.NullableSchema<v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, undefined>;
         }, undefined>, undefined>, v.MinLengthAction<{
             path: string;
@@ -112,7 +112,7 @@ export declare const STDO_RUN_ENVIRONMENT_SCHEMA: v.StrictObjectSchema<{
         readonly policy: v.StrictObjectSchema<{
             readonly policyRef: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
             readonly text: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
-            readonly digest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+            readonly digest: v.GenericSchema<string, string>;
         }, undefined>;
         readonly accessRefs: v.SchemaWithPipe<readonly [v.ArraySchema<v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, undefined>, v.MinLengthAction<string[], 1, undefined>]>;
         readonly sourceBindings: v.SchemaWithPipe<readonly [v.ArraySchema<v.StrictObjectSchema<{
@@ -265,13 +265,13 @@ export declare const RUN_ENVIRONMENT_SCHEMA: v.StrictObjectSchema<{
         readonly dependencyRef: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
         readonly basisRef: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
         readonly recordRef: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
-        readonly recordDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+        readonly recordDigest: v.GenericSchema<string, string>;
         readonly recordFormat: v.PicklistSchema<["member_inventory@1", "stdo_source_manifest@1", "release_record@1"], undefined>;
-        readonly inventoryDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+        readonly inventoryDigest: v.GenericSchema<string, string>;
         readonly members: v.SchemaWithPipe<readonly [v.ArraySchema<v.StrictObjectSchema<{
-            readonly path: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.CheckAction<string, undefined>]>;
+            readonly path: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.RegexAction<string, undefined>]>;
             readonly type: v.PicklistSchema<["file", "symlink"], undefined>;
-            readonly digest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+            readonly digest: v.GenericSchema<string, string>;
             readonly target: v.NullableSchema<v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, undefined>;
         }, undefined>, undefined>, v.MinLengthAction<{
             path: string;
@@ -325,20 +325,20 @@ export declare const RUN_ENVIRONMENT_SCHEMA: v.StrictObjectSchema<{
         readonly representationDependencyRef: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
         readonly axiomDependencyRef: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
         readonly program: v.StrictObjectSchema<{
-            readonly path: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.CheckAction<string, undefined>]>;
+            readonly path: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.RegexAction<string, undefined>]>;
             readonly uri: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
-            readonly byteDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
-            readonly canonicalDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+            readonly byteDigest: v.GenericSchema<string, string>;
+            readonly canonicalDigest: v.GenericSchema<string, string>;
         }, undefined>;
         readonly map: v.StrictObjectSchema<{
-            readonly path: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.CheckAction<string, undefined>]>;
+            readonly path: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.RegexAction<string, undefined>]>;
             readonly uri: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
-            readonly byteDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
-            readonly canonicalDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+            readonly byteDigest: v.GenericSchema<string, string>;
+            readonly canonicalDigest: v.GenericSchema<string, string>;
         }, undefined>;
-        readonly executablePath: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.CheckAction<string, undefined>]>;
-        readonly outputContractPath: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.CheckAction<string, undefined>]>;
-        readonly pythonExecutableDigest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+        readonly executablePath: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.RegexAction<string, undefined>]>;
+        readonly outputContractPath: v.SchemaWithPipe<readonly [v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>, v.RegexAction<string, undefined>]>;
+        readonly pythonExecutableDigest: v.GenericSchema<string, string>;
         readonly pythonVersion: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
     }, undefined>, undefined>;
     readonly accesses: v.ArraySchema<v.StrictObjectSchema<{
@@ -362,7 +362,7 @@ export declare const RUN_ENVIRONMENT_SCHEMA: v.StrictObjectSchema<{
         readonly policy: v.StrictObjectSchema<{
             readonly policyRef: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
             readonly text: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
-            readonly digest: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.RegexAction<string, undefined>]>;
+            readonly digest: v.GenericSchema<string, string>;
         }, undefined>;
         readonly sourceBindings: v.SchemaWithPipe<readonly [v.ArraySchema<v.StrictObjectSchema<{
             readonly contextRef: v.SchemaWithPipe<readonly [v.StringSchema<undefined>, v.MinLengthAction<string, 1, undefined>]>;
@@ -500,8 +500,16 @@ export declare function runEnvironmentForProgram(publication: Readonly<ModulePub
 export declare function registeredSelectionNativeRole(publication: Readonly<ModulePublication> | undefined, programRef: string, graph: Readonly<GraphFunction>, programLocusRef: string): Readonly<RunEnvironmentRole> | null | false;
 /** Narrow library profile: applicability precedes payload inspection. */
 export declare function framedSynthesisAtLocus(graph: Readonly<GraphFunction>, locus: string): false | {
-    node: import("./contracts.js").GtlNode;
-    projection: import("./contracts.js").GtlNode;
+    node: {
+        readonly nodeRef: string;
+        readonly nodeKind: "c_locus";
+        readonly term: import("./c_algebra.js").CProgramNode;
+    };
+    projection: {
+        readonly nodeRef: string;
+        readonly nodeKind: "c_locus";
+        readonly term: import("./c_algebra.js").CProgramNode;
+    };
     application: import("./contracts.js").RegisteredSelectionApplication;
 } | null;
 export declare function framedSynthesisNativeRole(publication: Readonly<ModulePublication> | undefined, programRef: string, graph: Readonly<GraphFunction>, locus: string): Readonly<RunEnvironmentRole> | null | false;

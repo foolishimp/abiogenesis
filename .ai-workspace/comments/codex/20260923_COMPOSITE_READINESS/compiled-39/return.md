@@ -1,0 +1,5 @@
+CLOSED package readiness only — core39.
+
+Archive sha256:3092d51178ad0f2aa7ea356802d8e385884d1879b82ebf4d7d09607bfb28bfc5; content sha256:c73e339929b2c480639bd2bcfa73a4a8f59062123e8ed75f1b4adc7966541941; manifest sha256:9b291706310b70ce730440d0524cad25d6d81ffba6a8ef8bc280e5a85720688d. Exact selection: selected-core.json (5681d98d7e685de5d5548db53cdf6b3e96ef570a9337c4d8cd6e39de05f9e611). All 5233 source/archive/offline-install members correspond; 5224 conserved from core38, 9 changed (seven selected emissions plus ordinary capability graph/Product manifest). Frozen assessment-first source remains exact; dev16 construction is separate.
+
+Reused successful compile5.41s and focused component checks. Ordinary metadata 12.648s; pack 3.221s; offline install 1.970s; installed Product verification 8.763s. Full outcomes/commands/timing retained. No exception, recompile/test/runtime setup/history/provider/Git effect. Root independently owns source acceptance; package readiness supplies no native qualification.

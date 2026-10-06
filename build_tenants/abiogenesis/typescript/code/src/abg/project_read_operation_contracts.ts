@@ -6,6 +6,7 @@ import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 
 import {
   type ExactOwnerOperationPort,
+  jsonValueSchema,
   nonblankSchema,
   ownerAuthorityDigest,
   ownerContractPacket,
@@ -120,9 +121,49 @@ function subjectGapProjectionSchema(
     kind: v.literal(kind),
     subject: refDigestSchema,
     gaps: refDigestSetSchema,
+    frontiers: v.array(ABG_ADMITTED_GAP_SCHEMA),
     replay: refDigestSchema,
   });
 }
+
+/** Contract-tagged admitted domain values, not an interior traversal object.
+ * The ABG projector authenticates the result and its producing C-call. */
+function admittedGapValueSchema(valueKind: "next_action_basis" | "next_action_projection") {
+  return v.strictObject({
+    result: refDigestSchema,
+    contractRef: nonblankSchema,
+    valueKind: v.literal(valueKind),
+    valueDigest: refDigestSchema.entries.digest,
+    value: v.record(v.string(), jsonValueSchema),
+    cCallRef: nonblankSchema,
+    resultAdmissionEventRef: nonblankSchema,
+    judgmentRef: nonblankSchema,
+    judgmentAdmissionEventRef: nonblankSchema,
+  });
+}
+
+export const ABG_ADMITTED_GAP_SCHEMA = v.strictObject({
+  kind: v.literal("abg_admitted_gap"),
+  schemaVersion: v.literal("5.0.0"),
+  run: refDigestSchema,
+  executionBasis: refDigestSchema,
+  route: refDigestSchema,
+  routeAdmissionEventRef: nonblankSchema,
+  stop: refDigestSchema,
+  nextAction: admittedGapValueSchema("next_action_projection"),
+  // Immutable input content, authenticated by this no-action call's evidence.
+  // This does not assert which of possibly equal producers supplied it.
+  basis: v.strictObject({
+    contractRef: nonblankSchema,
+    valueKind: v.literal("next_action_basis"),
+    valueDigest: refDigestSchema.entries.digest,
+    value: v.record(v.string(), jsonValueSchema),
+    inputEvidence: v.array(v.strictObject({
+      evidence: refDigestSchema,
+      admissionEventRef: nonblankSchema,
+    })),
+  }),
+});
 
 const lawfulActionProjectionSchema = withNativeLiveness({
   kind: v.literal("run_lawful_action_projection"),

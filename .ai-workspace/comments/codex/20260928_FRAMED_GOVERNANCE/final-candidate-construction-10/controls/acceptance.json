@@ -1,0 +1,37 @@
+{
+  "status": "ROOT_ACCEPTED_G1_G3_SOURCE_COMPONENT_ONLY",
+  "sourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-grant.txt",
+    "bytes": 6025,
+    "sha256": "7f254642a603b1f90e7ce2a992f11c60bf84119a845a42f10687171a07d07a86",
+    "mode": 420
+  },
+  "closedDependencies": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g1-self-conformance-conservation-01/freeze.json",
+      "bytes": 171217,
+      "sha256": "8dd2269955829b3e5d2b62f6f3540896c31bb074bf570019e80b75b6957da730",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-parent-alias-owner-repair-01/freeze.json",
+      "bytes": 171411,
+      "sha256": "6d5ab742d9ebf2a730e7d776aa2911c58503d0dc40c2928f18fa72eb3a305d2e",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g3-parent-alias-fixture-01/freeze.json",
+      "bytes": 170192,
+      "sha256": "153a3eced2061acbb7b32c96904ad791d667186dcd4e3121fb4a9dbc80262e2c",
+      "mode": 292
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-09/final-freeze.json",
+      "bytes": 388347,
+      "sha256": "c450c19f0c6cdb1475754ba2f6ddc9b3c442e477a2c77678c181487a22f7d3bb",
+      "mode": 420
+    }
+  ],
+  "sourceAcceptanceOwner": "Root Executive explicit current seven-section grant",
+  "limit": "source/component evidence with supplied lower premises; neither installed native nor genuine qualification"
+}

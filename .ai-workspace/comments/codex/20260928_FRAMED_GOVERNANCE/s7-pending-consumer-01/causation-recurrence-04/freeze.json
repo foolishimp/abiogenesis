@@ -1,0 +1,113 @@
+{
+  "status": "focused_owner_boundary_passed_installed_unproved",
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "bytes": 54810,
+      "sha256": "cd5b939c22d664b1028190cfec954a8d5927b2356fc012cf5d6fe8ba41ecc686"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "bytes": 9813,
+      "sha256": "c188ccf49dd15c0417ee9b7aa3883f45b6390590efe0412daae89615c606d4d6"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "bytes": 21411,
+      "sha256": "b7bae0ca0810fab82cbc2dcd1741f765a452f8914fe539306ddeeba2afbc1b90"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-continuation-causation.test.mjs",
+      "bytes": 9637,
+      "sha256": "f60b26158de3aba346872718b5b84ea912b40df1a58de6463f4143bc9d9d3fbd"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/continuation-causation.json",
+      "bytes": 477899,
+      "sha256": "2073873155c8ae6667ddba17af1e36fa76c3d540c74910b7893795184c4e8bf2"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.js",
+      "bytes": 51069,
+      "sha256": "896dc26c81671ff33e35b41a128d121cca0078ca73e97871840b12a089a07e6c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/construction_continuation.d.ts",
+      "bytes": 15197,
+      "sha256": "d52656ca48bb2d3b7aee841648b7521d208349eb66ffdd4c6e0f854bd614d332"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/effectful_invocation_truth.js",
+      "bytes": 7201,
+      "sha256": "1f44deadbda92521708a668ab6333df7cdfdfb2514d47f92a60ac5366602f47a"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/effectful_invocation_truth.d.ts",
+      "bytes": 1981,
+      "sha256": "c01fac174e61881003955a1e49176695960e25ff1f2a00ef8d52131ed8c7227d"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "0c0550535dfd2143518178d6505162b8e6574351674bbd8e11fcdb61f63ea792"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "bytes": 150149,
+      "sha256": "9858e5dbffe6065a450dd9665365939707f0b4276655d77dd8bc67a624020a37"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2559987,
+      "sha256": "79fd5431dedf123ef49b8905be2638cf85da373d71e6a9c4483cf7e83545ba12"
+    }
+  ],
+  "evidence": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/causation-recurrence-04/boundary-result.json",
+      "bytes": 20607,
+      "sha256": "11c0bc7d3193879d5bcd6960e7d366fbd709adf00f76e36ced7e217bc14e556d"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/causation-recurrence-04/program-before.json",
+      "bytes": 3564,
+      "sha256": "7de1f321c17a61ca0b3e5c7701cddb9ff47a8a4f0cf207504c985ed2e6925328"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/causation-recurrence-04/return.md",
+      "bytes": 1760,
+      "sha256": "6d03474d6cf4e9d48a4c29ab3ee6c28c09fc2b61a4de87b307e274faddeaa522"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/causation-recurrence-04/selection.json",
+      "bytes": 1825,
+      "sha256": "f032b4aebf68d7c6bfcb65c103f9db41712208c84f70dde94d0458c567563aa8"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/causation-recurrence-04/subject/fixture.json",
+      "bytes": 477899,
+      "sha256": "2073873155c8ae6667ddba17af1e36fa76c3d540c74910b7893795184c4e8bf2"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/causation-recurrence-04/subject/test.mjs",
+      "bytes": 9637,
+      "sha256": "f60b26158de3aba346872718b5b84ea912b40df1a58de6463f4143bc9d9d3fbd"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/causation-recurrence-04/test.json",
+      "bytes": 41,
+      "sha256": "9977feb7ad762fbb6149a207ef0c8f3ae14b31991b0f0cfb9b493bb415e76e8e"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/causation-recurrence-04/test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/causation-recurrence-04/test.stdout",
+      "bytes": 245,
+      "sha256": "ac8a7c6249b2e9e583dd7c3d56c6db346ce6d969ecfbc8ca2696d7d631095185"
+    }
+  ],
+  "predecessorFreezeSha256": "4ddee877e0c171f008d9f8f59fd2f30b6d8e60242bb2cdb444e3e9013370dfc8"
+}

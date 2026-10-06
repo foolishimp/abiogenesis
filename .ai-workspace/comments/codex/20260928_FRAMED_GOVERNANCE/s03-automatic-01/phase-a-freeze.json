@@ -1,0 +1,76 @@
+{
+  "status": "ready-for-dependency",
+  "boundary": "Phase A preparation only; Phase B not released",
+  "records": [
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/oracle.json",
+      "bytes": 1509,
+      "sha256": "69f61a7bd38d2f5a350fe50b783b597b3587bfb1a49b8edc3c1f0057ac67dc7c"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/phase-a-readiness.json",
+      "bytes": 22697,
+      "sha256": "d86e2d774ff857121e32c70e4653d5a59a254bde6ac54664dd0d636ce10ad9b0"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/phase-a-return.md",
+      "bytes": 5632,
+      "sha256": "d4113c1a2079f02dfdbad5d2efec8a475ecc79ec8075e84203aca5bb87587417"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/phase-a-source-identities.json",
+      "bytes": 704,
+      "sha256": "579f8cbf9c0b62209662075fa54c9e1357b73b9e317ed2497ba4c136a03fb2a5"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/preimages.json",
+      "bytes": 587,
+      "sha256": "8170f0baba5e894442df869a34e7724fcedeb7155c2728f2931de1ede68137bf"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/pure-preflight-01.log",
+      "bytes": 2573,
+      "sha256": "f1c9fcab0d5052c82ab02cc39c272560a5cf5f44dc57004d644fa9477f98065f"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/pure-preflight-02.log",
+      "bytes": 193,
+      "sha256": "7dd03be348bb948e588188974cc14d476964ec56c612bde030f906bb5fcd63db"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/pure-preflight-final.log",
+      "bytes": 272,
+      "sha256": "16b491947093aedc2d345f42e7ec9340d5ef6db7fad36df6e630a115d3a2898b"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/pure-preflight.json",
+      "bytes": 183979,
+      "sha256": "10dfe9d0c3b3f4a99b58a9d5e943a174112734ab9485f03ea027bfeea0aa0407"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/request-sections.json",
+      "bytes": 10415,
+      "sha256": "6f6f5f6c1ebf09de939e49c383826d340b32043f0a84d59bf5a580c378686790"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s03-automatic-01/request.txt",
+      "bytes": 10136,
+      "sha256": "424bd6604e1f4cd76035bb65adf902e3e6326d3bcc7f79fdef902fce4f8349d2"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-s03-automatic-product/index.mjs",
+      "bytes": 21635,
+      "sha256": "add09baec5d9a6ef7fbc5414bc5cffb8f9aa45a582aef6630d7b85ec9a80fddb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs",
+      "bytes": 25353,
+      "sha256": "b2ccf7c6f157b6cea11d31e1ceff9443fb38e122c3f1fcc7e2b626d8524f2be5"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+      "bytes": 1030,
+      "sha256": "74608ab6858ca2fcd73ff8390e711caf8f439748859c8a0f25b0c9be6072e18c"
+    }
+  ]
+}

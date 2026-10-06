@@ -3,3 +3,4 @@ build/
 node_modules/
 product-toolchain-manifest.json
 test_env/evidence/*.json
+test_env/uat/runs/

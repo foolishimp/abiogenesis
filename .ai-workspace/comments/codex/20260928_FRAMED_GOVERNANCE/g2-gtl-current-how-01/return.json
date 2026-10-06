@@ -1,0 +1,126 @@
+{
+  "operation": "T287_G2_GTL_CURRENT_HOW_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Writer",
+  "status": "CLOSED",
+  "disposition": "PROPOSED_CURRENT_GTL_CORE_HOW_PENDING_ROOT_ADOPTION",
+  "design": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+    "bytes": 17997,
+    "sha256": "76a19668fc93f9efb769e13cc00d50d2ff22548239d23c5db2018ed79adcf5c4",
+    "mode": 420,
+    "lines": 141,
+    "preimage": "ABSENT"
+  },
+  "reqTrace": [
+    {
+      "requirements": [
+        "REQ-P-PUBLIC-CONTRACTS-005",
+        "REQ-P-PUBLIC-CONTRACTS-006",
+        "REQ-P-PUBLIC-CONTRACTS-006A",
+        "REQ-P-PUBLIC-CONTRACTS-007",
+        "REQ-P-PUBLIC-CONTRACTS-007A"
+      ],
+      "decision": "Exact existing facade addresses; real named API pairs bound by aggregate and complete declaration closure; one canonical schema/vocabulary/corpus projection. No completeness from aliases."
+    },
+    {
+      "requirements": [
+        "REQ-L-GTL3-GRAPHFUNCTION-001",
+        "REQ-L-GTL3-GRAPHFUNCTION-003",
+        "REQ-L-GTL3-MODULE-003",
+        "REQ-L-GTL3-MODULE-005"
+      ],
+      "decision": "Current GraphFunction and ModulePublication, current subordinate fields and immutable declaration truth."
+    },
+    {
+      "requirements": [
+        "REQ-L-GTL3-C-ALGEBRA-001",
+        "REQ-L-GTL3-C-ALGEBRA-011",
+        "REQ-L-GTL3-C-ALGEBRA-012"
+      ],
+      "decision": "Seven original terms, native constructor proof distinct from admitted syntax; no flattening/lowering/synthesized Program."
+    },
+    {
+      "requirements": [
+        "REQ-L-GTL3-CONTRACT-LAW-API-009",
+        "REQ-L-GTL3-CONTRACT-LAW-API-010",
+        "REQ-L-GTL3-CONTRACT-LAW-API-012"
+      ],
+      "decision": "Local structural ingress is independent of exact current whole-Program validator; current packet and declaration closure retained."
+    },
+    {
+      "requirements": [
+        "REQ-L-GTL3-LAWS-019",
+        "REQ-L-GTL3-LAWS-020",
+        "REQ-L-GTL3-LAWS-021",
+        "REQ-L-GTL3-LAWS-022",
+        "REQ-L-GTL3-LAWS-027",
+        "REQ-L-GTL3-LAWS-028"
+      ],
+      "decision": "Stable typed diagnostics, honest repair limitations, one canonical roundtrip/corpus and separate current constitutional adjunct under accepted version-basis HOW."
+    }
+  ],
+  "decisions": [
+    "Current owner-local canonical structural family projects native types, local admission and canonical schemas.",
+    "Existing Valibot/projectStrictJsonSchema/I-JSON/canonicalization/digest foundations; no independent equivalent shapes.",
+    "Required GraphFunction/ModulePublication/original C API pairs are meaningful and paired in immutable aggregate locators; current conformance input/admitter/typecheck use the actual packet and sole owner.",
+    "Raw local shape admission does not synthesize a whole Program or establish relational/runtime truth.",
+    "Original C syntax and native proof metadata remain distinct.",
+    "Actual current packet is retained; constitutional adjunct is separately bounded under its accepted owning HOW."
+  ],
+  "residuals": [
+    {
+      "owner": "validator / accepted constitutional version-basis HOW",
+      "meaning": "Exact repair mapping for version-line-drift, release-claim-cites-active-ticket, surface-digest-missing and seam-parity-drift plus the complete default-repair roster is not grounded in selected current Source/HOW.",
+      "reentry": "design_reframe at existing owner before distinct drift Code sub-operation",
+      "prohibition": "No invented edit class, empty placeholder or always-refuse implementation may be accepted as complete."
+    },
+    {
+      "owner": "Product publication / qualification",
+      "meaning": "Native runtime-event/installer/release/other assets, remaining required material, installed composition, genuine F11/AF22/fresh reads, G5/G6 and RC1 remain OPEN.",
+      "reentry": "Existing separately granted owner scopes; no automatic effects from this proposal."
+    }
+  ],
+  "nextCodeProposal": {
+    "afterRootAdoptionOnly": true,
+    "existing": [
+      "code/src/gtl/contracts.ts",
+      "code/src/gtl/c_algebra.ts",
+      "code/src/validator/raw_admission.ts",
+      "code/src/validator/validation.ts",
+      "code/src/validator/conformance_operation.ts",
+      "code/src/validator/conformance_operation_contracts.ts",
+      "code/src/gtl/m01.ts",
+      "code/src/gtl/m02.ts",
+      "code/src/abg/m03.ts",
+      "scripts/generate-product-manifest.mjs"
+    ],
+    "new": [
+      "code/src/gtl/serialization_contracts.ts",
+      "code/src/gtl/serialization.ts",
+      "contracts/conformance/gtl-language-conformance-corpus.json",
+      "test_env/tests/t287-gtl-serialization-publication.test.mjs",
+      "test_env/tests/t287-gtl-language-corpus.test.mjs"
+    ],
+    "subsequentMutationGrantMustNameActualPathsAndPreimages": true,
+    "structuralDefinitionPlacementDetails": "Worker may arrange local files/algorithm details under exact next grant while preserving this one-definition owner relation.",
+    "proof": "One isolated compile and meaningful native/schema/variant-roundtrip/whole-Program mutation-restoration/corpus/packed-consumer cone; exact supplied lower premises and measured costs.",
+    "noPublicRuntimeProviderGitEffects": true
+  },
+  "readPinsAtStart": 32,
+  "readPinsUnchangedAtClose": true,
+  "effects": {
+    "DesignFilesCreated": 1,
+    "evidenceTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/g2-gtl-current-how-01",
+    "SourceMutations": 0,
+    "imports": 0,
+    "builds": 0,
+    "tests": 0,
+    "packInstall": 0,
+    "RuntimeResourceEffects": 0,
+    "providerNetworkGit": 0,
+    "reviewerActivations": 0
+  },
+  "authorship": "This Writer authored the proposed HOW only; previous Source/evidence and governing owners retain original authorship. This is not independent assurance or implementation adoption.",
+  "stopped": true
+}

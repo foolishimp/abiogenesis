@@ -1,0 +1,10 @@
+{
+  "activationId": "T287_RC1_S02_CONTINUATION_02",
+  "allowNativeEffects": true,
+  "operationCount": 37,
+  "sourceIndependentOraclesFixed": true,
+  "pureReadyFreezeSHA256": "1fda2c00f138b1ea56459b56cea4cfc83db555bf23e9ec1105caa7f464a3b9f8",
+  "issuedAt": "2026-10-01T15:57:40.288749+00:00",
+  "issuer": "/root/rc1_s02_continuation Worker",
+  "grant": "Exact operative existing control, no new authority or operation population."
+}

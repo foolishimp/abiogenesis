@@ -1,0 +1,49 @@
+{
+  "operation": "T287_F11_C09_NATIVE_CHILD_SELECTION_REVIEW_11",
+  "status": "CLOSED",
+  "role": "independent Reviewer",
+  "disposition": "GO_PREPARED_NATIVE_CHILD_CONTINUATION_ONLY",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-11/preparation-freeze.json",
+    "bytes": 11853,
+    "sha256": "d73805291ac9d5498e1e5bf41314ad950856a68dbd60ecccb0f5d5138c848003",
+    "mode": 420
+  },
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 866,
+      "sha256": "fbb690449503632f42cfb9e22be01be4d19e1359a4087f88958948f4c8697e9b",
+      "mode": 292
+    },
+    {
+      "path": "closure.json",
+      "bytes": 912,
+      "sha256": "38416fa59252f98316773d58332ef0d131c8fa1b8bdbb14ca11f2bfed0d780e2",
+      "mode": 292
+    },
+    {
+      "path": "pins.json",
+      "bytes": 10422,
+      "sha256": "84658f2196584cdfa5f5bab497fbc097a23f0a4796c611ec52e24895efaffcff",
+      "mode": 292
+    },
+    {
+      "path": "report.md",
+      "bytes": 3626,
+      "sha256": "11a78bc28c70405c0b83e4f7bb190b0c0d045f4d4428e1e52de4e4131e73ccc1",
+      "mode": 292
+    }
+  ],
+  "recordCount": 4,
+  "bodyBytes": 15826,
+  "links": 0,
+  "writesAfterFreeze": "STOPPED",
+  "RootAloneAcceptsAndReleases": true,
+  "unknowns": [
+    "full child cold pass",
+    "F11/AF22 continuation and four fresh reads",
+    "parent-alias release applicability",
+    "genuine semantic/context sufficiency and qualification"
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "status": "PENDING_EXECUTIVE_BINDING",
+  "entries": [
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "class": "authorized_current_authority_tracking_method",
+      "C02PreimageSHA256": "de8b1cca640cbe220c5d53108cc21602f8579ca0361eb3cb39df8876bbea1b5f",
+      "postimageSHA256": null,
+      "status": "pending_exact_Executive_source_cut_binding; no current bytes copied",
+      "sourceRoute": "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "class": "authorized_current_authority_tracking_method",
+      "C02PreimageSHA256": "26828f12e74aa06e9621344d1c594157668242f8c76a549c8ac0ce50e731d53a",
+      "postimageSHA256": null,
+      "status": "pending_exact_Executive_source_cut_binding; no current bytes copied",
+      "sourceRoute": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md",
+      "class": "authorized_current_authority_tracking_method",
+      "C02PreimageSHA256": "c3bbe783ecb50d08328eec1d861e1586b54332399ac9ddbb93e0b3c7a3cceef8",
+      "postimageSHA256": null,
+      "status": "pending_exact_Executive_source_cut_binding; no current bytes copied",
+      "sourceRoute": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "class": "authorized_current_authority_tracking_method",
+      "C02PreimageSHA256": "9e8fbf4e6df444bba9153dd3a7e4100fe3afe0ca9e163cbf7fc27c0084619ded",
+      "postimageSHA256": null,
+      "status": "pending_exact_Executive_source_cut_binding; no current bytes copied",
+      "sourceRoute": "repo://abiogenesis/specification/GOALS.md"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "class": "authorized_current_authority_tracking_method",
+      "C02PreimageSHA256": "179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1",
+      "postimageSHA256": null,
+      "status": "pending_exact_Executive_source_cut_binding; no current bytes copied",
+      "sourceRoute": "repo://abiogenesis/specification/PRODUCT.md"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+      "class": "authorized_current_authority_tracking_method",
+      "C02PreimageSHA256": "c062ea26440b23e71101ae8f1161634972b67ad1324d90cd295e2bc302773b97",
+      "postimageSHA256": null,
+      "status": "pending_exact_Executive_source_cut_binding; no current bytes copied",
+      "sourceRoute": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "class": "authorized_current_authority_tracking_method",
+      "C02PreimageSHA256": "4dca668bf7c11987cf9a79e320d828e783e99b43591b0e408bc325e178d65f15",
+      "postimageSHA256": null,
+      "status": "pending_exact_Executive_source_cut_binding; no current bytes copied",
+      "sourceRoute": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "class": "authorized_current_authority_tracking_method",
+      "C02PreimageSHA256": "697531863470181bbacc2b64abc6ee1508c3681c48173c781ad8effe07ea59cf",
+      "postimageSHA256": null,
+      "status": "pending_exact_Executive_source_cut_binding; no current bytes copied",
+      "sourceRoute": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+      "class": "authorized_current_authority_tracking_method",
+      "C02PreimageSHA256": "bb5b2bc9a0e0be1153457ca6a85950c57fa5877a5cd9128239d92e266f9322f9",
+      "postimageSHA256": null,
+      "status": "pending_exact_Executive_source_cut_binding; no current bytes copied",
+      "sourceRoute": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+      "class": "authorized_current_authority_tracking_method",
+      "C02PreimageSHA256": "1ea14838adfe1dfa999dcc31c30156fb810d810ad6600936c695d721469f8061",
+      "postimageSHA256": null,
+      "status": "pending_exact_Executive_source_cut_binding; no current bytes copied",
+      "sourceRoute": "repo://abiogenesis/specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-QUAL.md",
+      "class": "authorized_current_authority_tracking_method",
+      "C02PreimageSHA256": "2a75744b7da3e5aa2ba8722202aa0b437cc834ee6e5670c4a94da5b8db6ee3d2",
+      "postimageSHA256": null,
+      "status": "pending_exact_Executive_source_cut_binding; no current bytes copied",
+      "sourceRoute": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-SCENARIOS.md",
+      "class": "authorized_current_authority_tracking_method",
+      "C02PreimageSHA256": "aa6f0c878253541b50469ca5f04540f3007755272382d284e3a3234efffb99e5",
+      "postimageSHA256": null,
+      "status": "pending_exact_Executive_source_cut_binding; no current bytes copied",
+      "sourceRoute": "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "class": "authorized_current_authority_tracking_method",
+      "C02PreimageSHA256": "2c13b1fd28f3aaa624d941537a858f67ca8784f0710f490522147f57964c4051",
+      "postimageSHA256": null,
+      "status": "pending_exact_Executive_source_cut_binding; no current bytes copied",
+      "sourceRoute": "repo://abiogenesis/stdo_abiogenesis.json"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "class": "independently_accepted_law_delta",
+      "C02PreimageSHA256": "65ce8a6ea4c052be321a38acbf24fec3104d8e312faf1cbf498905c128745778",
+      "postimageSHA256": "0c896ab3132b2d934e9a1593cf6a54d4cc5bb58542b86d1a49ab697ce5c4a435",
+      "acceptedLawFreezeSHA256": "a4bceff9b2b37913667998784fb3be36ddf9986950c4bb5117c891add697c872",
+      "heldPostimage": {
+        "path": "pending-postimages/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+        "bytes": 13284,
+        "sha256": "0c896ab3132b2d934e9a1593cf6a54d4cc5bb58542b86d1a49ab697ce5c4a435",
+        "mode": 420,
+        "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/postimages/build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+        "kind": "file"
+      },
+      "semanticSourceAuthor": "/root/f11_binding_plan",
+      "copyAuthor": "/root/rc1_successor_preflight",
+      "additionalCarrierDeltaPossible": true,
+      "status": "verified_held_postimage; final source selection must conjoin any later accepted carrier postimage chain"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+      "class": "independently_accepted_law_delta",
+      "C02PreimageSHA256": "88ca3d46997a1a92defa65525686f4bbd7db8dee249f79a2970e5be728ac6553",
+      "postimageSHA256": "ae8ee02debaed07e899d43a8c07382287b73e90c766f71aefd2c60414e438fa6",
+      "acceptedLawFreezeSHA256": "a4bceff9b2b37913667998784fb3be36ddf9986950c4bb5117c891add697c872",
+      "heldPostimage": {
+        "path": "pending-postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+        "bytes": 10651,
+        "sha256": "ae8ee02debaed07e899d43a8c07382287b73e90c766f71aefd2c60414e438fa6",
+        "mode": 420,
+        "origin": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-law-stage-repair-01/postimages/build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+        "kind": "file"
+      },
+      "semanticSourceAuthor": "/root/f11_binding_plan",
+      "copyAuthor": "/root/rc1_successor_preflight",
+      "additionalCarrierDeltaPossible": true,
+      "status": "verified_held_postimage; final source selection must conjoin any later accepted carrier postimage chain"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_F11_CARRIER_RESOURCE_DESIGN.md",
+      "class": "new_carrier_HOW",
+      "postimageSHA256": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+      "RootReportedReviewFreezeSHA256": "8f684ef4564c2cf679d642ad7096edbe217f3c8ebd914100257e3acae6b7ccc3",
+      "status": "Executive reports independent acceptance; exact final source binding pending; not read or copied"
+    },
+    {
+      "class": "carrier_implementation_delta",
+      "paths": null,
+      "status": "pending_CLOSED_independently_accepted_implementation_cut; no moving sources read or copied"
+    }
+  ],
+  "ambientResnapshot": false,
+  "carrierFreeze": false,
+  "futureRequired": "Bind exact current authority/tracking postimages, accepted HOW and accepted carrier delta; then derive new authority and generated populations. Preserve original C02/Q02 identities."
+}

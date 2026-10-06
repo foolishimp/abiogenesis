@@ -1,7 +1,9 @@
+import { isQualificationAssessmentInput, prepareQualificationAssessment, type PreparedQualificationAssessment } from "../validator/qualification.js";
+import type { ResultEvidenceLineage } from "../abg/result_evidence_lineage_contracts.js";
+import type { QualificationResources } from "../validator/qualification_resources.js";
 import { graphFunctionSemanticsOwner } from "../product/execution_resolution.js";
 import { projectHistoricalGraphCallSourceAtDurablePrefix } from "../abg/project_read_ports.js";
 import type { AbgHistoricalGraphCallSourceResource } from "../abg/terminal_result_contracts.js";
-import { FP_HELLO_IMPLEMENTATION_DESCRIPTOR, validateFpHelloResponse } from "./fp_hello.js";
 import type { NativeLeafProofOperations, NativeJudgmentProofOperations } from "./contracts.js";
 import { authenticateNativeWorkReacquisition, nativeWorkReacquisitionResultMatches } from "../abg/native_work_reacquisition.js";
 import { QUALIFICATION_IDS as qualificationIds } from "../gtl/self_conformance.js";
@@ -424,27 +426,28 @@ function preimageRefusal(
 // declared realization/relation without acquiring a second copy of its history.
 function nativeLeafProofOperations(
   implementationRef: string, value: unknown, occurrence: LeafExecutionOccurrence,
-  historicalSource?: AbgHistoricalGraphCallSourceResource,
+  historicalSource?: AbgHistoricalGraphCallSourceResource, resources?: QualificationResources, preparation?: PreparedQualificationAssessment,
 ): Readonly<NativeLeafProofOperations> {
   const exact = (input: unknown, supplied: LeafExecutionOccurrence) => {
     if (input !== value || supplied !== occurrence) throw new TypeError("native proof operation differs from its exact admitted input/occurrence");
   };
   const basis = occurrence.qualificationOwnerBasis, native = occurrence.nativeWorkReacquisitionBasis;
   return Object.freeze({
+    ...(implementationRef === qualificationIds.assessImplementation && preparation !== undefined ? { qualificationPreparation: (input: unknown, supplied: LeafExecutionOccurrence) => { exact(input, supplied); return preparation; } } : {}),
     ...(implementationRef === SELF_CONFORMANCE_IDS.implementationRef && basis?.cCallRef === occurrence.cCallRef
       ? { qualificationSelfConformance: (input: unknown, supplied: LeafExecutionOccurrence) => {
           exact(input, supplied);
           if (!isSelfConformanceInput(value)) return null;
-          const owner = resolveSelfConformanceOwner(basis, value, true);
-          return owner === null ? null : evaluateSelfConformance(value, owner);
+          const owner = resolveSelfConformanceOwner(basis, value, true, resources);
+          return owner === null ? null : evaluateSelfConformance(value, owner, resources);
         } } : {}),
     ...(implementationRef === qualificationIds.verdictImplementation && basis?.cCallRef === occurrence.cCallRef
       ? { qualificationVerdict: (input: unknown, supplied: LeafExecutionOccurrence) => {
-          exact(input, supplied); return projectExactCandidateQualification(basis, value, true);
+          exact(input, supplied); return projectExactCandidateQualification(basis, value, true, resources);
         } } : {}),
     ...(implementationRef === qualificationIds.runtimeAssessImplementation && basis?.cCallRef === occurrence.cCallRef
       ? { qualificationAssessment: (input: unknown, supplied: LeafExecutionOccurrence) => {
-          exact(input, supplied); return projectNativeRuntimeAssessment(basis, value, true);
+          exact(input, supplied); return projectNativeRuntimeAssessment(basis, value, true, resources);
         } } : {}),
     ...(implementationRef === reacquireIds.implementationRef && native?.cCallRef === occurrence.cCallRef
       ? { nativeWorkReacquisition: (input: unknown, supplied: LeafExecutionOccurrence) => {
@@ -463,10 +466,21 @@ function nativeOccurrenceVerifier(occurrence: Readonly<LeafExecutionOccurrence>)
 }
 function nativeJudgmentProofOperations(
   predicateRef: string, input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate,
-  historicalSource?: AbgHistoricalGraphCallSourceResource,
+  historicalSource?: AbgHistoricalGraphCallSourceResource, resources?: QualificationResources, preparation?: PreparedQualificationAssessment,
 ): Readonly<NativeJudgmentProofOperations> {
   const historical = historicalSource === undefined ? {} : { historicalGraphCallSource: () =>
     currentOwnerPrefix === undefined ? null : projectHistoricalGraphCallSourceAtDurablePrefix(currentOwnerPrefix, historicalSource) };
+  if (predicateRef === qualificationIds.assessPredicate) return Object.freeze({ ...historical,
+    qualificationJudgment: () => preparation !== undefined && sha256Canonical(input as JsonValue) === preparation.request.inputDigest && preparation.matches(preparation.input, output),
+    qualificationRequest: () => preparation !== undefined && sha256Canonical(input as JsonValue) === preparation.request.inputDigest && preparation.matches(preparation.input, output) ? preparation.request : null,
+  });
+  if (predicateRef === SELF_CONFORMANCE_IDS.judgmentPredicateRef) return Object.freeze({ ...historical,
+    qualificationSelfConformance: () => {
+      if (!isSelfConformanceInput(input) || !isSelfConformanceResult(output)) return null;
+      const owner = resolveSelfConformanceOwner(output.owner.nativeBasis, input, false, resources);
+      return owner === null ? null : evaluateSelfConformance(input, owner, resources);
+    },
+  });
   if (predicateRef === reacquireIds.predicateRef) return Object.freeze({ ...historical,
     nativeWorkReacquisition: () => nativeWorkReacquisitionResultMatches(input, output, currentOwnerPrefix, historicalSource),
   });
@@ -476,7 +490,7 @@ function nativeJudgmentProofOperations(
       const original = output.nativeBasis as unknown as QualificationNativeBasis;
       const basis = currentOwnerPrefix === undefined ? original : { ...original,
         predecessorPrefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, original.predecessorPrefix as DurablePrefixCoordinate) };
-      return projectExactCandidateQualification(basis, input);
+      return projectExactCandidateQualification(basis, input, false, resources);
     },
   });
   if (predicateRef !== qualificationIds.runtimeAssessPredicate) return Object.freeze(historical);
@@ -488,7 +502,7 @@ function nativeJudgmentProofOperations(
         predecessorPrefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, original.predecessorPrefix as DurablePrefixCoordinate) };
       const selected = currentOwnerPrefix === undefined || !isRecord(input) || !isRecord(input.proof) ? input : { ...input,
         proof: { ...input.proof, prefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, input.proof.prefix as unknown as DurablePrefixCoordinate) } };
-      return projectNativeRuntimeAssessment(basis, selected);
+      return projectNativeRuntimeAssessment(basis, selected, false, resources);
     },
   });
 }
@@ -506,6 +520,8 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
   ) => Readonly<WorkerContracts> | null;
   occurrence: Readonly<LeafExecutionOccurrence>;
   historicalSource?: AbgHistoricalGraphCallSourceResource;
+  qualificationResources?: QualificationResources;
+  qualificationPreparation?: PreparedQualificationAssessment;
   contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>;
   loadImplementation: () => Promise<unknown>;
 }>): Promise<Readonly<LeafInvocationOwnerResult>> {
@@ -602,7 +618,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
         input.occurrence,
         resolution,
         inputDigest,
-        nativeLeafProofOperations(resolution.implementationRef, input.value, input.occurrence, input.historicalSource),
+        nativeLeafProofOperations(resolution.implementationRef, input.value, input.occurrence, input.historicalSource, input.qualificationResources, input.qualificationPreparation),
       );
     } catch {
       return closedDeterministicOwnerReceipt(
@@ -665,6 +681,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
       actorPreparation.prepareInstructionAssembly,
       [WORKSITE_COMMAND_EXECUTION_IDS.implementationRef as string, WORKSITE_REVISION_IDS.implementationRef].includes(resolution.implementationRef)
         ? nativeOccurrenceVerifier(input.occurrence) : undefined,
+      nativeLeafProofOperations(resolution.implementationRef, input.value, input.occurrence, input.historicalSource, input.qualificationResources, input.qualificationPreparation),
     );
   } catch (error) {
     return undispatched("implementation_exception", "preparation", "thrown", error);
@@ -847,6 +864,7 @@ export function hasOwnedDeclarationLookups(
 
 export async function constructAdmittedLeafInvocationPort(authority: {
   readonly historicalSource?: AbgHistoricalGraphCallSourceResource;
+  readonly qualificationResources?: QualificationResources;
   readonly prefix: ValidatedRuntimeEventPrefix;
   readonly artifactTruth: ExactPrefixArtifactTruthProjection;
   readonly implementationSet: AdmittedImplementationSet;
@@ -1286,9 +1304,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         ? verified !== null || port.validateContractValueByRef(workerContracts.resultContractRef, input.rawResult)
         : admittedResolution.implementationRef === nativeIds.implementationRef && assessmentSchema !== null &&
           (verified !== null || parseNativeWorkspaceAssessmentResult(assessmentSchema, JSON.stringify(input.rawResult)) !== null);
-      if (!rawValid ||
-          (admittedResolution.implementationRef === FP_HELLO_IMPLEMENTATION_DESCRIPTOR.implementationRef &&
-            !validateFpHelloResponse(input.input, input.rawResult))) {
+      if (!rawValid) {
         return preimageRefusal("result_contract_refused");
       }
       const owner = implementationOwner(admittedResolution);
@@ -1330,6 +1346,8 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       return preimageRefusal("owner_boundary_exception");
     }
   }
+  const qualificationPreparations = new Map<string, PreparedQualificationAssessment>();
+  const preparationOf = (value: unknown) => isRecord(value) && isRecord(value.source) && typeof value.source.cCallRef === "string" ? qualificationPreparations.get(value.source.cCallRef) : undefined;
   const port = Object.freeze({
     kind: "admitted_leaf_invocation_port" as const,
     isExactLoadedCapability(): boolean {
@@ -1453,18 +1471,19 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       return Object.freeze({ ...relation,
         evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate) =>
           relation.evaluate(input, output, currentOwnerPrefix,
-            nativeJudgmentProofOperations(predicateRef, input, output, currentOwnerPrefix, authority.historicalSource)),
+            nativeJudgmentProofOperations(predicateRef, input, output, currentOwnerPrefix, authority.historicalSource, authority.qualificationResources, preparationOf(output))),
       });
     },
     validateResultEvidenceLineage(
       outputContractRef: string,
       value: Readonly<Record<string, JsonValue>>,
-      admittedEvidence: readonly Readonly<Record<string, JsonValue>>[],
+      admittedEvidence: readonly ResultEvidenceLineage[],
     ) {
       return semantics.validateResultEvidenceLineage({
         outputContractRef,
         value,
         admittedEvidence,
+        nativeProof: nativeJudgmentProofOperations(qualificationIds.assessPredicate, preparationOf(value)?.input, value, undefined, authority.historicalSource, authority.qualificationResources, preparationOf(value)),
       });
     },
     verifyProbabilisticResultContractPreimage(input: Parameters<LeafInvocationPort["verifyProbabilisticResultContractPreimage"]>[0]) {
@@ -1500,9 +1519,12 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         const qualificationOwnerBasis = isQualification && call.predecessorPrefix !== undefined
           ? { predecessorPrefix: call.predecessorPrefix, cCallRef: call.occurrence.cCallRef } : null;
         const qualificationOwner = qualificationOwnerBasis === null ? null : isSelfQualification
-          ? resolveSelfConformanceOwner(qualificationOwnerBasis, call.input, true)
-          : projectQualificationConsumer(qualificationOwnerBasis, call.input, true);
+          ? resolveSelfConformanceOwner(qualificationOwnerBasis, call.input, true, authority.qualificationResources)
+          : projectQualificationConsumer(qualificationOwnerBasis, call.input, true, authority.qualificationResources);
         if (isQualification && qualificationOwner === null) return ownerRefusal("owner_boundary_exception");
+        const qualificationPreparation = admittedResolution.implementationRef === qualificationIds.assessImplementation && isQualificationAssessmentInput(call.input)
+          ? prepareQualificationAssessment(call.input, authority.qualificationResources) : undefined;
+        if (qualificationPreparation !== undefined) qualificationPreparations.set(call.occurrence.cCallRef, qualificationPreparation);
         const qualifiedOccurrence = qualificationOwnerBasis === null ? call.occurrence : deepFreeze({ ...call.occurrence, qualificationOwnerBasis });
         const occurrence = admittedResolution.implementationRef !== reacquireIds.implementationRef || call.predecessorPrefix === undefined ? qualifiedOccurrence
           : deepFreeze({ ...qualifiedOccurrence, nativeWorkReacquisitionBasis: { predecessorPrefix: call.predecessorPrefix, cCallRef: call.occurrence.cCallRef } });
@@ -1512,6 +1534,8 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           call.occurrence.executionAuthority !== null;
         return invokeLeafOwnerBoundary({
           ...(authority.historicalSource === undefined ? {} : { historicalSource: authority.historicalSource }),
+          ...(authority.qualificationResources === undefined ? {} : { qualificationResources: authority.qualificationResources }),
+          ...(qualificationPreparation === undefined ? {} : { qualificationPreparation }),
           resolution: admittedResolution,
           value: call.input,
           inputDigest: call.inputDigest,
@@ -1538,7 +1562,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           validateSuccess: (value) => (!isQualification || (isSelfQualification ? isSelfConformanceResult(value) &&
             sha256Canonical(value.owner as unknown as JsonValue) === sha256Canonical(qualificationOwner as unknown as JsonValue)
             : qualificationOwner !== null && qualificationResultRelation((qualificationOwner as NonNullable<ReturnType<typeof projectQualificationConsumer>>).call.judgmentPredicateRef, call.input, value, call.predecessorPrefix,
-              nativeJudgmentProofOperations((qualificationOwner as NonNullable<ReturnType<typeof projectQualificationConsumer>>).call.judgmentPredicateRef, call.input, value, call.predecessorPrefix)))) && port.validateContractValue(
+              nativeJudgmentProofOperations((qualificationOwner as NonNullable<ReturnType<typeof projectQualificationConsumer>>).call.judgmentPredicateRef, call.input, value, call.predecessorPrefix, authority.historicalSource, authority.qualificationResources, qualificationPreparation)))) && port.validateContractValue(
             admittedResolution.outputContractRef,
             "output",
             value,

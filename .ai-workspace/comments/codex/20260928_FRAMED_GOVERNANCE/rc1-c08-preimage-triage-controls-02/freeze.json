@@ -1,0 +1,61 @@
+{
+  "status": "CLOSED",
+  "records": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-preimage-triage-controls-02/activation.json",
+      "bytes": 570,
+      "sha256": "16effa68cd9ee028acf671652777f60f1d00744bc5d81b5dbd690d1184b51237",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-preimage-triage-controls-02/closure.json",
+      "bytes": 537,
+      "sha256": "8bcdf586ab6b0295d8126d7b07effe026c4a8b9865783b012a23904c03134180",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-preimage-triage-controls-02/literal-verification.json",
+      "bytes": 922,
+      "sha256": "bfbbd198502f2fd55bbb3414f20e6a33a3b72931de0a7c6e883e14ca71ddc5ef",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-preimage-triage-controls-02/operation-basis.json",
+      "bytes": 2566,
+      "sha256": "54e2cbf171123dc89b4a816d0d3cc598202fa53722ffe1821ec0488f40bd3db7",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-preimage-triage-controls-02/request.txt",
+      "bytes": 4040,
+      "sha256": "fa1fcda5cb6c7d906d153a12cac643185b276499e53e0a5e92014ae826b7d570",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-preimage-triage-controls-02/review-request.txt",
+      "bytes": 4213,
+      "sha256": "8a0370bc3423e955d37f2cf7356c16e7dc7d4f5fee53f6bda58ea865332d8925",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-preimage-triage-controls-02/review-sections.json",
+      "bytes": 4484,
+      "sha256": "293c957d0c963beacedd2a6054dec2fa7365902990c08740b7f3235a7bbc86a8",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-preimage-triage-controls-02/sections.json",
+      "bytes": 4311,
+      "sha256": "409d00a0419dd2ce3a0d52a3728f5457875e9c35f39be4c7cab079033ae61fc9",
+      "mode": 420
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c08-preimage-triage-controls-02/triangulation.json",
+      "bytes": 2022,
+      "sha256": "1e09e88ce9f33a1ab4564fe77a4f6dc18ec0f50a3ae56eb5391a0862be7e0a8a",
+      "mode": 420
+    }
+  ],
+  "directories": 0,
+  "links": 0
+}

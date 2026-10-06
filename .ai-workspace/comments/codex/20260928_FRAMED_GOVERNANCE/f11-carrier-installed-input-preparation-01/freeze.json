@@ -1,0 +1,131 @@
+{
+  "status": "CLOSED",
+  "work_result": "preparation_ready",
+  "activation": "T287_F11_CARRIER_INSTALLED_INPUT_PREPARATION_01",
+  "actor": "/root/f11_installed_caller_preparation",
+  "role": "input-preparation Worker",
+  "frozenAt": "2026-10-01T21:13:07.670350+00:00",
+  "sourceAcceptance": "51bfa2ad75ab9d2c0858998c7e4a82a6e7a4269a4c277c842af07ae1c7f6da1c",
+  "acceptedHOW": "744a930be51c7130480b22126acfbc6ec42c2c4fca07fcd762b76757e66d6d9b",
+  "candidateAndExecutionBindings": "pending",
+  "recordCount": 18,
+  "records": [
+    {
+      "path": "accounting-plan.json",
+      "bytes": 2399,
+      "sha256": "81759c0fa22b0fd8dfc9f30338f4113a84dc0048bdad3895e0ba10c5b87dfa4f"
+    },
+    {
+      "path": "activation.json",
+      "bytes": 833,
+      "sha256": "711e75dacd1b2be9063a07e5c5ed6ca39a66e3b6b41b08d0f93108ee87e42227"
+    },
+    {
+      "path": "child-wrapper-parts.mjs",
+      "bytes": 4117,
+      "sha256": "81a005baa4facb6b28f21f62c3c7e88f8d308c23f12ef3b769e1e7ef2c701abd"
+    },
+    {
+      "path": "companion-negatives.json",
+      "bytes": 3051,
+      "sha256": "c9e5e416fe6e79c52682c6109889d5bcf75c38c3a0870945c4fc85bf5d52bab3"
+    },
+    {
+      "path": "consumed-source-pins.json",
+      "bytes": 9194,
+      "sha256": "295ff4af64fa414233020643e12f70c06d2227640c6455c002488b21a7400959"
+    },
+    {
+      "path": "controlled-helper.mjs",
+      "bytes": 1448,
+      "sha256": "1bf192b24cafa977507cc47efd333246db29d62455ed7b68eea48f22c1a49e08"
+    },
+    {
+      "path": "flow-driver.mjs",
+      "bytes": 4436,
+      "sha256": "d1207307ea693f7f6822dbc54cd5e1fce41a34d866436db29ffd780e910ba4d0"
+    },
+    {
+      "path": "input-construction-plan.md",
+      "bytes": 5061,
+      "sha256": "ff71f486d8859d56440329721bdc6ce6abed3c7c9d1405baa3f94df8f4476f6d"
+    },
+    {
+      "path": "observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    {
+      "path": "operation-plan.json",
+      "bytes": 1990,
+      "sha256": "f4468c556bc7059f7b06b15552668dc04663cc450a31c7a074e79932b851d1fa"
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "bytes": 15377,
+      "sha256": "d691f1c3057ec47eaaec938ce7e5a3f3f533b37ba25e36baa03effc7a3090b59"
+    },
+    {
+      "path": "pending-bindings.json",
+      "bytes": 1749,
+      "sha256": "a5797bae90b0643a98ae02daf5a863cffe98453cbb8a5b1925c1535249a0d336"
+    },
+    {
+      "path": "prepare-resources.mjs",
+      "bytes": 7684,
+      "sha256": "748f3137fe53c19fb489ea3c18adc491abbc775fc835b2de4f613f61f751a6d2"
+    },
+    {
+      "path": "proof-oracles.mjs",
+      "bytes": 6110,
+      "sha256": "f247d0255ab165ed3a671eda0892ce118ef3f5334fae70b50f3bce9b9e4a7465"
+    },
+    {
+      "path": "public-support.mjs",
+      "bytes": 10179,
+      "sha256": "23aea016a2f7c179c86525708887a3c1ebee062f4ff813a735152833716bdbb7"
+    },
+    {
+      "path": "return.md",
+      "bytes": 3643,
+      "sha256": "0f53933f73734c375af48b2612987c36dd9e2a38779a0a5ef35a953a00b241aa"
+    },
+    {
+      "path": "setup-driver.mjs",
+      "bytes": 12160,
+      "sha256": "2c5c5713e98c14cdfe8bcfd6b63248b22524d63e0e3e5f5b09a9f18614dc5627"
+    },
+    {
+      "path": "syntax-checks.json",
+      "bytes": 1614,
+      "sha256": "0817574f2891ec112c457cb891001f608b3b207e90419d49ff2570776321bfe8"
+    }
+  ],
+  "readiness": {
+    "JavaScriptSyntaxChecks": 8,
+    "pythonSyntaxChecks": 1,
+    "JSONParses": 6,
+    "sourcePinReadbacks": 37,
+    "importsExecuted": 0
+  },
+  "effects": {
+    "newPreparationFilesOnly": true,
+    "sourceEffects": 0,
+    "fixtureEffects": 0,
+    "candidateStageBuildPackInstallEffects": 0,
+    "runtimeResourceStoreOwnerEffects": 0,
+    "modelProviderNetworkEffects": 0,
+    "GitEffects": 0,
+    "oldReportEffects": 0
+  },
+  "dependencies": [
+    "Executive conjunction of independently reviewed actual C03",
+    "separate exact current-law inventory/material/scope/attribution/declaration binding",
+    "separate minimal actual child GTL fixture Product/package/install grant",
+    "Runtime-only first mechanical installed path and independent assurance"
+  ],
+  "guardResiduals": [
+    "owner-produced after-Result/before-J cut; does not block lawful earliest positive"
+  ],
+  "stop": "All preparation effects stop at this CLOSED freeze; no execution activation or future identity supplied."
+}

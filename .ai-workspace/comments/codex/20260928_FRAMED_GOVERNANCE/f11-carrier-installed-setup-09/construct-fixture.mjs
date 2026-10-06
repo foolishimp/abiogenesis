@@ -1,0 +1,2 @@
+// Pure publication materialization from the exact CLOSED fixture data and new archive coordinate.
+export function materializeFixturePublication(gtl,data,basis){return gtl.modulePublication({...data,artifactDigest:basis.artifactDigest,productContentDigest:basis.productContentDigest,productManifestDigest:basis.productManifestDigest??basis.manifestDigest,contributions:data.contributions.map(c=>({...c,provenanceRefs:[basis.artifactDigest,basis.productManifestDigest??basis.manifestDigest]}))});}

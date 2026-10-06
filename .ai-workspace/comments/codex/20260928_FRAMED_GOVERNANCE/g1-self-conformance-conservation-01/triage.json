@@ -1,0 +1,15 @@
+{
+  "expectedPreimageRefusal": "preimage.stdout",
+  "originatingRelation": "assessed() returned on missing root before folding admitted matching rows and citations",
+  "actualPreimageResult": "blocked_incomplete / J_required / evidenceRefs=[]",
+  "baseline": "all-present two-root inventory passed before the mixed assertion",
+  "repair": "filter matched rows, retain explicit missing-root finding, fold available failure first, keep partial non-failure blocked",
+  "unchanged": "assess filtering, canonical schemas/contracts, native admission, sole AF22 and scope semantics",
+  "sourceFrames": {
+    "ProductDesign": "SELF005/007A and accepted HOW require conservation",
+    "Integration": "precedence in existing pure aggregation",
+    "Identity": "exact existing matching and selection refs preserved",
+    "Effects": "only source/test plus owned stage; no Runtime",
+    "Proof": "component premises explicitly supplied; installed chain remains open"
+  }
+}

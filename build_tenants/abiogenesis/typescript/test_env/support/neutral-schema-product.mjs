@@ -47,7 +47,7 @@ export async function prepareNeutralSchemaProduct({
     ownerPublications.length !== 1 ||
     ownerPublications[0].publicationDigest !== product.modulePublicationSemanticDigest(abiPublication)
   ) {
-    throw new TypeError("ABI Hello publication differs from the verified owner manifest");
+    throw new TypeError("ABI worksite publication differs from the verified owner manifest");
   }
 
   const ids = deepFreezeJson({
@@ -81,13 +81,13 @@ export async function prepareNeutralSchemaProduct({
   const nodeValueKind = "neutral_schema_annotation_record";
   const overlayValueKind = "neutral_schema_annotation_composition";
   const sourceGraphFunctions = abiPublication.graphFunctions.filter(
-    (candidate) => candidate.name === gtl.HELLO_WORLD_IDS.graphFunctionRef,
+    (candidate) => candidate.name === gtl.WORKSITE_C0_IDS.graphFunctionRef,
   );
   const sourcePrograms = abiPublication.programs.filter(
-    (candidate) => candidate.programRef === gtl.HELLO_WORLD_IDS.programRef,
+    (candidate) => candidate.programRef === gtl.WORKSITE_C0_IDS.programRef,
   );
   if (sourceGraphFunctions.length !== 1 || sourcePrograms.length !== 1) {
-    throw new TypeError("neutral schema fixture requires unique ABI Hello declarations");
+    throw new TypeError("neutral schema fixture requires unique ABI worksite declarations");
   }
   const [sourceGraphFunction] = sourceGraphFunctions;
   const [sourceProgram] = sourcePrograms;
@@ -102,7 +102,7 @@ export async function prepareNeutralSchemaProduct({
     sourceGraphFunction.template.edges.length !== 0 ||
     !sourceProgram.callableMembership.includes(sourceGraphFunction.name)
   ) {
-    throw new TypeError("neutral schema fixture requires the exact single ABI Hello C leaf");
+    throw new TypeError("neutral schema fixture requires the exact single ABI worksite C leaf");
   }
   const graphFunction = {
     ...structuredClone(sourceGraphFunction),
@@ -132,7 +132,7 @@ export async function prepareNeutralSchemaProduct({
       edges: [],
       applications: [],
     },
-    tags: ["neutral-schema.example", "abi-owned-hello-leaf"],
+    tags: ["neutral-schema.example", "abi-owned-worksite-leaf"],
   };
   const program = {
     ...structuredClone(sourceProgram),
@@ -176,7 +176,7 @@ export async function prepareNeutralSchemaProduct({
             actorCapabilityRef: ids.interactionActorCapabilityRef,
             requestContractRef: sourceLeaf.inputCarrierRef,
             responseContractRef: sourceLeaf.outputCarrierRef,
-            continuationContractRef: gtl.HELLO_WORLD_IDS.transitionContractRef,
+            continuationContractRef: gtl.WORKSITE_C0_IDS.transitionContractRef,
           },
         }),
       }],

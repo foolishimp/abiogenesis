@@ -1,0 +1,26 @@
+[
+  {
+    "command": "./node_modules/.bin/tsc -p tsconfig.json",
+    "workingDirectory": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "log": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/build-01.log",
+    "logSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "note": "TypeScript compile and emit passed."
+  },
+  {
+    "command": "ABI5_GENERIC_JOB_BUILD_ROOT=/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript ODD_GLC_ABI5_SOURCE_BUILD_ROOT=/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript ODD_GLC_NATIVE_DECLARATION_ROOT=/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript node --experimental-vm-modules --test --test-name-pattern='native D2' test_env/tests/t287-native-semantic-revision.test.mjs /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+    "workingDirectory": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 1,
+    "log": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/focused-01.log",
+    "logSha256": "d8d0caf1fc83f6da44f9e4eed692504cfbc127d6e37ec1e666871eaafd9718d8",
+    "note": "Declaration check passed; component fixture retained its old lifecycleRef after switching to actual GLC declarations. Production was unchanged; fixed only fixture lifecycleRef."
+  },
+  {
+    "command": "ABI5_GENERIC_JOB_BUILD_ROOT=/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript ODD_GLC_ABI5_SOURCE_BUILD_ROOT=/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript ODD_GLC_NATIVE_DECLARATION_ROOT=/Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript node --experimental-vm-modules --test --test-name-pattern='native D2' test_env/tests/t287-native-semantic-revision.test.mjs /Users/jim/src/apps/odd_glc/build_tenants/odd_glc/typescript/test/full-sandbox.test.mjs",
+    "workingDirectory": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "exitCode": 0,
+    "log": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/correction-01/focused-02.log",
+    "logSha256": "2618807e9d13d383fbdce081d0a245c70b09b5e5121fc702aa0211fc8c76f80b",
+    "note": "2 tests passed, 0 failures, 0 skipped. No production changes after compile."
+  }
+]

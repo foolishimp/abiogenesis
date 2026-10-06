@@ -1,0 +1,344 @@
+{
+      "key": "data-mapper-full",
+      "constructionConstraints": [
+        "Frozen construction input, selected by the Executive on 2026-09-09; this is a shared interface contract supplied before every branch, not admitted predecessor output. Historical authority: odd_glc git 70580b93166b1f9e33b7622512c2d5bd442469e2, build_tenants/odd_glc/typescript/test/glc-software-build-overlay-live.test.mjs, data-mapper-full cdmeRequirements and derive_implementation_design_surface/qualify_component_realization_surface/derive_code_surface. Preserve all eight module responsibilities and real Spark SQL DataFrame execution; the exact signatures below are coherent construction choices for this run.",
+        "Every Worker receives this same contract and must implement only its listed branch targets. Dependency refs provide ABG readiness, not source content. Do not read another branch, invent a different shared signature, add undeclared source files, or return implementation bytes for another branch. Author all implementation and tests anew.",
+        "Build contract: Scala 2.13.12, Apache Spark SQL org.apache.spark %% spark-sql % 3.5.1, ScalaTest org.scalatest %% scalatest % 3.2.18 % Test, sbt.version=1.11.7. These dependency versions are present in the local cache. Define all eight named module directories, root aggregation, concern modules depending on cdme-core, and cdme-engine depending on all seven other modules. Make Spark SQL available at compile/runtime in core and transitively to consumers. Tests must fork and run sequentially with Spark UI disabled and local[1] sessions bound to 127.0.0.1. Keep project/plugins.sbt empty unless required by the test build; assembly is not the selected command.",
+        "Shared vocabulary is defined only in com.cdme.core, in its declared package.scala using package com.cdme; package object core. Export final case classes with these exact names and fields: MappingField(source: String, target: String, dataType: String); MappingSpec(fields: Vector[MappingField]); CompiledTopology(fields: Vector[MappingField]); DataFrameRef(dataFrame: org.apache.spark.sql.DataFrame); ExecutionResult(output: DataFrameRef, errors: DataFrameRef, inputCount: Long, outputCount: Long, errorCount: Long); StageResult(stage: String, success: Boolean, message: String); LedgerEntry(partition: String, count: Long); AccountingLedger(input: Long, output: Long, errors: Long). MappingField requires nonblank source/target and dataType in string, integer, double. Count DTOs reject negative counts; MappingSpec/CompiledTopology reject empty fields. AccountingLedger must permit a nonnegative imbalance so AccountingVerifier can report it.",
+        "com.cdme.compiler.TopologyCompiler is a final class with a public no-argument constructor and def compile(spec: com.cdme.core.MappingSpec, sourceSchema: Map[String, String]): Either[Vector[String], com.cdme.core.CompiledTopology]. It rejects missing source columns, mismatched declared source types, and duplicate target names, and returns the exact ordered mapping fields for a valid topology. compiler/package.scala may be an empty package object; shared DTOs remain owned by core.",
+        "com.cdme.executor.ErrorSink is a final class with a public no-argument constructor and def capture(invalid: org.apache.spark.sql.DataFrame): com.cdme.core.DataFrameRef. com.cdme.executor.DataFrameExecutor is a final class with a public no-argument constructor and def execute(input: org.apache.spark.sql.DataFrame, topology: com.cdme.core.CompiledTopology): com.cdme.core.ExecutionResult. Use actual Spark select/cast/filter transformations: string/integer/double correspond to Spark StringType/IntegerType/DoubleType. Missing source columns reject execution. A row is invalid when any mapped source is null or its cast is null; capture the original invalid rows through ErrorSink, rename/cast valid rows into target columns in mapping order, and record counts from the actual DataFrames. Never implement a collection-only Spark substitute.",
+        "com.cdme.adjoint.AdjointRegistry is a final class with a public no-argument constructor, def register(id: String, fields: Vector[com.cdme.core.MappingField]): Unit, and def inverse(id: String): Option[Vector[com.cdme.core.MappingField]]. Registration rejects blank ids, empty fields, and duplicate target names; inverse swaps each mapping's source and target while retaining dataType and order, and returns None for an unknown id.",
+        "com.cdme.accounting.AccountingVerifier is a final class with a public no-argument constructor and def verify(ledger: com.cdme.core.AccountingLedger): com.cdme.core.StageResult. success is true exactly when input == output + errors; imbalance returns success=false and a diagnostic message. com.cdme.assurance.AssuranceService is a final class with a public no-argument constructor and def assess(passed: Long, total: Long, minimumRatio: Double): com.cdme.core.StageResult. Require 0 <= passed <= total and 0 <= minimumRatio <= 1; ratio is passed/total, or 1 when total is zero; success means ratio >= minimumRatio.",
+        "com.cdme.fidelity.FidelityService is a final class with a public no-argument constructor and def score(expected: Vector[String], actual: Vector[String]): Double. Compute multiset intersection count divided by max(expected.size, actual.size), with both empty scoring 1. Duplicate values count by minimum multiplicity. Equal multisets score 1; missing, extra, or different elements score below 1.",
+        "com.cdme.engine.CdmeEngineImpl is a final class with a public no-argument constructor and def run(input: org.apache.spark.sql.DataFrame, spec: com.cdme.core.MappingSpec, sourceSchema: Map[String, String], minimumPassRatio: Double = 1.0): Either[Vector[String], com.cdme.core.ExecutionResult]. Call TopologyCompiler, DataFrameExecutor, AdjointRegistry, AccountingVerifier, AssuranceService, and FidelityService through the exact APIs above. Return Left diagnostics on failed compilation or any failed stage; return Right execution result only after balanced accounting, passing assurance, registered reversible lineage, and fidelity score 1 between declared target-column names and actual output-column names. Do not catch failure and return fabricated success.",
+        "com.cdme.engine.CdmeEngineRunner is an object with def main(args: Array[String]): Unit. Run a tiny real local Spark example through CdmeEngineImpl, stop Spark in finally, and print data_mapper_full_sbt ok only after Right. Tests must execute real implementation behavior, not declaration equality or expected-value stubs.",
+        "Use the exact eight declared ScalaTest class/package names so sbt test produces the exact required XML report paths. Each module spec must include at least three meaningful tests spanning positive behavior and refusal/boundary behavior; preserve at least 20 passing tests overall with zero failures/errors. Executor and engine tests must construct and inspect actual Spark DataFrames and stop sessions. Representative integration: rows (id=1,name=Ada),(id=2,name=Grace), fields id->identifier integer and name->label string, sourceSchema Map(id->integer,name->string), yields two rows with target columns identifier,label, zero errors, balanced ledger and successful engine result; unknown source/type mismatch must fail compilation, a null mapped input goes to the real error sink, and a threshold breach returns Left."
+      ],
+      "scenarioId": "SCN-GLC-DATA-MAPPER-FULL-SCALA-SBT",
+      "family": "data-mapper",
+      "subject": {
+        "id": "subject://odd-glc/data-mapper-full",
+        "text": "A Scala 2.13 and SBT multi-module CDME mapper covering typed mapping contracts, topology compilation, Spark DataFrame execution, adjoint lineage, accounting, assurance, fidelity, and integrated engine execution."
+      },
+      "action": {
+        "id": "action://odd-glc/data-mapper-full/construct-and-prove",
+        "text": "Build the eight-module Scala/SBT subject in the declared disjoint territories so sbt test exits zero, produces the exact eight XML reports with at least 20 passing tests and no failures or errors, and returns data_mapper_full_sbt ok; do not substitute JavaScript or Node subject code."
+      },
+      "territories": [
+        {
+          "id": "territory://odd-glc/data-mapper-full/config",
+          "paths": [
+            "build_tenants/scala_spark/build.sbt",
+            "build_tenants/scala_spark/project/plugins.sbt",
+            "build_tenants/scala_spark/project/build.properties"
+          ],
+          "dependsOn": []
+        },
+        {
+          "id": "territory://odd-glc/data-mapper-full/cdme-core",
+          "paths": [
+            "build_tenants/scala_spark/cdme-core/src/main/scala/com/cdme/core/package.scala",
+            "build_tenants/scala_spark/cdme-core/src/test/scala/com/cdme/core/CoreContractsSpec.scala"
+          ],
+          "dependsOn": [
+            "territory://odd-glc/data-mapper-full/config"
+          ]
+        },
+        {
+          "id": "territory://odd-glc/data-mapper-full/cdme-compiler",
+          "paths": [
+            "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/TopologyCompiler.scala",
+            "build_tenants/scala_spark/cdme-compiler/src/main/scala/com/cdme/compiler/package.scala",
+            "build_tenants/scala_spark/cdme-compiler/src/test/scala/com/cdme/compiler/TopologyCompilerSpec.scala"
+          ],
+          "dependsOn": [
+            "territory://odd-glc/data-mapper-full/config",
+            "territory://odd-glc/data-mapper-full/cdme-core"
+          ]
+        },
+        {
+          "id": "territory://odd-glc/data-mapper-full/cdme-executor",
+          "paths": [
+            "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/DataFrameExecutor.scala",
+            "build_tenants/scala_spark/cdme-executor/src/main/scala/com/cdme/executor/ErrorSink.scala",
+            "build_tenants/scala_spark/cdme-executor/src/test/scala/com/cdme/executor/DataFrameExecutorSpec.scala"
+          ],
+          "dependsOn": [
+            "territory://odd-glc/data-mapper-full/config",
+            "territory://odd-glc/data-mapper-full/cdme-core"
+          ]
+        },
+        {
+          "id": "territory://odd-glc/data-mapper-full/cdme-adjoint",
+          "paths": [
+            "build_tenants/scala_spark/cdme-adjoint/src/main/scala/com/cdme/adjoint/AdjointRegistry.scala",
+            "build_tenants/scala_spark/cdme-adjoint/src/test/scala/com/cdme/adjoint/AdjointRegistrySpec.scala"
+          ],
+          "dependsOn": [
+            "territory://odd-glc/data-mapper-full/config",
+            "territory://odd-glc/data-mapper-full/cdme-core"
+          ]
+        },
+        {
+          "id": "territory://odd-glc/data-mapper-full/cdme-accounting",
+          "paths": [
+            "build_tenants/scala_spark/cdme-accounting/src/main/scala/com/cdme/accounting/AccountingVerifier.scala",
+            "build_tenants/scala_spark/cdme-accounting/src/test/scala/com/cdme/accounting/AccountingVerifierSpec.scala"
+          ],
+          "dependsOn": [
+            "territory://odd-glc/data-mapper-full/config",
+            "territory://odd-glc/data-mapper-full/cdme-core"
+          ]
+        },
+        {
+          "id": "territory://odd-glc/data-mapper-full/cdme-assurance",
+          "paths": [
+            "build_tenants/scala_spark/cdme-assurance/src/main/scala/com/cdme/assurance/AssuranceService.scala",
+            "build_tenants/scala_spark/cdme-assurance/src/test/scala/com/cdme/assurance/AssuranceServiceSpec.scala"
+          ],
+          "dependsOn": [
+            "territory://odd-glc/data-mapper-full/config",
+            "territory://odd-glc/data-mapper-full/cdme-core"
+          ]
+        },
+        {
+          "id": "territory://odd-glc/data-mapper-full/cdme-fidelity",
+          "paths": [
+            "build_tenants/scala_spark/cdme-fidelity/src/main/scala/com/cdme/fidelity/FidelityService.scala",
+            "build_tenants/scala_spark/cdme-fidelity/src/test/scala/com/cdme/fidelity/FidelityServiceSpec.scala"
+          ],
+          "dependsOn": [
+            "territory://odd-glc/data-mapper-full/config",
+            "territory://odd-glc/data-mapper-full/cdme-core"
+          ]
+        },
+        {
+          "id": "territory://odd-glc/data-mapper-full/cdme-engine",
+          "paths": [
+            "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineImpl.scala",
+            "build_tenants/scala_spark/cdme-engine/src/main/scala/com/cdme/engine/CdmeEngineRunner.scala",
+            "build_tenants/scala_spark/cdme-engine/src/test/scala/com/cdme/engine/CdmeEngineIntegrationSpec.scala"
+          ],
+          "dependsOn": [
+            "territory://odd-glc/data-mapper-full/config",
+            "territory://odd-glc/data-mapper-full/cdme-core",
+            "territory://odd-glc/data-mapper-full/cdme-compiler",
+            "territory://odd-glc/data-mapper-full/cdme-executor",
+            "territory://odd-glc/data-mapper-full/cdme-adjoint",
+            "territory://odd-glc/data-mapper-full/cdme-accounting",
+            "territory://odd-glc/data-mapper-full/cdme-assurance",
+            "territory://odd-glc/data-mapper-full/cdme-fidelity"
+          ]
+        }
+      ],
+      "validationCommands": [
+        {
+          "id": "validation://odd-glc/data-mapper-full/tests",
+          "cwd": "build_tenants/scala_spark",
+          "command": "sbt",
+          "args": [
+            "test"
+          ],
+          "env": {
+            "JAVA_HOME": "/opt/homebrew/opt/openjdk@11",
+            "PATH_PREFIX": "/opt/homebrew/opt/openjdk@11/bin:/opt/homebrew/bin"
+          },
+          "timeoutMs": 780000,
+          "terminationGraceMs": 10000,
+          "expectedReports": [
+            {
+              "reportIdentity": "report://odd-glc/data-mapper-full/cdme-core",
+              "relativePath": "build_tenants/scala_spark/cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml"
+            },
+            {
+              "reportIdentity": "report://odd-glc/data-mapper-full/cdme-compiler",
+              "relativePath": "build_tenants/scala_spark/cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml"
+            },
+            {
+              "reportIdentity": "report://odd-glc/data-mapper-full/cdme-executor",
+              "relativePath": "build_tenants/scala_spark/cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml"
+            },
+            {
+              "reportIdentity": "report://odd-glc/data-mapper-full/cdme-adjoint",
+              "relativePath": "build_tenants/scala_spark/cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml"
+            },
+            {
+              "reportIdentity": "report://odd-glc/data-mapper-full/cdme-accounting",
+              "relativePath": "build_tenants/scala_spark/cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml"
+            },
+            {
+              "reportIdentity": "report://odd-glc/data-mapper-full/cdme-assurance",
+              "relativePath": "build_tenants/scala_spark/cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml"
+            },
+            {
+              "reportIdentity": "report://odd-glc/data-mapper-full/cdme-fidelity",
+              "relativePath": "build_tenants/scala_spark/cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml"
+            },
+            {
+              "reportIdentity": "report://odd-glc/data-mapper-full/cdme-engine",
+              "relativePath": "build_tenants/scala_spark/cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml"
+            }
+          ]
+        }
+      ],
+      "outcomePredicates": [
+        {
+          "id": "predicate://odd-glc/data-mapper-full/test-exit",
+          "kind": "process_exit",
+          "validationCommandId": "validation://odd-glc/data-mapper-full/tests",
+          "equals": 0
+        },
+        {
+          "id": "predicate://odd-glc/data-mapper-full/module-set",
+          "kind": "module_set_exact",
+          "selector": {
+            "source": "protected_paths",
+            "prefix": "build_tenants/scala_spark/",
+            "suffix": ".scala",
+            "segmentIndex": 0
+          },
+          "equals": [
+            "cdme-core",
+            "cdme-compiler",
+            "cdme-executor",
+            "cdme-adjoint",
+            "cdme-accounting",
+            "cdme-assurance",
+            "cdme-fidelity",
+            "cdme-engine"
+          ]
+        },
+        {
+          "id": "predicate://odd-glc/data-mapper-full/config-count",
+          "kind": "file_count",
+          "role": "build_config",
+          "selector": {
+            "source": "protected_paths",
+            "includeSubstrings": [],
+            "includeSuffixes": [
+              "/build.sbt",
+              "/plugins.sbt",
+              "/build.properties"
+            ]
+          },
+          "equals": 3
+        },
+        {
+          "id": "predicate://odd-glc/data-mapper-full/main-count",
+          "kind": "file_count",
+          "role": "scala_main",
+          "selector": {
+            "source": "protected_paths",
+            "includeSubstrings": [
+              "/src/main/scala/"
+            ],
+            "includeSuffixes": []
+          },
+          "equals": 11
+        },
+        {
+          "id": "predicate://odd-glc/data-mapper-full/test-source-count",
+          "kind": "file_count",
+          "role": "scala_test",
+          "selector": {
+            "source": "protected_paths",
+            "includeSubstrings": [
+              "/src/test/scala/"
+            ],
+            "includeSuffixes": []
+          },
+          "equals": 8
+        },
+        {
+          "id": "predicate://odd-glc/data-mapper-full/test-reports",
+          "kind": "test_report_set_exact",
+          "base": "build_tenants/scala_spark",
+          "selector": {
+            "includeSubstrings": [
+              "/target/test-reports/TEST-"
+            ],
+            "includeSuffixes": [
+              ".xml"
+            ]
+          },
+          "equals": [
+            "cdme-core/target/test-reports/TEST-com.cdme.core.CoreContractsSpec.xml",
+            "cdme-compiler/target/test-reports/TEST-com.cdme.compiler.TopologyCompilerSpec.xml",
+            "cdme-executor/target/test-reports/TEST-com.cdme.executor.DataFrameExecutorSpec.xml",
+            "cdme-adjoint/target/test-reports/TEST-com.cdme.adjoint.AdjointRegistrySpec.xml",
+            "cdme-accounting/target/test-reports/TEST-com.cdme.accounting.AccountingVerifierSpec.xml",
+            "cdme-assurance/target/test-reports/TEST-com.cdme.assurance.AssuranceServiceSpec.xml",
+            "cdme-fidelity/target/test-reports/TEST-com.cdme.fidelity.FidelityServiceSpec.xml",
+            "cdme-engine/target/test-reports/TEST-com.cdme.engine.CdmeEngineIntegrationSpec.xml"
+          ]
+        },
+        {
+          "id": "predicate://odd-glc/data-mapper-full/test-count",
+          "kind": "test_pass_count",
+          "validationCommandId": "validation://odd-glc/data-mapper-full/tests",
+          "greaterThanOrEqual": 20
+        },
+        {
+          "id": "predicate://odd-glc/data-mapper-full/report-failures",
+          "kind": "test_report_failure_count",
+          "equals": 0
+        },
+        {
+          "id": "predicate://odd-glc/data-mapper-full/report-errors",
+          "kind": "test_report_error_count",
+          "equals": 0
+        }
+      ],
+      "allowedEvidenceWrites": [
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/scala_spark/target"
+        },
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/scala_spark/project/target"
+        },
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/scala_spark/project/project"
+        },
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/scala_spark/cdme-core/target"
+        },
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/scala_spark/cdme-compiler/target"
+        },
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/scala_spark/cdme-executor/target"
+        },
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/scala_spark/cdme-adjoint/target"
+        },
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/scala_spark/cdme-accounting/target"
+        },
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/scala_spark/cdme-assurance/target"
+        },
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/scala_spark/cdme-fidelity/target"
+        },
+        {
+          "pathKind": "subtree",
+          "relativePath": "build_tenants/scala_spark/cdme-engine/target"
+        }
+      ],
+      "forbiddenPaths": [
+        "package.json",
+        "src/logical-data-model.mjs",
+        "test/component/logical-data-model.test.mjs",
+        "test/uat/logical-data-model.uat.test.mjs"
+      ]
+    }

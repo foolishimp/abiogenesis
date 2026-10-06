@@ -31,7 +31,7 @@
 - **Dependencies**: completed T-222 design pack; existing M02 Module lookup and
   M03 runtime-registry/event admission
 - **Explicit exclusions**: static product publication, generated schemas,
-  publisher-authored Hello World, executable public SDK, `abg.cli`, packed
+  externally authored minimal language tests, executable public SDK, `abg.cli`, packed
   consumer proof, live sandbox, public GraphFunction invocation proof, result
   and replay adapters, later public operations, node-type application, overlay
   application, product mutation lifecycle, and all self-hosting or full-5.0
@@ -704,9 +704,9 @@ session-visible, or catalog presence into callable runtime authority.
 | Public SDK operation execution | Foundation functions and carriers exist, but the one source-blind SDK dispatcher and exact context selection are not in this checkpoint | T-223 continuation | SDK delegates admitted operations to these boundaries without reconstructing meaning |
 | `abg.cli` | Thin CLI adapter is intentionally later than the SDK contract | T-223 continuation | CLI parses and delegates to the same SDK operations with equivalent outcomes |
 | Bound-catalog public assembly | M03 accepts an exact `BoundCatalogAdmissionBatch`; public assembly from the workspace binding, lock, verified sidecars, and contribution rows is not part of this checkpoint | T-223 continuation | SDK constructs and admits the batch from exact installed/bound truth without test-only inventory |
-| Publisher-authored Hello World | Needed to prove source-blind Module and GraphFunction consumption, but no fixture is published at this checkpoint | T-223 continuation | Packed declaration-only fixture installs, binds, admits, and invokes |
+| External minimal language test | Needed to prove ordinary supplied Module/GraphFunction consumption; its declarations, leaf and oracle stay outside the ABG package | Installed proof owner | Exact installed generic route invokes the test-owned Program; no test Product or built-in solution |
 | Public GraphFunction invocation, result, and replay | M03 execution binding is prepared, but this checkpoint does not prove public invocation or read adapters | T-223 continuation | Selected admitted GraphFunction enters the existing M03 runner and projects typed result/replay truth |
-| Packed deterministic and live qualification | Unit behavior is present; release-shaped installed proof and one live sandbox are not | T-223 continuation | Packed SDK and CLI Hello World plus bounded malformed and live differentials pass |
+| Packed deterministic and live qualification | Unit behavior is present; release-shaped installed proof and one live sandbox are not | T-223 continuation | External minimal program through installed SDK and CLI plus bounded malformed and live differentials pass |
 | Node-type and overlay application semantics | DS-1 retains list/describe/non-callability only; application law is separate | T-179 and T-228 | Separate admitted application contracts and proof exist |
 | Remaining public operation and capability families | DS-1 foundation is a partial public-product slice and must not imply the full 5.0 contract | Later 5.0 delivery phases | Each owning phase supplies accepted three-view design and implementation proof |
 | Update, disable, unbind, uninstall, retirement, revocation, and hosted marketplace behavior | Explicitly outside initial 5.0 distribution scope | Future product reprice | Concrete demand and constitutional admission |

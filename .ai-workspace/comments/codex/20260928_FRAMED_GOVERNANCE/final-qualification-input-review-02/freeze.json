@@ -1,0 +1,126 @@
+{
+  "status": "CLOSED",
+  "activation": "T287_FINAL_QUALIFICATION_INPUT_REVIEW_02",
+  "reviewer": "/root/f11_attribution_inputs",
+  "writer": "T287_FINAL_QUALIFICATION_INPUT_REVIEW_02_REPORT",
+  "verdict": "LIMITED",
+  "return": {
+    "path": "return.md",
+    "bytes": 11189,
+    "sha256": "efc3c78510fed8c40e7dc5426c7b9c80ac97193d16d09b3f72e34662a997c10d"
+  },
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 1021,
+      "sha256": "0208cec0096205dc65712cda6a6f5e19518e8f562497bcff2584051b411f7f0f"
+    },
+    {
+      "path": "authority-observations.json",
+      "bytes": 32218,
+      "sha256": "34c27417f5a7c2c14700319d0ead31a1a50731024ecdb9e49ee4b330e9446eab"
+    },
+    {
+      "path": "controls/joined-request.txt",
+      "bytes": 5879,
+      "sha256": "233503632736e2782253f370a0f575b925b096e4bf273b3756010670fde72862"
+    },
+    {
+      "path": "controls/request-sections.json",
+      "bytes": 6150,
+      "sha256": "b67e9d0c6a4d173fb41c7442ce1d8083ce280722cba12a10b63fd5032a97fe7a"
+    },
+    {
+      "path": "controls/request.txt",
+      "bytes": 5879,
+      "sha256": "233503632736e2782253f370a0f575b925b096e4bf273b3756010670fde72862"
+    },
+    {
+      "path": "costs-summary.json",
+      "bytes": 599,
+      "sha256": "973228f66b2e11a805df29baf115501041a6cb761ff04f1f894d741316e29fe2"
+    },
+    {
+      "path": "disposition.json",
+      "bytes": 864,
+      "sha256": "6188f7016d5db1eccfd7af305fd07917315126e349feb12030cb6a692406ea7a"
+    },
+    {
+      "path": "final-review-group.py",
+      "bytes": 10061,
+      "sha256": "94372deeee9397785d6cf1577d2d415d5920584f91b099ed9e1668acc83f4447"
+    },
+    {
+      "path": "independent-correspondence-checks.json",
+      "bytes": 6177,
+      "sha256": "42de3287508c8818756b86116d0c1b5e409ac2dfe691b44be22eefdefb9a851f"
+    },
+    {
+      "path": "inspected-source-controls.json",
+      "bytes": 34071,
+      "sha256": "502e0d66c2be0aec18d7c42a7433fe0dfb6a46f18102bcaef3ad2d1d3d57fb58"
+    },
+    {
+      "path": "owner-check-process.json",
+      "bytes": 88,
+      "sha256": "c9de5b05f5b3bad2d564380f9ec3dd434e0824fd812be1c5cdf7d2b543035f59"
+    },
+    {
+      "path": "owner-checks.json",
+      "bytes": 341249,
+      "sha256": "1673ec6e62a732ef287ad6554c24425a1546eca9c6d64e362ff3a4e2c34fc9b8"
+    },
+    {
+      "path": "owner-checks.mjs",
+      "bytes": 7342,
+      "sha256": "7c9623fc0ee01a0236698fa4a387970896da45cbe0ee2e609f09bb44e1f976cb"
+    },
+    {
+      "path": "owner-checks.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "owner-checks.stdout",
+      "bytes": 2098,
+      "sha256": "4b78b25ed6cb2c575e8d5135feaeb081325e8651da99de84f72e99e9400763e8"
+    },
+    {
+      "path": "pre-report-records.json",
+      "bytes": 2584,
+      "sha256": "8f07a6e689d6f437176f79ef1cbfbf0063647d1d0b90f175bfb4a9e120e4dd19"
+    },
+    {
+      "path": "return.md",
+      "bytes": 11189,
+      "sha256": "efc3c78510fed8c40e7dc5426c7b9c80ac97193d16d09b3f72e34662a997c10d"
+    },
+    {
+      "path": "review-group-1.json",
+      "bytes": 2300,
+      "sha256": "a6fe3e660bbd56d8af7b77c5c65a3cc8de02d0342e7291d04fd8fdc4701be5b1"
+    },
+    {
+      "path": "review-group-3.json",
+      "bytes": 261,
+      "sha256": "bda6e405b64b63fd1362c7b5e537939fe9eef7156ebd03ec70ef3e2efb1e79c9"
+    },
+    {
+      "path": "review-harness-error.json",
+      "bytes": 781,
+      "sha256": "3dfaa0c6d428f360794794b22d303ca90f6a40201604eb46bb5cad88a7053469"
+    }
+  ],
+  "subject": {
+    "Q02FreezeSha256": "a4c2b5afd94fd7402b6bbfc732e691eb345dbcf4334a0300de490f607b9aad79",
+    "C02FreezeSha256": "7256ca2e716e73912f4937fdddc6d8a980a217ecf965cac1512ba5162dac4469",
+    "Q01FreezeSha256": "0a386fd10e1067abb3f09ba4d7f115b56593045ca0d0d1aa272fb7fcc0a46bbe"
+  },
+  "candidateCounterexamplesEstablished": 0,
+  "coverageLimitsPreserved": true,
+  "nativeEffects": 0,
+  "sourceEffects": 0,
+  "readCheckProcessGroups": 3,
+  "hashBasis": "Existing records observed by final read/check group; pre-report manifest and final Writer files bound by exact deterministic supplied bytes. No fourth disk-read check claimed.",
+  "stop": "Reviewer and report Writer CLOSED; Root owns disposition."
+}

@@ -1,0 +1,7 @@
+CLOSED — GO_FIXTURE_BOUNDARY_COVERAGE_ONLY
+
+G3 repaired only the three test fixtures. Each supplied counterfactual data set now passes the canonical immutable-snapshot/admission-prefix owner and actual parent native-state projector before the exact alias refusal: missing sub_traversal evidence, crossed child graphCallId, or missing exact child Result ref/digest. All return null without exceptions. Authentic retained parent body-reference/direct-child same-original-J positive, historical preimage refusal, cursor/GraphFunction and lower-premise competing-producer assertions remain passing.
+
+One supervised focused test passed in 8063.296 ms, exit 0, RSS 1064861696 B, wait4 reaped, owned process group absent, default heap/HOME. No compilation: the exact prior successful 726-record stage was copied and verified unchanged. All 753 predecessor records remain unchanged. Production qualification_proof.ts stays 82284 B / b928caefff4aa9bbd5e3e0d6fdb65f4a9617d54b3df817df287975825d36c9e5. Test postimage is 15438 B / 4e6ce1f8049017be0d480d71052bf4066e5c8c0fda669f3cd2611df250c179f8, mode0644.
+
+Declaration/resource lookup and synthetic competition admission remain explicit lower premises. Negative reads are immutable counterfactual data, never authentic newly admitted cryptographic evidence. Full resource semantics, successor construction, independent assurance and installed J/F11/AF22 proof remain separate. No Runtime/provider/qualification credit. Root alone selects consuming review/successor/proof. Writes stop after this freeze.

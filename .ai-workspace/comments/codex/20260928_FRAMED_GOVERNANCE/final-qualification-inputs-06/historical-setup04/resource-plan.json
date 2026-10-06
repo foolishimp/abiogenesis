@@ -1,0 +1,9 @@
+{
+  "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04/resources/events/runtime.events.jsonl",
+  "rootsConfinedTo": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-04",
+  "neverAppend": [
+    "any old Runtime01-03 event store",
+    "all prior Q/N/S/Hello/candidate stores"
+  ],
+  "F11TaskRun": "STOPPED"
+}

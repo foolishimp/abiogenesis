@@ -1,0 +1,18 @@
+{
+  "command": [
+    "node",
+    "--experimental-vm-modules",
+    "--test",
+    "--test-name-pattern=actual derived revision successor|assessment-first actual successor|opaque",
+    "test_env/tests/t288-instruction-assembly-owner.test.mjs"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "env": {
+    "ABI5_NATIVE_D2_DESIGN_DIRECTORY": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01",
+    "ABI5_NATIVE38_DIRECTORY": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/native38-continuation-01",
+    "ABI5_ASSESSMENT_SUCCESSOR_OUTPUT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/assessor-preparation-repair-01/implementation-01/derived-successor.json",
+    "ABI5_ASSESSMENT_MEASUREMENT_OUTPUT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260926_CALCULUS_CROSSCUT/context-01/measurement.json"
+  },
+  "exitCode": 0,
+  "elapsedSeconds": 1.9416045830585063
+}

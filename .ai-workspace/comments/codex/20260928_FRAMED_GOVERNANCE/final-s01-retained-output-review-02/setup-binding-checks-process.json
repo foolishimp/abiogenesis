@@ -1,0 +1,14 @@
+{
+  "process": "setup-binding-checks",
+  "command": [
+    "node",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-02/setup-binding-checks.mjs"
+  ],
+  "elapsedMs": 138.39050009846687,
+  "exitCode": 1,
+  "timedOut": false,
+  "ownedGroupSignals": [],
+  "stdout": "setup-binding-checks.stdout",
+  "stderr": "setup-binding-checks.stderr",
+  "nativeCalls": 0
+}

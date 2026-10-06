@@ -1,0 +1,53 @@
+{
+  "pins": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/self_conformance.ts",
+      "bytes": 29197,
+      "sha256": "9f8dff75486cde4d6cb704ee2d816a09c21d7a00aaed7ecc8fa589243b94b3f3",
+      "mode": "0o644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "bytes": 82284,
+      "sha256": "b928caefff4aa9bbd5e3e0d6fdb65f4a9617d54b3df817df287975825d36c9e5",
+      "mode": "0o644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "bytes": 40019,
+      "sha256": "8d5cfcdf111641bb4ee651ea8ebb772a9e217de333a4c075f2fcde5e7d300a6d",
+      "mode": "0o644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-parent-alias.test.mjs",
+      "bytes": 12541,
+      "sha256": "56e2528757735d212be455383d651f47e05bc29dff38b02d5365267e7090ff51",
+      "mode": "0o644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "bytes": 9923,
+      "sha256": "b01fad9ad6e172420abf9996f5d630122d914eb9a1fc6ea54b46bf64be60e396",
+      "mode": "0o644"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_F11_REUSABLE_QUALIFICATION_LIBRARY_TARGET_DESIGN.md",
+      "bytes": 26624,
+      "sha256": "7e8b887eaf0c73187cdfdb72ec157500ef5ca383087a69c5242cf4590efe3cd4",
+      "mode": "0o644"
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-reusable-qualification-library-design-01/gap-analysis.md",
+      "bytes": 11111,
+      "sha256": "b226a3a4ec93953a632d6de7ac25a1fd4541a1ed379aa83554f3ce35d0251e6d",
+      "mode": "0o644"
+    }
+  ],
+  "git_status_sha256": "75ceaae3ddaefacff088ea29c4a2d76fc5d90303442c20c1de8b3669fbf0b73f",
+  "status_rows": 1142,
+  "new_test_absent": true,
+  "atIntake31PinsUnchanged": true,
+  "priorPins": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-reusable-qualification-library-design-01/subject-pins.json",
+  "stdoBasis": "stdo://releases/v2.5.1-rc.2/",
+  "stdoManifest": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+}

@@ -1,0 +1,14 @@
+{
+  "status": "ACCEPTED_BOUNDED_SOURCE",
+  "actor": "/root",
+  "role": "Executive_decision_recorded_by_separate_Writer",
+  "sourceFreeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/native-declaration-applicability-realization-01/freeze.json",
+  "sourceSha256": "fe58a7afafa96fcfe091e69b479983b286efc0dece820eac495039e81d501d89",
+  "independentReview": "CLOSED_GO",
+  "rootRecordsVerified": 8663,
+  "sourcePostimagesVerified": 3,
+  "installedNativeComposition": null,
+  "F11": null,
+  "qualification": null,
+  "publication": null
+}

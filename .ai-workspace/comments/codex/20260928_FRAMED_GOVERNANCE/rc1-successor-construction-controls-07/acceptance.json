@@ -1,0 +1,58 @@
+{
+  "status": "ACCEPTED_BOUNDED_SOURCE_ONLY",
+  "decider": "Root Executive",
+  "recordingRole": "T287_RAW_CONTRACT_ACCEPTANCE_AND_C07_CONSTRUCTION_GRANT_01",
+  "sourceFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/qualification-raw-contract-realization-01/freeze.json",
+    "bytes": 1928995,
+    "sha256": "c97230b250baf64201468a6d4fce42e190a248c671cd0e82b75467f339f4d762",
+    "mode": 420
+  },
+  "independentSourceReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-raw-contract-source-assurance-controls-01/review/freeze.json",
+    "bytes": 1919,
+    "sha256": "5067d27eb138681222bd8a0a63d1cc369aabe4ff6abb901c018a4d536b1b5e93",
+    "mode": 420
+  },
+  "RootVerification": {
+    "sourceRecords": 6550,
+    "sourceRegularBytes": 150983800,
+    "sourceDirectories": 656,
+    "sourceLinks": 2,
+    "sourceCompleteCensus": "matches",
+    "reviewRecords": 5,
+    "reviewBytes": 82171,
+    "canonicalPostimages": "exact",
+    "errors": []
+  },
+  "reentry": "realization_refactor",
+  "acceptedRelation": "F_P qualification producer publishes existing assessmentRaw through abg.raw_result_contract; actual resolver/verifier component regression18 cases passes. Supplied lower admission/content premises remain supplied.",
+  "sourceAndTestAuthor": "/root/q03_input_review under T287_QUALIFICATION_RAW_CONTRACT_PUBLICATION_REALIZATION_01",
+  "unmodified": "generic declaration closure, schema/verifier/guards, APIs, F_D/F_H, wrapper and accepted WHAT/HOW",
+  "notAccepted": [
+    "new Product installation/admission",
+    "new completed Run or child J/foldback",
+    "semantic F11",
+    "QUAL056",
+    "AF22 green",
+    "release"
+  ],
+  "preservedFailedCut": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-07/final-runtime-freeze.json",
+    "bytes": 49360,
+    "sha256": "227997c8c1d4307151af57109efce0dcaeab4b1a288c0d83a44c56e414b147f2",
+    "mode": 420
+  },
+  "next": "C07 exact construction then independently reviewed actual install/current input/whole installed wrapper-child proof",
+  "providerReachability": {
+    "at": "2026-10-02T09:26:37.716007+00:00",
+    "sandboxNetworkDisabled": "1",
+    "unauthenticated": true,
+    "exitCode": 6,
+    "httpCode": "000",
+    "remoteIp": "",
+    "reason": "Could not resolve host api.anthropic.com",
+    "loginFailureEstablished": false,
+    "inference": false
+  }
+}

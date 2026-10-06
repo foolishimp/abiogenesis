@@ -1,0 +1,41 @@
+{
+  "operation": "T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01",
+  "actor": "/root/native_applicability_design",
+  "role": "Worker",
+  "status": "CLOSED_STOPPED_FIRST_PAYLOAD_FAILURE",
+  "oneChangedOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/serialization_contracts.ts",
+    "bytes": 18277,
+    "sha256": "3205a8184b2290de347002122116e8903258bcbc645c3743b4330d773dc27b67"
+  },
+  "other14SourceUnchanged": true,
+  "priorFailedFreezeSHA256": "288b62709514be9d112bd1b73496aa874b3376e1406bb17f2e61478ab455515d",
+  "acceptedHOW": "e88c318b398107e1d007ad2f109bf93ad01b064de5a5b5f0c9ac97801b90a901",
+  "SourceCompile": "PASS",
+  "manifest": "FAILED at reused STDO environment regex action",
+  "packAndFocusedConsumer": "NOT_RUN",
+  "cost": {
+    "childElapsedMs": 8097.569790668786,
+    "userCPUSeconds": 11.423713999999999,
+    "systemCPUSeconds": 0.39951099999999995,
+    "peakRSSPlatformBytes": 1160871936,
+    "commandsExecuted": 2,
+    "compileAttempts": 1,
+    "manifestAttempts": 1,
+    "packs": 0,
+    "focusedTestRuns": 0,
+    "RuntimeCalls": 0,
+    "Runs": 0,
+    "providerCalls": 0
+  },
+  "knownGroupsClosed": true,
+  "unknowns": [
+    "actual optional-subowner schema projection including relativePath check",
+    "native/API/corpus/roundtrip/packed consumer proof",
+    "four drift maps/adjunct and other required Public content",
+    "installed/genuine qualification/F11/AF22/RC1"
+  ],
+  "firstFailure": "/Users/jim/src/apps/abiogenesis/.ai-workspace/evidence/T287_G2_GTL_CORE_CANONICAL_SCALAR_CONTINUATION_01/failure.json",
+  "SourceEffectsStopped": true,
+  "closedAtUTC": "2026-10-04T06:34:38.795881+00:00"
+}

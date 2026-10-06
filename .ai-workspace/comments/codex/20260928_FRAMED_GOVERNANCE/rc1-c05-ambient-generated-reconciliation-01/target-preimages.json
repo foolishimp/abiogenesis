@@ -1,0 +1,41 @@
+[
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/install_product.js",
+    "bytes": 14359,
+    "sha256": "772a8171c1d74cb43dfff250464a83edfdc4f729cee35c0fad849fe9ace5428d",
+    "mode": 420,
+    "relativePath": "build/code/src/product/install_product.js",
+    "donor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/build/code/src/product/install_product.js",
+      "bytes": 14488,
+      "sha256": "897785dc428d82a00cbe641791dc050a69606930e4ed6c7e132b5a3d81ae76c1",
+      "mode": 420
+    }
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "bytes": 197474,
+    "sha256": "79ab564f42589c119cc7bc501c0776c0b325cd4a83b22e118957878d9039a2c6",
+    "mode": 420,
+    "relativePath": "contracts/capabilities/capability-definition-graph.json",
+    "donor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "0d9b18a13510b3880d12af6e8a2f9e81b7cd3d3e22dccb850ddea2e51eae8f4c",
+      "mode": 420
+    }
+  },
+  {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 2567514,
+    "sha256": "6862a7882cf7a457c1e79207aa78001e8d1742efbed38a34ddfaee297663e88d",
+    "mode": 420,
+    "relativePath": "product-toolchain-manifest.json",
+    "donor": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-05/final-stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2567514,
+      "sha256": "87c8ccc41d4a6129cc01bf7b15dbd9673073e4672d359595b4df3d36b7b30f2c",
+      "mode": 420
+    }
+  }
+]

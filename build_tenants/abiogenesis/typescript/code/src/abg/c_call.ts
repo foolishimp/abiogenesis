@@ -1,4 +1,5 @@
 import { parseNativeWorkspaceAssessmentResult } from "../product/native_workspace_assessment.js";
+import type { ResultEvidenceLineageSource } from "./result_evidence_lineage_contracts.js";
 import { rehydrateConstructionIntentForCursorAtPrefix } from "./traversal_route.js";
 import type { ChildFoldbackInput } from "./graph_application.js";
 import type {
@@ -682,20 +683,13 @@ export interface RehydratedPendingInteraction {
   readonly requestDigest: Sha256Digest;
 }
 
-export interface AdmittedCCallEvidence {
+interface AdmittedCCallEvidenceDetails {
   readonly kind: "admitted_c_call_evidence";
   readonly schemaVersion: "5.0.0";
   readonly disposition: "admitted";
   readonly evidenceRef: string;
   readonly evidenceDigest: Sha256Digest;
   readonly cCallRef: string;
-  readonly evidenceClass:
-    | "deterministic"
-    | "interaction_request"
-    | "probabilistic_transport"
-    | "undispatched_owner_refusal"
-    | "worksite_file_replace"
-    | "sub_traversal";
   readonly contractRef: string;
   readonly implementationRef: string | null;
   readonly inputDigest: Sha256Digest;
@@ -707,23 +701,13 @@ export interface AdmittedCCallEvidence {
   readonly candidateRef?: string | null;
   readonly candidateDigest?: Sha256Digest | null;
   readonly requestRef?: string;
-  readonly requestDigest?: Sha256Digest;
   readonly rawOutputDigest?: Sha256Digest;
-  readonly actorInvocationRef?: string;
-  readonly actorRef?: string;
-  readonly workerBindingRef?: string;
   readonly processRef?: string;
-  readonly transportBindingRef?: string;
-  readonly transportBindingDigest?: Sha256Digest;
   readonly materializationPlanRef?: string;
   readonly rendererRef?: string;
   readonly instructionContractRef?: string;
   readonly resultContractRef?: string;
-  readonly promptDigest?: Sha256Digest;
-  readonly transportDigest?: Sha256Digest;
   readonly transportLane?: "closed_prompt_proof" | "worker_executes";
-  readonly transportDisposition?: "failure" | "success";
-  readonly transportFailureClass?: string | null;
   readonly processStatus?: number | null;
   readonly processSignal?: string | null;
   readonly timeoutClass?: "absolute" | "inactivity" | null;
@@ -759,6 +743,13 @@ export interface AdmittedCCallEvidence {
   readonly successorObservation?: WorksiteObservation;
   readonly admissionEventRef: string;
 }
+
+export type AdmittedCCallEvidence =
+  AdmittedCCallEvidenceDetails & ResultEvidenceLineageSource;
+
+type AdmittedCCallEvidenceBody = Omit<AdmittedCCallEvidenceDetails,
+  "kind" | "schemaVersion" | "disposition" | "evidenceRef" | "evidenceDigest" | "admissionEventRef"
+> & ResultEvidenceLineageSource;
 
 export interface AdmittedCCallResult {
   readonly kind: "admitted_c_call_result";
@@ -5836,7 +5827,7 @@ export function planPendingInteractionAdmission(
     evidenceDigest,
     ...evidenceBody,
     admissionEventRef: evidenceEvent.eventId,
-  }) as AdmittedCCallEvidence;
+  }) satisfies AdmittedCCallEvidence;
   const resultEvent = project({
     kind: "c_call_result_admitted",
     eventTime: basis.eventTime,
@@ -6402,7 +6393,7 @@ function admitEvidenceUsingTransport(
       "diagnostic://abiogenesis/c-call/evidence-contract-mismatch@5",
     );
   }
-  const body = candidate.kind === "deterministic_evidence_candidate" ? {
+  const body = (candidate.kind === "deterministic_evidence_candidate" ? {
     cCallRef: cCall.cCallRef,
     evidenceClass: "deterministic" as const,
     contractRef,
@@ -6495,7 +6486,7 @@ function admitEvidenceUsingTransport(
     childClosureRef: candidate.childClosureRef,
     childReasonRef: candidate.childReasonRef,
     childTerminalEventRef: candidate.childTerminalEventRef,
-  };
+  }) satisfies AdmittedCCallEvidenceBody;
   const evidenceDigest = sha256Canonical(body as unknown as JsonValue);
   const evidenceRef = `evidence://abiogenesis/${evidenceDigest.slice("sha256:".length)}`;
   const prior = owner.rows.at(-1)!;
@@ -6541,7 +6532,7 @@ function admitEvidenceUsingTransport(
     evidenceDigest,
     ...body,
     admissionEventRef: event.eventId,
-  }) as AdmittedCCallEvidence;
+  }) satisfies AdmittedCCallEvidence;
   return admitted;
 }
 

@@ -1,0 +1,57 @@
+{
+  "status": "INTAKE_COMPLETED_FRESH_PUBLIC_READBACK_AGREES_SUFFIX_PENDING",
+  "run": {
+    "digest": "sha256:efb98a726642b9aab25bf79a2f57f058e4ff94efdaaded5b68f7070a82f7f012",
+    "ref": "run://abiogenesis/0299674bb043a50dd940c2d800bbde87cd4e954371723b42f16ea836af032cf9"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:ff8d745573358e3cfe224e3f3208d8b8491902aff99bbec7330d7baf7c733d55",
+    "eventLogRef": "file:///Users/jim/src/apps/odd_glc/.ai-workspace/comments/codex/20260924_HELLO_PROJECT_BASELINE/full-native-remaining-01/parallel-core18-preparation-01/resources/js-sdlc-bootstrap/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:96eafbcbdd4afb06753ae36741c7fd00003dbf8fdff8b4f5154a523cfe26cf57",
+    "prefixLength": 411082308,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777230,
+      "eventContractDigest": "sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0",
+      "inode": 459405010
+    }
+  },
+  "selectionChoice": {
+    "entryRole": "assessor",
+    "mode": "stage_revision",
+    "selectedStageRef": "stage://odd-glc/generic-lifecycle/design@5"
+  },
+  "selected": {
+    "programRef": "program://odd-glc/native-semantic-revision/from-design-assessment@5",
+    "startRef": "program://odd-glc/native-semantic-revision/from-design-assessment@5/start",
+    "graphFunctionRef": "graph-function://odd-glc/native-semantic-revision/from-design-assessment@5"
+  },
+  "phases": {
+    "provision_and_prepare": {
+      "wallSeconds": 68.41,
+      "userSeconds": 76.14,
+      "sysSeconds": 6.61,
+      "maximumResidentBytes": 4943314944
+    },
+    "root_and_reprice": {
+      "wallSeconds": 66.32,
+      "userSeconds": 71.06,
+      "sysSeconds": 2.88,
+      "maximumResidentBytes": 4517642240
+    },
+    "native_intake": {
+      "wallSeconds": 149.53,
+      "userSeconds": 75.33,
+      "sysSeconds": 7.65,
+      "maximumResidentBytes": 3984064512
+    },
+    "fresh_public_reads": {
+      "wallSeconds": 57.97,
+      "userSeconds": 58.9,
+      "sysSeconds": 2.93,
+      "maximumResidentBytes": 2400452608
+    }
+  },
+  "limits": "Retained-history continuation, not fresh scenario setup; actor/tool time not isolated; no 5.0 completion claim."
+}

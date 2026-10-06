@@ -314,13 +314,17 @@ the new library; it does not claim to delete them or audit external callers.
 Ordered semantic-job code remains an existing optional path and is not used by
 the new library. No retired odd_glc planner is restored.
 
-## Small route to the independent Hello witness
+## Small route to the independent application test
 
-A separate consumer authors original Hello source, acceptance criteria and a
+A separate consumer authors a minimal application source, acceptance criteria and a
 prospective counterevidence case before execution. It selects the installed
 library and its allowed callable subset, worksite/effect scope, source assets,
 frames, bounds and oracle; it supplies no solution or expected graph schedule.
-The library contains no Hello-specific text, file output, command or branch.
+Application contracts, expected outputs and any ordinary test leaf binding stay
+outside ABIogenesis production source and package. Hello World is a minimal
+language test, never a library capability or Product. The generic library and
+runtime have no application-specific text, file output, command, admission,
+proof or dispatch branch.
 
 One installed Public start lets the Executive choose applicable work. Native
 construction must create actual sandbox files; Testing must execute actual
@@ -337,7 +341,7 @@ Public Result/replay and exact installed-source/archive identities.
 Before that live thread, check publication/closure, generic task conservation,
 selected missing context, unknown capability gap, native scope and independent
 assessment correspondence. Reuse accepted S2–S4 refusal/native/recursion proof
-where unchanged. Use one small live library-to-Hello composition discriminator,
+where unchanged. Use one small live library-to-application composition discriminator,
 not seven independent label-qualification campaigns. Explicit closed-rule versus
 F_P and frame/criterion selection checks remain bound to the Product witness;
 publication coverage alone earns no runtime or release claim.

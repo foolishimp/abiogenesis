@@ -1,0 +1,52 @@
+{
+  "role": "Independent Reviewer",
+  "activation": "Root explicit installed-identity check and reviewer-only output grant",
+  "status": "STOPPED",
+  "frameResult": "falsified_post_Run_installed_identity_acceptance_relation",
+  "finding": {
+    "id": "HARNESS-03",
+    "severity": "S2",
+    "relation": "No unconditional trusted-bootstrap physical content check of both admitted installs after native work before installed reads/imports or uatPass"
+  },
+  "candidateFreezeSHA256": "7a98cfef9c16122b5705adb1cc151f7a3674452a4fc7bd32034106a73df83930",
+  "allCandidateAndRetainedEvidencePinsStillMatch": true,
+  "previousSnapshotReviewPreserved": true,
+  "ownerAPI": "trustedBootstrap.product.installedProductContentMatches(install)",
+  "controlClassification": "Mechanical physical verification over a re-rooted copy; no live admitted Run",
+  "actualBootstrapAndBothInstallsCurrentlyUnchanged": true,
+  "controlledCopyFileCount": 7,
+  "controlledCopyApproximateBytes": 34428,
+  "controlledChecks": {
+    "baseline": true,
+    "payloadChanged": false,
+    "restored": true,
+    "extraFile": false
+  },
+  "eventAndAdmissionMetadataUnchanged": true,
+  "copyWasNotAdmitted": true,
+  "providerDispatched": false,
+  "nativeRunExecuted": false,
+  "applicationUATPass": false,
+  "candidateMutated": false,
+  "scratchCopyRemoved": true,
+  "subjectDigest": "sha256:fcf6e2c47df6c023e5a54350b0560e0c08ab6c2545a0c8717f35fb5719f372f6",
+  "digestSerialization": "SHA256 of UTF8 JSON.stringify(path-sorted members), no trailing newline",
+  "members": [
+    {
+      "path": "checks.json",
+      "byteCount": 2607,
+      "digest": "sha256:4851309b5e09a7e964e6757ad90ede3359e962f4fcf45f4663e07e7198f0a109"
+    },
+    {
+      "path": "checks.mjs",
+      "byteCount": 5755,
+      "digest": "sha256:6dae3c2e7e5d2ad281c8bb01f1766c7b984516a7f2f5d429758c9b7af94cd267"
+    },
+    {
+      "path": "return.md",
+      "byteCount": 4912,
+      "digest": "sha256:b20a658d8875d156791ff15babd70ceb5cac5fbc6457d65e2242082be0e2ace1"
+    }
+  ],
+  "consumingAuthority": "Root Executive"
+}

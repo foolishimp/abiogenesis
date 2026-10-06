@@ -1,0 +1,37 @@
+// Pure coordinate check using the closed actual failed attempt. No helper or native execution.
+import fs from 'node:fs';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import assert from 'node:assert/strict';
+import {fileURLToPath,pathToFileURL} from 'node:url';
+const D=path.dirname(fileURLToPath(import.meta.url)),G=path.dirname(D),N=path.join(G,'final-observed-c2-01'),Q=path.join(G,'final-qualification-inputs-02'),C=path.join(G,'final-candidate-construction-02');
+const read=p=>JSON.parse(fs.readFileSync(p,'utf8')),sha=b=>crypto.createHash('sha256').update(b).digest('hex');
+const freeze=read(path.join(N,'freeze.json')),launchRecord=freeze.records.find(r=>r.path.endsWith('/launch.json'));
+assert.ok(launchRecord);const launchBytes=fs.readFileSync(path.join(N,launchRecord.path));assert.equal(launchBytes.length,launchRecord.bytes);assert.equal(sha(launchBytes),launchRecord.sha256);
+const launch=JSON.parse(launchBytes),task=read(path.join(N,'actual-observed-task.json'));
+const owner=await import(pathToFileURL(path.join(C,'install/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js')));
+assert.ok(owner.isObservedWorksiteCommandExecutionTask(task));
+const plan=owner.worksiteCommandExecutionHelperPlan(task,launch.attemptRef);
+assert.ok(owner.isWorksiteCommandExecutionHelperPlan(task,plan));
+for(const k of ['helperModulePath','taskManifestPath','taskManifestDigest','taskManifestByteLength'])assert.equal(plan[k],launch[k],k);
+assert.equal(plan.sandboxRoot,path.join(launch.attemptRoot,'sandbox'));
+assert.equal(plan.artifactPath,path.join(launch.attemptRoot,'result.json'));
+assert.equal(task.taskRef,launch.taskRef);assert.equal(task.taskDigest,launch.taskDigest);
+const originalRoot=task.workspaceAuthorityBasis.canonicalRoot,snapshotRoot=plan.sandboxRoot;
+assert.notEqual(originalRoot,snapshotRoot);
+const first=task.commands.find(c=>c.expectedReports.length>0);assert.equal(first.ordinal,12);assert.equal(first.commandId,'command://abiogenesis/rc1-qual056/compare');
+assert.ok(task.commands.slice(0,12).every(c=>c.expectedReports.length===0));assert.equal(first.expectedReports.length,1);
+const relativeReport=first.expectedReports[0].relativePath;assert.equal(relativeReport,'verification/reports/generated-comparison.json');
+const expected=read(path.join(Q,'expected-output-inventory.json'));assert.equal(expected.paths.length,925);
+const intendedReport=path.join(snapshotRoot,relativeReport),callerReport=path.join(originalRoot,relativeReport);assert.notEqual(intendedReport,callerReport);
+const generated=expected.paths.map(r=>({relativePath:path.join('verification',r.path),bytes:r.bytes,digest:'sha256:'+r.sha256}));
+for(const r of generated){const rel=path.relative(snapshotRoot,path.resolve(snapshotRoot,r.relativePath));assert.ok(rel&&!path.isAbsolute(rel)&&rel!=='..'&&!rel.startsWith('../'));assert.notEqual(path.join(snapshotRoot,r.relativePath),path.join(originalRoot,r.relativePath));}
+const source=fs.readFileSync(path.join(N,'output-checks.mjs'),'utf8'),driver=fs.readFileSync(path.join(N,'driver.mjs'),'utf8');
+assert.ok(source.includes('fs.readFile(join(workspaceRoot,r.relativePath))'));
+assert.ok(source.includes("fs.readFile(join(workspaceRoot,'verification/reports/generated-comparison.json'),'utf8')"));
+assert.ok(source.includes("fs.readFile(join(workspaceRoot,'verification',r.path))"));
+assert.ok(driver.includes('workspaceRoot:root,write,mark'));
+assert.ok(driver.includes('fs.readFile(join(root,f.target))'));
+const observation={status:'supported incompatible caller coordinate',claim:'Actual task/attempt plan and source prove different output roots; no successful Result, artifact, output bytes, or ENOENT execution is fabricated',launchRecord,task:{ref:task.taskRef,digest:task.taskDigest},actualAttempt:{ref:launch.attemptRef,digest:launch.attemptDigest,occurrence:launch.occurrence},plan:{artifactPath:plan.artifactPath,sandboxRoot:plan.sandboxRoot,taskManifestPath:plan.taskManifestPath,taskManifestDigest:plan.taskManifestDigest},originalRoot,firstAffected:{ordinal:first.ordinal,commandId:first.commandId,relativePath:relativeReport,ownerOutputPath:intendedReport,callerReadPath:callerReport,callerSource:'output-checks.mjs:23'},affectedConsumerCone:[{source:'output-checks.mjs:23',role:'all command report rereads',selectedCount:1},{source:'output-checks.mjs:28',role:'generated-comparison JSON reread',selectedCount:1},{source:'output-checks.mjs:28',role:'generated output byte comparisons',selectedCount:925}],protectedConservation:{source:'driver.mjs:28',root:originalRoot,selectedCount:716,changeRequired:false},verificationConstructor:{source:'validator/qualification.ts:104-208',inputs:'authenticated C2 observation plus retained recipe/inventory/basis/actual producer selection',filesystemOutputReads:false,claim:'No snapshot-path repair in this pure constructor; do not replace native input with caller summary'},pathDifferenceChecks:927,nativeCalls:0,movingResourceReads:0,limitations:['The actual attempt failed before the helper ran. This is a static conditional successful-path falsifier, not an observed second runtime failure.','A future result must supply its own validated task/attempt plan and artifact; never reuse this failed attempt snapshot coordinate.','No provider repair, caller repair, C2 rerun, positive consume, qualification or F11 execution was performed.']};
+fs.writeFileSync(path.join(D,'path-seam-observation.json'),JSON.stringify(observation,null,2)+'\n',{flag:'wx'});
+console.log(JSON.stringify({status:observation.status,firstAffected:observation.firstAffected,pathDifferenceChecks:927,generatedFiles:925,protectedOriginalFiles:716,nativeCalls:0},null,2));

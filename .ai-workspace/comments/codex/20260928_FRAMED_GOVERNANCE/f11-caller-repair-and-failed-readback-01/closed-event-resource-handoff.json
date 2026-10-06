@@ -1,0 +1,71 @@
+{
+  "status": "CLOSED_AUTHENTIC_FAILED_RUN_UNCHANGED",
+  "closeHandoff": {
+    "prefix": {
+      "coordinateDigest": "sha256:87985127944511c56508a1b63efd1103b8d8868b84f1693b50a6dbbc9e949ae4",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:2f4e445acdcfa2ac94dc341aea0c061446419d0eb8dc07e838c2b47c27124ba8",
+      "prefixLength": 2668364,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777230,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 464611665
+      }
+    },
+    "reopenAuthority": {
+      "authorityDigest": "sha256:971137be1f3c7dc811b1b74a2e6720bf1a5e3199c48518efda1f31c459d1b4b1",
+      "device": 16777230,
+      "durableByteLength": 2668364,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "eventLogDigest": "sha256:2f4e445acdcfa2ac94dc341aea0c061446419d0eb8dc07e838c2b47c27124ba8",
+      "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+      "inode": 464611665,
+      "kind": "event_store_reopen_authority",
+      "schemaVersion": "5.0.0"
+    }
+  },
+  "handoffDigest": "sha256:1d13a5f46009c0345eb54277017f6243995c98af66b96d34a20afd3e17e934ca",
+  "physical": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+    "bytes": 2668364,
+    "sha256": "2f4e445acdcfa2ac94dc341aea0c061446419d0eb8dc07e838c2b47c27124ba8",
+    "device": 16777230,
+    "inode": 464611665,
+    "mtimeMs": 1790914084293.3335,
+    "mode": 420,
+    "lockPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-caller-repair-and-failed-readback-01/task-tmp/abiogenesis-event-store-locks-v5/16777230-464611665.lock",
+    "lockPresent": false
+  },
+  "actualFreshCLIReadCalls": [
+    {
+      "label": "failed-run_result",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_result"
+      },
+      "invocationRef": "invocation://abiogenesis/30141d569cb664875c300fecd3b2ffd5de812d9193d9561cab838db4500e3d09",
+      "outcomeKind": "refusal",
+      "elapsedMs": 644.7522919999992,
+      "processFailure": null
+    },
+    {
+      "label": "failed-run_replay",
+      "definitionKey": {
+        "operationId": "abg.operation.project.read",
+        "memberKey": "run_replay"
+      },
+      "invocationRef": "invocation://abiogenesis/6a0eca6b35eb24d5c6bdbfb6e727862276b8a7cf7b19cdbd05e8659742120535",
+      "outcomeKind": "result",
+      "elapsedMs": 650.6599999999999,
+      "processFailure": null
+    }
+  ],
+  "appendBytes": 0,
+  "newTask": 0,
+  "newRun": 0,
+  "helperCalls": 0,
+  "providerCalls": 0,
+  "qualification": false
+}

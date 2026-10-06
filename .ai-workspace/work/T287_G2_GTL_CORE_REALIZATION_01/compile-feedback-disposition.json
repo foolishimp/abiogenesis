@@ -1,0 +1,39 @@
+{
+  "classification": "routine local compiler feedback permitted by grant",
+  "firstAttempt": "compile.json",
+  "causes": [
+    "static recursive schema reference annotation overlap",
+    "native optional-property and existing-owner declaration fidelity"
+  ],
+  "changes": [
+    "type-only inference references",
+    "exclude undefined from own optional property typing",
+    "preserve existing optional-subowner native declarations with their actual runtime schemas"
+  ],
+  "semanticAuthorityChange": false,
+  "validationWeakened": false,
+  "firstSchemaBody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/compile-attempt-01/serialization_contracts.ts",
+    "bytes": 17218,
+    "sha256": "49470fe9ac24a90b16bc148aba47ca6d583a1fd1521cd7b8d62fca5b21f82ccf"
+  },
+  "newSourceSHA256": "efdc38249aba099c34d7a5ce91a19bbddbd663ac17e5cbd6308b4cedd63d7340",
+  "toolPreparationRefusals": [
+    {
+      "kind": "apply_patch_context_miss",
+      "effects": 0
+    },
+    {
+      "kind": "directory_join_miss",
+      "attemptedPath": "/Users/jim/src/apps/build_tenants/abiogenesis/typescript/code/src/gtl/serialization_contracts.ts",
+      "compileEffects": 0,
+      "SourceEffects": 0,
+      "effect": "one owned stage chmod to 644"
+    },
+    {
+      "kind": "supervisor_missing_command_label",
+      "label": "compile02",
+      "childEffects": 0
+    }
+  ]
+}

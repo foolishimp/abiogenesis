@@ -1,0 +1,84 @@
+{
+  "wallMs": 641.9092500000006,
+  "cliPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abi5-root-env-zcvz73/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "requestPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abi5-root-env-zcvz73/st4-selected-duplicate-request.jsonl",
+  "output": {
+    "acquisitionKind": "reopen",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "selected_action",
+        "operationId": "abg.operation.run.continue"
+      },
+      "exitCode": 1,
+      "failure": null,
+      "invocationRef": "invocation://abiogenesis/72f253f65c4667870a6bf089f40751ec3f8a032fe3b1a917131b3f93c74af268",
+      "kind": "definition_host_receipt",
+      "ownerOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "resolved_continuation",
+          "evidenceRefs": [],
+          "issuePaths": [
+            "/request"
+          ]
+        }
+      },
+      "resources": {
+        "eventResource": {
+          "acquisitionKind": "reopen",
+          "closeHandoff": {
+            "prefix": {
+              "coordinateDigest": "sha256:6a8186a63d5a54417149841c91dcd0963339a82ceca88e4692e2ebaaf6648f01",
+              "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abi5-root-env-zcvz73/runtime/events.jsonl",
+              "kind": "durable_prefix_coordinate",
+              "prefixDigest": "sha256:ec6c3434c5d954a66fd3353224d3c7b488140958b28636beaf2b2e11ad4e7704",
+              "prefixLength": 3759683,
+              "schemaVersion": "5.0.0",
+              "storeIdentity": {
+                "device": 16777230,
+                "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+                "inode": 463692735
+              }
+            },
+            "reopenAuthority": {
+              "authorityDigest": "sha256:a4384fb9f925e391243011b9484247dc5ea982b8ecce71435cc90caeb38b32e3",
+              "device": 16777230,
+              "durableByteLength": 3759683,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+              "eventLogDigest": "sha256:ec6c3434c5d954a66fd3353224d3c7b488140958b28636beaf2b2e11ad4e7704",
+              "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abi5-root-env-zcvz73/runtime/events.jsonl",
+              "inode": 463692735,
+              "kind": "event_store_reopen_authority",
+              "schemaVersion": "5.0.0"
+            }
+          },
+          "entryPrefix": {
+            "coordinateDigest": "sha256:6a8186a63d5a54417149841c91dcd0963339a82ceca88e4692e2ebaaf6648f01",
+            "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/selected-action-04/disposable/abi5-root-env-zcvz73/runtime/events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:ec6c3434c5d954a66fd3353224d3c7b488140958b28636beaf2b2e11ad4e7704",
+            "prefixLength": 3759683,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777230,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+              "inode": 463692735
+            }
+          },
+          "kind": "abg_event_resource_receipt",
+          "receiptDigest": "sha256:c934f7399c7f54269a54e4ce6539cc3b839d4d95d95651005af2c2cb17d1778b",
+          "schemaVersion": "5.0.0"
+        },
+        "invocationAdmission": null,
+        "kind": "run_invocation_resource_receipt",
+        "productExecutionResolution": null,
+        "replay": null,
+        "run": null,
+        "schemaVersion": "5.0.0"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  }
+}

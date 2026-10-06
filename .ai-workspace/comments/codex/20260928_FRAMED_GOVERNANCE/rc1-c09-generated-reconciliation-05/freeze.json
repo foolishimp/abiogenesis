@@ -1,0 +1,83 @@
+{
+  "status": "CLOSED",
+  "operation": "T287_C09_GENERATED_RECONCILIATION_05",
+  "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05",
+  "workResult": "NO_GO",
+  "records": 8,
+  "bytes": 834990,
+  "rows": [
+    {
+      "relativePath": "accepted-C09-census.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05/accepted-C09-census.json",
+      "exists": true,
+      "bytes": 342826,
+      "sha256": "3c3181500e348e3324cc2b69b3a854e825848cafd88989eb4baba28a472f285e",
+      "mode": 420
+    },
+    {
+      "relativePath": "activation.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05/activation.json",
+      "exists": true,
+      "bytes": 2417,
+      "sha256": "e082d016e87532df82ae3f74fab3706d8ffcea918cc0765ba5938ba43933ecb5",
+      "mode": 420
+    },
+    {
+      "relativePath": "canonical-before.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05/canonical-before.json",
+      "exists": true,
+      "bytes": 270362,
+      "sha256": "56d2e7d26476912ed0db02ce7ce9c10e5afa8df574e99141476407ac2f810e51",
+      "mode": 420
+    },
+    {
+      "relativePath": "closure.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05/closure.json",
+      "exists": true,
+      "bytes": 101577,
+      "sha256": "1f449bee2bc0df6f40035ee2d483d1d38d4794c7c64fba327a8406eac949c75b",
+      "mode": 420
+    },
+    {
+      "relativePath": "effects.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05/effects.json",
+      "exists": true,
+      "bytes": 93,
+      "sha256": "c3921afdc1229de96674a3b3bb53c588a24505722f34ec463efa9700e6bacad4",
+      "mode": 420
+    },
+    {
+      "relativePath": "first-failure.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05/first-failure.json",
+      "exists": true,
+      "bytes": 101115,
+      "sha256": "8a37c02d26f44d2d71ec7299a4c0fe87f2fe6924f29e84a9d79461f0e22172fc",
+      "mode": 420
+    },
+    {
+      "relativePath": "input-pins.json",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05/input-pins.json",
+      "exists": true,
+      "bytes": 2611,
+      "sha256": "73d097a98617e2d0b2a2cea3e0e377afae7c6c7e83761e3afd5bc5a2b317d92a",
+      "mode": 420
+    },
+    {
+      "relativePath": "reconcile.py",
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c09-generated-reconciliation-05/reconcile.py",
+      "exists": true,
+      "bytes": 13989,
+      "sha256": "d9278c28ace749524026c7512715ae993c54d6dc2fa3e71e5d97cacda5af88ad",
+      "mode": 420
+    }
+  ],
+  "directories": 1,
+  "directoryRows": [
+    {
+      "relativePath": ".",
+      "mode": 493
+    }
+  ],
+  "symlinks": 0,
+  "freezeExcludedFromOwnRows": true
+}

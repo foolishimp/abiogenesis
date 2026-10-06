@@ -1,0 +1,22 @@
+{
+  "classification": "Reviewer check overconstraint; not candidate failure",
+  "firstCheck": "Archive mode must equal installed mode for every payload",
+  "observed": [
+    {
+      "path": "build/code/src/public/cli.js",
+      "archiveMode": "0644",
+      "installedMode": "0755"
+    },
+    {
+      "path": "build/code/src/public/codex_cli.js",
+      "archiveMode": "0644",
+      "installedMode": "0755"
+    }
+  ],
+  "actualOwner": "Frozen npm bin-links/lib/fix-bin.js chmod uses execMode = 0777 & ~umask; exact package.json declares these two bins",
+  "revisedCheck": "Exact bytes/member sets conserved; every mode matches except the two declared npm bins, which are 0755. No archive/source/install effect or owner operation repeated.",
+  "originalCheckerSHA256": "ef7e4443e1930dd70b362583116ef46c272476501bf59027d505f1770723988e",
+  "firstProcessExit": 1,
+  "firstFailure": "AssertionError: build/code/src/public/cli.js at inspect.py:87",
+  "timingLimit": "Initial inspection process interval was not durably timed separately. Inspection is charged its complete 120000 ms allocation in the bounded return, rather than claiming a fabricated exact duration."
+}

@@ -1,0 +1,82 @@
+[
+  {
+    "original": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/ordinary-caller.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14861,
+      "sha256": "84fbb92ff9ea64660e9a1502d8834bb73d7054de828e85ada8ccc8591ee0f351"
+    },
+    "preserved": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01/preimages/ordinary-caller.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 14861,
+      "sha256": "84fbb92ff9ea64660e9a1502d8834bb73d7054de828e85ada8ccc8591ee0f351"
+    }
+  },
+  {
+    "original": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/public-support.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9066,
+      "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+    },
+    "preserved": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01/preimages/public-support.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9066,
+      "sha256": "4ae527b93bd0958ccaf378f2ff78e56bfa1e33a0b415f5a12575cc859aebeaf8"
+    }
+  },
+  {
+    "original": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/owner-checks.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9469,
+      "sha256": "a0f54b19fc3fdb562b5f4e22f8dd93b94cd79efa1c9939ab271365a6e086a868"
+    },
+    "preserved": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01/preimages/owner-checks.mjs",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 9469,
+      "sha256": "a0f54b19fc3fdb562b5f4e22f8dd93b94cd79efa1c9939ab271365a6e086a868"
+    }
+  },
+  {
+    "original": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/observe-process.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    },
+    "preserved": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01/preimages/observe-process.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d"
+    }
+  },
+  {
+    "original": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-native-continuation-04/launch-once.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2240,
+      "sha256": "fa0bca55a83653cfa6e5016647984dabb0fcb7b8f191aceecf3d07e83fc9d1c5"
+    },
+    "preserved": {
+      "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-observed-c2-01/preimages/launch-once.py",
+      "kind": "file",
+      "mode": 420,
+      "bytes": 2240,
+      "sha256": "fa0bca55a83653cfa6e5016647984dabb0fcb7b8f191aceecf3d07e83fc9d1c5"
+    }
+  }
+]

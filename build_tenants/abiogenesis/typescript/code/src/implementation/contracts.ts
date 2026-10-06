@@ -1,4 +1,5 @@
 import type { QualificationOwnerBasis } from "../validator/self_conformance_basis.js";
+import type { ResultEvidenceLineage } from "../abg/result_evidence_lineage_contracts.js";
 import type { RequirementHandoffDeclarationBasis } from "../abg/requirement_handoff.js";
 import type { SemanticStageNativeBasis } from "../abg/semantic_stage.js";
 import type { WorksitePreservedResultNativeBasis } from "../abg/worksite_construction_recovery.js";
@@ -6,8 +7,6 @@ import type {
   ClosureContract,
   ContractDeclaration,
   GraphFunction,
-  HelloWorldInput,
-  HelloWorldOutput,
   ModulePublication,
 } from "../gtl/contracts.js";
 import type {
@@ -58,18 +57,6 @@ export type LeafRealizationCandidate<
     Record<string, JsonValue>
   >,
 > = LeafRealizationSuccessCandidate<Output> | LeafRealizationFailureCandidate;
-
-export interface HelloWorldLeafRealizationCandidate {
-  readonly kind: "leaf_realization_candidate";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "success";
-  readonly evidenceCandidates: readonly [DeterministicEvidenceCandidate];
-  readonly resultCandidate: HelloWorldOutput;
-}
-
-export type HelloWorldLeafImplementation = (
-  input: Readonly<HelloWorldInput>,
-) => Readonly<HelloWorldLeafRealizationCandidate>;
 
 export interface ProbabilisticWorkerRequest {
   readonly actorRef: string;
@@ -132,6 +119,7 @@ export interface LeafExecutionOccurrence {
 
 /** Internal operations of the invoking ABG owner, never serialized basis or evidence. */
 export interface NativeLeafProofOperations {
+  readonly qualificationPreparation?: (input: unknown, occurrence: LeafExecutionOccurrence) => import("../validator/qualification.js").PreparedQualificationAssessment | null;
   readonly qualificationSelfConformance?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
     ReturnType<typeof import("../validator/self_conformance.js").evaluateSelfConformance> | null;
   readonly qualificationVerdict?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
@@ -144,6 +132,9 @@ export interface NativeLeafProofOperations {
 
 /** Bound to one declared relation evaluation by its invoking leaf port. */
 export interface NativeJudgmentProofOperations {
+  readonly qualificationJudgment?: () => boolean;
+  readonly qualificationRequest?: () => Readonly<ProbabilisticWorkerRequest> | null;
+  readonly qualificationSelfConformance?: () => ReturnType<typeof import("../validator/self_conformance.js").evaluateSelfConformance> | null;
   readonly historicalGraphCallSource?: () => import("../abg/terminal_result_contracts.js").AbgHistoricalGraphCallSource | null;
   readonly qualificationVerdict?: () => ReturnType<typeof import("../abg/qualification_proof.js").projectExactCandidateQualification>;
   readonly qualificationAssessment?: () => ReturnType<typeof import("../abg/qualification_proof.js").projectNativeRuntimeAssessment>;
@@ -399,7 +390,7 @@ export interface LeafInvocationPort {
   readonly validateResultEvidenceLineage: (
     outputContractRef: string,
     value: Readonly<Record<string, JsonValue>>,
-    admittedEvidence: readonly Readonly<Record<string, JsonValue>>[],
+    admittedEvidence: readonly ResultEvidenceLineage[],
   ) => boolean;
   readonly verifyProbabilisticResultContractPreimage: (
     input: Readonly<{

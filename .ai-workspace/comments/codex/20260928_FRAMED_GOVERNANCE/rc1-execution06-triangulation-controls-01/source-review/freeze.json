@@ -1,0 +1,36 @@
+{
+  "operation": "T287_EXEC06_FP_SOURCE_REVIEW_01",
+  "actor": "/root/rc1_c03_install_review",
+  "status": "CLOSED",
+  "workResult": "GO_BOUNDED_REPAIR",
+  "records": [
+    {
+      "path": "activation.json",
+      "bytes": 778,
+      "sha256": "e222cf4bc755a06f98f62a62389d26567dd97bfa59e3c6403f4abc2c6393c35a",
+      "mode": "0o644"
+    },
+    {
+      "path": "closure.json",
+      "bytes": 933,
+      "sha256": "6fe6869f5b67d28cc87d841a45946c80a79ea62bd54adcbadf2f1db0b2ce2fd6",
+      "mode": "0o644"
+    },
+    {
+      "path": "review.md",
+      "bytes": 8409,
+      "sha256": "a0892c406f3420b37844ecab6656b248b8a32cc469b92f53e73710ac0e28b46b",
+      "mode": "0o644"
+    },
+    {
+      "path": "source-correspondence.json",
+      "bytes": 25678,
+      "sha256": "6b560cbe0d781996c2f42642d9dac4fdff60601c28ca45d621c9158cbfeb81c4",
+      "mode": "0o644"
+    }
+  ],
+  "recordCount": 4,
+  "bodyBytes": 35798,
+  "excludedSelf": "freeze.json only",
+  "noFurtherWrites": true
+}

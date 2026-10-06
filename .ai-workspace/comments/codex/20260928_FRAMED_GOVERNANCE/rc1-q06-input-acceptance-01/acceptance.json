@@ -1,0 +1,81 @@
+{
+  "kind": "root_final_input_acceptance",
+  "status": "ACCEPTED_PREPARATION_ONLY",
+  "basis": "stdo://releases/v2.5.1-rc.2/",
+  "operation": "T287_Q06_ACCEPTANCE_AND_F11_RELEASE_01",
+  "actor": "/root Executive conjoined CLOSED independent Reviewer T287_Q06_FINAL_INPUT_REVIEW_01",
+  "acceptedAt": "2026-10-02T03:59:51.724730+00:00",
+  "preparationFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-qualification-inputs-06/freeze.json",
+    "bytes": 866138,
+    "sha256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c"
+  },
+  "preparationFreezeSHA256": "4b7254fb137e0dec5bd73ebb6ee6eef8d260b1fd81e15d68ad7ca0df3b12ff4c",
+  "review": {
+    "actor": "/root/rc1_c03_install_review",
+    "operation": "T287_Q06_FINAL_INPUT_REVIEW_01",
+    "status": "CLOSED",
+    "workResult": "GO_PREPARATION_ONLY",
+    "received": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-q06-input-acceptance-01/received-review.md",
+    "scope": "Complete frozen body/census/recipe/ordered partitions/95 aliases/98 records/eight source-auth chains/actual Setup05 bindings and selected whole-path callers; no concrete constructability blocker."
+  },
+  "verified": {
+    "records": 3425,
+    "recordBytes": 847680494,
+    "directories": 675,
+    "inventoryMembers": 4627,
+    "resourceEntries": 4818,
+    "protectedInputs": 3282,
+    "protectedBytes": 251637487,
+    "effectiveSourceGenerated": 1936,
+    "generated": 926,
+    "expectedOutputs": 927,
+    "historicalComponent": 835,
+    "sourceAliases": 95,
+    "originalSourceAuthRecords": 98,
+    "originalSourceAuthChains": 8,
+    "originalAttributionSpanBytes": 114823,
+    "retainedRules": 1728,
+    "newOrChangedRules": 409,
+    "perRuleDomains": 167,
+    "globalGroups": 50,
+    "referenceSets": 492
+  },
+  "resource": {
+    "ref": "qualification-resource://abiogenesis/169e85bb7fde966b544e75e2b289e5047b383f9bf4bd260ec0571ce84d4fb10f",
+    "digest": "sha256:169e85bb7fde966b544e75e2b289e5047b383f9bf4bd260ec0571ce84d4fb10f",
+    "fileBytes": 489526432
+  },
+  "cost": {
+    "promptBytes": 318333,
+    "packetReadinessSeconds": 9.313,
+    "peakRSSBytes": 3455254528,
+    "heap": "default"
+  },
+  "setup": {
+    "freezeSHA256": "3aa1948357cbce79b8c029f0be610fda129e325d6b0a267501e9e690cdd92f82",
+    "acceptance": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-c05-installed-setup-acceptance-01/acceptance.json",
+    "acceptanceSHA256": "8b730d544806534d799282ba45e474289f53a985cc19decf222989b848c8ff2d",
+    "handoffDigest": "sha256:4e30bab591139929f6ff7c8c313f715bc23e870a61ea73e91d9128b9c6b0276d",
+    "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-setup-05/resources/events/runtime.events.jsonl",
+    "initialPrefixBytes": 2490814,
+    "initialPrefixSHA256": "7f568a9f3136b274c77730e152097bb47bf655145041dbbc1d92b21a4b74389d",
+    "device": 16777230,
+    "inode": 464611665
+  },
+  "releasedConditionalOperation": "T287_F11_C05_CARRIER_EXECUTION_06",
+  "runtimeGrant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-carrier-runtime-controls-06/request.txt",
+    "bytes": 8142,
+    "sha256": "2ada3d46c4d74e3083f24f967493518835242db2d3963f14c7376549c592a763"
+  },
+  "runtimeGranted": true,
+  "scope": "The exact previously granted controlled mechanical wrapper-child/J/foldback/parent/6coldreads/freshF11/sole non-green AF22 path only, with original durable-prefix and all other closed cuts conserved. No repeat setup, source edits, broad suites,18qualificationcommands, real providers, auth/network bypass or semantic pass.",
+  "notEstablished": [
+    "Actual reference-resource consumption and whole carrier path",
+    "Genuine independent semantic/context adequacy and source-auth sufficiency",
+    "Full scenario conjunction/observed QUAL056/whole F11/sole AF22 green",
+    "Publication/installed-RC qualification/actual human acceptance/remote installation"
+  ],
+  "originalCausalInferenceCorrection": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-f11-material-causal-disposition-02/disposition.json"
+}

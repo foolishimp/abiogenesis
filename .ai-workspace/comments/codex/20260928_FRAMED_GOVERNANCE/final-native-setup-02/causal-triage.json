@@ -1,0 +1,182 @@
+{
+  "status": "CLOSED_first_material_native_refusal_no_retry",
+  "firstViolatedRelation": "The exact installed default-library publication must satisfy static publication validity before Product catalog admission. Six wrapper GraphFunctions carry the state contract twice; the existing validator refuses duplicate_identity.",
+  "symptom": {
+    "operation": "abg.operation.catalog.admit/admit",
+    "receipt": "continue-catalog-stdout.json",
+    "ownerCode": "malformed_contribution",
+    "issuePaths": [
+      "/contributionManifests"
+    ],
+    "catalog": null,
+    "disposition": "read_only_unchanged"
+  },
+  "origin": {
+    "producer": "frozen code/src/gtl/default_library.ts:18,37-51,136-162",
+    "expression": "carries: [state, ...nodes.map(n => n.term.outputCarrierRef)]",
+    "relation": "The fold node outputs state, so the explicitly prepended state and final output coincide. Construction/design/induction/specification/testing/uat wrappers all inherit this expression. Installed public constructor output is unchanged through retained full11 inputs and actual native request.",
+    "affectedField": "GraphFunction.environment.carries"
+  },
+  "ownerChain": [
+    "gtl/default_library.ts:136 constructs exact publication through modulePublication; declarations.ts:198-228 canonicalizes this carrier without performing static publication validation.",
+    "N1/preflight.mjs:7-10 constructs full11 with existing installed constructors and compares their semantic digests to verified manifest publicationBindings; N2 driver.mjs:16-19 preserves these values and actual manifest coordinate.",
+    "product/catalog_definition_bindings.ts:315-373 reconstructs actual approved prefix/WB/lock/install readiness and checks request descriptor/manifest/authority coordinates. The returned semantic refusal is later than these fault boundaries.",
+    "product/catalog_operations.ts:242-285 raw-admits publications/contributions, then validatePublication before admitGraphFunctionCatalog.",
+    "validator/validation.ts:272-290 checks environment.carries for duplicates. The installed exported validator reproduces six static_validation_refusal diagnostics on the unchanged first publication; diagnosis stops at that first invalid member.",
+    "product/catalog_definition_bindings.ts:384-389 maps catalog_validation_refusal to malformed_contribution /contributionManifests; :588-598 returns the unchanged-prefix owner receipt."
+  ],
+  "referenceFrames": {
+    "Product": "The selected Product publishes eleven modules and authenticates the default-library member. Matching manifest publication content is necessary but does not imply that content is statically valid for catalog admission. Dropping the member would violate the selected full publication population.",
+    "DesignAndOwner": "Active GRAPHFUNCTION-016/017/018 defines cumulative available binding membership and -025 requires validator-accepted callable graphs. Accepted default-library design selects ordinary state-conserving wrappers. Exact duplicate-array refusal is current HOW; no separate universal WHAT duplicate sentence is asserted. No multiplicity-bearing meaning is selected for repeated state contract refs. Producer/HOW incongruence supports bounded realization_refactor as proposal; Root adjudicates, with no dedup algorithm or validator relaxation here.",
+    "Integration": "The shared N1 required-WB carrier defect was corrected across selection, scope, approval and grant construction. Actual nominal/schema/pre-effect checks passed and the native owner reached catalog semantics. The new failure is the publication producer-to-validator seam, not recurrence of the prior boundEnvironment shape error.",
+    "Identity": "All11 semantic values and contribution-manifest coordinate were authenticated and equal to retained constructor outputs. Six canonical/frozen source joins and installed realizations are recorded. Duplicate carried refs are internal to the exact selected value; there is no evidence of a crossed artifact, forged contribution coordinate or stale resource.",
+    "Lifecycle": "Original five ordinary setup successes and genuine bind state remain. One new catalog operation refused, supplying a real closed handoff. View, both conformances, the original Hello and both cold reads remain unexecuted. TenantManifest/executionSelectionRef remain unbound.",
+    "Effect": "Native CLI PID12847 exited1; wrapper12846 and driver12708 exited1 without timeout. Same original device/inode/lock namespace; no log append, install mutation, metadata mutation, new Run, provider or C2.",
+    "Proof": "N1 full11/context preflight proved manifest/content correspondence, while N2 preflight proved repaired authorization and future carrier ownership. Neither invoked existing static publication validation before the native boundary. Read-only post-failure diagnosis uses the same installed validator and exact failed-call bytes, not a new native attempt."
+  },
+  "escapeAndRecurrence": "Earlier donor omitted default-library and N1 first stopped before catalog native admission. Its full11 correction proved inventory/digests/context but not static publication validity. N2 reused those valid limited proofs while focusing on the shared caller cone; the duplicate survived to the first real catalog consumer. Future producer acceptance should invoke the existing complete publication/catalog validation over the full selected population and discriminate actual invalid carriers, not only compare their hashes. Exact earlier consumer split is source-established in authority-and-escape.json: Program validation omits publication validation; retained installed root helper validates only selected root then calls lower readiness over all additional publications. This is a concrete proof application miss, not an inference from green tests.",
+  "alternatives": [
+    {
+      "explanation": "Caller selected wrong or mutated publication",
+      "result": "Contradicted by exact equality of prepared/publication-input/native-request values and current verified manifest semantic bindings."
+    },
+    {
+      "explanation": "Contribution manifest coordinate malformed/crossed",
+      "result": "No supporting evidence; exact request coordinate matches actual verified manifest and readiness identity checks precede observed semantic refusal. Public code is coarse: the inner installed validator supplies the precise diagnostic."
+    },
+    {
+      "explanation": "Admission carrier, old actor, prefix currentness or lock caused refusal",
+      "result": "Contradicted by actual preflight, later owner-semantic receipt, current prefix, original actor and unchanged genuine handoff."
+    },
+    {
+      "explanation": "Validator duplicate policy itself wrong",
+      "result": "Would require contrary accepted authority. Existing owner requires unique carried refs and the duplicate is redundant state membership; this intake establishes no upstream requirement/design change authorizing duplicates."
+    }
+  ],
+  "limits": "Only first invalid publication was evaluated in the diagnostic. No claim that the remaining ten publications, later catalog readiness/view/conformance/start/reads, or whole Product qualification will pass after a repair. No Product source mutation, rebuild, rerun or broader investigation occurred.",
+  "smallestProposedNextGrant": "Root may select source realization_refactor of the whole six-wrapper environment.carries producer cone and tests through existing full publication/catalog semantic owners. Preserve this candidate and resource as evidence. Any changed Product content needs an explicit successor freeze/build/install/identity/coverage rebind before another installed proof; do not patch the immutable archive or relabel original installedProduct/WB as a new candidate. Reuse valid existing component/source evidence only at their exact identities.",
+  "reproof": "Pure producer/static full11/catalog checks and meaningful duplicate-sensitive cases should precede any separately granted installed successor proof. At the resulting actual subject, catalog/view/both conformances/original named Hello/cold reads are still required; original five N1 successes remain evidence of this candidate only.",
+  "pendingC2": "No staging or C2. Later separate grant must use Q.selectedFiles to check all expected bytes and absent declared targets on the actual current canonical A/W root before exclusive writes; preserve .abiogenesis metadata, then constructObservedProducerTask. New-subject prerequisites must be resolved before reuse.",
+  "basisLabelCorrection": "stdo_abiogenesis.json SHA256 is 2c13b1fd28f3aaa624d941537a858f67ca8784f0710f490522147f57964c4051; 5d306da1... is selected installed-manifest digest. Exact STDO v2.5.1-rc.1 basis unchanged; prior request bytes preserved.",
+  "authorityAndDesignMeaning": {
+    "status": "bounded_authority_and_escape_join",
+    "rows": [
+      {
+        "current": {
+          "path": "specification/PRODUCT.md",
+          "bytes": 93561,
+          "sha256": "179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1"
+        },
+        "lines": "183-220",
+        "meaning": "typed constructors plus GTL semantic validation; GraphFunction named callable contract",
+        "frozenCandidate": {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/PRODUCT.md",
+          "bytes": 93561,
+          "sha256": "179ee0e82b4617e4bb40bba0fb91200ada684e94592bf9dc61812fab365aa7a1"
+        }
+      },
+      {
+        "current": {
+          "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+          "bytes": 6880,
+          "sha256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373"
+        },
+        "lines": "3,50-54,88-96",
+        "meaning": "active cumulative binding semantics and validator-accepted template",
+        "frozenCandidate": {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+          "bytes": 6880,
+          "sha256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373"
+        }
+      },
+      {
+        "current": {
+          "path": "specification/requirements/gtl/REQ-L-GTL3-COMPOSE.md",
+          "bytes": 2702,
+          "sha256": "d6614b9a9e992fa3d8c07a977f9edeec83ac5c8893a60e859f1cc0a86342a89c"
+        },
+        "lines": "16,28-32",
+        "meaning": "preservation and structural-conflict fail closed",
+        "frozenCandidate": {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/requirements/gtl/REQ-L-GTL3-COMPOSE.md",
+          "bytes": 2702,
+          "sha256": "d6614b9a9e992fa3d8c07a977f9edeec83ac5c8893a60e859f1cc0a86342a89c"
+        }
+      },
+      {
+        "current": {
+          "path": "specification/requirements/product/REQ-P-CATALOG.md",
+          "bytes": 13757,
+          "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9"
+        },
+        "lines": "118-139",
+        "meaning": "different Product bytes require explicit new lock; coherent catalog identity",
+        "frozenCandidate": {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/specification/requirements/product/REQ-P-CATALOG.md",
+          "bytes": 13757,
+          "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9"
+        }
+      },
+      {
+        "current": {
+          "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+          "bytes": 42946,
+          "sha256": "8f87b9d6c476ed27650c1904bbfdaa3059d7e0c1b8912a74bf9e92b922a88c2b"
+        },
+        "lines": "3-13,17-24,115-124,337-343",
+        "meaning": "accepted ordinary wrappers conserve state; publication/closure check required",
+        "frozenCandidate": {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+          "bytes": 42946,
+          "sha256": "8f87b9d6c476ed27650c1904bbfdaa3059d7e0c1b8912a74bf9e92b922a88c2b"
+        }
+      },
+      {
+        "current": {
+          "path": "build_tenants/abiogenesis/typescript/design/GTL_3_INTERFACE_CONTRACTS.md",
+          "bytes": 14284,
+          "sha256": "f07f16b7aba3f751e7ff9bf8a7c31552bb5ad3b4f2e5dab7cc0a1b4c4e4400d6"
+        },
+        "lines": "3,266-270",
+        "meaning": "active EnvRef contract separates requires/provides/carries arrays",
+        "frozenCandidate": {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/design/GTL_3_INTERFACE_CONTRACTS.md",
+          "bytes": 14284,
+          "sha256": "f07f16b7aba3f751e7ff9bf8a7c31552bb5ad3b4f2e5dab7cc0a1b4c4e4400d6"
+        }
+      },
+      {
+        "current": {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+          "bytes": 75599,
+          "sha256": "21a18c57bcf6cabb76a5b198f9449383a734895fb1de63e73034596779e43c17"
+        },
+        "lines": "26-43,342-360",
+        "meaning": "component validates Program only; live test includes library as additional core publication",
+        "frozenCandidate": {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+          "bytes": 75599,
+          "sha256": "21a18c57bcf6cabb76a5b198f9449383a734895fb1de63e73034596779e43c17"
+        }
+      },
+      {
+        "current": {
+          "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+          "bytes": 38681,
+          "sha256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4"
+        },
+        "lines": "443-462,517-524",
+        "meaning": "selected root publication validation, then lower readiness construction over all publications",
+        "frozenCandidate": {
+          "path": ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-01/source-freeze/repo/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+          "bytes": 38681,
+          "sha256": "112e447276aefb674f87cabce010ce9ef6075226b68aed4b69bd61508683a0f4"
+        }
+      }
+    ],
+    "meaning": "carries denotes cumulative available typed bindings, not runtime occurrence count or two historical versions of state. The wrapper state/fold law already fixes preservation and result flow. Listing the same contract ref twice adds no distinct binding identity or declared multiplicity. The exact duplicate refusal is current HOW validation; WHAT does not separately say all carries arrays must be duplicate-free.",
+    "classification": "Producer/HOW incongruence under unchanged cumulative-binding and ordinary-valid-GraphFunction outcome is the supported smallest repair proposal. No contrary accepted multiplicity meaning was found, so there is no evidence that validator rejection is over-strict or that a new design decision is required. Root owns final selection; no dedup algorithm is applied here.",
+    "precedentLimit": "Accepted historical T253 HOF design lines388/655 specifies stable union but is scoped accepted_for_t253_only; it is supporting context, not cited as a universal default-library rule.",
+    "escape": "t287-default-library.test.mjs helper validates Program with raw-admitted publication, not static publication validation; its installed setup uses root-installed-environment with additionalCorePublicationConstructors. That helper statically validates only selected root publication, then calls lower product.admitGraphFunctionCatalog on all publications. This differs from Public CatalogOperationPort, which statically validates every publication. Source/package correspondence and successful narrower native execution therefore cannot close full Public catalog admission."
+  }
+}

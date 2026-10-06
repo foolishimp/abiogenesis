@@ -690,18 +690,32 @@ interface PackageDeclarationBasis {
   target(specifier: string, containingFile: string, mode: TypeScript.ResolutionMode): string | null;
 }
 
+interface PackageMetadataBasis {
+  readonly metadataText: ReadonlyMap<string, string>;
+  readonly metadata: ReadonlyMap<string, Readonly<Record<string, unknown>>>;
+  readonly rootMetadata: Readonly<Record<string, unknown>> | undefined;
+  readonly bundled: readonly string[];
+}
+
 function metadataRecord(value: unknown): value is Readonly<Record<string, unknown>> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
 
-/** Subordinate payload evidence, shared by the local and linked checker hosts. */
-function packageDeclarationBasis(
-  ts: typeof TypeScript,
+function declarationDependencyNames(value: unknown): readonly string[] | null {
+  if (value === undefined) return [];
+  if (!metadataRecord(value) || Object.entries(value).some(([name, version]) =>
+    packageImportCoordinate(name)?.packageName !== name || !isNonblank(version)
+  )) return null;
+  return Object.keys(value);
+}
+
+/** Exact payload integrity does not select a package as a declaration target. */
+function packageMetadataBasis(
   root: string,
   packageName: string,
   packageType: NativePackageType,
   sources: readonly DeclarationSource[],
-): PackageDeclarationBasis | null {
+): PackageMetadataBasis | null {
   const metadataText = new Map<string, string>();
   const metadata = new Map<string, Readonly<Record<string, unknown>>>();
   for (const source of sources) {
@@ -731,15 +745,6 @@ function packageDeclarationBasis(
     rootMetadata.name !== packageName || !isNonblank(rootMetadata.version) ||
     (rootMetadata.type === "module" ? "module" : "commonjs") !== packageType
   )) return null;
-  const packages = new Map<string, OwnedDeclarationPackage>();
-  if (rootMetadata !== undefined) packages.set(packageName, { root, metadata: rootMetadata });
-  const names = (value: unknown): readonly string[] | null => {
-    if (value === undefined) return [];
-    if (!metadataRecord(value) || Object.entries(value).some(([name, version]) =>
-      packageImportCoordinate(name)?.packageName !== name || !isNonblank(version)
-    )) return null;
-    return Object.keys(value);
-  };
   const bundled = rootMetadata?.bundleDependencies ?? rootMetadata?.bundledDependencies ?? [];
   if (!Array.isArray(bundled) || bundled.some(name =>
     typeof name !== "string" || packageImportCoordinate(name)?.packageName !== name
@@ -747,8 +752,24 @@ function packageDeclarationBasis(
     (rootMetadata?.bundleDependencies !== undefined && rootMetadata.bundledDependencies !== undefined &&
       canonicalJson(rootMetadata.bundleDependencies as JsonValue) !== canonicalJson(rootMetadata.bundledDependencies as JsonValue))
   ) return null;
-  const rootDependencies = names(rootMetadata?.dependencies);
+  const rootDependencies = declarationDependencyNames(rootMetadata?.dependencies);
   if (rootDependencies === null || bundled.some(name => !rootDependencies.includes(name as string))) return null;
+  return { metadataText, metadata, rootMetadata, bundled: bundled as string[] };
+}
+
+/** Subordinate payload evidence, shared by the local and linked checker hosts. */
+function packageDeclarationBasis(
+  ts: typeof TypeScript,
+  root: string,
+  packageName: string,
+  packageType: NativePackageType,
+  sources: readonly DeclarationSource[],
+  admittedMetadata = packageMetadataBasis(root, packageName, packageType, sources),
+): PackageDeclarationBasis | null {
+  if (admittedMetadata === null) return null;
+  const { metadataText, metadata, rootMetadata, bundled } = admittedMetadata;
+  const packages = new Map<string, OwnedDeclarationPackage>();
+  if (rootMetadata !== undefined) packages.set(packageName, { root, metadata: rootMetadata });
   const pending = [...bundled] as string[];
   while (pending.length > 0) {
     const name = pending.pop()!;
@@ -760,8 +781,8 @@ function packageDeclarationBasis(
     const value = metadata.get(posix.join(packageRoot, "package.json"));
     if (value === undefined || value.name !== name || !isNonblank(value.version)) return null;
     packages.set(name, { root: packageRoot, metadata: value });
-    const required = names(value.dependencies);
-    const optional = names(value.optionalDependencies);
+    const required = declarationDependencyNames(value.dependencies);
+    const optional = declarationDependencyNames(value.optionalDependencies);
     if (required === null || optional === null) return null;
     for (const dependency of new Set([...required, ...optional])) {
       const present = metadata.has(posix.join(root, "node_modules", dependency, "package.json"));
@@ -1835,6 +1856,101 @@ function contractRoot(
   return matches.length === 1 ? matches[0]! : null;
 }
 
+/** Join the actual advertised rows to the same Product's admitted evidence. */
+function nativeProductApplicability(
+  product: NativeLinkProduct,
+): "empty" | "native" | null {
+  const evidence = product.evidence;
+  const evidenceKeys = new Set([
+    "productId", "productContentDigest", "packageName", "packageType",
+    "sources", "closures", "contracts", "packageMetadata",
+  ]);
+  if (
+    !metadataRecord(evidence) ||
+    Object.keys(evidence).some(key => !evidenceKeys.has(key)) ||
+    !isNonblank(product.productId) || !isNonblank(product.packageName) ||
+    !isSha256Digest(product.productContentDigest) ||
+    evidence.productId !== product.productId ||
+    evidence.productContentDigest !== product.productContentDigest ||
+    evidence.packageName !== product.packageName ||
+    (evidence.packageType !== "module" && evidence.packageType !== "commonjs") ||
+    !Array.isArray(evidence.sources) || !Array.isArray(evidence.closures) ||
+    !Array.isArray(evidence.contracts) ||
+    (evidence.packageMetadata !== undefined && !Array.isArray(evidence.packageMetadata)) ||
+    !Array.isArray(product.publicContracts) ||
+    product.publicContracts.some(contract =>
+      !metadataRecord(contract) || !isNonblank(contract.contractId) ||
+      !isSha256Digest(contract.contractDigest) ||
+      contract.owningProduct !== product.productId ||
+      ((contract.contractKind === "native_typed_group" ||
+        contract.contractKind === "serialized_native_contract") &&
+        contract.nativeTypedLocator === undefined) ||
+      (contract.nativeTypedLocator !== undefined &&
+        (!metadataRecord(contract.nativeTypedLocator) ||
+          !isNonblank(contract.nativeTypedLocator.packageExportPath) ||
+          !isNonblank(contract.nativeTypedLocator.namedSymbol) ||
+          !isNonblank(contract.nativeTypedLocator.declarationPath) ||
+          !Array.isArray(contract.nativeTypedLocator.declarationInventory)))
+    )
+  ) return null;
+  const metadata = evidence.packageMetadata ?? [];
+  if (metadata.some(source =>
+    !metadataRecord(source) || Object.keys(source).length !== 3 ||
+    !isNonblank(source.declarationPath) || !isSha256Digest(source.declarationDigest) ||
+    typeof source.sourceText !== "string" ||
+    sha256Bytes(new TextEncoder().encode(source.sourceText)) !== source.declarationDigest
+  )) return null;
+  const advertised = product.publicContracts.filter(contract => contract.nativeTypedLocator !== undefined);
+  if (advertised.length === 0) {
+    return evidence.sources.length === 0 && evidence.closures.length === 0 &&
+      evidence.contracts.length === 0 && metadata.some(source => source.declarationPath === "package.json")
+      ? "empty" : null;
+  }
+  if (
+    evidence.sources.length === 0 || evidence.closures.length === 0 ||
+    evidence.contracts.length !== advertised.length ||
+    evidence.sources.some(source =>
+      !metadataRecord(source) || !isNonblank(source.declarationPath) ||
+      virtualDeclarationPath("/", source.declarationPath) === null ||
+      !isSha256Digest(source.declarationDigest) || typeof source.sourceText !== "string" ||
+      sha256Bytes(new TextEncoder().encode(source.sourceText)) !== source.declarationDigest
+    ) ||
+    new Set(evidence.sources.map(source => source.declarationPath)).size !== evidence.sources.length ||
+    evidence.contracts.some(contract =>
+      !metadataRecord(contract) || !Array.isArray(contract.pendingSelectors) ||
+      contract.pendingSelectors.some(selector =>
+        !metadataRecord(selector) || !metadataRecord(selector.origin) || !metadataRecord(selector.selection)
+      ) ||
+      (contract.localDisposition !== "local" && contract.localDisposition !== "pending_external")
+    ) ||
+    evidence.closures.some(closure =>
+      !metadataRecord(closure) || !Array.isArray(closure.declarationInventory) ||
+      !Array.isArray(closure.physicalRelations) || !Array.isArray(closure.moduleAugmentations) ||
+      !Array.isArray(closure.exportedSymbols) || !metadataRecord(closure.exportedSymbolPhysicalRelationRefs) ||
+      closure.physicalRelations.some(relation =>
+        !metadataRecord(relation) || !metadataRecord(relation.origin) || !metadataRecord(relation.selection)
+      ) || closure.moduleAugmentations.some(augmentation => !metadataRecord(augmentation)) ||
+      typeof closure.contributesGlobals !== "boolean"
+    )
+  ) return null;
+  for (const contract of advertised) {
+    const locator = contract.nativeTypedLocator!;
+    const admitted = evidence.contracts.filter(candidate =>
+      candidate.contractId === contract.contractId && candidate.contractDigest === contract.contractDigest &&
+      candidate.packageExportPath === locator.packageExportPath && candidate.namedSymbol === locator.namedSymbol
+    );
+    const closure = contractRoot(product, locator.packageExportPath);
+    if (
+      admitted.length !== 1 || locator.packageName !== product.packageName ||
+      closure === null || closure.declarationPath !== locator.declarationPath ||
+      !evidence.sources.some(source => source.declarationPath === closure.declarationPath) ||
+      canonicalJson(closure.declarationInventory as unknown as JsonValue) !==
+        canonicalJson(locator.declarationInventory as unknown as JsonValue)
+    ) return null;
+  }
+  return "native";
+}
+
 export function linkNativeContractSet(
   products: readonly NativeLinkProduct[],
   toolchainProductContentDigest: Sha256Digest,
@@ -1862,14 +1978,25 @@ export function linkNativeContractSet(
   products.forEach((product, index) => {
     const root = `/products/${index.toString().padStart(6, "0")}`;
     productRoots.set(product, root);
+    const applicability = nativeProductApplicability(product);
+    if (applicability === null) {
+      invalidPackageEvidence = true;
+      return;
+    }
     const metadata = product.evidence.packageMetadata ?? [];
+    const metadataSources = metadata.map(source => ({
+      path: source.declarationPath, bytes: new TextEncoder().encode(source.sourceText),
+    }));
+    const admittedMetadata = packageMetadataBasis(root, product.packageName,
+      product.evidence.packageType, metadataSources);
+    if (admittedMetadata === null) {
+      invalidPackageEvidence = true;
+      return;
+    }
+    if (applicability === "empty") return;
     const packageBasis = packageDeclarationBasis(ts, root, product.packageName,
-      product.evidence.packageType, metadata.map(source => ({
-        path: source.declarationPath, bytes: new TextEncoder().encode(source.sourceText),
-      })));
-    if (packageBasis === null || metadata.some(source =>
-      sha256Bytes(new TextEncoder().encode(source.sourceText)) !== source.declarationDigest
-    )) {
+      product.evidence.packageType, metadataSources, admittedMetadata);
+    if (packageBasis === null) {
       invalidPackageEvidence = true;
       return;
     }
@@ -1900,7 +2027,7 @@ export function linkNativeContractSet(
   });
 
   if (invalidPackageEvidence) return linkedRefusal(
-    "incompatible_dependency", "invalid package-owned declaration metadata evidence",
+    "incompatible_dependency", "invalid native declaration applicability or package metadata evidence",
   );
 
   const directTarget = (

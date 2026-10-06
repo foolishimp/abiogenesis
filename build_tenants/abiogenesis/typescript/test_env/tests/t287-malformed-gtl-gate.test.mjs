@@ -60,12 +60,12 @@ test('closed lower-native assumptions: invented assessment, foreign prefix and l
 test('Public conformance conserves dual-kind closure authorities and rejects missing or conflicting ownership', async t => {
   const Effect = await import('effect/Effect');
   const { privateOwner } = await import('../support/r10-private-owner-harness.mjs');
-  const { constructHelloWorldModulePublication, HELLO_WORLD_IDS } = await import('../../build/code/src/gtl/hello_world.js');
+  const { constructLanguageTestModulePublication, LANGUAGE_TEST_IDS } = await import('../support/language-test-gtl.mjs');
   const { ConformancePort } = await import('../../build/code/src/validator/conformance_operation.js');
   const { rawAdmitValue } = await import('../../build/code/src/validator/raw_admission.js');
-  const publication = constructHelloWorldModulePublication({ productId:'product://component/conformance', artifactDigest:hash('artifact'),
+  const publication = constructLanguageTestModulePublication({ productId:'product://component/conformance', artifactDigest:hash('artifact'),
     productContentDigest:hash('content'), productManifestDigest:hash('manifest'), packageName:'@abiogenesis/typescript-tenant', packageVersion:'5.0.0-rc.1' });
-  const program = publication.programs.find(p => p.programRef === HELLO_WORLD_IDS.programRef);
+  const program = publication.programs.find(p => p.programRef === LANGUAGE_TEST_IDS.programRef);
   assert.ok(program);
   const coord = (ref, value = {ref}) => ({ref, digest:hash(value)});
   const law = coord('law://abiogenesis/validator/gtl-program@5');

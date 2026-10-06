@@ -1,7 +1,8 @@
 # M03 Direct GTL Traversal Behavior Design
 
-**Status**: Accepted direct-GTL base including the T-270 narrow Product
-leaf-verifier amendment at exact candidate `8865ccff`
+**Status**: Accepted generic direct-GTL base including the T-270 leaf-verifier
+amendment at `8865ccff`; owner-directed test-boundary correction, 2026-10-06,
+with changed-source assurance pending
 
 ## Status
 
@@ -19,10 +20,12 @@ leaf-verifier amendment at exact candidate `8865ccff`
 | Current design status | direct-GTL architecture conserved; one narrow HoG dependency on the Product-owned opaque leaf-semantics verifier accepted |
 | Implementation authority | current GOALS selection and T-287; T-270 is predecessor evidence and this design does not select work |
 
-This document preserves the accepted M3 realization surface. It derives HOW
-from accepted Product and requirements. The selected qualification identity
-does not alter Product meaning, direct-GTL architecture, the root outcome, or
-donor disposition. T-270's accepted verifier amendment makes one existing
+This document preserves the generic M3 direct-traversal architecture. Owner
+correction, 2026-10-06, withdraws the former built-in Hello root. Current Product
+and `REQ-P-SCENARIOS-008` bind an externally authored minimal test program;
+its contracts, leaf binding and expected output are outside production source
+and the ABG package. Prior exact acceptance identities remain historical evidence,
+not authority to reinstall the removed test-specific code. T-270's accepted verifier amendment makes one existing
 leaf-semantics authority relation explicit; it does not enlarge Product or the
 S03 boundary.
 
@@ -48,9 +51,10 @@ The GTL composition is the program. HoG is its executor. ABG is the sole
 runtime-truth substrate. No compiler, generated program, SDK, CLI, catalog,
 plugin, worker, fixture, or feature runner owns another execution relation.
 
-The first realization slice is exact ABI5-ROOT-001: one packed all-F_D Hello
-World GraphFunction through clean installation, catalog admission, direct HoG
-traversal, ABG replay, and typed CLI outcome. The design preserves extension
+The minimal installed proof is `ABI5-ROOT-001`: an externally authored all-F_D
+test program through clean installation, supplied-publication catalog readiness,
+direct HoG traversal, ABG replay and typed CLI outcome. The consumer/test owns
+the Program, GraphFunction, contracts, ordinary leaf and oracle. The design preserves extension
 points for the retained traversal algebra without implementing those deferred
 families in the first slice.
 
@@ -405,12 +409,13 @@ For ABI5-ROOT-001 the relation degenerates to one all-F_D path:
 
 ```text
 input
-  -> C.of(F_D HelloWorld) uniform C-call spine
+  -> C.of(test-owned F_D leaf) uniform C-call spine
   -> admitted evidence, result, and judgment
   -> declared terminal output
 ```
 
-This is the smallest Product proof. It is not a special executor.
+This is the smallest installed mechanics proof. It requires no test-specific
+executor, admission rule or production leaf implementation.
 
 ## 6. Whole-Family Prime Contraction
 
@@ -1071,7 +1076,7 @@ sequenceDiagram
     HoG->>HoG: apply transition and reach declared C locus
     HoG->>ABG: atomically open CCall with scope, locus, and admitted implementation
     ABG-->>HoG: CCall, c_call_opened, c_call_fibre_selected
-    HoG->>Host: realize admitted Hello World leaf
+    HoG->>Host: realize admitted test-owned ordinary leaf
     Host-->>HoG: closed success or failure LeafRealizationCandidate
     HoG->>ABG: admit evidence candidates in CCall
     ABG-->>HoG: c_call_evidenced rows
@@ -1094,7 +1099,7 @@ sequenceDiagram
     Operation->>ABG: replay episode second time
     ABG-->>Operation: identical closed ReplayState
     Operation-->>CLI: projected typed PublicOutcome
-    CLI-->>User: contract://abiogenesis/conformance/hello-output@5
+    CLI-->>User: typed result under the test-owned output contract
 ```
 
 The CLI transports each explicit public operation and renders its typed
@@ -1239,7 +1244,7 @@ conflicting or stale runtime pressure. Neither operation authors a new edge.
 | GTL authoring | ordinary GTL.TypeScript constructors | native; selectively re-adopt declaration interiors |
 | raw and static checks | discriminated RawAdmittedValue plus deterministic PublicationValidation, ProgramValidation, and GraphValidation functions | native; validator emits judgments and diagnostics only |
 | direct graph traversal | TypeScript tail loop or async iterator over original graph values | native; no IR required |
-| F_D leaf execution | src/implementation total TypeScript function addressed by admitted ImplementationBinding | native; no adapter or event access required |
+| F_D leaf execution | ordinary total function addressed by admitted ImplementationBinding; test leaf outside the ABG package | native; no adapter or event access required |
 | event append and replay | append-only discriminated event union plus pure folds | native; M4 adds invocation_refused, the three fixed aggregate-close variants, and the admission-rejection evidence/result/judgment payloads; ABG owns admission ordinal |
 | Event Calculus | declared event-effect table plus deterministic fold | native |
 | operation composition | ordinary stateless function composition over typed owner ports | native; no controller state or dependency cycle |
@@ -1284,7 +1289,8 @@ One installed test must:
 2. create an empty temporary consumer with no source-path access;
 3. install the package;
 4. invoke only installed abg.cli;
-5. execute the exact root identities and contracts;
+5. execute the prospectively fixed external test Program, GraphFunction,
+   contracts and ordinary binding without test semantics in production;
 6. prove the exact uniform C-call event order and selected F_D binding;
 7. retain the durable ABG replay log;
 8. replay the same episode twice;
@@ -1303,7 +1309,9 @@ or executable:
 - publicControlLoop or feature runner;
 - installer- or CLI-authored ExecutionBasis;
 - implementation-authored RuntimeEvent;
-- second event store, result ledger, continuation loop, or closure state.
+- second event store, result ledger, continuation loop, or closure state;
+- test-program-specific contract, publication, implementation, admission,
+  validation, dispatch or proof branch.
 
 ### 13.3 Real-path mutation negatives
 

@@ -1,0 +1,230 @@
+{
+  "operation": "T287_G2_GTL_CORE_REALIZATION_01",
+  "SourceCompile": "PASS at compile03; two routine type/declaration failures retained",
+  "focusedTests": "NOT_RUN",
+  "manifest": "FAILED",
+  "pack": "NOT_RUN",
+  "corpusAuthoring": {
+    "program": "program://abiogenesis/conformance/hello-world@5",
+    "constructors": 7,
+    "wholeLawMutations": 5,
+    "localNegatives": 5,
+    "checkerDerivedExpectedIDs": false,
+    "checkerCallsDuringAuthoring": 0
+  },
+  "supervisedReceipts": {
+    "corpus": {
+      "operation": "T287_G2_GTL_CORE_REALIZATION_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/toolchain/bin/node",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/prepare-corpus.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01",
+      "capSeconds": 60,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/tmp"
+      },
+      "pid": 90557,
+      "pgid": 90557,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 1157.9870833083987,
+      "userCPUSeconds": 0.37907599999999997,
+      "systemCPUSeconds": 0.127531,
+      "maxRSSPlatformBytes": 208470016,
+      "stdoutSHA256": "d537c8f523b260b9f1cab2444e3f91b6cfe4d1843f7d3c2e19ce7da19bdb33e9",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile": {
+      "operation": "T287_G2_GTL_CORE_REALIZATION_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/toolchain/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01",
+      "capSeconds": 180,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/tmp"
+      },
+      "pid": 95493,
+      "pgid": 95493,
+      "exitCode": 1,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 256,
+      "groupAbsent": true,
+      "elapsedMs": 5272.229958791286,
+      "userCPUSeconds": 8.523905,
+      "systemCPUSeconds": 0.215169,
+      "maxRSSPlatformBytes": 1010843648,
+      "stdoutSHA256": "ace05709fa9d80529c8407a8a2d3b47dbe3a0a67bd19852a7585d4c22a02e303",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile02": {
+      "operation": "T287_G2_GTL_CORE_REALIZATION_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/toolchain/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01",
+      "capSeconds": 180,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/tmp"
+      },
+      "pid": 97063,
+      "pgid": 97063,
+      "exitCode": 1,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 256,
+      "groupAbsent": true,
+      "elapsedMs": 5957.412917166948,
+      "userCPUSeconds": 9.717222,
+      "systemCPUSeconds": 0.24095899999999998,
+      "maxRSSPlatformBytes": 1088110592,
+      "stdoutSHA256": "2c78e075434c008b567e1cacae4beadad0d4514e62e36f5ac4ce77930cda61d5",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "compile03": {
+      "operation": "T287_G2_GTL_CORE_REALIZATION_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/toolchain/bin/node",
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01",
+      "capSeconds": 180,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/tmp"
+      },
+      "pid": 97683,
+      "pgid": 97683,
+      "exitCode": 0,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 0,
+      "groupAbsent": true,
+      "elapsedMs": 6617.062249686569,
+      "userCPUSeconds": 10.809806,
+      "systemCPUSeconds": 0.246547,
+      "maxRSSPlatformBytes": 1149648896,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "manifest": {
+      "operation": "T287_G2_GTL_CORE_REALIZATION_01",
+      "command": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/toolchain/bin/node",
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/stage/build_tenants/abiogenesis/typescript",
+      "effectTerritory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01",
+      "capSeconds": 180,
+      "HOMEUnchanged": true,
+      "defaultHeap": true,
+      "environment": {
+        "PATH": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/toolchain/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_G2_GTL_CORE_REALIZATION_01/tmp"
+      },
+      "pid": 98557,
+      "pgid": 98557,
+      "exitCode": 1,
+      "timedOut": false,
+      "wait4Reaped": true,
+      "wait4Status": 256,
+      "groupAbsent": true,
+      "elapsedMs": 473.4076247550547,
+      "userCPUSeconds": 0.404925,
+      "systemCPUSeconds": 0.118269,
+      "maxRSSPlatformBytes": 214614016,
+      "stdoutSHA256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSHA256": "32a13d26492c18ec592d08e69e5dbbb0a997bacd67ba9a5c780da0f5306dc73c"
+    }
+  },
+  "knownProcessClosure": [
+    {
+      "label": "corpus",
+      "pid": 90557,
+      "pgid": 90557,
+      "wait4Reaped": true,
+      "groupAbsentAtReceipt": true,
+      "groupAbsentAtClosure": true
+    },
+    {
+      "label": "compile",
+      "pid": 95493,
+      "pgid": 95493,
+      "wait4Reaped": true,
+      "groupAbsentAtReceipt": true,
+      "groupAbsentAtClosure": true
+    },
+    {
+      "label": "compile02",
+      "pid": 97063,
+      "pgid": 97063,
+      "wait4Reaped": true,
+      "groupAbsentAtReceipt": true,
+      "groupAbsentAtClosure": true
+    },
+    {
+      "label": "compile03",
+      "pid": 97683,
+      "pgid": 97683,
+      "wait4Reaped": true,
+      "groupAbsentAtReceipt": true,
+      "groupAbsentAtClosure": true
+    },
+    {
+      "label": "manifest",
+      "pid": 98557,
+      "pgid": 98557,
+      "wait4Reaped": true,
+      "groupAbsentAtReceipt": true,
+      "groupAbsentAtClosure": true
+    }
+  ],
+  "cost": {
+    "childElapsedMs": 19478.099833708256,
+    "childUserCPUSeconds": 29.834933999999997,
+    "childSystemCPUSeconds": 0.948475,
+    "peakRSSPlatformBytes": 1149648896,
+    "commandsExecuted": 5,
+    "compileAttempts": 3,
+    "manifestAttempts": 1,
+    "packs": 0,
+    "testRuns": 0,
+    "RuntimeCalls": 0,
+    "Runs": 0,
+    "providerCalls": 0
+  },
+  "readDependencies": {
+    "frozenCandidate": "final-candidate-construction-09",
+    "groupsDonor": "g2-existing-owner-groups-01"
+  },
+  "commentsWrites": 0,
+  "ambientGeneratedEffects": 0
+}

@@ -1,0 +1,33 @@
+{
+  "activation": "T287_UAT_CONSUMER_PACKAGE_02",
+  "preimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "sha256": "97310f173fd66218715050e4985d690eaea82aeef762e1fe84c7fecaf6cc3b86"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "af168ca91c004d00c9d99193d30aa2feac1d37a88a64e5c472746f3d19bff8b4"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "sha256": "b0c65513f35e004fc2f8ddcbf348e7544e6da2dae432b223730f8675515844f3"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/README.md",
+      "sha256": "a16c051eebfea8d9f3cf45a0ef3c5854233bd467ed06baff0bc5b349ae1c91d6"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/SEALED.json",
+      "sha256": "969c43206c4b507ac7ddd5e838d74440d8bd08a3386a7278a1878183f343a4cf"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/failure.json",
+      "sha256": "0a4577330ad759035f50d4b828b4ecc977d596d139753788220dbaea4c2cfddb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runs/basic-cli/2026-10-06T00-44-53-198Z-0282ce9e-aa88-4074-85de-34a85e70590a/summary.json",
+      "sha256": "0a4577330ad759035f50d4b828b4ecc977d596d139753788220dbaea4c2cfddb"
+    }
+  ]
+}

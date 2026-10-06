@@ -1,0 +1,205 @@
+{
+  "status": "CLOSED_FIRST_FAILURE_STOPPED",
+  "operation": "T287_F11_CARRIER_INSTALLED_DISCRIMINATOR_02",
+  "actor": "/root/f11_installed_caller_preparation",
+  "role": "Runtime Worker",
+  "executionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-02",
+  "closedAt": "2026-10-01T22:09:51.726698+00:00",
+  "firstFailure": "PAX optimized-reader/cost and unsupervised nominal preflight",
+  "actualNativeRefusal": null,
+  "PublicCLIInvocations": 0,
+  "nativeDispatches": 0,
+  "realProviderCalls": 0,
+  "physicalPrefix": null,
+  "candidateQualified": false,
+  "records": [
+    {
+      "path": "accounting-plan.json",
+      "bytes": 2399,
+      "sha256": "81759c0fa22b0fd8dfc9f30338f4113a84dc0048bdad3895e0ba10c5b87dfa4f",
+      "mode": 420
+    },
+    {
+      "path": "accounting.json",
+      "bytes": 1425,
+      "sha256": "8f52074e00b199ce7d4d70a1d7d648c580f6e60cac189ec687ad7541a7013440",
+      "mode": 420
+    },
+    {
+      "path": "archive-format-cost-localization.json",
+      "bytes": 2299,
+      "sha256": "7a335cc3aa93fc09c7498afd66a00d1124e80912d21e99035bf78f1050f0dd71",
+      "mode": 420
+    },
+    {
+      "path": "budgets.json",
+      "bytes": 237,
+      "sha256": "8d1554533d3e2334c0a656f8d34bcaf457fb3b682ee2189481be9bde7c8ae780",
+      "mode": 420
+    },
+    {
+      "path": "companion-negatives.json",
+      "bytes": 3051,
+      "sha256": "c9e5e416fe6e79c52682c6109889d5bcf75c38c3a0870945c4fc85bf5d52bab3",
+      "mode": 420
+    },
+    {
+      "path": "conformance-resources.mjs",
+      "bytes": 673,
+      "sha256": "62d160eba67201396730064290fefb1b9262ea20f7f93fa223b6e6c6867a7251",
+      "mode": 420
+    },
+    {
+      "path": "construct-fixture.mjs",
+      "bytes": 497,
+      "sha256": "36ad9ac5340c0b0d17bd244846576a16fdb50f3bc7b68524e522afb7b3b51901",
+      "mode": 420
+    },
+    {
+      "path": "consumed-source-pins.json",
+      "bytes": 2642,
+      "sha256": "c6766e3685ebe7c378cfec62284a7575dc2888f6372155cc42cdb3d3aa1a3cb1",
+      "mode": 420
+    },
+    {
+      "path": "controlled-helper.mjs",
+      "bytes": 1448,
+      "sha256": "1bf192b24cafa977507cc47efd333246db29d62455ed7b68eea48f22c1a49e08",
+      "mode": 420
+    },
+    {
+      "path": "first-failure.json",
+      "bytes": 1656,
+      "sha256": "dcc5b73f42a71ef5b6b3873f43ca91e686fd5be697c97872c8e02559c126a171",
+      "mode": 420
+    },
+    {
+      "path": "fixture-artifacts/abiogenesis-fixtures-f11-carrier-child-5.0.0.tgz",
+      "bytes": 10934373,
+      "sha256": "7188ee7c86398f25db5cf71cee1657eb374df519a818b82dd13a55836310d520",
+      "mode": 420
+    },
+    {
+      "path": "fixture-publication-data.json",
+      "bytes": 7004,
+      "sha256": "0b56841c814fe17f6f0a6bd244343e8e781721da4fc877fe1407c8591ebb5d94",
+      "mode": 420
+    },
+    {
+      "path": "fixture-standard-tar-correspondence.json",
+      "bytes": 2559301,
+      "sha256": "20b4fe8bc80cc97e93eda20bb2687714520bcfd1f7a4cb2d79f583f5536b5cd1",
+      "mode": 420
+    },
+    {
+      "path": "flow-driver.mjs",
+      "bytes": 4436,
+      "sha256": "d1207307ea693f7f6822dbc54cd5e1fce41a34d866436db29ffd780e910ba4d0",
+      "mode": 420
+    },
+    {
+      "path": "input-construction-plan.md",
+      "bytes": 5061,
+      "sha256": "ff71f486d8859d56440329721bdc6ce6abed3c7c9d1405baa3f94df8f4476f6d",
+      "mode": 420
+    },
+    {
+      "path": "observe-process.py",
+      "bytes": 731,
+      "sha256": "82361f5c04e51dadfe331c8cfacc63d733d3fbc1753c81d4d8b1db6e27676c7d",
+      "mode": 420
+    },
+    {
+      "path": "operation-plan.json",
+      "bytes": 676,
+      "sha256": "c6a99586ce4c09c1e2120b21ce62332067f7786b1aab9b140463de6d42c5e97b",
+      "mode": 420
+    },
+    {
+      "path": "ordinary-caller.mjs",
+      "bytes": 15287,
+      "sha256": "a0f5958953e68b2d8db024788f4e0b88dee30ed2970ef5190cfb72725a6a8054",
+      "mode": 420
+    },
+    {
+      "path": "prepare-resources.mjs",
+      "bytes": 7684,
+      "sha256": "748f3137fe53c19fb489ea3c18adc491abbc775fc835b2de4f613f61f751a6d2",
+      "mode": 420
+    },
+    {
+      "path": "proof-oracles.mjs",
+      "bytes": 6110,
+      "sha256": "f247d0255ab165ed3a671eda0892ce118ef3f5334fae70b50f3bce9b9e4a7465",
+      "mode": 420
+    },
+    {
+      "path": "prospective-cases.json",
+      "bytes": 3115,
+      "sha256": "f956362543a1a35142106397603e6bc6184a9f29df9f8e2df49f9ac8ac599322",
+      "mode": 420
+    },
+    {
+      "path": "public-support.mjs",
+      "bytes": 10255,
+      "sha256": "1dc643ece0a7f01f7983a392b7a454ef33d621c49e41a6e319b7a6bfe65f3f16",
+      "mode": 420
+    },
+    {
+      "path": "resource-plan.json",
+      "bytes": 338,
+      "sha256": "503247a2258fdb4e42929487e323329c24169c2ced2c73fe84e6ebf9d7d3b979",
+      "mode": 420
+    },
+    {
+      "path": "return.md",
+      "bytes": 3945,
+      "sha256": "1ee6380a861f77466ecc884bbee7254a44d3234e5853c03738436b65afe9c78e",
+      "mode": 420
+    },
+    {
+      "path": "run-setup.mjs",
+      "bytes": 1507,
+      "sha256": "69c275359c6f283420b37f8e4aa0401382ccbbb3329a45c2668792e5190d1563",
+      "mode": 420
+    },
+    {
+      "path": "runtime-activation.json",
+      "bytes": 1203,
+      "sha256": "96b299e90423768fdabaebd3f8e7a667651b75a26e2e74ed55a49870592c8462",
+      "mode": 420
+    },
+    {
+      "path": "runtime-environment.json",
+      "bytes": 3032,
+      "sha256": "ed85986a6f5837377d719fa2e7d276c981a3c76b9ffb94dc1fcb2a08ec40a701",
+      "mode": 420
+    },
+    {
+      "path": "selected-core.json",
+      "bytes": 879,
+      "sha256": "4995d22a6a805d40894590f04b0e04cf81476eccdac7d580742e05a862d6e271",
+      "mode": 420
+    },
+    {
+      "path": "setup-driver.mjs",
+      "bytes": 12609,
+      "sha256": "e60a8f7c2adf97356ff87c410be9eafb493c353a4c796d6117801d3287f2c8d8",
+      "mode": 420
+    },
+    {
+      "path": "task-config/globalnpmrc",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "mode": 420
+    },
+    {
+      "path": "task-config/npmrc",
+      "bytes": 56,
+      "sha256": "e30f218c969b117fb179b8638f34d01a721c899543d0be38cb1e443bdcd392d7",
+      "mode": 420
+    }
+  ],
+  "recordCount": 31,
+  "recordBytes": 13593929
+}

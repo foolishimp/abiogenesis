@@ -1,0 +1,47 @@
+[
+  {
+    "relativePath": "build/code/src/gtl/self_conformance.js",
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/self_conformance.js",
+      "bytes": 18937,
+      "sha256": "4de8b39dbdbe7f1d1691ea326f6047fe95b19040655d284ca6b78f46036b6037",
+      "mode": 420
+    },
+    "postimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-stage/build_tenants/abiogenesis/typescript/build/code/src/gtl/self_conformance.js",
+      "bytes": 19029,
+      "sha256": "1cda3500928d4d5aa754db23ca17c7197750ce9814458548deef606f77e48002",
+      "mode": 420
+    }
+  },
+  {
+    "relativePath": "contracts/capabilities/capability-definition-graph.json",
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "ba539af4ef3deb4d73fbe96f611469a575b966075df461fb827253b4d046a8c7",
+      "mode": 420
+    },
+    "postimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-stage/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "bytes": 197474,
+      "sha256": "012f7a5ab6633742ef51142559b4971992aa13c7b32b719d2a48503f1ee86dcf",
+      "mode": 420
+    }
+  },
+  {
+    "relativePath": "product-toolchain-manifest.json",
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2567514,
+      "sha256": "e960ae9b27c03fcd370bb0408fe7dc51c92ec5bd27287a9c29116a5c9eed1729",
+      "mode": 420
+    },
+    "postimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-07/final-stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 2567514,
+      "sha256": "0a864bb480457dd8befee163ccf5fc2cadce3544b66a450d90cc11705557240a",
+      "mode": 420
+    }
+  }
+]
