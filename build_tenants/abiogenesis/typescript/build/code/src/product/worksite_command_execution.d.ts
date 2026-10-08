@@ -76,7 +76,7 @@ export declare function projectWorksiteCommandExecutionBudget(task: Readonly<{
 }>): Readonly<{
     rule: Readonly<{
         aggregation: "sum";
-        commandFields: readonly ["timeoutMs", "terminationGraceMs"];
+        commandFields: readonly ["timeoutMs", "terminationGraceMs", "terminationGraceMs"];
         httpResponseFields: {
             readonly launch: readonly ["timeoutMs", "terminationGraceMs"];
             readonly request: readonly ["timeoutMs"];

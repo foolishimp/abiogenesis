@@ -1,0 +1,65 @@
+{
+  "status": "IMMUTABLE UNPUBLISHED candidate23; deterministic generation/publication/clean-host readiness only",
+  "candidate": "candidate-23",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "e1deb8a3d000566ccc550055e333c422b759cb63b8b412820f147046685e2dcb",
+    "byteCount": 10630096
+  },
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+  "packageName": "@abiogenesis/typescript-tenant",
+  "packageVersion": "5.0.0-rc.1",
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "sourceCommitMeaning": "metadata only; exact dirty successor identified by source/content/manifest",
+  "productContentDigest": "sha256:c492168158fc38032f8b778be78de3a64f99f409bf8b0785257121821f200951",
+  "manifestDigest": "sha256:99e87edce37ad6267feb2c28f387a55beaf4e53c99fb7609ed7864836aa40d3e",
+  "rawManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/scratch/successor/package/product-toolchain-manifest.json",
+    "sha256": "632e7f77076f06b3862d7893971ffd034edefd9a91524f828394ae047723d5ec",
+    "byteCount": 3171685
+  },
+  "catalogDigest": "sha256:c60cc979d3f9117f87434989e08d72c01f383058cd24e3a2a449cad4f87c75c7",
+  "capabilityDefinitionGraph": {
+    "assetLocator": {
+      "contentDigest": "sha256:2c1eab1e9b1342819fd064ed39dff18692d0fc78d57313f4ca9bfd48e13cd742",
+      "mediaType": "application/json",
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "schemaVersion": "5.0.0"
+    },
+    "graphDigest": "sha256:e5fed82515c005d68d338f3bc1ef4be568916cce351ef03dc02a618713f881ac",
+    "graphId": "capability-definition-graph://abiogenesis/abg-5",
+    "graphVersion": "5.0.0"
+  },
+  "contributionManifestDigest": "sha256:7516e46b52f05f8387a6bd0551d064fda3fab0a612d26ce1c75f69c3ee5e6425",
+  "source113Freeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-carrier-repair-113/freeze.json",
+    "sha256": "587b8470f6fec434085d58cd9e1600c2dca00aeb363698e608c2ece34fb6dbec",
+    "byteCount": 8079
+  },
+  "sourceConjunction": "Root accepted independent114 and actual115 host/carrier/binder proof; those are separate retained evidence",
+  "providerPilot115": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-provider-pilot-115/freeze.json",
+    "sha256": "24445d5c7c80bb0714442dfe8656e46ab509ee456337b38edb0147266452ee01",
+    "byteCount": 9788
+  },
+  "predecessor22": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-22/identity.json",
+    "sha256": "a6518089e1d262acd28af52f74f32034cb01b24c6d8c3c4e9295e29972026811",
+    "byteCount": 3958
+  },
+  "members": {
+    "count": 5265,
+    "unchanged": 5262,
+    "exactChanged": 3,
+    "pathsTypesModesEqual": true,
+    "metadataDependenciesEqual": true,
+    "externalFixtureExclusionExact": true
+  },
+  "installedHostSelector": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/host-preparation/exacthost-identity.json",
+    "sha256": "46db847a404d42735bafe0138a1ea91a7c61cbc075f4370076e3ff801c0457a3",
+    "byteCount": 3205
+  },
+  "source113NormalEmissionExact": true,
+  "effects": "One build/pack/offline install/owner verify only; no Source/HOW/test/app/Git/provider/Run/UAT/qualification/release effects by116"
+}

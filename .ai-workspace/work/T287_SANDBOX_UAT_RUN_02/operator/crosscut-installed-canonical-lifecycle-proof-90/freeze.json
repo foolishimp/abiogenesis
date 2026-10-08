@@ -1,0 +1,25 @@
+{
+  "status": "FROZEN_STOPPED",
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-canonical-lifecycle-proof-90/return.md",
+    "sha256": "b11e0f53c12cb92cd17a0ebfa651b8d19bdf45fd1bff5ea884e20ebcd118efbe",
+    "byteCount": 1711
+  },
+  "readiness": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-canonical-lifecycle-proof-90/readiness.json",
+    "sha256": "4db479ac3896654915108cc33d08bf04a4a9247286146e1c94c6ce3dbf39a6a0",
+    "byteCount": 2983
+  },
+  "pins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-canonical-lifecycle-proof-90/pins.json",
+    "sha256": "ea4f5cd6d4cb3c0eff8ce23bcf54b9ecb18a761286997702560d4302d22aaed8",
+    "byteCount": 29245
+  },
+  "evidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-canonical-lifecycle-proof-90/evidence.json",
+    "sha256": "7a12ed104d3669d1c0814a13fe765e23262f788e4a09abdfec837587b4b363af",
+    "byteCount": 14489
+  },
+  "literalUniquePathCount": 99,
+  "writerEffects": "Only90 receipts and new clean normal-support resources; no further effects after freeze."
+}

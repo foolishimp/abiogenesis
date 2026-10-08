@@ -1,0 +1,16 @@
+{
+  "sameCloseHandoff": true,
+  "validatedEventCount": 165617,
+  "log": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 467374253,
+    "byteCount": 1182449986,
+    "digest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6",
+    "mtimeNs": "1791404494476866055"
+  },
+  "digestEstablishedBy": "Exact SDK physical history validation/receipt; no second full log hash",
+  "selectedLockAbsent": true,
+  "noEventAppend": true,
+  "noReplayOrNativeWork": true
+}

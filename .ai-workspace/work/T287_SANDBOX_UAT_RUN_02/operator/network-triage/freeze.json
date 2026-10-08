@@ -1,0 +1,21 @@
+{
+  "frozenAt": "2026-10-06T03:02:00.980528+00:00",
+  "activation": "T287_SANDBOX_UAT_RUN_02",
+  "refs": [
+    {
+      "path": "resolver-observation.json",
+      "sha256": "4dd599326f2cab86af9a8a8933325db3e2d9446550df336520fb07949ad321a3",
+      "byteCount": 679
+    },
+    {
+      "path": "config-example.patch",
+      "sha256": "1a57eb33f7c543b99813d7e6039fad20d27b7d93f57b7b8e5e156e87e63b6a68",
+      "byteCount": 625
+    },
+    {
+      "path": "return.json",
+      "sha256": "ad47f14b64b8be3107e2212b8bdfda96ece05b312e2a230cd35ee44a24b716c0",
+      "byteCount": 1909
+    }
+  ]
+}

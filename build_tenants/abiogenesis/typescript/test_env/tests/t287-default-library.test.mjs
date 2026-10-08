@@ -11,14 +11,16 @@ import {loadWorksiteOwner,worksiteFixture} from '../support/t287-generic-job-wor
 import {tmpdir} from 'node:os';
 import {pathToFileURL} from 'node:url';
 import * as gtl from '../support/language-test-gtl.mjs';
-import * as product from '../../build/code/src/product/index.js';
+import * as canonicalProduct from '../../build/code/src/product/index.js';
 import * as validator from '../../build/code/src/validator/index.js';
 import {observedGovernanceTaskMatches} from '../../build/code/src/abg/default_library.js';
 import {projectObservedWorksiteCommandChildAtPrefix} from '../../build/code/src/abg/worksite_input_provenance.js';
 import {setupInstalledRootCatalog,requirePublicationValidations} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
 import {libraryConsumerDeclaration,libraryEnvironment,witnessInput,witnessRef,assessmentSchema,schemaPath} from '../support/default-library.mjs';
-const packageRoot=new URL('../..',import.meta.url).pathname;
+const canonicalPackageRoot=new URL('../..',import.meta.url).pathname;
+const packageRoot=process.env.ABI5_DEFAULT_LIBRARY_BUILD_ROOT??canonicalPackageRoot;
+const product=packageRoot===canonicalPackageRoot?canonicalProduct:await import(pathToFileURL(resolve(packageRoot,'build/code/src/product/index.js')).href);
 const governanceRoot=new URL('../../../../../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/',import.meta.url).pathname;
 const witnessRoot=join(governanceRoot,'default-library-witness');
 const basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:'5.0.0-rc.1',artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
@@ -139,6 +141,63 @@ test('default role content is the selected STDO source with capability instructi
     assert.equal(role.policy.text,product.DEFAULT_LIBRARY_POLICY);
     for(const span of role.sourceBindings){const bytes=packaged.subarray(span.startByte,span.endByte);assert.equal(product.sha256Bytes(bytes),span.spanDigest);assert.ok(bytes.toString().startsWith('## Derived '));assert.notEqual(bytes.toString(),role.policy.text);}}
 });
+test('framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe',async t=>{
+  const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
+  const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));
+  await cp(join(witnessRoot,'seed'),f.canonicalRoot,{recursive:true});
+  const state=structuredClone(await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')}));
+  // Generic physical owner fixture: eighteen supplied inputs and eight future
+  // inputs, not application code or an invented native execution/assessment.
+  const selectedPaths=Array.from({length:26},(_,i)=>`declared-input-${i}.txt`),missing=selectedPaths.slice(18);
+  state.original.testing.selectedPaths=selectedPaths;
+  state.original.readRoots=[...state.original.readRoots,...selectedPaths];
+  for(const path of selectedPaths.slice(0,18))await writeFile(join(f.canonicalRoot,path),'supplied input\n');
+  const original=structuredClone(state.original),originalDigest=product.sha256Canonical(original);
+  const observe=()=>physical.observeWorksiteContext({...f,readRoots:state.original.readRoots,maxFiles:100,maxBytes:1000000});
+  const task={kind:'framed_synthesis_task',schemaVersion:'5.0.0',state,context:await observe()};assert.ok(product.isFramedSynthesisTask(task));
+  const targets=gtl.defaultGovernanceGraphFunctions().filter(g=>g.declarations['abg.default_library_purpose']).map(g=>({
+    graphFunctionRef:g.name,definitionDigest:product.sha256Canonical(g),purpose:g.declarations['abg.default_library_purpose']}));
+  const testing=targets.find(t=>t.purpose==='testing').graphFunctionRef,construction=targets.find(t=>t.purpose==='construction').graphFunctionRef;
+  // Controlled basis coordinates exercise the actual strict product binder;
+  // ingress authentication and live selector behavior remain installed proof.
+  const basisFor=task=>({inputRef:'input:prerequisite',inputDigest:product.sha256Canonical(task),taskRef:state.original.taskRef,
+    environmentRef:'environment:prerequisite',environmentDigest:product.sha256Canonical('environment'),frameEvidenceDigest:product.sha256Canonical('frame'),
+    frameRefs:['frame:prerequisite'],contextRef:task.context.observationRef,previousResultRef:null});
+  const rawFor=(task,nextGraphFunctionRef)=>({interpretation:'Preserve the full original plan; construct its missing inputs before measurement.',
+    contributions:[{graphFunctionRef:testing,contribution:'Future full declared Testing, not a reduced probe.',reason:'Measure all declared inputs when present.',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[task.context.observationRef],dependsOn:[]},
+      {graphFunctionRef:construction,contribution:'Author one missing prerequisite.',reason:'Current context has missing declared inputs.',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[task.context.observationRef],dependsOn:[]}],
+    gaps:nextGraphFunctionRef===null?[{supportRefs:state.unresolvedSupportRefs,reason:'Testing inputs remain missing.',evidenceRefs:[task.context.observationRef]}]:[],
+    nextGraphFunctionRef,nextReason:'Choose current work without changing the full Testing declaration.',nextEvidenceRefs:[task.context.observationRef],
+    subjectEvidenceRef:null,revisionReason:'Use current observed prerequisites.',revisionEvidenceRefs:[]});
+  const {default:Ajv}=await import('ajv'),ajv=new Ajv({strict:false});
+  const validate=task=>ajv.compile(product.framedSynthesisResponseSchema(task,targets));
+  const schema=product.framedSynthesisResponseSchema(task,targets),prompt=product.projectFramedSynthesisPromptTask(task);
+  assert.deepEqual(prompt.testing,original.testing);assert.deepEqual(prompt.testingPrerequisites.missingSelectedPaths,missing);
+  assert.match(prompt.testingPrerequisites.meaning,/Presence does not prove adequacy or completion/);
+  assert.ok(schema.properties.contributions.items.properties.graphFunctionRef.enum.includes(testing),'future Testing remains a registered mapping row');
+  assert.ok(!schema.properties.nextGraphFunctionRef.enum.includes(testing),'absent selected inputs make immediate Testing unavailable');
+  const probe=rawFor(task,testing);probe.contributions[0].contribution='Run a partial eighteen-file probe now.';
+  assert.equal(validate(task)(probe),false);assert.equal(product.bindFramedSynthesisResult(task,targets,basisFor(task),probe),null);
+  for(const next of [construction,null]){const raw=rawFor(task,next);assert.equal(validate(task)(raw),true);
+    const bound=product.bindFramedSynthesisResult(task,targets,basisFor(task),raw);assert.ok(bound);assert.equal(bound.state,state);assert.deepEqual(bound.state.original,original);assert.deepEqual(bound.judgment.contributions,raw.contributions);}
+  assert.equal(product.bindFramedSynthesisResult(task,targets,basisFor(task),{...rawFor(task,construction),testing:{selectedPaths:selectedPaths.slice(0,18)}}),null,'raw prose or extra fields cannot replace the plan');
+  for(const path of missing)await writeFile(join(f.canonicalRoot,path),'newly available input\n');
+  assert.equal(product.bindFramedSynthesisResult(task,targets,basisFor(task),rawFor(task,testing)),null,'physical changes do not rewrite a bound context');
+  const complete={...task,context:await observe()},raw=rawFor(complete,testing),bound=product.bindFramedSynthesisResult(complete,targets,basisFor(complete),raw);
+  assert.deepEqual(product.projectFramedSynthesisPromptTask(complete).testingPrerequisites.missingSelectedPaths,[]);
+  assert.ok(product.framedSynthesisResponseSchema(complete,targets).properties.nextGraphFunctionRef.enum.includes(testing));
+  assert.equal(validate(complete)(raw),true);assert.ok(bound);assert.deepEqual(bound.state.original,original);
+  const observedFiles=[];for(const relativePath of selectedPaths){const subject=physical.constructWorksiteSubject({...f,relativePath,subjectUri:pathToFileURL(join(f.canonicalRoot,relativePath)).href});
+    observedFiles.push({subject,observation:await physical.observeWorksiteSubject(f.workspaceAuthorityBasis,f.workspaceBinding,subject)});}
+  const commandTask=product.constructObservedWorksiteCommandExecutionTask({...f,observedFiles,...product.governanceTestingConfiguration(state)});
+  assert.deepEqual(commandTask.protectedObservations.map(r=>r.subject.relativePath),selectedPaths);
+  assert.ok(observedGovernanceTaskMatches(state,commandTask),'complete supplied files retain the canonical no-author Testing route');
+  assert.deepEqual(commandTask.commands.map(c=>({commandId:c.commandId,executable:c.executable,args:c.args,relativeCwd:c.relativeCwd})),
+    original.testing.commands.map(c=>({commandId:c.commandId,executable:c.executable,args:c.args,relativeCwd:c.relativeCwd})));
+  assert.deepEqual(commandTask.outcomePredicates.map(p=>({predicateId:p.predicateId,predicateKind:p.predicateKind,declaration:p.declaration})),original.testing.outcomePredicates);
+  assert.equal(product.sha256Canonical(state.original),originalDigest);
+});
+
 test('framed synthesis binds imported contracts, exact raw judgment and compact choice provenance',async t=>{
   const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));
@@ -162,6 +221,20 @@ test('framed synthesis binds imported contracts, exact raw judgment and compact 
   const lookup=ref=>library.contracts.find(c=>c.contractRef===ref)??null;
   const assembly=m.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,supplied,lookup);assert.equal(assembly.kind,'native_instruction_assembly',JSON.stringify(assembly));
   const rendered=assembly.request.prompt, response=assembly.request.responseJsonSchema;
+  const canonical=assembly.envelope.sections.response;
+  assert.deepEqual(canonical,product.framedSynthesisResponseSchema(supplied,assembly.envelope.targetBindings));assert.ok(canonical.anyOf.length>0,'canonical target/source constraints remain intact');
+  assert.equal(assembly.plan.responsePresentation,undefined);assert.equal(assembly.request.responsePresentation,undefined);
+  assert.deepEqual(Object.keys(response).sort(),['additionalProperties','properties','required','type']);
+  for(const key of Object.keys(response))assert.deepEqual(response[key],canonical[key],key+' is conserved from the canonical owner');
+  for(const key of ['anyOf','oneOf','allOf'])assert.equal(Object.hasOwn(response,key),false,'provider root has no '+key);
+  assert.equal(assembly.plan.canonicalResponseSchemaDigest,product.sha256Canonical(canonical));assert.equal(assembly.plan.carrierResponseSchemaDigest,product.sha256Canonical(response));
+  assert.notEqual(assembly.plan.canonicalResponseSchemaDigest,assembly.plan.carrierResponseSchemaDigest,'shape carrier is not the canonical semantic schema');
+  assert.equal(assembly.manifest.canonicalResponseSchemaDigest,assembly.plan.canonicalResponseSchemaDigest);assert.equal(assembly.manifest.responseSchemaDigest,assembly.plan.carrierResponseSchemaDigest);
+  const transport=await import(pathToFileURL(resolve(packageRoot,'build/code/src/abg/transport_contracts.js')).href);
+  const argsInput={contract:transport.constructKnownWorkerTransportContract('claude',{environment:{}}),prompt:rendered,outputPath:'/unused-selector-output.json',lane:assembly.request.transportLane,responseJsonSchema:response,environment:{}};
+  const args=transport.composeWorkerTransportArgs(argsInput);
+  assert.equal(args.filter(arg=>arg==='--json-schema').length,1);assert.deepEqual(JSON.parse(args.at(-1)),response);
+  assert.deepEqual(args.slice(-5,-2),['--safe-mode','--tools','']);
   for(const rule of ['at most one contribution row per graphFunctionRef','different contribution row in THIS response; no self-dependency','admitted evidenceRefs, not dependsOn','null with nonempty gaps and null subjectEvidenceRef','For UAT, subjectEvidenceRef must select','For Testing, optionally select','For other work or a gap, subjectEvidenceRef must be null'])assert.ok(rendered.includes(rule),rule);
   assert.match(response.properties.contributions.description,/one contribution row per graphFunctionRef/);
   assert.match(response.properties.contributions.items.properties.dependsOn.description,/different contribution in THIS response/);
@@ -182,6 +255,19 @@ test('framed synthesis binds imported contracts, exact raw judgment and compact 
   const bound=product.bindFramedSynthesisResult(supplied,assembly.envelope.targetBindings,assembly.envelope.boundBasis,raw);assert.ok(bound);assert.deepEqual(bound.judgment,raw);assert.equal(bound.state,state);
   const observation={disposition:'success',toolCallCount:0,finalOutput:JSON.stringify(raw),inputDigest:owner.inputDigest,implementationRef:call.implementationRef};
   const check=(value=bound,obs=observation,b=candidate)=>m.namespace.framedSynthesisInstructionResultMatches(b,supplied,value,obs,lookup);
+  const complete=text=>hook.selectGovernanceWork(supplied,{},()=>assembly).complete({request:assembly.request,observation:{...observation,promptDigest:assembly.manifest.promptDigest,finalOutput:text}});
+  assert.deepEqual(complete(JSON.stringify(raw)).resultCandidate,bound);
+  const worker=await import(pathToFileURL(resolve(packageRoot,'build/code/src/abg/worker_transport.js')).href);
+  const structuredRaw=line=>{const observer=worker.createWorkerTransportOutputObserver(true);observer.observe(line+'\n');return observer.finish().finalOutput;};
+  const successfulCarrier=JSON.stringify({type:'result',subtype:'success',is_error:false,structured_output:raw});
+  const structured=structuredRaw(successfulCarrier);assert.deepEqual(complete(structured).resultCandidate,bound);assert.equal(check(bound,{...observation,finalOutput:structured}),true);
+  for(const line of ['', '{', '{"type":"result","subtype":"success","is_error":false,"structured_output":'+JSON.stringify(raw)+',"structured_output":'+JSON.stringify(raw)+'}',
+    JSON.stringify({type:'result',subtype:'success',is_error:false,result:'```json\n'+JSON.stringify(raw)+'\n```'})]){
+    const rejected=structuredRaw(line);assert.equal(rejected,'');assert.throws(()=>complete(rejected));assert.equal(check(bound,{...observation,finalOutput:rejected}),false);
+  }
+  for(const text of ['', '{', 'null', '{"interpretation":"duplicate",'+JSON.stringify(raw).slice(1)]){
+    assert.throws(()=>complete(text));assert.equal(check(bound,{...observation,finalOutput:text}),false);
+  }
   assert.equal(check(),true);assert.equal(check({...bound,judgment:{...raw,nextReason:'rewritten'}}),false);assert.equal(check({...bound,basis:{...bound.basis,frameEvidenceDigest:product.sha256Canonical('crossed')}}),false);
   assert.equal(check(bound,{...observation,inputDigest:product.sha256Canonical('crossed')}),false);assert.equal(check(bound,{...observation,finalOutput:JSON.stringify({...raw,extra:'discard me'})}),false);
   const {framedSynthesisNativeRole:profile}=await import('../../build/code/src/gtl/stdo_run_environment.js');
@@ -214,14 +300,230 @@ test('framed synthesis binds imported contracts, exact raw judgment and compact 
   origin.basisId='basis:foreign';assert.equal(projectionModule.namespace.projectGovernanceChoice(projectionBasis,bound),null);origin.basisId=execution.basisRef;
   projectionOwner.inputValue=gap;assert.equal(projectionModule.namespace.projectGovernanceChoice(projectionBasis,gap).disposition,'gap');
 
+  // Actual binder -> admitted-choice projection -> typed native preparation,
+  // under the controlled occurrence/index premises disclosed above. No actor
+  // or application work is supplied by this counterexample.
+  const construction=targets.find(g=>g.declarations['abg.default_library_purpose']==='construction');
+  const increment={...raw.contributions[0],graphFunctionRef:construction.name,
+    contribution:'Inspect only the current candidate and report its remaining gaps.',
+    reason:'Full testing and independent acceptance remain parent obligations.'};
+  const narrow=bind({...raw,interpretation:'The original task requires several iterations.',contributions:[increment],
+    nextGraphFunctionRef:construction.name,nextReason:'One bounded inspection before reassessment.'});assert.ok(narrow);
+  projectionOwner.inputValue=narrow;origin.payload.resultDigest=product.sha256Canonical(narrow);
+  const selected=projectionModule.namespace.projectGovernanceChoice(projectionBasis,narrow).input.value;
+  assert.deepEqual(selected.original,state.original);assert.deepEqual(selected.unresolvedSupportRefs,state.unresolvedSupportRefs);
+  Object.assign(projectionOwner.execution,{workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest});
+  projectionOwner.environment={kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,productInstalls:[]};
+  const prepare=async input=>{projectionOwner.inputValue=input;projectionOwner.call.implementationRef=product.governanceRef('implementation','prepare-native');return projectionModule.namespace.projectGovernanceNativeTask({graphFunction:construction},input);};
+  const selectedTask=await prepare(selected),native=await import('../../build/code/src/product/native_workspace_work.js');
+  assert.ok(native.isNativeWorkspaceWorkTask(selectedTask));
+  const selectedInstruction=selectedTask.instructions.find(i=>i.startsWith('Current admitted selection for this work unit: '));assert.ok(selectedInstruction);
+  const selectedMeaning=JSON.parse(selectedInstruction.slice(selectedInstruction.indexOf(': ')+2));
+  assert.deepEqual(selectedMeaning.contributions,[increment]);assert.equal(selectedMeaning.interpretation,narrow.judgment.interpretation);
+  assert.equal(selectedMeaning.nextReason,narrow.judgment.nextReason);assert.equal(selectedMeaning.resultRef,origin.payload.resultRef);
+  assert.equal(selectedMeaning.resultDigest,origin.payload.resultDigest);assert.deepEqual(selectedMeaning.nextEvidenceRefs,narrow.judgment.nextEvidenceRefs);
+  const order=state.original.workOrders.construction;
+  assert.notEqual(increment.contribution,order.outcome);assert.equal(selectedTask.outcome,increment.contribution,'operative child goal is the selected increment');
+  for(const key of ['readFirst','writeRoots','checks'])assert.deepEqual(selectedTask[key],order[key],key+' stays caller-owned');
+  assert.deepEqual(selectedTask.capabilityGrant,f.capabilityGrant);assert.ok(selectedTask.instructions.includes('Supplied purpose outcome (parent context): '+order.outcome));
+  assert.ok(selectedTask.instructions.includes('Conserved original task: '+state.original.task));
+  assert.ok(selectedTask.instructions.includes('Unresolved parent outcomes: '+JSON.stringify(state.unresolvedSupportRefs)));
+  assert.equal(projectionModule.namespace.governanceResultMatches({graphFunction:construction},selected,selectedTask),true);
+  const renderedWork=native.renderNativeWorkspaceWorkOrder(selectedTask);
+  assert.ok(renderedWork.includes('Outcome: '+increment.contribution));assert.equal(renderedWork.includes('Outcome: '+order.outcome),false,'the broader parent goal is not rendered as the operative child goal');
+  assert.ok(selectedTask.instructions.some(i=>i.includes('return a truthful partial report')),'author work may yield a bounded partial report');
+  assert.deepEqual(native.nativeWorkspaceWorkResponseSchema(selectedTask).required,['summary','gaps']);
+  const directTask=await prepare(state);assert.ok(native.isNativeWorkspaceWorkTask(directTask));
+  assert.equal(directTask.outcome,order.outcome,'direct calls retain the supplied goal');
+  assert.equal(directTask.instructions.some(i=>i===selectedInstruction),false);
+  projectionOwner.inputValue=selected;
+  assert.equal(projectionModule.namespace.governanceResultMatches({graphFunction:construction},selected,directTask),false,'old global-only adaptation cannot satisfy the selected preparation');
+  const otherChoice={...selected,synthesis:choice.input.value.synthesis};
+  const otherTask=await prepare(otherChoice);assert.deepEqual(otherTask.instructions,directTask.instructions,'an unrelated selected purpose is not imported');assert.equal(otherTask.outcome,order.outcome);
+
+  const partial=native.constructNativeWorkspaceWorkObservation(selectedTask,selectedTask.context,
+    {summary:'Controlled bounded inspection report.',gaps:['Parent testing and independent acceptance remain.']},
+    {cCallRef:'call:partial',executionAuthorityRef:'authority:unit',executionAuthorityDigest:product.sha256Canonical('authority'),actorInvocationRef:'actor:unit',transportBindingRef:'transport:unit',transportBindingDigest:product.sha256Canonical('transport'),promptDigest:product.sha256Canonical('prompt'),transportDigest:product.sha256Canonical('transport')});
+  const retained=product.constructRetainedGraphInput(selected,partial),partialEvent={kind:'c_call_result_admitted',runId:'run:unit',basisId:'basis:child',aggregateId:'call:partial',payload:{resultClass:'success',resultRef:'result:partial',resultDigest:product.sha256Canonical(partial),value:partial}};
+  projectionOwner.inputValue=retained;projectionOwner.call.implementationRef=product.governanceRef('implementation','fold');
+  projectionOwner.inputOrigin={retainedProjection:{entryBasis:projectionOwner.execution,input:{admissionRef:projectionOwner.inputRef,value:retained},sourceResult:partialEvent}};
+  const folded=projectionModule.namespace.projectGovernanceFold({graphFunction:construction},retained);assert.ok(folded);
+  assert.deepEqual(folded.original,state.original);assert.deepEqual(folded.unresolvedSupportRefs,state.unresolvedSupportRefs);
+  assert.equal(folded.terminal,false);assert.equal(folded.observations.at(-1).resultRef,partialEvent.payload.resultRef);
+  assert.deepEqual(folded.observations.at(-1).value.report,partial.report);
+  projectionOwner.inputValue=folded;projectionOwner.call.implementationRef=product.governanceRef('implementation','evaluate-parent');
+  assert.deepEqual(projectionModule.namespace.projectGovernanceParent({},folded),folded,'partial work returns for parent reassessment');
+  const reentered={...supplied,state:folded},reentryBasis={...narrow.basis,inputRef:'input:after-partial',inputDigest:product.sha256Canonical(reentered),previousResultRef:folded.synthesis.resultRef};
+  const next=product.bindFramedSynthesisResult(reentered,assembly.envelope.targetBindings,reentryBasis,{...raw,nextReason:'Measure after the bounded inspection.',nextEvidenceRefs:[partialEvent.payload.resultRef],revisionReason:'The partial inspection is now admitted.',revisionEvidenceRefs:[folded.synthesis.resultRef]});assert.ok(next);
+  projectionOwner.inputValue=next;projectionOwner.inputOrigin={event:origin};projectionOwner.call.implementationRef=product.governanceRef('implementation','project-choice');origin.payload.resultDigest=product.sha256Canonical(next);
+  const nextChoice=projectionModule.namespace.projectGovernanceChoice(projectionBasis,next);assert.equal(nextChoice.graphFunctionRef,target.name);
+  assert.deepEqual(nextChoice.input.value.original,state.original);assert.deepEqual(nextChoice.input.value.observations,folded.observations);assert.equal(nextChoice.input.value.synthesis.basis.previousResultRef,folded.synthesis.resultRef);
+
 });
+
+/** Actual assembly/result owners with controlled authentication premises. This
+ * never authenticates an installed occurrence or invokes an actor. */
+async function planningAssemblyFor(task,{oldProjectorSource}={}) {
+  const {consumerDeclaration,IDS}=await import('../uat/consumer.mjs');
+  const library=gtl.constructDefaultGovernanceLibraryModulePublication(basis);
+  const data=consumerDeclaration(gtl,product,library,1000),publication=gtl.modulePublication({...data,
+    artifactDigest:basis.artifactDigest,productContentDigest:basis.productContentDigest,productManifestDigest:basis.productManifestDigest,
+    contributions:data.contributions.map(c=>({...c,provenanceRefs:[basis.artifactDigest]}))});
+  const graph=publication.graphFunctions.find(g=>g.name===IDS.stepRef),node=graph.template.nodes.find(n=>n.term.programLocusRef===product.governanceRef('node','select'));
+  const targets=library.graphFunctions.filter(g=>g.declarations['abg.default_library_purpose']),role=publication.runEnvironments[0].roles.find(r=>r.role==='selector');
+  const call={regime:'F_P',cCallRef:'call:controlled-planning',cCallDigest:product.sha256Canonical('call'),graphFunctionRef:graph.name,
+    programLocusRef:node.nodeRef,inputContractRef:node.term.inputCarrierRef,outputContractRef:node.term.outputCarrierRef,implementationRef:product.governanceRef('implementation','select')};
+  const execution={programRef:IDS.programRef,basisRef:'basis:controlled-planning',basisDigest:product.sha256Canonical('basis'),
+    invocationAdmissionRef:'invocation:controlled-planning',registeredSelectionDefinitionDigests:Object.fromEntries(targets.map(g=>[g.name,product.sha256Canonical(g)]))};
+  const owner={events:[],call,execution,graph:{template:graph.template},inputValue:task,inputDigest:product.sha256Canonical(task),inputRef:'input:controlled-planning',program:publication.programs[0]};
+  const candidate={publication,graphFunction:graph,declarationGraphFunctions:[...publication.graphFunctions,...library.graphFunctions],
+    executionBasis:execution,cCall:call,cursor:{currentNodeRef:node.nodeRef,termPath:gtl.rootCSourcePath(node.nodeRef)},predecessorPrefix:{}};
+  const source=await import('../../build/code/src/gtl/default_library.js'),bytes=await readFile(join(packageRoot,source.DEFAULT_LIBRARY_STDO_SOURCE.assetPath));
+  const sourceContent=role.sourceBindings.map(binding=>{
+    assert.equal(product.sha256Bytes(bytes),binding.memberDigest);
+    const span=bytes.subarray(binding.startByte,binding.endByte);assert.equal(product.sha256Bytes(span),binding.spanDigest);
+    return {...binding,path:source.DEFAULT_LIBRARY_STDO_SOURCE.path,sourceLocator:source.DEFAULT_LIBRARY_STDO_SOURCE.basisRef,text:new TextDecoder('utf-8',{fatal:true}).decode(span)};
+  });
+  let oldProjector;
+  if(oldProjectorSource){
+    const {default:ts}=await import('typescript'),file=resolve(packageRoot,'build/code/src/product/default_library.js');
+    const old=new SourceTextModule(ts.transpileModule(await readFile(oldProjectorSource,'utf8'),{compilerOptions:{target:ts.ScriptTarget.ES2022,module:ts.ModuleKind.ES2022}}).outputText,{identifier:file});
+    await old.link(async s=>{const actual=await import(s.startsWith('node:')||!s.startsWith('.')?s:pathToFileURL(resolve(dirname(file),s)).href);
+      return new SyntheticModule(Object.keys(actual),function(){for(const[k,v]of Object.entries(actual))this.setExport(k,v);});});
+    await old.evaluate();oldProjector=old.namespace.projectFramedSynthesisPromptTask;
+  }
+  const file=resolve(packageRoot,'build/code/src/abg/instruction_assembly.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+  await m.link(async s=>{const actual=await import(s.startsWith('node:')?s:pathToFileURL(resolve(dirname(file),s)).href);
+    const replacements=s==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>owner}:
+      s==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidence:()=>({...role,invocationAdmissionRef:execution.invocationAdmissionRef,
+        environmentRef:publication.runEnvironments[0].declarationRef,environmentDigest:product.sha256Canonical(publication.runEnvironments[0]),
+        evidenceDigest:product.sha256Canonical('evidence'),contextPolicyDigest:product.sha256Canonical(role.contextPolicy),sourceContent,accessContent:[]})}:
+      s==='../product/default_library.js'&&oldProjector?{projectFramedSynthesisPromptTask:oldProjector}:{};
+    const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});
+  await m.evaluate();const lookup=ref=>[...publication.contracts,...library.contracts].find(c=>c.contractRef===ref)??null;
+  return m.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,task,lookup);
+}
+function planningFactCorrespondence(task,view) {
+  assert.equal(view.originalTask,task.state.original.task);assert.deepEqual(view.testing,task.state.original.testing);
+  assert.deepEqual(view.unresolvedSupportRefs,task.state.unresolvedSupportRefs);
+  assert.deepEqual(view.priorJudgment,task.state.synthesis===null?null:{resultRef:task.state.synthesis.resultRef,judgment:task.state.synthesis.judgment});
+  assert.equal(view.observations.length,task.state.observations.length);
+  for(const[i,source]of task.state.observations.entries()){
+    const shown=view.observations[i];
+    for(const key of ['resultRef','resultDigest','cCallRef','actorInvocationRef','purpose','selectedGraphFunctionRef','synthesisResultRef'])assert.deepEqual(shown[key],source[key]);
+    if(source.purpose!=='testing'){assert.deepEqual(shown.observed,source.value);continue;}
+    for(const[j,row]of source.value.commandResults.entries()){
+      const command=shown.observed.commandResults[j];
+      for(const[k,v]of Object.entries(row))if(!['stdout','stderr'].includes(k))assert.deepEqual(command[k],v);
+      for(const lane of ['stdout','stderr']){
+        const stream=row[lane],display=command[lane];if(!stream||!['utf8','base64'].includes(stream.encoding)){assert.deepEqual(display,stream);continue;}
+        const raw=stream.encoding==='utf8'?Buffer.from(stream.text):Buffer.from(stream.payload,'base64');
+        assert.deepEqual(display.rawBody,{resultRef:source.resultRef,resultDigest:source.resultDigest,fieldPath:['commandResults',j,lane],omittedFromPlanningView:true});
+        assert.equal(display.digest,stream.digest);assert.equal(display.byteLength,stream.byteLength);assert.equal(display.displayOnly,true);
+        assert.ok(!Object.hasOwn(display,'text')&&!Object.hasOwn(display,'payload'));
+        let count=0;for(const excerpt of display.excerpts){assert.equal(raw.subarray(excerpt.startByte,excerpt.endByte).toString(),excerpt.text);count+=excerpt.endByte-excerpt.startByte;}
+        assert.equal(count,display.displayedByteCount);assert.ok(count<=8192&&display.excerpts.length<=32);
+      }
+    }
+    for(const[j,row]of source.value.predicateObservations.entries()){
+      const shownPredicate=shown.observed.predicateObservations[j];
+      for(const[k,v]of Object.entries(row))if(k!=='evidence')assert.deepEqual(shownPredicate[k],v);
+      assert.deepEqual(shownPredicate.evidenceBody,{resultRef:source.resultRef,resultDigest:source.resultDigest,fieldPath:['predicateObservations',j,'evidence'],omittedFromPlanningView:true});
+    }
+  }
+}
+test('selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges',async t=>{
+  const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
+  await cp(join(witnessRoot,'seed'),f.canonicalRoot,{recursive:true});
+  const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8')),state=structuredClone(await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')}));
+  const context=await physical.observeWorksiteContext({...f,readRoots:state.original.readRoots,maxFiles:state.original.maxContextFiles,maxBytes:state.original.maxContextBytes});
+  const text='ordinary line\n'.repeat(2400)+'[info] - controlled Ω😀 named diagnostic *** FAILED ***\n[error] exact application red\n';
+  const stream=text=>({encoding:'utf8',text,digest:product.sha256Bytes(Buffer.from(text)),byteLength:Buffer.byteLength(text)});
+  // Constructed planning carrier, no C2 execution/admission claim.
+  state.observations=[{purpose:'testing',resultRef:'result:controlled',resultDigest:product.sha256Canonical('controlled'),cCallRef:'call:controlled',
+    actorInvocationRef:'actor:controlled',selectedGraphFunctionRef:product.governanceRef('graph-function','testing'),synthesisResultRef:'result:selection',
+    value:{commandResults:[{commandId:'command:controlled',observationRef:'observation:command',observationDigest:product.sha256Canonical('command'),
+      exitStatus:1,timedOut:false,processSignal:null,terminationConfirmed:false,unknownStatus:null,stdout:stream(text),
+      stderr:stream('\uFEFF*** '+ 'Ω😀'.repeat(2400)+'\n'),reports:[{relativePath:'report.xml',state:'absent',digest:null,byteLength:null,observationRef:'report:missing'}]}],
+      predicateObservations:[{predicateId:'predicate:controlled',predicateKind:'process_exit',observedValue:1,evidenceRefs:['observation:command'],evidence:[{opaque:'full proof'}]},
+        {predicateId:'predicate:unknown',predicateKind:'unknown',observedValue:null,evidenceRefs:[],evidence:[]}]}}];
+  const task={kind:'framed_synthesis_task',schemaVersion:'5.0.0',state,context},before=product.sha256Canonical(task);
+  const view=product.projectFramedSynthesisPromptTask(task);planningFactCorrespondence(task,view);
+  assert.ok(view.observations[0].observed.commandResults[0].stdout.excerpts.some(e=>e.text.includes('controlled Ω😀 named diagnostic')));
+  assert.ok(view.observations[0].observed.commandResults[0].stderr.omittedCandidates>0);
+  assert.equal(product.sha256Canonical(task),before);assert.equal(product.governanceVerdict(state),false);
+  for(const text of ['\uFEFFa\n','\uFEFF[error] Ω😀 exact\n','[error] plain Ω😀\n'])for(const encoding of ['utf8','base64']){
+    const sample=structuredClone(task),bytes=Buffer.from(text),row=sample.state.observations[0].value.commandResults[0];
+    row.stdout={encoding,...(encoding==='utf8'?{text}:{payload:bytes.toString('base64')}),digest:product.sha256Bytes(bytes),byteLength:bytes.length};
+    const projected=product.projectFramedSynthesisPromptTask(sample);planningFactCorrespondence(sample,projected);
+    const displayed=projected.observations[0].observed.commandResults[0].stdout;
+    assert.equal(displayed.excerpts[0].startByte,0);assert.equal(displayed.excerpts[0].text,text);
+    assert.equal(Buffer.from(displayed.excerpts[0].text).equals(bytes),true,'literal display preserves the complete cited bytes');
+  }
+  const assembly=await planningAssemblyFor(task);assert.equal(assembly.kind,'native_instruction_assembly',JSON.stringify(assembly));
+  assert.ok(Buffer.byteLength(assembly.request.prompt)<=state.original.maxPromptBytes);
+  const target=assembly.envelope.targetBindings.find(t=>t.purpose==='construction'),raw={interpretation:'Application remains non-green.',
+    contributions:[{graphFunctionRef:target.graphFunctionRef,contribution:'Inspect the reported gap.',reason:'The measurement is adverse.',supportRefs:state.unresolvedSupportRefs,evidenceRefs:['result:controlled'],dependsOn:[]}],
+    gaps:[],nextGraphFunctionRef:target.graphFunctionRef,nextReason:'Correct bounded work then reassess.',nextEvidenceRefs:['result:controlled'],subjectEvidenceRef:null,revisionReason:'Initial',revisionEvidenceRefs:[]};
+  const bound=product.bindFramedSynthesisResult(task,assembly.envelope.targetBindings,assembly.envelope.boundBasis,raw);assert.ok(bound);assert.deepEqual(bound.state,state);assert.deepEqual(bound.judgment,raw);
+  const oversized=structuredClone(task);oversized.state.original.task='x'.repeat(state.original.maxPromptBytes+1);
+  assert.equal((await planningAssemblyFor(oversized)).cause,'declared_bound_overflow');
+});
+test('selector planning fits captured eighteen and realistic fifty-one complete owned assemblies',
+  {skip:!process.env.ABI5_PLANNING_PROJECTION_CAPTURE},async t=>{
+    const fixture=JSON.parse(await readFile(process.env.ABI5_PLANNING_PROJECTION_CAPTURE,'utf8')),metrics=[];
+    const load=async pin=>{const bytes=await readFile(pin.path);assert.equal(product.sha256Bytes(bytes),'sha256:'+pin.sha256);return JSON.parse(bytes);};
+    const captured=await load(fixture.captured),controlled=await load(fixture.controlled);
+    assert.equal(product.sha256Bytes(await readFile(fixture.oldProjector.path)),'sha256:'+fixture.oldProjector.sha256);
+    assert.equal(captured.state.observations.length,18);assert.equal(controlled.state.observations.length,51);
+    assert.deepEqual(controlled.state.observations.slice(0,18),captured.state.observations);assert.deepEqual(controlled.state.original,captured.state.original);
+    for(const[name,task]of [['captured',captured],['controlled16',controlled]]){
+      const before=product.sha256Canonical(task),view=product.projectFramedSynthesisPromptTask(task);planningFactCorrespondence(task,view);
+      let knownNameLines=0;
+      for(const[i,o]of task.state.observations.entries())if(o.purpose==='testing')for(const[j,c]of o.value.commandResults.entries()){
+        const names=(c.stdout.text??'').split('\n').filter(line=>line.includes('*** FAILED ***')),shown=view.observations[i].observed.commandResults[j].stdout;
+        knownNameLines+=names.length;for(const name of names)assert.ok(shown.excerpts.some(e=>e.text.includes(name)),name);
+      }
+      if(name==='captured')assert.equal(knownNameLines,31);
+      const old=await planningAssemblyFor(task,{oldProjectorSource:fixture.oldProjector.path});assert.equal(old.cause,'declared_bound_overflow');
+      const assembly=await planningAssemblyFor(task);assert.equal(assembly.kind,'native_instruction_assembly',JSON.stringify(assembly));
+      assert.ok(Buffer.byteLength(assembly.request.prompt)<=task.state.original.maxPromptBytes);assert.equal(product.sha256Canonical(task),before);
+      metrics.push({name,observations:task.state.observations.length,completePromptBytes:Buffer.byteLength(assembly.request.prompt),projectionBytes:Buffer.byteLength(product.canonicalJson(view)),knownNameLines});
+    }
+    const fd=await import('node:fs/promises'),handle=await fd.open(fixture.eventStore.path,'r');
+    try{for(const coordinate of fixture.owners){
+      const bytes=Buffer.alloc(coordinate.byteLength);await handle.read(bytes,0,bytes.length,coordinate.offset);assert.equal(product.sha256Bytes(bytes),'sha256:'+coordinate.sha256);
+      const event=JSON.parse(bytes),owner=event.payload.value;assert.equal(event.payload.resultRef,coordinate.resultRef);
+      assert.equal(product.sha256Canonical(owner),event.payload.valueDigest);
+      const {resultRef,resultDigest,...resultBody}=event.payload;
+      assert.equal(product.sha256Canonical(resultBody),resultDigest);
+      assert.equal(resultDigest,coordinate.resultDigest);assert.equal(resultRef,'result://abiogenesis/'+resultDigest.slice(7));
+      const retained=captured.state.observations.find(o=>o.resultRef===coordinate.resultRef);assert.equal(retained.resultDigest,coordinate.resultDigest);
+      assert.equal(event.payload.cCallRef,retained.cCallRef);assert.equal(event.aggregateId,retained.cCallRef);
+      const displayed=product.projectFramedSynthesisPromptTask(captured).observations[captured.state.observations.indexOf(retained)].observed;
+      for(const[j,row]of retained.value.commandResults.entries())for(const lane of ['stdout','stderr']){
+        const ref=displayed.commandResults[j][lane].rawBody,stream=ref.fieldPath.reduce((v,k)=>v[k],owner),decoded=Buffer.from(stream.payload,'base64');
+        assert.equal(product.sha256Bytes(decoded),stream.digest);assert.equal(decoded.length,stream.byteLength);
+        assert.equal(stream.digest,row[lane].digest);assert.equal(stream.byteLength,row[lane].byteLength);
+        assert.equal(decoded.toString(),row[lane].text);
+      }
+      for(const[j,p]of retained.value.predicateObservations.entries())assert.deepEqual(
+        displayed.predicateObservations[j].evidenceBody.fieldPath.reduce((v,k)=>v[k],owner),p.evidence);
+    }}finally{await handle.close();}
+    t.diagnostic(JSON.stringify({metrics,authenticOwningResults:fixture.owners.length,controlled:'synthetic; not native mutant detection'}));
+  });
 
 test('fold and assessment consume actual native, C2 and assessment carriers with exact retained origin',async t=>{
   const nativeOwner=await import('../../build/code/src/product/native_workspace_work.js');
   const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
   await cp(join(witnessRoot,'seed'),f.canonicalRoot,{recursive:true});
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));
-  const originalState=await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')});
+  const suppliedState=await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')});
+  // Valid upper UAT input may omit its explicitly selected candidate from the
+  // caller's read-first list. This is the observed G08 adapter counterexample.
+  const originalState=product.constructGovernanceWorkState({...suppliedState.original,workOrders:{...suppliedState.original.workOrders,
+    uat:{...suppliedState.original.workOrders.uat,readFirst:suppliedState.original.workOrders.uat.readFirst.filter(p=>p!==suppliedState.original.assessment.candidatePath)}}});
+  assert.ok(product.isGovernanceWorkState(originalState));assert.ok(!originalState.original.workOrders.uat.readFirst.includes(originalState.original.assessment.candidatePath));
   const context=await physical.observeWorksiteContext({...f,readRoots:originalState.original.readRoots,maxFiles:originalState.original.maxContextFiles,maxBytes:originalState.original.maxContextBytes});
   const library=gtl.constructDefaultGovernanceLibraryModulePublication(basis),rows=[],invocation={invocationRef:'invocation:test',invocationAdmissionRef:'invocation-admission:test',capabilityGrants:[f.capabilityGrant]};
   const execution={basisRef:'basis:wrapper',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:test',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
@@ -232,37 +534,86 @@ test('fold and assessment consume actual native, C2 and assessment carriers with
   // Controlled admitted occurrence/index premises; all native/C2/assessment
   // values and worksite observations are their actual typed owner constructors.
   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
-    const replacements=specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:()=>invalidated,projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
+    const replacements=specifier==='./execution_basis.js'?{authenticateNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:()=>invalidated,projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
   const synth=(state,purpose,subjectEvidenceRef=null)=>({...state,synthesis:{resultRef:'result:synthesis:'+purpose,resultDigest:product.sha256Canonical(purpose),basis:{inputRef:'input:synthesis',inputDigest:product.sha256Canonical(state),taskRef:state.original.taskRef,environmentRef:'environment:test',environmentDigest:product.sha256Canonical('environment'),frameEvidenceDigest:product.sha256Canonical('frame'),frameRefs:['frame:test'],contextRef:context.observationRef,previousResultRef:state.synthesis?.resultRef??null},judgment:{interpretation:'Supplied work',contributions:[{graphFunctionRef:product.governanceRef('graph-function',purpose),contribution:'Selected work',reason:'Actual evidence',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:product.governanceRef('graph-function',purpose),nextReason:'Chosen work',nextEvidenceRefs:[],subjectEvidenceRef,revisionReason:'Current evidence',revisionEvidenceRefs:[]}}});
   const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
   const provenance={cCallRef:'call:native',executionAuthorityRef:'authority:test',executionAuthorityDigest:product.sha256Canonical('authority'),actorInvocationRef:'actor:native',transportBindingRef:'transport:test',transportBindingDigest:product.sha256Canonical('transport'),promptDigest:product.sha256Canonical('prompt'),transportDigest:product.sha256Canonical('transport')};
-  const fold=(state,purpose,value)=>{const input=product.constructRetainedGraphInput(state,value),b=at(purpose,'fold',input),event={kind:'c_call_result_admitted',runId:'run:test',basisId:'basis:child',aggregateId:'call:actual:'+purpose,admissionOrdinal:rows.length+10,payload:{resultRef:'result:actual:'+purpose,resultDigest:product.sha256Canonical(value),resultClass:'success',value}};
+  const fold=(state,purpose,value)=>{const input=product.constructRetainedGraphInput(state,value),b=at(purpose,'fold',input),event={kind:'c_call_result_admitted',runId:'run:test',basisId:'basis:child',aggregateId:'call:actual:'+purpose+':'+rows.length,admissionOrdinal:rows.length+10,payload:{resultRef:'result:actual:'+purpose+':'+rows.length,resultDigest:product.sha256Canonical(value),resultClass:'success',value}};
     rows.push(event);owned.inputOrigin={retainedProjection:{entryBasis:execution,input:{admissionRef:owned.inputRef,value:input},sourceResult:event}};
     const folded=m.namespace.projectGovernanceFold(b,input);assert.ok(folded,purpose);assert.equal(folded.observations.at(-1).cCallRef,event.aggregateId);assert.equal(folded.observations.at(-1).actorInvocationRef,value.provenance.actorInvocationRef);assert.equal(folded.observations.at(-1).synthesisResultRef,state.synthesis.resultRef);
     const retained=owned.inputOrigin.retainedProjection;owned.inputOrigin={};assert.equal(m.namespace.projectGovernanceFold(b,input),null);owned.inputOrigin={retainedProjection:{...retained,entryBasis:{basisRef:'basis:foreign'}}};assert.equal(m.namespace.projectGovernanceFold(b,input),null);owned.inputOrigin={retainedProjection:retained};return folded;};
+  const selectedReads=async(state,producer)=>{
+    const order=state.original.workOrders.uat,selected=state.original.assessment,b=at('uat','prepare-native',state);
+    const task=await m.namespace.projectGovernanceNativeTask(b,state);assert.ok(nativeOwner.isNativeWorkspaceWorkTask(task));
+    const contribution=state.synthesis.judgment.contributions.find(c=>c.graphFunctionRef===b.graphFunction.name);
+    assert.notEqual(contribution.contribution,order.outcome);assert.equal(task.outcome,contribution.contribution,'the selected UAT outcome still identifies its work');
+    assert.ok(task.instructions.includes('Governing full-original assessment outcome: '+order.outcome));
+    assert.ok(task.instructions.includes('Conserved original task: '+state.original.task));
+    assert.ok(task.instructions.some(i=>i.includes('all current criteria govern this independent assessment')&&i.includes('preserving every unmet or indeterminate criterion')));
+    assert.equal(task.instructions.some(i=>i.includes('return a truthful partial report')||i.startsWith('Supplied purpose outcome (parent context):')),false,'UAT cannot inherit author completion guidance');
+    const response=nativeOwner.nativeWorkspaceWorkResponseSchema(task),rendered=nativeOwner.renderNativeWorkspaceWorkOrder(task);
+    assert.deepEqual(response,JSON.parse(Buffer.from(state.original.assessment.schemaAsset.bytesBase64,'base64').toString('utf8')));
+    assert.equal(response.properties.summary,undefined);assert.equal(response.properties.gaps,undefined);
+    assert.ok(rendered.includes('Reacquire full source, actual candidate and rubric independently.'));
+    assert.ok(rendered.includes('Return one JSON object matching the exact declared schema'));
+    assert.deepEqual(task.readFirst,[...order.readFirst,selected.candidatePath]);assert.deepEqual(task.writeRoots,[]);
+    assert.equal(task.assessment.producer.cCallRef,producer.cCallRef);assert.equal(task.assessment.producer.actorInvocationRef,producer.actorInvocationRef);
+    assert.equal(m.namespace.governanceResultMatches(b,state,task),true);
+    assert.equal(m.namespace.governanceResultMatches(b,state,{...task,readFirst:order.readFirst}),false,'admission rejects omitted selected material');
+    const rootInput=root.payload.rawInputValue;
+    const variant=readFirst=>({...state,original:{...state.original,workOrders:{...state.original.workOrders,uat:{...order,readFirst}}}});
+    // Each variation has its own controlled immutable ingress. These are
+    // actual owner projections under index/occurrence premises, not Run proof.
+    const presentReads=[selected.candidatePath,...order.readFirst],present=variant(presentReads);
+    root.payload.rawInputValue=product.constructGovernanceWorkState(present.original);
+    assert.deepEqual((await m.namespace.projectGovernanceNativeTask(at('uat','prepare-native',present),present)).readFirst,presentReads,'already-present paths keep their original positions');
+    const selectedOnly=variant([]);root.payload.rawInputValue=product.constructGovernanceWorkState(selectedOnly.original);
+    assert.deepEqual((await m.namespace.projectGovernanceNativeTask(at('uat','prepare-native',selectedOnly),selectedOnly)).readFirst,[...selected.sources,selected.candidatePath,selected.rubricPath],'only explicit assessment selections supply missing reads');
+    const duplicate=variant([...order.readFirst,order.readFirst[0]]);root.payload.rawInputValue=product.constructGovernanceWorkState(duplicate.original);
+    assert.ok(product.isGovernanceWorkState(duplicate));
+    await assert.rejects(()=>m.namespace.projectGovernanceNativeTask(at('uat','prepare-native',duplicate),duplicate),/native workspace task requires one bound worksite, context and declared scope/);
+    assert.equal(m.namespace.governanceResultMatches(at('uat','prepare-native',duplicate),duplicate,task),false,'original duplicate refusal is retained');
+    root.payload.rawInputValue=rootInput;return task;
+  };
   // Any actual native capability may supply evidence: construction label is not required.
   const nativeState=synth(originalState,'design');
   nativeState.original={...originalState.original,workOrders:{...originalState.original.workOrders,design:originalState.original.workOrders.construction}};
   // Conserve original definition at this controlled root; do not change live witness.
   root.payload.rawInputValue=product.constructGovernanceWorkState(nativeState.original);
   const task=await m.namespace.projectGovernanceNativeTask(at('design','prepare-native',nativeState),nativeState);assert.ok(task);
-  const native=nativeOwner.constructNativeWorkspaceWorkObservation(task,context,{summary:'Existing candidate inspected',gaps:[]},provenance);
+  const native=nativeOwner.constructNativeWorkspaceWorkObservation(task,context,{summary:'Existing candidate inspected',gaps:['Parent testing and independent acceptance remain unresolved.']},provenance);
   const nativeFold=fold(nativeState,'design',native),uatFromNative=synth(nativeFold,'uat',nativeFold.observations.at(-1).resultRef);
-  assert.ok(await m.namespace.projectGovernanceNativeTask(at('uat','prepare-native',uatFromNative),uatFromNative));
+  assert.deepEqual(nativeFold.original,nativeState.original);assert.deepEqual(nativeFold.unresolvedSupportRefs,nativeState.unresolvedSupportRefs);
+  assert.equal(nativeFold.terminal,false);assert.deepEqual(nativeFold.observations.at(-1).value.report,native.report,'truthful partial report is retained without parent satisfaction');
+  const nativeAssessmentTask=await selectedReads(uatFromNative,nativeFold.observations.at(-1));
+  const nativeAssessment=nativeOwner.constructNativeWorkspaceWorkObservation(nativeAssessmentTask,context,null,{...provenance,cCallRef:'call:native-assessment',actorInvocationRef:'actor:native-assessor'},{kind:'consumer_outcome_assessment',disposition:'unmet',reason:'Controlled native subject judgment',unresolvedCriteria:['behavior']});
+  assert.equal(fold(uatFromNative,'uat',nativeAssessment).observations.at(-1).value.disposition,'unmet');
   root.payload.rawInputValue=originalState;
   const testing=synth(originalState,'testing'),commandTask=await m.namespace.projectGovernanceTestingTask(at('testing','prepare-testing',testing),testing);assert.ok(commandTask?.sourceObservedInput);
   const c2=await import('../../build/code/src/product/worksite_command_execution.js'),plan=c2.worksiteCommandExecutionHelperPlan(commandTask,'attempt:test');
   const empty={kind:'worksite_observed_stream',schemaVersion:'5.0.0',encoding:'base64',payload:'',byteLength:0,digest:product.sha256Bytes(Buffer.alloc(0))};
-  const commandResults=commandTask.commands.map(({kind,schemaVersion,expectedReports,...command})=>{const body={...command,exitStatus:7,timedOut:false,processSignal:null,signalSequence:[],terminationConfirmed:true,stdout:empty,stderr:empty,reports:[],reportCount:0},digest=product.sha256Canonical(body);return {kind:'worksite_command_result',schemaVersion:'5.0.0',...body,observationRef:'worksite-command-observation://abiogenesis/'+digest.slice(7),observationDigest:digest};});
+  const literal='\uFEFF[error] exact Ω😀 diagnostic\n*** '+ 'Ω😀'.repeat(2400)+'\n',literalBytes=Buffer.from(literal);
+  const bomStream={...empty,payload:literalBytes.toString('base64'),byteLength:literalBytes.length,digest:product.sha256Bytes(literalBytes)};
+  const commandResults=commandTask.commands.map(({kind,schemaVersion,expectedReports,...command})=>{const body={...command,exitStatus:7,timedOut:false,processSignal:null,signalSequence:[],terminationConfirmed:true,stdout:bomStream,stderr:empty,reports:[],reportCount:0},digest=product.sha256Canonical(body);return {kind:'worksite_command_result',schemaVersion:'5.0.0',...body,observationRef:'worksite-command-observation://abiogenesis/'+digest.slice(7),observationDigest:digest};});
   const members=commandTask.protectedObservations.map(row=>({kind:'worksite_snapshot_member',schemaVersion:'5.0.0',ordinal:row.ordinal,sourceMemberRef:row.sourceMemberRef,sourceObservationRef:row.observation.observationRef,sourceObservationDigest:row.observation.observationDigest,relativePath:row.subject.relativePath,byteLength:row.observation.byteLength,digest:row.observation.fileDigest})),snapshotDigest=product.sha256Canonical(members);
   const artifact=c2.constructWorksiteExecutionHelperArtifact({task:commandTask,disposition:'success',commandResults,predicateObservations:[],worksiteDelta:[],productDelta:[],snapshotRoot:plan.sandboxRoot,snapshotRef:'worksite-command-snapshot://abiogenesis/'+snapshotDigest.slice(7),snapshotDigest,snapshotMembers:members,protectedBefore:commandTask.protectedObservations.map(r=>r.observation),protectedAfter:commandTask.protectedObservations.map(r=>r.observation)});
   const acknowledgment={kind:'worksite_command_execution_worker_result',schemaVersion:'5.0.0',taskRef:commandTask.taskRef,taskDigest:commandTask.taskDigest,attemptRef:plan.attemptRef,helperArtifactRef:artifact.artifactRef,helperArtifactDigest:artifact.artifactDigest};
   const actor={actorRef:commandTask.workerActorRef,workerBindingRef:commandTask.workerBindingRef,implementationRef:product.WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,inputDigest:product.sha256Canonical(commandTask),transportLane:'worker_executes',disposition:'success',toolCallCount:1,toolInvocations:[{kind:'worker_tool_invocation_evidence',schemaVersion:'5.0.0',ordinal:0,toolName:'Bash',toolUseRef:'tool:test',inputDigest:plan.toolInputDigest,inputByteLength:plan.toolInputByteLength}],processRef:'process:test',...provenance,actorInvocationRef:'actor:measurement'};
   const observed=c2.constructWorksiteExecutionObservation(commandTask,acknowledgment,actor,artifact,plan);assert.equal(observed.provenance.cCallRef,undefined,'C2 does not expose invented cCall provenance');
   const measured=fold(testing,'testing',observed);assert.equal(measured.terminal,false);assert.equal(measured.observations.at(-1).value.commandResults[0].exitStatus,7);
+  const foldedStream=measured.observations.at(-1).value.commandResults[0].stdout;
+  assert.equal(foldedStream.text,literal);assert.equal(Buffer.from(foldedStream.text).equals(literalBytes),true);
+  assert.equal(foldedStream.digest,bomStream.digest);assert.equal(foldedStream.byteLength,bomStream.byteLength);
+  const planningTask={kind:'framed_synthesis_task',schemaVersion:'5.0.0',state:measured,context};
+  planningFactCorrespondence(planningTask,product.projectFramedSynthesisPromptTask(planningTask));
+  const author=synth(measured,'construction'),authorTask=await m.namespace.projectGovernanceNativeTask(at('construction','prepare-native',author),author);
+  const literalContext=JSON.parse(authorTask.instructions.find(i=>i.startsWith('Actual admitted observations: ')).slice('Actual admitted observations: '.length));
+  assert.equal(literalContext.at(-1).value.commandResults[0].stdout.text,literal);
+  assert.equal(Buffer.from(literalContext.at(-1).value.commandResults[0].stdout.text).equals(literalBytes),true);
   const uat=synth(measured,'uat',measured.observations.at(-1).resultRef),b=at('uat','prepare-native',uat);
-  const assessmentTask=await m.namespace.projectGovernanceNativeTask(b,uat);assert.ok(assessmentTask);assert.equal(assessmentTask.assessment.producer.cCallRef,'call:actual:testing');assert.equal(assessmentTask.assessment.producer.actorInvocationRef,'actor:measurement');
+  const assessmentTask=await selectedReads(uat,measured.observations.at(-1));assert.equal(assessmentTask.assessment.producer.actorInvocationRef,'actor:measurement');
+  at('uat','prepare-native',uat);
   const admitted=m.namespace.governanceResultMatches(b,uat,assessmentTask);assert.equal(admitted,true);
   sourceBasis={...execution,invocationAdmissionRef:'invocation:crossed'};assert.equal(await m.namespace.projectGovernanceNativeTask(b,uat),null);sourceBasis={...execution};
   invalidated=true;assert.equal(await m.namespace.projectGovernanceNativeTask(b,uat),null);invalidated=false;
@@ -271,6 +622,49 @@ test('fold and assessment consume actual native, C2 and assessment carriers with
   const assessment=nativeOwner.constructNativeWorkspaceWorkObservation(assessmentTask,context,null,{...provenance,cCallRef:'call:assessment',actorInvocationRef:'actor:assessor'},{kind:'consumer_outcome_assessment',disposition:'unmet',reason:'Observed failures',unresolvedCriteria:['behavior']});
   assert.ok(nativeOwner.isNativeWorkspaceWorkObservation(assessment));const assessed=fold(uat,'uat',assessment);assert.equal(assessed.observations.at(-1).value.disposition,'unmet');assert.equal(assessed.terminal,false);
   assert.equal(nativeOwner.isNativeWorkspaceWorkObservation(nativeOwner.constructNativeWorkspaceWorkObservation(assessmentTask,context,null,{...provenance,actorInvocationRef:'actor:measurement'},assessment.assessment)),false,'measurement actor cannot assess itself');
+
+  // One actual folded population exercises schema -> raw binder -> admitted
+  // choice -> native/C2 preparation. Occurrence/index authenticity above is a
+  // controlled premise; there is no provider, native Run or UAT success claim.
+  const population={...assessed,observations:[...nativeFold.observations,...assessed.observations],synthesis:null};
+  const framed={kind:'framed_synthesis_task',schemaVersion:'5.0.0',state:population,context};assert.ok(product.isFramedSynthesisTask(framed));
+  const targets=library.graphFunctions.filter(g=>g.declarations['abg.default_library_purpose']).map(g=>({graphFunctionRef:g.name,definitionDigest:product.sha256Canonical(g),purpose:g.declarations['abg.default_library_purpose']}));
+  const bindBasis=synth(population,'testing').synthesis.basis;
+  const {default:Ajv2020}=await import('ajv/dist/2020.js'),validate=new Ajv2020({strict:false}).compile(product.framedSynthesisResponseSchema(framed,targets));
+  const nativeRef=nativeFold.observations.at(-1).resultRef,c2Ref=measured.observations.at(-1).resultRef,assessmentRef=assessed.observations.at(-1).resultRef;
+  const expected={testing:[nativeRef,null],uat:[nativeRef,c2Ref]};
+  assert.deepEqual(product.governanceSubjectEvidenceRefs(population,'testing'),expected.testing);
+  assert.deepEqual(product.governanceSubjectEvidenceRefs(population,'uat'),expected.uat);
+  const executive=library.graphFunctions.find(g=>g.name===product.governanceRef('graph-function','executive-step'));
+  const selectNode=executive.template.nodes.find(n=>n.nodeRef===executive.declarations['abg.framed_synthesis_locus']);
+  const projectNode=executive.template.nodes.find(n=>n.nodeRef===executive.declarations['abg.framed_synthesis_projection']);
+  owned.graph={template:executive.template};execution.registeredSelectionDefinitionDigests=Object.fromEntries(targets.map(row=>[row.graphFunctionRef,row.definitionDigest]));
+  owned.call.graphCallId='graph-call:typed-source';owned.call.outputContractRef=product.governanceContract('choice');
+  const projectionBasis={graphFunction:executive,cursor:{currentNodeRef:projectNode.nodeRef,termPath:gtl.rootCSourcePath(projectNode.nodeRef)}};
+  const choose=bound=>{
+    const event={kind:'c_call_result_admitted',runId:owned.call.runId,basisId:execution.basisRef,graphCallId:owned.call.graphCallId,aggregateId:'call:source-choice',payload:{resultClass:'success',resultRef:'result:source-choice',resultDigest:product.sha256Canonical(bound)}};
+    rows.push({kind:'c_call_opened',runId:owned.call.runId,basisId:execution.basisRef,aggregateId:event.aggregateId,payload:{programLocusRef:selectNode.nodeRef}});
+    owned.inputValue=bound;owned.inputRef=event.payload.resultRef;owned.inputOrigin={event};owned.call.implementationRef=product.governanceRef('implementation','project-choice');
+    const choice=m.namespace.projectGovernanceChoice(projectionBasis,bound);assert.ok(choice);rows.pop();
+    assert.deepEqual(choice.input.value.original,population.original);assert.deepEqual(choice.input.value.observations,population.observations);return choice.input.value;
+  };
+  for(const purpose of ['testing','uat'])for(const subject of [null,nativeRef,c2Ref,assessmentRef,'result:unknown']){
+    const raw=synth(population,purpose,subject).synthesis.judgment,eligible=expected[purpose].includes(subject);
+    assert.equal(validate(raw),eligible,purpose+' schema '+subject);
+    const bound=product.bindFramedSynthesisResult(framed,targets,bindBasis,raw);assert.equal(bound!==null,eligible,purpose+' raw binder '+subject);
+    if(!bound)continue;
+    const selected=choose(bound),selectedBasis=at(purpose,purpose==='testing'?'prepare-testing':'prepare-native',selected);
+    const prepared=purpose==='testing'?await m.namespace.projectGovernanceTestingTask(selectedBasis,selected):await m.namespace.projectGovernanceNativeTask(selectedBasis,selected);
+    assert.ok(prepared,purpose+' actual owner preparation '+subject);assert.equal(m.namespace.governanceResultMatches(selectedBasis,selected,prepared),true);
+    if(purpose==='testing'){
+      assert.equal(prepared.sourceObservedInput!==undefined,subject===null);assert.equal(prepared.sourceNativeWork!==undefined,subject!==null);
+      assert.deepEqual(prepared.commands.map(c=>c.commandId),population.original.testing.commands.map(c=>c.commandId));
+    }else assert.equal(prepared.assessment.producer.resultRef,subject);
+  }
+  const incompatible=synth(population,'testing',c2Ref);
+  assert.equal(await m.namespace.projectGovernanceTestingTask(at('testing','prepare-testing',incompatible),incompatible),null,'prep shares the same typed-source refusal');
+  assert.deepEqual(product.governanceSubjectEvidenceRefs({...population,observations:[...population.observations,nativeFold.observations.at(-1)]},'testing'),[null],'duplicate source identities are never offered');
+  assert.deepEqual(product.governanceSubjectEvidenceRefs({...population,observations:[{...nativeFold.observations.at(-1),value:{report:{summary:'malformed'},changedPaths:[]}}]},'testing'),[null]);
 });
 
 test('parent conservation joins the pre-Run root basis through exact invocation and root implementation set',async()=>{
@@ -285,6 +679,40 @@ test('parent conservation joins the pre-Run root basis through exact invocation 
   root.payload.implementationSetRef='set:foreign';assert.equal(m.namespace.projectGovernanceParent({},state),null);root.payload.implementationSetRef='set:root';
   root.payload.invocationAdmissionRef='invocation-admission:foreign';assert.equal(m.namespace.projectGovernanceParent({},state),null);root.payload.invocationAdmissionRef=invocation.invocationAdmissionRef;
   roots.push(root);assert.equal(m.namespace.projectGovernanceParent({},state),null);
+});
+
+test('DataMapper caller separates author territories and baseline inputs from future final proof',async()=>{
+  const scenarios=await import('../uat/scenarios.mjs'),consumer=await import('../uat/consumer.mjs');
+  const {root,rows}=await scenarios.loadScenarios(join(packageRoot,'test_env/fixtures/sandbox-uat'));
+  const selected=await scenarios.acquireScenario(root,rows.find(r=>r.key==='data-mapper-full'));
+  // Actual acquisition and strict governance owner; the toolchain coordinate
+  // is a unit input and no SBT, Scala, actor or application work runs here.
+  const state=scenarios.constructWorkloadInput(product,selected,consumer.assessmentSelection,{sbt:{executable:'/unit/sbt',environment:{}}});
+  assert.ok(product.isGovernanceWorkState(state));assert.equal(state.terminal,false);
+  assert.equal(state.original.task,selected.request.task);assert.deepEqual(state.unresolvedSupportRefs,selected.request.requiredSupportRefs);
+  const orders=state.original.workOrders,baseline=state.original.testing.selectedPaths;
+  assert.deepEqual(orders.induction.writeRoots,['specification/intent.md']);
+  assert.ok(orders.specification.writeRoots.every(p=>p.startsWith('specification/')));
+  assert.ok(orders.design.writeRoots.every(p=>p.startsWith('design/')||p==='repair/component-repair-schedule.md'));
+  assert.ok(orders.construction.writeRoots.every(p=>!p.startsWith('specification/')&&!p.startsWith('design/')));
+  // The original request also reads the separate execution-result projection;
+  // that path is not one of its original author-granted artifacts.
+  assert.ok(selected.request.readRoots.includes('test-execution-result.json'));
+  const finalPaths=selected.request.readRoots.filter(p=>!p.startsWith('source/')&&p!=='test-execution-result.json');
+  assert.equal(finalPaths.length,44);assert.deepEqual([...new Set(['induction','specification','design','construction'].flatMap(p=>orders[p].writeRoots))].sort(),[...finalPaths].sort());
+  for(const source of state.original.sources)assert.ok(baseline.includes(source.path),'original source remains snapshotted');
+  for(const fragment of ['/build.sbt','/project/plugins.sbt','/project/build.properties'])assert.equal(baseline.filter(p=>p.endsWith(fragment)).length,1);
+  assert.equal(baseline.filter(p=>p.includes('/src/main/scala/')).length,11);
+  assert.equal(baseline.filter(p=>p.includes('/src/test/scala/')).length,8);
+  assert.equal(baseline.length,26);
+  for(const path of ['depth-proof-map.json','mutation-outcomes.json','release/release-preparation.md','proof/repaired-component-test-execution-qualification.md']){
+    assert.ok(finalPaths.includes(path),'future proof remains a final obligation');assert.equal(baseline.includes(path),false,'future output is not an initial command input');
+  }
+  assert.deepEqual(state.original.testing.commands[0].args,['test']);assert.equal(state.original.testing.commands[0].expectedReports.length,8);
+  assert.equal(state.original.testing.outcomePredicates.find(p=>p.predicateKind==='test_pass_count').declaration.greaterThanOrEqual,20);
+  assert.deepEqual(state.original.testing.outcomePredicates,selected.request.testing.outcomePredicates);
+  assert.deepEqual(state.original.assessment.sources,selected.request.assessment.sources);
+  assert.equal(state.original.assessment.candidatePath,'release/release-preparation.md');
 });
 
 test('consumer-authored source and scope remain exact application data; no solution is in library',async()=>{

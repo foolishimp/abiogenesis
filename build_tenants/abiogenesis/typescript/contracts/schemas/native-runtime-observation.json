@@ -4485,7 +4485,9 @@
     },
     "actor_process_termination_unconfirmed": {
       "initiates": [
-        "actor_process_termination_unconfirmed"
+        "actor_process_termination_unconfirmed",
+        "actor_cleanup_live",
+        "actor_cleanup_pending"
       ],
       "terminates": [],
       "clips": [],

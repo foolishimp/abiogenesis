@@ -1,0 +1,220 @@
+--- before/code/src/abg/runtime_derivation.ts
++++ after/code/src/abg/runtime_derivation.ts
+@@ -1,6 +1,7 @@
+ import type { RuntimeEvent } from "./event_store.js";
+ 
+ const SNAPSHOT = Symbol("owner_runtime_derivation_snapshot");
++const SNAPSHOT_PROOFS = new WeakMap<readonly RuntimeEvent[], SnapshotProof>();
+ 
+ /** Disposable computation territory, never event or durable authority. Each
+  * owner key names its one ordered relation. A rollback abandons the territory. */
+@@ -58,19 +59,18 @@
+ }
+ 
+ class SnapshotProof {
+-  readonly #snapshot: WeakRef<readonly RuntimeEvent[]>;
+   readonly #source: RuntimeDerivationSource;
+   readonly #parent: SnapshotProof | undefined;
+   readonly #shared: number;
+   constructor(snapshot: readonly RuntimeEvent[], source: RuntimeDerivationSource,
+     parent?: readonly RuntimeEvent[], shared = 0) {
+-    this.#snapshot = new WeakRef(snapshot); this.#source = source;
++    this.#source = source;
+     this.#parent = parent === undefined ? undefined : SnapshotProof.for(parent);
+-    this.#shared = shared; Object.freeze(this);
++    this.#shared = shared; SNAPSHOT_PROOFS.set(snapshot, this); Object.freeze(this);
+   }
+   static for(events: readonly RuntimeEvent[]): SnapshotProof | undefined {
+     const proof: unknown = Object.getOwnPropertyDescriptor(events, SNAPSHOT)?.value;
+-    return typeof proof === "object" && proof !== null && #snapshot in proof && proof.#snapshot.deref() === events
++    return typeof proof === "object" && proof !== null && #source in proof && SNAPSHOT_PROOFS.get(events) === proof
+       ? proof : undefined;
+   }
+   static source(events: readonly RuntimeEvent[]): RuntimeDerivationSource | undefined {
+--- before/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md
++++ after/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md
+@@ -114,6 +114,18 @@
+ 
+ ## Current RC2 hot-memory and canonical-hash increment (T-287 / Writer35)
+ 
++The selected Writer58 snapshot correspondence keeps nominal identity in a
++module-private WeakMap from each exact snapshot to its branded proof. Its own
++SNAPSHOT descriptor must equal that registered proof; the proof retains source,
++parent proof and shared-prefix length, with no pointer back to the snapshot.
++[WeakRef construction and dereference](https://tc39.es/ecma262/multipage/managing-memory.html#sec-weakref.prototype.deref)
++add targets to the execution's kept objects. The
++[WeakMap association](https://tc39.es/ecma262/multipage/keyed-collections.html#sec-weakmap-objects)
++permits otherwise unreachable call-local vectors to be collected during a long
++synchronous projection. Exact source identity, raw/copy cold fallback, prefix
++answers and invalidation stay unchanged. This removes that lifetime pressure;
++it does not establish the dominant retainer or close installed memory P0.
++
+ Under the selected STDO2.5.1RC2 integration/worksite and runtime-projection
+ frames, caller admission still captures the complete canonical candidate before
+ freezing it. For the two native body slots above, that detached value may reuse
+--- before/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md
++++ after/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md
+@@ -287,6 +287,15 @@
+ 
+ ### 7.1 RC2 call-local historical views
+ 
++Snapshot identity uses the owning runtime derivation's private WeakMap
++association: exact snapshot key, own SNAPSHOT proof descriptor and private proof
++brand must agree. Proofs have no snapshot backpointer. This preserves parent and
++shared-prefix correspondence without WeakRef construction/dereference keeping
++every intermediate vector alive until the current synchronous execution ends
++([ECMAScript kept objects](https://tc39.es/ecma262/multipage/executable-code-and-execution-contexts.html#sec-addtokeptobjects)).
++Current reusable facts, historical answers, scope refusal and rollback rules
++remain those below; no recovery authority or memory-bound claim is added.
++
+ The disposable liveness reconstruction retains completed declaration/context,
+ budget and observation-fold facts for its exact owner source. A historical
+ prefix used to compute those facts is an intermediate view, not an additional
+--- before/test_env/tests/t287-ordered-reconstruction.test.mjs
++++ after/test_env/tests/t287-ordered-reconstruction.test.mjs
+@@ -8,7 +8,7 @@
+ import * as ec from '../../build/code/src/abg/event_calculus.js';
+ import * as replay from '../../build/code/src/abg/replay.js';
+ import * as live from '../../build/code/src/abg/runtime_liveness.js';
+-import { RuntimeDerivationSource } from '../../build/code/src/abg/runtime_derivation.js';
++import { RuntimeDerivationSource, ownedRuntimeDerivationSource, runtimeDerivationSource } from '../../build/code/src/abg/runtime_derivation.js';
+ import { deepFreeze } from '../../build/code/src/shared/immutable.js';
+ import { sha256Canonical } from '../../build/code/src/shared/digests.js';
+ import { admitIJsonValue } from '../../build/code/src/shared/i_json.js';
+@@ -18,6 +18,58 @@
+ const delta=(before,after)=>Object.fromEntries([...new Set([...Object.keys(before),...Object.keys(after)])].map(k=>[k,(after[k]??0)-(before[k]??0)]));
+ const select=(events,runId)=>{const authority=prefixOwner.selectValidatedRuntimeEventPrefix(events);return {authority,run:prefixOwner.selectRuntimeEventPrefixFromAuthority(authority,{runId})};};
+ const retained={skip:!process.env.ABI5_PREFIX_REUSE_OBSERVATIONS,timeout:180000};
++
++test('snapshot proof identity rejects transplanted descriptors while raw and copied histories keep cold fallback',async()=>{
++  const scratch=await mkdtemp(join(tmpdir(),'ordered-snapshot-identity-'));
++  const acquired=storeOwner.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:join(scratch,'events.jsonl')});
++  assert.ok('store'in acquired);
++  const candidate=n=>({kind:'public_operation_admitted',eventTime:'2026-09-19T20:00:00.000Z',aggregateType:'workspace',aggregateId:'invocation://snapshot/'+n,parentAggregateId:null,causationEventRefs:[],correlationId:'correlation://snapshot/'+n,workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'basis://snapshot',payload:{invocationDigest:sha256Canonical(n),invocationRef:'invocation://snapshot/'+n,operationId:'abg.operation.project.read',variant:'status'}});
++  try {
++    let durable=acquired.prefix;
++    for(const name of ['first','second','third']) durable=storeOwner.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(acquired.store,durable,()=>storeOwner.admitRuntimeEvent(acquired.store,candidate(name))).successorPrefix;
++    const rows=acquired.store.readAll(),source=new RuntimeDerivationSource();
++    const first=source.snapshot(rows.slice(0,2)),appended=source.append(first,rows.slice(2)),cut=source.prefix(appended,1);
++    for(const snapshot of [first,appended,cut]) {
++      assert.equal(ownedRuntimeDerivationSource(snapshot),source);
++      assert.equal(runtimeDerivationSource(snapshot),source);
++      assert.equal(source.snapshot(snapshot),snapshot);
++      assert.ok(Object.isFrozen(snapshot));
++    }
++    assert.equal(source.append(appended,[]),appended);
++    assert.equal(source.prefix(appended,appended.length),appended);
++    assert.equal(source.hasPrefix(appended,first),true);
++    assert.equal(source.hasPrefix(appended,cut),true);
++    const key=Reflect.ownKeys(appended).find(key=>typeof key==='symbol'&&key.description==='owner_runtime_derivation_snapshot');
++    assert.ok(key);
++    const descriptor=Object.getOwnPropertyDescriptor(appended,key);
++    const transplanted=[...appended];Object.defineProperty(transplanted,key,descriptor);Object.freeze(transplanted);
++    const inherited=[...appended];Object.setPrototypeOf(inherited,Object.create(Array.prototype,{[key]:descriptor}));Object.freeze(inherited);
++    const counterfeit=[...appended];Object.defineProperty(counterfeit,key,{value:Object.freeze(Object.create(Object.getPrototypeOf(descriptor.value)))});Object.freeze(counterfeit);
++    const expected=replay.replayValidatedRuntimeEventPrefix(prefixOwner.selectValidatedRuntimeEventPrefix(appended));
++    for(const raw of [[...appended],JSON.parse(JSON.stringify(appended)),structuredClone(appended),transplanted,inherited,counterfeit]) {
++      assert.equal(ownedRuntimeDerivationSource(raw),undefined,'copies and reflected proof transplants carry no nominal source');
++      const cold=runtimeDerivationSource(raw);assert.notEqual(cold,source);
++      deepFreeze(raw); // Copied event values must satisfy the unchanged immutable-prefix guard.
++      const admitted=cold.snapshot(raw);assert.equal(ownedRuntimeDerivationSource(admitted),cold);
++      const value=replay.replayValidatedRuntimeEventPrefix(prefixOwner.selectValidatedRuntimeEventPrefix(admitted));
++      assert.deepEqual(value,expected,'valid copied history retains cold projection fallback');
++      assert.equal(sha256Canonical(value),sha256Canonical(expected));
++    }
++    const fact=Symbol('snapshot-guard-fact'),scope=source.scope('same',first),marker={};
++    scope.owner(fact,()=>marker);
++    assert.equal(source.scope('same',appended),scope,'authentic append reuses its scope');
++    assert.equal(source.scope('same',cut),scope,'historical common prefix reuses its scope');
++    const divergent=source.snapshot([rows[0],rows[2]]);
++    assert.equal(source.hasPrefix(appended,divergent),false);
++    const replaced=source.scope('same',divergent);assert.notEqual(replaced,scope);
++    source.invalidate();const rebuilt=source.scope('same',appended);
++    assert.notEqual(rebuilt,replaced);assert.notEqual(rebuilt.owner(fact,()=>({})),marker);
++    assert.equal(ownedRuntimeDerivationSource(appended),source,'invalidation clears disposable facts, not authentic snapshot provenance');
++    assert.throws(()=>source.prefix(appended,-1),/invalid snapshot prefix length/);
++    assert.throws(()=>source.prefix(appended,appended.length+1),/invalid snapshot prefix length/);
++    console.log(JSON.stringify({kind:'snapshot_identity_conservation',events:rows.length,coldFallbacks:6,transplantsUnowned:true,appendCutScopeAndInvalidation:true,replayDigest:sha256Canonical(expected)}));
++  } finally {acquired.store.closeDurableLog();await rm(scratch,{recursive:true,force:true});}
++});
+ 
+ test('cold acquisition receipt detaches caller input and preserves pure, copied, explicit-fresh and current-prefix distinctions',async()=>{
+   const scratch=await mkdtemp(join(tmpdir(),'ordered-cold-source-'));
+@@ -319,13 +371,19 @@
+   const bytes = await readFile(process.env.ABI5_LIVENESS_CUT_HISTORY);
+   assert.equal(sha256Bytes(bytes), process.env.ABI5_LIVENESS_CUT_SHA256);
+   const old = {};
+-  for (const name of ['event_store', 'event_prefix', 'runtime_derivation', 'runtime_liveness'])
++  for (const name of ['event_store', 'event_prefix', 'runtime_derivation', 'runtime_liveness', 'replay'])
+     old[name] = await import(pathToFileURL(join(oldRoot, 'build/code/src/abg', name + '.js')));
+   const variants = [
+-    { name: 'predecessor', store: old.event_store, prefix: old.event_prefix, live: old.runtime_liveness,
++    { name: 'predecessor', store: old.event_store, prefix: old.event_prefix, live: old.runtime_liveness, replay:old.replay,
+       Source: old.runtime_derivation.RuntimeDerivationSource },
+-    { name: 'successor', store: storeOwner, prefix: prefixOwner, live, Source: RuntimeDerivationSource },
++    { name: 'successor', store: storeOwner, prefix: prefixOwner, live, replay, Source: RuntimeDerivationSource },
+   ];
++  if(process.env.ABI5_SNAPSHOT_PREDECESSOR) {
++    const prior={};
++    for(const name of ['event_store','event_prefix','runtime_derivation','runtime_liveness','replay'])
++      prior[name]=await import(pathToFileURL(join(process.env.ABI5_SNAPSHOT_PREDECESSOR,'build/code/src/abg',name+'.js')));
++    variants.push({name:'snapshot-predecessor',store:prior.event_store,prefix:prior.event_prefix,live:prior.runtime_liveness,replay:prior.replay,Source:prior.runtime_derivation.RuntimeDerivationSource});
++  }
+   const results = [];
+   for (const api of variants) {
+     // Owner-decoded genuine history; changed controls below are explicitly
+@@ -345,19 +403,22 @@
+     }))];
+     const project = () => occurrences.map(ref => api.live.projectRuntimeLivenessAtPrefix(full, ref));
+     const projections = project();
++    const replayValue=api.replay.replayValidatedRuntimeEventPrefix(full);
+     const distinct = [...new Set(probes.map(event => event.admissionOrdinal))];
+     const selectedCuts = [distinct[0], distinct[Math.floor(distinct.length / 2)], distinct.at(-1)];
+     const historicalProjections = selectedCuts.map(ordinal => {
+       const prefix = api.prefix.validatedRuntimeEventPrefixThroughEvent(full, rows[ordinal-1].eventId);
+       assert.equal(prefix.events.at(-1), rows[ordinal-1], 'exact original event identity at historical boundary');
+-      return {ordinal,values:occurrences.map(ref=>api.live.projectRuntimeLivenessAtPrefix(prefix,ref))};
++      return {ordinal,values:occurrences.map(ref=>api.live.projectRuntimeLivenessAtPrefix(prefix,ref)),replay:api.replay.replayValidatedRuntimeEventPrefix(prefix)};
+     });
+     for (const cut of historicalProjections.toReversed()) {
+       const prefix=api.prefix.validatedRuntimeEventPrefixThroughEvent(full,rows[cut.ordinal-1].eventId);
+       assert.deepEqual(occurrences.map(ref=>api.live.projectRuntimeLivenessAtPrefix(prefix,ref)),cut.values);
++      assert.deepEqual(api.replay.replayValidatedRuntimeEventPrefix(prefix),cut.replay);
+     }
+     for (const event of probes.toReversed()) assert.equal(validate(event), true, 'older authentic answer');
+     const repeated = project(); assert.deepEqual(repeated, projections, 'current lease and retry budget unchanged');
++    assert.deepEqual(api.replay.replayValidatedRuntimeEventPrefix(full),replayValue,'historical and reverse queries conserve full replay');
+     const repeatedCache = await inspectLivenessCutRetention(source);
+     const count = facts => facts.reduce((sum, row) => sum + row.historicalVectorCount + row.structuralIntermediateVectorCount, 0);
+     const target = probes.at(-1);
+@@ -375,11 +436,20 @@
+     const rebuiltValidator = api.live.createRuntimeLivenessEventValidator(rebuilt);
+     for (const event of probes) assert.equal(rebuiltValidator(event), true);
+     assert.deepEqual(occurrences.map(ref => api.live.projectRuntimeLivenessAtPrefix(rebuilt, ref)), projections);
+-    results.push({ name: api.name, rowCount: rows.length, accepted, projections, historicalProjections, cache, repeatedCache, count: count(repeatedCache) });
++    assert.deepEqual(api.replay.replayValidatedRuntimeEventPrefix(rebuilt),replayValue);
++    results.push({ name: api.name, rowCount: rows.length, accepted, projections, replayValue, historicalProjections, cache, repeatedCache, count: count(repeatedCache) });
+   }
+   assert.deepEqual(results[1].accepted, results[0].accepted);
+   assert.deepEqual(results[1].projections, results[0].projections, 'complete currentness, budget, lease, identity and digest equivalence');
+   assert.deepEqual(results[1].historicalProjections,results[0].historicalProjections,'exact historical context/budget/lease/refusal equivalence');
++  assert.deepEqual(results[1].replayValue,results[0].replayValue,'full replay conservation');
++  if(results[2]) {
++    for(const field of ['accepted','projections','historicalProjections','replayValue']) {
++      assert.deepEqual(results[1][field],results[2][field],field+' exact snapshot-predecessor equivalence');
++      assert.equal(sha256Canonical(results[1][field]),sha256Canonical(results[2][field]),field+' digest equivalence');
++    }
++    assert.equal(results[2].count,0,'snapshot predecessor already has call-local historical cuts');
++  }
+   assert.ok(results[0].count > 0, 'actual predecessor roots retain historical event/profile and structural vectors');
+   assert.equal(results[1].count,0,'successor roots retain zero historical intermediate vectors');
+   for (const facts of [results[1].cache, results[1].repeatedCache])
+@@ -398,5 +468,6 @@
+     rows: results[1].rowCount, accepted: results[1].accepted.length,
+     oldCache: results[0].cache, newCache: results[1].cache, oldRepeatedCache: results[0].repeatedCache,
+     newRepeatedCache: results[1].repeatedCache, projectionDigest: sha256Canonical(results[1].projections),
+-    invalidationRebuiltExact: true, rawAndNominalRefusalsRetained: true }));
+-});
++    invalidationRebuiltExact: true, rawAndNominalRefusalsRetained: true,
++    snapshotPredecessorCompared:results.length===3,replayDigest:sha256Canonical(results[1].replayValue) }));
++});

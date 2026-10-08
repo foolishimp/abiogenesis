@@ -1,0 +1,17 @@
+[
+  {
+    "path": "code/src/abg/default_library.ts",
+    "sha256": "a827175b9fde9cf52f57f3fa26079872571b744a9990bbc8dacfc5a4a04fe8c1",
+    "byteCount": 31095
+  },
+  {
+    "path": "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "sha256": "04a785cac2b771d2cbc557b4467853bc51309b3220dde7847201bb83527b3cc2",
+    "byteCount": 45084
+  },
+  {
+    "path": "test_env/tests/t287-default-library.test.mjs",
+    "sha256": "e50c53be712db0ccb2b31c83f2872d8e73081425dd1d2e523ac21a0f3cbd1def",
+    "byteCount": 92425
+  }
+]

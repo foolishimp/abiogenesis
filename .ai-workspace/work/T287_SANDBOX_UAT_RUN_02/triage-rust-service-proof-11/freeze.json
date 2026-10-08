@@ -1,0 +1,21 @@
+{
+  "kind": "closed_independent_review_freeze",
+  "schemaVersion": 1,
+  "status": "CLOSED",
+  "subject": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5",
+  "createdAt": "2026-10-06T11:56:55.281776+00:00",
+  "reportFiles": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-rust-service-proof-11/return.md",
+      "sha256": "ae382f3b3da080f6d2203d5223e8ea5d14a18fa2b129db562164168b75d865fb",
+      "byteLength": 5827
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-rust-service-proof-11/pins.json",
+      "sha256": "d770b97120058242d0af355c1650749f01f84fb246c894ca486ef70829902dd5",
+      "byteLength": 27898
+    }
+  ],
+  "permittedEffectsOnly": "create this return.md, pins.json, freeze.json; no runtime/source/archive effects",
+  "reviewerStopped": true
+}

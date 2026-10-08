@@ -1,0 +1,20 @@
+{
+  "kind": "immutable_failure02_cut",
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/freeze.json",
+      "sha256": "44aba1bbe2780e75f83d976ba0e81efa380e9c814d05f652e735109a8a103b11",
+      "bytes": 1398
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/pins.json",
+      "sha256": "fdd308db2956e3bdc226e92dc7665a46c9d879d9074079bba00a7843486129ac",
+      "bytes": 15438
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/failure-02/return.md",
+      "sha256": "61b5794e192037ffa9bcd987a369e65b53354f5b5da06ff32436063f1a0895a0",
+      "bytes": 1666
+    }
+  ]
+}

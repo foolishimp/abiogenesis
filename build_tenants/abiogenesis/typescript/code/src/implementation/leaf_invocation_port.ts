@@ -406,7 +406,9 @@ function isPreparedProbabilisticLeafInvocation(
     value.schemaVersion === "5.0.0" &&
     typeof value.complete === "function" &&
     isRecord(value.workerRequest) &&
-    hasExactDataFields(value.workerRequest, PROBABILISTIC_WORKER_REQUEST_FIELDS) &&
+    hasExactDataFields(value.workerRequest, Object.hasOwn(value.workerRequest, "responsePresentation")
+      ? [...PROBABILISTIC_WORKER_REQUEST_FIELDS, "responsePresentation"] : PROBABILISTIC_WORKER_REQUEST_FIELDS) &&
+    (!Object.hasOwn(value.workerRequest, "responsePresentation") || value.workerRequest.responsePresentation === "result_text") &&
     isDeeplyFrozen(value);
 }
 

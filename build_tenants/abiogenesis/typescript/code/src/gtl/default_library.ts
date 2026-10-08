@@ -43,7 +43,7 @@ function wrapper(purpose: GovernancePurpose): GraphFunction {
     environment: { requires: [state], provides: [state], carries: [...new Set([state, ...nodes.map(n => n.term.outputCarrierRef)])] },
     effects: testing ? [] : [native.effectUri], tags: ["default-library", purpose],
     declarations: { ...declarations, "abg.judgment_predicate": testing ? c2.judgmentPredicateRef : native.judgmentPredicateRef, "abg.default_library_purpose": purpose, "abg.functional_purpose": GOVERNANCE_POLICIES[purpose],
-      "abg.conditions_for_use": testing ? "Selected existing files and an executable command/predicate plan are available; no author prerequisite. Missing plan remains a gap."
+      "abg.conditions_for_use": testing ? "Every original selected path is an observed file and the unchanged full declared command/predicate plan is available; no author prerequisite. Missing selected files or plan remain gaps. A partial-probe contribution cannot replace the fixed declaration."
         : purpose === "uat" ? "An explicitly selected current native-work or C2 measurement Result, consumer source/rubric and installed assessment contract are available. Measurement provenance is not authorship. Read-only independent assessment."
         : "A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit." },
     template: { kind: "inline_graph", graphRef: name + "/graph", startNodeRef: nodes[0]!.nodeRef, terminalNodeRefs: [nodes[2]!.nodeRef], nodes,

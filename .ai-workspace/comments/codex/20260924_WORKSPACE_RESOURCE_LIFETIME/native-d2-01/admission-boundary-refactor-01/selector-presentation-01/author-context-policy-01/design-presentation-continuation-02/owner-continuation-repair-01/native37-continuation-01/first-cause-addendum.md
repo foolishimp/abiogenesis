@@ -1,0 +1,5 @@
+CLOSED forensic observation, not a Public projection or invocation input. One exact seek[337679621,363731863),26,052,242B, took0.055819s including parse/extraction; device16777230/inode459405010/length/mtime remained unchanged. Exact selected rows/offsets are retained, no full-prefix read/hash/replay.
+
+First refusal80343: CCall dee0752ede089dd2c22814f34e430c6bd393c6ed2602856109a1fe441120eda4, result-stage admission_rejection, contract semantic-revision/envelope@5, diagnostic result-contract-mismatch, candidateDigest518618148bc7e537b517d5154b16f04ba9da6f7d86090ff29e3ce4352fdc435d. Typed refusal Result6286b67f…80345 → blocked authored J80347. Enclosing80354 is secondary.
+
+The provider succeeded and native_worker_result_assessment admitted its raw worker result against input16619ace…/raw outputdf06aaa6…. This does not establish acceptance of the constructed envelope. No assessor or application execution followed. The specific failed envelope predicate is unknown in this execution capsule; Root separately selected pure retained-candidate diagnosis. No retry or output promotion.

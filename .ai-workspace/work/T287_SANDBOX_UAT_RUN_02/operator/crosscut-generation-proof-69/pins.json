@@ -1,0 +1,283 @@
+{
+  "status": "CLOSED_BOUNDED_MECHANICAL_GO",
+  "scope": "Source-to-generated and canonical identity projection only; conditional on independent Source acceptance. No Source63 semantic self-review.",
+  "subjectPins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/return.md",
+      "sha256": "268eadc3e442b9927055bdefe500e0cd9cb4351d614e94a48084149e9796cd1d",
+      "bytes": 2667
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/readiness.json",
+      "sha256": "d1026b7814935049704766ad40e3d12f109b887b03f1fead3d5543a12530725e",
+      "bytes": 28930
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/freeze.json",
+      "sha256": "7d65163beb15d92ba7efb4a3228988765193611018cec43ce9f45b059f77f6de",
+      "bytes": 32835
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/pre-build.json",
+      "sha256": "d53adc9fa2fcc82b03dd98c4810f389f4dd93ebe0110c421c15459f6e2c96f4b",
+      "bytes": 2104628
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/generated-delta.json",
+      "sha256": "5d03f0682877f09fa754b768b4680a6b4af0a42d44adbf0f8c4dac6f29565f0d",
+      "bytes": 369015
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/build.request.json",
+      "sha256": "609224083f5b68fc9d8bd6fae33d88c8806de0218eee2e05b97c28b6f3de0915",
+      "bytes": 319
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/build.result.json",
+      "sha256": "13a73b56e09f726c4b534ae7906daa849fb419f50a154a782db120fbdd2f153d",
+      "bytes": 533
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/build.stdout",
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+      "bytes": 215
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/build.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/essential-parity.mjs",
+      "sha256": "252cd37ac5bb9a5f2478102d0c4509507e47fc58a86c5fd4ed0bc02dde7a588c",
+      "bytes": 4889
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/essential-parity.result.json",
+      "sha256": "607b8b139a4a0f395ab967afad2ca991ead4c98b82ceeadaecabe87cba360c8f",
+      "bytes": 396
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/public-catalog-diff.json",
+      "sha256": "560883bbffd7b8c3a5c32374714df4e2fa8798c67a3c956e2a92c9ae9472f256",
+      "bytes": 97757
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/generated-type-and-runtime-asset.diff",
+      "sha256": "00062ff4c0d5d611c18dddd962f91b13aea2bec9f75f7448d07c2736fa57407d",
+      "bytes": 14920
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/pre-capture-field-premise.json",
+      "sha256": "8cd25f177c154643efa40a869f72793220c46c7dc5ed53e16ae85e0a71edc0c7",
+      "bytes": 410
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/owner-attribution.json",
+      "sha256": "b0b999e790391797ac5378db1d843717ba155e6c7ce9640f0e27685571bdb2a7",
+      "bytes": 1289
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/parity-byte-container-premise.json",
+      "sha256": "2ea8524007d232f9e60dae530a5abf2e009829452e85a063db07b05b47230aba",
+      "bytes": 403
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/return.md",
+      "sha256": "d952cb47be96f27e577a3228269ef99d1659a6cf6e4b9e4f48d8a883c27fbf81",
+      "bytes": 2608
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/readiness.json",
+      "sha256": "11bcb21aa7df9d1bc0add2a40d44fbb901ac2fe9e35c5e7c980a664820c2184b",
+      "bytes": 10274
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/freeze.json",
+      "sha256": "e1a02ae887816ddad74ff5fec1127aa316e8f4e620c3ffbcf15a5d62090d7350",
+      "bytes": 17205
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/pre-build.json",
+      "sha256": "be72adfe2d6874101be0ee2797b2ac1527ad636b2fd366f3a2573a6bfa1b2690",
+      "bytes": 8948
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/generated-delta.json",
+      "sha256": "8171a663db9c0d9f17c9158869dd840f749e068b4351963af752532ead1679a0",
+      "bytes": 3268
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/build.request.json",
+      "sha256": "2b9dbd1201c2f635679442086fb684e3028e0b00269fffcb26d45316374fa86f",
+      "bytes": 309
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/build.result.json",
+      "sha256": "5383df8159b492ff9412bddcfe5e539da23a908f16f88a42a2a667d3d9db3e87",
+      "bytes": 517
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/build.stdout",
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+      "bytes": 215
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/build.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/essential-parity.mjs",
+      "sha256": "646a443201804fa7a705859d9170b5faac97b1fc297abd8fb425f287a46fe998",
+      "bytes": 4899
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/essential-parity.result.json",
+      "sha256": "c99a54cc393e0a5ca61f938b2a7a58f72c87f9ee4a2f077698a7b581fcbc8de0",
+      "bytes": 435
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/essential-parity.json",
+      "sha256": "c792cb7edc24fac9926ffcc0d595f726e90bfa61bcd186e9ed7b809ce70829a3",
+      "bytes": 1908
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/owned-handoff-delta.diff",
+      "sha256": "7ddddf6982a3d9f99a8051e69f479209da2da2c63ed76f501f5bb6a9e5e6f972",
+      "bytes": 1595
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/public-catalog-diff.json",
+      "sha256": "a65a949a80f8b242f238aa885e7c2bd8c5388e93436072582aa78ba89da90701",
+      "bytes": 255
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "ae02c7961a12b15ef50d4619ed151f5a306ac8a5579708288b31de648f322828",
+      "bytes": 11790
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "bytes": 4277
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+      "bytes": 93690
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda",
+      "bytes": 25514
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "e99333b2450235da181fb26e15f559bfb5f7c240751b99eb0a5e56b51e7e9917",
+      "bytes": 3171685
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "sha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a",
+      "bytes": 48959
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+      "sha256": "1fff9e0bee14f10e776d15948695e912aaa2dcce8d5c7228c58d982d3cb8c52d",
+      "bytes": 5463
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/digests.js",
+      "sha256": "c49125e6657d04f87a844c5456e55dd19ad84df0f2c161998ffe3d97c56e6117",
+      "bytes": 944
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/capability_contracts.js",
+      "sha256": "ce2aa8d8a6472a30ca68d463c83893f656a31d28a4cee7be3897631bddf8d0f5",
+      "bytes": 24059
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/declaration_exports.js",
+      "sha256": "38c1bee63429bd808f62a8564c13b83ce32a84a3c1f2e2b8502bee5c80b670b2",
+      "bytes": 108445
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/shared/public_function_family.js",
+      "sha256": "91ca24a546815a2d84747eee40569621aa0724ddacb02d61dee6dd8af68a95d8",
+      "bytes": 11567
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/product/publication.js",
+      "sha256": "da130714d3489bfcbb6c08605c3bcd249bc415ef897372c783ccd39344c14efa",
+      "bytes": 623
+    }
+  ],
+  "verifiedLedgers": {
+    "final68": {
+      "rows": 44,
+      "matched": 44
+    },
+    "original64": {
+      "rows": 118,
+      "originalMatches": 113,
+      "exact68SupersededLiveReferences": 5,
+      "archiveLocalPinsConserved": true
+    },
+    "typescript": 263,
+    "how": 5,
+    "buildControls": 8,
+    "dependencies": 4574,
+    "generated": 934,
+    "generatedMembershipModesExact": true,
+    "initialGeneratedChanges": 23,
+    "successorGeneratedChanges": 3,
+    "sourceOwnersProduction": {
+      "61": 5,
+      "62": 3,
+      "63": 5
+    },
+    "onlyFinalSourceDelta": [
+      "code/src/abg/event_calculus.ts",
+      "design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md"
+    ],
+    "accepted58Conserved": true
+  },
+  "canonicalReadOnlyRecomputation": {
+    "payloadMembers": 5263,
+    "content": "sha256:b4c25ff594f789bb2f775d081fe2c8608b4a851e80107174b2abd551e31c7287",
+    "canonicalManifest": "sha256:e81912ed9cae7a65e693a42ad3fd7689844d072c6e6cdf2c745f8e90de6f26f1",
+    "rawManifest": "sha256:e99333b2450235da181fb26e15f559bfb5f7c240751b99eb0a5e56b51e7e9917",
+    "catalogRows": 75,
+    "catalogDigest": "sha256:9f61d1565261aa9f50daf76e8a2c68e819a938455f2b104d68ad2e8cb3e0f2e1",
+    "catalog64Consequences": {
+      "catalogDigest": 1,
+      "declarationDigest": 329,
+      "contractDigest": 21,
+      "contentDigest": 1
+    },
+    "catalog68Equals64": true,
+    "assets": 53,
+    "declarationClosures": 15,
+    "declarationDigestOccurrences": 14352,
+    "nativeContractDigests": 23,
+    "flatRows": 75,
+    "definitionSlots": 178,
+    "graphDigest": "sha256:ff18c3b8b5abe572b8aeecc81675e0c67e1f3e62352bbd72721ca4e50f8669c3",
+    "currentNativeRuntimeAssetEqualsRootEventCalculus": true,
+    "publications": 10,
+    "contributions": 47,
+    "contributionManifestDigest": "sha256:182e782a57a7ac716aa7b18c231a731330b7e753690599f2b33def37d601c380",
+    "transitiveDeclarations": 3,
+    "stringUnionNodesCompared": 619
+  },
+  "probeLimit": "One report-local inventory walk initially assumed identical preimage field names, then read preimage/preimagePath as declared. First pure canonical probe reached graph-byte comparison after catalog/closure assertions and failed because capability graph is excluded from Product payload map; corrected probe reads exact manifest asset locator and exits0. No source/generated change or effectful command.",
+  "excluded": [
+    "Source61/62/63 semantics",
+    "repeated build/tests/verifyProduct",
+    "package or installed/native path",
+    "memory P0 closure",
+    "UAT effectiveness/qualification/release",
+    "DataMapper/source58 mutation"
+  ]
+}

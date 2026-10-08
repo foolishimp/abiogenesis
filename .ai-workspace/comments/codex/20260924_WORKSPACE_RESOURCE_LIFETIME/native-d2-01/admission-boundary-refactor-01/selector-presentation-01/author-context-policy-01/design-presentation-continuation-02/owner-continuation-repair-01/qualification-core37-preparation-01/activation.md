@@ -1,0 +1,3 @@
+Product Frame: fixed fifteen-family ABG5, GOAL035/T287 D5, trusted developer desktop. ABI STDO2.5.1RC1; GLC RC4/dev15 unchanged. GTL declares, HoG traverses, ABG admits.
+
+Root temporarily occupies Writer under root-disposition.md#core37-qualification-input-rebind. Territory this directory only. Rebind closed core34 recipe preparation to accepted core37; no source/law/native/provider/runtime effects, new test roster, or independent judgment. Frames: existing Worker/Proof, E2E Interface Integration and Conservation. Exact package/member evidence is reused; mutable source inputs must match selected frozen package records. Prospective inventory remains incomplete and authentic native fields remain null. Root resumes Executive after the frozen return.

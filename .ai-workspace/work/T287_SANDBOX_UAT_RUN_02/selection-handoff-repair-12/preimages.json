@@ -1,0 +1,27 @@
+[
+  {
+    "path": "design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "sha256": "4bcaa90771f855f08b8fe36fa6a171ddfaa89dfeead7ff7a9f52bb766d8dcb2c",
+    "byteLength": 43221
+  },
+  {
+    "path": "code/src/abg/default_library.ts",
+    "sha256": "ac65695511a97a7d757b2be5a36b87cab4db820618578146f2713eff31a61902",
+    "byteLength": 29763
+  },
+  {
+    "path": "test_env/tests/t287-default-library.test.mjs",
+    "sha256": "3976cac9dbe0db789cde409ece0192d2090ca97245810042a465fd06c7a881aa",
+    "byteLength": 81105
+  },
+  {
+    "path": "test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+    "sha256": "b305469b4b69f43ffb3ec1456ad61648816674c2c7c5238bb1e8085d2f4195ae",
+    "byteLength": 87322
+  },
+  {
+    "path": "test_env/fixtures/sandbox-uat/scenarios.json",
+    "sha256": "bbc1dd8ee7cbcd4a2f1332a2f3509ce17fad836d6d578b4afede999852e61fcf",
+    "byteLength": 34763
+  }
+]

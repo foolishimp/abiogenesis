@@ -1,0 +1,15 @@
+{
+  "status": "CLOSED_GO_SOURCE_UNIT_ONLY",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-review-74/return.md",
+      "sha256": "a6a9302e2f9e7f15f80cdba9211278d2ececa69cc096791bf4e338e635ca7df6",
+      "byteCount": 4295
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-review-74/pins.json",
+      "sha256": "1223497cdf57f0d7e4f8e6bb79b79ed000370cee5cfef130cb7ddd24b1765258",
+      "byteCount": 15514
+    }
+  ]
+}

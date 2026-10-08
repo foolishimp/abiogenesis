@@ -1,0 +1,353 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/fixtures/sandbox-uat/independent-oracle.mjs
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs
+@@ -77,13 +77,13 @@
+   return { tests, failures, errors, skipped, passes: tests - failures - errors - skipped,
+     names: cases.map(x => x.name), failedNames: cases.filter(x => x.failure || x.error).map(x => x.name) };
+ }
+-function admittedCommandObservations(events, owner, validateObservation) {
++function admittedCommandObservations(events, owner, validateObservation, validateSourceObservation) {
+   const observations = new Map();
+   if (typeof owner?.graphFunctionRef !== 'string' || typeof owner.outputContractRef !== 'string' ||
+     typeof owner.runId !== 'string' || owner.resultClass !== 'success' || typeof validateObservation !== 'function') return [];
+   for (const event of Array.isArray(events) ? events : []) {
+     const payload = event?.payload, value = payload?.value;
+-    if (event?.kind !== 'c_call_result_admitted' || event.graphFunctionRef !== owner.graphFunctionRef || event.runId !== owner.runId ||
++    if (event?.kind !== 'c_call_result_admitted' || event.graphFunctionRef !== owner.graphFunctionRef ||
+       payload?.contractRef !== owner.outputContractRef || payload.resultClass !== owner.resultClass ||
+       payload.valueKind !== 'worksite_command_execution_observation' || payload.cCallRef !== event.aggregateId ||
+       value?.kind !== 'worksite_command_execution_observation' || typeof value.observationRef !== 'string' ||
+@@ -91,7 +91,10 @@
+     // The harness supplies the published installed C2 judgment relation. It
+     // owns canonical row, environment, limit, report and task/result equality.
+     // Embedded metadata under another producer or contract is never searched.
+-    try { if (validateObservation(value) === true) observations.set(value.observationRef, value); }
++    try {
++      if (event.runId !== owner.runId && (typeof validateSourceObservation !== 'function' || validateSourceObservation(event) !== true)) continue;
++      if (validateObservation(value) === true) observations.set(value.observationRef, value);
++    }
+     catch { /* Missing or invalid owner support cannot earn oracle credit. */ }
+   }
+   return [...observations.values()];
+@@ -131,7 +134,7 @@
+ /** Independent test-owned mechanical oracle. The caller separately conjoins
+  * native semantic assessment, canonical installed admission and fresh closure.
+  * No donor source, resolver, runtime, output solution or executable is used. */
+-export async function evaluate({ worksiteRoot, runArchive, commands = [], events = [], source, request, observationOwner, validateObservation }) {
++export async function evaluate({ worksiteRoot, runArchive, commands = [], events = [], source, request, observationOwner, validateObservation, validateSourceObservation }) {
+   const manifest = JSON.parse(await readFile(resolve(fixtureRoot, 'scenarios.json'), 'utf8'));
+   const record = manifest.scenarios.find(row => row.key === source?.key || row.scenarioId === request?.scenarioId);
+   if (!record) throw new TypeError('Unknown locally acquired UAT scenario');
+@@ -139,7 +142,7 @@
+   request ??= await jsonAt(fixtureRoot, record.requestFile);
+   const root = await realpath(worksiteRoot), criteria = [];
+   const add = (id, disposition, reason, evidenceRefs = []) => criteria.push({ id, disposition, evidenceRefs, reason });
+-  const observations = admittedCommandObservations(events, observationOwner, validateObservation);
++  const observations = admittedCommandObservations(events, observationOwner, validateObservation, validateSourceObservation);
+   // Supplied command packets may help the caller locate artifacts; they do not
+   // manufacture admission and cannot turn a worker report into execution truth.
+   void commands;
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/uat/runner.mjs
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs
+@@ -282,6 +282,33 @@
+   if(terminal!==null&&terminal!==undefined&&terminal.producer?.runRef!==runRef)throw new BoundaryFailure('oracle-source','Terminal producer differs from admitted Run');
+   return {graphFunctionRef:installedOwner.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef,
+     outputContractRef:installedOwner.WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef,resultClass:'success',runId:runRef};
++}
++
++export function commandObservationSourceUse(runtime,prefix,events,owner) {
++  const selected=new Set();
++  try {
++    // The nominal cold receipt already authenticated these exact event values.
++    // Copied rows or a supplied JSON state cannot establish source-use credit.
++    const owned=runtime.abg.readRuntimeEventsAtDurablePrefix(prefix);
++    if(owned!==events)return ()=>false;
++    const authority=runtime.abg.selectValidatedRuntimeEventPrefix(owned);
++    const runs=owned.filter(event=>event.kind==='run_segment_opened'&&event.aggregateId===owner.runId);
++    if(runs.length!==1||typeof runs[0].payload?.invocationAdmissionRef!=='string')return ()=>false;
++    const admission=runtime.abg.rehydrateInvocationAdmissionAtPrefix(authority,runs[0].payload.invocationAdmissionRef);
++    if(admission===null||!runtime.abg.hasInvocationRunBindingAtPrefix(authority,admission,owner.runId)||
++      admission.sourceResultBasis?.sourceResultContractRef!==runtime.product.governanceContract('state'))return ()=>false;
++    // Native invocation admission proved this complete immutable source basis.
++    // Its existing owner transports finite original Result/call identities;
++    // re-deriving historical replay here would create a second computation.
++    for(const event of owned) {
++      const payload=event.payload;
++      if(event.kind==='c_call_result_admitted'&&event.graphFunctionRef===owner.graphFunctionRef&&
++        payload?.contractRef===owner.outputContractRef&&payload.resultClass===owner.resultClass&&
++        payload.valueKind==='worksite_command_execution_observation'&&payload.cCallRef===event.aggregateId&&
++        runtime.invocationTruth.hasAdmittedGovernanceSourceUse(admission,event))selected.add(event);
++    }
++  }catch { selected.clear(); /* Absent or refused owner support earns no historical credit. */ }
++  return event=>selected.has(event);
+ }
+ 
+ async function checkInstalledIdentity(caller,installations,phase) {
+@@ -360,9 +387,10 @@
+     const oraclePath=fixturePath(oracleSnapshot.root,archivedSelection.row.oracleModule),oracle=await import(pathToFileURL(oraclePath).href);
+     const installedOwner=(await installedModules(caller.installedRoot)).product;
+     const observationOwner=commandObservationOwner(installedOwner,execution);
++    const validateSourceObservation=commandObservationSourceUse(runtime,caller.state.environment.prefix,events,observationOwner);
+     const observationRelation=installedOwner.resolveWorksiteCommandExecutionJudgmentRelation(installedOwner.WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef);
+     const judged=await oracle.evaluate({worksiteRoot:effective.worksiteRoot,runArchive:root,commands:caller.state.calls,events,source:archivedSelection.row,
+-      request:{...selected.request,testing:input.original.testing},observationOwner,
++      request:{...selected.request,testing:input.original.testing},observationOwner,validateSourceObservation,
+       validateObservation:observationRelation?observation=>observationRelation.evaluate(observation.task,observation):undefined});
+     await record('independent-oracle.json',judged);
+     const completed=execution.receipt.exitCode===0&&execution.receipt.ownerOutput.outcomeKind==='result'&&terminalState?.kind==='governance_work_state'&&terminalState.terminal===true&&terminalState.unresolvedSupportRefs.length===0;
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/uat/public-setup.mjs
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs
+@@ -19,8 +19,10 @@
+ export function requireKind(value,kind,stage){if(value?.kind!==kind)throw new BoundaryFailure(stage,value);return value;}
+ export async function installedModules(root) {
+   const load=name=>import(pathToFileURL(join(root,'build/code/src',name,'index.js')).href);
+-  const [product,abg,gtl,validator,api]=await Promise.all(['product','abg','gtl','validator','public'].map(load));
+-  return {product,abg,gtl,validator,api};
++  const [product,abg,gtl,validator,api,invocationTruth]=await Promise.all([
++    ...['product','abg','gtl','validator','public'].map(load),
++    import(pathToFileURL(join(root,'build/code/src/abg/invocation_execution_truth.js')).href)]);
++  return {product,abg,gtl,validator,api,invocationTruth};
+ }
+ 
+ export async function verifyArtifact(runtime,{artifactPath,manifest,expectedArtifactDigest},record,label) {
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/uat/harness.test.mjs
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs
+@@ -12,9 +12,9 @@
+ import * as storeOwner from '../../build/code/src/abg/event_store.js';
+ import * as gtl from '../../build/code/src/gtl/index.js';
+ import { assessmentSelection, consumerDeclaration, IDS } from './consumer.mjs';
+-import { constructLifecycleCall, publicCaller } from './public-setup.mjs';
++import { constructLifecycleCall, installedModules, publicCaller } from './public-setup.mjs';
+ import { acquireArchivedScenario, acquireScenario, constructWorkloadInput, digest, fixturePath, loadScenarios, selectScenarios, snapshotScenario } from './scenarios.mjs';
+-import { acquireResumeMaterial, applyCommandTimeoutOverrides, commandObservationOwner, commandRecorder, configuration, eventResourceIdentity, exclusiveRecord, freshReadbacks, invokeLifecycle, main, newArchive, readOracleEvents, transferResumeMaterial, workerEnvironment } from './runner.mjs';
++import { acquireResumeMaterial, applyCommandTimeoutOverrides, commandObservationOwner, commandObservationSourceUse, commandRecorder, configuration, eventResourceIdentity, exclusiveRecord, freshReadbacks, invokeLifecycle, main, newArchive, readOracleEvents, transferResumeMaterial, workerEnvironment } from './runner.mjs';
+ 
+ const fixtures=fileURLToPath(new URL('../fixtures/sandbox-uat/',import.meta.url));
+ const archives=fileURLToPath(new URL('../../../../../.ai-workspace/work/T287_SANDBOX_UAT_01/harness/unit-runs/',import.meta.url));
+@@ -159,6 +159,67 @@
+   assert.equal(relation.evaluate(fabricated.payload.value.task,fabricated.payload.value),false);
+   assert.equal((await evaluate({events:[fabricated]})).criteria.find(row=>row.id===executionCriterion.id).disposition,'indeterminate');
+ });
++test('Source-use attribution refuses unauthenticated or unadmitted current invocations through actual installed owners',async t=>{
++  const runtime=await installedModules(process.env.ABI5_ORACLE_SOURCE_OWNER_ROOT??fileURLToPath(new URL('../../',import.meta.url)));
++  const f=await oracleEventFixture(t),prefix=runtime.abg.captureDurablePrefixCoordinate(f.prefix);
++  const events=runtime.abg.readRuntimeEventsAtDurablePrefix(prefix);
++  const owner={graphFunctionRef:runtime.product.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef,
++    outputContractRef:runtime.product.WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef,resultClass:'success',runId:'run://unadmitted'};
++  const absent=commandObservationSourceUse(runtime,prefix,events,owner);
++  assert.equal(events.some(absent),false,'a real authenticated event source has no invented invocation/source authority');
++  const copied=commandObservationSourceUse(runtime,prefix,[...events],owner);
++  assert.equal(events.some(copied),false,'copied caller vectors are not the exact authenticated source');
++  const supplied={...owner,sourceResultBasis:{sourceResultContractRef:runtime.product.governanceContract('state'),
++    sourceResultValue:{kind:'governance_work_state',observations:[{resultRef:'result://supplied',resultDigest:product.sha256Canonical('supplied'),cCallRef:'c-call:supplied'}],synthesis:null}}};
++  assert.equal(events.some(commandObservationSourceUse(runtime,prefix,events,supplied)),false,'supplied JSON does not add an admission');
++  assert.equal(events.some(commandObservationSourceUse(runtime,{...prefix,eventCount:prefix.eventCount+1},events,owner)),false,'crossed physical coordinate cannot earn credit');
++});
++test('Source-use finite owner tuples preserve cross-Run consumer guards under an explicit admission projection premise',async t=>{
++  const runtime=await installedModules(process.env.ABI5_ORACLE_SOURCE_OWNER_ROOT??fileURLToPath(new URL('../../',import.meta.url)));
++  const f=await rustServiceMechanicalFixture(t),old=f.event,newRun='run://controlled/resumed',ref='invocation-admission://controlled/resumed';
++  old.payload.resultRef='result://controlled/old';old.payload.resultDigest=product.sha256Canonical(old.payload.value);
++  const tuple={resultRef:old.payload.resultRef,resultDigest:old.payload.resultDigest,cCallRef:old.aggregateId};
++  const admission={invocationAdmissionRef:ref,sourceResultBasis:{sourceResultContractRef:runtime.product.governanceContract('state'),
++    sourceResultValue:{kind:'governance_work_state',observations:[tuple],synthesis:null}}};
++  const run={kind:'run_segment_opened',aggregateId:newRun,payload:{invocationAdmissionRef:ref}};
++  const events=[old,run],owner={...f.input.observationOwner,runId:newRun};
++  // These four owner-operation doubles are explicit lower premises: this test
++  // exercises the real installed immutable membership owner and consumer,
++  // not native source admission or actual resumed-UAT authority. The previous
++  // test exercises the actual cold/authentication/admission refusal boundary.
++  const bound={...runtime,abg:{...runtime.abg,readRuntimeEventsAtDurablePrefix:()=>events,
++    selectValidatedRuntimeEventPrefix:()=>({}),rehydrateInvocationAdmissionAtPrefix:()=>admission,
++    hasInvocationRunBindingAtPrefix:()=>true}};
++  const selected=commandObservationSourceUse(bound,{},events,owner);
++  assert.equal(selected(old),true);assert.equal(selected(structuredClone(old)),false,'copied event identity is never inherited');
++  const inherited=await f.evaluate({events:[old],observationOwner:owner,validateSourceObservation:selected});
++  assert.equal(inherited.disposition,'satisfied','mechanical evaluator joins only the selected earlier observation premise');
++  assert.equal((await f.evaluate({events:[old],observationOwner:owner})).disposition,'indeterminate','absence of source proof remains fail closed');
++  for(const key of ['resultRef','resultDigest','cCallRef']) {
++    const bad=structuredClone(old);bad.payload[key]=key==='resultDigest'?product.sha256Canonical('wrong'):'foreign';
++    const rows=[bad,run],api={...bound,abg:{...bound.abg,readRuntimeEventsAtDurablePrefix:()=>rows}};
++    assert.equal(commandObservationSourceUse(api,{},rows,owner)(bad),false,key+' cannot cross the retained tuple');
++  }
++  for(const change of [event=>event.graphFunctionRef='graph-function://foreign',event=>event.payload.contractRef='contract://foreign',
++    event=>event.aggregateId='c-call:foreign',event=>event.payload.resultClass='failure']) {
++    const bad=structuredClone(old);change(bad);const rows=[bad,run];
++    assert.equal(commandObservationSourceUse({...bound,abg:{...bound.abg,readRuntimeEventsAtDurablePrefix:()=>rows}},{},rows,owner)(bad),false);
++  }
++  for(const projected of [null,{...admission,sourceResultBasis:null},
++    {...admission,sourceResultBasis:{...admission.sourceResultBasis,sourceResultValue:{kind:'governance_work_state',observations:[],synthesis:null}}}]) {
++    const api={...bound,abg:{...bound.abg,rehydrateInvocationAdmissionAtPrefix:()=>projected}};
++    assert.equal(commandObservationSourceUse(api,{},events,owner)(old),false);
++  }
++  assert.equal(commandObservationSourceUse({...bound,abg:{...bound.abg,hasInvocationRunBindingAtPrefix:()=>false}},{},events,owner)(old),false);
++  assert.equal(commandObservationSourceUse({...bound,abg:{...bound.abg,readRuntimeEventsAtDurablePrefix:()=>[...events,run]}},{},events,owner)(old),false);
++  const invalid=await f.evaluate({events:[old],observationOwner:owner,validateSourceObservation:selected,validateObservation:()=>false});
++  assert.equal(invalid.disposition,'indeterminate','source membership cannot replace the published C2 judgment');
++  const red=structuredClone(old);red.payload.value.commandResults[0].exitStatus=7;
++  const badCommand=await f.evaluate({events:[red],observationOwner:owner,validateSourceObservation:event=>event===red});
++  assert.equal(badCommand.criteria.find(row=>row.id.startsWith('execution:')).disposition,'unmet','the unchanged execution guard retains red');
++  const fresh={...old,runId:newRun};
++  assert.equal((await f.evaluate({events:[fresh],observationOwner:owner})).disposition,'satisfied','ordinary current-Run behavior does not need historical support');
++});
+ test('Caller execution policy omits optional actor caps, retains explicit positive flags and rejects invalid caps',async()=>{
+   const scratch=await newArchive(policyUnits,'optional-actor-bounds');
+   const base=await configuration(fileURLToPath(new URL('./config.example.json',import.meta.url)));
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/uat/README.md
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/README.md
+@@ -99,6 +99,15 @@
+ and matching terminal Result/producer/value. Native independent UAT and the
+ separate local full-worksite oracle must both support all original obligations.
+ Missing evidence, a refusal or unmet criteria stays non-green.
++For an actual `admitted_source_result` invocation, the caller uses the installed
++ABG admission owners at the exact authenticated prefix to identify the current
++invocation and its Run binding. Native admission already checked its immutable
++source basis. Only original C2 Result/call tuples in that retained governance
++state may join earlier-Run observations into the independent oracle; exact owned
++event identity and the published C2 judgment remain required. Supplied JSON,
++unrelated historical observations and copied rows earn no source-use credit.
++Original command/report/mutation guards and fresh whole-outcome UAT/closure still
++apply; historical assessment never completes the new Run.
+ Each run also retains the exact acquired manifest and selected authenticated
+ source/rubric/request/checker bytes under `oracle-inputs/`, before dispatch.
+ The independent checker is imported from that archived snapshot after its
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/fixtures/sandbox-uat/scenarios.json
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json
+@@ -79,8 +79,8 @@
+         },
+         {
+           "path": "independent-oracle.mjs",
+-          "digest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+-          "byteCount": 23452
++          "digest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
++          "byteCount": 23659
+         }
+       ],
+       "provenance": {
+@@ -105,7 +105,7 @@
+         "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+         "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+       },
+-      "oracleModuleDigest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd"
++      "oracleModuleDigest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+     },
+     {
+       "key": "js-tenant-test",
+@@ -168,8 +168,8 @@
+         },
+         {
+           "path": "independent-oracle.mjs",
+-          "digest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+-          "byteCount": 23452
++          "digest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
++          "byteCount": 23659
+         }
+       ],
+       "provenance": {
+@@ -194,7 +194,7 @@
+         "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+         "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+       },
+-      "oracleModuleDigest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd"
++      "oracleModuleDigest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+     },
+     {
+       "key": "js-sdlc-bootstrap",
+@@ -257,8 +257,8 @@
+         },
+         {
+           "path": "independent-oracle.mjs",
+-          "digest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+-          "byteCount": 23452
++          "digest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
++          "byteCount": 23659
+         }
+       ],
+       "provenance": {
+@@ -283,7 +283,7 @@
+         "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+         "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+       },
+-      "oracleModuleDigest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd"
++      "oracleModuleDigest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+     },
+     {
+       "key": "rust-cli",
+@@ -363,8 +363,8 @@
+         },
+         {
+           "path": "independent-oracle.mjs",
+-          "digest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+-          "byteCount": 23452
++          "digest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
++          "byteCount": 23659
+         }
+       ],
+       "provenance": {
+@@ -389,7 +389,7 @@
+         "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+         "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+       },
+-      "oracleModuleDigest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd"
++      "oracleModuleDigest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+     },
+     {
+       "key": "rust-service",
+@@ -455,8 +455,8 @@
+         },
+         {
+           "path": "independent-oracle.mjs",
+-          "digest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+-          "byteCount": 23452
++          "digest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
++          "byteCount": 23659
+         }
+       ],
+       "provenance": {
+@@ -482,7 +482,7 @@
+         "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime.",
+         "originalService": "The selected original is src/service.rs compiled with rustc, uses standard library only and real ephemeral loopback HTTP. The later donor Cargo-crate/4-test compression is a different contract and is excluded."
+       },
+-      "oracleModuleDigest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd"
++      "oracleModuleDigest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+     },
+     {
+       "key": "parallel-js",
+@@ -545,8 +545,8 @@
+         },
+         {
+           "path": "independent-oracle.mjs",
+-          "digest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+-          "byteCount": 23452
++          "digest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
++          "byteCount": 23659
+         }
+       ],
+       "provenance": {
+@@ -571,7 +571,7 @@
+         "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
+         "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
+       },
+-      "oracleModuleDigest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd"
++      "oracleModuleDigest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+     },
+     {
+       "key": "data-mapper-full",
+@@ -697,8 +697,8 @@
+         },
+         {
+           "path": "independent-oracle.mjs",
+-          "digest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+-          "byteCount": 23452
++          "digest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
++          "byteCount": 23659
+         }
+       ],
+       "provenance": {
+@@ -719,7 +719,7 @@
+         "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime.",
+         "sourceCountConflict": "Original release-depth instruction says26, but exact original stagePlan contains28 after earned-depth and mutation additions. Preserve all28 meanings; the obsolete26 count cannot discard either."
+       },
+-      "oracleModuleDigest": "sha256:725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd"
++      "oracleModuleDigest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
+     }
+   ]
+ }

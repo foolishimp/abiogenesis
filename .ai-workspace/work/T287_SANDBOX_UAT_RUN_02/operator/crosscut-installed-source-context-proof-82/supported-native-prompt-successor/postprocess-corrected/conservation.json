@@ -1,0 +1,20 @@
+{
+  "before": {
+    "device": 16777231,
+    "inode": 467991227,
+    "byteCount": 11124483,
+    "digest": "sha256:bd63a3993de9b6b7af59059e22d7860a79739ec2426deb1feaa3c1024456ec14"
+  },
+  "after": {
+    "device": 16777231,
+    "inode": 467991227,
+    "byteCount": 11124483,
+    "digest": "sha256:bd63a3993de9b6b7af59059e22d7860a79739ec2426deb1feaa3c1024456ec14"
+  },
+  "exactSameRun": {
+    "digest": "sha256:7cc0b6973ef91970540f92f4fa64585c6a1d20dcffc7bf62a65f8a30dcf9cc69",
+    "ref": "run://abiogenesis/125f94c554124d2f6716a72337a5951cb48bd001e6e4744ab5b0364aa5f609a0"
+  },
+  "eventCount": 949,
+  "noNativeRepeat": true
+}

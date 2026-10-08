@@ -1,0 +1,35 @@
+{
+  "kind": "closed_installed_stopped_boundary_proof_freeze",
+  "status": "CLOSED_PASS_BOUNDARY_ONLY",
+  "createdAt": "2026-10-08T08:37:22.221152+00:00",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-86/return.md",
+      "sha256": "7ddb7cd7a5509766f72ef23f0f469ffeba3d263f205b26d964dc6f435fec6cbb",
+      "bytes": 2012
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-86/readiness.json",
+      "sha256": "bcd0fd7dde048278b0c9384a1c0f6a269ba2473e8e6f60d0d0969f55be2d3389",
+      "bytes": 9945
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-86/pins.json",
+      "sha256": "ba41d1b87bfee9eb70f3c5b37b1fd21f845b7e847209ceca9bfe1c3fbb6ac84d",
+      "bytes": 21322
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-86/stop-observation.json",
+      "sha256": "0cb6c4cb4720cbcdfca8cde4fbac141ef0f19021dfaef1777ebd91f95fccc799",
+      "bytes": 1587
+    }
+  ],
+  "evidenceRows": 73,
+  "oldStoreIdentity": {
+    "device": 16777231,
+    "inode": 467374253,
+    "byteCount": 1182449986,
+    "digest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6"
+  },
+  "effects": "new86 receipts and authorized eventless Public reads only; no old bytes changed"
+}

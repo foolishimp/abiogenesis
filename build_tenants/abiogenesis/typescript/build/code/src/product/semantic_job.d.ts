@@ -327,7 +327,7 @@ export declare function projectSemanticJobActorContract(envelope: SemanticJobEnv
             selectedLimits: WorksiteCommandExecutionLimits;
             budgetRule: Readonly<{
                 aggregation: "sum";
-                commandFields: readonly ["timeoutMs", "terminationGraceMs"];
+                commandFields: readonly ["timeoutMs", "terminationGraceMs", "terminationGraceMs"];
                 httpResponseFields: {
                     readonly launch: readonly ["timeoutMs", "terminationGraceMs"];
                     readonly request: readonly ["timeoutMs"];
@@ -446,7 +446,7 @@ export declare function projectSemanticJobActorMaterial(envelope: SemanticJobEnv
                 selectedLimits: WorksiteCommandExecutionLimits;
                 budgetRule: Readonly<{
                     aggregation: "sum";
-                    commandFields: readonly ["timeoutMs", "terminationGraceMs"];
+                    commandFields: readonly ["timeoutMs", "terminationGraceMs", "terminationGraceMs"];
                     httpResponseFields: {
                         readonly launch: readonly ["timeoutMs", "terminationGraceMs"];
                         readonly request: readonly ["timeoutMs"];

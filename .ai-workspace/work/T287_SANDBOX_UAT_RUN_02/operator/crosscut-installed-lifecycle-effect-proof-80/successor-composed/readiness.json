@@ -1,0 +1,116 @@
+{
+  "status": "CLOSED_STOP_pure_combined_semantics_owner_refusal",
+  "productFrame": "ABI5 fixed15 / GOAL035 T287 full original external DataMapper / STDO2.5.1RC2",
+  "sources": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/declarations-composed.mjs",
+      "sha256": "a4d15918c9f94b3520d3a0ef2458e6d2aa939f06b6683ba5423dd6792485e590",
+      "byteCount": 5103
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver-composed-successor.mjs",
+      "sha256": "0e46072f37a436cf778603bcbca0418400e9d4bb240e105a3b39d333bd00489a",
+      "byteCount": 20680
+    }
+  ],
+  "candidateSelector": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+    "sha256": "7418255fcb0d8ca9d993049ca9e0f85a9407e0458f1938e3f66e2ec243defa78",
+    "byteCount": 3158
+  },
+  "method": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/method.mjs",
+    "sha256": "303bed8f5dcefcc780c26e6b93a0e771b9c3ff403a8c38ba215871041e75eaa2",
+    "byteCount": 4378
+  },
+  "threePriorCutsConserved": true,
+  "syntaxChecks": 2,
+  "nativePureResolution": {
+    "kind": "loaded_product_execution_resolution",
+    "programRef": "program://crosscut-local-protocol/lifecycle-effect@5",
+    "rootRef": "graph-function://crosscut-local-protocol/native-work@5",
+    "semanticsBinding": {
+      "bindingRef": "product-semantics://abiogenesis/worksite/native-work@5",
+      "kind": "product_semantics_binding",
+      "modulePath": "build/code/src/product/builtin_semantics.js",
+      "namedSymbol": "ABI5_NATIVE_WORKSPACE_WORK_PRODUCT_SEMANTICS",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1"
+    },
+    "semanticsOwner": {
+      "declarationKind": "semantics",
+      "declarationRef": "product-semantics://abiogenesis/worksite/native-work@5",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c/f70250fe204791a4e226e4cda862f37dc4b7a771c3e839e9d2d308a29af3dcff",
+      "moduleRef": "module://abiogenesis/worksite/native-work@5",
+      "publicationDigest": "sha256:295b1c5c3283fb463d8e0d32aadcf28113be42ddf111ce08f28ec2d3cfff6044"
+    },
+    "leafOwners": [
+      {
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+        "graphFunctionOwnerProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "implementationOwnerProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+        "computeRegime": "F_P"
+      }
+    ]
+  },
+  "C0PureResolution": {
+    "kind": "product_execution_resolution_refusal",
+    "schemaVersion": "5.0.0",
+    "disposition": "refused",
+    "code": "wrong_owner",
+    "stage": "declaration_closure",
+    "message": "Product semantics lacks one exact compatible required declaration owner"
+  },
+  "sourceRelation": {
+    "owner": "product/declaration_closure.ts:773\u2013811",
+    "actualExternalBinding": "product-semantics://abiogenesis/worksite/native-work@5",
+    "requiredC0ProviderBinding": "product-semantics://abiogenesis/conformance@5",
+    "failure": "C0-only selected required declaration closure cannot authenticate the external publication shared native provider binding",
+    "sourceOnlyMeaning": "ABI native provider reuses broad canonical ABI C0 laws; exact provider-identity witness still mandatory",
+    "classification": "external test composition limitation/correct refusal; no ABI authority bug"
+  },
+  "nativeExecutionAtThisCut": false,
+  "modelExecution": false,
+  "earned": [
+    "Current20 actual setup/external fixture Product install",
+    "Installed pure native Program closure/owner resolution"
+  ],
+  "unearned": [
+    "External C0 complete pure closure",
+    "Any new actual actor/C0/R02/fresh Public call at this cut",
+    "UAT/capacity/P0 closure"
+  ],
+  "retainedR01": "earlier exact cuts continue to own their genuine R01 process/group/cold proofs",
+  "runtimeLog": {
+    "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-KeKM35/runtime/events.jsonl",
+    "sha256": "50e5b436768257ac605a602eb6dbd42e037625f4cfd454c2f6d073573697181b",
+    "byteCount": 3094796
+  },
+  "noCloseHandoffEarned": true,
+  "execution": {
+    "command": [
+      "node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver-composed-successor.mjs",
+      "--execute",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json"
+    ],
+    "exitCode": 1,
+    "startedAt": "2026-10-08T08:05:29.753968+00:00",
+    "finishedAt": "2026-10-08T08:06:01.590759+00:00",
+    "wallMs": 31836.437624995597,
+    "timedOut": false,
+    "truncated": false,
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-composed/execution.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-composed/execution.stderr",
+      "sha256": "95d22bd7471958719f3e6de534908def62209a53d282c3ea969ae5f5e049f6d1",
+      "byteCount": 1031
+    }
+  },
+  "minimumNext": "Root must select an existing faithful required-provider/declaration relation before any additional native sequence; no membership widening/custom semantics/owner bypass selected"
+}

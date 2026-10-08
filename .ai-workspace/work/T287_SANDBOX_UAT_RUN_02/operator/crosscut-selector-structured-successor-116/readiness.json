@@ -1,0 +1,130 @@
+{
+  "status": "CLOSED_FROZEN_STOPPED",
+  "productFrame": "fixed15 ABI5.0 GOAL035/T287 external original DataMapper UAT; STDO2.5.1RC2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration + #f-worksite-causality",
+  "source113": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-carrier-repair-113/freeze.json",
+    "sha256": "587b8470f6fec434085d58cd9e1600c2dca00aeb363698e608c2ece34fb6dbec",
+    "byteCount": 8079
+  },
+  "provider115": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-provider-pilot-115/freeze.json",
+    "sha256": "24445d5c7c80bb0714442dfe8656e46ab509ee456337b38edb0147266452ee01",
+    "byteCount": 9788
+  },
+  "candidate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/identity.json",
+    "sha256": "e09b2b3bdf7ad60e0c382c7d1ab4d64ae1ee1dba65aeed67403602c07e6a1b3b",
+    "byteCount": 3603
+  },
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/freeze.json",
+    "sha256": "82f2f8916e786fbebb76995bfbdaedcd06373b76f74d3ce31b1ebe11e293af1a",
+    "byteCount": 6997
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-23/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "e1deb8a3d000566ccc550055e333c422b759cb63b8b412820f147046685e2dcb",
+    "byteCount": 10630096
+  },
+  "contentDigest": "sha256:c492168158fc38032f8b778be78de3a64f99f409bf8b0785257121821f200951",
+  "canonicalManifestDigest": "sha256:99e87edce37ad6267feb2c28f387a55beaf4e53c99fb7609ed7864836aa40d3e",
+  "normalBuild": {
+    "attempts": 1,
+    "exitCode": 0,
+    "wallMs": 31339.265790999998,
+    "timedOut": false,
+    "truncated": false
+  },
+  "pack": {
+    "attempts": 1,
+    "exitCode": 0,
+    "wallMs": 3229.455958
+  },
+  "generated": {
+    "before": 934,
+    "after": 934,
+    "changed": 3,
+    "unchanged": 931,
+    "allDeclarationBytesUnchanged": true,
+    "source113IsolatedEmissionExact": true
+  },
+  "packaged": {
+    "memberCount": 5265,
+    "unchangedCount": 5262,
+    "deltaCount": 3,
+    "pathsTypesModesEqual": true,
+    "metadataDependenciesEqual": true,
+    "externalFixtureExclusionExact": true
+  },
+  "canonicalPublication": {
+    "wholePublicCatalogRowsUnchanged": 75,
+    "assetsVerified": 53,
+    "completeCapabilityGraphReconstructed": true,
+    "capabilityIdentityConsequences": 310,
+    "completeContributionValueReconstructed": true,
+    "contributionIdentityConsequences": 61,
+    "publications": 10,
+    "contributions": 47,
+    "nativeClosures": 15,
+    "nativeLocatorRows": 50,
+    "nativeTypedDigests": 23
+  },
+  "cleanHost": {
+    "attempts": 1,
+    "outerWallMs": 24918.044917,
+    "installWallMs": 2279.651041,
+    "ownerVerifyWallMs": 21457.347958000002,
+    "verifiedKind": "verified_product_artifact",
+    "verifiedDisposition": "verified",
+    "all5265ArchiveBytesEqual": true,
+    "modeDifferences": [
+      {
+        "path": "build/code/src/public/cli.js",
+        "archiveMode": 420,
+        "installedMode": 493
+      },
+      {
+        "path": "build/code/src/public/codex_cli.js",
+        "archiveMode": 420,
+        "installedMode": 493
+      }
+    ],
+    "bundledDependenciesOnly": true,
+    "selector": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/host-preparation/exacthost-identity.json",
+      "sha256": "46db847a404d42735bafe0138a1ea91a7c61cbc075f4370076e3ff801c0457a3",
+      "byteCount": 3205
+    }
+  },
+  "resumeConfig": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/resume-config.json",
+    "sha256": "6243d33d39a08647cc3db9b277632c377b886452fa19448a58fd70de0c904fe6",
+    "byteCount": 2991
+  },
+  "configDifferenceCount": 2,
+  "configDifferenceScope": [
+    "package.archivePath",
+    "package.sha256"
+  ],
+  "setup": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/setup.json",
+    "sha256": "1b44c759f8981dab6c56b8282d81d704072d05e6b4456b3138f532daac851c45",
+    "byteCount": 2669
+  },
+  "material": "Exact accepted98/100 old48 physical4+44 route; source:none/observations[]/synthesisnull/terminalfalse. No old11 credit,109 sourceResult/baseline reuse or new migration/app edits assumed.",
+  "conservation": "All263 current sources, authorized113 HOW/test and8 build controls, accepted fixed source/pilot/old22 selectors and934 generated outputs freshly hash/mode matched beforefreeze.",
+  "localProceduralFailures": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-successor-116/preparation-premise-failure.json",
+    "sha256": "b3250dd84e5b5f36647e77dc5d4e1382e6debe3eb912c4a473de1dd0eb6e9dd8",
+    "byteCount": 754
+  },
+  "failureDisposition": "Root selected exact107 external-control metadata shape correction; uncreated-driver error secondary. Both literal errors preserved; no normal build ran before correction.",
+  "notClaimed": [
+    "Native/public Run integration or continuation",
+    "Real-model semantic adequacy",
+    "Full original UAT or global memory/capacity closure",
+    "Qualification/release"
+  ],
+  "next": "Independent117 publication review; Root owns next native grant."
+}

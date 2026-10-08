@@ -1,0 +1,20 @@
+{
+  "status": "CLOSED_BOUNDED_GO",
+  "at": "2026-10-08T07:30:34.220613+00:00",
+  "reviewerStopped": true,
+  "readOnlySubjectEffects": true,
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-successor-publication-review-72/return.md",
+      "sha256": "b2d6ba95930174589621f21b6facd36bcc42de4eea108638e0bbf036f5a98cdb",
+      "byteCount": 2167
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-successor-publication-review-72/pins.json",
+      "sha256": "a8b2940204fbf9da60fc580f6f48e310eef4c74e1b0cc027a2295d99958b61a3",
+      "byteCount": 23257
+    }
+  ],
+  "publicationOnly": true,
+  "rootConjunctionRequired": true
+}

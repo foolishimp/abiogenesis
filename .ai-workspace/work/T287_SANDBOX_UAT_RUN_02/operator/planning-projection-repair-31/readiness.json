@@ -1,0 +1,122 @@
+{
+  "status": "READY_BOUNDED_SOURCE",
+  "source": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-31/preimages/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "sha256": "69973570a806d5ac0319c0db5d1c29b9e3c4be77b516f5fbb1f38c443e0b4086",
+        "byteCount": 48106
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "sha256": "4739eb8d70fd18ac28a59c3d97d683867c720a713e1bab6b83c3e20c025ee2fa",
+        "byteCount": 48978
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-31/preimages/default_library.ts",
+        "sha256": "fcaf6ce8381d261e132dff0f2cb24595fdf8db94261def098b39ff9dd53ebaa0",
+        "byteCount": 30460
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+        "sha256": "c76123cc206d862c51a6238933fcef04a676f28e98b0f5c8b4a657601d87003a",
+        "byteCount": 31712
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-31/preimages/t287-default-library.test.mjs",
+        "sha256": "b89a36b25eb88bc35600f8de55431501b8409045dd17754aa9ccaeb73b80cb40",
+        "byteCount": 101153
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "sha256": "d0738d6992fcb8761705b48c5927383501158e2a9b88845961523fff5ad5a668",
+        "byteCount": 116751
+      }
+    }
+  ],
+  "generatedChanges": [
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/default_library.d.ts",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/default_library.js",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+  ],
+  "gtlRefreshRequired": false,
+  "checks": {
+    "build": {
+      "exitCode": 0,
+      "wallMs": 28958.6625
+    },
+    "focused": {
+      "exitCode": 0,
+      "wallMs": 1232.864125,
+      "selection": "default catalogue|default role content|framed |selector planning|fold and assessment consume|parent conservation",
+      "pass": 8,
+      "fail": 0,
+      "metrics": {
+        "metrics": [
+          {
+            "name": "captured",
+            "observations": 18,
+            "completePromptBytes": 468277,
+            "projectionBytes": 441795,
+            "knownNameLines": 31
+          },
+          {
+            "name": "controlled16",
+            "observations": 51,
+            "completePromptBytes": 856057,
+            "projectionBytes": 815220,
+            "knownNameLines": 64
+          }
+        ],
+        "authenticOwningResults": 7,
+        "controlled": "synthetic; not native mutant detection"
+      }
+    }
+  },
+  "premises": "Actual assembly/role/result owners; controlled authentication of occurrence; captured7 historical C2 owners;51 synthetic observations, no actor/native execution",
+  "unchanged": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "0f5476add28906bd04c75eeb36605232beb4dedeefcdb0ad7dabf1eb9d732719",
+      "byteCount": 117767
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "4afa1aaca9bdeee51af306fd6820af63a578f5ddc4df71c1ec8cd7d89a5d77d0",
+      "byteCount": 31672
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-29/freeze.json",
+      "sha256": "1e0d01a96200271378c132662fc8d877c45463281f2994102e86bd3568274443",
+      "byteCount": 6168
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-29/return.md",
+      "sha256": "ca93ffd1dde14aa3cb99b23bcd30683b867f52e28eef731dbf32d7e696a6eca3",
+      "byteCount": 2960
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-29/controlled16-task.json",
+      "sha256": "fd47673da391c6e851dabededcf8f48ba7a16ce0832413501b16e02986a0b0b1",
+      "byteCount": 3249661
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-28/execution-freeze.json",
+      "sha256": "4b1be1344e6b0dddc90193d17f1e7f12e9daed5de270051aeab5fde4ff29776e",
+      "byteCount": 58497
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-28/observations.json",
+      "sha256": "3ef204421113aeb32b9c3380a84f1ff26c16a356eaf3ed317824a41aa238224d",
+      "byteCount": 65877
+    }
+  ]
+}

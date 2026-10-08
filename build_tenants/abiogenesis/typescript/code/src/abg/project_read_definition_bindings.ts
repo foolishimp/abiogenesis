@@ -42,6 +42,7 @@ import {
   constructCapabilityGrant,
   validateCapabilityGrantForProductBasis,
 } from "../product/invocation.js";
+import { productInstallCoordinate } from "../product/environment.js";
 import { projectProductManifestOperationCoordinate } from "../product/verify_product.js";
 import {
   bindExactPrefixRead,
@@ -654,10 +655,7 @@ function runReadKernel(
             ref: environment.workspaceBinding.bindingId,
             digest: environment.workspaceBinding.bindingDigest,
           },
-          product_set: environment.productInstalls.map((install) => ({
-            ref: install.installId,
-            digest: install.productContentDigest,
-          })),
+          product_set: environment.productInstalls.map(productInstallCoordinate),
           dependency_lock: {
             ref: environment.resolvedProductLock.lockId,
             digest: environment.resolvedProductLock.lockDigest,

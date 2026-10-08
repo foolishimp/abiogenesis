@@ -1,0 +1,159 @@
+--- pre/build/code/src/abg/event_calculus.d.ts
++++ post/build/code/src/abg/event_calculus.d.ts
+@@ -218,7 +218,7 @@
+         readonly declips: readonly [];
+     };
+     readonly actor_process_termination_unconfirmed: {
+-        readonly initiates: readonly ["actor_process_termination_unconfirmed"];
++        readonly initiates: readonly ["actor_process_termination_unconfirmed", "actor_cleanup_live", "actor_cleanup_pending"];
+         readonly terminates: readonly [];
+         readonly clips: readonly [];
+         readonly declips: readonly [];
+
+--- pre/build/code/src/gtl/graph_construction.d.ts
++++ post/build/code/src/gtl/graph_construction.d.ts
+@@ -1,4 +1,4 @@
+-import type { GraphFunction } from "./contracts.js";
++import type { GraphFunction, GraphTemplate, GtlEdge } from "./contracts.js";
+ export interface ComposeGraphFunctionsInput {
+     readonly name: string;
+     readonly left: Readonly<GraphFunction>;
+@@ -20,6 +20,16 @@
+     readonly sourceRef: string;
+     readonly targetRef: string;
+ }
++/** Internal original-GTL law; these helpers are not facade exports. */
++export declare function graphNodeIdentityFailure(template: Readonly<GraphTemplate>): string | null;
++export declare function ordinaryGraphBoundaryFailure(template: Readonly<GraphTemplate>, nodeRef: string, outgoing?: readonly Readonly<GtlEdge>[]): string | null;
++export interface GraphTemplateDiagnostic {
++    readonly code: "duplicate_identity" | "topology_mismatch";
++    readonly path: string;
++    readonly message: string;
++}
++/** Local structure only; evaluator, policy and callable law remain whole checks. */
++export declare function graphTemplateDiagnostics(template: Readonly<GraphTemplate>, path?: string): readonly GraphTemplateDiagnostic[];
+ export declare function identityGraphFunction(input: IdentityGraphFunctionInput): Readonly<GraphFunction>;
+ export declare function promoteGraphFunction(input: PromoteGraphFunctionInput): Readonly<GraphFunction>;
+ export declare function composeGraphFunctions(input: ComposeGraphFunctionsInput): Readonly<GraphFunction>;
+
+--- pre/build/code/src/product/default_library.d.ts
++++ post/build/code/src/product/default_library.d.ts
+@@ -421,6 +421,9 @@
+ export declare function isFramedSynthesisTask(value: unknown): value is FramedSynthesisTask;
+ export declare function isFramedSynthesisResult(value: unknown): value is FramedSynthesisResult;
+ export declare function framedSynthesisEvidenceRefs(task: FramedSynthesisTask): readonly string[];
++/** Typed source candidates only; native owners still establish Result identity,
++ * authority and currentness before consuming the complete producer value. */
++export declare function governanceSubjectEvidenceRefs(state: GovernanceWorkState, purpose: GovernancePurpose | null): readonly (string | null)[];
+ /** Presentation over the already-bound task; canonical proof stays in its owner. */
+ export declare function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Readonly<Record<string, JsonValue>>;
+ /** One strict binder, shared by raw completion and admission. It transports no
+
+--- pre/build/code/src/shared/owner_contract_source_set.d.ts
++++ post/build/code/src/shared/owner_contract_source_set.d.ts
+@@ -13293,7 +13293,7 @@
+                 };
+                 disposition: "passed" | "failed";
+                 diagnostics: {
+-                    code: "invalid_kind" | "identity_mismatch" | "invalid_contract" | "non_canonical_value" | "topology_mismatch" | "duplicate_identity" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
++                    code: "invalid_kind" | "identity_mismatch" | "duplicate_identity" | "topology_mismatch" | "invalid_contract" | "non_canonical_value" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
+                     path: string;
+                     message: string;
+                 }[];
+@@ -13321,7 +13321,7 @@
+                 };
+                 disposition: "passed" | "failed";
+                 diagnostics: {
+-                    code: "invalid_kind" | "identity_mismatch" | "invalid_contract" | "non_canonical_value" | "topology_mismatch" | "duplicate_identity" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
++                    code: "invalid_kind" | "identity_mismatch" | "duplicate_identity" | "topology_mismatch" | "invalid_contract" | "non_canonical_value" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
+                     path: string;
+                     message: string;
+                 }[];
+
+--- pre/build/code/src/validator/conformance_definition_bindings.d.ts
++++ post/build/code/src/validator/conformance_definition_bindings.d.ts
+@@ -79,7 +79,7 @@
+             };
+             disposition: "passed" | "failed";
+             diagnostics: {
+-                code: "invalid_kind" | "identity_mismatch" | "invalid_contract" | "non_canonical_value" | "topology_mismatch" | "duplicate_identity" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
++                code: "invalid_kind" | "identity_mismatch" | "duplicate_identity" | "topology_mismatch" | "invalid_contract" | "non_canonical_value" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
+                 path: string;
+                 message: string;
+             }[];
+@@ -107,7 +107,7 @@
+             };
+             disposition: "passed" | "failed";
+             diagnostics: {
+-                code: "invalid_kind" | "identity_mismatch" | "invalid_contract" | "non_canonical_value" | "topology_mismatch" | "duplicate_identity" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
++                code: "invalid_kind" | "identity_mismatch" | "duplicate_identity" | "topology_mismatch" | "invalid_contract" | "non_canonical_value" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
+                 path: string;
+                 message: string;
+             }[];
+
+--- pre/build/code/src/validator/conformance_operation_contracts.d.ts
++++ post/build/code/src/validator/conformance_operation_contracts.d.ts
+@@ -53,7 +53,7 @@
+     };
+     disposition: "passed" | "failed";
+     diagnostics: {
+-        code: "invalid_kind" | "identity_mismatch" | "invalid_contract" | "non_canonical_value" | "topology_mismatch" | "duplicate_identity" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
++        code: "invalid_kind" | "identity_mismatch" | "duplicate_identity" | "topology_mismatch" | "invalid_contract" | "non_canonical_value" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
+         path: string;
+         message: string;
+     }[];
+@@ -81,7 +81,7 @@
+     };
+     disposition: "passed" | "failed";
+     diagnostics: {
+-        code: "invalid_kind" | "identity_mismatch" | "invalid_contract" | "non_canonical_value" | "topology_mismatch" | "duplicate_identity" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
++        code: "invalid_kind" | "identity_mismatch" | "duplicate_identity" | "topology_mismatch" | "invalid_contract" | "non_canonical_value" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
+         path: string;
+         message: string;
+     }[];
+@@ -159,7 +159,7 @@
+             };
+             disposition: "passed" | "failed";
+             diagnostics: {
+-                code: "invalid_kind" | "identity_mismatch" | "invalid_contract" | "non_canonical_value" | "topology_mismatch" | "duplicate_identity" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
++                code: "invalid_kind" | "identity_mismatch" | "duplicate_identity" | "topology_mismatch" | "invalid_contract" | "non_canonical_value" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
+                 path: string;
+                 message: string;
+             }[];
+@@ -187,7 +187,7 @@
+             };
+             disposition: "passed" | "failed";
+             diagnostics: {
+-                code: "invalid_kind" | "identity_mismatch" | "invalid_contract" | "non_canonical_value" | "topology_mismatch" | "duplicate_identity" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
++                code: "invalid_kind" | "identity_mismatch" | "duplicate_identity" | "topology_mismatch" | "invalid_contract" | "non_canonical_value" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet";
+                 path: string;
+                 message: string;
+             }[];
+
+--- pre/build/code/src/validator/validation.d.ts
++++ post/build/code/src/validator/validation.d.ts
+@@ -64,8 +64,8 @@
+ export type StaticDiagnosticCode = Extract<(typeof GTL_PROGRAM_DIAGNOSTIC_REGISTER)[number], {
+     readonly origin: "static";
+ }>["id"];
+-export declare const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES: readonly ("invalid_kind" | "identity_mismatch" | "invalid_contract" | "non_canonical_value" | "topology_mismatch" | "duplicate_identity" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet")[];
+-export declare const STATIC_DIAGNOSTIC_CODE_VALUES: readonly ("identity_mismatch" | "topology_mismatch" | "duplicate_identity" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch")[];
++export declare const GTL_PROGRAM_DIAGNOSTIC_ID_VALUES: readonly ("invalid_kind" | "identity_mismatch" | "duplicate_identity" | "topology_mismatch" | "invalid_contract" | "non_canonical_value" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch" | "invalid_packet")[];
++export declare const STATIC_DIAGNOSTIC_CODE_VALUES: readonly ("identity_mismatch" | "duplicate_identity" | "topology_mismatch" | "carrier_mismatch" | "invalid_application" | "invalid_constructor" | "invalid_contribution" | "invalid_fibre" | "invalid_leaf_requirement" | "invalid_reference" | "invalid_result_cardinality" | "missing_binding" | "missing_contract" | "missing_membership" | "raw_subject_mismatch")[];
+ export declare function constructGtlProgramDiagnosticId(value: unknown): GtlProgramDiagnosticId;
+ export interface StaticDiagnostic {
+     readonly code: StaticDiagnosticCode;
+
+--- pre/contracts/schemas/native-runtime-observation.json
++++ post/contracts/schemas/native-runtime-observation.json
+@@ -4485,7 +4485,9 @@
+     },
+     "actor_process_termination_unconfirmed": {
+       "initiates": [
+-        "actor_process_termination_unconfirmed"
++        "actor_process_termination_unconfirmed",
++        "actor_cleanup_live",
++        "actor_cleanup_pending"
+       ],
+       "terminates": [],
+       "clips": [],

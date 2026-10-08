@@ -1,0 +1,135 @@
+{
+  "recordedAt": "2026-10-06T10:07:02.081Z",
+  "role": "Configuration Writer / UAT Operator preparation only",
+  "disposition": "PREPARATION_READY_NATIVE_EXECUTION_HELD",
+  "nativeExecutionReleased": false,
+  "supportedConfigurationAccepted": true,
+  "configChangePaths": [
+    "/package/archivePath",
+    "/package/sha256"
+  ],
+  "allOtherConfigFieldsDeeplyEqual": true,
+  "selectedPins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-08b.json",
+      "sha256": "432cef9a19355e88700183500f9f322533be32287090d8e0ed1d3810be2c2a82",
+      "bytes": 2328
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "8a82e3b62931b35af9dc655f31423cb07cb7c6b87dab7d2ddeb36ee42c40e2c6",
+      "bytes": 10620905
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "bytes": 26202
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "bytes": 22857
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "1869bcc42124ba8426002b2e91691e620546b3965fa51195d6fcf4831c3a7cdb",
+      "bytes": 17357
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+      "bytes": 34763
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/return.md",
+      "sha256": "f303f188cec2d59f017aa51cb7b9f37da009c33fccc372fb0b1235236c94502c",
+      "bytes": 2368
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/freeze.json",
+      "sha256": "763a60d7154e7a0a44df8d769e999bf4bc5437f70a9285c7c4337d80a285b098",
+      "bytes": 6669
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/identity.json",
+      "sha256": "f5d3507806dd7124d7fc3ed242802b048a9096abdd7c60c4c6d4205ebc0be84c",
+      "bytes": 3525
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-carrier-repair-10/freeze.json",
+      "sha256": "be3891e8ea7a75811f49a52e846f782ca87359c1ba14fa70005e66758a695854",
+      "bytes": 7569
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-carrier-repair-10/return.md",
+      "sha256": "f32c745c82f39bfb146da1da38db6f497011387003154817a66288718f26e24e",
+      "bytes": 3802
+    }
+  ],
+  "newConfig": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json",
+    "sha256": "68c48ff4f8d0d5205e1543c3f62997e29db61c6797cbdff93e67a71c3eb28d27",
+    "bytes": 2328
+  },
+  "preparation": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-10/preparation.md",
+    "sha256": "6ecf41dda02fcd2bc099f543710cd9cb8c1308b831e0a7d6904b916824d91bf5",
+    "bytes": 4376
+  },
+  "owningDesignAndTriagePins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-assessor-09/return.md",
+      "sha256": "9c8a57bde6abdbca06f8a3ca4102645609bb2ae0943eba9738c741ab9342adf1",
+      "bytes": 5713
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-proof-09/return.md",
+      "sha256": "3172ccbfd89ab7c7814c253fe1df6b6ffd1a1a378ebf5bfb9a42f830da450910",
+      "bytes": 4481
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-assessor-repair-09/return.md",
+      "sha256": "ecdc91b75509694c1d575d7315def84768dd4835114d62200e4543307e860b98",
+      "bytes": 4694
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-carrier-proof-10/return.md",
+      "sha256": "0b0d34ffb51f8fa0ac4e44e321fd11686772ca761da2d488d7c58d0ac16bcba4",
+      "bytes": 4310
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-carrier-repair-10/return.md",
+      "sha256": "f32c745c82f39bfb146da1da38db6f497011387003154817a66288718f26e24e",
+      "bytes": 3802
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "340f6c837e5670e1dde032618ff5f9848c8936cfc7b847a1592f03473b33b6f7",
+      "bytes": 19376
+    }
+  ],
+  "sourceReviewAcceptance": "pending Root conjunction",
+  "candidateIdentityAcceptance": "pending Root conjunction",
+  "orderedCases": [
+    "basic-cli",
+    "js-tenant-test",
+    "js-sdlc-bootstrap",
+    "rust-cli",
+    "rust-service",
+    "parallel-js",
+    "data-mapper-full"
+  ],
+  "commands": [
+    "/opt/homebrew/bin/node scripts/sandbox-uat.mjs run --config /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json --case basic-cli",
+    "/opt/homebrew/bin/node scripts/sandbox-uat.mjs run --config /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json --case js-tenant-test",
+    "/opt/homebrew/bin/node scripts/sandbox-uat.mjs run --config /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json --case js-sdlc-bootstrap",
+    "/opt/homebrew/bin/node scripts/sandbox-uat.mjs run --config /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json --case rust-cli",
+    "/opt/homebrew/bin/node scripts/sandbox-uat.mjs run --config /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json --case rust-service",
+    "/opt/homebrew/bin/node scripts/sandbox-uat.mjs run --config /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json --case parallel-js",
+    "/opt/homebrew/bin/node scripts/sandbox-uat.mjs run --config /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json --case data-mapper-full"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "recorderTimeoutMs": 4200000,
+  "recorderMaxOutputBytes": 1048576,
+  "stopOnAnyNonpass": true
+}

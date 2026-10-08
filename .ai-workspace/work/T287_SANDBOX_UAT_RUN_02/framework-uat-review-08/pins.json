@@ -1,0 +1,20 @@
+{"status":"CLOSED_GO_SOURCE_READINESS_ONLY","frame":"repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration","reviewerEffects":"Only return.md and pins.json; no build, tests, runtime or package effects","pins":[
+{"path":"build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts","sha256":"ac65695511a97a7d757b2be5a36b87cab4db820618578146f2713eff31a61902","byteCount":29763},
+{"path":"build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs","sha256":"3976cac9dbe0db789cde409ece0192d2090ca97245810042a465fd06c7a881aa","byteCount":81105},
+{"path":".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-uat-repair-08/return.md","sha256":"d2e8fe881651dca2f122a51c90c4b1a23e05619806449fa7f9e02d0bc3cf3c5c","byteCount":4746},
+{"path":".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-uat-repair-08/freeze.json","sha256":"012dea8a19dd0e6c9c92599421ba7ffff0d51e4f8984c0c8fe27d9d9e9560246","byteCount":7082},
+{"path":".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-uat-repair-08/build.log","sha256":"e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969","byteCount":215},
+{"path":".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-uat-repair-08/owners.log","sha256":"da6e93f1eda40284582bf5e6dd6cdc38b2986c78063c2f77eff33e9b4ffc5c03","byteCount":1835},
+{"path":".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-uat-repair-08/unit.log","sha256":"fff3d9fee57eeef979ba42bb68de1160c4b5206deeed0fe30bef43b99ae98079","byteCount":11824},
+{"path":"build_tenants/abiogenesis/typescript/build/code/src/abg/default_library.js","sha256":"f688a38e377f251e02d4bbbed1e863054850e8c34ece5f8af7656970ce04417b","byteCount":29531},
+{"path":"build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts","sha256":"6b73778a52dfd32bf357f7c902798dee3c40ce4bff37c78607492cbf7d7decf5","byteCount":21207},
+{"path":"build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs","sha256":"dfc0cf480c0f17718b006c0b2b40b5abc6f34c189bf86ac581e066991106aaad","byteCount":44588},
+{"path":"build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs","sha256":"adb81f5092f1ef20f116ded796e6c21d4c044b845a61956591e6f3904812fd54","byteCount":68694},
+{"path":"build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md","sha256":"4bcaa90771f855f08b8fe36fa6a171ddfaa89dfeead7ff7a9f52bb766d8dcb2c","byteCount":43221},
+{"path":"build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md","sha256":"97c693884670eeb6a4640f13cd3ab88c6d0a4b02b1609582bae69a41d6769068","byteCount":18513},
+{"path":".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-uat-08/return.md","sha256":"bd10c9792b9dadc61538f3481e93606a47aa7ee6b31dc156785522db4c550104","byteCount":6589},
+{"path":"/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/manifest.json","sha256":"3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782","byteCount":12434},
+{"path":"build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts","sha256":"b0666d79bb20ea0a1d73ac735de81174142d9b8998af4292a82f6bed3f7f6271","byteCount":29561,"reacquiredFrom":"HEAD:build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts"},
+{"path":"build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs","sha256":"0e36c3af25db0ddbb928714d3930b4cfb8c03febf49b88d6475172a722dca209","byteCount":77555,"reacquiredFrom":"HEAD:build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"},
+{"path":".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-uat-review-08/return.md","sha256":"549799b7d34dc810ec676097489879c5549cf3427d915645505aae8e5d345bef","byteCount":3511}
+]}

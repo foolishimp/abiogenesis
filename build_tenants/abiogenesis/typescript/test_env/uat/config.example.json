@@ -6,8 +6,8 @@
   "sourceCommit": "55a8a452141caf180ea6cee6365d2a1bfb9da34e (dirty source; immutable package SHA-256 selects the candidate)",
   "archiveRoot": "../test_runs/sandbox-uat",
   "nodePath": "/opt/homebrew/bin/node",
-  "recursionBound": 12,
-  "processTimeoutMs": 3600000,
+  "recursionBound": 1000,
+  "processTimeoutMs": 18060000,
   "maxProcessOutputBytes": 16777216,
   "inheritEnvironment": ["HOME", "PATH", "TMPDIR", "LANG", "LC_ALL"],
   "toolchainEnvironment": {"JAVA_HOME": "/opt/homebrew/opt/openjdk@11"},
@@ -25,11 +25,9 @@
     "command": "/Users/jim/.local/bin/claude",
     "versionArgs": ["--version"],
     "model": "SET_SELECTED_MODEL",
-    "maxTurns": 24,
-    "maxBudgetUsd": 5,
-    "inactivityTimeoutMs": 120000,
-    "absoluteTimeoutMs": 600000,
+    "inactivityTimeoutMs": 18030000,
+    "absoluteTimeoutMs": 18040000,
     "appendArgs": [],
-    "inheritEnvironment": ["ANTHROPIC_API_KEY", "CLAUDE_CONFIG_DIR"]
+    "inheritEnvironment": ["ANTHROPIC_API_KEY", "CLAUDE_CONFIG_DIR", "CLAUDE_CODE_OAUTH_TOKEN"]
   }
 }

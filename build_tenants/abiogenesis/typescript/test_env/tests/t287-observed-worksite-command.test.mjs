@@ -39,6 +39,95 @@ function invocation(task) {
     workspaceBindingId: task.workspaceBinding.bindingId, workspaceBindingDigest: task.workspaceBinding.bindingDigest };
 }
 
+test('extended original C2 plan preserves all 26 sources through native and observed owners', async t => {
+  const c2 = await import('../../build/code/src/product/worksite_command_execution.js');
+  const scenarios = await import('../uat/scenarios.mjs'), consumer = await import('../uat/consumer.mjs');
+  const { default: Ajv } = await import('ajv');
+  const tenant = resolve(import.meta.dirname, '../..');
+  const { root, rows } = await scenarios.loadScenarios(join(tenant, 'test_env/fixtures/sandbox-uat'));
+  const selected = await scenarios.acquireScenario(root, rows.find(row => row.key === 'data-mapper-full'));
+  const acquiredRequest = JSON.stringify(selected.request);
+  const example = JSON.parse(fs.readFileSync(join(tenant, 'test_env/uat/config.example.json'), 'utf8'));
+  const state = scenarios.constructWorkloadInput(p, selected, consumer.assessmentSelection, example.toolchains);
+  const testing = structuredClone(state.original.testing);
+  assert.equal(testing.commands[0].timeoutMs, 780_000);
+  testing.commands[0].timeoutMs = 18_000_000;
+  const withoutTimingOverride = structuredClone(testing);
+  withoutTimingOverride.commands[0].timeoutMs = 780_000;
+  assert.deepEqual(withoutTimingOverride, state.original.testing);
+  assert.equal(testing.selectedPaths.length, 26);
+  assert.equal(testing.commands.length, 1);
+  assert.equal(testing.commands[0].terminationGraceMs, 10_000);
+  assert.equal(testing.commands[0].expectedReports.length, 8);
+  assert.equal(testing.outcomePredicates.length, 9);
+  const env = await worksiteFixture(owner);
+  t.after(() => fs.rmSync(env.scratch, { recursive: true, force: true }));
+  const observedFiles = [];
+  for (const relativePath of testing.selectedPaths) {
+    const file = join(env.canonicalRoot, relativePath);
+    fs.mkdirSync(dirname(file), { recursive: true });
+    // Physical input coordinates only: these bytes do not implement the external application.
+    fs.writeFileSync(file, `cold command-input fixture ${relativePath}\n`);
+    const subject = owner.constructWorksiteSubject({ ...env, relativePath, subjectUri: pathToFileURL(file).href });
+    const observation = await owner.observeWorksiteSubject(env.workspaceAuthorityBasis, env.workspaceBinding, subject);
+    assert.equal(observation.state, 'file'); observedFiles.push({ subject, observation });
+  }
+  const context = await owner.observeWorksiteContext({ ...env, readRoots: testing.selectedPaths, maxFiles: 100, maxBytes: 100_000 });
+  const nativeTask = p.constructNativeWorkspaceWorkTask({ workspaceAuthorityBasis: env.workspaceAuthorityBasis,
+    workspaceBinding: env.workspaceBinding, capabilityGrant: env.capabilityGrant, context, outcome: 'Inspect supplied command inputs',
+    instructions: ['Preserve the supplied command inputs.'], readFirst: testing.selectedPaths, writeRoots: [], checks: [] });
+  // Controlled cold Product value; neither a live native producer nor an admitted execution is asserted.
+  const source = constructNativeWorkspaceWorkObservation(nativeTask, context,
+    { summary: 'Supplied inputs observed', gaps: ['Declared command has not executed in this model-free check.'] },
+    { cCallRef: 'c-call://c2/extended-unit', executionAuthorityRef: 'authority://c2/extended-unit',
+      executionAuthorityDigest: hash('cold-authority'), actorInvocationRef: 'actor-invocation://c2/extended-unit',
+      transportBindingRef: 'transport://c2/extended-unit', transportBindingDigest: hash('cold-binding'),
+      promptDigest: hash('cold-prompt'), transportDigest: hash('cold-transport') });
+  const configuration = { ...env, commands: testing.commands, outcomePredicates: testing.outcomePredicates,
+    allowedWriteTerritories: testing.allowedWriteTerritories, protectedSubjects: observedFiles.map(row => row.subject) };
+  const validate = new Ajv({ strict: false }).compile({ type: 'object', additionalProperties: false,
+    required: ['commands', 'outcomePredicates'], properties: c2.worksiteCommandConfigurationInputSchema() });
+  assert.equal(validate({ commands: testing.commands, outcomePredicates: testing.outcomePredicates }), true);
+  const bound = c2.constructWorksiteCommandConfiguration(configuration);
+  assert.equal(c2.worksiteCommandConfigurationMatches(configuration, JSON.parse(JSON.stringify(bound))), true);
+  const tasks = [
+    p.constructNativeWorksiteCommandExecutionTask({ ...configuration, sourceNativeWork: source,
+      selectedSources: observedFiles.map(row => ({ relativePath: row.subject.relativePath, subjectUri: row.subject.subjectUri })) }),
+    p.constructObservedWorksiteCommandExecutionTask({ ...configuration, observedFiles }),
+  ];
+  assert(p.isNativeWorksiteCommandExecutionTask(tasks[0]));
+  assert(p.isObservedWorksiteCommandExecutionTask(tasks[1]));
+  for (const [index, task] of tasks.entries()) {
+    assert(p.isC2WorksiteCommandExecutionTask(JSON.parse(p.canonicalJson(task))));
+    assert.deepEqual(task.protectedObservations.map(row => row.subject.relativePath), testing.selectedPaths);
+    assert.deepEqual(task.commands, bound.commands);
+    assert.deepEqual(task.outcomePredicates, bound.predicates);
+    assert.deepEqual(task.allowedWriteTerritories, bound.allowedWriteTerritories);
+    assert.equal(c2.worksiteCommandConfigurationMatches(configuration,
+      { commands: task.commands, predicates: task.outcomePredicates, allowedWriteTerritories: task.allowedWriteTerritories }), true);
+    const plan = worksiteCommandExecutionHelperPlan(task, `attempt://c2/extended-unit/${index}`);
+    const bytes = Buffer.from(p.canonicalJson(task) + '\n');
+    assert.equal(plan.taskManifestDigest, p.sha256Bytes(bytes));
+    assert.equal(plan.taskManifestByteLength, bytes.length);
+    assert.equal(p.isWorksiteCommandExecutionHelperPlan(task, JSON.parse(JSON.stringify(plan))), true);
+    const prompt = renderWorksiteCommandExecutionPrompt(task, plan).split('\n\n');
+    assert.deepEqual(JSON.parse(prompt[1]), { command: plan.toolCommand });
+    const material = JSON.parse(prompt.at(-1));
+    assert.equal(material.taskDigest, task.taskDigest);
+    assert.deepEqual(material.commands, task.commands.map(({ ordinal, commandId }) => ({ ordinal, commandId })));
+    assert.deepEqual(material.outcomePredicates, task.outcomePredicates.map(({ ordinal, predicateId, predicateKind }) => ({ ordinal, predicateId, predicateKind })));
+    const budget = c2.projectWorksiteCommandExecutionBudget(task).requiredExecutionBudgetMs;
+    assert.equal(budget, 18_025_000);
+    assert.equal(c2.worksiteCommandExecutionBudgetFits(budget, example.provider), true);
+    for (const limits of [{ inactivityTimeoutMs: budget, absoluteTimeoutMs: 18_040_000 },
+      { inactivityTimeoutMs: 18_030_000, absoluteTimeoutMs: budget },
+      { inactivityTimeoutMs: 18_030_000, absoluteTimeoutMs: 18_030_000 }]) {
+      assert.equal(c2.worksiteCommandExecutionBudgetFits(budget, limits), false);
+    }
+  }
+  assert.equal(JSON.stringify(selected.request), acquiredRequest);
+});
+
 test('observed C2 has an exact cold source arm, direct semantics and unchanged helper protocol', async t => {
   const f = await fixture(t), task = JSON.parse(JSON.stringify(f.task));
   assert(p.isObservedWorksiteCommandExecutionTask(task)); assert(p.isC2WorksiteCommandExecutionTask(task));

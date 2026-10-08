@@ -1,0 +1,135 @@
+{
+  "status": "CLOSED_STOP",
+  "createdAt": "2026-10-08T08:02:50.523214+00:00",
+  "files": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver-directory-successor.mjs",
+      "sha256": "471187504844d1387f142e763e89946decc5ed8916ed409e888da168268781da",
+      "byteCount": 18809
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution-start.json",
+      "sha256": "f79d89199a12279ca6cb543d5a31632ecf872c398df756be14031f1dee96fc16",
+      "byteCount": 524
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution-result.json",
+      "sha256": "b4f1f9cb5bd22e0f1b212026e51d07f3b631b0d3cfedd61349cb556e7c2e1104",
+      "byteCount": 1159
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution.stderr",
+      "sha256": "ed7ee8693699c2ced4e631df5a26902ed3c18a79067bef0c6ceb579d2e8089b7",
+      "byteCount": 725
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/readiness.json",
+      "sha256": "54f302cdbb1471a7d830301df87ced2e99374068535613e5b8239beff6de7bed",
+      "byteCount": 6371
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/return.md",
+      "sha256": "50f5fe1a6d4a322dbb49bafd609e045ca2a14ac6689b06bdbae5e09cc2e7de8f",
+      "byteCount": 1364
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution/c0-a-call.json",
+      "sha256": "aee886b377aa249c27a79ce694777f279ebab5f1fd1ea75956b8386504283e1c",
+      "byteCount": 27342875
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution/c0-a-execution.json",
+      "sha256": "6d8e122e37faf45fc923dd562e2472340941209736848e703014162c2324963e",
+      "byteCount": 4479
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution/c0-a-handoff.json",
+      "sha256": "77a4c44e0e71a8540ea4cc4f950ec86ab3ff7825c94b643a54d8a40556b1ef75",
+      "byteCount": 1230
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution/c0-a-input.json",
+      "sha256": "4c483ee1579db2a816368e8bf1a51fa1c589505c5e28568d1bcd04d408bd1d8f",
+      "byteCount": 6460
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution/r01-call.json",
+      "sha256": "1037e4a0cc89bfc5736d3932f03bda42d62a44d34881de955d404bff294e9074",
+      "byteCount": 27346836
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution/r01-execution.json",
+      "sha256": "06b8b8d4f0680acb7e8a87b8b0acf2e097a681a0a6602c9a76f85c08c6c1d211",
+      "byteCount": 39895
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution/r01-handoff.json",
+      "sha256": "b29708c5c105c166c4524c17a8905e8e3a89d1a5ac115538acbce757a9897aa9",
+      "byteCount": 1230
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution/r01-input.json",
+      "sha256": "e429bd7686666e79b19694fc2a0380a16710f1594955dfbf777a296e1c3aeb96",
+      "byteCount": 7368
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution/r01-proof.json",
+      "sha256": "aa9baa62809fc17c9b526e32fd4d98971213e24fce959b39672d496440545590",
+      "byteCount": 32652
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution/setup.json",
+      "sha256": "d06b326ba7cf703009c60c045bb714190ef2fd97273ac03ea10d002b83113652",
+      "byteCount": 15915243
+    }
+  ],
+  "previousFreezes": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/freeze.json",
+      "sha256": "d67c856730ca36cac5e468fa1463dd97f36dc5cf46edb37270faec5ad3089fce",
+      "byteCount": 3336
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor/freeze.json",
+      "sha256": "79b1a751a8432bc1329cc331fec8ae4b8ddc61ae31f00d6b9b4be940da1d3bb6",
+      "byteCount": 5925
+    }
+  ],
+  "runtimeLog": {
+    "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/runtime/events.jsonl",
+    "sha256": "a7feaf39bf4f12c11e4f070570132cc2d6893c33eaac1b0a392a8fc43f9ba2a6",
+    "byteCount": 3696255
+  },
+  "nativeAssets": [
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/workspace/.ai-workspace/archive/fp-4dca9c4160972a5c-output.txt",
+      "sha256": "4b6384af6843e21c8cd9ce810c878fa13769aa09aed49ba98551eda6c3ceb56a",
+      "byteCount": 87
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/workspace/.ai-workspace/archive/fp-4dca9c4160972a5c-prompt.txt",
+      "sha256": "3cccd6a49dda1c448c5147568d216ef2d1109ba133ee0fc0d592659eafaf2315",
+      "byteCount": 17284
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/workspace/.ai-workspace/archive/fp-4dca9c4160972a5c-stderr.log",
+      "sha256": "22df6fddce768c1940c463d3b76f6095f3f26c6de704bffd4c1aff53dd65cf24",
+      "byteCount": 46
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/workspace/.ai-workspace/archive/fp-4dca9c4160972a5c-stdout.log",
+      "sha256": "c22f11f8bec93ad8cc7cf0a2df80d55654cebe0d5b057df025deed91fa96fc33",
+      "byteCount": 163
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/workspace/.ai-workspace/archive/fp-4dca9c4160972a5c-transport.json",
+      "sha256": "4f8ee840234d7fa3eaf8fa16434d9b38e45443cd0a7d29d17b8b422a972b9262",
+      "byteCount": 4602
+    }
+  ]
+}

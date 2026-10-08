@@ -1,0 +1,137 @@
+{
+  "status": "CLOSED deterministic mechanical successor + clean offline host; pending independent publication/Root use conjunction",
+  "productFrame": "Fifteen-family ABI5 5.0, GOAL035/T287, external original UATs; immutable Product definition vs mutable worksite; ABG exclusive admitted truth. No native/application qualification in94.",
+  "method": "STDO2.5.1RC2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "candidateIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/identity.json",
+    "sha256": "3ad3cc4560388b037a8d2dfc1e035b6011f5c4396789380cdba9fff6f5b170a3",
+    "byteCount": 5787
+  },
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/freeze.json",
+    "sha256": "3dc8ae4a1a067d8eafb824437cf5401fbb72b6797c8e745c1a3d5d3fbb9674f4",
+    "byteCount": 11111
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "a6e9ed7a905ed36d5575ce3a394f8d2a30a418718f6eb5f7cff86461480fb673",
+    "byteCount": 10629890
+  },
+  "sourceCount": 263,
+  "sourceDeltaCountVs20": 1,
+  "normalGeneratedCount": 934,
+  "normalGeneratedChanged": 3,
+  "normalGeneratedUnchanged": 931,
+  "allDeclarationBytesUnchanged": true,
+  "source89IsolatedClosureMatchesNormalEmission": true,
+  "payloadMemberCount": 5263,
+  "tarMemberCount": 5265,
+  "tarChanged": 3,
+  "tarUnchanged": 5262,
+  "publicCatalogWholeValueEqual": true,
+  "canonicalCompleteCatalogCapabilitiesContributionsRecomputed": true,
+  "canonicalOwners": {
+    "publicRows": 75,
+    "publicAssets": 53,
+    "nativeClosures": 15,
+    "nativeLocatorRows": 50,
+    "typedContractDigests": 23,
+    "publications": 10,
+    "contributions": 47,
+    "capabilityIdentityConsequences": {
+      "graphDigest": 1,
+      "capabilityDefinitionDigest": 34,
+      "capabilityDefinitionRef": 34,
+      "productContentDigest": 241
+    },
+    "contributionIdentityConsequences": {
+      "graph": 1,
+      "contentRefs": 3,
+      "publicationDigests": 10,
+      "provenanceRefs": 47,
+      "catalog": 0
+    }
+  },
+  "installedHostSelector": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation/exacthost-identity.json",
+    "sha256": "242d3578a9eec3fb0bbaf7600a0877cb1884ffd8909583197c5855383722df75",
+    "byteCount": 3159
+  },
+  "installedOwnerAcquisition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation/host21-acquisition.json",
+    "sha256": "de2c6ed5df0ff6a75cbfb7a31b44a310bb7fab014d1353c38a9b69b867e15e27",
+    "byteCount": 16369499
+  },
+  "installedMembers": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation/installed-members.json",
+    "sha256": "ef086c38ed8cc2c3b38380b9e0e1db4e87245ea6a04e189d3d6b16705692cfe3",
+    "byteCount": 1112070
+  },
+  "offlineCleanInstall": true,
+  "allInstalledArchiveBytesEqual": true,
+  "modeDifferences": [
+    {
+      "path": "build/code/src/public/cli.js",
+      "archiveMode": 420,
+      "installedMode": 493
+    },
+    {
+      "path": "build/code/src/public/codex_cli.js",
+      "archiveMode": 420,
+      "installedMode": 493
+    }
+  ],
+  "lockedDependenciesBundledOnly": true,
+  "existingDependencyFixtures": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/scratch/successor/package/node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+      "relativePath": "node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+      "sha256": "c954f79d2fa7f4d9779a6e7514cdf8df1eeb95d0097ea62cd3b785d20f2d0859",
+      "byteCount": 9888
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/scratch/successor/package/node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+      "relativePath": "node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+      "sha256": "c10203102fee328d6c8aedbd03319b8eeb364417c3b1137d714537fcd3102d69",
+      "byteCount": 1688
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/scratch/successor/package/node_modules/json-schema-traverse/spec/fixtures/schema.js",
+      "relativePath": "node_modules/json-schema-traverse/spec/fixtures/schema.js",
+      "sha256": "0262591e321bc88b22dc33ec78bcded5ab664e2fce2c10b9e0c35d3eb6030d27",
+      "byteCount": 5544
+    }
+  ],
+  "timingsMs": {
+    "build": 30308.969875,
+    "pack": 3234.5165,
+    "packagedCanonicalAndVerifyOuter": 59845.357,
+    "packagedVerifyProduct": 20251.44225,
+    "install": 2214.248375,
+    "installedVerifyProduct": 20080.07275,
+    "installedVerificationSuccessorOuter": 21241.302834000002,
+    "failedHostComparatorOuter": 3020.9617089999997
+  },
+  "oneBuildOnePackOneInstall": true,
+  "scopedProcessClosure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/process-closure.json",
+    "sha256": "74303af4164c636fa3559e92e7fda20645d6ee368242f6d9cb76d9add1792258",
+    "byteCount": 236
+  },
+  "retainedPremiseFailures": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/preparation-failure.json",
+      "sha256": "9945acf56f55d2aa478315cfe99c089791fe5f3158d434d4f5f7ac28b3b1f131",
+      "byteCount": 1185
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation-failure.json",
+      "sha256": "86985be94dbc9f5efd5a03b52936356c4ed75bd6b951393b47b669614b006310",
+      "byteCount": 2346
+    }
+  ],
+  "sourceEmissionCoordinateProbeCorrection": "initial guessed isolated/build path did not exist; no owner execution or byte change; corrected using exact frozen89 compiled-output-pins row",
+  "ownerOrProductFailures": [],
+  "limits": "Mechanical build/publication/clean host only; no Source semantic self-review, actual81 installed conformance/HoG/native effects, RC1/tag/release/P0/full UAT/recovery/continuation credit. No old archive/worksite/log/installation mutations."
+}

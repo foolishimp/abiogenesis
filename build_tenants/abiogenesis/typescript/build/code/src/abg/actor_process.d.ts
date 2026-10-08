@@ -11,7 +11,7 @@ import { type AbgEventStore, type DurablePrefixCoordinate } from "./event_store.
 import { type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import type { OpenedTraversalScope } from "./open_call.js";
 import { type NativeWorkerResultAssessment } from "./transport_contracts.js";
-import { type WorkerToolInvocationEvidence } from "./worker_transport.js";
+import { type WorkerTransportRequest, type WorkerToolInvocationEvidence } from "./worker_transport.js";
 import type { LeafInvocationPort, LeafInvocationResolution } from "../implementation/contracts.js";
 export interface ActorRuntimeBinding {
     readonly workspaceBinding: WorkspaceBinding;
@@ -29,6 +29,7 @@ export interface ActorProcessRequest {
     readonly transportLane: "closed_prompt_proof" | "worker_executes";
     readonly prompt: string;
     readonly responseJsonSchema: Readonly<Record<string, JsonValue>>;
+    readonly responsePresentation?: WorkerTransportRequest["responsePresentation"];
 }
 export interface ActorProcessObservation {
     readonly nativeResultAssessment?: NativeWorkerResultAssessment;

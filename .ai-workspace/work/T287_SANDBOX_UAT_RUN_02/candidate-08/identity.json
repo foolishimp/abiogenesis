@@ -1,0 +1,75 @@
+{
+  "archiveSha256": "d8c58f4ac5a8ea7c773d324559e94bc0fdf8bf3545387f296180027555d808b4",
+  "archiveByteCount": 10620551,
+  "archiveFileCount": 5265,
+  "manifestByteSha256": "1f792aeccc558a583eefd507c16e22adf590e14bce3d950c48f9eaa16e6da8b4",
+  "baselineArchiveSha256": "ca7feb52ca90ad581cc0b07d62a26c57526cd50d04814c54e9bcef770300be09",
+  "sourcePackageCorrespondence": true,
+  "compiledAndContractCount": 720,
+  "compiledAndContractDelta": [
+    {
+      "path": "build/code/src/abg/default_library.js",
+      "preimageSha256": "3e671ccdc049892498e554f1a6fd346199d1b876342192e02a1c965e513bf7ee",
+      "sha256": "f688a38e377f251e02d4bbbed1e863054850e8c34ece5f8af7656970ce04417b",
+      "byteCount": 29531
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "preimageSha256": "929aff70f9d8171a587112d9b9fb2e50a4a4de6d64dd17d15c017b56b6406379",
+      "sha256": "68893960fcfe8f1496e170ec88388b76c20aa7482a01bab572d47c52d02c1354",
+      "byteCount": 197474
+    }
+  ],
+  "archiveMemberDelta": [
+    {
+      "path": "build/code/src/abg/default_library.js",
+      "preimageSha256": "3e671ccdc049892498e554f1a6fd346199d1b876342192e02a1c965e513bf7ee",
+      "sha256": "f688a38e377f251e02d4bbbed1e863054850e8c34ece5f8af7656970ce04417b",
+      "byteCount": 29531
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "preimageSha256": "929aff70f9d8171a587112d9b9fb2e50a4a4de6d64dd17d15c017b56b6406379",
+      "sha256": "68893960fcfe8f1496e170ec88388b76c20aa7482a01bab572d47c52d02c1354",
+      "byteCount": 197474
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "preimageSha256": "5203137e454785089ba2acb5ef2a4be0cda23adab5d72888f3dda59768fd9ade",
+      "sha256": "1f792aeccc558a583eefd507c16e22adf590e14bce3d950c48f9eaa16e6da8b4",
+      "byteCount": 3171685
+    }
+  ],
+  "inspectedDependencyFixtureExclusions": [
+    {
+      "path": "node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+      "sha256": "c954f79d2fa7f4d9779a6e7514cdf8df1eeb95d0097ea62cd3b785d20f2d0859",
+      "byteCount": 9888,
+      "unchangedFromBaseline": true
+    },
+    {
+      "path": "node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+      "sha256": "c10203102fee328d6c8aedbd03319b8eeb364417c3b1137d714537fcd3102d69",
+      "byteCount": 1688,
+      "unchangedFromBaseline": true
+    },
+    {
+      "path": "node_modules/json-schema-traverse/spec/fixtures/schema.js",
+      "sha256": "0262591e321bc88b22dc33ec78bcded5ab664e2fce2c10b9e0c35d3eb6030d27",
+      "byteCount": 5544,
+      "unchangedFromBaseline": true
+    }
+  ],
+  "ownerJoins": {
+    "productContentDigest": "sha256:0e301e512dcabe91dcd68ceeaf3348badd71bff469bba2af6a6d1d58dd56ad2f",
+    "canonicalManifestDigest": "sha256:5954328711ef9130b62df89608372eb5502429a34dcddd30d90f771dbde9ac38",
+    "capabilityGraphDigest": "sha256:14347091c25c296dffa526b0b72743e6370096571c154c720551e2f7c4dcf4e7",
+    "publicContractCatalogDigest": "sha256:0f30edca26e1b9065fd36bd7c3b9367978e0eff744bf945c61b3487315a0c33b",
+    "contributionManifestDigest": "sha256:edce23144c529dd1db44799e9c727e80c3d2c44623faec51b61cf90b15c1e53a",
+    "publicationBindingCount": 10,
+    "contributionRowCount": 47,
+    "payloadCount": 5263,
+    "canonicalOwnerJoins": true
+  },
+  "verifierCorrection": "Root-authorized direct import of existing verify_product.js:parseProductManifest after report-local index-export misuse; same archive, no source/build/repack/runtime retry"
+}

@@ -1,0 +1,13 @@
+Writer58 CLOSED bounded readiness; editing/build/tests stopped. Root conjunction: CLOSED Source56/56b + Proof56; fixed fifteen-family ABI5/GOAL035/T287/STDO2.5.1-rc.2 integration/worksite-causality + nominal snapshot identity.
+Private WeakMap(snapshot→branded proof) replaces WeakRef. Exact own descriptor/registry/private-brand join, source/parent/shared, raw/copy cold fallback and rollback rules preserved; no proof→snapshot pointer. Short T289/§7.1 HOW correspondence cites TC39 kept-target/WeakMap law.
+Syntax PASS 26.166ms; one ordinary build PASS 33338.044ms. First focused 4PASS/1FAIL 5752.614ms retained; mutable copied test premise fixed by deepFreeze, no production relaxation/rebuild. Corrected focused 5PASS/0FAIL/0skip 5463.314ms.
+Exact selection: snapshot proof identity|cold acquisition receipt|historical durable cuts|held derivation preserves|liveness historical-cut intermediates.
+Actual-owner 3-event copy/transplant/append/cut/scope/invalidation checks and authentic434/216probe candidate16/new + candidate18/new current/historical/reverse/repeated liveness/replay value/digest equivalence; existing cold physical freshness/tamper and staged rollback checks retained; inspector handles released.
+Four source/HOW/test edits; 934 generated outputs unchanged in membership, exactly runtime_derivation.js + capability graph + manifest changed by normal build. No GTL/Public/carrier change.
+48 stopped48 worksite pins + candidate18/prior closed carriers reacquired unchanged; old log metadata unchanged. Full digest reused from authenticated57 recovery, no whole-log rescan. First freeze string-vs-integer mtime premise retained/corrected; no byte drift.
+No empirical memory/P0 closure, installed late-read/replay/native/whole-UAT or application-completion credit; no pack/deploy/model/app/config/Git effects. Root owns independent review and subsequent installed reproof.
+Readiness SHA 39ce6cc26fe15aeef0753f1933ec2af2e980d18d3fa74eabeafce54e519243e1 / 9677B; source/generated/check pins in readiness.json, conservation in conservation.json; first failure retained in commands/focused-tests.{stdout,result.json}.
+code/src/abg/runtime_derivation.ts SHA 1fff9e0bee14f10e776d15948695e912aaa2dcce8d5c7228c58d982d3cb8c52d / 5463B
+design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md SHA 8a45914435600632a375b983b63a3fcfd645ccb8b940904e73cfe527405f7581 / 10558B
+design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md SHA 32b293873d61db61227400517cc784244221d788c3785a935e7c3bff1ccc9b03 / 28375B
+test_env/tests/t287-ordered-reconstruction.test.mjs SHA f0f9c7bc0103b0f9119c4f1f8b59752a92945c9ff9ebb1fcb19c63f9d42fd9f1 / 42340B

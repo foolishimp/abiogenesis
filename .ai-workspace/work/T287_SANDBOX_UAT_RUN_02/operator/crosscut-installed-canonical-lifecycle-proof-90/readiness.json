@@ -1,0 +1,78 @@
+{
+  "status": "CLOSED_GO_bounded_actual_installed_witness",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "joinedFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-canonical-lifecycle-proof-90/evidence.json",
+    "sha256": "7a12ed104d3669d1c0814a13fe765e23262f788e4a09abdfec837587b4b363af",
+    "byteCount": 14489
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-canonical-lifecycle-proof-90/driver.mjs",
+    "sha256": "2a5ef1090fffab5c4542534a8da4924f95ab2ee61e7ed1674dfa4830f097526d",
+    "byteCount": 19780
+  },
+  "process": {
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 50215.597792,
+    "timedOut": false,
+    "truncated": false
+  },
+  "actualCommands": [
+    {
+      "case": "c0-a",
+      "exitCode": 0,
+      "wallMs": 4151.672917,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false
+    },
+    {
+      "case": "c0-b",
+      "exitCode": 0,
+      "wallMs": 4230.670041999998,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false
+    },
+    {
+      "case": "r02-run_replay",
+      "exitCode": 0,
+      "wallMs": 782.9745419999963,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false
+    },
+    {
+      "case": "r02-run_result",
+      "exitCode": 1,
+      "wallMs": 761.0849999999991,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false
+    },
+    {
+      "case": "r02",
+      "exitCode": 0,
+      "wallMs": 3976.461083000002,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false
+    }
+  ],
+  "earned": [
+    "Canonical ABI Program/provider/W ownership before actual invocation.",
+    "Actual C0 A/B owner effects and admitted current observations.",
+    "Actual local native conflict after A write, transport_exception and exact cold scoped retirement; no fabricated Result.",
+    "Actual fresh Public result refusal/replay failed/null with unchanged prefix.",
+    "Same installed payload before/after, conserved selected31 preimages and bounded process absence."
+  ],
+  "unearned": [
+    "Controlled ordinary protocol subprocess, no real model/provider or semantic judgment.",
+    "No Data Mapper/application, C2/helper, memory/P0, full UAT/qualification/release credit.",
+    "No Source semantics re-review of authored63/75; independent66/77 acceptance reused.",
+    "R01 retains its historical actual subject and supplies no new Run credit."
+  ],
+  "preparationLimit": "A first unpersisted pin-selection attempt used implementation/worker_transport.js; corrected actual owner locator abg/worker_transport.js before execution. No Source/guard/contract effects."
+}

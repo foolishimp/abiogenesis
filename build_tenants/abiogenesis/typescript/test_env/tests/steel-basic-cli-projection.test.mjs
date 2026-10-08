@@ -48,7 +48,7 @@ function readCall({ publicApi, product, abg, originalCall, coordinates, environm
   const slots = Object.fromEntries(Object.keys(originalCall.invocation.invocationAuthority.slots).map(key => [key, null]));
   Object.assign(slots, {
     workspace_binding: { ref: binding.bindingId, digest: binding.bindingDigest },
-    product_set: productInstalls.map(row => ({ ref: row.installId, digest: row.productContentDigest })),
+    product_set: productInstalls.map(product.productInstallCoordinate),
     dependency_lock: { ref: binding.lockId, digest: binding.lockDigest },
     capability_grants: { requiredCapabilityRefs: definition.capabilityRefs,
       grants: grants.map(row => ({ ref: row.grantRef, digest: row.grantDigest })) },

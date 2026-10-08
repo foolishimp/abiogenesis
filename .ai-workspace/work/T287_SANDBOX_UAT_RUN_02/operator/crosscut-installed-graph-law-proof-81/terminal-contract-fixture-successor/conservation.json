@@ -1,0 +1,130 @@
+{
+  "controlCount": 12,
+  "allControlsUnchanged": true,
+  "controlPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/program.mjs",
+      "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+      "byteCount": 22919
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/leaf.mjs",
+      "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+      "byteCount": 10669
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/language-structural-fixture.mjs",
+      "sha256": "f840e413bf53b7cffec616e3147ba7d461c5858e2b6da4d248dc2d799e81decd",
+      "byteCount": 6369
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "sha256": "a9cb72f8ff841248cd63b63104813c869b935803e3c837f68d80a576e29574e0",
+      "byteCount": 39995
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+      "byteCount": 21826
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/freeze.json",
+      "sha256": "5b03f457f85b206f7d404c8dce64f62ab578ea0cb78d8a6f18069121b54e5d9b",
+      "byteCount": 11964
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/return.md",
+      "sha256": "65ddb76b8ad1054cbd381138ea61f4aadd40c8d5f0a0fba777e4497cd8ab6916",
+      "byteCount": 2276
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/terminal-closure-field-vector.json",
+      "sha256": "5294f11d45c533054bf8942b833991d0e6963f33b13fbb5764da62a80ea5fb65",
+      "byteCount": 4372
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/identity.json",
+      "sha256": "3ad3cc4560388b037a8d2dfc1e035b6011f5c4396789380cdba9fff6f5b170a3",
+      "byteCount": 5787
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-21/freeze.json",
+      "sha256": "3dc8ae4a1a067d8eafb824437cf5401fbb72b6797c8e745c1a3d5d3fbb9674f4",
+      "byteCount": 11111
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation/exacthost-identity.json",
+      "sha256": "242d3578a9eec3fb0bbaf7600a0877cb1884ffd8909583197c5855383722df75",
+      "byteCount": 3159
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation/host21-acquisition.json",
+      "sha256": "de2c6ed5df0ff6a75cbfb7a31b44a310bb7fab014d1353c38a9b69b867e15e27",
+      "byteCount": 16369499
+    }
+  ],
+  "oldFailed45Store": {
+    "path": "/private/tmp/abi5-root-env-nB6Rgx/runtime/events.jsonl",
+    "sha256": "ec656f265b84d49a992e0760bd2d13b284f4ec5fc8b75525e00a0e00942bed2d",
+    "byteCount": 3252373
+  },
+  "oldFailed45StoreConserved": true,
+  "corrected51Store": {
+    "path": "/private/tmp/abi5-root-env-TiW4Zz/runtime/events.jsonl",
+    "sha256": "a0afa32cccdf16ade933ef977ed48b5c706a81bbd4f0e959d32bc8db49b36c07",
+    "byteCount": 3266889
+  },
+  "fixturePins": [
+    {
+      "path": "/private/tmp/abi5-root-env-TiW4Zz/language-structural-fixture/build/leaf.mjs",
+      "sha256": "2cc7441825fc368a67e2b939b1311c68e36e6722cd608fb01963e7368c700c9a",
+      "byteCount": 10669
+    },
+    {
+      "path": "/private/tmp/abi5-root-env-TiW4Zz/language-structural-fixture/build/program.mjs",
+      "sha256": "c34bf7a02cf558b7293c900c8670901fd1ab2cf73ce54f36841c28b49760683e",
+      "byteCount": 23856
+    },
+    {
+      "path": "/private/tmp/abi5-root-env-TiW4Zz/language-structural-fixture/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+      "byteCount": 247
+    },
+    {
+      "path": "/private/tmp/abi5-root-env-TiW4Zz/language-structural-fixture/contracts/public-contract-catalog.schema.json",
+      "sha256": "61e568843e73d95da3e018d7fb42c3dc4524ac1ed199efff6e84b902ad277deb",
+      "byteCount": 75
+    },
+    {
+      "path": "/private/tmp/abi5-root-env-TiW4Zz/language-structural-fixture/package.json",
+      "sha256": "6e48595374831ff216258bbaa53e3d9a99408737451cd87b372f634f93d9f175",
+      "byteCount": 187
+    },
+    {
+      "path": "/private/tmp/abi5-root-env-TiW4Zz/language-structural-fixture/product-toolchain-manifest.json",
+      "sha256": "8255c265a739238a7a0d9859ea60a531cfddf424a1a8cd59c2513937fb619899",
+      "byteCount": 12727
+    },
+    {
+      "path": "/private/tmp/abi5-root-env-TiW4Zz/language-structural-fixture/artifacts/abi5-tests-structural-fixtures-5.0.0.tgz",
+      "sha256": "cbe23fdd7d30e080a7d57bcc64f6f770a9084c739493356b6655656aaf06b820",
+      "byteCount": 9732
+    }
+  ],
+  "installedTransformedSource": {
+    "path": "/private/tmp/abi5-root-env-TiW4Zz/consumer-additional-0/node_modules/@abi5-tests/structural-fixtures/build/program.mjs",
+    "sha256": "c34bf7a02cf558b7293c900c8670901fd1ab2cf73ce54f36841c28b49760683e",
+    "byteCount": 23856
+  },
+  "authorPackInstalledSourceMatches": true,
+  "allOtherPublicationSemanticsEqualAtSameArtifactBasis": true,
+  "graphsProgramsRootMembershipTopologyVectorImplementationsUnchanged": true,
+  "allInstallBarriersTrue": true,
+  "samePrefixBothFreshReads": true,
+  "driverPid": 91598,
+  "driverPidAbsent": true,
+  "allRawProcessCommandsClosed": true,
+  "signalsSent": 0,
+  "boundedProcessObservationOnly": true,
+  "noFrameworkSourceSupportMethodGitDataMapperOldCutEffects": true
+}

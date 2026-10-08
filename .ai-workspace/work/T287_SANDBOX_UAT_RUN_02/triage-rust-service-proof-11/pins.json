@@ -1,0 +1,480 @@
+{
+  "kind": "closed_independent_rust_service_proof_review",
+  "schemaVersion": 1,
+  "disposition": "CLOSED",
+  "firstCause": "external mechanical lexical false negative",
+  "archive": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5",
+  "methodManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "proofChecks": [
+    "installed authenticated prefix; six actors/no native failures",
+    "canonical C2/helper; ten exact execution snapshot files",
+    "actual independent assessor selected carrier/full schema/context/C2 producer",
+    "native assessment→semantic UAT→parent/root result",
+    "both fresh installed-owner projections equal admitted terminal",
+    "two installed before/after barriers",
+    "three protected originals; archived/live evaluator; one unmet criterion"
+  ],
+  "eventLineage": [
+    {
+      "ordinal": 8398,
+      "eventId": "event://abiogenesis/c10086348ccd5b20b85bca72548fbeeb68c350af180563eaf5e9b0f7138516f4",
+      "kind": "c_call_result_admitted",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "resultRef": "result://abiogenesis/6e66d760c7e4ad6a84855f71e9bdc7d1faf4324f2b92756b1adbbeb04b3bc815"
+    },
+    {
+      "ordinal": 10257,
+      "eventId": "event://abiogenesis/f94ae8ef9141369ac9bf6b401079f87704b578964d5a549cec841aeba55cf475",
+      "kind": "actor_invocation_started",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "resultRef": null
+    },
+    {
+      "ordinal": 10813,
+      "eventId": "event://abiogenesis/0007ff93538b07d3c3bdeafd9f0c77bd13ccf9c769ae8e615aa98ce307bd4195",
+      "kind": "actor_result_artifact_observed",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "resultRef": null
+    },
+    {
+      "ordinal": 10819,
+      "eventId": "event://abiogenesis/b10b2a9b1587df91ecbded1c168086a0a23be7a0114f58b5b9e5f018d191ec2e",
+      "kind": "c_call_result_admitted",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work/assessment@5",
+      "resultRef": "result://abiogenesis/aead15f59652cdd2f9feaf2b708a6da7fa8ed777dee9e6aacabaafe23e102074"
+    },
+    {
+      "ordinal": 10832,
+      "eventId": "event://abiogenesis/c6d6743c591aa5eae3014aa0808a245b02619afebebcf20da4ff8cd2b71bbd89",
+      "kind": "c_call_result_admitted",
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+      "resultRef": "result://abiogenesis/2fe3c6b74dc879bd4aa3f74d4db74fb7ac70d7066413747beba96ad497b3b881"
+    },
+    {
+      "ordinal": 10849,
+      "eventId": "event://abiogenesis/6f7328ed9523cb5c1b4b826cd7a5309772dfcb12350864229f3143387e459dad",
+      "kind": "c_call_result_admitted",
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+      "resultRef": "result://abiogenesis/05088ae837ed351fd60db1b54815b50a0de2e509c47bb4f6d608b0eb10234f61"
+    },
+    {
+      "ordinal": 10866,
+      "eventId": "event://abiogenesis/3005b4ceb771929fc801f5cf21a928b1816d7dbe456ef912df43538db0247b80",
+      "kind": "c_call_result_admitted",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "resultRef": "result://abiogenesis/d7bada8f1bddeb9bf478d5a94a276e3e3b2879fafbe4b03bb8ad39f04ad41b25"
+    },
+    {
+      "ordinal": 10890,
+      "eventId": "event://abiogenesis/e8817d572748ba24f90069fae7c5645a20d2d00bec1ce1509842c34ccadbac04",
+      "kind": "c_call_result_admitted",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+      "resultRef": "result://abiogenesis/2aa31eb3b9da5e5cf256e2b384a005982281a55e288763ee1327a6da39dde324"
+    },
+    {
+      "ordinal": 10904,
+      "eventId": "event://abiogenesis/495a86c75bbfa38816086b67ef149de9f27bdb308a4d4405041917f6ec630fbb",
+      "kind": "run_closed",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+      "resultRef": null
+    }
+  ],
+  "prefix": {
+    "coordinateDigest": "sha256:83b6399ddfd72d7d96002b32fb1432a746857e210d9aeba7aa70b35692debc32",
+    "prefixDigest": "sha256:ee794dab071301d42457e8e3af762d786216e1999301b03a10e146700c99ed50",
+    "prefixLength": 41657849,
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/events/runtime.events.jsonl"
+  },
+  "freshMembers": [
+    {
+      "memberKey": "run_result",
+      "source": {
+        "digest": "sha256:c3b6a034fa2fbeacc57c538ddb8e2e9510b0537b3a1fde2e48f4a1cb5c6e847f",
+        "ref": "run://abiogenesis/b4f0f568f5a3f9e7c5c103694ee3020c0786a36c21e88736e327e599ba246789"
+      },
+      "result": {
+        "digest": "sha256:2aa31eb3b9da5e5cf256e2b384a005982281a55e288763ee1327a6da39dde324",
+        "ref": "result://abiogenesis/2aa31eb3b9da5e5cf256e2b384a005982281a55e288763ee1327a6da39dde324"
+      },
+      "replay": {
+        "digest": "sha256:ab237949951aa1abf724ef841fe2c30ed7f3c802361757decab182c04c9a547a",
+        "ref": "replay://abiogenesis/ab237949951aa1abf724ef841fe2c30ed7f3c802361757decab182c04c9a547a"
+      }
+    },
+    {
+      "memberKey": "run_replay",
+      "source": {
+        "digest": "sha256:c3b6a034fa2fbeacc57c538ddb8e2e9510b0537b3a1fde2e48f4a1cb5c6e847f",
+        "ref": "run://abiogenesis/b4f0f568f5a3f9e7c5c103694ee3020c0786a36c21e88736e327e599ba246789"
+      },
+      "result": {
+        "digest": "sha256:2aa31eb3b9da5e5cf256e2b384a005982281a55e288763ee1327a6da39dde324",
+        "ref": "result://abiogenesis/2aa31eb3b9da5e5cf256e2b384a005982281a55e288763ee1327a6da39dde324"
+      },
+      "replay": {
+        "digest": "sha256:ab237949951aa1abf724ef841fe2c30ed7f3c802361757decab182c04c9a547a",
+        "ref": "replay://abiogenesis/ab237949951aa1abf724ef841fe2c30ed7f3c802361757decab182c04c9a547a"
+      }
+    }
+  ],
+  "assessedContext": [
+    {
+      "relativePath": "design/implementation-design.md",
+      "digest": "sha256:4c676ffbdebca0d9a1fdb2df428f5dbd3732bfd2cad2b5285e58d37129dcf723",
+      "byteLength": 3676
+    },
+    {
+      "relativePath": "design/test-design.md",
+      "digest": "sha256:7a2cfe92534279b4723788c72a666e6f4ca827f02160f9b9e2586d98ebd4732e",
+      "byteLength": 4853
+    },
+    {
+      "relativePath": "source/rust-service/obligations.json",
+      "digest": "sha256:13787d69d923baffd3c94d24139301f985bafb8037b02957b7a96a710ea51b91",
+      "byteLength": 4696
+    },
+    {
+      "relativePath": "source/rust-service/oracle.json",
+      "digest": "sha256:eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c",
+      "byteLength": 1966
+    },
+    {
+      "relativePath": "source/rust-service/source.original.txt",
+      "digest": "sha256:a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d",
+      "byteLength": 4175
+    },
+    {
+      "relativePath": "specification/project-conformance.md",
+      "digest": "sha256:d3266245e2bfdadd08c960d70232647e7fda981a18a683ad983c1bd1c78d1e3f",
+      "byteLength": 9984
+    },
+    {
+      "relativePath": "src/service.rs",
+      "digest": "sha256:a32d6f3ada72e4964f7c850e2f96881b92b824575ae3f90542e29bcd99ea32ee",
+      "byteLength": 3587
+    },
+    {
+      "relativePath": "test-execution-plan.json",
+      "digest": "sha256:d1f60057207963b714ece2c5a137f4ac8a7eb2c3d9e37f5cc5f4fa0ec64c959b",
+      "byteLength": 384
+    },
+    {
+      "relativePath": "test/component/rust-service.test.mjs",
+      "digest": "sha256:0b2a49ebb7585795ca86a301907db0d1ad936e8a653cc04b9ee44494093f1770",
+      "byteLength": 6148
+    },
+    {
+      "relativePath": "test/uat/rust-service.uat.test.mjs",
+      "digest": "sha256:511ecb537e937748c9d233d7e0778c0fb92185d74491eefc0a9a86a1ff1982a1",
+      "byteLength": 4323
+    }
+  ],
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/summary.json",
+      "sha256": "c56b292de9206ceaa272391f997eeedb510201abdbf3cf25c509a12d78043c44",
+      "byteLength": 541
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/SEALED.json",
+      "sha256": "976d31d652634f28e3e6e66892104b320704f93d68529ac961f404a8052193ed",
+      "byteLength": 282
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/independent-oracle.json",
+      "sha256": "894c7b29276da99f667fa523bc7f0c4d492cca3024f501b3c594f159d88701ed",
+      "byteLength": 5181
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/runtime-events.json",
+      "sha256": "a8502717ce60901091e84478e2f0fca40966cb645bb2f8c28285823eaa890b55",
+      "byteLength": 49708197
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/events/runtime.events.jsonl",
+      "sha256": "ee794dab071301d42457e8e3af762d786216e1999301b03a10e146700c99ed50",
+      "byteLength": 41657849
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/final-close-handoff.json",
+      "sha256": "5c78bc9dae1adb343a5df92bf41dfb2a03bf90fa90d5d1727ed69df4f145f4e3",
+      "byteLength": 1460
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/fresh-readback.json",
+      "sha256": "0796524df4080d4cafb118f44e74fe0a4eb4895b17f88d54ed7138dc203c15b7",
+      "byteLength": 246079
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/installed-content-before-run.json",
+      "sha256": "fda31f40046c400fb4736be4ce33de7c1c50b4ff6bba69dcabc154b8715d4c9e",
+      "byteLength": 2158
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/installed-content-after-run.json",
+      "sha256": "b5e1b4315a07df9654d2b5147fa86e0c5dc39512b37ba8bdf201efdf1f5f2959",
+      "byteLength": 2157
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/source-conservation.json",
+      "sha256": "cd9fe3c675e9a395b7916ea759d172d493077404226d71e92b785ffd94d04f98",
+      "byteLength": 727
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/workload-source.json",
+      "sha256": "523ac2ce4b5b241e6f29c65ef387fff18b4e4e0564fe3c9fed434a7d370bc9fb",
+      "byteLength": 25374
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/oracle-acquisition.json",
+      "sha256": "fba1e8cc4f712f1dfa906bc24c04b75a7e2bff3ffe07f5f54b3dc4d9fd1ef21f",
+      "byteLength": 1368
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/setup-identity.json",
+      "sha256": "7955ea218d088d6c3247ea1d82b81d115cbbfb6b375df66a10e1b968fbf73692",
+      "byteLength": 9225816
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/oracle-inputs/independent-oracle.mjs",
+      "sha256": "2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+      "byteLength": 24414
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-10/return.md",
+      "sha256": "56f09e52553c6aaf3f2087247576381a7fa57a0b52b2844d924c580aa4045f7a",
+      "byteLength": 3265
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-10/execution-freeze.json",
+      "sha256": "c692c2c5ebcc1d6ed7af091ea3a336ca30ed172405616955d7afd6513e34addf",
+      "byteLength": 117784
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-10/rust-service-observation.json",
+      "sha256": "6e7f5aeee83621ae78dbaa566455267011982faefc84e82d76456c9f9d72951e",
+      "byteLength": 7531
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json",
+      "sha256": "68c48ff4f8d0d5205e1543c3f62997e29db61c6797cbdff93e67a71c3eb28d27",
+      "byteLength": 2328
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-review-10/return.md",
+      "sha256": "e2894e98491a27b1a40606ba5ae0eab21d4a2ca0de2745062c25100e4149dad5",
+      "byteLength": 3623
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-review-10/pins.json",
+      "sha256": "bf70c9abf44697b6d72edb74ccfdbcc7254a27addc44e1a6f6bbcc81f2c04b04",
+      "byteLength": 12299
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-review-10/freeze.json",
+      "sha256": "71b0d143f235a9d6bbe278b9bf31dcaa6c6e3812bf436ced22fe71bf424ef3a5",
+      "byteLength": 514
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-rust-service-oracle-11/return.md",
+      "sha256": "4fb532ed04c7c8be7508f1d3f26fcf4be74750597c3858f50952402b20ffa233",
+      "byteLength": 5966
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/README.md",
+      "sha256": "73b884a2bf5b9a4c1f821154bc6211dd1f3795bcc5be518de00f3ef21d8c5ef9",
+      "byteLength": 3722
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+      "byteLength": 24414
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+      "byteLength": 34763
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/source.original.txt",
+      "sha256": "a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d",
+      "byteLength": 4175
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/obligations.json",
+      "sha256": "13787d69d923baffd3c94d24139301f985bafb8037b02957b7a96a710ea51b91",
+      "byteLength": 4696
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/oracle.json",
+      "sha256": "eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c",
+      "byteLength": 1966
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/request.json",
+      "sha256": "068fccd2f67085276b09411d48c203783fe945837aed7282e4a767e3060440da",
+      "byteLength": 22913
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "byteLength": 4277
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda",
+      "byteLength": 25514
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "4bcaa90771f855f08b8fe36fa6a171ddfaa89dfeead7ff7a9f52bb766d8dcb2c",
+      "byteLength": 43221
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/fp-0ed97e9e94062715-prompt.txt",
+      "sha256": "12dd48ec436732fa0a2a8e3c617ee3c50640d9de737f94a877048e844d3de17f",
+      "byteLength": 53469
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/fp-0ed97e9e94062715-stdout.log",
+      "sha256": "02568469ea93dfb84e25900d6ef039c4195cb44d6069a39afc2270c7d4bd9b06",
+      "byteLength": 325455
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/fp-0ed97e9e94062715-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteLength": 0
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/fp-0ed97e9e94062715-output.txt",
+      "sha256": "7eae32710554ea139f8fcc8fb5b03266a5f9c9cdd9daf31fc65f80ba16e6a0b0",
+      "byteLength": 4181
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/fp-0ed97e9e94062715-transport.json",
+      "sha256": "a7a89d741bcad8cfe982f45bc175a5276f07f417cb2126569d1f4e7f168fc5bd",
+      "byteLength": 364623
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/worksite-command-execution/b5dcc8bed8b3e3713c21985778c8354dd1574b45f3acc7f69dcc61c72639201e/9659e0db6937158eb920b7df697e2f2576c04a09892c3b2b413240a9bf1d68a5/result.json",
+      "sha256": "0acf139a8d699c90ed3c0cf21025caee9869e3927053fa4e5d5e43a36a7548f0",
+      "byteLength": 26458
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/project_read_ports.js",
+      "sha256": "7f76ba05fd279071f9be583064989340acaefdc7add9ec279f816cdf45864fcd",
+      "byteLength": 76942
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/worker_transport.js",
+      "sha256": "e455857e17443470e94a00983798cbc99529305e503c60dada7d42aa67fc1f0e",
+      "byteLength": 34493
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_execution.js",
+      "sha256": "5e2f3d40f4724640b458dde517d043e1e3332727268c40f2c381109a914d6313",
+      "byteLength": 35890
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/sandbox/worksite/design/implementation-design.md",
+      "sha256": "4c676ffbdebca0d9a1fdb2df428f5dbd3732bfd2cad2b5285e58d37129dcf723",
+      "byteLength": 3676
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/worksite-command-execution/b5dcc8bed8b3e3713c21985778c8354dd1574b45f3acc7f69dcc61c72639201e/9659e0db6937158eb920b7df697e2f2576c04a09892c3b2b413240a9bf1d68a5/sandbox/design/implementation-design.md",
+      "sha256": "4c676ffbdebca0d9a1fdb2df428f5dbd3732bfd2cad2b5285e58d37129dcf723",
+      "byteLength": 3676
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/sandbox/worksite/design/test-design.md",
+      "sha256": "7a2cfe92534279b4723788c72a666e6f4ca827f02160f9b9e2586d98ebd4732e",
+      "byteLength": 4853
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/worksite-command-execution/b5dcc8bed8b3e3713c21985778c8354dd1574b45f3acc7f69dcc61c72639201e/9659e0db6937158eb920b7df697e2f2576c04a09892c3b2b413240a9bf1d68a5/sandbox/design/test-design.md",
+      "sha256": "7a2cfe92534279b4723788c72a666e6f4ca827f02160f9b9e2586d98ebd4732e",
+      "byteLength": 4853
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/sandbox/worksite/source/rust-service/obligations.json",
+      "sha256": "13787d69d923baffd3c94d24139301f985bafb8037b02957b7a96a710ea51b91",
+      "byteLength": 4696
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/worksite-command-execution/b5dcc8bed8b3e3713c21985778c8354dd1574b45f3acc7f69dcc61c72639201e/9659e0db6937158eb920b7df697e2f2576c04a09892c3b2b413240a9bf1d68a5/sandbox/source/rust-service/obligations.json",
+      "sha256": "13787d69d923baffd3c94d24139301f985bafb8037b02957b7a96a710ea51b91",
+      "byteLength": 4696
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/sandbox/worksite/source/rust-service/oracle.json",
+      "sha256": "eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c",
+      "byteLength": 1966
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/worksite-command-execution/b5dcc8bed8b3e3713c21985778c8354dd1574b45f3acc7f69dcc61c72639201e/9659e0db6937158eb920b7df697e2f2576c04a09892c3b2b413240a9bf1d68a5/sandbox/source/rust-service/oracle.json",
+      "sha256": "eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c",
+      "byteLength": 1966
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/sandbox/worksite/source/rust-service/source.original.txt",
+      "sha256": "a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d",
+      "byteLength": 4175
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/worksite-command-execution/b5dcc8bed8b3e3713c21985778c8354dd1574b45f3acc7f69dcc61c72639201e/9659e0db6937158eb920b7df697e2f2576c04a09892c3b2b413240a9bf1d68a5/sandbox/source/rust-service/source.original.txt",
+      "sha256": "a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d",
+      "byteLength": 4175
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/sandbox/worksite/specification/project-conformance.md",
+      "sha256": "d3266245e2bfdadd08c960d70232647e7fda981a18a683ad983c1bd1c78d1e3f",
+      "byteLength": 9984
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/worksite-command-execution/b5dcc8bed8b3e3713c21985778c8354dd1574b45f3acc7f69dcc61c72639201e/9659e0db6937158eb920b7df697e2f2576c04a09892c3b2b413240a9bf1d68a5/sandbox/specification/project-conformance.md",
+      "sha256": "d3266245e2bfdadd08c960d70232647e7fda981a18a683ad983c1bd1c78d1e3f",
+      "byteLength": 9984
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/sandbox/worksite/src/service.rs",
+      "sha256": "a32d6f3ada72e4964f7c850e2f96881b92b824575ae3f90542e29bcd99ea32ee",
+      "byteLength": 3587
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/worksite-command-execution/b5dcc8bed8b3e3713c21985778c8354dd1574b45f3acc7f69dcc61c72639201e/9659e0db6937158eb920b7df697e2f2576c04a09892c3b2b413240a9bf1d68a5/sandbox/src/service.rs",
+      "sha256": "a32d6f3ada72e4964f7c850e2f96881b92b824575ae3f90542e29bcd99ea32ee",
+      "byteLength": 3587
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/sandbox/worksite/test-execution-plan.json",
+      "sha256": "d1f60057207963b714ece2c5a137f4ac8a7eb2c3d9e37f5cc5f4fa0ec64c959b",
+      "byteLength": 384
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/worksite-command-execution/b5dcc8bed8b3e3713c21985778c8354dd1574b45f3acc7f69dcc61c72639201e/9659e0db6937158eb920b7df697e2f2576c04a09892c3b2b413240a9bf1d68a5/sandbox/test-execution-plan.json",
+      "sha256": "d1f60057207963b714ece2c5a137f4ac8a7eb2c3d9e37f5cc5f4fa0ec64c959b",
+      "byteLength": 384
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/sandbox/worksite/test/component/rust-service.test.mjs",
+      "sha256": "0b2a49ebb7585795ca86a301907db0d1ad936e8a653cc04b9ee44494093f1770",
+      "byteLength": 6148
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/worksite-command-execution/b5dcc8bed8b3e3713c21985778c8354dd1574b45f3acc7f69dcc61c72639201e/9659e0db6937158eb920b7df697e2f2576c04a09892c3b2b413240a9bf1d68a5/sandbox/test/component/rust-service.test.mjs",
+      "sha256": "0b2a49ebb7585795ca86a301907db0d1ad936e8a653cc04b9ee44494093f1770",
+      "byteLength": 6148
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/sandbox/worksite/test/uat/rust-service.uat.test.mjs",
+      "sha256": "511ecb537e937748c9d233d7e0778c0fb92185d74491eefc0a9a86a1ff1982a1",
+      "byteLength": 4323
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5/resources/archives/worksite-command-execution/b5dcc8bed8b3e3713c21985778c8354dd1574b45f3acc7f69dcc61c72639201e/9659e0db6937158eb920b7df697e2f2576c04a09892c3b2b413240a9bf1d68a5/sandbox/test/uat/rust-service.uat.test.mjs",
+      "sha256": "511ecb537e937748c9d233d7e0778c0fb92185d74491eefc0a9a86a1ff1982a1",
+      "byteLength": 4323
+    }
+  ],
+  "reuse": "new pinned successor mechanical assessment of same frozen execution, originals immutable; Root disposition"
+}

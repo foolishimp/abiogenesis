@@ -1,0 +1,77 @@
+{
+  "kind": "Writer42_static_premise_stop",
+  "status": "stopped_before_full_acquisition",
+  "staticCommand": {
+    "argv": [
+      "/opt/homebrew/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-42/static-preflight.mjs"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis",
+    "exitCode": 1,
+    "wallMsMeasuredInsidePreflight": 536.953125,
+    "diagnosticSyntaxExitCode": 0,
+    "preflightSyntaxExitCode": 0
+  },
+  "authorizedOneLineCorrection": {
+    "preimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/diagnostic.mjs",
+      "sha256": "68425c907843a8a89e50714acf781a6c34e57506adc93c546449b1e711c110a2",
+      "byteCount": 16368
+    },
+    "postimage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-42/diagnostic.mjs",
+      "sha256": "b6cc88a7f14ec3b32ed94217979708ec0a65e0bee3cbd7c2c0522616036f9890",
+      "byteCount": 16366
+    },
+    "exactSingleReplacementOnly": true
+  },
+  "firstCause": {
+    "script": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-42/static-preflight.mjs",
+      "sha256": "915bb2304cec22ced6e6833d2bbd5140a0d9eccb8dcb244b3943560a6aa33a4b",
+      "byteCount": 4184
+    },
+    "line": 43,
+    "error": {
+      "name": "AssertionError",
+      "message": "AssertionError [ERR_ASSERTION]: exact executive-step child is validated",
+      "stack": "AssertionError [ERR_ASSERTION]: exact executive-step child is validated\n    at file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-42/static-preflight.mjs:43:2"
+    },
+    "classification": "extra diagnostic assertion unsupported by original packet; not owner refusal",
+    "expectedByScript": "executive-step@5 must be a c_workflow child",
+    "actual": "executive-step@5 is a declared GraphFunction; packet c_workflow children are induction, specification, design, construction, testing and uat",
+    "exactDeclaredRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5"
+  },
+  "completedStaticRelations": [
+    "13 owner triples and 8 extra triples checked",
+    "pinned original conformance packet acquired without modification",
+    "canonical declaration closure resolved",
+    "same installed CatalogProgramValidationInput/ProgramValidation owners accepted",
+    "every discovered c_workflow child had exactly one matching canonical child ref and admitted digest-vector membership before assertion",
+    "only digest-key lookup corrected; no remaining Digests[ access in target script"
+  ],
+  "notExecuted": [
+    "full event read",
+    "authority-prefix/basis/graph/cursor rehydration on42",
+    "workflow C_Call/result/judgment projection",
+    "deriveRetainedCCallInputAtPrefix",
+    "holding/releasing output or context measurements"
+  ],
+  "fullEventReadCount": 0,
+  "targetCallCount": 0,
+  "staticPreflightFailurePreserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-42/static-preflight.json",
+    "sha256": "6fe04b290614f9d79effc3ea4b9868f3add3f1544ab6f3f8bb7e69032303fef7",
+    "byteCount": 541
+  },
+  "protectedStoreStatUnchanged": {
+    "device": 16777231,
+    "inode": 467205895,
+    "byteCount": 1167689615,
+    "mtimeNs": "1791359951311203492"
+  },
+  "sourceAndOldCutProof": "preflight checked inherited13+extra8 owner triples and closed refs; old41 script/freeze freshly match exact pins",
+  "noRepairOrRetry": true,
+  "noRuntimeRecoveryOrUatCredit": true,
+  "nativeP0RootCauseStillUnresolved": true
+}

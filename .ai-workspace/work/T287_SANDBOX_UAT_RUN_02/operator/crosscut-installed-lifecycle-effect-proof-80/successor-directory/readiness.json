@@ -1,0 +1,123 @@
+{
+  "status": "CLOSED_STOP_C0_owner_admission_refusal",
+  "productFrame": "ABI5 fixed15 families / GOAL035 T287 original external full DataMapper / STDO2.5.1RC2",
+  "candidateHostSelector": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+    "sha256": "7418255fcb0d8ca9d993049ca9e0f85a9407e0458f1938e3f66e2ec243defa78",
+    "byteCount": 3158
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver-directory-successor.mjs",
+    "sha256": "471187504844d1387f142e763e89946decc5ed8916ed409e888da168268781da",
+    "byteCount": 18809
+  },
+  "priorTwoCutsConserved": true,
+  "r01Proof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution/r01-proof.json",
+    "sha256": "aa9baa62809fc17c9b526e32fd4d98971213e24fce959b39672d496440545590",
+    "byteCount": 32652
+  },
+  "actualC0Refusal": {
+    "outcomeKind": "refusal",
+    "value": {
+      "code": "invalid_graph_function",
+      "evidenceRefs": [
+        "event://abiogenesis/9ae47d1afa26f00af0f28d001bd11e8c5f33d4f2f8b41ceac83f9bb2fdf96732",
+        "diagnostic://abiogenesis/execution-basis/worksite-environment-authority-mismatch@5"
+      ],
+      "issuePaths": [
+        "/execution_basis"
+      ]
+    }
+  },
+  "runResource": null,
+  "origin": {
+    "owner": "abg/execution_basis.ts:1778\u20131805,606\u2013646",
+    "required": "Program owner install root equals W.roots.productRoot",
+    "WproductRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection",
+    "actualC0ProgramOwnerInstallRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/consumer/node_modules/@abiogenesis/typescript-tenant",
+    "relationSatisfied": false,
+    "classification": "external test composition error; correct canonical owner refusal",
+    "limits": "The mismatched root is independently sufficient; every additional exactOwnerInstall guard was not reproved after refusal"
+  },
+  "earned": [
+    "Real installed canonical native R01 leader/group confirmation, cold projection and success Result",
+    "Canonical C0 request construction and real Public start refusal"
+  ],
+  "unearned": [
+    "C0 A/B effects/observations",
+    "R02 process and unknown-after retirement",
+    "Fresh Public reads",
+    "model/provider/C2/HTTP/UAT/P0 closure"
+  ],
+  "execution": {
+    "command": [
+      "node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver-directory-successor.mjs",
+      "--execute",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json"
+    ],
+    "exitCode": 1,
+    "startedAt": "2026-10-08T07:53:21.495487+00:00",
+    "finishedAt": "2026-10-08T07:54:04.304514+00:00",
+    "wallMs": 42808.644042001106,
+    "timedOut": false,
+    "truncated": false,
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor-directory/execution.stderr",
+      "sha256": "ed7ee8693699c2ced4e631df5a26902ed3c18a79067bef0c6ceb579d2e8089b7",
+      "byteCount": 725
+    }
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:7f9e57e2c55150d6ad94cf100e1d5d14b785b4561f980ca8580c4bf715ac5e29",
+    "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:a7feaf39bf4f12c11e4f070570132cc2d6893c33eaac1b0a392a8fc43f9ba2a6",
+    "prefixLength": 3696255,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 467803514
+    }
+  },
+  "runtimeLog": {
+    "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/runtime/events.jsonl",
+    "sha256": "a7feaf39bf4f12c11e4f070570132cc2d6893c33eaac1b0a392a8fc43f9ba2a6",
+    "byteCount": 3696255
+  },
+  "nativeAssets": [
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/workspace/.ai-workspace/archive/fp-4dca9c4160972a5c-output.txt",
+      "sha256": "4b6384af6843e21c8cd9ce810c878fa13769aa09aed49ba98551eda6c3ceb56a",
+      "byteCount": 87
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/workspace/.ai-workspace/archive/fp-4dca9c4160972a5c-prompt.txt",
+      "sha256": "3cccd6a49dda1c448c5147568d216ef2d1109ba133ee0fc0d592659eafaf2315",
+      "byteCount": 17284
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/workspace/.ai-workspace/archive/fp-4dca9c4160972a5c-stderr.log",
+      "sha256": "22df6fddce768c1940c463d3b76f6095f3f26c6de704bffd4c1aff53dd65cf24",
+      "byteCount": 46
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/workspace/.ai-workspace/archive/fp-4dca9c4160972a5c-stdout.log",
+      "sha256": "c22f11f8bec93ad8cc7cf0a2df80d55654cebe0d5b057df025deed91fa96fc33",
+      "byteCount": 163
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-37IIcF/workspace/.ai-workspace/archive/fp-4dca9c4160972a5c-transport.json",
+      "sha256": "4f8ee840234d7fa3eaf8fa16434d9b38e45443cd0a7d29d17b8b422a972b9262",
+      "byteCount": 4602
+    }
+  ],
+  "nextGrant": "Root selected an external C0 C-delegating Program matching W owner, canonical C0 contracts/implementation/semantics preserved; pure full-closure owner checks required before new runtime"
+}

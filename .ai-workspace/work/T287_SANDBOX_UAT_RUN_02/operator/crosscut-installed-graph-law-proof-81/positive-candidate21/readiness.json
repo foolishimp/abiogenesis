@@ -1,0 +1,98 @@
+{
+  "state": "CLOSED/STOPPED at genuine HoG closure boundary; failed external fixture, framework fails closed",
+  "method": "STDO2.5.1RC2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "productFrame": "fixed15 ABI5 GOAL035/T287 external full original UAT; ABG-exclusive admitted truth; structural deterministic composition proof only",
+  "actualConformance": {
+    "wallMs": 22348.266375,
+    "exitCode": 0,
+    "ownerOutput": {
+      "outcomeKind": "result",
+      "value": {
+        "assessment": {
+          "digest": "sha256:c1efefa3df1d095fa72ddfa61c8d0e6102008f14a1f81e59199c7436ba45345a",
+          "ref": "evidence://abiogenesis/conformance/c1efefa3df1d095fa72ddfa61c8d0e6102008f14a1f81e59199c7436ba45345a"
+        },
+        "diagnostics": [],
+        "disposition": "passed",
+        "evidence": [
+          {
+            "digest": "sha256:c1efefa3df1d095fa72ddfa61c8d0e6102008f14a1f81e59199c7436ba45345a",
+            "ref": "evidence://abiogenesis/conformance/c1efefa3df1d095fa72ddfa61c8d0e6102008f14a1f81e59199c7436ba45345a"
+          }
+        ],
+        "inventory": {
+          "digest": "sha256:0aa51ed5b49a76c4849654e13fe80172284c1d6d417051e9449bbb4e27196f31",
+          "ref": "gtl-inventory://abiogenesis/0aa51ed5b49a76c4849654e13fe80172284c1d6d417051e9449bbb4e27196f31"
+        },
+        "program": {
+          "digest": "sha256:0ec7f2810f7ef39dca8b8341ea95bbe047c000e91c4bc3c6b8804abaf6b6541d",
+          "ref": "program://abi5-tests/structural/graph-edge@5"
+        },
+        "repairAffordances": [],
+        "violatedAuthorities": []
+      }
+    }
+  },
+  "actualRun": {
+    "digest": "sha256:b979d63c889ba5d332f3ba878b4406a35328bdd08214a7b9b6caa8530650092a",
+    "ref": "run://abiogenesis/e038322f9cacb705dede1e994a0e836ccd7af5a3d4afd1ae0de6b2c789871f16"
+  },
+  "native": {
+    "wallMs": 2228.3132079999923,
+    "exitCode": 0,
+    "ownerDisposition": "runtime_failed",
+    "terminalResult": null,
+    "eventCount": 45,
+    "terminalReachedCount": 0,
+    "runClosedCount": 0,
+    "callCount": 2,
+    "resultCount": 2,
+    "routeKinds": [
+      "advance"
+    ]
+  },
+  "earliestOwnerFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/first-runtime-failure.json",
+    "sha256": "df3b1363cf10a641c5347ca3fa2318931227373f347b0bbf66707a961415cccc",
+    "byteCount": 3476
+  },
+  "fieldVector": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/terminal-closure-field-vector.json",
+    "sha256": "5294f11d45c533054bf8942b833991d0e6963f33b13fbb5764da62a80ea5fb65",
+    "byteCount": 4372
+  },
+  "fixtureFieldMismatch": [
+    "evidenceContractRef",
+    "refusalContractRef",
+    "judgmentContractRef"
+  ],
+  "matchedOtherCoordinates": 9,
+  "nativePrefix": {
+    "coordinateDigest": "sha256:a7316434504aa3d3fb8819381f25c9d3f9c2c11fac4f22f4eebb4c21d9189960",
+    "eventLogRef": "file:///private/tmp/abi5-root-env-nB6Rgx/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:ec656f265b84d49a992e0760bd2d13b284f4ec5fc8b75525e00a0e00942bed2d",
+    "prefixLength": 3252373,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 468035394
+    }
+  },
+  "outerReceipt": {
+    "exitCode": 1,
+    "wallMs": 77338.151125,
+    "timedOut": false,
+    "truncated": false
+  },
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-candidate21/conservation.json",
+    "sha256": "3e91777a4a935f4be07a5477cd8aec118f687a0cd7cb3b46eba342ab4d1334f6",
+    "byteCount": 5997
+  },
+  "freshReadsDispatched": false,
+  "terminalAndQualificationCredit": false,
+  "rootDisposition": "Independent authority confirmed fixture correction; future distinct sourceTransform successor granted, no framework law weakened"
+}

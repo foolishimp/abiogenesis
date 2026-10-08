@@ -70,7 +70,7 @@ async function fixture(t) {
     const grants=packet.metadata.capabilityRefs.map(capabilityRef=>product.constructCapabilityGrant(environment.workspaceAuthorityBasis,environment.workspaceBinding.authorizedActorRef,
       packet.definitionKey.operationId,capabilityRef,{admittedInstalls:environment.productInstalls,workspaceBinding:environment.workspaceBinding,fixedPacket:packet}));
     assert.equal(grants[0].operationContract.contractCatalog.productContentDigest,historical.productContentDigest);
-    const slots={...shapeSlots,workspace_binding:blockedTruth.workspaceBinding,product_set:environment.productInstalls.map(i=>({ref:i.installId,digest:i.productContentDigest})),
+    const slots={...shapeSlots,workspace_binding:blockedTruth.workspaceBinding,product_set:environment.productInstalls.map(product.productInstallCoordinate),
       dependency_lock:{ref:environment.resolvedProductLock.lockId,digest:environment.resolvedProductLock.lockDigest},
       capability_grants:{requiredCapabilityRefs:[...packet.metadata.capabilityRefs],grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))},...slotChanges};
     // Incorrect-catalog variants are explicit adversarial candidates, never

@@ -672,11 +672,38 @@ timeout, process signal, signal sequence, and confirmed termination. A
 non-zero command exit is a truthful admitted observation, not transport
 failure.
 
+**Caller duration and host timer domain (Run02 repair22):** a declared command
+timeout is a positive safe integer bounded by the supported Node host timer
+maximum, `2,147,483,647ms`. One private canonical constant supplies both command
+construction and the prospective raw configuration schema. This technical
+representation bound is not a one-hour or five-hour Product policy; the caller
+selects its finite execution envelope. Exact command identity, grace at most
+`30,000ms` and strictly below timeout, native/observed source guards, and the
+strict enclosing budget relation remain unchanged. The selected external
+five-hour command plus shutdown and helper allowance must fit its supplied
+actor/driver envelope; acceptance of a scalar timer value does not establish
+execution, quality or closure.
+
 The configured actor inactivity timeout must exceed the closed sum of command
-and probe timeout/grace budgets plus helper overhead. The absolute timeout must
-exceed both. Helper heartbeats are diagnostic only; liveness does not depend on
+and probe timeout/grace budgets plus helper overhead. Each declared command
+contributes its timeout and two termination-grace terms: TERM waiting and KILL
+confirmation. The canonical Product budget projection supplies these same
+terms to semantic Design validation/actor contracts and C2 preparation; the
+existing 5,000ms owner allowance includes the bounded drain of at most 250ms.
+HTTP-probe terms are unchanged. The absolute timeout must exceed both. Helper
+heartbeats are diagnostic only; liveness does not depend on
 nested tool output forwarding. Helper and command processes use process-group
 termination on supported hosts.
+
+For RC2 crosscut R01, a leader's exit/stdio close is only that process fact.
+On POSIX the existing invocation owns its detached process group: normal exit
+and timeout both probe that exact group, retain any remaining members through
+the existing TERM/grace/KILL/grace cleanup, and confirm termination only when
+the owned group is absent. Probe errors or surviving residue remain
+unconfirmed, with the actual leader status/signal preserved. Windows retains
+its existing child-process boundary; this adds no descendant containment
+promise there. Cleanup signals are retained even when the leader exited before
+a timeout; cleanup does not manufacture `timedOut` or application failure.
 
 ## 7. Mechanical Predicate Surface
 

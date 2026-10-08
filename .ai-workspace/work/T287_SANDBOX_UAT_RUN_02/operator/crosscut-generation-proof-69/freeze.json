@@ -1,0 +1,18 @@
+{
+  "status": "CLOSED_FROZEN_REVIEWER",
+  "classification": "bounded_deterministic_generation_proof",
+  "effects": "new review reports only",
+  "pins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-generation-proof-69/return.md",
+      "sha256": "6d5cc1b7aeabd0f06fe6c10236d8d21df93201f04bc1b75f0a4e8f114518f419",
+      "bytes": 3321
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-generation-proof-69/pins.json",
+      "sha256": "5a0622ac5c4779a4fe1d8f6e3117fb1e861048411a64c6518f09e0f2f91b23d7",
+      "bytes": 12213
+    }
+  ],
+  "at": "2026-10-08T06:33:44.955167+00:00"
+}

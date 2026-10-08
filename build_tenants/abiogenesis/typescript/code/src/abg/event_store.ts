@@ -2,7 +2,7 @@ import { createHash, type Hash } from "node:crypto";
 import { isRecord } from "../shared/admission_predicates.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { RuntimeDerivationSource } from "./runtime_derivation.js";
-import { decodeEventBody, encodeEventBody, inlineEventBody, type InlineEventBodies } from "./event_body_encoding.js";
+import { captureRuntimeEventCandidate, decodeEventBody, encodeEventBody, inlineEventBody, type InlineEventBodies } from "./event_body_encoding.js";
 import {
   closeSync,
   constants,
@@ -1697,15 +1697,34 @@ const DURABLE_DERIVATION_CUTS = Symbol("owner_authenticated_durable_cuts");
 type DurableDerivationCuts = Map<Sha256Digest, { readonly coordinate: DurablePrefixCoordinate; readonly eventCount: number }>;
 class DurableHistoryDerivation {
   readonly #coordinate: DurablePrefixCoordinate;
-  readonly #events: readonly RuntimeEvent[];
+  readonly #events: readonly RuntimeEvent[] | undefined;
   readonly #source: RuntimeDerivationSource;
   readonly #cuts: DurableDerivationCuts;
   #owner: EventStoreState | undefined;
-  constructor(coordinate: DurablePrefixCoordinate, events: readonly RuntimeEvent[], source: RuntimeDerivationSource, cuts: DurableDerivationCuts, owner?: EventStoreState) {
+  constructor(coordinate: DurablePrefixCoordinate, events: readonly RuntimeEvent[] | undefined, source: RuntimeDerivationSource, cuts: DurableDerivationCuts, owner?: EventStoreState) {
     this.#coordinate = coordinate; this.#events = events; this.#source = source; this.#cuts = cuts; this.#owner = owner; Object.freeze(this);
   }
   static bindOwner(coordinate: DurablePrefixCoordinate, owner: EventStoreState): void {
     durableHistoryDerivations.get(coordinate)!.#owner = owner;
+  }
+  static capture(coordinate: DurablePrefixCoordinate): DurablePrefixCoordinate {
+    const proof = durableHistoryDerivations.get(coordinate);
+    if (proof !== undefined && proof.#coordinate === coordinate) return coordinate;
+    const captured = admitIJsonValue(coordinate) as unknown as DurablePrefixCoordinate;
+    // Detachment is not authentication: there are no events to project until
+    // the existing physical reader validates this exact immutable coordinate.
+    durableHistoryDerivations.set(captured, new DurableHistoryDerivation(captured,
+      undefined, new RuntimeDerivationSource(), new Map()));
+    return captured;
+  }
+  static bindRead(coordinate: DurablePrefixCoordinate, events: readonly RuntimeEvent[]): readonly RuntimeEvent[] {
+    if (!durableHistoryDerivations.has(coordinate)) return events;
+    const source = new RuntimeDerivationSource(), snapshot = source.snapshot(events);
+    const cuts = source.scope("durable_history", snapshot).owner(DURABLE_DERIVATION_CUTS, () => new Map());
+    cuts.set(coordinate.coordinateDigest, { coordinate: deepFreeze({ ...coordinate,
+      storeIdentity: { ...coordinate.storeIdentity } }), eventCount: snapshot.length });
+    durableHistoryDerivations.set(coordinate, new DurableHistoryDerivation(coordinate, snapshot, source, cuts));
+    return snapshot;
   }
   static activeEvents(coordinate: DurablePrefixCoordinate, requireCurrent = false): readonly RuntimeEvent[] | undefined {
     const proof = durableHistoryDerivations.get(coordinate);
@@ -1730,7 +1749,7 @@ class DurableHistoryDerivation {
   }
   static historical(current: DurablePrefixCoordinate, historical: DurablePrefixCoordinate): DurablePrefixCoordinate | undefined {
     const proof = durableHistoryDerivations.get(current);
-    if (proof === undefined || proof.#coordinate !== current) return undefined;
+    if (proof === undefined || proof.#coordinate !== current || proof.#events === undefined) return undefined;
     let cut = proof.#cuts.get(historical.coordinateDigest);
     if (cut === undefined && historical.prefixLength > 0 && DurableHistoryDerivation.activeEvents(current) !== undefined) {
       // Cold acquisition established every physical row, including boundaries
@@ -1761,7 +1780,7 @@ class DurableHistoryDerivation {
 /** Capture caller data; only the exact immutable owner coordinate keeps its
  * disposable derivation. Copies/getters are ordinary cold coordinates. */
 export function captureDurablePrefixCoordinate(prefix: DurablePrefixCoordinate): DurablePrefixCoordinate {
-  return DurableHistoryDerivation.events(prefix) !== undefined ? prefix : admitIJsonValue(prefix) as unknown as DurablePrefixCoordinate;
+  return DurableHistoryDerivation.capture(prefix);
 }
 
 /** Reidentify a serialized historical cut only through a coordinate previously
@@ -1996,7 +2015,8 @@ export function readRuntimeEventsAtDurablePrefix(
   if (owned !== undefined) return owned;
   const bytes = readAuthenticatedRuntimePrefixBytes(prefix, options);
   try {
-    return validateHistoricalEvents(bytes, prefix.storeIdentity.eventContractDigest);
+    return DurableHistoryDerivation.bindRead(prefix,
+      validateHistoricalEvents(bytes, prefix.storeIdentity.eventContractDigest));
   } catch (error) {
     if (error instanceof DurablePrefixReadError) throw error;
     throw new DurablePrefixReadError("event_envelope_invalid", String(error));
@@ -2245,6 +2265,7 @@ function projectRuntimeEventAtContract(
   profileDigest: Sha256Digest,
   eventsById?: Pick<ReadonlyMap<string, RuntimeEvent>, "get">,
   candidateSource: "caller" | "decoded" = "caller",
+  committedBodies?: InlineEventBodies,
 ): RuntimeEvent {
   if (
     !isRecord(candidate) ||
@@ -2281,8 +2302,15 @@ function projectRuntimeEventAtContract(
   // restores references only to earlier validated, detached immutable values.
   // Keep those exact bodies while freezing each new envelope; caller ingress
   // still detaches the complete candidate before it can become admitted truth.
+  // Hot sharing consults only this owner's earlier committed inline sources.
+  const committedAtPrefix = committedBodies === undefined ? undefined : {
+    get: (digest: string) => {
+      const source = committedBodies.get(digest);
+      return source !== undefined && events[source.event.admissionOrdinal - 1] === source.event ? source : undefined;
+    },
+  };
   const immutableCandidate = deepFreeze(candidateSource === "decoded" ? candidate :
-    JSON.parse(canonicalJson(candidate as unknown as JsonValue)) as RuntimeEventCandidate);
+    captureRuntimeEventCandidate(candidate, committedAtPrefix));
   const admissionOrdinal = events.length + 1;
   const stamp = profileDigest === LEGACY_ROOT_EVENT_CONTRACT_DIGEST ? {} : { eventContractDigest: profileDigest };
   const payloadDigest = sha256Canonical(immutableCandidate.payload);
@@ -3734,7 +3762,8 @@ function admitRuntimeEventInternal(
     throw new TypeError("event store was not constructed by this ABG module");
   }
   const events = state.events;
-  const event = preparedEvent ?? projectRuntimeEventAtContract(events, candidate, state.activeEventContractDigest, state.eventsById);
+  const event = preparedEvent ?? projectRuntimeEventAtContract(events, candidate, state.activeEventContractDigest, state.eventsById,
+    "caller", state.inlineBodies);
   const successorPrefix =
     state.durableLogPath !== null &&
     state.transactionStartIndex === null
@@ -3815,7 +3844,8 @@ export function admitRuntimeEventBatch(
         "artifact truth is reachable only through its checked owner ingress",
       );
     }
-    const event = projectRuntimeEventAtContract(staged, candidate, state.activeEventContractDigest, eventsById);
+    const event = projectRuntimeEventAtContract(staged, candidate, state.activeEventContractDigest, eventsById,
+      "caller", state.inlineBodies);
     staged.push(event);
     admitted.push(event);
     stagedById.set(event.eventId, event);

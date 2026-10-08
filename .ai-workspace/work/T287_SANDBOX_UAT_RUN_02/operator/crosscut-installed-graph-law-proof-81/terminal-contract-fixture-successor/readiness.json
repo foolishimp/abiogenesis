@@ -1,0 +1,167 @@
+{
+  "state": "CLOSED actual installed composition/terminal/fresh-read proof PASS; independent review/Root acceptance pending",
+  "method": "STDO2.5.1RC2 fixed15 ABI5 GOAL035/T287",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "productFrame": "Fixed15 ABI5 GOAL035/T287; original external UAT remains separate; generic fixture owner and ABG admitted runtime truth respected.",
+  "frameworkHostSelector": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-closure-successor-94/host-preparation/exacthost-identity.json",
+    "sha256": "242d3578a9eec3fb0bbaf7600a0877cb1884ffd8909583197c5855383722df75",
+    "byteCount": 3159
+  },
+  "fixtureOriginalSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/language-structural/program.mjs",
+    "sha256": "6591f179666eeec55f14930ebd4b96f7c05d494b2c619be4d790207c691a1218",
+    "byteCount": 22919
+  },
+  "fixtureTransformedSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/terminal-contract-fixture-successor/transformed-program.mjs",
+    "sha256": "c34bf7a02cf558b7293c900c8670901fd1ab2cf73ce54f36841c28b49760683e",
+    "byteCount": 23856
+  },
+  "fixtureArtifact": {
+    "path": "/private/tmp/abi5-root-env-TiW4Zz/language-structural-fixture/artifacts/abi5-tests-structural-fixtures-5.0.0.tgz",
+    "sha256": "cbe23fdd7d30e080a7d57bcc64f6f770a9084c739493356b6655656aaf06b820",
+    "byteCount": 9732
+  },
+  "fixtureBasis": {
+    "productId": "product://abi5-tests/structural-fixtures@5.0.0",
+    "packageName": "@abi5-tests/structural-fixtures",
+    "packageVersion": "5.0.0",
+    "productContentDigest": "sha256:436b9f3258bd520d0f720dfdb8e411ff1371f4f350d372e9317529792d300529",
+    "artifactDigest": "sha256:cbe23fdd7d30e080a7d57bcc64f6f770a9084c739493356b6655656aaf06b820",
+    "manifestDigest": "sha256:a8c29817ca2c417e13c299ad85ddbc49ae783337825964525ab9499ed2d3330a"
+  },
+  "fourChangedClosureFields": [
+    "/closureContracts/11/evidenceContractRef",
+    "/closureContracts/11/judgmentContractRef",
+    "/closureContracts/11/refusalContractRef",
+    "/closureContracts/11/rejectionContractRef"
+  ],
+  "allOtherPublicationSemanticsPreserved": true,
+  "rootOnlyProgramMembershipPreserved": true,
+  "programDigest": "sha256:0ec7f2810f7ef39dca8b8341ea95bbe047c000e91c4bc3c6b8804abaf6b6541d",
+  "currentRun": {
+    "digest": "sha256:aa52f66d22f078ac557edd6eccf8462f66771de650ffd7ebe6686c4983aff9c5",
+    "ref": "run://abiogenesis/760e3ebcc06422a4cb54c037d97d823fc7e875c6fd478e6cb58cf978ec5c462e"
+  },
+  "terminalResult": {
+    "contract": {
+      "digest": "sha256:7dd7ed2c18e176dec1023d6a11cfffd3ef8dd9166fbc64e163c0dccdae62c633",
+      "ref": "contract://abi5-tests/structural/atomic/output@5"
+    },
+    "kind": "abg_typed_terminal_result",
+    "producer": {
+      "cCallRef": "c-call:sha256:071920e6fa51a1aca662752a18427d32efcd71b0fc931c0b95e2aa2ffac9e7d5",
+      "executionBasis": {
+        "digest": "sha256:a64106d7f8a9ee952cb6ab0789af4a58aa05a6bc095084adda37f46778562c31",
+        "ref": "execution-basis://abiogenesis/a64106d7f8a9ee952cb6ab0789af4a58aa05a6bc095084adda37f46778562c31"
+      },
+      "graphCallRef": "graph-call://abiogenesis/214a3d1e221beb5cee40ac9a752427d244f29a9b7a4edc6e07395c71c921c1d6",
+      "graphFunction": {
+        "digest": "sha256:134180e3a9fc2fcac606745ad0c808c494087c775ed806d7ae05f3012d8a7c2a",
+        "ref": "graph-function://abi5-tests/structural/graph-edge@5"
+      },
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/c27ad900dbd92c12c1fd07c9bf7b8a7a32a4af8706c937ce2d3b0f0065c97ef9",
+      "judgmentAdmissionEventRef": "event://abiogenesis/df9c56b526dceac898c7f0589290224620f2b7f277f46f77426d4fc211a49e1e",
+      "judgmentRef": "judgment://abiogenesis/21c3cf208767772b905c2684a149f5b82fe43d6ad520343952ccb18db5fd52f0",
+      "program": {
+        "digest": "sha256:0ec7f2810f7ef39dca8b8341ea95bbe047c000e91c4bc3c6b8804abaf6b6541d",
+        "ref": "program://abi5-tests/structural/graph-edge@5"
+      },
+      "resultAdmissionEventRef": "event://abiogenesis/dcbbb5ca0c97e1c7ffefea46cf9ac654435befa33cdf41dd8154d88bb4f54b87",
+      "runRef": "run://abiogenesis/760e3ebcc06422a4cb54c037d97d823fc7e875c6fd478e6cb58cf978ec5c462e",
+      "terminalRoute": {
+        "digest": "sha256:755a5fd8ab54f16b516b60839f5b2e8a442b311c45402fd369e0a00a1f028a1c",
+        "ref": "traversal-route://abiogenesis/755a5fd8ab54f16b516b60839f5b2e8a442b311c45402fd369e0a00a1f028a1c"
+      }
+    },
+    "projectionBasis": {
+      "digest": "sha256:b230e9428af3bfac2539eeb3c046c17052093cc9ee11593a11aef812591a7dd0",
+      "ref": "file:///private/tmp/abi5-root-env-TiW4Zz/runtime/events.jsonl"
+    },
+    "result": {
+      "digest": "sha256:ac6df998b71f32308994985395f9d601288876acac6b9d769ce40106c9656f13",
+      "ref": "result://abiogenesis/ac6df998b71f32308994985395f9d601288876acac6b9d769ce40106c9656f13"
+    },
+    "schemaVersion": "5.0.0",
+    "value": {
+      "kind": "data_output",
+      "message": "Qualification",
+      "schemaVersion": "5.0.0"
+    },
+    "valueDigest": "sha256:c0bd87731821cc435341a797d79e86f5923bda9ae7ecee488b4dc251fe9fd271",
+    "valueKind": "data_output"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:b230e9428af3bfac2539eeb3c046c17052093cc9ee11593a11aef812591a7dd0",
+    "eventLogRef": "file:///private/tmp/abi5-root-env-TiW4Zz/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:a0afa32cccdf16ade933ef977ed48b5c706a81bbd4f0e959d32bc8db49b36c07",
+    "prefixLength": 3266889,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 468054441
+    }
+  },
+  "physicalPrefix": {
+    "device": 16777231,
+    "inode": 468054441,
+    "byteCount": 3266889,
+    "digest": "sha256:a0afa32cccdf16ade933ef977ed48b5c706a81bbd4f0e959d32bc8db49b36c07"
+  },
+  "nativeEventCount": 51,
+  "kinds": {
+    "public_operation_artifact_admitted": 3,
+    "public_operation_admitted": 1,
+    "invocation_admitted": 1,
+    "implementation_admitted": 1,
+    "basis_admitted": 1,
+    "run_segment_opened": 1,
+    "graph_call_opened": 1,
+    "frame_opened": 1,
+    "runtime_activity_probe_observed": 24,
+    "traversal_cursor_entered": 1,
+    "c_call_opened": 2,
+    "c_call_fibre_selected": 2,
+    "c_call_evidenced": 2,
+    "c_call_result_admitted": 2,
+    "c_call_judged": 2,
+    "traversal_route_admitted": 2,
+    "terminal_reached": 1,
+    "frame_closed": 1,
+    "graph_call_closed": 1,
+    "run_closed": 1
+  },
+  "positiveDisposition": "passed",
+  "readKinds": [
+    {
+      "name": "81-run_result",
+      "kind": "run_result_projection",
+      "status": null,
+      "sameTypedTerminal": true
+    },
+    {
+      "name": "81-run_replay",
+      "kind": "run_replay_projection",
+      "status": "closed",
+      "sameTypedTerminal": true
+    }
+  ],
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/terminal-contract-fixture-successor/conservation.json",
+    "sha256": "19a9af1b3b459c805bb37517ce7cfe4246b3ee3cff371cf4cb0d1facc691db45",
+    "byteCount": 6184
+  },
+  "timingsMs": {
+    "outer": 76666.24745899999,
+    "conformance": 21859.285167000002,
+    "M5": 2127.9901249999966,
+    "freshResult": 771.0181250000023,
+    "freshReplay": 773.6992919999902
+  },
+  "oldFailureImmutable": true,
+  "old20StaticNegativesReusedNotRerun": true,
+  "noP0RC1UATDataMapperRecoveryOrReleaseCredit": true
+}

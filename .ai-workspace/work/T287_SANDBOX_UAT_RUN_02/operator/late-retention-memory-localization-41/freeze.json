@@ -1,0 +1,120 @@
+{
+  "kind": "write_once_diagnostic_failure_freeze",
+  "phase": "Writer41",
+  "status": "stopped_local_premise_failure",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/allocation-sampling.json",
+      "sha256": "9f7a5b921ebe8db369fb34847f309bc4228e68c89c8b54ad6528c701f88b57c5",
+      "byteCount": 1538697
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/command.pid.json",
+      "sha256": "4973579fb814d04cee5e0125351f15b33a26885531125bd9200ee65a133481d0",
+      "byteCount": 114
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/command.request.json",
+      "sha256": "3e1da4eeaf3658c1ed5950ebc7d4abf7bffe136269e063022b233892c2293f7d",
+      "byteCount": 411
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/command.result.json",
+      "sha256": "2e4d1d7d142f8583db506df2f5a903f59ac39fc8132e6e1af1e677ed237bc998",
+      "byteCount": 1185
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/command.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/command.stdout",
+      "sha256": "331df6d733091f556e313419cea60bf0b1dcbc3802c91b163caded88302d67b8",
+      "byteCount": 904
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/diagnostic.mjs",
+      "sha256": "68425c907843a8a89e50714acf781a6c34e57506adc93c546449b1e711c110a2",
+      "byteCount": 16368
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/measurement.json",
+      "sha256": "18f51284c237471d63d815785925c07da0206983db68d655c79431939b7b9f75",
+      "byteCount": 16571
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/preparation.json",
+      "sha256": "2e1a966011073003c4a726670b020b359cfe74c04a1ef59eba4e75b2edaa1d31",
+      "byteCount": 10793
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/progress.jsonl",
+      "sha256": "331df6d733091f556e313419cea60bf0b1dcbc3802c91b163caded88302d67b8",
+      "byteCount": 904
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/readiness.json",
+      "sha256": "e939742dd46fb62550ebf36b289318b09b9e678c8dbb715d25f0eca80fc77796",
+      "byteCount": 6596
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/return.md",
+      "sha256": "04ab65f32c38e050b2a49cacdc7efe4906bb7ce53c9007746b42019617911f00",
+      "byteCount": 1947
+    }
+  ],
+  "reusedClosedRefs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/freeze.json",
+      "sha256": "5cb11974914d70f139c615560d1876f4c03a37781d643cf8bb4f4e827d9597ed",
+      "byteCount": 5475
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/measurement.json",
+      "sha256": "b6fea58ecb0135c4b4b3d21e66b1ecc477bdf7b7999d65bcf59d2a3ff93a1948",
+      "byteCount": 31579
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-38/execution-freeze.json",
+      "sha256": "4be21730b60a651def6b0e5a0f6ed9d2070cf485304d2fb8c212872467df3015",
+      "byteCount": 46311
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/heap-retention-localization-39/preparation.json",
+      "sha256": "6bbc88e3560f973bb1bc0ff3d2dbdcec1f8a30a2caa5425a5eb1ca7b3c72f5ee",
+      "byteCount": 71981
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/selected-coordinate.json",
+      "sha256": "4afd6392625c596490e208030b57425d859bc399a4ae903adaf6564bfbfc0ddc",
+      "byteCount": 709
+    }
+  ],
+  "contractOwnerTriples": {
+    "source": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+      "sha256": "a2748bb56fe7da004f8f49265d4d81ef6cdbd309a269cd8e7fd9c1b260a83512",
+      "byteCount": 81770
+    },
+    "built": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/validation.js",
+      "sha256": "78c66d6f5a576118050cb5a0e1af395e6676dd0c1f5679ea00ef093e02ed8f2a",
+      "byteCount": 82136
+    },
+    "installed": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/validator/validation.js",
+      "sha256": "78c66d6f5a576118050cb5a0e1af395e6676dd0c1f5679ea00ef093e02ed8f2a",
+      "byteCount": 82136
+    }
+  },
+  "protectedStoreStat": {
+    "device": 16777231,
+    "inode": 467205895,
+    "byteCount": 1167689615,
+    "mtimeNs": "1791359951311203492"
+  },
+  "protectedStoreAuthenticatedDigest": "sha256:e211b95525be685ec0c705595973398d1b224d2d17501c4bc95588cef823f825",
+  "coordinateDigest": "sha256:502b7663f83457530e3577fd4584517fa3880f6eb8c226ec6721e9df3917dc91",
+  "noFurtherEffectsSelected": true
+}

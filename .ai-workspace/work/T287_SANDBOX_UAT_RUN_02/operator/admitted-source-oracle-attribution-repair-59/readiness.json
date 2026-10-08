@@ -1,0 +1,400 @@
+{
+  "classification": "bounded_external_oracle_consumer_readiness_no_native_source_admission_credit",
+  "role": "Worker59; independent Source/Proof review reserved to Root",
+  "source": [
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+        "sha256": "725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+        "byteCount": 23452
+      },
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+        "sha256": "f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+        "byteCount": 23659
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+        "sha256": "e8e03b319470a8adc99c2c55bb2a8b5ce921dc1fb6c707d21716ec2cb8734995",
+        "byteCount": 34792
+      },
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/uat/runner.mjs",
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+        "sha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9",
+        "byteCount": 36805
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+        "sha256": "c0789ae6158812355855d1ca0f61424cb6491d47dfab39dce52019ae23472157",
+        "byteCount": 26693
+      },
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/uat/public-setup.mjs",
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+        "sha256": "93e3489ccb6b53bb99503eb7652f1d965081ee46aaedd889d84e337f2cd7fc40",
+        "byteCount": 26830
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+        "sha256": "82661753d9eb3af0345ea6ff056219237f842d481138dc6a4f66d0ef067cf853",
+        "byteCount": 45297
+      },
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/uat/harness.test.mjs",
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+        "sha256": "de913911b9347fc63615ded0a41a12d09ee60794e1d8c03c10f4780ef811de4a",
+        "byteCount": 51551
+      }
+    },
+    {
+      "before": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/uat/README.md",
+        "sha256": "9bf48e6e7fe4200458ed9156f8f0841d1846cf26d44ffa9595adbdb2b7672bb8",
+        "byteCount": 7415
+      },
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/uat/README.md",
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/README.md",
+        "sha256": "c1575f49eedfc1f50fd7cbf66a11f8130a9d46dd07d0b7f5ffad7f4e6f5d4b7a",
+        "byteCount": 8107
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+        "sha256": "fae3231bad472ece6cf9e012921b73ffeb23773178f235f2762f16af05ce0d18",
+        "byteCount": 34763
+      },
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/fixtures/sandbox-uat/scenarios.json",
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+        "sha256": "c6d71578b4dfcce6b28b85cfeca78c132dc5582229fe7635880d27371ced2f03",
+        "byteCount": 34763
+      }
+    }
+  ],
+  "installedOwners": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/reader-host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/index.js",
+      "sha256": "8cb3d4ef63c94261fe3a4849a31246d6af283eaca807ce12a72348344a9f8439",
+      "byteCount": 10741
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/reader-host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+      "sha256": "f24fd97ca5353636cb1c3f3fdeeb692cd008dcd627270d760905b1007aa1b34f",
+      "byteCount": 163300
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/reader-host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js",
+      "sha256": "78f36725d36ef4cd795f1836a8ac7d82d2a77ba17566d4372ce14831db986157",
+      "byteCount": 24539
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/reader-host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/invocation_admission.js",
+      "sha256": "de520033358dca9ce858684c1ef61115f7a6f3dd30af1eed976ba7970ddefdbb",
+      "byteCount": 63260
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/reader-host/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/invocation_execution_truth.js",
+      "sha256": "1e07c77b4bdecea1fa546aea90b91a8650d6c1719aa51793543c5aeecdea9301",
+      "byteCount": 16582
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/reader-host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+      "sha256": "7621501a09994da910e1598994565831d982a21362d790612ec8c8282a7dcc82",
+      "byteCount": 29529
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/reader-host/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+      "sha256": "13f2811ce19bc6d9923e36dae3850adaced0132ebb822566a24a82d322ba95ae",
+      "byteCount": 109681
+    }
+  ],
+  "inputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/authenticated-read-source-reuse-repair-51/inputs/c2-1932.json",
+      "sha256": "f9ebfddaa07c663833d1db3e6be261b65beefabf9fdd0e38e36492d47f3221c0",
+      "byteCount": 1801307
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/authenticated-read-source-reuse-repair-51/inputs/c2-provenance.json",
+      "sha256": "5bd239b5531cd79434a02a05ace527dc03a48f46c5a4891f8bed9815484694ae",
+      "byteCount": 1112
+    }
+  ],
+  "checks": [
+    {
+      "label": "syntax-0",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/commands/syntax-0.result.json",
+        "sha256": "6b7943b91f08871d392655155940c6d1c14a74addf634f5ee8f3cc4cc38d6216",
+        "byteCount": 1851
+      },
+      "exitCode": 0,
+      "wallMs": 23.512375000000002,
+      "timedOut": false,
+      "truncated": false,
+      "counts": {}
+    },
+    {
+      "label": "syntax-1",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/commands/syntax-1.result.json",
+        "sha256": "157d69ab6e19f0ec2557fe0224e5a8dad3be4d9cd19debf9ad00e4f8b0769699",
+        "byteCount": 1848
+      },
+      "exitCode": 0,
+      "wallMs": 20.132875,
+      "timedOut": false,
+      "truncated": false,
+      "counts": {}
+    },
+    {
+      "label": "syntax-2",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/commands/syntax-2.result.json",
+        "sha256": "5d140870856687e032123fc8a328e037ce6804a47f069029b75b57e0af367a50",
+        "byteCount": 1848
+      },
+      "exitCode": 0,
+      "wallMs": 19.173958,
+      "timedOut": false,
+      "truncated": false,
+      "counts": {}
+    },
+    {
+      "label": "syntax-3",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/commands/syntax-3.result.json",
+        "sha256": "ab5e8f20757313a84e6d3da584f41a4b53796b9ba17e84910a11feccba70b87a",
+        "byteCount": 1879
+      },
+      "exitCode": 0,
+      "wallMs": 18.88395899999999,
+      "timedOut": false,
+      "truncated": false,
+      "counts": {}
+    },
+    {
+      "label": "focused-tests",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/commands/focused-tests.result.json",
+        "sha256": "edc930c358b91ceb7470914b28a3b2ed8640b4639969760696c9a27df0934068",
+        "byteCount": 2728
+      },
+      "exitCode": 0,
+      "wallMs": 1043.865333,
+      "timedOut": false,
+      "truncated": false,
+      "counts": {
+        "tests": 5,
+        "pass": 5,
+        "fail": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "label": "acquisition-tests",
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/commands/acquisition-tests.result.json",
+        "sha256": "522cafb1dcc4f3b8fbd4f620cfb35b58ce3f677d1c281483e0c294250dce42e2",
+        "byteCount": 2280
+      },
+      "exitCode": 0,
+      "wallMs": 323.03425,
+      "timedOut": false,
+      "truncated": false,
+      "counts": {
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "mechanicalConservation": {
+    "checkerOtherBytesExact": true,
+    "acquisitionIdentityChanges": 21,
+    "sevenWorkloadsAcquired": true,
+    "protectedAssets": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/source.original.txt",
+        "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+        "byteCount": 4325
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/obligations.json",
+        "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+        "byteCount": 4916
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/oracle.json",
+        "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+        "byteCount": 1112
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/request.json",
+        "sha256": "481aad19106047377f1b25fb0b8847e5a2cee00a36964db3bacd3688bb6c980f",
+        "byteCount": 21323
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/source.original.txt",
+        "sha256": "3dcf38f9d4e0ddbbdc2124d3b0deeb2aa87a1b7a2284ef0246a7e2ebfdade7b9",
+        "byteCount": 3655
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/obligations.json",
+        "sha256": "28c0f522f6050076c3b94b2f2d98464f5cd0d70ba77309053ec640f3d1274544",
+        "byteCount": 4252
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/oracle.json",
+        "sha256": "55658e3343d7b27a553dbf38118052e60f9b27d977c3992ea13131ce5eebd58e",
+        "byteCount": 1782
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/request.json",
+        "sha256": "8a80cd9eb94f44b6e85d61e8ba694b34d8c8ea00b242c447b08e2e28abfb91be",
+        "byteCount": 21640
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/source.original.txt",
+        "sha256": "c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+        "byteCount": 6120
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/obligations.json",
+        "sha256": "2b923205ce74efe77187ce1525e1b2a6ed08e773f4d57dc1b5a7e078b2e43947",
+        "byteCount": 5794
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/oracle.json",
+        "sha256": "a448f2400c1052892ebd78183cfb564e5db08da84402308a183d3c86e6100f6f",
+        "byteCount": 1890
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/request.json",
+        "sha256": "3e16c50293a2dece9126dc784d011e493f979dc8e1a9d1293803ceaa3397e983",
+        "byteCount": 25009
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/source.original.txt",
+        "sha256": "d6f2ffff4e3ae4889be374367208a575664eb9b094c442d7ca303ebaa9ad6a81",
+        "byteCount": 3816
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/obligations.json",
+        "sha256": "a741af9e5fe435b761be1cb081e559e82b35ceb3ea3d38039749ccdcdd98421a",
+        "byteCount": 4378
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/oracle.json",
+        "sha256": "fca13e707df3c3ff3653e5c715a048e86518fc9c4a091ebe8b828f8b8649b25e",
+        "byteCount": 1877
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/request.json",
+        "sha256": "f132ab8bdf2f7c5cda0fd9845fdac56ab3e3d8403da824d9e1852b466a69b8c1",
+        "byteCount": 22840
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/source.original.txt",
+        "sha256": "a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d",
+        "byteCount": 4175
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/obligations.json",
+        "sha256": "13787d69d923baffd3c94d24139301f985bafb8037b02957b7a96a710ea51b91",
+        "byteCount": 4696
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/oracle.json",
+        "sha256": "eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c",
+        "byteCount": 1966
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/request.json",
+        "sha256": "068fccd2f67085276b09411d48c203783fe945837aed7282e4a767e3060440da",
+        "byteCount": 22913
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/source.original.txt",
+        "sha256": "d8cc8105e4d16eea10fa8f908656a2c82e5690fc145cfb91e70ed00f84aa6053",
+        "byteCount": 4285
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/obligations.json",
+        "sha256": "34921c07256d35ea54b6a006bde5d5041b6f4fc760c75ef090f31365a8e5fb06",
+        "byteCount": 4827
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/oracle.json",
+        "sha256": "82a35700c78d9a9c85d18b2727b6de6f9fcb1fbb6a44910f2e46825fbcc2527c",
+        "byteCount": 2335
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/request.json",
+        "sha256": "ad8880aada1db005f6777ceaff720fcdadbfab0e721c10c9d8d0e224d6ad73f1",
+        "byteCount": 24062
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/source.original.txt",
+        "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+        "byteCount": 41158
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/supporting-constants.original.txt",
+        "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+        "byteCount": 3713
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/observable-contract.original.json",
+        "sha256": "2c268e449c296e74ef4abf0ea309b65a0b7303f017b4c05692dc5d86e6a7a0e1",
+        "byteCount": 21201
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/obligations.json",
+        "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+        "byteCount": 50978
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/oracle.json",
+        "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+        "byteCount": 16774
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+        "sha256": "d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+        "byteCount": 77648
+      }
+    ],
+    "originalCommandsPredicatesXMLMutationChronologyRestorationBranchesExact": true,
+    "generatedChanges": 0
+  },
+  "proofPremises": {
+    "actualInstalledColdPrefixAndUnadmittedSourceRefusals": true,
+    "actualInstalledImmutableMembershipOwner": true,
+    "genuineRetainedC2PublishedJudgmentAndTerminalNullRed": true,
+    "controlledSourceUsePositive": "four owner-operation doubles explicitly supply cold-receipt/current-admission/Run lower premises; Rust mechanical observation judgment is existing controlled premise",
+    "genuineGovernanceSourceAdmissionAndCrossRunPositive": false
+  },
+  "limits": [
+    "No full48 log read, historical replay rederivation, runtime admission or campaign Run.",
+    "No npm/build/pack/Git/provider/app/source-runtime effects.",
+    "Actual source_result resume, old red/restoration finite admission lineage, fresh native assessment/UAT and memory closure remain future.",
+    "No old archive/candidate/carrier writes; protected fixture/input pins are a bounded conservation claim."
+  ],
+  "localPremiseFailure": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/check-path-premise-failure.json",
+    "sha256": "e54e0b775b088822db160171322206b73e6a07d5b24b8879b701668e2ec198f7",
+    "byteCount": 335
+  }
+}

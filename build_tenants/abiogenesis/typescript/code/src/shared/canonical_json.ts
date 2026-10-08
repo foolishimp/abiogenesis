@@ -12,13 +12,14 @@ export function compareUnicodeCodeUnits(left: string, right: string): number {
 
 export function canonicalJson(value: JsonValue): string {
   const parts: string[] = [];
-  appendCanonicalJson(value, parts);
+  writeCanonicalJson(value, (part) => { parts.push(part); });
   return parts.join("");
 }
 
-function appendCanonicalJson(value: JsonValue, parts: string[]): void {
+/** One byte-compatible traversal for collected text and incremental sinks. */
+export function writeCanonicalJson(value: JsonValue, write: (part: string) => void): void {
   if (value === null || typeof value === "boolean" || typeof value === "string") {
-    parts.push(JSON.stringify(value));
+    write(JSON.stringify(value));
     return;
   }
 
@@ -26,31 +27,32 @@ function appendCanonicalJson(value: JsonValue, parts: string[]): void {
     if (!Number.isFinite(value)) {
       throw new TypeError("canonical JSON does not admit non-finite numbers");
     }
-    parts.push(Object.is(value, -0) ? "0" : JSON.stringify(value));
+    write(Object.is(value, -0) ? "0" : JSON.stringify(value));
     return;
   }
 
   if (Array.isArray(value)) {
-    parts.push("[");
+    write("[");
     // map snapshots length and skips holes; join still emits their separators.
     const length = value.length;
     for (let index = 0; index < length; index += 1) {
-      if (index !== 0) parts.push(",");
-      if (index in value) appendCanonicalJson(value[index]!, parts);
+      if (index !== 0) write(",");
+      if (index in value) writeCanonicalJson(value[index]!, write);
     }
-    parts.push("]");
+    write("]");
     return;
   }
 
   const entries = Object.entries(value).sort(([left], [right]) =>
     compareUnicodeCodeUnits(left, right)
   );
-  parts.push("{");
+  write("{");
   for (let index = 0; index < entries.length; index += 1) {
     const [key, entry] = entries[index]!;
-    if (index !== 0) parts.push(",");
-    parts.push(JSON.stringify(key), ":");
-    appendCanonicalJson(entry, parts);
+    if (index !== 0) write(",");
+    write(JSON.stringify(key));
+    write(":");
+    writeCanonicalJson(entry, write);
   }
-  parts.push("}");
+  write("}");
 }

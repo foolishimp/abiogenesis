@@ -1,0 +1,15 @@
+Operator101 CLOSED STOP: first selector provider schema rejection; no retry.
+
+Run run://abiogenesis/248a619d351da36b31ae4115232e14f94d15e94475983dbabccfbe7646f1eabd
+Archive /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T09-59-49-674Z-81e3a186-a2d9-42e0-bcc1-131eefcda893
+Native T0 2026-10-08T10:04:51.904Z; quality checkpoint15:04:51.904Z, driver15:05:51.904Z (2026-10-08). Lifecycle CLI exited0 after16900.684ms with runtime_failed. Outer exited1 after322043.284ms. Neither timed out, signalled nor truncated.
+
+Origin: API400 tools.1.custom.input_schema rejects top-level oneOf/allOf/anyOf. Exact selector schema keys type, additionalProperties, properties, required, anyOf, anyOf7; raw5441B SHA033fe8a29bcec6761a9dfaff23ebfd4b88c1a180367bab9c3448e3bb7db91106. Synthetic error2026-10-08T10:05:07.840Z, zero tokens/cost/tools. Provider55 PID6268 exited1 at69. Native70/71 transport_failure ->75 governance_failure implementation_exception ->77 blocked ->79 failed ->81 application-foldback-mismatch. Event81 offset5269500/2434B SHA2852a283a78f695ef88dd7c53ad027a3b1e28b01e58f4a91abb270a4587b160b. Foldback mismatch is downstream; no app command was dispatched.
+
+Normal fresh run_result refuses not_found; run_replay failed/terminalResult:null. Original oracle UNMET (67 criteria,14 unresolved); all16 distinct mutation/restoration/full-original UAT obligations remain. No new app/proof credit; old11 historical. SourceNone/empty observations/synthesis imports zero old producer credit.
+
+Physical4+44 transfer and all48 current file pins match. All52 old48 consumed rows match freshly, including full streaming log digest. Both installed observations before/after equal and contentMatches:true. All7 original acquisition pins match; four protected source conservation rows match. Five current source/built/installed schema/transport owners correspond. Operator made no canonical Source/app/Git changes. Recorder2691/harness2693/provider6268 and provider group6268 observed absent; no signals/global containment claim. Store5271934B/81 events SHA5dc5c5f9f12087a1daeb53f88c251ef2af844a9dc50743f7dac8d27e30895a50, bounded post-exit metadata stable. Native CLI PID was not captured before the actual exited receipt and is not invented.
+
+Evidence: observations.json SHA6ca982202bf6f87c78d572dc54165dab267742807b02b03538da03700a9f1bab; owned-process-and-quiescence.json SHA097c74a4419306ccdb5ed39a66abfa14140c92905bfd702e643a0bf44f63c012; commands/data-mapper-full.*; archive commands/lifecycle-start.*,run_result.*,run_replay.*; resources/archives/fp-c2784cfcc5f72abe-{prompt.txt,stdout.log,stderr.log,transport.json}. Exact schema/authenticated binding53 retained. Phase read-only accessor/path/count failures retained in read-premise-corrections.json; no runtime retry or source effect. Public fresh owner reads authenticate the durable prefix; documentary physical selectors add no authority.
+
+Root owns independent causal triage and further repair/retry decisions. Full installed memory/P0/UAT qualification remains open. STOP all execution/editing.

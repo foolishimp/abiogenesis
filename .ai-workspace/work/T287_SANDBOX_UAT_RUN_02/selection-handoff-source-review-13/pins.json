@@ -1,0 +1,450 @@
+{
+  "role": "Independent Source Reviewer13",
+  "status": "CLOSED",
+  "verdict": "GO_bounded_source_readiness_only",
+  "frozenAt": "2026-10-06T14:46:16.901352+00:00",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodBasis": {
+    "version": "2.5.1-rc.2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "subject": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13",
+  "closedCounterexample": "Source12 author partial-report guidance entering selected UAT; Source13 keeps selected work operative and full-original independent assessment governing.",
+  "freshConservation": {
+    "sourceRows": 355,
+    "declaredChangedSourceRows": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+        "sha256": "4afa1aaca9bdeee51af306fd6820af63a578f5ddc4df71c1ec8cd7d89a5d77d0",
+        "byteCount": 31672,
+        "preimageSha256": "a827175b9fde9cf52f57f3fa26079872571b744a9990bbc8dacfc5a4a04fe8c1"
+      }
+    ],
+    "compiledRows": 720,
+    "declaredCompiledDelta": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/default_library.js",
+        "sha256": "1f3ae4ed5625210ae871b594d7658532c399e3a8506bae624ab5685268719432",
+        "byteCount": 31471,
+        "preimageSha256": "1010779075624b8fa969aabd96d46ce3cd19a4843ca73999e3073475e9a2b977"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "sha256": "e5569945411d5f302bc9b8bcca9f460f44bc954f3a440bfa584f14319f1fe749",
+        "byteCount": 197474,
+        "preimageSha256": "f238ebaf72a492afbb7c73036104e0c33bd716093307315724c891aa2c746885"
+      }
+    ],
+    "uniqueAcquisitionAssets": 31,
+    "protectedPinsMatched": true
+  },
+  "effectLimits": "Read-only subjects; only this new return and pins created. No tests/build/providers/actors/Run/install/Git.",
+  "residuals": [
+    "Genuine installed bounded iteration and later next action",
+    "Full-original independent assessment semantic adequacy",
+    "All original DataMapper eight-module floor/depth and authentic compiled-mutant red/restored-green evidence",
+    "Root conjunction with separate candidate identity; conditional P1 unchanged"
+  ],
+  "pins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/source-freeze.json",
+      "sha256": "c134b88715b8c9dec0c2134c48831ed664665f33a9be515c661279fe85edb24a",
+      "byteCount": 11471
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/source-freeze.json",
+      "sha256": "073b225542e546380f30dc1bd48b4af75a1451252b9abc9fa8c488ff1ba5d163",
+      "byteCount": 17597
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/source-return.md",
+      "sha256": "83c8802e6af28451ed0c50fd2bafbf12ff4cb5dfad7fff958bd8689518648ed1",
+      "byteCount": 3065
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/source-return.md",
+      "sha256": "b76595353a75365780a71bc3499ff73cb45b04a0258b12215df5038a423b5b6d",
+      "byteCount": 2582
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/preimages.json",
+      "sha256": "59d1b62d8ebe96b4c40e92ec9c9c50b360fb213192d7ce92c514ee7701a845e0",
+      "byteCount": 516
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/source-conservation.json",
+      "sha256": "137ada6d948b54baaed897bd16037de20d841a039ad97fd02342b7bb17c20e04",
+      "byteCount": 116242
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/compiled-pins.json",
+      "sha256": "9337def2cb78152582c5f76a744ae77e851101c6fb93ff180fb215b03643072e",
+      "byteCount": 154446
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "d699641dbdc18daf090516d19e901ad4b4a6df8928d9138045f0eb1be7f377ca",
+      "byteCount": 3171685
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "4afa1aaca9bdeee51af306fd6820af63a578f5ddc4df71c1ec8cd7d89a5d77d0",
+      "byteCount": 31672
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "6aea6974a3fdcb93423e06b3836f085c090288bea2067eb40270e6e43c8163e3",
+      "byteCount": 45417
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "fd171b5ab38d617bcaf354641ccfa73061ad5f805ad05b752172d0384ef95e63",
+      "byteCount": 94105
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "byteCount": 26202
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "byteCount": 22857
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "a7c639158059ed39bdabde8825e1b03fcec7a470ebab26cec8246245ee8ca67b",
+      "byteCount": 23083
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+      "byteCount": 23452
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json",
+      "sha256": "68c48ff4f8d0d5205e1543c3f62997e29db61c6797cbdff93e67a71c3eb28d27",
+      "byteCount": 2328
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "8a82e3b62931b35af9dc655f31423cb07cb7c6b87dab7d2ddeb36ee42c40e2c6",
+      "byteCount": 10620905
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "sha256": "d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+      "byteCount": 77648
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "fae3231bad472ece6cf9e012921b73ffeb23773178f235f2762f16af05ce0d18",
+      "byteCount": 34763
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/freeze.json",
+      "sha256": "f4ef77f84c696340d91531068cbeadca47e03e4ae2766373bece71595f01341f",
+      "byteCount": 7465
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "1db609e07dea01f675eb3296ecec50101ca765d5f2a8458f0c1c007edc0b9f9f",
+      "byteCount": 10621282
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/grant.md",
+      "sha256": "33d207d3bc56926033726b6db0b8d2359c184b0f0e0e911a7f3df70524ec84f2",
+      "byteCount": 1364
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/default_library.js",
+      "sha256": "1f3ae4ed5625210ae871b594d7658532c399e3a8506bae624ab5685268719432",
+      "byteCount": 31471
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "e5569945411d5f302bc9b8bcca9f460f44bc954f3a440bfa584f14319f1fe749",
+      "byteCount": 197474
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/build.receipt.json",
+      "sha256": "025c078384b4a15b7a7d5d0924e6de9ee776922e83d9c19367ba181d1f0f4cc8",
+      "byteCount": 347
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/build.stdout.log",
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+      "byteCount": 215
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/build.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/default-library.receipt.json",
+      "sha256": "e665cbae6b9cb68ca309594d5fb365a1961a6ecf3994a95aaf77deb6f4d7aa28",
+      "byteCount": 481
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/default-library.stdout.log",
+      "sha256": "990128c4644354c8086b288143df65b64cd32894bdd84a984ce7e7d284364e83",
+      "byteCount": 2003
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/default-library.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.receipt.json",
+      "sha256": "5f66db3ff1a516ddb151c8297c037c9d6b6df60a56826d5ed73f30bfa84c717e",
+      "byteCount": 504
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.stdout.log",
+      "sha256": "924606c41baf59f626f2e79f04a52d0107f4476af08409893f801a29dbe80391",
+      "byteCount": 336
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/preimages/code/src/abg/default_library.ts",
+      "sha256": "a827175b9fde9cf52f57f3fa26079872571b744a9990bbc8dacfc5a4a04fe8c1",
+      "byteCount": 31095
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/preimages/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "04a785cac2b771d2cbc557b4467853bc51309b3220dde7847201bb83527b3cc2",
+      "byteCount": 45084
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/preimages/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "e50c53be712db0ccb2b31c83f2872d8e73081425dd1d2e523ac21a0f3cbd1def",
+      "byteCount": 92425
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-source-review-12/return.md",
+      "sha256": "c00bd3229b9aa762d20c497d1252de085bda9258e54a410469ebceb384dd63b5",
+      "byteCount": 7263
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-source-review-12/pins.json",
+      "sha256": "2edf05bf765a63d3cbfc619da1a78021ee6062dc8e51fdb01b187abb590d3be8",
+      "byteCount": 14414
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "ae02c7961a12b15ef50d4619ed151f5a306ac8a5579708288b31de648f322828",
+      "byteCount": 11790
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "byteCount": 4277
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+      "byteCount": 93690
+    },
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "3676304839a52127559e1897450e0d149a289b4c59f2311e4251c46a813f5173",
+      "byteCount": 73179
+    },
+    {
+      "path": "specification/INTENT.md",
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "byteCount": 16326
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda",
+      "byteCount": 25514
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "340f6c837e5670e1dde032618ff5f9848c8936cfc7b847a1592f03473b33b6f7",
+      "byteCount": 19376
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "sha256": "483538b5a79c9c3111adec58f42f111e0232136ba682244431873779829f45b8",
+      "byteCount": 26545
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "sha256": "6b73778a52dfd32bf357f7c902798dee3c40ce4bff37c78607492cbf7d7decf5",
+      "byteCount": 21207
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "sha256": "fb140fcb9868ff66147e677216442f6f501aaa73d87288318a6fddf057d7aa8a",
+      "byteCount": 8161
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "sha256": "dd7609684b2a83fbbf435a4cff30a8be693d08ff67b022ec512c8b92457df3bc",
+      "byteCount": 6843
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "0f5476add28906bd04c75eeb36605232beb4dedeefcdb0ad7dabf1eb9d732719",
+      "byteCount": 117767
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/source.original.txt",
+      "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+      "byteCount": 4325
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/obligations.json",
+      "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+      "byteCount": 4916
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/oracle.json",
+      "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+      "byteCount": 1112
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/request.json",
+      "sha256": "481aad19106047377f1b25fb0b8847e5a2cee00a36964db3bacd3688bb6c980f",
+      "byteCount": 21323
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/source.original.txt",
+      "sha256": "3dcf38f9d4e0ddbbdc2124d3b0deeb2aa87a1b7a2284ef0246a7e2ebfdade7b9",
+      "byteCount": 3655
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/obligations.json",
+      "sha256": "28c0f522f6050076c3b94b2f2d98464f5cd0d70ba77309053ec640f3d1274544",
+      "byteCount": 4252
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/oracle.json",
+      "sha256": "55658e3343d7b27a553dbf38118052e60f9b27d977c3992ea13131ce5eebd58e",
+      "byteCount": 1782
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/request.json",
+      "sha256": "8a80cd9eb94f44b6e85d61e8ba694b34d8c8ea00b242c447b08e2e28abfb91be",
+      "byteCount": 21640
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/source.original.txt",
+      "sha256": "c799b9e43d660f3abc3adf0da32baab17a771f1efe20843c4688162b9e62ced4",
+      "byteCount": 6120
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/obligations.json",
+      "sha256": "2b923205ce74efe77187ce1525e1b2a6ed08e773f4d57dc1b5a7e078b2e43947",
+      "byteCount": 5794
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/oracle.json",
+      "sha256": "a448f2400c1052892ebd78183cfb564e5db08da84402308a183d3c86e6100f6f",
+      "byteCount": 1890
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/request.json",
+      "sha256": "3e16c50293a2dece9126dc784d011e493f979dc8e1a9d1293803ceaa3397e983",
+      "byteCount": 25009
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/source.original.txt",
+      "sha256": "d6f2ffff4e3ae4889be374367208a575664eb9b094c442d7ca303ebaa9ad6a81",
+      "byteCount": 3816
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/obligations.json",
+      "sha256": "a741af9e5fe435b761be1cb081e559e82b35ceb3ea3d38039749ccdcdd98421a",
+      "byteCount": 4378
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/oracle.json",
+      "sha256": "fca13e707df3c3ff3653e5c715a048e86518fc9c4a091ebe8b828f8b8649b25e",
+      "byteCount": 1877
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/request.json",
+      "sha256": "f132ab8bdf2f7c5cda0fd9845fdac56ab3e3d8403da824d9e1852b466a69b8c1",
+      "byteCount": 22840
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/source.original.txt",
+      "sha256": "a50c11d4e4eee0dc1e983c484cd2733bd665409b5c0cadfa545596e43574cb5d",
+      "byteCount": 4175
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/obligations.json",
+      "sha256": "13787d69d923baffd3c94d24139301f985bafb8037b02957b7a96a710ea51b91",
+      "byteCount": 4696
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/oracle.json",
+      "sha256": "eaced4b57ccdb33b85006b79502ef773aaa396b8ace5689085cbd9d1296d5d9c",
+      "byteCount": 1966
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/request.json",
+      "sha256": "068fccd2f67085276b09411d48c203783fe945837aed7282e4a767e3060440da",
+      "byteCount": 22913
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/source.original.txt",
+      "sha256": "d8cc8105e4d16eea10fa8f908656a2c82e5690fc145cfb91e70ed00f84aa6053",
+      "byteCount": 4285
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/obligations.json",
+      "sha256": "34921c07256d35ea54b6a006bde5d5041b6f4fc760c75ef090f31365a8e5fb06",
+      "byteCount": 4827
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/oracle.json",
+      "sha256": "82a35700c78d9a9c85d18b2727b6de6f9fcb1fbb6a44910f2e46825fbcc2527c",
+      "byteCount": 2335
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/request.json",
+      "sha256": "ad8880aada1db005f6777ceaff720fcdadbfab0e721c10c9d8d0e224d6ad73f1",
+      "byteCount": 24062
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/source.original.txt",
+      "sha256": "d5b08f042af00c961156a1dbfcf0c5eda8b96826c3f4e8c888ef278f99591324",
+      "byteCount": 41158
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/supporting-constants.original.txt",
+      "sha256": "5a6b406440985acba7c118cf418b981fc3b1d81903a47e80a4c028125ed9fc70",
+      "byteCount": 3713
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/observable-contract.original.json",
+      "sha256": "2c268e449c296e74ef4abf0ea309b65a0b7303f017b4c05692dc5d86e6a7a0e1",
+      "byteCount": 21201
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/obligations.json",
+      "sha256": "7f84d69eb03f0c406d12c175562e1aeed3f977f288eab1285ecebbad8cb1ef32",
+      "byteCount": 50978
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/oracle.json",
+      "sha256": "99b525d1b1dd4a0f320d3eed0b93150707f089a2ac6c07713a3cb703d77129c9",
+      "byteCount": 16774
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-source-review-13/return.md",
+      "sha256": "224da038018eec43c04ff72d290e58bce10a563ae5a7c3ae6f76a741f6ee1ed6",
+      "byteCount": 5766
+    }
+  ]
+}

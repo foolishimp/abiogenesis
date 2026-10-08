@@ -512,10 +512,7 @@ async function constructInstalledStartCall({
       ref: workspaceBinding.bindingId,
       digest: workspaceBinding.bindingDigest,
     }),
-    product_set: Object.freeze(admittedInstalls.map((install) => Object.freeze({
-      ref: install.installId,
-      digest: install.productContentDigest,
-    }))),
+    product_set: Object.freeze(admittedInstalls.map(product.productInstallCoordinate)),
     dependency_lock: Object.freeze({
       ref: workspaceBinding.lockId,
       digest: workspaceBinding.lockDigest,
@@ -626,10 +623,7 @@ function readAuthoritySlots(environment, packet, grants) {
       ref: workspaceBinding.bindingId,
       digest: workspaceBinding.bindingDigest,
     }),
-    product_set: Object.freeze(admittedInstalls.map((install) => Object.freeze({
-      ref: install.installId,
-      digest: install.productContentDigest,
-    }))),
+    product_set: Object.freeze(admittedInstalls.map(product.productInstallCoordinate)),
     dependency_lock: Object.freeze({
       ref: workspaceBinding.lockId,
       digest: workspaceBinding.lockDigest,

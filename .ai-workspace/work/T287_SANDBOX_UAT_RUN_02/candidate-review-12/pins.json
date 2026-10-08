@@ -1,0 +1,519 @@
+{
+  "review": "Reviewer12 independent package identity/Proof",
+  "status": "CLOSED_GO_IDENTITY_ONLY",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "standardManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "ProductFrame": "Fixed15 ABI5.0;GOAL035/T287 external six Hello UATs then original full Data Mapper;GTL source/HoG traversal/ABG exclusive admission and replay;no rival controller/builtin workload",
+  "subjectClass": "immutable-source;closed-derived-build;immutable-package;read-only-proof-receipt",
+  "acceptedIdentityReuse": "candidate-review-10",
+  "checks": {
+    "currentSourceInventoryRows": 355,
+    "productionSources": 263,
+    "soleProductionDelta": "code/src/abg/default_library.ts",
+    "governingRows": 86,
+    "mechanicalRows": 6,
+    "closedEmittedContractRowsMatchedCurrentAndPack": 720,
+    "sequentialInMemoryTarFilesCompared": 5265,
+    "pathsAndModesExactTo10": true,
+    "archiveByteChanges": [
+      {
+        "path": "build/code/src/abg/default_library.js",
+        "preimageSha256": "f688a38e377f251e02d4bbbed1e863054850e8c34ece5f8af7656970ce04417b",
+        "sha256": "1010779075624b8fa969aabd96d46ce3cd19a4843ca73999e3073475e9a2b977",
+        "byteCount": 30882,
+        "mode": 420
+      },
+      {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "preimageSha256": "3f03000e40d8458afb8685f27acbd1be216b20122b09118077d717794c78802b",
+        "sha256": "f238ebaf72a492afbb7c73036104e0c33bd716093307315724c891aa2c746885",
+        "byteCount": 197474,
+        "mode": 420
+      },
+      {
+        "path": "product-toolchain-manifest.json",
+        "preimageSha256": "bdd8aa8543dde566eb22ae2956e2589a92693aa718b2943fdfb838e70f91fdee",
+        "sha256": "c3d5c19360fb4bc5f03fcbc69d0ff17844f6b48782fd9530629641b716285145",
+        "byteCount": 3171685,
+        "mode": 420
+      }
+    ],
+    "payloadRows": 5263,
+    "actualCatalogRows": 75,
+    "canonicalPublicOperations": 18,
+    "canonicalPublicMembers": 56,
+    "canonicalPublicSlots": 178,
+    "genuineModulePublicationBindings": 10,
+    "genuineContributionRows": 47,
+    "allWorkerScratchRegularBytesBoundToActualPack": true,
+    "ABGExternalWorkloadPacked": false,
+    "conservedDependencyFixtureExclusions": [
+      {
+        "path": "node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+        "sha256": "c954f79d2fa7f4d9779a6e7514cdf8df1eeb95d0097ea62cd3b785d20f2d0859",
+        "byteCount": 9888
+      },
+      {
+        "path": "node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+        "sha256": "c10203102fee328d6c8aedbd03319b8eeb364417c3b1137d714537fcd3102d69",
+        "byteCount": 1688
+      },
+      {
+        "path": "node_modules/json-schema-traverse/spec/fixtures/schema.js",
+        "sha256": "0262591e321bc88b22dc33ec78bcded5ab664e2fce2c10b9e0c35d3eb6030d27",
+        "byteCount": 5544
+      }
+    ],
+    "protectedCallerCheckerConfigAndCandidatePins": 6,
+    "priorSealedCutPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T12-42-50-117Z-f84ddeea-42b5-4929-a2bf-861201afded8/summary.json",
+      "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/summary.json",
+      "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T12-42-50-117Z-f84ddeea-42b5-4929-a2bf-861201afded8/SEALED.json",
+      "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/SEALED.json"
+    ]
+  },
+  "canonicalOwnerJoins": {
+    "productContentDigest": "sha256:877659c7d583c3b2b995ec06004d997ad478d29bf9a738ec24f1e8bdeb170916",
+    "canonicalManifestDigest": "sha256:fbf4a8455f6b3d4f39f464dc11ebef3d82271b0a1bcd99843305824c277969eb",
+    "capabilityGraphDigest": "sha256:c0a3d67fca7681d751de6cb913fb42c13b4ebe20a9e2ca2c7eb9fb842e88148c",
+    "publicContractCatalogDigest": "sha256:e72953f7645ca343270157507a204a33c3681422af40c1b6c7250536c6283d65",
+    "contributionManifestDigest": "sha256:93800bae06d0b00930034c3efa73b9dbd5fbb419383af68ebc78da4df1dc463e",
+    "publicationBindingCount": 10,
+    "contributionRowCount": 47,
+    "payloadCount": 5263,
+    "publicContractCount": 75,
+    "canonicalPackagedOwnerVerified": true
+  },
+  "method": "Sequential in-memory tar comparisons; actual packaged direct owning parseProductManifest/parseProductPublicContract/digest/Public projection/capability graph/publication constructors; no barrel or alternate authority parser. Canonical owner projectionAsset.bytes includes its declared newline; initial receipt omitted it, corrected without subject mutation.",
+  "sourceAssurance": "Separate CLOSED STOP c00bd3229b9aa762d20c497d1252de085bda9258e54a410469ebceb384dd63b5: nativeTask work guidance contaminates read-only UAT; no live grant for12.",
+  "limits": [
+    "Source semantic correspondence is owned by separate Source STOP",
+    "Original archived failures remain failures; conserved sealed-cut pins and accepted proof are reused, old event/prompt corpus not rescanned",
+    "Current external request/scenarios pins include declared12 scope/context amendments; original application meaning remains separate Source review",
+    "Worker unit/build/pack receipts are bounded readiness only; no actors or UAT are claimed",
+    "Reviewer executed no build/tests/pack/install/extract-to-disk/provider/Run/events/Git or release operations"
+  ],
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/return.md",
+      "sha256": "755f58041f7bf9d216d14bbb25e76fdf1cfcbc4f73c38dec00954dbda8ede159",
+      "bytes": 2721,
+      "role": "reacquired"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/freeze.json",
+      "sha256": "f4ef77f84c696340d91531068cbeadca47e03e4ae2766373bece71595f01341f",
+      "bytes": 7465,
+      "role": "reacquired"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/identity.json",
+      "sha256": "1a5fc3faa40ebbf972b67c68fe03739ef6699dd8b06911e099e4e3d9e612837d",
+      "bytes": 4085,
+      "role": "frozen-ledger"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-review-10/return.md",
+      "sha256": "e2894e98491a27b1a40606ba5ae0eab21d4a2ca0de2745062c25100e4149dad5",
+      "bytes": 3623,
+      "role": "reacquired"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-review-10/pins.json",
+      "sha256": "bf70c9abf44697b6d72edb74ccfdbcc7254a27addc44e1a6f6bbcc81f2c04b04",
+      "bytes": 12299,
+      "role": "reacquired"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-11/execution-freeze.json",
+      "sha256": "1072ace53c0fcac727d805398e156233e6248489f7a4019219847c2ee192bb9f",
+      "bytes": 88458,
+      "role": "reacquired"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/data-mapper-proof-triage-12/return.md",
+      "sha256": "c4c8ed7671d3f04e179f62b8ef76eeba884a18e4f848b06391f0da02ee2d39f0",
+      "bytes": 7556,
+      "role": "reacquired"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-source-review-12/return.md",
+      "sha256": "c00bd3229b9aa762d20c497d1252de085bda9258e54a410469ebceb384dd63b5",
+      "bytes": 7263,
+      "role": "reacquired"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-source-review-12/pins.json",
+      "sha256": "2edf05bf765a63d3cbfc619da1a78021ee6062dc8e51fdb01b187abb590d3be8",
+      "bytes": 14414,
+      "role": "reacquired"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/source-freeze.json",
+      "sha256": "073b225542e546380f30dc1bd48b4af75a1451252b9abc9fa8c488ff1ba5d163",
+      "bytes": 17597,
+      "role": "frozen-ledger"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/source-return.md",
+      "sha256": "83c8802e6af28451ed0c50fd2bafbf12ff4cb5dfad7fff958bd8689518648ed1",
+      "bytes": 3065,
+      "role": "frozen-ledger"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "1db609e07dea01f675eb3296ecec50101ca765d5f2a8458f0c1c007edc0b9f9f",
+      "bytes": 10621282,
+      "role": "frozen-ledger"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "8a82e3b62931b35af9dc655f31423cb07cb7c6b87dab7d2ddeb36ee42c40e2c6",
+      "bytes": 10620905,
+      "role": "protected-original"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/owner-verification.json",
+      "sha256": "ba243074014b503fb98f9775dcd105593d02eab887f4d342c1a11641758cf708",
+      "bytes": 1800,
+      "role": "frozen-ledger"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/pack.json",
+      "sha256": "ab0fb25f39dff420a222e693b54dccff2857de69be59d0f4fd94775c32a56188",
+      "bytes": 692700,
+      "role": "closed-pack-receipt"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/pack.stderr.log",
+      "sha256": "995ba898ea6c438c69b4051c61200c45a0b4e4333e420210a400207a433d80d7",
+      "bytes": 211,
+      "role": "closed-pack-receipt"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/pack.receipt.json",
+      "sha256": "ea01263e77acab286bd37dd60e4bf4639dce8a67494b8f24bf2b0328dcc68525",
+      "bytes": 628,
+      "role": "closed-pack-receipt"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "bytes": 26202,
+      "role": "protected-original"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "bytes": 22857,
+      "role": "protected-original"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "a7c639158059ed39bdabde8825e1b03fcec7a470ebab26cec8246245ee8ca67b",
+      "bytes": 23083,
+      "role": "protected-original"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+      "bytes": 23452,
+      "role": "protected-original"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json",
+      "sha256": "68c48ff4f8d0d5205e1543c3f62997e29db61c6797cbdff93e67a71c3eb28d27",
+      "bytes": 2328,
+      "role": "protected-original"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/preimages.json",
+      "sha256": "8dd5ae313cb2da91cf4ffa5331c55818b566b9cc8d6765c72e0d82183eb1881e",
+      "bytes": 884,
+      "role": "frozen-ledger"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/source-conservation.json",
+      "sha256": "137ada6d948b54baaed897bd16037de20d841a039ad97fd02342b7bb17c20e04",
+      "bytes": 116242,
+      "role": "frozen-ledger"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/compiled-pins.json",
+      "sha256": "9337def2cb78152582c5f76a744ae77e851101c6fb93ff180fb215b03643072e",
+      "bytes": 154446,
+      "role": "frozen-ledger"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "c3d5c19360fb4bc5f03fcbc69d0ff17844f6b48782fd9530629641b716285145",
+      "bytes": 3171685,
+      "role": "frozen-ledger"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "04a785cac2b771d2cbc557b4467853bc51309b3220dde7847201bb83527b3cc2",
+      "bytes": 45084,
+      "role": "exact-closed-source-postimage"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "a827175b9fde9cf52f57f3fa26079872571b744a9990bbc8dacfc5a4a04fe8c1",
+      "bytes": 31095,
+      "role": "exact-closed-source-postimage"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "e50c53be712db0ccb2b31c83f2872d8e73081425dd1d2e523ac21a0f3cbd1def",
+      "bytes": 92425,
+      "role": "exact-closed-source-postimage"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "sha256": "d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+      "bytes": 77648,
+      "role": "exact-closed-source-postimage"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "fae3231bad472ece6cf9e012921b73ffeb23773178f235f2762f16af05ce0d18",
+      "bytes": 34763,
+      "role": "exact-closed-source-postimage"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/build-02.receipt.json",
+      "sha256": "9393cc8263feadefacc568e8a8f6f1cc69311873d7fa065d277635485afa4d2b",
+      "bytes": 313,
+      "role": "bounded-worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/build-02.stdout.log",
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+      "bytes": 215,
+      "role": "bounded-worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/build-02.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "role": "bounded-worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/syntax-02.receipt.json",
+      "sha256": "01302300217c0f67aaa3c4ef68b8413a1b1f2b2a3dbba7b44104640142ec7f21",
+      "bytes": 400,
+      "role": "bounded-worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/syntax-02.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "role": "bounded-worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/syntax-02.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "role": "bounded-worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library-03.receipt.json",
+      "sha256": "2ab2f1294e51846217cfcdcde65afab26533c1f287b99e43e6806448f4805712",
+      "bytes": 474,
+      "role": "bounded-worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library-03.stdout.log",
+      "sha256": "a65040d8eb81d5f2a69c6ee2fd588b243e7d3eb4a954d584bdc9e7b83b0cac65",
+      "bytes": 2007,
+      "role": "bounded-worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library-03.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "role": "bounded-worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.receipt.json",
+      "sha256": "5f66db3ff1a516ddb151c8297c037c9d6b6df60a56826d5ed73f30bfa84c717e",
+      "bytes": 504,
+      "role": "bounded-worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.stdout.log",
+      "sha256": "924606c41baf59f626f2e79f04a52d0107f4476af08409893f801a29dbe80391",
+      "bytes": 336,
+      "role": "bounded-worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "role": "bounded-worker-readiness-only"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "ae02c7961a12b15ef50d4619ed151f5a306ac8a5579708288b31de648f322828",
+      "bytes": 11790,
+      "role": "current-Product-frame"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "bytes": 4277,
+      "role": "current-Product-frame"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+      "bytes": 93690,
+      "role": "current-Product-frame"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "3676304839a52127559e1897450e0d149a289b4c59f2311e4251c46a813f5173",
+      "bytes": 73179,
+      "role": "current-Product-frame"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda",
+      "bytes": 25514,
+      "role": "current-Product-frame"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T12-42-50-117Z-f84ddeea-42b5-4929-a2bf-861201afded8/summary.json",
+      "sha256": "e3ff37c3607c2fb8aec522186d47be97b90706abce82535b8f1963ae8f484c89",
+      "bytes": 550,
+      "role": "conserved-prior-sealed-cut"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/summary.json",
+      "sha256": "eeb327cd2c6d65d07f1027b8bd13bb3148427e29666814e3339c8f150d22d86b",
+      "bytes": 535,
+      "role": "conserved-prior-sealed-cut"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/product/verify_product.js",
+      "sha256": "f1998352ac6e08919246a9b3c8b6af59a018e4936e43576b283c4525f6e6de18",
+      "bytes": 91615,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/shared/digests.js",
+      "sha256": "bcfca50154c00df17ac3eacbd49323180f7645b2b0d779554dc9aa7c7c34212a",
+      "bytes": 838,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/shared/canonical_json.js",
+      "sha256": "ae5a20c7e8a4bb182f7576e558436eaeaa5c87ac7a1e75ce1106567158cf2b02",
+      "bytes": 1551,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/shared/capability_contracts.js",
+      "sha256": "ce2aa8d8a6472a30ca68d463c83893f656a31d28a4cee7be3897631bddf8d0f5",
+      "bytes": 24059,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/shared/public_function_projections.js",
+      "sha256": "630cb1fd802f0ae3cb2960b2e7b536efada90232b05a9f7992afe77134f54572",
+      "bytes": 24914,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/shared/public_function_contracts.js",
+      "sha256": "470e373128486e86ecac2cdd1ba089fbe169a571c1238e1d34c97e21c2ddac6b",
+      "bytes": 17373,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/shared/public_function_family.js",
+      "sha256": "91ca24a546815a2d84747eee40569621aa0724ddacb02d61dee6dd8af68a95d8",
+      "bytes": 11567,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/product/publication.js",
+      "sha256": "da130714d3489bfcbb6c08605c3bcd249bc415ef897372c783ccd39344c14efa",
+      "bytes": 623,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/gtl/default_library.js",
+      "sha256": "727a6ab601b6b76ca479a111b675e4fd67060cfa14a5fc8c3a9816a933ed768b",
+      "bytes": 18605,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/gtl/consensus.js",
+      "sha256": "a07a0445424c3b69f0297ee3aaa09944ef3b1b5aee9206643dfcc65bba38fa35",
+      "bytes": 163833,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/gtl/worksite_construction.js",
+      "sha256": "ade90f67e0a1145dff88f45e3eebc0ed394d1621e738c3756b9bb75ba4d80b5f",
+      "bytes": 24307,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/gtl/worksite_command_execution.js",
+      "sha256": "eb8fa1a9f92dc3ef3ccbc94bc2b9f8f6cb0e67ff36013b8eef7ad8d47fccc7da",
+      "bytes": 25001,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/gtl/native_workspace_work.js",
+      "sha256": "9016d9b38a9c7deab1ee33276340674ee7207e6089bb89e96732154a79b0ba15",
+      "bytes": 8920,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/gtl/worksite_command_forward.js",
+      "sha256": "a794eada9e47799a27fbb4bbc82dccb1aa908be94706e3b339ccc88a4998c405",
+      "bytes": 9244,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/gtl/requirement_handoff.js",
+      "sha256": "3bc366d8150819d8699971dc9c00c0d487b769db2f2422fec151e8af791ec9bf",
+      "bytes": 13966,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/gtl/semantic_stage_publication.js",
+      "sha256": "dd2b6360e365f443a48fd86d4a8ce229957261df0a2934176d3de73e6340c050",
+      "bytes": 20087,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/gtl/semantic_revision_publication.js",
+      "sha256": "aaeaea5a8db9db4d0c157b2d827b00d075dc0942658ed80cd66896931dba5b5a",
+      "bytes": 13848,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/scratch/successor/package/build/code/src/gtl/self_conformance.js",
+      "sha256": "1cda3500928d4d5aa754db23ca17c7197750ce9814458548deef606f77e48002",
+      "bytes": 19029,
+      "role": "actual-packed-canonical-owner-all-scratch-bytes-matched-to-in-memory-tar"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T12-42-50-117Z-f84ddeea-42b5-4929-a2bf-861201afded8/SEALED.json",
+      "sha256": "1b09761fc448c0842b4e8d36bbf2dfac7aaf088d8ff81bb9c7ec304b49e37410",
+      "bytes": 286,
+      "role": "conserved-prior-sealed-cut"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/SEALED.json",
+      "sha256": "ade5bf096fcba58402ba8151e6b381339c4560feaec50a72286c294767ae35f7",
+      "bytes": 281,
+      "role": "conserved-prior-sealed-cut"
+    }
+  ],
+  "effects": "CREATE only candidate-review-12/return.md and pins.json; Reviewer stopped; Root conjoins and decides"
+}

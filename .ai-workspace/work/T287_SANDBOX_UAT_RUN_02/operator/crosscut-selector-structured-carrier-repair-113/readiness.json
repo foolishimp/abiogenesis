@@ -1,0 +1,134 @@
+{
+  "status": "CLOSED_WORKER_READINESS_STOPPED",
+  "productFrame": "ABI5 fixed fifteen-family5.0; GOAL035/T287 external original DataMapper UAT; STDO2.5.1RC2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "selectedFrame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "increment": "113 explicitly owned structured selector carrier",
+  "sourcePreimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "f0f5f311e09938881e48949c1d045a57d86887ce0548c39016ac2d8a3fed6c81",
+      "byteCount": 50993,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-carrier-repair-113/preimages/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "f75610ebd0a67f8a40d4fd8a2ec824e0d3190e9c764b121d5320fe69781a367e",
+      "byteCount": 117876,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-carrier-repair-113/preimages/code/src/abg/instruction_assembly.ts"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "300e73d8484a3ff9f72b7dbd2a59a6a5285a96db8f69a30b6d5026ed4593b200",
+      "byteCount": 125800,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-carrier-repair-113/preimages/test_env/tests/t287-default-library.test.mjs"
+    }
+  ],
+  "sourcePostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "514276a2a3ef53a5b9c4575486108d8cb545e1796d956d4a3dcf4b0f3c97212a",
+      "byteCount": 51353
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "300935afcffaa2f81aea5a9be4ae7895f1b02f906c80f54d255c4f3a18db860d",
+      "byteCount": 118127
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "2eba6c2cc04c6f1c39d5487068c175b1368d78b65c7f86759233b5923fb5de44",
+      "byteCount": 127635
+    }
+  ],
+  "protectedUnchanged": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "sha256": "d30b3de24a8615a5e0aefe3f025f4a4ab9b8539148eaae801eb1a150263d73ce",
+      "byteCount": 33507
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+      "sha256": "6e51be1a4bc71d3fe11d05821b09309a99397a4281da84f34f073473ad21adc7",
+      "byteCount": 6205
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "sha256": "d38f46fae38fa8239532b853eb962bb6a1defb99d59ae2edc7931561faa9e0fb",
+      "byteCount": 14887
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "sha256": "ec4b3dcdc49f6e7af5d644e8fbad108582ca40e36d7629694235e3d5901e1d92",
+      "byteCount": 59692
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "sha256": "73f054dabe4073feffb0f89b1a7bd824d44f75da8e904dc40fd93278df1e9a4d",
+      "byteCount": 40586
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/tsconfig.json",
+      "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e",
+      "byteCount": 604
+    }
+  ],
+  "sourceInputCount": 263,
+  "checks": {
+    "isolatedStrictCompile": {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+        "-p",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-carrier-repair-113/isolated/tsconfig.json"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "startedAt": "2026-10-08T11:33:22.366078+00:00",
+      "exitCode": 0,
+      "durationMs": 6051.187625038438,
+      "timedOut": false,
+      "stdoutByteCount": 0,
+      "stderrByteCount": 0
+    },
+    "focusedActualOwners": {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-reporter=spec",
+        "--test-name-pattern",
+        "framed synthesis binds imported contracts|framed Testing prerequisite|fold and assessment consume actual",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "environment": {
+        "ABI5_DEFAULT_LIBRARY_BUILD_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-selector-structured-carrier-repair-113/isolated"
+      },
+      "startedAt": "2026-10-08T11:33:40.421876+00:00",
+      "exitCode": 0,
+      "durationMs": 937.5987919629551,
+      "timedOut": false,
+      "stdoutByteCount": 633,
+      "stderrByteCount": 0,
+      "pass": 3,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "proved": [
+    "Canonical Product schema including root-anyOf remains exact in prompt/envelope; unchanged native binder retains complete target/source correlation.",
+    "Provider carrier has exactly canonical type/properties/required/additionalProperties; all field constraints and finite property domains are conserved.",
+    "Canonical and carrier digests bound separately in plan and manifest; request and manifest responseSchemaDigest identify carrier.",
+    "Normal structured lane selected upfront; actual Claude argv has one --json-schema with no root union and unchanged safe-mode/empty-tools lane.",
+    "Unchanged actual structured-result observer feeds successful structured_output into actual selector completion and admission checks.",
+    "Empty/malformed/duplicate structured rows and fenced legacy result-text carrier refuse without normalization or fallback.",
+    "Existing full Testing prerequisite/null/native and native/C2 UAT/wrong Testing-C2/currentness/attribution controls pass."
+  ],
+  "controlledPremises": "Existing tests replace lower authenticated occurrence, role/index and selected prior producer premises. They exercise real emitted assembly/canonical Product/transport argv+parser/selector completion/admission/fold owners; no native ingress, actor or provider runs.",
+  "notClaimed": [
+    "Exact real Claude host acceptance of this carrier",
+    "Actual model semantic adequacy",
+    "Installed Public/Run/replay or whole UAT closure",
+    "Publication/release/global capacity"
+  ],
+  "effects": "Only three authorized HOW/Source/test files and own113 isolated compilation/documentary outputs; no Product/transport/implementation/generated/caller/config/app/Git/provider effects."
+}

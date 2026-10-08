@@ -1,0 +1,265 @@
+{
+  "status": "FROZEN_FAILED",
+  "role": "Operator118",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T12-22-23-522Z-3cdaa107-7dd4-463d-9fe3-1d19bf8b1418",
+  "runRef": "run://abiogenesis/c8e518744ee561de31bb98fb8f2b07f512e654caa33684acb22541710a8fb0e5",
+  "nativeT0": "2026-10-08T12:27:33.161Z",
+  "qualityCheckpoint": "2026-10-08T17:27:33.161Z",
+  "driverDeadline": "2026-10-08T17:28:33.161Z",
+  "identity": {
+    "archiveSha256": "e1deb8a3d000566ccc550055e333c422b759cb63b8b412820f147046685e2dcb",
+    "content": "c492168158fc38032f8b778be78de3a64f99f409bf8b0785257121821f200951",
+    "manifest": "99e87edce37ad6267feb2c28f387a55beaf4e53c99fb7609ed7864836aa40d3e"
+  },
+  "firstCause": {
+    "event": 3907,
+    "eventTime": "2026-10-08T12:31:23.541Z",
+    "offset": 24434373,
+    "byteCount": 2177,
+    "sha256": "6d31d8a20d91e365de839909c0eb78a6e189710a2959e42e1c232e2964dd8d10",
+    "diagnostic": "diagnostic://abiogenesis/default-library/missing-owned-prepare-native@5",
+    "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+    "basis": {
+      "event": 3895,
+      "offset": 24206264,
+      "byteCount": 193348,
+      "sha256": "6f060ede03138df026e7854e30d1b3604032476578a1b4f474b2f9e58857e1de",
+      "rawInputValueEqualsActualChoice": true
+    },
+    "call": {
+      "event": 3900,
+      "offset": 24411855,
+      "byteCount": 2705,
+      "sha256": "f3e02c749136aae53f6ec59c01467694462ad6e736ea3745bd74201229b2a038"
+    }
+  },
+  "downstream": [
+    {
+      "event": 3920,
+      "offset": 24479369,
+      "byteCount": 2209,
+      "sha256": "7185c499fdf1c66cef1229f18f20efa1267ffc882a6462a82c693cdb33f8daf3",
+      "kind": "child_traversal_failed"
+    },
+    {
+      "event": 3930,
+      "offset": 24514292,
+      "byteCount": 2436,
+      "sha256": "5bc7e89b66af334a6d3a0a73dfbbcc7828c33a190de6197c88728cdc02abcb25",
+      "diagnostic": "application-foldback-mismatch@5"
+    }
+  ],
+  "providers": [
+    {
+      "stem": "fp-d2c60add7a93159b",
+      "pid": 95158,
+      "providerWallMs": 63880,
+      "turns": 2,
+      "costUsd": 0.734848,
+      "usage": {
+        "input_tokens": 2,
+        "output_tokens": 5016,
+        "cache_creation_input_tokens": 79315,
+        "cache_read_input_tokens": 0
+      },
+      "structuredOutput": true,
+      "transport": {
+        "status": 0,
+        "disposition": "success",
+        "failureClass": null,
+        "exitObserved": true,
+        "terminationConfirmed": true,
+        "timedOut": false,
+        "signal": null,
+        "apiRetryCount": 0,
+        "toolCallCount": 0
+      },
+      "nativeAssessment": "admitted"
+    },
+    {
+      "stem": "fp-1aae023fd9848347",
+      "pid": 95858,
+      "providerWallMs": 66296,
+      "turns": 3,
+      "costUsd": 0.3410558,
+      "usage": {
+        "input_tokens": 4,
+        "output_tokens": 993,
+        "cache_creation_input_tokens": 39191,
+        "cache_read_input_tokens": 38259
+      },
+      "structuredOutput": true,
+      "transport": {
+        "status": 0,
+        "disposition": "success",
+        "failureClass": null,
+        "exitObserved": true,
+        "terminationConfirmed": true,
+        "timedOut": false,
+        "signal": null,
+        "apiRetryCount": 0,
+        "toolCallCount": 1
+      },
+      "nativeAssessment": "admitted"
+    },
+    {
+      "stem": "fp-f43275d054e2d98d",
+      "pid": 96914,
+      "providerWallMs": 79036,
+      "turns": 2,
+      "costUsd": 0.899784,
+      "usage": {
+        "input_tokens": 2,
+        "output_tokens": 6246,
+        "cache_creation_input_tokens": 96857,
+        "cache_read_input_tokens": 0
+      },
+      "structuredOutput": true,
+      "transport": {
+        "status": 0,
+        "disposition": "success",
+        "failureClass": null,
+        "exitObserved": true,
+        "terminationConfirmed": true,
+        "timedOut": false,
+        "signal": null,
+        "apiRetryCount": 0,
+        "toolCallCount": 0
+      },
+      "nativeAssessment": "admitted"
+    }
+  ],
+  "earned": {
+    "bothSelectors": "Actual structured_output/raw JSON/native admission; four-field host carrier and full canonical schema retained; no normalization",
+    "baseline": "Actual C2 event1738 all8 physical XML digest/bytes verified,44tests/0failures/0errors,9predicates,ProductDelta[]",
+    "mutants": 0,
+    "requiredMutants": 16,
+    "restorations": 0,
+    "originalConserved": true,
+    "noNativeAppAuthorDispatched": true
+  },
+  "commandTimings": {
+    "native": {
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 231437.85345799994,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    },
+    "outer": {
+      "exitCode": 1,
+      "signal": null,
+      "wallMs": 549107.0701659999,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    }
+  },
+  "freshReads": [
+    {
+      "memberKey": "run_result",
+      "ownerOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "not_found",
+          "evidenceRefs": [],
+          "issuePaths": []
+        }
+      }
+    },
+    {
+      "memberKey": "run_replay",
+      "projection": {
+        "fromOrdinal": 0,
+        "kind": "run_replay_projection",
+        "limit": 4096,
+        "replay": {
+          "digest": "sha256:e94ee7dd2292406315a85f35c89aac782e8ed390fa9136a41fdfcece390a6dc2",
+          "ref": "replay://abiogenesis/e94ee7dd2292406315a85f35c89aac782e8ed390fa9136a41fdfcece390a6dc2"
+        },
+        "status": "failed",
+        "subject": {
+          "digest": "sha256:674e162c69ce7b31e683340178595d2fb3ddf3329efb7aefcee774b4d625914c",
+          "ref": "run://abiogenesis/c8e518744ee561de31bb98fb8f2b07f512e654caa33684acb22541710a8fb0e5"
+        },
+        "terminalResult": null
+      },
+      "source": {
+        "digest": "sha256:674e162c69ce7b31e683340178595d2fb3ddf3329efb7aefcee774b4d625914c",
+        "ref": "run://abiogenesis/c8e518744ee561de31bb98fb8f2b07f512e654caa33684acb22541710a8fb0e5"
+      },
+      "ownerOutput": {
+        "outcomeKind": "result",
+        "value": {
+          "caseKey": "run_replay",
+          "projection": {
+            "fromOrdinal": 0,
+            "kind": "run_replay_projection",
+            "limit": 4096,
+            "replay": {
+              "digest": "sha256:e94ee7dd2292406315a85f35c89aac782e8ed390fa9136a41fdfcece390a6dc2",
+              "ref": "replay://abiogenesis/e94ee7dd2292406315a85f35c89aac782e8ed390fa9136a41fdfcece390a6dc2"
+            },
+            "status": "failed",
+            "subject": {
+              "digest": "sha256:674e162c69ce7b31e683340178595d2fb3ddf3329efb7aefcee774b4d625914c",
+              "ref": "run://abiogenesis/c8e518744ee561de31bb98fb8f2b07f512e654caa33684acb22541710a8fb0e5"
+            },
+            "terminalResult": null
+          },
+          "projectionBasis": {
+            "digest": "sha256:cbbb56e2381a2be303d2763414778bca1db591b37f61e884898270a38b914cf2",
+            "ref": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T12-22-23-522Z-3cdaa107-7dd4-463d-9fe3-1d19bf8b1418/resources/events/runtime.events.jsonl"
+          },
+          "source": {
+            "digest": "sha256:674e162c69ce7b31e683340178595d2fb3ddf3329efb7aefcee774b4d625914c",
+            "ref": "run://abiogenesis/c8e518744ee561de31bb98fb8f2b07f512e654caa33684acb22541710a8fb0e5"
+          }
+        }
+      }
+    }
+  ],
+  "independentOracle": {
+    "disposition": "unmet",
+    "criteria": 67,
+    "unresolvedCriteria": 12
+  },
+  "summary": {
+    "scenario": "data-mapper-full",
+    "runId": "2026-10-08T12-22-23-522Z-3cdaa107-7dd4-463d-9fe3-1d19bf8b1418",
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T12-22-23-522Z-3cdaa107-7dd4-463d-9fe3-1d19bf8b1418",
+    "mode": "resume",
+    "status": "failed",
+    "uatPass": false,
+    "runtimeDisposition": "result",
+    "terminalAvailable": false,
+    "independentOracle": "unmet",
+    "reason": "Original application obligations or terminal evidence remain incomplete"
+  },
+  "conservation": {
+    "bothInstallsBeforeAfterEqual": true,
+    "bothInstalledContentMatches": true,
+    "originalFiles": 4,
+    "incomingAuthorFiles": 44,
+    "newWorksite48FilesMatchTransfer": true,
+    "oldMaterial52RowsConserved": true,
+    "oldLargeLog": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+        "historicalSha256": "9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6",
+        "byteCount": 1182449986,
+        "freshIdentityMatched": true,
+        "fullHashRepeated": false
+      }
+    ],
+    "accepted116PinsFreshMatched": 72,
+    "oldProducerCreditImported": false
+  },
+  "readPremiseCorrections": [
+    "Canonical response section is itself the schema; first response.jsonSchema accessor failed without effects.",
+    "Fresh readback is an array; diagnostic scalar-map accessor failed without effects.",
+    "One diagnostic print accidentally included raw transport stream strings; subsequent and frozen records use explicit scalar/ref whitelists."
+  ],
+  "limits": "No UAT/pass/release/native mutation proof; current source:none has no old proof credit; allocation/root-cause beyond admitted missing-owned-prepare-native belongs independent triage; no retry/repair/process signal."
+}

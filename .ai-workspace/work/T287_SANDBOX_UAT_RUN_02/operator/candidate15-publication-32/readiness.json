@@ -1,0 +1,70 @@
+{
+  "role": "Writer32",
+  "status": "READY_FOR_INDEPENDENT_PUBLICATION_REVIEW",
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-15/freeze.json",
+    "sha256": "fe38075c3acdf6b9dc3cc8ea6c6b5a809c3aa5b6b8e33b1d5a6b979299de1015",
+    "byteCount": 10359
+  },
+  "identity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-15/identity.json",
+    "sha256": "ff215ba791996ec5ba1d34220de881a2c3db9db961719a4d11a105633491a6c9",
+    "byteCount": 6512
+  },
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-15/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "1fe497924a215c4215865c36e50230ebf96e81aefc1ba81705ee59150065267d",
+    "byteCount": 10623282
+  },
+  "ownerJoins": {
+    "productContentDigest": "sha256:d661342dc40ecd86a33c79bf4a4bf9ce069da5635730c85d2e5036af99a7f3ce",
+    "canonicalManifestDigest": "sha256:6527753600d58257d7585fe4fe358c9d14cb37a7f029fcadbbf22206c56db6f2",
+    "manifestByteSha256": "889d809030a2a1958c760f1f742008b9dc423b3598c916cf97f4bac419c7d223",
+    "capabilityGraphDigest": "sha256:525fd0d5e269b088a45582f8e89c4fd24a6d26f2001831e593d8e9a4119326b0",
+    "capabilityAssetDigest": "sha256:9acf5dc7cd34886e4d10e8f7c3202a154b0f63a6a82611d313cbb223daf712c9",
+    "publicContractCatalogDigest": "sha256:ea85d66475497bdbf7e5d47d1791cadcc12e4fe83a4d04aec7dd6dfba094c7d6",
+    "contributionManifestDigest": "sha256:f5331c45411e9225156b35d37a3035844931d52fd18ab1ab528373a83abd6992",
+    "publicationBindingCount": 10,
+    "contributionRowCount": 47,
+    "payloadCount": 5263,
+    "publicContractCount": 75,
+    "canonicalPackagedOwnerVerified": true
+  },
+  "timings": {
+    "packWallMs": 3176.0923749999997,
+    "packagedOwnerWallMs": 20135.088667,
+    "packagedOwnerOuterWallMs": 20493.079083
+  },
+  "checks": {
+    "all5265Members": true,
+    "onlyFourFrozenGeneratedChanges": true,
+    "typesModesEqual": true,
+    "packageMetadataDepsEqual": true,
+    "all69ExactCatalogDerivationsVerified": true,
+    "payload5263Verified": true,
+    "source31AndPredecessorPinsConserved": 11,
+    "externalFixturesExcluded": true
+  },
+  "supersededLocalPremises": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/candidate15-publication-32/comparison-premise.json",
+      "sha256": "5be99c7f92a7aee2b0e2fb76eae66e51593fa33034b6100031faa5d679ef13a9",
+      "byteCount": 797
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/candidate15-publication-32/extraction-premise.json",
+      "sha256": "c6ecb3dfa549b229945895f1befce50c501b13f810efc31c4249ad28adb34258",
+      "byteCount": 717
+    }
+  ],
+  "claimsExcluded": [
+    "installed runtime",
+    "UAT completion",
+    "native mutation detection",
+    "release qualification"
+  ],
+  "sourceEffects": 0,
+  "buildCount": 0,
+  "packCount": 1,
+  "overallDeadline": "2026-10-07T01:52:43.725Z"
+}

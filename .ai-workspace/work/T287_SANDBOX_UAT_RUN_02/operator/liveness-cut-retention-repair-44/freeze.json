@@ -1,0 +1,148 @@
+{
+  "kind": "Writer44_exact_source_failure_freeze",
+  "status": "stopped",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/activation.json",
+      "sha256": "afb89355789696870dc765416f469412c73ff004a97b6ddc4609fecbc34bf988",
+      "byteCount": 3124
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/build.compiler.request.json",
+      "sha256": "640ff12290e3083b6beaba04c3ebdb9d1759a955759185f2af886d07aed89907",
+      "byteCount": 339
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/build.compiler.result.json",
+      "sha256": "fd71af029673feb4195f1f51f1c3a9da6b6955afb9e2e84df1b96c96d412ee21",
+      "byteCount": 986
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/build.compiler.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/build.compiler.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/compiler-generated-delta.json",
+      "sha256": "f595dac3d1d5b6289443c7ba5300acb3f6ebb1acdb69a18a00b741a5841772ec",
+      "byteCount": 524
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/diagnostic.input.json",
+      "sha256": "d48a897f78b59c1107fc862d3af00e9c6b39c35d38041b8d13080a550bdd3762",
+      "byteCount": 2228
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/diagnostic.mjs",
+      "sha256": "001e3ff44be9087262f10d6e20a5f7616824926d93b32247aaef77e15ab89578",
+      "byteCount": 7765
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/focused-tests.request.json",
+      "sha256": "9abfd95e498224322652e40d4df5568b66e4466f18e2ee554e98cdac66da2430",
+      "byteCount": 1109
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/focused-tests.result.json",
+      "sha256": "939c2a5be8a0b5c6e1b0c39616dde48870b4c5ff749a97c30df4e9fb461747ec",
+      "byteCount": 1758
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/focused-tests.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/focused-tests.stdout",
+      "sha256": "769bd80cf11dbaa4bd148b30aa5a4f84c865f1920dac61db35726e48f67d7751",
+      "byteCount": 2477
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/generated-before.json",
+      "sha256": "e23cea9394f9bc80a2622e6631da91084eeb562513f969eab569d9e36f2eaa4e",
+      "byteCount": 229944
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/inspect-cut-retention.mjs",
+      "sha256": "124255f83173ddab3644ee7b8f72de367727d8c019b10b58a09cde437a2a08f7",
+      "byteCount": 2960
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/preimages/build/code/src/abg/runtime_liveness.d.ts",
+      "sha256": "25ed57317c05d3d7b4ff6f06e0802475cec129c0d67d0ac8966a4a71a06f8111",
+      "byteCount": 5663
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/preimages/build/code/src/abg/runtime_liveness.js",
+      "sha256": "51263211f5c6d21fc3c45ac090a10d413fa9bdbc948dfc93bad0db9154cbfc09",
+      "byteCount": 74635
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/preimages/code/src/abg/runtime_liveness.ts",
+      "sha256": "a4b4a10f718a69125c15d2883b18d9749f357f772fcf1e834f918623b0e8a6bd",
+      "byteCount": 76115
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/preimages/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md",
+      "sha256": "8f16957ea3bb20996ed9ae3a7f9c2f8801289d02e06dc6cd4130644e3eabbed7",
+      "byteCount": 25773
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/preimages/test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "sha256": "2b441ca587aa372644f1784afa3d767d34eabee47c516cbccc5289bc25e1793b",
+      "byteCount": 19321
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/readiness.json",
+      "sha256": "99255266e8bf1258ae07acb87820d5e22ffea99ac8587a10bb34f7a78eda69e0",
+      "byteCount": 7290
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/return.md",
+      "sha256": "8b3602ef027bee93b02eb1fba277d7c68272037608391686e7d357e8f9b4cb1d",
+      "byteCount": 2388
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/source-before.json",
+      "sha256": "20bf27b8d5170166a0776e234a5a7a68d9be4c9999c852a96bbb9a719c579b29",
+      "byteCount": 2325993
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/source-delta.json",
+      "sha256": "ffcc93e6a571ca86f6431bf39fa64e6475e8da210678fc5fcee0d0605a8999c9",
+      "byteCount": 1604
+    }
+  ],
+  "sourcePostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "sha256": "91ab5595acc630b8b2eea221a9466eb1273de1b9a10fd361b1a5c417bb5bcfed",
+      "byteCount": 76288
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md",
+      "sha256": "31ba90f6477b9295fa3aacf9eddc8a6e6bf122fa5c6ab4c3c3074a86c95af564",
+      "byteCount": 27440
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "sha256": "17af38185e496810b5299b69c4a34e2130fe7d06578da26b60590d83663b5745",
+      "byteCount": 27790
+    }
+  ],
+  "generatedPostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+      "sha256": "8e55aed6810f56bc557df87c10f7f4f8c98764eaa20add38fb312fbbbcad0403",
+      "byteCount": 74826
+    }
+  ],
+  "otherSourceBytesConserved": true,
+  "fullHistoryMeasurementProcessCount": 0,
+  "noMoreEffectsSelected": true
+}

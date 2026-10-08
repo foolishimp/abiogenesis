@@ -637,7 +637,7 @@ test("STDO environment installed public invocation and fresh replay", async t =>
       const raw=validator.rawAdmitValue(admittedInput,"invocation_input",inputContract.ref);assert.equal(raw.kind,"raw_admitted_value");
       const inputCarrier={contract:inputContract,valueRef:`value://d1-semantic/${ordinal+1}`,valueDigest:hash(input),value:input};
       const eventResource=reopenEventResource(product,closeHandoff),steeringDigest=hash(eventResource);
-      const slots={workspace_binding:boundSlots.workspace_binding,product_set:environment.productInstalls.map(i=>({ref:i.installId,digest:i.productContentDigest})),
+      const slots={workspace_binding:boundSlots.workspace_binding,product_set:environment.productInstalls.map(product.productInstallCoordinate),
         dependency_lock:lock,catalog_scope:catalogScope,execution_program:{ref:programRef,digest:resolution.resolution.programDigest},input_contract:inputCarrier,
         session_policy:{ref:policy.policyRef,digest:policy.policyDigest},capability_grants:{requiredCapabilityRefs:[...packet.metadata.capabilityRefs],grants:grants.map(g=>({ref:g.grantRef,digest:g.grantDigest}))},
         actor:{actor:{ref:ACTOR,digest:hash({actorRef:ACTOR})},attribution:{ref:authority.authorityRef,digest:authority.authorityDigest}},

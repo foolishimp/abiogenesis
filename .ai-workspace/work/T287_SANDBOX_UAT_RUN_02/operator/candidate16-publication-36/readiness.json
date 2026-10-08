@@ -1,0 +1,93 @@
+{
+  "role": "Writer36 Candidate Publication",
+  "status": "FROZEN_READY_FOR_INDEPENDENT_REVIEW",
+  "candidateIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-16/identity.json",
+    "sha256": "d6acfc2842b9e683fc0a3be2add5dc03f9d351c4ab3079f223c30ad2b2897ced",
+    "byteCount": 10843
+  },
+  "candidateReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-16/return.md",
+    "sha256": "70d76e554095ee2787ae0e5ce75c83af28b2ed895c81ae898c7a5aa67959709f",
+    "byteCount": 1721
+  },
+  "source35": {
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/event-memory-repair-35/return.md",
+      "sha256": "8b3fbcb744fdec2a4ea3dd4d414997b998e996189ffc810f12633b2ab2053753",
+      "byteCount": 2956
+    },
+    "readiness": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/event-memory-repair-35/readiness.json",
+      "sha256": "66d6e0e70bd4b39af6dd17ccb69b98baa52f69295839bcb02db695dc103dbe2d",
+      "byteCount": 37218
+    },
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/event-memory-repair-35/freeze.json",
+      "sha256": "bd671ad49267e494eeeb649deab8a2aeb8c9e014a4ef12e4349d174486c59dc1",
+      "byteCount": 272159
+    },
+    "rootClosedSourceAndProofGO": true
+  },
+  "ownerJoins": {
+    "productContentDigest": "sha256:639b89e5c5c380bedd33ec4561cefba0c6a2144ee3739277deaae1775b294785",
+    "canonicalManifestDigest": "sha256:50373d79efb28c2646a18e806fced0c14a89612a5c1a4afc6bd12af4f02220dd",
+    "manifestByteSha256": "d3acd5026e398ce7a63e6456c1bbc3356581aeccb43586d3da79232c5739c227",
+    "capabilityGraphDigest": "sha256:3dd2617b3e2f25c57ef3d339ec00ed74e311b41309e284a36b7798fde4714711",
+    "publicContractCatalogDigest": "sha256:8822b9829aea1688df113032c662988c4ab084dc32a5e4930ec659a039cf22ee",
+    "contributionManifestDigest": "sha256:2511a7df875a4fd22eddfca7351e2f93d01d1b94b50341db516780eea11cef66",
+    "publicationBindingCount": 10,
+    "contributionRowCount": 47,
+    "payloadCount": 5263,
+    "publicContractCount": 75,
+    "canonicalPackagedOwnerVerified": true
+  },
+  "memberCount": 5265,
+  "exactFrozenGeneratedDeltaCount": 8,
+  "publicCatalogExactConsequences": {
+    "catalogDigest": 1,
+    "declarationDigests": 50,
+    "contractDigests": 23
+  },
+  "all947InputsConserved": true,
+  "commandScalars": [
+    {
+      "label": "pack",
+      "exitCode": 0,
+      "wallMs": 3444.587583,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    },
+    {
+      "label": "member-comparison",
+      "exitCode": 0,
+      "wallMs": 615.1226659999998,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    },
+    {
+      "label": "extract",
+      "exitCode": 0,
+      "wallMs": 447.1521670000002,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    },
+    {
+      "label": "packaged-owner",
+      "exitCode": 0,
+      "wallMs": 20002.644291,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    }
+  ],
+  "sourceAndGeneratedEdits": 0,
+  "buildCount": 0,
+  "packCount": 1,
+  "nativeCredit": false,
+  "remaining": "Independent publication review/Executive acceptance; no execution or installed-memory closure claimed.",
+  "claimLimits": "Unreleased immutable candidate; installed/native/UAT/recovery/whole-memory closure and release remain unearned."
+}

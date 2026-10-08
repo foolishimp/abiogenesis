@@ -1,0 +1,81 @@
+{
+  "archiveSha256": "8a82e3b62931b35af9dc655f31423cb07cb7c6b87dab7d2ddeb36ee42c40e2c6",
+  "archiveByteCount": 10620905,
+  "archiveFileCount": 5265,
+  "manifestByteSha256": "bdd8aa8543dde566eb22ae2956e2589a92693aa718b2943fdfb838e70f91fdee",
+  "baselineArchiveSha256": "33bcebc306a2481fb81d6b6290d5a2168ffe5a50faa4ddd519df3359266ec2e6",
+  "sourcePackageCorrespondence": {
+    "sourceFreezeSha256": "be3891e8ea7a75811f49a52e846f782ca87359c1ba14fa70005e66758a695854",
+    "sourcePopulation": 263,
+    "productionDelta": [
+      "code/src/abg/worker_transport.ts"
+    ],
+    "governingPinsPreserved": 86,
+    "mechanicalPinsPreserved": 6,
+    "allClosedCompiledAndContractsMatch": true
+  },
+  "compiledAndContractCount": 720,
+  "compiledAndContractDelta": [
+    {
+      "path": "build/code/src/abg/worker_transport.js",
+      "preimageSha256": "77fb28160626506574ebd745164acee99da749512f2627b8fc39440939103169",
+      "sha256": "e455857e17443470e94a00983798cbc99529305e503c60dada7d42aa67fc1f0e",
+      "byteCount": 34493
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "preimageSha256": "6a0637594dae5eb4d106eb8920ed3fb236d4da1f8916dad24780ccd266ab9a32",
+      "sha256": "3f03000e40d8458afb8685f27acbd1be216b20122b09118077d717794c78802b",
+      "byteCount": 197474
+    }
+  ],
+  "archiveMemberDelta": [
+    {
+      "path": "build/code/src/abg/worker_transport.js",
+      "preimageSha256": "77fb28160626506574ebd745164acee99da749512f2627b8fc39440939103169",
+      "sha256": "e455857e17443470e94a00983798cbc99529305e503c60dada7d42aa67fc1f0e",
+      "byteCount": 34493
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "preimageSha256": "6a0637594dae5eb4d106eb8920ed3fb236d4da1f8916dad24780ccd266ab9a32",
+      "sha256": "3f03000e40d8458afb8685f27acbd1be216b20122b09118077d717794c78802b",
+      "byteCount": 197474
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "preimageSha256": "82048dbb49ee171e174592c94ac6d8d78b68082f6d58c3ba1678eeaeb662677f",
+      "sha256": "bdd8aa8543dde566eb22ae2956e2589a92693aa718b2943fdfb838e70f91fdee",
+      "byteCount": 3171685
+    }
+  ],
+  "inspectedDependencyFixtureExclusions": [
+    {
+      "path": "node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+      "sha256": "c954f79d2fa7f4d9779a6e7514cdf8df1eeb95d0097ea62cd3b785d20f2d0859",
+      "byteCount": 9888
+    },
+    {
+      "path": "node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+      "sha256": "c10203102fee328d6c8aedbd03319b8eeb364417c3b1137d714537fcd3102d69",
+      "byteCount": 1688
+    },
+    {
+      "path": "node_modules/json-schema-traverse/spec/fixtures/schema.js",
+      "sha256": "0262591e321bc88b22dc33ec78bcded5ab664e2fce2c10b9e0c35d3eb6030d27",
+      "byteCount": 5544
+    }
+  ],
+  "ownerJoins": {
+    "productContentDigest": "sha256:403dd393cd35f306764070c4861c799464373bc736bd348c7f9b64ce157f9310",
+    "canonicalManifestDigest": "sha256:9be3aff839dfd46483d679d2f62d36e58ac78a3c86e5bc04546feb1e663cc512",
+    "capabilityGraphDigest": "sha256:29fd1351f15d5e80b28061e34e9021e21122688df2ef3d7f0ff174f6e605bddb",
+    "publicContractCatalogDigest": "sha256:e72953f7645ca343270157507a204a33c3681422af40c1b6c7250536c6283d65",
+    "contributionManifestDigest": "sha256:3bdcf0cddb2ced451c9debcc6b88d3373cecf0faf0c378c8994d66ab16a61c43",
+    "publicationBindingCount": 10,
+    "contributionRowCount": 47,
+    "payloadCount": 5263,
+    "canonicalOwnerJoins": true
+  },
+  "runtimePackageMetadataUnchanged": true
+}

@@ -1,0 +1,47 @@
+{
+  "beforeCount": 934,
+  "afterCount": 934,
+  "added": [],
+  "removed": [],
+  "changed": [
+    {
+      "path": "build/code/src/abg/runtime_liveness.js",
+      "before": {
+        "path": "build/code/src/abg/runtime_liveness.js",
+        "sha256": "8e55aed6810f56bc557df87c10f7f4f8c98764eaa20add38fb312fbbbcad0403",
+        "byteCount": 74826
+      },
+      "after": {
+        "path": "build/code/src/abg/runtime_liveness.js",
+        "sha256": "6de1aa12e9cc2df4da7ccffdf31cf33d402c6360dcb1e991930b6feb13e03db3",
+        "byteCount": 74224
+      }
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "sha256": "80e0a265dffeb74576fbcf24aa939bfe42364fd4ef97a59ef4a798cd30423eae",
+        "byteCount": 197474
+      },
+      "after": {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "sha256": "eb9824b071351a402c27b370da8c97a18edaf90a94b7bf3d8c4203f11e6ec01c",
+        "byteCount": 197474
+      }
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "before": {
+        "path": "product-toolchain-manifest.json",
+        "sha256": "d3acd5026e398ce7a63e6456c1bbc3356581aeccb43586d3da79232c5739c227",
+        "byteCount": 3171685
+      },
+      "after": {
+        "path": "product-toolchain-manifest.json",
+        "sha256": "631a754aeb9bd60b9a7f8998a044428532a6c25cc18d604504098a634622b675",
+        "byteCount": 3171685
+      }
+    }
+  ]
+}

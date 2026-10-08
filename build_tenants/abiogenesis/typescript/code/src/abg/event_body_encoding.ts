@@ -1,7 +1,7 @@
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
-import type { RuntimeEvent } from "./event_store.js";
+import type { RuntimeEvent, RuntimeEventCandidate } from "./event_store.js";
 
 /** Storage-only vocabulary. Product values never reserve a marker or JSON path. */
 const REFERENCE_RECORD = "abg_admitted_body_reference_record";
@@ -24,6 +24,24 @@ export function inlineEventBody(event: RuntimeEvent): InlineBody | null {
   if (slot === null || !isRecord(event.payload) || !Object.hasOwn(event.payload, fieldFor(slot))) return null;
   const value = event.payload[fieldFor(slot)]!;
   return { event, slot, value, digest: sha256Canonical(value) };
+}
+
+/** Detach caller data first; only this store's committed inline body may be
+ * shared. Source eligibility and physical encoding remain the durable owner's. */
+export function captureRuntimeEventCandidate(
+  candidate: RuntimeEventCandidate,
+  committed?: Pick<ReadonlyMap<string, InlineBody>, "get">,
+): RuntimeEventCandidate {
+  const captured = JSON.parse(canonicalJson(candidate as unknown as JsonValue)) as RuntimeEventCandidate;
+  const slot = slotFor(captured.kind);
+  if (slot === null || committed === undefined || !isRecord(captured.payload) ||
+      !Object.hasOwn(captured.payload, fieldFor(slot))) return captured;
+  const value = captured.payload[fieldFor(slot)]!;
+  const source = committed.get(sha256Canonical(value));
+  if (source !== undefined && canonicalJson(source.value) === canonicalJson(value)) {
+    return { ...captured, payload: { ...captured.payload, [fieldFor(slot)]: source.value } };
+  }
+  return captured;
 }
 
 /** The caller stages additions and publishes them only with the durable batch. */

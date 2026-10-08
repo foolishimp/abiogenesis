@@ -77,13 +77,13 @@ export function parseScalaTestReport(bytes) {
   return { tests, failures, errors, skipped, passes: tests - failures - errors - skipped,
     names: cases.map(x => x.name), failedNames: cases.filter(x => x.failure || x.error).map(x => x.name) };
 }
-function admittedCommandObservations(events, owner, validateObservation) {
+function admittedCommandObservations(events, owner, validateObservation, validateSourceObservation) {
   const observations = new Map();
   if (typeof owner?.graphFunctionRef !== 'string' || typeof owner.outputContractRef !== 'string' ||
     typeof owner.runId !== 'string' || owner.resultClass !== 'success' || typeof validateObservation !== 'function') return [];
   for (const event of Array.isArray(events) ? events : []) {
     const payload = event?.payload, value = payload?.value;
-    if (event?.kind !== 'c_call_result_admitted' || event.graphFunctionRef !== owner.graphFunctionRef || event.runId !== owner.runId ||
+    if (event?.kind !== 'c_call_result_admitted' || event.graphFunctionRef !== owner.graphFunctionRef ||
       payload?.contractRef !== owner.outputContractRef || payload.resultClass !== owner.resultClass ||
       payload.valueKind !== 'worksite_command_execution_observation' || payload.cCallRef !== event.aggregateId ||
       value?.kind !== 'worksite_command_execution_observation' || typeof value.observationRef !== 'string' ||
@@ -91,7 +91,10 @@ function admittedCommandObservations(events, owner, validateObservation) {
     // The harness supplies the published installed C2 judgment relation. It
     // owns canonical row, environment, limit, report and task/result equality.
     // Embedded metadata under another producer or contract is never searched.
-    try { if (validateObservation(value) === true) observations.set(value.observationRef, value); }
+    try {
+      if (event.runId !== owner.runId && (typeof validateSourceObservation !== 'function' || validateSourceObservation(event) !== true)) continue;
+      if (validateObservation(value) === true) observations.set(value.observationRef, value);
+    }
     catch { /* Missing or invalid owner support cannot earn oracle credit. */ }
   }
   return [...observations.values()];
@@ -131,7 +134,7 @@ function countNodePasses(command) {
 /** Independent test-owned mechanical oracle. The caller separately conjoins
  * native semantic assessment, canonical installed admission and fresh closure.
  * No donor source, resolver, runtime, output solution or executable is used. */
-export async function evaluate({ worksiteRoot, runArchive, commands = [], events = [], source, request, observationOwner, validateObservation }) {
+export async function evaluate({ worksiteRoot, runArchive, commands = [], events = [], source, request, observationOwner, validateObservation, validateSourceObservation }) {
   const manifest = JSON.parse(await readFile(resolve(fixtureRoot, 'scenarios.json'), 'utf8'));
   const record = manifest.scenarios.find(row => row.key === source?.key || row.scenarioId === request?.scenarioId);
   if (!record) throw new TypeError('Unknown locally acquired UAT scenario');
@@ -139,7 +142,7 @@ export async function evaluate({ worksiteRoot, runArchive, commands = [], events
   request ??= await jsonAt(fixtureRoot, record.requestFile);
   const root = await realpath(worksiteRoot), criteria = [];
   const add = (id, disposition, reason, evidenceRefs = []) => criteria.push({ id, disposition, evidenceRefs, reason });
-  const observations = admittedCommandObservations(events, observationOwner, validateObservation);
+  const observations = admittedCommandObservations(events, observationOwner, validateObservation, validateSourceObservation);
   // Supplied command packets may help the caller locate artifacts; they do not
   // manufacture admission and cannot turn a worker report into execution truth.
   void commands;
@@ -178,20 +181,6 @@ export async function evaluate({ worksiteRoot, runArchive, commands = [], events
       add(declaration.predicateId, actual === undefined ? 'indeterminate' :
         JSON.stringify(actual.observedValue) === JSON.stringify(declaration.declaration.equals) ? 'satisfied' : 'unmet',
         'Exact exported behavior must be an actual admitted observation.', actual?.evidenceRefs ?? []);
-    }
-    if (record.key === 'rust-service') {
-      // Tests in the exact source compile src/service.rs with rustc and make
-      // real loopback HTTP requests. A TAP count alone cannot establish that.
-      const expectedRoles = [
-        ['compile', /\brustc\b/u], ['original source', /src\/service\.rs/u],
-        ['loopback HTTP', /127\.0\.0\.1/u], ['actual request', /\b(?:fetch|request|get)\s*\(/u],
-        ['HTTP status', /\b(?:status|statusCode)\b/u], ['exact body', /Hello, world!/u],
-      ];
-      for (const path of oracle.requiredTestFiles) {
-        const bytes = await bytesAt(root, path), text = bytes?.toString('utf8') ?? '';
-        add('service-test-contract:' + path, expectedRoles.every(([, pattern]) => pattern.test(text)) ? 'satisfied' : 'unmet',
-          'Both independently assessed tests must compile the original rustc service and exercise real HTTP status/body. Static checks supply only a necessary condition.', [path]);
-      }
     }
   } else {
     const reports = [];

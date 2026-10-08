@@ -139,11 +139,12 @@ export function constructWorksiteNativeInstructionAssembly(basis: NativeInstruct
       if (!declaredResult || schema === null || assessment?.producer.cCallRef === owner.call.cCallRef) return null;
       const role = stdo === null ? null : { frameRefs: stdo.frameRefs, policy: stdo.policy, contextPolicy: stdo.contextPolicy,
         sourceContent: stdo.sourceContent, accessContent: stdo.accessContent };
+      const presentation = assessment === undefined ? {} : { responsePresentation: "result_text" as const };
       const plan = { variant: "native-work", rendererRef: nativeIds.rendererRef, instructionContractRef: nativeIds.taskContractRef,
         resultContractRef, graphFunctionRef: owner.call.graphFunctionRef,
         programLocusRef: owner.call.programLocusRef, contextRef: supplied.context.observationRef,
         contextDigest: supplied.context.observationDigest, worksiteRoot: supplied.workspaceAuthorityBasis.canonicalRoot,
-        readRoots: supplied.context.readRoots, writeRoots: supplied.writeRoots, role };
+        readRoots: supplied.context.readRoots, writeRoots: supplied.writeRoots, role, ...presentation };
       const identity = assemblyIdentity("native-work", plan as unknown as Readonly<Record<string, JsonValue>>, owner,
         basis.predecessorPrefix, { nativeBasis: { ...basis, declarationGraphFunctions: [basis.graphFunction] }, task: supplied } as unknown as Readonly<Record<string, JsonValue>>);
       const prompt = (role === null ? "" : `Declared role context:\n${canonicalJson(role as unknown as JsonValue)}\n\n`) + renderNativeWorkspaceWorkOrder(supplied);
@@ -152,7 +153,7 @@ export function constructWorksiteNativeInstructionAssembly(basis: NativeInstruct
           implementationRef: nativeIds.implementationRef, inputDigest: owner.inputDigest,
           rendererRef: nativeIds.rendererRef, instructionContractRef: nativeIds.taskContractRef,
           resultContractRef, transportLane: "worker_executes", prompt,
-          responseJsonSchema: schema });
+          responseJsonSchema: schema, ...presentation });
     }
     const leaves = basis.graphFunction.template.nodes.flatMap(node => cLeafTerms(node.term))
       .filter(leaf => leaf.programLocusRef === owner.call.programLocusRef);
@@ -357,19 +358,23 @@ export function evaluateFramedSynthesisInstructionAssembly(basis: NativeInstruct
     const { owner, role, bindings, choices, rawContractRef } = context, task = context.input;
     const boundBasis = synthesisBoundBasis(context), response = framedSynthesisResponseSchema(task, bindings);
     const runEnvironment = selectorRunEnvironmentIdentity(role);
+    const carrier = { type: response.type!, properties: response.properties!, required: response.required!,
+      additionalProperties: response.additionalProperties! };
+    const responseSchemas = { canonicalResponseSchemaDigest: sha256Canonical(response),
+      carrierResponseSchemaDigest: sha256Canonical(carrier) };
     const sections = { role: { role: "selector", frameRefs: role.frameRefs, policy: role.policy, sourceContent: role.sourceContent,
       instruction: "Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. The task section is an owned judgment projection: originalTask contains the complete original task. File contentIn originalTask and sourceRanges locate exact text already presented in this prompt; no external read is needed. Other file content is supplied directly. Each work order also applies the original task; only exact repeated source text is omitted from its instructions. currentAtContext and staleDependencies describe byte correspondence only, never semantic adequacy. Return only the closed response JSON." },
       choices, task: projectFramedSynthesisPromptTask(task), evidence: { declaredAccess: role.accessContent }, response } as unknown as Readonly<Record<string, JsonValue>>;
-    const plan = { variant: "framed-synthesis", projectionLocus: context.profile.projection.nodeRef, runEnvironment,
+    const plan = { variant: "framed-synthesis", projectionLocus: context.profile.projection.nodeRef, runEnvironment, ...responseSchemas,
       rendererRef: governanceRef("renderer", "synthesis"), instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef,
       sectionOrder: ["role", "choices", "task", "evidence", "response"] };
     const prompt = renderInstructionSections(plan.sectionOrder, sections);
     if (Buffer.byteLength(prompt) > task.state.original.maxPromptBytes) return assemblyRefusal("declared_bound_overflow", null, "selector", [owner.inputRef]);
     const identity = assemblyIdentity("framed-synthesis", plan as unknown as Readonly<Record<string, JsonValue>>, owner, basis.predecessorPrefix,
       { sections, targetBindings: bindings, boundBasis } as unknown as Readonly<Record<string, JsonValue>>);
-    return finishInstructionAssembly(identity, { runEnvironment }, { actorRef: governanceRef("actor", "executive"), workerBindingRef: governanceRef("worker", "selector"),
+    return finishInstructionAssembly(identity, { runEnvironment, ...responseSchemas }, { actorRef: governanceRef("actor", "executive"), workerBindingRef: governanceRef("worker", "selector"),
       implementationRef: owner.call.implementationRef!, inputDigest: owner.inputDigest, rendererRef: plan.rendererRef,
-      instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef, transportLane: "closed_prompt_proof", prompt, responseJsonSchema: response });
+      instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef, transportLane: "closed_prompt_proof", prompt, responseJsonSchema: carrier });
   } catch { return assemblyRefusal("unknown_dependency", null, "selector", [basis.cCall.programLocusRef]); }
 }
 /** Actor admission already authenticates the consumed raw artifact/request.

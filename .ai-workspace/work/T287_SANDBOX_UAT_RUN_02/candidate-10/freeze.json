@@ -1,0 +1,148 @@
+{
+  "role": "Carrier10 coherent Source/build/candidate Worker",
+  "status": "FROZEN_UNRELEASED_SUCCESSOR_MECHANICAL_IDENTITY_ONLY",
+  "sourceHead": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodBasis": {
+    "version": "v2.5.1-rc.2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "sourceFreeze": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-carrier-repair-10/freeze.json",
+    "sha256": "be3891e8ea7a75811f49a52e846f782ca87359c1ba14fa70005e66758a695854",
+    "byteCount": 7569
+  },
+  "sourceReturn": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-carrier-repair-10/return.md",
+    "sha256": "f32c745c82f39bfb146da1da38db6f497011387003154817a66288718f26e24e",
+    "byteCount": 3802
+  },
+  "sourcePreimage": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-carrier-repair-10/preimage.json",
+    "sha256": "80b90f7647d4b2ac62f78f5c3a55a480b8a3ea70689705be3eec2ed51d1b61ad",
+    "byteCount": 4070
+  },
+  "return": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/return.md",
+    "sha256": "f303f188cec2d59f017aa51cb7b9f37da009c33fccc372fb0b1235236c94502c",
+    "byteCount": 2368
+  },
+  "baselineCandidate": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-09/freeze.json",
+    "sha256": "bd1eccd2eb12d99dcafdc7df669555feedc44cb1424bd2178835abca8b363171",
+    "byteCount": 6068
+  },
+  "baselineArchiveSha256": "33bcebc306a2481fb81d6b6290d5a2168ffe5a50faa4ddd519df3359266ec2e6",
+  "archive": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "8a82e3b62931b35af9dc655f31423cb07cb7c6b87dab7d2ddeb36ee42c40e2c6",
+    "byteCount": 10620905
+  },
+  "packageName": "@abiogenesis/typescript-tenant",
+  "packageVersion": "5.0.0-rc.1",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+  "identity": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/identity.json",
+    "sha256": "f5d3507806dd7124d7fc3ed242802b048a9096abdd7c60c4c6d4205ebc0be84c",
+    "byteCount": 3525
+  },
+  "ownerJoins": {
+    "productContentDigest": "sha256:403dd393cd35f306764070c4861c799464373bc736bd348c7f9b64ce157f9310",
+    "canonicalManifestDigest": "sha256:9be3aff839dfd46483d679d2f62d36e58ac78a3c86e5bc04546feb1e663cc512",
+    "capabilityGraphDigest": "sha256:29fd1351f15d5e80b28061e34e9021e21122688df2ef3d7f0ff174f6e605bddb",
+    "publicContractCatalogDigest": "sha256:e72953f7645ca343270157507a204a33c3681422af40c1b6c7250536c6283d65",
+    "contributionManifestDigest": "sha256:3bdcf0cddb2ced451c9debcc6b88d3373cecf0faf0c378c8994d66ab16a61c43",
+    "publicationBindingCount": 10,
+    "contributionRowCount": 47,
+    "payloadCount": 5263,
+    "canonicalOwnerJoins": true
+  },
+  "packCommand": "npm pack --ignore-scripts --json --pack-destination /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/packs",
+  "packExitCode": 0,
+  "packCount": 1,
+  "packReceipts": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/pack.json",
+      "sha256": "a312ef7eed15b3353bec33bb80be778ff4c7c318ed3f8696f4b5dc2d4ab81c5d",
+      "byteCount": 692700
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/pack.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/identity.log",
+      "sha256": "992dbc393a1530f8777b61b967e474a64dcc48328e8397f89c8bef981430eed3",
+      "byteCount": 606
+    }
+  ],
+  "checks": {
+    "archiveFileCount": 5265,
+    "payloadLocatorCount": 5263,
+    "compiledAndContractCount": 720,
+    "compiledAndContractsMatchClosedTenant": true,
+    "exactArchiveDelta": [
+      "build/code/src/abg/worker_transport.js",
+      "contracts/capabilities/capability-definition-graph.json",
+      "product-toolchain-manifest.json"
+    ],
+    "runtimePackageMetadataUnchanged": true,
+    "sourceFreezeUnchanged": true,
+    "noABGTestEnvOrBuiltinHelloPayload": true,
+    "canonicalOwnerJoins": true
+  },
+  "protectedCallerPins": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "byteCount": 26202
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "byteCount": 22857
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "1869bcc42124ba8426002b2e91691e620546b3965fa51195d6fcf4831c3a7cdb",
+      "byteCount": 17357
+    }
+  ],
+  "selectedConfigAndCandidatePins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-08/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "d8c58f4ac5a8ea7c773d324559e94bc0fdf8bf3545387f296180027555d808b4",
+      "byteCount": 10620551
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-08b.json",
+      "sha256": "432cef9a19355e88700183500f9f322533be32287090d8e0ed1d3810be2c2a82",
+      "byteCount": 2328
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-09/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "33bcebc306a2481fb81d6b6290d5a2168ffe5a50faa4ddd519df3359266ec2e6",
+      "byteCount": 10620872
+    }
+  ],
+  "dependencyFixtureExclusions": [
+    {
+      "path": "node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+      "sha256": "c954f79d2fa7f4d9779a6e7514cdf8df1eeb95d0097ea62cd3b785d20f2d0859",
+      "byteCount": 9888
+    },
+    {
+      "path": "node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+      "sha256": "c10203102fee328d6c8aedbd03319b8eeb364417c3b1137d714537fcd3102d69",
+      "byteCount": 1688
+    },
+    {
+      "path": "node_modules/json-schema-traverse/spec/fixtures/schema.js",
+      "sha256": "0262591e321bc88b22dc33ec78bcded5ab664e2fce2c10b9e0c35d3eb6030d27",
+      "byteCount": 5544
+    }
+  ],
+  "limits": "Mechanical package/source correspondence only. Independent Source and identity acceptance belongs to Root; no genuine installed successor UAT, semantic judgment, qualification or release claim. No additional editing/effects authorized.",
+  "frozenAt": "2026-10-06T10:03:18.528990+00:00"
+}

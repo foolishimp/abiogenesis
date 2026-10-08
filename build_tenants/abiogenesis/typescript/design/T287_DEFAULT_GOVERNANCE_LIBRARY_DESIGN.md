@@ -95,6 +95,46 @@ HOME, TMPDIR, LANG, LC_ALL or PATH from the reading process.
 Actor admission supplies the consumed raw observation to the same binder; there
 is no duplicate assembly or history walk at completion.
 
+**Framed-selector structured carrier (Run02 repair113):** assembly preserves the
+full canonical response schema, including root target/subject correlation, in
+the prompt and unchanged strict native binder. It derives the provider format
+root only from that same schema's `type`, `properties`, `required` and
+`additionalProperties`; every closed field and finite property domain is
+conserved. This carrier constrains shape; it does not claim semantic equivalence
+to the full canonical schema. The plan separately binds canonical and carrier
+schema digests; the request and manifest response-schema digest identify the
+carrier. Normal structured output is selected before dispatch, so Claude
+receives `--json-schema` and only its successful `structured_output` supplies
+the raw judgment. The existing strict I-JSON parser and canonical binder at
+completion and admission still reject malformed, empty, duplicate-key or
+incompatible choices. No fence parsing, fallback, provider edit to canonical
+meaning, generic schema stripping or adapter selector is introduced. Other
+profiles retain their selected presentation.
+
+**Immediate Testing prerequisite (Run02 repair20):** one pure projection of the
+already-bound `FramedSynthesisTask.context` identifies every
+`original.testing.selectedPaths` entry that is not an observed file. The owned
+prompt exposes those missing prerequisites; the response schema and strict raw
+binder permit immediate Testing only when none are missing. Every registered
+contribution row remains available, including future Testing work. F_P still
+chooses authoring, other work or null with a gap; presence proves no adequacy or
+completion. Testing always consumes the unchanged full original selected-file,
+command and predicate declaration. A proposed partial probe cannot replace that
+plan. C2 preparation, direct observed-file/no-author use and full original UAT
+remain with their existing owners.
+
+```mermaid
+sequenceDiagram
+  participant T as Bound synthesis task/context
+  participant O as Library prerequisite projection
+  participant S as Native selector
+  participant B as Strict raw binder
+  T->>O: original selected paths and observed file states
+  O->>S: same prompt facts and immediate-choice schema
+  S->>B: current mapping and explicit next choice
+  O->>B: same all-selected-files-present precondition
+```
+
 The projection consumes the actual preceding admitted synthesis Result. It
 transports `nextGraphFunctionRef`, reason/evidence and exact declared child
 contract into the unchanged `registered_graph_choice` or existing gap primitive.
@@ -111,6 +151,47 @@ The projection discards that wrapper. Older complete mappings remain their
 ordinary admitted C-call Results. Folded observations identify their synthesis
 Result and selected registered GraphFunction, conserving revision attribution
 without a second event ledger.
+
+**Selected native-work handoff (T287 Run02 repair12/13):** the existing wrapper
+projects the exact selected contribution into `NativeWorkspaceWorkTask.outcome`
+and its current admitted interpretation, contribution/reason and
+`nextReason`/evidence into that task's instructions. For authoring, the caller's
+original purpose outcome/task and unresolved outcomes remain conserved parent
+context; a bounded work unit may return useful partial work and gaps. For UAT,
+the full original outcome, complete sources, exact consumer rubric and all
+current criteria remain the governing assessment basis. The selected outcome
+identifies the assessment work, never permission for selected-only satisfaction;
+the return is the exact declared consumer assessment, preserving unmet and
+indeterminate criteria. The same task adaptation owns preparation and later
+observation correspondence.
+Selected meaning does not widen the supplied order, write roots or typed grant.
+Direct calls without a current selection retain their original outcome/order. Native
+assessment independence/currentness and Testing's actual-file prerequisites
+remain with their existing owners.
+
+```mermaid
+sequenceDiagram
+  participant S as Admitted current synthesis
+  participant W as Selected work wrapper
+  participant N as Existing native-work owner
+  participant P as Parent reassessment
+  S->>W: exact selected contribution and reason
+  W->>N: bounded meaning + unchanged order/grant
+  alt authoring
+    N-->>W: truthful partial report and remaining gaps
+  else UAT
+    N-->>W: full-original schema-valid consumer assessment
+  end
+  W->>P: retained observation + conserved original outcomes
+```
+
+The external DataMapper caller scopes author orders to their actual semantic
+responsibilities and allows one selected increment to return for reassessment.
+Its initial Testing selection is the original source plus actual SBT baseline
+inputs, not future qualification/mutation/release outputs. Every original final
+artifact, eight-module/report obligation, depth class, compiled-mutant red result
+and restored baseline remains parent-owned; repeated canonical C2 observations
+and independent native UAT still supply the eventual proof.
 
 Each work wrapper projects the common state into the existing native/C2 task,
 invokes its fixed child, and folds its truthful observation back. **FS-C02:**
@@ -131,6 +212,16 @@ inputs refuse before launch; original task/authority and unresolved support stay
 conserved through every mapping, choice and fold.
 
 ### DL-I02: selected subject evidence and supplied work
+
+The Product owner projects one target-specific subject domain from the existing
+folded carriers. Testing permits null (observe supplied files) or a unique
+non-assessment native report; UAT permits a unique native report or C2 command
+measurement. Assessment-only and unknown carriers are not source candidates.
+The response schema, raw binder and child subject preparation consume that same
+domain. This is typed constructibility, not suitability, freshness or authority:
+actual admitted Result/call/actor, binding and currentness checks remain with
+their existing native/C2 owners. Any author purpose may supply a native report;
+no construction-stage prerequisite or reduced Testing plan is introduced.
 
 `subjectEvidenceRef` explicitly selects an actual folded observation Result.
 Native evidence may come from any selected non-assessment native capability;
@@ -544,6 +635,54 @@ through the existing preparation exception boundary. The affected discriminator
 is the real baseline fold → parent reevaluation → next task → owned assembly,
 plus unchanged dynamic-domain/raw-answer and exact input identity checks.
 
+
+### Selector planning facts and retained measurement proof (Run02 repair31)
+
+The selector's existing private view carries all observation Result/digest/call,
+actor, selected-function and synthesis coordinates; complete original criteria,
+commands, current file identities, staleness, reports, gaps and unresolved
+coverage remain governing. Each C2 command retains its identity, status, timeout,
+signal, termination and observation facts; each report retains its identity,
+path, presence and bytes; each predicate retains its id, kind, actual value and
+citations. Detailed predicate proof and full raw streams remain unchanged in
+their canonical admitted owning Results and retained state, not mandatory inline
+selector planning content. Explicit omitted-body metadata cites that existing
+Result and digest plus the exact field path relative to its value; it creates no
+resource, lookup authority or automatic external read. Assessment still consumes
+the complete authenticated producer through its existing owner.
+
+Literal display excerpts retain exact UTF-8 byte ranges against the cited stream
+digest. Display selects lines containing the literal rendering cue `***`, then
+`[error]` lines, then boundary lines, within 8192 bytes and 32 excerpts per stream;
+omission is explicit. These are verbatim diagnostics, not parsed failure names,
+derived verdicts or adequacy judgments. Actual retained failure-name lines and
+citations must survive the focused discriminator, including mid-stream lines.
+C2 process success never implies application success. Canonical input, fold,
+raw binder, independent assessment and complete assembly byte bound stay exact.
+
+Literal UTF-8 decoding preserves a leading BOM as U+FEFF, as the existing native
+instruction/semantic-job source renderers do. C2 fold text, planning source text,
+whole-stream and clipped-range decoding must re-encode to the cited original
+bytes; no BOM, line-ending or Unicode normalization occurs. Semantic-stage
+source quotes/text obey the same exact-byte relation. Parse-only JSON/module
+decoders retain their own parsing law. Full Results, digests/lengths, source refs
+and assessment inputs remain unchanged; excerpts still grant no read authority.
+
+```mermaid
+sequenceDiagram
+  participant T as Bound FramedSynthesisTask
+  participant P as Existing planning projector
+  participant S as Owned selector assembly
+  T->>P: Full original and all retained observations
+  P->>S: Planning facts, exact owner citations, literal diagnostic ranges
+  S->>S: Check complete prompt against original bound
+```
+
+The captured eighteen-observation overflow and realistic controlled fifty-one-
+observation/sixteen-mutant history discriminate fact correspondence and complete
+prompt fit. They are mechanical readiness, not native mutation detection or UAT.
+Writer29's lossless-sharing counterexample remains frozen; genuine excess still
+refuses.
 
 ### Declared source roles in selector context (S6 live-02 correction)
 

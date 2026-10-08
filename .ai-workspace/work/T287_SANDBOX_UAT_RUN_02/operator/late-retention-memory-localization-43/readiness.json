@@ -1,0 +1,175 @@
+{
+  "kind": "Writer43_one_target_null_stop",
+  "status": "stopped_without_retry",
+  "staticPreflight": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/static-preflight.json",
+    "status": "pass",
+    "wallMs": 505.0408340000001,
+    "childJoinCount": 18,
+    "executiveStepAsParent": true,
+    "originalCallableMembershipChecked": true
+  },
+  "targetScriptUnchangedFrom42": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/diagnostic.mjs",
+    "sha256": "b6cc88a7f14ec3b32ed94217979708ec0a65e0bee3cbd7c2c0522616036f9890",
+    "byteCount": 16366
+  },
+  "oneCompleteExistingReaderAcquisition": {
+    "eventCount": 200571,
+    "byteCount": 1167689615,
+    "coordinateDigest": "sha256:502b7663f83457530e3577fd4584517fa3880f6eb8c226ec6721e9df3917dc91",
+    "requireCurrent": true
+  },
+  "target": {
+    "callCount": 1,
+    "owner": "deriveRetainedCCallInputAtPrefix",
+    "ownerTriples": {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+        "sha256": "6c2af3755c2c97514dda0206b5ab2927ae290739c4609b6a8ecfcaf28b882335",
+        "byteCount": 212646
+      },
+      "built": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/traversal_route.js",
+        "sha256": "98fc4f08faedebe83b8dc58b492d4b88a7c3ab6c9ad9288b5499a80adce27ea4",
+        "byteCount": 184403
+      },
+      "installed": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/traversal_route.js",
+        "sha256": "98fc4f08faedebe83b8dc58b492d4b88a7c3ab6c9ad9288b5499a80adce27ea4",
+        "byteCount": 184403
+      },
+      "compiledBytesEqual": true
+    },
+    "sourceLine": 4071,
+    "scriptCallLine": 136,
+    "authenticReadyFacts": {
+      "stage": "retention_boundary_ready",
+      "at": "2026-10-07T14:06:47.860Z",
+      "cCallRef": "c-call:sha256:63a813040ff7c27ee1374ed21f1c40ec3d5d40dc6864cb224dee723f94cf566b",
+      "basisRef": "execution-basis://abiogenesis/28a6ec9289b52e7f958ec3ae0b617153295c38819206cc6a808f2e3f47ba532e",
+      "cursorRef": "traversal-cursor://abiogenesis/3ec28a567099b19722e726a0c076d5c9b3120061469022780cded4861ad26c2f",
+      "resultRef": "result://abiogenesis/6c2c0d91bdbce721e8059fc53840764f07d6a02082eb5a3a588cc321f3e1212a",
+      "judgmentRef": "judgment://abiogenesis/8494b06b7d19e482de167825d1f496c75f0db73fb52f18491cc14a8773fb6d5e",
+      "memory": {
+        "label": "prefix_and_all_exact_guard_inputs_retained",
+        "elapsedMs": 24485.693583,
+        "rss": 3108110336,
+        "heapTotal": 1715748864,
+        "heapUsed": 1565944648,
+        "external": 2436654,
+        "arrayBuffers": 27015,
+        "heapSizeLimit": 4496293888
+      }
+    },
+    "returned": null,
+    "retainedOutputAvailable": false,
+    "nullContractBranches": "existing owner permits null for non-graph-edge continuation or absent edge inputBinding; exact branch was not emitted by this instrument",
+    "notClaimed": [
+      "completed child-foldback check inside retention owner",
+      "target raw admission",
+      "retained output digest/causation proof",
+      "post-target collection/lifetime or context release facts"
+    ]
+  },
+  "firstCause": {
+    "source": "diagnostic requireValue at line45, called at136",
+    "failure": {
+      "name": "TypeError",
+      "message": "TypeError: missing owner-rehydration relation: next ordinary retained input",
+      "stack": "TypeError: missing owner-rehydration relation: next ordinary retained input\n    at requireValue (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/diagnostic.mjs:45:91)\n    at exerciseOnce (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/diagnostic.mjs:136:18)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/diagnostic.mjs:167:11"
+    },
+    "classification": "expected owner nullable relation was absent; instrument converted null to TypeError",
+    "frameworkRefusalOrMemoryFailureProved": false
+  },
+  "command": {
+    "exitCode": 1,
+    "signal": null,
+    "wallMs": 24959.605874988483,
+    "timedOut": false,
+    "truncated": false,
+    "pid": 37847,
+    "pgid": 37847
+  },
+  "samples": [
+    {
+      "label": "owners_loaded",
+      "elapsedMs": 10.183750000000032,
+      "rss": 175308800,
+      "heapTotal": 105103360,
+      "heapUsed": 34225216,
+      "external": 2441168,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888
+    },
+    {
+      "label": "before_one_cold_acquisition",
+      "elapsedMs": 267.561125,
+      "rss": 321437696,
+      "heapTotal": 215236608,
+      "heapUsed": 79679728,
+      "external": 2441208,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888
+    },
+    {
+      "label": "cold_acquisition_returned",
+      "elapsedMs": 22424.226667,
+      "rss": 3233120256,
+      "heapTotal": 1851015168,
+      "heapUsed": 1720849408,
+      "external": 1170126269,
+      "arrayBuffers": 1167716630,
+      "heapSizeLimit": 4496293888
+    },
+    {
+      "label": "cold_events_retained",
+      "elapsedMs": 22559.556458,
+      "rss": 3030106112,
+      "heapTotal": 1630208000,
+      "heapUsed": 1478821424,
+      "external": 2436654,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888
+    },
+    {
+      "label": "prefix_and_all_exact_guard_inputs_retained",
+      "elapsedMs": 24485.693583,
+      "rss": 3108110336,
+      "heapTotal": 1715748864,
+      "heapUsed": 1565944648,
+      "external": 2436654,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888
+    }
+  ],
+  "allocationSampling": {
+    "sampleCount": 24405,
+    "includesCollectedObjects": true,
+    "aggregateSampleWeights": 28696168880,
+    "isLiveRetainerAttribution": false
+  },
+  "exactDiagnosticPidObservation": {
+    "observedAt": "2026-10-07T14:09:19.443490+00:00",
+    "command": "ps -p 37847 -o pid=,ppid=,pgid=,stat=,etime=,command=",
+    "exitCode": 1,
+    "output": "",
+    "signalSent": false,
+    "scope": "selected diagnostic PID only"
+  },
+  "protectedStoreStatAfter": {
+    "device": 16777231,
+    "inode": 467205895,
+    "byteCount": 1167689615,
+    "mtimeNs": "1791359951311203492"
+  },
+  "closedReferencesFreshlyMatch": true,
+  "priorCutsSourceAppRuntimeControlsUnchanged": true,
+  "limits": [
+    "one cold pure boundary attempt, not aborted live-process reproduction",
+    "no target output/release measurement",
+    "no dominant4GB retainer attribution",
+    "native38 P0 remains unresolved",
+    "no second acquisition/retry/replay/recovery/Run/Source/HOW/app/Git effects"
+  ]
+}

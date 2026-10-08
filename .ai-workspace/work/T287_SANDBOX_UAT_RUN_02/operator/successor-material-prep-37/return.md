@@ -1,0 +1,11 @@
+Writer37 FROZEN preparation only; candidate16 publication accepted by Root CLOSED Source36+Proof36 exact identity/freeze conjunction; no runtime/model/deployment release or effects.
+Candidate16 sha256:c6a8e51bdcfba28324b3158e5805510631548ea80af2374c41c19c2f03870ea0 /10623969B; exact identity d6acfc2842b9e683fc0a3be2add5dc03f9d351c4ab3079f223c30ad2b2897ced.
+Stopped34 supplies exactly4 protected originals+41 authorized native files,49 literal acquired rows; existing acquireResumeMaterial accepted in387.19570899999997ms with streamed816181362B store hash 03147e0ec30ee4c5b935c9b6a6d6de5ed4283d6614d8658194ebe24ef9798ba9. No whole-store copy/replay.
+Accounting mutant remains 7ff8d8b73d7acd7138f69007463b4dea869837292c78dfbf1aa91935b3e8ee9c/2083B; current native after bytes preserved, no Operator restoration. Old8detections/8restores/21observations/parent are provenance only, no fresh-native credit.
+All7 original acquisition rows/request/source/oracle checks pass; original whole workload exact. New input has source:none by existing Public owner,observations[],synthesis:null,terminal:false; no lifecycle call/admission.
+Config 1143a9097726a99a01d653e1d360df66fb31f7444058eef40ba529b70d6fe72b/2961B differs from immutable33 ONLY package2+material selector4 fields; model/toolchains/environment/grants/original obligations remain equal.
+Canonical B18015000<I18030000<A18040000<driver18060000; command18000000/grace10000; native256MiB/recorder512MiB; recursion1000; no turn/USD cap.
+OriginalT0 2026-10-06T20:52:43.725Z and firstcheckpoint01:52:43.725Z retained as history; Root continued01:51:28Z/ACK01:52:06.903Z. CURRENT external quality checkpoint2026-10-07T06:52:43.725Z/Sydney17:52:43.725; Root may continue/stop, no clock reset.
+Exact launch/owned C2-before-provider stop plan setup 59ae4c672b096c1939ddfbd7b9be81ad945ce8bfeaf712a9df0bfafc3f33d07a; recorder19260000ms is setup/drainage only.
+Source34 grant hash transcription resolved to actual frozen receipt 6df05d0c60fe316ced2474e854c8856b25b33f1f655b218fe2ee09f5d89214e0; all selected controls/source/material freshly conserved.
+Readiness 51607b2681cbb58e1e4c5fcd2b9a58f831e74d9bb71d0c71645e3ea862d8823e; preparation has no installed/native/UAT/quality/recovery/qualification claim. All writes STOPPED; Root owns next conjunction/release.

@@ -1,0 +1,7 @@
+Direct Claude diagnostic stopped without a completed model response.
+
+One ordinary direct tools.exec_command invocation ran the configured CLI2.1.290/model claude-opus-5-5 with no custom child-process wrapper. Existing inherited OAuth source was present. After approximately31.7s unresolved, the Operator sent Ctrl-C; direct tool completion was observed (exit0). Claude JSON is_error=true/subtype=error_during_execution/terminal_reason=aborted_streaming. It reports duration_api_ms=0, zero input/output tokens, USD0, empty modelUsage and no permission_denials. Exit0 is not provider/UAT success; exact request and all tool responses are retained here.
+
+Actual inherited CODEX_PERMISSION_PROFILE=:workspace, CODEX_SANDBOX=seatbelt, CODEX_SANDBOX_NETWORK_DISABLED=1. These differ from the danger-full-access flags Root observed in both current launch scripts. The direct invocation did not relax the active managed profile or complete a provider response. Root separately conjoins this with the ordinary resolver ENOTFOUND observations. There is no evidence that the prior Node child wrapper alone causes the problem.
+
+No sandbox_permissions field, permission/profile bypass, proxy, new Codex process, credential change, source repair, UAT Run or automatic retry occurred. All seven live UATs remain unexecuted; previous failure/config records remain unchanged. Return stopped for Executive disposition of the actual launch/session profile.

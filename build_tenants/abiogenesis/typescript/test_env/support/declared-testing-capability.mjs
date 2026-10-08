@@ -489,7 +489,7 @@ export async function setupTestingInvocation({ packageRoot, scratch, inputRoot, 
     const carrier = { contract: inputContract, valueRef: "value://declared-testing.example/" + ordinal, valueDigest: hash(input), value: input };
     const eventResource = reopen(), steeringDigest = hash(eventResource);
     const slots = { graph_function: null, verification_references: null, execution_basis: null,
-      workspace_binding: boundSlots.workspace_binding, product_set: environment.productInstalls.map(i => ({ ref: i.installId, digest: i.productContentDigest })),
+      workspace_binding: boundSlots.workspace_binding, product_set: environment.productInstalls.map(product.productInstallCoordinate),
       dependency_lock: lock, catalog_scope: catalogScope, execution_program: { ref: programRef, digest: resolution.resolution.programDigest }, input_contract: carrier,
       session_policy: { ref: policy.policyRef, digest: policy.policyDigest }, capability_grants: { requiredCapabilityRefs: [...packet.metadata.capabilityRefs], grants: grants.map(g => ({ ref: g.grantRef, digest: g.grantDigest })) },
       actor: { actor: { ref: actorRef, digest: hash({ actorRef }) }, attribution: { ref: authority.authorityRef, digest: authority.authorityDigest } },

@@ -1,0 +1,150 @@
+{
+  "status": "STOPPED_ON_ADDITIONAL_WHOLE_RUN_LIVENESS_HEAP_OOM",
+  "mechanism": "Unmodified18 heldsingleacquisition→same exportedcanonicalreplaykernel→additionalwholeRunliveness(undefinedgraphCallId)→IJson(unreached)",
+  "limitation": "Exact exported projectRunReplayContext delegates same kernel as private canonicalRunContext; wrapper checks/Public envelope not executed",
+  "command": {
+    "exitCode": null,
+    "signal": "SIGABRT",
+    "wallMs": 111688.620083,
+    "timedOut": false,
+    "truncated": false,
+    "stdoutBytes": 2089,
+    "stderrBytes": 6768
+  },
+  "stages": [
+    {
+      "stage": "acquisition-start",
+      "at": "2026-10-08T04:45:09.766Z",
+      "elapsedMs": 249.01062500000003,
+      "memory": {
+        "rss": 180076544,
+        "heapTotal": 115326976,
+        "heapUsed": 60255344,
+        "external": 2742051,
+        "arrayBuffers": 356153
+      },
+      "maxRSSKiB": 192608,
+      "pid": 5261,
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+      "expectedBytes": 1182449986,
+      "runRef": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93"
+    },
+    {
+      "stage": "acquisition-complete",
+      "at": "2026-10-08T04:45:33.340Z",
+      "elapsedMs": 23823.168208000003,
+      "memory": {
+        "rss": 3496099840,
+        "heapTotal": 2117058560,
+        "heapUsed": 2023234032,
+        "external": 1184891950,
+        "arrayBuffers": 1182476825
+      },
+      "maxRSSKiB": 3414176,
+      "pid": 5261,
+      "eventCount": 165617,
+      "lastOrdinal": 165617,
+      "fullPrefixSelected": true,
+      "currentOwnerPrefix": "sha256:a2929c1f9dbfbfee2cbfb0e5bfb3c871dc66d5e6c7d7d8c63b80dd6e91c1aa23"
+    },
+    {
+      "stage": "canonical-replay-start",
+      "at": "2026-10-08T04:45:33.341Z",
+      "elapsedMs": 23823.565833,
+      "memory": {
+        "rss": 3496116224,
+        "heapTotal": 2117058560,
+        "heapUsed": 2023271736,
+        "external": 1184891950,
+        "arrayBuffers": 1182476825
+      },
+      "maxRSSKiB": 3414176,
+      "pid": 5261
+    },
+    {
+      "stage": "canonical-replay-complete",
+      "at": "2026-10-08T04:46:57.382Z",
+      "elapsedMs": 107863.76091699999,
+      "memory": {
+        "rss": 4364697600,
+        "heapTotal": 4099768320,
+        "heapUsed": 3965382136,
+        "external": 2437410,
+        "arrayBuffers": 26839
+      },
+      "maxRSSKiB": 5474176,
+      "pid": 5261,
+      "replayRunId": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93",
+      "replayStatus": null,
+      "terminalResultAvailable": false,
+      "semanticEventAtomCount": 165614,
+      "semanticPhysicalEventCount": 165614,
+      "replayCCallCount": 265,
+      "limitation": "private canonicalRunContext wrapper checks/envelope omitted; same exported replay kernel"
+    },
+    {
+      "stage": "additional-whole-run-liveness-start",
+      "at": "2026-10-08T04:46:57.383Z",
+      "elapsedMs": 107864.714333,
+      "memory": {
+        "rss": 4364845056,
+        "heapTotal": 4099768320,
+        "heapUsed": 3965440728,
+        "external": 2437410,
+        "arrayBuffers": 26839
+      },
+      "maxRSSKiB": 5474176,
+      "pid": 5261
+    }
+  ],
+  "timings": {
+    "acquisitionMs": 23574.157583000004,
+    "canonicalKernelMs": 84040.19508399999,
+    "wholeRunStartElapsedMs": 107864.714333,
+    "wholeRunAbortApproxMs": 3823.9057500000054
+  },
+  "completedFacts": {
+    "events": 165617,
+    "semanticAtoms": 165614,
+    "semanticPhysicalCoordinates": 165614,
+    "cCalls": 265,
+    "terminalResultAvailable": false
+  },
+  "firstCause": "AdditionalwholeRun projectNativeLivenessRead didnotreturn; nativeSIGABRT heapOOM with ArrayPrototypeSlice/FlatMap frames after completedcanonicalkernelheldheap~3.965GB. Precise dominantretainer/temporaryallocation unresolved.",
+  "notReached": [
+    "IJsonadmission",
+    "Publicenvelope/digest/pagination",
+    "normalclose"
+  ],
+  "conservation": {
+    "samePhysicalStoreStat": true,
+    "store": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+      "byteCount": 1182449986,
+      "device": 16777231,
+      "inode": 467374253,
+      "mtimeNs": "1791404494476866055",
+      "selectedWholeDigest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6"
+    },
+    "digestProof": "One real reopen authenticated fullselectedphysicalbytes/profile; subsequentunmodifiedoperations pure/noappend; postabortstatmatched. No secondfullread/hash.",
+    "controlPinsConserved": 5,
+    "ownerFilePinsConserved": 27,
+    "physicalMaterialPinsConserved": 48,
+    "originalFourIncluded": true,
+    "noEventAppend": true,
+    "noModelsOrNewRun": true,
+    "noOwnerEdits": true,
+    "noExplicitGCOrHeapFlags": true
+  },
+  "residue": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/replay-owner-memory-discriminator-56/residue.json",
+  "claims": {
+    "defaultHeap": true,
+    "pureMechanismOnly": true,
+    "nativeUAT": false,
+    "fullPublicReplayReturned": false,
+    "wholeRunLivenessReturned": false,
+    "exclusiveOldOwnerRestored": false,
+    "memoryP0Closed": false
+  },
+  "nextAction": "ExecutiveSource/Prooftriangulation; no repeat/recovery/ownerchange under56"
+}

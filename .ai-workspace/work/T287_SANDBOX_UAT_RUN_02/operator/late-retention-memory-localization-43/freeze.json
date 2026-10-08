@@ -1,0 +1,128 @@
+{
+  "kind": "Writer43_one_target_missing_relation_freeze",
+  "status": "stopped",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/allocation-sampling.json",
+      "sha256": "d4dd7141a6effbd5f1bf8d8545bebd74d4d02ced8bea95d2548ce05d81ae8c37",
+      "byteCount": 1553146
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/command.pid.json",
+      "sha256": "8f0900d9025add0b3e928d3756b22ec65c66ac802cbae16c9a454ef0ba399cc8",
+      "byteCount": 111
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/command.request.json",
+      "sha256": "db34ddd0bc6d1476955c5cfbbb035a0a4c6d7382be9d70f704b132ada8a4e6b6",
+      "byteCount": 411
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/command.result.json",
+      "sha256": "3f2888e260b0b3514838d5049c0c281e519ef003f4fd00c51ed3d929ebd8ca98",
+      "byteCount": 1186
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/command.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/command.stdout",
+      "sha256": "b871e1c85a8e88ce72141ffc290543df70441a15b70e73b1df099a5e06cca8b4",
+      "byteCount": 1678
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/diagnostic.mjs",
+      "sha256": "b6cc88a7f14ec3b32ed94217979708ec0a65e0bee3cbd7c2c0522616036f9890",
+      "byteCount": 16366
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/measurement.json",
+      "sha256": "ff3ee36b96a58b5c4529768cb8406713785e6c063369e408c7092c60bdb4bfe0",
+      "byteCount": 16710
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/preparation.json",
+      "sha256": "286fb9493ba470b1840708cef6e95cae24eb3b07819743f8b11cfbd05563a958",
+      "byteCount": 11993
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/progress.jsonl",
+      "sha256": "b871e1c85a8e88ce72141ffc290543df70441a15b70e73b1df099a5e06cca8b4",
+      "byteCount": 1678
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/readiness.json",
+      "sha256": "68bb97ae38ac2fa16d07d36f35672a5127e4d36423d5816b18c4edc6fd47b4d3",
+      "byteCount": 7106
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/return.md",
+      "sha256": "7e3920ed30f0d824d72bd4a8be060aec1ee866376362ebb00e41001727cbae23",
+      "byteCount": 1948
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/static-preflight.json",
+      "sha256": "278a56b14eacb103b4c7533c763302313fc942d87ef883acccf7318605240052",
+      "byteCount": 6461
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-43/static-preflight.mjs",
+      "sha256": "6282bc1d0a5b7a497a2803cb1b4fd995bf643fdeefba81fad430b5bf0b4ef037",
+      "byteCount": 4212
+    }
+  ],
+  "closedRefs": {
+    "full-prefix-memory-localization-40/freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/freeze.json",
+      "sha256": "5cb11974914d70f139c615560d1876f4c03a37781d643cf8bb4f4e827d9597ed",
+      "byteCount": 5475
+    },
+    "full-prefix-memory-localization-40/measurement.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/measurement.json",
+      "sha256": "b6fea58ecb0135c4b4b3d21e66b1ecc477bdf7b7999d65bcf59d2a3ff93a1948",
+      "byteCount": 31579
+    },
+    "installed-successor-execution-38/execution-freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-38/execution-freeze.json",
+      "sha256": "4be21730b60a651def6b0e5a0f6ed9d2070cf485304d2fb8c212872467df3015",
+      "byteCount": 46311
+    },
+    "late-retention-memory-localization-41/freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/freeze.json",
+      "sha256": "533d5b03da5d0aa2e4101ee115c1048dcb49d7031e70c0928899cc27537a10f4",
+      "byteCount": 6229
+    },
+    "late-retention-memory-localization-42/freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-42/freeze.json",
+      "sha256": "8220c5d6dcd52f7778ca974a8cf0618448ba2300759fb6f120bb0c3aaac57b74",
+      "byteCount": 4278
+    }
+  },
+  "owner39Preparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/heap-retention-localization-39/preparation.json",
+    "sha256": "6bbc88e3560f973bb1bc0ff3d2dbdcec1f8a30a2caa5425a5eb1ca7b3c72f5ee",
+    "byteCount": 71981
+  },
+  "diagnosticPreimage": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-42/diagnostic.mjs",
+    "sha256": "b6cc88a7f14ec3b32ed94217979708ec0a65e0bee3cbd7c2c0522616036f9890",
+    "byteCount": 16366
+  },
+  "selectedCoordinate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/selected-coordinate.json",
+    "sha256": "4afd6392625c596490e208030b57425d859bc399a4ae903adaf6564bfbfc0ddc",
+    "byteCount": 709
+  },
+  "protectedStoreStat": {
+    "device": 16777231,
+    "inode": 467205895,
+    "byteCount": 1167689615,
+    "mtimeNs": "1791359951311203492"
+  },
+  "targetCallCount": 1,
+  "fullEventAcquisitionCount": 1,
+  "targetReturnedNull": true,
+  "noFurtherEffectsSelected": true
+}

@@ -22,6 +22,7 @@ import type {
 } from "../abg/execution_basis.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import type { WorkspaceBinding } from "../product/environment.js";
+import type { WorkerTransportRequest } from "../abg/worker_transport.js";
 
 export interface DeterministicEvidenceCandidate {
   readonly kind: "deterministic_evidence_candidate";
@@ -70,6 +71,7 @@ export interface ProbabilisticWorkerRequest {
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
   readonly prompt: string;
   readonly responseJsonSchema: Readonly<Record<string, JsonValue>>;
+  readonly responsePresentation?: WorkerTransportRequest["responsePresentation"];
 }
 
 export interface ProbabilisticWorkerObservation {

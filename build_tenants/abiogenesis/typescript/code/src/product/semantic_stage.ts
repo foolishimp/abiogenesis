@@ -149,7 +149,7 @@ export function groundSemanticSourceQuote(handoff: RequirementHandoffOutput, sel
   if (member === undefined || payload === undefined || selected.quote.length === 0) return null;
   const bytes = Buffer.from(payload.base64, "base64");
   const quoteBytes = Buffer.from(selected.quote, "utf8");
-  if (new TextDecoder("utf-8", { fatal: true }).decode(quoteBytes) !== selected.quote) return null;
+  if (new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(quoteBytes) !== selected.quote) return null;
   const startByte = bytes.indexOf(quoteBytes);
   if (startByte < 0 || bytes.indexOf(quoteBytes, startByte + 1) !== -1) return null;
   return deepFreeze({ contextRef: handoff.declaration.context.contextRef, memberRef: member.memberRef,
@@ -158,7 +158,7 @@ export function groundSemanticSourceQuote(handoff: RequirementHandoffOutput, sel
 export function semanticSourceText(handoff: RequirementHandoffOutput): readonly { readonly memberRef: string; readonly path: string; readonly text: string }[] {
   return handoff.source.members.map((source, i) => ({ memberRef: source.memberRef,
     path: handoff.declaration.context.members[i]!.path,
-    text: new TextDecoder("utf-8", { fatal: true }).decode(Buffer.from(source.base64, "base64")) }));
+    text: new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(Buffer.from(source.base64, "base64")) }));
 }
 
 export function isSemanticWorksiteBasis(value: unknown): value is SemanticWorksiteBasis {
@@ -334,7 +334,7 @@ export function deriveSemanticWorksiteConstructionConfiguration(envelope: Semant
         }),
         worksiteInventoryDigest: hash(worksite),
         currentWorksite: contextRows.map(row => ({ targetRef: row!.target.targetRef, path: row!.target.subject.relativePath,
-          role: row!.role, text: new TextDecoder("utf-8", { fatal: true }).decode(Buffer.from(row!.base64, "base64")) })),
+          role: row!.role, text: new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(Buffer.from(row!.base64, "base64")) })),
         commands, outcomePredicates: worksite.outcomePredicates } as unknown as JsonValue),
     ].join("\n\n");
     const constructionTask = constructWorksiteConstructionTask({ workspaceAuthorityBasis: worksite.workspaceAuthorityBasis,

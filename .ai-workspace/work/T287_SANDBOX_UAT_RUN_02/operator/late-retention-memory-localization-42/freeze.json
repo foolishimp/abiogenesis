@@ -1,0 +1,82 @@
+{
+  "kind": "Writer42_static_premise_failure_freeze",
+  "status": "stopped",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-42/diagnostic.mjs",
+      "sha256": "b6cc88a7f14ec3b32ed94217979708ec0a65e0bee3cbd7c2c0522616036f9890",
+      "byteCount": 16366
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-42/preparation.json",
+      "sha256": "e86e71d4f92643a0e32be0d08bd70de6a163eb510e0a03164488d17b2a13ff80",
+      "byteCount": 11631
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-42/readiness.json",
+      "sha256": "2ca9ba5fa8481be618050758474d5f1f704921f0ef0cfe29f134a56a2396d6d0",
+      "byteCount": 3838
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-42/return.md",
+      "sha256": "384601beb5962070e0ce244af18c91d86fd07297cc52757bdec0cba4e1d2f6b2",
+      "byteCount": 1478
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-42/static-preflight.json",
+      "sha256": "6fe04b290614f9d79effc3ea4b9868f3add3f1544ab6f3f8bb7e69032303fef7",
+      "byteCount": 541
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-42/static-preflight.mjs",
+      "sha256": "915bb2304cec22ced6e6833d2bbd5140a0d9eccb8dcb244b3943560a6aa33a4b",
+      "byteCount": 4184
+    }
+  ],
+  "reusedClosedRefs": {
+    "full-prefix-memory-localization-40/freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/freeze.json",
+      "sha256": "5cb11974914d70f139c615560d1876f4c03a37781d643cf8bb4f4e827d9597ed",
+      "byteCount": 5475
+    },
+    "full-prefix-memory-localization-40/measurement.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/measurement.json",
+      "sha256": "b6fea58ecb0135c4b4b3d21e66b1ecc477bdf7b7999d65bcf59d2a3ff93a1948",
+      "byteCount": 31579
+    },
+    "installed-successor-execution-38/execution-freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-38/execution-freeze.json",
+      "sha256": "4be21730b60a651def6b0e5a0f6ed9d2070cf485304d2fb8c212872467df3015",
+      "byteCount": 46311
+    },
+    "late-retention-memory-localization-41/freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/freeze.json",
+      "sha256": "533d5b03da5d0aa2e4101ee115c1048dcb49d7031e70c0928899cc27537a10f4",
+      "byteCount": 6229
+    }
+  },
+  "old39OwnerPreparation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/heap-retention-localization-39/preparation.json",
+    "sha256": "6bbc88e3560f973bb1bc0ff3d2dbdcec1f8a30a2caa5425a5eb1ca7b3c72f5ee",
+    "byteCount": 71981
+  },
+  "conformanceSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/calls/program-conformance.request.jsonl",
+    "sha256": "fc1be0ad47864e61db850dc51445134e704fde7d3f47f481d963d91af873143d",
+    "byteCount": 36221719
+  },
+  "selectedCoordinate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/selected-coordinate.json",
+    "sha256": "4afd6392625c596490e208030b57425d859bc399a4ae903adaf6564bfbfc0ddc",
+    "byteCount": 709
+  },
+  "protectedStoreStat": {
+    "device": 16777231,
+    "inode": 467205895,
+    "byteCount": 1167689615,
+    "mtimeNs": "1791359951311203492"
+  },
+  "fullEventReadCount": 0,
+  "targetCallCount": 0,
+  "noFurtherEffectsSelected": true
+}

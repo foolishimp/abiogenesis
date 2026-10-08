@@ -1,0 +1,9 @@
+Operator115 CLOSED PASS / FROZEN STOP.
+
+One real Claude Code2.1.291 / Opus5.5 closed_prompt_proof invocation accepted113's exact four-field structured carrier. Actual --json-schema argv is retained in request.json; canonical schema digest sha256:3778dc9e274cbba99c1e483709b281a3621bff5fbd0b465f3ea7cd150347a0e7 and carrier digest sha256:dede88875cd1087d70dff29fe7cff5b7ed41d4a3307f29b4c092b8a4ca4ee2a8 remain separate. The211239-byte captured109 selector3 prompt/task1659/binding1672 were used unchanged. Full canonical schema stays in the prompt and unchanged installed22 Product binder.
+
+Provider structured_output was present; unmodified owner parser returned closed JSON, and bindFramedSynthesisResult accepted it against captured task/targets/boundBasis, preserving canonical state. Selected graph-function://abiogenesis/default-library/construction@5; subject None. This is a pilot choice only, never an admitted runtime judgment.
+
+Provider178869ms/2turns/$1.0899; owner transport wall179861.362ms. Token accounting is preserved exactly in result.json/readiness.json. Exit0, no timeout/signal, toolCallCount0, exitObserved/terminationConfirmed true; both owned PIDs absent, no signals or retries. All5installed owner modules, captured109store and48selected worksite files match fresh after execution. No old archive, app, Source, native Run or Git effects.
+
+[Request](request.json), [result](result.json), [readiness](readiness.json), [closure](closure.json), and normal transport archives carry exact raw streams/output/argv/prompt identities. No normalization/fence removal or schema rewriting was applied. Proof is bounded to actual host/structured carrier/unchanged binder correspondence; ABG admission/current application/full UAT/P0/release remain unearned. Root owns publication/next-native selection.

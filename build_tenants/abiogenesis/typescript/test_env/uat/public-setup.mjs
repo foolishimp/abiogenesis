@@ -19,8 +19,10 @@ export class BoundaryFailure extends Error {
 export function requireKind(value,kind,stage){if(value?.kind!==kind)throw new BoundaryFailure(stage,value);return value;}
 export async function installedModules(root) {
   const load=name=>import(pathToFileURL(join(root,'build/code/src',name,'index.js')).href);
-  const [product,abg,gtl,validator,api]=await Promise.all(['product','abg','gtl','validator','public'].map(load));
-  return {product,abg,gtl,validator,api};
+  const [product,abg,gtl,validator,api,invocationTruth]=await Promise.all([
+    ...['product','abg','gtl','validator','public'].map(load),
+    import(pathToFileURL(join(root,'build/code/src/abg/invocation_execution_truth.js')).href)]);
+  return {product,abg,gtl,validator,api,invocationTruth};
 }
 
 export async function verifyArtifact(runtime,{artifactPath,manifest,expectedArtifactDigest},record,label) {
@@ -44,8 +46,12 @@ export function publicCaller({root,runtime,native,command,record,config}) {
   const verified=native.verified, contractCatalog={productId:verified.productId,productContentDigest:verified.productContentDigest,
     catalogId:verified.catalogId,catalogVersion:version,catalogDigest:verified.catalogDigest};
   const reopen=()=>({kind:'reopen_abg_event_resource',schemaVersion:version,closeHandoff:state.closeHandoff,handoffDigest:hash(state.closeHandoff)});
-  const refresh=()=>{
-    state.environment=requireKind(abg.projectExactPrefixWorkspaceEnvironment(state.closeHandoff.prefix,state.binding),
+  const refresh=(readSource)=>{
+    const prefix=state.closeHandoff.prefix,retained=readSource??state.environment?.prefix;
+    const source=retained&&hash(retained)===hash(prefix)?retained:prefix;
+    const truth=requireKind(abg.projectOwnedPrefixArtifactTruth(source),'exact_prefix_artifact_truth_projection','workspace-prefix-projection');
+    if(!abg.validateExactPrefixArtifactTruthProjection(truth,{requireCurrent:true}))throw new BoundaryFailure('workspace-prefix-projection','Authenticated read source is not current');
+    state.environment=requireKind(abg.projectWorkspaceEnvironmentFromArtifactTruth(truth,state.binding),
       'exact_prefix_workspace_environment','workspace-prefix-projection');
     return state.environment;
   };
@@ -162,7 +168,7 @@ export async function populateSandbox(caller) {
   const workspaceAuthority=product.constructWorkspaceAuthorityBasis({...authorityManifest,
     authorityManifestRef:'authority://abi5-tests/sandbox-uat/'+config.runId+'/workspace',authorityManifestDigest:hash(authorityManifest)});
   caller.workspaceAuthority=workspaceAuthority;
-  const roots={toolchainRoot:join(root,'sandbox/installed'),productRoot:installations[1].installedRoot,
+  const roots={toolchainRoot:join(root,'sandbox/installed','abg'),productRoot:installations[1].installedRoot,
     eventLogRoot:dirname(eventLogPath),runtimeStateRoot:join(root,'resources/runtime'),projectionRoot:join(root,'resources/projections'),archiveRoot:join(root,'resources/archives')};
   for(const path of [roots.runtimeStateRoot,roots.projectionRoot,roots.archiveRoot])await mkdir(path,{recursive:true});
   const fields={toolchain:'toolchainRoot',product:'productRoot',event_log:'eventLogRoot',runtime_state:'runtimeStateRoot',projection:'projectionRoot',archive:'archiveRoot'};
@@ -234,7 +240,9 @@ export async function constructLifecycleCall(caller,input) {
     transport_steering:{ref:'transport-steering://abiogenesis/'+steering.slice(7),digest:steering}};
   const declaration=state.catalog.boundPublications.find(value=>value.moduleRef===IDS.moduleRef)?.runEnvironments[0];
   if(!declaration)throw new BoundaryFailure('default-library-environment','missing declaration');
-  const temporaryRoot=await realpath(workspaceBinding.roots.archiveRoot);
+  const supportRoot=join(workspaceBinding.roots.archiveRoot,'run-environment-support');
+  await mkdir(supportRoot,{recursive:true});
+  const temporaryRoot=await realpath(supportRoot);
   const dependencyRoot=await realpath(join(caller.installedRoot,'contracts/default-library/stdo'));
   const dependencies=declaration.dependencies.map(dependency=>({dependencyRef:dependency.dependencyRef,root:dependencyRoot,recordPath:join(dependencyRoot,'context.inventory.json')}));
   const coordinates={dependencies,pythonPath:null,temporaryRoot};

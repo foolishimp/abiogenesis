@@ -1,5 +1,6 @@
 import { RETAINED_GRAPH_INPUT_CONTRACT } from "../product/worksite_preparation_contracts.js";
 import { validRequirementHandoffPublication } from "../gtl/requirement_handoff.js";
+import { graphTemplateDiagnostics } from "../gtl/graph_construction.js";
 import { validSemanticJobProgramOwners } from "../gtl/semantic_job.js";
 import { validRunEnvironmentPublication, validRunEnvironmentProgram } from "../gtl/stdo_run_environment.js";
 import { worksitePreservedResultSourceOfGraphFunction, WORKSITE_PRESERVED_RESULT_IDS } from "../gtl/worksite_construction_recovery.js";
@@ -314,6 +315,9 @@ function validatePublishedDeclarations(
       `$.graphFunctions[${graphFunction.name}].tags`,
       "GraphFunction tag",
     );
+    diagnostics.push(...graphTemplateDiagnostics(
+      graphFunction.template, `$.graphFunctions[${graphFunction.name}].template`,
+    ));
   }
   for (const contribution of publication.contributions) {
     appendDuplicateDiagnostics(
@@ -903,13 +907,10 @@ function validateProgramSubject(input: ProgramValidationInput): ProgramValidatio
   const interactionLeafRows: ValidatedInteractionLeaf[] = [];
   for (const graphFunction of programGraphFunctions) {
     const graphFunctionDigest = sha256Canonical(graphFunction as unknown as JsonValue);
+    diagnostics.push(...graphTemplateDiagnostics(
+      graphFunction.template, `$.graphFunctions[${graphFunction.name}].template`,
+    ));
     const nodes = new Map(graphFunction.template.nodes.map((node) => [node.nodeRef, node]));
-    if (!nodes.has(graphFunction.template.startNodeRef) || graphFunction.template.terminalNodeRefs.some((ref) => !nodes.has(ref))) {
-      diagnostics.push({ code: "topology_mismatch", path: `$.graphFunctions[${graphFunction.name}].template`, message: "start and terminal nodes must belong to the original graph template" });
-    }
-    if (graphFunction.template.edges.some((edge) => !nodes.has(edge.fromNodeRef) || !nodes.has(edge.toNodeRef))) {
-      diagnostics.push({ code: "topology_mismatch", path: `$.graphFunctions[${graphFunction.name}].template.edges`, message: "edge endpoint is absent from graph template" });
-    }
     if (graphFunction.template.edges.some((edge) => !hasExactGraphEdgeShape(edge))) {
       diagnostics.push({
         code: "identity_mismatch",

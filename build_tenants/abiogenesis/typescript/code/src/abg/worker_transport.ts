@@ -372,6 +372,7 @@ function runProcess(input: {
     let settled = false;
     let forceTimer: ReturnType<typeof setTimeout> | null = null;
     let confirmationTimer: ReturnType<typeof setTimeout> | null = null;
+    let groupCheckTimer: ReturnType<typeof setTimeout> | null = null;
     let drainTimer: ReturnType<typeof setTimeout> | null = null;
     let inactivityTimer: ReturnType<typeof setTimeout> | null = null;
     let absoluteTimer: ReturnType<typeof setTimeout> | null = null;
@@ -381,6 +382,8 @@ function runProcess(input: {
     } | null = null;
     let observerActive = true;
     let pendingObserverError: Error | null = null;
+    let closeObserved = false;
+    let cleanupStarted = false;
     const snapshotResultBearingStdout = (): void => {
       if (resultBearingStdout === null) resultBearingStdout = stdout;
     };
@@ -404,8 +407,15 @@ function runProcess(input: {
           child.kill(signal);
         }
       } catch {
-        // A concurrently exited process tree is already terminated.
+        // Signal failure is not termination evidence. The group probe below
+        // must still confirm absence or retain an unconfirmed residue.
       }
+    };
+    const ownedGroupGone = (): boolean => {
+      if (process.platform === "win32") return observedExit !== null;
+      if (child.pid === undefined) return launchError !== null;
+      try { process.kill(-child.pid, 0); return false; }
+      catch (error) { return (error as NodeJS.ErrnoException).code === "ESRCH"; }
     };
     const settle = (
       status: number | null,
@@ -419,6 +429,7 @@ function runProcess(input: {
       clearLeaseTimers();
       if (forceTimer !== null) clearTimeout(forceTimer);
       if (confirmationTimer !== null) clearTimeout(confirmationTimer);
+      if (groupCheckTimer !== null) clearTimeout(groupCheckTimer);
       if (drainTimer !== null) clearTimeout(drainTimer);
       resolveProcess({
         status,
@@ -440,6 +451,7 @@ function runProcess(input: {
       clearLeaseTimers();
       if (forceTimer !== null) clearTimeout(forceTimer);
       if (confirmationTimer !== null) clearTimeout(confirmationTimer);
+      if (groupCheckTimer !== null) clearTimeout(groupCheckTimer);
       if (drainTimer !== null) clearTimeout(drainTimer);
       child.stdout.destroy();
       child.stderr.destroy();
@@ -447,6 +459,50 @@ function runProcess(input: {
       rejectProcess(pendingObserverError ?? new TypeError(
         "worker process observer failed without one captured error",
       ));
+    };
+    const finishTermination = (confirmed: boolean): void => {
+      if (settled || drainTimer !== null) return;
+      if (!confirmed) {
+        try { input.observer?.onTerminationUnconfirmed?.(); }
+        catch (error) { pendingObserverError ??= error instanceof Error ? error : new TypeError(String(error)); }
+      }
+      clearLeaseTimers();
+      if (forceTimer !== null) clearTimeout(forceTimer);
+      if (confirmationTimer !== null) clearTimeout(confirmationTimer);
+      if (groupCheckTimer !== null) clearTimeout(groupCheckTimer);
+      const finish = () => {
+        child.stdout.destroy(); child.stderr.destroy(); child.stdin.destroy();
+        if (pendingObserverError !== null) settleObserverFailure();
+        else settle(observedExit?.status ?? null, observedExit?.signal ?? null,
+          observedExit !== null, confirmed && observedExit !== null);
+      };
+      if (closeObserved) finish();
+      else drainTimer = setTimeout(finish, Math.min(input.terminationGraceMs, 250));
+    };
+    const checkOwnedGroup = (): void => {
+      if (groupCheckTimer !== null) clearTimeout(groupCheckTimer);
+      groupCheckTimer = null;
+      if (settled || drainTimer !== null) return;
+      if (ownedGroupGone() && (observedExit !== null || launchError !== null)) {
+        finishTermination(true); return;
+      }
+      groupCheckTimer = setTimeout(checkOwnedGroup, Math.min(input.terminationGraceMs, 10));
+    };
+    const beginOwnedCleanup = (): void => {
+      if (settled || cleanupStarted) return;
+      if (ownedGroupGone() && observedExit !== null) { finishTermination(true); return; }
+      cleanupStarted = true;
+      clearLeaseTimers();
+      if (!notifyObserver(() => input.observer?.onSignalRequested?.("SIGTERM"))) return;
+      signalProcessTree("SIGTERM");
+      forceTimer = setTimeout(() => {
+        if (settled || drainTimer !== null) return;
+        if (ownedGroupGone() && observedExit !== null) { finishTermination(true); return; }
+        if (!notifyObserver(() => input.observer?.onSignalRequested?.("SIGKILL"))) return;
+        signalProcessTree("SIGKILL");
+        confirmationTimer = setTimeout(() => finishTermination(ownedGroupGone()), input.terminationGraceMs);
+      }, input.terminationGraceMs);
+      checkOwnedGroup();
     };
     const beginObserverFailure = (error: unknown): void => {
       if (settled || pendingObserverError !== null) return;
@@ -457,17 +513,14 @@ function runProcess(input: {
       clearLeaseTimers();
       if (forceTimer !== null) clearTimeout(forceTimer);
       if (confirmationTimer !== null) clearTimeout(confirmationTimer);
+      if (groupCheckTimer !== null) clearTimeout(groupCheckTimer);
       if (drainTimer !== null) clearTimeout(drainTimer);
+      drainTimer = null;
       child.stdin.destroy();
+      cleanupStarted = true;
       signalProcessTree("SIGKILL");
-      confirmationTimer = setTimeout(() => {
-        try {
-          input.observer?.onTerminationUnconfirmed?.();
-        } catch {
-          // Preserve the first observer failure and the last admitted prefix.
-        }
-        settleObserverFailure();
-      }, input.terminationGraceMs);
+      confirmationTimer = setTimeout(() => finishTermination(ownedGroupGone()), input.terminationGraceMs);
+      checkOwnedGroup();
     };
     const notifyObserver = (action: (() => void) | undefined): boolean => {
       if (!observerActive || action === undefined) return !settled;
@@ -521,21 +574,7 @@ function runProcess(input: {
       if (input.observer?.onNativeSupervisionWakeup === undefined && !notifyObserver(() =>
         input.observer?.onTimeoutObserved?.(observedTimeoutClass)
       )) return;
-      if (!notifyObserver(() => input.observer?.onSignalRequested?.("SIGTERM"))) return;
-      signalProcessTree("SIGTERM");
-      forceTimer = setTimeout(() => {
-        if (settled) return;
-        if (!notifyObserver(() => input.observer?.onSignalRequested?.("SIGKILL"))) return;
-        signalProcessTree("SIGKILL");
-        confirmationTimer = setTimeout(() => {
-          if (settled) return;
-          if (!notifyObserver(input.observer?.onTerminationUnconfirmed)) return;
-          child.stdout.destroy();
-          child.stderr.destroy();
-          child.stdin.destroy();
-          settle(null, null, false, false);
-        }, input.terminationGraceMs);
-      }, input.terminationGraceMs);
+      beginOwnedCleanup();
     };
     const renewInactivityLease = (): void => {
       if (settled || timedOut) return;
@@ -595,31 +634,23 @@ function runProcess(input: {
       clearLeaseTimers();
       snapshotResultBearingStdout();
       observedExit = { status, signal };
+      child.stdout.destroy(); child.stderr.destroy(); child.stdin.destroy();
       if (pendingObserverError !== null) {
-        if (confirmationTimer !== null) clearTimeout(confirmationTimer);
         try {
           input.observer?.onProcessExited?.(status, signal);
         } catch {
           // Preserve the first observer failure and the last admitted prefix.
         }
-        drainTimer = setTimeout(
-          settleObserverFailure,
-          Math.min(input.terminationGraceMs, 250),
-        );
+        checkOwnedGroup();
         return;
       }
       if (!notifyObserver(() => input.observer?.onProcessExited?.(status, signal))) return;
-      if (forceTimer !== null) clearTimeout(forceTimer);
-      if (confirmationTimer !== null) clearTimeout(confirmationTimer);
-      drainTimer = setTimeout(() => {
-        child.stdout.destroy();
-        child.stderr.destroy();
-        child.stdin.destroy();
-        settle(status, signal, true, true);
-      }, Math.min(input.terminationGraceMs, 250));
+      if (cleanupStarted) checkOwnedGroup();
+      else beginOwnedCleanup();
     });
     child.once("close", (status, signal) => {
       if (settled) return;
+      closeObserved = true;
       snapshotResultBearingStdout();
       if (pendingObserverError !== null) {
         if (observedExit === null && launchError !== null) {
@@ -629,11 +660,12 @@ function runProcess(input: {
             // Preserve the first observer failure and the last admitted prefix.
           }
         }
-        settleObserverFailure();
+        checkOwnedGroup();
         return;
       }
       if (observedExit !== null) {
-        settle(observedExit.status, observedExit.signal, true, true);
+        if (cleanupStarted) checkOwnedGroup();
+        else beginOwnedCleanup();
         return;
       }
       settle(status, signal, false, false);
@@ -735,7 +767,7 @@ async function executeWorkerTransport(
     catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
     if (fileOutput !== null && fileOutput.trim().length > 0) {
       if (finalOutput.trim().length === 0) {
-        if (!structuredOutputExpected) finalOutput = fileOutput;
+        if (!structuredOutputExpected && input.responsePresentation !== "result_text") finalOutput = fileOutput;
       }
       else {
         let sameOutput = fileOutput === finalOutput;

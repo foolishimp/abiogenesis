@@ -1,0 +1,607 @@
+{
+  "status": "FROZEN_READY_FOR_INDEPENDENT_REVIEW",
+  "productFrame": "fixed fifteen-family ABI5 5.0/GOAL035/T287/STDO2.5.1RC2; generic external UAT; deterministic generation only, no runtime/admission/application claim",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "build": {
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "startedAt": "2026-10-08T05:53:25.542989+00:00",
+    "authority": "Root Worker64 one existing normal canonical build of stable61/62/63 union; no tests/repairs/pack archive/native",
+    "finishedAt": "2026-10-08T05:53:57.986877+00:00",
+    "exitCode": 0,
+    "wallMs": 32443.312916962896,
+    "stdoutBytes": 215,
+    "stderrBytes": 0,
+    "timedOut": false,
+    "truncated": false,
+    "normalBuildAttempts": 1
+  },
+  "sourceUnion": {
+    "typescriptCount": 263,
+    "changedSourceCount": 13,
+    "owners": {
+      "61": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+          "relativePath": "code/src/abg/worker_transport.ts",
+          "sha256": "73f054dabe4073feffb0f89b1a7bd824d44f75da8e904dc40fd93278df1e9a4d",
+          "byteCount": 40586,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+          "relativePath": "code/src/abg/actor_process.ts",
+          "sha256": "ec4b3dcdc49f6e7af5d644e8fbad108582ca40e36d7629694235e3d5901e1d92",
+          "byteCount": 59692,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+          "relativePath": "code/src/implementation/worksite_command_helper.ts",
+          "sha256": "0f4470e732bbf3d287649d1484f4b748513f2869d68acceb1cf241f9d6b430bf",
+          "byteCount": 62118,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+          "relativePath": "code/src/abg/event_calculus.ts",
+          "sha256": "25190216b6137d8dab57afc90251758ff424a68cefc11f9f198300c570aa3d2d",
+          "byteCount": 82763,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+          "relativePath": "code/src/abg/runtime_liveness.ts",
+          "sha256": "8df783c88a3561657ff716c2a335a98602e63e45b56a0c5e1911dd02eabc287c",
+          "byteCount": 75837,
+          "mode": "0o644"
+        }
+      ],
+      "62": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+          "relativePath": "code/src/product/default_library.ts",
+          "sha256": "d30b3de24a8615a5e0aefe3f025f4a4ab9b8539148eaae801eb1a150263d73ce",
+          "byteCount": 33507,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+          "relativePath": "code/src/abg/default_library.ts",
+          "sha256": "5292f272b7a0f1c4409cea13477e8d412912c93c7f6b5a8070141b6f94e3e9b4",
+          "byteCount": 31843,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_stage.ts",
+          "relativePath": "code/src/product/semantic_stage.ts",
+          "sha256": "7e9ee8b3aba8a91eb3e086979e4b7ec10b865399176de9c4a09192d8fd1b9c55",
+          "byteCount": 36181,
+          "mode": "0o644"
+        }
+      ],
+      "63": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/graph_construction.ts",
+          "relativePath": "code/src/gtl/graph_construction.ts",
+          "sha256": "6ab321d5ae51ecdade6c4ee4172e592c94ceae5c0dbcf9b42dcab23754f141d2",
+          "byteCount": 23818,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/source_path.ts",
+          "relativePath": "code/src/gtl/source_path.ts",
+          "sha256": "c82df5a423acceb3b93a6107d8db582de9a64a2770a62710265f6409bc9bb73c",
+          "byteCount": 34610,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/materialize.ts",
+          "relativePath": "code/src/gtl/materialize.ts",
+          "sha256": "72fb984af08a3869a5761b6f98838f572a4a966cf62d2e2c8f55cfed4f461792",
+          "byteCount": 9461,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/raw_admission.ts",
+          "relativePath": "code/src/validator/raw_admission.ts",
+          "sha256": "b5f5242008500371c3d18b962a21fca49b53eb714258078436059c19605141e4",
+          "byteCount": 9578,
+          "mode": "0o644"
+        },
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+          "relativePath": "code/src/validator/validation.ts",
+          "sha256": "9d0ec07e74b4f31ea32ad5c969976bb80c381afc09fe082ce3994c03d0da50e1",
+          "byteCount": 81495,
+          "mode": "0o644"
+        }
+      ]
+    },
+    "allCapturedInputsConserved": true,
+    "accepted58Conserved": {
+      "freeze": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/freeze.json",
+        "relativePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/freeze.json",
+        "sha256": "3ae48d4156a924f92af1a91e3434d621729e55215d04b2e011eca18bba6c39e4",
+        "byteCount": 33722,
+        "mode": "0o644"
+      },
+      "runtimeDerivation": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+        "relativePath": "code/src/abg/runtime_derivation.ts",
+        "sha256": "1fff9e0bee14f10e776d15948695e912aaa2dcce8d5c7228c58d982d3cb8c52d",
+        "byteCount": 5463,
+        "mode": "0o644"
+      }
+    },
+    "sharedHow": "T287_NATIVE_WORKSPACE_WORK_DESIGN.md includes61 R02 subsection and62 six-line literal paragraph; captured selected union"
+  },
+  "generation": {
+    "beforeCount": 934,
+    "afterCount": 934,
+    "changedCount": 23,
+    "unchangedCount": 911,
+    "added": [],
+    "removed": [],
+    "changed": [
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/actor_process.js",
+          "relativePath": "build/code/src/abg/actor_process.js",
+          "sha256": "ac5e3f70a10ccbe9348b7f39bba6748dd5b1bcc4b8b253fa92a57e18637d76cb",
+          "byteCount": 55237,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/actor_process.js",
+          "relativePath": "build/code/src/abg/actor_process.js",
+          "sha256": "11b7c6e08173f47034598d3ebf8472c0d330e3325e7d0910cfd6b7783713901d",
+          "byteCount": 55462,
+          "mode": "0o644"
+        },
+        "ownerWorker": 61
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/default_library.js",
+          "relativePath": "build/code/src/abg/default_library.js",
+          "sha256": "1f3ae4ed5625210ae871b594d7658532c399e3a8506bae624ab5685268719432",
+          "byteCount": 31471,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/default_library.js",
+          "relativePath": "build/code/src/abg/default_library.js",
+          "sha256": "b7ec72df9b773416c1f0f6c4d9b93398a4e0871d46cd3ff07f243eff186030d8",
+          "byteCount": 31623,
+          "mode": "0o644"
+        },
+        "ownerWorker": 62
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.d.ts",
+          "relativePath": "build/code/src/abg/event_calculus.d.ts",
+          "sha256": "5d6a052af859d096a3641ab7194d0a608ccbb2808d2d1f04ab59410f83abe1f5",
+          "byteCount": 19464,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.d.ts",
+          "relativePath": "build/code/src/abg/event_calculus.d.ts",
+          "sha256": "29b054c1b67cbcf608272d0035074f93e95712fb81854126667626f83c1b0773",
+          "byteCount": 19511,
+          "mode": "0o644"
+        },
+        "ownerWorker": 61
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+          "relativePath": "build/code/src/abg/event_calculus.js",
+          "sha256": "a8388cc69af5dbf5c96daee267ac54f9480f8e1a7eca6a6ac4103dd92ba0baab",
+          "byteCount": 79716,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+          "relativePath": "build/code/src/abg/event_calculus.js",
+          "sha256": "dcee2c46299277bb4c06c7bd04522bd48ef0877920c14f73fa06497154f14ebc",
+          "byteCount": 85995,
+          "mode": "0o644"
+        },
+        "ownerWorker": 61
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+          "relativePath": "build/code/src/abg/runtime_liveness.js",
+          "sha256": "6de1aa12e9cc2df4da7ccffdf31cf33d402c6360dcb1e991930b6feb13e03db3",
+          "byteCount": 74224,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+          "relativePath": "build/code/src/abg/runtime_liveness.js",
+          "sha256": "c09c30a898e21b14a76be4a00749e533d6b4c5b00ea7a8c3a5452722ea6b2783",
+          "byteCount": 74421,
+          "mode": "0o644"
+        },
+        "ownerWorker": 61
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/worker_transport.js",
+          "relativePath": "build/code/src/abg/worker_transport.js",
+          "sha256": "e455857e17443470e94a00983798cbc99529305e503c60dada7d42aa67fc1f0e",
+          "byteCount": 34493,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/worker_transport.js",
+          "relativePath": "build/code/src/abg/worker_transport.js",
+          "sha256": "1430a4c58de864d33d0897da5eb0660d8438b0cebddfd2a46680b66e51ea9385",
+          "byteCount": 36984,
+          "mode": "0o644"
+        },
+        "ownerWorker": 61
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/graph_construction.d.ts",
+          "relativePath": "build/code/src/gtl/graph_construction.d.ts",
+          "sha256": "38502bc4de1a3240f6308feab7ed6e5cf34035c6b48174f704749b91e692e83d",
+          "byteCount": 1145,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/graph_construction.d.ts",
+          "relativePath": "build/code/src/gtl/graph_construction.d.ts",
+          "sha256": "40de9b90677983e30165da5a862cd36c0dc23c703d5812062956debed5dbbc30",
+          "byteCount": 1889,
+          "mode": "0o644"
+        },
+        "ownerWorker": 63
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/graph_construction.js",
+          "relativePath": "build/code/src/gtl/graph_construction.js",
+          "sha256": "4c2391846dc7529be7a076b2d609d73cfe25a8a1d6816a18ce89a15a61c4ed4f",
+          "byteCount": 19866,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/graph_construction.js",
+          "relativePath": "build/code/src/gtl/graph_construction.js",
+          "sha256": "6513d7417371a12cf71d76c390cdd097b8d7189ebf2ce9f49ed72004f859b5c7",
+          "byteCount": 22752,
+          "mode": "0o644"
+        },
+        "ownerWorker": 63
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/materialize.js",
+          "relativePath": "build/code/src/gtl/materialize.js",
+          "sha256": "82e4abcb65d7cb92d28683173916348331da995f5cda11d8a4af22f7528550ea",
+          "byteCount": 8545,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/materialize.js",
+          "relativePath": "build/code/src/gtl/materialize.js",
+          "sha256": "90b500aa59ece6a294f6115a36c5c496eff583e33e92dd68f1ede1f9a3e45fcb",
+          "byteCount": 8922,
+          "mode": "0o644"
+        },
+        "ownerWorker": 63
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/source_path.js",
+          "relativePath": "build/code/src/gtl/source_path.js",
+          "sha256": "40ad14ca9619ca94541f0d1cf33a4a546cb1f45ef1381d09ce626289c7fdd89c",
+          "byteCount": 29578,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/gtl/source_path.js",
+          "relativePath": "build/code/src/gtl/source_path.js",
+          "sha256": "494535f0fcc2b968883b4c82fb690bbb25aa5b353915a1a0094d8464d7b24e38",
+          "byteCount": 29728,
+          "mode": "0o644"
+        },
+        "ownerWorker": 63
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js",
+          "relativePath": "build/code/src/implementation/worksite_command_helper.js",
+          "sha256": "c5c8ca3e4a71499afaaadd2125ebbdb6894df7581c4b2b2fd8dcf6e260d54569",
+          "byteCount": 55701,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/implementation/worksite_command_helper.js",
+          "relativePath": "build/code/src/implementation/worksite_command_helper.js",
+          "sha256": "3fa658666a5e56b7ecd2136889a9cf1e976fae358ba0e524852d28b1d542bec0",
+          "byteCount": 58936,
+          "mode": "0o644"
+        },
+        "ownerWorker": 61
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/default_library.d.ts",
+          "relativePath": "build/code/src/product/default_library.d.ts",
+          "sha256": "6bee0713052397379bd61816e42e423acaa8abb092df91706b4813d3f0268803",
+          "byteCount": 38297,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/default_library.d.ts",
+          "relativePath": "build/code/src/product/default_library.d.ts",
+          "sha256": "c6932396e6522201b718b15e52d3b6a0123d5de48edc0e0a1e12ff53b2a2e5fa",
+          "byteCount": 38602,
+          "mode": "0o644"
+        },
+        "ownerWorker": 62
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/default_library.js",
+          "relativePath": "build/code/src/product/default_library.js",
+          "sha256": "7621501a09994da910e1598994565831d982a21362d790612ec8c8282a7dcc82",
+          "byteCount": 29529,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/default_library.js",
+          "relativePath": "build/code/src/product/default_library.js",
+          "sha256": "13d5efeab4c0aea6043469cd6005e05635d4202cd00ac2ac1e57b485f13bb7b7",
+          "byteCount": 31335,
+          "mode": "0o644"
+        },
+        "ownerWorker": 62
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_stage.js",
+          "relativePath": "build/code/src/product/semantic_stage.js",
+          "sha256": "91e6d878d85f574f713f6235b4d1450094ec2fda17b5c72a3a3a0749183d4760",
+          "byteCount": 29063,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/semantic_stage.js",
+          "relativePath": "build/code/src/product/semantic_stage.js",
+          "sha256": "6f9b9adfad5f3edf184287a9e71f19eaf0dfaf063e22bee159b439702e7d7ed5",
+          "byteCount": 29114,
+          "mode": "0o644"
+        },
+        "ownerWorker": 62
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/owner_contract_source_set.d.ts",
+          "relativePath": "build/code/src/shared/owner_contract_source_set.d.ts",
+          "sha256": "c5fd5bd8c57938a9196e15b1b9b93e7197bfd5f2c1a8a6c39c5e14e64254726b",
+          "byteCount": 603653,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/shared/owner_contract_source_set.d.ts",
+          "relativePath": "build/code/src/shared/owner_contract_source_set.d.ts",
+          "sha256": "03ea087af1ca5984df8f3cfc0f7351c4477bbee9d34688ab2ae078c1c1a0ce31",
+          "byteCount": 603653,
+          "mode": "0o644"
+        },
+        "ownerWorker": "63 derived declaration ordering only"
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/conformance_definition_bindings.d.ts",
+          "relativePath": "build/code/src/validator/conformance_definition_bindings.d.ts",
+          "sha256": "342d3bdc22a2dc4c48105970e5938a17dc8d8d9fa2c502c3590426ce49c7412d",
+          "byteCount": 5943,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/conformance_definition_bindings.d.ts",
+          "relativePath": "build/code/src/validator/conformance_definition_bindings.d.ts",
+          "sha256": "1c9bd8a311612519703e9fb0ce1b3fef15808ba605bb5fc550c7095663be5ca1",
+          "byteCount": 5943,
+          "mode": "0o644"
+        },
+        "ownerWorker": "63 derived declaration ordering only"
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/conformance_operation_contracts.d.ts",
+          "relativePath": "build/code/src/validator/conformance_operation_contracts.d.ts",
+          "sha256": "59c48a39c4878ed4bb143dd2fedd1d38fbe52c04477d7e19a5698aee5bc57d26",
+          "byteCount": 8159,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/conformance_operation_contracts.d.ts",
+          "relativePath": "build/code/src/validator/conformance_operation_contracts.d.ts",
+          "sha256": "7890af6460dd1c2f84a703a6ce3cca047ca5423d4145a32da26e66f626ab72f1",
+          "byteCount": 8159,
+          "mode": "0o644"
+        },
+        "ownerWorker": "63 derived declaration ordering only"
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/raw_admission.js",
+          "relativePath": "build/code/src/validator/raw_admission.js",
+          "sha256": "018d6238446f35764513d51bcb09a3934fedeb1bf7ab182235cee4c83f50a3da",
+          "byteCount": 8501,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/raw_admission.js",
+          "relativePath": "build/code/src/validator/raw_admission.js",
+          "sha256": "e7483863e3ed5e0fd9398f76fed092f859b6cbeb2216ae50a466ab26aa2c3d8c",
+          "byteCount": 8750,
+          "mode": "0o644"
+        },
+        "ownerWorker": 63
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/validation.d.ts",
+          "relativePath": "build/code/src/validator/validation.d.ts",
+          "sha256": "cb65d3f9ff818c057d70bfe331251a0154442028f9c483c31b7e511bb5410036",
+          "byteCount": 7575,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/validation.d.ts",
+          "relativePath": "build/code/src/validator/validation.d.ts",
+          "sha256": "562fdf70cb51562d6b4a1baa52b2f8c83616ef42920998b315c9c782269965ab",
+          "byteCount": 7575,
+          "mode": "0o644"
+        },
+        "ownerWorker": 63
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/validation.js",
+          "relativePath": "build/code/src/validator/validation.js",
+          "sha256": "78c66d6f5a576118050cb5a0e1af395e6676dd0c1f5679ea00ef093e02ed8f2a",
+          "byteCount": 82136,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/validator/validation.js",
+          "relativePath": "build/code/src/validator/validation.js",
+          "sha256": "4bd10fe875d4a3211f21e78ce4d185a474743914e8e0eecbd39d09dcfe4fb398",
+          "byteCount": 81815,
+          "mode": "0o644"
+        },
+        "ownerWorker": 63
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+          "relativePath": "contracts/capabilities/capability-definition-graph.json",
+          "sha256": "76760c75c08f9966c256dd2c8d2e73d04259bde5c8687d930ae4c96799568c52",
+          "byteCount": 197474,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+          "relativePath": "contracts/capabilities/capability-definition-graph.json",
+          "sha256": "c706eff3c15e8283658e71740de61e10f3033e760224d2897ce31be96c0b7771",
+          "byteCount": 197474,
+          "mode": "0o644"
+        },
+        "ownerWorker": "normal generator consequence"
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+          "relativePath": "contracts/schemas/native-runtime-observation.json",
+          "sha256": "9858e5dbffe6065a450dd9665365939707f0b4276655d77dd8bc67a624020a37",
+          "byteCount": 150149,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+          "relativePath": "contracts/schemas/native-runtime-observation.json",
+          "sha256": "fbf8646cb49396dfb859efc9646ab2e05b3092d472cb46e8a8ffd0747054eb7e",
+          "byteCount": 150212,
+          "mode": "0o644"
+        },
+        "ownerWorker": "normal generator consequence"
+      },
+      {
+        "before": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+          "relativePath": "product-toolchain-manifest.json",
+          "sha256": "d6927c0736bd06148449b01e95e0cb41b936eea70dadf0e5d3fad4c6c7db79a3",
+          "byteCount": 3171685,
+          "mode": "0o644"
+        },
+        "after": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+          "relativePath": "product-toolchain-manifest.json",
+          "sha256": "7066aaab98ba95f4f6822cfc6f0dce0ba75db25acb376fd2067caede05c89dfe",
+          "byteCount": 3171685,
+          "mode": "0o644"
+        },
+        "ownerWorker": "normal generator consequence"
+      }
+    ]
+  },
+  "parity": {
+    "kind": "bounded_deterministic_generation_parity",
+    "productContentDigest": "sha256:1de2c6e3eff5f744c7f2bb7733c1aa217ae95a1d24796fddf43f03f2b58103be",
+    "payloadMembers": 5263,
+    "publicCatalogRows": 75,
+    "capabilityIds": [
+      "abg.capability.catalog.apply-node-type@5",
+      "abg.capability.catalog.apply-overlay@5",
+      "abg.capability.catalog.contribute@5",
+      "abg.capability.catalog.invoke-graph-function@5",
+      "abg.capability.graph-function.consensus@5",
+      "abg.capability.gtl.admit@5",
+      "abg.capability.gtl.declare@5",
+      "abg.capability.gtl.serialize@5",
+      "abg.capability.gtl.typecheck@5",
+      "abg.capability.install.bind-products@5",
+      "abg.capability.module.publish@5",
+      "abg.capability.operator.public-contract@5",
+      "abg.capability.qualification.self-conformance@5",
+      "abg.capability.runtime.admit-fp-result@5",
+      "abg.capability.runtime.execute-seven-term-c@5",
+      "abg.capability.runtime.replay-continuation@5"
+    ],
+    "catalogDigest": "sha256:9f61d1565261aa9f50daf76e8a2c68e819a938455f2b104d68ad2e8cb3e0f2e1",
+    "contributionManifestDigest": "sha256:9eeee14b2fa75b64a7d404e0cc95b4e53680c540dcd9e54c9c2ea21433846918",
+    "capabilityGraphCoordinate": {
+      "assetLocator": {
+        "contentDigest": "sha256:c706eff3c15e8283658e71740de61e10f3033e760224d2897ce31be96c0b7771",
+        "mediaType": "application/json",
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "schemaVersion": "5.0.0"
+      },
+      "graphDigest": "sha256:975ac8fcf3a55a40ccda8e6a968025723ae2c102b968a8dc4303e5975af77bd7",
+      "graphId": "capability-definition-graph://abiogenesis/abg-5",
+      "graphVersion": "5.0.0"
+    },
+    "assetLocationsVerified": 53,
+    "declarationInventoryDigestLocationsVerified": 14352,
+    "source62EmittedJavaScriptExact": 3,
+    "currentNativeRuntimeAssetMatchesOwnedEventCalculus": true,
+    "noBuildTestRuntimeAdmissionOrQualificationClaim": true
+  },
+  "publicCatalog": {
+    "rows": 75,
+    "differences": 352,
+    "allDifferences": "exact recorded SHA256 digest consequences; all nondigest row metadata unchanged",
+    "detail": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/public-catalog-diff.json"
+  },
+  "receiptPremises": [
+    "pre-capture locator corrected from evidencePins/rows to58 actual ledger, before build; accepted58 byte match",
+    "61 extended preimage supplies runtime_liveness; all263 snapshot already included it before build",
+    "three transitive declaration changes only reorder existing diagnostic union members; no source edits at those paths",
+    "initial parity compared Uint8Array and Buffer prototypes; corrected to exact byte equality, first private script retained; no rebuild"
+  ],
+  "excludedClaims": [
+    "61/63 focused test readiness remains independently owned",
+    "no repeat62 tests; no full suite",
+    "no Source/requirements/Public-family/ticket/app/config/log/Git mutation",
+    "no archive pack/install/host acquisition/model/provider/native Run/UAT/P0 closure",
+    "one existing generator dry-run member projection only, no actual package archive"
+  ]
+}

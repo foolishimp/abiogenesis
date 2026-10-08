@@ -407,7 +407,7 @@ export async function constructStart(caller, programRef, graphFunctionRef, input
   const request = {program, scope: 'program', target: {kind: 'graph_function', handle: graphFunctionRef}, until: 'converged',
     catalogView: view, allowlist: [...state.catalogView.allowlist], input: boundInput, fhMode: 'direct', rootMode: 'direct', sourceBasis: {kind: 'none'}};
   const selected = {...slots(), workspace_binding: state.binding,
-    product_set: admittedInstalls.map(install => ({ref: install.installId, digest: install.productContentDigest})),
+    product_set: admittedInstalls.map(product.productInstallCoordinate),
     dependency_lock: {ref: workspaceBinding.lockId, digest: workspaceBinding.lockDigest},
     catalog_scope: {catalog: {ref: 'graph-function-catalog://abiogenesis/' + state.catalog.basisDigest.slice(7), digest: state.catalog.basisDigest},
       view, allowlist: request.allowlist}, execution_program: program,

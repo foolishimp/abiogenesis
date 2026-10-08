@@ -145,8 +145,8 @@ function isNodeProcessSignal(value) {
         Object.hasOwn(osConstants.signals, value);
 }
 function isExactRequestedSignalSequence(timedOut, sequence) {
-    if (!timedOut)
-        return sequence.length === 0;
+    if (!timedOut && sequence.length === 0)
+        return true;
     return (sequence.length === 1 && sequence[0] === "SIGTERM") || (sequence.length === 2 &&
         sequence[0] === "SIGTERM" &&
         sequence[1] === "SIGKILL");
@@ -157,7 +157,8 @@ function isExactRequestedSignalSequence(timedOut, sequence) {
  * emits runtime events nor establishes durable observation provenance.
  */
 export function validateActorProcessCarrierPair(requestCandidate, observationCandidate) {
-    const requestRecord = exactOrdinaryDataRecord(requestCandidate, ACTOR_PROCESS_REQUEST_FIELDS);
+    const requestRecord = exactOrdinaryDataRecord(requestCandidate, typeof requestCandidate === "object" && requestCandidate !== null && Object.hasOwn(requestCandidate, "responsePresentation")
+        ? [...ACTOR_PROCESS_REQUEST_FIELDS, "responsePresentation"] : ACTOR_PROCESS_REQUEST_FIELDS);
     if (requestRecord === null) {
         return carrierRefusal("invalid_actor_process_request", "actor process request must be one exact ordinary closed data object");
     }
@@ -182,7 +183,8 @@ export function validateActorProcessCarrierPair(requestCandidate, observationCan
         request.prompt.trim().length === 0 ||
         typeof request.responseJsonSchema !== "object" ||
         request.responseJsonSchema === null ||
-        Array.isArray(request.responseJsonSchema)) {
+        Array.isArray(request.responseJsonSchema) ||
+        (request.responsePresentation !== undefined && request.responsePresentation !== "result_text")) {
         return carrierRefusal("invalid_actor_process_request", "actor process request contains an invalid identity, digest, lane, prompt, or response schema");
     }
     const observationRecord = exactOrdinaryDataRecord(observationCandidate, typeof observationCandidate === "object" && observationCandidate !== null && Object.hasOwn(observationCandidate, "nativeResultAssessment")
@@ -256,8 +258,7 @@ export function validateActorProcessCarrierPair(requestCandidate, observationCan
         ACTOR_PROCESS_ARTIFACT_DIGEST_FIELDS.some((field) => !isSha256Digest(artifacts[field]))) {
         return carrierRefusal("invalid_actor_process_observation", "actor process observation contains an invalid identity, digest, value domain, count, or artifact set");
     }
-    const terminalPairValid = observation.exitObserved ===
-        observation.terminationConfirmed &&
+    const terminalPairValid = (!observation.terminationConfirmed || observation.exitObserved) &&
         (observation.exitObserved
             ? (observation.processStatus !== null &&
                 observation.processStatus >= 0 &&
@@ -357,7 +358,7 @@ export function projectActorProcessLifecycle(prefix, actorInvocationRef) {
         terminationUnconfirmed,
         cleanupDisposition: actorTerminal !== undefined
             ? "complete"
-            : terminationUnconfirmed && processTerminal === undefined
+            : terminationUnconfirmed
                 ? "termination_unconfirmed"
                 : cleanupPending || processLive
                     ? "pending"
@@ -517,6 +518,7 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
             absoluteTimeoutMs: positiveInteger(environment, "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS", PROCESS_ABSOLUTE_TIMEOUT_MS),
             terminationGraceMs: positiveInteger(environment, "ABG_TS_FP_TERMINATION_GRACE_MS", PROCESS_TERMINATION_GRACE_MS),
             responseJsonSchema: input.request.responseJsonSchema,
+            ...(input.request.responsePresentation === undefined ? {} : { responsePresentation: input.request.responsePresentation }),
             environment,
         });
         const transportBindingBody = {
@@ -848,8 +850,13 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
                     }
                     processTerminalConfirmed = true;
                 },
-                onTerminationUnconfirmed: () => append("actor_process_termination_unconfirmed", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef }),
+                onTerminationUnconfirmed: () => {
+                    processTerminalConfirmed = false;
+                    append("actor_process_termination_unconfirmed", "process", processRef, actorInvocationRef, { actorInvocationRef, processRef });
+                },
             });
+            processTerminalConfirmed = transport.terminationConfirmed ||
+                (!processStarted && transport.status !== null && transport.status < 0);
             const observedOutputDigest = outputDigest(transport.finalOutput);
             const artifactDigests = {
                 output: transport.artifacts.output.digest,

@@ -16,12 +16,141 @@ import { rawAdmitValue } from '../../build/code/src/validator/raw_admission.js';
 import { validateActorProcessCarrierPair } from '../../build/code/src/abg/actor_process.js';
 import { deriveProbabilisticTransportEvidence } from '../../build/code/src/abg/c_call.js';
 import { canonicalJson } from '../../build/code/src/shared/canonical_json.js';
+import { dirname, resolve } from 'node:path';
+import { SourceTextModule, SyntheticModule } from 'node:vm';
+import { deepFreeze } from '../../build/code/src/shared/immutable.js';
+import { selectValidatedRuntimeEventPrefix } from '../../build/code/src/abg/event_prefix.js';
+import { deriveRuntimeEventCalculusProjection, holdsAt, constructRuntimeFluent } from '../../build/code/src/abg/event_calculus.js';
+import { ROOT_EVENT_CONTRACT_DIGEST } from '../../build/code/src/abg/event_store.js';
+import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from '../../build/code/src/abg/invocation_execution_truth.js';
+import { rehydrateAdmittedImplementationSetAtPrefix } from '../../build/code/src/abg/execution_basis.js';
 const product = await loadWorksiteOwner();
 const ids = native.NATIVE_WORKSPACE_WORK_IDS;
 const digest = label => product.sha256Canonical({ label });
 const publication = constructNativeWorkspaceWorkModulePublication({productId:'product://native-owner/test',
   artifactDigest:digest('artifact'), productContentDigest:digest('content'), productManifestDigest:digest('manifest'),
   packageName:'@abiogenesis/typescript-tenant', packageVersion:'5.0.0-dev.286'});
+
+test('post-effect channel conflict retains admitted native failure scope without a fabricated exchange', async t => {
+  const env = await fixture(t), p = await prepare(t, env);
+  const requests = [];
+  for (const relativePath of ['target.txt', 'keep.txt', 'absent.txt']) {
+    const subject = product.constructWorksiteSubject({...env.read,relativePath,subjectUri:pathToFileURL(join(env.canonicalRoot,relativePath)).href});
+    const predecessorObservation = await product.observeWorksiteSubject(env.workspaceAuthorityBasis,env.workspaceBinding,subject);
+    requests.push(product.constructWorksiteFileReplaceRequest({...env.read,capabilityGrant:env.capabilityGrant,subject,territory:env.territory,
+      predecessorObservation,replacementBytes:Buffer.from('future\n')}));
+  }
+  // Controlled cold admission/installation premises, with actual owner digest
+  // projectors, actor implementation and local process/filesystem effects.
+  // This is not a Public/native installed Run or semantic assessment claim.
+  const rows = [], runId = 'run://native-tail/component', graphCallId = 'graph-call://native-tail/component', frameId = 'frame://native-tail/component';
+  let basisId = 'basis://native-tail/setup';
+  const append = candidate => {
+    const ordinal = rows.length + 1, row = deepFreeze({eventTime:'2026-10-08T00:00:00.000Z',correlationId:'native-tail',workflowVersion:'5.0.0',
+      scopeClass:'run',basisId,runId,graphCallId,frameId,causationEventRefs:[],parentAggregateId:null,eventContractDigest:ROOT_EVENT_CONTRACT_DIGEST,...candidate,
+      eventId:`event://native-tail/${ordinal}`,admissionOrdinal:ordinal,payloadDigest:product.sha256Canonical(candidate.payload)});
+    rows.push(row); return row;
+  };
+  const authority = p.occurrence.executionAuthority, set = authority.implementationSet;
+  const setPayload = {rows:set.rows,implementationSetRef:set.implementationSetRef,implementationSetDigest:set.implementationSetDigest};
+  append({kind:'implementation_admitted',aggregateType:'workspace',aggregateId:env.workspaceBinding.bindingId,payload:{...setPayload,implementationSet:setPayload}});
+  const invocation = Object.fromEntries(['invocationRef','rawInputAdmissionRef','publicRequestAdmissionRef','publicRequestInvocationRef',
+    'catalogBasisRef','catalogViewId','programRef','catalogHandle','graphFunctionRef','selectedDefinitionRef','inputContractRef','inputContractOwner',
+    'outputContractRef','outputContractOwner','productExecutionResolutionRef','programValidationRef','policyRef','authorityRef','actorRef']
+    .map(key=>[key,`fixture://${key}`]));
+  Object.assign(invocation,Object.fromEntries(['invocationDigest','rawInputDigest','publicRequestDigest','workspaceBindingDigest','catalogBasisDigest',
+    'catalogViewDigest','programDigest','graphFunctionDigest','selectedDefinitionDigest','inputContractDigest','outputContractDigest',
+    'productExecutionResolutionDigest','programValidationDigest','policyDigest','authorityDigest'].map(key=>[key,digest(key)])),
+    {invocationVariant:'direct',workspaceId:env.workspaceBinding.workspaceId,workspaceBindingId:env.workspaceBinding.bindingId,
+      workspaceBindingDigest:env.workspaceBinding.bindingDigest,catalogApplicationRefs:[],catalogApplicationDigests:[],
+      gtlEntryCoordinate:{},gtlEntryTerm:{},capabilityGrants:[env.capabilityGrant],capabilityGrantRefs:[env.capabilityGrant.grantRef],
+      actorRef:env.capabilityGrant.actorRef,publicStart:{},reentryBasis:null,sourceResultBasis:null});
+  const invDigest=product.sha256Canonical(invocation),invRef=`invocation-admission://abiogenesis/${invDigest.slice(7)}`;
+  const pub=append({kind:'public_operation_admitted',aggregateType:'workspace',aggregateId:env.workspaceBinding.bindingId,
+    parentAggregateId:invocation.invocationRef,scopeClass:'workspace',basisId:invocation.authorityRef,
+    payload:{...invocation,operationId:'abg.operation.run.invoke',memberKey:'invoke',definitionDigest:digest('selected-definition'),variant:'direct'}});
+  append({kind:'invocation_admitted',aggregateType:'workspace',aggregateId:env.workspaceBinding.bindingId,parentAggregateId:invocation.invocationRef,
+    scopeClass:'workspace',basisId:invRef,causationEventRefs:[pub.eventId],payload:{...invocation,invocationAdmissionRef:invRef,invocationAdmissionDigest:invDigest}});
+  for(const rawInputValue of requests)append({kind:'basis_admitted',aggregateType:'workspace',aggregateId:env.workspaceBinding.bindingId,
+    payload:{rawInputValue,invocationAdmissionRef:invRef,basisClass:'root',graphFunctionRef:invocation.graphFunctionRef,
+      workspaceBindingId:env.workspaceBinding.bindingId,workspaceBindingDigest:env.workspaceBinding.bindingDigest,
+      actorRef:env.capabilityGrant.actorRef,programRef:invocation.programRef}});
+  const {kind:bk,schemaVersion:bs,disposition:bd,basisRef:br,basisDigest:bh,admissionEventRef:be,...basisBody}=authority.executionBasis;
+  Object.assign(basisBody,{invocationAdmissionRef:invRef,rawInputValue:env.task,rawInputDigest:product.sha256Canonical(env.task),
+    graphFunctionRef:ids.graphFunctionRef,implementationSetRef:set.implementationSetRef,implementationSetDigest:set.implementationSetDigest});
+  const bDigest=product.sha256Canonical(basisBody);basisId=`execution-basis://abiogenesis/${bDigest.slice(7)}`;
+  const basis={kind:bk,schemaVersion:bs,disposition:bd,...basisBody,basisRef:basisId,basisDigest:bDigest};
+  append({kind:'basis_admitted',aggregateType:'workspace',aggregateId:env.workspaceBinding.bindingId,payload:{...basisBody,basisRef:basisId,basisDigest:bDigest}});
+  const call={...p.call,basisId,runId,graphCallId,frameId}, cCallRef=call.cCallRef;
+  const opened=append({kind:'c_call_opened',aggregateType:'c_call',aggregateId:cCallRef,payload:{callClass:'leaf',cCallRef,programLocusRef:call.programLocusRef,
+    taskOrdinal:call.taskOrdinal,vectorIndex:call.vectorIndex,edgeRef:call.edgeRef??null,attempt:call.attempt}});
+  const fibre=append({kind:'c_call_fibre_selected',aggregateType:'c_call',aggregateId:cCallRef,causationEventRefs:[opened.eventId],payload:{callClass:'leaf',regime:'F_P',
+    implementationRef:ids.implementationRef,implementationBindingRef:ids.implementationBindingRef}});
+  call.fibreSelectedEventRef=fibre.eventId;
+  // These rows' common graph coordinate follows the admitted native basis.
+  for(let i=rows.length-3;i<rows.length;i++) rows[i]=deepFreeze({...rows[i],graphFunctionRef:ids.graphFunctionRef});
+  const preparedPrefix=selectValidatedRuntimeEventPrefix(deepFreeze([...rows]));
+  assert.ok(projectExactExecutionBasisAtPrefix(preparedPrefix,basisId),'fixture authenticates its exact native task basis before process launch');
+  assert.ok(projectExactInvocationAdmissionAtPrefix(preparedPrefix,invRef),'fixture authenticates its controlled invocation/grant before process launch');
+  assert.ok(rehydrateAdmittedImplementationSetAtPrefix(preparedPrefix,set.implementationSetRef),'fixture authenticates the implementation set before process launch');
+  const beforeCurrentness=deriveRuntimeEventCalculusProjection(preparedPrefix);
+  for(const request of requests)assert.equal(holdsAt(beforeCurrentness,constructRuntimeFluent({name:'worksite_observation_current',identity:request.predecessorObservation.observationRef})),true,
+    'prior C0 observation is current before the native physical effect');
+  const actorPath=resolve(import.meta.dirname,'../../build/code/src/abg/actor_process.js');
+  const worker=join(env.scratch,'conflicting-native.mjs');await fs.writeFile(worker,'');await fs.chmod(worker,0o755);
+  const transport=await import('../../build/code/src/abg/worker_transport.js');
+  let groupConfirmedBeforeConflict=false,currentProfileArtifactHook=false;
+  const prefixAt=()=>deepFreeze({coordinateDigest:digest(String(rows.length)),storeIdentity:{eventContractDigest:ROOT_EVENT_CONTRACT_DIGEST}});
+  let currentPrefix=prefixAt();
+  const overrides={
+    './environment_admission.js':{hasAdmittedWorkspaceBinding:()=>true},
+    './execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>({call,execution:basis,inputDigest:basis.rawInputDigest,inputValue:env.task})},
+    './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>null},
+    './runtime_liveness.js':{captureNativeFrameBoundary:()=>({}),observeNativeFrameLiveness:()=>{},
+      admitRuntimeActivityProbe:input=>({successorPrefix:currentPrefix,value:rows.find(row=>row.eventId===input.observation.underlyingEventRef)??rows.at(-1)})},
+    './event_store.js':{readRuntimeEventsAtDurablePrefix:()=>deepFreeze([...rows]),assertHeldEventStoreAtDurablePrefix:()=>{},admitRuntimeEvent:(_store,candidate)=>append(candidate),
+      admitNonEmptyRuntimeEventTransactionAtDurablePrefix:(_store,_prefix,fn)=>{const value=fn();currentPrefix=prefixAt();return{value,successorPrefix:currentPrefix};}},
+    './worker_transport.js':{prepareWorkerTransport:async input=>{
+      const plan=await transport.prepareWorkerTransport(input);
+      await fs.writeFile(worker,`#!${process.execPath}\nimport {writeFileSync} from 'node:fs';\nwriteFileSync(${JSON.stringify(join(env.canonicalRoot,'target.txt'))},'partial native work\\n');\nwriteFileSync(${JSON.stringify(plan.paths.output)},JSON.stringify({summary:'file channel',gaps:[]}));\nconsole.log(JSON.stringify({type:'result',subtype:'success',is_error:false,structured_output:{summary:'stdout channel',gaps:[]}}));\n`);
+      assert.equal(plan.args.includes('--json-schema'),true,'ordinary native work selects structured_output mode');
+      return plan;
+    },runPreparedWorkerTransport:async(plan,observer)=>{
+      currentProfileArtifactHook=typeof observer.assessNativeResultArtifact==='function';
+      try{return await transport.runPreparedWorkerTransport(plan,observer);}
+      catch(error){groupConfirmedBeforeConflict=rows.some(row=>row.kind==='actor_process_exited'&&row.payload.status===0)&&
+        !rows.some(row=>row.kind==='actor_process_termination_unconfirmed');throw error;}
+    }},
+  };
+  const actor=new SourceTextModule((await fs.readFile(actorPath,'utf8'))+'\nexport {invokeActorProcessWithAssembly};',{identifier:actorPath});
+  await actor.link(async specifier=>{const imported=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(actorPath),specifier)).href);
+    const values={...imported,...overrides[specifier]};return new SyntheticModule(Object.keys(values),function(){for(const[name,value]of Object.entries(values))this.setExport(name,value);});});
+  await actor.evaluate();
+  const request={...p.request,actorRef:env.capabilityGrant.actorRef,workerBindingRef:'worker-binding://native-tail',materializationPlanRef:'plan://native-tail',rendererRef:'renderer://native-tail',
+    instructionContractRef:ids.taskContractRef,prompt:'Perform only the bounded local edit.'};
+  const oldCommand=process.env.ABG_TS_CLAUDE_COMMAND;process.env.ABG_TS_CLAUDE_COMMAND=worker;
+  t.after(()=>{if(oldCommand===undefined)delete process.env.ABG_TS_CLAUDE_COMMAND;else process.env.ABG_TS_CLAUDE_COMMAND=oldCommand;});
+  const effect=await actor.namespace.invokeActorProcessWithAssembly({store:{readAll:()=>deepFreeze([...rows])},predecessorPrefix:currentPrefix,executionBasis:basis,
+    scope:{runId,graphCallId,frameId},cCall:call,expectedInputDigest:basis.rawInputDigest,occurrence:{...call,nativeInstructionAssemblyBasis:{}},
+    workerContracts:{instructionContractRef:ids.taskContractRef,resultContractRef:ids.workerReportContractRef},runtime:{workspaceBinding:env.workspaceBinding,artifactTruth:{}},
+    request,dispatchOrdinal:1,basis:{correlationId:'native-tail'}},{request});
+  assert.equal(effect.kind,'actor_process_effect_refusal');assert.match(effect.message,/distinct worker output channels disagree/);
+  assert.equal(currentProfileArtifactHook,true,'the actual ActorProcess current-profile path supplies channel assessment');
+  assert.equal(groupConfirmedBeforeConflict,true,'healthy group confirmation precedes post-process channel parsing');
+  assert.equal(await fs.readFile(join(env.canonicalRoot,'target.txt'),'utf8'),'partial native work\n');
+  const failed=rows.find(row=>row.kind==='actor_invocation_failed');assert.equal(failed.payload.failureClass,'transport_exception');
+  assert.equal(rows.some(row=>row.kind==='c_call_result_admitted'),false,'no exchange or native Result is fabricated');
+  const prior=deepFreeze(rows.filter(row=>row.admissionOrdinal<failed.admissionOrdinal));
+  assert.deepEqual(projectNativeWorkRetiredObservations(failed,prior),[requests[0].predecessorObservation.observationRef]);
+  const cold=selectValidatedRuntimeEventPrefix(deepFreeze(JSON.parse(JSON.stringify(rows))));
+  const projected=deriveRuntimeEventCalculusProjection(cold);
+  assert.equal(holdsAt(projected,constructRuntimeFluent({name:'worksite_observation_current',identity:requests[0].predecessorObservation.observationRef})),false);
+  for(const request of requests.slice(1))assert.equal(holdsAt(projected,constructRuntimeFluent({name:'worksite_observation_current',identity:request.predecessorObservation.observationRef})),true);
+  for(const kind of ['actor_process_started','actor_transport_binding_admitted','invocation_admitted','c_call_fibre_selected'])
+    assert.deepEqual(projectNativeWorkRetiredObservations(failed,prior.filter(row=>row.kind!==kind)),[],kind);
+  assert.deepEqual(projectNativeWorkRetiredObservations({...failed,runId:'run://foreign'},prior),[]);
+  t.diagnostic('Actual local process/group completion, supported structured_output/file conflict and partial file effects; lower installation/admission recording and liveness admission are controlled doubles. Exact liveness context and cold basis/invocation/implementation/currentness owners exercised; no probe, assessment, full native/Public admission or UAT credit.');
+});
 async function fixture(t, writeRoots = ['target.txt']) {
   const env = await worksiteFixture(product);
   t.after(() => fs.rm(env.scratch, {recursive:true, force:true}));
@@ -68,7 +197,8 @@ async function prepare(t, env) {
     effectUri:ids.effectUri,handlerRef:ids.handlerRef,handlerDigest:native.NATIVE_WORKSPACE_WORK_HANDLER_DIGEST,
     capabilityGrantRef:env.capabilityGrant.grantRef,capabilityGrantDigest:env.capabilityGrant.grantDigest});
   const request={implementationRef:ids.implementationRef,inputDigest:product.sha256Canonical(env.task),transportLane:'worker_executes',
-    resultContractRef:native.nativeWorkspaceWorkResultContractRef(env.task),responseJsonSchema:native.nativeWorkspaceWorkResponseSchema(env.task)};
+    resultContractRef:native.nativeWorkspaceWorkResultContractRef(env.task),responseJsonSchema:native.nativeWorkspaceWorkResponseSchema(env.task),
+    ...(env.task.assessment===undefined?{}:{responsePresentation:'result_text'})};
   const occurrence={...call,executionAuthority:authority};
   const prepared=await realizeNativeWorkspaceWork(env.task,occurrence,()=>({request}));
   const exchange=(finalOutput,disposition='success')=>({request,observation:{implementationRef:ids.implementationRef,
@@ -535,7 +665,9 @@ test('exact assessment resolution, native completion and result checks share one
 });
 
 test('typed read-only assessment retains F_P source and exact observed basis, not a work report', async t => {
-  const env=await assessmentFixture(t), p=await prepare(t,env);const result=await p.prepared.complete(p.exchange(verdict()));
+  const schema={...assessmentSchema,properties:{...assessmentSchema.properties,residuals:{type:'array',items:{type:'string',format:'email'}}}};
+  const env=await assessmentFixture(t,schema), p=await prepare(t,env);const result=await p.prepared.complete(p.exchange(verdict()));
+  assert.equal(p.request.responsePresentation,'result_text');assert.deepEqual(p.request.responseJsonSchema,schema);
   assert.equal(result.disposition,'success');const observation=result.resultCandidate;
   assert.equal(native.isNativeWorkspaceWorkObservation(observation),true);
   assert.equal(observation.report,null);assert.equal(observation.assessment.kind,'fixture_assessment');
@@ -555,18 +687,25 @@ test('typed read-only assessment retains F_P source and exact observed basis, no
   assert.equal(native.nativeWorkspaceWorkResultMatches(env.task,observation,p.call.cCallRef,p.exchange(verdict()).observation),true);
   assert.equal(native.nativeWorkspaceAssessmentMatchesContext(observation,env.task.context),true);
   assert.equal(native.nativeWorkspaceAssessmentMatchesContext({...observation,report:{summary:'accepted',gaps:[]}},env.task.context),false);
+  const wrongFormat=await p.prepared.complete(p.exchange(JSON.stringify({...JSON.parse(verdict()),residuals:['not an email']})));
+  assert.equal(wrongFormat.disposition,'failure');assert.equal(wrongFormat.resultCandidate.failureClass,'result_contract_failure','native completion still applies full format validation');
+  const {responsePresentation,...omittedPresentation}=p.request;
+  await assert.rejects(()=>realizeNativeWorkspaceWork(env.task,p.occurrence,()=>({request:omittedPresentation})),/assembly differs from its owner contract/);
+  await assert.rejects(()=>realizeNativeWorkspaceWork(env.task,p.occurrence,()=>({request:{...p.request,responsePresentation:'structured_output'}})),/assembly differs from its owner contract/);
   await fs.writeFile(join(env.canonicalRoot,'target.txt'),'changed after assessment\n');
   const current=await product.observeWorksiteContext(env.read);
   assert.equal(native.nativeWorkspaceAssessmentMatchesContext(observation,current),false,'changed candidate cannot reuse the verdict');
   assert.equal(native.isNativeWorkspaceWorkTask({...env.task,context:current}),false,'stale subject fails task construction');
 });
 
-for (const mode of ['ordinary-report','malformed','undeclared-field','same-author','failed-transport','mutating'])
+for (const mode of ['ordinary-report','malformed','empty','duplicate-keys','undeclared-field','same-author','failed-transport','mutating'])
   test(`native assessment ${mode} cannot produce semantic success`,async t=>{
     const env=await assessmentFixture(t), p=await prepare(t,env);
     let output=verdict();
     if(mode==='ordinary-report')output=JSON.stringify({summary:'Accepted',gaps:[]});
     if(mode==='malformed')output='{';
+    if(mode==='empty')output='';
+    if(mode==='duplicate-keys')output='{"kind":"fixture_assessment","kind":"fixture_assessment","criteria":[],"residuals":[]}';
     if(mode==='undeclared-field')output=JSON.stringify({...JSON.parse(output),basisDigest:digest('undeclared-field')});
     if(mode==='mutating')await fs.writeFile(join(env.canonicalRoot,'target.txt'),'unauthorized assessor edit\n');
     const exchange=p.exchange(output,mode==='failed-transport'?'failure':'success');
@@ -576,7 +715,7 @@ for (const mode of ['ordinary-report','malformed','undeclared-field','same-autho
     assert.equal(native.isNativeWorkspaceWorkObservation(result.resultCandidate),false);
     assert.equal(native.nativeWorkspaceAssessmentMatchesContext(result.resultCandidate,env.task.context),false);
     assert.equal(result.resultCandidate.failureClass,({ 'ordinary-report':'result_contract_failure',malformed:'result_contract_failure',
-      'undeclared-field':'result_contract_failure','same-author':'assessment_independence_mismatch','failed-transport':'absolute_timeout',mutating:'write_scope_violation'})[mode]);
+      empty:'result_contract_failure','duplicate-keys':'result_contract_failure','undeclared-field':'result_contract_failure','same-author':'assessment_independence_mismatch','failed-transport':'absolute_timeout',mutating:'write_scope_violation'})[mode]);
     if(mode==='mutating')assert.deepEqual(result.resultCandidate.changedPaths,['target.txt']);
     if(mode==='malformed') {
       const request={...p.request,actorRef:ids.workerActorRef,workerBindingRef:ids.workerBindingRef,
@@ -695,6 +834,7 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
     occurrence:occurrence(),loadImplementation:async()=>realizeNativeWorkspaceWork});
   const prepared=await invoke();assert.equal(prepared.kind,'prepared_probabilistic_leaf_owner_invocation');
   assert.equal(requestedRole,'assessor');assert.equal(prepared.workerRequest.resultContractRef,assessmentContract.contractRef);
+  assert.equal(prepared.workerRequest.responsePresentation,'result_text');
   assert.deepEqual(prepared.workerRequest.responseJsonSchema,selectedSchema);
   assert.match(prepared.workerRequest.prompt,/Independent assessment/);
   assert.ok(prepared.workerRequest.prompt.includes(canonicalJson(selectedSchema)));
@@ -706,9 +846,9 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
     occurrence:occurrence(),workerContracts:{instructionContractRef:ids.taskContractRef,resultContractRef:assessmentContract.contractRef},
     runtime:{workspaceBinding:env.workspaceBinding,artifactTruth:{}},request:prepared.workerRequest,dispatchOrdinal:1,basis:{}});
   assert.equal(transportBoundary.message,'stopped after local transport preparation');
-  assert.equal(capturedTransport.responsePresentation,undefined);
+  assert.equal(capturedTransport.responsePresentation,'result_text');
   assert.deepEqual(capturedTransport.responseJsonSchema,selectedSchema);
-  assert.equal(capturedPlan.args[capturedPlan.args.indexOf('--json-schema')+1],JSON.stringify(selectedSchema));
+  assert.equal(capturedPlan.args.includes('--json-schema'),false,'native assessor deliberately selects text before dispatch');
   assert.equal(capturedPlan.responseJsonSchemaDigest,product.sha256Canonical(selectedSchema));
   assert.equal(capturedPlan.promptDigest,product.sha256Canonical(prepared.workerRequest.prompt));
   assert.equal(capturedPlan.cwd,env.canonicalRoot);
@@ -732,6 +872,6 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
     const forms=generated.properties.obligations.items.properties.support.items.anyOf;assert.equal(forms.length,2);
     assert.match(prepared.workerRequest.prompt,/commandId/);assert.match(prepared.workerRequest.prompt,/Must be null for realization and verifier_artifact/);
     assert.match(prepared.workerRequest.prompt,/do not establish the absence of off-scope writes/);
-    t.diagnostic('Generated support anyOf bytes conserved through exact schema asset resolution, actual owned assembly/render, leaf preparation and --json-schema transport input. Controlled lower occurrence/role admission only; dispatch prohibited.');
+    t.diagnostic('Generated support anyOf bytes conserved through exact schema asset resolution, actual owned assembly/render, leaf preparation and explicitly selected result_text transport input. Full schema remains bound; controlled lower occurrence/role admission only; dispatch prohibited.');
   }
 });

@@ -687,7 +687,7 @@ test("D1 installed fixed-source obligation handoff remains non-closing", async t
       valueDigest: hash(input), value: input };
     const eventResource = reopenEventResource(product, closeHandoff), steeringDigest = hash(eventResource);
     const runSlots = { workspace_binding: boundSlots.workspace_binding,
-      product_set: environment.productInstalls.map(install => ({ ref: install.installId, digest: install.productContentDigest })),
+      product_set: environment.productInstalls.map(product.productInstallCoordinate),
       dependency_lock: lock, catalog_scope: catalogScope,
       execution_program: { ref: program.programRef, digest: resolution.resolution.programDigest },
       input_contract: inputCarrier, session_policy: { ref: policy.policyRef, digest: policy.policyDigest },
@@ -985,7 +985,7 @@ test("D1 retained catalog continuation reaches admitted handoff and replay", asy
       valueDigest: hash(input), value: input };
     const eventResource = reopenEventResource(product, closeHandoff), steeringDigest = hash(eventResource);
     const runSlots = { workspace_binding: boundSlots.workspace_binding,
-      product_set: environment.productInstalls.map(install => ({ ref: install.installId, digest: install.productContentDigest })),
+      product_set: environment.productInstalls.map(product.productInstallCoordinate),
       dependency_lock: lock, catalog_scope: catalogScope,
       execution_program: { ref: program.programRef, digest: resolution.resolution.programDigest },
       input_contract: inputCarrier, session_policy: { ref: policy.policyRef, digest: policy.policyDigest },

@@ -485,9 +485,21 @@ function resolveDeclarationClosure(
     }
   }
   const graphQueue = [...graphFunctionRefs];
+  const catalogRequiredGraphFunctionRefs = new Set(graphFunctionRefs);
+  const includeGraphFunction = (ref: string, requiresCatalogRow: boolean): void => {
+    const upgraded = requiresCatalogRow && !catalogRequiredGraphFunctionRefs.has(ref);
+    if (requiresCatalogRow) catalogRequiredGraphFunctionRefs.add(ref);
+    if (!graphFunctionRefs.has(ref)) {
+      graphFunctionRefs.add(ref);
+      graphQueue.push(ref);
+    } else if (upgraded && graphLocations.has(ref)) {
+      // A source already resolved statically must still pass the original
+      // callable owner checks when a later dependency names it at runtime.
+      graphQueue.push(ref);
+    }
+  };
   for (let index = 0; index < graphQueue.length; index += 1) {
     const graphFunctionRef = graphQueue[index]!;
-    if (graphLocations.has(graphFunctionRef)) continue;
     const located = locateRequired(
       allPublications,
       reachable,
@@ -544,14 +556,18 @@ function resolveDeclarationClosure(
         canonicalJson(graphFunction as unknown as JsonValue)
     );
     if (
-      ((selectedLookup !== null || programCallableRoot) && catalogRows.length !== 1) ||
-      (selectedLookup === null && catalogRows.length === 0)
+      catalogRequiredGraphFunctionRefs.has(graphFunctionRef) &&
+      (
+        ((selectedLookup !== null || programCallableRoot) && catalogRows.length !== 1) ||
+        (selectedLookup === null && catalogRows.length === 0)
+      )
     ) {
       return refusal(
         catalogRows.length === 0 ? "absent" : "ambiguous",
         `GraphFunction ${graphFunctionRef} lacks one exact Catalog/View owner row`,
       );
     }
+    if (graphLocations.has(graphFunctionRef)) continue;
     const forwardClaim = graphFunction.declarations["abg.worksite_command_forward"] !== undefined ||
       ([forwardIds.graphFunctionRef,forwardIds.childGraphFunctionRef] as readonly string[]).includes(graphFunctionRef) ||
       graphFunction.template.nodes.some(node=>projectCProgramNodeDeclarationReferences(node.term).implementationBindingRefs.some(ref=>
@@ -620,10 +636,7 @@ function resolveDeclarationClosure(
         }
       }
       for (const ref of historicalRefs) {
-        if (!graphFunctionRefs.has(ref)) {
-          graphFunctionRefs.add(ref);
-          graphQueue.push(ref);
-        }
+        includeGraphFunction(ref, true);
       }
     }
     graphFunction.inputs.forEach((ref) => contractRefs.add(ref));
@@ -648,10 +661,7 @@ function resolveDeclarationClosure(
     for (const node of graphFunction.template.nodes) {
       const references = projectCProgramNodeDeclarationReferences(node.term);
       for (const ref of references.graphFunctionRefs) {
-        if (!graphFunctionRefs.has(ref)) {
-          graphFunctionRefs.add(ref);
-          graphQueue.push(ref);
-        }
+        includeGraphFunction(ref, true);
       }
       references.contractRefs.forEach((ref) => contractRefs.add(ref));
       references.implementationBindingRefs.forEach((ref) =>
@@ -661,11 +671,10 @@ function resolveDeclarationClosure(
     for (const application of graphFunction.template.applications) {
       const references =
         projectGraphFunctionApplicationDeclarationReferences(application);
+      const requiresCatalogRow = application.relationKind !== "compose" &&
+        application.relationKind !== "substitute";
       for (const ref of references.graphFunctionRefs) {
-        if (!graphFunctionRefs.has(ref)) {
-          graphFunctionRefs.add(ref);
-          graphQueue.push(ref);
-        }
+        includeGraphFunction(ref, requiresCatalogRow);
       }
       references.contractRefs.forEach((ref) => contractRefs.add(ref));
       references.evaluatorRefs.forEach((ref) => evaluatorRefs.add(ref));

@@ -1,0 +1,38 @@
+[
+  {
+    "before": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "sha256": "a4b4a10f718a69125c15d2883b18d9749f357f772fcf1e834f918623b0e8a6bd",
+      "byteCount": 76115
+    },
+    "after": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "sha256": "91ab5595acc630b8b2eea221a9466eb1273de1b9a10fd361b1a5c417bb5bcfed",
+      "byteCount": 76288
+    }
+  },
+  {
+    "before": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md",
+      "sha256": "8f16957ea3bb20996ed9ae3a7f9c2f8801289d02e06dc6cd4130644e3eabbed7",
+      "byteCount": 25773
+    },
+    "after": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md",
+      "sha256": "31ba90f6477b9295fa3aacf9eddc8a6e6bf122fa5c6ab4c3c3074a86c95af564",
+      "byteCount": 27440
+    }
+  },
+  {
+    "before": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "sha256": "2b441ca587aa372644f1784afa3d767d34eabee47c516cbccc5289bc25e1793b",
+      "byteCount": 19321
+    },
+    "after": {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "sha256": "17af38185e496810b5299b69c4a34e2130fe7d06578da26b60590d83663b5745",
+      "byteCount": 27790
+    }
+  }
+]

@@ -1,0 +1,13 @@
+Writer40 single complete frozen-history cold acquisition CLOSED; all effects stopped.
+
+One default-heap Node command exit0, wall23658.158ms; existing readRuntimeEventsAtDurablePrefix(requireCurrent:true) acquisition21852.334ms. No timeout/truncation, stderr0B. All200571 logical events authenticated from exact1167689615B/SHAe211b95525be685ec0c705595973398d1b224d2d17501c4bc95588cef823f825 physical prefix. Current coordinate uses original device16777231/inode467205895 and authentic final profile6c8a9852…; stalehandoff3096922B extent was not reused. Thirteen source/built/installed owner pairs matched.
+
+Heap/RSS/external before34232816/175898624/2478587B; acquisition-return1694113848/3179053056/1170163648B; postGC1433614168/2969485312/2474033B; caller-vector/reference-drop1431526488/2978676736/2465841B. Default heap limit4496293888B unchanged, diagnostic-only --expose-gc. Caller drop did not materially release heap and the last WeakRef remained reachable. This does not establish its root or dominant live retainer; owner/module relations and diagnostic engine/async temporaries remain unseparated.
+
+Sampled profile20685samples includes objects collected by minor/major GC. High allocation sites include canonical join, decodeHistoricalEvents, buffer conversion, contract/event projection and canonical traversal/hash; sampled weights are cumulative allocation estimates, not exact live retention or peak memory. Complete profile is small and frozen; no heap snapshot or second acquisition.
+
+Source-inspected conditional relation: event_store.ts1388 WeakMap exact event→physical receipt, whose previous references the earlier RuntimeEvent; cold3257–3271 populates that chain. A held late event makes earlier events reachable. WeakMap itself is not a root; this is not attribution of the observed1.43GB or original4GB SIGABRT. Source reviewer owns further localization.
+
+First/last ordinals1/200571 and exact late parent200547 eventId/valueDigest agree with captured authentic39:27observations,nonterminal,original unresolved support. All late scalar coordinates are retained in measurement.json. Full canonical history was not serialized for reporting. Existing cold owner authenticated bytes/profile/envelopes/gap-free rows; physical dev/inode/size/mtime stayed exact.
+
+Frozen preparation/selected-coordinate/script/command/progress/measurement/sampled-profile/readiness are the entire new subject. No replay(), recovery/reopen/lock/current intent, native route/admission/Run/provider/app/source/HOW/config/Git effects, fullstore copy, heap or native control changes. P0 installed4GB root cause and repair remain unresolved; no UAT/currentness/recovery credit. Root owns the next diagnostic/repair decision; Writer40 stops.

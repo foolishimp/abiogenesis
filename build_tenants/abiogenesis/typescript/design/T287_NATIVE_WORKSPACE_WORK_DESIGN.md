@@ -115,6 +115,44 @@ original failure remain explicit; no successor observation is manufactured.
 
 ## Consumer judgment and qualification
 
+### Supported post-dispatch refusal (RC2 crosscut R02)
+
+An admitted native actor `transport_exception` after actual process start is
+also an effect-tail boundary. Its existing actor/transport/C-call lineage must
+join the unique admitted native task, implementation, workspace binding and
+grant. When no valid transport exchange reaches `complete`, that lineage
+supplies scope-qualified **unknown**, not an unchanged worksite or a new native
+Result. EC retires prior C0 current observations only inside that task's typed
+write roots at the same binding; unrelated and read-only facts survive. The
+original refusal, partial physical work and diagnostic remain. No post-work
+observation, rollback, report or assessment credit is claimed. Ordinary valid
+exchanges still use the owner's actual before/after observation above.
+
+At the cold EC fold handoff, its mutable prior-event vector is captured as an
+immutable snapshot for the existing validated-prefix owner; an already frozen
+vector is reused. The snapshot preserves the exact event instances, order and
+cut. Existing body, lineage and task/grant checks remain governing; no history
+cache or new admission authority is created.
+
+Leader exit cannot clear an unconfirmed owned-group residue. The existing
+cleanup-live/pending fluents retain it across Run failure and cold projection;
+only a genuinely group-confirmed actor terminal clears cleanup. The process
+exit itself remains its original fact. This changes no policy or event profile.
+
+```mermaid
+sequenceDiagram
+  NativeOwner->>Actor: exact task / admitted authority
+  Actor->>Transport: owned process invocation
+  Transport-->>Actor: leader exit + distinct group confirmation
+  alt valid exchange
+    Actor-->>NativeOwner: exchange
+    NativeOwner->>NativeOwner: scoped post-observation
+  else admitted post-start transport exception
+    Actor-->>EC: existing failure + task lineage
+    EC->>EC: retire scoped currentness as unknown
+  end
+```
+
 The native semantic job may retain exact selected command-executor inactivity
 and absolute limits in `taskData.nativeLifecycle.commandExecutionLimits`.
 The caller binds its frozen transport selection there without changing those
@@ -179,13 +217,24 @@ additional properties. This is an admission default, not dialect conversion.
 
 The schema owner retains its prepared validator with that exact admitted immutable schema for the asset object's lifetime. Repeated response-schema projection of an unchanged immutable asset reuses the same schema; selector identity checks and each resolver's actual installed-byte/declaration checks still execute. Result parsing reuses that preparation without changing strict draft-2020-12/full-format validation or raw I-JSON refusal. Changed assets, copied schema objects and standalone caller schemas establish their own preparation; no content-keyed registry or caller coordinate supplies authority. Catalog declaration application may resolve a multi-asset reference closure and remains a separate validation basis.
 
-Before dispatch, the authenticated native assessor passes its exact admitted
-consumer schema through the existing Claude `--json-schema` option. Its work
-order still displays the full original schema. No dialect or material vocabulary
-is translated, stripped or weakened to satisfy the host. An unsupported exact
-schema is a truthful host/transport failure; no retry or result-text fallback is
-selected. Request, schema, prompt, assembly and transport identities bind this
-same contract and its actual arguments.
+Before dispatch, the authenticated native assessor explicitly selects the
+existing transport `result_text` presentation. This selection belongs to the
+declared native assessment task and is conserved through its assembly, request,
+exact leaf/carrier checks and actual transport plan. Its request retains the
+exact admitted consumer schema and its work order displays the full original
+schema. The selected presentation does not pass that schema through Claude's
+`--json-schema` dialect check. No dialect or material vocabulary is translated,
+stripped or weakened. Request, schema, prompt, assembly and transport identities
+bind the same contract and the deliberately selected actual arguments. This is
+a pre-dispatch selection, never a failure-triggered retry or fallback.
+
+The native assessor consumes the existing final result-text carrier. Empty,
+malformed, non-I-JSON or full-schema-invalid text remains failure through the
+unchanged strict native raw-result and Ajv2020/full-formats checks. Markdown,
+intermediate tool arguments or a separately written result file cannot replace
+the selected carrier, and no malformed content is repaired. Host text transport
+success supplies no semantic verdict; independent native validation and the
+declared assessment outcome remain mandatory.
 
 For an actually requested host schema, the existing stream observer takes the
 value only from the successful final `result.structured_output` carrier. It
@@ -195,8 +244,9 @@ checks. Ordinary result text, intermediate `StructuredOutput` tool arguments
 and a separately written result file cannot supply a missing structured final.
 The raw stream remains retained; no malformed content is repaired or admitted.
 Only an actually requested host schema tool receives the synthetic
-`StructuredOutput` capability exemption. Without that selection, the existing
-ordinary result-text route remains. Constructor short reports and fixed-command
+`StructuredOutput` capability exemption. The selected native-assessor result-text
+route receives no such exemption. Omitted presentation and other structured-output
+purposes retain their existing route. Constructor short reports and fixed-command
 results keep their own schemas and meanings; the assessor's consumer schema is
 never applied to them. Native permissions, supervision and independent ABG
 validation remain unchanged; host schema conformance grants no semantic verdict.
@@ -262,6 +312,12 @@ fresh ordinary result/replay. Model, effort, timers and budgets are unchanged.
 
 
 ## Native semantic source composition — selected 2026-09-24
+
+Literal source and admitted C2 context preserve UTF-8 BOM, non-BMP characters and
+line endings. The default-library fold/planning projection and semantic-stage
+quote/text owners use the existing BOM-preserving fatal UTF-8 renderer behavior;
+an exact byte range re-encodes to its cited bytes. This changes no parsing rule,
+source grant, producer identity, assessment independence or consumer criterion.
 
 The existing native observation authentication is shared with the semantic source adapter described in `T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md`. It accepts only the declared native author/assessment graph, exact admitted actor/result/J and closed child; each consumer still checks its same-Run and current-subject conditions. C2 remains construction-only and retains its existing currentness duties. No second projector, cache, lifetime or authority is introduced.
 

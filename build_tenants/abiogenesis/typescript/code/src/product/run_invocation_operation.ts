@@ -34,7 +34,7 @@ import {
   type ProductExecutionResolutionRefusal,
   type ProductExecutionSelection,
 } from "./execution_resolution.js";
-import type { ProductInstall, WorkspaceBinding } from "./environment.js";
+import { productInstallCoordinate, type ProductInstall, type WorkspaceBinding } from "./environment.js";
 import {
   constructCapabilityGrant,
   constructExactDirectInvocation,
@@ -375,8 +375,8 @@ export function runOperationAuthorityMatches(
     lock !== null && lock.ref === workspaceBinding.lockId &&
     lock.digest === workspaceBinding.lockDigest &&
     productSet !== null && productSet.length === admittedInstalls.length &&
-    admittedInstalls.every((install) => productSet.some((row) =>
-      row.ref === install.installId && row.digest === install.productContentDigest
+    admittedInstalls.map(productInstallCoordinate).every((install) => productSet.some((row) =>
+      row.ref === install.ref && row.digest === install.digest
     )) &&
     catalogScope !== null && "view" in catalogScope &&
     catalogScope.catalog.ref === catalogRef(resources.catalog.basisDigest) &&

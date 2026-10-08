@@ -1,0 +1,114 @@
+{
+  "classification": "unpublished_immutable_candidate_construction",
+  "source58AcceptedByRootAtFreeze": true,
+  "identity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19/identity.json",
+    "sha256": "e6925ff894556142280e45b75b350e5b2196f84d3f1f5018caca194e81187284",
+    "byteCount": 5959
+  },
+  "checks": [
+    {
+      "label": "pack",
+      "exitCode": 0,
+      "wallMs": 3286.8911249999996,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19/commands/pack.result.json",
+        "sha256": "d5de6c8b198313a945f174c35f753ed13e588f3d7cb28ba6e9ff512c9af541bc",
+        "byteCount": 762057
+      }
+    },
+    {
+      "label": "member-comparison",
+      "exitCode": 0,
+      "wallMs": 713.344333,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19/commands/member-comparison.result.json",
+        "sha256": "4ecceab1f436fae5eade76ad76a9b799a7f85373aacaf4fd320d31eb4795a551",
+        "byteCount": 1035
+      }
+    },
+    {
+      "label": "extract",
+      "exitCode": 0,
+      "wallMs": 509.95104100000026,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19/commands/extract.result.json",
+        "sha256": "a4538830acba897d1bf37f2195c891a14f3b8d5949f38d0bbb7ad725fc1bf99d",
+        "byteCount": 701
+      }
+    },
+    {
+      "label": "packaged-owner",
+      "exitCode": 0,
+      "wallMs": 20962.317291,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19/commands/packaged-owner.result.json",
+        "sha256": "74c3e2a787fc9cfca50077f70fceb15eccb8b1e3b9fb183d8675252ff6380ed5",
+        "byteCount": 1208
+      }
+    },
+    {
+      "label": "graph-owner-corrected",
+      "exitCode": 0,
+      "wallMs": 416.765917,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19/commands/graph-owner-corrected.result.json",
+        "sha256": "05355373141d9a8dbb64400a3677235421aa6769f09e452b891ca2ce970fcf09",
+        "byteCount": 972
+      }
+    }
+  ],
+  "sourceBlindOwnerWallMs": 20497.49875,
+  "sourceBlindCheckedPayloadFiles": 5263,
+  "selectedInputCount": 951,
+  "external59Excluded": true,
+  "allSelectedInputsConserved": true,
+  "fieldConsequences": {
+    "capability": {
+      "graphDigest": 1,
+      "capabilityDefinitionDigest": 34,
+      "capabilityDefinitionRef": 34,
+      "productContentDigest": 241
+    },
+    "contribution": {
+      "graph": 1,
+      "contentRefs": 3,
+      "publicationDigests": 10,
+      "provenanceRefs": 47,
+      "catalog": 0
+    },
+    "catalogDifferences": 0
+  },
+  "premiseCorrections": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-successor-package-60/graph-byte-premise.json",
+      "sha256": "6d348e941704d2e2b5e86a3b23b0f8e60b5933c2a09601f43036a968dfccdf89",
+      "byteCount": 645
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-successor-package-60/readiness-premise.json",
+      "sha256": "d254d7002b00e535c4b8ad17fbff84dd99ce4472ae23ef5adcb53c5cdf43c62c",
+      "byteCount": 429
+    }
+  ],
+  "residuals": [
+    "IndependentProof60/publication acceptance pending.",
+    "Installed reader/Run/reproof61 notexecuted.",
+    "Original installed memoryP0, full16-mutant originalUAT and qualification remainOPEN."
+  ]
+}

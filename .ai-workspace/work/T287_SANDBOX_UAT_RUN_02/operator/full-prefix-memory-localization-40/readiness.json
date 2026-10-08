@@ -1,0 +1,100 @@
+{
+  "kind": "single_complete_cold_acquisition_diagnostic_closed",
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/command.result.json",
+    "sha256": "7b3a4d2cfb49adffb2dd62aeb580da3cfa1444389455cfaa67ed418b030dcd66",
+    "byteCount": 1176
+  },
+  "measurement": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/measurement.json",
+    "sha256": "b6fea58ecb0135c4b4b3d21e66b1ecc477bdf7b7999d65bcf59d2a3ff93a1948",
+    "byteCount": 31579
+  },
+  "sampledAllocationProfile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/allocation-sampling.json",
+    "sha256": "413083f6220516992382cf9c938d340a75bc7444d602dabcde231f8403ea8d6b",
+    "byteCount": 1053421
+  },
+  "exitCode": 0,
+  "wallMs": 23658.157624973683,
+  "acquisitionWallMs": 21852.334457999998,
+  "timedOut": false,
+  "truncated": false,
+  "stderrBytes": 0,
+  "physicalBytesAuthenticated": 1167689615,
+  "eventCount": 200571,
+  "selectedCoordinate": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/selected-coordinate.json",
+    "sha256": "4afd6392625c596490e208030b57425d859bc399a4ae903adaf6564bfbfc0ddc",
+    "byteCount": 709
+  },
+  "firstEvent": {
+    "ordinal": 1,
+    "eventId": "event://abiogenesis/224f541ad98d11fbd1185599f1e5aa83b8a28b9dd431116dcaeed37929c7dbb3",
+    "kind": "public_operation_artifact_admitted"
+  },
+  "lastEvent": {
+    "ordinal": 200571,
+    "eventId": "event://abiogenesis/08f215fb0cb2d1c15560b77628e66fa82af62ea4cd633c88f905d13b527a08c4",
+    "kind": "runtime_activity_probe_observed",
+    "payloadDigest": "sha256:89b5165b9aba9651c28c9ea4309d133cb05aed5f51578bb788c54862b300039d",
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+  },
+  "memory": {
+    "before": {
+      "label": "immediately_before_one_cold_acquisition",
+      "elapsedMs": 8.201791000000014,
+      "rss": 175898624,
+      "heapTotal": 105889792,
+      "heapUsed": 34232816,
+      "external": 2478587,
+      "arrayBuffers": 35207,
+      "heapSizeLimit": 4496293888
+    },
+    "returned": {
+      "label": "cold_acquisition_returned_events_retained",
+      "elapsedMs": 21860.936583,
+      "rss": 3179053056,
+      "heapTotal": 1823670272,
+      "heapUsed": 1694113848,
+      "external": 1170163648,
+      "arrayBuffers": 1167724822,
+      "heapSizeLimit": 4496293888
+    },
+    "collected": {
+      "label": "events_retained_after_collection",
+      "elapsedMs": 22068.37075,
+      "rss": 2969485312,
+      "heapTotal": 1584037888,
+      "heapUsed": 1433614168,
+      "external": 2474033,
+      "arrayBuffers": 35207,
+      "heapSizeLimit": 4496293888
+    },
+    "dropped": {
+      "label": "event_vector_reference_dropped",
+      "elapsedMs": 23270.087625,
+      "rss": 2978676736,
+      "heapTotal": 1581973504,
+      "heapUsed": 1431526488,
+      "external": 2465841,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888
+    }
+  },
+  "sampledAllocationLimit": "Sampling includes objects collected by major/minor GC; weights/call sites are sampled allocation attribution, not exact live retainer attribution or observed peaks. No multiGB heap snapshot.",
+  "sampleCount": 20685,
+  "defaultHeapLimitBytes": 4496293888,
+  "heapOverride": false,
+  "retentionSourceRelation": {
+    "owner": "code/src/abg/event_store.ts:1388; cold population3257\u20133271",
+    "relation": "physicalEventPrefixes WeakMap maps exact event to PhysicalEventPrefix whose previous is the earlier RuntimeEvent. A live late event therefore makes its prior-event chain reachable through these receipts. WeakMap alone is not a root.",
+    "notProven": "The root retaining the last event after this caller drop, dominant installed retainer, exact original SIGABRT allocation, or complete late projection/route cause."
+  },
+  "dropLimit": "Caller event vector plus explicit first/last/parent references were dropped, but final WeakRef remained reachable and heap stayed1.431GB. Existing owner/module relations and diagnostic engine/async temporaries were not exhaustively separated; no claim of complete release/leak attribution.",
+  "lateParentCorrespondence": "Cold parent200547 eventId/valueDigest exactly equals captured authentic39 subject,27observations/nonterminal/original unresolved support retained. Other late identifiers are scalar projections in measurement only.",
+  "immutableStoreStatConserved": true,
+  "old38And39PinsReferencedByPreparation": true,
+  "noReplayRecoveryProjectionAdmissionNativeRunProviderApplicationOrSourceEffects": true,
+  "nextDecision": "Complete physical acquisition is now bounded proof. Root/independent Source+Proof select any next exact late-route diagnostic or repair; Writer40 stops."
+}

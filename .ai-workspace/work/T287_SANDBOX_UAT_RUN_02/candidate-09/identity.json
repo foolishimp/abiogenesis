@@ -1,0 +1,135 @@
+{
+  "archiveSha256": "33bcebc306a2481fb81d6b6290d5a2168ffe5a50faa4ddd519df3359266ec2e6",
+  "archiveByteCount": 10620872,
+  "archiveFileCount": 5265,
+  "manifestByteSha256": "82048dbb49ee171e174592c94ac6d8d78b68082f6d58c3ba1678eeaeb662677f",
+  "baselineArchiveSha256": "d8c58f4ac5a8ea7c773d324559e94bc0fdf8bf3545387f296180027555d808b4",
+  "sourcePackageCorrespondence": true,
+  "compiledAndContractCount": 720,
+  "compiledAndContractDelta": [
+    {
+      "path": "build/code/src/abg/actor_process.js",
+      "preimageSha256": "9d847a558c26e6074fcd98ecebfffad3d05589b5c6c349282d16ef37bbdf2179",
+      "sha256": "ac5e3f70a10ccbe9348b7f39bba6748dd5b1bcc4b8b253fa92a57e18637d76cb",
+      "byteCount": 55237
+    },
+    {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "preimageSha256": "d77959a49b67c99a2b33120f62ed8f9d7c08d60ba0267d8a54ba33a458067b76",
+      "sha256": "a5af0630e0a058b4a54229bf7f724b62990b6186aa6cbc9bca7409ef9941d26a",
+      "byteCount": 113517
+    },
+    {
+      "path": "build/code/src/implementation/leaf_invocation_port.js",
+      "preimageSha256": "6866cb26994ea538a3a87cee2635b75461f086e44affb062e6619d4c6d004a4c",
+      "sha256": "0fb87e5388a7bf1273eb390ebf2f6c86d5ca884d9f7e8e4fe9819e4c7cb0bfdb",
+      "byteCount": 70116
+    },
+    {
+      "path": "build/code/src/implementation/native_workspace_work.js",
+      "preimageSha256": "9d4cec38f6354addb473df8e21dd58051661b6e2e7620870e17fbf0168a6e432",
+      "sha256": "d9f5917d3adcf3a4729ae84cc5064c3482962a4c9b944fb2f371eee98bf96cb0",
+      "byteCount": 6286
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "preimageSha256": "68893960fcfe8f1496e170ec88388b76c20aa7482a01bab572d47c52d02c1354",
+      "sha256": "6a0637594dae5eb4d106eb8920ed3fb236d4da1f8916dad24780ccd266ab9a32",
+      "byteCount": 197474
+    },
+    {
+      "path": "build/code/src/abg/actor_process.d.ts",
+      "preimageSha256": "c5212662ca6ac6bfad57eb3e4bc8421e6a2d47bdc89f855a2eedff45e798a739",
+      "sha256": "8a34637c76db75fbf17118bf77e1a7aa3b544a8792fa3a1a283bfba34eebbbda",
+      "byteCount": 8724
+    },
+    {
+      "path": "build/code/src/implementation/contracts.d.ts",
+      "preimageSha256": "28a10215bd8f7f2edafcc3239228cff7fc6cbbb69161258cdf6496744a0f3540",
+      "sha256": "4de09330193072ce5260bb30546c61f18cd19b9b58ae0cd1a9da222c5810c553",
+      "byteCount": 18871
+    }
+  ],
+  "archiveMemberDelta": [
+    {
+      "path": "build/code/src/abg/actor_process.d.ts",
+      "preimageSha256": "c5212662ca6ac6bfad57eb3e4bc8421e6a2d47bdc89f855a2eedff45e798a739",
+      "sha256": "8a34637c76db75fbf17118bf77e1a7aa3b544a8792fa3a1a283bfba34eebbbda",
+      "byteCount": 8724
+    },
+    {
+      "path": "build/code/src/abg/actor_process.js",
+      "preimageSha256": "9d847a558c26e6074fcd98ecebfffad3d05589b5c6c349282d16ef37bbdf2179",
+      "sha256": "ac5e3f70a10ccbe9348b7f39bba6748dd5b1bcc4b8b253fa92a57e18637d76cb",
+      "byteCount": 55237
+    },
+    {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "preimageSha256": "d77959a49b67c99a2b33120f62ed8f9d7c08d60ba0267d8a54ba33a458067b76",
+      "sha256": "a5af0630e0a058b4a54229bf7f724b62990b6186aa6cbc9bca7409ef9941d26a",
+      "byteCount": 113517
+    },
+    {
+      "path": "build/code/src/implementation/contracts.d.ts",
+      "preimageSha256": "28a10215bd8f7f2edafcc3239228cff7fc6cbbb69161258cdf6496744a0f3540",
+      "sha256": "4de09330193072ce5260bb30546c61f18cd19b9b58ae0cd1a9da222c5810c553",
+      "byteCount": 18871
+    },
+    {
+      "path": "build/code/src/implementation/leaf_invocation_port.js",
+      "preimageSha256": "6866cb26994ea538a3a87cee2635b75461f086e44affb062e6619d4c6d004a4c",
+      "sha256": "0fb87e5388a7bf1273eb390ebf2f6c86d5ca884d9f7e8e4fe9819e4c7cb0bfdb",
+      "byteCount": 70116
+    },
+    {
+      "path": "build/code/src/implementation/native_workspace_work.js",
+      "preimageSha256": "9d4cec38f6354addb473df8e21dd58051661b6e2e7620870e17fbf0168a6e432",
+      "sha256": "d9f5917d3adcf3a4729ae84cc5064c3482962a4c9b944fb2f371eee98bf96cb0",
+      "byteCount": 6286
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "preimageSha256": "68893960fcfe8f1496e170ec88388b76c20aa7482a01bab572d47c52d02c1354",
+      "sha256": "6a0637594dae5eb4d106eb8920ed3fb236d4da1f8916dad24780ccd266ab9a32",
+      "byteCount": 197474
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "preimageSha256": "1f792aeccc558a583eefd507c16e22adf590e14bce3d950c48f9eaa16e6da8b4",
+      "sha256": "82048dbb49ee171e174592c94ac6d8d78b68082f6d58c3ba1678eeaeb662677f",
+      "byteCount": 3171685
+    }
+  ],
+  "inspectedDependencyFixtureExclusions": [
+    {
+      "path": "node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+      "sha256": "c954f79d2fa7f4d9779a6e7514cdf8df1eeb95d0097ea62cd3b785d20f2d0859",
+      "byteCount": 9888,
+      "unchangedFromBaseline": true
+    },
+    {
+      "path": "node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+      "sha256": "c10203102fee328d6c8aedbd03319b8eeb364417c3b1137d714537fcd3102d69",
+      "byteCount": 1688,
+      "unchangedFromBaseline": true
+    },
+    {
+      "path": "node_modules/json-schema-traverse/spec/fixtures/schema.js",
+      "sha256": "0262591e321bc88b22dc33ec78bcded5ab664e2fce2c10b9e0c35d3eb6030d27",
+      "byteCount": 5544,
+      "unchangedFromBaseline": true
+    }
+  ],
+  "ownerJoins": {
+    "productContentDigest": "sha256:b164594115eea18afbd7cb72a9bcb356b6016b58551e98c6459adc6054a5cffa",
+    "canonicalManifestDigest": "sha256:fc78abe7c72148f4e616279cc1143b7e317b61cf0e1b6c88aecbfa8c5b9ec8b0",
+    "capabilityGraphDigest": "sha256:f0f3c612b4e45a564a6201ce928f54de7a69dbbd72d25c35e765bc0baba90b9e",
+    "publicContractCatalogDigest": "sha256:e72953f7645ca343270157507a204a33c3681422af40c1b6c7250536c6283d65",
+    "contributionManifestDigest": "sha256:59c2f920a23b7bbf4df4881ca1072110385f783f14ced2f95b1aaee4a16ddcff",
+    "publicationBindingCount": 10,
+    "contributionRowCount": 47,
+    "payloadCount": 5263,
+    "canonicalOwnerJoins": true
+  },
+  "runtimePackageMetadataUnchanged": true
+}

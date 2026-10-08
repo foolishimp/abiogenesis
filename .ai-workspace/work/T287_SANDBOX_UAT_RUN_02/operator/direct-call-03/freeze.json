@@ -1,0 +1,32 @@
+{
+  "activation": "T287_SANDBOX_UAT_RUN_02_DIRECT_CALL_03",
+  "frozenAt": "2026-10-06T05:44:00.230521+00:00",
+  "status": "stopped_after_one_direct_probe",
+  "refs": [
+    {
+      "path": "request.json",
+      "sha256": "16a480b60e07830f82bd6ec94e7e167d295e3abd995e04775ad65778d28a29f0",
+      "byteCount": 1289
+    },
+    {
+      "path": "tool-responses.json",
+      "sha256": "c66a12c62161a5d9678313ea16a68ff7bda7accaf7e139ae7f57cb74b71156aa",
+      "byteCount": 1988
+    },
+    {
+      "path": "response.json",
+      "sha256": "5e9e37e5dd6d98e755ee434f7280a5cfc6d0de507b723e1cc35a269b507b84c3",
+      "byteCount": 1596
+    },
+    {
+      "path": "result.json",
+      "sha256": "bc2646db0df5a9f23bdbbbb00d5c8159e0111f74258835398bcbbc6f13c91f00",
+      "byteCount": 1442
+    },
+    {
+      "path": "return.md",
+      "sha256": "a523963c5a1be75e7989f8a0c252357755651155ff5af8e1de597ef80125b7ac",
+      "byteCount": 1439
+    }
+  ]
+}

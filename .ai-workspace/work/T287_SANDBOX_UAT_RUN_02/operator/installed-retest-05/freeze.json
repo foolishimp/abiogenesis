@@ -1,0 +1,59 @@
+{
+  "activation": "T287_SANDBOX_UAT_INSTALLED_RETEST_05_PREPARATION",
+  "frozenAt": "2026-10-06T06:43:54.371161+00:00",
+  "role": "Configuration Writer / UAT Operator preparation",
+  "executionStatus": "HELD_pending_Root_explicit_release_after_final_candidate_identity_GO",
+  "config": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-05.json",
+    "sha256": "933b5e860e8ed0bba45608e501e871cf3868e99f78c81e8931af3fff72cff838",
+    "byteCount": 2327,
+    "preimagePath": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-auth-02.json",
+    "preimageSha256": "413824692abe66b374973af16446fa28a1b0d8626f79aaf5ce2b34a3ee31588b",
+    "changedFields": [
+      "package.archivePath",
+      "package.sha256"
+    ],
+    "allOtherFieldsEqual": true
+  },
+  "package": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "ca7feb52ca90ad581cc0b07d62a26c57526cd50d04814c54e9bcef770300be09",
+    "byteCount": 10620458,
+    "claim": "Actual bytes verified; final candidate identity conjunction pending."
+  },
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "acceptedCallerSourceFreeze": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/caller-repair-05/freeze.json",
+    "sha256": "e27449502725b675ff3922c38495daac1f1c7f797bc6c53d6d72fd9b1e4dfa58",
+    "sourcePinsVerified": 3
+  },
+  "orderedCases": [
+    "basic-cli",
+    "js-tenant-test",
+    "js-sdlc-bootstrap",
+    "rust-cli",
+    "rust-service",
+    "parallel-js",
+    "data-mapper-full"
+  ],
+  "preparedCommands": {
+    "executable": "/opt/homebrew/bin/node",
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "argumentsTemplate": [
+      "scripts/sandbox-uat.mjs",
+      "run",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-05.json",
+      "--case",
+      "CASE_KEY"
+    ],
+    "executed": false
+  },
+  "reportPins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-05/preparation.md",
+      "sha256": "86556b8aa4e850f9e7f5a41308dd4282b5f05fc558eb6433c44aa448632165b5",
+      "byteCount": 4557
+    }
+  ]
+}

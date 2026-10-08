@@ -1,0 +1,413 @@
+{
+  "role": "Implementation Worker12",
+  "status": "source_readiness_frozen_not_UAT",
+  "sourceHead": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "coframe": "worksite-causality",
+  "methodBasis": {
+    "version": "2.5.1-rc.2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "return": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/source-return.md",
+    "sha256": "83c8802e6af28451ed0c50fd2bafbf12ff4cb5dfad7fff958bd8689518648ed1",
+    "byteCount": 3065
+  },
+  "preimages": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/preimages.json",
+    "sha256": "8dd5ae313cb2da91cf4ffa5331c55818b566b9cc8d6765c72e0d82183eb1881e",
+    "byteCount": 884
+  },
+  "exactPostimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "04a785cac2b771d2cbc557b4467853bc51309b3220dde7847201bb83527b3cc2",
+      "byteCount": 45084
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "a827175b9fde9cf52f57f3fa26079872571b744a9990bbc8dacfc5a4a04fe8c1",
+      "byteCount": 31095
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "e50c53be712db0ccb2b31c83f2872d8e73081425dd1d2e523ac21a0f3cbd1def",
+      "byteCount": 92425
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "sha256": "d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+      "byteCount": 77648
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "fae3231bad472ece6cf9e012921b73ffeb23773178f235f2762f16af05ce0d18",
+      "byteCount": 34763
+    }
+  ],
+  "productionDelta": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "a827175b9fde9cf52f57f3fa26079872571b744a9990bbc8dacfc5a4a04fe8c1",
+      "byteCount": 31095,
+      "baselineSha256": "ac65695511a97a7d757b2be5a36b87cab4db820618578146f2713eff31a61902",
+      "changed": true
+    }
+  ],
+  "sourceConservation": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/source-conservation.json",
+    "sha256": "137ada6d948b54baaed897bd16037de20d841a039ad97fd02342b7bb17c20e04",
+    "byteCount": 116242
+  },
+  "compiledPins": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/compiled-pins.json",
+    "sha256": "9337def2cb78152582c5f76a744ae77e851101c6fb93ff180fb215b03643072e",
+    "byteCount": 154446
+  },
+  "compiledCount": 720,
+  "manifest": {
+    "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "c3d5c19360fb4bc5f03fcbc69d0ff17844f6b48782fd9530629641b716285145",
+    "byteCount": 3171685,
+    "canonicalManifestDigest": "sha256:fbf4a8455f6b3d4f39f464dc11ebef3d82271b0a1bcd99843305824c277969eb",
+    "productContentDigest": "sha256:877659c7d583c3b2b995ec06004d997ad478d29bf9a738ec24f1e8bdeb170916"
+  },
+  "protectedPins": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "byteCount": 26202
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "byteCount": 22857
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "a7c639158059ed39bdabde8825e1b03fcec7a470ebab26cec8246245ee8ca67b",
+      "byteCount": 23083
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+      "byteCount": 23452
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json",
+      "sha256": "68c48ff4f8d0d5205e1543c3f62997e29db61c6797cbdff93e67a71c3eb28d27",
+      "byteCount": 2328
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "8a82e3b62931b35af9dc655f31423cb07cb7c6b87dab7d2ddeb36ee42c40e2c6",
+      "byteCount": 10620905
+    }
+  ],
+  "checks": [
+    {
+      "receipt": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/build-02.receipt.json",
+        "sha256": "9393cc8263feadefacc568e8a8f6f1cc69311873d7fa065d277635485afa4d2b",
+        "byteCount": 313
+      },
+      "stdout": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/build-02.stdout.log",
+        "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+        "byteCount": 215
+      },
+      "stderr": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/build-02.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "byteCount": 0
+      },
+      "value": {
+        "command": "npm",
+        "args": [
+          "run",
+          "build"
+        ],
+        "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+        "startedAt": "2026-10-06T14:04:02.433Z",
+        "finishedAt": "2026-10-06T14:04:32.229Z",
+        "wallMs": 29796.567333,
+        "exit": 0,
+        "signal": null,
+        "streamsClosed": true
+      }
+    },
+    {
+      "receipt": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/syntax-02.receipt.json",
+        "sha256": "01302300217c0f67aaa3c4ef68b8413a1b1f2b2a3dbba7b44104640142ec7f21",
+        "byteCount": 400
+      },
+      "stdout": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/syntax-02.stdout.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "byteCount": 0
+      },
+      "stderr": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/syntax-02.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "byteCount": 0
+      },
+      "value": {
+        "command": "/opt/homebrew/bin/node",
+        "args": [
+          "--check",
+          "test_env/tests/t287-default-library.test.mjs"
+        ],
+        "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+        "environmentOverlay": {},
+        "startedAt": "2026-10-06T14:07:08.612Z",
+        "finishedAt": "2026-10-06T14:07:08.637Z",
+        "wallMs": 24.194375,
+        "exit": 0,
+        "signal": null,
+        "streamsClosed": true
+      }
+    },
+    {
+      "receipt": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library-03.receipt.json",
+        "sha256": "2ab2f1294e51846217cfcdcde65afab26533c1f287b99e43e6806448f4805712",
+        "byteCount": 474
+      },
+      "stdout": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library-03.stdout.log",
+        "sha256": "a65040d8eb81d5f2a69c6ee2fd588b243e7d3eb4a954d584bdc9e7b83b0cac65",
+        "byteCount": 2007
+      },
+      "stderr": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library-03.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "byteCount": 0
+      },
+      "value": {
+        "command": "/opt/homebrew/bin/node",
+        "args": [
+          "--experimental-vm-modules",
+          "--test",
+          "test_env/tests/t287-default-library.test.mjs"
+        ],
+        "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+        "environmentOverlay": {
+          "ABI5_DEFAULT_LIBRARY_LIVE": "0"
+        },
+        "startedAt": "2026-10-06T14:08:58.526Z",
+        "finishedAt": "2026-10-06T14:08:59.928Z",
+        "wallMs": 1401.649917,
+        "exit": 0,
+        "signal": null,
+        "streamsClosed": true
+      }
+    },
+    {
+      "receipt": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.receipt.json",
+        "sha256": "5f66db3ff1a516ddb151c8297c037c9d6b6df60a56826d5ed73f30bfa84c717e",
+        "byteCount": 504
+      },
+      "stdout": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.stdout.log",
+        "sha256": "924606c41baf59f626f2e79f04a52d0107f4476af08409893f801a29dbe80391",
+        "byteCount": 336
+      },
+      "stderr": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.stderr.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "byteCount": 0
+      },
+      "value": {
+        "command": "/opt/homebrew/bin/node",
+        "args": [
+          "--experimental-vm-modules",
+          "--test",
+          "--test-name-pattern=Seven exact original workloads|Resolved toolchain identity",
+          "test_env/uat/harness.test.mjs"
+        ],
+        "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+        "environmentOverlay": {},
+        "startedAt": "2026-10-06T14:08:59.928Z",
+        "finishedAt": "2026-10-06T14:09:00.222Z",
+        "wallMs": 294.327542,
+        "exit": 0,
+        "signal": null,
+        "streamsClosed": true
+      }
+    }
+  ],
+  "records": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/build-02.receipt.json",
+      "sha256": "9393cc8263feadefacc568e8a8f6f1cc69311873d7fa065d277635485afa4d2b",
+      "byteCount": 313
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/build-02.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/build-02.stdout.log",
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+      "byteCount": 215
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/build-failure.json",
+      "sha256": "51d2b626d27c9ade6c8f654ee7b99b27911dba3f9820cb082f6cd0ec3633f7ee",
+      "byteCount": 1806
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/build.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/build.stdout.log",
+      "sha256": "613bfaf79b8dc0e1441dd8691a43d925a8476d2c292c3d96365291b2b3e67ed4",
+      "byteCount": 1037
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/caller-delta.json",
+      "sha256": "2d3f6f298495e74c072bbd6eb1f6acc2326d65cc6707c6dc5b9904471f0fcdfd",
+      "byteCount": 5878
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/compiled-pins.json",
+      "sha256": "9337def2cb78152582c5f76a744ae77e851101c6fb93ff180fb215b03643072e",
+      "byteCount": 154446
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library-02.receipt.json",
+      "sha256": "fcc7b6a9d8f91cba2ec969b824957290b3d8aaf0a007bff42adcb940111721cf",
+      "byteCount": 474
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library-02.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library-02.stdout.log",
+      "sha256": "98ad5ce33d4b9730e80e4021dbd14f4cae55a96ccb6456b6c6040febf4fc5993",
+      "byteCount": 2738
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library-03.receipt.json",
+      "sha256": "2ab2f1294e51846217cfcdcde65afab26533c1f287b99e43e6806448f4805712",
+      "byteCount": 474
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library-03.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library-03.stdout.log",
+      "sha256": "a65040d8eb81d5f2a69c6ee2fd588b243e7d3eb4a954d584bdc9e7b83b0cac65",
+      "byteCount": 2007
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library.receipt.json",
+      "sha256": "f948ced1aa00a07c8cc495b8ff3a18f9f09a0d32f6a20af06ef25ad7b5ab8b55",
+      "byteCount": 481
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/default-library.stdout.log",
+      "sha256": "76dea6ec82cd1245b1afc3d76ac47e614f56bfe790c7fc9a2a0507be5e7305f8",
+      "byteCount": 35959
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.receipt.json",
+      "sha256": "5f66db3ff1a516ddb151c8297c037c9d6b6df60a56826d5ed73f30bfa84c717e",
+      "byteCount": 504
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.stdout.log",
+      "sha256": "924606c41baf59f626f2e79f04a52d0107f4476af08409893f801a29dbe80391",
+      "byteCount": 336
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/grant.md",
+      "sha256": "b3363083ba1b9f13d72c02f82e552ad29c6ddc32ba0e4480ef5bc7e36dca065e",
+      "byteCount": 1641
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/preimages.json",
+      "sha256": "8dd5ae313cb2da91cf4ffa5331c55818b566b9cc8d6765c72e0d82183eb1881e",
+      "byteCount": 884
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/source-conservation.json",
+      "sha256": "137ada6d948b54baaed897bd16037de20d841a039ad97fd02342b7bb17c20e04",
+      "byteCount": 116242
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/source-return.md",
+      "sha256": "83c8802e6af28451ed0c50fd2bafbf12ff4cb5dfad7fff958bd8689518648ed1",
+      "byteCount": 3065
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/syntax-02.receipt.json",
+      "sha256": "01302300217c0f67aaa3c4ef68b8413a1b1f2b2a3dbba7b44104640142ec7f21",
+      "byteCount": 400
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/syntax-02.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/syntax-02.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/syntax.receipt.json",
+      "sha256": "a6c3c7ecc2bc2d4888bd149c5e0232bd1d9c0803e257b8f4568ffb9f6a3f02aa",
+      "byteCount": 398
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/syntax.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/syntax.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/test-premise-clarification.json",
+      "sha256": "83eef6d4277fb6dc7996ddbd8f63d87d33a6e3aa56725e591610f54a3fcaf356",
+      "byteCount": 1051
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/test-premise-failure.json",
+      "sha256": "152f83c2e5f3aaf9869ef4df88d6d0ad3dadc0fd028bb9f691bb0011f40f54ef",
+      "byteCount": 1023
+    }
+  ],
+  "sourceEditingStopped": true,
+  "limits": {
+    "noActors": true,
+    "noRun": true,
+    "noUAT": true,
+    "noGitEffects": true,
+    "noProductRequirementsChange": true,
+    "candidatePackagingStillRequired": true
+  },
+  "frozenAt": "2026-10-06T14:13:54.600Z"
+}

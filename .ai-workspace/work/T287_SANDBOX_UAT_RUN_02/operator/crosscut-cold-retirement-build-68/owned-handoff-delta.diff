@@ -1,0 +1,26 @@
+--- Source64/code/src/abg/event_calculus.ts
++++ Source68/code/src/abg/event_calculus.ts
+@@ -642,7 +642,7 @@
+   if (sha256Canonical(bindingBody) !== transportBindingDigest || transportBindingRef !==
+     `transport-binding://abiogenesis/${String(transportBindingDigest).slice(7)}`) return null;
+   try {
+-    const prefix = selectValidatedRuntimeEventPrefix(priorEvents);
++    const prefix = selectValidatedRuntimeEventPrefix(Object.isFrozen(priorEvents) ? priorEvents : Object.freeze([...priorEvents]));
+     const basis = projectExactExecutionBasisAtPrefix(prefix, event.basisId);
+     if (basis === null || !isNativeWorkspaceWorkTask(basis.rawInputValue)) return null;
+     const task = basis.rawInputValue;
+--- Source64/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
++++ Source68/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md
+@@ -127,6 +127,12 @@
+ original refusal, partial physical work and diagnostic remain. No post-work
+ observation, rollback, report or assessment credit is claimed. Ordinary valid
+ exchanges still use the owner's actual before/after observation above.
++
++At the cold EC fold handoff, its mutable prior-event vector is captured as an
++immutable snapshot for the existing validated-prefix owner; an already frozen
++vector is reused. The snapshot preserves the exact event instances, order and
++cut. Existing body, lineage and task/grant checks remain governing; no history
++cache or new admission authority is created.
+ 
+ Leader exit cannot clear an unconfirmed owned-group residue. The existing
+ cleanup-live/pending fluents retain it across Run failure and cold projection;

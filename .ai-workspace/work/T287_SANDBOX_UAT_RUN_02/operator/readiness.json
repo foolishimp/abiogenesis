@@ -1,0 +1,89 @@
+{
+  "activation": "T287_SANDBOX_UAT_RUN_02",
+  "observedAt": "2026-10-06T02:54:46.316982+00:00",
+  "status": "blocked_provider_authentication",
+  "candidateAcceptedByExecutive": true,
+  "candidateSha256": "sha256:89e2038de69b384dbef84fe6620d5269e57382971cc8e845f554fc6101084b52",
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "configPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config.json",
+  "toolchainPreflight": {
+    "disposition": "ready",
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/preflight/2026-10-06T02-53-24-003Z-d8453596-b37b-4a69-8e3b-d9a944f98928",
+    "selectedCases": [
+      "basic-cli",
+      "js-tenant-test",
+      "js-sdlc-bootstrap",
+      "rust-cli",
+      "rust-service",
+      "parallel-js",
+      "data-mapper-full"
+    ],
+    "issues": []
+  },
+  "providerProbe": {
+    "exitCode": 1,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "wallMs": 11323.507834,
+    "environmentKeys": [
+      "HOME",
+      "JAVA_HOME",
+      "LANG",
+      "LC_ALL",
+      "PATH",
+      "TMPDIR"
+    ],
+    "result": "Not logged in \u00b7 Please run /login",
+    "totalCostUSD": 0,
+    "actualModels": [],
+    "childExitObserved": true,
+    "additionalProcessListing": "Unavailable: ps PermissionError EPERM; no lingering child/hung process observed by command recorder"
+  },
+  "liveUATsRun": 0,
+  "nativeLifecycleDispatches": 0,
+  "effectScope": "Configuration and readiness/probe observations only; no Product/source/harness/fixture/auth mutation",
+  "nextDisposition": "Executive authentication/environment triage; no autonomous retry",
+  "refs": [
+    {
+      "path": "activation.json",
+      "sha256": "e6b2c7eb937d69de41bc2d407b9cfd0f984dec87c251910850b78e7286cfb5f8",
+      "byteCount": 2091
+    },
+    {
+      "path": "config.json",
+      "sha256": "e311e7a66567041a8396c86204f1682015c36b28c10584a7ddc148046c431e78",
+      "byteCount": 2282
+    },
+    {
+      "path": "commands/preflight-all.request.json",
+      "sha256": "3bf4e6e03e922b3cce8c0cc851a7d549f04c7aa483e6e7c2c553cec061b20683",
+      "byteCount": 494
+    },
+    {
+      "path": "commands/preflight-all.result.json",
+      "sha256": "261a5ac6e0fab65345fc650deda8511b8d3b449dfe452b385ea45b0a5663d027",
+      "byteCount": 7109
+    },
+    {
+      "path": "commands/provider-probe.request.json",
+      "sha256": "39f2c6407d6ae10b968b750bf4a02427ecd6ed7af18265685b835881e7f4e2e6",
+      "byteCount": 584
+    },
+    {
+      "path": "commands/provider-probe.stdout",
+      "sha256": "db8da86ee411cb263c81f3b438ff6f1ffc1c204846ecb5dee85fbe05d075f937",
+      "byteCount": 1199
+    },
+    {
+      "path": "commands/provider-probe.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "commands/provider-probe.result.json",
+      "sha256": "897cbdd9e954b7f2fc3c9771273b9db4e9278feec61191e251e214c5145d3414",
+      "byteCount": 2077
+    }
+  ]
+}

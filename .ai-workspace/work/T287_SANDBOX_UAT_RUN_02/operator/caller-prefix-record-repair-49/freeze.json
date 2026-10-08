@@ -1,0 +1,146 @@
+{
+  "activation": "Writer49",
+  "frozenAt": "2026-10-08T00:59:30.933714+00:00",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/activation.md",
+      "sha256": "8e1b4fe02d6824dbe586f9da26d248630970d40220fbaec12e91c7548b17df25",
+      "byteCount": 1259
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/focused-harness.request.json",
+      "sha256": "f1e9a55c9cbe86de2b288a452f5c47f9e31c8544c465d1e5559e5181f57137a5",
+      "byteCount": 516
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/focused-harness.result.json",
+      "sha256": "74e886f7d46da8d4e98d0631461ffa6d52a333e12e18f99ecec802c0957df2c1",
+      "byteCount": 1510
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/focused-harness.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/focused-harness.stdout",
+      "sha256": "379a54106689529b8ee1410ef57295bc43e2f6beecac3e496e47e679cdaf53ec",
+      "byteCount": 819
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/syntax-harness.request.json",
+      "sha256": "b4676fad388e42cb88c696ac24629fb0f4527676fc9f40935cd5be282f9cd0fa",
+      "byteCount": 348
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/syntax-harness.result.json",
+      "sha256": "f9aaa438c716ef869e39eac89dbfb6e858f08d2904d148d10b7089dcc0d71995",
+      "byteCount": 500
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/syntax-harness.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/syntax-harness.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/syntax-runner.request.json",
+      "sha256": "9f80562e697f4fe1a2cec86cdc47d4e484c628605ba7ac83ae549fb49b492624",
+      "byteCount": 342
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/syntax-runner.result.json",
+      "sha256": "cb1e28fc0a3af40676c281193123a9ee3f47dc2bdeca9a3c43235b99cb13397e",
+      "byteCount": 503
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/syntax-runner.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/syntax-runner.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/preimages/harness.test.mjs",
+      "sha256": "61f20872561689420b08c62133f521dfdb9a749b9629b73af605dc7e296d8f7d",
+      "byteCount": 33397
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/preimages/runner.mjs",
+      "sha256": "f2b5065878426098278567e81dae8fb638c82880d696934ac43ccf24da74cee8",
+      "byteCount": 32748
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/preimages.json",
+      "sha256": "9d453184740b9302cdacec2f9e910aa4b46e16ac388f22d662d5ea05279eb171",
+      "byteCount": 453
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/readiness.json",
+      "sha256": "6f3f771de53ea51da9039b4a321da34b13e797ed2c77905d2d6a828db8dd57a4",
+      "byteCount": 4885
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/return.md",
+      "sha256": "05f57d8254b10fa8f7d4b8d9e05f43d35500518e3ddf67be8a01c44dc752dd3e",
+      "byteCount": 1857
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/source.diff",
+      "sha256": "d19e475585fa41889d4f57395aa27ceb2ef409286e8981580499ffa17786c9f9",
+      "byteCount": 7683
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/unit-runs/oracle-event-prefix/2026-10-08T00-58-44-571Z-9816f851-831c-46b6-a072-5f89049700bd/events.jsonl",
+      "sha256": "5ce15eb070692e38d7d8b6510641c6f83280c7b1487caca35a62dee1f57135b2",
+      "byteCount": 1687
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/unit-runs/oracle-event-prefix/2026-10-08T00-58-44-571Z-9816f851-831c-46b6-a072-5f89049700bd/runtime-event-prefix.json",
+      "sha256": "f884c0509f223a74e2431784718ff0cfd410482de012451a94664ec7f8dd8a60",
+      "byteCount": 706
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/unit-runs/oracle-event-prefix/2026-10-08T00-58-44-594Z-c005a65d-847a-425c-a1d4-95e8020c109e/events.jsonl",
+      "sha256": "5ce15eb070692e38d7d8b6510641c6f83280c7b1487caca35a62dee1f57135b2",
+      "byteCount": 1687
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "68fa02d35bba95d3c550dace5e2cff64b09050595cea1bf35cd44cac7573ae0a",
+      "byteCount": 32893,
+      "preimageSha256": "f2b5065878426098278567e81dae8fb638c82880d696934ac43ccf24da74cee8",
+      "preimageByteCount": 32748
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "71320af30191467b58d35a6c0cae7e15312c39133c6f66c5895eb576ea137843",
+      "byteCount": 37603,
+      "preimageSha256": "61f20872561689420b08c62133f521dfdb9a749b9629b73af605dc7e296d8f7d",
+      "preimageByteCount": 33397
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-call-local-successor-execution-48/return.md",
+      "sha256": "f32a760a0e99e6c35aba4da7caa5cda484bcb891d883a18e8fd616970d117b86",
+      "byteCount": 1827
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-call-local-successor-execution-48/observations.json",
+      "sha256": "9f2d5161f917300b74edb16f195e879c003afebc37d580b415713731b5402af9",
+      "byteCount": 124665
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-call-local-successor-execution-48/execution-freeze.json",
+      "sha256": "451bbce484376b686d58bb7c806aad85b8dc75c1e651f1afcd4e1f4f3852a914",
+      "byteCount": 40305
+    }
+  ],
+  "scope": "exact two-file source increment + compact mechanical evidence; no native/UAT claim"
+}

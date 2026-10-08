@@ -1,0 +1,11 @@
+--- /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs before
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs after
+@@ -456,7 +456,7 @@
+ }
+ 
+ function readAuthoritySlots(environment, packet, grants) {
+-  const { admittedInstalls, workspaceBinding } = environment;
++  const { product, admittedInstalls, workspaceBinding } = environment;
+   return Object.freeze({
+     workspace_binding: Object.freeze({
+       ref: workspaceBinding.bindingId,

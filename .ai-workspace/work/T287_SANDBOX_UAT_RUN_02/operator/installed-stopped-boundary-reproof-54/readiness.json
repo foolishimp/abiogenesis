@@ -1,0 +1,143 @@
+{
+  "status": "STOPPED_ON_FIRST_ACTUAL_FAILURE",
+  "readerArtifact": "sha256:29ba81c26cbf22857d4be6150cd20386f0e843b18f7754bd5f738e298fc8e63e",
+  "readerContent": "sha256:e4c213aeb707937298c71056f36506f415f2202137fa1c6df253f7cb345bd3a9",
+  "run": {
+    "ref": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93",
+    "digest": "sha256:9c5bb4324d39e0d1349d02383ddfa178be868e680d473ff31bd0ee3cff3a6b96"
+  },
+  "receipts": {
+    "runResult": {
+      "exitCode": 1,
+      "signal": null,
+      "wallMs": 147225.260334,
+      "timedOut": false,
+      "truncated": false,
+      "outcomeKind": "refusal",
+      "code": "not_found"
+    },
+    "runReplay": {
+      "exitCode": null,
+      "signal": "SIGABRT",
+      "wallMs": 151810.82745799999,
+      "timedOut": false,
+      "truncated": false,
+      "stdoutBytes": 0,
+      "stderrBytes": 9732
+    },
+    "outer": {
+      "exitCode": 1,
+      "signal": null,
+      "wallMs": 371787.14525,
+      "timedOut": false,
+      "truncated": false
+    },
+    "firstCause": "Actual18 run_replay CLI SIGABRT: Reached heap limit Allocation failed - JavaScript heap out of memory; ArrayPrototypeSlice/ArrayPrototypeFlatMap native frames. Precise JS allocation/retainer unresolved.",
+    "downstream": "Empty stdout -> JSON parse Unexpected end -> publicCaller92/freshReadbacks261 transport BoundaryFailure",
+    "freshReadbackAbsent": true,
+    "originalOracleNotReached": true,
+    "noNewNativeOrModelWork": true,
+    "noRetry": true
+  },
+  "stages": [
+    {
+      "stage": "owner-read-start",
+      "at": "2026-10-08T04:17:50.770Z",
+      "elapsedMs": 1733.873,
+      "memory": {
+        "rss": 525484032,
+        "heapTotal": 293257216,
+        "heapUsed": 170760088,
+        "external": 6753420,
+        "arrayBuffers": 4338335,
+        "maxRSSKiB": 573168
+      },
+      "run": {
+        "ref": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93",
+        "digest": "sha256:9c5bb4324d39e0d1349d02383ddfa178be868e680d473ff31bd0ee3cff3a6b96"
+      },
+      "prefix": {
+        "coordinateDigest": "sha256:a2929c1f9dbfbfee2cbfb0e5bfb3c871dc66d5e6c7d7d8c63b80dd6e91c1aa23",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6",
+        "prefixLength": 1182449986,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777231,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 467374253
+        }
+      },
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/reader-host/node_modules/@abiogenesis/typescript-tenant",
+      "historicalInstalledRoots": [
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat"
+      ],
+      "readerArtifact": "sha256:e4c213aeb707937298c71056f36506f415f2202137fa1c6df253f7cb345bd3a9",
+      "ownedPid": 87208
+    },
+    {
+      "stage": "owner-read-complete",
+      "at": "2026-10-08T04:19:00.283Z",
+      "elapsedMs": 71247.026625,
+      "memory": {
+        "rss": 5199790080,
+        "heapTotal": 3615408128,
+        "heapUsed": 3501448000,
+        "external": 2500416,
+        "arrayBuffers": 88724,
+        "maxRSSKiB": 5090560
+      },
+      "eventCount": 165617,
+      "first": {
+        "eventId": "event://abiogenesis/715afee9a389eb3ccfa81a0c5a1ef496a9bc0ad151dfcbc64b3dd76e6c681f88",
+        "ordinal": 1
+      },
+      "last": {
+        "eventId": "event://abiogenesis/7d258cb9cfb3daf97cbb98b9c6c778fe1e01340ab060e6d1b4eed7ff64af5722",
+        "ordinal": 165617
+      }
+    },
+    {
+      "stage": "fresh-readbacks-start",
+      "at": "2026-10-08T04:19:00.284Z",
+      "elapsedMs": 71247.689542,
+      "memory": {
+        "rss": 5199790080,
+        "heapTotal": 3615408128,
+        "heapUsed": 3501553088,
+        "external": 2501016,
+        "arrayBuffers": 89324,
+        "maxRSSKiB": 5090560
+      }
+    }
+  ],
+  "conservation": {
+    "controls": 19,
+    "material": 48,
+    "installs": 2,
+    "store": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6"
+  },
+  "claims": {
+    "oldBlockedTerminalNullPreserved": true,
+    "newRun": false,
+    "uatPass": false,
+    "replayReturned": false,
+    "originalOracleEvaluated": false,
+    "defaultHeap": true,
+    "nativeP0Closed": false
+  },
+  "retainedArtifacts": [
+    "commands/run_result.result.json",
+    "calls/run_result.outcome.json",
+    "calls/run_result.close.json",
+    "commands/run_replay.result.json",
+    "commands/run_replay.stderr",
+    "calls/run_replay.request.jsonl",
+    "failure.json",
+    "event-resource-conservation.json",
+    "owned-process-exit.json",
+    "conservation.json"
+  ]
+}

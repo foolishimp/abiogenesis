@@ -1,0 +1,21 @@
+{
+  "role": "Writer31 bounded Source Worker",
+  "preimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "69973570a806d5ac0319c0db5d1c29b9e3c4be77b516f5fbb1f38c443e0b4086",
+      "byteCount": 48106
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "sha256": "fcaf6ce8381d261e132dff0f2cb24595fdf8db94261def098b39ff9dd53ebaa0",
+      "byteCount": 30460
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "b89a36b25eb88bc35600f8de55431501b8409045dd17754aa9ccaeb73b80cb40",
+      "byteCount": 101153
+    }
+  ],
+  "rootGrant": "Root closed Source30+Proof30; canonical retained18 and failed Writer29 preserved"
+}

@@ -1,0 +1,12 @@
+diff --git a/build_tenants/abiogenesis/typescript/test_env/uat/config.example.json b/build_tenants/abiogenesis/typescript/test_env/uat/config.example.json
+index b34de354..5386e4af 100644
+--- a/build_tenants/abiogenesis/typescript/test_env/uat/config.example.json
++++ b/build_tenants/abiogenesis/typescript/test_env/uat/config.example.json
+@@ -30,6 +30,6 @@
+     "inactivityTimeoutMs": 120000,
+     "absoluteTimeoutMs": 600000,
+     "appendArgs": [],
+-    "inheritEnvironment": ["ANTHROPIC_API_KEY", "CLAUDE_CONFIG_DIR"]
++    "inheritEnvironment": ["ANTHROPIC_API_KEY", "CLAUDE_CONFIG_DIR", "CLAUDE_CODE_OAUTH_TOKEN"]
+   }
+ }

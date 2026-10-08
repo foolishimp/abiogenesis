@@ -1,0 +1,180 @@
+{
+  "frozenAt": "2026-10-06T07:47:13.625253+00:00",
+  "role": "UAT Operator preparation",
+  "status": "READY_NATIVE_EXECUTION_HELD",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "selectedPins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-budget-06.json",
+      "bytes": 2328,
+      "sha256": "84cf6c93aa411b71f0d4baa27e9ce8763473fd06e4639c20091e1c814dd5b760"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10620458,
+      "sha256": "ca7feb52ca90ad581cc0b07d62a26c57526cd50d04814c54e9bcef770300be09"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 22857,
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "bytes": 17357,
+      "sha256": "1869bcc42124ba8426002b2e91691e620546b3965fa51195d6fcf4831c3a7cdb"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "bytes": 34763,
+      "sha256": "e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 26202,
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1"
+    }
+  ],
+  "callerWorkerFreeze": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/caller-c2-repair-07/freeze.json",
+    "bytes": 6504,
+    "sha256": "74fd42462d32959b6eedba408356744e9c193098568d4faf8f80574ccfc170e1"
+  },
+  "reusedAuthorityAndFitPins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/executive-retest-05.md",
+      "bytes": 5626,
+      "sha256": "2ad0f92808102156e9dcb657b904132791d830d6080798966a0feb052b6b9307"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/executive-retest-06.md",
+      "bytes": 5720,
+      "sha256": "5b706baa62bbe4de453c8695c55c8c5ed9bfe8babf0ea711a101eea083a72d93"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-c2-07/return.md",
+      "bytes": 6335,
+      "sha256": "772efc3fb5bbc7d6917d1065eed0028951523bf34058cce0c005571e41a146a0"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-proof-07/return.md",
+      "bytes": 9252,
+      "sha256": "dc9249b21c6bafd48905c3a9f75530d0f19a1c06455193bfd7d0c6d9e055a657"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-06/freeze.json",
+      "bytes": 11470,
+      "sha256": "d38116ff01494a7b4c6a0d99ecbfc5115ad9b444fc1715c876019da367d2aff2"
+    }
+  ],
+  "preparationPin": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-07/preparation.md",
+    "bytes": 4877,
+    "sha256": "222272a745742aed0403d1fe96bc40b4a8080ff943454feadf381748d6457e46"
+  },
+  "orderedCases": [
+    "basic-cli",
+    "js-tenant-test",
+    "js-sdlc-bootstrap",
+    "rust-cli",
+    "rust-service",
+    "parallel-js",
+    "data-mapper-full"
+  ],
+  "orderedCommands": [
+    {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "scripts/sandbox-uat.mjs",
+        "run",
+        "--config",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-budget-06.json",
+        "--case",
+        "basic-cli"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+    },
+    {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "scripts/sandbox-uat.mjs",
+        "run",
+        "--config",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-budget-06.json",
+        "--case",
+        "js-tenant-test"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+    },
+    {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "scripts/sandbox-uat.mjs",
+        "run",
+        "--config",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-budget-06.json",
+        "--case",
+        "js-sdlc-bootstrap"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+    },
+    {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "scripts/sandbox-uat.mjs",
+        "run",
+        "--config",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-budget-06.json",
+        "--case",
+        "rust-cli"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+    },
+    {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "scripts/sandbox-uat.mjs",
+        "run",
+        "--config",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-budget-06.json",
+        "--case",
+        "rust-service"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+    },
+    {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "scripts/sandbox-uat.mjs",
+        "run",
+        "--config",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-budget-06.json",
+        "--case",
+        "parallel-js"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+    },
+    {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "scripts/sandbox-uat.mjs",
+        "run",
+        "--config",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-budget-06.json",
+        "--case",
+        "data-mapper-full"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript"
+    }
+  ],
+  "stopOnAnyNonpass": true,
+  "advanceOnlySealedPass": true,
+  "commandRecorderTimeoutMs": 4200000,
+  "nativeProcessTimeoutMs": 3600000,
+  "writeTerritory": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-07",
+  "noNativeExecution": true,
+  "reviewAndExecutionRelease": "Independent caller review pending; Reviewer cannot authorize execution. Root release required.",
+  "noSourceConfigPackageOrOldEvidenceMutation": true
+}

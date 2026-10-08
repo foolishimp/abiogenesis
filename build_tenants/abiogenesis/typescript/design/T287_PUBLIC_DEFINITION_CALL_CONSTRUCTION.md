@@ -98,6 +98,36 @@ reappend, immutable prior prefixes and refusal isolation remain binding.
 Recovery reconstructs; a handoff or query within the live lifetime is not itself
 a reason to reconstruct history. No competing persistent state is introduced.
 
+### Authenticated read-source handoff (T287/Writer51)
+
+One cold read authenticates the detached immutable durable coordinate and its
+complete ordered event vector. The existing coordinate derivation receipt then
+lets pure ArtifactTruth and WorkspaceEnvironment consumers borrow that exact
+source; internal read preparation carries the resulting owner projection rather
+than decoding the same physical prefix again. Capture alone establishes no
+history facts. Raw/copied coordinates and explicit physical reads keep their
+cold admission; currentness, invalidation, binding, install and causal checks
+remain owned by their existing contracts. This is disposable established-value
+reuse, with no additional history cache or recovery authority.
+
+```mermaid
+sequenceDiagram
+  participant Caller
+  participant Reader as Durable-prefix owner
+  participant Truth as ArtifactTruth owner
+  participant Env as WorkspaceEnvironment owner
+  Caller->>Reader: capture coordinate; authenticate complete read
+  Reader-->>Caller: immutable source and exact coordinate receipt
+  Caller->>Truth: projectOwnedPrefixArtifactTruth(coordinate)
+  Truth->>Env: projectWorkspaceEnvironmentFromArtifactTruth(truth, binding)
+  Env-->>Caller: same source-bound environment for read preparation
+```
+
+The sandbox caller compares the whole event resource before and after each
+eventless fresh read using bounded byte chunks, digest, length and file identity.
+It retains no full before/after byte buffers. Replacement, append, truncation or
+changed bytes still refuse; these checks add no runtime event or terminal truth.
+
 The [catalog owner](T287_GRAPH_CATALOG_CONTRACTION_ACCEPTED_DESIGN.md) continues
 to return plain immutable derived construction: equal complete bases produce
 equal results, independently of process identity. Catalog reuse grants neither

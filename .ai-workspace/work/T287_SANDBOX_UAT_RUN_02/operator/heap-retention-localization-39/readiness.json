@@ -1,0 +1,80 @@
+{
+  "kind": "bounded_component_diagnostic_closed",
+  "command": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/heap-retention-localization-39/command.result.json",
+    "sha256": "ad52f7e6c3d31952d1aaa2dac277fb9c1b8cd0c791467edc7323fd8689d59e02",
+    "byteCount": 987
+  },
+  "exitCode": 0,
+  "commandWallMs": 2366.905584000051,
+  "measurementWallMs": 2022.4201249999999,
+  "installedAndLiveOwnerBytePairs": 13,
+  "authenticDistinctParentValues": 27,
+  "physicalParentJsonBytes": 24542486,
+  "boundedLogicalEventCount": 434,
+  "realScopeCount": 5,
+  "metrics": {
+    "lastParentCanonicalBytes": 1574760,
+    "lastParentCanonicalTextHeapIncreaseBytes": 10326408,
+    "lastParentCanonicalTextAfterCollectionIncreaseBytes": 648,
+    "lastParentIncrementalHashReturnedHeapIncreaseBytes": 5492800,
+    "lastParentIncrementalHashAfterCollectionIncreaseBytes": 528,
+    "lastParentRawReturnedHeapIncreaseBytes": 19124752,
+    "lastParentRawAfterCollectionIncreaseBytes": 1886176,
+    "counterfactualAll27RawOutputsRetainedHeapIncreaseBytes": 29694640,
+    "434PrefixDerivationSourceReleasedHeapBytes": 8260736,
+    "sampledMaxHeapBytes": 93819936,
+    "sampledMaxRssBytes": 338345984
+  },
+  "verified": {
+    "canonicalTextAndIncrementalHashMatchAllAuthenticValueDigests": true,
+    "rawAdmissionDetachedDeepFrozenValuesAndOwnedIdentitiesMatchAll27": true,
+    "callerMutationIsolation": true,
+    "coldAndWarmPrefixValuesIdentitiesAndDigestsAgree": true,
+    "derivationSourceRetainsLastAuthenticEvent": true,
+    "invalidationReleasesLastAuthenticEvent": true,
+    "allPinnedSourcesInputsAndClosed38FreezeReacquiredUnchanged": true
+  },
+  "causalRanking": [
+    {
+      "candidate": "Long-lived canonical states plus derivation-source scope/index facts",
+      "evidence": "Controlled retained27 raw outputs add29694640B; exact authentic434 source retains8260736B until invalidate",
+      "limit": "Hold-all raw outputs are counterfactual. The434 prefix predates late parent observations; complete late scope owners were not exercised. Dominant full-run retainer is unresolved."
+    },
+    {
+      "candidate": "Raw admission canonical-text detachment at validator/raw_admission.ts:202; separate c_call.ts:6606 copy remains source-inspected",
+      "evidence": "Actual final-parent raw operation returns with19124752B sampled extra heap; afterGC retains1886176B and output release returns near baseline",
+      "limit": "Confirms transient pressure and one detached retained output, not cumulative leakage or the aborted caller/allocation site. Guarded c_call admission was not invoked."
+    },
+    {
+      "candidate": "Canonical text versus incremental canonical hashing",
+      "evidence": "Same authentic final value: text-held10326408B extra heap; hash-return5492800B; both return near baseline afterGC and exact digests agree",
+      "limit": "TheJSON.stringify nativeOOM stack does not distinguish these owners; samples are not allocation peaks."
+    }
+  ],
+  "smallestWarrantedNextCone": "No dominant-retention repair is established. Preserve caller detachment and canonical authority. Raw detachment/pre-store clone are the smallest measured/source-linked transient-pressure cone; scope lifetime needs the complete late-prefix owner prerequisites before a lifetime repair.",
+  "completeLatePrefixPrerequisite": {
+    "storeFrozenInPhase38": {
+      "byteCount": 1167689615,
+      "sha256": "e211b95525be685ec0c705595973398d1b224d2d17501c4bc95588cef823f825"
+    },
+    "required": "Exact owner-decoded/authenticated gap-free source prefix through the selected late durable cut, original derived prefix/source/scope correspondence, authentic execution basis, cursor, admitted C_Call, source Result and judgment/outcome from their owners. Sparse27 state rows or434 early events cannot substitute.",
+    "notGranted": "Full-store replay/materialization, currentness/recovery, fabricated or renumbered RuntimeEvents, new owner contracts."
+  },
+  "claimLimits": {
+    "noCompleteLatePrefixRouteReproduction": true,
+    "noDominantFullRunRetainerClaim": true,
+    "noNativeRuntimeCurrentnessRecoveryOrUatCredit": true,
+    "noProductionChanges": true,
+    "actualLatePrefixPrerequisite": "Complete late authenticated prefix/basis/cursor/outcome unavailable without prohibited full-history materialization; no sparse or renumbered event substitute",
+    "rawHoldAllIsCounterfactualOnly": true,
+    "rssAndHeapSamplesAreNotContinuousPeaks": true,
+    "initialFixtureAllocationIncludesIndependentParsedParentCopies": true
+  },
+  "settings": {
+    "controlledExposeGcOnly": true,
+    "defaultHeapLimitBytes": 4496293888,
+    "heapIncreaseOrNativeLimitChange": false
+  },
+  "protectedCuts": "Only new phase39 files were written. Old38 freeze/source pins reacquired; frozen1.167GB store was not replayed/copied or rehashed. No production/caller/app/Run effects."
+}

@@ -1,0 +1,236 @@
+{
+  "role": "G09 owning HOW/Source/build/candidate Worker",
+  "status": "FROZEN_SOURCE_AND_MECHANICAL_READINESS_ONLY",
+  "sourceHead": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodBasis": {
+    "version": "v2.5.1-rc.2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "preimage": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-assessor-repair-09/preimage.json",
+    "sha256": "e43e98fe2495545fda94a079d21c54ffc06e3d74b7ba8f1ae8d8a2480bdb0f3e",
+    "byteCount": 3696
+  },
+  "closedTriage": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-assessor-09/return.md",
+      "sha256": "9c8a57bde6abdbca06f8a3ca4102645609bb2ae0943eba9738c741ab9342adf1",
+      "byteCount": 5713
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-assessor-09/pins.json",
+      "sha256": "4d588245606e520d5bf63b03caf81fee0e2244e37e8eeee41f173bac401cbe0f",
+      "byteCount": 14703
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-proof-09/return.md",
+      "sha256": "3172ccbfd89ab7c7814c253fe1df6b6ffd1a1a378ebf5bfb9a42f830da450910",
+      "byteCount": 4481
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-proof-09/pins.json",
+      "sha256": "ea2b3264e0d78c0d65fba5a47323fc3e8ea5d1bfd91b88c0c892b17e89ee257d",
+      "byteCount": 6657
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-proof-09/freeze.json",
+      "sha256": "9cc7b5440023154b6691829569d4db6d85134066b25a19d247dc2557f202fd2c",
+      "byteCount": 695
+    }
+  ],
+  "exactPostimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "340f6c837e5670e1dde032618ff5f9848c8936cfc7b847a1592f03473b33b6f7",
+      "byteCount": 19376
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "sha256": "a9da9a1b7103db0c180615e22af86a8d8218aa2ad6e7c515d67263c7d96dcc21",
+      "byteCount": 18689
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "sha256": "0f5476add28906bd04c75eeb36605232beb4dedeefcdb0ad7dabf1eb9d732719",
+      "byteCount": 117767
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "sha256": "52607d0aaf572538b40efec68b75b84f75603f347ecbd2c7999fdca36fa65cdc",
+      "byteCount": 59556
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "sha256": "a195281811bac8860dacebfbd489c5aaec7e3d79439bc89dd035891c9ed30813",
+      "byteCount": 76599
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "sha256": "dd7609684b2a83fbbf435a4cff30a8be693d08ff67b022ec512c8b92457df3bc",
+      "byteCount": 6843
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "a2c546b7bf9393aa6d05973cc24875704b31deaf8676888d3314db67e5cafacb",
+      "byteCount": 70179
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "sha256": "54f4f66b1b94fddc72a8f4e9ea67add0021c05382346417131b1778001f672de",
+      "byteCount": 36883
+    }
+  ],
+  "reusedInventoryChain": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/source-preimage.json",
+      "sha256": "9971bfd5be887c46608e37dc81c4775468106c2704faeb69783f5803d61fee3e",
+      "byteCount": 75470
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/freeze.json",
+      "sha256": "9cdbb2b45c71b94608dae4eff3cc76a59553079c183314b8bda6084bbba6868c",
+      "byteCount": 139373
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-uat-repair-08/freeze.json",
+      "sha256": "012dea8a19dd0e6c9c92599421ba7ffff0d51e4f8984c0c8fe27d9d9e9560246",
+      "byteCount": 7082
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-08/identity.json",
+      "sha256": "f9d380fda5461695bb402d9692e1e83dbacdc9d5ba0c0df30864e137c4db4869",
+      "byteCount": 3478
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-08/freeze.json",
+      "sha256": "401745dfe77f2c93fb267407ec2b161245046aa60cfbe5d92eff161a218c51c9",
+      "byteCount": 5654
+    }
+  ],
+  "wholeSourceChecks": {
+    "population": 263,
+    "onlyGrantedProductionDelta": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "sha256": "52607d0aaf572538b40efec68b75b84f75603f347ecbd2c7999fdca36fa65cdc",
+        "byteCount": 59556
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+        "sha256": "0f5476add28906bd04c75eeb36605232beb4dedeefcdb0ad7dabf1eb9d732719",
+        "byteCount": 117767
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+        "sha256": "a9da9a1b7103db0c180615e22af86a8d8218aa2ad6e7c515d67263c7d96dcc21",
+        "byteCount": 18689
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "sha256": "a195281811bac8860dacebfbd489c5aaec7e3d79439bc89dd035891c9ed30813",
+        "byteCount": 76599
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+        "sha256": "dd7609684b2a83fbbf435a4cff30a8be693d08ff67b022ec512c8b92457df3bc",
+        "byteCount": 6843
+      }
+    ],
+    "governingPinsUnchanged": 86,
+    "mechanicalPinsUnchanged": 6,
+    "owningHowIsTheOnlyDesignChange": true
+  },
+  "compiledAndContractPopulation": 720,
+  "compiledAndContractDelta": [
+    {
+      "path": "build/code/src/abg/actor_process.js",
+      "preimageSha256": "9d847a558c26e6074fcd98ecebfffad3d05589b5c6c349282d16ef37bbdf2179",
+      "sha256": "ac5e3f70a10ccbe9348b7f39bba6748dd5b1bcc4b8b253fa92a57e18637d76cb",
+      "byteCount": 55237
+    },
+    {
+      "path": "build/code/src/abg/instruction_assembly.js",
+      "preimageSha256": "d77959a49b67c99a2b33120f62ed8f9d7c08d60ba0267d8a54ba33a458067b76",
+      "sha256": "a5af0630e0a058b4a54229bf7f724b62990b6186aa6cbc9bca7409ef9941d26a",
+      "byteCount": 113517
+    },
+    {
+      "path": "build/code/src/implementation/leaf_invocation_port.js",
+      "preimageSha256": "6866cb26994ea538a3a87cee2635b75461f086e44affb062e6619d4c6d004a4c",
+      "sha256": "0fb87e5388a7bf1273eb390ebf2f6c86d5ca884d9f7e8e4fe9819e4c7cb0bfdb",
+      "byteCount": 70116
+    },
+    {
+      "path": "build/code/src/implementation/native_workspace_work.js",
+      "preimageSha256": "9d4cec38f6354addb473df8e21dd58051661b6e2e7620870e17fbf0168a6e432",
+      "sha256": "d9f5917d3adcf3a4729ae84cc5064c3482962a4c9b944fb2f371eee98bf96cb0",
+      "byteCount": 6286
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "preimageSha256": "68893960fcfe8f1496e170ec88388b76c20aa7482a01bab572d47c52d02c1354",
+      "sha256": "6a0637594dae5eb4d106eb8920ed3fb236d4da1f8916dad24780ccd266ab9a32",
+      "byteCount": 197474
+    },
+    {
+      "path": "build/code/src/abg/actor_process.d.ts",
+      "preimageSha256": "c5212662ca6ac6bfad57eb3e4bc8421e6a2d47bdc89f855a2eedff45e798a739",
+      "sha256": "8a34637c76db75fbf17118bf77e1a7aa3b544a8792fa3a1a283bfba34eebbbda",
+      "byteCount": 8724
+    },
+    {
+      "path": "build/code/src/implementation/contracts.d.ts",
+      "preimageSha256": "28a10215bd8f7f2edafcc3239228cff7fc6cbbb69161258cdf6496744a0f3540",
+      "sha256": "4de09330193072ce5260bb30546c61f18cd19b9b58ae0cd1a9da222c5810c553",
+      "byteCount": 18871
+    }
+  ],
+  "manifest": {
+    "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "82048dbb49ee171e174592c94ac6d8d78b68082f6d58c3ba1678eeaeb662677f",
+    "byteCount": 3171685,
+    "productContentDigest": "sha256:b164594115eea18afbd7cb72a9bcb356b6016b58551e98c6459adc6054a5cffa",
+    "canonicalManifestDigest": "sha256:fc78abe7c72148f4e616279cc1143b7e317b61cf0e1b6c88aecbfa8c5b9ec8b0"
+  },
+  "readiness": [
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "receipt": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-assessor-repair-09/build.log",
+        "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+        "byteCount": 215
+      }
+    },
+    {
+      "command": "focused emitted native/default-library/fulfillment/semantic owner checks",
+      "exitCode": 0,
+      "pass": 26,
+      "fail": 0,
+      "receipt": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-assessor-repair-09/owners.log",
+        "sha256": "2071de09d689d7140c3f6105aff933c1fa37ab85ddb7cb8fd869dd25b46cf7b7",
+        "byteCount": 3880
+      }
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "pass": 70,
+      "skip": 5,
+      "fail": 0,
+      "receipt": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-assessor-repair-09/unit.log",
+        "sha256": "1043d0c05da451448b544d8db58930670586eb1d2a24feb1818906cc6cf1d366",
+        "byteCount": 11833
+      }
+    },
+    {
+      "command": "node --check on two tests; git diff --check on exact eight owning files",
+      "exitCode": 0
+    }
+  ],
+  "limits": "Controlled authority/occurrence/transport-preparation premises, actual typed owners; no provider/model/native UAT/semantic adequacy or installed terminal evidence. Source/design/test editing stops now; packaging/read-only correspondence alone remains authorized.",
+  "frozenAt": "2026-10-06T09:31:08.060405+00:00"
+}

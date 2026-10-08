@@ -1,0 +1,126 @@
+{
+  "archiveSha256": "dd5e5b164af8198997b45d5575fc7febd43b4b9fcabc46073bdf8ffc7ce5904f",
+  "archiveByteCount": 10621478,
+  "archiveFileCount": 5265,
+  "manifestByteSha256": "d699641dbdc18daf090516d19e901ad4b4a6df8928d9138045f0eb1be7f377ca",
+  "baselineArchives": [
+    {
+      "name": "12",
+      "sha256": "1db609e07dea01f675eb3296ecec50101ca765d5f2a8458f0c1c007edc0b9f9f"
+    },
+    {
+      "name": "10",
+      "sha256": "8a82e3b62931b35af9dc655f31423cb07cb7c6b87dab7d2ddeb36ee42c40e2c6"
+    }
+  ],
+  "archiveMemberDelta": {
+    "10": [
+      {
+        "path": "build/code/src/abg/default_library.js",
+        "preimageSha256": "f688a38e377f251e02d4bbbed1e863054850e8c34ece5f8af7656970ce04417b",
+        "sha256": "1f3ae4ed5625210ae871b594d7658532c399e3a8506bae624ab5685268719432",
+        "byteCount": 31471,
+        "mode": 420
+      },
+      {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "preimageSha256": "3f03000e40d8458afb8685f27acbd1be216b20122b09118077d717794c78802b",
+        "sha256": "e5569945411d5f302bc9b8bcca9f460f44bc954f3a440bfa584f14319f1fe749",
+        "byteCount": 197474,
+        "mode": 420
+      },
+      {
+        "path": "product-toolchain-manifest.json",
+        "preimageSha256": "bdd8aa8543dde566eb22ae2956e2589a92693aa718b2943fdfb838e70f91fdee",
+        "sha256": "d699641dbdc18daf090516d19e901ad4b4a6df8928d9138045f0eb1be7f377ca",
+        "byteCount": 3171685,
+        "mode": 420
+      }
+    ],
+    "12": [
+      {
+        "path": "build/code/src/abg/default_library.js",
+        "preimageSha256": "1010779075624b8fa969aabd96d46ce3cd19a4843ca73999e3073475e9a2b977",
+        "sha256": "1f3ae4ed5625210ae871b594d7658532c399e3a8506bae624ab5685268719432",
+        "byteCount": 31471,
+        "mode": 420
+      },
+      {
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "preimageSha256": "f238ebaf72a492afbb7c73036104e0c33bd716093307315724c891aa2c746885",
+        "sha256": "e5569945411d5f302bc9b8bcca9f460f44bc954f3a440bfa584f14319f1fe749",
+        "byteCount": 197474,
+        "mode": 420
+      },
+      {
+        "path": "product-toolchain-manifest.json",
+        "preimageSha256": "c3d5c19360fb4bc5f03fcbc69d0ff17844f6b48782fd9530629641b716285145",
+        "sha256": "d699641dbdc18daf090516d19e901ad4b4a6df8928d9138045f0eb1be7f377ca",
+        "byteCount": 3171685,
+        "mode": 420
+      }
+    ]
+  },
+  "all5265PathsModesAndBytesComparedToBoth12And10": true,
+  "sourceFreezeSha256": "c134b88715b8c9dec0c2134c48831ed664665f33a9be515c661279fe85edb24a",
+  "sourcePackageCorrespondence": {
+    "productionCount": 263,
+    "productionDelta": [
+      "code/src/abg/default_library.ts"
+    ],
+    "compiledCount": 720,
+    "reusedCompiledPins": {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/compiled-pins.json",
+      "sha256": "9337def2cb78152582c5f76a744ae77e851101c6fb93ff180fb215b03643072e",
+      "byteCount": 154446
+    },
+    "compiledDelta": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/default_library.js",
+        "sha256": "1f3ae4ed5625210ae871b594d7658532c399e3a8506bae624ab5685268719432",
+        "byteCount": 31471,
+        "preimageSha256": "1010779075624b8fa969aabd96d46ce3cd19a4843ca73999e3073475e9a2b977"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "sha256": "e5569945411d5f302bc9b8bcca9f460f44bc954f3a440bfa584f14319f1fe749",
+        "byteCount": 197474,
+        "preimageSha256": "f238ebaf72a492afbb7c73036104e0c33bd716093307315724c891aa2c746885"
+      }
+    ],
+    "all720CompiledAndContractsMatch": true,
+    "frozenManifestBytesCanonicalDigestContentExact": true
+  },
+  "runtimePackageMetadataUnchanged": true,
+  "inspectedDependencyFixtureExclusions": [
+    {
+      "path": "node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+      "sha256": "c954f79d2fa7f4d9779a6e7514cdf8df1eeb95d0097ea62cd3b785d20f2d0859",
+      "byteCount": 9888
+    },
+    {
+      "path": "node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+      "sha256": "c10203102fee328d6c8aedbd03319b8eeb364417c3b1137d714537fcd3102d69",
+      "byteCount": 1688
+    },
+    {
+      "path": "node_modules/json-schema-traverse/spec/fixtures/schema.js",
+      "sha256": "0262591e321bc88b22dc33ec78bcded5ab664e2fce2c10b9e0c35d3eb6030d27",
+      "byteCount": 5544
+    }
+  ],
+  "ABGExternalFixturesExcluded": true,
+  "ownerJoins": {
+    "productContentDigest": "sha256:fa8c3044445c73fc6bb48a4c059f76a48aef48290764c8e1600064b822da89cb",
+    "canonicalManifestDigest": "sha256:ce1273cba679513beaee225d41de6edfd756f7e1c983940323810607dd39a8b0",
+    "capabilityGraphDigest": "sha256:36eab455affc47aaa5b8fb54c2415d3aed84234bc68991066842ceb0109c11ce",
+    "publicContractCatalogDigest": "sha256:e72953f7645ca343270157507a204a33c3681422af40c1b6c7250536c6283d65",
+    "contributionManifestDigest": "sha256:9fc73d8261815bc52e351f1835667c5d117f078f88d88ee4658eacf12b11671c",
+    "publicationBindingCount": 10,
+    "contributionRowCount": 47,
+    "payloadCount": 5263,
+    "publicContractCount": 75,
+    "canonicalPackagedOwnerVerified": true
+  },
+  "procedure": "Fresh exact13/12/10 archives -> owned new scratch extraction -> compare every regular-file path/mode/hash; apply the frozen13 two-row emitted overlay to the exact12 720-row ledger; join packed manifest to frozen13 build; call supported verifyProduct from packed13 with these external frozen coordinates. No install/actor/Run."
+}

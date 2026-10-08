@@ -1,0 +1,18 @@
+{
+  "classification": "closed_independent_review65",
+  "at": "2026-10-08T06:08:20.530913+00:00",
+  "verdict": "GO bounded Source/unit-proof only",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-review-65/return.md",
+      "sha256": "553642a4e875c8cea468440b6e4605fcacdf5af6ca928221371c1c28ca929901",
+      "byteCount": 3739
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-review-65/pins.json",
+      "sha256": "238f8db26b057307a4791aff3925c593d6efd69aa3bb15d852663b858b5ea356",
+      "byteCount": 13292
+    }
+  ],
+  "reviewerStopped": true
+}

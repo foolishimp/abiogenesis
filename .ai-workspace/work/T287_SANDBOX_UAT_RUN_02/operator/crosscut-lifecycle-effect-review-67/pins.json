@@ -1,0 +1,415 @@
+{
+  "status": "CLOSED_HOLD_BOUNDED_R01_BUDGET_COUNTEREXAMPLE",
+  "reviewer": "67",
+  "subject": "frozen61",
+  "at": "2026-10-08T06:31:12.305304+00:00",
+  "unitAndSourceOnly": true,
+  "installedRuntimeClaim": false,
+  "counterexample": {
+    "commandTimeoutMs": 60000,
+    "terminationGraceMs": 30000,
+    "canonicalRequiredBudgetMs": 95000,
+    "guardAcceptedInactivityMs": 95001,
+    "guardAcceptedAbsoluteMs": 95002,
+    "implementedCleanupEndpointMs": 120000,
+    "classification": "static existing-owner formula/schedule correspondence; no effect reproduction"
+  },
+  "rows": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/return.md",
+      "sha256": "0a80c60b2df467cd43323a7c81ebaaeb7f6e5ce4ddd233ffec882c46217ecb69",
+      "byteCount": 2265,
+      "role": "frozen61 subject"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/readiness.json",
+      "sha256": "23806ce89e56014c5b9d6738195e0624a76c50d76ff4482ba7552962c50efb28",
+      "byteCount": 17073,
+      "role": "frozen61 subject"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/freeze.json",
+      "sha256": "7a9f1078b5ea5aeb3e2a7723f3067822d8633800842682815e811af62f79c590",
+      "byteCount": 27975,
+      "role": "frozen61 subject"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/source-delta.json",
+      "sha256": "8adce75023ecaaf720e15bbefbb1cdbb4deceaea6afeb433a76fd507ee0d93f9",
+      "byteCount": 10065,
+      "role": "selected source/evidence"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "sha256": "73f054dabe4073feffb0f89b1a7bd824d44f75da8e904dc40fd93278df1e9a4d",
+      "byteCount": 40586,
+      "role": "Source61 final postimage; shared62 paragraph excluded from semantic review"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/preimages/code/src/abg/worker_transport.ts",
+      "sha256": "d3f4061b237d9385cad9d8ff9dd48c94f0e3a278bc10f31082af9d351783e556",
+      "byteCount": 38699,
+      "role": "Source61 preimage"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "sha256": "ec4b3dcdc49f6e7af5d644e8fbad108582ca40e36d7629694235e3d5901e1d92",
+      "byteCount": 59692,
+      "role": "Source61 final postimage; shared62 paragraph excluded from semantic review"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/preimages/code/src/abg/actor_process.ts",
+      "sha256": "52607d0aaf572538b40efec68b75b84f75603f347ecbd2c7999fdca36fa65cdc",
+      "byteCount": 59556,
+      "role": "Source61 preimage"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "sha256": "0f4470e732bbf3d287649d1484f4b748513f2869d68acceb1cf241f9d6b430bf",
+      "byteCount": 62118,
+      "role": "Source61 final postimage; shared62 paragraph excluded from semantic review"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/preimages/code/src/implementation/worksite_command_helper.ts",
+      "sha256": "44d7c23c5bd492d659adf29596e75611c19b4d69375881cd6911a2dfc0a2880d",
+      "byteCount": 59485,
+      "role": "Source61 preimage"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "sha256": "78cac9e2c229f5674077b99bcd29bb3dd56ebbd0d07814e90de5a245cad56863",
+      "byteCount": 82828,
+      "role": "Source61 final postimage; shared62 paragraph excluded from semantic review"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/preimages/code/src/abg/event_calculus.ts",
+      "sha256": "a6b0b65fc68168de3a7c913f6921035803f453f2eeb4cb314327820811cfd5c8",
+      "byteCount": 76308,
+      "role": "Source61 preimage"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "5667d5a2a814d95f55f85be4026f13c6d169c7e50fc5adf2227142d5e9d655b9",
+      "byteCount": 21730,
+      "role": "Source61 final postimage; shared62 paragraph excluded from semantic review"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/preimages/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "sha256": "340f6c837e5670e1dde032618ff5f9848c8936cfc7b847a1592f03473b33b6f7",
+      "byteCount": 19376,
+      "role": "Source61 preimage"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "sha256": "c61550f4840429bbfef1544ae7eafa9ba9e26cb6b6b28437b13a4350c4255864",
+      "byteCount": 62920,
+      "role": "Source61 final postimage; shared62 paragraph excluded from semantic review"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/preimages/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "sha256": "7383258f41fc8d8cc308e86bca6a155ee6752f4973f780e9eb96b940e4cce947",
+      "byteCount": 62236,
+      "role": "Source61 preimage"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "sha256": "68f87f608b0086891127dc6640280e95b7da3cc2b06a51a1e9af9cb489be0543",
+      "byteCount": 47831,
+      "role": "Source61 final postimage; shared62 paragraph excluded from semantic review"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/preimages/test_env/tests/m5-worker-transport.test.mjs",
+      "sha256": "658a2f454de09301cd14576cdc0a3192716113a69bd994c5b0c552633d8b474e",
+      "byteCount": 42552,
+      "role": "Source61 preimage"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "442d4fe6156d0ba6b546733973a6b8c025d1d70cb4f3c29f9f3d7ccfaa1caacc",
+      "byteCount": 84670,
+      "role": "Source61 final postimage; shared62 paragraph excluded from semantic review"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/preimages/test_env/tests/t287-native-workspace-work.test.mjs",
+      "sha256": "a2c546b7bf9393aa6d05973cc24875704b31deaf8676888d3314db67e5cafacb",
+      "byteCount": 70179,
+      "role": "Source61 preimage"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "sha256": "8df783c88a3561657ff716c2a335a98602e63e45b56a0c5e1911dd02eabc287c",
+      "byteCount": 75837,
+      "role": "Source61 final postimage; shared62 paragraph excluded from semantic review"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/preimages/code/src/abg/runtime_liveness.ts",
+      "sha256": "12610972e3f317ec3a6fc19198d15bffda34deeaa119da425f7ded8572664f1f",
+      "byteCount": 75658,
+      "role": "Source61 preimage"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "sha256": "a2ce2b5dab8104500c2424e8966501471642a57f8eb03e223fab9c1dc7867430",
+      "byteCount": 6625,
+      "role": "Source61 final postimage; shared62 paragraph excluded from semantic review"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/preimages/test_env/tests/m5-terminal-quiescence-owner.test.mjs",
+      "sha256": "d519ce826593724ef1e7c7a3c3fd585f54854a19b344f2f1a6391a66db76723b",
+      "byteCount": 4697,
+      "role": "Source61 preimage"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+      "sha256": "3cb0d09a18e00af62bbb1d8ff4518fa7de04befdb3ba979fe06b1d2bb1ad01e4",
+      "byteCount": 35923,
+      "role": "unchanged selected causal source"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "sha256": "dd7609684b2a83fbbf435a4cff30a8be693d08ff67b022ec512c8b92457df3bc",
+      "byteCount": 6843,
+      "role": "unchanged selected causal source"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "sha256": "a9da9a1b7103db0c180615e22af86a8d8218aa2ad6e7c515d67263c7d96dcc21",
+      "byteCount": 18689,
+      "role": "unchanged selected causal source"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "sha256": "a195281811bac8860dacebfbd489c5aaec7e3d79439bc89dd035891c9ed30813",
+      "byteCount": 76599,
+      "role": "unchanged selected causal source"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md",
+      "sha256": "32b293873d61db61227400517cc784244221d788c3785a935e7c3bff1ccc9b03",
+      "byteCount": 28375,
+      "role": "unchanged selected causal source"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "sha256": "56de011df69cd0986f69ce591c4115d6cc70ad45f64b989d7b3c7d3909b8b8df",
+      "byteCount": 33443,
+      "role": "unchanged selected causal source"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/focused-fixture-corrected.result.json",
+      "sha256": "bb01b26402308ff14cda7e8c428e8c12d45eab6637ac76a296f3246f407982b8",
+      "byteCount": 5514,
+      "role": "retained check receipt"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/focused-fixture-corrected.stdout",
+      "sha256": "0a5e0ea78d6736169856af706deadcb520666eeb6b8bf72ec127421677e5e37c",
+      "byteCount": 4359,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/focused-fixture-corrected.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/focused.result.json",
+      "sha256": "481f8ebcf8a858e4706bfffd068304e76330a1a3cf1495b9780428b38d5a9a78",
+      "byteCount": 7749,
+      "role": "retained check receipt"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/focused.stdout",
+      "sha256": "cc1e9aec4db7bebc2ed265d0df0c697d0693236008eb9ae957dcf308b764cd2b",
+      "byteCount": 6574,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/focused.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/r02-cold-fold-reproof.result.json",
+      "sha256": "42d1503f275fc6b9190d6834b317b7e00bed9e9357d15b6b9c38dace9d322003",
+      "byteCount": 1421,
+      "role": "retained check receipt"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/r02-cold-fold-reproof.stdout",
+      "sha256": "1db7f3ffe2fbeed24df12910aa0c92b1b8ab80f43ae27aa0b3983765f755f844",
+      "byteCount": 760,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/r02-cold-fold-reproof.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/r02-currentness-fixture-corrected.result.json",
+      "sha256": "69f2cd517f266e521f388c29bb6db68637fdb7dadc0f356f01503b51897b832e",
+      "byteCount": 5351,
+      "role": "retained check receipt"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/r02-currentness-fixture-corrected.stdout",
+      "sha256": "e1a7963ac8e0d05e121f352f79a7f815cf472822e7ca33685081f6ad0307be98",
+      "byteCount": 4205,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/r02-currentness-fixture-corrected.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/r02-mode-corrected.result.json",
+      "sha256": "54770777afcab4e6249fd81bcfa6717ffd7f2a039c0fd6cb13f8f0c1c9be4e55",
+      "byteCount": 2091,
+      "role": "retained check receipt"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/r02-mode-corrected.stdout",
+      "sha256": "59189df777ca1838a19f7c25642366ea10f74b7d64fcc59c4646757fce2925ae",
+      "byteCount": 1299,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/r02-mode-corrected.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/syntax-m5-terminal-quiescence-owner.result.json",
+      "sha256": "28fbe319b2a3a81f9c375adef1a1fb7f3f0cddb86f07f8183d6112c6b33e3de1",
+      "byteCount": 538,
+      "role": "retained check receipt"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/syntax-m5-terminal-quiescence-owner.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/syntax-m5-terminal-quiescence-owner.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/syntax-m5-worker-transport.result.json",
+      "sha256": "c543c98ea3df094a5831064783d6f8423ac7b9e46b04dcba2194632b33e82c53",
+      "byteCount": 529,
+      "role": "retained check receipt"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/syntax-m5-worker-transport.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/syntax-m5-worker-transport.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/syntax-t287-native-workspace-work.result.json",
+      "sha256": "d99d2edf06fbeaf943da1c8b5f66da89f3efd3fa81f31b7eadecc7bb55db38eb",
+      "byteCount": 535,
+      "role": "retained check receipt"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/syntax-t287-native-workspace-work.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/commands/syntax-t287-native-workspace-work.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0,
+      "role": "retained transcript"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "sha256": "9f9517c5a89baffe756795a737724282caf07222a92eb9a4b43688182d8f067a",
+      "byteCount": 132390,
+      "role": "bounded timing counterexample affected owner / reproof source"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "sha256": "df147522d09c2117aaa2ea15edd2c8400cbca8d57c4377defe8e2f9541a6aa93",
+      "byteCount": 24180,
+      "role": "bounded timing counterexample affected owner / reproof source"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-observed-worksite-command.test.mjs",
+      "sha256": "4d5ce68e95ab7b6b1478606bff379b1128c20b01cfd838dd565ee44c2e234f9f",
+      "byteCount": 24867,
+      "role": "bounded timing counterexample affected owner / reproof source"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+      "byteCount": 93690,
+      "role": "governing Product/requirement/method"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+      "byteCount": 16630,
+      "role": "governing Product/requirement/method"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65",
+      "byteCount": 10959,
+      "role": "governing Product/requirement/method"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "byteCount": 4277,
+      "role": "governing Product/requirement/method"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "sha256": "ae02c7961a12b15ef50d4619ed151f5a306ac8a5579708288b31de648f322828",
+      "byteCount": 11790,
+      "role": "governing Product/requirement/method"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/preimages-handoff.json",
+      "sha256": "1793a6d682005ef7bbf4ba98adc0cc199424462e4bb7b98f46031099e6982f80",
+      "byteCount": 1038,
+      "role": "retained exact cold-handoff failure/correction premise"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/r02-realization-failure.json",
+      "sha256": "80e2b0f9b21cc670d460f1e2bf2e6ea93350fe0e47908b40222d2889a0a59bcb",
+      "byteCount": 1678,
+      "role": "retained exact cold-handoff failure/correction premise"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/check-inputs-final.json",
+      "sha256": "78543f60b861e13137c7ec326aace9bcaf779dc8ef610ae0313ddb77ac1d3c57",
+      "byteCount": 8122,
+      "role": "retained exact cold-handoff failure/correction premise"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-review-67/return.md",
+      "sha256": "13cac6df48b50099e5c9932202316f1a62f81fa0c7122570fcac250100776aa3",
+      "byteCount": 4885,
+      "role": "closed reviewer verdict"
+    }
+  ]
+}

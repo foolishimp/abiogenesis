@@ -49,3 +49,35 @@ build_tenants/abiogenesis/typescript/contracts/vocabularies/consensus-fh-decisio
 
 # Local browser/tool scratch
 .playwright-mcp/
+
+# Local AI-work installations, compilation scratch and copied Product trees.
+# Authored work records, reviews, drivers and patches remain visible.
+.ai-workspace/**/node_modules/
+.ai-workspace/**/packs/
+.ai-workspace/**/*.tgz
+.ai-workspace/**/.npm/
+.ai-workspace/**/.cache/
+.ai-workspace/**/installed/
+.ai-workspace/**/extracted/
+.ai-workspace/**/isolated/
+.ai-workspace/**/isolated-*/
+.ai-workspace/**/scratch/
+.ai-workspace/**/tmp/
+.ai-workspace/**/source-freeze/
+.ai-workspace/**/staged-repo/
+.ai-workspace/**/readiness-stage/
+.ai-workspace/**/mechanical-worksite/
+.ai-workspace/**/final-stage/
+.ai-workspace/**/final-source/
+.ai-workspace/**/toolchain/npm/
+
+# Complete local histories and by-value forensic bodies stay on disk.
+.ai-workspace/**/events.jsonl
+.ai-workspace/**/runtime.events.jsonl
+.ai-workspace/**/flow*.jsonl
+.ai-workspace/**/runtime-events.json
+.ai-workspace/**/f11-bound-resource-manifest.json
+.ai-workspace/**/*.cpuprofile
+.ai-workspace/**/*.heapprofile
+build_tenants/abiogenesis/scratch/
+build_tenants/abiogenesis/typescript/test_env/**/witness-*/

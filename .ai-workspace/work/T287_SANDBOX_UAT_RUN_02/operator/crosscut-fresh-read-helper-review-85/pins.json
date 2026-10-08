@@ -1,0 +1,71 @@
+{
+  "status": "CLOSED_GO",
+  "at": "2026-10-08T07:12:53.118679+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-fresh-read-helper-repair-84/return.md",
+      "sha256": "bf1525966e094d200dc7ce6bd7816769aa6a39293836f11cf62958d83ed2cd9b",
+      "byteCount": 1240
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-fresh-read-helper-repair-84/readiness.json",
+      "sha256": "0f3873920dec1f7a99e6e3cb25d8697a18d0a6b1d56bb33b8b4618a71c30fa5c",
+      "byteCount": 2049
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-fresh-read-helper-repair-84/freeze.json",
+      "sha256": "20a5aa8589e70f3395f87db6b27509cc6ac4031f27f67bed800e9e8c7e28637f",
+      "byteCount": 2590
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-fresh-read-helper-repair-84/preimage.mjs",
+      "sha256": "fba7116c88e869d378f1248695f942262b7d241d572df65d996eaa266b442fba",
+      "byteCount": 21817
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-fresh-read-helper-repair-84/source.diff",
+      "sha256": "dd753cfe85417f6869208e71b40dffe201063f016ca6daad8695748f0105c472",
+      "byteCount": 581
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-fresh-read-helper-repair-84/syntax.request.json",
+      "sha256": "8c31cfdc1f4f73704f1cc0101d7a1a9fb80846411eca6b51757bf17aa9b1c2e7",
+      "byteCount": 305
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-fresh-read-helper-repair-84/syntax.result.json",
+      "sha256": "bde9e9fe6397a8b9b2293533224f19d32c73b84d302b8aee481054f16fa85f32",
+      "byteCount": 135
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-fresh-read-helper-repair-84/syntax.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-fresh-read-helper-repair-84/syntax.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+      "byteCount": 21826
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/environment.ts",
+      "sha256": "96f6547138e43578fba31ace0b02a4e5060b1ffbfef3682802565ec8de4ed9d7",
+      "byteCount": 42399
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "sha256": "406f91779265065f914af2fa1b1bf1528573c6b848ddc4d33125bc14b94c1438",
+      "byteCount": 32180
+    }
+  ],
+  "inverseByteExact": true,
+  "sourceDeltaBytes": 9,
+  "effects": "report-only; no test/source/runtime effects",
+  "residual": "Actual81 Public fresh-read composition unearned"
+}

@@ -1,0 +1,18 @@
+{
+  "classification": "frozen_independent_review70",
+  "at": "2026-10-08T06:20:44.792494+00:00",
+  "verdict": "GO bounded Source/unit-proof only",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-review-70/return.md",
+      "sha256": "96f98b45a1fd98b40bf6d847b16527f0af3c9063403334a16250362685cf3328",
+      "byteCount": 4075
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-review-70/pins.json",
+      "sha256": "af885a0fe2ec86a411e7836747710a64dad24432e9e22b8d26071868a07db291",
+      "byteCount": 26268
+    }
+  ],
+  "reviewerStopped": true
+}

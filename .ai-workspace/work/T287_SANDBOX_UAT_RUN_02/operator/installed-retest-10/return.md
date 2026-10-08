@@ -1,0 +1,16 @@
+Operator installed-retest-10 CLOSED: first independent-original-oracle nonpass; four sealed PASS, one sealed FAIL, two cases not dispatched.
+Immutable subject: config sha256:68c48ff4f8d0d5205e1543c3f62997e29db61c6797cbdff93e67a71c3eb28d27; archive sha256:8a82e3b62931b35af9dc655f31423cb07cb7c6b87dab7d2ddeb36ee42c40e2c6; installed ABG content sha256:403dd393cd35f306764070c4861c799464373bc736bd348c7f9b64ce157f9310.
+Execution used the released original single-case order and unchanged native/model/recorder caps; exact commands and streams remain under commands/.
+basic-cli: PASSED; outer exit 0, wallMs 738078.578042, observed USD 2.2592154; build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T10-13-48-345Z-41cca485-dc2c-47c4-90a3-fa5821d5eb8c
+js-tenant-test: PASSED; outer exit 0, wallMs 845309.1337080001, observed USD 2.4788186; build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-06T10-28-03-791Z-9f2b1851-3744-47e4-b8f3-a34c0f13a533
+js-sdlc-bootstrap: PASSED; outer exit 0, wallMs 1014893.167083, observed USD 2.8955436; build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-06T10-45-33-930Z-34bd0876-a826-4525-b15b-1e7cf17baf1f
+rust-cli: PASSED; outer exit 0, wallMs 807773.626083, observed USD 2.4183520; build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-06T11-03-03-781Z-2ac2b95e-84b6-49d4-9499-57e86b497f5d
+rust-service: FAILED; outer exit 1, wallMs 1027045.133042, observed USD 3.0936164; build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-06T11-16-50-332Z-4533ca74-fdc0-441d-a706-4e4a5560ebe5
+parallel-js and data-mapper-full: NOT DISPATCHED after the first nonpass. Data Mapper eight-report/depth/mutation/restoration proof was not observed.
+First unmet original criterion: service-test-contract:test/uat/rust-service.uat.test.mjs, retained in the rust-service independent-oracle.json; protected oracle-inputs/independent-oracle.mjs:192 supplies the original mechanical necessary check.
+Rust-service native semantic assessment admitted10819/result://abiogenesis/aead15f59652cdd2f9feaf2b708a6da7fa8ed777dee9e6aacabaafe23e102074: satisfied, unresolvedCriteria[]; six actors closed with zero actor failures; Run closed10904.
+Rust-service original C2 tests admitted8398: exit0/no timeout/pass4; ProductDelta0/worksiteDelta0. Its failed summary and seal conserve the independent mechanical oracle unmet outcome.
+All five native terminal results are available; both fresh owner outcomes=result, replay closed, exact full value/producer/result agreement; both fresh commands exit0 without timeout/truncation.
+Both installed Product content checks agree before/after every case; all original sources/oracles conserved. Rust CLI retains its 38 declared Cargo.lock/target effects separately.
+Observed provider cost across five attempts: USD 13.1455460. Per-case setup/native/fresh timings and exact assessment/Run/result/oracle/conservation/prefix coordinates are in execution-freeze.json.
+Existing preparations, source/caller/fixture/config/package and all earlier cuts remain preserved. This activation stops for Executive independent triage; no retry or next case ran.

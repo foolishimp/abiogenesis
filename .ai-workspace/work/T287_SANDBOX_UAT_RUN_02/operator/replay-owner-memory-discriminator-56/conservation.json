@@ -1,0 +1,20 @@
+{
+  "samePhysicalStoreStat": true,
+  "store": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+    "byteCount": 1182449986,
+    "device": 16777231,
+    "inode": 467374253,
+    "mtimeNs": "1791404494476866055",
+    "selectedWholeDigest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6"
+  },
+  "digestProof": "One real reopen authenticated fullselectedphysicalbytes/profile; subsequentunmodifiedoperations pure/noappend; postabortstatmatched. No secondfullread/hash.",
+  "controlPinsConserved": 5,
+  "ownerFilePinsConserved": 27,
+  "physicalMaterialPinsConserved": 48,
+  "originalFourIncluded": true,
+  "noEventAppend": true,
+  "noModelsOrNewRun": true,
+  "noOwnerEdits": true,
+  "noExplicitGCOrHeapFlags": true
+}

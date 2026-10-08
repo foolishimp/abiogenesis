@@ -111,3 +111,60 @@ close/reopen, and `event_log.ts::persistEventLog` must not infer physical bytes
 by serializing expanded values. Public/replay/domain consumers receive only
 full logical events; physical source correspondence does not confer append or
 currentness authority.
+
+## Current RC2 hot-memory and canonical-hash increment (T-287 / Writer35)
+
+The selected Writer58 snapshot correspondence keeps nominal identity in a
+module-private WeakMap from each exact snapshot to its branded proof. Its own
+SNAPSHOT descriptor must equal that registered proof; the proof retains source,
+parent proof and shared-prefix length, with no pointer back to the snapshot.
+[WeakRef construction and dereference](https://tc39.es/ecma262/multipage/managing-memory.html#sec-weakref.prototype.deref)
+add targets to the execution's kept objects. The
+[WeakMap association](https://tc39.es/ecma262/multipage/keyed-collections.html#sec-weakmap-objects)
+permits otherwise unreachable call-local vectors to be collected during a long
+synchronous projection. Exact source identity, raw/copy cold fallback, prefix
+answers and invalidation stay unchanged. This removes that lifetime pressure;
+it does not establish the dominant retainer or close installed memory P0.
+
+Under the selected STDO2.5.1RC2 integration/worksite and runtime-projection
+frames, caller admission still captures the complete canonical candidate before
+freezing it. For the two native body slots above, that detached value may reuse
+the exact deeply immutable body of an earlier **committed, physically inline**
+source in this store and exact selected predecessor prefix. Source membership
+is `events[source.event.admissionOrdinal - 1] === source.event`; the existing
+digest lookup plus complete canonical-value equality establish correspondence.
+An envelope, stamp, scope, result identity
+or causal edge is never reused. Unbound projections and new/tentative bodies
+retain ordinary detachment. The durable encoder alone publishes source
+eligibility after write/fsync; batch/transaction rollback cannot publish a
+source. Hot sharing does not change physical encoding eligibility, cold
+reconstruction, logical values, or prefix/currentness authority.
+
+```mermaid
+sequenceDiagram
+    participant Caller
+    participant Store as ABG event owner
+    participant Codec as Existing body codec
+    participant Canonical as Canonical JSON owner
+    Caller->>Store: candidate
+    Store->>Codec: detached candidate + committed inline sources
+    Codec-->>Store: exact earlier body or detached new body
+    Store->>Canonical: unchanged identity/payload values
+    Canonical-->>Store: canonical tokens into hash
+    Store->>Codec: unchanged durable encoding, staged eligibility
+    Store->>Store: write/fsync, then publish history/sources
+```
+
+`canonicalJson` and `sha256Canonical` use one canonical traversal: the text
+view collects its tokens, while the digest view feeds them incrementally to
+SHA256. Neither view changes key order, escaping/Unicode, numeric text, sparse
+array behavior, captured entries, refusal precedence, or any existing digest.
+Hashing a replay state therefore need not retain a whole token array and joined
+string. Replay continues to own its complete event-derived state and uses the
+same digest owner; no replay, Public, store, cache or runtime authority is added.
+
+Operator34's SIGABRT heap exhaustion justifies these two pressure repairs;
+its precise allocating site remains unproved. Focused live/cold/physical,
+rollback and canonical compatibility checks plus a bounded authentic-body
+constrained-heap discriminator are mechanical readiness. They do not earn a
+new Run, retained-state continuation, application completion or UAT result.

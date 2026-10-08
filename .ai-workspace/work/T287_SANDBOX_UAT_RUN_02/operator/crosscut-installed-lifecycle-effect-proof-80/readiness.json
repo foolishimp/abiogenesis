@@ -1,0 +1,76 @@
+{
+  "status": "CLOSED_STOP_first_integration_failure",
+  "productFrame": "ABI5 fixed fifteen-family 5.0 / GOAL035 T287 original external DataMapper / STDO2.5.1RC2",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "execution": {
+    "command": [
+      "node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver.mjs",
+      "--execute",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json"
+    ],
+    "exitCode": 1,
+    "startedAt": "2026-10-08T07:44:41.124442+00:00",
+    "finishedAt": "2026-10-08T07:45:11.770143+00:00",
+    "wallMs": 30645.262000034563,
+    "timedOut": false,
+    "truncated": false,
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/execution.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/execution.stderr",
+      "sha256": "5c6e9a1625fcabaf6e05472420d583de15d3f02827d8e29be8aa4cf7706af5d3",
+      "byteCount": 1381
+    }
+  },
+  "cause": {
+    "classification": "external test caller direct-control selection defect; correct canonical refusal",
+    "driver": "driver.mjs:103\u2013105",
+    "helper": "test_env/support/registered-graph-selection.mjs:253\u2013256,264",
+    "owner": "code/src/gtl/public_start.ts:74\u201382",
+    "actual": "rootMode direct, target explicit start URI, startRef present, until converged",
+    "expected": "rootMode direct, target next (or admitted asset), no caller-selected start, until converged"
+  },
+  "earned": [
+    "Three syntax checks; exact83 canonical imports only",
+    "Actual candidate20 setup, own external test Product preparation/install and canonical install/workspace setup completed"
+  ],
+  "unearned": [
+    "Native CLI dispatch",
+    "R01 process/group/cold liveness proof",
+    "C0 A/B dispatch",
+    "R02 transport exception/currentness/fresh Public proof",
+    "Model/provider/UAT/P0 closure"
+  ],
+  "nextGrant": "Root now authorizes successor fixture-only omission of declaredStartRef; preserve original driver/receipts",
+  "sourcePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+      "byteCount": 21826
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "sha256": "a9cb72f8ff841248cd63b63104813c869b935803e3c837f68d80a576e29574e0",
+      "byteCount": 39995
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/public_start.ts",
+      "sha256": "a4d41d413a08e0a14296d9768c4b335ea030ed711d414a0ec1523bdb8e3c86a7",
+      "byteCount": 3959
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/gtl/public_start.js",
+      "sha256": "640071fde6cee3e4302af81cfb3eff70f2cc7c29afd416a44d19ba93b246d571",
+      "byteCount": 3006
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-5lO6t9/consumer-additional-0/node_modules/@abiogenesis-fixtures/registered-selection/build/ordinary-protocol-fixture.mjs",
+      "sha256": "16f870b64a8689165d1a6c8ffbb656407fe0fc32dc9f6eaedaa79febdb0c1737",
+      "byteCount": 2932
+    }
+  ]
+}

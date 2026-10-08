@@ -1,0 +1,19 @@
+{
+  "kind": "closed_failed_installed_proof_freeze",
+  "createdAt": "2026-10-08T07:51:46.691869+00:00",
+  "effectScope": "original81 attempt; no source/guard repair or retry yet",
+  "status": "CLOSED",
+  "reportPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/failure-01/return.md",
+      "sha256": "a37c4c922eef90d80ac5c0f3ba8cc49c1e016abe4b656c4ef45d9da60ceae7c3",
+      "bytes": 1380
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/failure-01/pins.json",
+      "sha256": "0bf74360088adacd249e03430011610360099e0f86d7006051ab414f0311da2a",
+      "bytes": 12120
+    }
+  ],
+  "ledgerCount": 36
+}

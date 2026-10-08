@@ -1,0 +1,155 @@
+{
+  "kind": "bounded_static_declaration_closure_worker_readiness",
+  "status": "CLOSED_SOURCE_READY",
+  "createdAt": "2026-10-08T08:48:04.169491+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "method": {
+    "basis": "stdo://releases/v2.5.1-rc.2/",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "changes": [
+    {
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts",
+        "relativePath": "build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts",
+        "sha256": "572c226b91a8d7c1bc4911f26427306ec0aa00a081b08fb92a0e737ddc195354",
+        "bytes": 40314,
+        "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/preimages/build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts"
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts",
+        "sha256": "fb78da2d82c5355fcf246071eeb17104965825c7e610ec76ab25b6ba03055ea3",
+        "bytes": 40951
+      },
+      "diff": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/declaration_closure.diff",
+        "sha256": "e958f0c853973081722d5e0cbc0a6ca769b798571ce4f033b197f6d2bde4a505",
+        "bytes": 4013
+      }
+    },
+    {
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+        "relativePath": "build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+        "sha256": "5920e3f76bb135b8e6448a0c266f54f1ac9afcaa5769792882cb2eb1ab26a4c3",
+        "bytes": 307046,
+        "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/preimages/build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md"
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md",
+        "sha256": "00b21093f57873050d19d467551e0692b1e43da541758337577f848b296f1f71",
+        "bytes": 307757
+      },
+      "diff": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.diff",
+        "sha256": "56cd2df1ec6f4019cb8f8cdc28ec938aebb972d0277214862d13e06f55d23994",
+        "bytes": 1580
+      }
+    },
+    {
+      "preimage": "absent",
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-static-declaration-closure.test.mjs",
+        "sha256": "db678b7dde7029d41e7a82d0d67d8dddba749d25f0329b9524dc735018473a5b",
+        "bytes": 16613
+      }
+    }
+  ],
+  "sourceChanges": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts",
+        "sha256": "572c226b91a8d7c1bc4911f26427306ec0aa00a081b08fb92a0e737ddc195354",
+        "bytes": 40314
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/declaration_closure.ts",
+        "sha256": "fb78da2d82c5355fcf246071eeb17104965825c7e610ec76ab25b6ba03055ea3",
+        "bytes": 40951
+      }
+    }
+  ],
+  "unchangedSourceInputCount": 262,
+  "compiledOutputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/compiled-output-pins.json",
+    "sha256": "9f5a59fe2cb17c20dc756ded72e450e51155e6bf7af54e8f4c21b066d90bb43b",
+    "bytes": 80074
+  },
+  "compile": {
+    "exitCode": 0,
+    "wallMs": 5226.1438749847,
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/commands/isolated-compile.result.json",
+      "sha256": "70c392ee7f78c62ccd259bb2bc3e4b9d624093751bda96d91640421cf6a2ff29",
+      "bytes": 805
+    }
+  },
+  "focused": {
+    "passed": 10,
+    "failed": 0,
+    "skipped": 0,
+    "wallMs": 3210.2763750008307,
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/commands/focused-03.result.json",
+      "sha256": "67ed9d63d89546ef8a0fd15fc9fccf77a6573223a3bb13f39c1f2344a9a2a8ff",
+      "bytes": 1479
+    }
+  },
+  "lowerPremises": [
+    "portable tests supply readiness/installed record fields as lower source-component premises, not authenticated installs or admissions",
+    "runtime-role negatives are explicit untrusted application mutations and claim closure refusal, not valid whole Programs",
+    "registered selection reuses existing declaration fixture with canonical contribution provenance",
+    "actual frozen81 lane reconstructs the original ready catalog from its exact supplied readiness basis; prior native install/admission ownership is retained evidence, not newly earned"
+  ],
+  "actualInput": {
+    "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-VaXdLq/st4-81-declared-positive-request.jsonl",
+    "sha256": "dff32deb5a29c855fe50cf1b6ca942e08a2b220ad82f813e118fa5f441873d5f",
+    "bytes": 35510031
+  },
+  "predecessorOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/compiled/product/declaration_closure.before.js",
+    "sha256": "efed7c962bbe828adda5eccc013c4518405717cb413c25307bb05786e3a52e63",
+    "bytes": 34935
+  },
+  "canonicalEmittedOwnerUnchanged": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/product/declaration_closure.js",
+    "sha256": "efed7c962bbe828adda5eccc013c4518405717cb413c25307bb05786e3a52e63",
+    "bytes": 34935
+  },
+  "extraFixtureInput": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+    "sha256": "ecfa477dd5620ef8ff87ace68fd811d8e007675c91bc112b09ac290f513512d8",
+    "bytes": 10076
+  },
+  "exclusions": [
+    "no normal generation or Public asset/catalog recomputation",
+    "no Product/requirements/Public/event/schema/Program/callable/View/grant change",
+    "no package/install/native/HoG/model/provider/UAT/application/old-log/Git effect",
+    "no installed successor or runtime/release credit"
+  ],
+  "requiredNext": [
+    "independent frozen Source review",
+    "Root-selected normal generation/package/install",
+    "unchanged81 eventless conformance then affected actual installed root traversal discriminator"
+  ],
+  "retainedFailures": [
+    {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/commands/focused-01.result.json",
+        "sha256": "cd13c1259b39e58f00ea69de5a0e6363f62532af3b9f2c30e8cda8aed3440322",
+        "bytes": 1254
+      },
+      "cause": "foreign helper cloned duplicate contracts; closure negative selected nonexistent helper closure ref",
+      "correctedScope": "test premises only"
+    },
+    {
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/commands/focused-02.result.json",
+        "sha256": "86f2eb82f3b1af280e5afc96b9da1252d70514bb24d37c8fa8ab7b7cb8ac212c",
+        "bytes": 1525
+      },
+      "cause": "old registered-selection declaration fixture omitted mandatory contribution provenanceRefs",
+      "correctedScope": "canonical test publication metadata only"
+    }
+  ]
+}

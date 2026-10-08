@@ -36,7 +36,8 @@ export async function realizeNativeWorkspaceWork(input: Readonly<NativeWorkspace
   const workerRequest = prepareAssembly().request;
   if (workerRequest.implementationRef !== ids.implementationRef || workerRequest.inputDigest !== sha256Canonical(input as unknown as JsonValue) ||
     workerRequest.transportLane !== "worker_executes" || workerRequest.resultContractRef !== nativeWorkspaceWorkResultContractRef(input) ||
-    canonicalJson(workerRequest.responseJsonSchema) !== canonicalJson(nativeWorkspaceWorkResponseSchema(input)))
+    canonicalJson(workerRequest.responseJsonSchema) !== canonicalJson(nativeWorkspaceWorkResponseSchema(input)) ||
+    workerRequest.responsePresentation !== (input.assessment === undefined ? undefined : "result_text"))
     throw new TypeError("native workspace assembly differs from its owner contract");
   return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation" as const, schemaVersion: "5.0.0" as const, workerRequest,
     async complete(exchange) {

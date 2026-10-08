@@ -16,6 +16,7 @@ import {
 import {
   runtimeEventsFromValidatedPrefix,
   runtimePrefixComputation,
+  selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import type { RootEventKind, RuntimeEvent } from "./event_store.js";
@@ -26,7 +27,10 @@ import { createRuntimeLivenessEventValidator } from "./runtime_liveness.js";
 import { projectWorksiteFailureBasis } from "./c_call_outcome.js";
 import { WORKSITE_C0_IDS } from "../gtl/worksite_c0.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkObservation,
-  isNativeWorkspaceWorkFailure, nativeWorkspacePathWithin } from "../product/native_workspace_work.js";
+  isNativeWorkspaceWorkFailure, isNativeWorkspaceWorkTask, nativeWorkspaceWorkGraphFunctionRef,
+  nativeWorkspacePathWithin, type NativeWorkspaceWorkTask } from "../product/native_workspace_work.js";
+import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
+import { rehydrateAdmittedImplementationSetAtPrefix } from "./execution_basis.js";
 
 interface EventCalculusEffectRefs {
   readonly initiates: readonly string[];
@@ -242,7 +246,7 @@ export const ROOT_EVENT_CALCULUS = Object.freeze({
     terminates: ["actor_process_active", "actor_process_live"], clips: [], declips: [],
   },
   actor_process_termination_unconfirmed: {
-    initiates: ["actor_process_termination_unconfirmed"],
+    initiates: ["actor_process_termination_unconfirmed", "actor_cleanup_live", "actor_cleanup_pending"],
     terminates: [], clips: [], declips: [],
   },
   actor_result_artifact_observed: {
@@ -576,6 +580,10 @@ export function projectWorksiteTransitionForResult(
 /** Known native changes retire exact paths; unknown after-state retires the
  * declared writable scope. Neither case manufactures C0 provenance or successors. */
 export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[]): readonly string[] {
+  if (event.kind === "actor_invocation_failed") {
+    const task = nativeTaskForTransportException(event, priorEvents);
+    return task === null ? [] : retiredNativeWorkObservations(task, null, priorEvents);
+  }
   if (event.kind !== "c_call_result_admitted" || !isRecord(event.payload)) return [];
   const value = event.payload.value;
   if (!(isNativeWorkspaceWorkObservation(value) || isNativeWorkspaceWorkFailure(value)) ||
@@ -591,14 +599,78 @@ export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorE
     row.payload.implementationRef === nativeIds.implementationRef && row.payload.transportDigest === value.provenance.transportDigest &&
     row.payload.outputDigest === valueDigest)) return [];
   const changed = value.after === null || value.changedPaths === null ? null : new Set(value.changedPaths);
+  return retiredNativeWorkObservations(value.task, changed, priorEvents);
+}
+
+/** This existing failure event has no exchange or native Result. Only a joined
+ * admitted native task and actual process start warrant scoped unknown. */
+function nativeTaskForTransportException(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[]): NativeWorkspaceWorkTask | null {
+  if (!isRecord(event.payload) || event.payload.failureClass !== "transport_exception" ||
+    event.payload.disposition !== "failure" || event.payload.actorInvocationRef !== event.aggregateId ||
+    event.payload.cCallRef !== event.parentAggregateId || typeof event.basisId !== "string") return null;
+  const failure = event.payload;
+  const one = (kind: RuntimeEvent["kind"], predicate: (row: RuntimeEvent) => boolean) => {
+    const rows = priorEvents.filter(row => row.kind === kind && predicate(row));
+    return rows.length === 1 && isRecord(rows[0]!.payload) ? rows[0]! : null;
+  };
+  const opened = one("c_call_opened", row => row.aggregateId === event.parentAggregateId);
+  const fibre = one("c_call_fibre_selected", row => row.aggregateId === event.parentAggregateId);
+  const actor = one("actor_invocation_started", row => row.aggregateId === event.aggregateId);
+  const binding = one("actor_transport_binding_admitted", row => row.aggregateId === failure.transportBindingRef);
+  const process = one("actor_process_started", row => row.parentAggregateId === event.aggregateId);
+  if (opened === null || fibre === null || actor === null || binding === null || process === null ||
+    [opened, fibre, actor, binding, process].some(row => row.basisId !== event.basisId ||
+      row.runId !== event.runId || row.graphCallId !== event.graphCallId || row.frameId !== event.frameId) ||
+    !(opened.admissionOrdinal < fibre.admissionOrdinal && fibre.admissionOrdinal < binding.admissionOrdinal &&
+      binding.admissionOrdinal < actor.admissionOrdinal && actor.admissionOrdinal < process.admissionOrdinal &&
+      process.admissionOrdinal < event.admissionOrdinal)) return null;
+  const op = opened.payload as Readonly<Record<string, JsonValue>>;
+  const fp = fibre.payload as Readonly<Record<string, JsonValue>>;
+  const ap = actor.payload as Readonly<Record<string, JsonValue>>;
+  const bp = binding.payload as Readonly<Record<string, JsonValue>>;
+  const pp = process.payload as Readonly<Record<string, JsonValue>>;
+  if (op.callClass !== "leaf" || fp.callClass !== "leaf" || fp.regime !== "F_P" ||
+    fp.implementationRef !== nativeIds.implementationRef || fp.implementationBindingRef !== nativeIds.implementationBindingRef ||
+    bp.implementationRef !== fp.implementationRef || bp.implementationBindingRef !== fp.implementationBindingRef ||
+    ap.implementationRef !== fp.implementationRef || ap.cCallRef !== event.parentAggregateId ||
+    bp.cCallRef !== event.parentAggregateId || pp.cCallRef !== event.parentAggregateId ||
+    pp.actorInvocationRef !== event.aggregateId || pp.processRef !== event.payload.processRef ||
+    process.aggregateId !== pp.processRef || ap.transportBindingRef !== binding.aggregateId ||
+    ap.transportBindingDigest !== bp.transportBindingDigest || event.payload.transportBindingDigest !== bp.transportBindingDigest ||
+    !fibre.causationEventRefs.includes(opened.eventId) || !actor.causationEventRefs.includes(binding.eventId)) return null;
+  const { transportBindingRef, transportBindingDigest, ...bindingBody } = bp;
+  if (sha256Canonical(bindingBody) !== transportBindingDigest || transportBindingRef !==
+    `transport-binding://abiogenesis/${String(transportBindingDigest).slice(7)}`) return null;
+  try {
+    const prefix = selectValidatedRuntimeEventPrefix(Object.isFrozen(priorEvents) ? priorEvents : Object.freeze([...priorEvents]));
+    const basis = projectExactExecutionBasisAtPrefix(prefix, event.basisId);
+    if (basis === null || !isNativeWorkspaceWorkTask(basis.rawInputValue)) return null;
+    const task = basis.rawInputValue;
+    const invocation = projectExactInvocationAdmissionAtPrefix(prefix, basis.invocationAdmissionRef);
+    const set = rehydrateAdmittedImplementationSetAtPrefix(prefix, basis.implementationSetRef);
+    const selected = set?.rows.filter(row => row.graphFunctionRef === basis.graphFunctionRef &&
+      row.programLocusRef === op.programLocusRef && row.implementationBindingRef === fp.implementationBindingRef);
+    if (basis.graphFunctionRef !== nativeWorkspaceWorkGraphFunctionRef(task) || opened.graphFunctionRef !== basis.graphFunctionRef ||
+      basis.workspaceBindingId !== task.workspaceBinding.bindingId || basis.workspaceBindingDigest !== task.workspaceBinding.bindingDigest ||
+      basis.actorRef !== task.capabilityGrant.actorRef || bp.inputDigest !== basis.rawInputDigest || ap.inputDigest !== basis.rawInputDigest ||
+      invocation === null || !invocation.capabilityGrants.some(grant => sha256Canonical(grant as unknown as JsonValue) ===
+        sha256Canonical(task.capabilityGrant as unknown as JsonValue)) || set?.implementationSetDigest !== basis.implementationSetDigest ||
+      selected?.length !== 1 || selected[0]!.implementationRef !== nativeIds.implementationRef ||
+      selected[0]!.inputContractRef !== nativeIds.taskContractRef) return null;
+    return task;
+  } catch { return null; }
+}
+
+function retiredNativeWorkObservations(task: NativeWorkspaceWorkTask, changed: ReadonlySet<string> | null,
+  priorEvents: readonly RuntimeEvent[]): readonly string[] {
   const retired = new Set<string>();
   for (const row of priorEvents) {
     if (!isRecord(row.payload)) continue;
     const request = row.kind === "basis_admitted" ? row.payload.rawInputValue :
       row.kind === "c_call_evidenced" && row.payload.evidenceClass === "worksite_file_replace" ? row.payload.request : null;
-    if (!isWorksiteFileReplaceRequest(request) || request.workspaceBindingIdentity !== value.task.workspaceBinding.bindingId ||
-      request.workspaceBindingDigest !== value.task.workspaceBinding.bindingDigest ||
-      !(changed === null ? nativeWorkspacePathWithin(request.subject.relativePath, value.task.writeRoots) :
+    if (!isWorksiteFileReplaceRequest(request) || request.workspaceBindingIdentity !== task.workspaceBinding.bindingId ||
+      request.workspaceBindingDigest !== task.workspaceBinding.bindingDigest ||
+      !(changed === null ? nativeWorkspacePathWithin(request.subject.relativePath, task.writeRoots) :
         changed.has(request.subject.relativePath))) continue;
     retired.add(request.predecessorObservation.observationRef);
     if (row.kind === "c_call_evidenced" && isWorksiteObservation(row.payload.successorObservation))
@@ -885,10 +957,8 @@ function eventCalculusEffectRefs(
       };
     case "actor_process_termination_unconfirmed":
       return {
-        initiates: [fluent(
-          "actor_process_termination_unconfirmed",
-          event.aggregateId,
-        )],
+        initiates: [fluent("actor_process_termination_unconfirmed", event.aggregateId),
+          fluent("actor_cleanup_live", event.aggregateId), fluent("actor_cleanup_pending", event.aggregateId)],
         terminates: [], clips: [], declips: [],
       };
     case "actor_process_spawn_failed":
@@ -922,6 +992,7 @@ function eventCalculusEffectRefs(
         )],
         terminates: [
           fluent("actor_invocation_active", event.aggregateId),
+          ...projectNativeWorkRetiredObservations(event, priorEvents).map(ref => fluent("worksite_observation_current", ref)),
           ...(transportBindingRef === null
             ? []
             : [fluent("actor_transport_binding_admitted", transportBindingRef)]),
@@ -1857,11 +1928,13 @@ class RuntimeEventCalculusDerivation {
                   })) : []),
               ...(event.kind === "actor_process_exited" ||
                   event.kind === "actor_process_spawn_failed"
-                ? [constructRuntimeFluent({
+                ? (event.kind === "actor_process_exited" && this.priorEvents.some(row =>
+                    row.kind === "actor_process_termination_unconfirmed" && row.aggregateId === processRef)
+                    ? [] : [constructRuntimeFluent({
                     name: "actor_cleanup_live",
                     identity: processRef,
-                  })]
-                : [constructRuntimeFluent({
+                  })])
+                : [constructRuntimeFluent({ name: "actor_cleanup_live", identity: processRef }), constructRuntimeFluent({
                     name: "actor_cleanup_pending",
                     identity: processRef,
                   })]),

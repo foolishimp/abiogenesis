@@ -1,0 +1,117 @@
+{
+  "role": "Writer45",
+  "classification": "pure disposable liveness projection representation",
+  "conjoinedAuthority": "Root CLOSED Source44/Proof44 plus owner zero-retention steering; fixed15 ABI5/T287/STDO2.5.1RC2",
+  "howRelation": "call-local exact event/profile and structural views; current indexes/completed context,budget,fold facts retained; durable log owns history/recovery",
+  "sourcePostimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "sha256": "12610972e3f317ec3a6fc19198d15bffda34deeaa119da425f7ded8572664f1f",
+      "byteCount": 75658
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md",
+      "sha256": "1cab74f54d05f7267e1c846a679904efe0b18b130dc37b09bd22aa69c756a2f2",
+      "byteCount": 27706
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "sha256": "bce77f2f19a8d046450ec337d7549ef84a00b14d4a093271db781f01fcf4e614",
+      "byteCount": 32320
+    }
+  ],
+  "generatedDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-transient-views-repair-45/generated-delta.json",
+    "sha256": "b363575889898a1a1f35b8e04013ce183ea39f049ba78efc9d6b05fbf3e726ae",
+    "byteCount": 1522
+  },
+  "commands": {
+    "physical-original-old": {
+      "exitCode": 1,
+      "timedOut": false,
+      "wallMs": 851.8593329936266,
+      "started": "2026-10-07T15:42:41.959523+00:00",
+      "completed": "2026-10-07T15:42:42.811649+00:00",
+      "stdoutBytes": 1916,
+      "stderrBytes": 0,
+      "truncated": false
+    },
+    "physical-original-frozen44": {
+      "exitCode": 1,
+      "timedOut": false,
+      "wallMs": 380.7565000024624,
+      "started": "2026-10-07T15:42:42.840956+00:00",
+      "completed": "2026-10-07T15:42:43.221852+00:00",
+      "stdoutBytes": 1928,
+      "stderrBytes": 0,
+      "truncated": false
+    },
+    "build": {
+      "exitCode": 0,
+      "timedOut": false,
+      "wallMs": 29993.769291992066,
+      "started": "2026-10-07T15:45:30.080887+00:00",
+      "completed": "2026-10-07T15:46:00.075170+00:00",
+      "stdoutBytes": 215,
+      "stderrBytes": 0,
+      "truncated": false
+    },
+    "focused-tests": {
+      "exitCode": 0,
+      "timedOut": false,
+      "wallMs": 3348.203707981156,
+      "started": "2026-10-07T15:46:14.810996+00:00",
+      "completed": "2026-10-07T15:46:18.159373+00:00",
+      "stdoutBytes": 4966,
+      "stderrBytes": 0,
+      "truncated": false
+    },
+    "diagnostic-old": {
+      "exitCode": 0,
+      "timedOut": false,
+      "wallMs": 33942.4423330056,
+      "started": "2026-10-07T15:49:14.564855+00:00",
+      "completed": "2026-10-07T15:49:48.507496+00:00",
+      "stdoutBytes": 10015,
+      "stderrBytes": 0,
+      "truncated": false
+    },
+    "diagnostic-new": {
+      "exitCode": 0,
+      "timedOut": false,
+      "wallMs": 34353.13820801093,
+      "started": "2026-10-07T15:49:59.303686+00:00",
+      "completed": "2026-10-07T15:50:33.657014+00:00",
+      "stdoutBytes": 3334,
+      "stderrBytes": 0,
+      "truncated": false
+    }
+  },
+  "focusedSelection": "historical durable cuts|held derivation preserves|liveness historical-cut intermediates",
+  "focusedOutcome": "3 pass,0 fail; authentic434events/216probes; exact old/new current,historical,reverse/repeated context/budget/lease,source identity,nominal/raw/future refusal,invalidation/reconstruction",
+  "knownOriginalPhysicalPremise": "two byte-identical original bodies both fail assertions42/102 on candidate16 and frozen44; corrected only to copied cold coordinates; old failure receipts preserved",
+  "lateComparison": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-transient-views-repair-45/comparison.json",
+    "sha256": "6444ed9b7b6254094996f77c580c14e42bf7e4ed7991cc006a4596bd3a9abcfb",
+    "byteCount": 2712
+  },
+  "protectedSourceCount": 6253,
+  "protectedSourceLedgerReference": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/liveness-cut-retention-repair-44/source-before.json",
+    "sha256": "20bf27b8d5170166a0776e234a5a7a68d9be4c9999c852a96bbb9a719c579b29",
+    "byteCount": 2325993
+  },
+  "frozen44Conserved": true,
+  "candidate16Conserved": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-16/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "c6a8e51bdcfba28324b3158e5805510631548ea80af2374c41c19c2f03870ea0",
+    "byteCount": 10623969
+  },
+  "noNativePublicationOrApplicationClaim": true,
+  "limitations": [
+    "Measured83historical vectors removed for16authentic actor scopes; not complete native allocator/retainer attribution",
+    "PeakRSS does not improve in this isolated comparison",
+    "Default heap and cold retained history remain substantial; whole installed long-run P0 remains open",
+    "No new Run,replay/recovery,model,UAT,mutant/restoration,Product qualification or publication credit"
+  ]
+}

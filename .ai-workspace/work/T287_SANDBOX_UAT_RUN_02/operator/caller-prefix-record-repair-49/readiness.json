@@ -1,0 +1,96 @@
+{
+  "activation": "Writer49",
+  "classification": "caller-only realization_refactor",
+  "postimages": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "68fa02d35bba95d3c550dace5e2cff64b09050595cea1bf35cd44cac7573ae0a",
+      "byteCount": 32893,
+      "preimageSha256": "f2b5065878426098278567e81dae8fb638c82880d696934ac43ccf24da74cee8",
+      "preimageByteCount": 32748
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "71320af30191467b58d35a6c0cae7e15312c39133c6f66c5895eb576ea137843",
+      "byteCount": 37603,
+      "preimageSha256": "61f20872561689420b08c62133f521dfdb9a749b9629b73af605dc7e296d8f7d",
+      "preimageByteCount": 33397
+    }
+  ],
+  "checks": [
+    {
+      "label": "syntax-runner",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "--check",
+        "test_env/uat/runner.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 23.891624999999998,
+      "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/syntax-runner.result.json"
+    },
+    {
+      "label": "syntax-harness",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "--check",
+        "test_env/uat/harness.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 22.454583,
+      "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/syntax-harness.result.json"
+    },
+    {
+      "label": "focused-harness",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "--test",
+        "--test-name-pattern",
+        "Oracle event acquisition|Both retained install roots|Native refusal without|Admitted failed and blocked|Seven exact original workloads",
+        "test_env/uat/harness.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 457.89304200000004,
+      "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/caller-prefix-record-repair-49/commands/focused-harness.result.json"
+    }
+  ],
+  "passedSelectedTests": 6,
+  "testSelection": "Oracle event acquisition|Both retained install roots|Native refusal without|Admitted failed and blocked|Seven exact original workloads",
+  "proof": "Existing raw-prefix fixture: two genuinely stamped/admitted public_operation_admitted events, actual cold owner decode; serialization sentinel/record spies are controlled instrumentation, no native application/UAT credit. Exact supplied coordinate recorded exclusively; reader output vector/entries/order returned without transformation. Owner refusal and record error objects propagate.",
+  "handoff": "invokeLifecycle + both install checks -> same owner read -> runtime-event-prefix.json(exact closeHandoff.prefix) -> unchanged freshReadbacks -> same events to archived original oracle",
+  "rootConjunction": "Closed Source48/Proof48 RCA + Root no-consumer grep + closed Proof reference review; existing runtime-events.json has no consumer and duplicate export is selected caller fault.",
+  "conservedOldCutPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-call-local-successor-execution-48/return.md",
+      "sha256": "f32a760a0e99e6c35aba4da7caa5cda484bcb891d883a18e8fd616970d117b86",
+      "byteCount": 1827
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-call-local-successor-execution-48/observations.json",
+      "sha256": "9f2d5161f917300b74edb16f195e879c003afebc37d580b415713731b5402af9",
+      "byteCount": 124665
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-call-local-successor-execution-48/execution-freeze.json",
+      "sha256": "451bbce484376b686d58bb7c806aad85b8dc75c1e651f1afcd4e1f4f3852a914",
+      "byteCount": 40305
+    }
+  ],
+  "limits": [
+    "No build/package/native/model invocation; stopped48 evidence and absent readbacks are not repaired or re-evaluated.",
+    "No full large-store read; later owner-read capacity and original installed memoryP0 remain open.",
+    "Independent review and stopped48 boundary reproof reserved Executive."
+  ]
+}

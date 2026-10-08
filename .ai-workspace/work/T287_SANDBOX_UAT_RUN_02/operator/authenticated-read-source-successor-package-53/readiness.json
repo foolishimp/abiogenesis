@@ -1,0 +1,87 @@
+{
+  "role": "Worker53",
+  "status": "frozen_unpublished_candidate18",
+  "acceptedSource51": {
+    "return": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/authenticated-read-source-reuse-repair-51/return-corrected.md",
+      "sha256": "5991a3febfc25ca337c3bc74cdfa19c2d8333587cb360db1fbf2f68b1deda11e",
+      "byteCount": 2427
+    },
+    "readiness": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/authenticated-read-source-reuse-repair-51/readiness-corrected.json",
+      "sha256": "a58348180239c6785b7bad967fccb5cb7e0b53406c07b438a91e33450ac40d89",
+      "byteCount": 14645
+    },
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/authenticated-read-source-reuse-repair-51/freeze-corrected.json",
+      "sha256": "6c76b966311987636c44f66bc7f04b64104c5cff4e21b6262e3d434df3b30440",
+      "byteCount": 23686
+    },
+    "rootClosedSourceAndProofGO": true
+  },
+  "identity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-18/identity.json",
+    "sha256": "04d2865cbbb81ddb8df8a8ae667ea0f7ee754325a4af8fa78f4987e11a242ae0",
+    "byteCount": 10002
+  },
+  "mechanicalResult": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/authenticated-read-source-successor-package-53/mechanical-result.json",
+    "sha256": "9b0cb308bb01d74af92453a9a43daa227d7cd2b83a59947f9df08fe85eb1fbdc",
+    "byteCount": 6874
+  },
+  "inputs": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/authenticated-read-source-successor-package-53/inputs.json",
+    "sha256": "c95f5629d4e76a39e2d416d40ec09def73b7d16b91f12fe06416c50a52114c58",
+    "byteCount": 243688
+  },
+  "all951SelectedPinsExactBeforeAndAfter": true,
+  "commandScalars": [
+    {
+      "label": "pack",
+      "exitCode": 0,
+      "wallMs": 3687.5775,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    },
+    {
+      "label": "member-comparison",
+      "exitCode": 0,
+      "wallMs": 752.2690420000004,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    },
+    {
+      "label": "extract",
+      "exitCode": 0,
+      "wallMs": 606.7860000000001,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    },
+    {
+      "label": "packaged-owner",
+      "exitCode": 0,
+      "wallMs": 21633.872583999997,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    }
+  ],
+  "ownerWallMs": 21082.462541,
+  "packageConservation": {
+    "sameMembersTypesModes": 5265,
+    "unchangedMembers": 5260,
+    "acceptedGeneratedChanges": 5,
+    "publicRows": 75,
+    "publicationBindings": 10,
+    "contributions": 47,
+    "catalogExactDigestConsequences": 69,
+    "contributionExactIdentityConsequences": 62,
+    "allOtherMetadataEqual": true,
+    "canonicalBeforeAndAfterRecomputation": true
+  },
+  "noBuildInstallNativeModelLargeStoreReadGitEffects": true,
+  "originalMemoryP0AndFullUatRemainOpen": true
+}

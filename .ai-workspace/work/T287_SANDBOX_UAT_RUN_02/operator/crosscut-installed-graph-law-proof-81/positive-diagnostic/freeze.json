@@ -1,0 +1,18 @@
+{
+  "kind": "closed_raw_positive_diagnostic_freeze",
+  "status": "CLOSED_REFUSAL",
+  "createdAt": "2026-10-08T08:04:17.677712+00:00",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-diagnostic/return.md",
+      "sha256": "3f94e0c8ae005b886d1b3094a3dddf39fb9afb64347e30268a96b989cee2eba5",
+      "bytes": 1240
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/positive-diagnostic/pins.json",
+      "sha256": "7afe631a738737102e655e8a8bb947d64afa6916c0728059147474973dba05ac",
+      "bytes": 3793
+    }
+  ],
+  "evidenceRows": 13
+}

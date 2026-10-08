@@ -1,0 +1,83 @@
+{
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "88de828fc8aef467901a19acb1e94e1cf29d6a8828dcabe592b7912476ee8da4",
+    "byteCount": 10629708
+  },
+  "baselineArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "3a5b39b50fbc841b3a3f8e67fa7c53836562dd6aed42a3ea0ae2e3e104639c1b",
+    "byteCount": 10624009
+  },
+  "sourceCommit": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "final75": {
+    "returnPin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/return.md",
+      "sha256": "7a55741111a2e258b43c614963ceb5b52a327a086db60f5e2325947d722aacdd",
+      "byteCount": 2687
+    },
+    "freeze": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/freeze.json",
+      "sha256": "80cc0615036f15be45c04591335a0ec65f7946075feea7e0a87aeac15b6adca4",
+      "byteCount": 18394
+    },
+    "readiness": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/readiness.json",
+      "sha256": "6ec6f7e3dd97f459e40f8d926aff66605eab068affe8696b7c1c9c11ff9507a7",
+      "byteCount": 13778
+    },
+    "sourceConjunction": "Executive closed 61/62/63/73 Source conjunction; accepted deterministic final75, independent77 pending at activation. Package draft only."
+  },
+  "selectedInputReferences": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-successor-package-71/inputs.json",
+    "sha256": "be4c7f49a1bb04b82ad6655d80b4ed2daa42cbad679092116019a3d1fc657f01",
+    "byteCount": 4354
+  },
+  "selectedInputCount": 1223,
+  "uniqueSelectedPaths": 1223,
+  "allSelectedInputsConserved": true,
+  "archiveMemberCount": 5265,
+  "unchangedMemberCount": 5237,
+  "samePathsTypesModes": true,
+  "generatedDeltaCount": 28,
+  "memberComparison": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/member-delta.json",
+    "sha256": "1e398f64d59e2eb81b53e6538958ad98dc9e202f2c6797f7fbecccb05a588348",
+    "byteCount": 194059
+  },
+  "metadataDependenciesExportsPublicFieldsConserved": true,
+  "graphFunctionProgramContractMetadataConserved": true,
+  "publicRowCount": 75,
+  "publicationBindingCount": 10,
+  "contributionRowCount": 47,
+  "publicCatalogFieldDifferenceCount": 446,
+  "exactCanonicalContributionIdentityConsequences": {
+    "graph": 1,
+    "contentRefs": 3,
+    "publicationDigests": 10,
+    "provenanceRefs": 47,
+    "catalog": 1
+  },
+  "productContentDigest": "sha256:0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c",
+  "canonicalManifestDigest": "sha256:8ec94c51c508048fd1bd862c552c892ad85f2ed3c15b26d0c876a721fa3ede35",
+  "rawManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/scratch/successor/package/product-toolchain-manifest.json",
+    "sha256": "6cd9f792c5b79f30e06f37b291e4d5d534780355f1d3d7f03daa7525b6dbe25f",
+    "byteCount": 3171685
+  },
+  "catalogDigest": "sha256:c60cc979d3f9117f87434989e08d72c01f383058cd24e3a2a449cad4f87c75c7",
+  "contributionManifestDigest": "sha256:4f2b080203cea7fcf688a13257ced6b695f8df8a64f676cfb5bdbec03b0d94da",
+  "capabilityGraphDigest": "sha256:a9af40ebcaa5261eb37a085f92a194adab1ff646b3aef55d58fbfc4e77d4eeb5",
+  "canonicalOwnerProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/catalog-owner-derivation.json",
+    "sha256": "01086b73609e4bf6423a1e339e6b46428e89a694d990cf1b03b1d53ad388e299",
+    "byteCount": 2246
+  },
+  "packagedProductOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/owner-verification.json",
+    "sha256": "0869158044be00fafbab52c199c2f2378995a83ce851099cd102981576c4f49b",
+    "byteCount": 1560
+  },
+  "state": "UNPUBLISHED immutable draft; independent publication/generation review and Root conjunction required before use",
+  "nativeQualificationOrReleaseCredit": false
+}

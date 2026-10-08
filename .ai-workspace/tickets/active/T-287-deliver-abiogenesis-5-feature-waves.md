@@ -20,16 +20,16 @@
 - updated_at: 2026-10-06
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_SANDBOX_UAT_01
+- current_activation: T287_SANDBOX_UAT_RUN_02
 - prior_genuine_activation: T287_GENUINE_CONTEXT_ASSESSMENT_07
-- current_activation_status: CLOSED_ACCEPT_sandbox_UAT_setup_obsolete_tests_and_bounded_disk_cleanup_live_UAT_unexecuted
+- current_activation_status: ACTIVE_config_only_budget06_correction_accepted_exact_candidate05_clean_retest06_dispatched_outcome_pending
 - prior_boundary_repair_status: CLOSED_ACCEPT_Hello_expunction_generic_Source_package_and_bounded_installed_language_proof
 - prior_boundary_repair_acceptance: .ai-workspace/work/T287_HELLO_EXPUNCTION_01/acceptance.json
-- current_sandbox_uat_plan: .ai-workspace/work/T287_SANDBOX_UAT_01/plan.md
+- current_sandbox_uat_plan: .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/plan.md
 - current_sandbox_uat_acceptance: .ai-workspace/work/T287_SANDBOX_UAT_01/acceptance.md
-- current_sandbox_uat_live_results: 0_of_7_unexecuted
+- current_sandbox_uat_live_results: 0_passes_original_preRun_refusal_and_second_genuine_failed_Run_retained_budgetcorrected_retest06_dispatched_remaining6_UNEXECUTED_at_release
 - current_disk_cleanup_receipt: .ai-workspace/work/T287_SANDBOX_UAT_01/disk-recovery/receipt.json
-- current_next_work: genuine_installed_basic_cli_sandbox_UAT_then_selected_cases_and_RC1_owner_triage
+- current_next_work: ordered_single_case_clean_UAT_basic_cli_js_tenant_test_js_sdlc_bootstrap_rust_cli_rust_service_parallel_js_data_mapper_full_stop_nonpass_triangulate_framework_fix_successor_redeploy_retest
 - prior_genuine_activation_status: CLOSED_ACCEPT_genuine07_original_J_native_F11_one_closed_Run_four_fresh_reads
 - current_boundary_repair_plan: .ai-workspace/work/T287_HELLO_EXPUNCTION_01/plan.md
 - current_boundary_repair_reentry: product_reprice_requirement_reprice_design_reframe_then_bounded_realization_refactor
@@ -68,21 +68,21 @@
 - current_context_projection_stopped_return: .ai-workspace/evidence/T287_CONTEXT_PROJECTION_REPAIR_01/return.json
 - current_context_projection_triage: CLOSED_dependent_pack_raced_manifest_final_stage_exact_package_only_reentry_selected
 - current_conservation_triage: CLOSED_all_native_invoke_hashes_reproduced_only_projectionBasis_changes_current_read_view
-- next_bounded_work: retire_purposeless_legacy_tests_acquire_seven_original_workloads_setup_clean_deployment_sandbox_UAT_then_RC1_no_unresolved_P0_P1_owner_triage
+- next_bounded_work: ordered_single_case_clean_UAT_basic_cli_js_tenant_test_js_sdlc_bootstrap_rust_cli_rust_service_parallel_js_data_mapper_full_stop_nonpass_triangulate_framework_fix_successor_redeploy_retest
 - current_secondary_activation: T287_C10_INSTALLED_SETUP_ASSURANCE_01
 - current_g2_core_acceptance_record: .ai-workspace/evidence/T287_G2_CORE_PACKAGE_ACCEPTANCE_RECORD_01/acceptance.json
 - current_g2_core_archive_sha256: c00589d0073f6f118f7ab0209ae90d21ef53d5ec976845e1dc0e95918e2d925b
 - current_g2_core_review_status: CLOSED_GO_SOURCE_COMPONENT_CORE_PACKAGE_ONLY_Root_ACCEPT
 - current_library_closure_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md
 - current_library_source_status: G1_G3_G2_eight_groups_and_G2_GTL_core_CLOSED_independent_GO_Root_ACCEPT_Source_component_package_only_installed_and_semantic_proof_OPEN
-- current_handoff: .ai-workspace/work/T287_SANDBOX_UAT_01/acceptance.md
+- current_handoff: .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/executive-retest-06.md
 - prior_delivery_handoff: .ai-workspace/comments/codex/20261002_HANDOFF_ABG_5_RC1_STEEL_THREAD.md
-- current_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-candidate-construction-10/final-freeze.json
-- current_candidate_archive_sha256: f9a14aa627049b79a0a22b7a0a117f823758d97ecc4b7a88c23c73ce66bc2edb
-- current_accepted_candidate_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-acceptance.json
-- current_accepted_archive_sha256: f9a14aa627049b79a0a22b7a0a117f823758d97ecc4b7a88c23c73ce66bc2edb
-- current_candidate_review_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/c10-construction-review-record.md
-- current_candidate_review_status: CLOSED_GO_Root_ACCEPT_C10_construction_plus_external_effect_census_only
+- current_candidate_record: .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/executive-retest-05.md
+- current_candidate_archive_sha256: ca7feb52ca90ad581cc0b07d62a26c57526cd50d04814c54e9bcef770300be09
+- current_accepted_candidate_record: .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/executive-retest-05.md
+- current_accepted_archive_sha256: ca7feb52ca90ad581cc0b07d62a26c57526cd50d04814c54e9bcef770300be09
+- current_candidate_review_record: .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/proof-review-05/candidate-identity-return.md
+- current_candidate_review_status: CLOSED_independent_identity_GO_Root_ACCEPT_bounded_Source_caller_readiness_and_unreleased_candidate_only_live_UAT_qualification_release_OPEN
 - current_worker_return: Generated06_CLOSED_independent_GO_Root_ACCEPT_928_generated_929_physical_nine_copies_installed_mechanical_three_Runs_six_reads
 - current_c2_consumer_review_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-c2-output-consumer-review-01/return.md
 - current_c2_consumer_review_status: CLOSED_ACCEPT_Root_adjudicated_bounded_snapshot_output_relation_native_C2_and_qualification_open
@@ -109,7 +109,7 @@
 - current_attribution_input_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-f11-attribution-correspondence-02/freeze.json
 - current_qualification_input_activation: T287_FINAL_QUALIFICATION_INPUTS_15
 - current_qualification_input_status: CLOSED_Q15_independent_GO_Root_ACCEPT_complete_current_owner_preparation_only
-- current_candidate_scope: C10_bounded_construction_ACCEPTED_actual_Setup10_CLOSED_passed_independent_assurance_active_G2_core_Code_separate
+- current_candidate_scope: same_exact_ca7feb52_repaired_candidate05_config84cf6c93_for_seven_external_sandbox_UATs_outcomes_unproved_at_retest06_release
 - current_live_execution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/fresh/execution.json
 - current_live_execution_status: S7_fresh_source_use_independently_accepted_original_producer_preserved_new_assessment_parent_and_Run_closed_two_cold_reads_agree
 - current_cost_evidence: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/fresh/timing.json
@@ -127,10 +127,10 @@
 - current_s01_review_controls: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/final-s01-retained-output-review-controls-03/request.txt
 - current_s01_review_status: CLOSED_ACCEPT_Root_adjudicated_C02_N04_ordinary_S01_causal_chain_and_two_original_fresh_reads_no_native_rerun
 - execution_budget_selection: correct_outcome_context_effect_scope_and_toolchain_first_then_finite_workload_based_stage_budget_no_universal_180s_limit
-- current_activation_disposition: private214c_GENUINE_INSTALLED_STEEL_THREAD_ACCEPTED_original_J_preserved_F11_truthfully_failed_four_fresh_reads_whole_qualification_incomplete
+- current_activation_disposition: Root_ACCEPT_config_only_B06_01_same_exact_repaired_candidate05_for_budgetcorrected_clean_UAT_qualification_release_OPEN
 - current_management_plan: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-sunny-day-steel-thread-01/plan.md
-- current_provider_rca_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-provider-permission-rca-02/return.md
-- current_provider_status: actual05_Claude_success_opus5_5_320779_cachecreation_31189_output_cost3_19002_original_J_retained_NO_MODEL_in07
+- current_provider_rca_record: .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/executive-retest-06.md
+- current_provider_status: NETWORK_DEPENDENCY_CLOSED_full_access_actual_retest05_three_Opus5_5_transports_success_USD1_0377292_budgetcorrected_retest06_dispatched
 - current_s02_substitution_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-01/freeze.json
 - current_s02_substitution_review: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-s02-substitution-review-01/return.md
 - current_s02_substitution_status: CLOSED_ACCEPT_Root_bounded_C02_positive_three_FD_spines_two_composition_identities_real_closure_two_original_cold_reads_no_wholeS02_claim
@@ -4744,3 +4744,31 @@ C08 continued-02 constructs the frozen immediate Source repair. Control-only
 failures are preserved. The qualifying successor must include the shared
 contract and Design/tracking postimages before whole installed credit. Retain
 accepted Hello and failed Runtime08; F11/QUAL056/scenarios/AF22/release remain open.
+
+- owner_triage_capsule_T287-P1-FAILED-CHILD-FOLD-01: owner Jim; status owner_triage; owning HoG recursion and #f-end-to-end-interface-integration/#f-worksite-causality Proof frames; evidence .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-proof-06/return.md SHA d219ac332f956f20a2c2bbdbc9b8ba306eeca4e3d0e836be1bd33562eee70af9 and freeze.json SHA 366e95654cabce93197eb7c1f2e06c213a49cecfdfea28d6fd7451d19f06bda1, actual ordinals4395->4397->4419->4427->4429. Known issue: typed failed child ends in generic application-foldback-mismatch; final cause names parent evaluator3180, no recursive failed-child fold. Complete original diagnostic and immutable child/result/judgment/route refs remain reconstructible. No-block rationale: unsupported bad-caller budget path remains non-green, without successful terminal or retry; no demonstrated corrected-lawful sunny-day failure or forbidden lineage loss. Re-entry realization_refactor; triggers owner selection, supported-lawful failure-totalization counterexample, lost first cause, false green or corrected sunny-path recurrence (immediate Executive triage). Dependent boundary candidate owner P1 triage and affected F03/F10/qualification. Closure falsifier recurring generic mislocalization or lost failed-child causality; closure evidence bounded exact failed-child/native-parent/fresh-replay proof preserving original cause and truthful non-green. No failure-constructor redesign or Source repair selected.
+
+- owner_triage_capsule_T287-P1-TIMEOUT-ACTOR-STOP-01: owner Jim; status owner_triage; selected Source integration frame #f-end-to-end-interface-integration and runtime Proof frame for worksite causality, retained lineage and interruption under STDO 2.5.1-rc.2. Root conjoins closed Source16 causal analysis and independently verified Proof16.
+  Evidence: .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-14/return.md SHA fb1f05e9471d997a90bd898bf0652b84f971e77a98ef839dd922e68f847d4ed6; observations.json SHA 0666d2543bb091704305d85e118ebdd2f435c03e9b3ff5227ef4e868cff5aa47; execution-freeze.json SHA 3571c678a68a73eee4c0de020b0189659df38a6ed10f621823ea1e8f8077f148 in the same directory. Run run://abiogenesis/282372ca9e22d5aece19b0c21d867ad59ac07ff8b43905645bc68a9735f113f3; commands/lifecycle-start.result.json records 3600062.035ms, timedOut=true, SIGTERM. The same Operator directory's commands/owned-provider-stop.result.json SHA 45855c7ba310c613ec37b28258e690b5fbd7ea1f53ce7739e9cffea0dd155ee7 records owned PID/PGID 67975: TERM then KILL, PID absent at 2026-10-06T17:13:02.713Z.
+  P1 factors and cause: actual outer timeout while the provider group is detached; test_env/uat/runner.mjs:30–33 signals the CLI group, code/src/abg/worker_transport.ts:393–404 starts the provider in a separate PGID, and code/src/public/cli.ts:119–125 has no signal cleanup. The owned provider survives the stop and can consume resources or affect the worksite beyond the envelope; actual post-stop work/spend remains unknown. Empty-response parsing, refused status and skipped normal fresh reads are downstream. Repair risk crosses caller/CLI/provider cancellation and resource ownership, so disposition is bounded owner triage.
+  Controls and no-block rationale: UAT remains non-green; four partial producer/results, original inputs and both install barriers are conserved; bounded external stop is confirmed; no native exit, terminal or readback is invented. Selected successful partial composition remains truthful, with no false green or demonstrated sunny-path blockage; the finite original upper bound permits noncompletion. This concerns process cleanup/interruption evidence, not a security assurance claim. Ordinary progress/churn evaluation and yielded handoff remain 5.0; this run earns no formal yield/churn proof.
+  Re-entry design_reframe at the owning stop/finalization HOW, followed by affected realization and proof. Activation triggers: owner selection, any interrupted active-provider path, post-stop mutation/spend, false terminal/readback, or sunny-path recurrence. Dependent boundary: affected UAT interruption proof and candidate-owner P1 triage. Closure falsifier: an orphan, lost causality or fabricated current handoff. Closure evidence: a bounded exact timeout/interruption test closes owned providers, retains true cause/effects, and observes supported fresh current Result/replay while preserving all original bytes. No repair, retry, recovery, rename, budget, tag, Git or application effects are selected.
+
+
+## T287-TESTING-PREREQUISITE-20 — selected partial-work Testing boundary
+
+Executive conjoins CLOSED Source19 and Proof19 mailbox intakes under the fixed fifteen-family ABI5.0 / GOAL035 / T-287 and STDO2.5.1-rc.2 integration frame. Exact subject is [Operator18 return](../work/T287_SANDBOX_UAT_RUN_02/operator/extended-execution-18/return.md) SHA e9a1edd3b7922f06c6c2a139c5ac9a063b85172b00f0eb0c75b3e74533ddc40f and [freeze](../work/T287_SANDBOX_UAT_RUN_02/operator/extended-execution-18/execution-freeze.json) SHA c3abd48b4b39ac529c5ae299985de526b83417244a69ebe0f63802dd23a72618; old cuts remain immutable.
+
+Origin: selector22917 proposed a partial probe, but Testing input22945 retains all26 original selected paths (18 files,8 absent ScalaTest specifications). Current native22190 producer, authority and grant joins pass. Canonical C2 construction throws on absent selected input; source-blind installed pure reproduction reports the first absent index14, distinct from the generic native exception retained by22955/22957. Native chain22945→22950→22951→22955→22957 is primary;22980 application-foldback-mismatch is downstream P1 owner triage. No timing/network cause or actual test red is established.
+
+Selected owning HOW/realization correction: one pure all-original-selected-files-present projection over the already-bound synthesis task/context supplies immediate-next response schema, prompt prerequisite facts and strict binder. All registered contribution rows, future Testing planning, author/other/null-with-gap F_P choice and the unchanged full selectedPaths/commands/predicates remain. Presence establishes construction availability only. No scheduler, partial-plan override, new carrier or C2 constructor change is selected; direct observed-file/no-author Testing and full-original UAT remain supported.
+
+Separate Writer20 mutates only the granted HOW, Product/Library and GTL realization, affected test, this append and normal generated build outputs. [Repair20 phase](../work/T287_SANDBOX_UAT_RUN_02/operator/testing-prerequisite-repair-20/) owns exact readiness and freeze. Local model-free proof does not establish native repair effectiveness, Data Mapper completion, UAT green, model reliability or qualification. Candidate13 and Operator18 evidence remain unchanged; packing/deployment/continuation require a later Executive grant.
+
+
+### T287-C2-HOST-TIMER-22 — bounded command-domain realization
+
+Executive conjoined CLOSED Source21/Proof21 mailbox triage under STDO 2.5.1-rc.2 and the selected end-to-end integration frame. Source20 presence prerequisite is accepted and frozen. Operator18 first cause remains missing selected files at 22957; later fold P1 remains downstream. A distinct prospective blocker is the C2 command constructor/schema one-hour maximum against the caller-authorized original 18,000,000ms command.
+
+Selected increment: one private supported-Node timer maximum (2,147,483,647ms) supplies the canonical constructor and raw configuration schema. The finite execution envelope remains caller policy. Preserve exact command/argv/env/cwd/reports/nine predicates, complete 26-source selection, grace at most 30,000ms and below timeout, authority/currentness and strict enclosing budget. Selected fit is 18,015,000 < 18,030,000 < 18,040,000 < 18,060,000ms. No Product expansion, external application implementation or global timer redesign.
+
+Readiness is limited to one normal build, pure actual-plan native/observed/configuration/manifest/render checks and the existing short real M5 transport termination test (transport, not C2-helper proof). Native C2 execution, installed repair proof, original UAT/quality and completion remain unearned; no package/deployment selected in Writer22. Extreme aggregate-budget overflow is outside this bounded increment. Evidence: .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/c2-timing-repair-22/. All prior sealed cuts remain immutable.

@@ -1,5 +1,6 @@
 import { isRecord } from "../shared/admission_predicates.js";
 import * as v from "valibot";
+import { graphTemplateDiagnostics } from "../gtl/graph_construction.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -109,6 +110,8 @@ function issuePath(issue: v.BaseIssue<unknown>): string {
 
 function assertGraphLocalRelations(graph: GraphFunction, path: string): void {
   graph.template.nodes.forEach((node, index) => assertCProgramLocalRelations(node.term, `${path}/template/nodes/${index}/term`));
+  const issue = graphTemplateDiagnostics(graph.template, `${path}/template`)[0];
+  if (issue !== undefined) throw new TypeError(`${issue.path}: ${issue.message}`);
 }
 
 function assertModuleLocalRelations(publication: ModulePublication, path: string): void {

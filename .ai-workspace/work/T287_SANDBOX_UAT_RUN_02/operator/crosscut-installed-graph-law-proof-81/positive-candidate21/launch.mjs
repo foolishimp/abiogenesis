@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {dirname,join} from 'node:path';
+import {fileURLToPath} from 'node:url';
+import {commandRecorder} from '/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs';
+const phase=dirname(fileURLToPath(import.meta.url)),inputs=JSON.parse(await readFile(join(phase,'inputs.json'),'utf8'));
+assert.equal(process.env.NODE_OPTIONS,undefined);
+const args=[join(phase,'driver.mjs'),'--artifact-path',inputs.artifactPath,'--artifact-sha256',inputs.artifactSha256,'--install-host',inputs.installHost,'--expected-content',inputs.expectedProductContentDigest,'--expected-manifest',inputs.expectedManifestDigest,'--evidence-root',inputs.evidenceRoot];
+const command=commandRecorder(phase,{environment:{PATH:'/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin',npm_config_offline:'true'},timeoutMs:300000,maxOutputBytes:1048576});
+const result=await command('actual-positive-composition',process.execPath,args,{cwd:phase});
+console.log(JSON.stringify({exitCode:result.exitCode,signal:result.signal,wallMs:result.wallMs,timedOut:result.timedOut,truncated:result.truncated,stdout:result.stdout,stderr:result.stderr}));

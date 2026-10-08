@@ -1,0 +1,259 @@
+{
+  "recordedAt": "2026-10-06T12:17:04.916Z",
+  "role": "Worker external-oracle realization_refactor",
+  "disposition": "WORKER_READY_INDEPENDENT_REVIEW_PENDING",
+  "sourceAnchor": "main@0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "frames": [
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+    "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality"
+  ],
+  "preimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
+      "bytes": 24414
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+      "bytes": 34763
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "1869bcc42124ba8426002b2e91691e620546b3965fa51195d6fcf4831c3a7cdb",
+      "bytes": 17357
+    }
+  ],
+  "postimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+      "bytes": 23452
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "bbc1dd8ee7cbcd4a2f1332a2f3509ce17fad836d6d578b4afede999852e61fcf",
+      "bytes": 34763
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "a7c639158059ed39bdabde8825e1b03fcec7a470ebab26cec8246245ee8ca67b",
+      "bytes": 23083
+    }
+  ],
+  "delta": {
+    "oracleOnlyRustLexicalBlockRemoved": true,
+    "removedBytes": 962,
+    "removedBlockSha256": "6c2d5059e4c83cf8cf5034a68d9fd0224749e2062ed9363d0c6c3e0e935594c9",
+    "allOtherOracleBytesEqual": true,
+    "manifestChangedPaths": [
+      "/scenarios/0/acquisitionDigests/4/byteCount",
+      "/scenarios/0/acquisitionDigests/4/digest",
+      "/scenarios/0/oracleModuleDigest",
+      "/scenarios/1/acquisitionDigests/4/byteCount",
+      "/scenarios/1/acquisitionDigests/4/digest",
+      "/scenarios/1/oracleModuleDigest",
+      "/scenarios/2/acquisitionDigests/4/byteCount",
+      "/scenarios/2/acquisitionDigests/4/digest",
+      "/scenarios/2/oracleModuleDigest",
+      "/scenarios/3/acquisitionDigests/4/byteCount",
+      "/scenarios/3/acquisitionDigests/4/digest",
+      "/scenarios/3/oracleModuleDigest",
+      "/scenarios/4/acquisitionDigests/4/byteCount",
+      "/scenarios/4/acquisitionDigests/4/digest",
+      "/scenarios/4/oracleModuleDigest",
+      "/scenarios/5/acquisitionDigests/4/byteCount",
+      "/scenarios/5/acquisitionDigests/4/digest",
+      "/scenarios/5/oracleModuleDigest",
+      "/scenarios/6/acquisitionDigests/6/byteCount",
+      "/scenarios/6/acquisitionDigests/6/digest",
+      "/scenarios/6/oracleModuleDigest"
+    ],
+    "allOtherManifestFieldsEqual": true,
+    "allScenarioSpecificFixturePinsConserved": true,
+    "harnessAdditionsOnly": true,
+    "reconstructedHarnessPreimageSha256": "1869bcc42124ba8426002b2e91691e620546b3965fa51195d6fcf4831c3a7cdb",
+    "addedHarnessBytes": 5726
+  },
+  "authorityPins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-rust-service-oracle-11/return.md",
+      "sha256": "4fb532ed04c7c8be7508f1d3f26fcf4be74750597c3858f50952402b20ffa233",
+      "bytes": 5966
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-rust-service-oracle-11/pins.json",
+      "sha256": "9e230a1a67cd795ab66477eea38905a731ebb342ab1a6805ab54f0b5cd783972",
+      "bytes": 11859
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-rust-service-proof-11/return.md",
+      "sha256": "ae382f3b3da080f6d2203d5223e8ea5d14a18fa2b129db562164168b75d865fb",
+      "bytes": 5827
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-rust-service-proof-11/pins.json",
+      "sha256": "d770b97120058242d0af355c1650749f01f84fb246c894ca486ef70829902dd5",
+      "bytes": 27898
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-rust-service-proof-11/freeze.json",
+      "sha256": "962327ee569185ec782527d484a885840fa569d2f01fcf259a201002c224a0d8",
+      "bytes": 906
+    }
+  ],
+  "immutablePins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json",
+      "sha256": "68c48ff4f8d0d5205e1543c3f62997e29db61c6797cbdff93e67a71c3eb28d27",
+      "bytes": 2328
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "8a82e3b62931b35af9dc655f31423cb07cb7c6b87dab7d2ddeb36ee42c40e2c6",
+      "bytes": 10620905
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "bytes": 26202
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "bytes": 22857
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-10/return.md",
+      "sha256": "56f09e52553c6aaf3f2087247576381a7fa57a0b52b2844d924c580aa4045f7a",
+      "bytes": 3265
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-10/execution-freeze.json",
+      "sha256": "c692c2c5ebcc1d6ed7af091ea3a336ca30ed172405616955d7afd6513e34addf",
+      "bytes": 117784
+    }
+  ],
+  "workerRecordPins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/correction-report.json",
+      "sha256": "2060018103bebb4097b2e02756cdca1234ba2241a1cde4ed31316cf1299d6ff7",
+      "bytes": 12444
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/record.md",
+      "sha256": "cb14517e50f311b0d8d5dd9dbb39a42bc9d73d9605a99bab6f58a207c411f48d",
+      "bytes": 1722
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/return.md",
+      "sha256": "babfb362907e5e279d2a5729a1148ffb4cb86f4491b71b728c23c03c02e177ed",
+      "bytes": 1919
+    }
+  ],
+  "readinessLogPins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/commands/affected-harness.request.json",
+      "sha256": "c421ae0130e5286e658a2ab6c1a73716594a545c6f39e4be00555123fb355352",
+      "bytes": 1599
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/commands/affected-harness.result.json",
+      "sha256": "3bbb74c57193beaca17a842df0582b3411326a2c8250783049af7c7a1b7dc8dd",
+      "bytes": 2359
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/commands/affected-harness.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/commands/affected-harness.stdout",
+      "sha256": "09ff0d422beca22b8386fca731f8fce17fbc618295eff5b0b708be412bb64d5b",
+      "bytes": 595
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/commands/syntax-harness.request.json",
+      "sha256": "935552d7b60d92cb4d0b92f5d640a5fea91c20fc420aea37c457d7d34de5fba5",
+      "bytes": 1476
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/commands/syntax-harness.result.json",
+      "sha256": "2da6d6276a8cf030500bbae417e4eac5dc15091450bd4de2bd2863ae081985f5",
+      "bytes": 1628
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/commands/syntax-harness.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/commands/syntax-harness.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/commands/syntax-oracle.request.json",
+      "sha256": "5940449fb4450edb2a047afda4ed0354fad49a7f39a9a6d3d386093ccca58c65",
+      "bytes": 1499
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/commands/syntax-oracle.result.json",
+      "sha256": "7a1797d92eec27f9e819a83865ede109fb378be810964e45a8b52d4846bd316e",
+      "bytes": 1660
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/commands/syntax-oracle.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/commands/syntax-oracle.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  ],
+  "readiness": {
+    "syntaxExitCodes": [
+      0,
+      0
+    ],
+    "affectedHarnessPasses": 4,
+    "affectedHarnessFailures": 0,
+    "sevenFixtureAcquisitionIntegrity": true,
+    "controlledOwnerPremisesExplicit": true
+  },
+  "correctionReport": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/oracle-repair-11/correction-report.json",
+    "sha256": "2060018103bebb4097b2e02756cdca1234ba2241a1cde4ed31316cf1299d6ff7",
+    "bytes": 12444
+  },
+  "retainedEvidenceReevaluation": {
+    "correctedDisposition": "satisfied",
+    "criteriaCount": 12,
+    "allRemainingCriteriaExactlyPreserved": true,
+    "canonicalC2Validated": 1,
+    "nativeSemanticAssessment": "satisfied",
+    "freshTerminalAgreement": true,
+    "selectedOldFilesConserved": 88,
+    "newRuns": 0,
+    "newActors": 0,
+    "newOriginalWorkloadCommands": 0,
+    "processWallMs": null,
+    "timingLimitation": "Not separately recorded; Root explicitly accepted no repeat"
+  },
+  "unchangedApplicability": {
+    "priorNativePasses": [
+      "basic-cli",
+      "js-tenant-test",
+      "js-sdlc-bootstrap",
+      "rust-cli"
+    ],
+    "basis": "Only Rust-service lexical branch removed; all other evaluator bytes and original fixture meanings preserved"
+  },
+  "nativeExecutionStopped": true,
+  "remainingCases": [
+    "parallel-js",
+    "data-mapper-full"
+  ]
+}

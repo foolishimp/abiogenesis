@@ -1,0 +1,53 @@
+{
+  "classification": "one_frozen_unpublished_publication_subject",
+  "at": "2026-10-08T07:18:35.931853+00:00",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-successor-package-71/inputs.json",
+      "sha256": "be4c7f49a1bb04b82ad6655d80b4ed2daa42cbad679092116019a3d1fc657f01",
+      "byteCount": 4354
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-successor-package-71/publication.mjs",
+      "sha256": "03e57861c0945c71ce9db66d21a1cf56cd4ec23787084c43996e733ebf0403ed",
+      "byteCount": 3305
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-successor-package-71/member-comparison.py",
+      "sha256": "9e8ac9e6cfa02bcd3c8b1f8cf6ec41cf199d7db91fe973ed08f1f17495771b3f",
+      "byteCount": 6626
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-successor-package-71/packaged-owner.mjs",
+      "sha256": "f99e0d6e683dcb787bad07c822d90bc07a6e571b86cff35b6d4a04f4c23b1eff",
+      "byteCount": 10296
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-successor-package-71/readiness.json",
+      "sha256": "511fca6cc18f70da23009d060a0575df7cce0ebd3bf69ab4d714b28f1af2f942",
+      "byteCount": 3568
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-successor-package-71/return.md",
+      "sha256": "93166da42977959f25e91ad8d6bdc715e968dd7257f110290925e6447a52d73f",
+      "byteCount": 2301
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/identity.json",
+      "sha256": "cc33dc1f37ba071b043d7e295350dfc0cf9c7606810e6bee89d5f96a748c3c7b",
+      "byteCount": 4344
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/freeze.json",
+      "sha256": "75c83798350a4c06e5b7efb515a7ed3fef9851acce355d99afb402410f153b4f",
+      "byteCount": 6938
+    }
+  ],
+  "acceptedInputReferences": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-successor-package-71/inputs.json",
+    "sha256": "be4c7f49a1bb04b82ad6655d80b4ed2daa42cbad679092116019a3d1fc657f01",
+    "byteCount": 4354
+  },
+  "publicationAcceptancePending": true,
+  "noRuntimeCredit": true
+}

@@ -1,0 +1,14 @@
+Writer35 STOP — exact memory-pressure realization frozen for independent Source/Proof and supplementary-test applicability triage.
+Root selected fixed15 ABI5/GOAL035/T287/STDO2.5.1RC2; integration/worksite/runtime projection002/025; T289 current RC2 HOW appended with its historical prefix intact.
+Caller canonical detachment remains; exact equal basis/Result bodies reuse only earlier committed physically-inline sources belonging to the exact predecessor prefix. Tentative/crossed/foreign sources and event envelopes gain no authority.
+One canonical traversal supplies text and incremental SHA256 sinks; numbers/key order/Unicode/holes/errors/digests are preserved. Cold codec, durable source eligibility/fsync/rollback, replay and currentness guards retain their owners.
+Changed Source/HOW/test: four implementation owners +T289 +existing event-body test; generated8 (six compiler files, capability graph, manifest),934 same members/926 unchanged; no GTL or protected replay edit.
+Build30362.05225ms PASS; prefix-corrected build30077.906042ms PASS. Initial12 focused PASS; missing-history supplemental4PASS/2preassertionFAIL receipt retained.
+Root corrected that command premise through one owner-decoded first434-event fixture (physical6191541B/logical6341605B); no handwritten events, whole-store replay, currentness/recovery or old producer credit.
+Final affected selection17/18 PASS in13587.282958ms:12event-body/canonical+4owner rollback/currentness+1logical-prefix; t288 line59 Missing expected exception remains FAIL. No test/guard adaptation or further rerun.
+Five relevant preimage/current helpers are byte-identical. The failed test externally corrupts byte0 without changing inode/extent; logical expected-prefix admission uses the admitted history and cached durable SHA. Line58 callback assert.fail does not prove physical refusal. Static correspondence only; preimage runtime not executed.
+Authentic parent117802 value digest689d44368f7bac09207970e91940ea2347a77a360cd7d1b8cfff50200ec8ea38 preserved.128MiB lane97distinct Results/135569916logical body bytes/1746125physical bytes; full live/cold replay equal.
+Observed lane heap76852880B/RSS260046848B/maxRSS321360KiB; bounded readiness, not real UAT/default-heap whole-run closure or sole-allocation-site proof. Conditional p0Work counters unearned.
+Phase34 return/observations/freeze/stop receipt, candidate15, protected replay/instruction/library sources and all45selected native42-after files freshly conserved. Accounting mutant remains active/unexecuted;8detections/8restores/normal-read absence unchanged.
+Exact readiness: readiness.json; Source/preimages/generated and all retained receipts are pinned by freeze.json. Failed premise/failure receipts and bounded helper comparison are preserved.
+No package/native/model/Run/UAT/app/Git/time/capture/heap-envelope effects. All Source editing/build/testing STOPPED; Root owns independent review, applicability and next disposition.

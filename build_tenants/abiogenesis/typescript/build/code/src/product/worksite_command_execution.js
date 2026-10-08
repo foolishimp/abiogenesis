@@ -16,13 +16,15 @@ import { WORKSITE_REVISION_IDS, isWorksiteRevisionCommandExecutionTask, isWorksi
 import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask, executableWorksiteCommandSources as worksiteExecutionSources, executableWorksiteCommandIdentityPrefix as worksiteExecutionIdentityPrefix, executableWorksiteCommandImplementationRef as worksiteExecutionImplementationRef, isWorksiteCommandForwardWorkerResult } from "./worksite_command_forward.js";
 import { isNativeWorkspaceWorkObservation } from "./native_workspace_work.js";
 const SCHEMA_VERSION = "5.0.0";
+// Technical Node timer representation limit; execution policy belongs to callers.
+const HOST_TIMER_MAX_MS = 2_147_483_647;
 const BASE64_PATTERN = "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution_identity.js";
 export { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution_identity.js";
 // The displayed terms also drive the calculation used by the C2 guard.
 const commandExecutionBudgetRule = deepFreeze({
     aggregation: "sum",
-    commandFields: ["timeoutMs", "terminationGraceMs"],
+    commandFields: ["timeoutMs", "terminationGraceMs", "terminationGraceMs"],
     httpResponseFields: { launch: ["timeoutMs", "terminationGraceMs"], request: ["timeoutMs"] },
     ownerAllowanceMs: 5_000,
     limitComparison: "required_budget_strictly_less_than_each_limit",
@@ -496,7 +498,7 @@ function isExpectedReport(value, ordinal) {
 function constructCommand(input, ordinal) {
     if (!nonempty(input.commandId) || !nonempty(input.executable) ||
         !Array.isArray(input.args) || input.args.some((arg) => typeof arg !== "string" || arg.includes("\0")) || !safeRelativePath(input.relativeCwd) || !Number.isSafeInteger(input.timeoutMs) ||
-        input.timeoutMs <= 0 || input.timeoutMs > 3_600_000 ||
+        input.timeoutMs <= 0 || input.timeoutMs > HOST_TIMER_MAX_MS ||
         !Number.isSafeInteger(input.terminationGraceMs) || input.terminationGraceMs <= 0 ||
         input.terminationGraceMs > 30_000 || input.terminationGraceMs >= input.timeoutMs ||
         !Array.isArray(input.expectedReports)) {
@@ -838,7 +840,7 @@ export function worksiteCommandConfigurationInputSchema() {
     return deepFreeze({
         commands: { type: "array", minItems: 1, items: object({ commandId: text, executable: text,
                 args: { type: "array", items: { type: "string" } }, relativeCwd: path, environment,
-                timeoutMs: { ...positive, maximum: 3_600_000 },
+                timeoutMs: { ...positive, maximum: HOST_TIMER_MAX_MS },
                 terminationGraceMs: { ...positive, maximum: 30_000, description: "Strictly less than timeoutMs." },
                 expectedReports: { type: "array", items: object({ reportIdentity: text, relativePath: path }) } }) },
         outcomePredicates: { type: "array", description: "Existing C2 predicates only. Referenced commands must exist; module paths must be protected targets. Report counts require exactly one report-set predicate whose paths are declared command reports. Selectors require at least one filter. Port/report writes require explicit evidence territory.",

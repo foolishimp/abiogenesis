@@ -1,0 +1,241 @@
+{
+  "status": "LOCALIZED_FIXTURE_PRECONDITION_STOPPED",
+  "role": "Writer87b bounded diagnosis",
+  "actualPortInvokeCount": 1,
+  "actualPortInvokeWallMs": 433.3842919999993,
+  "command": {
+    "started": "2026-10-08T08:39:01.849Z",
+    "wallMs": 4331.737916,
+    "exitCode": 0,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false
+  },
+  "originatingException": {
+    "reason": "promiseRejection",
+    "description": "TypeError: worksite command configuration requires exact A/W, subjects and explicit arrays\n    at constructWorksiteCommandConfiguration (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js:857:15)\n    at constructObservedWorksiteCommandExecutionTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js:228:27)\n    at projectGovernanceTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js:253:12)\n    at async prepareObservedTestingTask (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js:35:112)\n    at async invokeLeafOwnerBoundary (file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/leaf_invocation_port.js:433:36)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87b/diagnose.mjs:118:29",
+    "frames": [
+      {
+        "functionName": "constructWorksiteCommandConfiguration",
+        "url": "file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+        "line": 857,
+        "column": 9
+      },
+      {
+        "functionName": "constructObservedWorksiteCommandExecutionTask",
+        "url": "file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+        "line": 228,
+        "column": 27
+      },
+      {
+        "functionName": "projectGovernanceTestingTask",
+        "url": "file:///private/tmp/abi5-root-env-6iTfW1/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+        "line": 253,
+        "column": 12
+      }
+    ]
+  },
+  "original115ReproducedExactly": true,
+  "returnedClosedReceipt": {
+    "kind": "closed_leaf_owner_receipt",
+    "computeRegime": "F_D",
+    "receiptPresent": false,
+    "resultCandidate": {
+      "kind": "governance_failure",
+      "schemaVersion": "5.0.0",
+      "failureClass": "implementation_exception",
+      "diagnosticRef": "diagnostic://abiogenesis/implementation/implementation-exception@5"
+    },
+    "diagnosticRef": "diagnostic://abiogenesis/implementation/implementation-exception@5"
+  },
+  "predicateClassification": {
+    "status": "sole-configuration-precondition-localized",
+    "inputDigest": "sha256:8ec4170e71c1ff2ac225537f0ea278258553ab2c23059d2401a6686e1a6d5ccc",
+    "originalError": {
+      "name": "TypeError",
+      "message": "worksite command configuration requires exact A/W, subjects and explicit arrays"
+    },
+    "commandsArray": true,
+    "commandCount": 1,
+    "outcomePredicatesArray": true,
+    "predicateCount": 0,
+    "allFourSubjectsCanonical": true,
+    "exactAuthorityBindingJoin": "canonical configuration owner accepted unchanged A/W with only one declared evidence territory",
+    "allowedWriteTerritories": [],
+    "soleRejectedInitialPredicate": "allowedWriteTerritories.length === 0",
+    "unchangedConfigurationOtherwiseConstructible": true,
+    "newPureTerritory": {
+      "kind": "worksite_command_write_territory",
+      "schemaVersion": "5.0.0",
+      "territoryRef": "worksite-command-write-territory://abiogenesis/90014e41222012d68091f23617d5540fd96facfd1d95bc37e00c816c98700b14",
+      "territoryDigest": "sha256:90014e41222012d68091f23617d5540fd96facfd1d95bc37e00c816c98700b14",
+      "ordinal": 0,
+      "pathKind": "subtree",
+      "relativePath": "evidence",
+      "purpose": "execution_evidence"
+    },
+    "genericStateDomain": "original testing arrays are accepted generically; delegated C2 retains its stricter command/evidence declaration precondition",
+    "owningHow": "T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md observed-source arm preserves unchanged command/predicate/write-territory declarations",
+    "disposition": "fixture omitted C2 precondition; no source repair inferred",
+    "nextSelectedFixture": "declare evidence subtree and have the original literal command actually write evidence/literal.txt, preserving stdout and exit7",
+    "limits": "No second port.invoke, actor, event admission, assessment, or file effect. Positive pure configuration is not execution credit."
+  },
+  "authenticated": {
+    "basisLineage": [
+      "execution-basis://abiogenesis/946c19bdbf7af5e012d107d1750a980bdb34e57e1fe9978ca52c5923ab5c4304",
+      "execution-basis://abiogenesis/cd2646f0865b1e50358f0c00ff138d479aa124940f468dffb7adc3a5484a5668",
+      "execution-basis://abiogenesis/6ad2f151576c90558ea1589b07de8f8baf47c74cde2c7998d095833b79dffbf3"
+    ],
+    "rootBasisRef": "execution-basis://abiogenesis/6ad2f151576c90558ea1589b07de8f8baf47c74cde2c7998d095833b79dffbf3",
+    "rootImplementationSetRef": "implementation-set://abiogenesis/9f0a4a0e3aa6148a547e5df1347da9e5be6546ebc959aecb51d8662fbdd17df8",
+    "originalStartSelection": {
+      "scope": "program",
+      "target": {
+        "kind": "next"
+      },
+      "until": "converged",
+      "rootMode": "direct"
+    },
+    "childSemanticsRoute": "rootPort.forGraphFunction",
+    "historical": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///private/tmp/abi5-root-env-6iTfW1/runtime/events.jsonl",
+      "prefixLength": 3947811,
+      "prefixDigest": "sha256:a5a9b90f894139c0ca0c2b1c04274df7370e1227ad92a710f1bfd25b756ab43e",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 467881160,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+      },
+      "coordinateDigest": "sha256:e4e7b36c880e4072680c4078a9bdb2f39decb34fb17050ba9eaa0c2375c26757"
+    },
+    "originalFinalPrefix": {
+      "coordinateDigest": "sha256:40bf70bb032d48ae63db904de519ec85175040518e226c98eb6b70d55b8668c5",
+      "eventLogRef": "file:///private/tmp/abi5-root-env-6iTfW1/runtime/events.jsonl",
+      "kind": "durable_prefix_coordinate",
+      "prefixDigest": "sha256:8843f5b2974616668b5ece1fe08d6fe30d18fae801c3df6711848e251dfbdda2",
+      "prefixLength": 4046316,
+      "schemaVersion": "5.0.0",
+      "storeIdentity": {
+        "device": 16777231,
+        "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+        "inode": 467881160
+      }
+    },
+    "basisRef": "execution-basis://abiogenesis/946c19bdbf7af5e012d107d1750a980bdb34e57e1fe9978ca52c5923ab5c4304",
+    "cCallRef": "c-call:sha256:acc331ce3a7cf9328ec09ff760cae9ad700646d3a29d99bbf03bfb2d6907096f",
+    "inputDigest": "sha256:8ec4170e71c1ff2ac225537f0ea278258553ab2c23059d2401a6686e1a6d5ccc",
+    "nativeInputDigest": "sha256:8ec4170e71c1ff2ac225537f0ea278258553ab2c23059d2401a6686e1a6d5ccc",
+    "resolution": {
+      "catalogBasisDigest": "sha256:013e5fece421b9f07940fd2f91ff73eb4b655ca64f80e899e276209a63740dd9",
+      "catalogViewDigest": "sha256:af09e0c949daa06f299386a0fd47ddbcb73f9ebed520459c45a86ebfee73b6b7",
+      "computeRegime": "F_D",
+      "disposition": "admitted",
+      "failureContractRef": "contract://abiogenesis/default-library/failure@5",
+      "graphFunctionDigest": "sha256:6862eb677ccd20f214e50f5a691b7237d75f1cd60de5d1309a021d4a42dd60b8",
+      "graphFunctionOwnerProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "graphFunctionPublicationDigest": "sha256:49ebf9a1d3674085996e2b2b9cd927c726d02cd3a644e6a35733bb08bd32f2f2",
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "implementationBindingDigest": "sha256:9133d2b8c67c7aeb1bd9b73894df89d96d26e96e97cfd9dde2ae90fed1b9fb2d",
+      "implementationBindingRef": "binding://abiogenesis/default-library/prepare-testing@5",
+      "implementationDescriptorDigest": "sha256:e3ffad5bc87c8a1bd9ea545ddb434c4bb8b977a08c9d2f8069f00b7e538094ca",
+      "implementationOwnerProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+      "implementationPublicationDigest": "sha256:49ebf9a1d3674085996e2b2b9cd927c726d02cd3a644e6a35733bb08bd32f2f2",
+      "implementationRef": "implementation://abiogenesis/default-library/prepare-testing@5",
+      "inputContractRef": "contract://abiogenesis/default-library/state@5",
+      "kind": "admitted_implementation_resolution_row",
+      "leafResolutionCandidateDigest": "sha256:90efdfcf7bbfcbe6df3de3cd733103348cf8f9506d2215be5a839b40e97af972",
+      "leafResolutionCandidateRef": "leaf-resolution-candidate://abiogenesis/90efdfcf7bbfcbe6df3de3cd733103348cf8f9506d2215be5a839b40e97af972",
+      "modulePath": "build/code/src/implementation/default_library.js",
+      "namedSymbol": "prepareObservedTestingTask",
+      "nodeRef": "graph-function://abiogenesis/default-library/testing@5/prepare",
+      "outputContractRef": "contract://abiogenesis/worksite/command-execution-task@5",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.1",
+      "programLocusRef": "graph-function://abiogenesis/default-library/testing@5/prepare",
+      "programValidationRef": "program-validation://abiogenesis/80791187c4c213522664e75927211c414be6cac260e9729782d08c85bab306e0",
+      "publicationDigest": "sha256:451044382026bb2fac35d2424b0784ff368e1b64c726ac328fb96e92260d47a7",
+      "refusalContractRef": "contract://abiogenesis/default-library/refusal@5",
+      "requirementKey": "executable-leaf://abiogenesis/c287c490a97c9b0bdf01cb33712d77e0c789f87d278a57d2bf9c773a04e9ab3e",
+      "requirementKeyDigest": "sha256:c287c490a97c9b0bdf01cb33712d77e0c789f87d278a57d2bf9c773a04e9ab3e",
+      "schemaVersion": "5.0.0"
+    },
+    "programRef": "program://default-library-witness/witness@5",
+    "publicationDigest": "sha256:451044382026bb2fac35d2424b0784ff368e1b64c726ac328fb96e92260d47a7",
+    "cursorRef": "traversal-cursor://abiogenesis/0b9c0f5bbb0c5a1fc5b65e993b24231bd130591bd8b0050b33f9bdc3bcdd7def",
+    "cursorDigest": "sha256:0b9c0f5bbb0c5a1fc5b65e993b24231bd130591bd8b0050b33f9bdc3bcdd7def",
+    "portIsAdmitted": true,
+    "callPhase": "selected_no_evidence",
+    "effectCone": "read context/read four selected file observations/finite task construction only; no actor or admission"
+  },
+  "conservation": {
+    "allSelectedFilesUnchanged": true,
+    "eventFileDevice": 16777231,
+    "eventFileInode": 467881160,
+    "eventFileByteCount": 4046316
+  },
+  "conservedPinCount": 18,
+  "historicalInputs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-testing-preparation-localization-87/freeze.json",
+      "sha256": "c3beb32ee2622aecf9f4ba72e9515a119486ae63cdce53cc6fc030845f59ff76",
+      "byteCount": 7351
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/authority-root-freeze.json",
+      "sha256": "a8389637522059ce6efdd46e0671928459e01f9071e7ed53d2869b8dee5e4a33",
+      "byteCount": 19790
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/authority-root-readiness.json",
+      "sha256": "3946e446effd0026a6ff54e90042db30ac5e26a4c0d89b1bdb89fb707f58bc77",
+      "byteCount": 15106
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/execution-authority-root/first-failure.json",
+      "sha256": "e36a184f0bae9af0aad011d860d606cfad34cb165aa436fdcd5ba8ab99ad8e54",
+      "byteCount": 225407
+    }
+  ],
+  "causalSourcePins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "sha256": "bf8608ff534310365db0c5d45ddd91f5eeb4b5fe03ce3ad09c14eb2058e7faea",
+      "byteCount": 132412
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "sha256": "d30b3de24a8615a5e0aefe3f025f4a4ab9b8539148eaae801eb1a150263d73ce",
+      "byteCount": 33507
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "5292f272b7a0f1c4409cea13477e8d412912c93c7f6b5a8070141b6f94e3e9b4",
+      "byteCount": 31843
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "sha256": "9314eaf1b8af4e9cb1eb98e36bca78064d592ecf84ab04a1578f4a27a507f324",
+      "byteCount": 63281
+    }
+  ],
+  "retainedPremiseFailures": [
+    "initial basis lookup assumed root carried Run identity; corrected via owned parent-basis chain",
+    "CCall.nodeRef was diagnostic-only guessed field; actual cursor owns nodeRef",
+    "pure predicate recorder called with wrong argument shape before spawn; its request retained",
+    "pure predicate helper first used Product index instead of canonical module export; failed receipt and helper preimage retained"
+  ],
+  "downstreamExcluded": [
+    128,
+    138
+  ],
+  "expectedCaughtEnoent": "plannedCanonicalPath absence probes were handled; finite task configuration was subsequently entered",
+  "nextRootSelectedFixture": "same literal stdout/exit7 plus actual evidence/literal.txt write in declared evidence subtree",
+  "claimLimits": [
+    "No source/support/method repair",
+    "No actor, model, runtime admission, fresh Run or C2 helper execution in87b",
+    "No R04/R05 composition acceptance, UAT or application adequacy credit",
+    "No second port.invoke"
+  ]
+}

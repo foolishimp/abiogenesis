@@ -1,0 +1,31 @@
+--- before/build/code/src/product/semantic_job.d.ts
++++ after/build/code/src/product/semantic_job.d.ts
+@@ -327,7 +327,7 @@
+             selectedLimits: WorksiteCommandExecutionLimits;
+             budgetRule: Readonly<{
+                 aggregation: "sum";
+-                commandFields: readonly ["timeoutMs", "terminationGraceMs"];
++                commandFields: readonly ["timeoutMs", "terminationGraceMs", "terminationGraceMs"];
+                 httpResponseFields: {
+                     readonly launch: readonly ["timeoutMs", "terminationGraceMs"];
+                     readonly request: readonly ["timeoutMs"];
+@@ -446,7 +446,7 @@
+                 selectedLimits: WorksiteCommandExecutionLimits;
+                 budgetRule: Readonly<{
+                     aggregation: "sum";
+-                    commandFields: readonly ["timeoutMs", "terminationGraceMs"];
++                    commandFields: readonly ["timeoutMs", "terminationGraceMs", "terminationGraceMs"];
+                     httpResponseFields: {
+                         readonly launch: readonly ["timeoutMs", "terminationGraceMs"];
+                         readonly request: readonly ["timeoutMs"];
+--- before/build/code/src/product/worksite_command_execution.d.ts
++++ after/build/code/src/product/worksite_command_execution.d.ts
+@@ -76,7 +76,7 @@
+ }>): Readonly<{
+     rule: Readonly<{
+         aggregation: "sum";
+-        commandFields: readonly ["timeoutMs", "terminationGraceMs"];
++        commandFields: readonly ["timeoutMs", "terminationGraceMs", "terminationGraceMs"];
+         httpResponseFields: {
+             readonly launch: readonly ["timeoutMs", "terminationGraceMs"];
+             readonly request: readonly ["timeoutMs"];

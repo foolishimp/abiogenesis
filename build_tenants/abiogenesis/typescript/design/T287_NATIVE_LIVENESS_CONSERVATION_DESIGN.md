@@ -284,3 +284,49 @@ replay. A separate installed execution must show declared activity prevents
 local flat-timeout authority, artifact-before-no-progress and real interruption/
 exhaustion behavior. A pure timer simulation alone is not that proof.
 No full D4/D1/D2/S06, UAT, integration or release acceptance follows here.
+
+### 7.1 RC2 call-local historical views
+
+Snapshot identity uses the owning runtime derivation's private WeakMap
+association: exact snapshot key, own SNAPSHOT proof descriptor and private proof
+brand must agree. Proofs have no snapshot backpointer. This preserves parent and
+shared-prefix correspondence without WeakRef construction/dereference keeping
+every intermediate vector alive until the current synchronous execution ends
+([ECMAScript kept objects](https://tc39.es/ecma262/multipage/executable-code-and-execution-contexts.html#sec-addtokeptobjects)).
+Current reusable facts, historical answers, scope refusal and rollback rules
+remain those below; no recovery authority or memory-bound claim is added.
+
+The disposable liveness reconstruction retains completed declaration/context,
+budget and observation-fold facts for its exact owner source. A historical
+prefix used to compute those facts is an intermediate view, not an additional
+historical authority or a permanent fact cache. Both event/profile cuts and
+structural slices are call-local subfunction inputs: retain no intermediate
+historical vectors across calls, including a last-cut cache. Each required view
+is constructed through its existing owner at the exact ordinal and released
+when the computation returns. Completed context, budget and fold facts and
+the current source indexes remain reusable. Earlier, reverse and repeated
+queries reconstruct the same boundary and return the same context, budget,
+lease and validation answers; enduring history and recovery belong to the
+durable event log.
+This changes neither admitted history nor producer, nominal, scope, profile or
+before-effect checks. Source rollback/invalidation still discards all disposable
+facts; it is not replaced by blanket invalidation at each query. Caller-held
+views keep their normal lifetime. The measured cumulative cut-cache retention
+is the selected repair seam; its share of the observed native heap abort and
+whole-run availability remain to be proved on an installed successor.
+
+```mermaid
+sequenceDiagram
+    participant Q as Native liveness owner
+    participant R as Disposable reconstruction
+    participant P as Authenticated prefix owner
+    Q->>R: context / budget / observation at ordinal
+    alt completed fact already available
+        R-->>Q: reuse exact completed fact
+    else current or historical fact needs computation
+        R->>P: construct exact call-local cut / structural slice
+        P-->>R: authenticated immutable view
+        R->>R: compute fact; release intermediate view
+        R-->>Q: unchanged owned answer
+    end
+```

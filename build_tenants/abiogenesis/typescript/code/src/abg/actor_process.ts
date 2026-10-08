@@ -51,6 +51,7 @@ import {
   prepareWorkerTransport,
   runPreparedWorkerTransport,
   createWorkerTransportOutputObserver,
+  type WorkerTransportRequest,
   type WorkerToolInvocationEvidence,
 } from "./worker_transport.js";
 import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy, type RuntimeProbeObservation, type RuntimeProbeSource } from "./runtime_liveness_contracts.js";
@@ -80,6 +81,7 @@ export interface ActorProcessRequest {
   readonly transportLane: "closed_prompt_proof" | "worker_executes";
   readonly prompt: string;
   readonly responseJsonSchema: Readonly<Record<string, JsonValue>>;
+  readonly responsePresentation?: WorkerTransportRequest["responsePresentation"];
 }
 
 export interface ActorProcessObservation {
@@ -322,7 +324,7 @@ function isExactRequestedSignalSequence(
   timedOut: boolean,
   sequence: readonly string[],
 ): boolean {
-  if (!timedOut) return sequence.length === 0;
+  if (!timedOut && sequence.length === 0) return true;
   return (
     sequence.length === 1 && sequence[0] === "SIGTERM"
   ) || (
@@ -343,7 +345,8 @@ export function validateActorProcessCarrierPair(
 ): ActorProcessCarrierValidationResult {
   const requestRecord = exactOrdinaryDataRecord(
     requestCandidate,
-    ACTOR_PROCESS_REQUEST_FIELDS,
+    typeof requestCandidate === "object" && requestCandidate !== null && Object.hasOwn(requestCandidate, "responsePresentation")
+      ? [...ACTOR_PROCESS_REQUEST_FIELDS, "responsePresentation"] : ACTOR_PROCESS_REQUEST_FIELDS,
   );
   if (requestRecord === null) {
     return carrierRefusal(
@@ -376,7 +379,8 @@ export function validateActorProcessCarrierPair(
     request.prompt.trim().length === 0 ||
     typeof request.responseJsonSchema !== "object" ||
     request.responseJsonSchema === null ||
-    Array.isArray(request.responseJsonSchema)
+    Array.isArray(request.responseJsonSchema) ||
+    (request.responsePresentation !== undefined && request.responsePresentation !== "result_text")
   ) {
     return carrierRefusal(
       "invalid_actor_process_request",
@@ -478,8 +482,7 @@ export function validateActorProcessCarrierPair(
       "actor process observation contains an invalid identity, digest, value domain, count, or artifact set",
     );
   }
-  const terminalPairValid = observation.exitObserved ===
-      observation.terminationConfirmed &&
+  const terminalPairValid = (!observation.terminationConfirmed || observation.exitObserved) &&
     (
       observation.exitObserved
         ? (
@@ -634,7 +637,7 @@ export function projectActorProcessLifecycle(
     terminationUnconfirmed,
     cleanupDisposition: actorTerminal !== undefined
       ? "complete" as const
-      : terminationUnconfirmed && processTerminal === undefined
+      : terminationUnconfirmed
         ? "termination_unconfirmed" as const
         : cleanupPending || processLive
           ? "pending" as const
@@ -864,6 +867,7 @@ async function invokeActorProcessWithAssembly(
       PROCESS_TERMINATION_GRACE_MS,
     ),
     responseJsonSchema: input.request.responseJsonSchema,
+    ...(input.request.responsePresentation === undefined ? {} : { responsePresentation: input.request.responsePresentation }),
     environment,
   });
   const transportBindingBody = {
@@ -1242,14 +1246,14 @@ async function invokeActorProcessWithAssembly(
         }
         processTerminalConfirmed = true;
       },
-      onTerminationUnconfirmed: () => append(
-        "actor_process_termination_unconfirmed",
-        "process",
-        processRef,
-        actorInvocationRef,
-        { actorInvocationRef, processRef },
-      ),
+      onTerminationUnconfirmed: () => {
+        processTerminalConfirmed = false;
+        append("actor_process_termination_unconfirmed", "process", processRef,
+          actorInvocationRef, { actorInvocationRef, processRef });
+      },
     });
+    processTerminalConfirmed = transport.terminationConfirmed ||
+      (!processStarted && transport.status !== null && transport.status < 0);
     const observedOutputDigest = outputDigest(transport.finalOutput);
     const artifactDigests = {
       output: transport.artifacts.output.digest,

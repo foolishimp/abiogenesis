@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
-import { chmod, mkdir, readFile, rename, writeFile } from "node:fs/promises";
+import { chmod, mkdir, readFile, rename, rm, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { promisify } from "node:util";
@@ -33,6 +33,46 @@ const SOURCE_BYTES = Buffer.from([
   "}",
   "",
 ].join("\n"), "utf8");
+
+test("C2 finite host timer schema and constructor share bounds without changing grace", async (t) => {
+  const c2 = await import("../../build/code/src/product/worksite_command_execution.js");
+  const { loadWorksiteOwner, worksiteFixture } = await import("../support/t287-generic-job-worksite.mjs");
+  const { default: Ajv } = await import("ajv");
+  const env = await worksiteFixture(await loadWorksiteOwner());
+  t.after(() => rm(env.scratch, { recursive: true, force: true }));
+  const command = { commandId: "command://c2/timer-domain", executable: "node", args: ["--version"],
+    relativeCwd: ".", environment: {}, timeoutMs: 18_000_000, terminationGraceMs: 10_000, expectedReports: [] };
+  const input = { ...env, commands: [command], outcomePredicates: [], protectedSubjects: [],
+    allowedWriteTerritories: [{ pathKind: "subtree", relativePath: "outputs" }] };
+  const validate = new Ajv({ strict: false }).compile({ type: "object", additionalProperties: false,
+    required: ["commands", "outcomePredicates"], properties: c2.worksiteCommandConfigurationInputSchema() });
+  const supplied = (row) => ({ commands: [row], outcomePredicates: [] });
+  for (const timeoutMs of [18_000_000, 2_147_483_647]) {
+    const row = { ...command, timeoutMs };
+    assert.equal(validate(supplied(row)), true, String(timeoutMs));
+    const bound = c2.constructWorksiteCommandConfiguration({ ...input, commands: [row] });
+    assert.equal(bound.commands[0].timeoutMs, timeoutMs);
+    assert.equal(c2.worksiteCommandConfigurationMatches({ ...input, commands: [row] },
+      JSON.parse(JSON.stringify(bound))), true);
+  }
+  for (const timeoutMs of [2_147_483_648, 0, -1, 1.5, Number.MAX_SAFE_INTEGER + 1, Infinity, NaN]) {
+    const row = { ...command, timeoutMs };
+    assert.equal(validate(supplied(row)), false, String(timeoutMs));
+    assert.throws(() => c2.constructWorksiteCommandConfiguration({ ...input, commands: [row] }),
+      TypeError, String(timeoutMs));
+  }
+  for (const terminationGraceMs of [0, 1.5, 30_001]) {
+    const row = { ...command, terminationGraceMs };
+    assert.equal(validate(supplied(row)), false);
+    assert.throws(() => c2.constructWorksiteCommandConfiguration({ ...input, commands: [row] }), TypeError);
+  }
+  // The existing relational grace rule is owned by construction, rather than the scalar schema.
+  for (const terminationGraceMs of [10_000, 10_001]) {
+    const row = { ...command, timeoutMs: 10_000, terminationGraceMs };
+    assert.equal(validate(supplied(row)), true);
+    assert.throws(() => c2.constructWorksiteCommandConfiguration({ ...input, commands: [row] }), TypeError);
+  }
+});
 
 async function installConstructionTransport(scratch) {
   const command = join(scratch, "c2-bin", "claude-construction");
@@ -371,7 +411,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
     },
     slots: {
       workspace_binding: { ref: workspaceBinding.bindingId, digest: workspaceBinding.bindingDigest },
-      product_set: environment.admittedInstalls.map((install) => ({ ref: install.installId, digest: install.productContentDigest })),
+      product_set: environment.admittedInstalls.map(product.productInstallCoordinate),
       dependency_lock: { ref: workspaceBinding.lockId, digest: workspaceBinding.lockDigest },
       catalog_scope: { catalog: { ref: `graph-function-catalog://abiogenesis/${catalog.basisDigest.slice(7)}`, digest: catalog.basisDigest }, view, allowlist: catalogView.allowlist },
       execution_program: program,

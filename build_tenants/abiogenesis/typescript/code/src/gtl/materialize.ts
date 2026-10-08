@@ -10,6 +10,7 @@ import type {
   GtlGraph,
 } from "./contracts.js";
 import type { CProgramNode } from "./c_algebra.js";
+import { graphTemplateDiagnostics } from "./graph_construction.js";
 
 const materializedGraphs = new WeakSet<object>();
 
@@ -72,6 +73,11 @@ export function rehydrateMaterializedGtlGraph(
     graph.materializationRef !==
       `graph-materialization://abiogenesis/${graph.materializationDigest.slice("sha256:".length)}`
   ) {
+    return null;
+  }
+  try {
+    if (graphTemplateDiagnostics(graph.template).length > 0) return null;
+  } catch {
     return null;
   }
   materializedGraphs.add(value);
@@ -214,6 +220,8 @@ export function deriveMaterializedGraphShape(
   graphFunction: Readonly<GraphFunction>,
   basis: GraphMaterializationBasis,
 ): MaterializedGraphShape {
+  const issue = graphTemplateDiagnostics(graphFunction.template)[0];
+  if (issue !== undefined) throw new TypeError(`${issue.path}: ${issue.message}`);
   const fanOutApplications = graphFunction.template.applications.filter(
     (application) => application.relationKind === "fan_out",
   );

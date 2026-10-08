@@ -1,0 +1,223 @@
+{
+  "status": "CLOSED_WORKER_READINESS",
+  "productFrame": "fixed15-family ABI5.0/GOAL035/T287/STDO2.5.1RC2; deterministic generation, no runtime truth or qualification",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "methodManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "sourceReadyAuthority": "Root explicit61-ready:78cac9e2/5667d5a2; exact immutable handoff; no other source changes selected",
+  "build": {
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+    "startedAt": "2026-10-08T06:15:42.857778+00:00",
+    "authority": "Root Writer68 one normal build after explicit immutable-source handoff from61; no tests/source repair",
+    "finishedAt": "2026-10-08T06:16:12.923149+00:00",
+    "exitCode": 0,
+    "wallMs": 30065.035375,
+    "stdoutBytes": 215,
+    "stderrBytes": 0,
+    "timedOut": false,
+    "truncated": false,
+    "normalBuildAttempts": 1
+  },
+  "generation": {
+    "before64Count": 934,
+    "after68Count": 934,
+    "changedCount": 3,
+    "unchangedCount": 931,
+    "added": [],
+    "removed": [],
+    "changed": [
+      {
+        "owner": "61 handoff / normal owner-derived manifest consequence",
+        "before64": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+          "relativePath": "build/code/src/abg/event_calculus.js",
+          "sha256": "dcee2c46299277bb4c06c7bd04522bd48ef0877920c14f73fa06497154f14ebc",
+          "byteCount": 85995,
+          "mode": "0o644"
+        },
+        "after68": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_calculus.js",
+          "relativePath": "build/code/src/abg/event_calculus.js",
+          "sha256": "4ca11078894ee29ebd09dea70e507d79823ead31a6e75825f87526f9c2ccaf15",
+          "byteCount": 86060,
+          "mode": "0o644"
+        }
+      },
+      {
+        "owner": "61 handoff / normal owner-derived manifest consequence",
+        "before64": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+          "relativePath": "contracts/capabilities/capability-definition-graph.json",
+          "sha256": "c706eff3c15e8283658e71740de61e10f3033e760224d2897ce31be96c0b7771",
+          "byteCount": 197474,
+          "mode": "0o644"
+        },
+        "after68": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+          "relativePath": "contracts/capabilities/capability-definition-graph.json",
+          "sha256": "a5da98051decec388c5612fe84c1965c2714e60d2db98613fc8422191be9f370",
+          "byteCount": 197474,
+          "mode": "0o644"
+        }
+      },
+      {
+        "owner": "61 handoff / normal owner-derived manifest consequence",
+        "before64": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+          "relativePath": "product-toolchain-manifest.json",
+          "sha256": "7066aaab98ba95f4f6822cfc6f0dce0ba75db25acb376fd2067caede05c89dfe",
+          "byteCount": 3171685,
+          "mode": "0o644"
+        },
+        "after68": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+          "relativePath": "product-toolchain-manifest.json",
+          "sha256": "e99333b2450235da181fb26e15f559bfb5f7c240751b99eb0a5e56b51e7e9917",
+          "byteCount": 3171685,
+          "mode": "0o644"
+        }
+      }
+    ],
+    "baselineInventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/generated-delta.json",
+      "relativePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/generated-delta.json",
+      "sha256": "5d03f0682877f09fa754b768b4680a6b4af0a42d44adbf0f8c4dac6f29565f0d",
+      "byteCount": 369015,
+      "mode": "0o644"
+    },
+    "allConsumedInputsConserved": true,
+    "allFrozen64_65_66ReferencesConserved": true,
+    "accepted58Conserved": true,
+    "publicRows": 75,
+    "publicCatalogDifferenceCount": 0,
+    "at": "2026-10-08T06:17:23.400719+00:00"
+  },
+  "parity": {
+    "kind": "bounded_deterministic_generation_parity",
+    "productContentDigest": "sha256:b4c25ff594f789bb2f775d081fe2c8608b4a851e80107174b2abd551e31c7287",
+    "payloadMembers": 5263,
+    "publicCatalogRows": 75,
+    "capabilityIds": [
+      "abg.capability.catalog.apply-node-type@5",
+      "abg.capability.catalog.apply-overlay@5",
+      "abg.capability.catalog.contribute@5",
+      "abg.capability.catalog.invoke-graph-function@5",
+      "abg.capability.graph-function.consensus@5",
+      "abg.capability.gtl.admit@5",
+      "abg.capability.gtl.declare@5",
+      "abg.capability.gtl.serialize@5",
+      "abg.capability.gtl.typecheck@5",
+      "abg.capability.install.bind-products@5",
+      "abg.capability.module.publish@5",
+      "abg.capability.operator.public-contract@5",
+      "abg.capability.qualification.self-conformance@5",
+      "abg.capability.runtime.admit-fp-result@5",
+      "abg.capability.runtime.execute-seven-term-c@5",
+      "abg.capability.runtime.replay-continuation@5"
+    ],
+    "catalogDigest": "sha256:9f61d1565261aa9f50daf76e8a2c68e819a938455f2b104d68ad2e8cb3e0f2e1",
+    "contributionManifestDigest": "sha256:182e782a57a7ac716aa7b18c231a731330b7e753690599f2b33def37d601c380",
+    "capabilityGraphCoordinate": {
+      "assetLocator": {
+        "contentDigest": "sha256:a5da98051decec388c5612fe84c1965c2714e60d2db98613fc8422191be9f370",
+        "mediaType": "application/json",
+        "path": "contracts/capabilities/capability-definition-graph.json",
+        "schemaVersion": "5.0.0"
+      },
+      "graphDigest": "sha256:ff18c3b8b5abe572b8aeecc81675e0c67e1f3e62352bbd72721ca4e50f8669c3",
+      "graphId": "capability-definition-graph://abiogenesis/abg-5",
+      "graphVersion": "5.0.0"
+    },
+    "assetLocationsVerified": 53,
+    "declarationInventoryDigestLocationsVerified": 14352,
+    "source62EmittedJavaScriptExact": 3,
+    "currentNativeRuntimeAssetMatchesOwnedEventCalculus": true,
+    "noBuildTestRuntimeAdmissionOrQualificationClaim": true
+  },
+  "publicCatalog": {
+    "rows": 75,
+    "differencesAgainst64": 0,
+    "allRowMetadataAndDerivedCoordinatesUnchanged": true
+  },
+  "sourceUnion": {
+    "reused64Inventories": {
+      "64PreBuild": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/pre-build.json",
+        "relativePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/pre-build.json",
+        "sha256": "d53adc9fa2fcc82b03dd98c4810f389f4dd93ebe0110c421c15459f6e2c96f4b",
+        "byteCount": 2104628,
+        "mode": "0o644"
+      },
+      "64GeneratedDelta": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/generated-delta.json",
+        "relativePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/generated-delta.json",
+        "sha256": "5d03f0682877f09fa754b768b4680a6b4af0a42d44adbf0f8c4dac6f29565f0d",
+        "byteCount": 369015,
+        "mode": "0o644"
+      },
+      "typescriptCount": 263,
+      "howCount": 5,
+      "buildControlCount": 8,
+      "dependencyCount": 4574,
+      "generatedCount": 934,
+      "otherInputsFreshlyVerifiedUnchanged": true
+    },
+    "sourceDelta": [
+      {
+        "ownerWorker": 61,
+        "before64": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+          "relativePath": "code/src/abg/event_calculus.ts",
+          "sha256": "25190216b6137d8dab57afc90251758ff424a68cefc11f9f198300c570aa3d2d",
+          "byteCount": 82763,
+          "mode": "0o644"
+        },
+        "consumed68": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+          "relativePath": "code/src/abg/event_calculus.ts",
+          "sha256": "78cac9e2c229f5674077b99bcd29bb3dd56ebbd0d07814e90de5a245cad56863",
+          "byteCount": 82828,
+          "mode": "0o644"
+        }
+      },
+      {
+        "ownerWorker": 61,
+        "before64": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+          "relativePath": "design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+          "sha256": "1b28a0e3bea9930930037bd664f6490a66e29029f717b337f76472bc99384525",
+          "byteCount": 21371,
+          "mode": "0o644"
+        },
+        "consumed68": {
+          "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+          "relativePath": "design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+          "sha256": "5667d5a2a814d95f55f85be4026f13c6d169c7e50fc5adf2227142d5e9d655b9",
+          "byteCount": 21730,
+          "mode": "0o644"
+        }
+      }
+    ],
+    "sourceToWorker": "frozen64 ownership map plus exact61 EC/HOW handoff; no62/63 changes",
+    "accepted58Conserved": true,
+    "allSourceControlsAndDependenciesConservedAfterBuild": true
+  },
+  "preservation": {
+    "frozen64_65_66ReferencesConserved": true,
+    "previous911UnchangedMembersConserved": true,
+    "previous23UnionMembersConservedExceptExactly3DeclaredConsequences": true,
+    "normalGeneratorPackDryRunOnly": true
+  },
+  "excludedClaims": [
+    "No new source/test repair or additional tests",
+    "No npm install or archive packing",
+    "No SDK/CLI/runtime/provider/DataMapper/full-history acquisition",
+    "No installed or native R02 effectiveness / memory P0 / UAT / release credit",
+    "No independent review claim;69 remains Root-owned"
+  ],
+  "at": "2026-10-08T06:19:01.214914+00:00"
+}

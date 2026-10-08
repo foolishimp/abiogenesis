@@ -1,0 +1,92 @@
+{
+  "role": "Writer37",
+  "status": "FROZEN_PREPARATION_PENDING_SOURCE37_PROOF37_AND_EXECUTION_RELEASE",
+  "publicationAccepted": true,
+  "executionAuthorized": false,
+  "evidence": {
+    "config.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-material-prep-37/config.json",
+      "sha256": "1143a9097726a99a01d653e1d360df66fb31f7444058eef40ba529b70d6fe72b",
+      "byteCount": 2961
+    },
+    "material-observation.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-material-prep-37/material-observation.json",
+      "sha256": "98560f1ecfc127504cd22e301ce1334160f13ffaeac601c6de47694ac22854f5",
+      "byteCount": 7203
+    },
+    "material-freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-material-prep-37/material-freeze.json",
+      "sha256": "e0e06c57421a42b987f8b7618a4c9cd705e5e02bf2bf42042deee992c809d825",
+      "byteCount": 19968
+    },
+    "setup.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-material-prep-37/setup.json",
+      "sha256": "59ae4c672b096c1939ddfbd7b9be81ad945ce8bfeaf712a9df0bfafc3f33d07a",
+      "byteCount": 3403
+    },
+    "config-acquisition.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-material-prep-37/config-acquisition.json",
+      "sha256": "c73b2e66f541264df45eb64ca7c69c2ff6e51762cceb9f3497984dfeae514dd6",
+      "byteCount": 13215
+    },
+    "activation.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/successor-material-prep-37/activation.json",
+      "sha256": "15fc3835cf16d14ae8e9effe6bffa6ce9b11990b868857342543f3dc9bc7e262",
+      "byteCount": 5409
+    }
+  },
+  "candidateIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-16/identity.json",
+    "sha256": "d6acfc2842b9e683fc0a3be2add5dc03f9d351c4ab3079f223c30ad2b2897ced",
+    "byteCount": 10843
+  },
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-16/freeze.json",
+    "sha256": "411d6cf1c31976207caa67aced69effd287c478efd4d1bdc7a99cfa971313375",
+    "byteCount": 14898
+  },
+  "package": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-16/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "c6a8e51bdcfba28324b3158e5805510631548ea80af2374c41c19c2f03870ea0",
+    "byteCount": 10623969
+  },
+  "source34": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-34/return.md",
+      "sha256": "3a997ee7f672242a25d910375867cbdec850f615ee753aa682d934f7990a6c0f",
+      "byteCount": 2280
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-34/observations.json",
+      "sha256": "b0be01e49bb594b81c94d4ccd6b68727077af99683187166b8f252d758fb517a",
+      "byteCount": 115663
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-34/execution-freeze.json",
+      "sha256": "6df05d0c60fe316ced2474e854c8856b25b33f1f655b218fe2ee09f5d89214e0",
+      "byteCount": 103547
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-34/stop-observation.json",
+      "sha256": "ee464c05e3bd006759360276d68a478b51ea86559fe7ffcf1b6a537d989ba494",
+      "byteCount": 1929
+    }
+  ],
+  "checks": {
+    "configurationAccepted": true,
+    "existingAcquireResumeMaterialAccepted": true,
+    "material49Validated": true,
+    "original4Conserved": true,
+    "originalGrantAllowsAll41NativeFiles": true,
+    "allSevenScenarioAcquisitionsExact": true,
+    "onlySixConfigFieldsChanged": true,
+    "sourceNoneEmptyObservationsNullSynthesis": true,
+    "canonical18MCommandBudgetFits": true,
+    "accountingBytesPreserved": true,
+    "current06_52QualityCheckpointAndOriginalT0Retained": true
+  },
+  "acquisitionWallMs": 387.19570899999997,
+  "oldNativeProofImported": false,
+  "buildPackInstallProviderTransferNativeEffects": 0,
+  "remaining": "Independent Source37/Proof37 preparation review and explicit Executive native release; no runtime/UAT/recovery credit."
+}

@@ -79,8 +79,8 @@
         },
         {
           "path": "independent-oracle.mjs",
-          "digest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
-          "byteCount": 24414
+          "digest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+          "byteCount": 23659
         }
       ],
       "provenance": {
@@ -105,7 +105,7 @@
         "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
         "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
       },
-      "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047"
+      "oracleModuleDigest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
     },
     {
       "key": "js-tenant-test",
@@ -168,8 +168,8 @@
         },
         {
           "path": "independent-oracle.mjs",
-          "digest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
-          "byteCount": 24414
+          "digest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+          "byteCount": 23659
         }
       ],
       "provenance": {
@@ -194,7 +194,7 @@
         "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
         "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
       },
-      "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047"
+      "oracleModuleDigest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
     },
     {
       "key": "js-sdlc-bootstrap",
@@ -257,8 +257,8 @@
         },
         {
           "path": "independent-oracle.mjs",
-          "digest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
-          "byteCount": 24414
+          "digest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+          "byteCount": 23659
         }
       ],
       "provenance": {
@@ -283,7 +283,7 @@
         "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
         "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
       },
-      "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047"
+      "oracleModuleDigest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
     },
     {
       "key": "rust-cli",
@@ -363,8 +363,8 @@
         },
         {
           "path": "independent-oracle.mjs",
-          "digest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
-          "byteCount": 24414
+          "digest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+          "byteCount": 23659
         }
       ],
       "provenance": {
@@ -389,7 +389,7 @@
         "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
         "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
       },
-      "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047"
+      "oracleModuleDigest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
     },
     {
       "key": "rust-service",
@@ -455,8 +455,8 @@
         },
         {
           "path": "independent-oracle.mjs",
-          "digest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
-          "byteCount": 24414
+          "digest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+          "byteCount": 23659
         }
       ],
       "provenance": {
@@ -482,7 +482,7 @@
         "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime.",
         "originalService": "The selected original is src/service.rs compiled with rustc, uses standard library only and real ephemeral loopback HTTP. The later donor Cargo-crate/4-test compression is a different contract and is excluded."
       },
-      "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047"
+      "oracleModuleDigest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
     },
     {
       "key": "parallel-js",
@@ -545,8 +545,8 @@
         },
         {
           "path": "independent-oracle.mjs",
-          "digest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
-          "byteCount": 24414
+          "digest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+          "byteCount": 23659
         }
       ],
       "provenance": {
@@ -571,7 +571,7 @@
         "sourcePreservation": "Preserve every original outcome, file, dependency, positive/negative and proof-depth obligation. Changes of representation must be recorded; unmet or unresolved obligations keep UAT non-green.",
         "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime."
       },
-      "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047"
+      "oracleModuleDigest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
     },
     {
       "key": "data-mapper-full",
@@ -692,13 +692,13 @@
         },
         {
           "path": "data-mapper-full/request.json",
-          "digest": "sha256:b305469b4b69f43ffb3ec1456ad61648816674c2c7c5238bb1e8085d2f4195ae",
-          "byteCount": 87322
+          "digest": "sha256:d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+          "byteCount": 77648
         },
         {
           "path": "independent-oracle.mjs",
-          "digest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047",
-          "byteCount": 24414
+          "digest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5",
+          "byteCount": 23659
         }
       ],
       "provenance": {
@@ -719,7 +719,7 @@
         "legacyTraversal": "The old vector decomposition remains source evidence. A current generic lifecycle execution does not prove identical legacy graph traversal or authorize a new GLC runtime.",
         "sourceCountConflict": "Original release-depth instruction says26, but exact original stagePlan contains28 after earned-depth and mutation additions. Preserve all28 meanings; the obsolete26 count cannot discard either."
       },
-      "oracleModuleDigest": "sha256:2b46867298c1697dc1d603f3c0741acfe594444311aba9e2120c558fded2d047"
+      "oracleModuleDigest": "sha256:f8c914c9591e1c1ca79bc81a970f1724aace666b08548331edcd2c7e9cedfca5"
     }
   ]
 }

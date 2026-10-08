@@ -1,0 +1,17 @@
+{
+  "status": "CLOSED_GO",
+  "at": "2026-10-08T07:12:53.118679+00:00",
+  "handoffStop": true,
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-fresh-read-helper-review-85/return.md",
+      "sha256": "4f0bc507979ba7a31ac52dfdedfd9487d5c4923dfe88bdf92be2f31c094d9728",
+      "byteCount": 1542
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-fresh-read-helper-review-85/pins.json",
+      "sha256": "fb7f33f11722d8e69f4df22ea56bf151fe704e9c6b2e7620f15b02c515c5b0b0",
+      "byteCount": 3623
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+--- /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-static-declaration-closure-repair-89/preimages/build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md
+@@ -415,6 +415,15 @@
+ resolved by typed construction and validation into the materialized original
+ GTL value. Recursion, fan-out, fan-in, and gate retain explicit runtime-visible
+ application declarations because they govern child traversal or admission.
++Declaration closure retains the exact published source definitions of static
++`compose` and `substitute` applications, with their uniquely reachable installed
++owners, contracts, bindings, and closure declarations. That source dependency
++does not require a callable Catalog row or add Program membership. Program roots
++and runtime GraphFunction dependencies retain their original callable Catalog
++checks. If one definition serves both roles, the callable checks apply regardless
++of the order in which closure discovers those roles. Validator and materialization
++continue to prove correspondence to the original composed or substituted graph;
++source provenance is not a second executable plan or invocation grant.
+ Every child GraphFunction reachable through those declarations is included in
+ whole-root validation and the transitive executable and interaction censuses
+ before root HoG entry. Dynamic selection may choose only among that statically admitted

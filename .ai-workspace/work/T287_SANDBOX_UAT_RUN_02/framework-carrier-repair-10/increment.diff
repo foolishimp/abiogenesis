@@ -1,0 +1,104 @@
+--- a/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts
++++ b/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts
+@@ -735,7 +735,7 @@
+     catch (error) { if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error; }
+     if (fileOutput !== null && fileOutput.trim().length > 0) {
+       if (finalOutput.trim().length === 0) {
+-        if (!structuredOutputExpected) finalOutput = fileOutput;
++        if (!structuredOutputExpected && input.responsePresentation !== "result_text") finalOutput = fileOutput;
+       }
+       else {
+         let sameOutput = fileOutput === finalOutput;
+--- a/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
++++ b/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs
+@@ -14,7 +14,8 @@
+   validateActorProcessCarrierPair,
+ } from "../../build/code/src/abg/index.js";
+ import { canonicalJson } from "../../build/code/src/shared/canonical_json.js";
+-import { sha256Bytes } from "../../build/code/src/shared/digests.js";
++import { sha256Bytes, sha256Canonical } from "../../build/code/src/shared/digests.js";
++import { isNativeWorkerResultAssessment } from "../../build/code/src/abg/transport_contracts.js";
+ import { nativeWorkspaceWorkReportSchema } from "../../build/code/src/product/native_workspace_work.js";
+ import { parseNativeWorkspaceAssessmentResult } from "../../build/code/src/product/native_workspace_assessment.js";
+ import { createWorkerTransportOutputObserver } from "../../build/code/src/abg/worker_transport.js";
+@@ -589,6 +590,80 @@
+   assert.equal(undeclared.toolCallCount, 1);
+ });
+ 
++test("M5 selected result text cannot admit a valid file without its final carrier", async (context) => {
++  const scratch = await mkdtemp(join(tmpdir(), "abi5-selected-result-carrier-"));
++  context.after(async () => rm(scratch, { force: true, recursive: true }));
++  const schema = { $schema: "https://json-schema.org/draft/2020-12/schema", type: "object", additionalProperties: false,
++    required: ["kind", "count"], properties: { kind: { const: "bounded_verdict" }, count: { type: "integer", minimum: 0 } } };
++  const verdict = { kind: "bounded_verdict", count: 1 }, text = JSON.stringify(verdict);
++  const workerPath = join(scratch, "result-carrier-fixture.mjs");
++  await writeFile(workerPath, [
++    "import {writeFileSync} from 'node:fs';",
++    "process.stdin.resume();",
++    "process.stdin.on('end', () => {",
++    "  const [outputPath, finalText, fileText] = process.argv.slice(2, 5);",
++    "  writeFileSync(outputPath, fileText);",
++    "  console.log(JSON.stringify({type:'result', subtype:'success', is_error:false, result:finalText}));",
++    "});",
++  ].join("\n"), "utf8");
++  const inputDigest = sha256Bytes("component native input"), resultContractRef = "contract://component/bounded-verdict";
++  const assess = output => {
++    const parsed = parseNativeWorkspaceAssessmentResult(schema, output);
++    const disposition = output.trim().length === 0 ? "absent" : parsed === null ? "rejected" : "admitted";
++    // Resolution/capability authority is a supplied lower component premise;
++    // the process, carrier observer and strict native schema parser execute.
++    let verification = null;
++    if (disposition === "admitted") {
++      const digest = sha256Bytes("component authority");
++      const body = { contractCapabilityBasis: { installId: "component-install", implementationSetRef: "component-set",
++        implementationSetDigest: digest, publicationDigest: digest }, implementationResolutionDigest: digest,
++        implementationRef: "component-native-owner", inputContractRef: "contract://component/input",
++        targetOutputContractRef: "contract://component/observation", instructionContractRef: "contract://component/instruction",
++        rawResultContractRef: resultContractRef, inputDigest, rawResultDigest: sha256Canonical(parsed) };
++      const verificationDigest = sha256Canonical(body);
++      verification = { kind: "verified_probabilistic_result_contract_preimage", schemaVersion: "5.0.0",
++        verificationRef: `probabilistic-result-contract-preimage://abiogenesis/${verificationDigest.slice(7)}`,
++        verificationDigest, ...body };
++    }
++    const assessment = { kind: "native_worker_result_assessment", schemaVersion: "5.0.0", resultContractRef, inputDigest,
++      rawOutputDigest: sha256Bytes(output), disposition, verification };
++    assert.equal(isNativeWorkerResultAssessment(assessment, output, resultContractRef, inputDigest), true);
++    return assessment;
++  };
++  for (const c of [
++    { label: "selected-absent", presentation: "result_text", schema, finalText: "", disposition: "absent", failure: "no_output" },
++    { label: "selected-present", presentation: "result_text", schema, finalText: text, disposition: "admitted", failure: null },
++    { label: "omitted-file", finalText: "", disposition: "admitted", failure: null },
++    { label: "structured-absent", schema, finalText: text, disposition: "absent", failure: "no_output" },
++  ]) {
++    const outputPath = join(scratch, "archive", `${c.label}-output.txt`);
++    const contract = constructKnownWorkerTransportContract("claude", {
++      command: process.execPath, prefixArgs: [workerPath, "{output_path}", c.finalText, text], environment: {},
++    });
++    let assessedOutput = null;
++    const result = await runWorkerTransport({ contract, prompt: "assess the exact supplied candidate", lane: "worker_executes",
++      cwd: scratch, archiveRoot: join(scratch, "archive"), label: c.label, timeoutMs: 10_000, environment: {},
++      ...(c.schema === undefined ? {} : { responseJsonSchema: c.schema }),
++      ...(c.presentation === undefined ? {} : { responsePresentation: c.presentation }),
++      observer: { assessNativeResultArtifact: output => { assessedOutput = output; return assess(output); } } });
++    const expectedOutput = c.disposition === "absent" ? "" : text;
++    assert.equal(result.args.includes("--json-schema"), c.schema !== undefined && c.presentation === undefined, c.label);
++    assert.equal(assessedOutput, expectedOutput, c.label);
++    assert.equal(result.nativeResultAssessment.disposition, c.disposition, c.label);
++    assert.equal(result.disposition, c.failure === null ? "success" : "failure", c.label);
++    assert.equal(result.failureClass, c.failure, c.label);
++    assert.equal(result.finalOutput, expectedOutput, c.label);
++    assert.equal((await readFile(outputPath)).toString("utf8"), expectedOutput, c.label);
++  }
++  const conflict = constructKnownWorkerTransportContract("claude", { command: process.execPath,
++    prefixArgs: [workerPath, "{output_path}", text, JSON.stringify({ ...verdict, count: 2 })], environment: {} });
++  await assert.rejects(runWorkerTransport({ contract: conflict, prompt: "preserve conflicting output refusal", lane: "worker_executes",
++    cwd: scratch, archiveRoot: join(scratch, "archive"), label: "selected-conflict", timeoutMs: 10_000,
++    responseJsonSchema: schema, responsePresentation: "result_text", environment: {},
++    observer: { assessNativeResultArtifact: () => assert.fail("conflicting carriers must refuse before native assessment") } }),
++  /distinct worker output channels disagree/);
++});
++
+ test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (context) => {
+   const scratch = await mkdtemp(join(tmpdir(), "abi5-bounded-timeout-"));
+   context.after(async () => rm(scratch, { force: true, recursive: true }));

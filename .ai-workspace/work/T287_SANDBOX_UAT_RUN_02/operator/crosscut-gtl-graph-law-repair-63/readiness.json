@@ -1,0 +1,256 @@
+{
+  "classification": "bounded_worker_source_increment_ready_for_independent_review",
+  "at": "2026-10-08T05:58:35.510670+00:00",
+  "productFrame": "ABI5 5.0 fixed fifteen families F01-F07/F09-F11/F13-F17; GOAL035/T287 external six Hello workloads then original full Data Mapper; GTL declares, Validator checks, HoG traverses, ABG exclusively admits truth. No rival controller or seeded application.",
+  "method": "STDO2.5.1-rc.2",
+  "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "scope": "R03 realization_refactor of existing original GTL identity/ordinary continuation law; five production owners, one existing HOW section, one new pure regression. No barrel/Public/schema/Product/requirements change.",
+  "changes": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/graph_construction.ts",
+        "sha256": "995a64d9cfad70e3f26efd46adab356db67534faf2d2f41bdfd4257a0200e30b",
+        "byteCount": 20708
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/preimages/code/src/gtl/graph_construction.ts",
+        "sha256": "995a64d9cfad70e3f26efd46adab356db67534faf2d2f41bdfd4257a0200e30b",
+        "byteCount": 20708
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/graph_construction.ts",
+        "sha256": "6ab321d5ae51ecdade6c4ee4172e592c94ceae5c0dbcf9b42dcab23754f141d2",
+        "byteCount": 23818
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/source_path.ts",
+        "sha256": "7e2b843a85d663e359eef2034881e2bcbad6a773d4c601211b740227877b610e",
+        "byteCount": 34508
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/preimages/code/src/gtl/source_path.ts",
+        "sha256": "7e2b843a85d663e359eef2034881e2bcbad6a773d4c601211b740227877b610e",
+        "byteCount": 34508
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/source_path.ts",
+        "sha256": "c82df5a423acceb3b93a6107d8db582de9a64a2770a62710265f6409bc9bb73c",
+        "byteCount": 34610
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/materialize.ts",
+        "sha256": "d1fa94c4cde7968552e41a6a99ae7b57b7470b4e0c9c4ab65d9bb1e5873e5e59",
+        "byteCount": 9126
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/preimages/code/src/gtl/materialize.ts",
+        "sha256": "d1fa94c4cde7968552e41a6a99ae7b57b7470b4e0c9c4ab65d9bb1e5873e5e59",
+        "byteCount": 9126
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/gtl/materialize.ts",
+        "sha256": "72fb984af08a3869a5761b6f98838f572a4a966cf62d2e2c8f55cfed4f461792",
+        "byteCount": 9461
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/raw_admission.ts",
+        "sha256": "2b53abc5ca6684c78f3106cbcda924944a84519e7244b4683459b89177b6c2a3",
+        "byteCount": 9341
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/preimages/code/src/validator/raw_admission.ts",
+        "sha256": "2b53abc5ca6684c78f3106cbcda924944a84519e7244b4683459b89177b6c2a3",
+        "byteCount": 9341
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/raw_admission.ts",
+        "sha256": "b5f5242008500371c3d18b962a21fca49b53eb714258078436059c19605141e4",
+        "byteCount": 9578
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+        "sha256": "a2748bb56fe7da004f8f49265d4d81ef6cdbd309a269cd8e7fd9c1b260a83512",
+        "byteCount": 81770
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/preimages/code/src/validator/validation.ts",
+        "sha256": "a2748bb56fe7da004f8f49265d4d81ef6cdbd309a269cd8e7fd9c1b260a83512",
+        "byteCount": 81770
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+        "sha256": "9d0ec07e74b4f31ea32ad5c969976bb80c381afc09fe082ce3994c03d0da50e1",
+        "byteCount": 81495
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+        "sha256": "e88c318b398107e1d007ad2f109bf93ad01b064de5a5b5f0c9ac97801b90a901",
+        "byteCount": 18222
+      },
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/preimages/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+        "sha256": "e88c318b398107e1d007ad2f109bf93ad01b064de5a5b5f0c9ac97801b90a901",
+        "byteCount": 18222
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN.md",
+        "sha256": "1bc120af6a54be5a4d26afcc618c15f51ef3e4d0ad83540bb92b4f654ae35ff4",
+        "byteCount": 20357
+      }
+    }
+  ],
+  "newTest": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs",
+    "sha256": "3af135aba0c78cd792a751839d59f102d60b33d5cbb5e9905fd45b7dfc665278",
+    "byteCount": 15452
+  },
+  "proof": {
+    "isolatedStrictCompile": {
+      "label": "isolated-strict-compile-stable61-62",
+      "args": [
+        "/opt/homebrew/bin/node",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+        "-p",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/tsconfig.json",
+        "--outDir",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/scratch/current/build/code/src"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "started": "2026-10-08T05:47:42.727633+00:00",
+      "timeoutMs": 120000,
+      "environment": {},
+      "noGenerator": true,
+      "exitCode": 0,
+      "wallMs": 5922.715209017042,
+      "stdoutBytes": 0,
+      "stderrBytes": 0,
+      "timedOut": false
+    },
+    "focused": {
+      "label": "focused-graph-law-complete-premises",
+      "args": [
+        "/opt/homebrew/bin/node",
+        "--test",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-gtl-graph-law.test.mjs"
+      ],
+      "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+      "started": "2026-10-08T05:54:37.677071+00:00",
+      "timeoutMs": 120000,
+      "environment": {
+        "ABI5_GTL_GRAPH_OWNER_CORE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/scratch/current/build/code/src",
+        "ABI5_GTL_GRAPH_BASELINE_CORE": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19/scratch/successor/package/build/code/src"
+      },
+      "productionSourceUnchangedSinceStrictCompile": true,
+      "consumedSourceCount": 263,
+      "effectScope": "pure static owner imports/fixtures only; no Runtime/admission/provider/installed or Data Mapper execution",
+      "exitCode": 0,
+      "wallMs": 860.7111249584705,
+      "stdoutBytes": 902,
+      "stderrBytes": 0,
+      "timedOut": false
+    },
+    "pass": 7,
+    "fail": 0,
+    "skip": 0,
+    "actualDomains": [
+      "released original conformance corpus with original empty-contribution refusal and actual owner-created contribution",
+      "three exact review mutants: duplicate node identity/distinct C loci, terminal outedge, two ordinary outedges without selection",
+      "twelve authored composition/substitution/recursion/fan-out Programs; complete old/new publication/Program/Graph/materialization values and source continuation results",
+      "registered selection whole/Graph/result correspondence; its independent old publication refusal conserved",
+      "earlier constructor/source-path/C-local refusal precedence; copied malformed materialization cannot rehydrate"
+    ],
+    "malformedWholeLimit": "Nearest raw refusal prevents new lawful malformed whole/Graph admission; shared whole/publication structure call sites are source evidence, while valid complete whole/Graph outputs and malformed materialization/rehydration are executed."
+  },
+  "consumedSourcePins": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/isolated-consumed-source.json",
+    "sha256": "3095215feb674ec825b47980e5cc10eba0cab0026278356f848f0ff4b60e2dd5",
+    "byteCount": 64833
+  },
+  "consumedSourceCount": 263,
+  "allConsumedSourceBytesStillMatch": true,
+  "predecessorArchive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-19/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "3a5b39b50fbc841b3a3f8e67fa7c53836562dd6aed42a3ea0ae2e3e104639c1b",
+    "byteCount": 10624009
+  },
+  "reusedImmutableControls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "byteCount": 4277
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/return.md",
+      "sha256": "498339a68efaf8ddd177e69c75155e024de506fe425e4f152613a09a30979847",
+      "byteCount": 2637
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/readiness.json",
+      "sha256": "39ce6cc26fe15aeef0753f1933ec2af2e980d18d3fa74eabeafce54e519243e1",
+      "byteCount": 9677
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/freeze.json",
+      "sha256": "3ae48d4156a924f92af1a91e3434d621729e55215d04b2e011eca18bba6c39e4",
+      "byteCount": 33722
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-18/identity.json",
+      "sha256": "04d2865cbbb81ddb8df8a8ae667ea0f7ee754325a4af8fa78f4987e11a242ae0",
+      "byteCount": 10002
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-18/freeze.json",
+      "sha256": "6f6ca96729a31f85c06adc07d6c7f0a47dbbd39e0747dff4b1b1f527345907c2",
+      "byteCount": 6716
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-18/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "29ba81c26cbf22857d4be6150cd20386f0e843b18f7754bd5f738e298fc8e63e",
+      "byteCount": 10623995
+    }
+  ],
+  "canonicalGeneration": {
+    "workerPerformed": false,
+    "preJointObservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/canonical-generated-conservation.json",
+      "sha256": "17ccba03c289294740b2ae5272a4afbbfad0054934178c9abe45062e17349f52",
+      "byteCount": 148
+    },
+    "preJointCount": 934,
+    "observationTime": "2026-10-08T05:45:49.997849+00:00",
+    "limit": "934 equality was observed before Root-authorized Writer64 joint build; it is not a claim that later joint generated outputs stay predecessor bytes."
+  },
+  "failedIntegrationReceipts": [
+    "commands/isolated-strict-compile.result.json: in-flight scope62 argument mismatch",
+    "commands/isolated-strict-compile-stable62.result.json: in-flight scope61 event payload narrowing"
+  ],
+  "failedTestPremises": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/final-test-premises.json",
+    "sha256": "492c063924be2cccff4092cc6bdf58263402a3b452b0ac937fcc27eca30d9df8",
+    "byteCount": 1215
+  },
+  "nextInstalledProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-gtl-graph-law-repair-63/joint-proof-plan.md",
+    "sha256": "430fcfaf3301a0bdc800bf48d2c913e01ae944056b4e0d44d18fcff5213fad5b",
+    "byteCount": 1797
+  },
+  "exclusions": [
+    "no installed Catalog/HoG/native/actor/provider/SDK/model/UAT qualification",
+    "no canonical build/generation/pack/install/Git by63",
+    "no conditional outer-input/start-carrier repair or new graph model",
+    "Data Mapper paused; prior58/59/60/candidate17/19/native histories and earned work not rewritten"
+  ],
+  "reviewerSeparation": "Worker63 cannot review own increment; Root routes independent reviewers and conjoins the joint build/installed composition."
+}

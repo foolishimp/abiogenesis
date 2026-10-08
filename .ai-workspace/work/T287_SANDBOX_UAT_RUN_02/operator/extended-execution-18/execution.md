@@ -1,0 +1,1 @@
+Root releases ONE original data-mapper-full fresh supplied-work resume on immutable candidate13. Source/Proof18 GO accepted; previous preparation unchanged. Recorder19260000ms is setup/drainage only; actual lifecycle-start.request.json.started T0 plus18000000 is common execution deadline. Root externally assesses progress/stop. No retry or source/app/oracle repair.

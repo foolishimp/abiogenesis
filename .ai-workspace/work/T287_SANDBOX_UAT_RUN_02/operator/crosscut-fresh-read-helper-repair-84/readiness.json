@@ -1,0 +1,41 @@
+{
+  "status": "CLOSED_WORKER_READINESS",
+  "productFrame": "fixed fifteen-family ABI5 5.0 / GOAL035 / T287 / STDO2.5.1RC2; external original workloads; ABG alone admits runtime truth",
+  "methodManifest": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "classification": "external test-harness deterministic call construction",
+  "effectGrant": "Root84 permits only adding product to existing destructuring plus phase records",
+  "callthrough": [
+    "constructInstalledRunReadCall receives environment.product",
+    "line540 passes same environment to readAuthoritySlots",
+    "line459 now binds environment.product locally",
+    "line465 maps actual admitted installs with canonical product.productInstallCoordinate"
+  ],
+  "origin": "missing lexical binding, not a Product authority or runtime defect",
+  "before": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+    "sha256": "fba7116c88e869d378f1248695f942262b7d241d572df65d996eaa266b442fba",
+    "byteCount": 21817
+  },
+  "after": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+    "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+    "byteCount": 21826
+  },
+  "inverseByteExact": true,
+  "addedBytes": 9,
+  "syntax": {
+    "exitCode": 0,
+    "wallMs": 23.533082974608988,
+    "stdoutBytes": 0,
+    "stderrBytes": 0,
+    "timedOut": false,
+    "truncated": false
+  },
+  "limits": [
+    "No unit/build/install/native/SDK/provider effects.",
+    "Independent review required; actual81 fresh result/replay proof remains pending.",
+    "No declaration/authority/contract/slot/budget/GTL/production meaning change.",
+    "Original DataMapper runner uses a separate helper; old evidence and Source75 remain immutable."
+  ]
+}

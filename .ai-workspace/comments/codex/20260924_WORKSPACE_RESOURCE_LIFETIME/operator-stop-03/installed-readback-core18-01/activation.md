@@ -1,0 +1,11 @@
+# Worker activation — stopped S02-19 installed readback
+
+Root-selected bounded Worker, astra/xhigh, GOAL-035/T-287, fixed fifteen-family ABIogenesis 5.0. Frame: repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration with Owner/Conservation and Proof/Install. ABG STDO basis: v2.5.1-rc.1, manifest 5d306da13994e69aa9f215d4c1cd2d0be96283c1e33a652b58e6e9262d036b64; exact campaign verification is reused.
+
+One evidence-only realization of the pending installed conjunction. Product Compute Fibre/Public Start And Control; CONTINUATION-001/003/005 and WITNESS-006/009/014; M03_M04_FH_RUNTIME_CONTINUATION_BEHAVIOR_DESIGN.md lifecycle law govern. The accepted operator-stop-03 source/review and operator-stop-02 installed return identify the existing stop. Current T-287 and the Root assignment select this readback.
+
+Read only the stopped S02-19 Run selected by operator-stop-02/installed/continuation-input.json at its latest genuine 4,912,087-byte close. Execute actual core18 Product verification and ordinary Public run_status, run_replay and run_result through runInstalledDefinitionCallTransport. Reconstruct current reader coordinates using existing definitionCall and the actual owned verifiedArtifact; preserve the historical request, resource, workspace binding, ProductSet, lock, grants and source. Existing Public read schema is reopen-only; use one entry per required member, no extra acquisition. Existing bound is 600000 ms per entry, default heap.
+
+Oracle: status and replay stopped; run_active absent; operator_run_stopped present; original continuation_open, frame_held and interaction_pending conserved; replay open F_H continuation; terminalResult absent and Public Result not_found. Preserve exact Run/execution basis and final genuine resource close. Retain first failure, no retry or repair.
+
+Write territory is this new directory only. No journal/worksite/lock mutation, append, recovery, repeated stop, Run, provider/actor call, source/package change, tests/builds, archive expansion, Git or tracking edit. No new runtime/API/session abstraction. All outcomes return to Root for disposition; this activation cannot close full S02, qualification, release or LIFE-01.

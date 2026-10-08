@@ -1,0 +1,200 @@
+{
+  "kind": "Writer44_source_ready_checks_stopped",
+  "status": "stopped_focused_checks_non_green",
+  "sourceDelta": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "sha256": "a4b4a10f718a69125c15d2883b18d9749f357f772fcf1e834f918623b0e8a6bd",
+        "byteCount": 76115
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+        "sha256": "91ab5595acc630b8b2eea221a9466eb1273de1b9a10fd361b1a5c417bb5bcfed",
+        "byteCount": 76288
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md",
+        "sha256": "8f16957ea3bb20996ed9ae3a7f9c2f8801289d02e06dc6cd4130644e3eabbed7",
+        "byteCount": 25773
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md",
+        "sha256": "31ba90f6477b9295fa3aacf9eddc8a6e6bf122fa5c6ab4c3c3074a86c95af564",
+        "byteCount": 27440
+      }
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+        "sha256": "2b441ca587aa372644f1784afa3d767d34eabee47c516cbccc5289bc25e1793b",
+        "byteCount": 19321
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+        "sha256": "17af38185e496810b5299b69c4a34e2130fe7d06578da26b60590d83663b5745",
+        "byteCount": 27790
+      }
+    }
+  ],
+  "generatorDelta": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+        "sha256": "51263211f5c6d21fc3c45ac090a10d413fa9bdbc948dfc93bad0db9154cbfc09",
+        "byteCount": 74635
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_liveness.js",
+        "sha256": "8e55aed6810f56bc557df87c10f7f4f8c98764eaa20add38fb312fbbbcad0403",
+        "byteCount": 74826
+      }
+    }
+  ],
+  "build": {
+    "compilerExitCode": 0,
+    "wallMs": 6040.202040981967,
+    "argv": [
+      "/opt/homebrew/bin/node",
+      "node_modules/typescript/bin/tsc",
+      "-p",
+      "tsconfig.json"
+    ],
+    "normalCleanAndManifestGeneratorExecuted": false,
+    "manifestAndContractsChanged": false,
+    "publicationRequiresAuthorizedGenerator": true
+  },
+  "focusedChecks": {
+    "exitCode": 1,
+    "wallMs": 3332.7847920008935,
+    "exactArgv": [
+      "/opt/homebrew/bin/node",
+      "--test",
+      "--test-concurrency=1",
+      "--test-name-pattern=historical durable cuts|held derivation preserves|liveness historical-cut intermediates",
+      "test_env/tests/t287-ordered-reconstruction.test.mjs"
+    ],
+    "pass": 1,
+    "fail": 2,
+    "newLivenessRegression": {
+      "kind": "liveness_cut_cache_conservation",
+      "rows": 434,
+      "accepted": 216,
+      "oldCache": [
+        {
+          "cutCount": 9,
+          "ordinals": [
+            10,
+            0,
+            13,
+            14,
+            30,
+            33,
+            34,
+            50,
+            54
+          ],
+          "vectorCount": 18,
+          "summedVectorLength": 476
+        }
+      ],
+      "newCache": [
+        {
+          "cutCount": 1,
+          "ordinals": [
+            50
+          ],
+          "vectorCount": 2,
+          "summedVectorLength": 100
+        }
+      ],
+      "oldRepeatedCache": [
+        {
+          "cutCount": 9,
+          "ordinals": [
+            10,
+            0,
+            13,
+            14,
+            30,
+            33,
+            34,
+            50,
+            54
+          ],
+          "vectorCount": 18,
+          "summedVectorLength": 476
+        }
+      ],
+      "newRepeatedCache": [
+        {
+          "cutCount": 1,
+          "ordinals": [
+            50
+          ],
+          "vectorCount": 2,
+          "summedVectorLength": 100
+        }
+      ],
+      "projectionDigest": "sha256:c32773f2685a00c40e20eabfa35596d7e4e2850401f0322390fa2a931ea7fd34",
+      "invalidationRebuiltExact": true,
+      "rawAndNominalRefusalsRetained": true
+    },
+    "firstCause": {
+      "test": "historical durable cuts reidentify only exact owner history after physical authentication",
+      "testLine": 21,
+      "assertionLine": 42,
+      "diagnostic": "Missing expected exception: reidentifyHistoricalDurablePrefixCoordinate after external test-file byte mutation"
+    },
+    "secondFailure": {
+      "test": "held derivation preserves physical authentication and discards staged facts on rollback",
+      "testLine": 76,
+      "assertionLine": 102,
+      "diagnostic": "Missing expected exception: readRuntimeEventsAtDurablePrefix after external test-file byte mutation"
+    },
+    "existingTestPrefixUnchanged": true,
+    "failedPhysicalGuardOwnerUnchanged": {
+      "current": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/event_store.js",
+        "sha256": "703ab96c05c3c87f9778fac4efcfec5404809c68f53f7c6c44dea2d49b8ab40f",
+        "byteCount": 162022
+      },
+      "installed": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T04-21-21-511Z-72e7dd7c-53bf-4616-97cf-dfeb1dc8f657/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js",
+        "sha256": "703ab96c05c3c87f9778fac4efcfec5404809c68f53f7c6c44dea2d49b8ab40f",
+        "byteCount": 162022
+      }
+    },
+    "preimageBehaviorNotReexecuted": true
+  },
+  "effectRelation": "successfully construct exact current/historical cut, then clear only prior intermediate cuts and cache new one; completed contexts/budgets/folds and all guards unchanged",
+  "boundedFixture": {
+    "metadata": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/event-memory-repair-35/owner-history.json",
+      "sha256": "272209d0afdf0c0b001c193c39ebcd619e5c249c985e649f061910accaafb59d",
+      "byteCount": 1536
+    },
+    "logicalHistory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/event-memory-repair-35/owner-history.logical.jsonl",
+      "sha256": "b22178799d600fbde510c235b8cee58f95b458b363507f98e4da7738557d7afb",
+      "byteCount": 6341605
+    },
+    "noNativeCurrentnessCredit": true
+  },
+  "sourceConservation": {
+    "selectedChanges": 3,
+    "protectedOtherFilesUnchanged": 6253
+  },
+  "oldNewFullHistoryMeasurementProcessesExecuted": 0,
+  "noRetryOrFailureForgiveness": true,
+  "limitations": [
+    "focused suite non-green; Root owns applicability/preimage triage",
+    "no full-history cache/heap cost measurement",
+    "no live-retained heap attribution",
+    "no native P0 closure/installed UAT credit",
+    "manifest regeneration/publication not performed",
+    "no provider/Run/app/fixture/config/Git/old-cut effects"
+  ]
+}

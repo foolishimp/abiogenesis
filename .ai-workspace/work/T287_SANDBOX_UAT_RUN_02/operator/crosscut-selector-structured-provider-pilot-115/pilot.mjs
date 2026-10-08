@@ -1,0 +1,47 @@
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {readFile,writeFile,open,lstat,realpath} from 'node:fs/promises';
+import {writeFileSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {pathToFileURL} from 'node:url';
+const repo='/Users/jim/src/apps/abiogenesis',tenant=repo+'/build_tenants/abiogenesis/typescript',campaign=repo+'/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02';
+const phase=campaign+'/operator/crosscut-selector-structured-provider-pilot-115',repair=campaign+'/operator/crosscut-selector-structured-carrier-repair-113',review=campaign+'/operator/crosscut-selector-structured-carrier-review-114',host=campaign+'/operator/crosscut-selector-successor-107/host/node_modules/@abiogenesis/typescript-tenant';
+const archive=tenant+'/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-08T11-03-59-815Z-2bc13a8e-699b-47d7-8caf-3b5703747b4c',eventPath=archive+'/resources/events/runtime.events.jsonl';
+const json=async p=>JSON.parse(await readFile(p,'utf8'));
+const pin=async p=>{const s=await lstat(p);assert(s.isFile()&&!s.isSymbolicLink());assert.equal(await realpath(p),p);const bytes=await readFile(p);return {path:p,sha256:createHash('sha256').update(bytes).digest('hex'),byteCount:bytes.length};};
+const record=async(name,value)=>writeFile(phase+'/'+name,JSON.stringify(value,null,2)+'\n',{flag:'wx'});
+assert.equal((await pin(review+'/return.md')).sha256,'dd333edb84887001d78096ac1358f928b5a9c705b6113c540ead108bc2ed0ae6');
+assert.equal((await pin(review+'/pins.json')).sha256,'f266f6dfa0905da76019bc4084df0a548b92bccb496c042715843bd6aeb6cf8d');
+for(const expected of (await json(review+'/pins.json')).pins)assert.deepEqual(await pin(expected.path),expected);
+const slices=[];
+async function slice(offset,byteCount,sha256){const f=await open(eventPath,'r');try{const bytes=Buffer.alloc(byteCount);const r=await f.read(bytes,0,byteCount,offset);assert.equal(r.bytesRead,byteCount);assert.equal(createHash('sha256').update(bytes).digest('hex'),sha256);slices.push({path:eventPath,offset,byteCount,sha256});const d=JSON.parse(bytes.toString('utf8'));return d.event??d;}finally{await f.close();}}
+const taskEvent=await slice(14769904,1304257,'d873ba45b175c8fdd0cb6e987b3d45002ce31cbb68969060755564329f09eb31');
+const bindingEvent=await slice(16115637,453816,'c2042770a0cb58d7fc738712fe60d0adeda15a066b0c34f9a4e8610cf08d15bf');
+const task=taskEvent.payload.value,binding=bindingEvent.payload,assembly=binding.instructionAssembly,targets=assembly.envelope.targetBindings,basis=assembly.envelope.boundBasis;
+const moduleAt=async relative=>import(pathToFileURL(host+'/build/code/src/'+relative+'.js').href);
+const transport=await moduleAt('abg/worker_transport'),contracts=await moduleAt('abg/transport_contracts'),product=await moduleAt('product/default_library'),{sha256Canonical}=await moduleAt('shared/digests');
+const canonical=product.framedSynthesisResponseSchema(task,targets);
+assert.deepEqual(canonical,assembly.request.responseJsonSchema);assert.deepEqual(canonical,assembly.envelope.sections.response);
+const carrier={type:canonical.type,properties:canonical.properties,required:canonical.required,additionalProperties:canonical.additionalProperties};
+assert.deepEqual(Object.keys(carrier).sort(),['additionalProperties','properties','required','type']);
+const prompt=await readFile(binding.paths.prompt,'utf8');assert.equal(prompt,assembly.request.prompt);assert.equal(Buffer.byteLength(prompt),211239);
+const configPath=campaign+'/operator/crosscut-selector-successor-107/resume-config.json',config=await json(configPath);
+const {workerEnvironment}=await import(pathToFileURL(tenant+'/test_env/uat/runner.mjs').href);const environment=workerEnvironment(config);
+const version=execFileSync(config.provider.command,['--version'],{env:environment,encoding:'utf8'}).trim();assert.match(version,/2\.1\.291\b/);
+const contract=contracts.constructKnownWorkerTransportContract('claude',{command:config.provider.command,environment});assert.equal(sha256Canonical(contract),binding.transportContractDigest);
+const plan=await transport.prepareWorkerTransport({contract,prompt,lane:'closed_prompt_proof',cwd:phase,archiveRoot:phase+'/archives',label:'selector3-structured',timeoutMs:binding.timeoutMs,absoluteTimeoutMs:binding.absoluteTimeoutMs,terminationGraceMs:binding.terminationGraceMs,responseJsonSchema:carrier,environment});
+assert(plan.args.includes('--json-schema'));assert.equal(plan.args[plan.args.indexOf('--tools')+1],'');
+await record('request.json',{role:'Operator115',authority:'Root RELEASE115 conjoins113/114',selectedAt:new Date().toISOString(),frames:['f-end-to-end-interface-integration','f-worksite-causality'],method:'ABI5 fixed15 GOAL035/T287 STDO2.5.1RC2 manifest3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782',version,captured:slices,prompt:await pin(binding.paths.prompt),canonicalSchemaDigest:sha256Canonical(canonical),carrierSchemaDigest:sha256Canonical(carrier),carrierProjectionSource:await pin(repair+'/freeze.json'),canonicalBinderInputs:{taskDigest:sha256Canonical(task),targets,basis},plan,environmentKeys:Object.keys(environment).sort(),scope:'One real host/carrier/unchanged Product binder pilot only; no native Run, admission, application effect or UAT credit'});
+await record('canonical-response-schema.json',canonical);await record('carrier-response-schema.json',carrier);
+const ownerPins=[];for(const x of ['abg/worker_transport','abg/transport_contracts','product/default_library','shared/digests','shared/canonical_json']){const p=await pin(host+'/build/code/src/'+x+'.js');const installed=await pin(archive+'/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/'+x+'.js');assert.equal(p.sha256,installed.sha256);assert.equal(p.byteCount,installed.byteCount);ownerPins.push(p);}
+await record('owner-pins.json',ownerPins);
+console.log(JSON.stringify({stage:'provider_dispatch',pilotPid:process.pid,at:new Date().toISOString(),version,promptBytes:Buffer.byteLength(prompt),canonicalSchemaDigest:sha256Canonical(canonical),carrierSchemaDigest:sha256Canonical(carrier),lane:plan.lane}));
+const started=performance.now();const result=await transport.runPreparedWorkerTransport(plan,{onProcessStarted(pid){const value={at:new Date().toISOString(),pid,parentPid:process.pid,command:plan.command,argv:plan.args,lane:plan.lane};writeFileSync(phase+'/process-start.json',JSON.stringify(value,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify({stage:'provider_started',pid,parentPid:process.pid,at:value.at}));}});
+const wallMs=performance.now()-started;await record('transport-return.json',result);
+let raw=null,parseError=null;try{raw=JSON.parse(result.finalOutput);}catch(error){parseError={name:error.name,message:error.message};}
+const bound=raw===null?null:product.bindFramedSynthesisResult(task,targets,basis,raw);
+const records=result.stdout.split('\n').filter(x=>x.trim()).map(x=>JSON.parse(x));const native=records.filter(x=>x.type==='result').at(-1);
+const structured=!!native&&Object.hasOwn(native,'structured_output');
+const facts={status:result.disposition==='success'&&bound!==null&&structured?'PASS':'NONPASS',wallMs,transportDisposition:result.disposition,failureClass:result.failureClass,statusCode:result.status,signal:result.signal,timedOut:result.timedOut,exitObserved:result.exitObserved,terminationConfirmed:result.terminationConfirmed,toolCallCount:result.toolCallCount,structuredOutputPresent:structured,parseError,binderAccepted:bound!==null,canonicalSchemaDigest:sha256Canonical(canonical),carrierSchemaDigest:sha256Canonical(carrier),rawOutputDigest:'sha256:'+createHash('sha256').update(result.finalOutput).digest('hex'),rawOutputByteCount:Buffer.byteLength(result.finalOutput),nativeMetrics:native?Object.fromEntries(['subtype','is_error','duration_ms','num_turns','total_cost_usd','usage','stop_reason'].map(k=>[k,native[k]])):null,selectedGraphFunctionRef:bound?.judgment.nextGraphFunctionRef??null,subjectEvidenceRef:bound?.judgment.subjectEvidenceRef??null,stateUnchanged:bound===null?null:sha256Canonical(bound.state)===sha256Canonical(task.state),artifacts:result.artifacts,scope:'Actual host/structured carrier + unchanged binder correspondence; no ABG admission/current Run/application/UAT/release proof'};
+await record('result.json',facts);console.log(JSON.stringify({stage:'pilot_closed',status:facts.status,wallMs,providerDurationMs:native?.duration_ms,turns:native?.num_turns,costUsd:native?.total_cost_usd,binderAccepted:facts.binderAccepted,structuredOutputPresent:structured}));
+process.exitCode=facts.status==='PASS'?0:1;

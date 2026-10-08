@@ -1,0 +1,17 @@
+{
+  "kind": "closed_independent_actual_effect_review",
+  "status": "GO_FOR_EXACT_INSTALLED_WITNESS",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-canonical-lifecycle-proof-90",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-review-93/return.md",
+      "sha256": "12099c2957a4d0eb8ded105a4d9678d250aa747b372dccf8721b271d58eddc0e",
+      "byteCount": 4079
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-review-93/pins.json",
+      "sha256": "c55d089d8c3b459f3f3b09a0db32d41f43d3cf92599b1d993e5fff9fe3c6417e",
+      "byteCount": 7335
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import type { COfNode, CProgramNode } from "./c_algebra.js";
 import type { GraphTemplate, GtlGraph } from "./contracts.js";
+import { graphNodeIdentityFailure, ordinaryGraphBoundaryFailure } from "./graph_construction.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import {
   isSha256Digest,
@@ -322,6 +323,8 @@ export function resolveCProgramTermAtSourcePath(
       `GTL node ${nodeRef} is absent from the original Graph`,
     );
   }
+  const duplicateNodes = graphNodeIdentityFailure(template);
+  if (duplicateNodes !== null) return refusal("invalid_source_path", duplicateNodes);
 
   let term: CProgramNode = node.term;
   let offset = 3;
@@ -857,19 +860,10 @@ export function deriveCSourceContinuation(
   }
 
   const outgoing = template.edges.filter((edge) => edge.fromNodeRef === nodeRef);
+  const boundaryFailure = ordinaryGraphBoundaryFailure(template, nodeRef, outgoing);
+  if (boundaryFailure !== null) return refusal("invalid_source_path", boundaryFailure);
   if (template.terminalNodeRefs.includes(nodeRef)) {
-    return outgoing.length === 0
-      ? continuation(sourcePath, "root_complete", null)
-      : refusal(
-        "invalid_source_path",
-        "terminal GTL node cannot declare an outgoing graph edge",
-      );
-  }
-  if (outgoing.length !== 1) {
-    return refusal(
-      "invalid_source_path",
-      "non-terminal GTL node requires exactly one declared graph edge",
-    );
+    return continuation(sourcePath, "root_complete", null);
   }
   const targetNode = template.nodes.find(
     (node) => node.nodeRef === outgoing[0]!.toNodeRef,

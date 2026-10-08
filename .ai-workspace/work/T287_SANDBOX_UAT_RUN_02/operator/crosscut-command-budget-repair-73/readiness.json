@@ -1,0 +1,86 @@
+{
+  "status": "FROZEN_SOURCE_READINESS_ONLY",
+  "at": "2026-10-08T06:39:01.425760+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-repair-73/activation.json",
+    "sha256": "7c7605dc26cd18036c753294140827893e863d6858190e6b58269e40f64e8b2a",
+    "byteCount": 1405
+  },
+  "rootCause": "R01 command helper uses TERM/grace then KILL/grace, while canonical C2 budget charged one grace. No new timing policy.",
+  "sourceDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-repair-73/source-delta.json",
+    "sha256": "0ec0fa56639c7074c480d391e4d1dcacdf7bb3f8bbed7c57e027573e53806e3c",
+    "byteCount": 3537
+  },
+  "owningHandoff": "Same Product projection is consumed by semantic_job.ts336/580 and implementation/worksite_command_execution.ts623. Rule now contains timeout plus two existing grace terms; HTTP probe/5s allowance/strict ordering unchanged.",
+  "checks": {
+    "compile": {
+      "exitCode": 0,
+      "wallMs": 6065.396459
+    },
+    "initialFocused": {
+      "result": "commands/focused.result.json",
+      "passes": 3,
+      "fails": 1,
+      "wallMs": 749.8846249999997
+    },
+    "correctedFocused": {
+      "exitCode": 0,
+      "wallMs": 577.050916,
+      "selection": "command cleanup budget",
+      "passes": 1,
+      "fails": 0
+    },
+    "boundedCredit": "Three unchanged first-run checks + one corrected selected regression. Not a single four-green transcript.",
+    "isolatedCompileOnly": true,
+    "normalGeneratedUntouched": true,
+    "nativeExecutionOrQualification": false
+  },
+  "fixtureCorrection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-repair-73/fixture-premise-correction.json",
+    "sha256": "b913aa27cf1d98ff581de21a0f1544c57407f8c5ab3992850681ffc7f912663e",
+    "byteCount": 413
+  },
+  "focusedCredit": "3 prior unchanged PASS plus1 corrected targeted PASS; initial3PASS1FAIL retained, no four-green combined transcript.",
+  "fiveHour": {
+    "timeoutMs": 18000000,
+    "terminationGraceMs": 10000,
+    "requiredExecutionBudgetMs": 18025000,
+    "inactivityTimeoutMs": 18030000,
+    "absoluteTimeoutMs": 18040000,
+    "stillFits": true
+  },
+  "conservation": {
+    "source263": true,
+    "canonicalGenerated934Untouched": true,
+    "protectedControls": 7,
+    "nativeHow62LiteralUnchanged": true,
+    "frozen61_64_68": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-lifecycle-effect-repair-61/freeze.json",
+        "sha256": "7a9f1078b5ea5aeb3e2a7723f3067822d8633800842682815e811af62f79c590",
+        "byteCount": 27975
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-joint-build-64/freeze.json",
+        "sha256": "7d65163beb15d92ba7efb4a3228988765193611018cec43ce9f45b059f77f6de",
+        "byteCount": 32835
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-cold-retirement-build-68/freeze.json",
+        "sha256": "e1a02ae887816ddad74ff5fec1127aa316e8f4e620c3ffbcf15a5d62090d7350",
+        "byteCount": 17205
+      }
+    ]
+  },
+  "futureIntegration": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-repair-73/gtl-pin-refresh-required.json",
+    "sha256": "a3dd1572c79f516adf16625dd429d6efd099df23b38802e0acc213b39e612b57",
+    "byteCount": 1340
+  },
+  "claimsExcluded": [
+    "No normal regeneration, publication, install, actors, original workload execution, independent review, UAT/P0/qualification/release credit.",
+    "Component Product/semantic/physical generic fixtures and supplied upstream-authentication doubles only; no helper execution.",
+    "Canonical build68 remains prior budget; isolated compiler outputs carry73. GTL pin update and normal generation held for Root grant."
+  ]
+}

@@ -691,7 +691,7 @@ function signalProcess(child: ReturnType<typeof spawn>, signal: NodeJS.Signals):
     if (process.platform !== "win32" && child.pid !== undefined) process.kill(-child.pid, signal);
     else child.kill(signal);
   } catch {
-    // A concurrently exited child is already terminated.
+    // Absence is established by the owned group probe, never by signal failure.
   }
 }
 
@@ -733,18 +733,66 @@ async function runCommand(
     const stderr: Buffer[] = [];
     let launchFailed = false;
     let timedOut = false;
+    let settled = false;
+    let closeObserved = false;
+    let observedExit: { status: number | null; signal: NodeJS.Signals | null } | null = null;
+    let cleanupStarted = false;
     const signalSequence: ("SIGTERM" | "SIGKILL")[] = [];
     let forceTimer: ReturnType<typeof setTimeout> | undefined;
-    const timeoutTimer = setTimeout(() => {
-      timedOut = true;
+    let confirmationTimer: ReturnType<typeof setTimeout> | undefined;
+    let groupCheckTimer: ReturnType<typeof setTimeout> | undefined;
+    let drainTimer: ReturnType<typeof setTimeout> | undefined;
+    const ownedGroupGone = () => {
+      if (process.platform === "win32") return observedExit !== null;
+      if (child.pid === undefined) return launchFailed;
+      try { process.kill(-child.pid, 0); return false; }
+      catch (error) { return (error as NodeJS.ErrnoException).code === "ESRCH"; }
+    };
+    const finish = (confirmed: boolean) => {
+      if (settled || drainTimer !== undefined) return;
+      clearTimeout(timeoutTimer);
+      if (forceTimer !== undefined) clearTimeout(forceTimer);
+      if (confirmationTimer !== undefined) clearTimeout(confirmationTimer);
+      if (groupCheckTimer !== undefined) clearTimeout(groupCheckTimer);
+      const complete = () => {
+        if (settled) return;
+        settled = true; activeCommand = null; clearInterval(heartbeat);
+        child.stdout.destroy(); child.stderr.destroy();
+        resolveResult({ status: timedOut ? 124 : launchFailed ? 127 : (observedExit?.status ?? 128),
+          signal: observedExit?.signal ?? null, timedOut,
+          signalSequence: Object.freeze([...signalSequence]), terminationConfirmed: confirmed,
+          stdout: Buffer.concat(stdout), stderr: Buffer.concat(stderr) });
+      };
+      if (closeObserved) complete();
+      else drainTimer = setTimeout(complete, Math.min(command.terminationGraceMs, 250));
+    };
+    const checkOwnedGroup = () => {
+      if (groupCheckTimer !== undefined) clearTimeout(groupCheckTimer);
+      groupCheckTimer = undefined;
+      if (settled || drainTimer !== undefined) return;
+      if (ownedGroupGone() && (observedExit !== null || launchFailed)) { finish(true); return; }
+      groupCheckTimer = setTimeout(checkOwnedGroup, Math.min(command.terminationGraceMs, 10));
+    };
+    const beginCleanup = () => {
+      if (settled || cleanupStarted) return;
+      if (ownedGroupGone() && observedExit !== null) { finish(true); return; }
+      cleanupStarted = true;
       signalSequence.push("SIGTERM");
-      stderr.push(Buffer.from("\nABI worksite command timeout: SIGTERM requested\n", "utf8"));
+      stderr.push(Buffer.from("\nABI worksite command cleanup: SIGTERM requested\n", "utf8"));
       signalProcess(child, "SIGTERM");
       forceTimer = setTimeout(() => {
+        if (settled || drainTimer !== undefined) return;
+        if (ownedGroupGone() && observedExit !== null) { finish(true); return; }
         signalSequence.push("SIGKILL");
-        stderr.push(Buffer.from("ABI worksite command timeout: SIGKILL requested\n", "utf8"));
+        stderr.push(Buffer.from("ABI worksite command cleanup: SIGKILL requested\n", "utf8"));
         signalProcess(child, "SIGKILL");
+        confirmationTimer = setTimeout(() => finish(ownedGroupGone()), command.terminationGraceMs);
       }, command.terminationGraceMs);
+      checkOwnedGroup();
+    };
+    const timeoutTimer = setTimeout(() => {
+      timedOut = true;
+      beginCleanup();
     }, command.timeoutMs);
     activeCommand = child;
     const heartbeat = setInterval(() => {
@@ -756,20 +804,19 @@ async function runCommand(
       launchFailed = true;
       stderr.push(Buffer.from(error.message, "utf8"));
     });
-    child.once("close", (status, signal) => {
-      activeCommand = null;
+    child.once("exit", (status, signal) => {
+      observedExit = { status, signal };
+      child.stdout.destroy(); child.stderr.destroy();
       clearTimeout(timeoutTimer);
-      clearInterval(heartbeat);
-      if (forceTimer !== undefined) clearTimeout(forceTimer);
-      resolveResult({
-        status: timedOut ? 124 : launchFailed ? 127 : (status ?? 128),
-        signal,
-        timedOut,
-        signalSequence: Object.freeze([...signalSequence]),
-        terminationConfirmed: true,
-        stdout: Buffer.concat(stdout),
-        stderr: Buffer.concat(stderr),
-      });
+      if (cleanupStarted) checkOwnedGroup();
+      else beginCleanup();
+    });
+    child.once("close", (status, signal) => {
+      closeObserved = true;
+      if (observedExit === null && !launchFailed) observedExit = { status, signal };
+      if (launchFailed && child.pid === undefined) finish(true);
+      else if (cleanupStarted) checkOwnedGroup();
+      else beginCleanup();
     });
   });
   const reports = await Promise.all(command.expectedReports.map((row) =>

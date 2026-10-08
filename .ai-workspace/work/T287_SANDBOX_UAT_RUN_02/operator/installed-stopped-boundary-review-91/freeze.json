@@ -1,0 +1,17 @@
+{
+  "kind": "closed_independent_source_review",
+  "status": "GO_FOR_EXACT_STOPPED_BOUNDARY",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-86",
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-review-91/return.md",
+      "sha256": "42d683b4f11b2435123f2bfa262e602663ae671ba5e5ea6e23ea0ed237a544f7",
+      "byteCount": 3671
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-review-91/pins.json",
+      "sha256": "3a6e3389f211bcaf31d17b808797a9ec98b8cbdee521ff535c7e37c879448ea2",
+      "byteCount": 9999
+    }
+  ]
+}

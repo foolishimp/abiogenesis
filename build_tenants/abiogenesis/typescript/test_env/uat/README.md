@@ -38,6 +38,45 @@ node scripts/sandbox-uat.mjs run --config /absolute/operator-config.json --case 
 node scripts/sandbox-uat.mjs run --config /absolute/operator-config.json --all
 ```
 
+`provider.maxTurns` and `provider.maxBudgetUsd` are optional. When supplied,
+they must be positive and their corresponding Claude flags are passed; omission
+passes neither flag. The disabled-provider example uses a finite recursion bound
+of 1000, actor idle/absolute limits of 18030000/18040000 ms, and a driver limit
+of 18060000 ms. For the declared five-hour session, Root monitors the global
+execution deadline from actual native execution start. At 18000000 ms, or
+earlier based on observed progress, stop owned C2 helpers/commands before
+providers while the CLI is alive. Resolve each admitted occurrence/task/attempt
+to its exact launch/helper arguments and live PID/PGID ancestry. Helper TERM/INT
+stops its detached active command, but a result artifact is not guaranteed;
+preserve its actual absence. Then stop providers using existing group supervision.
+The additional 30/40/60 seconds cover drainage only; recording and setup grace
+cannot extend execution. This caller policy adds no runtime watchdog or planner.
+An explicit `commandTimeoutOverrides` object maps declared command IDs to
+positive effective timeouts. The acquired request remains byte-identical; a
+small archive record retains the timing delta. An instruction added to the
+existing work orders declares the latest user timing authority while preserving
+historic acquired operational metadata. The existing independent
+checker compares the actual effective command plan, preserving all predicates,
+argv, environment, report, depth and mutation obligations.
+
+To continue supplied material in a fresh Run:
+
+```sh
+node scripts/sandbox-uat.mjs resume --from /absolute/sealed-archive --config /absolute/operator-config.json --case data-mapper-full
+```
+
+The configuration selects `resumeEvidence.observation` and `.freeze` using
+explicit file paths and SHA-256 digests. The original four inputs are acquired
+again; only authenticated retained author files within the original write
+grants are copied into the new clean worksite. The runner checks both ends of
+the transfer, rejects symlinks or existing destinations, and records provenance.
+The sealed source archive and event file remain unchanged. This is ordinary
+fresh supplied-work invocation with source `none`, empty observations and null
+synthesis, not restoration of old parents or reuse of old producer credit.
+Actual current observations, commands, independent UAT, fresh reads and the
+original complete oracle are still required. Preparation grants do not authorize
+native execution; Root releases it after the frozen subject's independent review.
+
 `prepare` creates a fresh source-blind bootstrap from the selected immutable
 archive, then current Public DefinitionCalls verify, resolve and clean-install
 ABG and the external test declarations, create/bind the workspace, admit/narrow
@@ -60,6 +99,15 @@ Run receives separate fresh CLI result/replay reads with unchanged event bytes
 and matching terminal Result/producer/value. Native independent UAT and the
 separate local full-worksite oracle must both support all original obligations.
 Missing evidence, a refusal or unmet criteria stays non-green.
+For an actual `admitted_source_result` invocation, the caller uses the installed
+ABG admission owners at the exact authenticated prefix to identify the current
+invocation and its Run binding. Native admission already checked its immutable
+source basis. Only original C2 Result/call tuples in that retained governance
+state may join earlier-Run observations into the independent oracle; exact owned
+event identity and the published C2 judgment remain required. Supplied JSON,
+unrelated historical observations and copied rows earn no source-use credit.
+Original command/report/mutation guards and fresh whole-outcome UAT/closure still
+apply; historical assessment never completes the new Run.
 Each run also retains the exact acquired manifest and selected authenticated
 source/rubric/request/checker bytes under `oracle-inputs/`, before dispatch.
 The independent checker is imported from that archived snapshot after its

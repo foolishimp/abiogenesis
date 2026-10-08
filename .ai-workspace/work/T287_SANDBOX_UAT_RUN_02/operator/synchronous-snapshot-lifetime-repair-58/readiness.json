@@ -1,0 +1,202 @@
+{
+  "classification": "bounded_snapshot_identity_realization_readiness",
+  "rootConjunction": "CLOSED Source56/56b + Proof56; narrow WeakMap first, batching deferred",
+  "source": [
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+        "sha256": "87df5f8b57c9165556619e1a923541fd8226e8472f8cea3b51c7bd6fdcc83891",
+        "byteCount": 5442
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/runtime_derivation.ts",
+        "sha256": "1fff9e0bee14f10e776d15948695e912aaa2dcce8d5c7228c58d982d3cb8c52d",
+        "byteCount": 5463
+      },
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/preimages/code/src/abg/runtime_derivation.ts"
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md",
+        "sha256": "08f910a11c4ed6eb85032b0b9cc451dab49541412ff1628d499b02bbd494486f",
+        "byteCount": 9667
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md",
+        "sha256": "8a45914435600632a375b983b63a3fcfd645ccb8b940904e73cfe527405f7581",
+        "byteCount": 10558
+      },
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/preimages/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md"
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md",
+        "sha256": "1cab74f54d05f7267e1c846a679904efe0b18b130dc37b09bd22aa69c756a2f2",
+        "byteCount": 27706
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md",
+        "sha256": "32b293873d61db61227400517cc784244221d788c3785a935e7c3bff1ccc9b03",
+        "byteCount": 28375
+      },
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/preimages/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md"
+    },
+    {
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+        "sha256": "c92b0bb8a9e9b5bff0cc222f85eaa3ffa9f5a8dae881e06e66d6008485cb1b6f",
+        "byteCount": 35883
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+        "sha256": "f0f9c7bc0103b0f9119c4f1f8b59752a92945c9ff9ebb1fcb19c63f9d42fd9f1",
+        "byteCount": 42340
+      },
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/preimages/test_env/tests/t287-ordered-reconstruction.test.mjs"
+    }
+  ],
+  "generated": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_derivation.js",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_derivation.js",
+        "sha256": "31b226355fac56f55af471ee48f8484f2f1d7686746378d2726d8e90c09c5f09",
+        "byteCount": 4733
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/build/code/src/abg/runtime_derivation.js",
+        "sha256": "95101d674475db6e1891ee3b4e5ced042e06a28720182a11dbebedd3036cd0eb",
+        "byteCount": 4755
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "sha256": "f1f465293e24ecbda7caf1dcb21e596351ce214799707955045b3040a0c273b9",
+        "byteCount": 197474
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "sha256": "76760c75c08f9966c256dd2c8d2e73d04259bde5c8687d930ae4c96799568c52",
+        "byteCount": 197474
+      }
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "before": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "sha256": "a1faf59674649af26f850e5cf0423c92477ce29acd9bd2dfc34ab4774b2101e4",
+        "byteCount": 3171685
+      },
+      "after": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+        "sha256": "d6927c0736bd06148449b01e95e0cb41b936eea70dadf0e5d3fad4c6c7db79a3",
+        "byteCount": 3171685
+      }
+    }
+  ],
+  "generatedInventoryBefore": 934,
+  "generatedInventoryAfter": 934,
+  "checks": [
+    {
+      "label": "syntax",
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 26.165541000000005,
+      "timedOut": false,
+      "truncated": false,
+      "counts": {},
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/commands/syntax.result.json",
+        "sha256": "1390d5ab7191625442f8984ab9b034a85a96dd78249abfc040aac6e28a3932ab",
+        "byteCount": 480
+      }
+    },
+    {
+      "label": "build",
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 33338.044,
+      "timedOut": false,
+      "truncated": false,
+      "counts": {},
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/commands/build.result.json",
+        "sha256": "7666ea7582ded7f0a12728227224c52341e8b9080ee3eaf4d822829ada631023",
+        "byteCount": 643
+      }
+    },
+    {
+      "label": "focused-tests",
+      "exitCode": 1,
+      "signal": null,
+      "wallMs": 5752.613832999996,
+      "timedOut": false,
+      "truncated": false,
+      "counts": {
+        "tests": 5,
+        "pass": 4,
+        "fail": 1,
+        "skipped": 0
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/commands/focused-tests.result.json",
+        "sha256": "c66c28d8fbedd261e8279e7821f08650c4b07b559ed1d50710887a850e04d80b",
+        "byteCount": 7500
+      }
+    },
+    {
+      "label": "focused-corrected",
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 5463.313542,
+      "timedOut": false,
+      "truncated": false,
+      "counts": {
+        "tests": 5,
+        "pass": 5,
+        "fail": 0,
+        "skipped": 0
+      },
+      "result": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/commands/focused-corrected.result.json",
+        "sha256": "630f0a1c3710bcc1bb9858eef34e3cdbbfc2769a6f9154bc5cc39d6c76f0eccd",
+        "byteCount": 6936
+      }
+    }
+  ],
+  "selectedTestPattern": "snapshot proof identity|cold acquisition receipt|historical durable cuts|held derivation preserves|liveness historical-cut intermediates",
+  "fixture": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/event-memory-repair-35/owner-history.logical.jsonl",
+    "sha256": "b22178799d600fbde510c235b8cee58f95b458b363507f98e4da7738557d7afb",
+    "byteCount": 6341605
+  },
+  "snapshotPredecessorOwner": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-18/scratch/successor/package/build/code/src/abg/runtime_derivation.js",
+    "sha256": "31b226355fac56f55af471ee48f8484f2f1d7686746378d2726d8e90c09c5f09",
+    "byteCount": 4733
+  },
+  "equivalence": {
+    "authenticEvents": 434,
+    "admittedProbes": 216,
+    "predecessor16": "candidate-16/scratch/successor/package",
+    "snapshotPredecessor18": "candidate-18/scratch/successor/package",
+    "successor": "current build",
+    "currentHistoricalReverseRepeatedReplayLivenessValuesAndDigestsConserved": true,
+    "copyTransplantPrefixScopeRollbackGuardsConserved": true,
+    "inspectorHandlesReleasedByExistingRegression": true
+  },
+  "premiseCorrection": "First focused 4PASS/1FAIL: mutable JSON/structured-copy test values correctly rejected by event_prefix159; deepFreeze(raw) supplies the unchanged immutable owner precondition. First receipt retained; one mjs-only rerun, no second build or source relaxation.",
+  "conservation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/synchronous-snapshot-lifetime-repair-58/conservation.json",
+    "sha256": "23b63e56d08adb02115ab1ded8ebb75ed44ed023dc8044b6a474817b0a2f3fcf",
+    "byteCount": 22865
+  },
+  "limits": [
+    "No full late-history/read-port/native/Run/model operation.",
+    "Default heap, no GC flags; unit answers do not measure reclamation or prove a memory bound.",
+    "Original installed memory P0 and full original UAT remain open.",
+    "No pack/deploy/app/fixture/config/Git effects."
+  ]
+}

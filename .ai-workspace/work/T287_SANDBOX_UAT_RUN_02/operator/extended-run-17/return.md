@@ -1,0 +1,11 @@
+Writer17 preparation CLOSED; native execution is not authorized. Source editing stopped.
+
+Only the four granted UAT files changed: optional caller actor caps, explicit effective timing policy, ordinary fresh supplied-work resume, documentation and focused regressions. Existing Public/Product/caller owners, candidate13 and every acquired fixture/oracle byte remain unchanged. No app solution, old state recovery, producer credit, runtime controller or live claim was added.
+
+Config: operator/extended-run-17/config.json SHA256 05349008130030a803ec3c5d8b027f167a7f43245a7411935a2176aea4e93cfe; recursion1000, driver18060000, actor idle18030000/absolute18040000, optional turns/USD omitted, effective C2 command18000000. Remaining model/archive/grants/predicates deeply match parent14. Both historic780000 timeout metadata files remain exact; appended existing work-order instruction declares latest user timing authority. Canonical C2 budget18015000 fits both actor limits.
+
+Syntax runner and final harness checks exit0. Focused-harness-03: 8/8 pass, 341.823792ms, no timeout/truncation. Earlier 7/1 failure was an assertion of absent request.source; corrected to owned sourceBasis/resources.source. Intermediate syntax-harness-02 failed due to recorder cwd; corrected recording invocation only. All failed streams retained. Controlled frozen-file/unit authority/transport premises are disclosed in tests; actual acquisition, current Product state, C2 budget, caller containment and transfer owners run. No native actors or assessments ran.
+
+Pinned actual resume acquisition: 4 original and 9 retained author files, 81.011042ms; old SEALED/event store match and remain unchanged. Transfer is deferred to future fresh sandbox. source:none / observations[] / synthesis:null; no old parent or producer credit imported. Exact inventories/pins are readiness.json and freeze.json, not counts alone.
+
+Launch/T0/stop handoff: setup.json. Observe new lifecycle-start.request.json.started as T0, common deadline T0+18000000. Root stops exact owned C2 helper/command first, then provider while CLI lives, preserving actual artifact/exit absence and allowing real admission. Driver/recording margins drain only. Resume command uses unchanged original data-mapper-full and candidate13. Await independent Source/Proof review and explicit Root execution release.

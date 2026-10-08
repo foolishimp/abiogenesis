@@ -1,0 +1,16 @@
+{
+  "installContentBefore": true,
+  "installContentAfter": [
+    true
+  ],
+  "processStatus": [
+    {
+      "eventRef": "event://abiogenesis/5d311c3eff0bf90bd1c46581b75f9131ec2158ace1fc0df2149c7d1337289ebd",
+      "actorRef": "actor-invocation://abiogenesis/7e1cabd42dc3b897a030d6df132b2e41ff339a46ff9568b63a0b947c7fd77a28",
+      "pid": 57373,
+      "absent": true
+    }
+  ],
+  "scope": "Known owned actual process rows only; no broad process census.",
+  "frozenProtocolSha": "sha256:16f870b64a8689165d1a6c8ffbb656407fe0fc32dc9f6eaedaa79febdb0c1737"
+}

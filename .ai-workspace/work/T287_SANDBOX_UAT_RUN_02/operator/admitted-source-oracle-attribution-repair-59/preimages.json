@@ -1,0 +1,42 @@
+{
+  "createdAt": "2026-10-08T05:02:39.976785+00:00",
+  "scope": "Worker59 external consumer only; immutable predecessor files copied before edits",
+  "rows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "preimagePath": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+      "byteCount": 23452
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "preimagePath": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/uat/runner.mjs",
+      "sha256": "e8e03b319470a8adc99c2c55bb2a8b5ce921dc1fb6c707d21716ec2cb8734995",
+      "byteCount": 34792
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "preimagePath": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/uat/public-setup.mjs",
+      "sha256": "c0789ae6158812355855d1ca0f61424cb6491d47dfab39dce52019ae23472157",
+      "byteCount": 26693
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "preimagePath": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/uat/harness.test.mjs",
+      "sha256": "82661753d9eb3af0345ea6ff056219237f842d481138dc6a4f66d0ef067cf853",
+      "byteCount": 45297
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/README.md",
+      "preimagePath": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/uat/README.md",
+      "sha256": "9bf48e6e7fe4200458ed9156f8f0841d1846cf26d44ffa9595adbdb2b7672bb8",
+      "byteCount": 7415
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "fae3231bad472ece6cf9e012921b73ffeb23773178f235f2762f16af05ce0d18",
+      "byteCount": 34763,
+      "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/admitted-source-oracle-attribution-repair-59/preimages/test_env/fixtures/sandbox-uat/scenarios.json"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import type { RuntimeEvent } from "./event_store.js";
 
 const SNAPSHOT = Symbol("owner_runtime_derivation_snapshot");
+const SNAPSHOT_PROOFS = new WeakMap<readonly RuntimeEvent[], SnapshotProof>();
 
 /** Disposable computation territory, never event or durable authority. Each
  * owner key names its one ordered relation. A rollback abandons the territory. */
@@ -58,19 +59,18 @@ export class RuntimeDerivationSource {
 }
 
 class SnapshotProof {
-  readonly #snapshot: WeakRef<readonly RuntimeEvent[]>;
   readonly #source: RuntimeDerivationSource;
   readonly #parent: SnapshotProof | undefined;
   readonly #shared: number;
   constructor(snapshot: readonly RuntimeEvent[], source: RuntimeDerivationSource,
     parent?: readonly RuntimeEvent[], shared = 0) {
-    this.#snapshot = new WeakRef(snapshot); this.#source = source;
+    this.#source = source;
     this.#parent = parent === undefined ? undefined : SnapshotProof.for(parent);
-    this.#shared = shared; Object.freeze(this);
+    this.#shared = shared; SNAPSHOT_PROOFS.set(snapshot, this); Object.freeze(this);
   }
   static for(events: readonly RuntimeEvent[]): SnapshotProof | undefined {
     const proof: unknown = Object.getOwnPropertyDescriptor(events, SNAPSHOT)?.value;
-    return typeof proof === "object" && proof !== null && #snapshot in proof && proof.#snapshot.deref() === events
+    return typeof proof === "object" && proof !== null && #source in proof && SNAPSHOT_PROOFS.get(events) === proof
       ? proof : undefined;
   }
   static source(events: readonly RuntimeEvent[]): RuntimeDerivationSource | undefined {

@@ -1,0 +1,209 @@
+{
+  "state": "CLOSED_GO_BOUNDED_INSTALLED_PROOF",
+  "at": "2026-10-08T09:31:35.957455+00:00",
+  "reviewer": "independent Reviewer97",
+  "subject": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor",
+  "return": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-review-97/return.md",
+    "sha256": "cb211253ec18c0b382fb5338a122b0bbee03d4efeff2908ee0edacac34f183f1",
+    "byteCount": 5632
+  },
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/return.md",
+      "sha256": "fc1d1e992c2992664a7a053363dc6980ba30a4d8b2c5a8af60330bb13f5b71ac",
+      "byteCount": 2458
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/readiness.json",
+      "sha256": "30c4aa71f042f045cfda4cbb7718483dd3bb6ab96a2afae0644866189c363f80",
+      "byteCount": 26309
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/freeze.json",
+      "sha256": "baff0607bcde234f0282ca7976974e5e8e7778cc93282cf43048cd01b52fd33f",
+      "byteCount": 23197
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/postprocess-corrected.mjs",
+      "sha256": "101d427636e186289b42deff2dc1e064f46b0398d2161efdb24fd196825c225d",
+      "byteCount": 12914
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/protocol.mjs",
+      "sha256": "0fd8dc1cb285535d6adf274660f054676c96b6fa2db54ef03dac95a9a40c7c50",
+      "byteCount": 4866
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/postprocess-corrected/proof.json",
+      "sha256": "40641b33b6578ee14477f5e03474fcd062321caee05882e653eef0ac6cbeb61f",
+      "byteCount": 3462
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/postprocess-corrected/conservation.json",
+      "sha256": "ae75dcdbbf7a83bd337e14c4ec62b307227592544338e2cf4bb72279a4e2b566",
+      "byteCount": 623
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/postprocess-corrected/run_result.json",
+      "sha256": "52a2e911356cd878ec465c80dd554053f74f278f798a0689fe18cef0faa42d5d",
+      "byteCount": 3776
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/postprocess-corrected/run_replay.json",
+      "sha256": "e2bfe53b2e147b79128dd02b2a1da8e4c3141ac9ef602bd0bdb821afe659b416",
+      "byteCount": 4936
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/owned-process-observation.json",
+      "sha256": "f5acc0a942f4dd9da0bd7cbfca927f4bd5ecc345f3d7b612641e841085cfce09",
+      "byteCount": 4147
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/AGENTS.md",
+      "sha256": "ae02c7961a12b15ef50d4619ed151f5a306ac8a5579708288b31de648f322828",
+      "byteCount": 11790
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "byteCount": 4277
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+      "byteCount": 93690
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+      "sha256": "3676304839a52127559e1897450e0d149a289b4c59f2311e4251c46a813f5173",
+      "byteCount": 73179
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65",
+      "byteCount": 10959
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-review-65/return.md",
+      "sha256": "553642a4e875c8cea468440b6e4605fcacdf5af6ca928221371c1c28ca929901",
+      "byteCount": 3739
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+      "sha256": "13d5efeab4c0aea6043469cd6005e05635d4202cd00ac2ac1e57b485f13bb7b7",
+      "byteCount": 31335
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/default_library.js",
+      "sha256": "b7ec72df9b773416c1f0f6c4d9b93398a4e0871d46cd3ff07f243eff186030d8",
+      "byteCount": 31623
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/default_library.js",
+      "sha256": "c993b1aa648a1b261726f1a7ed9a52a5d6174a0357e5904892f1deb27eec0dd2",
+      "byteCount": 5085
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/worksite_command_execution.js",
+      "sha256": "5e2f3d40f4724640b458dde517d043e1e3332727268c40f2c381109a914d6313",
+      "byteCount": 35890
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/implementation/native_workspace_work.js",
+      "sha256": "d9f5917d3adcf3a4729ae84cc5064c3482962a4c9b944fb2f371eee98bf96cb0",
+      "byteCount": 6286
+    }
+  ],
+  "existingSubjectFreeze": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-source-context-proof-82/supported-native-prompt-successor/freeze.json",
+  "independentFrozenPinReacquisition": {
+    "ledgerRows": 55,
+    "externalRows": 12,
+    "mismatches": []
+  },
+  "rawPrefix": {
+    "coordinateDigest": "sha256:9b1955acfbe63ceff1e4826408d2f8feaa17086c1e0cd352c41f9240f8628368",
+    "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-uURbOI/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:bd63a3993de9b6b7af59059e22d7860a79739ec2426deb1feaa3c1024456ec14",
+    "prefixLength": 11124483,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 467991227
+    }
+  },
+  "selectedPhysicalRows": [
+    {
+      "ordinal": 115,
+      "offset": 3967635,
+      "byteCount": 31834,
+      "sha256": "c247dc11cd6d997a3c86bec234bacf994c6945fc2662691e9f47f71ce8c01c38"
+    },
+    {
+      "ordinal": 162,
+      "offset": 4331620,
+      "byteCount": 76160,
+      "sha256": "e09405cc0570e224fb862c628e6620341b2e49cdf3fba66c47c06ad1542836d6"
+    },
+    {
+      "ordinal": 253,
+      "offset": 4850337,
+      "byteCount": 58032,
+      "sha256": "70b4f13f46d34aead5def866cd0eaf5cc524dd36083b5abeb41e7287f3cb0329"
+    },
+    {
+      "ordinal": 328,
+      "offset": 5537030,
+      "byteCount": 45470,
+      "sha256": "da2d128b0c38f7b7aac5f3626cc97dc7e23c6b0ca0b35a301232e1f202cf40cc"
+    },
+    {
+      "ordinal": 373,
+      "offset": 5961689,
+      "byteCount": 51868,
+      "sha256": "c180109927bc062b95e520bb228054a9711a199b9d913e844a3580af3b1a0fb7"
+    },
+    {
+      "ordinal": 539,
+      "offset": 7165465,
+      "byteCount": 81389,
+      "sha256": "c3c0434b7a51b30a6747176d11c24a5a13a0aa7a1244288aaec7d78e29d1f8d8"
+    },
+    {
+      "ordinal": 586,
+      "offset": 7628421,
+      "byteCount": 125691,
+      "sha256": "1adc13ce504cf6eac3f3b92b9548dc63e9664645ce642e95ece88e1acf8bf28a"
+    },
+    {
+      "ordinal": 752,
+      "offset": 9232456,
+      "byteCount": 80991,
+      "sha256": "1b60a32b1493606ffe3c14dc1821d3df60ecfd5c53cb58294cfa8bcde109b235"
+    },
+    {
+      "ordinal": 797,
+      "offset": 9868131,
+      "byteCount": 87520,
+      "sha256": "a0407f6ddb4081b5a8ff0dd592c90017d8c33ac4d0e06d48eca3b7a56eab4e68"
+    },
+    {
+      "ordinal": 868,
+      "offset": 10441175,
+      "byteCount": 2353,
+      "sha256": "10161eeeac4b4a8653c644c63bbb9d7fac9889140a765b18d536bae57b16e5d5"
+    }
+  ],
+  "permittedReviewEffects": "new documentary return and pin list only; no dispatch, Source or old subject mutation",
+  "claimLimits": [
+    "Declared deterministic local-protocol actor; no real-provider/model judgment adequacy",
+    "Actual ordinary Public/native/C2 source/context and literal bytes/owners are exercised",
+    "Testing(C2) negative is schema/binder refusal of an unadmitted candidate, no invalid dispatch",
+    "No DataMapper/resume/full-history/recovery/RC1/UAT/memoryP0 qualification credit",
+    "Native four steps were not rerun for postprocessor corrections",
+    "No additional UAT(native-source) or semantic-stage quote runtime claim",
+    "No latest21 execution claim"
+  ]
+}

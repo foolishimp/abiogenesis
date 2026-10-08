@@ -1,0 +1,292 @@
+{
+  "frozenAt": "2026-10-06T07:16:22.625Z",
+  "role": "Configuration Writer",
+  "status": "READY_NATIVE_EXECUTION_HELD",
+  "frame": "#f-end-to-end-interface-integration",
+  "methodManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "allowedChanges": [
+    "/provider/absoluteTimeoutMs",
+    "/provider/inactivityTimeoutMs"
+  ],
+  "allNonlimitFieldsEqual": true,
+  "parentConfigurationPin": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-05.json",
+    "bytes": 2327,
+    "sha256": "933b5e860e8ed0bba45608e501e871cf3868e99f78c81e8931af3fff72cff838"
+  },
+  "successorConfigurationPin": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-budget-06.json",
+    "bytes": 2328,
+    "sha256": "84cf6c93aa411b71f0d4baa27e9ce8763473fd06e4639c20091e1c814dd5b760"
+  },
+  "preparationPin": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-06/preparation.md",
+    "bytes": 3639,
+    "sha256": "dd701f62076be50bf81c46e0fb6e77ad6eb5a577fee6127a835fd5d5afe1a338"
+  },
+  "protectedPins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-05.json",
+      "bytes": 2327,
+      "sha256": "933b5e860e8ed0bba45608e501e871cf3868e99f78c81e8931af3fff72cff838"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10620458,
+      "sha256": "ca7feb52ca90ad581cc0b07d62a26c57526cd50d04814c54e9bcef770300be09"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/freeze.json",
+      "bytes": 139373,
+      "sha256": "9cdbb2b45c71b94608dae4eff3cc76a59553079c183314b8bda6084bbba6868c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "bytes": 26196,
+      "sha256": "9e54810f1c485ae53a6d2a167d491dfed9a6aee14763b1cbfbf380fc79bde53d"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "bytes": 22857,
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "bytes": 17357,
+      "sha256": "1869bcc42124ba8426002b2e91691e620546b3965fa51195d6fcf4831c3a7cdb"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-05/freeze.json",
+      "bytes": 2264,
+      "sha256": "d487351bdbfed5c57fb0bd5d031880d459be97574835f887c2827a28f5f1c86d"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-05/execution-freeze.json",
+      "bytes": 56275,
+      "sha256": "540b9d349e7a3df0c2acba82af67b8a1788a8e4eaa14401e7514e3cc54bd536c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/worksite_command_execution.js",
+      "bytes": 109541,
+      "sha256": "cf38a00bb92cf5debbd4627d7f91b7f30497c3c91134f6d2ed40b31e52a7200a"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/product/default_library.js",
+      "bytes": 24243,
+      "sha256": "374355f6548cb39c887cc980ea4ede04cddbee3bca0f1e1df5a5067d7415dd07"
+    }
+  ],
+  "basisPins": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "bytes": 132250,
+      "sha256": "bb1b24e30d8c4668444481085530aca5f5ab3ce935677cbc882faa83208004bf"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "bytes": 26545,
+      "sha256": "483538b5a79c9c3111adec58f42f111e0232136ba682244431873779829f45b8"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "bytes": 29561,
+      "sha256": "b0666d79bb20ea0a1d73ac735de81174142d9b8998af4292a82f6bed3f7f6271"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "bytes": 61435,
+      "sha256": "72a21030d65bdc18a66c98b17e585b05e3c73bd3146bb8d8f8f42349b17e27ec"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/prepared-definition-call.json",
+      "bytes": 28911946,
+      "sha256": "2535356d12fa185e8a0756f2ddbbdbf10c35b511d5803189ff3b93951bff6219"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-06T06-50-48-894Z-9bedec6b-61c3-45bc-bf11-e36b44e2d488/resources/events/runtime.events.jsonl",
+      "bytes": 18662054,
+      "sha256": "8b7dd4b91352ae464acb5d75131dfcfc63c89dcd286ae78b0463ed72e97cae1f"
+    }
+  ],
+  "triagePins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-budget-06/return.md",
+      "bytes": 5974,
+      "sha256": "d9cb73921433269d23c9fbe480990be046ca5f57a315ea8d02f5af752a6c6c8c"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-budget-06/pins.json",
+      "bytes": 14700,
+      "sha256": "e72a5845b2a080b47f4e391495c73f0b0e01e21682559b833aac4b802c9e434e"
+    }
+  ],
+  "requestPins": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/request.json",
+      "bytes": 21323,
+      "sha256": "481aad19106047377f1b25fb0b8847e5a2cee00a36964db3bacd3688bb6c980f"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-tenant-test/request.json",
+      "bytes": 21640,
+      "sha256": "8a80cd9eb94f44b6e85d61e8ba694b34d8c8ea00b242c447b08e2e28abfb91be"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/js-sdlc-bootstrap/request.json",
+      "bytes": 25009,
+      "sha256": "3e16c50293a2dece9126dc784d011e493f979dc8e1a9d1293803ceaa3397e983"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-cli/request.json",
+      "bytes": 22840,
+      "sha256": "f132ab8bdf2f7c5cda0fd9845fdac56ab3e3d8403da824d9e1852b466a69b8c1"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/rust-service/request.json",
+      "bytes": 22913,
+      "sha256": "068fccd2f67085276b09411d48c203783fe945837aed7282e4a767e3060440da"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/parallel-js/request.json",
+      "bytes": 24062,
+      "sha256": "ad8880aada1db005f6777ceaff720fcdadbfab0e721c10c9d8d0e224d6ad73f1"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "bytes": 87322,
+      "sha256": "b305469b4b69f43ffb3ec1456ad61648816674c2c7c5238bb1e8085d2f4195ae"
+    }
+  ],
+  "pureOwnerFit": {
+    "route": [
+      "loadScenarios",
+      "acquireScenario",
+      "constructWorkloadInput",
+      "constructGovernanceWorkState",
+      "governanceTestingConfiguration",
+      "projectWorksiteCommandExecutionBudget",
+      "worksiteCommandExecutionBudgetFits"
+    ],
+    "rows": [
+      {
+        "case": "basic-cli",
+        "commandBudgetMs": 190000,
+        "httpProbeBudgetMs": 0,
+        "requiredExecutionBudgetMs": 195000,
+        "parentFits": false,
+        "successorFits": true,
+        "originalBudgetEqualsConstructedBudget": true
+      },
+      {
+        "case": "js-tenant-test",
+        "commandBudgetMs": 125000,
+        "httpProbeBudgetMs": 0,
+        "requiredExecutionBudgetMs": 130000,
+        "parentFits": false,
+        "successorFits": true,
+        "originalBudgetEqualsConstructedBudget": true
+      },
+      {
+        "case": "js-sdlc-bootstrap",
+        "commandBudgetMs": 125000,
+        "httpProbeBudgetMs": 0,
+        "requiredExecutionBudgetMs": 130000,
+        "parentFits": false,
+        "successorFits": true,
+        "originalBudgetEqualsConstructedBudget": true
+      },
+      {
+        "case": "rust-cli",
+        "commandBudgetMs": 500000,
+        "httpProbeBudgetMs": 0,
+        "requiredExecutionBudgetMs": 505000,
+        "parentFits": false,
+        "successorFits": true,
+        "originalBudgetEqualsConstructedBudget": true
+      },
+      {
+        "case": "rust-service",
+        "commandBudgetMs": 310000,
+        "httpProbeBudgetMs": 0,
+        "requiredExecutionBudgetMs": 315000,
+        "parentFits": false,
+        "successorFits": true,
+        "originalBudgetEqualsConstructedBudget": true
+      },
+      {
+        "case": "parallel-js",
+        "commandBudgetMs": 125000,
+        "httpProbeBudgetMs": 0,
+        "requiredExecutionBudgetMs": 130000,
+        "parentFits": false,
+        "successorFits": true,
+        "originalBudgetEqualsConstructedBudget": true
+      },
+      {
+        "case": "data-mapper-full",
+        "commandBudgetMs": 790000,
+        "httpProbeBudgetMs": 0,
+        "requiredExecutionBudgetMs": 795000,
+        "parentFits": false,
+        "successorFits": true,
+        "originalBudgetEqualsConstructedBudget": true
+      }
+    ],
+    "actualBasic": {
+      "eventId": "event://abiogenesis/c5e63d5ed60dfb3073fe9cda3d81c92f16ccbee2f74e4420581590a84dc26e1d",
+      "admissionOrdinal": 4372,
+      "source": "payload.value",
+      "taskRef": "worksite-command-execution-task://abiogenesis/5d20d51a573c63014a79c1356ab385044fb5397372b78d67a0623c0af2c53c93",
+      "taskDigest": "sha256:5d20d51a573c63014a79c1356ab385044fb5397372b78d67a0623c0af2c53c93",
+      "taskCanonicalDigest": "sha256:98b7c67b126a862253bf3b780f3b9462b36abf2efd3d28c492973261389cd432",
+      "isNativeTask": true,
+      "budget": {
+        "rule": {
+          "aggregation": "sum",
+          "commandFields": [
+            "timeoutMs",
+            "terminationGraceMs"
+          ],
+          "httpResponseFields": {
+            "launch": [
+              "timeoutMs",
+              "terminationGraceMs"
+            ],
+            "request": [
+              "timeoutMs"
+            ]
+          },
+          "ownerAllowanceMs": 5000,
+          "limitComparison": "required_budget_strictly_less_than_each_limit",
+          "limitOrdering": "absolute_strictly_greater_than_inactivity"
+        },
+        "commandBudgetMs": 190000,
+        "httpProbeBudgetMs": 0,
+        "requiredExecutionBudgetMs": 195000
+      },
+      "fits": true,
+      "originalBasicEqualsActualInput": true
+    },
+    "allSevenFit": true,
+    "allAcquisitionPinsValid": true,
+    "allOriginalBudgetsEqualConstructed": true,
+    "maximumRequiredBudgetMs": 795000
+  },
+  "effects": [
+    "new config-budget-06.json",
+    "new installed-retest-06 preparation.md/freeze.json",
+    "pure existing owner projections"
+  ],
+  "noNativeExecution": true,
+  "noCredentialValueEffects": true
+}

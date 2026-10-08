@@ -1,0 +1,10 @@
+Product Frame: fixed fifteen-family ABI5 5.0 / GOAL035 / T287, original external test workloads, exact STDO2.5.1RC2 manifest3d860ff4…; f-end-to-end-interface-integration. Immutable publication and observation evidence, no runtime authority.
+CLOSED independent Publication72 bounded GO for exact frozen71/candidate20; no counterexample. Own63 Source and75 generation semantic review excluded; Root-selected independent65/66/67/74/77 applicability reused.
+Actual archive88de828fc8aef467901a19acb1e94e1cf29d6a8828dcabe592b7912476ee8da4/10629708B and predecessor19 SHA3a5b39b5…/10624009B independently reacquired.
+Sequential in-memory tar comparison:5265 identical paths/types/modes,28 exact composed64→68→75 deltas and5237 unchanged; every declared member also matches the retained corresponding scratch bytes. No extraction or packaged verification rerun.
+All1223 unique selected literal-path pins match. Package metadata/dependencies/exports unchanged; only three known dependency fixtures remain, byte-identical; no ABG external workload/source payload.
+Actual packaged owner independently rehashed5263 payloads, canonical manifest/catalog/contribution and reconstructed complete capability graph byte-for-byte. Content0aec3faf…/canonical manifest8ec94c51… match final75 and exact package.
+Independently confirmed446 Public identity consequences:423declarationDigest+21contractDigest+1catalogDigest+1native-runtime asset contentDigest;75rows and all nondigest fields conserved. All62 contribution consequences match retained full canonical10publication/47row owner derivation.
+Retained actual source-blind verifyProduct is verified_product_artifact/verified,5263payloads,21362.531ms; whole owner/consequence command62231.474ms, one pack3428.742ms, all exit0/no timeout/truncation. Pack stderr is only npm update notice.
+No Source/build/test/pack/install/runtime/model/old48/application/Git effects by72. Helper84 is external future81 caller evidence, not a package transform.
+Root alone conjoins and selects installed use. Installed crosscut proof, memory P0, full original UAT/recovery/RC1 qualification/release remain unearned. Reviewer frozen/stopped.

@@ -1,0 +1,72 @@
+--- a/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
++++ b/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md
+@@ -94,6 +94,17 @@
+ HOME, TMPDIR, LANG, LC_ALL or PATH from the reading process.
+ Actor admission supplies the consumed raw observation to the same binder; there
+ is no duplicate assembly or history walk at completion.
++
++**Framed-selector presentation (Run02 repair105):** assembly selects the existing
++`result_text` presentation before dispatch and binds it into both plan identity
++and worker request. The full canonical response schema, including target/subject
++constraints, remains in the prompt and response-schema digest. Claude receives
++no `--json-schema` for this profile: its tool schema rejects root unions. The
++successful final result text passes unchanged through strict I-JSON admission
++and the same raw binder at completion and admission. Empty, malformed,
++duplicate-key or incompatible choices refuse; no schema branch is removed,
++output file substituted, failure-triggered fallback or adapter selector added.
++Other profiles retain their selected presentation.
+ 
+ **Immediate Testing prerequisite (Run02 repair20):** one pure projection of the
+ already-bound `FramedSynthesisTask.context` identifies every
+--- a/code/src/abg/instruction_assembly.ts
++++ b/code/src/abg/instruction_assembly.ts
+@@ -358,10 +358,11 @@
+     const { owner, role, bindings, choices, rawContractRef } = context, task = context.input;
+     const boundBasis = synthesisBoundBasis(context), response = framedSynthesisResponseSchema(task, bindings);
+     const runEnvironment = selectorRunEnvironmentIdentity(role);
++    const presentation = { responsePresentation: "result_text" as const };
+     const sections = { role: { role: "selector", frameRefs: role.frameRefs, policy: role.policy, sourceContent: role.sourceContent,
+       instruction: "Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. The task section is an owned judgment projection: originalTask contains the complete original task. File contentIn originalTask and sourceRanges locate exact text already presented in this prompt; no external read is needed. Other file content is supplied directly. Each work order also applies the original task; only exact repeated source text is omitted from its instructions. currentAtContext and staleDependencies describe byte correspondence only, never semantic adequacy. Return only the closed response JSON." },
+       choices, task: projectFramedSynthesisPromptTask(task), evidence: { declaredAccess: role.accessContent }, response } as unknown as Readonly<Record<string, JsonValue>>;
+-    const plan = { variant: "framed-synthesis", projectionLocus: context.profile.projection.nodeRef, runEnvironment,
++    const plan = { variant: "framed-synthesis", projectionLocus: context.profile.projection.nodeRef, runEnvironment, ...presentation,
+       rendererRef: governanceRef("renderer", "synthesis"), instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef,
+       sectionOrder: ["role", "choices", "task", "evidence", "response"] };
+     const prompt = renderInstructionSections(plan.sectionOrder, sections);
+@@ -370,7 +371,7 @@
+       { sections, targetBindings: bindings, boundBasis } as unknown as Readonly<Record<string, JsonValue>>);
+     return finishInstructionAssembly(identity, { runEnvironment }, { actorRef: governanceRef("actor", "executive"), workerBindingRef: governanceRef("worker", "selector"),
+       implementationRef: owner.call.implementationRef!, inputDigest: owner.inputDigest, rendererRef: plan.rendererRef,
+-      instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef, transportLane: "closed_prompt_proof", prompt, responseJsonSchema: response });
++      instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef, transportLane: "closed_prompt_proof", prompt, responseJsonSchema: response, ...presentation });
+   } catch { return assemblyRefusal("unknown_dependency", null, "selector", [basis.cCall.programLocusRef]); }
+ }
+ /** Actor admission already authenticates the consumed raw artifact/request.
+--- a/test_env/tests/t287-default-library.test.mjs
++++ b/test_env/tests/t287-default-library.test.mjs
+@@ -221,6 +221,13 @@
+   const lookup=ref=>library.contracts.find(c=>c.contractRef===ref)??null;
+   const assembly=m.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,supplied,lookup);assert.equal(assembly.kind,'native_instruction_assembly',JSON.stringify(assembly));
+   const rendered=assembly.request.prompt, response=assembly.request.responseJsonSchema;
++  assert.equal(assembly.plan.responsePresentation,'result_text');assert.equal(assembly.request.responsePresentation,'result_text');
++  assert.deepEqual(response,product.framedSynthesisResponseSchema(supplied,assembly.envelope.targetBindings));assert.ok(response.anyOf.length>0,'canonical target/source constraints remain intact');
++  const transport=await import(pathToFileURL(resolve(packageRoot,'build/code/src/abg/transport_contracts.js')).href);
++  const argsInput={contract:transport.constructKnownWorkerTransportContract('claude',{environment:{}}),prompt:rendered,outputPath:'/unused-selector-output.json',lane:assembly.request.transportLane,responseJsonSchema:response,environment:{}};
++  const structuredArgs=transport.composeWorkerTransportArgs(argsInput),args=transport.composeWorkerTransportArgs({...argsInput,responsePresentation:assembly.request.responsePresentation});
++  assert.deepEqual(JSON.parse(structuredArgs.at(-1)),response);assert.deepEqual(args,structuredArgs.slice(0,-2));
++  assert.equal(args.includes('--json-schema'),false);assert.deepEqual(args.slice(-3),['--safe-mode','--tools','']);
+   for(const rule of ['at most one contribution row per graphFunctionRef','different contribution row in THIS response; no self-dependency','admitted evidenceRefs, not dependsOn','null with nonempty gaps and null subjectEvidenceRef','For UAT, subjectEvidenceRef must select','For Testing, optionally select','For other work or a gap, subjectEvidenceRef must be null'])assert.ok(rendered.includes(rule),rule);
+   assert.match(response.properties.contributions.description,/one contribution row per graphFunctionRef/);
+   assert.match(response.properties.contributions.items.properties.dependsOn.description,/different contribution in THIS response/);
+@@ -241,6 +248,11 @@
+   const bound=product.bindFramedSynthesisResult(supplied,assembly.envelope.targetBindings,assembly.envelope.boundBasis,raw);assert.ok(bound);assert.deepEqual(bound.judgment,raw);assert.equal(bound.state,state);
+   const observation={disposition:'success',toolCallCount:0,finalOutput:JSON.stringify(raw),inputDigest:owner.inputDigest,implementationRef:call.implementationRef};
+   const check=(value=bound,obs=observation,b=candidate)=>m.namespace.framedSynthesisInstructionResultMatches(b,supplied,value,obs,lookup);
++  const complete=text=>hook.selectGovernanceWork(supplied,{},()=>assembly).complete({request:assembly.request,observation:{...observation,promptDigest:assembly.manifest.promptDigest,finalOutput:text}});
++  assert.deepEqual(complete(JSON.stringify(raw)).resultCandidate,bound);
++  for(const text of ['', '{', 'null', '{"interpretation":"duplicate",'+JSON.stringify(raw).slice(1)]){
++    assert.throws(()=>complete(text));assert.equal(check(bound,{...observation,finalOutput:text}),false);
++  }
+   assert.equal(check(),true);assert.equal(check({...bound,judgment:{...raw,nextReason:'rewritten'}}),false);assert.equal(check({...bound,basis:{...bound.basis,frameEvidenceDigest:product.sha256Canonical('crossed')}}),false);
+   assert.equal(check(bound,{...observation,inputDigest:product.sha256Canonical('crossed')}),false);assert.equal(check(bound,{...observation,finalOutput:JSON.stringify({...raw,extra:'discard me'})}),false);
+   const {framedSynthesisNativeRole:profile}=await import('../../build/code/src/gtl/stdo_run_environment.js');

@@ -1,0 +1,166 @@
+{
+  "status": "FROZEN_READY_FOR_INDEPENDENT_REVIEW",
+  "productFrame": "fixed fifteen-family ABI5 5.0; GOAL035/T287; six external Hello UATs and full original Data Mapper; generic factory truth and independent full-original assessment, no domain-specific Product/controller",
+  "method": {
+    "definition": "STDO2.5.1RC2",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "sourceChanges": [
+    {
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+        "sha256": "c76123cc206d862c51a6238933fcef04a676f28e98b0f5c8b4a657601d87003a",
+        "byteCount": 31712,
+        "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-repair-62/preimages/code/src/product/default_library.ts"
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+        "sha256": "d30b3de24a8615a5e0aefe3f025f4a4ab9b8539148eaae801eb1a150263d73ce",
+        "byteCount": 33507
+      }
+    },
+    {
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+        "sha256": "4afa1aaca9bdeee51af306fd6820af63a578f5ddc4df71c1ec8cd7d89a5d77d0",
+        "byteCount": 31672,
+        "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-repair-62/preimages/code/src/abg/default_library.ts"
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+        "sha256": "5292f272b7a0f1c4409cea13477e8d412912c93c7f6b5a8070141b6f94e3e9b4",
+        "byteCount": 31843
+      }
+    },
+    {
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_stage.ts",
+        "sha256": "975eb6a2fa031e789aa34b87c21a5abe7597d66a88eaf821a62209f11e3b24c5",
+        "byteCount": 36130,
+        "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-repair-62/preimages/code/src/product/semantic_stage.ts"
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/semantic_stage.ts",
+        "sha256": "7e9ee8b3aba8a91eb3e086979e4b7ec10b865399176de9c4a09192d8fd1b9c55",
+        "byteCount": 36181
+      }
+    },
+    {
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "sha256": "4739eb8d70fd18ac28a59c3d97d683867c720a713e1bab6b83c3e20c025ee2fa",
+        "byteCount": 48978,
+        "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-repair-62/preimages/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md"
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+        "sha256": "b712505d3d8b7bd1c11589e7c801606adafeb32662dd673ee31413c73ea01cec",
+        "byteCount": 50238
+      }
+    },
+    {
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+        "sha256": "340f6c837e5670e1dde032618ff5f9848c8936cfc7b847a1592f03473b33b6f7",
+        "byteCount": 19376,
+        "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-repair-62/preimages/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md"
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+        "sha256": "1b28a0e3bea9930930037bd664f6490a66e29029f717b337f76472bc99384525",
+        "byteCount": 21371
+      }
+    },
+    {
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "sha256": "d0738d6992fcb8761705b48c5927383501158e2a9b88845961523fff5ad5a668",
+        "byteCount": 116751,
+        "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-repair-62/preimages/test_env/tests/t287-default-library.test.mjs"
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "sha256": "655996a2a2103ee99e382511140bb20357f781be34da9437c954d1f1ee2e848b",
+        "byteCount": 124202
+      }
+    },
+    {
+      "preimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+        "sha256": "6393f8ef1389e7208a14ba864454ef47bbd3826836e6b5b72f2149e0bc8e436a",
+        "byteCount": 19368,
+        "preimagePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-repair-62/preimages/test_env/tests/t287-d1-semantic-stage.test.mjs"
+      },
+      "postimage": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+        "sha256": "eb96a63c25162483363152c48c01cf42e283e3c6ec31025167e3311aa0c907e1",
+        "byteCount": 23075
+      }
+    }
+  ],
+  "checks": {
+    "strictIsolatedCompilation": {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/node_modules/typescript/bin/tsc",
+        "-p",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-repair-62/isolated/tsconfig.json"
+      ],
+      "exitCode": 0,
+      "wallMs": 6452.275416988414,
+      "stdoutBytes": 0,
+      "stderrBytes": 0,
+      "canonicalBuild": false
+    },
+    "focusedOwnerTests": {
+      "command": [
+        "/opt/homebrew/bin/node",
+        "--experimental-vm-modules",
+        "--test",
+        "--test-reporter=spec",
+        "--test-name-pattern=selector planning preserves|fold and assessment consume|D1 literal source quotes",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs"
+      ],
+      "exitCode": 0,
+      "wallMs": 869.4412920158356,
+      "stdoutBytes": 600,
+      "stderrBytes": 0,
+      "environmentOverrides": {
+        "ABI5_DEFAULT_LIBRARY_BUILD_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-repair-62/isolated",
+        "ABI5_D1_BUILD_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-repair-62/isolated",
+        "TMPDIR": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-source-context-repair-62/tmp"
+      },
+      "nativeCampaign": false,
+      "canonicalBuild": false,
+      "pass": 3,
+      "fail": 0,
+      "skipped": 0
+    },
+    "scope": "frozen crosscut review 263-source baseline with exactly three production overrides; actual source test owners; no canonical generation/build/publication"
+  },
+  "controlledPremises": [
+    "native/C2/assessment values and worksite observations use actual typed owner constructors",
+    "occurrence/index/role authentication and source-currentness fixture hooks are explicit controlled unit premises; no installed/native admission or provider proof",
+    "semantic handoff uses actual declaration/input/candidate constructors with supplied structural coordinates; no authenticated Run credit"
+  ],
+  "claims": [
+    "schema/raw binder/choice/preparation share target/source domain: Testing null or non-assessment native, UAT native/C2; incompatible/assessment/unknown/duplicate refs refuse",
+    "full original plan/commands/predicates, producer authenticity/currentness, scope, selected contribution and full-original independent assessment guards remain",
+    "BOM/non-BMP/clipped cited stream byte ranges, folded text/native context and semantic quote/text preserve original bytes/digests/lengths"
+  ],
+  "residuals": [
+    "one canonical joint build/generated identity/publication review remains Root-owned",
+    "installed affected-path discriminator and genuine full original UAT remain unearned; no memory P0 closure",
+    "existing current-host/old17 Program continuation executes old17 default-library implementation/relative ABG and Product owners; new62 code needs separate actual installed-path proof, no migration required",
+    "unselected recovery stream-chunk validation at abg/worksite_construction_recovery.ts274 hashes a default UTF8 decoder that removes leading BOM, versus actor_process.ts1150/1184 hash of original chunk; BOM+a+newline (5 bytes) yields different chunk text and digest. Keep JSON protocol unchanged; no recovery repair selected."
+  ],
+  "excludedEffects": [
+    "canonical build/generated files",
+    "package/install/config/caller/application/oracle/event/Public schema edits",
+    "Git",
+    "model/provider/campaign/native Data Mapper/large-log reads"
+  ],
+  "correctedDuringPrivatePreparation": "stale third-argument call in governanceResultMatches prepare-testing was corrected before the passing isolated compile; Root/Worker63 receipt is retained by its owner"
+}

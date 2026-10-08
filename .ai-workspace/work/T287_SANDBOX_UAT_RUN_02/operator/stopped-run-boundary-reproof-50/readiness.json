@@ -1,0 +1,84 @@
+{
+  "role": "Operator50",
+  "status": "stopped_first_actual_failure",
+  "run": {
+    "ref": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93",
+    "digest": "sha256:9c5bb4324d39e0d1349d02383ddfa178be868e680d473ff31bd0ee3cff3a6b96"
+  },
+  "oldArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665",
+  "acceptedCaller49": {
+    "runnerSha256": "68fa02d35bba95d3c550dace5e2cff64b09050595cea1bf35cd44cac7573ae0a",
+    "harnessSha256": "71320af30191467b58d35a6c0cae7e15312c39133c6f66c5895eb576ea137843",
+    "freezeSha256": "a3c8b2f2aa3cf3736988eb852b22235e50c3e8dfa9e34ec67132bf1506ac089f"
+  },
+  "firstFailure": {
+    "kind": "default_heap_exhaustion",
+    "signal": "SIGABRT",
+    "exitCode": null,
+    "wallMs": 82888.628083,
+    "timedOut": false,
+    "truncated": false,
+    "diagnostic": "FATAL ERROR: Reached heap limit Allocation failed - JavaScript heap out of memory",
+    "stderr": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/stopped-run-boundary-reproof-50/commands/boundary-reproof.stderr",
+    "stderrSha256": "34436a5dc6297e4ea322d1a8f104b0a8428a1212568dd5ac8bbfa37d602cb4a8",
+    "boundary": "freshReadbacks entered after successful complete owner read/prefix record; before first CLI request. Fatal stack has no identified JS source allocation site; refresh/environment projection is a route member, not proved sole allocator/retainer."
+  },
+  "ownerRead": {
+    "eventCount": 165617,
+    "first": {
+      "eventId": "event://abiogenesis/715afee9a389eb3ccfa81a0c5a1ef496a9bc0ad151dfcbc64b3dd76e6c681f88",
+      "ordinal": 1
+    },
+    "last": {
+      "eventId": "event://abiogenesis/7d258cb9cfb3daf97cbb98b9c6c778fe1e01340ab060e6d1b4eed7ff64af5722",
+      "ordinal": 165617
+    },
+    "readStageWallMs": 22444.625167,
+    "postReadMemory": {
+      "rss": 3572252672,
+      "heapTotal": 2131181568,
+      "heapUsed": 2012724680,
+      "external": 1184910090,
+      "arrayBuffers": 1182498398,
+      "maxRSSKiB": 3493904
+    },
+    "exactPrefixRecord": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/stopped-run-boundary-reproof-50/runtime-event-prefix.json",
+    "noAggregateExport": true
+  },
+  "actualLaterEvidenceAbsent": [
+    "fresh CLI requests",
+    "fresh-readback.json",
+    "independent-oracle.json",
+    "normal in-process source-conservation.json",
+    "catch/finally records unavailable after fatal SIGABRT"
+  ],
+  "oldTruthRetained": {
+    "nativeDisposition": "blocked",
+    "terminalResult": null,
+    "actualNativeUatAssessment": "UNMET",
+    "distinctDetections": 11,
+    "exactRestorations": 11,
+    "requiredDistinctMutants": 16,
+    "uatPass": false
+  },
+  "conservation": {
+    "receipt": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/stopped-run-boundary-reproof-50/conservation.json",
+    "controlPins": 15,
+    "materialFiles": 48,
+    "installedProductsBeforeAfterEqual": 2,
+    "storeSha256": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6",
+    "storeByteCount": 1182449986,
+    "sixBootstrapInstalledOwnerPairsEqual": true,
+    "exactOwnedPidsAbsent": [
+      91313,
+      91315
+    ],
+    "noSignals": true
+  },
+  "claimsExcluded": [
+    "No new native/provider/model/worksite effects or old event/seal byte change.",
+    "No fresh result/replay or original external oracle judgment earned; old native assessor stays unmet.",
+    "No exact dominant retainer/4GB-root or installed memoryP0 closure; no retry/repair/cap/heap change."
+  ],
+  "receiptPremise": "Post-abort conservation script reached expected absent ps exit1 after all selected hash assertions; failure retained and only collection changed to spawnSync without a repeated full event acquisition or streaming hash."
+}

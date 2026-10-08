@@ -1,0 +1,1 @@
+Initial build recorder passed an empty inherited environment, so npm shebang env node refused exit127 before compiler/generator work. The failed build receipt is retained. Successor recorder supplies only PATH=/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin; no production/config/budget or credentials change.

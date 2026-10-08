@@ -1,0 +1,125 @@
+{
+  "status": "CLOSED_STOP_second_caller_preparation_failure",
+  "productFrame": "ABI5 fixed fifteen-family 5.0 / GOAL035 T287 original external DataMapper / exact STDO2.5.1RC2",
+  "candidateHostSelector": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+    "sha256": "7418255fcb0d8ca9d993049ca9e0f85a9407e0458f1938e3f66e2ec243defa78",
+    "byteCount": 3158
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver-successor.mjs",
+    "sha256": "a7f45503e3b1371955324b290f2bc222e09128887e844dcd1b350bbc80ab9836",
+    "byteCount": 18764
+  },
+  "firstAttemptConserved": true,
+  "r01": {
+    "nativeActorRef": "actor-invocation://abiogenesis/f53dcbb50d76eccafed4353840ceb0ab7a278e81bd9640ef5547641873e3badb",
+    "runRef": "run://abiogenesis/90482973edd88417d41d788dc970f06f76e380b33474ff4f17ef7e318e762ef7",
+    "proof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor/execution/r01-proof.json",
+      "sha256": "e1170f2be98a3cebfe89b9fda07ca7f45470d809ff03c66356fcb5bf473655fc",
+      "byteCount": 32652
+    },
+    "processStatus": 0,
+    "terminationConfirmed": true,
+    "signalSequence": [
+      "SIGTERM",
+      "SIGKILL"
+    ],
+    "unconfirmedResidues": 0,
+    "resultClass": "success",
+    "coldLiveness": true,
+    "controlledDescendantMarker": "FIXTURE_ONLY owned-group-descendant-pid=20310",
+    "meaning": "Actual installed native ordinary-process lane, not model/provider/C2/HTTP/UAT proof"
+  },
+  "cause": {
+    "boundary": "C0-A request construction before Public dispatch",
+    "actual": "subject.relativePath target-a.txt; territory.relativeRoot target-a.txt",
+    "violatedRelation": "code/src/product/worksite_effect.ts:751\u2013761 accepts . or a strict directory-descendant path; a file cannot be its own directory territory",
+    "refusalBodyPreserved": false,
+    "capturedRefusalKind": "worksite_effect_refusal",
+    "driver": "driver-successor.mjs:161\u2013166",
+    "classification": "external test caller territorial coordinate error; canonical rejection correct",
+    "minimalReentry": "directory territory . with exact worksite root URI; keep subjects A/B and native writeRoots A only"
+  },
+  "unearned": [
+    "C0 A/B admission",
+    "R02 transport_exception A-only retirement",
+    "Fresh Public reads",
+    "C2/HTTP/semantic/model/UAT/capacity/P0 closure"
+  ],
+  "execution": {
+    "command": [
+      "node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/driver-successor.mjs",
+      "--execute",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json"
+    ],
+    "exitCode": 1,
+    "startedAt": "2026-10-08T07:48:12.058776+00:00",
+    "finishedAt": "2026-10-08T07:48:50.195790+00:00",
+    "wallMs": 38136.46466599312,
+    "timedOut": false,
+    "truncated": false,
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor/execution.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-lifecycle-effect-proof-80/successor/execution.stderr",
+      "sha256": "635ead59db4c3140e3f2ff4409418dd3ebed7822c2fbd0106be4955d5428c476",
+      "byteCount": 1531
+    }
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:23f9e87890ca63cfdd24c1d46cf96560f3839173017aa38f3883ac626dbafb9b",
+    "eventLogRef": "file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-BrcJ4e/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:e0f4f254b85cd0092fefee639be19bb172530038c68fa3e17548b48752adedd4",
+    "prefixLength": 3680323,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 467773654
+    }
+  },
+  "runtimeLog": {
+    "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-BrcJ4e/runtime/events.jsonl",
+    "sha256": "e0f4f254b85cd0092fefee639be19bb172530038c68fa3e17548b48752adedd4",
+    "byteCount": 3680323
+  },
+  "nativeAssets": [
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-BrcJ4e/workspace/.ai-workspace/archive/fp-fe06347a4393e819-output.txt",
+      "sha256": "4b6384af6843e21c8cd9ce810c878fa13769aa09aed49ba98551eda6c3ceb56a",
+      "byteCount": 87
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-BrcJ4e/workspace/.ai-workspace/archive/fp-fe06347a4393e819-prompt.txt",
+      "sha256": "95a99813849867b5cf7b2677a1c8b08db84998c3f5bb09eb8e6a23ed2917137f",
+      "byteCount": 17284
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-BrcJ4e/workspace/.ai-workspace/archive/fp-fe06347a4393e819-stderr.log",
+      "sha256": "b76f71a72d6909d796ad319735e80234449363bac8906c9d1bb0c6ed59c29497",
+      "byteCount": 46
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-BrcJ4e/workspace/.ai-workspace/archive/fp-fe06347a4393e819-stdout.log",
+      "sha256": "c22f11f8bec93ad8cc7cf0a2df80d55654cebe0d5b057df025deed91fa96fc33",
+      "byteCount": 163
+    },
+    {
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-BrcJ4e/workspace/.ai-workspace/archive/fp-fe06347a4393e819-transport.json",
+      "sha256": "dd35ce0bfd59a63c13994f32cb62ae8a1a4fae48946487ffaa9abd792f739ab6",
+      "byteCount": 4602
+    }
+  ],
+  "sourceOwnerPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+    "sha256": "7f467ecb9186148308bea23e6d4a70f65d51f2a757a4db629bc0fa5383c3a06e",
+    "byteCount": 87171
+  }
+}

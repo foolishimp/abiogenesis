@@ -1,0 +1,95 @@
+{
+  "role": "Worker47",
+  "status": "FROZEN_PREPARATION_PENDING_ROOT_EXECUTION_RELEASE",
+  "publicationAccepted": true,
+  "executionAuthorized": false,
+  "startedAt": "2026-10-07T16:25:12.133Z",
+  "preparationWallMs": 865.4775420000001,
+  "acquisitionWallMs": 548.040208,
+  "evidence": {
+    "config.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/config.json",
+      "sha256": "d22235e0d22a0da0b5e0f12597dd0b54304ea00b92b6c1508b0bfc111640ab9c",
+      "byteCount": 2983
+    },
+    "material-observation.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/material-observation.json",
+      "sha256": "8e7bd39e2cd6714a7d4d9326ba15c0e46b4ab735cc77bb6a6a6aad03161db746",
+      "byteCount": 8433
+    },
+    "material-freeze.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/material-freeze.json",
+      "sha256": "923657488d51b394e4018d13b09918559c0423ac0123e547078b9c04b417b7d0",
+      "byteCount": 20962
+    },
+    "setup.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/setup.json",
+      "sha256": "96128ae388dbc17ddb89cb4d077817cd8e485643464c7a4ff29d4e3b16be0c47",
+      "byteCount": 3524
+    },
+    "config-acquisition.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/config-acquisition.json",
+      "sha256": "30a66677b05cd1918a8e8cf83d122843a7389e45e1a695d223aada1948a90a23",
+      "byteCount": 4986
+    },
+    "activation.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/call-local-successor-material-prep-47/activation.json",
+      "sha256": "f689409e03eebd8edd517762878df22760d8e95aeb662ba6f4e2ea7f53a664ba",
+      "byteCount": 762
+    }
+  },
+  "candidateIdentity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-17/identity.json",
+    "sha256": "a3efd70a2ba430f9cdac1924e3b6920472f11b55cb285822cd8330b20833554f",
+    "byteCount": 6911
+  },
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-17/freeze.json",
+    "sha256": "13b6c4983dce33494a0e17e21a1682235b508e07973230db62c71135e8e050de",
+    "byteCount": 15403
+  },
+  "package": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-17/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "cc47965b537b417d262e5edcb211584d6412084c4f63e53628ceca6fdab5191c",
+    "byteCount": 10623828
+  },
+  "source38": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-38/return.md",
+      "sha256": "4ae2409778d52479e59a5c50479aec08a5460c9ea28791f950a178391ee528d7",
+      "byteCount": 2817
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-38/observations.json",
+      "sha256": "5c3ca0d3be4b0ef9ccc317459e129e5a3964779f7de20475efffacc2920d3680",
+      "byteCount": 70908
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-38/execution-freeze.json",
+      "sha256": "4be21730b60a651def6b0e5a0f6ed9d2070cf485304d2fb8c212872467df3015",
+      "byteCount": 46311
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-38/stop-observation.json",
+      "sha256": "08e33d089c466e24ad9fed3e3172efc788ac3aeb9017ebf454dd84c3de190206",
+      "byteCount": 1313
+    }
+  ],
+  "checks": {
+    "configurationAccepted": true,
+    "existingAcquireResumeMaterialAccepted": true,
+    "material52Validated": true,
+    "original4Conserved": true,
+    "originalGrantAllowsAll44NativeFiles": true,
+    "all49NativeAfterStatesMatch": true,
+    "allSevenScenarioAcquisitionsExact": true,
+    "onlySixConfigFieldsChanged": true,
+    "sourceNoneEmptyObservationsNullSynthesis": true,
+    "canonical18MCommandBudgetFits": true,
+    "topologyInvariantFaultUntouched": true
+  },
+  "installedSourceZeroDeltaRequiredAtFutureRun": true,
+  "oldNativeProofImported": false,
+  "buildPackInstallProviderTransferNativeEffects": 0,
+  "remaining": "Explicit Root native execution release; installed memory P0 and full-original UAT remain open."
+}

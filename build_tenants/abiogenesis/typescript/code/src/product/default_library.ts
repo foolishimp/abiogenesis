@@ -4,6 +4,7 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput, WorksiteCommandWriteTerritoryInput } from "./worksite_command_execution.js";
 import type { NativeWorkspaceAssessmentSelection } from "./native_workspace_assessment.js";
+import { isNativeWorkspaceWorkReport } from "./native_workspace_work.js";
 import { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
 import { GOVERNANCE_REQUIREMENT_PROPOSAL_SCHEMA, GOVERNANCE_FULFILLMENT_STATE_SCHEMA, GOVERNANCE_FULFILLMENT_EVIDENCE_SCHEMA,
   isGovernanceFulfillmentDeclaration, type GovernanceFulfillmentDeclaration, initialGovernanceFulfillment, governanceFulfillmentStateMatches,
@@ -139,8 +140,73 @@ export function framedSynthesisEvidenceRefs(task: FramedSynthesisTask): readonly
   return [task.state.original.taskRef, task.context.observationRef, ...task.state.observations.map(o => o.resultRef),
     ...(task.state.synthesis === null ? [] : [task.state.synthesis.resultRef])];
 }
-/** Presentation over the already-bound task. Integrity/authority carriers stay
- * in that task; this projection neither chooses evidence nor judges adequacy. */
+/** Typed source candidates only; native owners still establish Result identity,
+ * authority and currentness before consuming the complete producer value. */
+export function governanceSubjectEvidenceRefs(state: GovernanceWorkState, purpose: GovernancePurpose | null): readonly (string | null)[] {
+  if (purpose !== "testing" && purpose !== "uat") return [null];
+  const counts = new Map<string, number>();
+  for (const row of state.observations) counts.set(row.resultRef, (counts.get(row.resultRef) ?? 0) + 1);
+  const eligible = state.observations.filter(row => {
+    if (counts.get(row.resultRef) !== 1) return false;
+    const native = row.purpose !== "testing" && row.purpose !== "uat" && isNativeWorkspaceWorkReport(row.value.report) &&
+      Array.isArray(row.value.changedPaths) && row.value.changedPaths.every(path => typeof path === "string");
+    const command = row.purpose === "testing" && Array.isArray(row.value.commandResults) && Array.isArray(row.value.predicateObservations);
+    return native || purpose === "uat" && command;
+  }).map(row => row.resultRef);
+  return purpose === "testing" ? [...eligible, null] : eligible;
+}
+/** Immediate Testing uses the full original declaration. Context file presence
+ * establishes this construction prerequisite, never suitability or completion. */
+function framedSynthesisMissingTestingPaths(task: FramedSynthesisTask): readonly string[] {
+  const files = new Set(task.context.entries.filter(entry => entry.state === "file").map(entry => entry.relativePath));
+  return task.state.original.testing.selectedPaths.filter(path => !files.has(path));
+}
+/** Private selector display, not a stream parser or evidence admission. */
+function planningStream(observation: GovernanceObservation, fieldPath: (string | number)[], value: JsonValue | undefined) {
+  const record = (item: JsonValue | undefined): item is Readonly<Record<string, JsonValue>> =>
+    item !== null && typeof item === "object" && !Array.isArray(item);
+  if (!record(value)) return value;
+  let bytes: Buffer, text: string;
+  try {
+    if (value.encoding === "utf8" && typeof value.text === "string") bytes = Buffer.from(value.text, "utf8");
+    else if (value.encoding === "base64" && typeof value.payload === "string") bytes = Buffer.from(value.payload, "base64");
+    else return value;
+    text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes);
+  } catch {
+    return { ...Object.fromEntries(Object.entries(value).filter(([key]) => key !== "text" && key !== "payload")),
+      rawBody: { resultRef: observation.resultRef, resultDigest: observation.resultDigest, fieldPath, omittedFromPlanningView: true },
+      displayOnly: true, excerpts: [], displayUnavailable: "not_utf8" };
+  }
+  let offset = 0;
+  const lines = text.split("\n").map((line, index, all) => {
+    const startByte = offset; offset += Buffer.byteLength(line + (index < all.length - 1 ? "\n" : ""));
+    return { startByte, endByte: offset, text: line };
+  }).filter(line => line.endByte > line.startByte);
+  const candidates = [...lines.filter(line => line.text.includes("***")),
+    ...lines.filter(line => line.text.includes("[error]")), ...lines.slice(0, 1), ...lines.slice(-1)];
+  const excerpts: { startByte: number; endByte: number; text: string }[] = [], seen = new Set<number>();
+  let displayedByteCount = 0, omittedCandidates = 0;
+  for (const line of candidates) {
+    if (seen.has(line.startByte)) continue;
+    seen.add(line.startByte);
+    const allowance = 8192 - displayedByteCount;
+    if (allowance === 0 || excerpts.length === 32) { omittedCandidates++; continue; }
+    let endByte = Math.min(line.endByte, line.startByte + allowance), literal: string;
+    // A clipped display range must not split an encoded Unicode character.
+    for (;;) {
+      try { literal = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes.subarray(line.startByte, endByte)); break; }
+      catch { endByte--; }
+    }
+    if (endByte === line.startByte) { omittedCandidates++; continue; }
+    excerpts.push({ startByte: line.startByte, endByte, text: literal });
+    displayedByteCount += endByte - line.startByte;
+    if (endByte < line.endByte) omittedCandidates++;
+  }
+  return { ...Object.fromEntries(Object.entries(value).filter(([key]) => key !== "text" && key !== "payload")),
+    rawBody: { resultRef: observation.resultRef, resultDigest: observation.resultDigest, fieldPath, omittedFromPlanningView: true },
+    displayOnly: true, displayBound: { maxBytes: 8192, maxExcerpts: 32 }, excerpts, displayedByteCount, omittedCandidates };
+}
+/** Presentation over the already-bound task; canonical proof stays in its owner. */
 export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Readonly<Record<string, JsonValue>> {
   const { state, context } = task, original = state.original;
   const record = (value: JsonValue | undefined): value is Readonly<Record<string, JsonValue>> =>
@@ -151,7 +217,7 @@ export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Rea
   const sourceText = (entry: Extract<WorksiteContextObservation["entries"][number], { state: "file" }>) => {
     const bytes = Buffer.from(entry.bytes, "base64");
     let text: string;
-    try { text = new TextDecoder("utf-8", { fatal: true }).decode(bytes); }
+    try { text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes); }
     catch { return { encoding: "base64", content: entry.bytes }; }
     // Exact containment only. The actor receives the complete text in this
     // same prompt, not a locator that would require a forbidden file read.
@@ -163,10 +229,13 @@ export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Rea
   const evidence = state.observations.map(observation => {
     const value = observation.value;
     const observed = observation.purpose === "testing" && Array.isArray(value.commandResults)
-      ? { commandResults: value.commandResults.filter(record).map(row => ({ commandId: row.commandId,
-          exitStatus: row.exitStatus, timedOut: row.timedOut, processSignal: row.processSignal,
-          terminationConfirmed: row.terminationConfirmed, stdout: row.stdout, stderr: row.stderr, reports: row.reports })),
-          predicateObservations: value.predicateObservations }
+      ? { commandResults: value.commandResults.map((row, index) => record(row) ? { ...row,
+          stdout: planningStream(observation, ["commandResults", index, "stdout"], row.stdout),
+          stderr: planningStream(observation, ["commandResults", index, "stderr"], row.stderr) } : row),
+          predicateObservations: Array.isArray(value.predicateObservations) ? value.predicateObservations.map((row, index) =>
+            record(row) && Object.hasOwn(row, "evidence") ? { ...Object.fromEntries(Object.entries(row).filter(([key]) => key !== "evidence")),
+              evidenceBody: { resultRef: observation.resultRef, resultDigest: observation.resultDigest,
+                fieldPath: ["predicateObservations", index, "evidence"], omittedFromPlanningView: true } } : row) : value.predicateObservations }
       : observation.purpose === "uat" && original.fulfillment !== undefined && record(value.fulfillment)
         ? { ...Object.fromEntries(Object.entries(value).filter(([key]) => key !== "fulfillment")),
             fulfillment: { obligations: Array.isArray(value.fulfillment.obligations) ? value.fulfillment.obligations.filter(record).map(row =>
@@ -176,7 +245,7 @@ export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Rea
     const fact = observation.fulfillmentEvidence;
     return { resultRef: observation.resultRef, purpose: observation.purpose,
       selectedGraphFunctionRef: observation.selectedGraphFunctionRef, synthesisResultRef: observation.synthesisResultRef,
-      actorInvocationRef: observation.actorInvocationRef, observed,
+      actorInvocationRef: observation.actorInvocationRef, cCallRef: observation.cCallRef, resultDigest: observation.resultDigest, observed,
       ...(fact === undefined ? {} : { support: { contractRef: fact.contractRef, kind: fact.kind,
         files: fact.files.map(file => ({ path: file.path, currentAtContext: context.entries.some(e =>
           e.state === "file" && e.relativePath === file.path && e.digest === file.digest) })),
@@ -218,10 +287,13 @@ export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Rea
       instructions: order.instructions.filter(instruction => !sourceTextsInTask.has(instruction)),
       readFirst: order.readFirst, writeRoots: order.writeRoots, checks: order.checks }])),
     testing: original.testing,
+    subjectEvidenceDomains: { testing: governanceSubjectEvidenceRefs(state, "testing"), uat: governanceSubjectEvidenceRefs(state, "uat") },
+    testingPrerequisites: { missingSelectedPaths: framedSynthesisMissingTestingPaths(task),
+      meaning: "Immediate Testing requires every original selected path to be an observed file. Missing paths are prerequisites; a future Testing contribution remains allowed, but partial-probe prose cannot change the full declared selected-file, command or predicate plan. Presence does not prove adequacy or completion." },
     assessment: { sources: original.assessment.sources, candidatePath: original.assessment.candidatePath,
       rubricPath: original.assessment.rubricPath, resultContract: original.assessment.resultContract,
       verdictField: original.assessment.verdictField, satisfiedValue: original.assessment.satisfiedValue },
-    fulfillment, observations: evidence, unresolvedSupportRefs: state.unresolvedSupportRefs,
+    fulfillment, observations: evidence, planningEvidenceMeaning: "Full raw streams and detailed predicate proof are explicitly omitted from this selector view and remain in the cited admitted Result. Field paths are relative to that Result value; metadata grants no lookup authority or automatic external read. Excerpts are bounded literal diagnostics at exact UTF-8 byte ranges, not interpreted failure names or verdicts. All original criteria and unresolved outcomes remain governing. C2 success is a measurement observation, never application acceptance.", unresolvedSupportRefs: state.unresolvedSupportRefs,
     priorJudgment: state.synthesis === null ? null : { resultRef: state.synthesis.resultRef, judgment: state.synthesis.judgment },
   } as unknown as Readonly<Record<string, JsonValue>>);
 }
@@ -242,9 +314,8 @@ export function bindFramedSynthesisResult(task: FramedSynthesisTask, targets: re
     raw.gaps.some(g => !g.supportRefs.every(ref => supports.includes(ref)) || !validEvidence(g.evidenceRefs)) ||
     !validEvidence(raw.nextEvidenceRefs) || !validEvidence(raw.revisionEvidenceRefs)) return null;
   const next = targets.find(t => t.graphFunctionRef === raw.nextGraphFunctionRef);
-  if (raw.subjectEvidenceRef !== null && !task.state.observations.some(o => o.resultRef === raw.subjectEvidenceRef) ||
-    next?.purpose === "uat" && raw.subjectEvidenceRef === null ||
-    raw.subjectEvidenceRef !== null && next?.purpose !== "uat" && next?.purpose !== "testing") return null;
+  if (next?.purpose === "testing" && framedSynthesisMissingTestingPaths(task).length > 0) return null;
+  if (!governanceSubjectEvidenceRefs(task.state, next?.purpose ?? null).includes(raw.subjectEvidenceRef)) return null;
   return deepFreeze({ kind: "framed_synthesis_result", schemaVersion: "5.0.0", state: task.state, basis, judgment: raw });
 }
 export function framedSynthesisResponseSchema(task: FramedSynthesisTask, targets: readonly FramedSynthesisTarget[]): Readonly<Record<string, JsonValue>> {
@@ -253,18 +324,23 @@ export function framedSynthesisResponseSchema(task: FramedSynthesisTask, targets
   const array = (domain: readonly string[]) => ({ type: "array", uniqueItems: true, items: reference(domain) });
   const object = (properties: Record<string, unknown>) => ({ type: "object", additionalProperties: false, properties, required: Object.keys(properties) });
   const graphs = targets.map(t => t.graphFunctionRef), evidence = framedSynthesisEvidenceRefs(task), support = task.state.unresolvedSupportRefs;
-  return deepFreeze(object({ interpretation: textSchema,
+  const immediateGraphs = targets.filter(t => t.purpose !== "testing" || framedSynthesisMissingTestingPaths(task).length === 0).map(t => t.graphFunctionRef);
+  const subjects = targets.map(target => ({ graphFunctionRef: target.graphFunctionRef, refs: governanceSubjectEvidenceRefs(task.state, target.purpose) }));
+  const response = object({ interpretation: textSchema,
     contributions: { type: "array", maxItems: graphs.length, description: "At most one contribution row per graphFunctionRef in this current mapping.", items: object({ graphFunctionRef: reference(graphs), contribution: textSchema, reason: textSchema,
       supportRefs: array(support), evidenceRefs: array(evidence), dependsOn: { ...array(graphs), description: "Every dependency must name a different contribution in THIS response. Prior completed work outside this current mapping belongs in evidenceRefs, not dependsOn. Mapping membership does not require execution; only the explicit next member executes." } }) },
     gaps: { type: "array", items: object({ supportRefs: { ...array(support), minItems: 1 }, reason: textSchema, evidenceRefs: array(evidence) }) },
-    nextGraphFunctionRef: { type: ["string", "null"], enum: [...graphs, null], description: "Must name a contribution row in THIS response, explicitly chosen to execute next. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule." },
+    nextGraphFunctionRef: { type: ["string", "null"], enum: [...immediateGraphs, null], description: "Must name a contribution row in THIS response, explicitly chosen to execute next. Testing is available immediately only when every original selected path is an observed file; future Testing contributions remain allowed. If null, gaps must be nonempty and subjectEvidenceRef must be null. Dependencies are semantic judgments, not an automatic schedule." },
     nextReason: textSchema, nextEvidenceRefs: array(evidence),
-    subjectEvidenceRef: { type: ["string", "null"], enum: [...task.state.observations.map(o => o.resultRef), null],
+    subjectEvidenceRef: { type: ["string", "null"], enum: [...new Set(subjects.flatMap(subject => subject.refs)), null].filter((ref, index, all) => all.indexOf(ref) === index),
       description: "For UAT, select the exact current native-work or C2 measurement Result to assess. For Testing, optionally select a current native-work Result; null observes supplied files. For other work or gap, null." },
     revisionReason: textSchema, revisionEvidenceRefs: array(evidence),
     ...(task.state.original.fulfillment === undefined ? {} : { requirementProposals: { type: "array", description: "Propose only additional source-grounded obligations. Use local candidate refs, never invented admitted identities. Preserve originals; missing policy remains open.", items: object({
       candidateRef: textSchema, classRef: reference(task.state.original.fulfillment.discoveryClasses.map(c => c.classRef)), meaning: textSchema, reason: textSchema,
       sourceQuotes: { type: "array", minItems: 1, items: object({ memberRef: reference(task.state.original.fulfillment.context.members.map(m => m.memberRef)), quote: textSchema }) },
       predecessorRequirementRefs: array([...task.state.original.fulfillment.terms.map(t => t.requirementRef), ...task.state.fulfillment!.additions.map(a => a.term.requirementRef)]), evidenceRefs: array(evidence) }) } })
-  }) as unknown as Readonly<Record<string, JsonValue>>);
+  });
+  return deepFreeze({ ...response, anyOf: [...subjects.map(subject => ({ properties: {
+    nextGraphFunctionRef: { const: subject.graphFunctionRef }, subjectEvidenceRef: subject.refs.length === 0 ? false : { enum: [...subject.refs] } } })),
+    { properties: { nextGraphFunctionRef: { const: null }, subjectEvidenceRef: { const: null } } }] } as unknown as Readonly<Record<string, JsonValue>>);
 }

@@ -1,0 +1,106 @@
+{
+  "activation": "T287_SANDBOX_UAT_CALLER_REPAIR_05",
+  "role": "Caller/Harness Worker",
+  "frozenAt": "2026-10-06T06:36:58.410911+00:00",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "method": {
+    "uri": "stdo://releases/v2.5.1-rc.2/",
+    "manifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "sourceCheckpoint": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "sourcePins": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "preimageSha256": "11d91e396ad6926bf8d13c67fc6204922775ffcc87c691cb56c70d6d204fffdf",
+      "sha256": "9e54810f1c485ae53a6d2a167d491dfed9a6aee14763b1cbfbf380fc79bde53d",
+      "byteCount": 26196
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "preimageSha256": "bab61008bf96c06e390028b75f6d2caac24f5f6ccacc28a49e43aa6c206c18b5",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "byteCount": 22857
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "preimageSha256": "1ccc7f1a229f726bad4dc37e14f1cf212b52b4b8bd11790432523faba30f9f03",
+      "sha256": "1869bcc42124ba8426002b2e91691e620546b3965fa51195d6fcf4831c3a7cdb",
+      "byteCount": 17357
+    }
+  ],
+  "reportPins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/caller-repair-05/commands/focused-harness-tests.request.json",
+      "sha256": "e4a86a5c352a549013addc55b1b050b1d04504c4706e5726761ab7874d7105d6",
+      "byteCount": 1619
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/caller-repair-05/commands/focused-harness-tests.result.json",
+      "sha256": "2329f8f9e746d63e4f1680f19415f167e8fa3d8eec5f463d5a2ed2ae3ef93945",
+      "byteCount": 2363
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/caller-repair-05/commands/focused-harness-tests.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/caller-repair-05/commands/focused-harness-tests.stdout",
+      "sha256": "724e06f3ae059f4ce75383c02efebafe222ba3eb44de8a92a95c318b7075fb39",
+      "byteCount": 579
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/caller-repair-05/grant.md",
+      "sha256": "cfc5185546c6fe958e832a70c486e768df7fb6f7b84e818ebb0dd1dae91e0847",
+      "byteCount": 3504
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/caller-repair-05/preimages.json",
+      "sha256": "2d6c55882c371020f531cd334f1e4d689e58a4828b29041fa16a5113305cb9c6",
+      "byteCount": 503
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/caller-repair-05/return.md",
+      "sha256": "fa0487b417a8df5681cd1277ed92747b6d8a4b0897c910d08cae92ffa06f5230",
+      "byteCount": 4224
+    }
+  ],
+  "readiness": {
+    "commandExitCode": 0,
+    "wallMs": 291.061958,
+    "tests": 4,
+    "passes": 4,
+    "failures": 0,
+    "diffCheck": "clean",
+    "subject": "Closed rebuilt owner modules; model-free caller tests with explicitly controlled admission/transport premises."
+  },
+  "originalFailureConservation": {
+    "freezePath": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/permission-resume-04/freeze.json",
+    "freezeSha256": "953b85232005a478e71e4ff1c297440384543699e748392f21e393a83c9eb39f",
+    "diagnosticPinsVerified": 17,
+    "nativePinsVerified": 119
+  },
+  "protectedPinsUnchanged": [
+    {
+      "path": ".ai-workspace/work/T287_HELLO_EXPUNCTION_01/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "89e2038de69b384dbef84fe6620d5269e57382971cc8e845f554fc6101084b52"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-auth-02.json",
+      "sha256": "413824692abe66b374973af16446fa28a1b0d8626f79aaf5ce2b34a3ee31588b"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-authority-04/return.md",
+      "sha256": "af32e4fdc3a2d0cb7774e84b01eaae1a0664f52a2aa103cb945d1092b28a97f9"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-proof-04/return.md",
+      "sha256": "1384926d4229c9ba92524ddde39c18f0d2dacb1f8bbad05396a0a6132da4ae43"
+    }
+  ],
+  "disposition": "Ready for independent review; stop editing. Native UAT and release claims remain indeterminate."
+}

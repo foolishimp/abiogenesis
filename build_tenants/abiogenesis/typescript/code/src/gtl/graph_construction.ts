@@ -15,6 +15,8 @@ import { canonicalizeAuthoredGtlCarrier } from "./canonicalization.js";
 import type {
   GraphFunction,
   GraphFunctionApplication,
+  GraphTemplate,
+  GtlEdge,
   GtlNode,
 } from "./contracts.js";
 import {
@@ -78,31 +80,100 @@ function mergeDeclarations(
   return merged;
 }
 
+/** Internal original-GTL law; these helpers are not facade exports. */
+export function graphNodeIdentityFailure(
+  template: Readonly<GraphTemplate>,
+): string | null {
+  return new Set(template.nodes.map((node) => node.nodeRef)).size ===
+      template.nodes.length
+    ? null
+    : "GraphFunction has duplicate node identities";
+}
+
+export function ordinaryGraphBoundaryFailure(
+  template: Readonly<GraphTemplate>,
+  nodeRef: string,
+  outgoing: readonly Readonly<GtlEdge>[] = template.edges.filter(
+    (edge) => edge.fromNodeRef === nodeRef,
+  ),
+): string | null {
+  if (template.terminalNodeRefs.includes(nodeRef)) {
+    return outgoing.length === 0
+      ? null
+      : "terminal GTL node cannot declare an outgoing graph edge";
+  }
+  return outgoing.length === 1
+    ? null
+    : "non-terminal GTL node requires exactly one declared graph edge";
+}
+
+export interface GraphTemplateDiagnostic {
+  readonly code: "duplicate_identity" | "topology_mismatch";
+  readonly path: string;
+  readonly message: string;
+}
+
+/** Local structure only; evaluator, policy and callable law remain whole checks. */
+export function graphTemplateDiagnostics(
+  template: Readonly<GraphTemplate>,
+  path = "$.template",
+): readonly GraphTemplateDiagnostic[] {
+  const diagnostics: GraphTemplateDiagnostic[] = [];
+  const duplicateNodes = graphNodeIdentityFailure(template);
+  if (duplicateNodes !== null) {
+    diagnostics.push({ code: "duplicate_identity", path: `${path}/nodes`, message: duplicateNodes });
+  }
+  const nodeRefs = new Set(template.nodes.map((node) => node.nodeRef));
+  if (!nodeRefs.has(template.startNodeRef) ||
+    template.terminalNodeRefs.length === 0 ||
+    new Set(template.terminalNodeRefs).size !== template.terminalNodeRefs.length ||
+    template.terminalNodeRefs.some((ref) => !nodeRefs.has(ref))) {
+    diagnostics.push({ code: "topology_mismatch", path,
+      message: "GraphFunction requires exact start and terminal nodes" });
+  }
+  if (template.edges.some((edge) =>
+    !nodeRefs.has(edge.fromNodeRef) || !nodeRefs.has(edge.toNodeRef))) {
+    diagnostics.push({ code: "topology_mismatch", path: `${path}/edges`,
+      message: "edge endpoint is absent from graph template" });
+  }
+  if (new Set(template.edges.map((edge) => edge.edgeRef)).size !== template.edges.length) {
+    diagnostics.push({ code: "duplicate_identity", path: `${path}/edges`,
+      message: "GraphFunction has duplicate edge identities" });
+  }
+  const outgoingByNode = new Map<string, GtlEdge[]>();
+  for (const edge of template.edges) {
+    const outgoing = outgoingByNode.get(edge.fromNodeRef) ?? [];
+    outgoing.push(edge);
+    outgoingByNode.set(edge.fromNodeRef, outgoing);
+  }
+  for (const node of template.nodes) {
+    const outgoing = outgoingByNode.get(node.nodeRef) ?? [];
+    // Selection owns its fixed outgoing workflow domain, not ordinary choice.
+    // The whole validator still checks its evaluator, policy and candidates.
+    const term = node.term;
+    const selections = term.kind === "c_of"
+      ? template.applications.filter((application) =>
+        application.relationKind === "registered_selection" &&
+        application.sourceProgramLocusRef === term.programLocusRef)
+      : [];
+    if (!template.terminalNodeRefs.includes(node.nodeRef) &&
+      selections.length === 1 && outgoing.length > 0) continue;
+    const failure = ordinaryGraphBoundaryFailure(template, node.nodeRef, outgoing);
+    if (failure !== null) diagnostics.push({ code: "topology_mismatch",
+      path: `${path}/edges`, message: failure });
+  }
+  return diagnostics;
+}
+
 function graphNodeRefs(
   graphFunction: Readonly<GraphFunction>,
   label: string,
   relation: "compose" | "promote" | "substitute",
 ): ReadonlySet<string> {
   requireRef(graphFunction.name, `${label} GraphFunction name`);
-  const refs = graphFunction.template.nodes.map((node) => node.nodeRef);
-  const refSet = new Set(refs);
-  if (refSet.size !== refs.length) {
-    throw new TypeError(
-      `${relation} ${label} GraphFunction has duplicate node identities`,
-    );
-  }
-  if (
-    !refSet.has(graphFunction.template.startNodeRef) ||
-    graphFunction.template.terminalNodeRefs.length === 0 ||
-    new Set(graphFunction.template.terminalNodeRefs).size !==
-      graphFunction.template.terminalNodeRefs.length ||
-    graphFunction.template.terminalNodeRefs.some((ref) => !refSet.has(ref))
-  ) {
-    throw new TypeError(
-      `${relation} ${label} GraphFunction requires exact start and terminal nodes`,
-    );
-  }
-  return refSet;
+  const issue = graphTemplateDiagnostics(graphFunction.template)[0];
+  if (issue !== undefined) throw new TypeError(`${relation} ${label} ${issue.message}`);
+  return new Set(graphFunction.template.nodes.map((node) => node.nodeRef));
 }
 
 function rewriteCompositionTerm(

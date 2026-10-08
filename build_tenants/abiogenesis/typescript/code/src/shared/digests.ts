@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 
 import {
-  canonicalJson,
+  writeCanonicalJson,
   compareUnicodeCodeUnits,
   type JsonValue,
 } from "./canonical_json.js";
@@ -23,7 +23,9 @@ export async function sha256File(path: string): Promise<Sha256Digest> {
 }
 
 export function sha256Canonical(value: JsonValue): Sha256Digest {
-  return sha256Bytes(canonicalJson(value));
+  const hash = createHash("sha256");
+  writeCanonicalJson(value, (part) => { hash.update(part); });
+  return `sha256:${hash.digest("hex")}`;
 }
 
 export function payloadInventoryDigest(

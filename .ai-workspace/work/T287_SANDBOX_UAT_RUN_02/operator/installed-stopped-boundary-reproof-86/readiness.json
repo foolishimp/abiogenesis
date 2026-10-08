@@ -1,0 +1,255 @@
+{
+  "kind": "closed_installed_stopped_boundary_evidence",
+  "status": "PASS_FOR_EXACT_READ_ONLY_BOUNDARY",
+  "oldRun": {
+    "ref": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93",
+    "digest": "sha256:9c5bb4324d39e0d1349d02383ddfa178be868e680d473ff31bd0ee3cff3a6b96"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:a2929c1f9dbfbfee2cbfb0e5bfb3c871dc66d5e6c7d7d8c63b80dd6e91c1aa23",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6",
+    "prefixLength": 1182449986,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 467374253
+    }
+  },
+  "reader": {
+    "hostIdentity": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/exacthost-identity.json",
+      "sha256": "7418255fcb0d8ca9d993049ca9e0f85a9407e0458f1938e3f66e2ec243defa78",
+      "byteCount": 3158
+    },
+    "acquisition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host20-acquisition.json",
+      "sha256": "85ef58b334e2825cb7752fdf8ed151df183c4d3b690fec4c8528c601151af758",
+      "byteCount": 16369499
+    },
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host/node_modules/@abiogenesis/typescript-tenant",
+    "productContentDigest": "sha256:0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c",
+    "canonicalManifestDigest": "sha256:8ec94c51c508048fd1bd862c552c892ad85f2ed3c15b26d0c876a721fa3ede35",
+    "rawManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+      "sha256": "6cd9f792c5b79f30e06f37b291e4d5d534780355f1d3d7f03daa7525b6dbe25f",
+      "bytes": 3171685
+    }
+  },
+  "process": {
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 344652.629542,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "stdoutBytes": 3744,
+    "stderrBytes": 0,
+    "firstFailureStops": true
+  },
+  "ownerReadDurationMs": 61913.558875,
+  "publicReads": [
+    {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-86/calls/run_result.request.jsonl"
+      ],
+      "started": "2026-10-08T08:16:17.998Z",
+      "exitCode": 1,
+      "signal": null,
+      "wallMs": 130521.96033300001,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    },
+    {
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+        "--jsonl",
+        "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-86/calls/run_replay.request.jsonl"
+      ],
+      "started": "2026-10-08T08:18:29.181Z",
+      "exitCode": 0,
+      "signal": null,
+      "wallMs": 143912.77816699998,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null
+    }
+  ],
+  "stages": [
+    {
+      "stage": "owner-read-start",
+      "at": "2026-10-08T08:15:15.443Z",
+      "elapsedMs": 1454.638417,
+      "memory": {
+        "rss": 530825216,
+        "heapTotal": 282771456,
+        "heapUsed": 170571496,
+        "external": 8015826,
+        "arrayBuffers": 5600741,
+        "maxRSSKiB": 629728
+      },
+      "run": {
+        "ref": "run://abiogenesis/e70e699c9e16f77d74e76f0c9496aebd7e03ea38e3135a9d2a5fdb67225d7b93",
+        "digest": "sha256:9c5bb4324d39e0d1349d02383ddfa178be868e680d473ff31bd0ee3cff3a6b96"
+      },
+      "prefix": {
+        "coordinateDigest": "sha256:a2929c1f9dbfbfee2cbfb0e5bfb3c871dc66d5e6c7d7d8c63b80dd6e91c1aa23",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6",
+        "prefixLength": 1182449986,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777231,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 467374253
+        }
+      },
+      "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-host-83/host/node_modules/@abiogenesis/typescript-tenant",
+      "historicalInstalledRoots": [
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+        "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat"
+      ],
+      "readerArtifact": "sha256:0aec3faf0c230042f2c9457a03565eb9a4d566a41da9888e873438a9e7b17c5c",
+      "ownedPid": 36877
+    },
+    {
+      "stage": "owner-read-complete",
+      "at": "2026-10-08T08:16:17.357Z",
+      "elapsedMs": 63368.197292000004,
+      "memory": {
+        "rss": 3913302016,
+        "heapTotal": 2521743360,
+        "heapUsed": 2430970968,
+        "external": 1185038212,
+        "arrayBuffers": 1182626520,
+        "maxRSSKiB": 3834224
+      },
+      "eventCount": 165617,
+      "first": {
+        "eventId": "event://abiogenesis/715afee9a389eb3ccfa81a0c5a1ef496a9bc0ad151dfcbc64b3dd76e6c681f88",
+        "ordinal": 1
+      },
+      "last": {
+        "eventId": "event://abiogenesis/7d258cb9cfb3daf97cbb98b9c6c778fe1e01340ab060e6d1b4eed7ff64af5722",
+        "ordinal": 165617
+      }
+    },
+    {
+      "stage": "fresh-readbacks-start",
+      "at": "2026-10-08T08:16:17.358Z",
+      "elapsedMs": 63368.800167,
+      "memory": {
+        "rss": 3913318400,
+        "heapTotal": 2521743360,
+        "heapUsed": 2431073400,
+        "external": 1185038812,
+        "arrayBuffers": 1182627120,
+        "maxRSSKiB": 3834224
+      }
+    },
+    {
+      "stage": "fresh-readbacks-complete",
+      "at": "2026-10-08T08:20:53.721Z",
+      "elapsedMs": 339730.019625,
+      "memory": {
+        "rss": 2164752384,
+        "heapTotal": 1957625856,
+        "heapUsed": 1928144136,
+        "external": 2599327,
+        "arrayBuffers": 188756,
+        "maxRSSKiB": 3834224
+      },
+      "reads": [
+        {
+          "memberKey": "run_result",
+          "outcomeKind": "refusal",
+          "code": "not_found",
+          "terminalResult": null
+        },
+        {
+          "memberKey": "run_replay",
+          "outcomeKind": "result",
+          "status": "blocked",
+          "terminalResult": null
+        }
+      ]
+    },
+    {
+      "stage": "original-oracle-start",
+      "at": "2026-10-08T08:20:53.727Z",
+      "elapsedMs": 339736.595792,
+      "memory": {
+        "rss": 2164916224,
+        "heapTotal": 1957625856,
+        "heapUsed": 1927692680,
+        "external": 2967469,
+        "arrayBuffers": 374272,
+        "maxRSSKiB": 3834224
+      }
+    },
+    {
+      "stage": "original-oracle-complete",
+      "at": "2026-10-08T08:20:56.863Z",
+      "elapsedMs": 342871.895042,
+      "memory": {
+        "rss": 2374025216,
+        "heapTotal": 2162819072,
+        "heapUsed": 2025027760,
+        "external": 3984390,
+        "arrayBuffers": 1573819,
+        "maxRSSKiB": 3834224
+      },
+      "disposition": "unmet",
+      "criteria": 67
+    },
+    {
+      "stage": "complete",
+      "at": "2026-10-08T08:20:58.546Z",
+      "elapsedMs": 344555.23637500004,
+      "memory": {
+        "rss": 2446245888,
+        "heapTotal": 2094465024,
+        "heapUsed": 1977540064,
+        "external": 100349709,
+        "arrayBuffers": 97939138,
+        "maxRSSKiB": 3834224
+      }
+    }
+  ],
+  "archivedOracle": {
+    "disposition": "unmet",
+    "criteriaCounts": {
+      "satisfied": 55,
+      "unmet": 12
+    },
+    "selection": "immutable48 oracle-inputs; no current59 checker substitution; original obligations retained"
+  },
+  "conservation": {
+    "oldArchiveControlRows": 12,
+    "allSelectedControlReaderCallerRows": 28,
+    "oldWorksiteFiles": 48,
+    "historicalInstallations": 2,
+    "eventIdentity": {
+      "device": 16777231,
+      "inode": 467374253,
+      "byteCount": 1182449986,
+      "digest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6"
+    },
+    "knownOwnedProcessAbsent": true
+  },
+  "limits": [
+    "sampled stage heap and resource maxRSS are not heap peak",
+    "Public CLI passed stockheap but child heap peak not separately measured",
+    "no original4GB allocation-owner proof",
+    "no new Run/model/native/app work",
+    "no full-UAT/P0-global/RC1 qualification claim"
+  ]
+}

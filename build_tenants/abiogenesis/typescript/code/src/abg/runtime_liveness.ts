@@ -467,7 +467,6 @@ class RuntimeLivenessReconstruction {
   readonly byKind = new Map<RuntimeEvent["kind"], RuntimeEvent[]>();
   readonly declarationAt: number[] = [0];
   readonly budgetAt: number[] = [0];
-  private readonly structuralCuts = new Map<number, readonly RuntimeEvent[]>();
   readonly observations = new Map<string, RuntimeEvent[]>();
   readonly structural: RuntimeEvent[] = [];
   readonly structuralAt: number[] = [0];
@@ -477,7 +476,6 @@ class RuntimeLivenessReconstruction {
   readonly historicalFolds: RuntimeLivenessHistoryFolds = new Map();
   readonly contexts = new Map<string, RuntimeLivenessContextFacts | null>();
   readonly budgets = new Map<string, RuntimeLivenessBudgetFacts>();
-  private readonly cuts = new Map<number, ValidatedRuntimeEventPrefix>();
 
   constructor(prefix: ValidatedRuntimeEventPrefix) { this.prefix = prefix; this.advance(prefix); }
   advance(prefix: ValidatedRuntimeEventPrefix): void {
@@ -537,13 +535,7 @@ class RuntimeLivenessReconstruction {
     }
   }
   facts(ordinal: number): readonly RuntimeEvent[] {
-    const count = this.structuralAt[ordinal] ?? 0;
-    let facts = this.structuralCuts.get(count);
-    if (facts === undefined) {
-      facts = this.structural.slice(0, count);
-      this.structuralCuts.set(count, facts);
-    }
-    return facts;
+    return this.structural.slice(0, this.structuralAt[ordinal] ?? 0);
   }
   some(ordinal: number, kinds: readonly RuntimeEvent["kind"][], predicate: (event: RuntimeEvent) => boolean): boolean {
     return kinds.some(kind => {
@@ -559,13 +551,8 @@ class RuntimeLivenessReconstruction {
     return event !== undefined && event.admissionOrdinal <= ordinal ? event : undefined;
   }
   cut(ordinal: number): ValidatedRuntimeEventPrefix {
-    let cut = this.cuts.get(ordinal);
-    if (cut === undefined) {
-      cut = ordinal === 0 ? selectValidatedRuntimeEventPrefix(Object.freeze([])) :
-        validatedRuntimeEventPrefixThroughEvent(this.prefix, this.byOrdinal.get(ordinal)!.eventId);
-      this.cuts.set(ordinal, cut);
-    }
-    return cut;
+    return ordinal === 0 ? selectValidatedRuntimeEventPrefix(Object.freeze([])) :
+      validatedRuntimeEventPrefixThroughEvent(this.prefix, this.byOrdinal.get(ordinal)!.eventId);
   }
   sample(ordinal: number, scopeDigest: string): RuntimeLivenessSample | null {
     const rows = this.sampleHistory.get(scopeDigest) ?? [];
@@ -795,8 +782,9 @@ function deriveRuntimeLivenessSemantics(
       : e.kind === "c_call_judged" && e.aggregateId === context.scope.cCallRef);
     const processLive = actorRef !== null && any(["actor_process_started"], e =>
       record(e.payload) && e.payload.actorInvocationRef === actorRef) &&
-      !any(["actor_process_exited", "actor_process_spawn_failed", "actor_process_termination_unconfirmed"], e =>
-        record(e.payload) && e.payload.actorInvocationRef === actorRef);
+      !any(["actor_process_spawn_failed"], e => record(e.payload) && e.payload.actorInvocationRef === actorRef) &&
+      !actorDone && (!any(["actor_process_exited"], e => record(e.payload) && e.payload.actorInvocationRef === actorRef) ||
+        any(["actor_process_termination_unconfirmed"], e => record(e.payload) && e.payload.actorInvocationRef === actorRef));
     let disposition: RuntimeLivenessObserverProjection["disposition"]["disposition"] = "continue_waiting";
     let reason = "within_bound_lease";
     if (hardCapReached && processLive) { disposition = "controlled_terminate"; reason = "absolute_safety_cap"; }

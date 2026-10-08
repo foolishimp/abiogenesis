@@ -1,0 +1,172 @@
+{
+  "kind": "frozen_single_diagnostic_premise_failure",
+  "firstCause": {
+    "category": "local_script_contract_premise",
+    "scriptLine": 120,
+    "assertionLine": 121,
+    "actual": "validation.graphFunctionDigests[g.name] is undefined: graphFunctionDigests is an array, not a name-indexed map",
+    "canonicalContract": {
+      "source": {
+        "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/validator/validation.ts",
+        "sha256": "a2748bb56fe7da004f8f49265d4d81ef6cdbd309a269cd8e7fd9c1b260a83512",
+        "byteCount": 81770
+      },
+      "typeLine": 461,
+      "constructionLine": 1842,
+      "type": "readonly Sha256Digest[]",
+      "construction": "graphFunctionAdmissions.map((value) => value.subjectDigest)"
+    },
+    "diagnostic": {
+      "name": "AssertionError",
+      "message": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 1\n",
+      "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 1\n\n    at exerciseOnce (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/diagnostic.mjs:121:10)\n    at async file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/late-retention-memory-localization-41/diagnostic.mjs:167:11"
+    },
+    "ownerRefusal": false
+  },
+  "command": {
+    "exitCode": 1,
+    "wallMs": 24718.498499976704,
+    "timedOut": false,
+    "truncated": false,
+    "pid": 22230,
+    "signal": null
+  },
+  "reachedBeforePremiseFailure": [
+    "nominal ProgramValidation through declaration closure/validation owners",
+    "one complete cold read, count check",
+    "selectValidatedRuntimeEventPrefix",
+    "admitted ExecutionBasis and same ProgramValidation ref",
+    "one exact parent GraphFunction",
+    "nominal materialized Graph with matching ref and digest",
+    "opened C_Call source cursor and admitted cursor guard",
+    "c_workflow source term"
+  ],
+  "notReached": [
+    "workflow C_Call/outcome rehydration",
+    "deriveRetainedCCallInputAtPrefix",
+    "target raw admission/output digest proof",
+    "deliberately held output",
+    "caller release/disposable context invalidation"
+  ],
+  "acquisitionProgress": {
+    "stage": "cold_acquisition_returned",
+    "at": "2026-10-07T13:47:15.283Z",
+    "eventCount": 200571,
+    "acquisitionWallMs": 22379.151292000002,
+    "memory": {
+      "label": "cold_acquisition_returned",
+      "elapsedMs": 22640.613624999998,
+      "rss": 3155902464,
+      "heapTotal": 1772617728,
+      "heapUsed": 1642637544,
+      "external": 1170126269,
+      "arrayBuffers": 1167716630,
+      "heapSizeLimit": 4496293888
+    }
+  },
+  "memorySamples": [
+    {
+      "label": "owners_loaded",
+      "elapsedMs": 6.645332999999994,
+      "rss": 175112192,
+      "heapTotal": 104841216,
+      "heapUsed": 34224048,
+      "external": 2441168,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888
+    },
+    {
+      "label": "before_one_cold_acquisition",
+      "elapsedMs": 261.37925,
+      "rss": 323059712,
+      "heapTotal": 217333760,
+      "heapUsed": 79678944,
+      "external": 2441208,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888
+    },
+    {
+      "label": "cold_acquisition_returned",
+      "elapsedMs": 22640.613624999998,
+      "rss": 3155902464,
+      "heapTotal": 1772617728,
+      "heapUsed": 1642637544,
+      "external": 1170126269,
+      "arrayBuffers": 1167716630,
+      "heapSizeLimit": 4496293888
+    },
+    {
+      "label": "cold_events_retained",
+      "elapsedMs": 22751.306,
+      "rss": 3029417984,
+      "heapTotal": 1630208000,
+      "heapUsed": 1478799056,
+      "external": 2436654,
+      "arrayBuffers": 27015,
+      "heapSizeLimit": 4496293888
+    }
+  ],
+  "sampledAllocations": {
+    "sampleCount": 24615,
+    "includesCollected": true,
+    "isLiveRetainerAttribution": false
+  },
+  "exactScopedProcessObservation": {
+    "observedAt": "2026-10-07T13:53:17.970914+00:00",
+    "command": "ps -p 22230 -o pid=,ppid=,pgid=,stat=,etime=,command=",
+    "exitCode": 1,
+    "output": "",
+    "meaning": "selected diagnostic PID absent in this bounded observation; no signal was sent"
+  },
+  "oldStoreConservation": {
+    "statAfter": {
+      "device": 16777231,
+      "inode": 467205895,
+      "byteCount": 1167689615,
+      "mtimeNs": "1791359951311203492"
+    },
+    "matchesPreparation": true,
+    "fullBytesAuthenticatedByOneExistingReader": true,
+    "secondFullHashRead": false
+  },
+  "preservedClosedRefs": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/freeze.json",
+      "sha256": "5cb11974914d70f139c615560d1876f4c03a37781d643cf8bb4f4e827d9597ed",
+      "byteCount": 5475
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/measurement.json",
+      "sha256": "b6fea58ecb0135c4b4b3d21e66b1ecc477bdf7b7999d65bcf59d2a3ff93a1948",
+      "byteCount": 31579
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-successor-execution-38/execution-freeze.json",
+      "sha256": "4be21730b60a651def6b0e5a0f6ed9d2070cf485304d2fb8c212872467df3015",
+      "byteCount": 46311
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/heap-retention-localization-39/preparation.json",
+      "sha256": "6bbc88e3560f973bb1bc0ff3d2dbdcec1f8a30a2caa5425a5eb1ca7b3c72f5ee",
+      "byteCount": 71981
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/full-prefix-memory-localization-40/selected-coordinate.json",
+      "sha256": "4afd6392625c596490e208030b57425d859bc399a4ae903adaf6564bfbfc0ddc",
+      "byteCount": 709
+    }
+  ],
+  "remainingRootCause": {
+    "native38": "heap SIGABRT established; exact late serialization caller/retainer unresolved",
+    "eventGrowth": "200571 events and 1167689615 physical bytes established; unnecessary amplification not proved",
+    "whyEarlierDiagnosticsDidNotClose": "39 bounded early/component inputs; 40 cold acquisition only; 41 local lookup failure before intended late call"
+  },
+  "claimExclusions": [
+    "no late-boundary memory result",
+    "no target owner refusal",
+    "no live retainer/leak conclusion",
+    "no runtime recovery/UAT credit",
+    "no Source/HOW/app/config/Git change",
+    "no retry or second acquisition"
+  ]
+}

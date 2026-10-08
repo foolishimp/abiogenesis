@@ -1,0 +1,29 @@
+{
+  "kind": "closed_installed_graph_proof_freeze",
+  "status": "CLOSED_PARTIAL_STOP",
+  "createdAt": "2026-10-08T08:00:29.073941+00:00",
+  "evidenceRows": 56,
+  "ledger": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/return.md",
+      "sha256": "61b5794e192037ffa9bcd987a369e65b53354f5b5da06ff32436063f1a0895a0",
+      "bytes": 1666
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/observations.json",
+      "sha256": "de7c38d8634d966c0256328e981e2f4255a57c13b40113354d2686e55bf7c05b",
+      "bytes": 5318
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/pins.json",
+      "sha256": "fdd308db2956e3bdc226e92dc7665a46c9d879d9074079bba00a7843486129ac",
+      "bytes": 15438
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-installed-graph-law-proof-81/failure-02/return.md",
+      "sha256": "61b5794e192037ffa9bcd987a369e65b53354f5b5da06ff32436063f1a0895a0",
+      "bytes": 1666
+    }
+  ],
+  "limits": "three installed Public negative refusals earned; declared positive origin not retained; actual HoG/fresh/P0/UAT unearned"
+}

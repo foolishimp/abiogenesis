@@ -1,0 +1,92 @@
+{
+  "status": "RECOVERED_SELECTED_ABANDONED_LOCK_AND_CLOSED",
+  "definition": "native-maintenance://abiogenesis/event-resource/recover@5",
+  "requestDigest": "sha256:c5d25f5667b1658f98cd9bfad944e29ef1d09ad173d27ecb45f082cf20cb9bb6",
+  "scopeDigest": "sha256:e7c043aa03dd8ccdf6f6c27e8b28be91bda212374ee79159e6068941c6f252ce",
+  "receiptDigest": "sha256:68e91cae91a556c80fc0dae8c3e06a73cc26f82c29a5c6ed35090b974e10e39a",
+  "executingOwner": {
+    "artifactRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-18/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "artifactDigest": "sha256:29ba81c26cbf22857d4be6150cd20386f0e843b18f7754bd5f738e298fc8e63e",
+    "manifestDigest": "sha256:d312a6b1a6f885969f754e34468f16599e9466b41d338b0cc8ec4b63c3f9310f",
+    "packageExport": "./abg",
+    "namedSymbol": "recoverInterruptedAbgEventResource"
+  },
+  "actualSDKvalidatedEventCount": 165617,
+  "sameCloseHandoff": true,
+  "selectedLockAbsent": true,
+  "log": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 467374253,
+    "byteCount": 1182449986,
+    "digest": "sha256:9e3ee0a5a2a8480b6e7589ea36e1a43c91fb309834a8d3560f8c5cd74c096cc6",
+    "mtimeNs": "1791404494476866055"
+  },
+  "logDigestProof": "ExistingSDK full physical validation thennormalclose; no secondfullhash",
+  "command": {
+    "exitCode": 0,
+    "signal": null,
+    "wallMs": 46274.396583,
+    "timedOut": false,
+    "truncated": false
+  },
+  "stageMemory": {
+    "before": {
+      "rss": 435011584,
+      "heapTotal": 286425088,
+      "heapUsed": 149486016,
+      "external": 34928785,
+      "arrayBuffers": 32542887
+    },
+    "complete": {
+      "rss": 3679404032,
+      "heapTotal": 2174697472,
+      "heapUsed": 2055127248,
+      "external": 1184897574,
+      "arrayBuffers": 1182485267
+    },
+    "maxRSSKiB": 3595824
+  },
+  "claims": {
+    "eventAppend": false,
+    "replay": false,
+    "newRun": false,
+    "models": false,
+    "appEffect": false,
+    "runOrUATCredit": false,
+    "nativeMemoryP0Closed": false,
+    "defaultHeap": true
+  },
+  "preservedPriorControls": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/return.md",
+      "sha256": "bcd6c3c0ff1630e98e0ecddda78e4527ecb31665b052af5ade68e6a26ec159ba",
+      "byteCount": 1586
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/readiness.json",
+      "sha256": "c3764c8e49161f143ecb6c690b754610d92abd043f98011d749713d2c8405e43",
+      "byteCount": 5516
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/freeze.json",
+      "sha256": "dc2b09b9f0745144cc0946f6a9a4207f68f9f050d864026af9b377216948105e",
+      "byteCount": 41375
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-stopped-boundary-reproof-54/owned-process-exit.json",
+      "sha256": "65b9b72e88952d7681e338c39a2624fb4430ca94f4043a98b180c6d7480c7a38",
+      "byteCount": 323
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-18/freeze.json",
+      "sha256": "6f6ca96729a31f85c06adc07d6c7f0a47dbbd39e0747dff4b1b1f527345907c2",
+      "byteCount": 6716
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-07T16-33-17-178Z-f2d84807-13bb-42b7-969d-5346b13fc665/final-close-handoff.json",
+      "sha256": "544bd0a03f7b68d0758cf8d1fea67496997953f3b84c996258dd48c3f169e35d",
+      "byteCount": 1472
+    }
+  ]
+}

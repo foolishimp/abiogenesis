@@ -109,6 +109,45 @@ stateDiagram-v2
 ```
 The state view describes pure transforms, not persisted runtime states. Every sequence participant is the same owner/external Author in the domain table; publication has build effects only. Shape/schema changes invalidate affected native declarations, serialization, catalog digests and packed proof; changed Program/basis invalidates whole assessment, not unrelated original evidence.
 
+### 3.1 Shared Original Graph Structure And Continuation
+
+T-287 crosscut R03 selects `realization_refactor` under Product's Validation
+Contract, LAWS001/010/014 and PROGRAM-TRAVERSAL004–006. The original
+`GraphTemplate` owns unique node/edge identities, exact start/terminal members,
+resolved endpoints, no terminal outgoing edge and one ordinary nonterminal
+outgoing edge. Existing `graph_construction` owns the shared pure check;
+`source_path` consumes its ordinary continuation relation. A declared
+registered-selection source retains its fixed workflow target domain and its
+existing separate evaluator/policy validation. C.batch fan-out, substitution,
+recursion and C-local continuation retain their existing owners.
+
+```mermaid
+sequenceDiagram
+  participant Author
+  participant Raw as RawAdmission
+  participant Law as GTL graph_construction
+  participant Validator as WholeProgramValidator
+  participant Graph as Materialization
+  Author->>Raw: original GraphFunction / ModulePublication
+  Raw->>Law: checked template, after existing C-local checks
+  Law-->>Raw: same value or original structural refusal
+  Raw->>Validator: branded original Program/publication
+  Validator->>Law: original templates and existing diagnostic path
+  Validator-->>Graph: exact identity-bearing validated original
+  Graph->>Law: original template before materialization
+```
+
+No normalization may remove duplicate nodes or invent edges. Constructors,
+raw admission, publication/Program validation and materialization consume the
+same check at their existing boundaries; they retain their existing refusal
+envelopes and earlier guard precedence. The internal helper is not a Public
+export. No outer-input/start-carrier rule, lowered graph or new authority is
+introduced. Proof binds the released corpus and three original-graph mutants,
+plus lawful composition/substitution/selection/fan-out, to the actual owners.
+Isolated strict compile and pure checks earn no installed/runtime credit. The
+successor joint discriminator remains installed conformance/catalog refusal
+plus one lawful entry after independent acceptance and the joint normal build.
+
 ## 4. Required Publication And Proof
 
 | Required row identity | Current native address / exact located meaning |

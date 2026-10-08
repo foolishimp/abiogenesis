@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
-import { chmod, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { chmod, mkdtemp, readFile, realpath, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
+import { SourceTextModule, SyntheticModule } from "node:vm";
 import process from "node:process";
 import test from "node:test";
 
@@ -14,7 +16,8 @@ import {
   validateActorProcessCarrierPair,
 } from "../../build/code/src/abg/index.js";
 import { canonicalJson } from "../../build/code/src/shared/canonical_json.js";
-import { sha256Bytes } from "../../build/code/src/shared/digests.js";
+import { sha256Bytes, sha256Canonical } from "../../build/code/src/shared/digests.js";
+import { isNativeWorkerResultAssessment } from "../../build/code/src/abg/transport_contracts.js";
 import { nativeWorkspaceWorkReportSchema } from "../../build/code/src/product/native_workspace_work.js";
 import { parseNativeWorkspaceAssessmentResult } from "../../build/code/src/product/native_workspace_assessment.js";
 import { createWorkerTransportOutputObserver } from "../../build/code/src/abg/worker_transport.js";
@@ -317,7 +320,7 @@ test("M5 Bash tool identity ignores only optional string description metadata", 
     name,
     ...(includeInput ? { input } : {}),
   });
-  const actorValidation = (result, label) => {
+  const actorValidation = (result, label, requestFields = {}) => {
     const request = {
       actorRef: "actor://abiogenesis/test/bash-tool-identity@5",
       workerBindingRef: "worker-binding://abiogenesis/test/bash-tool-identity@5",
@@ -330,6 +333,7 @@ test("M5 Bash tool identity ignores only optional string description metadata", 
       transportLane: "worker_executes",
       prompt: "capture exact Bash tool identity",
       responseJsonSchema: { type: "object" },
+      ...requestFields,
     };
     return validateActorProcessCarrierPair(request, {
       actorInvocationRef: `actor-invocation://abiogenesis/test/${label}`,
@@ -396,6 +400,10 @@ test("M5 Bash tool identity ignores only optional string description metadata", 
     assert.equal(Object.hasOwn(result.toolInvocations[0], "input"), false);
   }
   assert.equal(actorValidation(commandOnly, "command-only").disposition, "valid");
+  assert.equal(actorValidation(commandOnly, "selected-result-text", {responsePresentation:"result_text"}).disposition, "valid");
+  for (const value of ["structured_output", null, undefined, true]) {
+    assert.equal(actorValidation(commandOnly, "invalid-presentation", {responsePresentation:value}).code, "invalid_actor_process_request");
+  }
   assert.equal(actorValidation(described, "description").disposition, "valid");
   assert.match(await readFile(described.artifacts.stdout.path, "utf8"), new RegExp(description, "u"));
   assert.match(await readFile(described.artifacts.transport.path, "utf8"), new RegExp(description, "u"));
@@ -582,6 +590,80 @@ test("M5 closed-prompt proof does not misclassify declared StructuredOutput as a
   assert.equal(undeclared.disposition, "failure");
   assert.equal(undeclared.failureClass, "contract_failure");
   assert.equal(undeclared.toolCallCount, 1);
+});
+
+test("M5 selected result text cannot admit a valid file without its final carrier", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-selected-result-carrier-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const schema = { $schema: "https://json-schema.org/draft/2020-12/schema", type: "object", additionalProperties: false,
+    required: ["kind", "count"], properties: { kind: { const: "bounded_verdict" }, count: { type: "integer", minimum: 0 } } };
+  const verdict = { kind: "bounded_verdict", count: 1 }, text = JSON.stringify(verdict);
+  const workerPath = join(scratch, "result-carrier-fixture.mjs");
+  await writeFile(workerPath, [
+    "import {writeFileSync} from 'node:fs';",
+    "process.stdin.resume();",
+    "process.stdin.on('end', () => {",
+    "  const [outputPath, finalText, fileText] = process.argv.slice(2, 5);",
+    "  writeFileSync(outputPath, fileText);",
+    "  console.log(JSON.stringify({type:'result', subtype:'success', is_error:false, result:finalText}));",
+    "});",
+  ].join("\n"), "utf8");
+  const inputDigest = sha256Bytes("component native input"), resultContractRef = "contract://component/bounded-verdict";
+  const assess = output => {
+    const parsed = parseNativeWorkspaceAssessmentResult(schema, output);
+    const disposition = output.trim().length === 0 ? "absent" : parsed === null ? "rejected" : "admitted";
+    // Resolution/capability authority is a supplied lower component premise;
+    // the process, carrier observer and strict native schema parser execute.
+    let verification = null;
+    if (disposition === "admitted") {
+      const digest = sha256Bytes("component authority");
+      const body = { contractCapabilityBasis: { installId: "component-install", implementationSetRef: "component-set",
+        implementationSetDigest: digest, publicationDigest: digest }, implementationResolutionDigest: digest,
+        implementationRef: "component-native-owner", inputContractRef: "contract://component/input",
+        targetOutputContractRef: "contract://component/observation", instructionContractRef: "contract://component/instruction",
+        rawResultContractRef: resultContractRef, inputDigest, rawResultDigest: sha256Canonical(parsed) };
+      const verificationDigest = sha256Canonical(body);
+      verification = { kind: "verified_probabilistic_result_contract_preimage", schemaVersion: "5.0.0",
+        verificationRef: `probabilistic-result-contract-preimage://abiogenesis/${verificationDigest.slice(7)}`,
+        verificationDigest, ...body };
+    }
+    const assessment = { kind: "native_worker_result_assessment", schemaVersion: "5.0.0", resultContractRef, inputDigest,
+      rawOutputDigest: sha256Bytes(output), disposition, verification };
+    assert.equal(isNativeWorkerResultAssessment(assessment, output, resultContractRef, inputDigest), true);
+    return assessment;
+  };
+  for (const c of [
+    { label: "selected-absent", presentation: "result_text", schema, finalText: "", disposition: "absent", failure: "no_output" },
+    { label: "selected-present", presentation: "result_text", schema, finalText: text, disposition: "admitted", failure: null },
+    { label: "omitted-file", finalText: "", disposition: "admitted", failure: null },
+    { label: "structured-absent", schema, finalText: text, disposition: "absent", failure: "no_output" },
+  ]) {
+    const outputPath = join(scratch, "archive", `${c.label}-output.txt`);
+    const contract = constructKnownWorkerTransportContract("claude", {
+      command: process.execPath, prefixArgs: [workerPath, "{output_path}", c.finalText, text], environment: {},
+    });
+    let assessedOutput = null;
+    const result = await runWorkerTransport({ contract, prompt: "assess the exact supplied candidate", lane: "worker_executes",
+      cwd: scratch, archiveRoot: join(scratch, "archive"), label: c.label, timeoutMs: 10_000, environment: {},
+      ...(c.schema === undefined ? {} : { responseJsonSchema: c.schema }),
+      ...(c.presentation === undefined ? {} : { responsePresentation: c.presentation }),
+      observer: { assessNativeResultArtifact: output => { assessedOutput = output; return assess(output); } } });
+    const expectedOutput = c.disposition === "absent" ? "" : text;
+    assert.equal(result.args.includes("--json-schema"), c.schema !== undefined && c.presentation === undefined, c.label);
+    assert.equal(assessedOutput, expectedOutput, c.label);
+    assert.equal(result.nativeResultAssessment.disposition, c.disposition, c.label);
+    assert.equal(result.disposition, c.failure === null ? "success" : "failure", c.label);
+    assert.equal(result.failureClass, c.failure, c.label);
+    assert.equal(result.finalOutput, expectedOutput, c.label);
+    assert.equal((await readFile(outputPath)).toString("utf8"), expectedOutput, c.label);
+  }
+  const conflict = constructKnownWorkerTransportContract("claude", { command: process.execPath,
+    prefixArgs: [workerPath, "{output_path}", text, JSON.stringify({ ...verdict, count: 2 })], environment: {} });
+  await assert.rejects(runWorkerTransport({ contract: conflict, prompt: "preserve conflicting output refusal", lane: "worker_executes",
+    cwd: scratch, archiveRoot: join(scratch, "archive"), label: "selected-conflict", timeoutMs: 10_000,
+    responseJsonSchema: schema, responsePresentation: "result_text", environment: {},
+    observer: { assessNativeResultArtifact: () => assert.fail("conflicting carriers must refuse before native assessment") } }),
+  /distinct worker output channels disagree/);
 });
 
 test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (context) => {
@@ -772,6 +854,72 @@ test("M5 ABG transport excludes semantic output emitted after its timeout bounda
   assert.equal(result.artifacts.output.byteLength, 0);
 });
 
+test('owned process groups retain descendant cleanup after normal and TERM leader exits', {
+  skip: process.platform === 'win32', timeout: 20_000,
+}, async t => {
+  const scratch = await realpath(await mkdtemp(join(tmpdir(), 'abi5-owned-group-')));
+  t.after(() => rm(scratch, { recursive: true, force: true }));
+  // Expose only the existing compiled private command owner in this test VM.
+  // Its function body and imported owners are unchanged; helper main is not run.
+  const modulePath = resolve(import.meta.dirname, '../../build/code/src/implementation/worksite_command_helper.js');
+  const source = (await readFile(modulePath, 'utf8')).replace(/await main\(\);\s*$/u, 'export { runCommand };');
+  assert.match(source, /export \{ runCommand \};$/u);
+  const priorSignals = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));
+  const module = new SourceTextModule(source, { identifier: modulePath });
+  await module.link(async specifier => {
+    const imported = await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(modulePath), specifier)).href);
+    return new SyntheticModule(Object.keys(imported), function () {
+      for (const [name, value] of Object.entries(imported)) this.setExport(name, value);
+    });
+  });
+  await module.evaluate();
+  t.after(() => { for (const [signal, prior] of priorSignals) for (const listener of process.listeners(signal))
+    if (!prior.includes(listener)) process.removeListener(signal, listener); });
+  const alive = pid => { try { process.kill(pid, 0); return true; } catch (error) {
+    if (error.code === 'ESRCH') return false; throw error;
+  } };
+  for (const owner of ['worker', 'command']) for (const mode of ['normal', 'TERM']) {
+    const label = `${owner}-${mode}`, ready = join(scratch, `${label}-descendant.json`), leaderFile = join(scratch, `${label}-leader.json`);
+    const descendant = join(scratch, `${label}-descendant.mjs`), leader = join(scratch, `${label}-leader.mjs`);
+    await writeFile(descendant, `import {writeFileSync} from 'node:fs';\nprocess.on('SIGTERM',()=>{});\nwriteFileSync(${JSON.stringify(ready)},JSON.stringify({pid:process.pid,ppid:process.ppid}));\nsetInterval(()=>{},1000);\n`);
+    await writeFile(leader, `import {spawn} from 'node:child_process';\nimport {existsSync,writeFileSync} from 'node:fs';\nwriteFileSync(${JSON.stringify(leaderFile)},JSON.stringify({pid:process.pid}));\nconst child=spawn(process.execPath,[${JSON.stringify(descendant)}],{stdio:'ignore'});child.unref();\nconst wait=setInterval(()=>{if(!existsSync(${JSON.stringify(ready)}))return;clearInterval(wait);process.stdout.write('ready\\n');${mode === 'normal' ? 'process.exit(0);' : 'setInterval(()=>{},1000);'}},5);\n`);
+    let leaderPid = null, result, signals = [];
+    t.after(async () => { if (leaderPid === null) {
+      try { leaderPid = JSON.parse(await readFile(leaderFile, 'utf8')).pid; }
+      catch (error) { if (error.code !== 'ENOENT') throw error; }
+    }
+      if (leaderPid !== null) { try { process.kill(-leaderPid, 'SIGKILL'); }
+        catch (error) { if (error.code !== 'ESRCH') throw error; } } });
+    if (owner === 'worker') {
+      result = await runWorkerTransport({ contract: constructKnownWorkerTransportContract('generic', {
+        command: process.execPath, prefixArgs: [leader], environment: {} }), prompt: 'owned group test', lane: 'worker_executes',
+        cwd: scratch, archiveRoot: join(scratch, 'archives'), label, timeoutMs: 700, absoluteTimeoutMs: 1500,
+        terminationGraceMs: 150, environment: {}, observer: { onProcessStarted: pid => { leaderPid = pid; },
+          onSignalRequested: signal => signals.push(signal) } });
+      assert.equal(result.exitObserved, true);
+      assert.equal(result.status, mode === 'normal' ? 0 : null);
+      assert.equal(result.signal, mode === 'normal' ? null : 'SIGTERM');
+    } else {
+      const task = { commands: [{ commandId: `command://fixture/${label}`, executable: process.execPath, args: [leader],
+        relativeCwd: '.', environment: [], timeoutMs: 700, terminationGraceMs: 150, expectedReports: [] }] };
+      result = await module.namespace.runCommand(task, scratch, 0);
+      leaderPid = JSON.parse(await readFile(leaderFile, 'utf8')).pid;
+      signals = result.signalSequence;
+      assert.equal(result.exitStatus, mode === 'normal' ? 0 : 124);
+      assert.equal(result.processSignal, mode === 'normal' ? null : 'SIGTERM');
+    }
+    const child = JSON.parse(await readFile(ready, 'utf8'));
+    assert.equal(child.ppid, leaderPid, 'actual redirected-stdio descendant belongs to this leader');
+    assert.equal(result.timedOut, mode === 'TERM');
+    assert.deepEqual(signals, ['SIGTERM', 'SIGKILL']);
+    // A surviving zombie/group probe is residue, not a false group-gone claim.
+    assert.equal(result.terminationConfirmed, !alive(-leaderPid));
+    if (alive(child.pid)) { try { process.kill(-leaderPid, 'SIGKILL'); }
+      catch (error) { if (error.code !== 'ESRCH') throw error; }
+      t.diagnostic(`${label}: owned group remains probe-visible; result correctly retains unconfirmed cleanup.`); }
+  }
+});
+
 test("M5 ABG transport excludes descendant output emitted after direct-process exit", async (context) => {
   const scratch = await mkdtemp(join(tmpdir(), "abi5-post-exit-output-"));
   context.after(async () => rm(scratch, { force: true, recursive: true }));
@@ -829,9 +977,9 @@ test("M5 ABG transport excludes descendant output emitted after direct-process e
   assert.equal(result.exitObserved, true);
   assert.deepEqual(observedExits, [{ status: 47, signal: null }]);
   assert.equal(timeoutObservations, 0);
-  assert.deepEqual(requestedSignals, []);
+  assert.deepEqual(requestedSignals, ["SIGTERM"]);
   assert.equal(result.finalOutput, "");
   assert.equal(result.structuredEventCount, 0);
-  assert.match(result.stdout, /late_exit_output/u);
+  assert.doesNotMatch(result.stdout, /late_exit_output/u);
   assert.equal(result.artifacts.output.byteLength, 0);
 });

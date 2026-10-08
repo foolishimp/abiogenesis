@@ -1,0 +1,91 @@
+{
+  "classification": "bounded_deterministic_unpublished_package_readiness",
+  "identity": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/identity.json",
+    "sha256": "cc33dc1f37ba071b043d7e295350dfc0cf9c7606810e6bee89d5f96a748c3c7b",
+    "byteCount": 4344
+  },
+  "candidateFreeze": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/freeze.json",
+    "sha256": "75c83798350a4c06e5b7efb515a7ed3fef9851acce355d99afb402410f153b4f",
+    "byteCount": 6938
+  },
+  "checks": [
+    {
+      "exitCode": 0,
+      "wallMs": 3428.742459,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "label": "pack",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/commands/pack.result.json",
+        "sha256": "1f4cd723487355bc9dcf882f2ddcd039e3b8ae520db2dc94a13c9a42e1dcb643",
+        "byteCount": 762050
+      }
+    },
+    {
+      "exitCode": 0,
+      "wallMs": 676.715458,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "label": "member-comparison",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/commands/member-comparison.result.json",
+        "sha256": "7efe55c3fd5ea1a0d94884abcd21a7a6efa28c5b51b36cf7f664b0b5b4462232",
+        "byteCount": 2293
+      }
+    },
+    {
+      "exitCode": 0,
+      "wallMs": 489.830916,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "label": "extract",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/commands/extract.result.json",
+        "sha256": "a44b343e6bae1474d57b9481500c8cd4bda928fb8794c2a92f65b526e9853d36",
+        "byteCount": 688
+      }
+    },
+    {
+      "exitCode": 0,
+      "wallMs": 62231.473916,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "label": "packaged-owner",
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/commands/packaged-owner.result.json",
+        "sha256": "40875aa9cc0e2e3290954514eb6c966ac1bff88054c3bea468332bba5cc55062",
+        "byteCount": 1192
+      }
+    }
+  ],
+  "sourceBlindOwnerWallMs": 21362.531375,
+  "sourceBlindCheckedPayloadFiles": 5263,
+  "selectedInputCount": 1223,
+  "allSelectedInputsConserved": true,
+  "exactDeltaCount": 28,
+  "memberPathsTypesModesCount": 5265,
+  "publicIdentityFieldConsequences": 446,
+  "contributionIdentityConsequences": 62,
+  "completeCanonicalOwnerDerivation": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-20/catalog-owner-derivation.json",
+    "sha256": "01086b73609e4bf6423a1e339e6b46428e89a694d990cf1b03b1d53ad388e299",
+    "byteCount": 2246
+  },
+  "reusedSourceGeneration75": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/crosscut-command-budget-build-75/freeze.json",
+    "sha256": "80cc0615036f15be45c04591335a0ec65f7946075feea7e0a87aeac15b6adca4",
+    "byteCount": 18394
+  },
+  "premiseCorrections": [],
+  "residuals": [
+    "Draft publication review and Root conjunction pending; no install/release/qualification.",
+    "R04/R05 actual installed composition driver82 prepared but not executed.",
+    "Original native memory P0 and original full DataMapper UAT remain open; no app/material/old-Run effect."
+  ]
+}

@@ -1,0 +1,102 @@
+--- preimage/runner.mjs
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs
+@@ -15,6 +15,11 @@
+   const file=fixturePath(root,path);await mkdir(dirname(file),{recursive:true});
+   await writeFile(file,raw?value:JSON.stringify(value,null,2)+'\n',{flag:'wx'});
+   return file;
++}
++export async function readOracleEvents(owner,prefix,record) {
++  const events=owner.readRuntimeEventsAtDurablePrefix(prefix);
++  await record('runtime-event-prefix.json',prefix);
++  return events;
+ }
+ export async function newArchive(root,key) {
+   if(!/^[a-z0-9][a-z0-9-]*$/u.test(key))throw new TypeError('Invalid archive scenario identity');
+@@ -317,8 +322,7 @@
+     const prepared=await constructLifecycleCall(caller,input);await record('prepared-definition-call.json',prepared.call);
+     if(mode==='prepare')return summary={...summary,status:'prepared',reason:'Clean Public install and generic lifecycle request resolved; no provider dispatch or UAT result'};
+     const execution=await invokeLifecycle(caller,installations,prepared.call,workerEnvironment(config));
+-    const events=runtime.abg.readRuntimeEventsAtDurablePrefix(caller.state.closeHandoff.prefix);
+-    await record('runtime-events.json',events);
++    const events=await readOracleEvents(runtime.abg,caller.state.closeHandoff.prefix,record);
+     const reads=await freshReadbacks(caller,execution);await record('fresh-readback.json',reads);
+     const sourceChecks=[];
+     for(const source of selected.sources)sourceChecks.push({path:source.path,expected:source.digest,observed:digest(await readFile(fixturePath(effective.worksiteRoot,source.path)))});
+--- preimage/harness.test.mjs
++++ /Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs
+@@ -7,15 +7,74 @@
+ import * as product from '../../build/code/src/product/index.js';
+ import * as c2 from '../../build/code/src/product/worksite_command_execution.js';
+ import * as abg from '../../build/code/src/abg/index.js';
++import * as storeOwner from '../../build/code/src/abg/event_store.js';
+ import * as gtl from '../../build/code/src/gtl/index.js';
+ import { assessmentSelection, consumerDeclaration, IDS } from './consumer.mjs';
+ import { constructLifecycleCall } from './public-setup.mjs';
+ import { acquireArchivedScenario, acquireScenario, constructWorkloadInput, digest, fixturePath, loadScenarios, selectScenarios, snapshotScenario } from './scenarios.mjs';
+-import { acquireResumeMaterial, applyCommandTimeoutOverrides, commandRecorder, configuration, exclusiveRecord, freshReadbacks, invokeLifecycle, main, newArchive, transferResumeMaterial, workerEnvironment } from './runner.mjs';
++import { acquireResumeMaterial, applyCommandTimeoutOverrides, commandRecorder, configuration, exclusiveRecord, freshReadbacks, invokeLifecycle, main, newArchive, readOracleEvents, transferResumeMaterial, workerEnvironment } from './runner.mjs';
+ 
+ const fixtures=fileURLToPath(new URL('../fixtures/sandbox-uat/',import.meta.url));
+ const archives=fileURLToPath(new URL('../../../../../.ai-workspace/work/T287_SANDBOX_UAT_01/harness/unit-runs/',import.meta.url));
+ const policyUnits=process.env.ABI5_UAT_UNIT_ROOT??archives;
++async function oracleEventFixture(t) {
++  const scratch=await newArchive(policyUnits,'oracle-event-prefix'),eventLogPath=join(scratch.path,'events.jsonl');
++  const acquired=storeOwner.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath});
++  assert.ok('store'in acquired);t.after(()=>acquired.store.closeDurableLog());
++  // The same ordinary raw-prefix fixture used by ordered reconstruction:
++  // actual admission/stamps/physical authentication; no native UAT claim.
++  const candidate=suffix=>({kind:'public_operation_admitted',eventTime:'2026-09-19T20:00:00.000Z',
++    aggregateType:'workspace',aggregateId:'invocation://ordered/'+suffix,parentAggregateId:null,causationEventRefs:[],
++    correlationId:'correlation://ordered/'+suffix,workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'basis://ordered/held',
++    payload:{invocationDigest:product.sha256Canonical(suffix),invocationRef:'invocation://ordered/'+suffix,
++      operationId:'abg.operation.project.read',variant:'status'}});
++  let prefix=acquired.prefix;
++  for(const suffix of ['first','second'])prefix=storeOwner.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(acquired.store,prefix,
++    ()=>storeOwner.admitRuntimeEvent(acquired.store,candidate(suffix))).successorPrefix;
++  return {root:scratch.path,prefix:structuredClone(prefix),expected:acquired.store.readAll(),eventLogPath};
++}
++test('Oracle event acquisition records the authentic prefix without serializing or changing complete owner events',async t=>{
++  const f=await oracleEventFixture(t),before=await readFile(f.eventLogPath),steps=[];
++  let returned;
++  const owner={readRuntimeEventsAtDurablePrefix(prefix) {
++    assert.equal(prefix,f.prefix);steps.push('owner-read');
++    const decoded=abg.readRuntimeEventsAtDurablePrefix(prefix);
++    // A serialization sentinel is the only reader double: all underlying
++    // events are the actual cold-decoded owner values, in their original order.
++    returned=new Proxy(decoded,{get(target,key,receiver) {
++      if(key==='toJSON')assert.fail('Hydrated event vectors must not be serialized by the caller');
++      return Reflect.get(target,key,receiver);
++    }});
++    return returned;
++  }};
++  const record=async(path,value)=>{
++    assert.equal(path,'runtime-event-prefix.json');assert.equal(value,f.prefix);steps.push('prefix-record');
++    return exclusiveRecord(f.root,path,value);
++  };
++  const events=await readOracleEvents(owner,f.prefix,record);
++  assert.equal(events,returned);assert.deepEqual([...events],f.expected);
++  assert.deepEqual(events.map(event=>event.admissionOrdinal),[1,2]);
++  assert.deepEqual(steps,['owner-read','prefix-record']);
++  const path=join(f.root,'runtime-event-prefix.json'),bytes=await readFile(path);
++  assert.deepEqual(JSON.parse(bytes),f.prefix);
++  await assert.rejects(readFile(join(f.root,'runtime-events.json')),error=>error.code==='ENOENT');
++  await assert.rejects(readOracleEvents(owner,f.prefix,record),error=>error.code==='EEXIST');
++  assert.deepEqual(await readFile(path),bytes);assert.deepEqual(await readFile(f.eventLogPath),before);
++});
++test('Oracle event acquisition preserves owner refusals and archive errors without writing alternate event evidence',async t=>{
++  const f=await oracleEventFixture(t),bad={...f.prefix,prefixDigest:'sha256:'+'0'.repeat(64)};
++  let refused;
++  const owner={readRuntimeEventsAtDurablePrefix(prefix) {
++    try{return abg.readRuntimeEventsAtDurablePrefix(prefix);}catch(error){refused=error;throw error;}
++  }};
++  await assert.rejects(readOracleEvents(owner,bad,()=>assert.fail('A refused owner read cannot record evidence')),error=>{
++    assert.equal(error,refused);assert.equal(error.code,'event_envelope_invalid');return true;
++  });
++  const recordFailure=new Error('controlled exclusive archive failure');
++  await assert.rejects(readOracleEvents(abg,f.prefix,()=>{throw recordFailure;}),error=>error===recordFailure);
++  await assert.rejects(readFile(join(f.root,'runtime-event-prefix.json')),error=>error.code==='ENOENT');
++  await assert.rejects(readFile(join(f.root,'runtime-events.json')),error=>error.code==='ENOENT');
++});
+ test('Caller execution policy omits optional actor caps, retains explicit positive flags and rejects invalid caps',async()=>{
+   const scratch=await newArchive(policyUnits,'optional-actor-bounds');
+   const base=await configuration(fileURLToPath(new URL('./config.example.json',import.meta.url)));

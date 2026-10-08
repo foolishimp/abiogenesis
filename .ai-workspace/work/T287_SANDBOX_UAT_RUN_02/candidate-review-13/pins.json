@@ -1,0 +1,1096 @@
+{
+  "review": "Reviewer13 independent identity/Proof",
+  "status": "CLOSED_GO_IDENTITY_ONLY",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-worksite-causality",
+  "standardManifestSha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+  "ProductFrame": "Fixed15 ABI5.0/GOAL035 T287;external sixHello thenfullDataMapper;GTLsource/HoGtraversal/ABGexclusive runtime;no rivalcontroller/builtinworkload",
+  "subjectClass": [
+    "immutableSource",
+    "derivedBuild",
+    "immutableArchive",
+    "observationReceipt"
+  ],
+  "identityReuse": "Exact CLOSED candidate-review-12, including exact membership/modes versus10; fresh13vs12 delta and canonical owner joins",
+  "sourcePopulation": 263,
+  "conservationRows": 355,
+  "compiledContractRows": 720,
+  "sourceOverlay": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "4afa1aaca9bdeee51af306fd6820af63a578f5ddc4df71c1ec8cd7d89a5d77d0",
+      "byteCount": 31672
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "6aea6974a3fdcb93423e06b3836f085c090288bea2067eb40270e6e43c8163e3",
+      "byteCount": 45417
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "fd171b5ab38d617bcaf354641ccfa73061ad5f805ad05b752172d0384ef95e63",
+      "byteCount": 94105
+    }
+  ],
+  "compiledOverlay": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/default_library.js",
+      "sha256": "1f3ae4ed5625210ae871b594d7658532c399e3a8506bae624ab5685268719432",
+      "byteCount": 31471,
+      "preimageSha256": "1010779075624b8fa969aabd96d46ce3cd19a4843ca73999e3073475e9a2b977"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "e5569945411d5f302bc9b8bcca9f460f44bc954f3a440bfa584f14319f1fe749",
+      "byteCount": 197474,
+      "preimageSha256": "f238ebaf72a492afbb7c73036104e0c33bd716093307315724c891aa2c746885"
+    }
+  ],
+  "packedFiles": 5265,
+  "pathsModesExactTo12": true,
+  "archiveDelta": [
+    {
+      "path": "build/code/src/abg/default_library.js",
+      "preimageSha256": "1010779075624b8fa969aabd96d46ce3cd19a4843ca73999e3073475e9a2b977",
+      "sha256": "1f3ae4ed5625210ae871b594d7658532c399e3a8506bae624ab5685268719432",
+      "byteCount": 31471,
+      "mode": 420
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "preimageSha256": "f238ebaf72a492afbb7c73036104e0c33bd716093307315724c891aa2c746885",
+      "sha256": "e5569945411d5f302bc9b8bcca9f460f44bc954f3a440bfa584f14319f1fe749",
+      "byteCount": 197474,
+      "mode": 420
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "preimageSha256": "c3d5c19360fb4bc5f03fcbc69d0ff17844f6b48782fd9530629641b716285145",
+      "sha256": "d699641dbdc18daf090516d19e901ad4b4a6df8928d9138045f0eb1be7f377ca",
+      "byteCount": 3171685,
+      "mode": 420
+    }
+  ],
+  "actualCanonicalOwnerJoins": {
+    "canonicalOwners": "PASS",
+    "content": "sha256:fa8c3044445c73fc6bb48a4c059f76a48aef48290764c8e1600064b822da89cb",
+    "manifest": "sha256:ce1273cba679513beaee225d41de6edfd756f7e1c983940323810607dd39a8b0",
+    "catalog": "sha256:e72953f7645ca343270157507a204a33c3681422af40c1b6c7250536c6283d65",
+    "contribution": "sha256:9fc73d8261815bc52e351f1835667c5d117f078f88d88ee4658eacf12b11671c",
+    "capability": "sha256:36eab455affc47aaa5b8fb54c2415d3aed84234bc68991066842ceb0109c11ce",
+    "payloads": 5263,
+    "publicRows": 75,
+    "operations": 18,
+    "members": 56,
+    "slots": 178,
+    "publications": 10,
+    "contributions": 47
+  },
+  "allWorkerScratchBytesMatchedToPackedTar": true,
+  "dependencyFixtureExclusions": [
+    {
+      "path": "node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+      "sha256": "c954f79d2fa7f4d9779a6e7514cdf8df1eeb95d0097ea62cd3b785d20f2d0859",
+      "byteCount": 9888
+    },
+    {
+      "path": "node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+      "sha256": "c10203102fee328d6c8aedbd03319b8eeb364417c3b1137d714537fcd3102d69",
+      "byteCount": 1688
+    },
+    {
+      "path": "node_modules/json-schema-traverse/spec/fixtures/schema.js",
+      "sha256": "0262591e321bc88b22dc33ec78bcded5ab664e2fce2c10b9e0c35d3eb6030d27",
+      "byteCount": 5544
+    }
+  ],
+  "ABGWorkloadExcluded": true,
+  "protectedPriorSealedCuts": [
+    "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T12-42-50-117Z-f84ddeea-42b5-4929-a2bf-861201afded8/summary.json",
+    "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/summary.json",
+    "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T12-42-50-117Z-f84ddeea-42b5-4929-a2bf-861201afded8/SEALED.json",
+    "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/SEALED.json"
+  ],
+  "sourceReview": "Separate CLOSED Source GO224da038\u2026/pinsc8459f7a\u2026; its frozen claim is not duplicated here",
+  "method": "Sequential in-memory tar; directly imported authenticated packed owning manifest/Public parser/digests/Public assets/capability constructors/publication definitions; source->emitted bridge binds actual closed build receipts/typed-owner Source review and exact source/emitted/packed digests, without rebuild or semantic proof",
+  "limits": [
+    "No actual13 installed admission/actors/C2/UAT/iteration/terminal/oracle/fullqualification/release claim",
+    "No old event/prompt corpus revalidation",
+    "Original current external request/scenarios/checker/config/caller bytes conserved; Source semantics remains separate",
+    "Worker build/unit evidence only; no Reviewer tests/build/package verification mutation fixtures or additional qualification gate"
+  ],
+  "files": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/return.md",
+      "sha256": "007a95f9562f672598e2e2c6b6506fce7d433d5211c6994b3bacfe71567b9c5d",
+      "bytes": 2254,
+      "role": "frozen-source-or-package"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/freeze.json",
+      "sha256": "c76117006a2e288b166770b3258c52023f6eeaa4e2c12fc2fc27dd5099313f95",
+      "bytes": 9560,
+      "role": "reacquired"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/identity.json",
+      "sha256": "3cd8b0446c8243c573a7c66e6db55572a45f906a7183c7f4261f638f76c0ddc9",
+      "bytes": 5546,
+      "role": "frozen-source-or-package"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-review-12/return.md",
+      "sha256": "bef5d6bb69aefd89f992b283141613dcd6cc2b752c1a6d2f9f4e974c1c899ff2",
+      "bytes": 3435,
+      "role": "reacquired"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-review-12/pins.json",
+      "sha256": "68c4f9b3c07e7977ae7becc57de6e69540485f4e11cf05c3fffd86317fa5dc59",
+      "bytes": 25501,
+      "role": "reacquired"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-source-review-13/return.md",
+      "sha256": "224da038018eec43c04ff72d290e58bce10a563ae5a7c3ae6f76a741f6ee1ed6",
+      "bytes": 5766,
+      "role": "reacquired"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-source-review-13/pins.json",
+      "sha256": "c8459f7ab8737046bee44cb644e6419be7b58390f1d2a02691808a03c3cdfcce",
+      "bytes": 20488,
+      "role": "reacquired"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/source-freeze.json",
+      "sha256": "c134b88715b8c9dec0c2134c48831ed664665f33a9be515c661279fe85edb24a",
+      "bytes": 11471,
+      "role": "frozen-source-or-package"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/source-return.md",
+      "sha256": "b76595353a75365780a71bc3499ff73cb45b04a0258b12215df5038a423b5b6d",
+      "bytes": 2582,
+      "role": "frozen-source-or-package"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "dd5e5b164af8198997b45d5575fc7febd43b4b9fcabc46073bdf8ffc7ce5904f",
+      "bytes": 10621478,
+      "role": "frozen-source-or-package"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/pack.receipt.json",
+      "sha256": "0333ab31fb22e3afbd734aa48aba209017fc122bda1e0301f002c75fd9bb8f35",
+      "bytes": 635,
+      "role": "frozen-source-or-package"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/owner-verification.json",
+      "sha256": "3bfb60ed45c1d27b3b126d66da2d07521591d9d36144636a53f40872b8763eed",
+      "bytes": 1800,
+      "role": "frozen-source-or-package"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/pack.json",
+      "sha256": "a686599415ab7b1970f3e57c2d40b3ad9d7abe5679efd6412852cd937138b2ab",
+      "bytes": 692700,
+      "role": "protected-or-closed-pack"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/pack.stderr.log",
+      "sha256": "995ba898ea6c438c69b4051c61200c45a0b4e4333e420210a400207a433d80d7",
+      "bytes": 211,
+      "role": "protected-or-closed-pack"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "bytes": 26202,
+      "role": "protected-or-closed-pack"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "bytes": 22857,
+      "role": "protected-or-closed-pack"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "a7c639158059ed39bdabde8825e1b03fcec7a470ebab26cec8246245ee8ca67b",
+      "bytes": 23083,
+      "role": "protected-or-closed-pack"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs",
+      "sha256": "725134872e906561faf0f70b95091e19019aac121e36b4a86e7158de3bf71bdd",
+      "bytes": 23452,
+      "role": "protected-or-closed-pack"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-10.json",
+      "sha256": "68c48ff4f8d0d5205e1543c3f62997e29db61c6797cbdff93e67a71c3eb28d27",
+      "bytes": 2328,
+      "role": "protected-or-closed-pack"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-10/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "8a82e3b62931b35af9dc655f31423cb07cb7c6b87dab7d2ddeb36ee42c40e2c6",
+      "bytes": 10620905,
+      "role": "protected-or-closed-pack"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/data-mapper-full/request.json",
+      "sha256": "d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
+      "bytes": 77648,
+      "role": "preserved-original-fixture"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "fae3231bad472ece6cf9e012921b73ffeb23773178f235f2762f16af05ce0d18",
+      "bytes": 34763,
+      "role": "preserved-original-fixture"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/freeze.json",
+      "sha256": "f4ef77f84c696340d91531068cbeadca47e03e4ae2766373bece71595f01341f",
+      "bytes": 7465,
+      "role": "protected-or-closed-pack"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-12/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "1db609e07dea01f675eb3296ecec50101ca765d5f2a8458f0c1c007edc0b9f9f",
+      "bytes": 10621282,
+      "role": "protected-or-closed-pack"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/source-freeze.json",
+      "sha256": "073b225542e546380f30dc1bd48b4af75a1451252b9abc9fa8c488ff1ba5d163",
+      "bytes": 17597,
+      "role": "frozen-source-or-package"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/source-return.md",
+      "sha256": "83c8802e6af28451ed0c50fd2bafbf12ff4cb5dfad7fff958bd8689518648ed1",
+      "bytes": 3065,
+      "role": "frozen-source-or-package"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/preimages.json",
+      "sha256": "59d1b62d8ebe96b4c40e92ec9c9c50b360fb213192d7ce92c514ee7701a845e0",
+      "bytes": 516,
+      "role": "frozen-source-or-package"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/source-conservation.json",
+      "sha256": "137ada6d948b54baaed897bd16037de20d841a039ad97fd02342b7bb17c20e04",
+      "bytes": 116242,
+      "role": "frozen-source-or-package"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/compiled-pins.json",
+      "sha256": "9337def2cb78152582c5f76a744ae77e851101c6fb93ff180fb215b03643072e",
+      "bytes": 154446,
+      "role": "frozen-source-or-package"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "d699641dbdc18daf090516d19e901ad4b4a6df8928d9138045f0eb1be7f377ca",
+      "bytes": 3171685,
+      "role": "frozen-source-or-package"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "6aea6974a3fdcb93423e06b3836f085c090288bea2067eb40270e6e43c8163e3",
+      "bytes": 45417,
+      "role": "exact13-postimage"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "fd171b5ab38d617bcaf354641ccfa73061ad5f805ad05b752172d0384ef95e63",
+      "bytes": 94105,
+      "role": "exact13-postimage"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/build.receipt.json",
+      "sha256": "025c078384b4a15b7a7d5d0924e6de9ee776922e83d9c19367ba181d1f0f4cc8",
+      "bytes": 347,
+      "role": "bounded-Worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/build.stdout.log",
+      "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+      "bytes": 215,
+      "role": "bounded-Worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/build.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "role": "bounded-Worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/default-library.receipt.json",
+      "sha256": "e665cbae6b9cb68ca309594d5fb365a1961a6ecf3994a95aaf77deb6f4d7aa28",
+      "bytes": 481,
+      "role": "bounded-Worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/default-library.stdout.log",
+      "sha256": "990128c4644354c8086b288143df65b64cd32894bdd84a984ce7e7d284364e83",
+      "bytes": 2003,
+      "role": "bounded-Worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-13/default-library.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "role": "bounded-Worker-readiness-only"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.receipt.json",
+      "sha256": "5f66db3ff1a516ddb151c8297c037c9d6b6df60a56826d5ed73f30bfa84c717e",
+      "bytes": 504,
+      "role": "preserved-original-fixture"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.stdout.log",
+      "sha256": "924606c41baf59f626f2e79f04a52d0107f4476af08409893f801a29dbe80391",
+      "bytes": 336,
+      "role": "preserved-original-fixture"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/selection-handoff-repair-12/fixture-acquisition.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "role": "preserved-original-fixture"
+    },
+    {
+      "path": "specification/INTENT.md",
+      "sha256": "5b237ef5ab24151f1be5fcdf968882a39daefc16bc5f51156296163cb3a72f3f",
+      "bytes": 16326,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "sha256": "6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6",
+      "bytes": 93690,
+      "role": "current-Product-frame"
+    },
+    {
+      "path": "specification/requirements/00-starter.md",
+      "sha256": "bc6fae43aa6fdaf0fd56a6245eefa83b233ed2cac3f9177efe3873b1e5ac7e84",
+      "bytes": 306,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/README.md",
+      "sha256": "4f364154780bd3b084e9af57e8d031cb021225ae46995837d719e560bf7c71a0",
+      "bytes": 7676,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/README.md",
+      "sha256": "421300265888d2332b80fefcd7931006fcb38d1be9cb4cae710348f3da98a44d",
+      "bytes": 3069,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-ASSURANCE.md",
+      "sha256": "fe8b38aa68686d3a14dd53db2e9cebc36163a99b16b6ccf76d4c8052a9cbb361",
+      "bytes": 10341,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-BINDING.md",
+      "sha256": "af6538e5bf717feeefc90a8becedac9f3556fc77ea4c149443fa2a9c4d5f3175",
+      "bytes": 7543,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-CCALL.md",
+      "sha256": "3db608b13aa61e13d68ecef484561d90aa3e1dfee3cba4b36fce1d913cd87502",
+      "bytes": 8926,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-CONTINUATION.md",
+      "sha256": "9ca0057a69fd3f399e0fa6903378c7e1766fbf70c21df827e8b62a8eabfa3916",
+      "bytes": 6297,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-CONVERGENCE.md",
+      "sha256": "03aa87426b46e9d58f81cadd926d98973a5c113a603195b0a73eb0586b57f902",
+      "bytes": 2695,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-CORRECTION.md",
+      "sha256": "d1d663f3011c127d85ac73440edb6d9c133c6e88f5f2291ebded68439b8c3edb",
+      "bytes": 1164,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-EVENTS.md",
+      "sha256": "0af6c1de267dc30e8c9f3148031e9b862487dfdb0cdf80a0657e1b496c8d3c55",
+      "bytes": 16630,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md",
+      "sha256": "5ff1c91698d5ba71f81bada072ecdc008cf1ef74e216af3b15126e56c7d666b1",
+      "bytes": 13365,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-FP-CONSCIOUSNESS.md",
+      "sha256": "3bbde7990ad1d5e779b75d2f592598f12471e93fed66ba487070c1d4d85aaeb6",
+      "bytes": 20151,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-FRAME.md",
+      "sha256": "36b200e1fc89e4b0a9c3f922e674c854505090fa911558d1b956b2350e287d51",
+      "bytes": 1422,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-GRAPHCALL.md",
+      "sha256": "7dfcdf946e649d846a42e640438598e13f119bfbfec3c2ab0ccf836a7dd9a045",
+      "bytes": 1546,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-HANDLERS.md",
+      "sha256": "11b1c61ecb52c11b2bbc047c019792139b9a80367f881bbddd5826a8e4189000",
+      "bytes": 6120,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md",
+      "sha256": "e09939e63164131f8dd8ea9a0a0030755897cce769d20cd719391b5d4140c32d",
+      "bytes": 12093,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-INTERPRET.md",
+      "sha256": "5c2a1cf2de4686deac3ba97863d88483bfa8aab5cd9141cda2f1f7b9dfecf7de",
+      "bytes": 7680,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-ITERATION.md",
+      "sha256": "39259a007bbe83cf57b16f042dd83018146d47831e45a767d4c22cb85e810e84",
+      "bytes": 6335,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-JOB-WORKER.md",
+      "sha256": "0b2c2105ea5b1808214f282672b2974d0faf43b0872022e0d9a64844bb716f15",
+      "bytes": 1207,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-LEAFTASK.md",
+      "sha256": "d54227e3c548004f8b80d76efd5d0283f52e5ce2d411c2addc4dce691adb08ce",
+      "bytes": 1588,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-LINEAGE.md",
+      "sha256": "968f97fd609aee04fed41160c65991683f0b113a1a3cb0b13898bc0017407fdc",
+      "bytes": 1437,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PAYLOAD.md",
+      "sha256": "a10a8edcd84e1e15115b1c66110ab0d66a5a34e61d0e849d4a375752675bf63e",
+      "bytes": 11203,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PLUGIN-SEAMS.md",
+      "sha256": "ad3b105c013f74d60bc32a2e4a56ec65e91d25a011ce0722f84a9f7e22947381",
+      "bytes": 6517,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-POLICY.md",
+      "sha256": "c6e41fb43aaede4a1e28e229bb93e8b8ccbddc48d84372390a1bbdbad5f480f6",
+      "bytes": 2343,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md",
+      "sha256": "1f1e638cef8992532242d17aa4bf5eea9a6e4aa1d4795582bc7e41a893855c65",
+      "bytes": 10959,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-PROVENANCE.md",
+      "sha256": "ef0caf7118426de7fcae3cdb1073e721cd770a85a7d7c58dec257f02f011efcb",
+      "bytes": 1542,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md",
+      "sha256": "372c99dc400cb5f6206ff4e1f9e3b47cc3ce0cf786700e6b2817cb82f97ddf22",
+      "bytes": 21645,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md",
+      "sha256": "78f19a03963a4f83540f25a5ae49490cabcbd200f219669dfd9a13ec72f44519",
+      "bytes": 15697,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-RETRY.md",
+      "sha256": "4fd1f4798487eb072d8afbe3e9aa8f70fedf425d681ae244eaba9c8874434307",
+      "bytes": 3157,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-RUN.md",
+      "sha256": "b7e548eebae47b078b5d54a7838692f736a2956321673bc62b58bd9608d03bd8",
+      "bytes": 2917,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md",
+      "sha256": "70a601490542b36b7e474bfd14f7dfd510a4cbe72fb37f16b49cd35d2f240eed",
+      "bytes": 7453,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-SELECTION-APPLICATION.md",
+      "sha256": "70b1e781d2e91bfaa08785cb4f39d21a3ab588a49ec3150943c18968c7f113b4",
+      "bytes": 2201,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-SELFHOSTING.md",
+      "sha256": "edcac76a57069c7d5b0aa2776546c3f404eb6774260f818ddfb99dc715fdfaae",
+      "bytes": 4840,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-SUPERVISOR-WITNESS.md",
+      "sha256": "f8104e0e932ad352e03c74df3a7cb26b8b20b9111116851c817c6a9a72159c71",
+      "bytes": 9837,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-TRANSPORT.md",
+      "sha256": "fe64f74f2c1bd08a9104c83f0d2d34899da8424e11b11bb98ed6cc59390efc96",
+      "bytes": 9354,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-TUNER.md",
+      "sha256": "fadea8385f24f9f4576406eff83c70eead0586f247661fab57f7dfb602012088",
+      "bytes": 7626,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/abg/REQ-R-ABG3-WORKER.md",
+      "sha256": "a4c1646e81e1f831cdd663d25347f07280b4602be577e9e0d594a499de4499ea",
+      "bytes": 2386,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/README.md",
+      "sha256": "3738823cf9e27c5dd6bec9cb0f400f52f9339b38b5aa1324ee93b19e7fa7333b",
+      "bytes": 3023,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-ASSET-SURFACE.md",
+      "sha256": "eeef3aa0369f7eefb18f79e79e66a727365520800c0c194bfba7fb2ae7db5c25",
+      "bytes": 4068,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-ATTRS.md",
+      "sha256": "9204569254a620bb78974512df974e16edfece2ea72dff47a07c14e1bd396807",
+      "bytes": 1391,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md",
+      "sha256": "4d76d0697ff5932d71a89b915f1cf079480d05429862b8d6a25c5dcb2cf46cf8",
+      "bytes": 14789,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-COMPOSE.md",
+      "sha256": "d6614b9a9e992fa3d8c07a977f9edeec83ac5c8893a60e859f1cc0a86342a89c",
+      "bytes": 2702,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-COMPUTE-NOTATION.md",
+      "sha256": "0c0f325ca423cbec7d7fc97a362f330e7dfb2d90e7024519cc0389c89dac2fcd",
+      "bytes": 12477,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-CONTEXT.md",
+      "sha256": "068a34859896cc5ec8bda0a34a9b8a4571f924cc243abf21a22a320410b35c1d",
+      "bytes": 4137,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md",
+      "sha256": "9cb518d14808535181b107d14a92d126f4b40b117343764582235eb318451675",
+      "bytes": 7701,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-EVALUATOR.md",
+      "sha256": "42036bb55c3aad49e6bc215e02842e1841de3b3a999653182becc6ff28b85069",
+      "bytes": 3326,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPH.md",
+      "sha256": "bd45b6b6d8ccb0b0c349d93427404344c04459c3ac1068877b3779a2c4917f93",
+      "bytes": 2507,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT.md",
+      "sha256": "212283db05bab5ecf94f5bd92eb2ff81c478476a62228c07771b3eb865ba4606",
+      "bytes": 3525,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPHFUNCTION.md",
+      "sha256": "f7bb484c846be606f0de3bd911066fb86014e8517f8ce0f14acba3690ffa5373",
+      "bytes": 6880,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-GRAPHVECTOR.md",
+      "sha256": "a8ae2a4496762081396ec42a514f6d3c422fd7fb0f8227cb6fab0eed4bde0da4",
+      "bytes": 7386,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-HOF.md",
+      "sha256": "8a39633b575ac4cf8b0f9d1ae2f9546cb22ea3e4c858ebd101b6ba9bd60c556c",
+      "bytes": 5096,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-HOOKS.md",
+      "sha256": "fc31e5211472bf6e929fba23288605a5e74af57fac8f469c07dc3c1586c2adc0",
+      "bytes": 6742,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-IDENTITY.md",
+      "sha256": "7235fc6d099971608994cabc98bcd4c5016f8f8b959904ace2e05a5564913249",
+      "bytes": 1605,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-INTERFACE.md",
+      "sha256": "e69bcd76af46eca21ee161f9f0128dd7e4cc531debbdbd9c6a346b43fbc4fe2f",
+      "bytes": 1379,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-JOB.md",
+      "sha256": "9e4efc269a0b856810116c70e6b9ed26ed2b61e4ebc4c3f309aaf5a74e5ca40b",
+      "bytes": 2019,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md",
+      "sha256": "d71d8b530f6efc1b611dcf0079ee03d8838de0cd083fdea5488c1274b8261c4a",
+      "bytes": 19343,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-LANGUAGE.md",
+      "sha256": "fdf36c5ed1a8272e8a253237c96719f5555d3fe84e38c3086e925815221e4412",
+      "bytes": 2862,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-LAWS.md",
+      "sha256": "8281ee62fe6139caf7e2f2245d2414f7993253f0bad3471bb3e6df00003c5d8f",
+      "bytes": 9060,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-MODULE.md",
+      "sha256": "c1b1f7644f59776854103b3f0bfab515e88ed444363b6f81f9bfc4cb83e0d27c",
+      "bytes": 1531,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-NODE.md",
+      "sha256": "d2e7d99595799498120a0a5b68a06067ed7269c387c4383310e3b59880885054",
+      "bytes": 4053,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-OPERATOR.md",
+      "sha256": "e327338bf8b9a49f1184e838b604eee6e7ff34811685bb609524fec3f9807549",
+      "bytes": 1287,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-RECURSE.md",
+      "sha256": "448addbc9f1b94f9b19be063c7068a59ed6b1f2d7fa3c222413ee450d371883c",
+      "bytes": 1677,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-REQUIREMENTS-ALGEBRA.md",
+      "sha256": "9bf74b1fc99629e8f8b2499bf3f7954ee5077df0c0a76cc7cb372c5e2696c4e1",
+      "bytes": 6346,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-ROLE.md",
+      "sha256": "6ef4b749ba5fa87f0ffabb4d0345b4f4a0c6e81517fb18608309e3d5ec89eb75",
+      "bytes": 1429,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-RULE.md",
+      "sha256": "e52d418e515d23a534848000f85900c326bc19a57e03c71708bcf37427b6c2cb",
+      "bytes": 1722,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md",
+      "sha256": "6d9ed61cbb2042ab58c9d0ec04eafd862af422d5fe4c28164921c69325a2a24c",
+      "bytes": 3930,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-SUBSTITUTE.md",
+      "sha256": "33519b9b578a792a72b9f059f8dc28b385497d28825e150a566e613b8909703a",
+      "bytes": 1531,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-SUBWORK.md",
+      "sha256": "ed4bc476d481b3406d9049087440e7ddd6926c249284a48a51e16fa60d5469de",
+      "bytes": 1398,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-SYNTHESIS.md",
+      "sha256": "a421c652fa49f71177ebac25b17e9a31a4b1b362ce81fc14f5f44322b24b6000",
+      "bytes": 2053,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/gtl/REQ-L-GTL3-TEMPORAL-PROPERTIES.md",
+      "sha256": "810a1d30eaba36232919e2a88360d6bce87040b5da22e2cb1ec5a460fe0899cf",
+      "bytes": 5892,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/mapping/README.md",
+      "sha256": "f51ebafa63c9e49d64ef212851e99879c770d85436a5717b10644993a889b47f",
+      "bytes": 515,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md",
+      "sha256": "c75598dcbbb4ad7e016f5b873b4e4f8a11c419ad938ce4ff1af90bd3c57747a0",
+      "bytes": 5954,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/mapping/REQ-M-GTL3-MAPPING.md",
+      "sha256": "1060b39e83a2ceee5dd74fb403bd45a7f8d3f1ea071a74f2fa1ba2b81b680822",
+      "bytes": 2212,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/mapping/REQ-M-GTL3-PROGRAM-TRAVERSAL.md",
+      "sha256": "a19da2e0ab2d7b5aa705bbd7fd84b8fc858a411d6c023dd4deba6b316959ec0b",
+      "bytes": 5307,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/mapping/REQ-M-GTL3-PROVENANCE.md",
+      "sha256": "f6015a9a4eb0c34ec8b376de4ad2ccf18c698c1e73f50c81da25f6e8ad8a57c9",
+      "bytes": 1888,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/product/README.md",
+      "sha256": "e777272a024d69540fec847591ab3f9132a5ab01e456f566adb4ff76be1a43b3",
+      "bytes": 1141,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-CATALOG.md",
+      "sha256": "a5a2c74f47b47fb1a77782219d6da6d71a5f96b34afadaa5eca3dd0020c4ccb9",
+      "bytes": 13757,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-CONSENSUS.md",
+      "sha256": "9e16808a05ca078fded2854073d6280c1ae7f3ff173be7354ecb20d76123a52d",
+      "bytes": 16255,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-INSTALL.md",
+      "sha256": "1882675ef5f4dd33a8dd4ee5d80ff33203d243fb30ec65b125057b7db081b98f",
+      "bytes": 21741,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-POLICY.md",
+      "sha256": "e13953bc84a5a41d9d54f7fac4ab3b53142e12a9a35ee8b3fbefb210a6104d98",
+      "bytes": 34046,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md",
+      "sha256": "b11cdc0b8952d480acf7bd8d786d1e9be438b79e5a0a907498e6c9424cf1bdd4",
+      "bytes": 19406,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-QUAL.md",
+      "sha256": "0366cdd8f4392f94e7a1f3fbfc91e265133dcd23cb0ebe13db4167e57fbe8c5b",
+      "bytes": 35987,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-SCENARIOS.md",
+      "sha256": "5126f116cd64f64b48ccdd9126d3709a73c4090f73251c84320c6ae11c7a36dd",
+      "bytes": 17479,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+      "sha256": "4fa6ea8b7d655a395916b135e333e5f96a5bb309c9166c3e41d14c67d2e21f61",
+      "bytes": 6687,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "sha256": "17cefea93264afda099d65b81443bd9461f5b7b6c99484bb1d1cde4f8061b6c9",
+      "bytes": 9744,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+      "sha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12",
+      "bytes": 8001,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/tsconfig.json",
+      "sha256": "2e17972d9833f66f4bd8ead6f9e3365d72d58a1a5027d15618cff702b7e8f99e",
+      "bytes": 604,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/clean.mjs",
+      "sha256": "985727874c235357cb0958067425efec7d5471f20afc4f27fb736ae5c4b359c4",
+      "bytes": 847,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "sha256": "882aa9883324d2b222ad5d61843e33dd650ecb5c370d4aafa48b81317699784a",
+      "bytes": 48959,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-qualification-rule-catalog.mjs",
+      "sha256": "3c326f02bf54214aebf64c827f2431cbc40dbebabc37bfe59a706da44b89fd68",
+      "bytes": 13671,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-11/execution-freeze.json",
+      "sha256": "1072ace53c0fcac727d805398e156233e6248489f7a4019219847c2ee192bb9f",
+      "bytes": 88458,
+      "role": "conserved-prior-proof-cut"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/data-mapper-proof-triage-12/return.md",
+      "sha256": "c4c8ed7671d3f04e179f62b8ef76eeba884a18e4f848b06391f0da02ee2d39f0",
+      "bytes": 7556,
+      "role": "conserved-prior-proof-cut"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T12-42-50-117Z-f84ddeea-42b5-4929-a2bf-861201afded8/summary.json",
+      "sha256": "e3ff37c3607c2fb8aec522186d47be97b90706abce82535b8f1963ae8f484c89",
+      "bytes": 550,
+      "role": "conserved-prior-proof-cut"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/summary.json",
+      "sha256": "eeb327cd2c6d65d07f1027b8bd13bb3148427e29666814e3339c8f150d22d86b",
+      "bytes": 535,
+      "role": "conserved-prior-proof-cut"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T12-42-50-117Z-f84ddeea-42b5-4929-a2bf-861201afded8/SEALED.json",
+      "sha256": "1b09761fc448c0842b4e8d36bbf2dfac7aaf088d8ff81bb9c7ec304b49e37410",
+      "bytes": 286,
+      "role": "conserved-prior-proof-cut"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-06T12-29-47-100Z-5bf262fe-c176-4a21-a969-bb71da79d85d/SEALED.json",
+      "sha256": "ade5bf096fcba58402ba8151e6b381339c4560feaec50a72286c294767ae35f7",
+      "bytes": 281,
+      "role": "conserved-prior-proof-cut"
+    },
+    {
+      "path": "AGENTS.md",
+      "sha256": "ae02c7961a12b15ef50d4619ed151f5a306ac8a5579708288b31de648f322828",
+      "bytes": 11790,
+      "role": "current-Product-frame"
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "sha256": "eafbb85e640bd007b1e5b94bdc13ab4eb470c8dedaa3ae1a3b586687daf6869c",
+      "bytes": 4277,
+      "role": "current-Product-frame"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "sha256": "3676304839a52127559e1897450e0d149a289b4c59f2311e4251c46a813f5173",
+      "bytes": 73179,
+      "role": "current-Product-frame"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "sha256": "80812cac6317c36a4d1e424d4e5ce874c287ea51127ec6c8adebf63aed566cda",
+      "bytes": 25514,
+      "role": "current-Product-frame"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "4afa1aaca9bdeee51af306fd6820af63a578f5ddc4df71c1ec8cd7d89a5d77d0",
+      "bytes": 31672,
+      "role": "current-conserved-inventory-row"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/build/code/src/abg/default_library.js",
+      "sha256": "1f3ae4ed5625210ae871b594d7658532c399e3a8506bae624ab5685268719432",
+      "bytes": 31471,
+      "role": "current-closed-emitted"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "sha256": "e5569945411d5f302bc9b8bcca9f460f44bc954f3a440bfa584f14319f1fe749",
+      "bytes": 197474,
+      "role": "current-closed-emitted"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/product/verify_product.js",
+      "sha256": "f1998352ac6e08919246a9b3c8b6af59a018e4936e43576b283c4525f6e6de18",
+      "bytes": 91615,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/shared/digests.js",
+      "sha256": "bcfca50154c00df17ac3eacbd49323180f7645b2b0d779554dc9aa7c7c34212a",
+      "bytes": 838,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/shared/canonical_json.js",
+      "sha256": "ae5a20c7e8a4bb182f7576e558436eaeaa5c87ac7a1e75ce1106567158cf2b02",
+      "bytes": 1551,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/shared/capability_contracts.js",
+      "sha256": "ce2aa8d8a6472a30ca68d463c83893f656a31d28a4cee7be3897631bddf8d0f5",
+      "bytes": 24059,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/shared/public_function_projections.js",
+      "sha256": "630cb1fd802f0ae3cb2960b2e7b536efada90232b05a9f7992afe77134f54572",
+      "bytes": 24914,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/product/publication.js",
+      "sha256": "da130714d3489bfcbb6c08605c3bcd249bc415ef897372c783ccd39344c14efa",
+      "bytes": 623,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/gtl/default_library.js",
+      "sha256": "727a6ab601b6b76ca479a111b675e4fd67060cfa14a5fc8c3a9816a933ed768b",
+      "bytes": 18605,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/gtl/consensus.js",
+      "sha256": "a07a0445424c3b69f0297ee3aaa09944ef3b1b5aee9206643dfcc65bba38fa35",
+      "bytes": 163833,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/gtl/worksite_construction.js",
+      "sha256": "ade90f67e0a1145dff88f45e3eebc0ed394d1621e738c3756b9bb75ba4d80b5f",
+      "bytes": 24307,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/gtl/worksite_command_execution.js",
+      "sha256": "eb8fa1a9f92dc3ef3ccbc94bc2b9f8f6cb0e67ff36013b8eef7ad8d47fccc7da",
+      "bytes": 25001,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/gtl/native_workspace_work.js",
+      "sha256": "9016d9b38a9c7deab1ee33276340674ee7207e6089bb89e96732154a79b0ba15",
+      "bytes": 8920,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/gtl/worksite_command_forward.js",
+      "sha256": "a794eada9e47799a27fbb4bbc82dccb1aa908be94706e3b339ccc88a4998c405",
+      "bytes": 9244,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/gtl/requirement_handoff.js",
+      "sha256": "3bc366d8150819d8699971dc9c00c0d487b769db2f2422fec151e8af791ec9bf",
+      "bytes": 13966,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/gtl/semantic_stage_publication.js",
+      "sha256": "dd2b6360e365f443a48fd86d4a8ce229957261df0a2934176d3de73e6340c050",
+      "bytes": 20087,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/gtl/semantic_revision_publication.js",
+      "sha256": "aaeaea5a8db9db4d0c157b2d827b00d075dc0942658ed80cd66896931dba5b5a",
+      "bytes": 13848,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-13/scratch/successor/package/build/code/src/gtl/self_conformance.js",
+      "sha256": "1cda3500928d4d5aa754db23ca17c7197750ce9814458548deef606f77e48002",
+      "bytes": 19029,
+      "role": "actual-packed-canonical-owner-scratch-bytes-authenticated"
+    }
+  ],
+  "effects": "CREATE only candidate-review-13/return.md and pins.json; Root conjoins; Reviewer stopped"
+}

@@ -1,0 +1,33 @@
+{
+  "role": "Writer29 factory planning projection",
+  "method": "STDO2.5.1-rc.2",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "executiveConjunction": "CLOSED Source29+Proof29 mailbox findings; primary selector declared-bound overflow; downstream fold/capture retained separately",
+  "permittedSource": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "beforeCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-29/preimages/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "81f0d8f4fda8a2b7f774754ed5d02b406f601b4a75a11b28bd2e4b3795e54350",
+      "byteCount": 46645
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "beforeCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-29/preimages/default_library.ts",
+      "sha256": "14f349f7163d6e5d1b904c5266cbf2eb713963e40c234d78d38cfd7e0de830db",
+      "byteCount": 27833
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "beforeCopy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/planning-projection-repair-29/preimages/t287-default-library.test.mjs",
+      "sha256": "b89a36b25eb88bc35600f8de55431501b8409045dd17754aa9ccaeb73b80cb40",
+      "byteCount": 101153
+    }
+  ],
+  "capturedEvent": {
+    "store": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-06T20-47-46-075Z-090abf82-e0da-4884-8a89-bff6a7d7e12e/resources/events/runtime.events.jsonl",
+    "offset": 734355032,
+    "byteCount": 1945416,
+    "sha256": "9d7a250f85b66d98e1532b3658652f0e1c703893724197a6406a2c3236056508"
+  },
+  "noRuntimeOrApplicationImplementation": true
+}

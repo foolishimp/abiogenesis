@@ -1,0 +1,134 @@
+{
+  "role": "G09 coherent Source/build/candidate Worker",
+  "status": "FROZEN_UNRELEASED_CANDIDATE_MECHANICAL_IDENTITY",
+  "sourceHead": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "sourceFreeze": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-assessor-repair-09/freeze.json",
+    "sha256": "71b154faec33c155b98f9236510b3d352f531e783b1309bdaf70325b28f8ea1e",
+    "byteCount": 9957
+  },
+  "sourceReturn": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-assessor-repair-09/return.md",
+    "sha256": "ecdc91b75509694c1d575d7315def84768dd4835114d62200e4543307e860b98",
+    "byteCount": 4694
+  },
+  "sourcePreimage": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-assessor-repair-09/preimage.json",
+    "sha256": "e43e98fe2495545fda94a079d21c54ffc06e3d74b7ba8f1ae8d8a2480bdb0f3e",
+    "byteCount": 3696
+  },
+  "baselineCandidate": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-08/freeze.json",
+    "sha256": "401745dfe77f2c93fb267407ec2b161245046aa60cfbe5d92eff161a218c51c9",
+    "byteCount": 5654
+  },
+  "baselineArchiveSha256": "d8c58f4ac5a8ea7c773d324559e94bc0fdf8bf3545387f296180027555d808b4",
+  "archive": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-09/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "33bcebc306a2481fb81d6b6290d5a2168ffe5a50faa4ddd519df3359266ec2e6",
+    "byteCount": 10620872
+  },
+  "packageName": "@abiogenesis/typescript-tenant",
+  "packageVersion": "5.0.0-rc.1",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+  "identity": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-09/identity.json",
+    "sha256": "c86e94dbd8fbfabe6dfb29b6935ad4615f2c3c5771c25f1d96526d0df060373b",
+    "byteCount": 6096
+  },
+  "ownerJoins": {
+    "productContentDigest": "sha256:b164594115eea18afbd7cb72a9bcb356b6016b58551e98c6459adc6054a5cffa",
+    "canonicalManifestDigest": "sha256:fc78abe7c72148f4e616279cc1143b7e317b61cf0e1b6c88aecbfa8c5b9ec8b0",
+    "capabilityGraphDigest": "sha256:f0f3c612b4e45a564a6201ce928f54de7a69dbbd72d25c35e765bc0baba90b9e",
+    "publicContractCatalogDigest": "sha256:e72953f7645ca343270157507a204a33c3681422af40c1b6c7250536c6283d65",
+    "contributionManifestDigest": "sha256:59c2f920a23b7bbf4df4881ca1072110385f783f14ced2f95b1aaee4a16ddcff",
+    "publicationBindingCount": 10,
+    "contributionRowCount": 47,
+    "payloadCount": 5263,
+    "canonicalOwnerJoins": true
+  },
+  "packCommand": "npm pack --ignore-scripts --json --pack-destination /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-09/packs",
+  "packExitCode": 0,
+  "packCount": 1,
+  "packReceipts": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-09/pack.json",
+      "sha256": "78e44e7aaac638efa55d3e6ccaa32cebd736448acd5cf663f9c375b9b6af14b0",
+      "byteCount": 692700
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-09/pack.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "byteCount": 0
+    }
+  ],
+  "checks": {
+    "same263ProductionPaths": true,
+    "exactFiveAuthorizedProductionDeltas": true,
+    "onlyOwningHowDesignReframe": true,
+    "governingPinsUnchanged": 86,
+    "mechanicalPinsUnchanged": 6,
+    "same720CompiledContractPaths": true,
+    "allPackedCompiledContractsEqualClosedTenant": true,
+    "same5265ArchiveFiles": true,
+    "exact5263PayloadPopulation": true,
+    "exactEightDeclaredDerivedMemberDeltas": true,
+    "catalogCapabilityContributionTenPublicationJoins": true,
+    "packedManifestAndPackageMetadataEqualClosedTenant": true,
+    "packageMetadataUnchangedFrom08": true,
+    "noAbgTestEnvOrBuiltinHelloPayload": true,
+    "closedTriagesOperatorSelectedAndSealedPinsUnchanged": true,
+    "sourceFrozenBeforePackAndStillExact": true
+  },
+  "protectedCallerPins": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "byteCount": 26202
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "byteCount": 22857
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "1869bcc42124ba8426002b2e91691e620546b3965fa51195d6fcf4831c3a7cdb",
+      "byteCount": 17357
+    }
+  ],
+  "selectedConfigAndCandidatePins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-08/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "d8c58f4ac5a8ea7c773d324559e94bc0fdf8bf3545387f296180027555d808b4",
+      "byteCount": 10620551
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-08b.json",
+      "sha256": "432cef9a19355e88700183500f9f322533be32287090d8e0ed1d3810be2c2a82",
+      "byteCount": 2328
+    }
+  ],
+  "dependencyFixtureExclusions": [
+    {
+      "path": "node_modules/fast-uri/test/fixtures/uri-js-parse.json",
+      "sha256": "c954f79d2fa7f4d9779a6e7514cdf8df1eeb95d0097ea62cd3b785d20f2d0859",
+      "byteCount": 9888,
+      "unchangedFromBaseline": true
+    },
+    {
+      "path": "node_modules/fast-uri/test/fixtures/uri-js-serialize.json",
+      "sha256": "c10203102fee328d6c8aedbd03319b8eeb364417c3b1137d714537fcd3102d69",
+      "byteCount": 1688,
+      "unchangedFromBaseline": true
+    },
+    {
+      "path": "node_modules/json-schema-traverse/spec/fixtures/schema.js",
+      "sha256": "0262591e321bc88b22dc33ec78bcded5ab664e2fce2c10b9e0c35d3eb6030d27",
+      "byteCount": 5544,
+      "unchangedFromBaseline": true
+    }
+  ],
+  "limits": "Mechanical materialization only; no rebuild/prepack after Source freeze, provider/model/install/Run/event/UAT/publication/tag/Git/qualification effect. Independent Source/candidate review and Root conjunction precede clean successor UAT.",
+  "frozenAt": "2026-10-06T09:35:49.806331+00:00"
+}

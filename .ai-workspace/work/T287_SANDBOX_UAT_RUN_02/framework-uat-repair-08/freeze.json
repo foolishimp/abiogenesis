@@ -1,0 +1,165 @@
+{
+  "role": "G08 Framework Source/build/candidate Worker",
+  "status": "FROZEN_MECHANICAL_READINESS_ONLY",
+  "sourceHead": "0b1187c40cca619b26b56b24b72cf8beb4841310",
+  "frameUri": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#f-end-to-end-interface-integration",
+  "method": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v2.5.1-rc.2/manifest.json",
+    "sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782",
+    "byteCount": 12434
+  },
+  "closedTriage": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-uat-08/return.md",
+      "sha256": "bd10c9792b9dadc61538f3481e93606a47aa7ee6b31dc156785522db4c550104",
+      "byteCount": 6589
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-uat-08/pins.json",
+      "sha256": "fe65dbd916144968e5bb5869250574a9ab86daf86b6f68f99687c1b46a44e8e2",
+      "byteCount": 10713
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-proof-08/return.md",
+      "sha256": "267a53329068d0840fce742a01297b3f405d1dbb62429160c2361575054de307",
+      "byteCount": 7538
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/triage-proof-08/pins.json",
+      "sha256": "97b4a82252ae01f88072a20e694a58363054ffa2e51fcbeaa888a0d74863b8c9",
+      "byteCount": 18965
+    }
+  ],
+  "sourcePreimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "b0666d79bb20ea0a1d73ac735de81174142d9b8998af4292a82f6bed3f7f6271",
+      "byteCount": 29561
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "0e36c3af25db0ddbb928714d3930b4cfb8c03febf49b88d6475172a722dca209",
+      "byteCount": 77555
+    }
+  ],
+  "sourcePostimages": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "ac65695511a97a7d757b2be5a36b87cab4db820618578146f2713eff31a61902",
+      "byteCount": 29763
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "3976cac9dbe0db789cde409ece0192d2090ca97245810042a465fd06c7a881aa",
+      "byteCount": 81105
+    }
+  ],
+  "reusedInventories": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/source-preimage.json",
+      "sha256": "9971bfd5be887c46608e37dc81c4775468106c2704faeb69783f5803d61fee3e",
+      "byteCount": 75470
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-05/freeze.json",
+      "sha256": "9cdbb2b45c71b94608dae4eff3cc76a59553079c183314b8bda6084bbba6868c",
+      "byteCount": 139373
+    }
+  ],
+  "inventoryChecks": {
+    "productionPopulation": 263,
+    "onlyProductionDelta": "code/src/abg/default_library.ts",
+    "governingPinsUnchanged": 86,
+    "mechanicalPinsUnchanged": 6,
+    "compiledAndContractPopulation": 720,
+    "protectedCallerConfigAndOriginalTriagePinsUnchanged": true
+  },
+  "derivedDelta": [
+    {
+      "path": "build/code/src/abg/default_library.js",
+      "preimageSha256": "3e671ccdc049892498e554f1a6fd346199d1b876342192e02a1c965e513bf7ee",
+      "sha256": "f688a38e377f251e02d4bbbed1e863054850e8c34ece5f8af7656970ce04417b",
+      "byteCount": 29531
+    },
+    {
+      "path": "contracts/capabilities/capability-definition-graph.json",
+      "preimageSha256": "929aff70f9d8171a587112d9b9fb2e50a4a4de6d64dd17d15c017b56b6406379",
+      "sha256": "68893960fcfe8f1496e170ec88388b76c20aa7482a01bab572d47c52d02c1354",
+      "byteCount": 197474
+    },
+    {
+      "path": "product-toolchain-manifest.json",
+      "preimageSha256": "5203137e454785089ba2acb5ef2a4be0cda23adab5d72888f3dda59768fd9ade",
+      "sha256": "1f792aeccc558a583eefd507c16e22adf590e14bce3d950c48f9eaa16e6da8b4",
+      "byteCount": 3171685
+    }
+  ],
+  "protectedCallerAndConfig": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "byteCount": 26202
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "byteCount": 22857
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "1869bcc42124ba8426002b2e91691e620546b3965fa51195d6fcf4831c3a7cdb",
+      "byteCount": 17357
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/config.example.json",
+      "sha256": "0a6ce2e4ede12ac90ea3230036cf5b4e1306fc80050589fd655be665d4c0d61d",
+      "byteCount": 1849
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-budget-06.json",
+      "sha256": "84cf6c93aa411b71f0d4baa27e9ce8763473fd06e4639c20091e1c814dd5b760",
+      "byteCount": 2328
+    }
+  ],
+  "checks": [
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "receipt": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-uat-repair-08/build.log",
+        "sha256": "e73676a1e407212158ab4890c53e92bd99d144ec7b950c82f822da4852327969",
+        "byteCount": 215
+      }
+    },
+    {
+      "command": "node --experimental-vm-modules --test --test-concurrency=1 --test-name-pattern=fold and assessment|parent conservation|observed child provenance|real task/child carriers|native task conserves|assessment task refuses|complete assessment preparation test_env/tests/t287-default-library.test.mjs test_env/tests/t287-default-library-fulfillment.test.mjs test_env/tests/t287-native-workspace-work.test.mjs",
+      "exitCode": 0,
+      "pass": 8,
+      "fail": 0,
+      "receipt": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-uat-repair-08/owners.log",
+        "sha256": "da6e93f1eda40284582bf5e6dd6cdc38b2986c78063c2f77eff33e9b4ffc5c03",
+        "byteCount": 1835
+      }
+    },
+    {
+      "command": "npm run test:unit",
+      "exitCode": 0,
+      "pass": 70,
+      "skip": 5,
+      "fail": 0,
+      "receipt": {
+        "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/framework-uat-repair-08/unit.log",
+        "sha256": "fff3d9fee57eeef979ba42bb68de1160c4b5206deeed0fe30bef43b99ae98079",
+        "byteCount": 11824
+      }
+    },
+    {
+      "command": "node --check and git diff --check on exact changed source/test",
+      "exitCode": 0
+    }
+  ],
+  "scope": "Realized existing contract projection; current build/archive are derived material. No Product/HOW/schema/API/runtime/engine/controller change; non-UAT purposes and all refusal guards conserved. Exact controlled admitted occurrence/index premises in tests; no native or whole-Run credit.",
+  "exitProof": "Independent source/candidate review followed by Root conjunction and a genuine clean successor basic-cli UAT/assessment/parent closure/fresh result/replay/original oracle; later six external UATs and qualification remain open.",
+  "frozenAt": "2026-10-06T08:33:22.297943+00:00"
+}

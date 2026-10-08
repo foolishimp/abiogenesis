@@ -1,0 +1,79 @@
+{
+  "recordedAt": "2026-10-06T08:34:34.391382+00:00",
+  "disposition": "PREPARATION_READY_NATIVE_EXECUTION_HELD",
+  "role": "Configuration Writer / UAT Operator preparation only",
+  "configChangePaths": [
+    "/package/archivePath",
+    "/package/sha256"
+  ],
+  "allOtherConfigFieldsDeeplyEqual": true,
+  "selectedPins": [
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-budget-06.json",
+      "sha256": "84cf6c93aa411b71f0d4baa27e9ce8763473fd06e4639c20091e1c814dd5b760",
+      "bytes": 2328
+    },
+    {
+      "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/candidate-08/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "d8c58f4ac5a8ea7c773d324559e94bc0fdf8bf3545387f296180027555d808b4",
+      "bytes": 10620551
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "c1e01c424a5db9ca9a5e719626dc0486b77a5c691c292f503e6b0a487e8cddf1",
+      "bytes": 26202
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "804b8f94aaef3d020da9933ce073379d2e9b3af1a24e19208a57829074b52cc4",
+      "bytes": 22857
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "sha256": "1869bcc42124ba8426002b2e91691e620546b3965fa51195d6fcf4831c3a7cdb",
+      "bytes": 17357
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json",
+      "sha256": "e62231ba387bedf80f2544fe31b29e33bedec5bae9367aa7ba3cb9c2bbe548ab",
+      "bytes": 34763
+    }
+  ],
+  "newConfig": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-08.json",
+    "sha256": "eeaca4aa9543a34039c90e22c137231ffe502bb55f2b065b10dc82fb9c3a1ef3",
+    "bytes": 2321
+  },
+  "preparation": {
+    "path": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/installed-retest-08/preparation.md",
+    "sha256": "46ea08e02ed723b358ecb43f326adeb699d665114121686c43a51918ac5364b1",
+    "bytes": 4338
+  },
+  "candidateProductContentDigest": null,
+  "candidateFinalFreeze": null,
+  "sourceReviewAcceptance": "pending Root conjunction",
+  "candidateIdentityAcceptance": "pending Root conjunction",
+  "nativeExecutionReleased": false,
+  "orderedCases": [
+    "basic-cli",
+    "js-tenant-test",
+    "js-sdlc-bootstrap",
+    "rust-cli",
+    "rust-service",
+    "parallel-js",
+    "data-mapper-full"
+  ],
+  "commands": [
+    "/opt/homebrew/bin/node scripts/sandbox-uat.mjs run --config /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-08.json --case basic-cli",
+    "/opt/homebrew/bin/node scripts/sandbox-uat.mjs run --config /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-08.json --case js-tenant-test",
+    "/opt/homebrew/bin/node scripts/sandbox-uat.mjs run --config /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-08.json --case js-sdlc-bootstrap",
+    "/opt/homebrew/bin/node scripts/sandbox-uat.mjs run --config /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-08.json --case rust-cli",
+    "/opt/homebrew/bin/node scripts/sandbox-uat.mjs run --config /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-08.json --case rust-service",
+    "/opt/homebrew/bin/node scripts/sandbox-uat.mjs run --config /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-08.json --case parallel-js",
+    "/opt/homebrew/bin/node scripts/sandbox-uat.mjs run --config /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/config-candidate-08.json --case data-mapper-full"
+  ],
+  "cwd": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "recorderTimeoutMs": 4200000,
+  "recorderMaxOutputBytes": 1048576,
+  "stopOnAnyNonpass": true
+}

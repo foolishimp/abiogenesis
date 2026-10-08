@@ -15,6 +15,7 @@ import {
   constructWorkspaceBindingInResolvedLock,
   isProductInstallCandidateInResolvedLock,
   isWorkspaceBindingCandidateInResolvedLock,
+  productInstallCoordinate,
 } from "../product/environment.js";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
@@ -389,7 +390,7 @@ class RuntimeArtifactFacts {
       const environment = projectExactPrefixWorkspaceEnvironment(artifact.entryPrefix as DurablePrefixCoordinate, artifact.workspaceBinding);
       if (environment.kind !== "exact_prefix_workspace_environment" ||
           environment.workspaceAuthorityBasis.authorizedActorRef !== artifact.actorRef ||
-          canonicalJson(artifact.productSet) !== canonicalJson(environment.productInstalls.map(i => ({ref:i.installId,digest:i.productContentDigest}))) ||
+          canonicalJson(artifact.productSet) !== canonicalJson(environment.productInstalls.map(productInstallCoordinate) as unknown as JsonValue) ||
           artifact.dependencyLock.ref !== environment.resolvedProductLock.lockId || artifact.dependencyLock.digest !== environment.resolvedProductLock.lockDigest ||
           event.causationEventRefs.length !== 1 || event.causationEventRefs[0] !== environment.workspaceBinding.admissionEventRef) {
         throw new TypeError("release artifact actor/environment differs from its exact admitted predecessor");

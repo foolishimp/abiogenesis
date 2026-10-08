@@ -22,6 +22,7 @@ export {
 export {
   assertHeldEventStoreAtDurablePrefix,
   createNewEmptyAppendSink,
+  captureDurablePrefixCoordinate,
   readRuntimeEventsAtDurablePrefix,
   ROOT_EVENT_KIND_VALUES,
   reopenEventStore,
@@ -47,6 +48,7 @@ export {
 } from "./event_prefix.js";
 export {
   projectExactPrefixArtifactTruth,
+  projectOwnedPrefixArtifactTruth,
   validateExactPrefixArtifactTruthProjection,
   type AdmittedArtifactTruth,
   type ArtifactTruthConflictField,
@@ -67,6 +69,7 @@ export {
   projectAdmittedWorkspaceBinding,
   projectAdmittedWorkspaceBindingByInvocationRef,
   projectExactPrefixWorkspaceEnvironment,
+  projectWorkspaceEnvironmentFromArtifactTruth,
   type AbgAdmissionRefusal,
   type ArtifactAdmissionBasis,
   type PublicOperationAdmissionBasis,

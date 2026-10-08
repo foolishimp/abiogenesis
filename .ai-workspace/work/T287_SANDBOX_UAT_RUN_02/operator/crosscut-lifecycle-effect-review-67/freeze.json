@@ -1,0 +1,14 @@
+{
+  "status": "CLOSED_FROZEN_REVIEW",
+  "return": {
+    "sha256": "13cac6df48b50099e5c9932202316f1a62f81fa0c7122570fcac250100776aa3",
+    "byteCount": 4885
+  },
+  "pins": {
+    "sha256": "cf20b6210c4e0ad085eccc3aef018186d87fd007ad3c3a3520a81bef6b25e80c",
+    "byteCount": 22315
+  },
+  "subjectFreezeSha256": "7a9f1078b5ea5aeb3e2a7723f3067822d8633800842682815e811af62f79c590",
+  "editingStopped": true,
+  "RootConjunctionRequired": true
+}

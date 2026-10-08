@@ -11,7 +11,7 @@ import { persistEventLog } from "../../build/code/src/abg/event_log.js";
 import { selectValidatedRuntimeEventPrefix } from "../../build/code/src/abg/event_prefix.js";
 import { replayValidatedRuntimeEventPrefix } from "../../build/code/src/abg/replay.js";
 import { projectExactExecutionBasisAtPrefix } from "../../build/code/src/abg/invocation_execution_truth.js";
-import { canonicalJson } from "../../build/code/src/shared/canonical_json.js";
+import { canonicalJson, writeCanonicalJson } from "../../build/code/src/shared/canonical_json.js";
 import { sha256Canonical, sha256Bytes } from "../../build/code/src/shared/digests.js";
 import { isDeeplyFrozen } from "../../build/code/src/shared/immutable.js";
 
@@ -48,6 +48,40 @@ test("shared canonical traversal preserves captured entries, array length and re
   for (const invalid of [undefined, [undefined], {present: undefined}]) assert.throws(() => canonicalJson(invalid), TypeError);
   const cycle = {}; cycle.self = cycle;
   assert.throws(() => canonicalJson(cycle), RangeError);
+});
+
+test("incremental canonical hashes preserve independently declared golden bytes and refusal behavior", () => {
+  const cases = [
+    [null, "null"], [false, "false"], [-0, "0"], [Number.MAX_SAFE_INTEGER, "9007199254740991"],
+    [{ z: "\ud800", a: "é𝄞", n: 1e-7 }, '{"a":"é𝄞","n":1e-7,"z":"\\ud800"}'],
+    [Array(4), "[,,,]"],
+    [{ "2": Number.MIN_VALUE, "10": 1e21 }, '{"10":1e+21,"2":5e-324}'],
+  ];
+  for (const [value, bytes] of cases) {
+    const chunks = []; writeCanonicalJson(value, chunk => chunks.push(chunk));
+    assert.equal(chunks.join(""), bytes);
+    assert.equal(canonicalJson(value), bytes);
+    assert.equal(sha256Canonical(value), sha256Bytes(Buffer.from(bytes, "utf8")));
+  }
+  const sparse = Array(4), proto = Object.create(Array.prototype); proto[2] = "𝄞";
+  Object.setPrototypeOf(sparse, proto); sparse[1] = -0;
+  assert.equal(sha256Canonical(sparse), sha256Bytes('[,0,"𝄞",]'));
+  for (const invalid of [NaN, Infinity, -Infinity, { a: [NaN] }, undefined, [undefined], {a: undefined}]) {
+    let textFailure, hashFailure;
+    try { canonicalJson(invalid); } catch (error) { textFailure = error; }
+    try { sha256Canonical(invalid); } catch (error) { hashFailure = error; }
+    assert.ok(textFailure); assert.equal(hashFailure?.name, textFailure.name);
+    assert.equal(hashFailure?.message, textFailure.message);
+  }
+  const makeValue = visits => ({
+    get z() { visits.push("z"); return {get inner() {visits.push("inner"); return 1;}}; },
+    get a() { visits.push("a"); return Infinity; },
+  });
+  const textVisits = [], hashVisits = [];
+  assert.throws(() => canonicalJson(makeValue(textVisits)), TypeError);
+  assert.throws(() => sha256Canonical(makeValue(hashVisits)), TypeError);
+  assert.deepEqual(hashVisits, ["z", "a"]); assert.deepEqual(hashVisits, textVisits);
+  const cycle = {}; cycle.self = cycle; assert.throws(() => sha256Canonical(cycle), RangeError);
 });
 
 const time = "2026-09-22T00:00:00.000Z";
@@ -130,6 +164,7 @@ async function openInlineCopy(t, dir, events, authority) {
 test("native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append", async t => {
   const f = await resource(t); seed(f.store);
   const events = f.store.readAll(), bytes = await readFile(f.eventLogPath), rows = decodeRows(bytes), inline = encode(events);
+  assertSharedColdBodies(events);
   assert.equal(rows.filter(row => row.kind === "abg_admitted_body_reference_record").length, 3);
   assert.equal(rows.filter(row => row.kind === "basis_admitted").length, 1);
   assert.equal(rows.filter(row => row.kind === "c_call_result_admitted").length, 1);
@@ -267,6 +302,40 @@ test("independently supplied mutable raw input remains detached at event admissi
   assert.deepEqual(storeOwner.validateHistoricalEvents(await readFile(f.eventLogPath)), f.store.readAll());
 });
 
+test("live body reuse preserves caller isolation, owned prefix and transaction rollback", async t => {
+  const f = await resource(t), foreign = await resource(t);
+  const first = storeOwner.admitRuntimeEvent(f.store, basis(input, "committed-source"));
+  const foreignSource = storeOwner.admitRuntimeEvent(foreign.store, basis(input, "foreign-source"));
+  const supplied = structuredClone(input), candidate = basis(supplied, "detached-equal");
+  const duplicate = storeOwner.admitRuntimeEvent(f.store, candidate);
+  assert.notEqual(duplicate.payload.rawInputValue, supplied);
+  assert.notEqual(duplicate.payload.rawInputValue, foreignSource.payload.rawInputValue);
+  supplied.metadata.sources.push("source://caller-only"); candidate.payload.rawInputValue.text = "caller-only";
+  assert.deepEqual(duplicate.payload.rawInputValue, input);
+  assert.ok(isDeeplyFrozen(duplicate));
+  const committed = storeOwner.selectHeldEventStoreDurablePrefix(f.store), oldBytes = await readFile(f.eventLogPath);
+  const newValue = {...output, text: "tentative complete body; ".repeat(1500)};
+  assert.throws(() => storeOwner.admitRuntimeEventTransaction(f.store, () => {
+    storeOwner.admitRuntimeEvent(f.store, basis(input, "tentative-reuse"));
+    storeOwner.admitRuntimeEvent(f.store, basis(newValue, "tentative-new"));
+    throw Error("selected rollback");
+  }), /selected rollback/);
+  assert.equal(storeOwner.selectHeldEventStoreDurablePrefix(f.store), committed);
+  assert.deepEqual(await readFile(f.eventLogPath), oldBytes);
+  assert.deepEqual(f.store.readAll(), [first, duplicate]);
+  storeOwner.admitRuntimeEvent(f.store, basis(newValue, "new-after-rollback"));
+  storeOwner.admitRuntimeEvent(f.store, basis(input, "reuse-after-rollback"));
+  const rows = decodeRows(await readFile(f.eventLogPath));
+  assert.equal(rows[2].kind, "basis_admitted", "rolled-back source eligibility is not published");
+  assert.equal(rows[3].bodyReference.sourceEventRef, first.eventId);
+  const closed = f.store.projectReopenAuthorityAndClose(), reopened = storeOwner.reopenEventStore(closed.reopenAuthority);
+  assert.equal(reopened.kind, "reopened_event_store_context"); t.after(() => reopened.store.closeDurableLog());
+  assert.deepEqual(reopened.store.readAll(), f.store.readAll());
+  const appended = storeOwner.admitRuntimeEvent(reopened.store, basis(structuredClone(input), "reuse-after-reopen"));
+  assert.deepEqual(appended.payload.rawInputValue, input); assert.ok(isDeeplyFrozen(appended));
+  assert.deepEqual(storeOwner.validateHistoricalEvents(await readFile(f.eventLogPath)), reopened.store.readAll());
+});
+
 test("literal marker-shaped Product data and small duplicate values remain unambiguous", async t => {
   const f = await resource(t);
   const literal = { kind: "abg_admitted_body_reference_record", codecVersion: 1,
@@ -300,4 +369,69 @@ test("failed durable batch discards new inline sources; committed same-batch ref
   const closed = f.store.projectReopenAuthorityAndClose(), reopened = storeOwner.reopenEventStore(closed.reopenAuthority);
   assert.equal(reopened.kind, "reopened_event_store_context");
   reopened.store.closeDurableLog();
+});
+
+test("large duplicate Result bodies and complete replay hashing fit a constrained heap", async t => {
+  const f = await resource(t), seedPath = process.env.ABI5_MEMORY_SEED_PATH ?? "";
+  // The default is a portable synthetic payload. Readiness may supply an exact
+  // pinned historic parent value as data; neither lane imports native credit.
+  const script = `
+    import assert from 'node:assert/strict';
+    import {readFileSync} from 'node:fs';
+    import * as storeOwner from './build/code/src/abg/event_store.js';
+    import {selectValidatedRuntimeEventPrefix} from './build/code/src/abg/event_prefix.js';
+    import {replayValidatedRuntimeEventPrefix} from './build/code/src/abg/replay.js';
+    import {canonicalJson} from './build/code/src/shared/canonical_json.js';
+    import {sha256Canonical,sha256Bytes} from './build/code/src/shared/digests.js';
+    import {isDeeplyFrozen} from './build/code/src/shared/immutable.js';
+    const time=${JSON.stringify(time)};
+    const envelope=${envelope.toString()};
+    const result=${result.toString()};
+    const [path,seedPath]=process.argv.slice(1);
+    const value=seedPath ? JSON.parse(readFileSync(seedPath,'utf8')) : {
+      kind:'body_fixture_output', original:{outcome:'full original remains unresolved'},
+      observations:Array.from({length:21},(_,i)=>({producer:'producer://fixture/'+i,
+        text:('exact retained diagnostic '+i+' é𝄞; ').repeat(1800)})), gaps:['unresolved original'],
+    };
+    const valueBytes=Buffer.byteLength(canonicalJson(value)), valueDigest=sha256Canonical(value);
+    assert.equal(valueDigest,sha256Bytes(canonicalJson(value)),'historic text/hash byte compatibility');
+    assert.ok(valueBytes>1000000);
+    const acquired=storeOwner.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:path});
+    assert.ok(acquired.store);
+    try {
+      const copies=96;
+      result(acquired.store,'first-inline',value);
+      for(let i=0;i<copies;i++) {
+        const supplied=structuredClone(value);
+        const admitted=result(acquired.store,'alias-'+i,supplied);
+        supplied.kind='changed caller value';
+        assert.equal(admitted.payload.valueDigest,valueDigest);
+        assert.equal(admitted.payload.value.kind,value.kind);
+        assert.ok(isDeeplyFrozen(admitted));
+      }
+      const events=acquired.store.readAll(), values=events.filter(e=>e.kind==='c_call_result_admitted');
+      assert.equal(values.length,copies+1);
+      assert.equal(new Set(values.map(e=>e.payload.resultRef)).size,copies+1);
+      const bytes=readFileSync(path), cold=storeOwner.validateHistoricalEvents(bytes);
+      assert.deepEqual(cold.map(e=>[e.eventId,e.payloadDigest]),events.map(e=>[e.eventId,e.payloadDigest]));
+      const state=replayValidatedRuntimeEventPrefix(selectValidatedRuntimeEventPrefix(events));
+      const reconstructed=replayValidatedRuntimeEventPrefix(selectValidatedRuntimeEventPrefix(cold));
+      assert.equal(state.cCalls.length,copies+1);
+      assert.equal(sha256Canonical(state),sha256Canonical(reconstructed));
+      assert.equal(storeOwner.runtimeEventPhysicalPrefix(events).digest,sha256Bytes(bytes));
+      const memory=process.memoryUsage();
+      console.log(JSON.stringify({seed:seedPath?'pinned-authentic-parent-value':'portable-synthetic',
+        copies,valueBytes,logicalBodyBytes:valueBytes*(copies+1),physicalBytes:bytes.length,
+        valueDigest,replayDigest:state.replayDigest,completeStateDigest:sha256Canonical(state),
+        heapUsed:memory.heapUsed,rss:memory.rss,maxRSSKiB:process.resourceUsage().maxRSS,
+        heapLimitMiB:128,allDistinctAdmissions:true,callerIsolation:true,coldReplayEqual:true,noNativeCredit:true}));
+    } finally {acquired.store.closeDurableLog();}
+  `;
+  const observed = JSON.parse(execFileSync(process.execPath,
+    ["--max-old-space-size=128", "--input-type=module", "-e", script, join(f.dir, "memory-events.jsonl"), seedPath],
+    {cwd: new URL("../..", import.meta.url), encoding: "utf8", timeout: 90000, maxBuffer: 1048576}));
+  assert.equal(observed.copies, 96); assert.equal(observed.coldReplayEqual, true);
+  assert.ok(observed.logicalBodyBytes > 97000000);
+  assert.ok(observed.physicalBytes < observed.logicalBodyBytes / 4);
+  t.diagnostic(JSON.stringify(observed));
 });
